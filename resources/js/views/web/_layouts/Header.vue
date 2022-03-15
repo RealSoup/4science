@@ -8,7 +8,7 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mr-auto">
-                    <b-nav-item to="/shop/listing/day">당일출고</b-nav-item>
+                    <b-nav-item to="/shop/listing/day">당일출고q</b-nav-item>
                     <b-nav-item :to="{name: 'estimate_create'}">견적요청</b-nav-item>
                     <b-nav-item :to="{name: 'engReform_create'}">영문교정</b-nav-item>
                     <b-nav-item :to="{name: 'outlet'}">전문관</b-nav-item>
