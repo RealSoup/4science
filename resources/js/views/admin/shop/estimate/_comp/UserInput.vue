@@ -1,0 +1,109 @@
+<template lang="html">
+    <div class="awesome_p">
+        <input type="text" required autocomplete="off"
+            :id="'eq_'+type"
+            v-model="input_val"
+            @keyup.enter="getUserList"
+            v-b-tooltip.hover title="입력 후 엔터 or 버튼"
+            ref="sch_field"
+        />
+        <!-- :formatter="formatter"  -->
+
+        <label :for="type" v-if="type=='name'">이름</label>
+        <label :for="type" v-else-if="type=='email'">이메일</label>
+        <label :for="type" v-else-if="type=='department'">소속 <small><i>직장/학교/부서/학과/연구실명</i></small></label>
+        <label :for="type" v-else-if="type=='hp'">HP</label>
+
+        <b-button @click="getUserList" size="sm"><b-icon-search /></b-button>
+        <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
+            <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)">
+                {{ us.name }}<br />
+                <p v-if="us.email">{{us.email}}</p>
+                <p v-if="us.hp">{{us.hp}}</p>
+                <p v-if="us.department">{{us.department}}</p>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+import ax from '@/api/http';
+
+export default {
+    props:['value', 'type', 'frm'],
+    data() {
+        return {
+            users: [],
+        }
+    },
+    computed: {
+        input_val: {
+            get: function() {
+                return this.value;
+            },
+            set: function(v) {
+                this.$emit('input', v);
+            }
+        }
+    },
+    methods:{
+        async getUserList() {
+            var v = this.$refs.sch_field.value;
+            if (this.type == 'name' && v.length < 2) {
+                Notify.toast('warning', '2자 이상 입력시 검색 가능합니다.');
+                return false;
+            } else if (this.type == 'email' && v.length < 3) {
+                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.');
+                return false;
+            } else if (this.type == 'department' && v.length < 3) {
+                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.');
+                return false;
+            } else if (this.type == 'hp' && v.length < 4) {
+                Notify.toast('warning', '4자 이상 입력시 검색 가능합니다.');
+                return false;
+            }
+
+            if ( (this.type=='name'         && v.length > 1) ||
+                 (this.type=='email'        && v.length > 2) ||
+                 (this.type=='department'   && v.length > 2) ||
+                 (this.type=='hp'           && v.length > 3) ) {
+                try {
+                    const res = await ax.get(`/api/admin/user/list`, {params:{type:this.type, key:v}});
+                    if (res && res.status === 200) {
+                        if (res.data.length)
+                            this.users = res.data;
+                        else
+                            this.users = [{name:'정보없음'}]
+                    }
+                } catch (e) {
+                    Notify.consolePrint(e);
+                    Notify.toast('warning', e.response.data.message);
+                }
+            }
+
+
+        },
+        setUser(i) {
+            if (this.users[i] && this.users[i].name != "정보없음") {
+                this.$set(this.frm, 'created_id'   , this.users[i].id);
+                this.$set(this.frm, 'eq_name'      , this.users[i].name);
+                this.$set(this.frm, 'eq_email'     , this.users[i].email);
+                this.$set(this.frm, 'eq_department', this.users[i].department);
+                this.$set(this.frm, 'eq_hp'        , this.users[i].hp);
+                this.$set(this.frm, 'eq_tel'       , this.users[i].tel);
+                this.$set(this.frm, 'eq_fax'       , this.users[i].fax);
+
+            }
+            this.users = [];
+        },
+        formatter(v) {
+            if (this.type=='hp') return this.formatHp(v);
+            else return v;
+        },
+        hide(){
+            this.users=[];
+        }
+    },
+
+}
+</script>

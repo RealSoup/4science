@@ -1,0 +1,103 @@
+<template lang="html">
+    <div class="awesome_p">
+        <input type="text" required autocomplete="off"
+            :id="id"
+            v-model="input_val"
+            @keyup.enter="getModelList"
+            v-b-tooltip.hover title="입력 후 엔터 or 버튼"
+            ref="sch_field"
+        />
+        <label :for="id" v-if="type=='em_catno'">Cat. No.</label>
+        <label :for="id" v-else-if="type=='em_code'">모델명</label>
+
+        <b-button @click="getModelList" size="sm"><b-icon-search /></b-button>
+        <ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
+            <li href="#" class="list-group-item" v-for="(md, i) in model" @click="setModel(i)">
+                {{ md.gm_name }}<br />
+                <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
+                <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+import ax from '@/api/http';
+
+export default {
+    props:['value', 'type', 'id', 'em'],
+    data() {
+        return {
+            model: [],
+            maker: {},
+        }
+    },
+    computed: {
+        input_val: {
+            get: function() {
+                return this.value;
+            },
+            set: function(v) {
+                this.$emit('input', v);
+            }
+        }
+    },
+    methods:{
+        async getModelList() {
+            var v = this.$refs.sch_field.value;
+            if (this.type == 'em_catno' && v.split('-').length < 3) {
+                Notify.toast('warning', '최소 2번째 하이프(-)까지 입력해야 합니다.');
+                return false;
+            } else if (this.type == 'em_code' && v.length < 3) {
+                Notify.toast('warning', '최소 3자 이상 입력시 검색 가능합니다.');
+                return false;
+            }
+            if ( (this.type=='em_catno' && v.split('-').length > 2) ||
+                 (this.type=='em_code'  && v.length > 2) ) {
+                try {
+                    const res = await ax.get(`/api/admin/shop/goods/getModel`, {params:{type:this.type, key:v}});
+                    if (res && res.status === 200) {
+                        if (res.data.gd.length) {
+                            this.model = res.data.gd;
+                            this.maker = res.data.mk;
+                        } else {
+                            this.model = [{gm_name:'정보없음'}];
+                            this.maker = [];
+                        }
+                    }
+                } catch (e) {
+                    Notify.consolePrint(e);
+                    Notify.toast('warning', e.response.data.message);
+                }
+            }
+        },
+        async setModel(i) {
+            if (this.model[i] && this.model[i].gm_name != "정보없음") {
+                this.$set(this.em, 'em_gd_id'     , this.model[i].gm_gd_id);
+                this.$set(this.em, 'em_gm_id'     , this.model[i].gm_id);
+                this.$set(this.em, 'em_catno01'   , this.model[i].gm_catno01);
+                this.$set(this.em, 'em_catno02'   , this.model[i].gm_catno02);
+                this.$set(this.em, 'em_catno03'   , this.model[i].gm_catno03);
+                this.$set(this.em, 'em_name'      , this.model[i].gm_name);
+                this.$set(this.em, 'em_catno'     , this.model[i].gm_catno);
+                this.$set(this.em, 'em_code'      , this.model[i].gm_code);
+                this.$set(this.em, 'em_unit'      , this.model[i].gm_unit);
+                this.$set(this.em, 'em_spec'      , this.model[i].gm_spec);
+                this.$set(this.em, 'em_maker'     , this.maker.mk_name);
+                this.$set(this.em, 'em_ea'        , 1);
+                this.$set(this.em, 'em_cost_price', this.model[i].gm_price);
+                this.$set(this.em, 'em_dc_rate'   , 0);
+                this.$set(this.em, 'em_price'     , this.model[i].gm_price);
+                this.$set(this.em, 'em_dlvy_at'   , this.model[i].gm_dlvy_at);
+                this.$set(this.em, 'bundle_dc'    , this.model[i].bundle_dc);
+                this.$set(this.em, 'goods'        , this.model[0].goods);
+            }
+            this.hide();
+        },
+        hide(){
+            this.model = [];
+            this.maker = [];
+        }
+    }
+}
+</script>

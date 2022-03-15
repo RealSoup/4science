@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class FileGoods extends Model {
+    protected $primaryKey = 'fi_id';
+    protected $table = 'file_goods';
+    public $timestamps = false;
+    protected $fillable = ['down']; // 수정가능 필드 입력
+    protected $appends = ['path', 'path_thumb', 'path'];
+
+    public function getPathAttribute() { return $this->getPath(); }
+    public function getPathThumbAttribute() { return $this->getPath('thumb'); }
+
+    public function scopeKey($query, int $fi_key) { return $query->where('fi_key', $fi_key); }
+    public function scopeGroup($query, string $group) { return $query->where('fi_group', $group); }
+    public function scopeKind($query, string $kind) { return $query->where('fi_kind', $kind); }
+
+    public function getPath($sub=NULL) {
+        if (isImg($this->fi_ext)) {
+            $src = "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/";
+            $src .= ($sub) ? "{$sub}/" : '';
+            $src .= $this->fi_new;
+        } else {
+            if ($this->fi_ext=='pdf') $src = "/img/common/file_icon_pdf.png";
+            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = "/img/common/file_icon_excel.png";
+            else $src = "/img/common/file_icon_default.png";
+        }        
+        return $src;
+    }
+}
