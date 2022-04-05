@@ -1,31 +1,30 @@
 <template>
 <div id="site">
     <perfect-scrollbar @ps-scroll-y="onScroll" ref="scrollbar">
-        <component :is="choiceHeader" :scrollbarYTop = 'scrollbarYTop'></component>
-        <main :class="{'layout' : this.$route.name !== 'main'}"><router-view /></main>
+        <component :is="choiceHeader"></component>
+        <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger'}"><router-view /></main>
         <component
             :is="choiceFooter"
-            :scrollbarYTop = 'scrollbarYTop'
             @scrollToTop="scrollToTop"
         ></component>
     </perfect-scrollbar>
 </div>
 </template>
+
 <script>
 import WebHead      from '@/views/web/_layouts/Header.vue';
 import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmHead      from '@/views/admin/_layouts/Header.vue';
 import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
-
-
+import { mapState } from 'vuex'
 
 export default {
     name: 'app',
     components: { WebHead, WebFooter, HeaderSimple, AdmHead, AdmFooter },
     data() {
         return {
-            scrollbarYTop:0
+            
         }
     },
     computed:{
@@ -42,11 +41,13 @@ export default {
                 case 'simple':   return 'WebFooter';  break;
                 case 'adm':     return 'AdmFooter';  break;
             }
-        }
+        },
+        ...mapState('scroll', ['scroll']),
     },
+
     methods: {
         onScroll(e) {
-            this.scrollbarYTop = this.$refs.scrollbar.ps.scrollbarYTop;
+            this.$store.commit('scroll/setScrollY', this.$refs.scrollbar.ps.scrollbarYTop);
         },
         scrollToTop(){
             this.intervalId = setInterval(() => {
@@ -54,7 +55,11 @@ export default {
                 this.$refs.scrollbar.$el.scrollTop = this.$refs.scrollbar.ps.scrollbarYTop - 1;
             }, 20);
         },
-    }
+    },
+
+    mounted() {
+        this.$store.dispatch('category/indexAll');
+    },
     // computed: {
     //     ...mapState('error', {
     //         identifyErrors: state => state.identify

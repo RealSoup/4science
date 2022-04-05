@@ -31,15 +31,15 @@
 <script>
 import ax from '@/api/http';
 require('vue2-animate/dist/vue2-animate.min.css');
+import { mapState } from 'vuex'
 
 export default {
-    props: ['scrollbarYTop'],
     watch: {
         '$route' (to, from) {
             if (to.name == 'goods_show')
                 this.updateRecentGoods();
         },
-        'scrollbarYTop' (to, from) {
+        'scroll.y' (to, from) {
             this.viewGoTop = to > 30;
         },
     },
@@ -62,6 +62,7 @@ export default {
         divideRecentGoods () {
             return Array.from(Array(Math.ceil(this.recentGoods.length / this.itemsPerRow)).keys())
         },
+        ...mapState('scroll', ['scroll']),
     },
     methods: {
         scrollToTop(){

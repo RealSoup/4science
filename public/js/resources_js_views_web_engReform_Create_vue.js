@@ -156,7 +156,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
-      if (this.$route.name == 'adm_goods_edit' && this.value[i].fi_id) this.delete_file_goods.push(this.value[i].fi_id);
+      if (this.value[i].fi_id) this.delete_file_goods.push(this.value[i].fi_id);
       this.value.splice(i, 1);
     },
     onClick: function onClick() {
@@ -6654,7 +6654,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("file-upload", {
                         ref: "fileupload1",
-                        attrs: { fi_type: "engReform", fi_path: "work" },
+                        attrs: { fi_group: "engReform", fi_kind: "work" },
                         model: {
                           value: _vm.frm.file_info_work,
                           callback: function ($$v) {
@@ -6676,7 +6676,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("file-upload", {
                         ref: "fileupload2",
-                        attrs: { fi_type: "engReform", fi_path: "ref" },
+                        attrs: { fi_group: "engReform", fi_kind: "ref" },
                         model: {
                           value: _vm.frm.file_info_ref,
                           callback: function ($$v) {

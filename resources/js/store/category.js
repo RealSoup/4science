@@ -3,28 +3,22 @@ import ax from '@/api/http';
 export default {
     namespaced: true,
     state: {
-        categorys:[],
+        category:[],
     },
     mutations: {
-
-        index(state, data) {
-            state.loading  = false;
-            state.categorys  = data.categorys;
+        init(state, data) {
+            state.category  = data;
         },
-
     },
     actions: {
-        async index(context, ca_id){
+        async indexAll(context){
             try {
-                const res = await ax.get(`/api/admin/category/${ca_id}`);
-                if (res && res.status === 200) {
-                    context.commit('index', res.data);
-                }
+                const res = await ax.get(`/api/category/indexAll`);
+                if (res && res.status === 200)
+                    context.commit('init', res.data);
             } catch (e) {
                 this._vm.errorConsolePrint(e);
             }
         },
-
-
     },
 }

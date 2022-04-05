@@ -4,7 +4,7 @@
         @mouseleave="mouseHover = false"
         :class="[{fixed_header:isScrollPass}, {expandCart:mouseHover}]">
 
-        <perfect-scrollbar suppressScrollX="true">
+        <perfect-scrollbar>
             <h4 class="circle">
                 <b-icon-minecart />
                 <span v-if="cartList">{{cntItem}}</span>

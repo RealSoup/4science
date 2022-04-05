@@ -263,6 +263,10 @@ export default {
             var x = v.replace(/\D/g, '').match(/(\d{0,4})(\d{0,2})(\d{0,2})/);
             return !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
         };
+        Vue.prototype.formatDateShort = function (v){
+            var x = v.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,2})/);
+            return !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
+        };
         Vue.prototype.priceComma = function (v){ return v.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
 
         Vue.prototype.formatBiz = function (v) {

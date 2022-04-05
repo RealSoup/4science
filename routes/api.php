@@ -151,9 +151,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::resource('estimate', 'Admin\Shop\EstimateController');
             // Route::POST('estimate/estimateModelPurchaseCollection', 'Admin\Shop\EstimateController@estimateModelPurchaseCollection')->name('admin.shop.estimate.estimateModelPurchaseCollection');
         });
+
+        //  영문교정
         Route::prefix('engReform')->group(function () {
             Route::GET('/', 'Admin\EngReformController@index');
             Route::GET('{er_id}/edit', 'Admin\EngReformController@edit');
+            Route::PATCH('{er_id}', 'Admin\EngReformController@update');
+        });
+
+        //  영업장부
+        Route::RESOURCE('ledger', 'Admin\LedgerController')->only([ 'index', 'store', 'update', 'destroy' ]);
+        
+        //  통계
+        Route::prefix('stats')->group(function () {
+            Route::GET('/user', 'Admin\StatsController@user');
+            Route::GET('/order', 'Admin\StatsController@order');
         });
     });
 
@@ -177,7 +189,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 //  로그인 필요 없는 서비스
-Route::get('category/all', 'Shop\CategoryController@indexAll')->name('category.indexAll');
+Route::get('main', 'MainController@index');
+Route::get('category/indexAll', 'Shop\CategoryController@indexAll')->name('category.indexAll');
 Route::get('category/{ca_id}', 'Shop\CategoryController@index')->name('category.index');
 Route::prefix('shop')->group(function () {
     Route::GET('goods/recentGoods', 'Shop\GoodsController@recentGoods')->name('goods.recentGoods');
@@ -228,5 +241,4 @@ Route::prefix('board/{bo_cd}')->group(function () {
     Route::delete('destroy/{bo_id}', 'BoardController@destroy')->name('board.destroy')->where('bo_cd', '[a-zA-Z0-9_]+');
 
     Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
-
 });

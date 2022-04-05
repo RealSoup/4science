@@ -31,6 +31,19 @@ class EngReformController extends Controller {
     }
 
     public function edit(Request $req, $er_id) {
-        return response()->json(EngReform::find($er_id), 200);
+        $er = EngReform::find($er_id);
+        $er->fileInfo;
+        //  배열값을 넘겨줘야 하는데 values 함수 안쓰면 Object가 넘어온다.
+        $er->file_info_cplt = $er->fileInfo->where('fi_kind', 'cplt')->values();
+        $er->mng;        
+        return response()->json($er, 200);
+    }
+
+    public function update(Request $req, $er_id) {
+        $rst = DB::table('eng_reform')->where('er_id', $er_id)->update([ 
+            'er_step'       => $req->filled('er_step') ? $req->er_step : 'ING', 
+            'updated_id'    => auth()->user()->id,
+        ]);
+		return response()->json($rst);
     }
 }

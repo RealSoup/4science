@@ -3,14 +3,17 @@
     <div class="actionArea">
         <b-input-group size="sm">
             <b-input-group-prepend class="bg-light btn_group">
-                <b-button :to="{name: 'adm_order_index'}" variant="outline-secondary" class="mr-3">목록</b-button>
-                <b-button variant="success" @click="estimateExcel">견적서<b-badge>E</b-badge></b-button>
-                <b-button variant="outline-success" @click="estimatePdf">견적서<b-badge>P</b-badge></b-button>
-                <b-button variant="warning" @click="transactionExcel">거래명세서<b-badge>E</b-badge></b-button>
-                <b-button variant="outline-warning" @click="transactionPdf">거래명세서<b-badge>P</b-badge></b-button>
+                
+                <b-button :to="{name: 'adm_order_index'}" variant="outline-secondary">목록</b-button>
+                <b-dropdown size="sm" text="파일 출력" variant="warning">
+                    <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
+                    <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
+                    <b-dropdown-divider></b-dropdown-divider>
+                    <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
+                    <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
+                </b-dropdown>
+                <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 장부기록</b-button>
                 <b-button variant="dark" @click="print">인쇄</b-button>
-            </b-input-group-prepend>
-            <b-input-group-prepend>
                 <b-button v-if="od.od_mng < 1" @click="update('od_mng')">담당</b-button>
                 <b-button v-else>{{od.od_mng_nm}}</b-button>
             </b-input-group-prepend>
@@ -185,17 +188,20 @@
                             </span>
                             <span v-else-if="od.od_pay_method == 'E'">에스크로</span>
 
-                            <b-badge >구매환경</b-badge>
+                            <b-badge >구매환경</b-badge>                                                       
                             <span v-if="od.od_sale_env == 'P'">웹</span>
                             <span v-else-if="od.od_sale_env == 'M'">모바일</span>
 
                             <b-badge>요청서류</b-badge>
                             <span>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_est == 'Y'">견적서</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_tran == 'Y'">거래명세서</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_biz == 'Y'">사업자 등록증 사본</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_bank == 'Y'">통장사본</b-badge>
-                                <b-badge variant="warning" v-if="od.order_extra_info.oex_req_est == 'N' && od.order_extra_info.oex_req_tran == 'N' && od.order_extra_info.oex_req_biz == 'N' && od.order_extra_info.oex_req_bank == 'N'">없음</b-badge>
+                                <template v-if="!od.order_extra_info"><b-badge variant="warning">없음</b-badge></template>
+                                <template v-else>
+                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_est == 'Y'">견적서</b-badge>
+                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_tran == 'Y'">거래명세서</b-badge>
+                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_biz == 'Y'">사업자 등록증 사본</b-badge>
+                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_bank == 'Y'">통장사본</b-badge>
+                                    <b-badge variant="warning" v-if="od.order_extra_info.oex_req_est == 'N' && od.order_extra_info.oex_req_tran == 'N' && od.order_extra_info.oex_req_biz == 'N' && od.order_extra_info.oex_req_bank == 'N'">없음</b-badge>
+                                </template>
                             </span>
                         </b-col>
                     </b-row>
@@ -311,8 +317,8 @@ export default {
                 );
 
                 if (type == 'od_mng') {
-                    this.od.od_mng = this.auth().id;
-                    this.od.od_mng_nm = this.auth().name;
+                    this.od.od_mng = Auth.user().id;
+                    this.od.od_mng_nm = Auth.user().name;
                 }
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
                 if (res && res.status === 200 && res.data.msg === 'success') {
@@ -401,6 +407,20 @@ export default {
                 return false;
             }
         },
+
+        async onlineBooks() {
+            try {
+                this.od.data_type="ORD";
+                const res = await ax.post(`/api/admin/ledger`, this.od);
+                if (res && res.status === 200) {
+                    this.$router.push({ name: 'adm_ledger' })
+                } else
+                    Notify.toast('warning', '기록 실패');
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response);
+            }
+        }
     },
     mounted() {
         this.edit();

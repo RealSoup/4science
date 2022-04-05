@@ -211,6 +211,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -518,6 +519,46 @@ var dt = new Date();
           }
         }, _callee7, null, [[0, 7]]);
       }))();
+    },
+    onlineBooks: function onlineBooks() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.prev = 0;
+                _this8.frm.data_type = "EST";
+                _context8.next = 4;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger", _this8.frm);
+
+              case 4:
+                res = _context8.sent;
+
+                if (res && res.status === 200) {
+                  _this8.$router.push({
+                    name: 'adm_ledger'
+                  });
+                } else Notify.toast('warning', '기록 실패');
+
+                _context8.next = 12;
+                break;
+
+              case 8:
+                _context8.prev = 8;
+                _context8.t0 = _context8["catch"](0);
+                Notify.consolePrint(_context8.t0);
+                Notify.toast('warning', _context8.t0.response);
+
+              case 12:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8, null, [[0, 8]]);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -775,6 +816,19 @@ var render = function () {
                         "b-button-group",
                         { attrs: { size: "sm" } },
                         [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "info" },
+                              on: { click: _vm.onlineBooks },
+                            },
+                            [
+                              _c("b-icon-journal-bookmark-fill"),
+                              _vm._v(" 장부기록"),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
                           _c(
                             "b-button",
                             {

@@ -58,6 +58,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyEngReformIndex',
@@ -67,6 +73,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       list: {}
     };
   },
+  computed: {},
   methods: {
     index: function index() {
       var _arguments = arguments,
@@ -346,9 +353,44 @@ var render = function () {
                   [
                     er.er_step == "CPLT"
                       ? _c(
-                          "b-button",
-                          { attrs: { variant: "info", size: "sm" } },
-                          [_vm._v("다운")]
+                          "b-dropdown",
+                          {
+                            attrs: {
+                              text: "교정파일 받기",
+                              variant: "info",
+                              size: "sm",
+                            },
+                          },
+                          [
+                            _vm._l(er.file_info, function (fi) {
+                              return [
+                                fi.fi_kind == "cplt"
+                                  ? _c(
+                                      "b-dropdown-item",
+                                      {
+                                        key: fi.fi_id,
+                                        on: {
+                                          click: function ($event) {
+                                            return _vm.fileDown(
+                                              fi.path,
+                                              fi.fi_original
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(fi.fi_original) +
+                                            "\n                        "
+                                        ),
+                                      ]
+                                    )
+                                  : _vm._e(),
+                              ]
+                            }),
+                          ],
+                          2
                         )
                       : _vm._e(),
                   ],

@@ -28,7 +28,13 @@
                     <b-badge v-else-if="er.er_step == 'CXL'" variant="danger">취소</b-badge>
                 </b-col>
                 <b-col>
-                    <b-button v-if="er.er_step == 'CPLT'" variant="info" size="sm">다운</b-button>
+                    <b-dropdown text="교정파일 받기" v-if="er.er_step == 'CPLT'" variant="info" size="sm">
+                        <template v-for="fi in er.file_info">
+                            <b-dropdown-item :key="fi.fi_id" v-if="fi.fi_kind == 'cplt'" @click="fileDown(fi.path, fi.fi_original)">
+                                {{fi.fi_original}}
+                            </b-dropdown-item>
+                        </template>
+                    </b-dropdown>
                 </b-col>
             </b-row>
             <pagination :data="list" align="center" @pagination-change-page="index"></pagination>
@@ -47,7 +53,7 @@ export default {
             list:{},
         };
     },
-
+    computed: { },
     methods: {
         async index(page=1){
             try {

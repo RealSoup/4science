@@ -10,6 +10,8 @@ class EngReform extends Model {
     protected $guarded = [];
 
     public function user() { return $this->belongsTo(User::class, 'created_id'); }
+    public function mng() { return $this->belongsTo(User::class, 'updated_id'); }
+    public function fileInfo() { return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
 
     public function scopeStartDate($query, $date) { return $query->where('created_at', '>=', $date); }
     public function scopeEndDate($query, $date) { return $query->where('created_at', '<=', $date); }

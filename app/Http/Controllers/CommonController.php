@@ -28,8 +28,13 @@ class CommonController extends Controller {
                     ]);
                 }
             }
-            return response()->json("success", 200);
         }
+        
+        if ($req->filled('is_delete')) {
+            foreach (json_decode($req->is_delete) as $fi_id)
+                $this->deleteFiles($fi_id);
+        }
+        return response()->json("success", 200);
     }
 
     public function uploadSimple(Request $req) {

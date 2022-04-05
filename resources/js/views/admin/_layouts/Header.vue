@@ -28,6 +28,14 @@
                         <b-dropdown-item :to="{name: 'adm_order_index'}">주문목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_merck_index'}">Merck 발주</b-dropdown-item>
                     </b-nav-item-dropdown>
+                    <b-nav-item-dropdown text="통계">
+                        <b-dropdown-item :to="{name: 'adm_stats_join'}">가입자</b-dropdown-item>
+                        <b-dropdown-divider></b-dropdown-divider>
+                        <b-dropdown-group header="주문 통계">
+                            <b-dropdown-item :to="{name: 'adm_stats_order'}">매출</b-dropdown-item>
+                        </b-dropdown-group>
+                    </b-nav-item-dropdown>
+                    <b-nav-item :to="{name: 'adm_ledger'}" active-class="active" exact>영업장부</b-nav-item>
                 </b-navbar-nav>
 
 

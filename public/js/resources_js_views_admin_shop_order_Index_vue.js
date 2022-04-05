@@ -167,36 +167,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {},
+  components: {
+    'SchDate': function SchDate() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin__module_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/_module/SchDate.vue */ "./resources/js/views/admin/_module/SchDate.vue"));
+    }
+  },
   data: function data() {
     return {
       list: {},
@@ -289,41 +266,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setPage: function setPage(page) {
       this.sch_frm.page = page;
       this.index();
-    },
-    setDate: function setDate(type) {
-      var dt = new Date();
-      var sdt = '',
-          edt = dt.format("yyyy-MM-dd");
-
-      switch (type) {
-        case 'today':
-          ;
-          break;
-
-        case '3day':
-          dt.setDate(dt.getDate() - 3);
-          break;
-
-        case 'week':
-          dt.setDate(dt.getDate() - 7);
-          break;
-
-        case 'month':
-          dt.setMonth(dt.getMonth() - 1);
-          break;
-
-        case '3month':
-          dt.setMonth(dt.getMonth() - 3);
-          break;
-
-        case 'all':
-          edt = '';
-          break;
-      }
-
-      if (type != 'all') sdt = dt.format("yyyy-MM-dd");
-      this.sch_frm.startDate = sdt;
-      this.sch_frm.endDate = edt;
     }
   },
   mounted: function mounted() {
@@ -349,7 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_order .width_btn[data-v-00adb397] { display:flex;\n}\n#adm_order .width_btn .btn[data-v-00adb397] { flex:1;\n}\n#adm_order .od_list .row.list_item > div[data-v-00adb397] { padding:10px 4px;\n}\n#adm_order .od_list .row.list_item:nth-child(odd) > div[data-v-00adb397]:nth-child(odd),\r\n#adm_order .od_list .row.list_item:nth-child(even) > div[data-v-00adb397]:nth-child(even) { /*border:1px solid #EAF2FF;*/\n}\n#adm_order .od_list .row.list_item:nth-child(odd) > div[data-v-00adb397]:nth-child(even),\r\n#adm_order .od_list .row.list_item:nth-child(even) > div[data-v-00adb397]:nth-child(odd) { background-color:#EAF2FF;\n}\n#adm_order .od_list .row.list_item div .badge[data-v-00adb397] { font-size:1rem;\n}\n#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge[data-v-00adb397] { font-size:75%;\n}\n#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge[data-v-00adb397]:hover { font-size:125%; position:absolute; z-index:1;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_order .od_list .row.list_item > div[data-v-00adb397] { padding:10px 4px;\n}\n#adm_order .od_list .row.list_item:nth-child(odd) > div[data-v-00adb397]:nth-child(odd),\r\n#adm_order .od_list .row.list_item:nth-child(even) > div[data-v-00adb397]:nth-child(even) { /*border:1px solid #EAF2FF;*/\n}\n#adm_order .od_list .row.list_item:nth-child(odd) > div[data-v-00adb397]:nth-child(even),\r\n#adm_order .od_list .row.list_item:nth-child(even) > div[data-v-00adb397]:nth-child(odd) { background-color:#EAF2FF;\n}\n#adm_order .od_list .row.list_item div .badge[data-v-00adb397] { font-size:1rem;\n}\n#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge[data-v-00adb397] { font-size:75%;\n}\n#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge[data-v-00adb397]:hover { font-size:125%; position:absolute; z-index:1;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -495,194 +437,15 @@ var render = function () {
             "b-container",
             { attrs: { fluid: "" } },
             [
-              _c(
-                "b-row",
-                { staticClass: "mb-3" },
-                [
-                  _c(
-                    "b-col",
-                    { attrs: { lg: "3", md: "4", sm: "6" } },
-                    [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c("b-form-input", {
-                            attrs: {
-                              placeholder: "YYYY-MM-DD",
-                              autocomplete: "off",
-                              formatter: _vm.formatDate,
-                            },
-                            model: {
-                              value: _vm.sch_frm.startDate,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.sch_frm, "startDate", $$v)
-                              },
-                              expression: "sch_frm.startDate",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c("b-form-datepicker", {
-                                attrs: { "button-only": "", right: "" },
-                                model: {
-                                  value: _vm.sch_frm.startDate,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.sch_frm, "startDate", $$v)
-                                  },
-                                  expression: "sch_frm.startDate",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { lg: "3", md: "4", sm: "6" } },
-                    [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c("b-form-input", {
-                            attrs: {
-                              placeholder: "YYYY-MM-DD",
-                              autocomplete: "off",
-                              formatter: _vm.formatDate,
-                            },
-                            model: {
-                              value: _vm.sch_frm.endDate,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.sch_frm, "endDate", $$v)
-                              },
-                              expression: "sch_frm.endDate",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c("b-form-datepicker", {
-                                attrs: { "button-only": "", right: "" },
-                                model: {
-                                  value: _vm.sch_frm.endDate,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.sch_frm, "endDate", $$v)
-                                  },
-                                  expression: "sch_frm.endDate",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { lg: "6", md: "4", sm: "12" } },
-                    [
-                      _c(
-                        "b-button-group",
-                        { staticClass: "width_btn" },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "primary" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("today")
-                                },
-                              },
-                            },
-                            [_vm._v("오늘")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "info" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("3day")
-                                },
-                              },
-                            },
-                            [_vm._v("3일")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "success" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("week")
-                                },
-                              },
-                            },
-                            [_vm._v("1주")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "danger" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("month")
-                                },
-                              },
-                            },
-                            [_vm._v("1달")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "warning" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("3month")
-                                },
-                              },
-                            },
-                            [_vm._v("3달")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "dark" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.setDate("all")
-                                },
-                              },
-                            },
-                            [_vm._v("전체")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
+              _c("SchDate", {
+                model: {
+                  value: _vm.sch_frm,
+                  callback: function ($$v) {
+                    _vm.sch_frm = $$v
+                  },
+                  expression: "sch_frm",
+                },
+              }),
               _vm._v(" "),
               _c(
                 "b-row",

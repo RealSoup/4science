@@ -154,25 +154,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
-  watch: {
-    frm: {
-      handler: function handler(val, oldVal) {
-        this.routerPush();
-      },
-      deep: true
-    }
+  watch: {// frm: {
+    //     handler(val, oldVal) {
+    //         this.routerPush();
+    //     },
+    //     deep: true
+    // },
   },
-  computed: _objectSpread({
-    new_frm: function new_frm() {
-      var nfrm = {};
-
-      for (var i in this.sch_frm) {
-        if (!isEmpty(this.sch_frm[i])) nfrm[i] = this.sch_frm[i];
-      }
-
-      return nfrm;
-    }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info'])),
   methods: {
     numCalc: function numCalc(i) {
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
@@ -188,12 +177,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //     this.$router.push({ name: 'goods_index', query: this.new_frm }).catch(()=>{});
     // },
     setPage: function setPage(page) {
-      this.sch_frm.page = page;
+      this.frm.page = page;
       this.routerPush();
     },
     sort: function sort() {
       var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      this.sch_frm.sort = type;
+      this.frm.sort = type;
       this.routerPush();
     },
     routerPush: function routerPush() {

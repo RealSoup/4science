@@ -98,11 +98,11 @@
                 <b-row>
                     <b-col>
                         <b>작업문서 업로드</b> <small>최대 업로드 가능 용량 : 200MB</small>
-                        <file-upload ref="fileupload1" v-model="frm.file_info_work" :fi_type="'engReform'" :fi_path="'work'" />
+                        <file-upload ref="fileupload1" v-model="frm.file_info_work" :fi_group="'engReform'" :fi_kind="'work'" />
                     </b-col>
                     <b-col>
                         <b>참고문서 업로드</b> <small>최대 업로드 가능 용량 : 200MB</small>
-                        <file-upload ref="fileupload2" v-model="frm.file_info_ref" :fi_type="'engReform'" :fi_path = "'ref'" />
+                        <file-upload ref="fileupload2" v-model="frm.file_info_ref" :fi_group="'engReform'" :fi_kind = "'ref'" />
                     </b-col>
                     <transition name="fade">
                         <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="''">
@@ -246,16 +246,14 @@ export default {
 
     methods: {
         async store() {
-     
-                this.isLoadingModalViewed=true;
-                const res = await ax.post(`/api/engReform/`, this.frm);
-                if (res && res.status === 200) {                        
-                    await this.$refs.fileupload1.fileProcessor(res.data.er_id);
-                    await this.$refs.fileupload2.fileProcessor(res.data.er_id);
-                    this.isLoadingModalViewed=false;
-                    this.$router.push({ name: 'my_eng_reform_index' })
-                }
-  
+            this.isLoadingModalViewed=true;
+            const res = await ax.post(`/api/engReform/`, this.frm);
+            if (res && res.status === 200) {                        
+                await this.$refs.fileupload1.fileProcessor(res.data.er_id);
+                await this.$refs.fileupload2.fileProcessor(res.data.er_id);
+                this.isLoadingModalViewed=false;
+                this.$router.push({ name: 'my_eng_reform_index' })
+            }
         },
     },
 }

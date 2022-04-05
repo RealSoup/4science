@@ -1,22 +1,61 @@
 <template lang="html">
     <div>
         <b-carousel indicators class="slide_banner">
-            <template v-for="(row, idx) in bestRemodel">
-                <b-carousel-slide :key="idx">
-                    <template #img>
-                        <router-link :to="{ name: 'goods_show', params: {gd_id: row.gd_id} }">
-                            <img :src="row.image" />
-                        </router-link>
-                    </template>
-                </b-carousel-slide>
-            </template>
+            <b-link href="/">
+                <b-carousel-slide img-src="/img/main/banner01.png"></b-carousel-slide>
+            </b-link>
+            
+            <b-link href="/">
+                <b-carousel-slide img-src="/img/main/banner02.png"></b-carousel-slide>
+            </b-link>           
         </b-carousel>
 
-        <router-link :to="{ name: '', params: {} }" class="layout d-block main_banner01">
-            <img src="/img/common/banner01.png" width="100%" />
-        </router-link>
-
         <BestList :items="bestRemodel" />
+
+        <div class="recommend">
+            <div class="back"></div>
+            <div class="layout">
+                <b-row>
+                    <b-col class="tit">포사의 추천 ></b-col>
+                </b-row>
+                <b-row>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec01.jpg" /></b-link></b-col>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec02.jpg" /></b-link></b-col>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec03.jpg" /></b-link></b-col>
+                </b-row>
+                <b-row>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec04.jpg" /></b-link></b-col>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec06.jpg" /></b-link></b-col>
+                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec05.jpg" /></b-link></b-col>
+                </b-row>
+            </div>
+        </div>
+
+        <div class="byCate layout">
+            <b-row class="titByCate">
+                <b-col tag="h5">카테고리별 추천</b-col>
+            </b-row>
+            <ul>
+                <li v-for="(ca, i) in category" :key="ca.ca_id"><img :src="`/img/main/icon_ca${ca.ca_id}_sm.jpg`" /></li>
+            </ul>
+            <b-container class="con">
+                <b-row v-for="(ca, i) in category" :key="ca.ca_id">
+                    <b-col class="tit">                    
+                        <b-link :to="{name:'goods_show', params:{gd_id:1}}">
+                            <b-img :src="`/img/main/icon_ca24_sm.jpg`" />
+                            <h6>{{ca.ca_name}}</h6>
+                            <span>전체보기 <b-icon-chevron-right /></span>
+                        </b-link>
+                    </b-col>
+                    <b-col class="list">
+                        <b-col v-for="gd in bestByCategory[ca.ca_id]" :key="gd.gd_id">
+                            <b-img fluid :src="gd.goods.image_src_thumb[0]" />
+                            <p>{{gd.goods.gd_name}}</p>
+                        </b-col>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </div>
     </div>
 </template>
 
@@ -25,7 +64,7 @@
 import ax from '@/api/http';
 import { KinesisContainer, KinesisElement } from 'vue-kinesis';
 import { vueAccordion } from 'vue-accordion';
-
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -37,20 +76,21 @@ export default {
     data() {
         return {
             listType:{
-                best: {sort:'new', limit:7},
+                best: {sort:'new', limit:6},
             },
             list:{
                 best:{},
             },
-            best:[
-                { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
-            ],
-            styles: {
-                li: {
-                    backgroundSize:'cover',
-                },
+            bestByCategory:{},
+            // best:[
+            //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
+            // ],
+            // styles: {
+            //     li: {
+            //         backgroundSize:'cover',
+            //     },
 
-            }
+            // }
         }
     },
     computed: {
@@ -58,14 +98,14 @@ export default {
             let dummy = [];
             for (let i in this.list.best) {
                 dummy.push({
-                    title: this.list.best[i].gd_name,
-                    text:  this.list.best[i].price,
+                    gd_name: this.list.best[i].gd_name,
+                    ca01_name:  this.list.best[i].gc_ca01_name,
                     gd_id: this.list.best[i].gd_id,
-                    url:   '/shop/goods/'+this.list.best[i].gd_id,
                     image: this.list.best[i].image_src[0] })
             }
             return dummy;
-        }
+        },
+        ...mapState('category', ['category']),
     },
     methods: {
         async index(frm){
@@ -78,73 +118,45 @@ export default {
             }
         },
     },
-    mounted() {
+    async mounted() {
         this.index(this.listType.best);
+
+        let rst = await ax.get(`/api/main`);
+        this.bestByCategory = rst.data;
+        
+
+
     },
 }
 </script>
 
 <style lang="css" scoped>
-.intro {
-    display: -webkit-box; display: -ms-flexbox; display: flex;
-    -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column;
-    -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center;
-    align-items: center; height:40vh; position: relative; }
-.intro {
-    background: linear-gradient(124deg, #FFCBCB, #FFDBCB, #FFF2CB, #FFFFD3, #D1FFD8, #CEFCFF, #D6D1FF, #FCD3FF, #FCD3FF);
-    background-size: 1800% 1800%;
-    -webkit-animation: rainbow 18s ease infinite; -z-animation: rainbow 18s ease infinite; -o-animation: rainbow 18s ease infinite; animation: rainbow 18s ease infinite;
-}
-@-webkit-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@-moz-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@-o-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
+.recommend { margin-top:3rem; }
+.recommend .back { background:#51B948; position:absolute; width:100%; height:18.5rem; }
+.recommend .layout .row:last-child { margin-top:2rem; }
+.recommend .layout .row .tit { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM; }
+.recommend .layout .row .col a { display:block; }
+.recommend .layout .row .col a img { border:1px solid #CCC; border-radius: 10px; }
 
-.intro .item { position:absolute; background-repeat:no-repeat; background-size:contain; }
-.intro .item.heart { background-image:url(/img/main/heart.png); width:7vw; height:7vw; right:7vw; }
-.intro .item.molecular  { background-image:url(/img/main/molecular.png); width:13vw; height:13vw; right:20%; }
-.intro .item.microscope { background-image:url(/img/main/microscope.png); width:8vw; height:8vw; left:30%; top:25%; }
-.intro .item.neurons { background-image:url(/img/main/neurons.png); width:10vw; height:10vw; right:20%; top:90%; }
-.intro .item.dna { background-image:url(/img/main/dna.png); width:8vw; height:8vw; left:20%; top:60%; }
-.intro .item.spoid { background-image:url(/img/main/spoid.png); width:15vw; height:15vw; left:2vw; top:15%; }
+.byCate { position:relative; margin-top:5rem; }
+.byCate .titByCate { margin-bottom:1.5rem; }
+.byCate .titByCate h5 { font-style:italic; font-weight:bold; font-size:2rem; }
 
-.intro h1 {position:relative;display:-webkit-box;display:-ms-flexbox;display:flex;color:#351b1b;font-size:72px}
-.intro h1 span:first-of-type{margin-top:0}
-.intro h1 span:nth-of-type(2){margin-top:-20px}
-.intro h1 span:nth-of-type(3){margin-top:-7px}
-.intro h1 span:nth-of-type(4){margin-top:8px}
-.intro h1 span:nth-of-type(5){margin-top:-13px}
-.intro h1 span:nth-of-type(6){margin-top:-5px}
-.intro h1 span:nth-of-type(7){margin-top:0}
-.intro h1 span:nth-of-type(8){margin-top:-6px}
-.intro .slogan { z-index:2; }
+.byCate ul { position:absolute; left:-60px; border:1px solid #898989; }
+.byCate ul li { padding:.4rem; opacity:.5; }
+.byCate ul li:hover { background:#448AC8; opacity:1; }
 
-.slide_banner { margin:2rem 0; }
-.slide_banner >>> .carousel-inner .carousel-item a img { width:100%; height:600px; object-fit:cover; }
+.byCate .con .row { border-top:2px solid #4A505C; margin-bottom:2.5rem; }
+.byCate .con .row .col { padding:0; }
+.byCate .con .row .tit { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
+.byCate .con .row .tit a { display:block; position:relative; }
+.byCate .con .row .tit a img { position: absolute; z-index: -1; width: 200px; height: 500px; object-fit: cover; }
+.byCate .con .row .tit a h6 { font-weight:bold; font-size:1.5rem; margin:1.5rem 0 0 1rem; }
+.byCate .con .row .tit a span { color:#9FA0A2; margin:1.5rem 0 0 1rem; }
+.byCate .con .row .list { display:flex; flex-wrap:wrap; }
+.byCate .con .row .list .col { flex:0 0 16.666666%; max-width:16.666666%; padding:25px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
+.byCate .con .row .list .col img { width:166px; height:166px; object-fit:cover; }
+.byCate .con .row .list .col p { margin:1rem 0 0; width:164px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:3rem; }
 
-.main_banner01 { margin-bottom:2rem;}
-
-.click_buy { border:1px solid red; height:220px; }
-.click_buy .title { font-size:2.5rem; font-weight:bold; font-family: Serif; }
-.click_buy .list {  }
-.click_buy .list .piece { /*position:absolute; top:0; left:0;*/ width:150px; height:150px; float:left; }
-.click_buy .list:after { content:"&nbsp;"; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
-.click_buy .list .piece:nth-of-type(1) { transform : translatex(-500px); }
-.click_buy .list .piece:nth-of-type(2) { transform : translatex(-300px); }
-.click_buy .list .piece:nth-of-type(3) { transform : translatex(-150px); }
-.click_buy .list .piece:nth-of-type(4) { transform : translatex(0px); }
-.click_buy .list .piece a img { width:150px; height:150px; object-fit:cover; }
-
-
-#list_best { max-width:100%; height:550px; }
-#list_best ul li img { width:100px; height:100px; object-fit:cover; }
-
-
-.solar_system {padding: 200px 0;}
-.solar_system .orbit-container { position: relative; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; }
-.solar_system .orbit-container .sun { width: 80px; height: 80px; }
-.solar_system .orbit-container .earthmoon {display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; left: calc(50% + 40px); position: absolute;}
-.solar_system .orbit-container .earthmoon .earth { width: 30px; height: 30px; margin-left: 30px; }
-.solar_system .orbit-container .earthmoon .moon { width: 15px; height: 15px; margin-left: 20px; }
-.solar_system .orbit-container .mars { width: 25px; height: 25px; margin-left: 30px; left: calc(50% + 135px); position: absolute; }
 </style>
+

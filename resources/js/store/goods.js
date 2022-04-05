@@ -28,7 +28,7 @@ export default {
             state.frm.ca02      = param.ca02;
             state.frm.ca03      = param.ca03;
             state.frm.ca04      = param.ca04;
-            state.frm.mk_id      = param.mk_id;
+            state.frm.mk_id     = param.mk_id;
             state.frm.mode      = param.mode;
             state.frm.keyword   = param.keyword;
             state.frm.sort      = param.sort;
@@ -68,7 +68,7 @@ export default {
                 if ( !isEmpty(context.state.frm[i]) )
                     nfrm[i] = context.state.frm[i];
             }
-            router.push({ name: 'goods_index', query: nfrm }).catch(()=>{});
+            router.push({ name: 'goods_index', query: nfrm })//.catch(()=>{});
         },
     },
 }

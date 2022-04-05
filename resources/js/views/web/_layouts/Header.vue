@@ -8,7 +8,7 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mr-auto">
-                    <b-nav-item to="/shop/listing/day">당일출고q</b-nav-item>
+                    <b-nav-item to="/shop/listing/day">당일출고</b-nav-item>
                     <b-nav-item :to="{name: 'estimate_create'}">견적요청</b-nav-item>
                     <b-nav-item :to="{name: 'engReform_create'}">영문교정</b-nav-item>
                     <b-nav-item :to="{name: 'outlet'}">전문관</b-nav-item>
@@ -34,14 +34,14 @@
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form class="head_sch" @submit.prevent="routerPush">
                         <select class="custom-select" v-model="frm.mode">
-                            <option value="">통합검색</option>
+                            <option value="">전체</option>
                             <option value="gd_name">상품명</option>
                             <option value="gm_name">제품명</option>
                             <option value="gm_code">모델명</option>
                             <option value="cat_no">Cat.No</option>
                         </select>
-                        <b-form-input v-model="frm.keyword" placeholder="Please enter a keyword"></b-form-input>
-                        <b-button variant="outline-primary" type="submit"><font-awesome-icon icon="search" /></b-button>
+                        <b-form-input v-model="frm.keyword" placeholder="Please enter a keyword" @keyup.enter="routerPush"></b-form-input>
+                        <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
                     </b-nav-form>
                 </b-navbar-nav>
             </b-collapse>
@@ -140,13 +140,20 @@ export default {
 
 <style lang="css" scoped>
 #header { background-color:#F5F5F5; }
-#header nav { align-items:flex-end; }
+#header nav { align-items:flex-end; padding:.7rem 0; }
+#header nav .navbar-brand { padding:0; }
+#header nav .navbar-collapse { align-items:flex-end; }
+#header nav .navbar-collapse ul li a { padding:0 .5rem; }
+#header nav .navbar-collapse ul li a.router-link-exact-active { font-weight:bold; background:#0A7C8B; color:#FFF; border-radius:10px; }
+#header nav .head_sch { background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
+#header nav .head_sch form { min-width:36rem; }
+#header nav .head_sch form select { border-radius:17px 0 0 17px; height:calc(1.45em + 0.75rem + 2px); padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(/img/common/arrow_dn.gif)  no-repeat right 8px center; }
+#header nav .head_sch form input { border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size: 1.2rem; height: calc(1.1em + 0.75rem + 2px); margin-left:.17rem; flex-grow:1; }
+#header nav .head_sch form input:focus { outline:0; }
+#header nav .head_sch form button { padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
+#header nav .head_sch form button svg { font-size:1.4rem; }
+
 #header nav .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); }
 #header nav .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
-#header nav .head_sch { background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
-#header nav .head_sch select:after { content:""; position:absolute; width:0; height:0; border-left:50px solid transparent; border-right:50px solid transparent; border-top:100px solid red;} 
-#header nav .head_sch input { border:none; border-radius:22px; padding: 0.4rem 1rem; font-size: 1.2rem; }
-#header nav .head_sch input:focus { outline:0; }
-#header nav .head_sch svg { margin:0 16px; font-size:1.9rem; }
-#header nav ul.navbar-nav li a.router-link-exact-active { font-weight:bold; background:#0A7C8B; color:#FFF; border-radius:10px; }
+
 </style>

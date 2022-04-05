@@ -411,7 +411,6 @@ var render = function () {
     [
       _c(
         "perfect-scrollbar",
-        { attrs: { suppressScrollX: "true" } },
         [
           _c(
             "h4",

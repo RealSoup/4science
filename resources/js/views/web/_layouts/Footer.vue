@@ -1,7 +1,7 @@
 <template>
     <footer id="footer" class="bg-info">
         <div class="container">
-            <RecentGoods @scrollToTop="scrollToTop" :scrollbarYTop="scrollbarYTop" /> <!-- 최근 본 상품 -->
+            <RecentGoods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
 
             <div class="d-flex align-items-center justify-content-between small">
                 <div class="text-muted">Copyright &copy; Your Website 2019</div>
@@ -18,7 +18,6 @@
 <script>
 export default {
     name:"Footer",
-    props: ['scrollbarYTop'],
     components: {
         'RecentGoods': () => import('../_module/RecentGoods.vue'),
     },

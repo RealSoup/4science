@@ -278,6 +278,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 var dt = new Date();
@@ -365,8 +371,8 @@ var dt = new Date();
                 );
 
                 if (type == 'od_mng') {
-                  _this2.od.od_mng = _this2.auth().id;
-                  _this2.od.od_mng_nm = _this2.auth().name;
+                  _this2.od.od_mng = Auth.user().id;
+                  _this2.od.od_mng_nm = Auth.user().name;
                 }
 
                 _context2.next = 5;
@@ -628,6 +634,46 @@ var dt = new Date();
         Notify.modal('담당자 배정 이후에 사용가능합니다.');
         return false;
       }
+    },
+    onlineBooks: function onlineBooks() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _context9.prev = 0;
+                _this8.od.data_type = "ORD";
+                _context9.next = 4;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger", _this8.od);
+
+              case 4:
+                res = _context9.sent;
+
+                if (res && res.status === 200) {
+                  _this8.$router.push({
+                    name: 'adm_ledger'
+                  });
+                } else Notify.toast('warning', '기록 실패');
+
+                _context9.next = 12;
+                break;
+
+              case 8:
+                _context9.prev = 8;
+                _context9.t0 = _context9["catch"](0);
+                Notify.consolePrint(_context9.t0);
+                Notify.toast('warning', _context9.t0.response);
+
+              case 12:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, null, [[0, 8]]);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -653,7 +699,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* @import '/css/adm_shop_order_edit.css';*/\n#adm_order_edit .badge { font-size:100%;\n}\n#adm_order_edit .od_header { padding:0.3rem 15px; z-index:999;\n}\n#adm_order_edit .od_header span { margin-right:1rem;\n}\n#adm_order_edit .od_header span.badge { margin-right:2rem;\n}\n#adm_order_edit .od_header span svg { margin-right:0.5rem;\n}\n.actionArea { position:-webkit-sticky; position:sticky; top:0; z-index:1021;\n}\n.actionArea .input-group { position:absolute; top:2px; right:0; max-width:690px;\n}\n@media (max-width: 992px) {\n.actionArea { position:static;\n}\n.actionArea .input-group { position:static; max-width:none;\n}\n}\n#adm_order_edit .order_goods_info .gd_info .goods a { margin-right:1rem;\n}\n#adm_order_edit .order_goods_info .gd_info .goods a img { /*width:60px; height:60px; object-fit:cover;*/ max-width:100px;\n}\n#adm_order_edit .order_goods_info .gd_info .goods div { display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_info b { margin:0 0.8rem;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_price .md_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .option .option_price .opc_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .final_price p b,\r\n#adm_order_edit .order_goods_info .gd_total_price b { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .receiver_info .col>.badge + span { margin-right:2rem;\n}\n#adm_order_edit .receiver_info .col>.badge + span b { font-size:2rem;\n}\n#adm_order_edit .receiver_info .col .fade-enter-active,\r\n#adm_order_edit .receiver_info .col .fade-leave-active { transition: opacity .001s;\n}\n#adm_order_edit .receiver_info .col .fade-enter,\r\n#adm_order_edit .receiver_info .col .fade-leave-to { opacity: 0;\n}\n#adm_order_edit .receiver_info .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* @import '/css/adm_shop_order_edit.css';*/\n#adm_order_edit .badge { font-size:100%;\n}\n#adm_order_edit .od_header { padding:0.3rem 15px; z-index:999;\n}\n#adm_order_edit .od_header span { margin-right:1rem;\n}\n#adm_order_edit .od_header span.badge { margin-right:2rem;\n}\n#adm_order_edit .od_header span svg { margin-right:0.5rem;\n}\n.actionArea { position:-webkit-sticky; position:sticky; top:0; z-index:1021;\n}\n.actionArea .input-group { position:absolute; top:2px; right:0; max-width:690px;\n}\n@media (max-width: 992px) {\n.actionArea { position:static;\n}\n.actionArea .input-group { position:static; max-width:none;\n}\n}\n#adm_order_edit .order_goods_info .gd_info .goods a { margin-right:1rem;\n}\n#adm_order_edit .order_goods_info .gd_info .goods a img { /*width:60px; height:60px; object-fit:cover;*/ max-width:100px;\n}\n#adm_order_edit .order_goods_info .gd_info .goods div { display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_info b { margin:0 0.8rem;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_price .md_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .option .option_price .opc_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .final_price p b,\r\n#adm_order_edit .order_goods_info .gd_total_price b { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .receiver_info .col>.badge + span { margin-right:2rem;\n}\n#adm_order_edit .receiver_info .col>.badge + span b { font-size:2rem;\n}\n#adm_order_edit .receiver_info .col .fade-enter-active,\r\n#adm_order_edit .receiver_info .col .fade-leave-active { transition: opacity .001s;\n}\n#adm_order_edit .receiver_info .col .fade-enter,\r\n#adm_order_edit .receiver_info .col .fade-leave-to { opacity: 0;\n}\n#adm_order_edit .receiver_info .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -803,7 +849,6 @@ var render = function () {
                 _c(
                   "b-button",
                   {
-                    staticClass: "mr-3",
                     attrs: {
                       to: { name: "adm_order_index" },
                       variant: "outline-secondary",
@@ -813,42 +858,67 @@ var render = function () {
                 ),
                 _vm._v(" "),
                 _c(
-                  "b-button",
+                  "b-dropdown",
                   {
-                    attrs: { variant: "success" },
-                    on: { click: _vm.estimateExcel },
+                    attrs: {
+                      size: "sm",
+                      text: "파일 출력",
+                      variant: "warning",
+                    },
                   },
-                  [_vm._v("견적서"), _c("b-badge", [_vm._v("E")])],
+                  [
+                    _c(
+                      "b-dropdown-item-button",
+                      {
+                        attrs: { variant: "success" },
+                        on: { click: _vm.estimateExcel },
+                      },
+                      [_vm._v("견적서 "), _c("b-badge", [_vm._v("EXCEL")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item-button",
+                      {
+                        attrs: { variant: "warning" },
+                        on: { click: _vm.estimatePdf },
+                      },
+                      [_vm._v("견적서 "), _c("b-badge", [_vm._v("PDF")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("b-dropdown-divider"),
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item-button",
+                      {
+                        attrs: { variant: "success" },
+                        on: { click: _vm.transactionExcel },
+                      },
+                      [_vm._v("거래명세서 "), _c("b-badge", [_vm._v("EXCEL")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-dropdown-item-button",
+                      {
+                        attrs: { variant: "warning" },
+                        on: { click: _vm.transactionPdf },
+                      },
+                      [_vm._v("거래명세서 "), _c("b-badge", [_vm._v("PDF")])],
+                      1
+                    ),
+                  ],
                   1
                 ),
                 _vm._v(" "),
                 _c(
                   "b-button",
                   {
-                    attrs: { variant: "outline-success" },
-                    on: { click: _vm.estimatePdf },
+                    attrs: { variant: "info" },
+                    on: { click: _vm.onlineBooks },
                   },
-                  [_vm._v("견적서"), _c("b-badge", [_vm._v("P")])],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "warning" },
-                    on: { click: _vm.transactionExcel },
-                  },
-                  [_vm._v("거래명세서"), _c("b-badge", [_vm._v("E")])],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "outline-warning" },
-                    on: { click: _vm.transactionPdf },
-                  },
-                  [_vm._v("거래명세서"), _c("b-badge", [_vm._v("P")])],
+                  [_c("b-icon-journal-bookmark-fill"), _vm._v(" 장부기록")],
                   1
                 ),
                 _vm._v(" "),
@@ -857,13 +927,7 @@ var render = function () {
                   { attrs: { variant: "dark" }, on: { click: _vm.print } },
                   [_vm._v("인쇄")]
                 ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-input-group-prepend",
-              [
+                _vm._v(" "),
                 _vm.od.od_mng < 1
                   ? _c(
                       "b-button",
@@ -1784,50 +1848,63 @@ var render = function () {
                           _c(
                             "span",
                             [
-                              _vm.od.order_extra_info.oex_req_est == "Y"
-                                ? _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("견적서")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.od.order_extra_info.oex_req_tran == "Y"
-                                ? _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("거래명세서")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.od.order_extra_info.oex_req_biz == "Y"
-                                ? _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("사업자 등록증 사본")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.od.order_extra_info.oex_req_bank == "Y"
-                                ? _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("통장사본")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.od.order_extra_info.oex_req_est == "N" &&
-                              _vm.od.order_extra_info.oex_req_tran == "N" &&
-                              _vm.od.order_extra_info.oex_req_biz == "N" &&
-                              _vm.od.order_extra_info.oex_req_bank == "N"
-                                ? _c(
-                                    "b-badge",
-                                    { attrs: { variant: "warning" } },
-                                    [_vm._v("없음")]
-                                  )
-                                : _vm._e(),
+                              !_vm.od.order_extra_info
+                                ? [
+                                    _c(
+                                      "b-badge",
+                                      { attrs: { variant: "warning" } },
+                                      [_vm._v("없음")]
+                                    ),
+                                  ]
+                                : [
+                                    _vm.od.order_extra_info.oex_req_est == "Y"
+                                      ? _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [_vm._v("견적서")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.od.order_extra_info.oex_req_tran == "Y"
+                                      ? _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [_vm._v("거래명세서")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.od.order_extra_info.oex_req_biz == "Y"
+                                      ? _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [_vm._v("사업자 등록증 사본")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.od.order_extra_info.oex_req_bank == "Y"
+                                      ? _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [_vm._v("통장사본")]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.od.order_extra_info.oex_req_est ==
+                                      "N" &&
+                                    _vm.od.order_extra_info.oex_req_tran ==
+                                      "N" &&
+                                    _vm.od.order_extra_info.oex_req_biz ==
+                                      "N" &&
+                                    _vm.od.order_extra_info.oex_req_bank == "N"
+                                      ? _c(
+                                          "b-badge",
+                                          { attrs: { variant: "warning" } },
+                                          [_vm._v("없음")]
+                                        )
+                                      : _vm._e(),
+                                  ],
                             ],
-                            1
+                            2
                           ),
                         ],
                         1

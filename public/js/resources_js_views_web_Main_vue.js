@@ -17,12 +17,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_kinesis__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-kinesis */ "./node_modules/vue-kinesis/dist/vue-kinesis.esm.js");
 /* harmony import */ var vue_accordion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-accordion */ "./node_modules/vue-accordion/dist/vue-accordion.js");
 /* harmony import */ var vue_accordion__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_accordion__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -46,6 +53,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -65,42 +112,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listType: {
         best: {
           sort: 'new',
-          limit: 7
+          limit: 6
         }
       },
       list: {
         best: {}
       },
-      best: [{
-        title: 'First',
-        text: 'text',
-        url: '#',
-        image: '/images/one.jpg'
-      }],
-      styles: {
-        li: {
-          backgroundSize: 'cover'
-        }
-      }
+      bestByCategory: {} // best:[
+      //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
+      // ],
+      // styles: {
+      //     li: {
+      //         backgroundSize:'cover',
+      //     },
+      // }
+
     };
   },
-  computed: {
+  computed: _objectSpread({
     bestRemodel: function bestRemodel() {
       var dummy = [];
 
       for (var i in this.list.best) {
         dummy.push({
-          title: this.list.best[i].gd_name,
-          text: this.list.best[i].price,
+          gd_name: this.list.best[i].gd_name,
+          ca01_name: this.list.best[i].gc_ca01_name,
           gd_id: this.list.best[i].gd_id,
-          url: '/shop/goods/' + this.list.best[i].gd_id,
           image: this.list.best[i].image_src[0]
         });
       }
 
       return dummy;
     }
-  },
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('category', ['category'])),
   methods: {
     index: function index(frm) {
       var _this = this;
@@ -139,7 +183,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.index(this.listType.best);
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var rst;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.index(_this2.listType.best);
+
+              _context2.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/main");
+
+            case 3:
+              rst = _context2.sent;
+              _this2.bestByCategory = rst.data;
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -162,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.intro[data-v-5322a9b3] { display: flex; flex-direction: column; justify-content: center;\r\n    align-items: center; height:40vh; position: relative;\n}\n.intro[data-v-5322a9b3] {\r\n    background: linear-gradient(124deg, #FFCBCB, #FFDBCB, #FFF2CB, #FFFFD3, #D1FFD8, #CEFCFF, #D6D1FF, #FCD3FF, #FCD3FF);\r\n    background-size: 1800% 1800%;\r\n    -webkit-animation: rainbow-data-v-5322a9b3 18s ease infinite; -z-animation: rainbow-data-v-5322a9b3 18s ease infinite; animation: rainbow-data-v-5322a9b3 18s ease infinite;\n}\n@-webkit-keyframes rainbow-data-v-5322a9b3 {\n0%{background-position:0% 82%}\n50%{background-position:100% 19%}\n100%{background-position:0% 82%}\n}\n@keyframes rainbow-data-v-5322a9b3 {\n0%{background-position:0% 82%}\n50%{background-position:100% 19%}\n100%{background-position:0% 82%}\n}\n.intro .item[data-v-5322a9b3] { position:absolute; background-repeat:no-repeat; background-size:contain;\n}\n.intro .item.heart[data-v-5322a9b3] { background-image:url(/img/main/heart.png); width:7vw; height:7vw; right:7vw;\n}\n.intro .item.molecular[data-v-5322a9b3]  { background-image:url(/img/main/molecular.png); width:13vw; height:13vw; right:20%;\n}\n.intro .item.microscope[data-v-5322a9b3] { background-image:url(/img/main/microscope.png); width:8vw; height:8vw; left:30%; top:25%;\n}\n.intro .item.neurons[data-v-5322a9b3] { background-image:url(/img/main/neurons.png); width:10vw; height:10vw; right:20%; top:90%;\n}\n.intro .item.dna[data-v-5322a9b3] { background-image:url(/img/main/dna.png); width:8vw; height:8vw; left:20%; top:60%;\n}\n.intro .item.spoid[data-v-5322a9b3] { background-image:url(/img/main/spoid.png); width:15vw; height:15vw; left:2vw; top:15%;\n}\n.intro h1[data-v-5322a9b3] {position:relative;display:flex;color:#351b1b;font-size:72px}\n.intro h1 span[data-v-5322a9b3]:first-of-type{margin-top:0}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(2){margin-top:-20px}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(3){margin-top:-7px}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(4){margin-top:8px}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(5){margin-top:-13px}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(6){margin-top:-5px}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(7){margin-top:0}\n.intro h1 span[data-v-5322a9b3]:nth-of-type(8){margin-top:-6px}\n.intro .slogan[data-v-5322a9b3] { z-index:2;\n}\n.slide_banner[data-v-5322a9b3] { margin:2rem 0;\n}\n.slide_banner[data-v-5322a9b3] .carousel-inner .carousel-item a img { width:100%; height:600px; -o-object-fit:cover; object-fit:cover;\n}\n.main_banner01[data-v-5322a9b3] { margin-bottom:2rem;}\n.click_buy[data-v-5322a9b3] { border:1px solid red; height:220px;\n}\n.click_buy .title[data-v-5322a9b3] { font-size:2.5rem; font-weight:bold; font-family: Serif;\n}\n.click_buy .list[data-v-5322a9b3] {\n}\n.click_buy .list .piece[data-v-5322a9b3] { /*position:absolute; top:0; left:0;*/ width:150px; height:150px; float:left;\n}\n.click_buy .list[data-v-5322a9b3]:after { content:\"&nbsp;\"; display:block; clear:both; visibility:hidden; line-height:0; height:0;\n}\n.click_buy .list .piece[data-v-5322a9b3]:nth-of-type(1) { transform : translatex(-500px);\n}\n.click_buy .list .piece[data-v-5322a9b3]:nth-of-type(2) { transform : translatex(-300px);\n}\n.click_buy .list .piece[data-v-5322a9b3]:nth-of-type(3) { transform : translatex(-150px);\n}\n.click_buy .list .piece[data-v-5322a9b3]:nth-of-type(4) { transform : translatex(0px);\n}\n.click_buy .list .piece a img[data-v-5322a9b3] { width:150px; height:150px; -o-object-fit:cover; object-fit:cover;\n}\n#list_best[data-v-5322a9b3] { max-width:100%; height:550px;\n}\n#list_best ul li img[data-v-5322a9b3] { width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n.solar_system[data-v-5322a9b3] {padding: 200px 0;}\n.solar_system .orbit-container[data-v-5322a9b3] { position: relative; display: flex; justify-content: center; align-items: center;\n}\n.solar_system .orbit-container .sun[data-v-5322a9b3] { width: 80px; height: 80px;\n}\n.solar_system .orbit-container .earthmoon[data-v-5322a9b3] { display: flex; align-items: center; left: calc(50% + 40px); position: absolute;}\n.solar_system .orbit-container .earthmoon .earth[data-v-5322a9b3] { width: 30px; height: 30px; margin-left: 30px;\n}\n.solar_system .orbit-container .earthmoon .moon[data-v-5322a9b3] { width: 15px; height: 15px; margin-left: 20px;\n}\n.solar_system .orbit-container .mars[data-v-5322a9b3] { width: 25px; height: 25px; margin-left: 30px; left: calc(50% + 135px); position: absolute;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.recommend[data-v-5322a9b3] { margin-top:3rem;\n}\n.recommend .back[data-v-5322a9b3] { background:#51B948; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .layout .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .layout .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .layout .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .layout .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius: 10px;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate ul[data-v-5322a9b3] { position:absolute; left:-60px; border:1px solid #898989;\n}\n.byCate ul li[data-v-5322a9b3] { padding:.4rem; opacity:.5;\n}\n.byCate ul li[data-v-5322a9b3]:hover { background:#448AC8; opacity:1;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position: absolute; z-index: -1; width: 200px; height: 500px; -o-object-fit: cover; object-fit: cover;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem; margin:1.5rem 0 0 1rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2; margin:1.5rem 0 0 1rem;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:25px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:cover; object-fit:cover;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:1rem 0 0; width:164px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:3rem;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -319,57 +386,260 @@ var render = function () {
         "b-carousel",
         { staticClass: "slide_banner", attrs: { indicators: "" } },
         [
-          _vm._l(_vm.bestRemodel, function (row, idx) {
-            return [
+          _c(
+            "b-link",
+            { attrs: { href: "/" } },
+            [
               _c("b-carousel-slide", {
-                key: idx,
-                scopedSlots: _vm._u(
-                  [
-                    {
-                      key: "img",
-                      fn: function () {
-                        return [
-                          _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "goods_show",
-                                  params: { gd_id: row.gd_id },
-                                },
-                              },
-                            },
-                            [_c("img", { attrs: { src: row.image } })]
-                          ),
-                        ]
-                      },
-                      proxy: true,
-                    },
-                  ],
-                  null,
-                  true
-                ),
+                attrs: { "img-src": "/img/main/banner01.png" },
               }),
-            ]
-          }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-link",
+            { attrs: { href: "/" } },
+            [
+              _c("b-carousel-slide", {
+                attrs: { "img-src": "/img/main/banner02.png" },
+              }),
+            ],
+            1
+          ),
         ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          staticClass: "layout d-block main_banner01",
-          attrs: { to: { name: "", params: {} } },
-        },
-        [
-          _c("img", {
-            attrs: { src: "/img/common/banner01.png", width: "100%" },
-          }),
-        ]
+        1
       ),
       _vm._v(" "),
       _c("BestList", { attrs: { items: _vm.bestRemodel } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "recommend" }, [
+        _c("div", { staticClass: "back" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "layout" },
+          [
+            _c(
+              "b-row",
+              [_c("b-col", { staticClass: "tit" }, [_vm._v("포사의 추천 >")])],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec01.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec02.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec03.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec04.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec06.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        },
+                      },
+                      [_c("b-img", { attrs: { src: "/img/main/rec05.jpg" } })],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "byCate layout" },
+        [
+          _c(
+            "b-row",
+            { staticClass: "titByCate" },
+            [
+              _c("b-col", { attrs: { tag: "h5" } }, [
+                _vm._v("카테고리별 추천"),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.category, function (ca, i) {
+              return _c("li", { key: ca.ca_id }, [
+                _c("img", {
+                  attrs: { src: "/img/main/icon_ca" + ca.ca_id + "_sm.jpg" },
+                }),
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "b-container",
+            { staticClass: "con" },
+            _vm._l(_vm.category, function (ca, i) {
+              return _c(
+                "b-row",
+                { key: ca.ca_id },
+                [
+                  _c(
+                    "b-col",
+                    { staticClass: "tit" },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
+                        },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/icon_ca24_sm.jpg" },
+                          }),
+                          _vm._v(" "),
+                          _c("h6", [_vm._v(_vm._s(ca.ca_name))]),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [_vm._v("전체보기 "), _c("b-icon-chevron-right")],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "list" },
+                    _vm._l(_vm.bestByCategory[ca.ca_id], function (gd) {
+                      return _c(
+                        "b-col",
+                        { key: gd.gd_id },
+                        [
+                          _c("b-img", {
+                            attrs: {
+                              fluid: "",
+                              src: gd.goods.image_src_thumb[0],
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(gd.goods.gd_name))]),
+                        ],
+                        1
+                      )
+                    }),
+                    1
+                  ),
+                ],
+                1
+              )
+            }),
+            1
+          ),
+        ],
+        1
+      ),
     ],
     1
   )

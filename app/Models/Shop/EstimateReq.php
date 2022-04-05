@@ -20,7 +20,7 @@ class EstimateReq extends Model {
 
     public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
     public function estimateReply() {   return $this->hasMany(EstimateReply::class, "er_eq_id"); }
-    public function fileInfo() {        return $this->morphMany(FileInfo::class, 'fileable', 'fi_type', 'fi_key'); }
+    public function fileInfo() {        return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function mng()       {       return $this->belongsTo(User::class, 'eq_mng'); }
 
     public function scopeEqId($query, $id_arr=[0]) {

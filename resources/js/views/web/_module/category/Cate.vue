@@ -5,7 +5,8 @@
                 <div class="list_wrap">
                     <ul class="depth01">
                         <li
-                            v-for="(ca, i) in cate"
+                            v-for="ca in category"
+                            :key="ca.ca_id"
                             :class="{ 'active': check_query(ca.ca_id) }"
                             @mouseenter="ca.sub_show = true"
                             @mouseleave="ca.sub_show = false"
@@ -21,12 +22,12 @@
                                 :paramLink="'/'+ca.ca_id"
                             />
                         </li>
-                        <!-- <li>
-                                <b-link :to="{name: 'goods_index' }">
-                                <img :src="'/img/common/cate/ca_3.png'" />
+                        <li>
+                            <b-link :to="{name: 'goods_index' }">
+                                <img :src="'/img/common/cate/ca_21.png'" />
                                 <span>주문제작</span>
                             </b-link>
-                        </li> -->
+                        </li>
                         <div class="indicator"></div>
                     </ul>
                 </div>
@@ -36,49 +37,29 @@
 </template>
 
 <script>
-import ax from '@/api/http';
+import { mapState } from 'vuex'
 
 export default {
-    name: 'Categorys',
+    name: 'ModuleCategory',
+
     components: {
         'CateSub': () => import('./CateSub.vue'),
     },
-    data() {
-        return {
-            cate:{},
-        };
-    },
+
     computed: {
-        // check_query: function () {
-        // 	return this.$route.query.ca01 == 0 ? 0 : 15;
-        // },
-
+        ...mapState('category', ['category']),
     },
-    methods: {
-        async index(){
-            try {
-                const res = await ax.get(`/api/category/all`);
-                if (res && res.status === 200)
-                    this.cate= res.data;
-            } catch (e) {
-                Notify.consolePrint(e);
-            }
-        },
 
+    methods: {
         check_query: function (ca01) {
         	return this.$route.query.ca01 == ca01 ? true : false;
         },
-
     },
-    mounted() {
-        this.index();
-    },
-
 }
 </script>
 
 <style media="screen">
-:root { --clr:#222327; }
+:root { --clr:#626C75; }
 #categorys { z-index:1050; padding:40px 0 10px 0; background: var(--clr); }
 #categorys .background { width:1680px; margin:auto; background:#fff; border-radius:15px; }
 #categorys .background .list_wrap { display:flex; justify-content:center; align-items:center; position:relative; }

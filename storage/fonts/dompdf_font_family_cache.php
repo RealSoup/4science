@@ -1,4 +1,5 @@
-<?php return array (
+<?php return function ($fontDir, $rootDir) {
+return array (
   'sans-serif' => array(
     'normal' => $rootDir . '/lib/fonts/Helvetica',
     'bold' => $rootDir . '/lib/fonts/Helvetica-Bold',
@@ -78,9 +79,10 @@
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'nanumgothic' => array(
-    'normal' => $fontDir . '/nanumgothic_normal_2778f384c39007c040e31192faf08b46',
-    'bold' => $fontDir . '/nanumgothic_bold_84672a3df3895ab395363b78e2e1c876',
-    '800' => $fontDir . '/nanumgothic_800_0cabc1c55dbf42ce7befcad9886b2b7b',
-    '100' => $fontDir . '/nanumgothic_100_00cd7949473cd0493c126df7e5635086',
+    'normal' => $fontDir . '/nanumgothic_normal_85a7d5a2af55c23130ae38cac233f9b4',
+    'bold' => $fontDir . '/nanumgothic_bold_d17fd83e95f229be72f6a994dbb9a503',
+    '800' => $fontDir . '/nanumgothic_800_3a4a56325514880c0cff969b59d12685',
+    '100' => $fontDir . '/nanumgothic_100_3f3cc84b016fbfd57b3cea475bca72a9',
   ),
-) ?>
+);
+}; ?>

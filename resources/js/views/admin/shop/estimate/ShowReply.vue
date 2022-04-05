@@ -15,6 +15,7 @@
                     </b-col>
                     <b-col class="text-right">
                         <b-button-group size="sm">
+                            <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 장부기록</b-button>
                             <b-button variant="primary" @click="reSend"><b-icon-mailbox /> 재발송</b-button>
                             <b-button variant="success" :to="{name: 'adm_estimate_create', query: { eq_id:frm.estimate_req.eq_id }}"><b-icon-pencil-square /> 재작성</b-button>
                             <b-button variant="warning" :to="{name: 'adm_estimate_edit', params: { er_id:$route.params.er_id }}"><b-icon-tools /> 수정</b-button>
@@ -301,6 +302,20 @@ export default {
                 }
             } catch (e) {
                 Notify.consolePrint(e);
+            }
+        },
+
+        async onlineBooks() {
+            try {
+                this.frm.data_type="EST";
+                const res = await ax.post(`/api/admin/ledger`, this.frm);
+                if (res && res.status === 200) {
+                    this.$router.push({ name: 'adm_ledger' })
+                } else
+                    Notify.toast('warning', '기록 실패');
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response);
             }
         }
 

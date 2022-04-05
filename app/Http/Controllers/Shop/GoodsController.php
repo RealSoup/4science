@@ -142,9 +142,6 @@ class GoodsController extends Controller {
             $data['list'] = $gd->paginate();
             $data['list']->appends($req->all())->links();
         }
-
-
-        
 		return response()->json($data);
     }
 

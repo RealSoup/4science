@@ -162,7 +162,7 @@ class OrderController extends Controller {
 
 		$data->orderExtraInfo;
 		// $data->fileInfo;
-		if (!$data->orderExtraInfo->oex_biz_name) $data->fileInfo;
+		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;
 
 
 		// $params['user'] = User::find($params['od']->created_id);

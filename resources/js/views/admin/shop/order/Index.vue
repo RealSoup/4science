@@ -2,34 +2,7 @@
     <div id="adm_order">
         <b-card class="shadow">
             <b-container fluid>
-                <b-row class="mb-3">
-                    <b-col lg="3" md="4" sm="6">
-                        <b-input-group>
-                            <b-form-input v-model="sch_frm.startDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate"></b-form-input>
-                            <b-input-group-append>
-                                <b-form-datepicker v-model="sch_frm.startDate" button-only right></b-form-datepicker>
-                            </b-input-group-append>
-                        </b-input-group>
-                    </b-col>
-                    <b-col lg="3" md="4" sm="6">
-                        <b-input-group>
-                            <b-form-input v-model="sch_frm.endDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate"></b-form-input>
-                            <b-input-group-append>
-                                <b-form-datepicker v-model="sch_frm.endDate" button-only right></b-form-datepicker>
-                            </b-input-group-append>
-                        </b-input-group>
-                    </b-col>
-                    <b-col lg="6" md="4" sm="12">
-                        <b-button-group class="width_btn">
-                            <b-button variant="primary" @click="setDate('today')">오늘</b-button>
-                            <b-button variant="info" @click="setDate('3day')">3일</b-button>
-                            <b-button variant="success" @click="setDate('week')">1주</b-button>
-                            <b-button variant="danger" @click="setDate('month')">1달</b-button>
-                            <b-button variant="warning" @click="setDate('3month')">3달</b-button>
-                            <b-button variant="dark" @click="setDate('all')">전체</b-button>
-                        </b-button-group>
-                    </b-col>
-                </b-row>
+                <SchDate v-model="sch_frm" />
 
                 <b-row class="mb-3">
                     <b-col lg="2" md="4" sm="6">
@@ -177,6 +150,7 @@ import ax from '@/api/http';
 
 export default {
     components: {
+        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
     },
     data() {
         return {
@@ -229,24 +203,7 @@ export default {
             this.sch_frm.page = page;
             this.index();
         },
-        setDate(type) {
-            var dt = new Date();
-            var sdt = '', edt = dt.format("yyyy-MM-dd");
-            switch (type) {
-                case 'today':   ;                                 break;
-                case '3day':    dt.setDate(dt.getDate() - 3);       break;
-                case 'week':    dt.setDate(dt.getDate() - 7);       break;
-                case 'month':   dt.setMonth(dt.getMonth() - 1);   break;
-                case '3month':  dt.setMonth(dt.getMonth() - 3);   break;
-                case 'all':     edt = '';   break;
-            }
-
-            if (type != 'all')
-                sdt = dt.format("yyyy-MM-dd");
-
-            this.sch_frm.startDate = sdt;
-            this.sch_frm.endDate = edt;
-        },
+        
     },
     mounted() {
         this.index();
@@ -255,8 +212,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#adm_order .width_btn { display:flex; }
-#adm_order .width_btn .btn { flex:1; }
 #adm_order .od_list .row.list_item > div { padding:10px 4px; }
 #adm_order .od_list .row.list_item:nth-child(odd) > div:nth-child(odd),
 #adm_order .od_list .row.list_item:nth-child(even) > div:nth-child(even) { /*border:1px solid #EAF2FF;*/ }

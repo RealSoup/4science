@@ -119,5 +119,26 @@ export default [
         component:() => import('@/views/admin/engReform/Edit.vue'),
         beforeEnter: isAdmin()
     },
+
+    //  통계
+    {
+        path: '/admin/stats/join',
+        name: 'adm_stats_join',
+        component:() => import('@/views/admin/stats/IndexJoin.vue'),
+        beforeEnter: isAdmin()
+    }, {
+        path: '/admin/stats/order',
+        name: 'adm_stats_order',
+        component:() => import('@/views/admin/stats/IndexOrder.vue'),
+        beforeEnter: isAdmin()
+    },
+
+    //  영업장부
+    {
+        path: '/admin/ledger',
+        name: 'adm_ledger',
+        component:() => import('@/views/admin/ledger/Index.vue'),
+        beforeEnter: isAdmin()
+    },
     
 ]

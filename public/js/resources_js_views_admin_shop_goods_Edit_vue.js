@@ -188,7 +188,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
-      if (this.$route.name == 'adm_goods_edit' && this.value[i].fi_id) this.delete_file_goods.push(this.value[i].fi_id);
+      if (this.value[i].fi_id) this.delete_file_goods.push(this.value[i].fi_id);
       this.value.splice(i, 1);
     },
     onClick: function onClick() {

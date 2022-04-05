@@ -132,22 +132,22 @@ export default {
         return {}
     },
     watch: {
-        frm: {
-            handler(val, oldVal) {
-                this.routerPush();
-            },
-            deep: true
-        },
+        // frm: {
+        //     handler(val, oldVal) {
+        //         this.routerPush();
+        //     },
+        //     deep: true
+        // },
     },
     computed: {
-        new_frm(){
-            let nfrm = {};
-            for (let i in this.sch_frm) {
-                if ( !isEmpty(this.sch_frm[i]) )
-                    nfrm[i] = this.sch_frm[i];
-            }
-            return nfrm;
-        },
+        // new_frm(){
+        //     let nfrm = {};
+        //     for (let i in this.sch_frm) {
+        //         if ( !isEmpty(this.sch_frm[i]) )
+        //             nfrm[i] = this.sch_frm[i];
+        //     }
+        //     return nfrm;
+        // },
         ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info']),
     },
     methods: {
@@ -166,11 +166,11 @@ export default {
         //     this.$router.push({ name: 'goods_index', query: this.new_frm }).catch(()=>{});
         // },
         setPage(page) {
-            this.sch_frm.page = page;
+            this.frm.page = page;
             this.routerPush();
         },
         sort(type=null) {
-            this.sch_frm.sort = type;
+            this.frm.sort = type;
             this.routerPush();
         },
         routerPush(){
