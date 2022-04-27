@@ -31,13 +31,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CartModel",
@@ -146,13 +139,13 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-row",
-    { attrs: { tag: "li" } },
+    { staticClass: "gd_model", attrs: { tag: "li" } },
     [
       _c(
         "b-col",
-        { attrs: { cols: "4" } },
         [
           _c("b-form-checkbox", {
+            staticClass: "hide",
             attrs: { value: "Y", "unchecked-value": "N" },
             model: {
               value: _vm.value.ct_check_opt,
@@ -181,38 +174,25 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-col",
+        { staticClass: "hide" },
         [
           _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.gm_name, 15)))]),
           _vm._v(" "),
-          _c("div", [_vm._v(_vm._s(_vm.value.gm_catno))]),
+          _c("div", [
+            _vm._v(_vm._s(_vm._f("comma")(_vm.value.gm_price_add_vat)) + "원"),
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("VueNumericInput", {
-                attrs: { align: "center", min: 1 },
-                on: { input: _vm.update },
-                model: {
-                  value: _vm.value.ea,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "ea", $$v)
-                  },
-                  expression: "value.ea",
-                },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-badge",
-            {
-              staticClass: "btn_x",
-              attrs: { pill: "", variant: "danger" },
-              on: { click: _vm.outCart },
+          _c("VueNumericInput", {
+            attrs: { align: "center", min: 1, width: "110px" },
+            on: { input: _vm.update },
+            model: {
+              value: _vm.value.ea,
+              callback: function ($$v) {
+                _vm.$set(_vm.value, "ea", $$v)
+              },
+              expression: "value.ea",
             },
-            [_vm._v("X")]
-          ),
+          }),
         ],
         1
       ),

@@ -61,8 +61,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
     Route::prefix('admin')->group(function () {
 
-        Route::GET('config', 'Admin\ConfigController@index')->name('config.index');
-        Route::PATCH('config/update', 'Admin\ConfigController@update')->name('config.update');
+        Route::prefix('site')->group(function () {
+            Route::GET('info', 'Admin\SiteController@info');
+            Route::PATCH('info/update', 'Admin\SiteController@infoUpdate');
+
+            Route::GET('mainCateGoods/{ca_id}', 'Admin\SiteController@mainCateGoods');
+            Route::POST('mainCateGoodsUpdate', 'Admin\SiteController@mainCateGoodsUpdate');
+        });
+
         Route::prefix('user')->group(function () {
             // Route::GET('user', 'Admin\UserController@index')->name('user.index');
             Route::GET('list', 'Admin\UserController@list')->name('user.list');
@@ -88,6 +94,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::prefix('goods')->group(function () {
                 Route::GET('getModel', 'Admin\Shop\GoodsController@getModel');
                 Route::POST('fileUpload', 'Admin\Shop\GoodsController@fileUpload');
+                Route::GET('getGoodsList', 'Admin\Shop\GoodsController@getGoodsList');
             });
             Route::resource('goods', 'Admin\Shop\GoodsController');
             

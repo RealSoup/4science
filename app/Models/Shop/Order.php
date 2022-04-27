@@ -51,7 +51,7 @@ class Order extends Model {
     public function orderGoods() { return $this->hasMany(OrderGoods::class, "odg_od_id"); }//->orderBy('gm_order'); }
     public function orderModel() { return $this->hasMany(OrderModel::class, "odm_od_id"); }
     public function orderExtraInfo() { return $this->hasOne(OrderExtraInfo::class, 'oex_od_id', 'od_id'); }
-    // public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
+    public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function pg() { return $this->hasOne(Pg::class, 'pg_od_no', 'od_no'); }
     public function orderAnswer() { return $this->hasOne(OrderAnswer::class, 'oda_od_id', 'od_id'); }
 

@@ -9,11 +9,19 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mr-auto">
-                    <b-nav-item :to="{name: 'adm_config'}" active-class="active" exact>Site설정</b-nav-item>
-                    <b-nav-item :to="{name: 'adm_category'}" active-class="active" exact>카테고리</b-nav-item>
+                    <b-nav-item-dropdown text="Site관리">
+                        <b-dropdown-item :to="{name: 'adm_site_info'}">정보설정</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_site_main_cate_goods'}">메인 카테고리별 추천 상품</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                    
+                    <b-nav-item-dropdown text="회원관리">
+                        <b-dropdown-item :to="{name: 'adm_user'}">회원목록</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_user_mileage'}">마일리지</b-dropdown-item>
+                    </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown text="상품관리">
                         <b-dropdown-item :to="{name: 'adm_goods_index'}">상품목록</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_category'}">카테고리</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_maker'}">제조사</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_purchaseAt'}">직배송/항공운임</b-dropdown-item>
                     </b-nav-item-dropdown>

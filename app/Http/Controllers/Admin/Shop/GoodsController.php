@@ -420,6 +420,10 @@ class GoodsController extends Controller {
         return response()->json($rst, 200);
     }
 
+    public function getGoodsList(Request $req) {
+        return response()->json($this->goods->SchGd_name($req->gd_name)->get(), 200);
+    }
+
     // public function getGoods(Request $req){
     //     $rst = $this->goods->find($req->gd_id);
     //     $rst->maker;

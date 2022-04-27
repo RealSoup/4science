@@ -31,16 +31,13 @@
 <script>
 import ax from '@/api/http';
 require('vue2-animate/dist/vue2-animate.min.css');
-import { mapState } from 'vuex'
 
 export default {
+    name:"RecentGoods",
     watch: {
         '$route' (to, from) {
             if (to.name == 'goods_show')
                 this.updateRecentGoods();
-        },
-        'scroll.y' (to, from) {
-            this.viewGoTop = to > 30;
         },
     },
     data () {
@@ -62,16 +59,18 @@ export default {
         divideRecentGoods () {
             return Array.from(Array(Math.ceil(this.recentGoods.length / this.itemsPerRow)).keys())
         },
-        ...mapState('scroll', ['scroll']),
     },
     methods: {
         scrollToTop(){
-            this.$emit('scrollToTop');
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            })
         },
-        // scrollListener: function (e) {
-        //     this.viewGoTop = window.scrollY > 150;
-        //
-        // },
+        scrollListener: function (e) {
+            this.viewGoTop = window.scrollY > 150;
+        },
         async setRecentGoods() {
             try {
                 let cookies = this.$cookies.get(this.ck_key);
@@ -130,12 +129,11 @@ export default {
         if (this.$route.name == 'goods_show')
             this.updateRecentGoods();
         this.setRecentGoods();
-        // window.addEventListener('scroll', this.scrollListener);
-        // console.log(this.$route.name);
+        window.addEventListener('scroll', this.scrollListener);
     },
-    // beforeDestroy: function () {
-    //     window.removeEventListener('scroll', this.scrollListener)
-    // },
+    beforeDestroy: function () {
+        window.removeEventListener('scroll', this.scrollListener)
+    }
 }
 </script>
 

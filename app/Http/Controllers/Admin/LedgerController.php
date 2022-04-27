@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Ledger, User};
+use App\Models\{Ledger, LedgerModel, User};
 use DB;
 
 class LedgerController extends Controller {
@@ -14,7 +14,7 @@ class LedgerController extends Controller {
     }
 
     public function index(Request $req) {
-        $lg = new Ledger;
+        $lg = Ledger::with('ledgerModel');
         if ($req->filled('startDate'))      $lg = $lg->StartDate($req->startDate);
         if ($req->filled('endDate'))        $lg = $lg->EndDate($req->endDate);
         if ($req->filled('startGmPrice'))   $lg = $lg->StartGmPrice(str_replace(',', '', $req->startGmPrice));
@@ -32,15 +32,16 @@ class LedgerController extends Controller {
                 case 'orderer':     $lg = $lg->where('lg_orderer', $req->keyword); break;
                 case 'source_no':   $lg = $lg->where('lg_source_no', $req->keyword); break;
                 case 'distributor': $lg = $lg->where('lg_distributor', 'like', "%{$req->keyword}%"); break;
-                case 'gm_name':     $lg = $lg->where('lg_gm_name', 'like', "%{$req->keyword}%"); break;
-                case 'catno':       $lg = $lg->where('lg_catno', $req->keyword); break;
-                case 'gm_code':     $lg = $lg->where('lg_gm_code', $req->keyword); break;
+                case 'gm_name':     $lg = $lg->where('lm_gm_name', 'like', "%{$req->keyword}%"); break;
+                case 'catno':       $lg = $lg->where('lm_catno', $req->keyword); break;
+                case 'gm_code':     $lg = $lg->where('lm_gm_code', $req->keyword); break;
             }
         }
         // echo_query($lg);
         $data['lg'] = $lg->latest()->orderByDesc('lg_id')->paginate(20);
-        $data['total']['ea_price'] = $data['lg']->sum('lg_ea_price');
-        $data['total']['sum_price'] = $data['lg']->sum('lg_sum_price');
+        // dd($data);
+        $data['total']['ea_price'] = $data['lg']->sum('lm_ea_price');
+        $data['total']['sum_price'] = $data['lg']->sum('lm_sum_price');
         $data['mng'] = User::has('UserMng')->get();
 
         return response()->json($data, 200);
@@ -93,41 +94,39 @@ class LedgerController extends Controller {
             }
             
         } else if($req->filled('data_type') && $req->data_type == 'EST') {
+            $lg_id = DB::table('ledger')->insertGetId([
+                'lg_mng'         => $req->user['name'],
+                'lg_source_type' => $req->data_type,
+                'lg_source_no'   => $req->er_id,
+                'lg_depart'      => $req->estimate_req['eq_department'],
+                'lg_orderer'     => $req->estimate_req['eq_name'],
+                'created_id'    => auth()->user()->id,
+                'ip'             => $req->ip(),
+            ]);
+
             foreach ($req->estimate_model as $em) {
                 foreach ($em['estimate_option'] as $eo) {
-                    $rst = Ledger::create([
-                        // 'lg_order_dt'    => substr($req->created_at, 0, 10),
-                        'lg_mng'         => $req->user['name'],
-                        'lg_source_type' => $req->data_type,
-                        'lg_source_no'   => $req->er_id,
-                        'lg_depart'      => $req->estimate_req['eq_department'],
-                        'lg_orderer'     => $req->estimate_req['eq_name'],
-                        'lg_gm_name'     => "{$eo['eo_tit']} - {$eo['eo_name']}",
-                        'lg_gm_price'    => $eo['eo_price'],
-                        'lg_ea'          => $eo['eo_ea'],
-                        'lg_ea_price'    => $eo['eo_price']*$eo['eo_ea'],
-                        'lg_surtax'      => intval(($eo['eo_price']*$eo['eo_ea'])*0.1),
-                        'lg_sum_price'   => intval(($eo['eo_price']*$eo['eo_ea'])*1.1),
-                        'ip'             => $req->ip(),
+                    $rst = LedgerModel::create([
+                        'lm_lg_id'     => $lg_id,
+                        'lm_gm_name'   => "{$eo['eo_tit']} - {$eo['eo_name']}",
+                        'lm_gm_price'  => $eo['eo_price'],
+                        'lm_ea'        => $eo['eo_ea'],
+                        'lm_ea_price'  => $eo['eo_price']*$eo['eo_ea'],
+                        'lm_surtax'    => intval(($eo['eo_price']*$eo['eo_ea'])*0.1),
+                        'lm_sum_price' => intval(($eo['eo_price']*$eo['eo_ea'])*1.1),
                     ]);
                 }
-                $rst = Ledger::create([
-                    // 'lg_order_dt'    => substr($req->created_at, 0, 10),
-                    'lg_mng'         => $req->user['name'],
-                    'lg_source_type' => $req->data_type,
-                    'lg_source_no'   => $req->er_id,
-                    'lg_depart'      => $req->estimate_req['eq_department'],
-                    'lg_orderer'     => $req->estimate_req['eq_name'],
-                    'lg_gm_name'     => $em['em_name'],
-                    'lg_gm_spec'     => $em['em_spec'],
-                    'lg_catno'       => $em['em_catno'],
-                    'lg_gm_code'     => $em['em_code'],
-                    'lg_gm_price'    => $em['em_price'],
-                    'lg_ea'          => $em['em_ea'],
-                    'lg_ea_price'    => $em['em_price']*$em['em_ea'],
-                    'lg_surtax'      => intval(($em['em_price']*$em['em_ea'])*0.1),
-                    'lg_sum_price'   => intval(($em['em_price']*$em['em_ea'])*1.1),
-                    'ip'             => $req->ip(),
+                $rst = LedgerModel::create([
+                    'lm_lg_id'     => $lg_id,
+                    'lm_gm_name'   => $em['em_name'],
+                    'lm_gm_spec'   => $em['em_spec'],
+                    'lm_catno'     => $em['em_catno'],
+                    'lm_gm_code'   => $em['em_code'],
+                    'lm_gm_price'  => $em['em_price'],
+                    'lm_ea'        => $em['em_ea'],
+                    'lm_ea_price'  => $em['em_price']*$em['em_ea'],
+                    'lm_surtax'    => intval(($em['em_price']*$em['em_ea'])*0.1),
+                    'lm_sum_price' => intval(($em['em_price']*$em['em_ea'])*1.1),
                 ]);
             }
         } else {

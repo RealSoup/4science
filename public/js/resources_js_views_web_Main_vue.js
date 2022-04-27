@@ -92,11 +92,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "SiteMain",
   components: {
     KinesisContainer: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisContainer,
     KinesisElement: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisElement,
@@ -118,7 +154,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       list: {
         best: {}
       },
-      bestByCategory: {} // best:[
+      bestByCategory: {},
+      cateSideMenuPosition: 'absolute',
+      cateSideMenuTop: 'auto',
+      cateSideMenuBottom: 'auto',
+      scrollVal: [1858, 2400, 2942, 3484, 4026, 4568, 5110, 5652, 6690, 7294, 7898, 8502, 9106, 9710, 10314, 10918, 11522, 12126, 12730, 13111],
+      scrollEnd: 11721,
+      currentScroll: 0 // best:[
       //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
       // ],
       // styles: {
@@ -138,7 +180,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           gd_name: this.list.best[i].gd_name,
           ca01_name: this.list.best[i].gc_ca01_name,
           gd_id: this.list.best[i].gd_id,
-          image: this.list.best[i].image_src[0]
+          image: this.list.best[i].image_src_thumb[0]
         });
       }
 
@@ -180,7 +222,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee, null, [[0, 7]]);
       }))();
-    }
+    },
+    scrollToCate: function scrollToCate(i) {
+      // this.intervalMoveScroll = setInterval(() => {
+      //     if (window.pageYOffset === 0) {
+      //         clearInterval(this.intervalMoveScroll);
+      //     }
+      //     window.scroll(0, window.pageYOffset - 50);
+      // }, 20);
+      window.scrollTo({
+        top: this.scrollVal[i],
+        left: 0,
+        behavior: 'smooth'
+      });
+    },
+    scrollch: function scrollch(k) {
+      if (k == 'e') {
+        window.scroll(0, this.currentScroll);
+      } else if (k == '+') {
+        window.scroll(0, this.currentScroll++);
+      } else {
+        window.scroll(0, this.currentScroll--);
+      }
+    },
+    scrollListener: function scrollListener(e) {
+      this.currentScroll = window.scrollY;
+
+      if (window.scrollY > this.scrollEnd) {
+        this.cateSideMenuPosition = 'absolute';
+        this.cateSideMenuTop = 'auto';
+        this.cateSideMenuBottom = 0;
+      } else if (window.scrollY > this.scrollVal[0]) {
+        this.cateSideMenuPosition = 'fixed';
+        this.cateSideMenuTop = 0;
+        this.cateSideMenuBottom = 'auto';
+      } else if (window.scrollY < this.scrollVal[0]) {
+        this.cateSideMenuPosition = 'absolute';
+        this.cateSideMenuTop = 'auto';
+        this.cateSideMenuBottom = 'auto';
+      }
+
+      for (var i in this.scrollVal) {
+        if (i < this.scrollVal.length - 1 && this.scrollVal[i] < window.scrollY && window.scrollY < this.scrollVal[Number(i) + 1]) this.category[i].showing = true;else this.category[i].showing = false;
+      }
+    } // addClass: function (e) {
+    //     e.target.classList.add("hover");
+    // },
+    // removeClass: function (e) {
+    //     e.target.classList.remove("hover");
+    // },
+
   },
   mounted: function mounted() {
     var _this2 = this;
@@ -191,22 +282,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              window.addEventListener('scroll', _this2.scrollListener);
+
               _this2.index(_this2.listType.best);
 
-              _context2.next = 3;
+              _context2.next = 4;
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/main");
 
-            case 3:
+            case 4:
               rst = _context2.sent;
               _this2.bestByCategory = rst.data;
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
         }
       }, _callee2);
     }))();
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('scroll', this.scrollListener);
   }
 });
 
@@ -229,7 +325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.recommend[data-v-5322a9b3] { margin-top:3rem;\n}\n.recommend .back[data-v-5322a9b3] { background:#51B948; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .layout .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .layout .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .layout .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .layout .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius: 10px;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate ul[data-v-5322a9b3] { position:absolute; left:-60px; border:1px solid #898989;\n}\n.byCate ul li[data-v-5322a9b3] { padding:.4rem; opacity:.5;\n}\n.byCate ul li[data-v-5322a9b3]:hover { background:#448AC8; opacity:1;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position: absolute; z-index: -1; width: 200px; height: 500px; -o-object-fit: cover; object-fit: cover;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem; margin:1.5rem 0 0 1rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2; margin:1.5rem 0 0 1rem;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:25px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:cover; object-fit:cover;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:1rem 0 0; width:164px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:3rem;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.slide_banner[data-v-5322a9b3] { max-width: 1920px; margin: auto;\n}\n#best[data-v-5322a9b3] { margin-top:26px;\n}\n#best>.col[data-v-5322a9b3] { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%;\n}\n#best .col .box-row[data-v-5322a9b3] { display:flex; justify-content:center; align-items:center; width:100%; height:320px;\n}\n#best .col .box-row a[data-v-5322a9b3] { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px;\n}\n#best .col .box-row a[data-v-5322a9b3]:last-of-type { margin-right:0;\n}\n#best .col .box-row a img[data-v-5322a9b3] { width: 100%; height: 210px; -o-object-fit: cover; object-fit: cover; border: 1px solid #B7B7B7;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { position:absolute; bottom:0; height:80px; padding:10px 15px;\n}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { color:#1A8FD4; margin-bottom:3px; font-size:.8rem;\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-weight:bold;\n}\n.recommend .back[data-v-5322a9b3] { background:#fbcad0; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .container .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .container .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .container .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .container .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius:10px; width:100%;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate aside[data-v-5322a9b3] { margin-left:-76px; z-index:1;\n}\n.byCate aside ul[data-v-5322a9b3] { border:1px solid #898989;\n}\n.byCate aside ul li[data-v-5322a9b3] { padding:4px 6px; cursor:pointer; position:relative;\n}\n.byCate aside ul li.active[data-v-5322a9b3],\r\n.byCate aside ul li[data-v-5322a9b3]:hover { background:#448AC8;\n}\n.byCate aside ul li span[data-v-5322a9b3] { padding-left:10px; background:#448AC8; position:absolute; width:216px; color:#fff; z-index:1; top:0; line-height:44px;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative; height:100%; padding: 24px 0 0 16px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position:absolute; z-index:-1; width:200px; height:500px; -o-object-fit:cover; object-fit:cover; top:0; left:0;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:cover; object-fit:cover;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -391,7 +487,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/banner01.png" },
+                attrs: { "img-src": "/img/main/banner.jpg" },
               }),
             ],
             1
@@ -402,7 +498,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/banner02.png" },
+                attrs: { "img-src": "/img/main/banner.jpg" },
               }),
             ],
             1
@@ -411,138 +507,220 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("BestList", { attrs: { items: _vm.bestRemodel } }),
+      _c(
+        "b-row",
+        { staticClass: "layout", attrs: { id: "best" } },
+        [
+          _c(
+            "b-col",
+            [_c("b-img", { attrs: { src: "/img/main/best.gif" } })],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", [
+            _c(
+              "div",
+              { staticClass: "box-row" },
+              _vm._l(_vm.bestRemodel, function (item, i) {
+                return _c(
+                  "b-link",
+                  {
+                    key: i,
+                    attrs: {
+                      to: { name: "goods_show", params: { gd_id: item.gd_id } },
+                    },
+                  },
+                  [
+                    _c("img", { attrs: { src: item.image } }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-footer" }, [
+                      _c("p", { staticClass: "box_ca" }, [
+                        _vm._v(_vm._s(item.ca01_name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("h6", { staticClass: "box_tit" }, [
+                        _vm._v(_vm._s(item.gd_name)),
+                      ]),
+                    ]),
+                  ]
+                )
+              }),
+              1
+            ),
+          ]),
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "recommend" }, [
-        _c("div", { staticClass: "back" }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "layout" },
-          [
-            _c(
-              "b-row",
-              [_c("b-col", { staticClass: "tit" }, [_vm._v("포사의 추천 >")])],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-row",
-              [
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+      _c(
+        "div",
+        { staticClass: "recommend" },
+        [
+          _c("div", { staticClass: "back" }),
+          _vm._v(" "),
+          _c(
+            "b-container",
+            { staticClass: "layout" },
+            [
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { staticClass: "tit" }, [
+                    _vm._v("포사의 추천 >"),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "12", lg: "6" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec01.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec01.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec02.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec02.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec03.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-row",
-              [
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec03.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec04.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec04.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec06.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-link",
-                      {
-                        attrs: {
-                          to: { name: "goods_show", params: { gd_id: 1 } },
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec06.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { col: "", cols: "12", md: "12", lg: "6" } },
+                    [
+                      _c(
+                        "b-link",
+                        {
+                          attrs: {
+                            to: { name: "goods_show", params: { gd_id: 1 } },
+                          },
                         },
-                      },
-                      [_c("b-img", { attrs: { src: "/img/main/rec05.jpg" } })],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        ),
-      ]),
+                        [
+                          _c("b-img", {
+                            attrs: { src: "/img/main/rec05.jpg" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -560,15 +738,54 @@ var render = function () {
           ),
           _vm._v(" "),
           _c(
-            "ul",
-            _vm._l(_vm.category, function (ca, i) {
-              return _c("li", { key: ca.ca_id }, [
-                _c("img", {
-                  attrs: { src: "/img/main/icon_ca" + ca.ca_id + "_sm.jpg" },
+            "aside",
+            {
+              style: {
+                position: _vm.cateSideMenuPosition,
+                top: _vm.cateSideMenuTop,
+                bottom: _vm.cateSideMenuBottom,
+              },
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.category, function (ca, i) {
+                  return _c(
+                    "li",
+                    {
+                      key: ca.ca_id,
+                      class: { active: ca.showing },
+                      on: {
+                        mouseenter: function ($event) {
+                          ca.hover = !ca.hover
+                        },
+                        mouseleave: function ($event) {
+                          ca.hover = !ca.hover
+                        },
+                        click: function ($event) {
+                          return _vm.scrollToCate(i)
+                        },
+                      },
+                    },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            ca.hover || ca.showing
+                              ? "/img/main/cate/" + ca.ca_id + "_.png"
+                              : "/img/main/cate/" + ca.ca_id + ".png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      ca.hover
+                        ? _c("span", [_vm._v(_vm._s(ca.ca_name))])
+                        : _vm._e(),
+                    ]
+                  )
                 }),
-              ])
-            }),
-            0
+                0
+              ),
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -587,12 +804,17 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: {
+                              name: "goods_index",
+                              query: { ca01: ca.ca_id },
+                            },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/icon_ca24_sm.jpg" },
+                            attrs: {
+                              src: "/img/main/cate/bg" + ca.ca_id + ".gif",
+                            },
                           }),
                           _vm._v(" "),
                           _c("h6", [_vm._v(_vm._s(ca.ca_name))]),

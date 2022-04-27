@@ -214,7 +214,7 @@
                                     <h5 class="alert-heading">세금계산서</h5>
 
                                     <template v-if="od.file_info">
-                                        <template v-if="checkImage(od.file_info.ext)">
+                                        <template v-if="checkImage(od.file_info.fi_ext)">
                                             <b-button @click="isModalViewed = !isModalViewed">사업자 등록증 보기</b-button>
                                             <transition name="fade">
                                                 <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">

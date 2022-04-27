@@ -2,47 +2,82 @@
     <div>
         <b-carousel indicators class="slide_banner">
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/banner01.png"></b-carousel-slide>
+                <b-carousel-slide img-src="/img/main/banner.jpg"></b-carousel-slide>
             </b-link>
             
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/banner02.png"></b-carousel-slide>
+                <b-carousel-slide img-src="/img/main/banner.jpg"></b-carousel-slide>
             </b-link>           
         </b-carousel>
 
-        <BestList :items="bestRemodel" />
+        <!-- <BestList :items="bestRemodel" /> -->
+        <b-row id="best" class="layout">
+            <b-col>
+                <b-img src="/img/main/best.gif" />
+            </b-col>
+            <b-col>
+                <div class="box-row">
+                    <b-link
+                        v-for="(item, i) in bestRemodel"
+                        :key="i"
+                        :to="{ name: 'goods_show', params: {gd_id: item.gd_id} }"
+                    >
+                        <img :src="item.image" />
+                        <div class="box-footer">
+                            <p class="box_ca">{{item.ca01_name}}</p>
+                            <h6 class="box_tit">{{item.gd_name}}</h6>
+                        </div>
+                    </b-link>
+                </div>
+            </b-col>
+        </b-row>
 
         <div class="recommend">
             <div class="back"></div>
-            <div class="layout">
+            <b-container class="layout">
                 <b-row>
                     <b-col class="tit">포사의 추천 ></b-col>
                 </b-row>
                 <b-row>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec01.jpg" /></b-link></b-col>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec02.jpg" /></b-link></b-col>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec03.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec01.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec02.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec03.jpg" /></b-link></b-col>
                 </b-row>
                 <b-row>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec04.jpg" /></b-link></b-col>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec06.jpg" /></b-link></b-col>
-                    <b-col><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec05.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec04.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec06.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec05.jpg" /></b-link></b-col>
                 </b-row>
-            </div>
+            </b-container>
         </div>
 
         <div class="byCate layout">
             <b-row class="titByCate">
                 <b-col tag="h5">카테고리별 추천</b-col>
             </b-row>
-            <ul>
-                <li v-for="(ca, i) in category" :key="ca.ca_id"><img :src="`/img/main/icon_ca${ca.ca_id}_sm.jpg`" /></li>
-            </ul>
+
+            <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
+                <ul>
+                    <li v-for="(ca, i) in category" :key="ca.ca_id"
+                        @mouseenter="ca.hover = !ca.hover"
+                        @mouseleave="ca.hover = !ca.hover"
+                        @click="scrollToCate(i)"
+                        :class="{ 'active': ca.showing }"
+                    >
+                        <img :src="ca.hover||ca.showing ? `/img/main/cate/${ca.ca_id}_.png` :`/img/main/cate/${ca.ca_id}.png`" />
+                        <span v-if="ca.hover">{{ca.ca_name}}</span>
+                    </li>
+                </ul>
+                <!-- <button @click="scrollch('+')">up</button>
+                <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
+                <button @click="scrollch('-')">dn</button> -->
+            </aside>
+
             <b-container class="con">
                 <b-row v-for="(ca, i) in category" :key="ca.ca_id">
                     <b-col class="tit">                    
-                        <b-link :to="{name:'goods_show', params:{gd_id:1}}">
-                            <b-img :src="`/img/main/icon_ca24_sm.jpg`" />
+                        <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
+                            <b-img :src="`/img/main/cate/bg${ca.ca_id}.gif`" />
                             <h6>{{ca.ca_name}}</h6>
                             <span>전체보기 <b-icon-chevron-right /></span>
                         </b-link>
@@ -67,6 +102,7 @@ import { vueAccordion } from 'vue-accordion';
 import { mapState } from 'vuex'
 
 export default {
+    name:"SiteMain",
     components: {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
@@ -81,7 +117,14 @@ export default {
             list:{
                 best:{},
             },
-            bestByCategory:{},
+            bestByCategory: {},
+            cateSideMenuPosition: 'absolute',
+            cateSideMenuTop: 'auto',
+            cateSideMenuBottom: 'auto',
+            scrollVal: [1858, 2400, 2942, 3484, 4026, 4568, 5110, 5652, 6690, 7294, 7898, 8502, 9106, 9710, 10314, 10918, 11522, 12126, 12730, 13111],
+            scrollEnd: 11721,
+            currentScroll:0,
+
             // best:[
             //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
             // ],
@@ -101,7 +144,7 @@ export default {
                     gd_name: this.list.best[i].gd_name,
                     ca01_name:  this.list.best[i].gc_ca01_name,
                     gd_id: this.list.best[i].gd_id,
-                    image: this.list.best[i].image_src[0] })
+                    image: this.list.best[i].image_src_thumb[0] })
             }
             return dummy;
         },
@@ -117,46 +160,118 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
+        scrollToCate(i){
+
+            // this.intervalMoveScroll = setInterval(() => {
+            //     if (window.pageYOffset === 0) {
+            //         clearInterval(this.intervalMoveScroll);
+            //     }
+            //     window.scroll(0, window.pageYOffset - 50);
+            // }, 20);
+            window.scrollTo({
+                top: this.scrollVal[i],
+                left: 0,
+                behavior: 'smooth'
+            })
+        },
+        scrollch(k) {
+            if (k=='e') {
+                window.scroll(0, this.currentScroll);
+            } else if (k=='+') {
+                window.scroll(0, this.currentScroll++);
+            } else {
+                window.scroll(0, this.currentScroll--);
+            }
+
+        },
+        scrollListener: function (e) {
+            this.currentScroll = window.scrollY;
+            if (window.scrollY > this.scrollEnd) {
+                this.cateSideMenuPosition = 'absolute';
+                this.cateSideMenuTop = 'auto';
+                this.cateSideMenuBottom = 0;
+            } else if (window.scrollY > this.scrollVal[0]) {
+                this.cateSideMenuPosition = 'fixed';
+                this.cateSideMenuTop = 0;
+                this.cateSideMenuBottom = 'auto';
+            } else if (window.scrollY < this.scrollVal[0]) {
+                this.cateSideMenuPosition = 'absolute';
+                this.cateSideMenuTop = 'auto';
+                this.cateSideMenuBottom = 'auto';
+            }
+
+            for (let i in this.scrollVal) {
+                if (i < this.scrollVal.length-1 && this.scrollVal[i] < window.scrollY && window.scrollY < this.scrollVal[Number(i)+1])
+                    this.category[i].showing = true;
+                else
+                    this.category[i].showing = false; 
+            }
+            
+        }
+        // addClass: function (e) {
+        //     e.target.classList.add("hover");
+        // },
+        // removeClass: function (e) {
+        //     e.target.classList.remove("hover");
+        // },
     },
     async mounted() {
+        window.addEventListener('scroll', this.scrollListener)
+
         this.index(this.listType.best);
 
         let rst = await ax.get(`/api/main`);
         this.bestByCategory = rst.data;
-        
-
-
     },
+    beforeDestroy: function () {
+       window.removeEventListener('scroll', this.scrollListener)
+    }
 }
 </script>
 
 <style lang="css" scoped>
-.recommend { margin-top:3rem; }
-.recommend .back { background:#51B948; position:absolute; width:100%; height:18.5rem; }
-.recommend .layout .row:last-child { margin-top:2rem; }
-.recommend .layout .row .tit { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM; }
-.recommend .layout .row .col a { display:block; }
-.recommend .layout .row .col a img { border:1px solid #CCC; border-radius: 10px; }
+.slide_banner { max-width: 1920px; margin: auto; }
+
+#best { margin-top:26px; }
+#best>.col { padding:0; }
+#best>.col:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px; }
+#best>.col:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%; }
+#best .col .box-row { display:flex; justify-content:center; align-items:center; width:100%; height:320px; }
+#best .col .box-row a { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px; }
+#best .col .box-row a:last-of-type { margin-right:0; }
+#best .col .box-row a img { width: 100%; height: 210px; object-fit: cover; border: 1px solid #B7B7B7; }
+#best .col .box-row a .box-footer { position:absolute; bottom:0; height:80px; padding:10px 15px; }
+#best .col .box-row a .box-footer .box_ca { color:#1A8FD4; margin-bottom:3px; font-size:.8rem; }
+#best .col .box-row a .box-footer .box_tit { font-weight:bold; }
+
+.recommend .back { background:#fbcad0; position:absolute; width:100%; height:18.5rem; }
+.recommend .container .row:last-child { margin-top:2rem; }
+.recommend .container .row .tit { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM; }
+.recommend .container .row .col a { display:block; }
+.recommend .container .row .col a img { border:1px solid #CCC; border-radius:10px; width:100%; }
 
 .byCate { position:relative; margin-top:5rem; }
 .byCate .titByCate { margin-bottom:1.5rem; }
 .byCate .titByCate h5 { font-style:italic; font-weight:bold; font-size:2rem; }
 
-.byCate ul { position:absolute; left:-60px; border:1px solid #898989; }
-.byCate ul li { padding:.4rem; opacity:.5; }
-.byCate ul li:hover { background:#448AC8; opacity:1; }
+.byCate aside { margin-left:-76px; z-index:1; }
+.byCate aside ul { border:1px solid #898989; }
+.byCate aside ul li { padding:4px 6px; cursor:pointer; position:relative; }
+.byCate aside ul li.active,
+.byCate aside ul li:hover { background:#448AC8; }
+.byCate aside ul li span { padding-left:10px; background:#448AC8; position:absolute; width:216px; color:#fff; z-index:1; top:0; line-height:44px; }
 
 .byCate .con .row { border-top:2px solid #4A505C; margin-bottom:2.5rem; }
 .byCate .con .row .col { padding:0; }
 .byCate .con .row .tit { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
-.byCate .con .row .tit a { display:block; position:relative; }
-.byCate .con .row .tit a img { position: absolute; z-index: -1; width: 200px; height: 500px; object-fit: cover; }
-.byCate .con .row .tit a h6 { font-weight:bold; font-size:1.5rem; margin:1.5rem 0 0 1rem; }
-.byCate .con .row .tit a span { color:#9FA0A2; margin:1.5rem 0 0 1rem; }
+.byCate .con .row .tit a { display:block; position:relative; height:100%; padding: 24px 0 0 16px; }
+.byCate .con .row .tit a img { position:absolute; z-index:-1; width:200px; height:500px; object-fit:cover; top:0; left:0; }
+.byCate .con .row .tit a h6 { font-weight:bold; font-size:1.5rem; }
+.byCate .con .row .tit a span { color:#9FA0A2; }
 .byCate .con .row .list { display:flex; flex-wrap:wrap; }
-.byCate .con .row .list .col { flex:0 0 16.666666%; max-width:16.666666%; padding:25px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
+.byCate .con .row .list .col { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
 .byCate .con .row .list .col img { width:166px; height:166px; object-fit:cover; }
-.byCate .con .row .list .col p { margin:1rem 0 0; width:164px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:3rem; }
+.byCate .con .row .list .col p { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px; }
 
 </style>
 

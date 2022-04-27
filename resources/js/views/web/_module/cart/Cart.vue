@@ -2,59 +2,49 @@
     <div id="Cart"
         @mouseenter="mouseHover = true"
         @mouseleave="mouseHover = false"
-        :class="[{fixed_header:isScrollPass}, {expandCart:mouseHover}]">
+        :class="[{fixed_header:isScrollPass}, {hideCart:!mouseHover}]"
+    >
+        <b-link><b-img src="/img/common/basket.png" /></b-link>
+        
+        <ul>
+        <template v-for="(gd, i) in cartList">
+            <CartModel
+                v-for="(gm, j) in gd.goods_model"
+                :key="gm.gm_id"
+                :src="gd.image_src_thumb[0]"
+                v-model="cartList[i].goods_model[j]"
+                @outCart="outCart('model', i, j)"
+            />
 
-        <perfect-scrollbar>
-            <h4 class="circle">
-                <b-icon-minecart />
-                <span v-if="cartList">{{cntItem}}</span>
-            </h4>
-            <transition-group name="cart_list" tag="ul">
+            <CartOption
+                v-for="(opc, k) in gd.option_child"
+                :key="opc.opc_id"
+                v-model="cartList[i].option_child[k]"
+                @outCart="outCart('option', i, k)"
+            />
 
-                <!-- <router-link :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }" v-for="gd in recentGoods.slice(i * itemsPerRow, (i + 1) * itemsPerRow)" :key="gd.gd_id" class="list_item">
-                    <img :src="gd.image_src_thumb[0]" />
-                </router-link> -->
+            <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row>
+        </template>
+        </ul>
 
-                <template v-for="(gd, i) in cartList">
-                    <CartModel
-                        v-for="(gm, j) in gd.goods_model"
-                        :key="gm.gm_id"
-                        :src="gd.image_src_thumb[0]"
-                        v-model="cartList[i].goods_model[j]"
-                        @outCart="outCart('model', i, j)"
-                    />
-
-                    <CartOption
-                        v-for="(opc, k) in gd.option_child"
-                        :key="opc.opc_id"
-                        v-model="cartList[i].option_child[k]"
-                        @outCart="outCart('option', i, k)"
-                    />
-
-                    <b-row :key="'gd_'+gd.gd_id" tag="li">
-                        <b-col class="hr"><hr /></b-col>
-                    </b-row>
-                </template>
-            </transition-group>
-
-            <transition name="slide">
-                <b-button-group class="mt-3 d-flex" v-if="mouseHover">
-                    <b-button variant="success" @click="action('settle')">주문</b-button>
-                    <b-button variant="info" @click="action('estimate')">견적</b-button>
-                </b-button-group>
-            </transition>
-        </perfect-scrollbar>
-
+        <div class="footer" v-if="mouseHover">
+            <div>총 <b v-if="cartList">{{cntItem}}</b>개의 상품</div>
+            <div><span>결제 예정 금액</span> <b>{{totalPrice | comma}}</b></div>
+            
+            <b-button-group>
+                <b-button @click="action('settle')">바로 구매</b-button>
+                <b-button @click="action('estimate')">견적 요청</b-button>
+            </b-button-group>
+        </div>
     </div>
 </template>
 
 <script>
 import ax from '@/api/http';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import VueNumericInput from 'vue-numeric-input'
 
 export default {
-    props: ['scrollbarYTop'],
     components: {
         VueNumericInput,
         'CartModel': () => import('./CartModel.vue'),
@@ -64,16 +54,12 @@ export default {
         return {
             ck_key: 'CartGoods',
             isScrollPass:false,
-            mouseHover:false,
+            mouseHover:true,
         }
-    },
-    watch: {
-        'scrollbarYTop' (to, from) {
-            this.isScrollPass = to > 30;
-        },
     },
     computed: {
         ...mapState('cart', ['cartList']),
+        ...mapGetters('cart', ['totalPrice']),
         cntItem() {
             if(this.cartList.length) {  //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
                 return this.cartList.reduce(function (acc, el) {
@@ -153,66 +139,66 @@ export default {
         // remove() {
         //     this.items.splice(this.randomIndex(), 1)
         // },
-        // scrollListener: function (e) {
-        //     this.isScrollPass = window.scrollY > 70
-        // },
+        scrollListener: function (e) {
+            this.isScrollPass = window.scrollY > 174
+        },
         gm_chg(a){
             console.log(a);
         }
     },
     mounted() {
-        // window.addEventListener('scroll', this.scrollListener);
+        window.addEventListener('scroll', this.scrollListener)
         this.index();
         // console.log(Auth.check());
         // console.log(this.$store.state.isLoggedin);
     },
-    // beforeDestroy: function () {
-    //     window.removeEventListener('scroll', this.scrollListener)
-    // },
-
+    beforeDestroy: function () {
+       window.removeEventListener('scroll', this.scrollListener)
+    }
 }
 </script>
 
 
 <style lang="css" scoped>
 
-#Cart { position:absolute; top:70px; right:0; z-index:1; max-width:90px; height:100%; transition:max-width 0.5s ease; }
-#Cart >>> .ps { height:100%; padding:20px 0 20px 20px; }
-#Cart h4 { position:relative; text-align:center; /*background-color:#FFF;*/ font-size:3rem; color:#000; border-radius:50%; transition:all .5s ease; }
-#Cart h4 span { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:.4em; color:#006471; transition:all .5s ease; }
+#Cart { 
+    position:absolute; top:173px; right:0; z-index:16; background:#FFF;
+    border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;
+    max-height:680px;
+    transition:all 0.4s;
+    overflow-y:scroll; 
+}
+#Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-70px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; }
+#Cart>a:before { content:""; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:67px; height:76px; }
+#Cart>a img { margin:10px; position:relative; }
 
-#Cart ul >>> li { transition:all 0.5s ease; margin: 0.5rem 0 0; width:260px; }
-#Cart ul >>> li>div { padding:0; }
-#Cart ul >>> li>div:nth-of-type(1):not(.hr) { flex: 0 0 70px; max-width:70px; }
-#Cart ul >>> li>div:nth-of-type(2) { padding-left:15px; }
+#Cart ul >>> li { margin:0; padding:10px 15px; }
+#Cart ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
+#Cart ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
+
+#Cart ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
+#Cart ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
 #Cart ul >>> li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer; }
-#Cart ul >>> li>div a img { width:100%; height:100%; object-fit:cover; border-radius:50%; transition:border-radius 0.5s ease; }
-#Cart ul >>> li>div .custom-checkbox { position:absolute; left:-15px; }
+#Cart ul >>> li>div a img { transition:all 0.4s; width:100px; height:100px; object-fit:cover; }
+#Cart ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
+
+#Cart ul >>> li.gd_option { flex-direction:column; }
+#Cart ul >>> li.gd_option>div { flex-basis: auto; }
+#Cart ul >>> li.gd_option>div:nth-of-type(1) { align-items:center; }
+#Cart ul >>> li.gd_option>div:nth-of-type(1) span { margin-left: 10px; }
+
+#Cart .footer { border-top:1px solid #888888; padding:10px; }
+#Cart .footer div b { color:#0072BC; }
+#Cart .footer div:nth-of-type(2) { font-size:20px; display:flex; justify-content:space-between; align-items:baseline; }
+#Cart .footer div:nth-of-type(2) b { font-size:30px; }
+#Cart .footer .btn-group { display:flex; }
+#Cart .footer .btn-group button:nth-of-type(1) { margin-right:10px; }
+#Cart .footer .btn-group button:nth-of-type(2) { background:#00A1CB; border-color:#0089AD; }
 
 #Cart.fixed_header { position:fixed; top:0; }
-#Cart.expandCart { max-width:310px; }
-#Cart.expandCart >>> .ps { padding-right:30px; }
-#Cart.expandCart h4 { background-color:#000; font-size:4rem; color:#EEE; border-radius:10px; }
-#Cart.expandCart h4 span { font-size:2rem; color:#17a2b8; }
-#Cart.expandCart ul >>> li div a img { border-radius:10px; }
-#Cart .cart_list-enter,
-#Cart .cart_list-leave-to { transform: translateX(-300px); }
-#Cart .cart_list-leave-active { position: absolute; }
-
-#Cart .slide-enter-active, #Cart .slide-leave-active { transition: opacity .5s; }
-#Cart .slide-enter, #Cart .slide-leave-to { opacity: 0; }
+#Cart.hideCart { overflow-y:visible; }
+#Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0; }
+#Cart.hideCart ul >>> li>div a img { border-radius: 50%; width: 62px; height: 62px; }
 
 
-
-
-
-#Cart.expandCart {
-    background: linear-gradient(124deg, #FFCBCB, #FFDBCB, #FFF2CB, #FFFFD3, #D1FFD8, #CEFCFF, #D6D1FF, #FCD3FF, #FCD3FF);
-    /*background-size: 1800% 1800%;*/
-    -webkit-animation: rainbow 8s ease infinite; -z-animation: rainbow 8s ease infinite; -o-animation: rainbow 8s ease infinite; animation: rainbow 8s ease infinite;
-}
-@-webkit-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@-moz-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@-o-keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
-@keyframes rainbow { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
 </style>

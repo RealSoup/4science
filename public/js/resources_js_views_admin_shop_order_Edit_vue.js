@@ -1947,7 +1947,7 @@ var render = function () {
                                           _vm.od.file_info
                                             ? [
                                                 _vm.checkImage(
-                                                  _vm.od.file_info.ext
+                                                  _vm.od.file_info.fi_ext
                                                 )
                                                   ? [
                                                       _c(

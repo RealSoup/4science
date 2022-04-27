@@ -494,7 +494,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.$router.push({
             name: 'estimate_create',
             params: {
-              od_goods: params
+              od_goods: [params],
+              od_type: 'request_estimate'
             }
           });
           break;

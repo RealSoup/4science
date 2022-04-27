@@ -148,13 +148,13 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-row",
-    { attrs: { tag: "li" } },
+    { staticClass: "gd_option", attrs: { tag: "li" } },
     [
       _c(
         "b-col",
-        { attrs: { cols: "4" } },
         [
           _c("b-form-checkbox", {
+            staticClass: "hide",
             attrs: { value: "Y", "unchecked-value": "N" },
             on: { change: _vm.opc_check },
             model: {
@@ -166,49 +166,53 @@ var render = function () {
             },
           }),
           _vm._v(" "),
-          _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.opc_name, 10)))]),
-          _vm._v(" "),
-          _vm.value.option.op_required == "Y"
-            ? _c("b-badge", { attrs: { variant: "danger" } }, [_vm._v("필수")])
-            : _vm._e(),
+          _c(
+            "div",
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.strCut(_vm.value.opc_name, 10)) +
+                  "\n            "
+              ),
+              _vm.value.option.op_required == "Y"
+                ? _c(
+                    "b-badge",
+                    { staticClass: "hide", attrs: { variant: "danger" } },
+                    [_vm._v("필수")]
+                  )
+                : _vm._e(),
+            ],
+            1
+          ),
         ],
         1
       ),
       _vm._v(" "),
-      _c("b-col", { attrs: { cols: "4" } }, [
-        _vm._v(_vm._s(_vm._f("comma")(_vm.value.opc_price)) + "원"),
+      _c("b-col", { staticClass: "hide" }, [
+        _vm._v(
+          "\n        " +
+            _vm._s(_vm._f("comma")(_vm.value.opc_price_add_vat)) +
+            "원\n    "
+        ),
       ]),
       _vm._v(" "),
       _c(
         "b-col",
+        { staticClass: "hide" },
         [
-          _c(
-            "div",
-            [
-              _c("VueNumericInput", {
-                attrs: { align: "center", min: 1 },
-                on: { input: _vm.update },
-                model: {
-                  value: _vm.value.ea,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "ea", $$v)
-                  },
-                  expression: "value.ea",
-                },
-              }),
-            ],
-            1
-          ),
+          _c("div"),
           _vm._v(" "),
-          _c(
-            "b-badge",
-            {
-              staticClass: "btn_x",
-              attrs: { pill: "", variant: "danger" },
-              on: { click: _vm.outCart },
+          _c("VueNumericInput", {
+            attrs: { align: "center", min: 1, width: "100px" },
+            on: { input: _vm.update },
+            model: {
+              value: _vm.value.ea,
+              callback: function ($$v) {
+                _vm.$set(_vm.value, "ea", $$v)
+              },
+              expression: "value.ea",
             },
-            [_vm._v("X")]
-          ),
+          }),
         ],
         1
       ),

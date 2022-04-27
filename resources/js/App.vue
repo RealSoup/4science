@@ -1,13 +1,10 @@
 <template>
 <div id="site">
-    <perfect-scrollbar @ps-scroll-y="onScroll" ref="scrollbar">
-        <component :is="choiceHeader"></component>
-        <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger'}"><router-view /></main>
-        <component
-            :is="choiceFooter"
-            @scrollToTop="scrollToTop"
-        ></component>
-    </perfect-scrollbar>
+    <component :is="choiceHeader" />
+    <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger'}">
+        <router-view />
+    </main>
+    <component :is="choiceFooter" />
 </div>
 </template>
 
@@ -17,7 +14,7 @@ import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmHead      from '@/views/admin/_layouts/Header.vue';
 import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
-import { mapState } from 'vuex'
+
 
 export default {
     name: 'app',
@@ -42,19 +39,9 @@ export default {
                 case 'adm':     return 'AdmFooter';  break;
             }
         },
-        ...mapState('scroll', ['scroll']),
     },
 
     methods: {
-        onScroll(e) {
-            this.$store.commit('scroll/setScrollY', this.$refs.scrollbar.ps.scrollbarYTop);
-        },
-        scrollToTop(){
-            this.intervalId = setInterval(() => {
-                if (this.$refs.scrollbar.ps.scrollbarYTop === 0) { clearInterval(this.intervalId) }
-                this.$refs.scrollbar.$el.scrollTop = this.$refs.scrollbar.ps.scrollbarYTop - 1;
-            }, 20);
-        },
     },
 
     mounted() {
@@ -83,7 +70,7 @@ export default {
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:"나눔고딕","Nanum Gothic",  "돋움", "굴림","dotum", "Gulim"; color: #333; font-size:16px; }
 #site, #site .ps { height:100%; }
-#header { margin-bottom:1rem; }
+#header {  }
 #footer { margin:6rem auto; padding:2rem 0; }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }

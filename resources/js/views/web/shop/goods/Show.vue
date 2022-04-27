@@ -413,7 +413,7 @@ export default {
                         Notify.modal("모델을 선택하세요");
                         return false;
                     }
-                    this.$router.push({name: 'estimate_create', params: { od_goods: params }});
+                    this.$router.push({name: 'estimate_create', params: { od_goods: [params], od_type: 'request_estimate' }});
                 break;
             }
         },

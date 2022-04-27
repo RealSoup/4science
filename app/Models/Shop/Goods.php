@@ -92,6 +92,7 @@ class Goods extends Model {
         switch ($type) {
             case 'buy_inst':    //  바로 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'buy_cart':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
+            case 'request_estimate':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
                 foreach ($some['goods'] as $gd) {
                     $collect[$gd['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
                     foreach ($gd['model'] as $gm)

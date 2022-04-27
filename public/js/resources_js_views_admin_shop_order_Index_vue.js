@@ -490,9 +490,11 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.order_config.type, function (val, key) {
-                          return _c("option", { domProps: { value: key } }, [
-                            _vm._v(_vm._s(val)),
-                          ])
+                          return _c(
+                            "option",
+                            { key: key, domProps: { value: key } },
+                            [_vm._v(_vm._s(val))]
+                          )
                         }),
                       ],
                       2
@@ -540,9 +542,11 @@ var render = function () {
                         _vm._l(
                           _vm.order_config.pay_method,
                           function (val, key) {
-                            return _c("option", { domProps: { value: key } }, [
-                              _vm._v(_vm._s(val)),
-                            ])
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: key } },
+                              [_vm._v(_vm._s(val))]
+                            )
                           }
                         ),
                       ],
@@ -589,9 +593,11 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.order_config.step, function (val, key) {
-                          return _c("option", { domProps: { value: key } }, [
-                            _vm._v(_vm._s(val)),
-                          ])
+                          return _c(
+                            "option",
+                            { key: key, domProps: { value: key } },
+                            [_vm._v(_vm._s(val))]
+                          )
                         }),
                       ],
                       2
@@ -673,9 +679,11 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.mng, function (opt) {
-                          return _c("option", { domProps: { value: opt.id } }, [
-                            _vm._v(_vm._s(opt.name)),
-                          ])
+                          return _c(
+                            "option",
+                            { key: opt.id, domProps: { value: opt.id } },
+                            [_vm._v(_vm._s(opt.name))]
+                          )
                         }),
                       ],
                       2
@@ -721,9 +729,11 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _vm._l(_vm.mng_info.group, function (val, key) {
-                          return _c("option", { domProps: { value: key } }, [
-                            _vm._v(_vm._s(val)),
-                          ])
+                          return _c(
+                            "option",
+                            { key: key, domProps: { value: key } },
+                            [_vm._v(_vm._s(val))]
+                          )
                         }),
                       ],
                       2
@@ -922,9 +932,9 @@ var render = function () {
               _vm._v(" "),
               _c("hr"),
               _vm._v(" "),
-              _vm._l(_vm.list.data, function (row, idx) {
-                return _vm.list.data && _vm.list.data.length
-                  ? _c(
+              _vm.list.data && _vm.list.data.length
+                ? _vm._l(_vm.list.data, function (row) {
+                    return _c(
                       "b-row",
                       { key: row.mk_id, staticClass: "list_item" },
                       [
@@ -1111,7 +1121,7 @@ var render = function () {
                                   { attrs: { variant: "danger" } },
                                   [_vm._v("주문취소")]
                                 )
-                              : row.od_step == 50
+                              : row.od_step == 51
                               ? _c(
                                   "b-badge",
                                   { attrs: { variant: "danger" } },
@@ -1133,10 +1143,10 @@ var render = function () {
                       ],
                       1
                     )
-                  : _c("b-alert", { attrs: { variant: "danger", show: "" } }, [
-                      _vm._v("No Item"),
-                    ])
-              }),
+                  })
+                : _c("b-alert", { attrs: { variant: "danger", show: "" } }, [
+                    _vm._v("No Item"),
+                  ]),
             ],
             2
           ),

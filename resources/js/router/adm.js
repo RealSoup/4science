@@ -17,12 +17,23 @@ export default [
         name: 'adm_main',
         component:() => import('@/views/admin/Main.vue'),
         beforeEnter: isAdmin()
-    }, {
-        path: '/admin/config',
-        name: 'adm_config',
-        component:() => import('@/views/admin/config/Index.vue'),
+    }, 
+    
+    //  Site관리
+    {
+        path: '/admin/site/info',
+        name: 'adm_site_info',
+        component:() => import('@/views/admin/site/Info.vue'),
         beforeEnter: isAdmin()
     }, {
+        path: '/admin/site/mainCateGoods',
+        name: 'adm_site_main_cate_goods',
+        component:() => import('@/views/admin/site/MainCateGoods.vue'),
+        beforeEnter: isAdmin()
+    }, 
+
+    //  유저
+    {
         path: '/admin/user',
         name: 'adm_user',
         component:() => import('@/views/admin/user/Index.vue'),
@@ -31,6 +42,25 @@ export default [
         path: '/admin/user/:id/edit',
         name: 'adm_user_edit',
         component:() => import('@/views/admin/user/Edit.vue'),
+        beforeEnter: isAdmin()
+    }, 
+    
+    
+    //   상품
+    {
+        path: '/admin/shop/goods',
+        name: 'adm_goods_index',
+        component:() => import('@/views/admin/shop/goods/Index.vue'),
+        beforeEnter: isAdmin()
+    }, {
+        path: '/admin/shop/goods/:gd_id/edit',
+        name: 'adm_goods_edit',
+        component:() => import('@/views/admin/shop/goods/Edit.vue'),
+        beforeEnter: isAdmin()
+    }, {
+        path: '/admin/shop/goods/create',
+        name: 'adm_goods_create',
+        component:() => import('@/views/admin/shop/goods/Create.vue'),
         beforeEnter: isAdmin()
     }, {
         path: '/admin/shop/category',
@@ -48,23 +78,7 @@ export default [
         component:() => import('@/views/admin/shop/purchaseAt/Index.vue'),
         beforeEnter: isAdmin()
     },
-    //   상품
-    {
-        path: '/admin/shop/goods',
-        name: 'adm_goods_index',
-        component:() => import('@/views/admin/shop/goods/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/goods/:gd_id/edit',
-        name: 'adm_goods_edit',
-        component:() => import('@/views/admin/shop/goods/Edit.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/goods/create',
-        name: 'adm_goods_create',
-        component:() => import('@/views/admin/shop/goods/Create.vue'),
-        beforeEnter: isAdmin()
-    },
+
     //   주문
     {
         path: '/admin/shop/order',

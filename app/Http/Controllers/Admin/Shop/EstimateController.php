@@ -266,7 +266,7 @@ class EstimateController extends Controller {
                 'er_all_price'    => $req->er_all_price,
                 'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
                 'redirect_url'    => 'dddd',
-                'domain'          => cache('site')['domain'],
+                'domain'          => cache('site')->domain,
             ];
             // $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
@@ -347,7 +347,7 @@ class EstimateController extends Controller {
                 'er_all_price'    => $req->er_all_price,
                 'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
                 'redirect_url'    => 'dddd',
-                'domain'          => cache('site')['domain'],
+                'domain'          => cache('site')->domain,
             ];
             $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
@@ -378,7 +378,7 @@ class EstimateController extends Controller {
             'er_all_price'    => $req->er_all_price,
             'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
             'redirect_url'    => 'dddd',
-            'domain'          => cache('site')['domain'],
+            'domain'          => cache('site')->domain,
         ];
         $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }

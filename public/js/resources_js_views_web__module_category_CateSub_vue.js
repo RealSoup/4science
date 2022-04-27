@@ -31,16 +31,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TreeView",
   // recursive 하기위해서 필요함. 없으면 error
-  props: ['sub_show', 'depth', 'cate', 'paramLink'],
+  props: ['sub_show', 'depth', 'cate', 'paramLink', 'papaName'],
   data: function data() {
     return {};
   },
   computed: {// cateUlLeft: function () {
-    // 	return this.depth == 0 ? 0 : 15;
+    // 	return this.depth == 0 ? 0 : 14;
     // },
   },
   methods: {
@@ -103,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys ul ul[data-v-23715b9e] { position:absolute; margin-top:.9rem; width:15rem; padding:0.5rem;\r\n    background-color:#FFF; border-radius:10px; border:0px solid #e5e5e5; z-index:10;\r\n    max-height:0px; transition:max-height .7s, box-shadow .7s;\n}\n#categorys ul ul.focus[data-v-23715b9e] { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:1px;\n}\n#categorys ul ul li a[data-v-23715b9e] { display:block; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\n#categorys ul ul li:hover>a[data-v-23715b9e] { padding:20px 10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif;\n}\r\n/* #categorys>ul { top:20px; left:0; }\r\n#categorys ul { position:absolute; top:0px; right:0; width:15rem; padding:0.5rem;\r\n    background-color:#FFF; border-radius:10px; border:0px solid #e5e5e5; z-index:10;\r\n    max-height:0px; transition:max-height .7s, box-shadow .7s; }\r\n\r\n#categorys ul.focus { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:1px; }\r\n\r\n\r\n\r\n\r\n#categorys ul li { position:relative; }\r\n#categorys ul li a { display:block; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\r\n#categorys ul li:hover>a { padding:20px 10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif; }\r\n#categorys ul li ul { -webkit-transform:translateX(99%); transform:translateX(99%); }\r\n */\r\n\r\n\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys ul ul[data-v-23715b9e] { position:absolute; width:15rem; padding:0.5rem;\r\n    background-color:#FFF; border-radius:10px; border:0px solid #e5e5e5; z-index:10;\r\n    transition:max-height .7s, box-shadow .7s;\n}\n#categorys ul ul.focus[data-v-23715b9e] { box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:1px;\n}\n#categorys ul ul li[data-v-23715b9e] { position: relative;\n}\n#categorys ul ul li.depth01_tit[data-v-23715b9e] { padding:5px 10px; font-weight:900; font-size:20px; border-bottom:1px solid #000; margin-bottom:5px;\n}\n#categorys ul ul li a[data-v-23715b9e] { display:block; font-size:14px; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\n#categorys ul ul li:not(.depth01_tit):hover>a[data-v-23715b9e] { padding:10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif;\n}\n#categorys ul ul ul[data-v-23715b9e] { top:0; left:13.5rem;\n}\r\n/* #categorys>ul { top:20px; left:0; }\r\n#categorys ul { position:absolute; top:0px; right:0; width:15rem; padding:0.5rem;\r\n    background-color:#FFF; border-radius:10px; border:0px solid #e5e5e5; z-index:10;\r\n    max-height:0px; transition:max-height .7s, box-shadow .7s; }\r\n\r\n#categorys ul.focus { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:1px; }\r\n\r\n\r\n\r\n\r\n#categorys ul li { position:relative; }\r\n#categorys ul li a { display:block; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\r\n#categorys ul li:hover>a { padding:20px 10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif; }\r\n#categorys ul li ul { -webkit-transform:translateX(99%); transform:translateX(99%); }\r\n */\r\n\r\n\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -241,49 +240,57 @@ var render = function () {
     ? _c(
         "ul",
         { class: { focus: _vm.sub_show } },
-        _vm._l(_vm.cate, function (ca, idx) {
-          return _c(
-            "li",
-            {
-              on: {
-                mouseenter: function ($event) {
-                  ca.sub_show = true
-                },
-                mouseleave: function ($event) {
-                  ca.sub_show = false
-                },
-              },
-            },
-            [
-              _c(
-                "b-link",
-                {
-                  attrs: {
-                    to: {
-                      name: "goods_index",
-                      query: _vm.queryParam(ca.ca_id),
-                    },
+        [
+          _vm.depth == 1
+            ? _c("li", { staticClass: "depth01_tit" }, [
+                _vm._v(_vm._s(_vm.papaName)),
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.cate, function (ca, idx) {
+            return _c(
+              "li",
+              {
+                on: {
+                  mouseenter: function ($event) {
+                    ca.sub_show = true
+                  },
+                  mouseleave: function ($event) {
+                    ca.sub_show = false
                   },
                 },
-                [_vm._v(_vm._s(ca.ca_name))]
-              ),
-              _vm._v(" "),
-              ca.sub
-                ? _c("tree-view", {
-                    key: ca.ca_id,
+              },
+              [
+                _c(
+                  "b-link",
+                  {
                     attrs: {
-                      cate: ca.sub,
-                      depth: _vm.depth + 1,
-                      sub_show: ca.sub_show && ca.sub.length,
-                      paramLink: _vm.paramLink + "/" + ca.ca_id,
+                      to: {
+                        name: "goods_index",
+                        query: _vm.queryParam(ca.ca_id),
+                      },
                     },
-                  })
-                : _vm._e(),
-            ],
-            1
-          )
-        }),
-        0
+                  },
+                  [_vm._v(_vm._s(ca.ca_name))]
+                ),
+                _vm._v(" "),
+                ca.sub
+                  ? _c("tree-view", {
+                      key: ca.ca_id,
+                      attrs: {
+                        cate: ca.sub,
+                        depth: _vm.depth + 1,
+                        sub_show: ca.sub_show && ca.sub.length,
+                        paramLink: _vm.paramLink + "/" + ca.ca_id,
+                      },
+                    })
+                  : _vm._e(),
+              ],
+              1
+            )
+          }),
+        ],
+        2
       )
     : _vm._e()
 }

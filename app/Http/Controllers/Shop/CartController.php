@@ -34,6 +34,7 @@ class CartController extends Controller {
     public function index(Request $req){
 // DB::enableQueryLog();
         // $params = $req->input();
+        $rst = [];
         if(auth()->check()){
             $carts = $this->cart->Created_id(auth()->user()->id)->get();
 

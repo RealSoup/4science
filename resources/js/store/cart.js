@@ -10,6 +10,21 @@ export default {
         cartList: state => {
             return state.cartList;
         },
+        totalPrice: state => {
+            return state.cartList.reduce(function (acc, el) {
+                let model =  el.goods_model.reduce((acc2, el2) => {
+                    return acc2 + parseInt(el2.gm_price_add_vat * el2.ea);
+                }, 0);
+                let option = 0;
+                if (el.hasOwnProperty('option_child')) {
+                    option =  el.option_child.reduce((acc3, el3) => {
+                        return acc3 + parseInt(el3.opc_price_add_vat * el3.ea);
+                    }, 0);
+                }
+                
+                return model+option;
+            }, 0);
+        },
     },
     mutations: {
         setList(state, data) {

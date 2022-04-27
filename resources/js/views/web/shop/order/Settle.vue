@@ -513,9 +513,9 @@ export default {
                     if (pay && pay.status === 200) {
                         if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
                             let frm = new FormData();
-                            frm.append('fi_type', 'order');
+                            frm.append('fi_group', 'order');
                             frm.append('fi_key', pay.data.od_id);
-                            frm.append('fi_path', '');
+                            frm.append('fi_room', new Date().getFullYear());
                             frm.append("file[]", this.order.extra.oex_file);
                             let up = await ax.post('/api/upload', frm);
                         }

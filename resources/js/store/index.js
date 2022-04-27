@@ -7,7 +7,6 @@ import auth from './auth'
 import error from './error';
 import cart from './cart';
 import goods from './goods';
-import scroll from './scroll';
 import category from './category';
 
 
@@ -27,7 +26,6 @@ export default new Vuex.Store({
         error,
         cart,
         goods,
-        scroll,
         category,
     }
 });

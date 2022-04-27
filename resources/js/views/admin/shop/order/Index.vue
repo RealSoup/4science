@@ -8,19 +8,19 @@
                     <b-col lg="2" md="4" sm="6">
                         <select class="custom-select" v-model="sch_frm.od_type">
                             <option value="">◄ 주문유형 ►</option>
-                            <option v-for="(val, key) in order_config.type" :value="key">{{ val }}</option>
+                            <option v-for="(val, key) in order_config.type" :key="key" :value="key">{{ val }}</option>
                         </select>
                     </b-col>
                     <b-col lg="2" md="4" sm="6">
                         <select class="custom-select" v-model="sch_frm.od_pay_method">
                             <option value="">◄ 결제수단 ►</option>
-                            <option v-for="(val, key) in order_config.pay_method" :value="key">{{ val }}</option>
+                            <option v-for="(val, key) in order_config.pay_method" :key="key" :value="key">{{ val }}</option>
                         </select>
                     </b-col>
                     <b-col lg="2" md="4" sm="6">
                         <select class="custom-select" v-model="sch_frm.od_step">
                             <option value="">◄ 처리상태 ►</option>
-                            <option v-for="(val, key) in order_config.step" :value="key">{{ val }}</option>
+                            <option v-for="(val, key) in order_config.step" :key="key" :value="key">{{ val }}</option>
                         </select>
                     </b-col>
                     <b-col lg="2" md="4" sm="6">
@@ -32,13 +32,13 @@
                     <b-col lg="2" md="4" sm="6">
                         <select class="custom-select" v-model="sch_frm.od_mng">
                             <option value="">◄ 담당자 ►</option>
-                            <option v-for="opt in mng" :value="opt.id">{{ opt.name }}</option>
+                            <option v-for="opt in mng" :key="opt.id" :value="opt.id">{{ opt.name }}</option>
                         </select>
                     </b-col>
                     <b-col lg="2" md="4" sm="6">
                         <select class="custom-select" v-model="sch_frm.um_group">
                             <option value="">◄ 담당팀 ►</option>
-                            <option v-for="(val, key) in mng_info.group" :value="key">{{ val }}</option>
+                            <option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</option>
                         </select>
                     </b-col>
                 </b-row>
@@ -84,10 +84,9 @@
                     </b-col>
                 </b-row>
                 <hr>
-                <b-row
-                    class="list_item"
-                    v-if="list.data && list.data.length"
-                    v-for="(row, idx) in list.data"
+                <template v-if="list.data && list.data.length">
+                <b-row class="list_item"
+                    v-for="row in list.data"
                     :key="row.mk_id"
                 >
                     <b-col lg="1" class="d-none d-lg-block">
@@ -125,7 +124,7 @@
                         <b-badge variant="success" v-else-if="row.od_step==20">결제완료</b-badge>
                         <b-badge variant="info" v-else-if="row.od_step==30">배송준비</b-badge> <b-badge variant="info" v-else-if="row.od_step==31">배송중</b-badge> <b-badge variant="info" v-else-if="row.od_step==32">배송완료</b-badge>
                         <b-badge variant="secondary" v-else-if="row.od_step==40">구매확정</b-badge>
-                        <b-badge variant="danger" v-else-if="row.od_step==50">주문취소</b-badge> <b-badge variant="danger" v-else-if="row.od_step==50">결제실패</b-badge>
+                        <b-badge variant="danger" v-else-if="row.od_step==50">주문취소</b-badge> <b-badge variant="danger" v-else-if="row.od_step==51">결제실패</b-badge>
 <!--
 10:주문접수, 11:승인대기, 12:결제대기,
 20:결제완료,
@@ -137,6 +136,7 @@
                         <b-badge variant="warning" class="float-right">{{row.od_mng_nm}}</b-badge>
                     </b-col>
                 </b-row>
+                </template>
                 <b-alert v-else variant="danger" show>No Item</b-alert>
             </b-container>
 

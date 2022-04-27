@@ -606,9 +606,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 frm = new FormData();
-                frm.append('fi_type', 'order');
+                frm.append('fi_group', 'order');
                 frm.append('fi_key', pay.data.od_id);
-                frm.append('fi_path', '');
+                frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this2.order.extra.oex_file);
                 _context2.next = 14;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);

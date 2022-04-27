@@ -229,8 +229,9 @@ class OrderController extends Controller {
                         $req->extra['oex_type'] != 'NO' //  지출 증빙이 미발급( 발급선택안함 )
                     )
                 ) {
-                $this->orderExtraInfo->oex_od_id = $od_id;                
-                $this->orderExtraInfo->oex_finance_type = array_key_exists('oex_finance_type_etc', $req->extra) ? $req->extra['oex_finance_type_etc'] : array_key_exists('oex_finance_type', $req->extra) ? $req->extra['oex_finance_type'] : "ETC";
+                $this->orderExtraInfo->oex_od_id = $od_id;
+                $this->orderExtraInfo->oex_finance_type = array_key_exists('oex_finance_type', $req->extra) ? $req->extra['oex_finance_type'] : "";
+                if ($req->extra['oex_finance_type'] == 'ETC') $this->orderExtraInfo->oex_finance_type = $req->extra['oex_finance_type_etc'];
                 $this->orderExtraInfo->oex_depositor = array_key_exists('oex_depositor', $req->extra) ? $req->extra['oex_depositor'] : "";
                 
                 if ($req->od_pay_method == 'B' || $req->od_pay_method == 'P' || $req->od_pay_method == 'S') //  계좌이체, PSYS, 전표는 결제 예정일 등록 ( soon, week1, week2, month1, month2 )

@@ -1,19 +1,19 @@
 <template>
-    <b-row tag="li">
-        <b-col cols="4">
-            <b-form-checkbox
-                v-model="value.ct_check_opt"
-                value="Y"
-                unchecked-value="N"
-                @change="opc_check"
-            ></b-form-checkbox>
-            <div>{{strCut(value.opc_name, 10)}}</div>
-            <b-badge variant="danger" v-if="value.option.op_required == 'Y'">필수</b-badge>
-        </b-col>
-        <b-col cols="4">{{value.opc_price | comma}}원</b-col>
+    <b-row tag="li" class="gd_option">
         <b-col>
-            <div><VueNumericInput align="center" :min="1" v-model="value.ea" @input="update" /></div>
-            <b-badge pill variant="danger" class="btn_x" @click="outCart">X</b-badge>
+            <b-form-checkbox v-model="value.ct_check_opt" value="Y" unchecked-value="N" @change="opc_check" class="hide" />
+            <div>
+                {{strCut(value.opc_name, 10)}}
+                <b-badge variant="danger" class="hide" v-if="value.option.op_required == 'Y'">필수</b-badge>
+            </div>
+        </b-col>
+        <b-col class="hide">
+            {{value.opc_price_add_vat | comma}}원
+        </b-col>        
+        <b-col class="hide">
+            <div></div>
+            <VueNumericInput align="center" :min="1" width="100px" v-model="value.ea" @input="update" />
+            <!-- <b-badge pill variant="danger" class="btn_x" @click="outCart">X</b-badge> -->
         </b-col>
     </b-row>
 </template>
