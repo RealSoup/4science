@@ -195,10 +195,10 @@ export default {
 #Cart .footer .btn-group button:nth-of-type(1) { margin-right:10px; }
 #Cart .footer .btn-group button:nth-of-type(2) { background:#00A1CB; border-color:#0089AD; }
 
-#Cart.fixed_header { position:fixed; top:0; }
+#Cart.fixed_header { position:fixed; top:78px; }
 #Cart.hideCart { overflow-y:visible; }
 #Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0; }
-#Cart.hideCart ul >>> li>div a img { border-radius: 50%; width: 62px; height: 62px; }
+#Cart.hideCart ul>>>li>div a img { border-radius: 50%; width: 62px; height: 62px; }
 
 
 </style>

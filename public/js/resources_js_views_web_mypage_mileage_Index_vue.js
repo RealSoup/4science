@@ -104,7 +104,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {},
-      point: {}
+      mileage: {}
     };
   },
   mounted: function mounted() {
@@ -124,7 +124,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
                 _context.prev = 1;
                 _context.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/point", {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/mileage", {
                   params: {
                     page: page
                   }
@@ -134,7 +134,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.point = res.data;
+                  _this.mileage = res.data;
                 }
 
                 _context.next = 12;
@@ -165,7 +165,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/point", _this2.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/mileage", _this2.frm);
 
               case 3:
                 res = _context2.sent;
@@ -370,40 +370,40 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.point.data, function (po) {
+          _vm._l(_vm.mileage.data, function (ml) {
             return _c(
               "b-row",
-              { key: po.po_id, staticClass: "data" },
+              { key: ml.ml_id, staticClass: "data" },
               [
                 _c("b-col", [
                   _vm._v(
-                    _vm._s(_vm._f("formatDate_YYYY_MM_DD")(po.created_at))
+                    _vm._s(_vm._f("formatDate_YYYY_MM_DD")(ml.created_at))
                   ),
                 ]),
                 _vm._v(" "),
-                _c("b-col", [_vm._v(_vm._s(po.po_content))]),
+                _c("b-col", [_vm._v(_vm._s(ml.ml_content))]),
                 _vm._v(" "),
                 _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(po.po_point)) + " "),
+                  _vm._v(_vm._s(_vm._f("comma")(ml.ml_mileage)) + " "),
                   _c("b", [_vm._v("P")]),
                 ]),
                 _vm._v(" "),
                 _c(
                   "b-col",
                   [
-                    po.po_point < 0
+                    ml.ml_mileage < 0
                       ? [
-                          po.po_enable_p == 0
+                          ml.ml_enable_m == 0
                             ? _c(
                                 "b-badge",
                                 { attrs: { variant: "secondary" } },
                                 [_vm._v("요청")]
                               )
-                            : po.po_enable_p == 1
+                            : ml.ml_enable_m == 1
                             ? _c("b-badge", { attrs: { variant: "success" } }, [
                                 _vm._v("승인"),
                               ])
-                            : po.po_enable_p == 2
+                            : ml.ml_enable_m == 2
                             ? _c("b-badge", { attrs: { variant: "warning" } }, [
                                 _vm._v("반려"),
                               ])
@@ -419,7 +419,7 @@ var render = function () {
           }),
           _vm._v(" "),
           _c("pagination", {
-            attrs: { data: _vm.point, align: "center" },
+            attrs: { data: _vm.mileage, align: "center" },
             on: { "pagination-change-page": _vm.index },
           }),
         ],
@@ -450,7 +450,7 @@ var render = function () {
                     },
                     [
                       _c("img", {
-                        attrs: { src: "/img/mypage/point/gift50000.png" },
+                        attrs: { src: "/img/mypage/mileage/gift50000.png" },
                       }),
                       _vm._v(" "),
                       _c("p", [_vm._v("신세계백화점 상품권 (5만원)")]),
@@ -477,7 +477,7 @@ var render = function () {
                     },
                     [
                       _c("img", {
-                        attrs: { src: "/img/mypage/point/gift100000.png" },
+                        attrs: { src: "/img/mypage/mileage/gift100000.png" },
                       }),
                       _vm._v(" "),
                       _c("p", [_vm._v("신세계백화점 상품권 (10만원)")]),

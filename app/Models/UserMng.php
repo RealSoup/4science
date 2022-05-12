@@ -13,31 +13,7 @@ class UserMng extends Authenticatable {
 
     protected $primaryKey = 'um_id';
     protected $table = 'user_mng';
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
+    protected $appends = ['refine_group', 'refine_position'];
     protected $mngInfo = [
         'group' => [
             '1' => '1팀',
@@ -60,6 +36,7 @@ class UserMng extends Authenticatable {
 
     public function scopeGroup($query, $group) { return $query->where('um_group', $group); }
 
-    public function getUmPositionAttribute( $value ) { return $this->mngInfo['position'][$value]; }
+    public function getRefinePositionAttribute() { return $this->mngInfo['position'][$this->um_position]; }
+    public function getRefineGroupAttribute() { return $this->mngInfo['group'][$this->um_group]; }
     public function getMngInfo() { return $this->mngInfo; }
 }

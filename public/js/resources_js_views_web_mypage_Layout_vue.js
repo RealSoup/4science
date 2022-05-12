@@ -106,11 +106,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   data: function data() {
     return {
-      enable_point: 0
+      enable_mileage: 0
     };
   },
   methods: {
-    enablePoint: function enablePoint() {
+    enableMileage: function enableMileage() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -121,13 +121,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/point/enable");
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/mileage/enable");
 
               case 3:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.enable_point = res.data;
+                  _this.enable_mileage = res.data;
                 }
 
                 _context.next = 11;
@@ -149,7 +149,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    this.enablePoint();
+    this.enableMileage();
   }
 });
 
@@ -546,7 +546,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "mileage" }, [
                       _vm._v("\n                        마일리지 "),
-                      _c("b", [_vm._v(_vm._s(_vm.enable_point))]),
+                      _c("b", [_vm._v(_vm._s(_vm.enable_mileage))]),
                       _vm._v("P\n                    "),
                     ]),
                   ]),

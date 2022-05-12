@@ -20,7 +20,7 @@
                             등급
                         </div>
                         <div class="mileage">
-                            마일리지 <b>{{enable_point}}</b>P
+                            마일리지 <b>{{enable_mileage}}</b>P
                         </div>
                     </div>
 
@@ -81,15 +81,15 @@ export default {
     },
     data() {
         return {
-            enable_point:0,
+            enable_mileage:0,
         }
     },
     methods:{
-        async enablePoint(){
+        async enableMileage(){
             try {
-                const res = await ax.get(`/api/point/enable`);
+                const res = await ax.get(`/api/mileage/enable`);
                 if (res && res.status === 200) {
-                    this.enable_point   =res.data
+                    this.enable_mileage   =res.data
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -98,7 +98,7 @@ export default {
         },
     },
     mounted() {
-        this.enablePoint();
+        this.enableMileage();
     },
 }
 </script>

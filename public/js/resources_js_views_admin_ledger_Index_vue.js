@@ -232,6 +232,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var init_dt = new Date();
 var endDate = init_dt.format("yyyy-MM-dd");
@@ -244,19 +265,58 @@ var startDate = init_dt.format("yyyy-MM-dd");
     'Modal': function Modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
-    'Form': function Form() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Form.vue */ "./resources/js/views/admin/ledger/_comp/Form.vue"));
+    'FormLedger': function FormLedger() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_FormLedger_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormLedger.vue */ "./resources/js/views/admin/ledger/_comp/FormLedger.vue"));
+    },
+    'FormLedgerModel': function FormLedgerModel() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_FormLedgerModel_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormLedgerModel.vue */ "./resources/js/views/admin/ledger/_comp/FormLedgerModel.vue"));
     }
   },
   data: function data() {
     return {
       isModalViewed: false,
-      selected: true,
+      actTarget: 'papa',
+      actType: 'create',
+      isScrollPass: false,
+      headTop: 0,
       ledger: {
         data: []
       },
-      lgFrm: {
-        lg_pay_type: ''
+      frm_ledger: {
+        lg_id: null,
+        lg_order_dt: '',
+        lg_pay_type: 'CARD',
+        lg_mng: '',
+        lg_source_type: 'ORD',
+        lg_source_no: 0,
+        lg_sale_dt: '',
+        lg_distributor: '',
+        lg_depart: '',
+        lg_lab_prof: '',
+        lg_orderer: '',
+        lg_email: '',
+        lg_hp: '',
+        lg_note: '',
+        ledger_model: []
+      },
+      frm_ledger_model: {
+        lm_id: 0,
+        lm_lg_id: 0,
+        lm_gm_name: '',
+        lm_gm_spec: '',
+        lm_catno: '',
+        lm_gm_code: '',
+        lm_gm_price: 0,
+        lm_ea: 0,
+        lm_ea_price: 0,
+        lm_surtax: 0,
+        lm_sum_price: 0,
+        lm_com_order_dt: '',
+        lm_buyer: '',
+        lm_order_mng: '',
+        lm_purchase_price: 0,
+        lm_shipping_dt: '',
+        lm_cxl: 'N'
       },
       schFrm: {
         // startDate: startDate,
@@ -281,24 +341,6 @@ var startDate = init_dt.format("yyyy-MM-dd");
       total: {},
       mng: {}
     };
-  },
-  computed: {
-    compVal: {
-      get: function get() {
-        if (this.selected) {
-          return this.lgFrm;
-        } else {
-          return this.updatedd;
-        }
-      },
-      set: function set(val) {
-        if (this.selected) {
-          this.lgFrm = val;
-        } else {
-          this.updatedd = val;
-        }
-      }
-    }
   },
   methods: {
     index: function index() {
@@ -335,7 +377,7 @@ var startDate = init_dt.format("yyyy-MM-dd");
         }, _callee);
       }))();
     },
-    store: function store() {
+    store: function store(frm) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -345,13 +387,15 @@ var startDate = init_dt.format("yyyy-MM-dd");
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/", _this2.lgFrm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/", frm);
 
               case 2:
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
                   _this2.index();
+
+                  Notify.toast('success', '등록 완료');
                 }
 
               case 4:
@@ -362,33 +406,32 @@ var startDate = init_dt.format("yyyy-MM-dd");
         }, _callee2);
       }))();
     },
-    update: function update(i) {
+    update: function update(frm) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var frm, res;
+        var lg_id, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                _this3.ledger.data[i], // 수정하려는 객체
-                {
+                frm = Object.assign({}, frm, {
                   _method: 'PATCH'
-                } // 삽입하려는 내용
-                );
-                _context3.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/".concat(frm.lg_id), frm);
+                });
+                lg_id = frm.lg_id ? frm.lg_id : frm.lm_lg_id;
+                _context3.next = 4;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/".concat(lg_id), frm);
 
-              case 3:
+              case 4:
                 res = _context3.sent;
 
                 if (res && res.status === 200) {
+                  _this3.index();
+
                   Notify.toast('success', '수정 완료');
-                  _this3.ledger.data[i].edit = false;
                 }
 
-              case 5:
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -485,10 +528,58 @@ var startDate = init_dt.format("yyyy-MM-dd");
       this.schFrm.startDate = sdt;
       this.schFrm.endDate = edt;
       console.log(type);
+    },
+    create: function create(target) {
+      var lg_i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      this.isModalViewed = true;
+      this.actTarget = target;
+      this.actType = 'create';
+      if (target == 'child') this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
+    },
+    edit: function edit(target, lg_i) {
+      var lm_i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      this.isModalViewed = true;
+      this.actTarget = target;
+
+      if (target == 'papa') {
+        this.frm_ledger = this.ledger.data[lg_i];
+      } else if (target == 'child') {
+        this.frm_ledger_model = this.ledger.data[lg_i].ledger_model[lm_i];
+        this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
+      }
+
+      this.actType = 'edit';
+    },
+    register: function register() {
+      if (this.actTarget == 'papa') {
+        var tmp = Object.assign({}, this.frm_ledger);
+        if (this.actType == 'create') this.store(tmp);else if (this.actType == 'edit') this.update(tmp);
+        this.frm_ledger = {
+          lg_pay_type: 'CARD',
+          lg_source_type: 'ORD',
+          lg_source_no: 0,
+          ledger_model: []
+        };
+      } else if (this.actTarget == 'child') {
+        var _tmp = Object.assign({}, this.frm_ledger_model);
+
+        if (this.actType == 'create') this.store(_tmp);else if (this.actType == 'edit') this.update(_tmp);
+        this.frm_ledger_model = {};
+      }
+
+      this.isModalViewed = false;
+    },
+    scrollListener: function scrollListener(e) {
+      this.isScrollPass = window.scrollY >= 394;
+      if (this.isScrollPass) this.headTop = window.scrollY - 330;
     }
   },
   mounted: function mounted() {
+    window.addEventListener('scroll', this.scrollListener);
     this.index();
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('scroll', this.scrollListener);
   }
 });
 
@@ -510,7 +601,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#admLedger .card[data-v-48fc548b] { margin:1rem;\n}\n#admLedger .search .width_btn[data-v-48fc548b] { display:flex;\n}\n#admLedger .search .width_btn .btn[data-v-48fc548b] { flex:1;\n}\n#admLedger .data .row[data-v-48fc548b] { width:3240px; align-items:center;\n}\n#admLedger .data .row .col[data-v-48fc548b] { padding-left:5px; padding-right:5px;\n}\n#admLedger .data .list_top div .badge[data-v-48fc548b] { font-size:1rem;\n}\n#admLedger .data .head .col[data-v-48fc548b] { font-weight:bold; font-size:.9rem; text-align:center;\n}\n#admLedger .data .head .col .badge[data-v-48fc548b] { font-size:1rem;\n}\n#admLedger .data .row .col[data-v-48fc548b] { flex: 0 0 120px; max-width:120px; text-align:center; line-height:1.1rem;\n}\n#admLedger .data .row .col.model[data-v-48fc548b] { display: flex; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; width:1680px; padding:0;\n}\n#admLedger .data .row.body[data-v-48fc548b] { padding:15px 0;\n}\n#admLedger .data .row.body[data-v-48fc548b]:not(:last-of-type) { border-bottom:2px solid #777;\n}\n#admLedger .data .row.body .model .row[data-v-48fc548b] { padding:10px 0; background:#f7f7f7; margin:0; align-items:center;\n}\n#admLedger .data .row.body .model .row[data-v-48fc548b]:not(:last-of-type) { border-bottom:1px solid #AAA;\n}\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(15),\r\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(16),\r\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(17),\r\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(18),\r\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(19),\r\n#admLedger .data .list .col[data-v-48fc548b]:nth-child(23),\r\n#admLedger .data .create .col:nth-child(15) input[data-v-48fc548b],\r\n#admLedger .data .create .col:nth-child(16) input[data-v-48fc548b],\r\n#admLedger .data .create .col:nth-child(17) input[data-v-48fc548b],\r\n#admLedger .data .create .col:nth-child(18) input[data-v-48fc548b],\r\n#admLedger .data .create .col:nth-child(19) input[data-v-48fc548b],\r\n#admLedger .data .create .col:nth-child(23) input[data-v-48fc548b] { text-align:right;\n}\n#admLedger .data .list .row .col .ctrl[data-v-48fc548b] { position:absolute; left:-76px; width:90px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s;}\n#admLedger .data .list .row .col .ctrl[data-v-48fc548b]:hover { left:0;\n}\n#admLedger .data[data-v-48fc548b] .ps { padding-top:2rem;\n}\r\n/*#admLedger .data >>> .ps .ps__rail-x { top:0; bottom:auto; height:25px; }*/\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x { height:25px; position:fixed; z-index: 1; width: 1920px !important; left: 0 !important;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:hover { background-color:#eee; opacity:.9;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x .ps__thumb-x { height:18px; background-color:pink; position:fixed; width:1189px !important;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:hover > .ps__thumb-x, \r\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:focus > .ps__thumb-x, \r\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px;\n}\n#admLedger .data .translate-fade-enter-active[data-v-48fc548b], \r\n#admLedger .data .translate-fade-leave-active[data-v-48fc548b] { transition:all .8s;\n}\n#admLedger .data .translate-fade-enter[data-v-48fc548b], \r\n#admLedger .data .translate-fade-leave-active[data-v-48fc548b] { opacity:0; position:absolute;\n}\n#admLedger .data .translate-fade-enter[data-v-48fc548b] { transform:translateX(1000px);\n}\n#admLedger .data .translate-fade-leave-active[data-v-48fc548b] { transform:translateX(-1000px);\n}\n#admLedger .fade-enter-active[data-v-48fc548b],\r\n#admLedger .fade-leave-active[data-v-48fc548b] { transition: opacity .001s;\n}\n#admLedger .fade-enter[data-v-48fc548b],\r\n#admLedger .fade-leave-to[data-v-48fc548b] { opacity: 0;\n}\n#admLedger .rs_modal-card[data-v-48fc548b] { max-width:800px; text-align:center; overflow-y:scroll;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#admLedger .card[data-v-48fc548b] { margin:1rem;\n}\n#admLedger .search .width_btn[data-v-48fc548b] { display:flex;\n}\n#admLedger .search .width_btn .btn[data-v-48fc548b] { flex:1;\n}\n#admLedger .data .list_top[data-v-48fc548b] { margin-bottom: 2px;\n}\n#admLedger .data .list_top div[data-v-48fc548b]:nth-child(2) { text-align:right;\n}\n#admLedger .data .list_top div .badge[data-v-48fc548b] { font-size:1rem;\n}\n#admLedger .data .ps .row[data-v-48fc548b] { width:3290px; margin:0; align-items:center;\n}\n#admLedger .data .ps .row .col[data-v-48fc548b] { padding-left:5px; padding-right:5px; flex: 0 0 120px; max-width:120px; text-align:center; line-height:1.1rem;\n}\n#admLedger .data .ps .row .model[data-v-48fc548b] { width:1835px; display: flex; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; padding:0;\n}\n#admLedger .data .ps .head[data-v-48fc548b] { background:#666; padding:5px 0;\n}\n#admLedger .data .ps .head .col[data-v-48fc548b] { font-weight:bold; font-size:.9rem; color:#fff;\n}\n#admLedger .data .ps .head .col .badge[data-v-48fc548b] { font-size:1rem;\n}\n#admLedger .data .ps .head.fixed_header[data-v-48fc548b] { position:absolute; top:399px; z-index:2;\n}\n#admLedger .data .ps .body[data-v-48fc548b] { padding:15px 0;\n}\n#admLedger .data .ps .body.cxl[data-v-48fc548b],\r\n#admLedger .data .ps .body.cxl .model .row[data-v-48fc548b],\r\n#admLedger .data .ps .body .model .row.cxl[data-v-48fc548b] { background:#ff000044;\n}\n#admLedger .data .ps .body.cxl .col[data-v-48fc548b], \r\n#admLedger .data .ps .body.cxl .model .row .col[data-v-48fc548b],\r\n#admLedger .data .ps .body .model .row.cxl .col[data-v-48fc548b] { text-decoration:line-through;\n}\n#admLedger .data .ps .body[data-v-48fc548b]:not(:last-of-type) { border-bottom:2px solid #777;\n}\n#admLedger .data .ps .body .model .adder[data-v-48fc548b] { position:absolute; top:-31px; transition:all .4s; z-index:1; opacity:0;\n}\n#admLedger .data .ps .body .model:hover .adder[data-v-48fc548b] { opacity:.9;\n}\n#admLedger .data .ps .body .model .row[data-v-48fc548b] { padding:10px 0; background:#f7f7f7; margin:0; overflow:hidden;\n}\n#admLedger .data .ps .body .model .row[data-v-48fc548b]:not(:last-of-type) { border-bottom:1px solid #AAA;\n}\n#admLedger .data .ps .body .col.ctrl>div[data-v-48fc548b] { position:absolute; top:50%; transform:translateY(-50%); left:-76px; width:95px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s; z-index:1; background:#fff;\n}\n#admLedger .data .ps .body .col.ctrl>div[data-v-48fc548b]:hover { left:0;\n}\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(1),\r\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(3),\r\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(5),\r\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(10) { flex: 0 0 90px; max-width:90px;\n}   /* 고객명 */\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(4) { flex: 0 0 75px; max-width:75px;\n}\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(7) { flex: 0 0 210px; max-width:210px;\n}\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(8) { flex: 0 0 180px; max-width:180px;\n}\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(12) { flex: 0 0 75px; max-width:75px;\n}\n#admLedger .data .ps .list>.col[data-v-48fc548b]:nth-child(13) { flex: 0 0 75px; max-width:75px;\n}\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(8),\r\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(12) { flex: 0 0 90px; max-width:90px;\n}\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(1) { flex:0 0 250px; max-width:250px; padding-left:25px;\n}\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(2) { flex:0 0 250px; max-width:250px;\n}\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(3) { flex: 0 0 150px; max-width:150px;\n}   /* CAT.No */\n#admLedger .data .ps .list .model .row .col[data-v-48fc548b]:nth-child(6) { flex: 0 0 45px; max-width:45px;\n}   /* 수량 */\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(5),\r\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(6),\r\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(7),\r\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(8),\r\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(9),\r\n#admLedger .data .ps .body .model .row .col[data-v-48fc548b]:nth-child(13) { text-align:right;\n}\r\n\r\n\r\n\r\n/*#admLedger .data >>> .ps .ps__rail-x { top:0; bottom:auto; height:25px; }*/\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x { height:25px; position:fixed; z-index: 1; width: 1920px !important; left: 0 !important;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:hover { background-color:#eee; opacity:.9;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x .ps__thumb-x { height:18px; background-color:pink; position:fixed; width:1189px !important;\n}\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:hover > .ps__thumb-x, \r\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x:focus > .ps__thumb-x, \r\n#admLedger .data[data-v-48fc548b] .ps .ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px;\n}\n#admLedger .data .translate-fade-enter-active[data-v-48fc548b], \r\n#admLedger .data .translate-fade-leave-active[data-v-48fc548b] { transition:all .3s;\n}\n#admLedger .data .translate-fade-enter[data-v-48fc548b], \r\n#admLedger .data .translate-fade-leave-to[data-v-48fc548b] { opacity: 0; /* transform: translateY(-30px); */\n}\n#admLedger .modalForm-enter-active[data-v-48fc548b],\r\n#admLedger .modalForm-leave-active[data-v-48fc548b] { transition: opacity .3s;\n}\n#admLedger .modalForm-enter[data-v-48fc548b],\r\n#admLedger .modalForm-leave-to[data-v-48fc548b] { opacity: 0;\n}\n#admLedger .rs_modal-card[data-v-48fc548b] { max-width:800px; text-align:center; overflow-y:scroll;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1258,49 +1349,54 @@ var render = function () {
         { staticClass: "shadow data" },
         [
           _c(
-            "perfect-scrollbar",
-            { attrs: { suppressScrollX: "true" } },
+            "b-row",
+            { staticClass: "list_top" },
             [
               _c(
-                "b-row",
-                { staticClass: "list_top" },
+                "b-col",
                 [
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          on: {
-                            click: function ($event) {
-                              _vm.isModalViewed = !_vm.isModalViewed
-                            },
-                          },
-                        },
-                        [_vm._v("OPEN")]
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { cols: "12" } },
-                    [
-                      _vm._v("Total : "),
-                      _c("b-badge", { attrs: { variant: "info" } }, [
-                        _vm._v(_vm._s(_vm.ledger.total)),
-                      ]),
-                    ],
-                    1
-                  ),
+                  _vm._v("Total : "),
+                  _c("b-badge", { attrs: { variant: "info" } }, [
+                    _vm._v(_vm._s(_vm.ledger.total)),
+                  ]),
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
+                "b-col",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary", size: "sm" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.create("papa")
+                        },
+                      },
+                    },
+                    [_c("b-icon-plus-lg"), _vm._v(" 추가")],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "perfect-scrollbar",
+            { attrs: { suppressScrollX: "true" } },
+            [
+              _c(
                 "b-row",
-                { staticClass: "list head" },
+                {
+                  staticClass: "list head",
+                  class: { fixed_header: _vm.isScrollPass },
+                  style: { top: _vm.headTop + "px" },
+                },
                 [
                   _c("b-col", [_vm._v("No")]),
                   _vm._v(" "),
@@ -1402,38 +1498,48 @@ var render = function () {
                 _vm._l(_vm.ledger.data, function (lg, i) {
                   return _c(
                     "b-row",
-                    { key: lg.lg_id, staticClass: "list body" },
+                    {
+                      key: i + "_" + lg.lg_id,
+                      staticClass: "list body",
+                      class: { cxl: lg.lg_pay_type == "CXL" },
+                    },
                     [
-                      _c("b-col", [
+                      _c("b-col", { staticClass: "ctrl" }, [
                         _c(
                           "div",
-                          { staticClass: "ctrl" },
                           [
                             _c(
-                              "b-button",
-                              {
-                                attrs: { size: "sm", variant: "warning" },
-                                on: {
-                                  click: function ($event) {
-                                    lg.edit = !lg.edit
+                              "b-button-group",
+                              { attrs: { size: "sm" } },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: { variant: "warning" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.edit("papa", i)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_c("b-icon-tools")],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-button",
-                              {
-                                attrs: { size: "sm", variant: "danger" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.destroy(i)
+                                  [_c("b-icon-tools")],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: { variant: "danger" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.destroy(i)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_c("b-icon-trash-fill")],
+                                  [_c("b-icon-trash-fill")],
+                                  1
+                                ),
+                              ],
                               1
                             ),
                             _vm._v(" "),
@@ -1442,9 +1548,9 @@ var render = function () {
                           1
                         ),
                         _vm._v(
-                          "\r\n                        " +
+                          "\r\n                    " +
                             _vm._s(lg.lg_id) +
-                            "\r\n                    "
+                            "\r\n                "
                         ),
                       ]),
                       _vm._v(" "),
@@ -1487,6 +1593,10 @@ var render = function () {
                             ? _c("b-badge", { attrs: { variant: "dark" } }, [
                                 _vm._v("미발급"),
                               ])
+                            : lg.lg_pay_type == "CXL"
+                            ? _c("b-badge", { attrs: { variant: "light" } }, [
+                                _vm._v("거래 취소"),
+                              ])
                             : _vm._e(),
                         ],
                         1
@@ -1497,51 +1607,55 @@ var render = function () {
                       _c(
                         "b-col",
                         [
-                          lg.lg_source_type == "ORD"
-                            ? _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    to: {
-                                      name: "adm_order_edit",
-                                      params: { od_id: lg.lg_source_no },
-                                    },
-                                    variant: "outline-primary",
-                                    block: "",
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\r\n                            " +
-                                      _vm._s(lg.lg_source_no) +
-                                      "\r\n                        "
-                                  ),
-                                ]
-                              )
-                            : lg.lg_source_type == "EST"
-                            ? _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    to: {
-                                      name: "adm_estimate_show_reply",
-                                      params: { er_id: lg.lg_source_no },
-                                    },
-                                    variant: "outline-danger",
-                                    block: "",
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\r\n                            " +
-                                      _vm._s(lg.lg_source_no) +
-                                      "\r\n                        "
-                                  ),
-                                ]
-                              )
+                          lg.lg_source_no
+                            ? [
+                                lg.lg_source_type == "ORD"
+                                  ? _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "adm_order_edit",
+                                            params: { od_id: lg.lg_source_no },
+                                          },
+                                          variant: "outline-primary",
+                                          block: "",
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\r\n                            " +
+                                            _vm._s(lg.lg_source_no) +
+                                            "\r\n                        "
+                                        ),
+                                      ]
+                                    )
+                                  : lg.lg_source_type == "EST"
+                                  ? _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "adm_estimate_show_reply",
+                                            params: { er_id: lg.lg_source_no },
+                                          },
+                                          variant: "outline-danger",
+                                          block: "",
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\r\n                            " +
+                                            _vm._s(lg.lg_source_no) +
+                                            "\r\n                        "
+                                        ),
+                                      ]
+                                    )
+                                  : _vm._e(),
+                              ]
                             : _vm._e(),
                         ],
-                        1
+                        2
                       ),
                       _vm._v(" "),
                       _c("b-col", [_vm._v(_vm._s(lg.lg_sale_dt))]),
@@ -1557,59 +1671,136 @@ var render = function () {
                       _c(
                         "b-col",
                         { staticClass: "model" },
-                        _vm._l(lg.ledger_model, function (lm) {
-                          return _c(
-                            "b-row",
-                            { key: lm.lm_id },
-                            [
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_gm_name))]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_gm_spec))]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_catno))]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_gm_code))]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm._f("comma")(lm.lm_gm_price))),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm._f("comma")(lm.lm_ea))),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm._f("comma")(lm.lm_ea_price))),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm._f("comma")(lm.lm_surtax))),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(
-                                  _vm._s(_vm._f("comma")(lm.lm_sum_price))
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_com_order_dt))]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_buyer))]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_order_mng))]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(
-                                  _vm._s(_vm._f("comma")(lm.lm_purchase_price))
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(lm.lm_shipping_dt))]),
-                            ],
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "adder",
+                              attrs: { size: "sm", variant: "primary" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.create("child", i)
+                                },
+                              },
+                            },
+                            [_c("b-icon-plus-lg")],
                             1
-                          )
-                        }),
-                        1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(lg.ledger_model, function (lm, lm_i) {
+                            return _c(
+                              "b-row",
+                              {
+                                key: lm_i + "_" + lm.lm_id,
+                                class: { cxl: lm.lm_cxl == "Y" },
+                              },
+                              [
+                                _c("b-col", { staticClass: "ctrl" }, [
+                                  _c(
+                                    "div",
+                                    [
+                                      _c(
+                                        "b-button",
+                                        {
+                                          attrs: {
+                                            size: "sm",
+                                            variant: "warning",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.edit("child", i, lm_i)
+                                            },
+                                          },
+                                        },
+                                        [_c("b-icon-tools")],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-button",
+                                        {
+                                          attrs: {
+                                            size: "sm",
+                                            variant: "danger",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.destroy(i, lm_i)
+                                            },
+                                          },
+                                        },
+                                        [_c("b-icon-trash-fill")],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("b-icon-caret-right-fill"),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(
+                                    "\r\n                            " +
+                                      _vm._s(lm.lm_gm_name) +
+                                      "\r\n                        "
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(lm.lm_gm_spec))]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(lm.lm_catno))]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(lm.lm_gm_code))]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(
+                                    _vm._s(_vm._f("comma")(lm.lm_gm_price))
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(_vm._s(_vm._f("comma")(lm.lm_ea))),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(
+                                    _vm._s(_vm._f("comma")(lm.lm_ea_price))
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(_vm._s(_vm._f("comma")(lm.lm_surtax))),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(
+                                    _vm._s(_vm._f("comma")(lm.lm_sum_price))
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(_vm._s(lm.lm_com_order_dt)),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(lm.lm_buyer))]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(lm.lm_order_mng))]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("comma")(lm.lm_purchase_price)
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  _vm._v(_vm._s(lm.lm_shipping_dt)),
+                                ]),
+                              ],
+                              1
+                            )
+                          }),
+                        ],
+                        2
                       ),
                       _vm._v(" "),
                       _c("b-col", [_vm._v(_vm._s(lg.lg_email))]),
@@ -1638,7 +1829,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "transition",
-        { attrs: { name: "fade" } },
+        { attrs: { name: "modalForm" } },
         [
           _vm.isModalViewed
             ? _c(
@@ -1651,15 +1842,27 @@ var render = function () {
                   },
                 },
                 [
-                  _c("Form", {
-                    model: {
-                      value: _vm.compVal,
-                      callback: function ($$v) {
-                        _vm.compVal = $$v
-                      },
-                      expression: "compVal",
-                    },
-                  }),
+                  _vm.actTarget == "papa"
+                    ? _c("FormLedger", {
+                        on: { register: _vm.register },
+                        model: {
+                          value: _vm.frm_ledger,
+                          callback: function ($$v) {
+                            _vm.frm_ledger = $$v
+                          },
+                          expression: "frm_ledger",
+                        },
+                      })
+                    : _c("FormLedgerModel", {
+                        on: { register: _vm.register },
+                        model: {
+                          value: _vm.frm_ledger_model,
+                          callback: function ($$v) {
+                            _vm.frm_ledger_model = $$v
+                          },
+                          expression: "frm_ledger_model",
+                        },
+                      }),
                 ],
                 1
               )

@@ -10,20 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Point {
+class Mileage {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $type;
-    public $po_type;
+    public $ml_type;
     public $key;
-    public $point;
+    public $mileage;
     public $content;
     public $uid;
-    public function __construct($type, $po_type, $key, $point, $content, $uid) {
+    public function __construct($type, $ml_type, $key, $mileage, $content, $uid) {
         $this->type = $type;
-        $this->po_type = $po_type;
+        $this->ml_type = $ml_type;
         $this->key = $key;
-        $this->point = $point;
+        $this->mileage = $mileage;
         $this->content = $content;
         $this->uid = $uid;
     }

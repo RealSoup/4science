@@ -14,10 +14,7 @@
                         <b-dropdown-item :to="{name: 'adm_site_main_cate_goods'}">메인 카테고리별 추천 상품</b-dropdown-item>
                     </b-nav-item-dropdown>
                     
-                    <b-nav-item-dropdown text="회원관리">
-                        <b-dropdown-item :to="{name: 'adm_user'}">회원목록</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_user_mileage'}">마일리지</b-dropdown-item>
-                    </b-nav-item-dropdown>
+                    <b-nav-item :to="{name: 'adm_user'}" active-class="active" exact>회원관리</b-nav-item>
 
                     <b-nav-item-dropdown text="상품관리">
                         <b-dropdown-item :to="{name: 'adm_goods_index'}">상품목록</b-dropdown-item>

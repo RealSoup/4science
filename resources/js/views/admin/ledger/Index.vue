@@ -104,13 +104,12 @@
     </b-card>
 
     <b-card class="shadow data">
+        <b-row class="list_top">
+            <b-col>Total : <b-badge variant="info">{{ledger.total}}</b-badge></b-col>
+            <b-col><b-button @click="create('papa')" variant="primary" size="sm"><b-icon-plus-lg /> 추가</b-button></b-col>
+        </b-row>
         <perfect-scrollbar suppressScrollX="true">
-            
-            <b-row class="list_top">
-                <b-col><b-button @click="isModalViewed = !isModalViewed">OPEN</b-button></b-col>
-                <b-col cols="12">Total : <b-badge variant="info">{{ledger.total}}</b-badge></b-col>
-            </b-row>
-            <b-row class="list head">
+            <b-row class="list head" :class="{fixed_header:isScrollPass}" :style="{ top: headTop+'px' }">
                 <b-col>No</b-col> 
                 <b-col>주문일</b-col> 
                 <b-col>결제방식</b-col> 
@@ -142,69 +141,91 @@
                 <b-col>비고</b-col>
             </b-row>
             <transition-group name="translate-fade" tag="article">
-                <b-row v-for="(lg, i) in ledger.data" :key="lg.lg_id" class="list body">
-                    <b-col>
-                        <div class="ctrl">
-                            <b-button size="sm" variant="warning" @click="lg.edit=!lg.edit"><b-icon-tools /></b-button>
-                            <b-button size="sm" variant="danger" @click="destroy(i)"><b-icon-trash-fill /></b-button>
-                            <b-icon-caret-right-fill />
-                        </div>
-                        {{lg.lg_id}}
-                    </b-col>
-                    <b-col>{{lg.lg_order_dt}}</b-col>
-                    <b-col>
-                        <b-badge variant="primary" v-if="lg.lg_pay_type == 'CARD'">온라인 카드</b-badge>
-                        <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'PSYS'">PSYS</b-badge>
-                        <b-badge variant="seccess" v-else-if="lg.lg_pay_type == 'BILL'">계산서</b-badge>
-                        <b-badge variant="secondary" v-else-if="lg.lg_pay_type == 'STAT'">전표</b-badge>
-                        <b-badge variant="info" v-else-if="lg.lg_pay_type == 'CASH'">현금영수증</b-badge>
-                        <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'MEMB'">회원</b-badge>
-                        <b-badge variant="danger" v-else-if="lg.lg_pay_type == 'REV'">역발행</b-badge>
-                        <b-badge variant="dark" v-else-if="lg.lg_pay_type == 'NOT'">미발급</b-badge>
-                    </b-col>
-                    <b-col>{{lg.lg_mng}}</b-col>
-                    <b-col>
+            <b-row class="list body"
+                v-for="(lg, i) in ledger.data" :key="`${i}_${lg.lg_id}`"
+                :class="{cxl:lg.lg_pay_type == 'CXL'}"
+            >
+                <b-col class="ctrl">
+                    <div>
+                        <b-button-group size="sm">
+                            <b-button variant="warning" @click="edit('papa', i)"><b-icon-tools /></b-button>
+                            <b-button variant="danger" @click="destroy(i)"><b-icon-trash-fill /></b-button>
+                        </b-button-group>
+                        <b-icon-caret-right-fill />
+                    </div>
+                    {{lg.lg_id}}
+                </b-col>
+                <b-col>{{lg.lg_order_dt}}</b-col>
+                <b-col>
+                    <b-badge variant="primary" v-if="lg.lg_pay_type == 'CARD'">온라인 카드</b-badge>
+                    <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'PSYS'">PSYS</b-badge>
+                    <b-badge variant="seccess" v-else-if="lg.lg_pay_type == 'BILL'">계산서</b-badge>
+                    <b-badge variant="secondary" v-else-if="lg.lg_pay_type == 'STAT'">전표</b-badge>
+                    <b-badge variant="info" v-else-if="lg.lg_pay_type == 'CASH'">현금영수증</b-badge>
+                    <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'MEMB'">회원</b-badge>
+                    <b-badge variant="danger" v-else-if="lg.lg_pay_type == 'REV'">역발행</b-badge>
+                    <b-badge variant="dark" v-else-if="lg.lg_pay_type == 'NOT'">미발급</b-badge>
+                    <b-badge variant="light" v-else-if="lg.lg_pay_type == 'CXL'">거래 취소</b-badge>
+                    
+                </b-col>
+                <b-col>{{lg.lg_mng}}</b-col>
+                <b-col>
+                    <template v-if="lg.lg_source_no">
                         <b-button v-if="lg.lg_source_type == 'ORD'" :to="{name: 'adm_order_edit', params: { od_id:lg.lg_source_no }}" variant="outline-primary" block>
                             {{lg.lg_source_no}}
                         </b-button>
                         <b-button v-else-if="lg.lg_source_type == 'EST'" :to="{name: 'adm_estimate_show_reply', params: { er_id:lg.lg_source_no }}" variant="outline-danger" block>
                             {{lg.lg_source_no}}
                         </b-button>
-                    </b-col>
-                    <b-col>{{lg.lg_sale_dt}}</b-col>
-                    <b-col>{{lg.lg_distributor}}</b-col>
-                    <b-col>{{lg.lg_depart}}</b-col>
-                    <b-col>{{lg.lg_lab_prof}}</b-col>
-                    <b-col>{{lg.lg_orderer}}</b-col>
-                    <b-col class="model">
-                        <b-row v-for="lm in lg.ledger_model" :key="lm.lm_id">
-                            <b-col>{{lm.lm_gm_name}}</b-col>
-                            <b-col>{{lm.lm_gm_spec}}</b-col>
-                            <b-col>{{lm.lm_catno}}</b-col>
-                            <b-col>{{lm.lm_gm_code}}</b-col>
-                            <b-col>{{lm.lm_gm_price | comma}}</b-col>
-                            <b-col>{{lm.lm_ea | comma}}</b-col>
-                            <b-col>{{lm.lm_ea_price | comma}}</b-col>
-                            <b-col>{{lm.lm_surtax | comma}}</b-col>
-                            <b-col>{{lm.lm_sum_price | comma}}</b-col>
-                            <b-col>{{lm.lm_com_order_dt}}</b-col>
-                            <b-col>{{lm.lm_buyer}}</b-col>
-                            <b-col>{{lm.lm_order_mng}}</b-col>
-                            <b-col>{{lm.lm_purchase_price | comma}}</b-col>
-                            <b-col>{{lm.lm_shipping_dt}}</b-col>
-                        </b-row>
-                    </b-col>
-                    <b-col>{{lg.lg_email}}</b-col>
-                    <b-col>{{lg.lg_hp}}</b-col>
-                    <b-col>{{lg.lg_note}}</b-col>
-                </b-row>
+                    </template>
+                </b-col>
+                <b-col>{{lg.lg_sale_dt}}</b-col>
+                <b-col>{{lg.lg_distributor}}</b-col>
+                <b-col>{{lg.lg_depart}}</b-col>
+                <b-col>{{lg.lg_lab_prof}}</b-col>
+                <b-col>{{lg.lg_orderer}}</b-col>
+                <b-col class="model">
+                    <b-button size="sm" variant="primary" @click="create('child', i)" class="adder"><b-icon-plus-lg /></b-button>
+                    <b-row 
+                        v-for="(lm, lm_i) in lg.ledger_model" 
+                        :key="lm_i+'_'+lm.lm_id"
+                        :class="{cxl:lm.lm_cxl == 'Y'}"
+                    >
+                        <b-col class="ctrl">
+                            <div>
+                                <b-button size="sm" variant="warning" @click="edit('child', i, lm_i)"><b-icon-tools /></b-button>
+                                <b-button size="sm" variant="danger" @click="destroy(i, lm_i)"><b-icon-trash-fill /></b-button>
+                                <b-icon-caret-right-fill />
+                            </div>
+                            {{lm.lm_gm_name}}
+                        </b-col>
+                        <b-col>{{lm.lm_gm_spec}}</b-col>
+                        <b-col>{{lm.lm_catno}}</b-col>
+                        <b-col>{{lm.lm_gm_code}}</b-col>
+                        <b-col>{{lm.lm_gm_price | comma}}</b-col>
+                        <b-col>{{lm.lm_ea | comma}}</b-col>
+                        <b-col>{{lm.lm_ea_price | comma}}</b-col>
+                        <b-col>{{lm.lm_surtax | comma}}</b-col>
+                        <b-col>{{lm.lm_sum_price | comma}}</b-col>
+                        <b-col>{{lm.lm_com_order_dt}}</b-col>
+                        <b-col>{{lm.lm_buyer}}</b-col>
+                        <b-col>{{lm.lm_order_mng}}</b-col>
+                        <b-col>{{lm.lm_purchase_price | comma}}</b-col>
+                        <b-col>{{lm.lm_shipping_dt}}</b-col>
+                    </b-row>
+                </b-col>
+                <b-col>{{lg.lg_email}}</b-col>
+                <b-col>{{lg.lg_hp}}</b-col>
+                <b-col>{{lg.lg_note}}</b-col>
+            </b-row>
             </transition-group>
         </perfect-scrollbar>
         <pagination :data="ledger" @pagination-change-page="index" align="center" class="mt-5"></pagination>
     </b-card>
-    <transition name="fade">
+    <transition name="modalForm">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">
-            <Form v-model="compVal" />
+            <FormLedger v-if="actTarget == 'papa'" v-model="frm_ledger" @register="register" />
+            <FormLedgerModel v-else v-model="frm_ledger_model" @register="register" />
         </Modal>
     </transition>
 </div>
@@ -221,18 +242,52 @@ export default {
     name: 'admLedger',
     components: {
         'Modal': () => import('@/views/_common/Modal.vue'),
-        'Form': () => import('./_comp/Form.vue'),
+        'FormLedger': () => import('./_comp/FormLedger.vue'),
+        'FormLedgerModel': () => import('./_comp/FormLedgerModel.vue'),
     },
     data() {
         return {
             isModalViewed: false,
-            selected: true,
-            ledger: {
-                data:[]
+            actTarget: 'papa',
+            actType: 'create',
+            isScrollPass: false,
+            headTop:0,
+            ledger: { data:[] },
+            frm_ledger: { 
+                lg_id: null,
+                lg_order_dt: '',
+                lg_pay_type: 'CARD',
+                lg_mng: '',
+                lg_source_type: 'ORD',
+                lg_source_no: 0,
+                lg_sale_dt: '',
+                lg_distributor: '',
+                lg_depart: '',
+                lg_lab_prof: '',
+                lg_orderer: '',
+                lg_email: '',
+                lg_hp: '',
+                lg_note: '',
+                ledger_model: [],
             },
-            lgFrm: {
-                lg_pay_type:'',
-
+            frm_ledger_model: {
+                lm_id: 0,
+                lm_lg_id: 0,
+                lm_gm_name: '',
+                lm_gm_spec: '',
+                lm_catno: '',
+                lm_gm_code: '',
+                lm_gm_price: 0,
+                lm_ea: 0,
+                lm_ea_price: 0,
+                lm_surtax: 0,
+                lm_sum_price: 0,
+                lm_com_order_dt: '',
+                lm_buyer: '',
+                lm_order_mng: '',
+                lm_purchase_price: 0,
+                lm_shipping_dt: '',
+                lm_cxl: 'N',
             },
             schFrm: {
                 // startDate: startDate,
@@ -263,25 +318,6 @@ export default {
         };
     },
 
-    computed: {
-        compVal: {
-            get () {
-                if (this.selected) {
-                    return this.lgFrm
-                } else {
-                    return this.updatedd
-                }
-            },
-            set (val) {
-                if (this.selected) {
-                    this.lgFrm = val
-                } else {
-                    this.updatedd = val
-                }
-            }
-        }
-    },
-
     methods: {
         async index(page=null) {
             if(page)
@@ -294,23 +330,21 @@ export default {
             }
         },
 
-        async store() {
-            let res = await ax.post(`/api/admin/ledger/`, this.lgFrm);
+        async store(frm) {
+            let res = await ax.post(`/api/admin/ledger/`, frm);
             if (res && res.status === 200) {
                 this.index();
+                Notify.toast('success', '등록 완료');
             }
         },
 
-        async update(i) {
-            let frm = Object.assign(
-                {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                this.ledger.data[i], // 수정하려는 객체
-                {_method : 'PATCH'} // 삽입하려는 내용
-            );
-            let res = await ax.post(`/api/admin/ledger/${frm.lg_id}`, frm);
+        async update(frm) {
+            frm = Object.assign( {}, frm, {_method : 'PATCH'} );
+            let lg_id = frm.lg_id ? frm.lg_id : frm.lm_lg_id;
+            let res = await ax.post(`/api/admin/ledger/${lg_id}`, frm);
             if (res && res.status === 200) {
+                this.index();
                 Notify.toast('success', '수정 완료');
-                this.ledger.data[i].edit = false;
             }
         },
         
@@ -351,11 +385,60 @@ export default {
             this.schFrm.endDate = edt;
             console.log(type);
         },
+
+        create(target, lg_i=null) {
+            this.isModalViewed = true;
+            this.actTarget = target;
+            this.actType = 'create';
+            if (target == 'child')
+                this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
+        },
+
+        edit(target, lg_i, lm_i=null) {
+            this.isModalViewed = true;
+            this.actTarget = target;
+            if (target == 'papa') { 
+                this.frm_ledger = this.ledger.data[lg_i];
+            } else if (target == 'child') { 
+                this.frm_ledger_model = this.ledger.data[lg_i].ledger_model[lm_i]; 
+                this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
+            }
+            this.actType = 'edit';
+        },
+
+        register() {
+            if (this.actTarget == 'papa') {
+                let tmp = Object.assign( {}, this.frm_ledger );
+                if (this.actType == 'create')       this.store(tmp);
+                else if (this.actType == 'edit')    this.update(tmp);
+                this.frm_ledger = { 
+                    lg_pay_type: 'CARD', 
+                    lg_source_type: 'ORD', 
+                    lg_source_no: 0, 
+                    ledger_model: []
+                };
+            } else if (this.actTarget == 'child') {
+                let tmp = Object.assign( {}, this.frm_ledger_model );
+                if (this.actType == 'create')       this.store(tmp);
+                else if (this.actType == 'edit')    this.update(tmp);
+                this.frm_ledger_model = {};
+            }
+            this.isModalViewed = false;
+        },
+
+        scrollListener: function (e) {
+            this.isScrollPass = window.scrollY >= 394;
+            if (this.isScrollPass)
+                this.headTop = window.scrollY-330;
+        },
     },
     mounted() {
-        
+        window.addEventListener('scroll', this.scrollListener);
         this.index(); 
     },
+    beforeDestroy: function () {
+       window.removeEventListener('scroll', this.scrollListener);
+    }
 };
 </script>
 
@@ -363,40 +446,57 @@ export default {
 #admLedger .card { margin:1rem; }
 #admLedger .search .width_btn { display:flex; }
 #admLedger .search .width_btn .btn { flex:1; }
-
-
-#admLedger .data .row { width:3240px; align-items:center; }
-#admLedger .data .row .col { padding-left:5px; padding-right:5px; }
+#admLedger .data .list_top { margin-bottom: 2px; }
+#admLedger .data .list_top div:nth-child(2) { text-align:right; }
 #admLedger .data .list_top div .badge { font-size:1rem; }
-#admLedger .data .head .col { font-weight:bold; font-size:.9rem; text-align:center; } 
-#admLedger .data .head .col .badge { font-size:1rem; }
+#admLedger .data .ps .row { width:3290px; margin:0; align-items:center; }
+#admLedger .data .ps .row .col { padding-left:5px; padding-right:5px; flex: 0 0 120px; max-width:120px; text-align:center; line-height:1.1rem; }
+#admLedger .data .ps .row .model { width:1835px; display: flex; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; padding:0; }
+#admLedger .data .ps .head { background:#666; padding:5px 0; }
+#admLedger .data .ps .head .col { font-weight:bold; font-size:.9rem; color:#fff; }
+#admLedger .data .ps .head .col .badge { font-size:1rem; }
+#admLedger .data .ps .head.fixed_header { position:absolute; top:399px; z-index:2; }
 
-#admLedger .data .row .col { flex: 0 0 120px; max-width:120px; text-align:center; line-height:1.1rem; }
-#admLedger .data .row .col.model { display: flex; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; width:1680px; padding:0; }
-#admLedger .data .row.body { padding:15px 0; }
-#admLedger .data .row.body:not(:last-of-type) { border-bottom:2px solid #777; } 
-#admLedger .data .row.body .model .row { padding:10px 0; background:#f7f7f7; margin:0; align-items:center; }
-#admLedger .data .row.body .model .row:not(:last-of-type) { border-bottom:1px solid #AAA; } 
+#admLedger .data .ps .body { padding:15px 0; }
+#admLedger .data .ps .body.cxl,
+#admLedger .data .ps .body.cxl .model .row,
+#admLedger .data .ps .body .model .row.cxl { background:#ff000044; }
+#admLedger .data .ps .body.cxl .col, 
+#admLedger .data .ps .body.cxl .model .row .col,
+#admLedger .data .ps .body .model .row.cxl .col { text-decoration:line-through; }
+#admLedger .data .ps .body:not(:last-of-type) { border-bottom:2px solid #777; } 
+#admLedger .data .ps .body .model .adder { position:absolute; top:-31px; transition:all .4s; z-index:1; opacity:0; }
+#admLedger .data .ps .body .model:hover .adder { opacity:.9; }
+#admLedger .data .ps .body .model .row { padding:10px 0; background:#f7f7f7; margin:0; overflow:hidden; }
+#admLedger .data .ps .body .model .row:not(:last-of-type) { border-bottom:1px solid #AAA; } 
+#admLedger .data .ps .body .col.ctrl>div { position:absolute; top:50%; transform:translateY(-50%); left:-76px; width:95px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s; z-index:1; background:#fff; }
+#admLedger .data .ps .body .col.ctrl>div:hover { left:0; }
+
+#admLedger .data .ps .list>.col:nth-child(1),
+#admLedger .data .ps .list>.col:nth-child(3),
+#admLedger .data .ps .list>.col:nth-child(5),
+#admLedger .data .ps .list>.col:nth-child(10) { flex: 0 0 90px; max-width:90px; }   /* 고객명 */
+#admLedger .data .ps .list>.col:nth-child(4) { flex: 0 0 75px; max-width:75px; }
+#admLedger .data .ps .list>.col:nth-child(7) { flex: 0 0 210px; max-width:210px; }
+#admLedger .data .ps .list>.col:nth-child(8) { flex: 0 0 180px; max-width:180px; }
+#admLedger .data .ps .list>.col:nth-child(12) { flex: 0 0 75px; max-width:75px; }
+#admLedger .data .ps .list>.col:nth-child(13) { flex: 0 0 75px; max-width:75px; }
+#admLedger .data .ps .list .model .row .col:nth-child(8),
+#admLedger .data .ps .list .model .row .col:nth-child(12) { flex: 0 0 90px; max-width:90px; }
+#admLedger .data .ps .list .model .row .col:nth-child(1) { flex:0 0 250px; max-width:250px; padding-left:25px; }
+#admLedger .data .ps .list .model .row .col:nth-child(2) { flex:0 0 250px; max-width:250px; }
+#admLedger .data .ps .list .model .row .col:nth-child(3) { flex: 0 0 150px; max-width:150px; }   /* CAT.No */
+#admLedger .data .ps .list .model .row .col:nth-child(6) { flex: 0 0 45px; max-width:45px; }   /* 수량 */
+
+#admLedger .data .ps .body .model .row .col:nth-child(5),
+#admLedger .data .ps .body .model .row .col:nth-child(6),
+#admLedger .data .ps .body .model .row .col:nth-child(7),
+#admLedger .data .ps .body .model .row .col:nth-child(8),
+#admLedger .data .ps .body .model .row .col:nth-child(9),
+#admLedger .data .ps .body .model .row .col:nth-child(13) { text-align:right; }
 
 
 
-#admLedger .data .list .col:nth-child(15),
-#admLedger .data .list .col:nth-child(16),
-#admLedger .data .list .col:nth-child(17),
-#admLedger .data .list .col:nth-child(18),
-#admLedger .data .list .col:nth-child(19),
-#admLedger .data .list .col:nth-child(23),
-#admLedger .data .create .col:nth-child(15) input,
-#admLedger .data .create .col:nth-child(16) input,
-#admLedger .data .create .col:nth-child(17) input,
-#admLedger .data .create .col:nth-child(18) input,
-#admLedger .data .create .col:nth-child(19) input,
-#admLedger .data .create .col:nth-child(23) input { text-align:right; }
-
-#admLedger .data .list .row .col .ctrl { position:absolute; left:-76px; width:90px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s;}
-#admLedger .data .list .row .col .ctrl:hover { left:0; }
-
-#admLedger .data >>> .ps { padding-top:2rem; }
 /*#admLedger .data >>> .ps .ps__rail-x { top:0; bottom:auto; height:25px; }*/
 #admLedger .data >>> .ps .ps__rail-x { height:25px; position:fixed; z-index: 1; width: 1920px !important; left: 0 !important; }
 #admLedger .data >>> .ps .ps__rail-x:hover { background-color:#eee; opacity:.9; }
@@ -406,32 +506,15 @@ export default {
 #admLedger .data >>> .ps .ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px; }
 
 #admLedger .data .translate-fade-enter-active, 
-#admLedger .data .translate-fade-leave-active { transition:all .8s; }
+#admLedger .data .translate-fade-leave-active { transition:all .3s; }
 #admLedger .data .translate-fade-enter, 
-#admLedger .data .translate-fade-leave-active { opacity:0; position:absolute; }
-#admLedger .data .translate-fade-enter { transform:translateX(1000px); }
-#admLedger .data .translate-fade-leave-active { transform:translateX(-1000px); }
+#admLedger .data .translate-fade-leave-to { opacity: 0; /* transform: translateY(-30px); */ }
 
 
 
-#admLedger .fade-enter-active,
-#admLedger .fade-leave-active { transition: opacity .001s; }
-#admLedger .fade-enter,
-#admLedger .fade-leave-to { opacity: 0; }
+#admLedger .modalForm-enter-active,
+#admLedger .modalForm-leave-active { transition: opacity .3s; }
+#admLedger .modalForm-enter,
+#admLedger .modalForm-leave-to { opacity: 0; }
 #admLedger .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll; }
 </style>
-
-#admLedger .data .row .col { flex: 0 0 120px; max-width:120px; text-align:center; line-height:1.1rem; }
-#admLedger .data .row .col:nth-child(1),
-#admLedger .data .row .col:nth-child(3),
-#admLedger .data .row .col:nth-child(5),
-#admLedger .data .row .col:nth-child(10),   /* 고객명 */
-#admLedger .data .row .col:nth-child(18),
-#admLedger .data .row .col:nth-child(22) { flex: 0 0 90px; max-width:90px; }
-#admLedger .data .row .col:nth-child(4) { flex: 0 0 75px; max-width:75px; }
-#admLedger .data .row .col:nth-child(7) { flex: 0 0 210px; max-width:210px; }
-#admLedger .data .row .col:nth-child(8) { flex: 0 0 150px; max-width:150px; }
-#admLedger .data .row .col:nth-child(13) { flex: 0 0 150px; max-width:150px; }   /* CAT.No */
-#admLedger .data .row .col:nth-child(16) { flex: 0 0 45px; max-width:45px; }   /* 수량 */
-#admLedger .data .row .col:nth-child(25) { flex: 0 0 75px; max-width:75px; }
-#admLedger .data .row .col:nth-child(26) { flex: 0 0 75px; max-width:75px; }

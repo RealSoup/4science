@@ -32,7 +32,7 @@ class Board extends Model {
         'cancel'    => ['name'=> '취소/교환',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false ],
     ];   
 
-    public function setCode($bo_cd) {
+    public function setCode($bo_cd='open') {
         $this->table = 'board_'. $bo_cd;
         self::$code = $bo_cd;
         self::$config = $this->options[$bo_cd];

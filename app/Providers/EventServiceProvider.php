@@ -32,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
 
     protected $subscribe = [
         \App\Listeners\BoardSubscriber::class,
-        \App\Listeners\PointSubscriber::class,
+        \App\Listeners\MileageSubscriber::class,
         \App\Listeners\GoodsEventListener::class,
     ];
 }

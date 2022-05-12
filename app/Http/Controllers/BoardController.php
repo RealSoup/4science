@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use App\Models\{Board, BoardGood, FileInfo};
-use App\Events\{BoardView, Point};
+use App\Events\{BoardView, Mileage};
 use App\Http\Requests\StoreBoard;
 use DB;
 use Gate;
@@ -18,7 +18,7 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        $board->setCode($req->bo_cd);
+        $board->setCode($req->filled('bo_cd') ? $req->bo_cd : 'open');
         $this->board = $board;
         $this->param['config'] = $board->config;
     }
@@ -118,7 +118,7 @@ class BoardController extends Controller {
         return response()->json($this->param);
     }
 
-    public function store(\App\Models\Point $p, StoreBoard $req, $bo_cd) {
+    public function store(\App\Models\Mileage $p, StoreBoard $req, $bo_cd) {
         if ($req->wri_type == 'comment')    $pieces = $this->co_reqImplant($req);
         else if ($req->wri_type == 'reply') $pieces = $this->re_reqImplant($req);
         else                                $pieces = ['bo_seq' => ($this->board->min('bo_seq'))-1];
@@ -127,7 +127,7 @@ class BoardController extends Controller {
         $bo_id = $this->board->insertGetId($pieces);    //  가공된 자료DB insert
 
         if ($req->wri_type == 'comment') {
-            event(new Point("insert", 'board', $bo_id, $p->point['comment'], '댓글 작성', auth()->user()->id));
+            event(new Mileage("insert", 'board', $bo_id, $p->mileage['comment'], '댓글 작성', auth()->user()->id));
             if (isset($req->file)) {
                 $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
                 $fi_id[] = $rst_upload->getData()->fi_id;
@@ -135,7 +135,7 @@ class BoardController extends Controller {
             }
         } else {
             $redirect = route('board.show', ['bo_cd'=>$bo_cd, 'bo_id'=>$bo_id]);
-            // event(new Point("board", 'up'));
+            // event(new Mileage("board", 'up'));
         }
         if (isset($req->fi_id))
             $this->fiKeySet($req->fi_id, $bo_id);  //  업로드된 파일 게시판 키 입력
@@ -279,7 +279,7 @@ class BoardController extends Controller {
         }
     }
 
-    public function goodBad(App\Models\Point $p, $bo_cd, $bo_id, $type) {
+    public function goodBad(App\Models\Mileage $p, $bo_cd, $bo_id, $type) {
         $good = DB::table('board_good')->where([    ['bg_table', $bo_cd],
                                                     ['bg_bo_id', $bo_id],
                                                     ['created_id', auth()->user()->id]  ])->first();
@@ -295,7 +295,7 @@ class BoardController extends Controller {
                                                     'bg_bo_id' => $bo_id,
                                                     'bg_type' => ($type=='GOOD')?'GOOD':'BAD',
                                                     'created_id' => auth()->user()->id ]);
-                event(new Point("insert", "boardGood", $bg_id, $p->point['good'], '게시물 추천/비추천', auth()->user()->id));
+                event(new Mileage("insert", "boardGood", $bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
             }
         } else if ($type == 'already' || $type == 'reverse') {
             $bo->decrement(($good->bg_type=='GOOD')?'bo_good':'bo_bad');
@@ -306,7 +306,7 @@ class BoardController extends Controller {
                     ->update( ['bg_type' => ($good->bg_type=='GOOD')?'BAD':'GOOD'] );
             } else {
                 $bg = BoardGood::Table($bo_cd)->BoId($bo_id)->User(auth()->user()->id)->first();
-                event(new Point("delete", "boardGood", $bg->bg_id, $p->point['good'], '게시물 추천/비추천', auth()->user()->id));
+                event(new Mileage("delete", "boardGood", $bg->bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
                 $bg->delete();
             }
         }

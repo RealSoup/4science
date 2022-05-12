@@ -110,12 +110,12 @@ label { margin-bottom:0; }
 .awesome_p input:valid,
 .awesome_p textarea:read-only,
 .awesome_p textarea:valid { border:1px solid /*#6200EE*/#17a2b8; }
-.awesome_p input:focus + label,
-.awesome_p textarea:focus + label,
-.awesome_p input:valid + label,
-.awesome_p textarea:read-only + label,
-.awesome_p textarea:valid + label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-8px; transform:translateY(0); font-size:.7rem; }
-.awesome_p.force label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-7px; transform:translateY(0); font-size:.7rem; }
+.awesome_p>input:focus + label,
+.awesome_p>textarea:focus + label,
+.awesome_p>input:valid + label,
+.awesome_p>textarea:read-only + label,
+.awesome_p>textarea:valid + label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-8px; transform:translateY(0); font-size:.7rem; }
+.awesome_p.force>label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-7px; transform:translateY(0); font-size:.7rem; }
 .awesome_p > button { position:absolute; bottom:6px; right:5px; padding:.2rem .25rem; font-size:.875rem; line-height:1; }
 
 .autocomplete { position:absolute; width:90%; z-index:4; background:#fff; border:2px solid #999; min-width:17rem;}

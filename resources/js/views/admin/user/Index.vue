@@ -5,10 +5,10 @@
 
     <b-card class="shadow">
         <b-container fluid>
-            <SchDate v-model="frm" />
+            <SchDate v-model="sch_frm" />
             <b-row>
                 <b-col sm="12" md="6" lg="3">
-                    <b-form-select size="sm" v-model="frm.group">
+                    <b-form-select size="sm" v-model="sch_frm.group">
                         <option value="">◄ 유형 ►</option>
                         <b-form-select-option value="일반">일반</b-form-select-option>
                         <b-form-select-option value="특별">특별</b-form-select-option>
@@ -17,7 +17,7 @@
                     </b-form-select>
                 </b-col>
                 <b-col sm="12" md="6" lg="3">
-                    <select class="custom-select" v-model="frm.level">
+                    <select class="custom-select" v-model="sch_frm.level">
                         <option value="">◄ 등급 ►</option>
                     </select>
                 </b-col>
@@ -27,7 +27,7 @@
                 <b-col md="12" lg="8">
                     <b-input-group>
                         <b-input-group-prepend>
-                            <select class="custom-select" v-model="frm.mode">
+                            <select class="custom-select" v-model="sch_frm.mode">
                                 <option value="">◄ 검색옵션 ►</option>
                                 <option value="gd_name">상품명</option>
                                 <option value="gm_name">제품명</option>
@@ -37,7 +37,7 @@
                             </select>
                         </b-input-group-prepend>
 
-                        <b-form-input v-model="frm.keyword" placeholder="Please enter a keyword"></b-form-input>
+                        <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword"></b-form-input>
 
                         <b-input-group-append>
                             <b-button variant="outline-primary" @click="index">Search</b-button>
@@ -49,11 +49,30 @@
     </b-card>
 
     <b-card class="shadow">
-        <b-container fluid>            
+        <b-container fluid class="list">            
             <b-row>
-                <b-col>
-
+                <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
+            </b-row>
+            <hr>
+            <b-row class="list_item" v-for="(us, i) in list.data" :key="i">
+                <b-col col lg="1">
+                    {{us.id}}. lv {{us.level}} <b-badge>{{option.grade[us.level]}}</b-badge>
                 </b-col>
+
+                <b-col col md="3" lg="4">
+                    <b-button :to="{name: 'adm_user_edit', params: { id:us.id }}" size="sm" variant="light" block class="text-left p-2">
+                        {{us.name}}<b-badge class="ml-2">{{us.email}}</b-badge>
+                    </b-button>
+                </b-col>                
+                <b-col col md="3" lg="4">
+                    <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" />{{us.hp}}</span>
+                    <span><font-awesome-icon icon="phone" v-if="us.tel" />{{us.tel}}</span>
+                    <span><font-awesome-icon icon="fax" v-if="us.eq_fax" />{{us.eq_fax}}</span>
+                </b-col>
+                <b-col col md="3" lg="3">
+                    <span><b-icon-calendar2-date-fill />{{ us.created_at | formatDate }}</span>
+                </b-col>
+                
             </b-row>
         </b-container>
     </b-card>
@@ -62,6 +81,8 @@
 </template>
 
 <script>
+import ax from '@/api/http';
+
 export default {
     name: 'AdmUserIndex',
 
@@ -71,7 +92,7 @@ export default {
 
     data() {
         return {
-            frm: {
+            sch_frm: {
                 startDate:'',
                 endDate:'',
                 keyword_type:'eq_name',
@@ -79,11 +100,16 @@ export default {
                 page:0
             },
             list: {},
+            option: {},
         };
     },
 
-    mounted() {
+    computed: {
         
+    },
+
+    mounted() {
+        this.index();
     },
 
     methods: {
@@ -93,11 +119,10 @@ export default {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
                     return false;
                 }
-                const res = await ax.get(`/api/admin/shop/goods/`, { params: this.sch_frm});
+                const res = await ax.get(`/api/admin/user/`, { params: this.sch_frm});
                 if (res && res.status === 200) {
-                    this.list = res.data.list;
-                    this.categorys = res.data.categorys;
-                    this.makers = res.data.makers;
+                    this.list = res.data.user;
+                    this.option = res.data.option;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -113,5 +138,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.list .row { padding:10px 0; }
+.list .row:not(:last-of-type) { border-bottom:1px solid #ddd; }
+.list .row .col span { margin-right:1rem; }
+.list .row .col span svg { margin-right:0.5rem; }
+.list .list_item .col:nth-of-type(3) { text-align:center; }
+.list .list_item .col:nth-of-type(4) { text-align:right; }
 </style>

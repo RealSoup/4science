@@ -157,15 +157,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerCell',
-  props: ['value'],
+  props: ['value', 'type'],
   data: function data() {
     return {};
   },
   mounted: function mounted() {},
   methods: {
-    store: function store() {}
+    register: function register() {
+      this.$emit('register');
+    }
   }
 });
 
@@ -322,42 +333,48 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "b-container",
     [
+      _c(
+        "b-row",
+        { staticClass: "tit" },
+        [
+          _c("b-col", [
+            _vm.type == "papa"
+              ? _c("span", [_vm._v("주문")])
+              : _vm.type == "child"
+              ? _c("span", [_vm._v("제품")])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.value
+              ? _c("span", [_vm._v("수정")])
+              : _c("span", [_vm._v("추가")]),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c(
         "b-row",
         { staticClass: "create" },
         [
-          _c(
-            "b-col",
-            { staticClass: "awesome_p force" },
-            [
-              _c(
-                "b-input-group",
-                { attrs: { size: "sm" } },
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p force" },
                 [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "lg_order_dt",
-                      placeholder: "YYYY-MM-DD",
-                      autocomplete: "off",
-                      formatter: _vm.formatDate,
-                      required: "",
-                    },
-                    model: {
-                      value: _vm.value.lg_order_dt,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "lg_order_dt", $$v)
-                      },
-                      expression: "value.lg_order_dt",
-                    },
-                  }),
-                  _vm._v(" "),
                   _c(
-                    "b-input-group-append",
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
-                      _c("b-form-datepicker", {
-                        attrs: { size: "sm", "button-only": "", right: "" },
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "lg_order_dt",
+                          placeholder: "YYYY-MM-DD",
+                          autocomplete: "off",
+                          formatter: _vm.formatDate,
+                          required: "",
+                        },
                         model: {
                           value: _vm.value.lg_order_dt,
                           callback: function ($$v) {
@@ -366,153 +383,163 @@ var render = function () {
                           expression: "value.lg_order_dt",
                         },
                       }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c("b-form-datepicker", {
+                            attrs: { size: "sm", "button-only": "", right: "" },
+                            model: {
+                              value: _vm.value.lg_order_dt,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.value, "lg_order_dt", $$v)
+                              },
+                              expression: "value.lg_order_dt",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_order_dt" } }, [
+                    _vm._v("주문일"),
+                  ]),
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_order_dt" } }, [
-                _vm._v("주문일"),
-              ]),
-            ],
-            1
-          ),
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p force" },
-            [
-              _c(
-                "b-form-select",
-                {
-                  attrs: { id: "lg_pay_type" },
-                  model: {
-                    value: _vm.value.lg_pay_type,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.value, "lg_pay_type", $$v)
-                    },
-                    expression: "value.lg_pay_type",
-                  },
-                },
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p force" },
                 [
-                  _c("b-form-select-option", { attrs: { value: "" } }, [
-                    _vm._v("◖결제방식◗"),
-                  ]),
+                  _c(
+                    "b-form-select",
+                    {
+                      attrs: { id: "lg_pay_type" },
+                      model: {
+                        value: _vm.value.lg_pay_type,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.value, "lg_pay_type", $$v)
+                        },
+                        expression: "value.lg_pay_type",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }, [
+                        _vm._v("◖결제방식◗"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "CARD" } }, [
+                        _vm._v("온라인 카드"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "PSYS" } }, [
+                        _vm._v("PSYS"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "BILL" } }, [
+                        _vm._v("계산서"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "STAT" } }, [
+                        _vm._v("전표"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "CASH" } }, [
+                        _vm._v("현금영수증"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "MEMB" } }, [
+                        _vm._v("회원"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "REV" } }, [
+                        _vm._v("역발행"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "NOT" } }, [
+                        _vm._v("미발급"),
+                      ]),
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "CARD" } }, [
-                    _vm._v("온라인 카드"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "PSYS" } }, [
-                    _vm._v("PSYS"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "BILL" } }, [
-                    _vm._v("계산서"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "STAT" } }, [
-                    _vm._v("전표"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "CASH" } }, [
-                    _vm._v("현금영수증"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "MEMB" } }, [
-                    _vm._v("회원"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "REV" } }, [
-                    _vm._v("역발행"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "NOT" } }, [
-                    _vm._v("미발급"),
+                  _c("label", { attrs: { for: "lg_pay_type" } }, [
+                    _vm._v("결제방식"),
                   ]),
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_pay_type" } }, [
-                _vm._v("결제방식"),
-              ]),
-            ],
-            1
-          ),
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_mng", required: "" },
-                model: {
-                  value: _vm.value.lg_mng,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_mng", $$v)
-                  },
-                  expression: "value.lg_mng",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_mng" } }, [_vm._v("담당자")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_source_no", required: "" },
-                model: {
-                  value: _vm.value.lg_source_no,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_source_no", $$v)
-                  },
-                  expression: "value.lg_source_no",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_source_no" } }, [_vm._v("번호")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p force" },
-            [
-              _c(
-                "b-input-group",
-                { attrs: { size: "sm" } },
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
-                    attrs: {
-                      id: "lg_sale_dt",
-                      placeholder: "YYYY-MM-DD",
-                      autocomplete: "off",
-                      formatter: _vm.formatDate,
-                      required: "",
-                    },
+                    attrs: { id: "lg_mng", required: "" },
                     model: {
-                      value: _vm.value.lg_sale_dt,
+                      value: _vm.value.lg_mng,
                       callback: function ($$v) {
-                        _vm.$set(_vm.value, "lg_sale_dt", $$v)
+                        _vm.$set(_vm.value, "lg_mng", $$v)
                       },
-                      expression: "value.lg_sale_dt",
+                      expression: "value.lg_mng",
                     },
                   }),
                   _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_mng" } }, [_vm._v("담당자")]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lg_source_no", required: "" },
+                    model: {
+                      value: _vm.value.lg_source_no,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_source_no", $$v)
+                      },
+                      expression: "value.lg_source_no",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_source_no" } }, [
+                    _vm._v("번호"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p force" },
+                [
                   _c(
-                    "b-input-group-append",
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
-                      _c("b-form-datepicker", {
-                        attrs: { size: "sm", "button-only": "", right: "" },
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "lg_sale_dt",
+                          placeholder: "YYYY-MM-DD",
+                          autocomplete: "off",
+                          formatter: _vm.formatDate,
+                          required: "",
+                        },
                         model: {
                           value: _vm.value.lg_sale_dt,
                           callback: function ($$v) {
@@ -521,531 +548,618 @@ var render = function () {
                           expression: "value.lg_sale_dt",
                         },
                       }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c("b-form-datepicker", {
+                            attrs: { size: "sm", "button-only": "", right: "" },
+                            model: {
+                              value: _vm.value.lg_sale_dt,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.value, "lg_sale_dt", $$v)
+                              },
+                              expression: "value.lg_sale_dt",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_sale_dt" } }, [
+                    _vm._v("매출일"),
+                  ]),
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_sale_dt" } }, [_vm._v("매출일")]),
-            ],
-            1
-          ),
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_distributor", required: "" },
-                model: {
-                  value: _vm.value.lg_distributor,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_distributor", $$v)
-                  },
-                  expression: "value.lg_distributor",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_distributor" } }, [
-                _vm._v("매출처"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_depart", required: "" },
-                model: {
-                  value: _vm.value.lg_depart,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_depart", $$v)
-                  },
-                  expression: "value.lg_depart",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_depart" } }, [_vm._v("소속")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_lab_prof", required: "" },
-                model: {
-                  value: _vm.value.lg_lab_prof,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_lab_prof", $$v)
-                  },
-                  expression: "value.lg_lab_prof",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_lab_prof" } }, [
-                _vm._v("연구실/교수명"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_orderer", required: "" },
-                model: {
-                  value: _vm.value.lg_orderer,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_orderer", $$v)
-                  },
-                  expression: "value.lg_orderer",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_orderer" } }, [_vm._v("고객명")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_gm_name", required: "" },
-                model: {
-                  value: _vm.value.lg_gm_name,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_gm_name", $$v)
-                  },
-                  expression: "value.lg_gm_name",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_gm_name" } }, [_vm._v("품목명")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_gm_spec", required: "" },
-                model: {
-                  value: _vm.value.lg_gm_spec,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_gm_spec", $$v)
-                  },
-                  expression: "value.lg_gm_spec",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_gm_spec" } }, [_vm._v("사양")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_catno", required: "" },
-                model: {
-                  value: _vm.value.lg_catno,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_catno", $$v)
-                  },
-                  expression: "value.lg_catno",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_catno" } }, [_vm._v("CAT.No")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_gm_code", required: "" },
-                model: {
-                  value: _vm.value.lg_gm_code,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_gm_code", $$v)
-                  },
-                  expression: "value.lg_gm_code",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_gm_code" } }, [_vm._v("모델명")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lg_gm_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lg_gm_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_gm_price", $$v)
-                  },
-                  expression: "value.lg_gm_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_gm_price" } }, [_vm._v("단가")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_ea", required: "", formatter: _vm.priceComma },
-                model: {
-                  value: _vm.value.lg_ea,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_ea", $$v)
-                  },
-                  expression: "value.lg_ea",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_ea" } }, [_vm._v("수량")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lg_ea_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lg_ea_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_ea_price", $$v)
-                  },
-                  expression: "value.lg_ea_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_ea_price" } }, [
-                _vm._v("공급가액"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lg_surtax",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lg_surtax,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_surtax", $$v)
-                  },
-                  expression: "value.lg_surtax",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_surtax" } }, [_vm._v("세액")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lg_sum_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lg_sum_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_sum_price", $$v)
-                  },
-                  expression: "value.lg_sum_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_sum_price" } }, [_vm._v("합계")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p force" },
-            [
-              _c(
-                "b-input-group",
-                { attrs: { size: "sm" } },
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
-                    attrs: {
-                      id: "lg_com_order_dt",
-                      placeholder: "YYYY-MM-DD",
-                      autocomplete: "off",
-                      formatter: _vm.formatDate,
-                      required: "",
-                    },
+                    attrs: { id: "lg_distributor", required: "" },
                     model: {
-                      value: _vm.value.lg_com_order_dt,
+                      value: _vm.value.lg_distributor,
                       callback: function ($$v) {
-                        _vm.$set(_vm.value, "lg_com_order_dt", $$v)
+                        _vm.$set(_vm.value, "lg_distributor", $$v)
                       },
-                      expression: "value.lg_com_order_dt",
+                      expression: "value.lg_distributor",
                     },
                   }),
                   _vm._v(" "),
-                  _c(
-                    "b-input-group-append",
-                    [
-                      _c("b-form-datepicker", {
-                        attrs: { size: "sm", "button-only": "", right: "" },
-                        model: {
-                          value: _vm.value.lg_com_order_dt,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "lg_com_order_dt", $$v)
-                          },
-                          expression: "value.lg_com_order_dt",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
+                  _c("label", { attrs: { for: "lg_distributor" } }, [
+                    _vm._v("매출처"),
+                  ]),
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_com_order_dt" } }, [
-                _vm._v("업체발주일"),
-              ]),
-            ],
-            1
-          ),
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_buyer", required: "" },
-                model: {
-                  value: _vm.value.lg_buyer,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_buyer", $$v)
-                  },
-                  expression: "value.lg_buyer",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_buyer" } }, [_vm._v("매입처")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_order_mng", required: "" },
-                model: {
-                  value: _vm.value.lg_order_mng,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_order_mng", $$v)
-                  },
-                  expression: "value.lg_order_mng",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_order_mng" } }, [
-                _vm._v("발주담당"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lg_purchase_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lg_purchase_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_purchase_price", $$v)
-                  },
-                  expression: "value.lg_purchase_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_purchase_price" } }, [
-                _vm._v("매입금액"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p force" },
-            [
-              _c(
-                "b-input-group",
-                { attrs: { size: "sm" } },
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
-                    attrs: {
-                      id: "lg_shipping_dt",
-                      placeholder: "YYYY-MM-DD",
-                      autocomplete: "off",
-                      formatter: _vm.formatDate,
-                      required: "",
-                    },
+                    attrs: { id: "lg_depart", required: "" },
                     model: {
-                      value: _vm.value.lg_shipping_dt,
+                      value: _vm.value.lg_depart,
                       callback: function ($$v) {
-                        _vm.$set(_vm.value, "lg_shipping_dt", $$v)
+                        _vm.$set(_vm.value, "lg_depart", $$v)
                       },
-                      expression: "value.lg_shipping_dt",
+                      expression: "value.lg_depart",
                     },
                   }),
                   _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_depart" } }, [
+                    _vm._v("소속"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lg_lab_prof", required: "" },
+                    model: {
+                      value: _vm.value.lg_lab_prof,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_lab_prof", $$v)
+                      },
+                      expression: "value.lg_lab_prof",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_lab_prof" } }, [
+                    _vm._v("연구실/교수명"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lg_orderer", required: "" },
+                    model: {
+                      value: _vm.value.lg_orderer,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_orderer", $$v)
+                      },
+                      expression: "value.lg_orderer",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_orderer" } }, [
+                    _vm._v("고객명"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_gm_name", required: "" },
+                    model: {
+                      value: _vm.value.lm_gm_name,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_gm_name", $$v)
+                      },
+                      expression: "value.lm_gm_name",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_gm_name" } }, [
+                    _vm._v("품목명"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_gm_spec", required: "" },
+                    model: {
+                      value: _vm.value.lm_gm_spec,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_gm_spec", $$v)
+                      },
+                      expression: "value.lm_gm_spec",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_gm_spec" } }, [
+                    _vm._v("사양"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_catno", required: "" },
+                    model: {
+                      value: _vm.value.lm_catno,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_catno", $$v)
+                      },
+                      expression: "value.lm_catno",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_catno" } }, [
+                    _vm._v("CAT.No"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_gm_code", required: "" },
+                    model: {
+                      value: _vm.value.lm_gm_code,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_gm_code", $$v)
+                      },
+                      expression: "value.lm_gm_code",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_gm_code" } }, [
+                    _vm._v("모델명"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_gm_price",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_gm_price,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_gm_price", $$v)
+                      },
+                      expression: "value.lm_gm_price",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_gm_price" } }, [
+                    _vm._v("단가"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_ea",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_ea,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_ea", $$v)
+                      },
+                      expression: "value.lm_ea",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_ea" } }, [_vm._v("수량")]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_ea_price",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_ea_price,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_ea_price", $$v)
+                      },
+                      expression: "value.lm_ea_price",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_ea_price" } }, [
+                    _vm._v("공급가액"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_surtax",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_surtax,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_surtax", $$v)
+                      },
+                      expression: "value.lm_surtax",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_surtax" } }, [
+                    _vm._v("세액"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_sum_price",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_sum_price,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_sum_price", $$v)
+                      },
+                      expression: "value.lm_sum_price",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_sum_price" } }, [
+                    _vm._v("합계"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p force" },
+                [
                   _c(
-                    "b-input-group-append",
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
-                      _c("b-form-datepicker", {
-                        attrs: { size: "sm", "button-only": "", right: "" },
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "lm_com_order_dt",
+                          placeholder: "YYYY-MM-DD",
+                          autocomplete: "off",
+                          formatter: _vm.formatDate,
+                          required: "",
+                        },
                         model: {
-                          value: _vm.value.lg_shipping_dt,
+                          value: _vm.value.lm_com_order_dt,
                           callback: function ($$v) {
-                            _vm.$set(_vm.value, "lg_shipping_dt", $$v)
+                            _vm.$set(_vm.value, "lm_com_order_dt", $$v)
                           },
-                          expression: "value.lg_shipping_dt",
+                          expression: "value.lm_com_order_dt",
                         },
                       }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c("b-form-datepicker", {
+                            attrs: { size: "sm", "button-only": "", right: "" },
+                            model: {
+                              value: _vm.value.lm_com_order_dt,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.value, "lm_com_order_dt", $$v)
+                              },
+                              expression: "value.lm_com_order_dt",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_com_order_dt" } }, [
+                    _vm._v("업체발주일"),
+                  ]),
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_shipping_dt" } }, [
-                _vm._v("제품발송일"),
-              ]),
-            ],
-            1
-          ),
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_email", required: "" },
-                model: {
-                  value: _vm.value.lg_email,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_email", $$v)
-                  },
-                  expression: "value.lg_email",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_email" } }, [_vm._v("메일")]),
-            ],
-            1
-          ),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_buyer", required: "" },
+                    model: {
+                      value: _vm.value.lm_buyer,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_buyer", $$v)
+                      },
+                      expression: "value.lm_buyer",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_buyer" } }, [
+                    _vm._v("매입처"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_hp", required: "", formatter: _vm.formatHp },
-                model: {
-                  value: _vm.value.lg_hp,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_hp", $$v)
-                  },
-                  expression: "value.lg_hp",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_hp" } }, [_vm._v("HP")]),
-            ],
-            1
-          ),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lm_order_mng", required: "" },
+                    model: {
+                      value: _vm.value.lm_order_mng,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_order_mng", $$v)
+                      },
+                      expression: "value.lm_order_mng",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_order_mng" } }, [
+                    _vm._v("발주담당"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: { id: "lg_note", required: "" },
-                model: {
-                  value: _vm.value.lg_note,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_note", $$v)
-                  },
-                  expression: "value.lg_note",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lg_note" } }, [_vm._v("비고")]),
-            ],
-            1
-          ),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lm_purchase_price",
+                      required: "",
+                      formatter: _vm.priceComma,
+                    },
+                    model: {
+                      value: _vm.value.lm_purchase_price,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lm_purchase_price", $$v)
+                      },
+                      expression: "value.lm_purchase_price",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_purchase_price" } }, [
+                    _vm._v("매입금액"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "child"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p force" },
+                [
+                  _c(
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "lm_shipping_dt",
+                          placeholder: "YYYY-MM-DD",
+                          autocomplete: "off",
+                          formatter: _vm.formatDate,
+                          required: "",
+                        },
+                        model: {
+                          value: _vm.value.lm_shipping_dt,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "lm_shipping_dt", $$v)
+                          },
+                          expression: "value.lm_shipping_dt",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c("b-form-datepicker", {
+                            attrs: { size: "sm", "button-only": "", right: "" },
+                            model: {
+                              value: _vm.value.lm_shipping_dt,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.value, "lm_shipping_dt", $$v)
+                              },
+                              expression: "value.lm_shipping_dt",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lm_shipping_dt" } }, [
+                    _vm._v("제품발송일"),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lg_email", required: "" },
+                    model: {
+                      value: _vm.value.lg_email,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_email", $$v)
+                      },
+                      expression: "value.lg_email",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_email" } }, [_vm._v("메일")]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "lg_hp",
+                      required: "",
+                      formatter: _vm.formatHp,
+                    },
+                    model: {
+                      value: _vm.value.lg_hp,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_hp", $$v)
+                      },
+                      expression: "value.lg_hp",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_hp" } }, [_vm._v("HP")]),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "papa"
+            ? _c(
+                "b-col",
+                { staticClass: "awesome_p" },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "lg_note", required: "" },
+                    model: {
+                      value: _vm.value.lg_note,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "lg_note", $$v)
+                      },
+                      expression: "value.lg_note",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "lg_note" } }, [_vm._v("비고")]),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "b-col",
@@ -1055,7 +1169,7 @@ var render = function () {
                 "b-button",
                 {
                   attrs: { variant: "primary", size: "lg", block: "" },
-                  on: { click: function ($event) {} },
+                  on: { click: _vm.register },
                 },
                 [_vm._v("등록")]
               ),

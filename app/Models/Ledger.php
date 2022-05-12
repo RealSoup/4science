@@ -7,9 +7,7 @@ class Ledger extends Model {
     protected $primaryKey = 'lg_id';
     protected $table = 'ledger';
     protected $guarded = [];
-    protected $appends = ['edit'];
-    public function getEditAttribute() { return false; }
-
+    
     public function ledgerModel() {  return $this->hasMany(LedgerModel::class, "lm_lg_id"); }
 
     public function scopeStartDate($query, $d) { return $query->where('lg_order_dt', '>=', $d); }

@@ -16,32 +16,32 @@
                 <b-col>마일리지</b-col>
                 <b-col>*</b-col>
             </b-row>
-            <b-row v-for="po in point.data" :key="po.po_id" class="data">
-                <b-col>{{po.created_at | formatDate_YYYY_MM_DD}}</b-col>
-                <b-col>{{po.po_content}}</b-col>
-                <b-col>{{po.po_point | comma}} <b>P</b></b-col>
+            <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data">
+                <b-col>{{ml.created_at | formatDate_YYYY_MM_DD}}</b-col>
+                <b-col>{{ml.ml_content}}</b-col>
+                <b-col>{{ml.ml_mileage | comma}} <b>P</b></b-col>
                 <b-col>
-                    <template v-if="po.po_point < 0">
-                        <b-badge v-if="po.po_enable_p == 0" variant="secondary">요청</b-badge>
-                        <b-badge v-else-if="po.po_enable_p == 1" variant="success">승인</b-badge>
-                        <b-badge v-else-if="po.po_enable_p == 2" variant="warning">반려</b-badge>
+                    <template v-if="ml.ml_mileage < 0">
+                        <b-badge v-if="ml.ml_enable_m == 0" variant="secondary">요청</b-badge>
+                        <b-badge v-else-if="ml.ml_enable_m == 1" variant="success">승인</b-badge>
+                        <b-badge v-else-if="ml.ml_enable_m == 2" variant="warning">반려</b-badge>
                     </template>
                 </b-col>
             </b-row>
-            <pagination :data="point" align="center" @pagination-change-page="index"></pagination>
+            <pagination :data="mileage" align="center" @pagination-change-page="index"></pagination>
         </b-container>
 
         <b-container class="request">
             <b-row>
                 <b-col>
                     <b-form-radio v-model="frm.type" value="5">
-                        <img src="/img/mypage/point/gift50000.png" />
+                        <img src="/img/mypage/mileage/gift50000.png" />
                         <p>신세계백화점 상품권 (5만원)</p>
                     </b-form-radio>
                 </b-col>
                 <b-col>
                     <b-form-radio v-model="frm.type" value="10">
-                        <img src="/img/mypage/point/gift100000.png" />
+                        <img src="/img/mypage/mileage/gift100000.png" />
                         <p>신세계백화점 상품권 (10만원)</p>
                     </b-form-radio>
                 </b-col>
@@ -82,7 +82,7 @@ export default {
     data() {
         return {
             frm:{},
-            point:{},
+            mileage:{},
         };
     },
 
@@ -93,9 +93,9 @@ export default {
     methods: {
         async index(page=1){
             try {
-                const res = await ax.get(`/api/point`, { params: {page:page}});
+                const res = await ax.get(`/api/mileage`, { params: {page:page}});
                 if (res && res.status === 200) {
-                    this.point = res.data;
+                    this.mileage = res.data;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -104,7 +104,7 @@ export default {
         },
         async store(){
             try {
-                const res = await ax.post(`/api/point`, this.frm);
+                const res = await ax.post(`/api/mileage`, this.frm);
                 if (res && res.status === 200) {
                     Notify.modal("신청 되었습니다.");
                 }

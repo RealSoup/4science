@@ -22,9 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::GET('mypage/print/{code}', 'MyPageController@print');
     Route::RESOURCE('mypage', MyPageController::class)->only([ 'index', 'edit', 'update', 'destroy' ]);
 
-    Route::GET('point', 'PointController@index');
-    Route::POST('point', 'PointController@store');
-    Route::GET('point/enable', 'PointController@enable');
+    Route::RESOURCE('mileage', 'MileageController')->only([ 'index', 'store', 'update' ]);
+    Route::GET('mileage/enable', 'MileageController@enable');
 
     Route::prefix('shop')->group(function () {
         Route::patch('cart/update', 'Shop\CartController@update')->name('shop.cart.update');
@@ -69,9 +68,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::POST('mainCateGoodsUpdate', 'Admin\SiteController@mainCateGoodsUpdate');
         });
 
+        Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);
         Route::prefix('user')->group(function () {
-            // Route::GET('user', 'Admin\UserController@index')->name('user.index');
-            Route::GET('list', 'Admin\UserController@list')->name('user.list');
+            Route::GET('list', 'Admin\UserController@list')->name('user.list');            
         });
 
 
