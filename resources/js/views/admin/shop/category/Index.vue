@@ -1,22 +1,21 @@
 <template>
-    <b-container id="adm_category">
-        <b-row class="justify-content-center">
-            <b-col sm="12" md="10" lg="6">
-                <b-card header-tag="header" class="shadow">
-                    <template #header><b>카테고리 설정</b></template>
-                    <tree-view
-                        :cate = "ca.subCate"
-                        :parent = "ca"
-                        :depth="0"
-                        :ca_papa="0"
-                        :gene_idx="0"
-                        @get-sub='getSub'
-                    >
-                    </tree-view>
-                </b-card>
-            </b-col>
-        </b-row>
-    </b-container>
+<b-container class="p_warp">
+    <b-row class="justify-content-center">
+        <b-col sm="12" md="10" lg="6">
+            <h3 class="p_tit">카테고리</h3>
+            <b-card >
+                <tree-view
+                    :cate = "ca.subCate"
+                    :parent = "ca"
+                    :depth="0"
+                    :ca_papa="0"
+                    :gene_idx="0"
+                    @get-sub='getSub'
+                />
+            </b-card>
+        </b-col>
+    </b-row>
+</b-container>
 </template>
 
 <script>
@@ -33,7 +32,7 @@ export default {
                 "ca_papa": 0,
                 "ca_name": "카테고리",
                 "ca_seq": 0,
-                "childCount": 4,
+                "hasChild": true,
                 "sub_show": true,
                 "subCate": []
             }
@@ -41,32 +40,20 @@ export default {
     },
     methods: {
         async index(ca=0){
-            try {
-                let ca_id =  ca ? ca.ca_id : 0;
-                const res = await ax.get(`/api/admin/shop/category/${ca_id}`, { params: {'type': 'childCount'}});
-                if (res && res.status === 200) {
-                    if (ca_id == 0) {
-                        this.ca.childCount = res.data.length;
-                        this.ca.subCate = res.data;
-                    } else
-                        this.$set(ca, 'subCate', res.data);
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
+            let ca_id =  ca ? ca.ca_id : 0;
+            const res = await ax.get(`/api/admin/shop/category/${ca_id}`, { params: {'type': 'hasChild'}});
+            if (res && res.status === 200) {
+                if (ca_id == 0) this.ca.subCate = res.data;
+                else            this.$set(ca, 'subCate', res.data);
             }
         },
-        getSub(ca){
-            this.index(ca);
-        },
+        getSub(ca){ this.index(ca); },
     },
-    mounted() {
-        this.index();
-    },
-
+    mounted() { this.index(); },
 }
 </script>
 
-<style media="screen">
-#adm_category .card { padding-bottom:2rem; }
-#adm_category ul { padding-inline-start: 40px; }
+<style lang="css" scoped>
+.card { padding-bottom:2rem; }
+.card >>> ul { padding-inline-start: 40px; }
 </style>

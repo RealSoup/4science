@@ -1,7 +1,7 @@
 <template lang="html">
     <b-container class="p_warp">
-        <h1>매입처 / 항공운임 관리</h1>
-        <b-card class="shadow">
+        <h3 class="p_tit">매입처 / 항공운임 관리</h3>
+        <b-card>
             <template v-if="purchase_at && purchase_at.length" v-for="(row, idx) in purchase_at">
                 <Input v-model="purchase_at[idx]" @destroy="destroy(idx)" class="mb-2" />
             </template>

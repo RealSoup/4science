@@ -20,11 +20,11 @@ class Category extends Model {
     public function getSubShowAttribute() { return false; }
 
 	// 선택한 카테고리 자식 리턴
-    public function getCate($ca_id, $childCount=false) {
-        if ($childCount) {
+    public function getCate($ca_id, $hasChild=false) {
+        if ($hasChild) {
             $ca = $this->select("shop_category.*",
-                                DB::raw("(SELECT count(*) FROM la_shop_category as inner_ca
-                                WHERE inner_ca.ca_papa = la_shop_category.ca_id) as childCount"));
+                                DB::raw("EXISTS(SELECT * FROM la_shop_category as inner_ca
+                                WHERE inner_ca.ca_papa = la_shop_category.ca_id) as hasChild"));
         } else {
             $ca = $this->select('ca_id', 'ca_papa', 'ca_name', 'ca_seq', 'ca_tel');
         }

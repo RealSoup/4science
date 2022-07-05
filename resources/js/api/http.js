@@ -53,6 +53,7 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 403 || error.response.status === 500) {
         // store.commit('error/setAuthorizationError', error.response.data.message);
         Notify.modal(error.response.data.message);
+        router.go(-1);
         return false;
     } else {
         return Promise.reject(error);

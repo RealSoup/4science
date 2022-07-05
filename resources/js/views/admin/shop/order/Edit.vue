@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="adm_order_edit">
     <div class="actionArea">
         <b-input-group size="sm">
             <b-input-group-prepend class="bg-light btn_group">
@@ -42,83 +42,74 @@
         </b-input-group>
     </div>
     <div id="print_area">
-        <div id="adm_order_edit">
-            <b-card no-body class="shadow mt-3 od_header sticky-top">
-                <div>
-                    <b-badge>{{ od.od_id }}.</b-badge>
-                    <span><font-awesome-icon icon="tags" />{{ od.od_no }}</span>
-                    <span><font-awesome-icon icon="clock" />{{ od.created_at | formatDate }}</span>
-                    <span><font-awesome-icon icon="user" />{{ od.od_orderer }}</span>
-                    <span><font-awesome-icon icon="phone" />{{ od.od_orderer_hp }}</span>
-                    <span><font-awesome-icon icon="at" />{{ od.od_orderer_email }}</span>
-                </div>
+        <b-card no-body class="head">
+            <div>
+                <b-badge>{{ od.od_id }}.</b-badge>
+                <span><font-awesome-icon icon="tags" />{{ od.od_no }}</span>
+                <span><font-awesome-icon icon="clock" />{{ od.created_at | formatDate }}</span>
+                <span><font-awesome-icon icon="user" />{{ od.od_orderer }}</span>
+                <span><font-awesome-icon icon="phone" />{{ od.od_orderer_hp }}</span>
+                <span><font-awesome-icon icon="at" />{{ od.od_orderer_email }}</span>
+            </div>
+        </b-card>
 
-            </b-card>
+        <b-card class="body">
+            <div class="tit">주문 상품</div>
+            <b-container v-for="(pa, pa_id) in od.pa_list.lists" :key="`pa_${pa_id}`">
+                <h5>
+                    <template v-if="pa.list[0].purchase_at">{{pa.list[0].purchase_at.pa_name}} <b>직배송 상품</b></template>
+                    <template v-else>4SCIENCE</template>
+                </h5>
+                    
+                <b-row v-for="(gd, gd_idx) in pa.list" :key="`gd_${gd_idx}`">
+                    <b-col v-if="gd_idx != 0" cols="12"><hr /></b-col>
 
-
-
-            <b-card header-tag="header" footer-tag="footer" class="shadow mt-3 order_goods_info">
-                <template #header><b>주문 상품</b></template>
-
-                <b-alert show v-for="(pa, pa_id, idx) in od.pa_list.lists" :key="'pa_id_'+pa_id" :variant="idx%2===0?'success':'info'">
-                    <h5><b>{{pa.list[0].purchase_at ? pa.list[0].purchase_at.pa_name : '4SCIENCE'}}</b> 직배송 상품</h5>
-
-                    <b-container fluid v-for="(gd, gd_idx) in pa.list" :key="'pa_id_'+pa_id+'gd_idx_'+gd_idx">
-                        <b-row v-if="gd_idx != 0">
-                            <b-col><hr /></b-col>
-                        </b-row>
-                        <b-row class="gd_info">
-                            <b-col cols="3" class="goods">
-                                <b-link :to="{name: 'adm_goods_edit', params: { gd_id:gd.gd_id }}"><img :src="gd.image_src_thumb[0]" /></b-link>
-                                <div>
-                                    <b>{{gd.gd_name}}</b>
-                                    {{gd.maker.mk_name}}
-                                </div>
-                            </b-col>
+                    <b-link :to="{name: 'adm_goods_edit', params: { gd_id:gd.gd_id }}">
+                        <img :src="gd.image_src_thumb[0]" />
+                    </b-link>
+                    <b-col>
+                        <b-row class="gd_name"><b-col>{{gd.gd_name}}</b-col></b-row>
+                        
+                        <b-row v-for="(gm, gm_idx) in gd.goods_model" :key="`gm_${gm_idx}`" class="gm">
                             <b-col>
-                                <b-container fluid v-for="(gm, gm_idx) in gd.goods_model" :key="'pa_id_'+pa_id+'gd_idx_'+gd_idx+'gm_idx_'+gm_idx">
-                                    <b-row class="model mb-2">
-                                        <b-col xl="8" lg="6" class="model_info">
-                                            {{gm.gm_name}}
-                                            <b>{{gm.gm_code}}</b>
-                                            [{{gm.gm_catno}}]
-                                            <b>{{gm.gm_spec}}</b>
-                                            ({{gm.gm_unit}})
-                                        </b-col>
-                                        <b-col class="model_price text-right">
-                                            {{gm.odm_price_add_vat | comma}} 원
-                                            <font-awesome-icon icon="times" />
-                                            <!-- <b-form-input v-model="text" placeholder="Enter your name"></b-form-input> -->
-                                            {{gm.ea | comma}} 개
-                                            <font-awesome-icon icon="equals" />
-                                            <b class="md_multi">{{gm.odm_price_add_vat*gm.ea | comma}} 원</b>
-                                        </b-col>
-                                    </b-row>
-                                </b-container>
-
-                                <b-container fluid v-for="(opc, opc_idx) in gd.option_child" :key="'pa_id_'+pa_id+'gd_idx_'+gd_idx+'opc_idx_'+opc_idx">
-                                    <b-row v-if="opc_idx == 0">
-                                        <b-col><hr /></b-col>
-                                    </b-row>
-                                    <b-row class="option mb-2">
-                                        <b-col cols="6" class="option_info">
-                                            {{opc.option.op_name}}: {{opc.opc_name}}
-                                        </b-col>
-                                        <b-col class="option_price text-right">
-                                            {{opc.odo_price_add_vat | comma}} 원
-                                            <font-awesome-icon icon="times" />
-                                            <!-- <b-form-input v-model="text" placeholder="Enter your name"></b-form-input> -->
-                                            {{opc.ea | comma}} 개
-                                            <font-awesome-icon icon="equals" />
-                                            <b class="opc_multi">{{opc.odo_price_add_vat*opc.ea | comma}} 원</b>
-                                        </b-col>
-                                    </b-row>
-                                </b-container>
+                                <b class="gd_name">{{gm.gm_name}}</b>
+                                <b class="divider">/</b>
+                                {{gm.gm_code}}
+                                <b class="divider">/</b>
+                                {{gm.gm_catno}}
+                                <b class="divider">/</b>
+                                {{gd.maker.mk_name}}
+                                <b class="divider">/</b>
+                                {{gm.gm_unit}}
+                            </b-col>
+                            <b-col>{{gm.gm_spec}}</b-col>
+                            <b-col class="price">
+                                {{gm.odm_price_add_vat | comma}} 원
+                                <font-awesome-icon icon="times" />
+                                {{gm.ea | comma}} 개
+                                <font-awesome-icon icon="equals" />
+                                <b class="multi">{{gm.odm_price_add_vat*gm.ea | comma}} 원</b>
                             </b-col>
                         </b-row>
-                    </b-container>
 
-                    <b-container fluid>
+                        <b-row v-for="(opc, opc_idx) in gd.option_child" :key="`opc_${opc_idx}`" class="opc">
+                            <b-col cols="6" class="option_info">
+                                {{opc.option.op_name}}: {{opc.opc_name}}
+                            </b-col>
+                            <b-col class="price">
+                                {{opc.odo_price_add_vat | comma}} 원
+                                <font-awesome-icon icon="times" />
+                                <!-- <b-form-input v-model="text" placeholder="Enter your name"></b-form-input> -->
+                                {{opc.ea | comma}} 개
+                                <font-awesome-icon icon="equals" />
+                                <b class="multi">{{opc.odo_price_add_vat*opc.ea | comma}} 원</b>
+                            </b-col>
+                        </b-row>
+                    </b-col>
+                </b-row>
+                    
+
+                    <!-- <b-container fluid>
                         <b-row align-h="end">
                             <b-col lg="3" md="6" sm="12" class="text-right gd_total_price">
                                 <b-alert show variant="light" class="mt-4">
@@ -128,136 +119,134 @@
                                 </b-alert>
                             </b-col>
                         </b-row>
-                    </b-container>
-                </b-alert>
-                <template #footer>
-                    <b-container fluid>
-                        <b-row>
-                            <b-col cols="6"><h5><b>총 금액</b></h5></b-col>
-                            <b-col cols="6" class="text-right final_price">
-                                <p>상품 : <b>{{od.od_gd_price | comma}} 원</b></p>
-                                <p>배송비 : <b>{{od.od_dlvy_price | comma}} 원</b></p>
-                                <p v-if="od.od_air_price">항공운임료 : <b>{{od.od_air_price | comma}} 원</b></p>
-                                <p>총금액 : <b>{{od.od_all_price | comma}} 원</b></p>
-                            </b-col>
-                        </b-row>
-                    </b-container>
-                </template>
-            </b-card>
+                    </b-container> -->
+            </b-container>
+        </b-card>
 
-            <b-card header-tag="header" header-class="py-2" body-class="py-2" class="shadow mt-3 receiver_info">
-                <template #header><b>배송 정보 / 결제 정보</b></template>
-                <b-container fluid>
-                    <b-row>
-                        <b-col>
-                            <font-awesome-icon icon="user" /> <span class="mr-3">{{ od.od_receiver }}</span>
-                            <font-awesome-icon icon="phone" /> <span class="mr-3">{{ od.od_receiver_hp }}</span>
-                            <font-awesome-icon icon="map-marked-alt" /> <span class="mr-3">{{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}</span>
+        <b-card class="price">
+            <div class="tit">총 금액</div>
+            <b-container>
+                <b-row>
+                    <b-col offset="6">
+                        <p>상품 : <b>{{od.od_gd_price | comma}} 원</b></p>
+                        <p>배송비 : <b>{{od.od_dlvy_price | comma}} 원</b></p>
+                        <p v-if="od.od_air_price">항공운임료 : <b>{{od.od_air_price | comma}} 원</b></p>
+                        <p>총금액 : <b>{{od.od_all_price | comma}} 원</b></p>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </b-card>
 
-                            <p>
-                                <font-awesome-icon icon="info" /> <span>{{ od.od_memo }}</span>
-                            </p>
-                        </b-col>
-                    </b-row>
-                    <hr />
-                    <b-row>
-                        <b-col>
-                            <b-badge>결제수단</b-badge>
-                            <span v-if="od.od_pay_method == 'C'">
-                                <b-badge variant="light">카드</b-badge>
-                            </span>
-                            <span v-else-if="od.od_pay_method == 'B'">
-                                <b-badge variant="light">계좌이체</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'K'">국민은행</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'W'">우리은행</b-badge>
-                                <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
-                                <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
-                            </span>
-                            <span v-else-if="od.od_pay_method == 'P'">
-                                <b-badge variant="light">PSYS</b-badge>
-                                <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
-                                <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
-                            </span>
-                            <span v-else-if="od.od_pay_method == 'S'">
-                                <b-badge variant="light">전표</b-badge>
-                                <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'SH'">신한</b-badge>
-                                <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'BC'">BC</b-badge>
-                                <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'SS'">삼성</b-badge>
-                                <b-badge variant="light" v-else>{{od.order_extra_info.oex_finance_type}}</b-badge>
-                                <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
-                            </span>
-                            <span v-else-if="od.od_pay_method == 'E'">에스크로</span>
+        <b-card class="receiver">
+            <div class="tit">배송, 결제 정보</div>
+            <b-container>
+                <b-row>
+                    <b-col>
+                        <font-awesome-icon icon="user" /> <span class="mr-3">{{ od.od_receiver }}</span>
+                        <font-awesome-icon icon="phone" /> <span class="mr-3">{{ od.od_receiver_hp }}</span>
+                        <font-awesome-icon icon="map-marked-alt" /> <span class="mr-3">{{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}</span>
 
-                            <b-badge >구매환경</b-badge>                                                       
-                            <span v-if="od.od_sale_env == 'P'">웹</span>
-                            <span v-else-if="od.od_sale_env == 'M'">모바일</span>
+                        <p>
+                            <font-awesome-icon icon="info" /> <span>{{ od.od_memo }}</span>
+                        </p>
+                    </b-col>
+                </b-row>
+                <hr />
+                <b-row>
+                    <b-col>
+                        <b-badge>결제수단</b-badge>
+                        <span v-if="od.od_pay_method == 'C'">
+                            <b-badge variant="light">카드</b-badge>
+                        </span>
+                        <span v-else-if="od.od_pay_method == 'B'">
+                            <b-badge variant="light">계좌이체</b-badge>
+                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'K'">국민은행</b-badge>
+                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'W'">우리은행</b-badge>
+                            <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
+                            <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
+                        </span>
+                        <span v-else-if="od.od_pay_method == 'P'">
+                            <b-badge variant="light">PSYS</b-badge>
+                            <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
+                            <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
+                        </span>
+                        <span v-else-if="od.od_pay_method == 'S'">
+                            <b-badge variant="light">전표</b-badge>
+                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'SH'">신한</b-badge>
+                            <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'BC'">BC</b-badge>
+                            <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'SS'">삼성</b-badge>
+                            <b-badge variant="light" v-else>{{od.order_extra_info.oex_finance_type}}</b-badge>
+                            <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
+                        </span>
+                        <span v-else-if="od.od_pay_method == 'E'">에스크로</span>
 
-                            <b-badge>요청서류</b-badge>
-                            <span>
-                                <template v-if="!od.order_extra_info"><b-badge variant="warning">없음</b-badge></template>
-                                <template v-else>
-                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_est == 'Y'">견적서</b-badge>
-                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_tran == 'Y'">거래명세서</b-badge>
-                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_biz == 'Y'">사업자 등록증 사본</b-badge>
-                                    <b-badge variant="light" v-if="od.order_extra_info.oex_req_bank == 'Y'">통장사본</b-badge>
-                                    <b-badge variant="warning" v-if="od.order_extra_info.oex_req_est == 'N' && od.order_extra_info.oex_req_tran == 'N' && od.order_extra_info.oex_req_biz == 'N' && od.order_extra_info.oex_req_bank == 'N'">없음</b-badge>
-                                </template>
-                            </span>
-                        </b-col>
-                    </b-row>
-                    <hr />
-                    <b-row v-if="od.od_pay_method == 'B' || od.od_pay_method == 'E'">
-                        <b-col cols="4">
-                            <b-badge>지출증빙</b-badge>
-                            <span v-if="od.order_extra_info.oex_type == 'IV'">
-                                <b-alert show variant="success">
-                                    <h5 class="alert-heading">세금계산서</h5>
+                        <b-badge >구매환경</b-badge>                                                       
+                        <span v-if="od.od_sale_env == 'P'">웹</span>
+                        <span v-else-if="od.od_sale_env == 'M'">모바일</span>
 
-                                    <template v-if="od.file_info">
-                                        <template v-if="checkImage(od.file_info.fi_ext)">
-                                            <b-button @click="isModalViewed = !isModalViewed">사업자 등록증 보기</b-button>
-                                            <transition name="fade">
-                                                <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">
-                                                    <img :src="od.file_info.path" @click="fileDown(od.file_info.fi_original, od.file_info.path)" style="max-width: 100%; height: auto;"/>
-                                                </Modal>
-                                            </transition>
-                                        </template>
-                                        <template v-else>
-                                            <b-button @click="fileDown(od.file_info.fi_original, od.file_info.path)">사업자 등록증 다운로드</b-button>
-                                        </template>
+                        <b-badge>요청서류</b-badge>
+                        <span>
+                            <template v-if="!od.order_extra_info"><b-badge variant="warning">없음</b-badge></template>
+                            <template v-else>
+                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_est == 'Y'">견적서</b-badge>
+                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_tran == 'Y'">거래명세서</b-badge>
+                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_biz == 'Y'">사업자 등록증 사본</b-badge>
+                                <b-badge variant="light" v-if="od.order_extra_info.oex_req_bank == 'Y'">통장사본</b-badge>
+                                <b-badge variant="warning" v-if="od.order_extra_info.oex_req_est == 'N' && od.order_extra_info.oex_req_tran == 'N' && od.order_extra_info.oex_req_biz == 'N' && od.order_extra_info.oex_req_bank == 'N'">없음</b-badge>
+                            </template>
+                        </span>
+                    </b-col>
+                </b-row>
+                <hr />
+                <b-row v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'E') && od.order_extra_info">
+                    <b-col>
+                        <b-badge>지출증빙</b-badge>
+                        <span v-if="od.order_extra_info.oex_type == 'IV'">
+                            <b-alert show variant="success">
+                                <h5 class="alert-heading">세금계산서</h5>
+
+                                <template v-if="od.file_info">
+                                    <template v-if="checkImage(od.file_info.fi_ext)">
+                                        <b-button @click="isModalViewed = !isModalViewed">사업자 등록증 보기</b-button>
+                                        <transition name="fade">
+                                            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">
+                                                <img :src="od.file_info.path" @click="fileDown(od.file_info.fi_original, od.file_info.path)" style="max-width: 100%; height: auto;"/>
+                                            </Modal>
+                                        </transition>
                                     </template>
                                     <template v-else>
-                                        <b-badge variant="light">법인명: {{od.order_extra_info.oex_biz_name}}</b-badge><b>,</b>
-                                        <b-badge variant="light">등록번호: {{od.order_extra_info.oex_biz_num}}</b-badge><b>,</b>
-                                        <b-badge variant="light">업태: {{od.order_extra_info.oex_biz_type}}</b-badge><b>,</b>
-                                        <b-badge variant="light">종목: {{od.order_extra_info.oex_biz_item}}</b-badge><b>,</b>
-                                        <b-badge variant="light">대표자: {{od.order_extra_info.oex_ceo}}</b-badge><b>,</b>
-                                        <b-badge variant="light">소재지: {{od.order_extra_info.oex_addr}}</b-badge><b>,</b>
-                                        <b-badge variant="light">요청사항: {{od.order_extra_info.oex_requirement}}</b-badge><b>,</b>
+                                        <b-button @click="fileDown(od.file_info.fi_original, od.file_info.path)">사업자 등록증 다운로드</b-button>
                                     </template>
-                                    <b-badge variant="light">담당자: {{od.order_extra_info.oex_mng}}</b-badge><b>,</b>
-                                    <b-badge variant="light">담당이메일: {{od.order_extra_info.oex_email}}</b-badge><b>,</b>
-                                    <b-badge variant="light">담당HP: {{od.order_extra_info.oex_num}}</b-badge>
-                                </b-alert>
-                            </span>
-                            <span v-else-if="od.order_extra_info.oex_type == 'HP'">
-                            </span>
-                            <span v-else-if="od.order_extra_info.oex_type == 'CN'">
-                            </span>
-                            <span v-else-if="od.order_extra_info.oex_type == 'BN'">
-                            </span>
-                            <span v-else-if="od.order_extra_info.oex_type == 'NO'">
-                                <b-badge variant="warning">없음</b-badge>
-                            </span>
+                                </template>
+                                <template v-else>
+                                    <b-badge variant="light">법인명: {{od.order_extra_info.oex_biz_name}}</b-badge><b>,</b>
+                                    <b-badge variant="light">등록번호: {{od.order_extra_info.oex_biz_num}}</b-badge><b>,</b>
+                                    <b-badge variant="light">업태: {{od.order_extra_info.oex_biz_type}}</b-badge><b>,</b>
+                                    <b-badge variant="light">종목: {{od.order_extra_info.oex_biz_item}}</b-badge><b>,</b>
+                                    <b-badge variant="light">대표자: {{od.order_extra_info.oex_ceo}}</b-badge><b>,</b>
+                                    <b-badge variant="light">소재지: {{od.order_extra_info.oex_addr}}</b-badge><b>,</b>
+                                    <b-badge variant="light">요청사항: {{od.order_extra_info.oex_requirement}}</b-badge><b>,</b>
+                                </template>
+                                <b-badge variant="light">담당자: {{od.order_extra_info.oex_mng}}</b-badge><b>,</b>
+                                <b-badge variant="light">담당이메일: {{od.order_extra_info.oex_email}}</b-badge><b>,</b>
+                                <b-badge variant="light">담당HP: {{od.order_extra_info.oex_num}}</b-badge>
+                            </b-alert>
+                        </span>
+                        <span v-else-if="od.order_extra_info.oex_type == 'HP'">
+                        </span>
+                        <span v-else-if="od.order_extra_info.oex_type == 'CN'">
+                        </span>
+                        <span v-else-if="od.order_extra_info.oex_type == 'BN'">
+                        </span>
+                        <span v-else-if="od.order_extra_info.oex_type == 'NO'">
+                            <b-badge variant="warning">없음</b-badge>
+                        </span>
 
-                        </b-col>
-                    </b-row>
+                    </b-col>
+                </b-row>
 
-                </b-container>
-            </b-card>
-
-        </div>
-
+            </b-container>
+        </b-card>
     </div>
 </div>
 </template>
@@ -428,36 +417,8 @@ export default {
 }
 </script>
 
-<style media="screen">
-/* @import '/css/adm_shop_order_edit.css';*/
+<style media="css">
+@import '/css/adm_shop_order_edit.css';
 
-#adm_order_edit .badge { font-size:100%; }
-#adm_order_edit .od_header { padding:0.3rem 15px; z-index:999; }
-#adm_order_edit .od_header span { margin-right:1rem; }
-#adm_order_edit .od_header span.badge { margin-right:2rem; }
-#adm_order_edit .od_header span svg { margin-right:0.5rem; }
-.actionArea { position:sticky; top:0; z-index:1021; }
-.actionArea .input-group { position:absolute; top:2px; right:0; max-width:690px; }
-@media (max-width: 992px) {
-    .actionArea { position:static; }
-    .actionArea .input-group { position:static; max-width:none; }
-}
-
-#adm_order_edit .order_goods_info .gd_info .goods a { margin-right:1rem; }
-#adm_order_edit .order_goods_info .gd_info .goods a img { /*width:60px; height:60px; object-fit:cover;*/ max-width:100px; }
-#adm_order_edit .order_goods_info .gd_info .goods div { display:inline-block; }
-#adm_order_edit .order_goods_info .gd_info .model .model_info b { margin:0 0.8rem; }
-#adm_order_edit .order_goods_info .gd_info .model .model_price .md_multi { min-width:6rem; display:inline-block; }
-#adm_order_edit .order_goods_info .gd_info .option .option_price .opc_multi { min-width:6rem; display:inline-block; }
-#adm_order_edit .order_goods_info .final_price p b,
-#adm_order_edit .order_goods_info .gd_total_price b { min-width:6rem; display:inline-block; }
-#adm_order_edit .receiver_info .col>.badge + span { margin-right:2rem; }
-#adm_order_edit .receiver_info .col>.badge + span b { font-size:2rem; }
-
-#adm_order_edit .receiver_info .col .fade-enter-active,
-#adm_order_edit .receiver_info .col .fade-leave-active { transition: opacity .001s; }
-#adm_order_edit .receiver_info .col .fade-enter,
-#adm_order_edit .receiver_info .col .fade-leave-to { opacity: 0; }
-#adm_order_edit .receiver_info .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll; }
 
 </style>

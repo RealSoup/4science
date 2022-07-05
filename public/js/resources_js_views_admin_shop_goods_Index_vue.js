@@ -119,8 +119,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'Category': function Category() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin__module_Category_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/_module/Category.vue */ "./resources/js/views/admin/_module/Category.vue"));
+    'Categorys': function Categorys() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
+    },
+    'SchDate': function SchDate() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin__module_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/_module/SchDate.vue */ "./resources/js/views/admin/_module/SchDate.vue"));
     }
   },
   data: function data() {
@@ -129,17 +132,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sch_frm: {
         startDate: '',
         endDate: '',
-        mk_id: '',
+        gd_mk_id: '',
         gd_enable: '',
         ca01: 0,
         ca02: 0,
         ca03: 0,
         ca04: 0,
-        mode: '',
+        mode: 'gd_name',
         keyword: '',
         page: 0
       },
-      categorys: {},
+      // categorys: {},
       makers: {},
       gd_enable: {
         0: {
@@ -186,8 +189,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.list = res.data.list;
-                  _this.categorys = res.data.categorys;
+                  _this.list = res.data.list; // this.categorys = res.data.categorys;
+
                   _this.makers = res.data.makers;
                 }
 
@@ -236,7 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.adm_goods .card.gd_list .row.list_item > div[data-v-590d599f] { padding-top:15px; padding-bottom:15px;\n}\n.adm_goods .card.gd_list .row.list_item:nth-child(odd) > div[data-v-590d599f]:nth-child(odd),\r\n.adm_goods .card.gd_list .row.list_item:nth-child(even) > div[data-v-590d599f]:nth-child(even) { /*border:1px solid #EAF2FF;*/\n}\n.adm_goods .card.gd_list .row.list_item:nth-child(odd) > div[data-v-590d599f]:nth-child(even),\r\n.adm_goods .card.gd_list .row.list_item:nth-child(even) > div[data-v-590d599f]:nth-child(odd) { background-color:#EAF2FF;\n}\n.adm_goods .card.gd_list .row.list_item > .cate_name .badge[data-v-590d599f] { font-size:1rem;\n}\n.adm_goods .card.gd_list .row > div img[data-v-590d599f] { max-width:120px; width:100%; height:120px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.gd_list .list[data-v-590d599f]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.gd_list .body[data-v-590d599f]:hover { background: #d8f2fd94;\n}\n.gd_list .list>div[data-v-590d599f]:nth-of-type(2) { flex:0 0 30%; max-width:30%;\n}\n.gd_list .list>div[data-v-590d599f]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.gd_list .list>div[data-v-590d599f]{ padding-top:15px; padding-bottom:15px;\n}\n.gd_list .body>div[data-v-590d599f] { cursor:pointer;\n}\n.gd_list .body>div[data-v-590d599f]:nth-of-type(2) { background-color:#7fffd454;\n}\n.gd_list .head>div[data-v-590d599f] { font-weight:bold; background:#666; color:#fff;\n}\n.gd_list .row>div[data-v-590d599f] { font-size:.9rem;\n}\n.gd_list .row>div:nth-of-type(1) span b[data-v-590d599f] { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px;\n}\n.gd_list .row>div>span ul[data-v-590d599f] { display:inline-block;\n}\n.gd_list .row>div>span[data-v-590d599f]:nth-of-type(2) { float:right;\n}\n.gd_list .row>div img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -371,277 +374,217 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "adm_goods" },
+    "b-container",
+    { staticClass: "p_warp" },
     [
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 목록")]),
+      _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow" },
+        { staticClass: "search adform" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "SchDate",
+            {
+              model: {
+                value: _vm.sch_frm,
+                callback: function ($$v) {
+                  _vm.sch_frm = $$v
+                },
+                expression: "sch_frm",
+              },
+            },
             [
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                [_vm._v("등록일")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("Categorys", {
+            model: {
+              value: _vm.sch_frm,
+              callback: function ($$v) {
+                _vm.sch_frm = $$v
+              },
+              expression: "sch_frm",
+            },
+          }),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", { staticClass: "label" }, [_vm._v("제조사")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { sm: "12", md: "6", lg: "3" } },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.gd_mk_id,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "gd_mk_id", $$v)
+                        },
+                        expression: "sch_frm.gd_mk_id",
+                      },
+                    },
                     [
-                      _c("b-form-datepicker", {
-                        staticClass: "mb-2",
-                        attrs: {
-                          id: "startDate",
-                          placeholder: "Choose a start date",
-                        },
-                        model: {
-                          value: _vm.sch_frm.startDate,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.sch_frm, "startDate", $$v)
-                          },
-                          expression: "sch_frm.startDate",
-                        },
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.makers, function (opt) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: opt.mk_id, attrs: { value: opt.mk_id } },
+                          [_vm._v(_vm._s(opt.mk_name))]
+                        )
                       }),
                     ],
-                    1
+                    2
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { sm: "12", md: "6", lg: "3" } },
-                    [
-                      _c("b-form-datepicker", {
-                        staticClass: "mb-2",
-                        attrs: {
-                          id: "endDate",
-                          placeholder: "Choose a end date",
-                        },
-                        model: {
-                          value: _vm.sch_frm.endDate,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.sch_frm, "endDate", $$v)
-                          },
-                          expression: "sch_frm.endDate",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { attrs: { sm: "12", md: "6", lg: "3" } }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.sch_frm.mk_id,
-                            expression: "sch_frm.mk_id",
-                          },
-                        ],
-                        staticClass: "custom-select",
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.sch_frm,
-                              "mk_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                        },
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("◄ 제조사 ►"),
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.makers, function (opt) {
-                          return _c(
-                            "option",
-                            { domProps: { value: opt.mk_id } },
-                            [_vm._v(_vm._s(opt.mk_name))]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-col", { attrs: { sm: "12", md: "6", lg: "3" } }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.sch_frm.gd_enable,
-                            expression: "sch_frm.gd_enable",
-                          },
-                        ],
-                        staticClass: "custom-select",
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.sch_frm,
-                              "gd_enable",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                        },
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("◄ 활성화 ►"),
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.gd_enable, function (opt) {
-                          return _c(
-                            "option",
-                            { domProps: { value: opt.value } },
-                            [_vm._v(_vm._s(opt.name))]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                  ]),
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("Category", {
-                attrs: { categorys: _vm.categorys },
-                model: {
-                  value: _vm.sch_frm,
-                  callback: function ($$v) {
-                    _vm.sch_frm = $$v
-                  },
-                  expression: "sch_frm",
-                },
-              }),
+              _c("b-col", { staticClass: "label" }, [_vm._v("활성")]),
               _vm._v(" "),
               _c(
-                "b-row",
-                { staticClass: "justify-content-end mt-3" },
+                "b-col",
+                { staticClass: "type02" },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { md: "12", lg: "8" } },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.gd_enable,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "gd_enable", $$v)
+                        },
+                        expression: "sch_frm.gd_enable",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.gd_enable, function (opt) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: opt.value, attrs: { value: opt.value } },
+                          [_vm._v(_vm._s(opt.name))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type05" },
+                [
+                  _c(
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
                       _c(
-                        "b-input-group",
+                        "b-input-group-prepend",
                         [
-                          _c("b-input-group-prepend", [
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.sch_frm.mode,
-                                    expression: "sch_frm.mode",
-                                  },
-                                ],
-                                staticClass: "custom-select",
-                                on: {
-                                  change: function ($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call(
-                                        $event.target.options,
-                                        function (o) {
-                                          return o.selected
-                                        }
-                                      )
-                                      .map(function (o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.sch_frm,
-                                      "mode",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  },
-                                },
-                              },
-                              [
-                                _c("option", { attrs: { value: "" } }, [
-                                  _vm._v("◄ 검색옵션 ►"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gd_name" } }, [
-                                  _vm._v("상품명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gm_name" } }, [
-                                  _vm._v("제품명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gm_code" } }, [
-                                  _vm._v("모델명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "manager" } }, [
-                                  _vm._v("관리자"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "cat_no" } }, [
-                                  _vm._v("Cat.No"),
-                                ]),
-                              ]
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-input", {
-                            attrs: { placeholder: "Please enter a keyword" },
-                            model: {
-                              value: _vm.sch_frm.keyword,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.sch_frm, "keyword", $$v)
-                              },
-                              expression: "sch_frm.keyword",
-                            },
-                          }),
-                          _vm._v(" "),
                           _c(
-                            "b-input-group-append",
+                            "b-form-select",
+                            {
+                              staticClass: "custom-select",
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.sch_frm.mode,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.sch_frm, "mode", $$v)
+                                },
+                                expression: "sch_frm.mode",
+                              },
+                            },
                             [
                               _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "outline-primary" },
-                                  on: { click: _vm.index },
-                                },
-                                [_vm._v("Search")]
+                                "b-form-select-option",
+                                { attrs: { value: "gd_name" } },
+                                [_vm._v("상품명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "gm_name" } },
+                                [_vm._v("제품명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "gm_code" } },
+                                [_vm._v("모델명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "manager" } },
+                                [_vm._v("관리자")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "cat_no" } },
+                                [_vm._v("Cat.No")]
                               ),
                             ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        attrs: { placeholder: "검색어를 입력하세요" },
+                        on: {
+                          keyup: function ($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.index.apply(null, arguments)
+                          },
+                        },
+                        model: {
+                          value: _vm.sch_frm.keyword,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.sch_frm, "keyword", $$v)
+                          },
+                          expression: "sch_frm.keyword",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c(
+                            "b-button",
+                            { on: { click: _vm.index } },
+                            [_c("b-icon-search")],
                             1
                           ),
                         ],
@@ -662,200 +605,138 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow gd_list" },
+        { staticClass: "gd_list" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "b-row",
             [
+              _c("b-col", { attrs: { sm: "12", md: "6" } }, [
+                _vm._v("total : " + _vm._s(this.list.total)),
+              ]),
+              _vm._v(" "),
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
                 [
-                  _c("b-col", { attrs: { sm: "12", md: "6" } }, [
-                    _vm._v("total : " + _vm._s(this.list.total)),
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: {
-                            to: { name: "adm_goods_create" },
-                            variant: "outline-primary",
-                            size: "sm",
-                          },
-                        },
-                        [_vm._v("Create")]
-                      ),
-                    ],
+                    "b-button",
+                    {
+                      attrs: {
+                        to: { name: "adm_goods_create" },
+                        variant: "info",
+                        size: "sm",
+                      },
+                    },
+                    [_c("b-icon-plus-lg"), _vm._v(" 추가")],
                     1
                   ),
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _vm._l(_vm.list.data, function (row, idx) {
-                return _c(
-                  "b-row",
-                  { key: row.mk_id, staticClass: "list_item" },
-                  [
-                    _c(
-                      "b-col",
-                      {
-                        staticClass: "d-none d-lg-block cate_name",
-                        attrs: { lg: "2" },
-                      },
-                      [
-                        _c("div", { staticClass: "d-inline-block" }, [
-                          _c(
-                            "div",
-                            { staticClass: "mb-2" },
-                            [
-                              _c(
-                                "b-badge",
-                                { attrs: { pill: "", variant: "dark" } },
-                                [_vm._v(_vm._s(row.gd_id))]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          row.gc_ca01_name
-                            ? _c(
-                                "div",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { staticClass: "text-dark bg-white" },
-                                    [_vm._v(_vm._s(row.gc_ca01_name))]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          row.gc_ca02_name
-                            ? _c(
-                                "div",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v(_vm._s(row.gc_ca02_name))]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          row.gc_ca03_name
-                            ? _c(
-                                "div",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "secondary" } },
-                                    [_vm._v(_vm._s(row.gc_ca03_name))]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          row.gc_ca04_name
-                            ? _c(
-                                "div",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "dark" } },
-                                    [_vm._v(_vm._s(row.gc_ca04_name))]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm._e(),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "d-inline-block float-right" },
-                          [
-                            _c("img", {
-                              staticClass: "card-img-left",
-                              attrs: {
-                                src: row.image_src_thumb[0],
-                                alt: "Card image",
-                              },
-                            }),
-                          ]
-                        ),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { md: "3", lg: "6" } },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass:
-                              "btn btn-light btn-sm d-block text-left",
-                            attrs: {
-                              to: {
-                                name: "adm_goods_edit",
-                                params: { gd_id: row.gd_id },
-                              },
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(row.gd_name) +
-                                "\n                    "
-                            ),
-                          ]
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { attrs: { md: "3", lg: "2" } }, [
-                      _vm._v(_vm._s(row.mk_name)),
-                    ]),
-                    _vm._v(" "),
-                    _c("b-col", { attrs: { md: "3", lg: "2" } }, [
-                      _c("div", { staticClass: "d-inline-block" }, [
-                        _c("div", { staticClass: "mb-2" }, [
-                          _vm._v(_vm._s(row.manager)),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _vm._v(_vm._s(_vm._f("formatDate")(row.created_at))),
-                        ]),
-                      ]),
-                    ]),
-                  ],
-                  1
-                )
-              }),
             ],
-            2
+            1
           ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "list head" },
+            [
+              _c("b-col", [
+                _c("span", [_vm._v("번호. 상품명")]),
+                _c("span", [_vm._v("이미지")]),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("span", [_vm._v("카테고리")]),
+                _c("span", [_vm._v("제조사")]),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("span", [_vm._v("생성자")]),
+                _c("span", [_vm._v("생성일")]),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.list.data, function (row, idx) {
+            return _c(
+              "b-link",
+              {
+                key: row.mk_id,
+                staticClass: "row list body",
+                attrs: {
+                  "router-tag": "div",
+                  to: { name: "adm_goods_edit", params: { gd_id: row.gd_id } },
+                },
+              },
+              [
+                _c("b-col", [
+                  _c("span", [
+                    _vm._v(_vm._s(row.gd_id) + ". "),
+                    _c("b", [_vm._v(_vm._s(row.gd_name))]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    [
+                      _c("b-img", {
+                        attrs: { src: row.image_src_thumb[0], rounded: "" },
+                      }),
+                    ],
+                    1
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c("span", [
+                    _c("ul", [
+                      row.gc_ca01_name
+                        ? _c("li", [_vm._v(_vm._s(row.gc_ca01_name))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      row.gc_ca02_name
+                        ? _c("li", [_vm._v(_vm._s(row.gc_ca02_name))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      row.gc_ca03_name
+                        ? _c("li", [_vm._v(_vm._s(row.gc_ca03_name))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      row.gc_ca04_name
+                        ? _c("li", [_vm._v(_vm._s(row.gc_ca04_name))])
+                        : _vm._e(),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(row.maker.mk_name))]),
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c(
+                    "span",
+                    [row.user ? [_vm._v(_vm._s(row.user.name))] : _vm._e()],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._v(_vm._s(_vm._f("formatDate")(row.created_at))),
+                  ]),
+                ]),
+              ],
+              1
+            )
+          }),
           _vm._v(" "),
           _c("pagination", {
             staticClass: "mt-5",
-            attrs: { data: _vm.list, align: "center" },
+            attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
             on: { "pagination-change-page": _vm.setPage },
           }),
         ],
-        1
+        2
       ),
     ],
     1

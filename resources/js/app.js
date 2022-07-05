@@ -109,7 +109,9 @@ const options = {
 }
 Vue.use(VueHtmlToPaper, options);
 //  paper print     ==================================
-
+ 
+import VueScrollactive from 'vue-scrollactive';
+Vue.use(VueScrollactive);
 
 const playVue = () => {
     new Vue({
@@ -135,6 +137,8 @@ import ax from '@/api/http';
 ax.get('auth_check').then((res) => {
     if (res.data === 1) {
         ax.get('/api/user').then((response) => {
+            console.log('app.js auth check : ', response.data);
+
             store.state.auth.isLoggedin= true;
             store.state.auth.user= response.data.user;
             store.state.auth.csrfToken= response.data.token;

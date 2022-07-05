@@ -33,48 +33,26 @@ class GoodsController extends Controller {
 
 
     public function index(Category $cate, Request $req) {
-        $data['categorys'] = collect();
-        $data['categorys'][0] = $cate->getCate(0);
-        if ($req->filled('ca01'))    $data['categorys'][1] = $cate->getCate($req->ca01);
-        if ($req->filled('ca02'))    $data['categorys'][2] = $cate->getCate($req->ca02);
-        if ($req->filled('ca03'))    $data['categorys'][3] = $cate->getCate($req->ca03);
-        if ($req->filled('ca04'))    $data['categorys'][4] = $cate->getCate($req->ca04);
-
-        $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();
-
-
-
-        $gd = $this->goods->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id');
+        //  카테고리 검색때문에 with을 안쓰고 조인을 했다.
+        $gd = $this->goods->with('fileGoodsGoods')->with('maker')->with('user');
+        $goodsCate = DB::table('shop_goods_category')->select('*', DB::raw('MIN(gc_id)'))->groupBy('gc_gd_id');
+        $gd = $gd->joinSub($goodsCate, 'goods_category', function ($join) { $join->on('gd_id', '=', 'gc_gd_id'); });
         $gm = $this->goods_model;
-
-        // selectRaw('price * ? as price_with_tax', [1.0825])
-
-        $gd = $gd->select("shop_goods.*", 
-            DB::raw('MIN(gc_id)'),
-            "shop_goods_category.gc_ca01_name", 
-            "shop_goods_category.gc_ca02_name", 
-            "shop_goods_category.gc_ca03_name", 
-            "shop_goods_category.gc_ca04_name",
-            DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_makers.mk_id = la_shop_goods.gd_mk_id) as mk_name"),
-            DB::raw("(SELECT name FROM la_users WHERE la_users.id = la_shop_goods.created_id) as manager"))
-            ->groupBy('shop_goods.gd_id');
-
-
         if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
         if ($req->ca02)         $gd = $gd->where('gc_ca02', $req->ca02);
         if ($req->ca03)         $gd = $gd->where('gc_ca03', $req->ca03);
         if ($req->ca04)         $gd = $gd->where('gc_ca04', $req->ca04);
-        if ($req->startDate)    $gd = $gd->SchStartDate($req->startDate.' 00:00:00');
-        if ($req->endDate)      $gd = $gd->SchEndDate($req->endDate.' 23:59:59');
+        if ($req->startDate)    $gd = $gd->StartDate($req->startDate);
+        if ($req->endDate)      $gd = $gd->EndDate($req->endDate);
         if ($req->gd_enable)    $gd = $gd->enable($req->gd_enable);
         if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
 
         if ($req->keyword){
             switch ($req->mode) {
                 case 'gd_name':     $gd = $gd->SchGd_name($req->keyword); break;
-                case 'gm_name':     $gd = $gd->SchGd_id($gm->SchName($req->keyword)->pluck('gm_gd_id')); break;
-                case 'gm_code':     $gd = $gd->SchGd_id($gm->SchCode($req->keyword)->pluck('gm_gd_id')); break;
-                case 'manager':     $gd = $gd->SchWriter(User::SchName($req->keyword)->pluck('id')); break;
+                case 'gm_name':     $gd = $gd->SchGd_id($gm->Name($req->keyword)->pluck('gm_gd_id')); break;
+                case 'gm_code':     $gd = $gd->SchGd_id($gm->Code($req->keyword)->pluck('gm_gd_id')); break;
+                case 'manager':     $gd = $gd->SchWriter(User::Name($req->keyword)->pluck('id')); break;
                 case 'cat_no':      $keyword = explode('-', $req->keyword);
                     if (count($keyword) == 3) {
                         $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
@@ -98,10 +76,10 @@ class GoodsController extends Controller {
                 break;
             }
         }
-        $data['list'] = $gd->latest()->orderBy('gd_id')->paginate();
+        $data['list'] = $gd->latest()->latest("gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
 
-
+        $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();
 		return response()->json($data);
     }
 
@@ -160,9 +138,10 @@ class GoodsController extends Controller {
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
         $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
-        $cat[2] = 1;
+        $cat[2] = 0;
         
         foreach ($req->goods_model as $gm) {
+            $cat[2] += 1;
             $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
             $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>$cat[2]]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
@@ -218,16 +197,41 @@ class GoodsController extends Controller {
             }
         }
 
-        $cat[0] = $req->goods_model[0]['gm_catno01'];
-        $cat[1] = $req->goods_model[0]['gm_catno02'];
-        $cat[2] = collect($req->goods_model)->max('gm_catno03');
 
+        if ($req->filled('delete_goods_model')) {    //  모델 삭제
+            //  하단에 삭제관련 소스를 모아두었지만
+            //  캣넘버를 먼저 지워야 
+            //  완전히 지워진 모델의 캣넘버가 다시 부여된다.
+            //  ex) 23-12345 모든 모델을 지우고 다시 모델을 생성한다면
+            //  오류에서는 23-12346 다음번호부터 생성됨
+            //  수정 후 23-12345 마지막 숫자 "5" 부터 다시 부여됨
+            foreach ($req->delete_goods_model as $id) {
+                if ($id) {
+                    DB::table('shop_goods_model')->where('gm_id', $id)->delete();
+                    DB::table('shop_bundle_dc')->where('bd_gm_id', $id)->delete();
+                }
+            }
+        }
+
+        if(array_key_exists('gm_catno01', $req->goods_model[0]) && $req->goods_model[0]['gm_catno01']) {
+            $cat[0] = $req->goods_model[0]['gm_catno01'];
+            $cat[1] = $req->goods_model[0]['gm_catno02'];
+            $cat[2] = collect($req->goods_model)->max('gm_catno03');
+        } else {
+            $cat[0] = $req->goods_category[0]['gc_ca01'];
+            $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
+            $cat[2] = 0;
+        }
+        
         foreach ($req->goods_model as $gm) {
             $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm);
             $gm_impl_add = array();
             $gm_id = $gm['gm_id'] ?? 0;
             if ($gm_id) {   $gm_impl_add = ['updated_id' => auth()->user()->id];
-            } else {        $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => $cat[2]++ ]; }
+            } else {
+                $cat[2] += 1;
+                $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => $cat[2] ]; 
+            }
             $gm_impl = Arr::collapse([$gm_impl, $gm_impl_add, ['ip' => $req->ip()]]);
             $udt_gm = $this->goods_model->updateOrCreate(['gm_id' => $gm_id], $gm_impl);
                     
@@ -240,16 +244,7 @@ class GoodsController extends Controller {
                     $this->bd->updateOrCreate(['bd_id' => $bd['bd_id']], $bd_impl);                    
                 }
             }
-        }
-
-        if ($req->filled('delete_goods_model')) {    //  모델 삭제
-            foreach ($req->delete_goods_model as $id) {
-                if ($id) {
-                    DB::table('shop_goods_model')->where('gm_id', $id)->delete();
-                    DB::table('shop_bundle_dc')->where('bd_gm_id', $id)->delete();
-                }
-            }
-        }
+        }        
 
         if ($req->filled('delete_bundle_dc')) {    //  묶음할인 삭제
             foreach ($req->delete_bundle_dc as $id) {

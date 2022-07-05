@@ -63,7 +63,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $data[] = ['TOTAL AMOUNT', '', '', '', rrp($goods_p, 1)];
         $data[] = [''];
         $data[] = ['담당자 : '.$od->mng->name.' '.$od->mng->userMng->um_position.', TEL : '.$od->mng->tel.', FAX : '.$od->mng->fax];
-        $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
+        $data[] = ['계좌번호 : '.cache('bank')->name01.' '.cache('bank')->num01.', '.cache('bank')->name02.' '.cache('bank')->num02.' '.cache('bank')->owner];
         return collect($data);
     }
 

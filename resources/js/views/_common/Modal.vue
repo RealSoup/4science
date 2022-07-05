@@ -1,10 +1,11 @@
 <template>
-    <div class="rs_modal">
+    <b-card class="rs_modal">
         <div class="overlay" @click="$emit('close-modal')"></div>
         <div class="rs_modal-card" :style="{ maxWidth: max_width + 'px' }">
+            <header class="tit"><slot name="header"></slot></header>
             <slot />
         </div>
-    </div>
+    </b-card>
 </template>
 
 <script>

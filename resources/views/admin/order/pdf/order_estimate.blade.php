@@ -196,7 +196,7 @@ $goods_p = 0;
     </table>
 
     <table class="bottom">
-        <tr><td>{{ cache('bank')['name01'].'은행 '.cache('bank')['num01'].' '.cache('bank')['owner'] }}</td></tr>
+        <tr><td>{{ cache('bank')->name01.'은행 '.cache('bank')->num01.' '.cache('bank')->owner }}</td></tr>
         <tr><td>Your R&D Consultant <a href="https://www.4science.net/" target="_blank">www.4science.net</a></td></tr>
     </table>
 </body>

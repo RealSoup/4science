@@ -1,71 +1,75 @@
 <template>
-
-<form ref="form" @submit.prevent="write">
-
-    <FormGroup
-        v-model="frm"
-    />
+<form id="AdmBoardCreat" ref="form" @submit.prevent="update">
 <!--
 v-model="something"
-
 :value="something"
 @input="value => { something = value }"
 -->
-    <div class="row">
-        <div class="col-6">
-            <router-link :to="{name: 'bo_index', params: { bo_cd:bo_cd }}" class="btn btn-sm btn-light">목록</router-link>
-        </div>
-        <div class="col-6 text-right">
-            <button type="submit" class="btn btn-dark">게시글 작성</button>
-        </div>
-        {{this.$store.state.error.validationErrors}}
-    </div>
+    <h3>작성</h3>
+    <b-card no-body class="shadow mb-2 sticky-top p-2">
+        <b-container fluid>
+            <b-row>
+                <b-col cols="12" sm="6"></b-col>
+                <b-col cols="12" sm="6" class="text-right">
+                    <b-button-group size="sm">
+                        <b-button size="sm" variant="light" :to="{name: 'adm_board_index'}">목록</b-button>
+                        <b-button size="sm" variant="primary" @click="store">작성 완료</b-button>
+                    </b-button-group>
+                </b-col>
+            </b-row>
+        </b-container>
+    </b-card>
+    
+    <b-card class="shadow mt-3">
+        <Form v-model="board" />
+    </b-card>
+    
+    <b-card class="shadow mt-3" v-if="board.config.is_addFile">
+        <file-upload ref="fileupload" v-model="board.file_info_bo" :fi_group = "'board'" :fi_kind="this.$route.params.bo_cd" />
+    </b-card>
 </form>
-
 </template>
+
 <script>
-import * as boardApi from '@/api/board';
-import { mapState } from 'vuex';
-
-import FormGroup from "./FormGroup.vue";
-
-import { common } from "@/mixins/common";
+import ax from '@/api/http';
+import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
-    name: 'create',
+    name: 'AdmBoardCreat',
     components: {
-        FormGroup,
+        'Form': () => import('./_comp/Form'),
+        FileUpload,
     },
+    
     data() {
         return {
             bo_cd:this.$route.params.bo_cd,
-            frm: {
-                bo_subject:'',
-                bo_content:'',
-                fi_id:[],
+            bo_id:this.$route.params.bo_id,
+            board:{
+                config: {},
             },
         };
     },
-    computed: {
-        ...mapState('board', ['bo_info', 'loading']),
-    },
     methods: {
-        write() {
-            // const data = this.getFormData("form");
-            this.$store.dispatch('board/store', { bo_cd:this.bo_cd, frm:this.frm });
-        },
+        async store() {
+            const res = await ax.post(`/api/admin/board/${this.bo_cd}/store`, this.board);
+            if (res && res.status === 200) {
+                if (this.board.file_info_bo.length)
+                    await this.$refs.fileupload.fileProcessor(res.data);
+                this.$router.push({ name: 'adm_board_index' })
+            }
+        }, 
     },
-    mixins:[common],
-    beforeCreate() {
-        this.$store.commit('board/dataSet', {
-            bo:{},
-            add_file:[],
-            img_file:[],
-        });
-    },
-    mounted() {
-        this.$store.dispatch('board/initSet', "/api/board/"+this.bo_cd+"/create");
+    async mounted() {
+        const res = await ax.get(`/api/admin/board/${this.bo_cd}/create`);
+        if (res && res.status === 200) {
+            this.board = res.data;
+        }
     },
 
 }
 </script>
+
+<style>
+#AdmBoardCreat .row { margin-bottom:20px; }
+</style>

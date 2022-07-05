@@ -1,10 +1,12 @@
 <template>
-<div id="site">
+<div id="site" :class="{'adm' : this.$store.state.mode == 'adm'}">
+    
     <component :is="choiceHeader" />
-    <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger'}">
+    <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger' && this.$route.name !== 'goods_index'}">
         <router-view />
     </main>
     <component :is="choiceFooter" />
+    
 </div>
 </template>
 
@@ -14,14 +16,13 @@ import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmHead      from '@/views/admin/_layouts/Header.vue';
 import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
-
+import ax from '@/api/http';
 
 export default {
     name: 'app',
     components: { WebHead, WebFooter, HeaderSimple, AdmHead, AdmFooter },
     data() {
         return {
-            
         }
     },
     computed:{
@@ -44,8 +45,9 @@ export default {
     methods: {
     },
 
-    mounted() {
+    async mounted() {
         this.$store.dispatch('category/indexAll');
+        this.$store.dispatch('common/siteInfo');
     },
     // computed: {
     //     ...mapState('error', {
@@ -69,9 +71,8 @@ export default {
 <style type="text/css">
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:"나눔고딕","Nanum Gothic",  "돋움", "굴림","dotum", "Gulim"; color: #333; font-size:16px; }
-#site, #site .ps { height:100%; }
+#site.adm { background:#FADBFB; }
 #header {  }
-#footer { margin:6rem auto; padding:2rem 0; }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
 a, a:hover { color:#333; text-decoration:none; }
@@ -90,18 +91,12 @@ label { margin-bottom:0; }
 @media (min-width: 1700px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1600px; }
 }
-.btn-xm, .btn-group-xm > .btn { padding:.2rem .25rem; font-size:.7rem; line-height: 1; }
-
-.bd_red { border:1px solid red; }
-.bd_blue { border:1px solid blue; }
-
-
 
 .awesome_p { position:relative; }
 .awesome_p input,
 .awesome_p textarea { border:1px solid #EEE; width:100%; padding:.4rem .7rem .3rem; font-size:.95rem; color:#888; border-radius:.24rem; transition: all 0.2s ease; }
 .awesome_p textarea { height:100%; }
-.awesome_p>label { display:block; position:absolute; top:.5rem; white-space:nowrap; color:#AAA; margin-left:10px; padding:0 3px; font-size:.8rem; cursor:text; z-index:3; transition: all 0.2s ease; }
+.awesome_p>label { display:block; position:absolute; top:.5rem; white-space:nowrap; color:#AAA; margin-left:10px; padding:0 3px; /*font-size:.8rem;*/ cursor:text; z-index:3; transition: all 0.2s ease; }
 
 .awesome_p input:focus,
 .awesome_p textarea:focus { outline:0; }
@@ -116,38 +111,53 @@ label { margin-bottom:0; }
 .awesome_p>textarea:read-only + label,
 .awesome_p>textarea:valid + label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-8px; transform:translateY(0); font-size:.7rem; }
 .awesome_p.force>label { background-color:#fff; color:#17a2b8; margin-left:5px; top:-7px; transform:translateY(0); font-size:.7rem; }
-.awesome_p > button { position:absolute; bottom:6px; right:5px; padding:.2rem .25rem; font-size:.875rem; line-height:1; }
+
 
 .autocomplete { position:absolute; width:90%; z-index:4; background:#fff; border:2px solid #999; min-width:17rem;}
 .autocomplete li { cursor:pointer; font-size:0.9rem; padding:.5rem .75rem; color:#888; }
 .autocomplete li:hover { background-color: rgba(51, 217, 178,0.2); }
 .autocomplete li p { margin:.5rem 0;  }
 
-.bd-callout { padding: 1.25rem; margin-top: 1.25rem; margin-bottom: 1.25rem; border: 1px solid #eee; border-left-width: .25rem; border-radius: .25rem }
-.bd-callout h4 { margin-top: 0; margin-bottom: .25rem }
-.bd-callout p:last-child { margin-bottom: 0 }
-.bd-callout code { border-radius: .25rem }
-.bd-callout+.bd-callout { margin-top: -.25rem }
-.bd-callout-info { border-left-color: #5bc0de }
-.bd-callout-info h4 { color: #5bc0de }
-.bd-callout-warning { border-left-color: #f0ad4e }
-.bd-callout-warning h4 { color: #f0ad4e }
-.bd-callout-danger { border-left-color: #d9534f }
-.bd-callout-danger h4 { color: #d9534f }
-.bd-callout-primary{ border-left-color: #007bff }
-.bd-callout-primaryh4 { color: #007bff }
-.bd-callout-success{ border-left-color: #28a745 }
-.bd-callout-successh4 { color: #28a745 }
-.bd-callout-default{ border-left-color: #6c757d }
-.bd-callout-defaulth4 { color: #6c757d }
+.p_warp { margin-top:30px; }
+@media (max-width:1500px) {
+    .p_warp { padding:1.25rem; }
+}
+
+.p_warp h3 { padding:20px; font-weight:bold; }
+.p_warp h3:before { content: ''; border-left: 8px solid #469f8169; position: relative; left: -20px; }
+.p_warp .page_ctrl { position: -webkit-sticky; position:sticky; top:0; z-index:1; background-color:#fff; padding:.3rem 0; margin:0 0 20px; border-radius:10px; border:1px solid #ddd; }
+.p_warp .card { border-radius:10px; margin-bottom:20px; }
+.p_warp .card.ctrl { position:sticky; top:0; padding:8px; z-index:3; border:3px solid #138496; }
+.p_warp .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
+
+.card.adform .row { align-items:center; }
+.card.adform .row > div:not(.tit) { padding:8px 5px; }
+.card.adform .row .label { flex:0 0 7%; max-width:7%; text-align:right; font-weight:bold; font-size:.85rem; padding-right:15px !important; }
+.card.adform .row .label.short { letter-spacing: -1px; font-size: .7rem; }
+.card.adform .row .label + .type01 { flex: 0 0 9.666667%; max-width:9.666667%; }
+.card.adform .row .label + .type02 { flex: 0 0 18%; max-width:18%; }
+.card.adform .row .label + .type03 { flex: 0 0 26.333333%; max-width:26.333333%; }
+.card.adform .row .label + .type04 { flex: 0 0 34.666667%; max-width:34.666667%; }
+.card.adform .row .label + .type05 { flex: 0 0 43%; max-width:43%; }
+.card.adform .row .label + .type06 { flex: 0 0 59.666667%; max-width:59.666667%; }
+
+.card.adform .row .label + .type11 { flex: 0 0 93%; max-width:93%; }
+.card.adform .row .label + .period { display:flex; align-items:center; justify-content:space-between; }
+.card.adform .row .label + .period b { font-size:20px; }
+.card.adform .row .label + .period input { width: calc(50% - 10px); }
+
+.card.adform .row div input { font-size:.85rem; padding-left:8px; padding-right:8px; }
+.card.adform .row>div { position:relative; }
+.card.adform .row>div button.overlap { position:absolute; bottom:15px; right:11px; padding:.2rem .25rem; font-size:.875rem; line-height:1; }
+.card.adform .row>div .point { color:#dc3545; }
 
 
-.p_warp { padding:1.25rem; }
-.p_warp h1 { margin:1.5rem 1rem 2rem 1rem; }
-.p_warp .frm_header { position: -webkit-sticky; position:sticky; top:0; z-index:1020; box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%); background-color:#fff; padding:.3rem 0; margin:0 0 2rem; border-radius:3px; border: 1px solid #ddd; }
-.p_warp .m_title { font-size:1.5rem; border-top:.25rem solid #5bc0de; border-radius:.25rem;  margin-top:4rem; margin-bottom:1.25rem; padding:.5rem 0; }
-
-
+.card.adform .head > div { font-weight:bold; background:#666; color:#fff; }
+.card.adform .btn_box { text-align:right; margin-top:1rem; padding:0 !important; }
+.modal-enter-active,
+.modal-leave-active { transition: opacity .3s; }
+.modal-enter,
+.modal-leave-to { opacity: 0; }
 
 
 

@@ -8,7 +8,7 @@
         </b-col>
         <b-col class="hide">
             <div>{{strCut(value.gm_name, 15)}}</div>
-            <div>{{value.gm_price_add_vat | comma}}원</div>
+            <div class="price">{{value.gm_price_add_vat | comma}}</div>
             <VueNumericInput align="center" :min="1" width="110px" v-model="value.ea" @input="update" />
             <!-- <b-badge pill variant="danger" class="btn_x" @click="outCart">X</b-badge> -->
         </b-col>
@@ -37,3 +37,7 @@ export default {
     }
 }
 </script>
+
+<style lang="css" scoped>
+.price { color:#0072BC; }
+</style>

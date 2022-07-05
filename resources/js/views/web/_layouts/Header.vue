@@ -42,7 +42,7 @@
                                 <option value="gm_code">모델명</option>
                                 <option value="cat_no">Cat.No</option>
                             </select>
-                            <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush"></b-form-input>
+                            <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
                             <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
                         </b-nav-form>
                     </b-navbar-nav>
@@ -63,7 +63,7 @@
 
     <Categorys v-if="true" />
 
-    <Cart v-if="cartComponentConnector && true" /> <!-- 장바구니 -->
+    <Cart v-if="cartComponentConnector" /> <!-- 장바구니 -->
 
 </header>
 </template>
@@ -134,7 +134,7 @@ export default {
             this.$store.dispatch('goods/routerPush', 'new');
         },
         onScroll(e) {
-            console.log(window.top.scrollY);
+            // console.log(window.top.scrollY);
             this.headerFix = window.top.scrollY > 10;
         }
 
@@ -150,7 +150,7 @@ export default {
 
 <style lang="css" scoped>
 #header { background-color:#F5F5F5; }
-#header #real nav { align-items:flex-end; padding:16.5px 0; }
+#header #real nav { align-items:flex-end; padding:16.5px 10px; }
 #header #real nav .navbar-brand { padding:0; margin-bottom:-5px; }
 #header #real nav .navbar-brand img { width:100%; transition:all .3s; }
 
@@ -178,8 +178,8 @@ export default {
 
 #header.fixed #afterimage { height:100px; }
 #header.fixed #real { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
-#header.fixed #real nav .navbar-brand img { width:100px; }
+#header.fixed #real nav .navbar-brand img { width:180px; }
 #header.fixed #real nav .menu_user,
 #header.fixed #real nav .nav_menu { display:none; }
-#header.fixed #real nav .head_sch_box .head_sch form { min-width:80rem; }
+#header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
 </style>

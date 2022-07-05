@@ -69,6 +69,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -181,6 +183,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[0, 13]]);
       }))();
     }
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    // console.log(to, from);
+    this.bo_id = to.params.bo_id;
+    this.show();
+    next();
   },
   mounted: function mounted() {
     this.show();
@@ -878,6 +886,16 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("hr"),
+      _vm._v(" "),
+      _c(
+        "b-link",
+        {
+          attrs: {
+            to: { name: "bo_show", params: { bo_cd: "notice", bo_id: 301 } },
+          },
+        },
+        [_vm._v("\r\n                 1231231\r\n                    ")]
+      ),
       _vm._v(" "),
       _c(
         "div",

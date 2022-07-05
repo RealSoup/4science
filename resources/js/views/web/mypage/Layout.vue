@@ -117,6 +117,7 @@ export default {
 .left .nav li div a { display:block; padding:.5rem 1rem; }
 .left .nav li div a:hover { background-color:#17A2B8; color:#fff; font-weight:bold; }
 
+.left .b-sidebar-outer { z-index:10; }
 @media (max-width: 992px) {
     /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/
 }

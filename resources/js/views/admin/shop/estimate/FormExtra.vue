@@ -24,7 +24,7 @@
                 </b-row>
             </b-col>
             <b-col class="awesome_p">
-                <textarea id="'er_content" v-model="value.er_content" rows="5" required /></textarea>
+                <textarea id="'er_content" v-model="value.er_content" rows="5" required></textarea>
                 <label for="er_content">추가정보</label>
             </b-col>
             <b-col cols="6">

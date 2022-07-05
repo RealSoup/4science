@@ -26,11 +26,6 @@ __webpack_require__.r(__webpack_exports__);
         this.$emit('input', v.replace(/[^0-9]/g, '').toString());
       }
     }
-  },
-  methods: {
-    calculator: function calculator() {
-      this.$emit('calculator');
-    }
   }
 });
 
@@ -98,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html& */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html&");
+/* harmony import */ var _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true& */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&");
 /* harmony import */ var _PriceInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PriceInput.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=script&lang=js&");
 /* harmony import */ var _PriceInput_vue_vue_type_style_index_0_id_1d58d74f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PriceInput.vue?vue&type=style&index=0&id=1d58d74f&scoped=true&lang=css& */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=style&index=0&id=1d58d74f&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -112,8 +107,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _PriceInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "1d58d74f",
@@ -155,26 +150,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html&":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html& ***!
-  \**************************************************************************************************************************/
+/***/ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true& ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PriceInput_vue_vue_type_template_id_1d58d74f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&lang=html& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue?vue&type=template&id=1d58d74f&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -186,25 +181,14 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("input", {
-    directives: [
-      {
-        name: "model",
-        rawName: "v-model",
-        value: _vm.displayValue,
-        expression: "displayValue",
+  return _c("b-form-input", {
+    attrs: { id: _vm.id },
+    model: {
+      value: _vm.displayValue,
+      callback: function ($$v) {
+        _vm.displayValue = $$v
       },
-    ],
-    attrs: { type: "text", id: _vm.id, required: "" },
-    domProps: { value: _vm.displayValue },
-    on: {
-      change: _vm.calculator,
-      input: function ($event) {
-        if ($event.target.composing) {
-          return
-        }
-        _vm.displayValue = $event.target.value
-      },
+      expression: "displayValue",
     },
   })
 }

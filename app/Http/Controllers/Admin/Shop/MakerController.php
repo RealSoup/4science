@@ -37,20 +37,17 @@ class MakerController extends Controller {
     }
 
 	public function update(SaveMakerRequest $req, $mk_id) {
-		$maker = Maker::updateOrCreate(
-			['mk_id' => $mk_id],
-			[ 	'mk_name' => $req->mk_name,
-				'created_id'    => auth()->user()->id,
-	            'ip'            => $req->ip()  ]
-		);
-		if ($maker->mk_id) Session::flash('message', '제조사 수정 성공');
-        else Session::flash('message', '제조사 수정 실패');
-	   	return redirect()->route('admin.shop.maker.index');
+        $rst = DB::table('shop_makers')->where('mk_id', $mk_id)->update([
+            'mk_name'       => $req->filled('mk_name') ? $req->mk_name : '',
+            'updated_id'    => auth()->user()->id,
+            'ip'            => $req->ip() 
+        ]);
+		if ($rst) return response()->json('success', 200);
+        else return response()->json("Fail", 500);
     }
-
+    
     public function destroy($mk_id) {
-		if(Maker::destroy($mk_id)) Session::flash('message', '제조사 삭제 성공');
-		else Session::flash('message', '제조사 삭제 실패');
-        return redirect()->route('admin.shop.maker.index');
+		if(Maker::destroy($mk_id)) return response()->json('success', 200);
+		else return response()->json("Fail", 500);
     }
 }

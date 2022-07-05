@@ -2,15 +2,14 @@
     <div>
         <b-carousel indicators class="slide_banner">
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/banner.jpg"></b-carousel-slide>
+                <b-carousel-slide img-src="/img/main/slide/banner.jpg"></b-carousel-slide>
             </b-link>
             
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/banner.jpg"></b-carousel-slide>
+                <b-carousel-slide img-src="/img/main/slide/220531.jpg"></b-carousel-slide>
             </b-link>           
         </b-carousel>
 
-        <!-- <BestList :items="bestRemodel" /> -->
         <b-row id="best" class="layout">
             <b-col>
                 <b-img src="/img/main/best.gif" />
@@ -67,10 +66,13 @@
                         <img :src="ca.hover||ca.showing ? `/img/main/cate/${ca.ca_id}_.png` :`/img/main/cate/${ca.ca_id}.png`" />
                         <span v-if="ca.hover">{{ca.ca_name}}</span>
                     </li>
+                    
+                    <!-- <li>
+                        <button @click="scrollch('+')">up</button>
+                        <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
+                        <button @click="scrollch('-')">dn</button>
+                    </li> -->
                 </ul>
-                <!-- <button @click="scrollch('+')">up</button>
-                <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
-                <button @click="scrollch('-')">dn</button> -->
             </aside>
 
             <b-container class="con">
@@ -83,10 +85,13 @@
                         </b-link>
                     </b-col>
                     <b-col class="list">
-                        <b-col v-for="gd in bestByCategory[ca.ca_id]" :key="gd.gd_id">
+                        <b-link class="col" 
+                            v-for="(gd, i) in bestByCategory[ca.ca_id]" :key="i"
+                            :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
+                        >
                             <b-img fluid :src="gd.goods.image_src_thumb[0]" />
                             <p>{{gd.goods.gd_name}}</p>
-                        </b-col>
+                        </b-link>
                     </b-col>
                 </b-row>
             </b-container>
@@ -107,7 +112,6 @@ export default {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         vueAccordion, // https://github.com/zeratulmdq/vue-accordion
-        'BestList': () => import('./_module/main/BestList.vue'),
     },
     data() {
         return {
@@ -121,7 +125,7 @@ export default {
             cateSideMenuPosition: 'absolute',
             cateSideMenuTop: 'auto',
             cateSideMenuBottom: 'auto',
-            scrollVal: [1858, 2400, 2942, 3484, 4026, 4568, 5110, 5652, 6690, 7294, 7898, 8502, 9106, 9710, 10314, 10918, 11522, 12126, 12730, 13111],
+            scrollVal: [1760, 2302, 2846, 3387, 3929, 4471, 5013, 5555, 6097, 6639, 7181, 7723, 8265, 8807, 9349, 9891, 10433, 10975, 11517, 12059],
             scrollEnd: 11721,
             currentScroll:0,
 
@@ -141,7 +145,7 @@ export default {
             let dummy = [];
             for (let i in this.list.best) {
                 dummy.push({
-                    gd_name: this.list.best[i].gd_name,
+                    gd_name: this.list.best[i].gd_name, 
                     ca01_name:  this.list.best[i].gc_ca01_name,
                     gd_id: this.list.best[i].gd_id,
                     image: this.list.best[i].image_src_thumb[0] })
@@ -192,7 +196,7 @@ export default {
                 this.cateSideMenuBottom = 0;
             } else if (window.scrollY > this.scrollVal[0]) {
                 this.cateSideMenuPosition = 'fixed';
-                this.cateSideMenuTop = 0;
+                this.cateSideMenuTop = '82px';
                 this.cateSideMenuBottom = 'auto';
             } else if (window.scrollY < this.scrollVal[0]) {
                 this.cateSideMenuPosition = 'absolute';

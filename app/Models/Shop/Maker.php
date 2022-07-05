@@ -3,12 +3,9 @@
 namespace App\Models\Shop;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
-class Maker extends Model
-{
-    use SoftDeletes;
+class Maker extends Model {
     protected $primaryKey = 'mk_id';
     protected $table = 'shop_makers';
     protected $fillable = ['mk_name', 'created_id', 'ip']; // 수정가능 필드 입력

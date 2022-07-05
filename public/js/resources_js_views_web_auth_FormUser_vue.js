@@ -579,7 +579,7 @@ var render = function () {
                     expression: "value.receive_mail",
                   },
                 },
-                [_vm._v("문자 수신 동의")]
+                [_vm._v("메일 수신 동의")]
               ),
             ],
             1

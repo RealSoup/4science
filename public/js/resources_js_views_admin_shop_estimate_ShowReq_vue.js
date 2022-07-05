@@ -130,21 +130,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -312,7 +297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .card .eq_info .col[data-v-5bfe11e4] { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED;\n}\n#adm_estimate_show .card .eq_info .col div[data-v-5bfe11e4] { margin:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span[data-v-5bfe11e4] { margin-right:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span svg[data-v-5bfe11e4] { margin-right:0.5rem;\n}\n#adm_estimate_show .card .eq_info .col div .content[data-v-5bfe11e4] { white-space:pre;\n}\r\n\r\n/* #adm_estimate_show .em_info .em_list:nth-child(odd) > div:nth-child(even),\r\n#adm_estimate_show .em_info .em_list:nth-child(even) > div:nth-child(odd) { background-color:#EAF2FF; } */\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4]:nth-child(even) { background-color:#EAF2FF;\n}\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4] { border-bottom:1px solid #EDEDED; padding:1rem .3rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-5bfe11e4] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-5bfe11e4] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-5bfe11e4] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-5bfe11e4] { display:inline-block; min-width:10rem; text-align:left;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i[data-v-5bfe11e4] { display:inline-block; min-width:5rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i b[data-v-5bfe11e4] { display:inline-block; min-width:1.4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-5bfe11e4]:nth-child(3) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-5bfe11e4] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-5bfe11e4] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-5bfe11e4] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc .row div[data-v-5bfe11e4] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-5bfe11e4] { border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\r\n\r\n/*#adm_estimate_show .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\n#adm_estimate_show .card .eq_info .col div[data-v-5bfe11e4] { margin:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span[data-v-5bfe11e4] { margin-right:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span svg[data-v-5bfe11e4] { margin-right:0.5rem;\n}\n#adm_estimate_show .card .eq_info .col div .content[data-v-5bfe11e4] { white-space:pre;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-5bfe11e4] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-5bfe11e4] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-5bfe11e4] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-5bfe11e4] { display:inline-block; min-width:10rem; text-align:left;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i[data-v-5bfe11e4] { display:inline-block; min-width:5rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i b[data-v-5bfe11e4] { display:inline-block; min-width:1.4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-5bfe11e4]:nth-child(3) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -448,30 +433,51 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "adm_estimate_show" } },
+    { staticClass: "p_warp", attrs: { id: "adm_estimate_show" } },
     [
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
+      _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "shadow sticky-top", attrs: { "body-class": "p-2" } },
+        "b-row",
+        { staticClass: "page_ctrl" },
         [
           _c(
-            "b-container",
+            "b-col",
             [
               _c(
-                "b-row",
+                "b-button",
+                {
+                  attrs: { variant: "danger", size: "sm" },
+                  on: { click: _vm.destroy },
+                },
+                [
+                  _c("b-icon", { attrs: { icon: "trash-fill" } }),
+                  _vm._v(" 삭제"),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "text-right" },
+            [
+              _c(
+                "b-input-group",
+                { attrs: { size: "sm" } },
                 [
                   _c(
-                    "b-col",
+                    "b-input-group-prepend",
+                    { staticClass: "bg-light btn_group" },
                     [
                       _c(
                         "b-button",
-                        {
-                          attrs: { variant: "danger", size: "sm" },
-                          on: { click: _vm.destroy },
-                        },
+                        { attrs: { to: { name: "adm_estimate_index" } } },
                         [
-                          _c("b-icon", { attrs: { icon: "trash-fill" } }),
-                          _vm._v(" 삭제"),
+                          _c("b-icon", { attrs: { icon: "list-ul" } }),
+                          _vm._v(" 목록"),
                         ],
                         1
                       ),
@@ -480,139 +486,99 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "text-right" },
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.frm.eq_step,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.frm, "eq_step", $$v)
+                        },
+                        expression: "frm.eq_step",
+                      },
+                    },
                     [
                       _c(
-                        "b-input-group",
-                        { attrs: { size: "sm" } },
+                        "b-form-select-option",
+                        { attrs: { value: "DONOT" } },
+                        [_vm._v("미처리")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "DOING" } },
+                        [_vm._v("처리중")]
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "DONE" } }, [
+                        _vm._v("처리완료"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "CANCEL" } },
+                        [_vm._v("취소")]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-input-group-append",
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { variant: "warning" },
+                          on: { click: _vm.update },
+                        },
                         [
-                          _c(
-                            "b-input-group-prepend",
-                            { staticClass: "bg-light btn_group" },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { to: { name: "adm_estimate_index" } },
-                                },
-                                [
-                                  _c("b-icon", { attrs: { icon: "list-ul" } }),
-                                  _vm._v(" 목록"),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select",
-                            {
-                              model: {
-                                value: _vm.frm.eq_step,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "eq_step", $$v)
-                                },
-                                expression: "frm.eq_step",
-                              },
-                            },
-                            [
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DONOT" } },
-                                [_vm._v("미처리")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DOING" } },
-                                [_vm._v("처리중")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DONE" } },
-                                [_vm._v("처리완료")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "CANCEL" } },
-                                [_vm._v("취소")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "warning" },
-                                  on: { click: _vm.update },
-                                },
-                                [
-                                  _c("b-icon", { attrs: { icon: "tools" } }),
-                                  _vm._v(" 진행현황 수정"),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _vm.frm.estimate_reply &&
-                              _vm.frm.estimate_reply.length > 0
-                                ? _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        variant: "success",
-                                        to: {
-                                          name: "adm_estimate_show_reply",
-                                          params: {
-                                            er_id:
-                                              _vm.frm.estimate_reply[
-                                                _vm.frm.estimate_reply.length -
-                                                  1
-                                              ].er_id,
-                                          },
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon-newspaper"),
-                                      _vm._v(
-                                        " 견적서 확인\n                            "
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                : _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        variant: "light",
-                                        to: {
-                                          name: "adm_estimate_create",
-                                          query: { eq_id: _vm.frm.eq_id },
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon-pencil-square"),
-                                      _vm._v(
-                                        " 견적서 작성\n                            "
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                            ],
-                            1
-                          ),
+                          _c("b-icon", { attrs: { icon: "tools" } }),
+                          _vm._v(" 진행현황 수정"),
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      _vm.frm.estimate_reply &&
+                      _vm.frm.estimate_reply.length > 0
+                        ? _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "success",
+                                to: {
+                                  name: "adm_estimate_show_reply",
+                                  params: {
+                                    er_id:
+                                      _vm.frm.estimate_reply[
+                                        _vm.frm.estimate_reply.length - 1
+                                      ].er_id,
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("b-icon-newspaper"),
+                              _vm._v(" 견적서 확인\n                    "),
+                            ],
+                            1
+                          )
+                        : _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "light",
+                                to: {
+                                  name: "adm_estimate_create",
+                                  query: { eq_id: _vm.frm.eq_id },
+                                },
+                              },
+                            },
+                            [
+                              _c("b-icon-pencil-square"),
+                              _vm._v(" 견적서 작성\n                    "),
+                            ],
+                            1
+                          ),
                     ],
                     1
                   ),
@@ -628,7 +594,6 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow mt-3" },
         [
           _c(
             "b-container",
@@ -768,6 +733,7 @@ var render = function () {
                                   _c(
                                     "b-button",
                                     {
+                                      key: i,
                                       staticClass: "mr-2",
                                       attrs: {
                                         size: "sm",
@@ -782,11 +748,16 @@ var render = function () {
                                         },
                                       },
                                     },
-                                    [_vm._v(_vm._s(file.fi_original))]
+                                    [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(file.fi_original)
+                                      ),
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   i != Object.keys(_vm.frm.file_info).length - 1
-                                    ? _c("b")
+                                    ? _c("b", { key: i })
                                     : _vm._e(),
                                 ]
                               }),
@@ -809,135 +780,106 @@ var render = function () {
       _vm.frm.estimate_model && _vm.frm.estimate_model.length
         ? _c(
             "b-card",
-            {
-              staticClass: "shadow mt-3 gd_box",
-              scopedSlots: _vm._u(
-                [
-                  {
-                    key: "header",
-                    fn: function () {
-                      return [_c("b", [_vm._v("주문 상품")])]
-                    },
-                    proxy: true,
-                  },
-                ],
-                null,
-                false,
-                680186970
-              ),
-            },
+            { staticClass: "gd_box" },
             [
+              _c("div", { staticClass: "tit" }, [_vm._v("주문 상품")]),
               _vm._v(" "),
               _c(
                 "b-container",
-                _vm._l(_vm.frm.estimate_model, function (em, i) {
+                _vm._l(_vm.frm.estimate_model, function (em) {
                   return _c(
                     "b-row",
                     { key: em.em_id, staticClass: "gd_list" },
                     [
-                      _c("b-col", { attrs: { cols: "5" } }, [
-                        _c(
-                          "div",
-                          { staticClass: "text-success em_name" },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(em.em_name) +
-                                "\n                        "
-                            ),
-                            _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  variant: "outline-primary",
-                                  size: "sm",
-                                  to: {
-                                    name: "adm_goods_edit",
-                                    params: { gd_id: em.em_gd_id },
-                                  },
-                                },
-                              },
-                              [_c("b-icon-link45deg")],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "text-secondary" }, [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(em.em_code) +
-                              "\n                        [ " +
-                              _vm._s(em.em_catno) +
-                              " ]\n                    "
-                          ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
                       _c(
                         "b-col",
-                        { staticClass: "gd_info", attrs: { xl: "6", lg: "6" } },
                         [
-                          _c("div", [_vm._v("제조사: " + _vm._s(em.em_maker))]),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "outline-primary",
+                                size: "sm",
+                                to: {
+                                  name: "adm_goods_edit",
+                                  params: { gd_id: em.em_gd_id },
+                                },
+                              },
+                            },
+                            [_c("b-icon-link45deg")],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("div", [_vm._v("사양: " + _vm._s(em.em_spec))]),
+                          _c("b", { staticClass: "gd_name" }, [
+                            _vm._v(_vm._s(em.em_name)),
+                          ]),
                           _vm._v(" "),
-                          _c("div", [_vm._v("단위: " + _vm._s(em.em_unit))]),
-                        ]
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_code) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_catno) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_maker) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_unit) +
+                              "\n                "
+                          ),
+                        ],
+                        1
                       ),
                       _vm._v(" "),
-                      _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
+                      _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { tag: "i" } }, [
+                        _vm._v("수량 : "),
+                        _c("b", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
+                        _vm._v(" 개"),
+                      ]),
                       _vm._v(" "),
                       em.estimate_option.length
                         ? _c(
                             "b-col",
-                            {
-                              staticClass: "op_list row m-0 p-0",
-                              attrs: { cols: "12" },
-                            },
-                            [
-                              _c(
-                                "b-col",
-                                {
-                                  staticClass: "op_info text-right",
-                                  attrs: { "offset-lg": "8" },
-                                },
+                            { staticClass: "opc", attrs: { cols: "12" } },
+                            _vm._l(em.estimate_option, function (option) {
+                              return _c(
+                                "b-row",
+                                { key: option.eo_id },
                                 [
-                                  _c(
-                                    "b-badge",
-                                    {
-                                      staticClass: "float-left",
-                                      attrs: { variant: "warning" },
-                                    },
-                                    [_vm._v("옵션")]
-                                  ),
+                                  _c("b-col", { attrs: { offset: "6" } }, [
+                                    _vm._v(
+                                      _vm._s(option.eo_tit) +
+                                        ": " +
+                                        _vm._s(option.eo_name)
+                                    ),
+                                  ]),
                                   _vm._v(" "),
-                                  _vm._l(
-                                    em.estimate_option,
-                                    function (option, i) {
-                                      return _c("div", { key: option.eo_id }, [
-                                        _c("span", [
-                                          _vm._v(_vm._s(option.eo_tit) + ": "),
-                                          _c("b", [
-                                            _vm._v(_vm._s(option.eo_name)),
-                                          ]),
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("i", [
-                                          _vm._v("수량: "),
-                                          _c("b", [
-                                            _vm._v(_vm._s(option.eo_ea)),
-                                          ]),
-                                          _vm._v(" 개"),
-                                        ]),
-                                      ])
-                                    }
-                                  ),
+                                  _c("b-col", { attrs: { tag: "i" } }, [
+                                    _vm._v("수량 : "),
+                                    _c("b", [
+                                      _vm._v(
+                                        _vm._s(_vm._f("comma")(option.eo_ea))
+                                      ),
+                                    ]),
+                                    _vm._v(" 개"),
+                                  ]),
                                 ],
-                                2
-                              ),
-                            ],
+                                1
+                              )
+                            }),
                             1
                           )
                         : _vm._e(),

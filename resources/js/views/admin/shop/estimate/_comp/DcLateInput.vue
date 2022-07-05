@@ -1,5 +1,5 @@
 <template lang="html">
-    <input v-model="displayValue" :id="id" type="number" min="0" max="99" required />
+    <b-form-input v-model="displayValue" :id="id" type="number" min="0" max="99" />
 </template>
 
 <script>

@@ -74,7 +74,7 @@ class RegisterController extends Controller {
                 'updated_id' => auth()->check() ? auth()->user()->id : 0
             ] );
 
-        if (!$req->filled('ub_file')) {
+        if ( $req->filled('ub_file') ) {
             $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
             $fi_id = $rst_upload->getData()->fi_id;
             DB::table('filse_info')->where('fi_id', $fi_id)->update(['fi_key' => 1]);             

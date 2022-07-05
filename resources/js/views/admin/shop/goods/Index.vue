@@ -1,97 +1,97 @@
 <template lang="html">
-    <div class="adm_goods">
-        <b-card class="shadow">
-            <b-container fluid>
-                <b-row>
-                    <b-col sm="12" md="6" lg="3">
-                        <b-form-datepicker id="startDate" v-model="sch_frm.startDate" placeholder="Choose a start date" class="mb-2"></b-form-datepicker>
-                    </b-col>
-                    <b-col sm="12" md="6" lg="3">
-                        <b-form-datepicker id="endDate" v-model="sch_frm.endDate" placeholder="Choose a end date" class="mb-2"></b-form-datepicker>
-                    </b-col>
-                    <b-col sm="12" md="6" lg="3">
-                        <select class="custom-select" v-model="sch_frm.mk_id">
-                            <option value="">◄ 제조사 ►</option>
-                            <option v-for="opt in makers" :value="opt.mk_id">{{ opt.mk_name }}</option>
-                        </select>
-                    </b-col>
-                    <b-col sm="12" md="6" lg="3">
-                        <select class="custom-select" v-model="sch_frm.gd_enable">
-                            <option value="">◄ 활성화 ►</option>
-                            <option v-for="opt in gd_enable" :value="opt.value">{{ opt.name }}</option>
-                        </select>
-                    </b-col>
-                </b-row>
+<b-container class="p_warp">
+    <h3 class="p_tit">상품 목록</h3>
 
-                <Category v-model="sch_frm" :categorys="categorys" />
+    <b-card class="search adform">
+        <SchDate v-model="sch_frm"><b-col slot="prev" class="label">등록일</b-col></SchDate>
+        <Categorys v-model="sch_frm" />
+        <b-row>
+            <b-col class="label">제조사</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="sch_frm.gd_mk_id" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="opt in makers" :value="opt.mk_id" :key="opt.mk_id">{{ opt.mk_name }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-row class="justify-content-end mt-3">
-                    <b-col md="12" lg="8">
-                        <b-input-group>
-                            <b-input-group-prepend>
-                                <select class="custom-select" v-model="sch_frm.mode">
-                                    <option value="">◄ 검색옵션 ►</option>
-                                    <option value="gd_name">상품명</option>
-                                    <option value="gm_name">제품명</option>
-                                    <option value="gm_code">모델명</option>
-                                    <option value="manager">관리자</option>
-                                    <option value="cat_no">Cat.No</option>
-                                </select>
-                            </b-input-group-prepend>
+            <b-col class="label">활성</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="sch_frm.gd_enable" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="opt in gd_enable" :value="opt.value" :key="opt.value">{{ opt.name }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            
+            <b-col class="label">검색</b-col>
+            <b-col class="type05">
+                <b-input-group size="sm">
+                    <b-input-group-prepend>
+                        <b-form-select class="custom-select" v-model="sch_frm.mode" size="sm">
+                            <b-form-select-option value="gd_name">상품명</b-form-select-option>
+                            <b-form-select-option value="gm_name">제품명</b-form-select-option>
+                            <b-form-select-option value="gm_code">모델명</b-form-select-option>
+                            <b-form-select-option value="manager">관리자</b-form-select-option>
+                            <b-form-select-option value="cat_no">Cat.No</b-form-select-option>
+                        </b-form-select>
+                    </b-input-group-prepend>
 
-                            <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword"></b-form-input>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index"></b-form-input>
 
-                            <b-input-group-append>
-                                <b-button variant="outline-primary" @click="index">Search</b-button>
-                            </b-input-group-append>
-                        </b-input-group>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </b-card>
+                    <b-input-group-append>
+                        <b-button @click="index"><b-icon-search /></b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </b-col>
+        </b-row>
+    </b-card>
 
-        <b-card class="shadow gd_list">
-            <b-container fluid>
-                <b-row>
-                    <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
-                    <b-col sm="12" md="6" class="text-right">
-                        <b-button :to="{name: 'adm_goods_create'}" variant="outline-primary" size="sm">Create</b-button>
-                    </b-col>
-                </b-row>
-                <hr>
-                <b-row class="list_item" v-for="(row, idx) in list.data" :key="row.mk_id">
-                    <b-col lg="2" class="d-none d-lg-block cate_name">
-                        <div class="d-inline-block">
-                            <div class="mb-2"><b-badge pill variant="dark">{{row.gd_id}}</b-badge></div>
-                            <div v-if="row.gc_ca01_name"><b-badge class="text-dark bg-white">{{row.gc_ca01_name}}</b-badge></div>
-                            <div v-if="row.gc_ca02_name"><b-badge variant="light">{{row.gc_ca02_name}}</b-badge></div>
-                            <div v-if="row.gc_ca03_name"><b-badge variant="secondary">{{row.gc_ca03_name}}</b-badge></div>
-                            <div v-if="row.gc_ca04_name"><b-badge variant="dark">{{row.gc_ca04_name}}</b-badge></div>
-                        </div>
-                        <div class="d-inline-block float-right">
-                            <img :src="row.image_src_thumb[0]" alt="Card image" class="card-img-left">
-                        </div>
+    <b-card class="gd_list">
+        <b-row>
+            <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
+            <b-col sm="12" md="6" class="text-right">
+                <b-button :to="{name: 'adm_goods_create'}" variant="info" size="sm"><b-icon-plus-lg /> 추가</b-button>
+            </b-col>
+        </b-row>
+        <hr>
 
-                    </b-col>
+        <b-row class="list head">
+            <b-col><span>번호. 상품명</span><span>이미지</span></b-col>                
+            <b-col><span>카테고리</span><span>제조사</span></b-col>
+            <b-col><span>생성자</span><span>생성일</span></b-col>
+        </b-row>
+        
+        <b-link class="row list body" router-tag="div"
+            v-for="(row, idx) in list.data" :key="row.mk_id"
+            :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}"
+        >
+            <b-col>
+                <span>{{row.gd_id}}. <b>{{row.gd_name}}</b></span>
+                <span>
+                    <b-img :src="row.image_src_thumb[0]" rounded />
+                </span>
+            </b-col>
 
-                    <b-col md="3" lg="6">
-                        <router-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="btn btn-light btn-sm d-block text-left">
-                            {{row.gd_name}}
-                        </router-link>
-                    </b-col>
-                    <b-col md="3" lg="2">{{row.mk_name}}</b-col>
-                    <b-col md="3" lg="2">
-                        <div class="d-inline-block">
-                            <div class="mb-2">{{row.manager}}</div>
-                            <div>{{ row.created_at | formatDate }}</div>
-                        </div>
-                    </b-col>
-                </b-row>
-            </b-container>
+            <b-col>
+                <span>
+                    <ul>
+                        <li v-if="row.gc_ca01_name">{{row.gc_ca01_name}}</li>
+                        <li v-if="row.gc_ca02_name">{{row.gc_ca02_name}}</li>
+                        <li v-if="row.gc_ca03_name">{{row.gc_ca03_name}}</li>
+                        <li v-if="row.gc_ca04_name">{{row.gc_ca04_name}}</li>
+                    </ul>
+                </span>
+                <span>{{row.maker.mk_name}}</span>
+            </b-col>
 
-            <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5"></pagination>
-        </b-card>
-    </div>
+            <b-col>
+                <span><template v-if="row.user">{{row.user.name}}</template></span>
+                <span>{{ row.created_at | formatDate }}</span>
+            </b-col>
+        </b-link>
+
+        <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
+    </b-card>
+</b-container>
 </template>
 
 <script>
@@ -99,7 +99,8 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'Category': () => import('@/views/admin/_module/Category.vue'),
+        'Categorys': () => import('./_comp/Categorys.vue'),
+        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
     },
     data() {
         return {
@@ -107,17 +108,17 @@ export default {
             sch_frm: {
                 startDate:'',
                 endDate:'',
-                mk_id:'',
+                gd_mk_id:'',
                 gd_enable:'',
                 ca01:0,
                 ca02:0,
                 ca03:0,
                 ca04:0,
-                mode:'',
+                mode:'gd_name',
                 keyword:'',
                 page:0
             },
-            categorys: {},
+            // categorys: {},
             makers: {},
             gd_enable: { 0:{value:'Y', name:'활성'}, 1:{value:'N', name:'비활성'} },
 
@@ -136,7 +137,7 @@ export default {
                 const res = await ax.get(`/api/admin/shop/goods/`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
-                    this.categorys = res.data.categorys;
+                    // this.categorys = res.data.categorys;
                     this.makers = res.data.makers;
                 }
             } catch (e) {
@@ -157,11 +158,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.adm_goods .card.gd_list .row.list_item > div { padding-top:15px; padding-bottom:15px; }
-.adm_goods .card.gd_list .row.list_item:nth-child(odd) > div:nth-child(odd),
-.adm_goods .card.gd_list .row.list_item:nth-child(even) > div:nth-child(even) { /*border:1px solid #EAF2FF;*/ }
-.adm_goods .card.gd_list .row.list_item:nth-child(odd) > div:nth-child(even),
-.adm_goods .card.gd_list .row.list_item:nth-child(even) > div:nth-child(odd) { background-color:#EAF2FF; }
-.adm_goods .card.gd_list .row.list_item > .cate_name .badge { font-size:1rem; }
-.adm_goods .card.gd_list .row > div img { max-width:120px; width:100%; height:120px; object-fit:cover; }
+
+.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }
+.gd_list .body:hover { background: #d8f2fd94; }
+
+.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }
+.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
+.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }
+.gd_list .body>div { cursor:pointer; }
+.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }
+.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }
+
+.gd_list .row>div { font-size:.9rem; }
+.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }
+.gd_list .row>div>span ul { display:inline-block; }
+.gd_list .row>div>span:nth-of-type(2) { float:right; }
+.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }
 </style>

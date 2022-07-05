@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Ledger, LedgerModel, User};
+use App\Models\{Ledger, LedgerModel, User, UserMng};
 use DB;
 
 class LedgerController extends Controller {
@@ -16,29 +16,69 @@ class LedgerController extends Controller {
     }
 
     public function index(Request $req) {
-        $lg = Ledger::with('ledgerModel');
+        $lg = $this->ledger->with('ledgerModel');
         if ($req->filled('startDate'))      $lg = $lg->StartDate($req->startDate);
         if ($req->filled('endDate'))        $lg = $lg->EndDate($req->endDate);
-        if ($req->filled('startGmPrice'))   $lg = $lg->StartGmPrice(str_replace(',', '', $req->startGmPrice));
-        if ($req->filled('endGmPrice'))     $lg = $lg->EndGmPrice(str_replace(',', '', $req->endGmPrice));
-        if ($req->filled('startEaPrice'))   $lg = $lg->StartEaPrice(str_replace(',', '', $req->startEaPrice));
-        if ($req->filled('endEaPrice'))     $lg = $lg->EndEaPrice(str_replace(',', '', $req->endEaPrice));
-        if ($req->filled('startSurtax'))    $lg = $lg->StartSurtax(str_replace(',', '', $req->startSurtax));
-        if ($req->filled('endSurtax'))      $lg = $lg->EndSurtax(str_replace(',', '', $req->endSurtax));
-        if ($req->filled('startSumPrice'))  $lg = $lg->StartSumPrice(str_replace(',', '', $req->startSumPrice));
-        if ($req->filled('endSumPrice'))    $lg = $lg->EndSumPrice(str_replace(',', '', $req->endSumPrice));
+
+        if ( $req->filled('startGmPrice') ) {   //  단가
+            if ( $req->filled('endGmPrice') )
+                $lg = $lg->LgIdArr($this->ledgerModel->whereBetween('lm_gm_price', [preg_replace("/[^\d]/", "", $req->startGmPrice), preg_replace("/[^\d]/", "", $req->endGmPrice)])->pluck('lm_lg_id'));
+            else
+                $lg = $lg->LgIdArr($this->ledgerModel->where('lm_gm_price', '>=',preg_replace("/[^\d]/", "", $req->startGmPrice))->pluck('lm_lg_id'));
+
+        } else if ( $req->filled('endGmPrice') ) {
+            $lg = $lg->LgIdArr($this->ledgerModel->where('lm_gm_price', '<=',preg_replace("/[^\d]/", "", $req->endGmPrice))->pluck('lm_lg_id'));
+        }
+
+        if ( $req->filled('startEaPrice') ) {   //  공급가액
+            if ( $req->filled('endEaPrice') )
+                $lg = $lg->LgIdArr($this->ledgerModel->whereBetween('lm_ea_price', [preg_replace("/[^\d]/", "", $req->startEaPrice), preg_replace("/[^\d]/", "", $req->endEaPrice)])->pluck('lm_lg_id'));
+            else
+                $lg = $lg->LgIdArr($this->ledgerModel->where('lm_ea_price', '>=',preg_replace("/[^\d]/", "", $req->startEaPrice))->pluck('lm_lg_id'));
+
+        } else if ( $req->filled('endEaPrice') ) {
+            $lg = $lg->LgIdArr($this->ledgerModel->where('lm_ea_price', '<=',preg_replace("/[^\d]/", "", $req->endEaPrice))->pluck('lm_lg_id'));
+        }
+
+        if ( $req->filled('startSurtax') ) {    //  세액
+            if ( $req->filled('endSurtax') )
+                $lg = $lg->LgIdArr($this->ledgerModel->whereBetween('lm_surtax', [preg_replace("/[^\d]/", "", $req->startSurtax), preg_replace("/[^\d]/", "", $req->endSurtax)])->pluck('lm_lg_id'));
+            else
+                $lg = $lg->LgIdArr($this->ledgerModel->where('lm_surtax', '>=',preg_replace("/[^\d]/", "", $req->startSurtax))->pluck('lm_lg_id'));
+
+        } else if ( $req->filled('endSurtax') ) {
+            $lg = $lg->LgIdArr($this->ledgerModel->where('lm_surtax', '<=',preg_replace("/[^\d]/", "", $req->endSurtax))->pluck('lm_lg_id'));
+        }
+
+        if ( $req->filled('startSumPrice') ) {  //  합계
+            if ( $req->filled('endSumPrice') )
+                $lg = $lg->LgIdArr($this->ledgerModel->whereBetween('lm_sum_price', [preg_replace("/[^\d]/", "", $req->startSumPrice), preg_replace("/[^\d]/", "", $req->endSumPrice)])->pluck('lm_lg_id'));
+            else
+                $lg = $lg->LgIdArr($this->ledgerModel->where('lm_sum_price', '>=',preg_replace("/[^\d]/", "", $req->startSumPrice))->pluck('lm_lg_id'));
+
+        } else if ( $req->filled('endSumPrice') ) {
+            $lg = $lg->LgIdArr($this->ledgerModel->where('lm_sum_price', '<=',preg_replace("/[^\d]/", "", $req->endSumPrice))->pluck('lm_lg_id'));
+        }
+         
+        if ($req->filled('writer'))         $lg->where('created_id', $req->writer);
         if ($req->filled('mng'))            $lg = $lg->Mng($req->mng);
         if ($req->filled('pay_type'))       $lg = $lg->PayType($req->pay_type);
-        if ($req->filled('keyword')){
-            switch ($req->mode) {
-                case 'orderer':     $lg = $lg->where('lg_orderer', $req->keyword); break;
-                case 'source_no':   $lg = $lg->where('lg_source_no', $req->keyword); break;
-                case 'distributor': $lg = $lg->where('lg_distributor', 'like', "%{$req->keyword}%"); break;
-                case 'gm_name':     $lg = $lg->where('lm_gm_name', 'like', "%{$req->keyword}%"); break;
-                case 'catno':       $lg = $lg->where('lm_catno', $req->keyword); break;
-                case 'gm_code':     $lg = $lg->where('lm_gm_code', $req->keyword); break;
-            }
-        }
+        if ($req->filled('source_no'))      $lg->where('lg_source_no', $req->source_no);
+        if ($req->filled('orderer'))        $lg->where('lg_orderer', 'like', "%{$req->orderer}%");
+        if ($req->filled('distributor'))    $lg->where('lg_distributor', 'like', "%{$req->distributor}%");
+        if ($req->filled('gm_name'))        $lg = $lg->LgIdArr($this->ledgerModel->where('lm_gm_name', 'like', "%{$req->gm_name}%")->pluck('lm_lg_id'));
+        if ($req->filled('catno'))          $lg = $lg->LgIdArr($this->ledgerModel->where('lm_catno', 'like', "%{$req->catno}%")->pluck('lm_lg_id'));
+        if ($req->filled('gm_code'))        $lg = $lg->LgIdArr($this->ledgerModel->where('lm_gm_code', 'like', "%{$req->gm_code}%")->pluck('lm_lg_id'));
+        // if ($req->filled('keyword')){
+        //     switch ($req->mode) {
+        //         case 'orderer':     $lg = $lg->where('lg_orderer', $req->keyword); break;
+        //         case 'source_no':   $lg = $lg->where('lg_source_no', $req->keyword); break;
+        //         case 'distributor': $lg = $lg->where('lg_distributor', 'like', "%{$req->keyword}%"); break;
+        //         case 'gm_name':     $lg = $lg->where('lm_gm_name', 'like', "%{$req->keyword}%"); break;
+        //         case 'catno':       $lg = $lg->where('lm_catno', $req->keyword); break;
+        //         case 'gm_code':     $lg = $lg->where('lm_gm_code', $req->keyword); break;
+        //     }
+        // }
         // echo_query($lg);
         // dd($data);
         $data['lg'] = $lg->latest()->orderByDesc('lg_id')->paginate(20);
@@ -52,7 +92,17 @@ class LedgerController extends Controller {
                 return $carry02 + ($lm->lm_cxl !== 'Y' ? $lm->lm_sum_price : 0);
             }, 0) : 0);
         }, 0);
-        $data['mng'] = User::has('UserMng')->get();
+        $data['user_mng_config'] = auth()->user()->UserMngConfig->groupBy('umc_key');;
+        
+        $data['mng'] = DB::table('users')->join('user_mng', 'users.id', '=', 'user_mng.um_user_id')->get();
+
+        if( auth()->user()->UserMng->um_position >= 4 )  // 부장이상
+            $data['writer'] = $data['mng'];
+        elseif( !is_null(auth()->user()->UserMng->um_responsibility) )
+            $data['writer'] = $data['mng']->where('um_group', auth()->user()->UserMng->um_responsibility);
+
+        $um = new UserMng;
+        $data['mng_info'] = $um->getMngInfo();
 
         return response()->json($data, 200);
     }
@@ -68,7 +118,7 @@ class LedgerController extends Controller {
                 'lg_source_no'   => $req->od_id,
                 'lg_depart'      => $req->od_department,
                 'lg_orderer'     => $req->od_orderer,
-                'created_id'    => auth()->user()->id,
+                'created_id'     => auth()->user()->id,
                 'ip'             => $req->ip(),
             ]);
 
@@ -207,10 +257,66 @@ class LedgerController extends Controller {
         return $ledgerModel;
     }
 
-    public function destroy($lg_id) {
-        if ($this->ledger->destroy($lg_id))
-            return response()->json(["message"=>'success'], 200);
-        else
-            return response()->json(["msg"=>"Fail"], 500);
+    public function destroy(Request $req, $lg_id) {
+        if($req->filled('lm_id'))   $rst = $this->ledgerModel->destroy($req->lm_id);
+        else {
+            DB::table('ledger_model')->where('lm_lg_id', $lg_id)->delete();
+            $rst = $this->ledger->destroy($lg_id);
+        }
+        if ($rst) return response()->json(["message"=>'success'], 200);
+        else      return response()->json(["msg"=>"Fail"], 500);
     }
+
+    public function updateSearch(Request $req) {
+        if($req->filled('chosen_data')) {
+            DB::table('user_mng_config')
+                ->where([['umc_user_id', '=', auth()->user()->id], ['umc_key', '=', 'SEARCH']])
+                ->delete();
+            $data_insert = Array();
+            foreach ($req->chosen_data as $k => $v) {
+                array_push($data_insert, [
+                    'umc_user_id' => auth()->user()->id, 
+                    'umc_seq' => $k,
+                    'umc_key' => 'SEARCH',
+                    'umc_val' => $v['umc_val']
+                ]);
+            }
+            DB::table('user_mng_config')->insert($data_insert);            
+        }
+    }
+
+    public function updateColumn(Request $req) {
+        if($req->filled('chosen_data_clmn')) {
+            DB::table('user_mng_config')
+                ->where([['umc_user_id', '=', auth()->user()->id], ['umc_key', '=', 'COLUMN']])
+                ->delete();
+            $data_insert = Array();
+            foreach ($req->chosen_data_clmn as $k => $v) {
+                array_push($data_insert, [
+                    'umc_user_id' => auth()->user()->id, 
+                    'umc_seq' => $k,
+                    'umc_key' => 'COLUMN',
+                    'umc_val' => $v['umc_val']
+                ]);
+            }
+            DB::table('user_mng_config')->insert($data_insert);            
+        }
+
+        if($req->filled('chosen_data_model')) {
+            DB::table('user_mng_config')
+                ->where([['umc_user_id', '=', auth()->user()->id], ['umc_key', '=', 'MODEL']])
+                ->delete();
+            $data_insert = Array();
+            foreach ($req->chosen_data_model as $k => $v) {
+                array_push($data_insert, [
+                    'umc_user_id' => auth()->user()->id, 
+                    'umc_seq' => $k,
+                    'umc_key' => 'MODEL',
+                    'umc_val' => $v['umc_val']
+                ]);
+            }
+            DB::table('user_mng_config')->insert($data_insert);            
+        }
+    }
+    
 }

@@ -1,13 +1,18 @@
 <template lang="html">
     <b-container id="adm_estimate_create" class="p_warp">
 
-        <h1>견적서 작성</h1>
+        <h3>견적서 작성</h3>
 
         <FormCtrl v-model="frm" @save="store" @all_dc_update="all_dc_apply" @calculator="calculator" />
 
         <FormUser v-model="frm" />
 
         <FormGoods ref="form_goods" v-model="frm.estimate_model" v-if="frm.estimate_model.length" :frm="frm" @hook:mounted="" />
+{{frm.er_gd_price}}<br/>
+{{frm.er_surtax}}<br/>
+{{frm.er_dlvy_price}}<br/>
+{{frm.er_air_price}}<br/>
+{{frm.er_all_price}}<br/>
 
         <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
 
@@ -33,8 +38,8 @@ export default {
         return {
             isLoadingModalViewed:false,
             frm:{
-                estimate_model: {},
-                file_info:[],
+                estimate_model: [],
+                file_info: [],
             },
         }
     },
@@ -56,6 +61,7 @@ export default {
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
             if (!validationCheckerExtra(this.frm))                  return false;
             try {
+                this.calculator();
                 switch (type) {
                     case 'store': this.frm.er_step = 0; break;
                     case 'send': this.frm.er_step = 1; break;
@@ -76,7 +82,38 @@ export default {
             this.$refs.form_goods.setDcLate();
         },
         calculator() {
-            this.$refs.form_goods.calculator();
+            let collect = {};
+            let pa_id = 0;
+            let dlvy = 0;
+            let air = 0;
+            for (var em of this.frm.estimate_model) {
+                if (em.goods&&em.goods.purchase_at)
+                    pa_id = em.goods.gd_pa_id;
+                if (!collect.hasOwnProperty(pa_id)) {
+                    if (pa_id>0 && em.goods.purchase_at.pa_type == "AIR")
+                        collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
+                    else
+                        collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
+                }
+                collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
+                for (var eo of em.estimate_option)
+                    collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
+            }
+        
+            this.frm.er_gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
+            this.frm.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
+            this.frm.er_surtax = this.frm.er_gd_price*0.1;
+            for (var key in collect) {
+                if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
+                    dlvy += Number(collect[key].dlvy);
+                }
+            }
+            this.frm.er_dlvy_price = dlvy;
+            if (this.frm.er_no_dlvy_fee == 'Y') {
+                this.frm.er_dlvy_price  = 0;
+                this.frm.er_air_price   = 0;
+            }
+            this.frm.er_all_price = this.frm.er_gd_price+this.frm.er_surtax+this.frm.er_dlvy_price+this.frm.er_air_price;
         },
     },
     mounted() {

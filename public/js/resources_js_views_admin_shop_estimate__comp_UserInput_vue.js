@@ -42,12 +42,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value', 'type', 'frm'],
@@ -264,16 +258,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "awesome_p" },
     [
-      _c("input", {
+      _c("b-form-input", {
         directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.input_val,
-            expression: "input_val",
-          },
           {
             name: "b-tooltip",
             rawName: "v-b-tooltip.hover",
@@ -282,13 +269,10 @@ var render = function () {
         ],
         ref: "sch_field",
         attrs: {
-          type: "text",
-          required: "",
           autocomplete: "off",
           id: "eq_" + _vm.type,
           title: "입력 후 엔터 or 버튼",
         },
-        domProps: { value: _vm.input_val },
         on: {
           keyup: function ($event) {
             if (
@@ -299,31 +283,23 @@ var render = function () {
             }
             return _vm.getUserList.apply(null, arguments)
           },
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.input_val = $event.target.value
+        },
+        model: {
+          value: _vm.input_val,
+          callback: function ($$v) {
+            _vm.input_val = $$v
           },
+          expression: "input_val",
         },
       }),
       _vm._v(" "),
-      _vm.type == "name"
-        ? _c("label", { attrs: { for: _vm.type } }, [_vm._v("이름")])
-        : _vm.type == "email"
-        ? _c("label", { attrs: { for: _vm.type } }, [_vm._v("이메일")])
-        : _vm.type == "department"
-        ? _c("label", { attrs: { for: _vm.type } }, [
-            _vm._v("소속 "),
-            _vm._m(0),
-          ])
-        : _vm.type == "hp"
-        ? _c("label", { attrs: { for: _vm.type } }, [_vm._v("HP")])
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "b-button",
-        { attrs: { size: "sm" }, on: { click: _vm.getUserList } },
+        {
+          staticClass: "overlap",
+          attrs: { size: "sm" },
+          on: { click: _vm.getUserList },
+        },
         [_c("b-icon-search")],
         1
       ),
@@ -354,7 +330,7 @@ var render = function () {
                   },
                 },
                 [
-                  _vm._v("\n            " + _vm._s(us.name)),
+                  _vm._v("\r\n            " + _vm._s(us.name)),
                   _c("br"),
                   _vm._v(" "),
                   us.email ? _c("p", [_vm._v(_vm._s(us.email))]) : _vm._e(),
@@ -374,14 +350,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("small", [_c("i", [_vm._v("직장/학교/부서/학과/연구실명")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

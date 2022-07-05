@@ -1,8 +1,8 @@
 <template>
-<b-container>
-    <h3>수정</h3>
-    <b-card no-body class="shadow mb-2 sticky-top p-2">
-        <b-container fluid>
+<b-container class="p_warp">
+    <h3 class="p_tit">상품 수정</h3>
+    <b-card no-body class="ctrl">
+        <b-container>
             <b-row>
                 <b-col cols="12" sm="6"><b-button size="sm" variant="danger" @click="destroy">삭제</b-button></b-col>
                 <b-col cols="12" sm="6" class="text-right">

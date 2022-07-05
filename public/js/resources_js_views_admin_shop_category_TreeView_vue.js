@@ -99,7 +99,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -129,11 +128,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {},
   methods: {
     clickCate: function clickCate(ca) {
-      if (ca.childCount) {
+      if (ca.hasChild) {
         this.openSwitch(ca);
         if (!ca.hasOwnProperty('subCate')) this.getSub(ca);
       } else {
-        if (ca.sub_show && !ca.childCount && !ca.subCate.length) {
+        if (ca.sub_show && !ca.hasChild && !ca.subCate.length) {
           //  자식 카테고리 없고 인풋창만 보일때
           //  ca.subCate 삭제
           this.$delete(ca, 'subCate');
@@ -159,7 +158,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$set(ca, 'showMenu', false);
     },
     recount: function recount() {
-      this.$set(this.parent, 'childCount', this.parent.subCate.length); // console.log(this.parent);
+      this.$set(this.parent, 'hasChild', this.cate.length ? true : false); // console.log(this.parent);
     },
     update: function update(ca) {
       this.$set(ca, 'update', true);
@@ -282,7 +281,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_category ul[data-v-55ff5e5a] { margin-top:0.6rem;\n}\n#adm_category ul li[data-v-55ff5e5a] { position:relative;\n}\n#adm_category ul li[data-v-55ff5e5a]:before {\r\n    position:absolute; top:15px; left:-20px;\r\n    content:\"\"; width:10px; height:10px; border:1px solid black; border-radius:50%\n}\n#adm_category ul li.hadChild > .cate > .ca_name[data-v-55ff5e5a] { font-weight:bold;\n}\n#adm_category ul li.hadChild[data-v-55ff5e5a]:before { background:black;\n}\n#adm_category ul li button[data-v-55ff5e5a] { border-width:0; line-height:12px;\n}\n#adm_category ul li .cate[data-v-55ff5e5a] { cursor:pointer;\n}\n#adm_category ul li .cate .ca_name[data-v-55ff5e5a] { display:inline-block; padding:8px 0; border:2px dashed #FFF;\n}\n#adm_category ul li .cate .hd_menu[data-v-55ff5e5a] { display:inline-block; position:relative; top:-2px;\n}\r\n/* #adm_category ul li .cate .hd_menu button { padding:0.2rem 0.25rem; font-size:0.56rem; line-height:0; } */\n#adm_category ul li .row[data-v-55ff5e5a] { padding:2.5px 0;\n}\n#adm_category ul li .cate:focus .ca_name[data-v-55ff5e5a] { border-color:#262b57; border-radius:5px; background-color:#F0F0F0;\n}\n.slide-fade-enter-active[data-v-55ff5e5a] {\r\n  transition: all .1s ease;\n}\n.slide-fade-leave-active[data-v-55ff5e5a] {\r\n  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-55ff5e5a], .slide-fade-leave-to[data-v-55ff5e5a]\r\n/* .slide-fade-leave-active below version 2.1.8 */ {\r\n  transform: translateX(10px);\r\n  opacity: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nul[data-v-55ff5e5a] { margin-top:0.6rem;\n}\nul li[data-v-55ff5e5a] { position:relative;\n}\nul li[data-v-55ff5e5a]:before {\r\n    position:absolute; top:15px; left:-20px;\r\n    content:\"\"; width:10px; height:10px; border:1px solid black; border-radius:50%\n}\nul li.hadChild > .cate > .ca_name[data-v-55ff5e5a] { font-weight:bold;\n}\nul li.hadChild[data-v-55ff5e5a]:before { background:black;\n}\nul li button[data-v-55ff5e5a] { border-width:0; line-height:12px;\n}\nul li .cate[data-v-55ff5e5a] { cursor:pointer;\n}\nul li .cate .ca_name[data-v-55ff5e5a] { display:inline-block; padding:8px 0; border:2px dashed #FFF;\n}\nul li .cate .hd_menu[data-v-55ff5e5a] { display:inline-block; position:relative; top:-2px;\n}\r\n/* #adm_category ul li .cate .hd_menu button { padding:0.2rem 0.25rem; font-size:0.56rem; line-height:0; } */\nul li .row[data-v-55ff5e5a] { padding:2.5px 0;\n}\nul li .cate:focus .ca_name[data-v-55ff5e5a] { border-color:#262b57; border-radius:5px; background-color:#F0F0F0;\n}\n.slide-fade-enter-active[data-v-55ff5e5a] {\r\n  transition: all .1s ease;\n}\n.slide-fade-leave-active[data-v-55ff5e5a] {\r\n  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-55ff5e5a], .slide-fade-leave-to[data-v-55ff5e5a]\r\n/* .slide-fade-leave-active below version 2.1.8 */ {\r\n  transform: translateX(10px);\r\n  opacity: 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4140,7 +4139,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ul",
+    "draggable",
     {
       directives: [
         {
@@ -4150,239 +4149,233 @@ var render = function () {
           expression: "this.depth == 0 ? true : this.isOpen",
         },
       ],
+      attrs: { list: _vm.cate, handle: ".ca_move", tag: "ul" },
+      on: { change: _vm.sortUpdate },
     },
     [
-      _c(
-        "draggable",
-        {
-          attrs: { list: _vm.cate, handle: ".ca_move" },
-          on: { change: _vm.sortUpdate },
-        },
-        _vm._l(_vm.cate, function (ca, idx) {
-          return _c(
-            "li",
-            { class: { hadChild: ca.childCount }, attrs: { index: idx } },
-            [
-              !ca.update
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "cate",
-                      attrs: { tabindex: idx },
-                      on: {
-                        mousedown: function ($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k($event.keyCode, "right", 39, $event.key, [
-                              "Right",
-                              "ArrowRight",
-                            ])
-                          ) {
-                            return null
-                          }
-                          if ("button" in $event && $event.button !== 2) {
-                            return null
-                          }
-                          return _vm.showHiddenMenu(ca, $event)
-                        },
-                        contextmenu: function ($event) {
-                          $event.preventDefault()
-                        },
-                        blur: function ($event) {
-                          return _vm.hideHiddenMenu(ca)
-                        },
+      _vm._l(_vm.cate, function (ca, idx) {
+        return _c(
+          "li",
+          { class: { hadChild: ca.hasChild }, attrs: { index: idx } },
+          [
+            !ca.update
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "cate",
+                    attrs: { tabindex: idx },
+                    on: {
+                      mousedown: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k($event.keyCode, "right", 39, $event.key, [
+                            "Right",
+                            "ArrowRight",
+                          ])
+                        ) {
+                          return null
+                        }
+                        if ("button" in $event && $event.button !== 2) {
+                          return null
+                        }
+                        return _vm.showHiddenMenu(ca, $event)
+                      },
+                      contextmenu: function ($event) {
+                        $event.preventDefault()
+                      },
+                      blur: function ($event) {
+                        return _vm.hideHiddenMenu(ca)
                       },
                     },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "ca_name",
-                          on: {
-                            click: function ($event) {
-                              return _vm.clickCate(ca)
-                            },
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "ca_name",
+                        on: {
+                          click: function ($event) {
+                            return _vm.clickCate(ca)
                           },
                         },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(ca.ca_name) +
-                              "\n                    "
-                          ),
-                          ca.childCount
-                            ? _c("span", [
-                                _vm._v(
-                                  "[" + _vm._s(_vm.subOpen ? "-" : "+") + "]"
-                                ),
-                              ])
-                            : _vm._e(),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("transition", { attrs: { name: "slide-fade" } }, [
-                        ca.showMenu
-                          ? _c(
-                              "div",
-                              { staticClass: "hd_menu" },
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "b-tooltip",
-                                        rawName: "v-b-tooltip.hover",
-                                        modifiers: { hover: true },
-                                      },
-                                    ],
-                                    staticClass: "ca_move",
-                                    attrs: {
-                                      variant: "primary",
-                                      size: "sm",
-                                      title: "순서 변경",
-                                    },
-                                  },
-                                  [
-                                    _c("b-icon", {
-                                      attrs: { icon: "arrow-down-up" },
-                                    }),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                !ca.childCount
-                                  ? _c(
-                                      "b-button",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "b-tooltip",
-                                            rawName: "v-b-tooltip.hover",
-                                            modifiers: { hover: true },
-                                          },
-                                        ],
-                                        attrs: {
-                                          variant: "info",
-                                          size: "sm",
-                                          title: "하위 카테고리 생성",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.makeSub(ca)
-                                          },
-                                        },
-                                      },
-                                      [
-                                        _c("b-icon", {
-                                          attrs: { icon: "diagram3-fill" },
-                                        }),
-                                      ],
-                                      1
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "b-tooltip",
-                                        rawName: "v-b-tooltip.hover",
-                                        modifiers: { hover: true },
-                                      },
-                                    ],
-                                    attrs: {
-                                      variant: "warning",
-                                      size: "sm",
-                                      title: "이름 변경",
-                                    },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.update(ca)
-                                      },
-                                    },
-                                  },
-                                  [_c("b-icon", { attrs: { icon: "tools" } })],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "b-tooltip",
-                                        rawName: "v-b-tooltip.hover",
-                                        modifiers: { hover: true },
-                                      },
-                                    ],
-                                    attrs: {
-                                      variant: "danger",
-                                      size: "sm",
-                                      title: "삭제",
-                                    },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.isDestroy(ca.ca_id, idx)
-                                      },
-                                    },
-                                  },
-                                  [_c("b-icon", { attrs: { icon: "trash" } })],
-                                  1
-                                ),
-                              ],
-                              1
-                            )
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(ca.ca_name) +
+                            "\n                "
+                        ),
+                        ca.hasChild
+                          ? _c("span", [
+                              _vm._v(
+                                "[" + _vm._s(_vm.subOpen ? "-" : "+") + "]"
+                              ),
+                            ])
                           : _vm._e(),
-                      ]),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "py-1",
-                      attrs: { lg: "8", md: "10", cols: "12" },
-                    },
-                    [
-                      ca.update
-                        ? _c("input-update", { attrs: { ca: ca } })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("transition", { attrs: { name: "slide-fade" } }, [
+                      ca.showMenu
+                        ? _c(
+                            "div",
+                            { staticClass: "hd_menu" },
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "b-tooltip",
+                                      rawName: "v-b-tooltip.hover",
+                                      modifiers: { hover: true },
+                                    },
+                                  ],
+                                  staticClass: "ca_move",
+                                  attrs: {
+                                    variant: "primary",
+                                    size: "sm",
+                                    title: "순서 변경",
+                                  },
+                                },
+                                [
+                                  _c("b-icon", {
+                                    attrs: { icon: "arrow-down-up" },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              !ca.hasChild
+                                ? _c(
+                                    "b-button",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "b-tooltip",
+                                          rawName: "v-b-tooltip.hover",
+                                          modifiers: { hover: true },
+                                        },
+                                      ],
+                                      attrs: {
+                                        variant: "info",
+                                        size: "sm",
+                                        title: "하위 카테고리 생성",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.makeSub(ca)
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("b-icon", {
+                                        attrs: { icon: "diagram3-fill" },
+                                      }),
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "b-tooltip",
+                                      rawName: "v-b-tooltip.hover",
+                                      modifiers: { hover: true },
+                                    },
+                                  ],
+                                  attrs: {
+                                    variant: "warning",
+                                    size: "sm",
+                                    title: "이름 변경",
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.update(ca)
+                                    },
+                                  },
+                                },
+                                [_c("b-icon", { attrs: { icon: "tools" } })],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-button",
+                                {
+                                  directives: [
+                                    {
+                                      name: "b-tooltip",
+                                      rawName: "v-b-tooltip.hover",
+                                      modifiers: { hover: true },
+                                    },
+                                  ],
+                                  attrs: {
+                                    variant: "danger",
+                                    size: "sm",
+                                    title: "삭제",
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.isDestroy(ca.ca_id, idx)
+                                    },
+                                  },
+                                },
+                                [_c("b-icon", { attrs: { icon: "trash" } })],
+                                1
+                              ),
+                            ],
+                            1
+                          )
                         : _vm._e(),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              ca.subCate
-                ? _c("tree-view", {
-                    key: ca.ca_id,
-                    ref: "childCate",
-                    refInFor: true,
-                    attrs: {
-                      cate: ca.subCate,
-                      ca_papa: ca.ca_id,
-                      gene_idx: _vm.gene_idx + "-" + idx,
-                      depth: _vm.depth + 1,
-                      isOpen: ca.sub_show,
-                      parent: ca,
-                    },
-                    on: { "get-sub": _vm.getSub, "make-sube": _vm.makeSub },
-                  })
-                : _vm._e(),
-            ],
-            1
-          )
-        }),
-        0
-      ),
+                    ]),
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c(
+                  "b-col",
+                  {
+                    staticClass: "py-1",
+                    attrs: { lg: "8", md: "10", cols: "12" },
+                  },
+                  [
+                    ca.update
+                      ? _c("input-update", { attrs: { ca: ca } })
+                      : _vm._e(),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            ca.subCate
+              ? _c("tree-view", {
+                  key: ca.ca_id,
+                  ref: "childCate",
+                  refInFor: true,
+                  attrs: {
+                    cate: ca.subCate,
+                    ca_papa: ca.ca_id,
+                    gene_idx: _vm.gene_idx + "-" + idx,
+                    depth: _vm.depth + 1,
+                    isOpen: ca.sub_show,
+                    parent: ca,
+                  },
+                  on: { "get-sub": _vm.getSub, "make-sube": _vm.makeSub },
+                })
+              : _vm._e(),
+          ],
+          1
+        )
+      }),
       _vm._v(" "),
       _c(
         "li",
@@ -4415,7 +4408,7 @@ var render = function () {
         1
       ),
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []

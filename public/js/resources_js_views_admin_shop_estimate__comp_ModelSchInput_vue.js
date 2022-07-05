@@ -40,9 +40,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value', 'type', 'id', 'em'],
@@ -289,16 +286,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "awesome_p" },
     [
-      _c("input", {
+      _c("b-form-input", {
         directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.input_val,
-            expression: "input_val",
-          },
           {
             name: "b-tooltip",
             rawName: "v-b-tooltip.hover",
@@ -306,14 +296,7 @@ var render = function () {
           },
         ],
         ref: "sch_field",
-        attrs: {
-          type: "text",
-          required: "",
-          autocomplete: "off",
-          id: _vm.id,
-          title: "입력 후 엔터 or 버튼",
-        },
-        domProps: { value: _vm.input_val },
+        attrs: { autocomplete: "off", title: "입력 후 엔터 or 버튼" },
         on: {
           keyup: function ($event) {
             if (
@@ -324,24 +307,23 @@ var render = function () {
             }
             return _vm.getModelList.apply(null, arguments)
           },
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.input_val = $event.target.value
+        },
+        model: {
+          value: _vm.input_val,
+          callback: function ($$v) {
+            _vm.input_val = $$v
           },
+          expression: "input_val",
         },
       }),
       _vm._v(" "),
-      _vm.type == "em_catno"
-        ? _c("label", { attrs: { for: _vm.id } }, [_vm._v("Cat. No.")])
-        : _vm.type == "em_code"
-        ? _c("label", { attrs: { for: _vm.id } }, [_vm._v("모델명")])
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "b-button",
-        { attrs: { size: "sm" }, on: { click: _vm.getModelList } },
+        {
+          staticClass: "overlap",
+          attrs: { size: "sm" },
+          on: { click: _vm.getModelList },
+        },
         [_c("b-icon-search")],
         1
       ),
@@ -373,7 +355,7 @@ var render = function () {
                   },
                 },
                 [
-                  _vm._v("\n            " + _vm._s(md.gm_name)),
+                  _vm._v("\r\n            " + _vm._s(md.gm_name)),
                   _c("br"),
                   _vm._v(" "),
                   md.gm_catno

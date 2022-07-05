@@ -74,6 +74,8 @@ class EstimateController extends Controller {
         if ($req->filled('eq_step')) $eq = $eq->EqStep($req->eq_step);
         if ($req->filled('eq_mng')) $eq = $eq->EqMng($req->eq_mng);
         if ($req->filled('mng_group')) $eq = $eq->CreatedId($this->userMng->group($req->mng_group)->pluck('um_user_id'));
+        if ($req->filled('writer')) $eq = $eq->CreatedId($req->writer);
+
         if ($req->filled('keyword')){
             switch ($req->keyword_type) {
 				case 'eq_name':			$eq = $eq->EqName($req->keyword); break;
@@ -128,8 +130,13 @@ class EstimateController extends Controller {
                     break;
             }
         }
-        $data['list'] = $eq->latest('eq_id')->paginate();
-        $data['list']->appends($req->all())->links();
+
+        if ($req->filled('limit'))
+            $data['list'] = $eq->limit($req->limit)->get();
+        else {
+            $data['list'] = $eq->latest('eq_id')->paginate();
+            $data['list']->appends($req->all())->links();
+        }
 
         foreach ($data['list'] as $eq)
             $eq->estimateReply;
@@ -278,82 +285,83 @@ class EstimateController extends Controller {
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
             if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step]))
                 return response()->json('success', 200);
-        }
-        $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
-        $eq_impl['ip'] = $req->ip();
-        $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
-        DB::table('shop_estimate_req')->where('eq_id', $req->er_eq_id)->update($eq_impl);
+        } else {
+            $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
+            $eq_impl['ip'] = $req->ip();
+            $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
+            DB::table('shop_estimate_req')->where('eq_id', $req->er_eq_id)->update($eq_impl);
 
-        $er_impl = $this->estimateReply_paramImplant($req);
-        $er_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
-        $er_rst = DB::table('shop_estimate_reply')->where('er_id', $er_id)->update($er_impl);
+            $er_impl = $this->estimateReply_paramImplant($req);
+            $er_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
+            $er_rst = DB::table('shop_estimate_reply')->where('er_id', $er_id)->update($er_impl);
 
-        //  삭제된걸 파악하기 위해 해당 모델 검색
-        $provEstimateModel = $this->estimateModel->select("em_id")->Type('estimateReply')->PapaId($er_id)->pluck('em_id');
-        foreach ($req->estimate_model as $key => $em) {
-            $em_impl = $this->estimateModel_paramImplant($em, $er_id);
-            $em_id = $em['em_id'] ?? 0;
-            $udt_em = $this->estimateModel->updateOrCreate(['em_id' => $em_id], $em_impl);
-            $provEstimateModel->forget($provEstimateModel->search($em_id));
+            //  삭제된걸 파악하기 위해 해당 모델 검색
+            $provEstimateModel = $this->estimateModel->select("em_id")->Type('estimateReply')->PapaId($er_id)->pluck('em_id');
+            foreach ($req->estimate_model as $key => $em) {
+                $em_impl = $this->estimateModel_paramImplant($em, $er_id);
+                $em_id = $em['em_id'] ?? 0;
+                $udt_em = $this->estimateModel->updateOrCreate(['em_id' => $em_id], $em_impl);
+                $provEstimateModel->forget($provEstimateModel->search($em_id));
 
-            $provEstimateOption = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
-            foreach ($em['estimate_option'] as $eo) {
-                if (isset($eo['eo_ea'])){
-                    $eo_id = $eo['eo_id'] ?? 0;
-                    $eo_impl = $this->estimateOption_paramImplant($eo, $em_id);
-                    $this->estimateOption->updateOrCreate(['eo_id' => $eo_id], $eo_impl);
-                    $provEstimateOption->forget($provEstimateOption->search($eo_id));
+                $provEstimateOption = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
+                foreach ($em['estimate_option'] as $eo) {
+                    if (isset($eo['eo_ea'])){
+                        $eo_id = $eo['eo_id'] ?? 0;
+                        $eo_impl = $this->estimateOption_paramImplant($eo, $em_id);
+                        $this->estimateOption->updateOrCreate(['eo_id' => $eo_id], $eo_impl);
+                        $provEstimateOption->forget($provEstimateOption->search($eo_id));
+                    }
+                }
+                foreach ($provEstimateOption as $col) $this->estimateOption->destroy($col);
+            }
+
+            foreach ($provEstimateModel as $em_id){
+                $thisEo = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
+                foreach ($thisEo as $eo_id)
+                    $this->estimateOption->destroy($eo_id);
+                $this->estimateModel->destroy($em_id);
+            }
+
+            //  파일 첨부시 자동으로 등록된 file_info 테이블에 상품번호 등록
+            if ($req->filled('file_info')) {
+                foreach ($req->file_info as $info) {
+                    if(!isset($info['fi_key']) && $finfo = FileInfo::find($info['fi_id'])) {
+                        $finfo->fi_key = $er_id;
+                        $finfo->save();
+                    }
                 }
             }
-            foreach ($provEstimateOption as $col) $this->estimateOption->destroy($col);
-        }
 
-        foreach ($provEstimateModel as $em_id){
-            $thisEo = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
-            foreach ($thisEo as $eo_id)
-                $this->estimateOption->destroy($eo_id);
-            $this->estimateModel->destroy($em_id);
-        }
-
-        //  파일 첨부시 자동으로 등록된 file_info 테이블에 상품번호 등록
-        if ($req->filled('file_info')) {
-            foreach ($req->file_info as $info) {
-                if(!isset($info['fi_key']) && $finfo = FileInfo::find($info['fi_id'])) {
-         		   	$finfo->fi_key = $er_id;
-         		   	$finfo->save();
-                }
+            if ($req->er_step == 1) { //  견적서 메일 발송
+                $to_name = $req->estimate_req['eq_name'];
+                $to_email = $req->estimate_req['eq_email'];
+                $params = [
+                    'eq_name'         => $req->estimate_req['eq_name'],
+                    'er_id'           => $er_id,
+                    'eq_id'           => $req->er_eq_id,
+                    'estimated_date'  => \Carbon\Carbon::now(),
+                    'er_dlvy_at'      => $req->er_dlvy_at,
+                    'er_effective_at' => $req->er_effective_at,
+                    'eq_mng_nm'       => auth()->user()->name,
+                    'er_mng_tel'      => auth()->user()->tel,
+                    'er_mng_email'    => auth()->user()->email,
+                    'estimate_model'  => $req->estimate_model,
+                    'er_content'      => $req->er_content,
+                    'er_gd_price'     => $req->er_gd_price,
+                    'er_surtax'       => $req->er_surtax,
+                    'er_dlvy_price'   => $req->er_dlvy_price,
+                    'er_air_price'    => $req->er_air_price,
+                    'er_all_price'    => $req->er_all_price,
+                    'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
+                    'redirect_url'    => 'dddd',
+                    'domain'          => cache('site')->domain,
+                ];
+                $this->estimateMailSend($to_email, $to_name, $params, $er_id);
             }
-        }
 
-        if ($req->er_step == 1) { //  견적서 메일 발송
-            $to_name = $req->estimate_req['eq_name'];
-            $to_email = $req->estimate_req['eq_email'];
-            $params = [
-                'eq_name'         => $req->estimate_req['eq_name'],
-                'er_id'           => $er_id,
-                'eq_id'           => $req->er_eq_id,
-                'estimated_date'  => \Carbon\Carbon::now(),
-                'er_dlvy_at'      => $req->er_dlvy_at,
-                'er_effective_at' => $req->er_effective_at,
-                'eq_mng_nm'       => auth()->user()->name,
-                'er_mng_tel'      => auth()->user()->tel,
-                'er_mng_email'    => auth()->user()->email,
-                'estimate_model'  => $req->estimate_model,
-                'er_content'      => $req->er_content,
-                'er_gd_price'     => $req->er_gd_price,
-                'er_surtax'       => $req->er_surtax,
-                'er_dlvy_price'   => $req->er_dlvy_price,
-                'er_air_price'    => $req->er_air_price,
-                'er_all_price'    => $req->er_all_price,
-                'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
-                'redirect_url'    => 'dddd',
-                'domain'          => cache('site')->domain,
-            ];
-            $this->estimateMailSend($to_email, $to_name, $params, $er_id);
+            if($er_rst) return response()->json('success', 200);
+            else return response()->json(["msg"=>"Fail"], 500);
         }
-
-        if($er_rst) return response()->json('success', 200);
-        else return response()->json(["msg"=>"Fail"], 500);
     }
 
     public function reSend(Request $req, $er_id) {

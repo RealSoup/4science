@@ -9,11 +9,11 @@
                     <b-img src='/img/auth/personal.png' />
                 </b-link>
             </b-col>
-            <b-col>
+            <!-- <b-col>
                 <b-link to="/auth/create/dealer">
                     <b-img src='/img/auth/dealer.png' />
                 </b-link>
-            </b-col>
+            </b-col> -->
             <b-col>
                 <b-row>
                     <b-col>

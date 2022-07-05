@@ -102,6 +102,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserIndex',
@@ -115,7 +120,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sch_frm: {
         startDate: '',
         endDate: '',
-        keyword_type: 'eq_name',
+        keyword_type: 'name',
         keyword: '',
         page: 0
       },
@@ -203,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.list .row[data-v-031b2e2d] { padding:10px 0;\n}\n.list .row[data-v-031b2e2d]:not(:last-of-type) { border-bottom:1px solid #ddd;\n}\n.list .row .col span[data-v-031b2e2d] { margin-right:1rem;\n}\n.list .row .col span svg[data-v-031b2e2d] { margin-right:0.5rem;\n}\n.list .list_item .col[data-v-031b2e2d]:nth-of-type(3) { text-align:center;\n}\n.list .list_item .col[data-v-031b2e2d]:nth-of-type(4) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card.data .list .row[data-v-031b2e2d] { padding:10px 0; align-items:center;\n}\n.card.data .list .body[data-v-031b2e2d]:hover { background:lightcyan; cursor:pointer;\n}\n.card.data .list .row[data-v-031b2e2d]:not(:last-of-type) { border-bottom:1px solid #ddd;\n}\n.card.data .list .head .col[data-v-031b2e2d] { font-weight:bold;\n}\n.card.data .list .row .col[data-v-031b2e2d] { text-align:center; padding:0 5px;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 11%; max-width:11%;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(5) { flex:0 0 9%; max-width:9%;\n}\n.card.data .list .row .col span[data-v-031b2e2d] { margin-right:1rem;\n}\n.card.data .list .row .col span svg[data-v-031b2e2d] { margin-right:0.5rem;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -341,223 +346,215 @@ var render = function () {
     "b-container",
     { staticClass: "p_warp" },
     [
-      _c("h1", [_vm._v("회원 목록")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("회원 목록")]),
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow" },
+        { staticClass: "search adform" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
-            [
-              _c("SchDate", {
-                model: {
-                  value: _vm.sch_frm,
-                  callback: function ($$v) {
-                    _vm.sch_frm = $$v
-                  },
-                  expression: "sch_frm",
+            "SchDate",
+            {
+              model: {
+                value: _vm.sch_frm,
+                callback: function ($$v) {
+                  _vm.sch_frm = $$v
                 },
-              }),
+                expression: "sch_frm",
+              },
+            },
+            [
+              _c(
+                "b-col",
+                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                [_vm._v("가입일")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", { staticClass: "label" }, [_vm._v("유형")]),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "type01" },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { sm: "12", md: "6", lg: "3" } },
-                    [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.group,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "group", $$v)
-                            },
-                            expression: "sch_frm.group",
-                          },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.group,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "group", $$v)
                         },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("◄ 유형 ►"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "일반" } },
-                            [_vm._v("일반")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "특별" } },
-                            [_vm._v("특별")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "미수" } },
-                            [_vm._v("미수")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "후불" } },
-                            [_vm._v("후불")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { attrs: { sm: "12", md: "6", lg: "3" } }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.sch_frm.level,
-                            expression: "sch_frm.level",
-                          },
-                        ],
-                        staticClass: "custom-select",
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.sch_frm,
-                              "level",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                        },
+                        expression: "sch_frm.group",
                       },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("◄ 등급 ►"),
-                        ]),
-                      ]
-                    ),
-                  ]),
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.option.group, function (v, i) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: i, attrs: { value: i } },
+                          [_vm._v(_vm._s(v))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
                 ],
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("등급")]),
+              _vm._v(" "),
               _c(
-                "b-row",
-                { staticClass: "justify-content-end mt-3" },
+                "b-col",
+                { staticClass: "type01" },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { md: "12", lg: "8" } },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.level,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "level", $$v)
+                        },
+                        expression: "sch_frm.level",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.option.grade, function (v, i) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: i, attrs: { value: i } },
+                          [_vm._v(_vm._s(v))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type06" },
+                [
+                  _c(
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
                       _c(
-                        "b-input-group",
+                        "b-input-group-prepend",
                         [
-                          _c("b-input-group-prepend", [
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.sch_frm.mode,
-                                    expression: "sch_frm.mode",
-                                  },
-                                ],
-                                staticClass: "custom-select",
-                                on: {
-                                  change: function ($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call(
-                                        $event.target.options,
-                                        function (o) {
-                                          return o.selected
-                                        }
-                                      )
-                                      .map(function (o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.sch_frm,
-                                      "mode",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  },
-                                },
-                              },
-                              [
-                                _c("option", { attrs: { value: "" } }, [
-                                  _vm._v("◄ 검색옵션 ►"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gd_name" } }, [
-                                  _vm._v("상품명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gm_name" } }, [
-                                  _vm._v("제품명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "gm_code" } }, [
-                                  _vm._v("모델명"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "manager" } }, [
-                                  _vm._v("관리자"),
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "cat_no" } }, [
-                                  _vm._v("Cat.No"),
-                                ]),
-                              ]
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-input", {
-                            attrs: { placeholder: "Please enter a keyword" },
-                            model: {
-                              value: _vm.sch_frm.keyword,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.sch_frm, "keyword", $$v)
-                              },
-                              expression: "sch_frm.keyword",
-                            },
-                          }),
-                          _vm._v(" "),
                           _c(
-                            "b-input-group-append",
+                            "b-form-select",
+                            {
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.sch_frm.keyword_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.sch_frm, "keyword_type", $$v)
+                                },
+                                expression: "sch_frm.keyword_type",
+                              },
+                            },
                             [
                               _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "outline-primary" },
-                                  on: { click: _vm.index },
-                                },
-                                [_vm._v("Search")]
+                                "b-form-select-option",
+                                { attrs: { value: "name" } },
+                                [_vm._v("회원명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "email" } },
+                                [_vm._v("이메일")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "office" } },
+                                [_vm._v("직장/학교")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "department" } },
+                                [_vm._v("부서/학과/연구실")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "tutor" } },
+                                [_vm._v("담당교수")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "tel" } },
+                                [_vm._v("TEL")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "hp" } },
+                                [_vm._v("HP")]
                               ),
                             ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        attrs: { placeholder: "Please enter a keyword" },
+                        on: {
+                          keyup: function ($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.index.apply(null, arguments)
+                          },
+                        },
+                        model: {
+                          value: _vm.sch_frm.keyword,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.sch_frm, "keyword", $$v)
+                          },
+                          expression: "sch_frm.keyword",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c(
+                            "b-button",
+                            { on: { click: _vm.index } },
+                            [_c("b-icon-search")],
                             1
                           ),
                         ],
@@ -578,32 +575,60 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow" },
+        { staticClass: "data" },
         [
           _c(
             "b-container",
-            { staticClass: "list", attrs: { fluid: "" } },
+            { staticClass: "list" },
             [
               _c(
                 "b-row",
                 [
-                  _c("b-col", { attrs: { sm: "12", md: "6" } }, [
-                    _vm._v("total : " + _vm._s(this.list.total)),
-                  ]),
+                  _c(
+                    "b-col",
+                    { attrs: { sm: "12", md: "6" } },
+                    [
+                      _vm._v("Total : "),
+                      _c("b-badge", { attrs: { variant: "info" } }, [
+                        _vm._v(_vm._s(_vm._f("comma")(this.list.total))),
+                      ]),
+                    ],
+                    1
+                  ),
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("hr"),
+              _c(
+                "b-row",
+                { staticClass: "head cell" },
+                [
+                  _c("b-col", [_vm._v("등급")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("이름")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("E-mail")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("연락처")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("가입일")]),
+                ],
+                1
+              ),
               _vm._v(" "),
               _vm._l(_vm.list.data, function (us, i) {
                 return _c(
-                  "b-row",
-                  { key: i, staticClass: "list_item" },
+                  "b-link",
+                  {
+                    key: i,
+                    staticClass: "row body cell",
+                    attrs: {
+                      to: { name: "adm_user_edit", params: { id: us.id } },
+                    },
+                  },
                   [
                     _c(
                       "b-col",
-                      { attrs: { col: "", lg: "1" } },
                       [
                         _vm._v(
                           "\r\n                    " +
@@ -619,39 +644,11 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { col: "", md: "3", lg: "4" } },
-                      [
-                        _c(
-                          "b-button",
-                          {
-                            staticClass: "text-left p-2",
-                            attrs: {
-                              to: {
-                                name: "adm_user_edit",
-                                params: { id: us.id },
-                              },
-                              size: "sm",
-                              variant: "light",
-                              block: "",
-                            },
-                          },
-                          [
-                            _vm._v(
-                              "\r\n                        " + _vm._s(us.name)
-                            ),
-                            _c("b-badge", { staticClass: "ml-2" }, [
-                              _vm._v(_vm._s(us.email)),
-                            ]),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    ),
+                    _c("b-col", [_vm._v(_vm._s(us.name))]),
                     _vm._v(" "),
-                    _c("b-col", { attrs: { col: "", md: "3", lg: "4" } }, [
+                    _c("b-col", [_vm._v(_vm._s(us.email))]),
+                    _vm._v(" "),
+                    _c("b-col", [
                       _c(
                         "span",
                         [
@@ -692,19 +689,23 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
-                    _c("b-col", { attrs: { col: "", md: "3", lg: "3" } }, [
-                      _c(
-                        "span",
-                        [
-                          _c("b-icon-calendar2-date-fill"),
-                          _vm._v(_vm._s(_vm._f("formatDate")(us.created_at))),
-                        ],
-                        1
-                      ),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("formatDate")(us.created_at))),
                     ]),
                   ],
                   1
                 )
+              }),
+              _vm._v(" "),
+              _c("pagination", {
+                staticClass: "mt-5",
+                attrs: {
+                  data: _vm.list,
+                  size: "small",
+                  limit: 5,
+                  align: "center",
+                },
+                on: { "pagination-change-page": _vm.setPage },
               }),
             ],
             2

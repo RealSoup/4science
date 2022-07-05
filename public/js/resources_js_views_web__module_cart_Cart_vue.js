@@ -11,10 +11,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-numeric-input */ "./node_modules/vue-numeric-input/dist/vue-numeric-input.umd.js");
-/* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_numeric_input__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-numeric-input */ "./node_modules/vue-numeric-input/dist/vue-numeric-input.umd.js");
+/* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_numeric_input__WEBPACK_IMPORTED_MODULE_0__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -68,12 +67,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_1___default()),
+    VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_0___default()),
     'CartModel': function CartModel() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_cart_CartModel_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CartModel.vue */ "./resources/js/views/web/_module/cart/CartModel.vue"));
     },
@@ -85,10 +86,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       ck_key: 'CartGoods',
       isScrollPass: false,
-      mouseHover: true
+      mouseHover: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('cart', ['totalPrice'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('cart', ['totalPrice'])), {}, {
     cntItem: function cntItem() {
       if (this.cartList.length) {
         //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
@@ -236,7 +237,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#Cart[data-v-3eb0dde1] { \r\n    position:absolute; top:173px; right:0; z-index:16; background:#FFF;\r\n    border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;\r\n    max-height:680px;\r\n    transition:all 0.4s;\r\n    overflow-y:scroll;\n}\n#Cart>a[data-v-3eb0dde1] { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-70px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C;\n}\n#Cart>a[data-v-3eb0dde1]:before { content:\"\"; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:67px; height:76px;\n}\n#Cart>a img[data-v-3eb0dde1] { margin:10px; position:relative;\n}\n#Cart ul[data-v-3eb0dde1] li { margin:0; padding:10px 15px;\n}\n#Cart ul[data-v-3eb0dde1] li.hr { border-top:2px solid #eee; margin:15px; padding:0;\n}\n#Cart ul[data-v-3eb0dde1] li>div { padding:0; justify-content:space-between; display:flex;\n}\n#Cart ul[data-v-3eb0dde1] li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end;\n}\n#Cart ul[data-v-3eb0dde1] li.gd_model>div:nth-of-type(2) { margin-left:10px;\n}\n#Cart ul[data-v-3eb0dde1] li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer;\n}\n#Cart ul[data-v-3eb0dde1] li>div a img { transition:all 0.4s; width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n#Cart ul[data-v-3eb0dde1] li .hide { transition:all 0.4s; overflow:hidden;\n}\n#Cart ul[data-v-3eb0dde1] li.gd_option { flex-direction:column;\n}\n#Cart ul[data-v-3eb0dde1] li.gd_option>div { flex-basis: auto;\n}\n#Cart ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) { align-items:center;\n}\n#Cart ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) span { margin-left: 10px;\n}\n#Cart .footer[data-v-3eb0dde1] { border-top:1px solid #888888; padding:10px;\n}\n#Cart .footer div b[data-v-3eb0dde1] { color:#0072BC;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(2) { font-size:20px; display:flex; justify-content:space-between; align-items:baseline;\n}\n#Cart .footer div:nth-of-type(2) b[data-v-3eb0dde1] { font-size:30px;\n}\n#Cart .footer .btn-group[data-v-3eb0dde1] { display:flex;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(1) { margin-right:10px;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(2) { background:#00A1CB; border-color:#0089AD;\n}\n#Cart.fixed_header[data-v-3eb0dde1] { position:fixed; top:78px;\n}\n#Cart.hideCart[data-v-3eb0dde1] { overflow-y:visible;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li .hide { max-width:0; height:0; margin:0 !important; padding:0;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li>div a img { border-radius: 50%; width: 62px; height: 62px;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#Cart[data-v-3eb0dde1] { \r\n    position:absolute; top:173px; right:0; z-index:16; background:#FFF;\r\n    border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;\r\n    border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);\r\n    height:100%;\r\n    max-height:680px;\r\n    transition:all 0.4s;\n}\n#Cart>a[data-v-3eb0dde1] { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-70px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C;\n}\n#Cart>a[data-v-3eb0dde1]:before { content:\"\"; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:67px; height:76px;\n}\n#Cart>a img[data-v-3eb0dde1] { margin:10px; position:relative;\n}\n#Cart .list_box[data-v-3eb0dde1]  { overflow:hidden; height:100%; max-height:520px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] { overflow-y:auto; height:100%;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li { margin:0; padding:10px 15px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.hr { border-top:2px solid #eee; margin:15px; padding:0;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div { padding:0; justify-content:space-between; display:flex;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_model>div:nth-of-type(2) { margin-left:10px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div a img { transition:all 0.4s; width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li .hide { transition:all 0.4s; overflow:hidden;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option { flex-direction:column;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div { flex-basis: auto;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) { align-items:center;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) span { margin-left: 10px;\n}\n#Cart .footer[data-v-3eb0dde1] { border-top:1px solid #888888; margin:20px; position:absolute; bottom:0; width:calc(100% - 40px); padding-top:10px;\n}\n#Cart .footer div b[data-v-3eb0dde1] { color:#0072BC;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(1) { line-height:17px; font-weight:bold;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(2) { font-size:18px; display:flex; justify-content:space-between; align-items:baseline; font-weight:bold; line-height:20px; margin-bottom:20px;\n}\n#Cart .footer div:nth-of-type(2) b[data-v-3eb0dde1] { font-size:26px;\n}\n#Cart .footer .btn-group[data-v-3eb0dde1] { display:flex;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(1) { margin-right:10px;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(2) { background:#00A1CB; border-color:#0089AD;\n}\n#Cart.fixed_header[data-v-3eb0dde1] { position:fixed; top:85px;\n}\n#Cart.hideCart[data-v-3eb0dde1] { height:auto;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li .hide { max-width:0; height:0; margin:0 !important; padding:0;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li>div a img { border-radius: 50%; width: 62px; height: 62px;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -400,60 +401,62 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c(
-        "ul",
-        [
-          _vm._l(_vm.cartList, function (gd, i) {
-            return [
-              _vm._l(gd.goods_model, function (gm, j) {
-                return _c("CartModel", {
-                  key: gm.gm_id,
-                  attrs: { src: gd.image_src_thumb[0] },
-                  on: {
-                    outCart: function ($event) {
-                      return _vm.outCart("model", i, j)
+      _c("div", { staticClass: "list_box" }, [
+        _c(
+          "ul",
+          [
+            _vm._l(_vm.cartList, function (gd, i) {
+              return [
+                _vm._l(gd.goods_model, function (gm, j) {
+                  return _c("CartModel", {
+                    key: gm.gm_id,
+                    attrs: { src: gd.image_src_thumb[0] },
+                    on: {
+                      outCart: function ($event) {
+                        return _vm.outCart("model", i, j)
+                      },
                     },
-                  },
-                  model: {
-                    value: _vm.cartList[i].goods_model[j],
-                    callback: function ($$v) {
-                      _vm.$set(_vm.cartList[i].goods_model, j, $$v)
+                    model: {
+                      value: _vm.cartList[i].goods_model[j],
+                      callback: function ($$v) {
+                        _vm.$set(_vm.cartList[i].goods_model, j, $$v)
+                      },
+                      expression: "cartList[i].goods_model[j]",
                     },
-                    expression: "cartList[i].goods_model[j]",
-                  },
-                })
-              }),
-              _vm._v(" "),
-              _vm._l(gd.option_child, function (opc, k) {
-                return _c("CartOption", {
-                  key: opc.opc_id,
-                  on: {
-                    outCart: function ($event) {
-                      return _vm.outCart("option", i, k)
-                    },
-                  },
-                  model: {
-                    value: _vm.cartList[i].option_child[k],
-                    callback: function ($$v) {
-                      _vm.$set(_vm.cartList[i].option_child, k, $$v)
-                    },
-                    expression: "cartList[i].option_child[k]",
-                  },
-                })
-              }),
-              _vm._v(" "),
-              i != Object.keys(_vm.cartList).length - 1
-                ? _c("b-row", {
-                    key: "gd_" + gd.gd_id,
-                    staticClass: "hr",
-                    attrs: { tag: "li" },
                   })
-                : _vm._e(),
-            ]
-          }),
-        ],
-        2
-      ),
+                }),
+                _vm._v(" "),
+                _vm._l(gd.option_child, function (opc, k) {
+                  return _c("CartOption", {
+                    key: opc.opc_id,
+                    on: {
+                      outCart: function ($event) {
+                        return _vm.outCart("option", i, k)
+                      },
+                    },
+                    model: {
+                      value: _vm.cartList[i].option_child[k],
+                      callback: function ($$v) {
+                        _vm.$set(_vm.cartList[i].option_child, k, $$v)
+                      },
+                      expression: "cartList[i].option_child[k]",
+                    },
+                  })
+                }),
+                _vm._v(" "),
+                i != Object.keys(_vm.cartList).length - 1
+                  ? _c("b-row", {
+                      key: "gd_" + gd.gd_id,
+                      staticClass: "hr",
+                      attrs: { tag: "li" },
+                    })
+                  : _vm._e(),
+              ]
+            }),
+          ],
+          2
+        ),
+      ]),
       _vm._v(" "),
       _vm.mouseHover
         ? _c(

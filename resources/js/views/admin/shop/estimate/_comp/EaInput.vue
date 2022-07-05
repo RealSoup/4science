@@ -1,5 +1,5 @@
-<template lang="html">
-    <input type="text" v-model="displayValue" :id="id" required @change="calculator" />
+<template>
+    <b-form-input v-model="displayValue" :id="id" />
 </template>
 
 <script>
@@ -17,14 +17,9 @@ export default {
             }
         }
     },
-    methods:{
-        calculator() {
-            this.$emit('calculator');
-        },
-    },
 }
 </script>
 
 <style scoped>
-input { color:red !important; background-color:#FFFAC6 !important; font-weight:bold !important; }
+input { color:red !important; background-color:#FFFAC6 !important; font-weight:bold !important; text-align:right; }
 </style>

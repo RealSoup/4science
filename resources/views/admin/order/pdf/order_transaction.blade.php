@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title></title>
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<!-- <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"> -->
 <style>
 @font-face {
     font-family: 'NanumGothic';
@@ -30,7 +30,7 @@
     src: url("{{ public_path('fonts/NanumGothicExtraBold.ttf') }}") format('truetype');
 }
 
-* { font-family: 'dotum', '돋움', 'Nanum Gothic', 'NanumGothic', '나눔고딕', 'DejaVu Sans'; font-size:10px; }
+* { font-family: 'dotum', '돋움', 'NanumGothic', '나눔고딕', 'DejaVu Sans'; font-size:10px; }
 
 
 table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width:100%; }
@@ -132,8 +132,8 @@ $goods_p = 0;
         <tr>
             <td>
                 <p>담당자 : {{$od->mng->name}} {{$od->mng->userMng->um_position}}, TEL : {{$od->mng->tel}}, FAX : {{$od->mng->fax}}</p>
-                계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
-                            {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
+                계좌번호 : {{cache('bank')->name01}} {{cache('bank')->num01}},
+                            {{cache('bank')->name02}} {{cache('bank')->num02}} {{cache('bank')->owner}}
             </td>
         </tr>
         <tr>

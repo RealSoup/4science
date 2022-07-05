@@ -27,9 +27,9 @@ class GoodsController extends Controller {
         $gd = $gd->join('shop_goods_model', function ($join) { 
             $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id')->where('gm_enable', 'Y'); 
         });
-   
+
         $gd = $gd->select(
-                "shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_catno03",
+                "shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit",
                 DB::raw('MIN(gc_id)'), DB::raw('MIN(gm_catno03)'),
                 DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_makers.mk_id = la_shop_goods.gd_mk_id) as mk_name")
             )
@@ -136,11 +136,17 @@ class GoodsController extends Controller {
         // 정렬 설정 End
 
         // echo_query($gd);
-        if ($req->filled('limit'))
-            $data['list'] = $gd->limit($req->limit)->get();
+        if ($req->filled('limit'))  //  메인 베스트
+            $data['list'] = $gd->limit($req->limit)->get(); 
         else {
             $data['list'] = $gd->paginate();
             $data['list']->appends($req->all())->links();
+
+                       
+            $data['pick'][0] = $data['list']->take(6);
+            if (count($data['list']) > 6)
+                $data['pick'][1] = $data['list']->skip(6)->take(6);
+            
         }
 		return response()->json($data);
     }

@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container { box-shadow:0 0.625rem 1.25rem #0000001a; border-radius:20px; padding:15px; }
+.container { border: 1px solid #ced4da; border-radius: 0.25rem; padding:15px; }
 .container .row { cursor:pointer; }
 .container .row .intro { display:flex; justify-content:center; align-items:center; height:100px; border-radius:20px; font-weight:bold; font-size:1.6rem; color:#AAA; }
 .container .row .intro.hide { display:none; }

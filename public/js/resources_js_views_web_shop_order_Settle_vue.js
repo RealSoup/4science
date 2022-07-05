@@ -520,49 +520,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    settle: function settle() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/shop/order/settle', {
-                  type: _this.order.od_type,
-                  goods: _this.order.goods
-                });
-
-              case 3:
-                res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.lists = res.data.lists;
-                  _this.order.price = res.data.price;
-                  _this.order.od_no = res.data.od_no;
-                  _this.order.od_name = res.data.od_name;
-                }
-
-                _context.next = 11;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                Notify.consolePrint(_context.t0);
-                Notify.toast('warning', _context.t0.responsee);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 7]]);
-      }))();
-    },
     funNumCheck: function funNumCheck(val) {
       return numCheck(val);
     },
@@ -575,33 +532,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.postcode_open = false;
     },
     exePayment: function exePayment() {
-      var _this2 = this;
+      var _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var pay, frm, up;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                if (!(0,_comp_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationChecker)(_this2.order)) {
-                  _context2.next = 23;
+                if (!(0,_comp_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationChecker)(_this.order)) {
+                  _context.next = 23;
                   break;
                 }
 
-                _context2.prev = 1;
-                _context2.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this2.order);
+                _context.prev = 1;
+                _context.next = 4;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this.order);
 
               case 4:
-                pay = _context2.sent;
+                pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context2.next = 17;
+                  _context.next = 17;
                   break;
                 }
 
-                if (!(_this2.order.extra.oex_hasBizLicense && !isEmpty(_this2.order.extra.oex_file))) {
-                  _context2.next = 15;
+                if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
+                  _context.next = 15;
                   break;
                 }
 
@@ -609,15 +566,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_group', 'order');
                 frm.append('fi_key', pay.data.od_id);
                 frm.append('fi_room', new Date().getFullYear());
-                frm.append("file[]", _this2.order.extra.oex_file);
-                _context2.next = 14;
+                frm.append("file[]", _this.order.extra.oex_file);
+                _context.next = 14;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
               case 14:
-                up = _context2.sent;
+                up = _context.sent;
 
               case 15:
-                _context2.next = 17;
+                _context.next = 17;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -626,21 +583,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 17:
-                _context2.next = 23;
+                _context.next = 23;
                 break;
 
               case 19:
-                _context2.prev = 19;
-                _context2.t0 = _context2["catch"](1);
-                Notify.consolePrint(_context2.t0);
-                Notify.toast('warning', _context2.t0.responsee);
+                _context.prev = 19;
+                _context.t0 = _context["catch"](1);
+                Notify.consolePrint(_context.t0);
+                Notify.toast('warning', _context.t0.responsee);
 
               case 23:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, null, [[1, 19]]);
+        }, _callee, null, [[1, 19]]);
       }))();
     },
     toggleAll: function toggleAll(checked) {
@@ -658,33 +615,100 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var tCode = new Date().format("yyMMddHHmm");
+    var _this2 = this;
 
-    if (this.$route.params.od_goods) {
-      this.order.goods = this.$route.params.od_goods;
-      this.order.od_type = this.$route.params.od_type;
-      this.order.tCode = tCode;
-      sessionStorage.setItem('goods', JSON.stringify(this.order.goods));
-      sessionStorage.setItem('od_type', this.order.od_type);
-      sessionStorage.setItem('od_time', tCode);
-    } else if (sessionStorage.getItem('od_time')) {
-      if (tCode - sessionStorage.getItem('od_time') <= 20) {
-        this.order.goods = JSON.parse(sessionStorage.getItem('goods'));
-        this.order.od_type = sessionStorage.getItem('od_type');
-        this.order.tCode = tCode;
-      } else {
-        //  주문 정보를 가져온후 일정 시간이 경과하면
-        Notify.toast('danger', "오랜시간 주문이 이루어 지지 않았습니다.");
-        this.$router.go(-1);
-        return false;
-      }
-    } else {
-      Notify.toast('danger', "잘못된 접근 경로입니다.");
-      this.$router.go(-1);
-      return false;
-    }
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var tCode, res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              tCode = new Date().format("yyMMddHHmm");
 
-    this.settle();
+              if (!_this2.$route.params.od_goods) {
+                _context2.next = 10;
+                break;
+              }
+
+              _this2.order.goods = _this2.$route.params.od_goods;
+              _this2.order.od_type = _this2.$route.params.od_type;
+              _this2.order.tCode = tCode;
+              sessionStorage.setItem('goods', JSON.stringify(_this2.order.goods));
+              sessionStorage.setItem('od_type', _this2.order.od_type);
+              sessionStorage.setItem('od_time', tCode);
+              _context2.next = 25;
+              break;
+
+            case 10:
+              if (!sessionStorage.getItem('od_time')) {
+                _context2.next = 22;
+                break;
+              }
+
+              if (!(tCode - sessionStorage.getItem('od_time') <= 20)) {
+                _context2.next = 17;
+                break;
+              }
+
+              _this2.order.goods = JSON.parse(sessionStorage.getItem('goods'));
+              _this2.order.od_type = sessionStorage.getItem('od_type');
+              _this2.order.tCode = tCode;
+              _context2.next = 20;
+              break;
+
+            case 17:
+              //  주문 정보를 가져온후 일정 시간이 경과하면
+              Notify.toast('danger', "오랜시간 주문이 이루어 지지 않았습니다.");
+
+              _this2.$router.go(-1);
+
+              return _context2.abrupt("return", false);
+
+            case 20:
+              _context2.next = 25;
+              break;
+
+            case 22:
+              Notify.toast('danger', "잘못된 접근 경로입니다.");
+
+              _this2.$router.go(-1);
+
+              return _context2.abrupt("return", false);
+
+            case 25:
+              _context2.prev = 25;
+              _context2.next = 28;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/shop/order/settle', {
+                type: _this2.order.od_type,
+                goods: _this2.order.goods
+              });
+
+            case 28:
+              res = _context2.sent;
+
+              if (res && res.status === 200) {
+                _this2.lists = res.data.lists;
+                _this2.order.price = res.data.price;
+                _this2.order.od_no = res.data.od_no;
+                _this2.order.od_name = res.data.od_name;
+              }
+
+              _context2.next = 36;
+              break;
+
+            case 32:
+              _context2.prev = 32;
+              _context2.t0 = _context2["catch"](25);
+              Notify.consolePrint(_context2.t0);
+              Notify.toast('warning', _context2.t0.responsee);
+
+            case 36:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[25, 32]]);
+    }))();
   },
   mounted: function mounted() {// console.log(this.$session.get('order'));
     // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {

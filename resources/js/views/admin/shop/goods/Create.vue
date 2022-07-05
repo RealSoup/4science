@@ -1,8 +1,8 @@
 <template>
-<div ref="goods">
-    <h3>생성</h3>
-    <b-card no-body class="shadow mb-2 sticky-top p-2">
-        <b-container fluid>
+<b-container class="p_warp">
+    <h3 class="p_tit">상품 생성</h3>
+    <b-card no-body class="mb-2 sticky-top p-2">
+        <b-container>
             <b-row>
                 <b-col cols="12" sm="6">
                 </b-col>
@@ -16,7 +16,7 @@
         </b-container>
     </b-card>
     <Form ref="form" v-model="frm" :hashs="hashs" :makers="makers" :purchaseAt="purchaseAt" />
-</div>
+</b-container>
 </template>
 
 <script>
@@ -40,8 +40,6 @@ export default {
             frm: {
                 goods_category: [],
                 gd_enable: 'Y',
-                gd_mk_id: 0,
-                gd_pa_id: 0,
                 goods_model : [],
                 option : [],
                 fi_id: [],

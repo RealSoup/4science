@@ -273,17 +273,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 var dt = new Date();
@@ -683,10 +672,10 @@ var dt = new Date();
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -695,21 +684,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! -!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../public/css/adm_shop_order_edit.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css");
 // Imports
 
+
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* @import '/css/adm_shop_order_edit.css';*/\n#adm_order_edit .badge { font-size:100%;\n}\n#adm_order_edit .od_header { padding:0.3rem 15px; z-index:999;\n}\n#adm_order_edit .od_header span { margin-right:1rem;\n}\n#adm_order_edit .od_header span.badge { margin-right:2rem;\n}\n#adm_order_edit .od_header span svg { margin-right:0.5rem;\n}\n.actionArea { position:-webkit-sticky; position:sticky; top:0; z-index:1021;\n}\n.actionArea .input-group { position:absolute; top:2px; right:0; max-width:690px;\n}\n@media (max-width: 992px) {\n.actionArea { position:static;\n}\n.actionArea .input-group { position:static; max-width:none;\n}\n}\n#adm_order_edit .order_goods_info .gd_info .goods a { margin-right:1rem;\n}\n#adm_order_edit .order_goods_info .gd_info .goods a img { /*width:60px; height:60px; object-fit:cover;*/ max-width:100px;\n}\n#adm_order_edit .order_goods_info .gd_info .goods div { display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_info b { margin:0 0.8rem;\n}\n#adm_order_edit .order_goods_info .gd_info .model .model_price .md_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .gd_info .option .option_price .opc_multi { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .order_goods_info .final_price p b,\r\n#adm_order_edit .order_goods_info .gd_total_price b { min-width:6rem; display:inline-block;\n}\n#adm_order_edit .receiver_info .col>.badge + span { margin-right:2rem;\n}\n#adm_order_edit .receiver_info .col>.badge + span b { font-size:2rem;\n}\n#adm_order_edit .receiver_info .col .fade-enter-active,\r\n#adm_order_edit .receiver_info .col .fade-leave-active { transition: opacity .001s;\n}\n#adm_order_edit .receiver_info .col .fade-enter,\r\n#adm_order_edit .receiver_info .col .fade-leave-to { opacity: 0;\n}\n#adm_order_edit .receiver_info .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css ***!
+  \**********************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".card { border-radius:10px; margin-bottom:20px; }\r\n.card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }\r\n\r\n#adm_order_edit .badge { font-size:100%; }\r\n#adm_order_edit .head { padding:0.3rem 15px; position:sticky; top:0; z-index:1; background: #17a2b8c2; margin-top: 30px; }\r\n#adm_order_edit .head span { margin-right:1rem; }\r\n#adm_order_edit .head span.badge { margin-right:2rem; }\r\n#adm_order_edit .head span svg { margin-right:0.5rem; }\r\n.actionArea { position:sticky; top:0; z-index:1021; }\r\n.actionArea .input-group { position:absolute; top:2px; right:15px; max-width:690px; }\r\n@media (max-width: 992px) {\r\n    .actionArea { position:static; }\r\n    .actionArea .input-group { position:static; max-width:none; }\r\n}\r\n\r\n#adm_order_edit .body .container { border-left: 3px solid #b81717; margin-top:40px; }\r\n#adm_order_edit .card .container { font-size:.9rem; }\r\n#adm_order_edit .body .container h5 { margin-bottom:30px;  border-bottom: 1px solid #b81717; margin-left:-10px; padding: 5px 15px; max-width:700px; }\r\n#adm_order_edit .body .container .row a { flex:0 0 130px; max-width:130px; padding-right: 15px; padding-left: 15px; }\r\n#adm_order_edit .body .container .row a img { width:100px; height:100px; object-fit:cover; }\r\n#adm_order_edit .body .container .row .col .gd_name .col { color:#006edf; font-weight:bold; font-size:1rem; }\r\n#adm_order_edit .body .container .row .col .gm:not(:last-child) { border-bottom:1px solid #aaa; }\r\n#adm_order_edit .body .container .row .col .gm { align-items: center; padding:5px 0; }\r\n#adm_order_edit .body .container .row .col .gm .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }\r\n#adm_order_edit .body .container .row .col .gm .col:nth-of-type(1), \r\n#adm_order_edit .body .container .row .col .gm .col:nth-of-type(2) { border-right:1px solid #ddd; } \r\n#adm_order_edit .body .container .row .col .gm .col:nth-of-type(2),\r\n#adm_order_edit .body .container .row .col .gm .col:nth-of-type(3) { flex:0 0 25%; max-width:25%; }\r\n#adm_order_edit .body .container .row .col .row .price { text-align:right; }\r\n#adm_order_edit .body .container .row .col .opc { padding-top:5px; }\r\n#adm_order_edit .body .container .row .col .gm .price .multi,\r\n#adm_order_edit .body .container .row .col .opc .price .multi { min-width:6rem; display:inline-block; }\r\n#adm_order_edit .price .container .row .col { text-align:right; }\r\n#adm_order_edit .price .container .row .col b { min-width:8rem; display:inline-block; }\r\n\r\n\r\n\r\n#adm_order_edit .receiver .col .fade-enter-active,\r\n#adm_order_edit .receiver .col .fade-leave-active { transition: opacity .001s; }\r\n#adm_order_edit .receiver .col .fade-enter,\r\n#adm_order_edit .receiver .col .fade-leave-to { opacity: 0; }\r\n#adm_order_edit .receiver .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll; }", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -718,7 +733,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=style&index=0&media=screen&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_css_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=style&index=0&media=css&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&");
 
             
 
@@ -727,11 +742,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_css_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_css_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -747,7 +762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Edit_vue_vue_type_template_id_ca63be56___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit.vue?vue&type=template&id=ca63be56& */ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=template&id=ca63be56&");
 /* harmony import */ var _Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=script&lang=js&");
-/* harmony import */ var _Edit_vue_vue_type_style_index_0_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Edit.vue?vue&type=style&index=0&media=screen&lang=css& */ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&");
+/* harmony import */ var _Edit_vue_vue_type_style_index_0_media_css_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Edit.vue?vue&type=style&index=0&media=css&lang=css& */ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -790,14 +805,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css& ***!
-  \****************************************************************************************************/
+/***/ "./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css& ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_screen_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=style&index=0&media=screen&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=screen&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_style_index_0_media_css_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Edit.vue?vue&type=style&index=0&media=css&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=style&index=0&media=css&lang=css&");
 
 
 /***/ }),
@@ -833,7 +848,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { attrs: { id: "adm_order_edit" } }, [
     _c(
       "div",
       { staticClass: "actionArea" },
@@ -1051,535 +1066,400 @@ var render = function () {
       1
     ),
     _vm._v(" "),
-    _c("div", { attrs: { id: "print_area" } }, [
-      _c(
-        "div",
-        { attrs: { id: "adm_order_edit" } },
-        [
+    _c(
+      "div",
+      { attrs: { id: "print_area" } },
+      [
+        _c("b-card", { staticClass: "head", attrs: { "no-body": "" } }, [
           _c(
-            "b-card",
-            {
-              staticClass: "shadow mt-3 od_header sticky-top",
-              attrs: { "no-body": "" },
-            },
+            "div",
             [
+              _c("b-badge", [_vm._v(_vm._s(_vm.od.od_id) + ".")]),
+              _vm._v(" "),
               _c(
-                "div",
+                "span",
                 [
-                  _c("b-badge", [_vm._v(_vm._s(_vm.od.od_id) + ".")]),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "tags" } }),
-                      _vm._v(_vm._s(_vm.od.od_no)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "clock" } }),
-                      _vm._v(_vm._s(_vm._f("formatDate")(_vm.od.created_at))),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                      _vm._v(_vm._s(_vm.od.od_orderer)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                      _vm._v(_vm._s(_vm.od.od_orderer_hp)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "at" } }),
-                      _vm._v(_vm._s(_vm.od.od_orderer_email)),
-                    ],
-                    1
-                  ),
+                  _c("font-awesome-icon", { attrs: { icon: "tags" } }),
+                  _vm._v(_vm._s(_vm.od.od_no)),
                 ],
                 1
               ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-card",
-            {
-              staticClass: "shadow mt-3 order_goods_info",
-              attrs: { "header-tag": "header", "footer-tag": "footer" },
-              scopedSlots: _vm._u([
-                {
-                  key: "header",
-                  fn: function () {
-                    return [_c("b", [_vm._v("주문 상품")])]
-                  },
-                  proxy: true,
-                },
-                {
-                  key: "footer",
-                  fn: function () {
-                    return [
-                      _c(
-                        "b-container",
-                        { attrs: { fluid: "" } },
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { attrs: { cols: "6" } }, [
-                                _c("h5", [_c("b", [_vm._v("총 금액")])]),
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                {
-                                  staticClass: "text-right final_price",
-                                  attrs: { cols: "6" },
-                                },
-                                [
-                                  _c("p", [
-                                    _vm._v("상품 : "),
-                                    _c("b", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("comma")(_vm.od.od_gd_price)
-                                        ) + " 원"
-                                      ),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v("배송비 : "),
-                                    _c("b", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("comma")(_vm.od.od_dlvy_price)
-                                        ) + " 원"
-                                      ),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm.od.od_air_price
-                                    ? _c("p", [
-                                        _vm._v("항공운임료 : "),
-                                        _c("b", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm._f("comma")(
-                                                _vm.od.od_air_price
-                                              )
-                                            ) + " 원"
-                                          ),
-                                        ]),
-                                      ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v("총금액 : "),
-                                    _c("b", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("comma")(_vm.od.od_all_price)
-                                        ) + " 원"
-                                      ),
-                                    ]),
-                                  ]),
-                                ]
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ]
-                  },
-                  proxy: true,
-                },
-              ]),
-            },
-            [
               _vm._v(" "),
-              _vm._l(_vm.od.pa_list.lists, function (pa, pa_id, idx) {
-                return _c(
-                  "b-alert",
-                  {
-                    key: "pa_id_" + pa_id,
-                    attrs: {
-                      show: "",
-                      variant: idx % 2 === 0 ? "success" : "info",
-                    },
-                  },
-                  [
-                    _c("h5", [
-                      _c("b", [
-                        _vm._v(
-                          _vm._s(
-                            pa.list[0].purchase_at
-                              ? pa.list[0].purchase_at.pa_name
-                              : "4SCIENCE"
-                          )
+              _c(
+                "span",
+                [
+                  _c("font-awesome-icon", { attrs: { icon: "clock" } }),
+                  _vm._v(_vm._s(_vm._f("formatDate")(_vm.od.created_at))),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                [
+                  _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                  _vm._v(_vm._s(_vm.od.od_orderer)),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                [
+                  _c("font-awesome-icon", { attrs: { icon: "phone" } }),
+                  _vm._v(_vm._s(_vm.od.od_orderer_hp)),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                [
+                  _c("font-awesome-icon", { attrs: { icon: "at" } }),
+                  _vm._v(_vm._s(_vm.od.od_orderer_email)),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "b-card",
+          { staticClass: "body" },
+          [
+            _c("div", { staticClass: "tit" }, [_vm._v("주문 상품")]),
+            _vm._v(" "),
+            _vm._l(_vm.od.pa_list.lists, function (pa, pa_id) {
+              return _c(
+                "b-container",
+                { key: "pa_" + pa_id },
+                [
+                  _c(
+                    "h5",
+                    [
+                      pa.list[0].purchase_at
+                        ? [
+                            _vm._v(
+                              _vm._s(pa.list[0].purchase_at.pa_name) + " "
+                            ),
+                            _c("b", [_vm._v("직배송 상품")]),
+                          ]
+                        : [_vm._v("4SCIENCE")],
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm._l(pa.list, function (gd, gd_idx) {
+                    return _c(
+                      "b-row",
+                      { key: "gd_" + gd_idx },
+                      [
+                        gd_idx != 0
+                          ? _c("b-col", { attrs: { cols: "12" } }, [_c("hr")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "b-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "adm_goods_edit",
+                                params: { gd_id: gd.gd_id },
+                              },
+                            },
+                          },
+                          [_c("img", { attrs: { src: gd.image_src_thumb[0] } })]
                         ),
-                      ]),
-                      _vm._v(" 직배송 상품"),
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(pa.list, function (gd, gd_idx) {
-                      return _c(
-                        "b-container",
-                        {
-                          key: "pa_id_" + pa_id + "gd_idx_" + gd_idx,
-                          attrs: { fluid: "" },
-                        },
-                        [
-                          gd_idx != 0
-                            ? _c("b-row", [_c("b-col", [_c("hr")])], 1)
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            { staticClass: "gd_info" },
-                            [
-                              _c(
-                                "b-col",
-                                { staticClass: "goods", attrs: { cols: "3" } },
+                        _vm._v(" "),
+                        _c(
+                          "b-col",
+                          [
+                            _c(
+                              "b-row",
+                              { staticClass: "gd_name" },
+                              [_c("b-col", [_vm._v(_vm._s(gd.gd_name))])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _vm._l(gd.goods_model, function (gm, gm_idx) {
+                              return _c(
+                                "b-row",
+                                { key: "gm_" + gm_idx, staticClass: "gm" },
                                 [
-                                  _c(
-                                    "b-link",
-                                    {
-                                      attrs: {
-                                        to: {
-                                          name: "adm_goods_edit",
-                                          params: { gd_id: gd.gd_id },
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("img", {
-                                        attrs: { src: gd.image_src_thumb[0] },
-                                      }),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("div", [
-                                    _c("b", [_vm._v(_vm._s(gd.gd_name))]),
+                                  _c("b-col", [
+                                    _c("b", { staticClass: "gd_name" }, [
+                                      _vm._v(_vm._s(gm.gm_name)),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
                                     _vm._v(
-                                      "\r\n                                    " +
+                                      "\r\n                                " +
+                                        _vm._s(gm.gm_code) +
+                                        "\r\n                                "
+                                    ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\r\n                                " +
+                                        _vm._s(gm.gm_catno) +
+                                        "\r\n                                "
+                                    ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\r\n                                " +
                                         _vm._s(gd.maker.mk_name) +
                                         "\r\n                                "
                                     ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\r\n                                " +
+                                        _vm._s(gm.gm_unit) +
+                                        "\r\n                            "
+                                    ),
                                   ]),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                [
-                                  _vm._l(gd.goods_model, function (gm, gm_idx) {
-                                    return _c(
-                                      "b-container",
-                                      {
-                                        key:
-                                          "pa_id_" +
-                                          pa_id +
-                                          "gd_idx_" +
-                                          gd_idx +
-                                          "gm_idx_" +
-                                          gm_idx,
-                                        attrs: { fluid: "" },
-                                      },
-                                      [
-                                        _c(
-                                          "b-row",
-                                          { staticClass: "model mb-2" },
-                                          [
-                                            _c(
-                                              "b-col",
-                                              {
-                                                staticClass: "model_info",
-                                                attrs: { xl: "8", lg: "6" },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\r\n                                            " +
-                                                    _vm._s(gm.gm_name) +
-                                                    "\r\n                                            "
-                                                ),
-                                                _c("b", [
-                                                  _vm._v(_vm._s(gm.gm_code)),
-                                                ]),
-                                                _vm._v(
-                                                  "\r\n                                            [" +
-                                                    _vm._s(gm.gm_catno) +
-                                                    "]\r\n                                            "
-                                                ),
-                                                _c("b", [
-                                                  _vm._v(_vm._s(gm.gm_spec)),
-                                                ]),
-                                                _vm._v(
-                                                  "\r\n                                            (" +
-                                                    _vm._s(gm.gm_unit) +
-                                                    ")\r\n                                        "
-                                                ),
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "b-col",
-                                              {
-                                                staticClass:
-                                                  "model_price text-right",
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\r\n                                            " +
-                                                    _vm._s(
-                                                      _vm._f("comma")(
-                                                        gm.odm_price_add_vat
-                                                      )
-                                                    ) +
-                                                    " 원\r\n                                            "
-                                                ),
-                                                _c("font-awesome-icon", {
-                                                  attrs: { icon: "times" },
-                                                }),
-                                                _vm._v(" "),
-                                                _vm._v(
-                                                  "\r\n                                            " +
-                                                    _vm._s(
-                                                      _vm._f("comma")(gm.ea)
-                                                    ) +
-                                                    " 개\r\n                                            "
-                                                ),
-                                                _c("font-awesome-icon", {
-                                                  attrs: { icon: "equals" },
-                                                }),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b",
-                                                  { staticClass: "md_multi" },
-                                                  [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        _vm._f("comma")(
-                                                          gm.odm_price_add_vat *
-                                                            gm.ea
-                                                        )
-                                                      ) + " 원"
-                                                    ),
-                                                  ]
-                                                ),
-                                              ],
-                                              1
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    )
-                                  }),
                                   _vm._v(" "),
-                                  _vm._l(
-                                    gd.option_child,
-                                    function (opc, opc_idx) {
-                                      return _c(
-                                        "b-container",
-                                        {
-                                          key:
-                                            "pa_id_" +
-                                            pa_id +
-                                            "gd_idx_" +
-                                            gd_idx +
-                                            "opc_idx_" +
-                                            opc_idx,
-                                          attrs: { fluid: "" },
-                                        },
-                                        [
-                                          opc_idx == 0
-                                            ? _c(
-                                                "b-row",
-                                                [_c("b-col", [_c("hr")])],
-                                                1
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-row",
-                                            { staticClass: "option mb-2" },
-                                            [
-                                              _c(
-                                                "b-col",
-                                                {
-                                                  staticClass: "option_info",
-                                                  attrs: { cols: "6" },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\r\n                                            " +
-                                                      _vm._s(
-                                                        opc.option.op_name
-                                                      ) +
-                                                      ": " +
-                                                      _vm._s(opc.opc_name) +
-                                                      "\r\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-col",
-                                                {
-                                                  staticClass:
-                                                    "option_price text-right",
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\r\n                                            " +
-                                                      _vm._s(
-                                                        _vm._f("comma")(
-                                                          opc.odo_price_add_vat
-                                                        )
-                                                      ) +
-                                                      " 원\r\n                                            "
-                                                  ),
-                                                  _c("font-awesome-icon", {
-                                                    attrs: { icon: "times" },
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _vm._v(
-                                                    "\r\n                                            " +
-                                                      _vm._s(
-                                                        _vm._f("comma")(opc.ea)
-                                                      ) +
-                                                      " 개\r\n                                            "
-                                                  ),
-                                                  _c("font-awesome-icon", {
-                                                    attrs: { icon: "equals" },
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b",
-                                                    {
-                                                      staticClass: "opc_multi",
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm._f("comma")(
-                                                            opc.odo_price_add_vat *
-                                                              opc.ea
-                                                          )
-                                                        ) + " 원"
-                                                      ),
-                                                    ]
-                                                  ),
-                                                ],
-                                                1
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ],
-                                        1
-                                      )
-                                    }
+                                  _c("b-col", [_vm._v(_vm._s(gm.gm_spec))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-col",
+                                    { staticClass: "price" },
+                                    [
+                                      _vm._v(
+                                        "\r\n                                " +
+                                          _vm._s(
+                                            _vm._f("comma")(
+                                              gm.odm_price_add_vat
+                                            )
+                                          ) +
+                                          " 원\r\n                                "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "times" },
+                                      }),
+                                      _vm._v(
+                                        "\r\n                                " +
+                                          _vm._s(_vm._f("comma")(gm.ea)) +
+                                          " 개\r\n                                "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "equals" },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b", { staticClass: "multi" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("comma")(
+                                              gm.odm_price_add_vat * gm.ea
+                                            )
+                                          ) + " 원"
+                                        ),
+                                      ]),
+                                    ],
+                                    1
                                   ),
                                 ],
-                                2
-                              ),
-                            ],
-                            1
+                                1
+                              )
+                            }),
+                            _vm._v(" "),
+                            _vm._l(gd.option_child, function (opc, opc_idx) {
+                              return _c(
+                                "b-row",
+                                { key: "opc_" + opc_idx, staticClass: "opc" },
+                                [
+                                  _c(
+                                    "b-col",
+                                    {
+                                      staticClass: "option_info",
+                                      attrs: { cols: "6" },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\r\n                                " +
+                                          _vm._s(opc.option.op_name) +
+                                          ": " +
+                                          _vm._s(opc.opc_name) +
+                                          "\r\n                            "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-col",
+                                    { staticClass: "price" },
+                                    [
+                                      _vm._v(
+                                        "\r\n                                " +
+                                          _vm._s(
+                                            _vm._f("comma")(
+                                              opc.odo_price_add_vat
+                                            )
+                                          ) +
+                                          " 원\r\n                                "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "times" },
+                                      }),
+                                      _vm._v(" "),
+                                      _vm._v(
+                                        "\r\n                                " +
+                                          _vm._s(_vm._f("comma")(opc.ea)) +
+                                          " 개\r\n                                "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "equals" },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b", { staticClass: "multi" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("comma")(
+                                              opc.odo_price_add_vat * opc.ea
+                                            )
+                                          ) + " 원"
+                                        ),
+                                      ]),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              )
+                            }),
+                          ],
+                          2
+                        ),
+                      ],
+                      1
+                    )
+                  }),
+                ],
+                2
+              )
+            }),
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "b-card",
+          { staticClass: "price" },
+          [
+            _c("div", { staticClass: "tit" }, [_vm._v("총 금액")]),
+            _vm._v(" "),
+            _c(
+              "b-container",
+              [
+                _c(
+                  "b-row",
+                  [
+                    _c("b-col", { attrs: { offset: "6" } }, [
+                      _c("p", [
+                        _vm._v("상품 : "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm._f("comma")(_vm.od.od_gd_price)) + " 원"
                           ),
-                        ],
-                        1
-                      )
-                    }),
-                    _vm._v(" "),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("배송비 : "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm._f("comma")(_vm.od.od_dlvy_price)) +
+                              " 원"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _vm.od.od_air_price
+                        ? _c("p", [
+                            _vm._v("항공운임료 : "),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(_vm._f("comma")(_vm.od.od_air_price)) +
+                                  " 원"
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("총금액 : "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm._f("comma")(_vm.od.od_all_price)) + " 원"
+                          ),
+                        ]),
+                      ]),
+                    ]),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-card",
+          { staticClass: "receiver" },
+          [
+            _c("div", { staticClass: "tit" }, [_vm._v("배송, 결제 정보")]),
+            _vm._v(" "),
+            _c(
+              "b-container",
+              [
+                _c(
+                  "b-row",
+                  [
                     _c(
-                      "b-container",
-                      { attrs: { fluid: "" } },
+                      "b-col",
                       [
+                        _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "mr-3" }, [
+                          _vm._v(_vm._s(_vm.od.od_receiver)),
+                        ]),
+                        _vm._v(" "),
+                        _c("font-awesome-icon", { attrs: { icon: "phone" } }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "mr-3" }, [
+                          _vm._v(_vm._s(_vm.od.od_receiver_hp)),
+                        ]),
+                        _vm._v(" "),
+                        _c("font-awesome-icon", {
+                          attrs: { icon: "map-marked-alt" },
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "mr-3" }, [
+                          _vm._v(_vm._s(_vm.od.od_zip)),
+                          _c("b", [_vm._v(",")]),
+                          _vm._v(" " + _vm._s(_vm.od.od_addr1)),
+                          _c("b", [_vm._v(",")]),
+                          _vm._v(" " + _vm._s(_vm.od.od_addr2)),
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "b-row",
-                          { attrs: { "align-h": "end" } },
+                          "p",
                           [
-                            _c(
-                              "b-col",
-                              {
-                                staticClass: "text-right gd_total_price",
-                                attrs: { lg: "3", md: "6", sm: "12" },
-                              },
-                              [
-                                _c(
-                                  "b-alert",
-                                  {
-                                    staticClass: "mt-4",
-                                    attrs: { show: "", variant: "light" },
-                                  },
-                                  [
-                                    _c("div", [
-                                      _vm._v("상품 : "),
-                                      _c("b", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("comma")(
-                                              pa.price.goods_add_vat
-                                            )
-                                          ) + " 원"
-                                        ),
-                                      ]),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", [
-                                      _vm._v("배송료 : "),
-                                      _c("b", [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("comma")(
-                                              pa.price.dlvy_add_vat
-                                            )
-                                          ) + " 원"
-                                        ),
-                                      ]),
-                                    ]),
-                                    _vm._v(" "),
-                                    pa.price.air_add_vat
-                                      ? _c("div", [
-                                          _vm._v("항공운임료 : "),
-                                          _c("b", [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm._f("comma")(
-                                                  pa.price.air_add_vat
-                                                )
-                                              ) + " 원"
-                                            ),
-                                          ]),
-                                        ])
-                                      : _vm._e(),
-                                  ]
-                                ),
-                              ],
-                              1
-                            ),
+                            _c("font-awesome-icon", {
+                              attrs: { icon: "info" },
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v(_vm._s(_vm.od.od_memo))]),
                           ],
                           1
                         ),
@@ -1587,687 +1467,539 @@ var render = function () {
                       1
                     ),
                   ],
-                  2
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "b-card",
-            {
-              staticClass: "shadow mt-3 receiver_info",
-              attrs: {
-                "header-tag": "header",
-                "header-class": "py-2",
-                "body-class": "py-2",
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "header",
-                  fn: function () {
-                    return [_c("b", [_vm._v("배송 정보 / 결제 정보")])]
-                  },
-                  proxy: true,
-                },
-              ]),
-            },
-            [
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { attrs: { fluid: "" } },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "mr-3" }, [
-                            _vm._v(_vm._s(_vm.od.od_receiver)),
-                          ]),
-                          _vm._v(" "),
-                          _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "mr-3" }, [
-                            _vm._v(_vm._s(_vm.od.od_receiver_hp)),
-                          ]),
-                          _vm._v(" "),
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "map-marked-alt" },
-                          }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "mr-3" }, [
-                            _vm._v(_vm._s(_vm.od.od_zip)),
-                            _c("b", [_vm._v(",")]),
-                            _vm._v(" " + _vm._s(_vm.od.od_addr1)),
-                            _c("b", [_vm._v(",")]),
-                            _vm._v(" " + _vm._s(_vm.od.od_addr2)),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            [
-                              _c("font-awesome-icon", {
-                                attrs: { icon: "info" },
-                              }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v(_vm._s(_vm.od.od_memo))]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-badge", [_vm._v("결제수단")]),
-                          _vm._v(" "),
-                          _vm.od.od_pay_method == "C"
-                            ? _c(
-                                "span",
-                                [
+                  1
+                ),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c(
+                  "b-row",
+                  [
+                    _c(
+                      "b-col",
+                      [
+                        _c("b-badge", [_vm._v("결제수단")]),
+                        _vm._v(" "),
+                        _vm.od.od_pay_method == "C"
+                          ? _c(
+                              "span",
+                              [
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v("카드"),
+                                ]),
+                              ],
+                              1
+                            )
+                          : _vm.od.od_pay_method == "B"
+                          ? _c(
+                              "span",
+                              [
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v("계좌이체"),
+                                ]),
+                                _vm._v(" "),
+                                _vm.od.order_extra_info.oex_finance_type == "K"
+                                  ? _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [_vm._v("국민은행")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.od.order_extra_info.oex_finance_type == "W"
+                                  ? _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [_vm._v("우리은행")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.od.order_extra_info.oex_depositor
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v(_vm._s(_vm.payPlanDisplay) + " 결제"),
+                                ]),
+                              ],
+                              1
+                            )
+                          : _vm.od.od_pay_method == "P"
+                          ? _c(
+                              "span",
+                              [
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v("PSYS"),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.od.order_extra_info.oex_depositor
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v(_vm._s(_vm.payPlanDisplay) + " 결제"),
+                                ]),
+                              ],
+                              1
+                            )
+                          : _vm.od.od_pay_method == "S"
+                          ? _c(
+                              "span",
+                              [
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v("전표"),
+                                ]),
+                                _vm._v(" "),
+                                _vm.od.order_extra_info.oex_finance_type == "SH"
+                                  ? _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [_vm._v("신한")]
+                                    )
+                                  : _vm.od.order_extra_info.oex_finance_type ==
+                                    "BC"
+                                  ? _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [_vm._v("BC")]
+                                    )
+                                  : _vm.od.order_extra_info.oex_finance_type ==
+                                    "SS"
+                                  ? _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [_vm._v("삼성")]
+                                    )
+                                  : _c(
+                                      "b-badge",
+                                      { attrs: { variant: "light" } },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.od.order_extra_info
+                                              .oex_finance_type
+                                          )
+                                        ),
+                                      ]
+                                    ),
+                                _vm._v(" "),
+                                _c("b-badge", { attrs: { variant: "light" } }, [
+                                  _vm._v(_vm._s(_vm.payPlanDisplay) + " 결제"),
+                                ]),
+                              ],
+                              1
+                            )
+                          : _vm.od.od_pay_method == "E"
+                          ? _c("span", [_vm._v("에스크로")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("b-badge", [_vm._v("구매환경")]),
+                        _vm._v(" "),
+                        _vm.od.od_sale_env == "P"
+                          ? _c("span", [_vm._v("웹")])
+                          : _vm.od.od_sale_env == "M"
+                          ? _c("span", [_vm._v("모바일")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("b-badge", [_vm._v("요청서류")]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          [
+                            !_vm.od.order_extra_info
+                              ? [
                                   _c(
                                     "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("카드")]
+                                    { attrs: { variant: "warning" } },
+                                    [_vm._v("없음")]
                                   ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "B"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("계좌이체")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.od.order_extra_info.oex_finance_type ==
-                                  "K"
+                                ]
+                              : [
+                                  _vm.od.order_extra_info.oex_req_est == "Y"
                                     ? _c(
                                         "b-badge",
                                         { attrs: { variant: "light" } },
-                                        [_vm._v("국민은행")]
+                                        [_vm._v("견적서")]
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.od.order_extra_info.oex_finance_type ==
-                                  "W"
+                                  _vm.od.order_extra_info.oex_req_tran == "Y"
                                     ? _c(
                                         "b-badge",
                                         { attrs: { variant: "light" } },
-                                        [_vm._v("우리은행")]
+                                        [_vm._v("거래명세서")]
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_depositor
-                                        )
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.payPlanDisplay) + " 결제"
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "P"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("PSYS")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_depositor
-                                        )
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.payPlanDisplay) + " 결제"
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "S"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("전표")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.od.order_extra_info.oex_finance_type ==
-                                  "SH"
+                                  _vm.od.order_extra_info.oex_req_biz == "Y"
                                     ? _c(
                                         "b-badge",
                                         { attrs: { variant: "light" } },
-                                        [_vm._v("신한")]
+                                        [_vm._v("사업자 등록증 사본")]
                                       )
-                                    : _vm.od.order_extra_info
-                                        .oex_finance_type == "BC"
-                                    ? _c(
-                                        "b-badge",
-                                        { attrs: { variant: "light" } },
-                                        [_vm._v("BC")]
-                                      )
-                                    : _vm.od.order_extra_info
-                                        .oex_finance_type == "SS"
-                                    ? _c(
-                                        "b-badge",
-                                        { attrs: { variant: "light" } },
-                                        [_vm._v("삼성")]
-                                      )
-                                    : _c(
-                                        "b-badge",
-                                        { attrs: { variant: "light" } },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.od.order_extra_info
-                                                .oex_finance_type
-                                            )
-                                          ),
-                                        ]
-                                      ),
+                                    : _vm._e(),
                                   _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.payPlanDisplay) + " 결제"
-                                      ),
-                                    ]
-                                  ),
+                                  _vm.od.order_extra_info.oex_req_bank == "Y"
+                                    ? _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v("통장사본")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.od.order_extra_info.oex_req_est == "N" &&
+                                  _vm.od.order_extra_info.oex_req_tran == "N" &&
+                                  _vm.od.order_extra_info.oex_req_biz == "N" &&
+                                  _vm.od.order_extra_info.oex_req_bank == "N"
+                                    ? _c(
+                                        "b-badge",
+                                        { attrs: { variant: "warning" } },
+                                        [_vm._v("없음")]
+                                      )
+                                    : _vm._e(),
                                 ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "E"
-                            ? _c("span", [_vm._v("에스크로")])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("b-badge", [_vm._v("구매환경")]),
-                          _vm._v(" "),
-                          _vm.od.od_sale_env == "P"
-                            ? _c("span", [_vm._v("웹")])
-                            : _vm.od.od_sale_env == "M"
-                            ? _c("span", [_vm._v("모바일")])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("b-badge", [_vm._v("요청서류")]),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              !_vm.od.order_extra_info
-                                ? [
+                          ],
+                          2
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                (_vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E") &&
+                _vm.od.order_extra_info
+                  ? _c(
+                      "b-row",
+                      [
+                        _c(
+                          "b-col",
+                          [
+                            _c("b-badge", [_vm._v("지출증빙")]),
+                            _vm._v(" "),
+                            _vm.od.order_extra_info.oex_type == "IV"
+                              ? _c(
+                                  "span",
+                                  [
+                                    _c(
+                                      "b-alert",
+                                      {
+                                        attrs: { show: "", variant: "success" },
+                                      },
+                                      [
+                                        _c(
+                                          "h5",
+                                          { staticClass: "alert-heading" },
+                                          [_vm._v("세금계산서")]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.od.file_info
+                                          ? [
+                                              _vm.checkImage(
+                                                _vm.od.file_info.fi_ext
+                                              )
+                                                ? [
+                                                    _c(
+                                                      "b-button",
+                                                      {
+                                                        on: {
+                                                          click: function (
+                                                            $event
+                                                          ) {
+                                                            _vm.isModalViewed =
+                                                              !_vm.isModalViewed
+                                                          },
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "사업자 등록증 보기"
+                                                        ),
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "transition",
+                                                      {
+                                                        attrs: { name: "fade" },
+                                                      },
+                                                      [
+                                                        _vm.isModalViewed
+                                                          ? _c(
+                                                              "Modal",
+                                                              {
+                                                                on: {
+                                                                  "close-modal":
+                                                                    function (
+                                                                      $event
+                                                                    ) {
+                                                                      _vm.isModalViewed = false
+                                                                    },
+                                                                },
+                                                              },
+                                                              [
+                                                                _c("img", {
+                                                                  staticStyle: {
+                                                                    "max-width":
+                                                                      "100%",
+                                                                    height:
+                                                                      "auto",
+                                                                  },
+                                                                  attrs: {
+                                                                    src: _vm.od
+                                                                      .file_info
+                                                                      .path,
+                                                                  },
+                                                                  on: {
+                                                                    click:
+                                                                      function (
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.fileDown(
+                                                                          _vm.od
+                                                                            .file_info
+                                                                            .fi_original,
+                                                                          _vm.od
+                                                                            .file_info
+                                                                            .path
+                                                                        )
+                                                                      },
+                                                                  },
+                                                                }),
+                                                              ]
+                                                            )
+                                                          : _vm._e(),
+                                                      ],
+                                                      1
+                                                    ),
+                                                  ]
+                                                : [
+                                                    _c(
+                                                      "b-button",
+                                                      {
+                                                        on: {
+                                                          click: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.fileDown(
+                                                              _vm.od.file_info
+                                                                .fi_original,
+                                                              _vm.od.file_info
+                                                                .path
+                                                            )
+                                                          },
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "사업자 등록증 다운로드"
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ],
+                                            ]
+                                          : [
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "법인명: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_biz_name
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "등록번호: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_biz_num
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "업태: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_biz_type
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "종목: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_biz_item
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "대표자: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_ceo
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "소재지: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_addr
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-badge",
+                                                { attrs: { variant: "light" } },
+                                                [
+                                                  _vm._v(
+                                                    "요청사항: " +
+                                                      _vm._s(
+                                                        _vm.od.order_extra_info
+                                                          .oex_requirement
+                                                      )
+                                                  ),
+                                                ]
+                                              ),
+                                              _c("b", [_vm._v(",")]),
+                                            ],
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [
+                                            _vm._v(
+                                              "담당자: " +
+                                                _vm._s(
+                                                  _vm.od.order_extra_info
+                                                    .oex_mng
+                                                )
+                                            ),
+                                          ]
+                                        ),
+                                        _c("b", [_vm._v(",")]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [
+                                            _vm._v(
+                                              "담당이메일: " +
+                                                _vm._s(
+                                                  _vm.od.order_extra_info
+                                                    .oex_email
+                                                )
+                                            ),
+                                          ]
+                                        ),
+                                        _c("b", [_vm._v(",")]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-badge",
+                                          { attrs: { variant: "light" } },
+                                          [
+                                            _vm._v(
+                                              "담당HP: " +
+                                                _vm._s(
+                                                  _vm.od.order_extra_info
+                                                    .oex_num
+                                                )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      2
+                                    ),
+                                  ],
+                                  1
+                                )
+                              : _vm.od.order_extra_info.oex_type == "HP"
+                              ? _c("span")
+                              : _vm.od.order_extra_info.oex_type == "CN"
+                              ? _c("span")
+                              : _vm.od.order_extra_info.oex_type == "BN"
+                              ? _c("span")
+                              : _vm.od.order_extra_info.oex_type == "NO"
+                              ? _c(
+                                  "span",
+                                  [
                                     _c(
                                       "b-badge",
                                       { attrs: { variant: "warning" } },
                                       [_vm._v("없음")]
                                     ),
-                                  ]
-                                : [
-                                    _vm.od.order_extra_info.oex_req_est == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("견적서")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_tran == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("거래명세서")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_biz == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("사업자 등록증 사본")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_bank == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("통장사본")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_est ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_tran ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_biz ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_bank == "N"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "warning" } },
-                                          [_vm._v("없음")]
-                                        )
-                                      : _vm._e(),
                                   ],
-                            ],
-                            2
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E"
-                    ? _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            { attrs: { cols: "4" } },
-                            [
-                              _c("b-badge", [_vm._v("지출증빙")]),
-                              _vm._v(" "),
-                              _vm.od.order_extra_info.oex_type == "IV"
-                                ? _c(
-                                    "span",
-                                    [
-                                      _c(
-                                        "b-alert",
-                                        {
-                                          attrs: {
-                                            show: "",
-                                            variant: "success",
-                                          },
-                                        },
-                                        [
-                                          _c(
-                                            "h5",
-                                            { staticClass: "alert-heading" },
-                                            [_vm._v("세금계산서")]
-                                          ),
-                                          _vm._v(" "),
-                                          _vm.od.file_info
-                                            ? [
-                                                _vm.checkImage(
-                                                  _vm.od.file_info.fi_ext
-                                                )
-                                                  ? [
-                                                      _c(
-                                                        "b-button",
-                                                        {
-                                                          on: {
-                                                            click: function (
-                                                              $event
-                                                            ) {
-                                                              _vm.isModalViewed =
-                                                                !_vm.isModalViewed
-                                                            },
-                                                          },
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "사업자 등록증 보기"
-                                                          ),
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "transition",
-                                                        {
-                                                          attrs: {
-                                                            name: "fade",
-                                                          },
-                                                        },
-                                                        [
-                                                          _vm.isModalViewed
-                                                            ? _c(
-                                                                "Modal",
-                                                                {
-                                                                  on: {
-                                                                    "close-modal":
-                                                                      function (
-                                                                        $event
-                                                                      ) {
-                                                                        _vm.isModalViewed = false
-                                                                      },
-                                                                  },
-                                                                },
-                                                                [
-                                                                  _c("img", {
-                                                                    staticStyle:
-                                                                      {
-                                                                        "max-width":
-                                                                          "100%",
-                                                                        height:
-                                                                          "auto",
-                                                                      },
-                                                                    attrs: {
-                                                                      src: _vm
-                                                                        .od
-                                                                        .file_info
-                                                                        .path,
-                                                                    },
-                                                                    on: {
-                                                                      click:
-                                                                        function (
-                                                                          $event
-                                                                        ) {
-                                                                          return _vm.fileDown(
-                                                                            _vm
-                                                                              .od
-                                                                              .file_info
-                                                                              .fi_original,
-                                                                            _vm
-                                                                              .od
-                                                                              .file_info
-                                                                              .path
-                                                                          )
-                                                                        },
-                                                                    },
-                                                                  }),
-                                                                ]
-                                                              )
-                                                            : _vm._e(),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ]
-                                                  : [
-                                                      _c(
-                                                        "b-button",
-                                                        {
-                                                          on: {
-                                                            click: function (
-                                                              $event
-                                                            ) {
-                                                              return _vm.fileDown(
-                                                                _vm.od.file_info
-                                                                  .fi_original,
-                                                                _vm.od.file_info
-                                                                  .path
-                                                              )
-                                                            },
-                                                          },
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "사업자 등록증 다운로드"
-                                                          ),
-                                                        ]
-                                                      ),
-                                                    ],
-                                              ]
-                                            : [
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "법인명: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_biz_name
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "등록번호: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_biz_num
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "업태: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_biz_type
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "종목: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_biz_item
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "대표자: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_ceo
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "소재지: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_addr
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "light" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "요청사항: " +
-                                                        _vm._s(
-                                                          _vm.od
-                                                            .order_extra_info
-                                                            .oex_requirement
-                                                        )
-                                                    ),
-                                                  ]
-                                                ),
-                                                _c("b", [_vm._v(",")]),
-                                              ],
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-badge",
-                                            { attrs: { variant: "light" } },
-                                            [
-                                              _vm._v(
-                                                "담당자: " +
-                                                  _vm._s(
-                                                    _vm.od.order_extra_info
-                                                      .oex_mng
-                                                  )
-                                              ),
-                                            ]
-                                          ),
-                                          _c("b", [_vm._v(",")]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-badge",
-                                            { attrs: { variant: "light" } },
-                                            [
-                                              _vm._v(
-                                                "담당이메일: " +
-                                                  _vm._s(
-                                                    _vm.od.order_extra_info
-                                                      .oex_email
-                                                  )
-                                              ),
-                                            ]
-                                          ),
-                                          _c("b", [_vm._v(",")]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-badge",
-                                            { attrs: { variant: "light" } },
-                                            [
-                                              _vm._v(
-                                                "담당HP: " +
-                                                  _vm._s(
-                                                    _vm.od.order_extra_info
-                                                      .oex_num
-                                                  )
-                                              ),
-                                            ]
-                                          ),
-                                        ],
-                                        2
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                : _vm.od.order_extra_info.oex_type == "HP"
-                                ? _c("span")
-                                : _vm.od.order_extra_info.oex_type == "CN"
-                                ? _c("span")
-                                : _vm.od.order_extra_info.oex_type == "BN"
-                                ? _c("span")
-                                : _vm.od.order_extra_info.oex_type == "NO"
-                                ? _c(
-                                    "span",
-                                    [
-                                      _c(
-                                        "b-badge",
-                                        { attrs: { variant: "warning" } },
-                                        [_vm._v("없음")]
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                : _vm._e(),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-    ]),
+                                  1
+                                )
+                              : _vm._e(),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []

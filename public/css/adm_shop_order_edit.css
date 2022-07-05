@@ -1,0 +1,42 @@
+.card { border-radius:10px; margin-bottom:20px; }
+.card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
+
+#adm_order_edit .badge { font-size:100%; }
+#adm_order_edit .head { padding:0.3rem 15px; position:sticky; top:0; z-index:1; background: #17a2b8c2; margin-top: 30px; }
+#adm_order_edit .head span { margin-right:1rem; }
+#adm_order_edit .head span.badge { margin-right:2rem; }
+#adm_order_edit .head span svg { margin-right:0.5rem; }
+.actionArea { position:sticky; top:0; z-index:1021; }
+.actionArea .input-group { position:absolute; top:2px; right:15px; max-width:690px; }
+@media (max-width: 992px) {
+    .actionArea { position:static; }
+    .actionArea .input-group { position:static; max-width:none; }
+}
+
+#adm_order_edit .body .container { border-left: 3px solid #b81717; margin-top:40px; }
+#adm_order_edit .card .container { font-size:.9rem; }
+#adm_order_edit .body .container h5 { margin-bottom:30px;  border-bottom: 1px solid #b81717; margin-left:-10px; padding: 5px 15px; max-width:700px; }
+#adm_order_edit .body .container .row a { flex:0 0 130px; max-width:130px; padding-right: 15px; padding-left: 15px; }
+#adm_order_edit .body .container .row a img { width:100px; height:100px; object-fit:cover; }
+#adm_order_edit .body .container .row .col .gd_name .col { color:#006edf; font-weight:bold; font-size:1rem; }
+#adm_order_edit .body .container .row .col .gm:not(:last-child) { border-bottom:1px solid #aaa; }
+#adm_order_edit .body .container .row .col .gm { align-items: center; padding:5px 0; }
+#adm_order_edit .body .container .row .col .gm .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }
+#adm_order_edit .body .container .row .col .gm .col:nth-of-type(1), 
+#adm_order_edit .body .container .row .col .gm .col:nth-of-type(2) { border-right:1px solid #ddd; } 
+#adm_order_edit .body .container .row .col .gm .col:nth-of-type(2),
+#adm_order_edit .body .container .row .col .gm .col:nth-of-type(3) { flex:0 0 25%; max-width:25%; }
+#adm_order_edit .body .container .row .col .row .price { text-align:right; }
+#adm_order_edit .body .container .row .col .opc { padding-top:5px; }
+#adm_order_edit .body .container .row .col .gm .price .multi,
+#adm_order_edit .body .container .row .col .opc .price .multi { min-width:6rem; display:inline-block; }
+#adm_order_edit .price .container .row .col { text-align:right; }
+#adm_order_edit .price .container .row .col b { min-width:8rem; display:inline-block; }
+
+
+
+#adm_order_edit .receiver .col .fade-enter-active,
+#adm_order_edit .receiver .col .fade-leave-active { transition: opacity .001s; }
+#adm_order_edit .receiver .col .fade-enter,
+#adm_order_edit .receiver .col .fade-leave-to { opacity: 0; }
+#adm_order_edit .receiver .rs_modal-card { max-width:800px; text-align:center; overflow-y:scroll; }

@@ -58,7 +58,10 @@
                         <b-button v-if="!!odg.odg_invoice_num" variant="info">조회</b-button>
                         <b-badge v-else variant="light">준비중</b-badge>
                         <br />
-                        <b-button v-if="!!odg.odg_delivery_date && !odg.odg_receive_date" variant="dark">
+                        <b-button 
+                            v-if="!!odg.odg_delivery_date && !odg.odg_receive_date" variant="dark"
+                            @click="receiptConfirm(odg)"
+                        >
                             수취확인
                         </b-button>
                     </b-col>
@@ -146,7 +149,12 @@
                 </b-row>
             </b-container>
         </div>
-
+        
+        <transition name="modal">
+            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500">
+                <ReceiptConfirm :item="receiptItem" @hide_modal = "hide_modal" />
+            </Modal>
+        </transition>
     </div>
 </template>
 
@@ -157,13 +165,17 @@ import { mapGetters } from 'vuex'
 export default {
     name: "MyOrder",
     components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'OrderStep': () => import('../_comp/OrderStep.vue'),
+        'LoadingModal'  : () =>   import('@/views/_common/LoadingModal.vue'),
+        'OrderStep'     : () => import('../_comp/OrderStep.vue'),
+        'Modal'         : () => import('@/views/_common/Modal.vue'),
+        'ReceiptConfirm': () => import('./_comp/ReceiptConfirm'),
     },
     data() {
         return {
+            isModalViewed: false,
             isLoadingModalViewed: true,
             order:{},
+            receiptItem: {},
         }
     },
     computed: {
@@ -173,21 +185,20 @@ export default {
         })
     },
     methods:{
-        async show(){
-            try {
-                const res = await ax.get(`/api/shop/order/${this.$route.params.od_id}`);
-                if (res && res.status === 200) {
-                    this.order = res.data;
-                    this.isLoadingModalViewed= false;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
-            }
+        receiptConfirm(odg) {
+            this.isModalViewed = true;
+            this.receiptItem = Object.assign( {}, odg );
         },
+        hide_modal() {
+            this.isModalViewed = false;
+        }  
     },
-    mounted() {
-        this.show();
+    async mounted() {
+        const res = await ax.get(`/api/shop/order/${this.$route.params.od_id}`);
+        if (res && res.status === 200) {
+            this.order = res.data;
+            this.isLoadingModalViewed= false;
+        }
     },
 
 }

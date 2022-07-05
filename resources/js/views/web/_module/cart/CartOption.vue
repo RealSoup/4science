@@ -7,8 +7,8 @@
                 <b-badge variant="danger" class="hide" v-if="value.option.op_required == 'Y'">필수</b-badge>
             </div>
         </b-col>
-        <b-col class="hide">
-            {{value.opc_price_add_vat | comma}}원
+        <b-col class="hide price">
+            {{value.opc_price_add_vat | comma}}
         </b-col>        
         <b-col class="hide">
             <div></div>
@@ -46,3 +46,7 @@ export default {
     }
 }
 </script>
+
+<style lang="css" scoped>
+.price { color:#0072BC; }
+</style>

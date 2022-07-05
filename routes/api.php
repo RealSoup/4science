@@ -70,8 +70,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);
         Route::prefix('user')->group(function () {
-            Route::GET('list', 'Admin\UserController@list')->name('user.list');            
+            Route::GET('list', 'Admin\UserController@list')->name('user.list');
         });
+
+        
+        Route::GET('mileage/requesterVoucher', 'Admin\MileageController@getRequesterVoucher');
+        Route::RESOURCE('mileage', 'Admin\MileageController', [
+            'names'     => [
+                'index'   => 'admin.mileage.index',
+                'update'  => 'admin.mileage.update',
+            ]
+        ])->only([ 'index', 'update' ]);
 
 
 
@@ -165,14 +174,34 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::PATCH('{er_id}', 'Admin\EngReformController@update');
         });
 
+        //  게시판
+        Route::prefix('board/{bo_cd}')->group(function () {
+            Route::GET('',                      'Admin\BoardController@index')->name(   'admin.board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::GET('create',                'Admin\BoardController@create')->name(  'admin.board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::POST('store',                'Admin\BoardController@store')->name(   'admin.board.store')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::GET('edit/{bo_id}',          'Admin\BoardController@edit')->name(    'admin.board.edit')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::PATCH('update/{bo_id}',      'Admin\BoardController@update')->name(  'admin.board.update')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::POST('answer/{bo_id}',               'Admin\BoardController@answer')->name(  'admin.board.answer')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::DELETE('destroy/{bo_id}',    'Admin\BoardController@destroy')->name( 'admin.board.destroy')->where('bo_cd', '[a-zA-Z0-9_]+');
+            // Route::get('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
+            // Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
+        });
+
         //  영업장부
         Route::RESOURCE('ledger', 'Admin\LedgerController')->only([ 'index', 'store', 'update', 'destroy' ]);
+        Route::POST('ledger/updateSearch', 'Admin\LedgerController@updateSearch');
+        Route::POST('ledger/updateColumn', 'Admin\LedgerController@updateColumn');
+        
+        
+        
         
         //  통계
         Route::prefix('stats')->group(function () {
             Route::GET('/user', 'Admin\StatsController@user');
             Route::GET('/order', 'Admin\StatsController@order');
         });
+
+
     });
 
 
@@ -190,11 +219,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('uploadSimple', 'CommonController@uploadSimple')->name('uploadSimple');
     
     Route::get('download/{fi_id}', 'CommonController@download')->name('download');
+    Route::get('downloadGoods/{fi_id}', 'CommonController@downloadGoods')->name('downloadGoods');
     Route::get('deleteFiles/{fi_id?}', 'CommonController@deleteFiles')->name('deleteFiles');
 });
 
 
 //  로그인 필요 없는 서비스
+Route::get('siteInfo', 'CommonController@siteInfo');
 Route::get('main', 'MainController@index');
 Route::get('category/indexAll', 'Shop\CategoryController@indexAll')->name('category.indexAll');
 Route::get('category/{ca_id}', 'Shop\CategoryController@index')->name('category.index');

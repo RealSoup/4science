@@ -1,9 +1,11 @@
 <template>
 
-<header id="header" class="bg-danger">
-    <div class="container">
-        <b-navbar toggleable="lg" type="dark" variant="danger">
-            <b-navbar-brand :to="{name: 'main'}">4Science</b-navbar-brand>
+<header id="header">
+    <div class="layout">
+        <b-navbar toggleable="lg" type="dark">
+            <b-navbar-brand :to="{name: 'adm_main'}">
+                <b-img src="/img/common/admin_logo.png" />
+            </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -41,51 +43,95 @@
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
                     <b-nav-item :to="{name: 'adm_ledger'}" active-class="active" exact>영업장부</b-nav-item>
+
+                    <b-nav-item-dropdown text="게시판">
+                        <b-dropdown-group header="일반글">
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'notice' }}">공지사항</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'event' }}">이벤트</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'review' }}">상품평</b-dropdown-item>
+                        </b-dropdown-group>
+                        
+                        <b-dropdown-group header="질의답변">
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'inquiry' }}">1:1문의</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'as' }}">A/S신청</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}">취소/교환신청</b-dropdown-item>
+                        </b-dropdown-group>
+                    </b-nav-item-dropdown>
                 </b-navbar-nav>
 
 
                 <b-navbar-nav class="">
-                    <b-nav-item-dropdown>
-                        <!-- Using 'button-content' slot -->
-                        <template #button-content>
-                            <em>게시판</em>
-                        </template>
-                        <b-dropdown-item :to="{name: 'bo_index', params: { bo_cd:'notice' }}">공지사항</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'bo_index', params: { bo_cd:'normal' }}">일반게시판</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'bo_index', params: { bo_cd:'photo' }}">포토 게시판</b-dropdown-item>
-                    </b-nav-item-dropdown>
+                    <b-button variant="light" class="blink"
+                        v-if="requestVoucher.length" 
+                        @click="isModalViewed = !isModalViewed"
+                        v-b-tooltip.leftbottom.hover title="상품권 신청"
+                    ><b-icon-gift /></b-button>
+                    <b-button variant="light" class="blink"
+                        v-if="requestVoucher.length" 
+                        @click="isModalViewed = !isModalViewed"
+                        v-b-tooltip.rightbottom.hover title="답변 요청"
+                    ><b-icon-chat-square-text /> (9)</b-button>                    
+        
+                    <b-link :to="{name:'main'}" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
+                        <b-img src="/img/common/estimate_logo.png" />
+                    </b-link>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
     </div>
+
+    <transition name="modal">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+            <RequestVoucher @close-modal="isModalViewed = false" :list="requestVoucher" />
+        </Modal>
+    </transition>
 </header>
 </template>
 
 <script>
+import ax from '@/api/http';
 import { mapActions, mapState, mapGetters } from 'vuex';
 
 
 export default {
     name: 'Header',
+    components: {
+        'Modal': () => import('@/views/_common/Modal.vue'),
+        'RequestVoucher': () => import('./_comp/RequestVoucher.vue'),
+    },
     data() {
         return {
-            // is_auth: this.$store.state.auth.is_auth,
+            isModalViewed: false,
+            requestVoucher: [],
         }
     },
 
-    computed: {
-
-        ...mapState('board', ['dd', 'bo_cd']),
-    },
-    methods:{
-
-    },
-
-    mounted(){
-        // this.loginView()
+    async mounted(){
+        const res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_type:'voucher', ml_key:0, limit: 10,}});
+        if (res && res.status === 200) 
+            this.requestVoucher = res.data;
     }
 }
 </script>
 <style lang="css" scoped>
-#header .container nav { z-index:1021; }
+#header { background:#4E647B; }
+#header .layout nav { z-index:1021; }
+#header .layout >>> nav .nav-link { color:#fff; }
+#header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
+#header .layout nav .go_shop { margin-left:30px; }
+
+@media (min-width: 992px) {
+#header .layout >>> .navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
+}
+}
+
+
+
+
+.blink { margin:0 3px; background:#fff; animation: blink 2.5s linear infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
 </style>

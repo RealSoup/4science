@@ -60,10 +60,10 @@ class SaveGoodsRequest extends FormRequest {
 
             'goods_category.required'         => '카테고리를 설정해주세요.',
             'goods_category.min'              => '카테고리를 설정해주세요.',
-            'gd_name.required'                => '상품명을 입력해 주세요.',
-            'gd_desc.required'                => '상품설명을 입력해주세요.',
+            'gd_name.required'                => '상품명을 입력하세요.',
+            'gd_desc.required'                => '상품설명을 입력하세요.',
             'gd_mk_id.required'               => '제조사를 선택해주세요.',
-            'gd_dlvy_at.required'             => '제조사를 선택해주세요.',
+            'gd_dlvy_at.required'             => '납기일을 입력하세요.',
         ];
     }
 }

@@ -8,6 +8,7 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     base: process.env.APP_URL,
+    scrollBehavior() { return { x: 0, y: 0 } },
     routes: [
         ...adm,
         ...web,

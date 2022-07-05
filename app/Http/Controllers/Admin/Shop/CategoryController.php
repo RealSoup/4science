@@ -31,10 +31,10 @@ class CategoryController extends Controller {
 
 
 	public function show(Request $req, $ca_id) {
-		$childCount = false;
-		if($req->filled('type') && $req->type == 'childCount')
-			$childCount = true;
-		$data = $this->category->getCate($ca_id, $childCount);
+		$hasChild = false;
+		if($req->filled('type') && $req->type == 'hasChild')
+			$hasChild = true;
+		$data = $this->category->getCate($ca_id, $hasChild);
 		return response()->json($data, 200);
 	}
 

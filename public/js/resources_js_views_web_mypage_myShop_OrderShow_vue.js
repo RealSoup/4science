@@ -179,6 +179,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -189,12 +197,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     'OrderStep': function OrderStep() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
+    },
+    'Modal': function Modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
+    },
+    'ReceiptConfirm': function ReceiptConfirm() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop__comp_ReceiptConfirm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ReceiptConfirm */ "./resources/js/views/web/mypage/myShop/_comp/ReceiptConfirm.vue"));
     }
   },
   data: function data() {
     return {
+      isModalViewed: false,
       isLoadingModalViewed: true,
-      order: {}
+      order: {},
+      receiptItem: {}
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
@@ -202,47 +218,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     user: 'auth/user'
   })),
   methods: {
-    show: function show() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/".concat(_this.$route.params.od_id));
-
-              case 3:
-                res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.order = res.data;
-                  _this.isLoadingModalViewed = false;
-                }
-
-                _context.next = 11;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                Notify.consolePrint(_context.t0);
-                Notify.toast('warning', _context.t0.response.data.message);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 7]]);
-      }))();
+    receiptConfirm: function receiptConfirm(odg) {
+      this.isModalViewed = true;
+      this.receiptItem = Object.assign({}, odg);
+    },
+    hide_modal: function hide_modal() {
+      this.isModalViewed = false;
     }
   },
   mounted: function mounted() {
-    this.show();
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/".concat(_this.$route.params.od_id));
+
+            case 2:
+              res = _context.sent;
+
+              if (res && res.status === 200) {
+                _this.order = res.data;
+                _this.isLoadingModalViewed = false;
+              }
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -562,11 +572,22 @@ var render = function () {
                           _c("br"),
                           _vm._v(" "),
                           !!odg.odg_delivery_date && !odg.odg_receive_date
-                            ? _c("b-button", { attrs: { variant: "dark" } }, [
-                                _vm._v(
-                                  "\n                        수취확인\n                    "
-                                ),
-                              ])
+                            ? _c(
+                                "b-button",
+                                {
+                                  attrs: { variant: "dark" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.receiptConfirm(odg)
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                        수취확인\n                    "
+                                  ),
+                                ]
+                              )
                             : _vm._e(),
                         ],
                         1
@@ -855,6 +876,34 @@ var render = function () {
             ],
             1
           ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "modal" } },
+        [
+          _vm.isModalViewed
+            ? _c(
+                "Modal",
+                {
+                  attrs: { max_width: 500 },
+                  on: {
+                    "close-modal": function ($event) {
+                      _vm.isModalViewed = false
+                    },
+                  },
+                },
+                [
+                  _c("ReceiptConfirm", {
+                    attrs: { item: _vm.receiptItem },
+                    on: { hide_modal: _vm.hide_modal },
+                  }),
+                ],
+                1
+              )
+            : _vm._e(),
+        ],
+        1
+      ),
     ],
     1
   )

@@ -1,10 +1,10 @@
 <template>
     <b-container>
         <b-row>
-            <b-col>
+            <!-- <b-col>
                 <b-link :to="{name: 'bo_index', params: { bo_cd:'open' }}">열린게시판 <b-icon-plus-square-fill /></b-link>
                 <IntroList :list="open" />
-            </b-col>
+            </b-col> -->
 
             <b-col>
                 <b-link :to="{name: 'bo_index', params: { bo_cd:'notice' }}">공지사항 <b-icon-plus-square-fill /></b-link>
@@ -14,8 +14,8 @@
 
         <b-row>
             <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'goods' }}">상품문의 <b-icon-plus-square-fill /></b-link>
-                <IntroListPhoto :list="goods" :type="'inner'" />
+                <b-link :to="{name: 'bo_index', params: { bo_cd:'gd_inquiry' }}">상품문의 <b-icon-plus-square-fill /></b-link>
+                <IntroListPhoto :list="gd_inquiry" :type="'inner'" />
             </b-col>
 
             <b-col>
@@ -47,7 +47,7 @@ export default {
         return {
             open:[],
             notice:[],
-            goods:[],
+            gd_inquiry:[],
             event:[],
             blog:[
                 {   
@@ -86,14 +86,14 @@ export default {
     methods: {
         async index(){
             try {
-                let res = await ax.get(`/api/board/open`, { params: {'limit':5}});
-                if (res && res.status === 200) this.open = res.data.list;
+                // let res = await ax.get(`/api/board/open`, { params: {'limit':5}});
+                // if (res && res.status === 200) this.open = res.data.list;
                 
                 res = await ax.get(`/api/board/notice`, { params: {'limit':5}});
                 if (res && res.status === 200) this.notice = res.data.list;
 
-                res = await ax.get(`/api/board/goods`, { params: {'limit':3, 'type':'photo'}});
-                if (res && res.status === 200) this.goods = res.data.list;
+                res = await ax.get(`/api/board/gd_inquiry`, { params: {'limit':3, 'type':'photo'}});
+                if (res && res.status === 200) this.gd_inquiry = res.data.list;
 
                 res = await ax.get(`/api/board/event`, { params: {'limit':5}});
                 if (res && res.status === 200) this.event = res.data.list;

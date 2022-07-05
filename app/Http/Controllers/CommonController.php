@@ -78,8 +78,22 @@ class CommonController extends Controller {
 
     public function download($fi_id) {
         $fi = FileInfo::findOrFail($fi_id);
-        $fi->increment('down');
+        // $fi->increment('down');
         // return response()->download(storage_path('app/public/'. $fi->fi_path. '/'. $fi->fi_new), $fi->fi_original);
         return response()->json(['path'=>storage_path('app/public/'. $fi->fi_room. '/'. $fi->fi_new), 'name'=>$fi->fi_original], 200);
+    }
+
+    public function downloadGoods($fi_id) {
+        $fi = FileGoods::findOrFail($fi_id);
+        // return response()->json(['path'=>storage_path("app/public/{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}/{$fi->fi_new}"), 'name'=>$fi->fi_original], 200);
+        return response()->download(storage_path("app/public/{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}/{$fi->fi_new}"), $fi->fi_original);
+    }
+
+    public function siteInfo() {
+        return response()->json([
+            'site'=>cache('site'),
+            'biz'=>cache('biz'),
+            'bank'=>cache('bank')
+        ], 200);
     }
 }

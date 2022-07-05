@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-
-class UserMng extends Authenticatable {
-    use HasFactory, Notifiable;
+class UserMng extends Model {
+    use HasFactory;
 
     protected $primaryKey = 'um_id';
     protected $table = 'user_mng';
-    protected $appends = ['refine_group', 'refine_position'];
+    // protected $appends = ['refine_group', 'refine_position'];
     protected $mngInfo = [
         'group' => [
             '1' => '1팀',
@@ -32,11 +28,19 @@ class UserMng extends Authenticatable {
             6 => '이사',
             7 => 'CEO',
         ],
+        'responsibility' => [
+            '1' => '1팀장',
+            '2' => '2팀장',
+            '3' => '3팀장',
+            'acc' => '회계팀장',
+            'pla' => '기획팀장',
+            'etc' => '기타',
+        ],
     ];
 
     public function scopeGroup($query, $group) { return $query->where('um_group', $group); }
 
-    public function getRefinePositionAttribute() { return $this->mngInfo['position'][$this->um_position]; }
-    public function getRefineGroupAttribute() { return $this->mngInfo['group'][$this->um_group]; }
+    // public function getRefinePositionAttribute() { return $this->mngInfo['position'][$this->um_position]; }
+    // public function getRefineGroupAttribute() { return $this->mngInfo['group'][$this->um_group]; }
     public function getMngInfo() { return $this->mngInfo; }
 }

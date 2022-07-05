@@ -481,20 +481,6 @@ export default {
         },
     },
     methods:{
-        async settle(){
-            try {
-                const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods});
-                if (res && res.status === 200) {
-                    this.lists = res.data.lists;
-                    this.order.price = res.data.price;
-                    this.order.od_no = res.data.od_no;
-                    this.order.od_name = res.data.od_name;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.responsee);
-            }
-        },
         funNumCheck(val) {
             return numCheck(val);
         },
@@ -542,7 +528,7 @@ export default {
             }
         },
     },
-    created(){
+    async created(){
         var tCode = new Date().format("yyMMddHHmm");
         if (this.$route.params.od_goods) {
             this.order.goods = this.$route.params.od_goods;
@@ -568,7 +554,20 @@ export default {
             this.$router.go(-1);
             return false;
         }
-        this.settle();
+        
+        
+        try {
+            const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods});
+            if (res && res.status === 200) {
+                this.lists = res.data.lists;
+                this.order.price = res.data.price;
+                this.order.od_no = res.data.od_no;
+                this.order.od_name = res.data.od_name;
+            }
+        } catch (e) {
+            Notify.consolePrint(e);
+            Notify.toast('warning', e.responsee);
+        }
     },
     mounted() {
         // console.log(this.$session.get('order'));

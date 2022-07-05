@@ -90,7 +90,7 @@
 
 <script>
 export default {
-    name: 'AdmLedgerCell',
+    name: 'AdmLedgerCellModel',
     props: ['value'],
     data() {
         return {

@@ -69,8 +69,8 @@
                 <b-form-input v-model="value.lg_email" id="lg_email" required />
                 <label for="lg_email">메일</label>
             </b-col>
-            <b-col class="awesome_p">
-                <b-form-input v-model="value.lg_hp" id="lg_hp" required :formatter="formatHp" />
+            <b-col>
+                <b-form-input type="text" v-model="value.lg_hp" id="lg_hp" :formatter="formatHp" />
                 <label for="lg_hp">HP</label>
             </b-col>
             <b-col class="awesome_p">

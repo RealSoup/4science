@@ -137,17 +137,6 @@ var render = function () {
                 "b-nav-item",
                 {
                   attrs: {
-                    to: { name: "bo_index", params: { bo_cd: "open" } },
-                    active: _vm.$route.params.bo_cd == "open",
-                  },
-                },
-                [_vm._v("열린게시판")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-nav-item",
-                {
-                  attrs: {
                     to: { name: "bo_index", params: { bo_cd: "notice" } },
                     active: _vm.$route.params.bo_cd == "notice",
                   },
@@ -159,8 +148,8 @@ var render = function () {
                 "b-nav-item",
                 {
                   attrs: {
-                    to: { name: "bo_index", params: { bo_cd: "goods" } },
-                    active: _vm.$route.params.bo_cd == "goods",
+                    to: { name: "bo_index", params: { bo_cd: "gd_inquiry" } },
+                    active: _vm.$route.params.bo_cd == "gd_inquiry",
                   },
                 },
                 [_vm._v("상품문의")]

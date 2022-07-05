@@ -17,11 +17,17 @@ class User extends Authenticatable {
     protected $appends = ['is_admin'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     protected $option = [
+        'group' => [    '1' => '일반',
+                        '2' => '특수',
+                        '3' => '미수',
+                        '4' => '후불', ],
         'grade' => [    '1' => 'NORMAL',
                         '2' => 'BRONZE',
                         '3' => 'SILVER',
                         '4' => 'GOLD',
+                        '11' => '관리자',
                         '29' => '최고관리자', ],
+                        
         'job'   => [    '1'  => '교수',
                         '2'  => '연구원',
                         '3'  => '학부과정',
@@ -35,6 +41,7 @@ class User extends Authenticatable {
                         '11' => '일반관리',
                         '12' => '생산관리',
                         '13' => '기타', ],
+
         'join_route' => [   '1' => '네이버 검색',
                             '2' => '구글 검색',
                             '3' => '옥외광고',
@@ -42,6 +49,7 @@ class User extends Authenticatable {
                             '5' => '학회 및 전시회 부스',
                             '6' => '잡지 소식지',
                             '7' => '기타', ],
+
         'interest'  => [    '1'  => '생명',
                             '2'  => '광학',
                             '3'  => '진공',
@@ -59,17 +67,26 @@ class User extends Authenticatable {
 
     ];
 
-    public function userMng() { return $this->hasOne(UserMng::class, 'um_user_id'); }
+    public function userMng() { return $this->hasOne(UserMng::class, 'um_user_id')->withDefault(); }
+    public function userMngConfig() { return $this->hasMany(UserMngConfig::class, 'umc_user_id')->orderBy('umc_key')->orderBy('umc_seq'); }
     public function order() { return $this->hasMany(\App\Models\Shop\Order::class, "created_id")->latest(); }
     public function estimateReq() { return $this->hasMany(\App\Models\Shop\EstimateReq::class, "created_id")->latest(); }
     public function mileage() { return $this->hasMany(Mileage::class, "ml_uid"); }
     public function wish() { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
     public function engReform() { return $this->hasMany(EngReform::class, "created_id"); }
 
-    public function scopeName($query, $name) { return $query->where('name', 'like', "%{$name}%"); }
-    public function scopeEmail($query, $email) { return $query->where('email', 'like', "%{$email}%"); }
-    public function scopeDepartment($query, $dp) { return $query->where('department', 'like', "%{$dp}%"); }
-    public function scopeHp($query, $hp) { return $query->where('hp', 'like', "%{$hp}%"); }
+    public function scopeStartDate($query, $d) { return $query->whereDate('created_at', '>=', $d); }
+    public function scopeEndDate($query, $d) { return $query->whereDate('created_at', '<=', $d); }
+    public function scopeGroup($query, $v) { return $query->where('group', $v); }
+    public function scopeLevel($query, $v) { return $query->where('level', $v); }
+
+    public function scopeName($query, $v) { return $query->where('name', 'like', "%{$v}%"); }
+    public function scopeEmail($query, $v) { return $query->where('email', 'like', "%{$v}%"); }
+    public function scopeOffice($query, $v) { return $query->where('office', 'like', "%{$v}%"); }
+    public function scopeDepartment($query, $v) { return $query->where('department', 'like', "%{$v}%"); }
+    public function scopeTutor($query, $v) { return $query->where('tutor', 'like', "%{$v}%"); }
+    public function scopeTel($query, $v) { return $query->where('tel', 'like', "%{$v}%"); }
+    public function scopeHp($query, $v) { return $query->where('hp', 'like', "%{$v}%"); }
 
     public function getIsAdminAttribute() { return $this->level > 10 ? true : false; }
     // public function getEnablemileageAttribute() {

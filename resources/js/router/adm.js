@@ -134,6 +134,25 @@ export default [
         beforeEnter: isAdmin()
     },
 
+    //  게시판
+    {   path: '/admin/board/:bo_cd',
+        name: 'adm_board_index',
+        component:() => import('@/views/admin/board/Index'),
+    }, {   
+        path: '/admin/board/:bo_cd/create',
+        name: 'adm_board_create',
+        component:() => import('@/views/admin/board/Create'),
+    }, {   
+        path: '/admin/board/:bo_cd/edit/:bo_id',
+        name: 'adm_board_edit',
+        component:() => import('@/views/admin/board/Edit'),
+    }, {   
+        path: '/admin/board/:bo_cd/answer/:bo_id',
+        name: 'adm_board_answer',
+        component:() => import('@/views/admin/board/Answer'),
+    },
+    
+
     //  통계
     {
         path: '/admin/stats/join',

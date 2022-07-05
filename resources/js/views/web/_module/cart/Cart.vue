@@ -6,26 +6,29 @@
     >
         <b-link><b-img src="/img/common/basket.png" /></b-link>
         
-        <ul>
-        <template v-for="(gd, i) in cartList">
-            <CartModel
-                v-for="(gm, j) in gd.goods_model"
-                :key="gm.gm_id"
-                :src="gd.image_src_thumb[0]"
-                v-model="cartList[i].goods_model[j]"
-                @outCart="outCart('model', i, j)"
-            />
+        <div class="list_box">
+            <ul>
+            <template v-for="(gd, i) in cartList">
+                <CartModel
+                    v-for="(gm, j) in gd.goods_model"
+                    :key="gm.gm_id"
+                    :src="gd.image_src_thumb[0]"
+                    v-model="cartList[i].goods_model[j]"
+                    @outCart="outCart('model', i, j)"
+                />
 
-            <CartOption
-                v-for="(opc, k) in gd.option_child"
-                :key="opc.opc_id"
-                v-model="cartList[i].option_child[k]"
-                @outCart="outCart('option', i, k)"
-            />
+                <CartOption
+                    v-for="(opc, k) in gd.option_child"
+                    :key="opc.opc_id"
+                    v-model="cartList[i].option_child[k]"
+                    @outCart="outCart('option', i, k)"
+                />
 
-            <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row>
-        </template>
-        </ul>
+                <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row>
+            </template>
+            </ul>
+        </div>
+        
 
         <div class="footer" v-if="mouseHover">
             <div>총 <b v-if="cartList">{{cntItem}}</b>개의 상품</div>
@@ -40,7 +43,7 @@
 </template>
 
 <script>
-import ax from '@/api/http';
+
 import { mapState, mapGetters } from 'vuex';
 import VueNumericInput from 'vue-numeric-input'
 
@@ -54,7 +57,7 @@ export default {
         return {
             ck_key: 'CartGoods',
             isScrollPass:false,
-            mouseHover:true,
+            mouseHover:false,
         }
     },
     computed: {
@@ -164,39 +167,43 @@ export default {
 #Cart { 
     position:absolute; top:173px; right:0; z-index:16; background:#FFF;
     border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;
+    border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);
+    height:100%;
     max-height:680px;
     transition:all 0.4s;
-    overflow-y:scroll; 
 }
 #Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-70px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; }
 #Cart>a:before { content:""; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:67px; height:76px; }
 #Cart>a img { margin:10px; position:relative; }
 
-#Cart ul >>> li { margin:0; padding:10px 15px; }
-#Cart ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
-#Cart ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
+#Cart .list_box  { overflow:hidden; height:100%; max-height:520px; }
+#Cart .list_box ul { overflow-y:auto; height:100%; }
+#Cart .list_box ul >>> li { margin:0; padding:10px 15px; }
+#Cart .list_box ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
+#Cart .list_box ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
 
-#Cart ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
-#Cart ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
-#Cart ul >>> li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer; }
-#Cart ul >>> li>div a img { transition:all 0.4s; width:100px; height:100px; object-fit:cover; }
-#Cart ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
+#Cart .list_box ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
+#Cart .list_box ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
+#Cart .list_box ul >>> li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer; }
+#Cart .list_box ul >>> li>div a img { transition:all 0.4s; width:100px; height:100px; object-fit:cover; }
+#Cart .list_box ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
 
-#Cart ul >>> li.gd_option { flex-direction:column; }
-#Cart ul >>> li.gd_option>div { flex-basis: auto; }
-#Cart ul >>> li.gd_option>div:nth-of-type(1) { align-items:center; }
-#Cart ul >>> li.gd_option>div:nth-of-type(1) span { margin-left: 10px; }
+#Cart .list_box ul >>> li.gd_option { flex-direction:column; }
+#Cart .list_box ul >>> li.gd_option>div { flex-basis: auto; }
+#Cart .list_box ul >>> li.gd_option>div:nth-of-type(1) { align-items:center; }
+#Cart .list_box ul >>> li.gd_option>div:nth-of-type(1) span { margin-left: 10px; }
 
-#Cart .footer { border-top:1px solid #888888; padding:10px; }
+#Cart .footer { border-top:1px solid #888888; margin:20px; position:absolute; bottom:0; width:calc(100% - 40px); padding-top:10px; }
 #Cart .footer div b { color:#0072BC; }
-#Cart .footer div:nth-of-type(2) { font-size:20px; display:flex; justify-content:space-between; align-items:baseline; }
-#Cart .footer div:nth-of-type(2) b { font-size:30px; }
+#Cart .footer div:nth-of-type(1) { line-height:17px; font-weight:bold; }
+#Cart .footer div:nth-of-type(2) { font-size:18px; display:flex; justify-content:space-between; align-items:baseline; font-weight:bold; line-height:20px; margin-bottom:20px; }
+#Cart .footer div:nth-of-type(2) b { font-size:26px; }
 #Cart .footer .btn-group { display:flex; }
 #Cart .footer .btn-group button:nth-of-type(1) { margin-right:10px; }
 #Cart .footer .btn-group button:nth-of-type(2) { background:#00A1CB; border-color:#0089AD; }
 
-#Cart.fixed_header { position:fixed; top:78px; }
-#Cart.hideCart { overflow-y:visible; }
+#Cart.fixed_header { position:fixed; top:85px; }
+#Cart.hideCart { height:auto; }
 #Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0; }
 #Cart.hideCart ul>>>li>div a img { border-radius: 50%; width: 62px; height: 62px; }
 

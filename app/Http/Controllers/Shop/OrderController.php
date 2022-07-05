@@ -78,11 +78,17 @@ class OrderController extends Controller {
         foreach ($params['lists'] as $gd_list) {    //  주문 갯수
             foreach ($gd_list['list'] as $gd){
                 // 판매 가능 여부 재확인 Start
-                // if($gd->gd_enable == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
-                // foreach ($gd->goods_model as $gm) {
-                //     if(!$gm->gm_enable)    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
-                // }
+                if($gd->gd_enable == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+                foreach ($gd->goods_model as $gm) {
+                    if(!$gm->gm_enable)    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+
+                    //  견적가(0원) 구매 금지
+                    if($gm->gm_price<1) abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
+                }
                 // 판매 가능 여부 재확인 End
+
+                
+
 
                 if ($params['od_name'] == '')
                     $params['od_name'] = $gd->gd_name;
@@ -1030,6 +1036,6 @@ class OrderController extends Controller {
     }
 
     public function getNew_od_no() {
-        return date("ymd").substr('000'.$this->order->Today()->count(),-4);
+        return date("ymd").substr('000'.$this->order->Today()->count(), -4);
     }
 }

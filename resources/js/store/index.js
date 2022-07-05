@@ -8,6 +8,7 @@ import error from './error';
 import cart from './cart';
 import goods from './goods';
 import category from './category';
+import common from './common';
 
 
 export default new Vuex.Store({
@@ -27,5 +28,6 @@ export default new Vuex.Store({
         cart,
         goods,
         category,
+        common,
     }
 });

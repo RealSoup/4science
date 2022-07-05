@@ -1,46 +1,47 @@
-<template lang="html">
-    <div class="user">
-        <div class="m_title">요청자</div>
-
+<template>
+<b-card class="adform">
+    <b-container>
+        <b-row><b-col class="tit">요청자</b-col></b-row>
         <b-row>
-            <b-col>
+            <b-col class="label">이름</b-col>
+            <b-col class="type02">
                 <UserInput v-model="value.eq_name" :type="'name'" :frm="value" />
                 <Validation :error="$store.state.error.validations.eq_name" />
             </b-col>
-            <b-col>
+            <b-col class="label">이메일</b-col>
+            <b-col class="type02">
                 <UserInput v-model="value.eq_email" :type="'email'" :frm="value" />
                 <Validation :error="$store.state.error.validations.eq_email" />
             </b-col>
-            <b-col>
+            <b-col class="label">소속</b-col>
+            <b-col class="type02">
                 <UserInput v-model="value.eq_department" :type="'department'" :frm="value" />
                 <Validation :error="$store.state.error.validations.eq_department" />
             </b-col>
-            <b-col>
+        </b-row>
+        <b-row>
+            <b-col class="label">휴대폰</b-col>
+            <b-col class="type02">
                 <UserInput v-model="value.eq_hp" :type="'hp'" :frm="value" />
                 <Validation :error="$store.state.error.validations.eq_hp" />
             </b-col>
 
-            <b-col class="awesome_p">
-                <input type="text" id="eq_tel" v-model="value.eq_tel" :formatter="formatTel" required />
-                <label for="eq_tel">전화</label>
+            <b-col class="label">일반전화</b-col>
+            <b-col class="type02">
+                <b-form-input v-model="value.eq_tel" :formatter="formatTel" />
             </b-col>
-            <b-col class="awesome_p">
-                <input type="text" id="eq_fax" v-model="value.eq_fax" :formatter="formatTel" required />
-                <label for="eq_fax">팩스</label>
+            <b-col class="label">팩스</b-col>
+            <b-col class="type02">
+                <b-form-input v-model="value.eq_fax" :formatter="formatTel" />
             </b-col>
         </b-row>
         <b-row v-if="value.eq_content">
-            <b-col cols="12">
-                <hr />
-            </b-col>
-            <b-col class="awesome_p force">
-                <div class="pt-4" v-html="nl2br(value.eq_content)"></div>
-                <!-- <textarea id="'eq_content" v-model="value.eq_content" rows="5" required readonly /></textarea> -->
-                <label for="eq_content">요청내용</label>
-            </b-col>
+            <hr />
+            <b-col class="label">요청내용</b-col>
+            <b-col class="type11" v-html="nl2br(value.eq_content)"></b-col>
         </b-row>
-    </div>
-
+    </b-container>
+</b-card>
 </template>
 
 <script>
@@ -52,7 +53,3 @@ export default {
     props: ['value'],
 }
 </script>
-
-<style lang="css" scoped>
-.user { margin-top:1.5rem; }
-</style>

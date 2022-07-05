@@ -79,10 +79,15 @@ return array (
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'nanumgothic' => array(
-    'normal' => $fontDir . '/nanumgothic_normal_85a7d5a2af55c23130ae38cac233f9b4',
-    'bold' => $fontDir . '/nanumgothic_bold_d17fd83e95f229be72f6a994dbb9a503',
-    '800' => $fontDir . '/nanumgothic_800_3a4a56325514880c0cff969b59d12685',
-    '100' => $fontDir . '/nanumgothic_100_3f3cc84b016fbfd57b3cea475bca72a9',
+    'normal' => $fontDir . '/nanumgothic_normal_757f58cfb8b4d2684ff1b63d34e3c5cc',
+    'bold' => $fontDir . '/nanumgothic_bold_b51f3b96b8f0d2abef75c1797c125952',
+    '800' => $fontDir . '/nanumgothic_800_c35a2622fa235aafaf2145efb7c2d25c',
+    '100' => $fontDir . '/nanumgothic_100_7d46b303ebcd5150cf83ebe107c939d4',
+  ),
+  'nanum gothic' => array(
+    'normal' => $fontDir . '/nanum_gothic_normal_2077380aaeff0ca3bdbf31b4e2924517',
+    'bold' => $fontDir . '/nanum_gothic_bold_87800284d8ceb74b1b95c35a288f3bba',
+    '800' => $fontDir . '/nanum_gothic_800_6e8fe4cb0c7d31414e0cf735ebd134d6',
   ),
 );
 }; ?>

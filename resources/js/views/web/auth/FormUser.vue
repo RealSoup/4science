@@ -32,7 +32,7 @@
                 <Validation :error="$store.state.error.validations.email" />
             </b-col>
             <b-col>
-                <b-form-checkbox id="receive_mail" v-model="value.receive_mail" value='Y' unchecked-value="N">문자 수신 동의</b-form-checkbox>
+                <b-form-checkbox id="receive_mail" v-model="value.receive_mail" value='Y' unchecked-value="N">메일 수신 동의</b-form-checkbox>
             </b-col>
         </b-row>
         <b-row>

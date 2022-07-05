@@ -52,7 +52,8 @@ export default {
             try {    
                 const res = await ax.post(`/api/board/${this.bo_cd}/store`, this.frm);
                 if (res && res.status === 200) {
-                    await this.$refs.form_group.$refs.fileupload.fileProcessor(res.data.bo_id);
+                    if (this.frm.file_info_bo.length)
+                        await this.$refs.form_group.$refs.fileupload.fileProcessor(res.data.bo_id);
                     this.$router.push({ name: 'bo_show', params: { bo_cd:this.bo_cd, bo_id:res.data.bo_id }})
                 }
             } catch (e) {

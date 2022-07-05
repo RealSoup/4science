@@ -127,6 +127,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -137,11 +142,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     KinesisContainer: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisContainer,
     KinesisElement: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisElement,
     // https://github.com/Aminerman/vue-kinesis
-    vueAccordion: vue_accordion__WEBPACK_IMPORTED_MODULE_3__.vueAccordion,
-    // https://github.com/zeratulmdq/vue-accordion
-    'BestList': function BestList() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_main_BestList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_module/main/BestList.vue */ "./resources/js/views/web/_module/main/BestList.vue"));
-    }
+    vueAccordion: vue_accordion__WEBPACK_IMPORTED_MODULE_3__.vueAccordion // https://github.com/zeratulmdq/vue-accordion
+
   },
   data: function data() {
     return {
@@ -158,7 +160,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       cateSideMenuPosition: 'absolute',
       cateSideMenuTop: 'auto',
       cateSideMenuBottom: 'auto',
-      scrollVal: [1858, 2400, 2942, 3484, 4026, 4568, 5110, 5652, 6690, 7294, 7898, 8502, 9106, 9710, 10314, 10918, 11522, 12126, 12730, 13111],
+      scrollVal: [1760, 2302, 2846, 3387, 3929, 4471, 5013, 5555, 6097, 6639, 7181, 7723, 8265, 8807, 9349, 9891, 10433, 10975, 11517, 12059],
       scrollEnd: 11721,
       currentScroll: 0 // best:[
       //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
@@ -254,7 +256,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.cateSideMenuBottom = 0;
       } else if (window.scrollY > this.scrollVal[0]) {
         this.cateSideMenuPosition = 'fixed';
-        this.cateSideMenuTop = 0;
+        this.cateSideMenuTop = '82px';
         this.cateSideMenuBottom = 'auto';
       } else if (window.scrollY < this.scrollVal[0]) {
         this.cateSideMenuPosition = 'absolute';
@@ -487,7 +489,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/banner.jpg" },
+                attrs: { "img-src": "/img/main/slide/banner.jpg" },
               }),
             ],
             1
@@ -498,7 +500,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/banner.jpg" },
+                attrs: { "img-src": "/img/main/slide/220531.jpg" },
               }),
             ],
             1
@@ -834,10 +836,19 @@ var render = function () {
                   _c(
                     "b-col",
                     { staticClass: "list" },
-                    _vm._l(_vm.bestByCategory[ca.ca_id], function (gd) {
+                    _vm._l(_vm.bestByCategory[ca.ca_id], function (gd, i) {
                       return _c(
-                        "b-col",
-                        { key: gd.gd_id },
+                        "b-link",
+                        {
+                          key: i,
+                          staticClass: "col",
+                          attrs: {
+                            to: {
+                              name: "goods_show",
+                              params: { gd_id: gd.sw_key },
+                            },
+                          },
+                        },
                         [
                           _c("b-img", {
                             attrs: {

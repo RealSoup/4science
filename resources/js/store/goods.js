@@ -18,6 +18,7 @@ export default {
         list: {},
         categorys: {},
         sch_cate_info: {},
+        pick: [],
         isLoadingModalViewed:false,
     },
     getters:{
@@ -38,6 +39,7 @@ export default {
             state.list = param.list;
             state.categorys = param.categorys;
             state.sch_cate_info = param.sch_cate_info;
+            state.pick = param.pick;
             state.isLoadingModalViewed= false;
         },
     },
@@ -68,7 +70,7 @@ export default {
                 if ( !isEmpty(context.state.frm[i]) )
                     nfrm[i] = context.state.frm[i];
             }
-            router.push({ name: 'goods_index', query: nfrm })//.catch(()=>{});
+            router.push({ name: 'goods_index', query: nfrm }).catch(()=>{});
         },
     },
 }

@@ -27,6 +27,9 @@ class Goods extends Model {
 
     public function getImageSrcAttribute() { return self::gdImgSrc(); }
     public function getImageSrcThumbAttribute() { return self::gdImgSrc(true); }
+    // public function getMkNameAttribute() { return isset($this->maker) ? $this->maker->mk_name : NULL; }
+    // public function getManagerAttribute() { return isset($this->user) ? $this->user->name : NULL; }
+
     public function getDlvyFeeAttribute() { return $this->dlvy_fee; }
     public function getDlvyFeeAddVatAttribute() { return (int)($this->dlvy_fee*1.1); }
     public function getFreeDlvyMaxAttribute() { return $this->free_dlvy_max; }
@@ -35,46 +38,44 @@ class Goods extends Model {
     // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
 
-    public function goodsCategory() { return $this->hasMany(GoodsCategory::class, "gc_gd_id"); }
-    public function goodsCategoryfirst() { return $this->hasOne(GoodsCategory::class, "gc_gd_id"); }
-    public function goodsModel() {  return $this->hasMany(GoodsModel::class, "gm_gd_id"); }
-    public function option() {      return $this->hasMany(Option::class, "op_gd_id")->orderBy('op_required'); }
-    public function hashJoin() {    return $this->hasMany(HashJoin::class, "gd_id"); }
-    public function fileGoods() {   return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
-    public function fileGoodsAdd() { return $this->hasMany(FileGoods::class, 'fi_key')->Kind('add')->orderBy('fi_seq'); }
-    public function fileGoodsGoods() { return $this->hasMany(FileGoods::class, 'fi_key')->Kind('goods')->orderBy('fi_seq'); }
-    public function user() {        return $this->belongsTo(User::class, 'created_id'); }
-    public function maker() {       return $this->hasOne(Maker::class, 'mk_id', 'gd_mk_id')->withDefault(); }
-    public function purchaseAt() {  return $this->hasOne(PurchaseAt::class, 'pa_id', 'gd_pa_id'); }
+    public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id"); }
+    public function goodsCategoryfirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id"); }
+    public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id"); }
+    public function option() {              return $this->hasMany(Option::class, "op_gd_id")->orderBy('op_required'); }
+    public function hashJoin() {            return $this->hasMany(HashJoin::class, "gd_id"); }
+    public function fileGoods() {           return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
+    public function fileGoodsAdd() {        return $this->hasMany(FileGoods::class, 'fi_key')->Kind('add')->orderBy('fi_seq'); }
+    public function fileGoodsGoods() {      return $this->hasMany(FileGoods::class, 'fi_key')->Kind('goods')->orderBy('fi_seq'); }
+    public function user() {                return $this->belongsTo(User::class, 'created_id'); }
+    public function maker() {               return $this->hasOne(Maker::class, 'mk_id', 'gd_mk_id')->withDefault(); }
+    public function purchaseAt() {          return $this->hasOne(PurchaseAt::class, 'pa_id', 'gd_pa_id'); }
 
-    public function scopeSchGd_id($query, $id_arr) { return $query->whereIn('gd_id', $id_arr); }
-    public function scopeSchGd_mk_id($query, $id_arr) { return $query->whereIn('gd_mk_id', $id_arr); }
-    public function scopeSchGd_name($query, $gd_name) { return $query->where('gd_name', 'like', "%" . $gd_name . "%"); }
-    public function scopeSchWriter($query, $id_arr) { return $query->whereIn('created_id', $id_arr); }
-    public function scopeSchStartDate($query, $date) { return $query->where('created_at', '>=', $date); }
-    public function scopeSchEndDate($query, $date) { return $query->where('created_at', '<=', $date); }
-    public function scopeEnable($query) { return $query->where('gd_enable', 'Y'); }
-    public function scopeMaker($query, $gd_mk_id) { return $query->where('gd_mk_id', $gd_mk_id); }
-    public function scopeCa01($query, $id) { return $query->where('gc_ca01', $id); }
-    public function scopeCa02($query, $id) { return $query->where('gc_ca02', $id); }
-    public function scopeCa03($query, $id) { return $query->where('gc_ca03', $id); }
-    public function scopeCa04($query, $id) { return $query->where('gc_ca04', $id); }
+    public function scopeSchGd_id($q, $id_arr)      { return $q->whereIn('gd_id', $id_arr); }
+    public function scopeSchGd_mk_id($q, $id_arr)   { return $q->whereIn('gd_mk_id', $id_arr); }
+    public function scopeSchGd_name($q, $gd_name)   { return $q->where('gd_name', 'like', "%" . $gd_name . "%"); }
+    public function scopeSchWriter($q, $id_arr)     { return $q->whereIn('created_id', $id_arr); }
+    public function scopeStartDate($q, $d)          { return $q->whereDate('created_at', '>=', $d); }
+    public function scopeEndDate($q, $d)            { return $q->whereDate('created_at', '<=', $d); }
+    public function scopeEnable($q, $v)             { return $q->where('gd_enable', $v); }
+    public function scopeMaker($q, $v)              { return $q->where('gd_mk_id', $v); }
+    public function scopeCa01($q, $id)              { return $q->where('gc_ca01', $id); }
+    public function scopeCa02($q, $id)              { return $q->where('gc_ca02', $id); }
+    public function scopeCa03($q, $id)              { return $q->where('gc_ca03', $id); }
+    public function scopeCa04($q, $id)              { return $q->where('gc_ca04', $id); }
 
     public function joinGoodsCate() { return $this->join('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'); }
 
     public function gdImgSrc($thumb=FALSE) {    // 상품 상세화면, 목록 이미지
         $rst = NULL;
-        if ( !!$this->gd_id ) {
-            foreach ($this->fileGoodsGoods()->get() as $fi_piece) {
-                $th = $thumb ? '/thumb' : '';
-                $src = "";
-                if (strpos($fi_piece->fi_new, "https://") === 0 || strpos($fi_piece->fi_new, "http://") === 0)
-                    $src = $fi_piece->fi_new;
-                else
-                    $src = "/storage/goods/{$fi_piece->fi_room}/{$fi_piece->fi_group}{$th}/".$fi_piece->fi_new;
-                
-                $rst[] = $src;
-            }
+        foreach ($this->fileGoodsGoods as $fi) {
+            $th = $thumb ? '/thumb' : '';
+            $src = "";
+            if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
+                $src = $fi->fi_new;
+            else
+                $src = "/storage/goods/{$fi->fi_room}/{$fi->fi_group}{$th}/".$fi->fi_new;
+            
+            $rst[] = $src;
         }
         if (!$rst){ $rst[] = noimg($thumb); }
         return $rst;

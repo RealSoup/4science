@@ -190,28 +190,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -584,7 +562,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .user_info[data-v-ec9c9aa0] { padding-top:1rem; box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED;\n}\n#adm_estimate_show .user_info .col div[data-v-ec9c9aa0] { margin:1rem;\n}\n#adm_estimate_show .user_info .col div span[data-v-ec9c9aa0] { margin-right:1rem;\n}\n#adm_estimate_show .user_info .col div span>svg[data-v-ec9c9aa0] { margin-right:0.5rem;\n}\r\n\r\n/* #adm_estimate_show .em_info .em_list:nth-child(odd) > div:nth-child(even),\r\n#adm_estimate_show .em_info .em_list:nth-child(even) > div:nth-child(odd) { background-color:#EAF2FF; } */\n#adm_estimate_show .gd_box .gd_list[data-v-ec9c9aa0]:nth-child(even) { background-color:#FFE8A5;\n}\n#adm_estimate_show .gd_box .gd_list[data-v-ec9c9aa0] { border-bottom:1px solid #EDEDED; padding:1rem .3rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-ec9c9aa0] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-ec9c9aa0] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-ec9c9aa0] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info[data-v-ec9c9aa0] { color:#999; font-size:0.8rem; white-space:pre;\n}\n#adm_estimate_show .gd_box .gd_list > div:nth-child(3) span[data-v-ec9c9aa0] { display:inline-block; min-width:4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-ec9c9aa0]:nth-child(3),\r\n#adm_estimate_show .gd_box .gd_list > div[data-v-ec9c9aa0]:nth-child(4) { text-align:right;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-ec9c9aa0] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-ec9c9aa0] { display:inline-block; min-width:12rem;\n}\n#adm_estimate_show .price_info .row .col span[data-v-ec9c9aa0] { display:inline-block; min-width:10rem; font-weight:bold; color:#C10000; font-size:1.3rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .user_info[data-v-ec9c9aa0] { padding-top:1rem; box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED;\n}\n#adm_estimate_show .user_info .col div[data-v-ec9c9aa0] { margin:1rem;\n}\n#adm_estimate_show .user_info .col div span[data-v-ec9c9aa0] { margin-right:1rem;\n}\n#adm_estimate_show .user_info .col div span>svg[data-v-ec9c9aa0] { margin-right:0.5rem;\n}\n#adm_estimate_show .gd_box .gd_list[data-v-ec9c9aa0]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-ec9c9aa0] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-ec9c9aa0] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-ec9c9aa0] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list .col .multi[data-v-ec9c9aa0] { min-width:6rem; display:inline-block;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-ec9c9aa0]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc .row div[data-v-ec9c9aa0] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-ec9c9aa0] { border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\n#adm_estimate_show .price_info .row .col span[data-v-ec9c9aa0] { display:inline-block; min-width:10rem; font-weight:bold; color:#C10000; font-size:1.3rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -720,168 +698,145 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "adm_estimate_show" } },
+    { staticClass: "p_warp", attrs: { id: "adm_estimate_show" } },
     [
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 응답")]),
+      _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "shadow sticky-top", attrs: { "body-class": "p-2" } },
+        "b-row",
+        { staticClass: "page_ctrl" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "b-col",
             [
               _c(
-                "b-row",
+                "b-button-group",
+                { attrs: { size: "sm" } },
                 [
                   _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-button-group",
-                        { attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "b-button",
-                            { attrs: { to: { name: "adm_estimate_index" } } },
-                            [_c("b-icon-list-ul"), _vm._v(" 목록")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "success" },
-                              on: { click: _vm.estimateExcel },
-                            },
-                            [_vm._v("견적서"), _c("b-badge", [_vm._v("E")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "outline-success" },
-                              on: { click: _vm.estimatePdf },
-                            },
-                            [_vm._v("견적서"), _c("b-badge", [_vm._v("P")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "warning" },
-                              on: { click: _vm.transactionExcel },
-                            },
-                            [
-                              _vm._v("거래명세서"),
-                              _c("b-badge", [_vm._v("E")]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "outline-warning" },
-                              on: { click: _vm.transactionPdf },
-                            },
-                            [
-                              _vm._v("거래명세서"),
-                              _c("b-badge", [_vm._v("P")]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "dark" },
-                              on: { click: _vm.print },
-                            },
-                            [_vm._v("인쇄")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
+                    "b-button",
+                    { attrs: { to: { name: "adm_estimate_index" } } },
+                    [_c("b-icon-list-ul"), _vm._v(" 목록")],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "text-right" },
-                    [
-                      _c(
-                        "b-button-group",
-                        { attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "info" },
-                              on: { click: _vm.onlineBooks },
-                            },
-                            [
-                              _c("b-icon-journal-bookmark-fill"),
-                              _vm._v(" 장부기록"),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "primary" },
-                              on: { click: _vm.reSend },
-                            },
-                            [_c("b-icon-mailbox"), _vm._v(" 재발송")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "success",
-                                to: {
-                                  name: "adm_estimate_create",
-                                  query: { eq_id: _vm.frm.estimate_req.eq_id },
-                                },
-                              },
-                            },
-                            [_c("b-icon-pencil-square"), _vm._v(" 재작성")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "warning",
-                                to: {
-                                  name: "adm_estimate_edit",
-                                  params: { er_id: _vm.$route.params.er_id },
-                                },
-                              },
-                            },
-                            [_c("b-icon-tools"), _vm._v(" 수정")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "danger" },
-                              on: { click: _vm.destroy },
-                            },
-                            [_c("b-icon-trash-fill"), _vm._v(" 삭제")],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
+                    "b-button",
+                    {
+                      attrs: { variant: "success" },
+                      on: { click: _vm.estimateExcel },
+                    },
+                    [_vm._v("견적서"), _c("b-badge", [_vm._v("E")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "outline-success" },
+                      on: { click: _vm.estimatePdf },
+                    },
+                    [_vm._v("견적서"), _c("b-badge", [_vm._v("P")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "warning" },
+                      on: { click: _vm.transactionExcel },
+                    },
+                    [_vm._v("거래명세서"), _c("b-badge", [_vm._v("E")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "outline-warning" },
+                      on: { click: _vm.transactionPdf },
+                    },
+                    [_vm._v("거래명세서"), _c("b-badge", [_vm._v("P")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "dark" }, on: { click: _vm.print } },
+                    [_vm._v("인쇄")]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "text-right" },
+            [
+              _c(
+                "b-button-group",
+                { attrs: { size: "sm" } },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "info" },
+                      on: { click: _vm.onlineBooks },
+                    },
+                    [_c("b-icon-journal-bookmark-fill"), _vm._v(" 장부기록")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary" },
+                      on: { click: _vm.reSend },
+                    },
+                    [_c("b-icon-mailbox"), _vm._v(" 재발송")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        variant: "success",
+                        to: {
+                          name: "adm_estimate_create",
+                          query: { eq_id: _vm.frm.estimate_req.eq_id },
+                        },
+                      },
+                    },
+                    [_c("b-icon-pencil-square"), _vm._v(" 재작성")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        variant: "warning",
+                        to: {
+                          name: "adm_estimate_edit",
+                          params: { er_id: _vm.$route.params.er_id },
+                        },
+                      },
+                    },
+                    [_c("b-icon-tools"), _vm._v(" 수정")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "danger" },
+                      on: { click: _vm.destroy },
+                    },
+                    [_c("b-icon-trash-fill"), _vm._v(" 삭제")],
                     1
                   ),
                 ],
@@ -1396,318 +1351,238 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c(
-        "b-alert",
-        {
-          staticClass: "container mt-4 gd_box",
-          attrs: { show: "", variant: "warning" },
-        },
-        [
-          _c("h4", { staticClass: "alert-heading" }, [_vm._v("견적 상품")]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _vm._l(_vm.frm.collect.lists, function (pa, pa_i) {
-            return _c(
-              "b-row",
-              {
-                key: "pa_index_" + pa_i,
-                staticClass: " border border-warning",
-              },
-              [
-                _c(
-                  "b-col",
-                  { attrs: { cols: "11" } },
+      _vm.frm.estimate_model && _vm.frm.estimate_model.length
+        ? _c(
+            "b-card",
+            { staticClass: "gd_box" },
+            [
+              _c("div", { staticClass: "tit" }, [_vm._v("견적 상품")]),
+              _vm._v(" "),
+              _vm._l(_vm.frm.collect.lists, function (pa, pa_i) {
+                return _c(
+                  "b-container",
+                  { key: "pa_" + pa_i },
                   [
-                    _vm._l(pa.list, function (gd, i) {
-                      return [
-                        i == 0
-                          ? _c(
-                              "b-row",
-                              [
-                                _c("b-col", [
-                                  _c(
-                                    "h4",
-                                    { staticClass: "p-3 font-bold" },
-                                    [
-                                      gd.gd_pa_id > 0
-                                        ? [
-                                            _vm._v(
-                                              "\n                                    " +
-                                                _vm._s(gd.purchase_at.pa_name) +
-                                                " 배송\n                                "
-                                            ),
-                                          ]
-                                        : [
-                                            _vm._v(
-                                              "\n                                    4SCIENCE 배송\n                                "
-                                            ),
-                                          ],
-                                    ],
-                                    2
-                                  ),
-                                ]),
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._l(gd.estimate_model, function (em) {
-                          return _c(
-                            "b-row",
-                            { key: em.em_id, staticClass: "gd_list" },
-                            [
-                              _c("b-col", { attrs: { cols: "3" } }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "text-success em_name" },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(em.em_name) +
-                                        "\n                                "
-                                    ),
-                                    em.em_gd_id
-                                      ? _c(
-                                          "b-button",
-                                          {
-                                            attrs: {
-                                              variant: "outline-primary",
-                                              size: "sm",
-                                              to: {
-                                                name: "adm_goods_edit",
-                                                params: { gd_id: em.em_gd_id },
-                                              },
-                                            },
-                                          },
-                                          [_c("b-icon-link45deg")],
-                                          1
-                                        )
-                                      : _vm._e(),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "text-secondary" }, [
-                                  _vm._v(
-                                    _vm._s(em.em_code) +
-                                      " [ " +
-                                      _vm._s(em.em_catno) +
-                                      " ] ( " +
-                                      _vm._s(em.em_unit) +
-                                      " )"
-                                  ),
-                                ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", {
-                                attrs: { xl: "4", lg: "5" },
-                                domProps: {
-                                  innerHTML: _vm._s(_vm.nl2br(em.em_spec)),
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c("b-col", { attrs: { cols: "3" } }, [
-                                _vm._v(
-                                  "\n                            " +
-                                    _vm._s(_vm._f("comma")(em.em_price)) +
-                                    "\n                            "
-                                ),
-                                _c(
-                                  "span",
-                                  { staticClass: "float-right" },
-                                  [
-                                    _c("font-awesome-icon", {
-                                      attrs: { icon: "times" },
-                                    }),
-                                    _vm._v(
-                                      " " + _vm._s(_vm._f("comma")(em.em_ea))
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { cols: "2" } },
-                                [
-                                  _c("font-awesome-icon", {
-                                    attrs: { icon: "equals" },
-                                  }),
-                                  _vm._v(
-                                    " " +
-                                      _vm._s(
-                                        _vm._f("comma")(em.em_price * em.em_ea)
-                                      )
-                                  ),
-                                ],
-                                1
+                    _c(
+                      "h5",
+                      [
+                        pa.list[0].purchase_at
+                          ? [
+                              _vm._v(
+                                _vm._s(pa.list[0].purchase_at.pa_name) + " "
                               ),
-                              _vm._v(" "),
-                              em.estimate_option.length
-                                ? _c(
+                              _c("b", [_vm._v("직배송 상품")]),
+                            ]
+                          : [_vm._v("4SCIENCE")],
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm._l(pa.list, function (gd, gd_idx) {
+                      return _c(
+                        "b-row",
+                        { key: "gd_" + gd_idx },
+                        [
+                          _c(
+                            "b-col",
+                            _vm._l(gd.estimate_model, function (em) {
+                              return _c(
+                                "b-row",
+                                { key: em.em_id, staticClass: "gd_list" },
+                                [
+                                  _c(
                                     "b-col",
-                                    {
-                                      staticClass: "op_list row m-0 p-0",
-                                      attrs: { cols: "12" },
-                                    },
                                     [
                                       _c(
-                                        "b-col",
+                                        "b-button",
                                         {
-                                          staticClass: "row align-items-center",
-                                          attrs: { cols: "1" },
+                                          attrs: {
+                                            variant: "outline-primary",
+                                            size: "sm",
+                                            to: {
+                                              name: "adm_goods_edit",
+                                              params: { gd_id: em.em_gd_id },
+                                            },
+                                          },
                                         },
-                                        [
-                                          _c(
-                                            "b-col",
-                                            [
-                                              _c(
-                                                "b-badge",
-                                                {
-                                                  attrs: { variant: "warning" },
-                                                },
-                                                [_vm._v("옵션")]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ],
+                                        [_c("b-icon-link45deg")],
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c(
+                                      _c("b", { staticClass: "gd_name" }, [
+                                        _vm._v(_vm._s(em.em_name)),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b", { staticClass: "divider" }, [
+                                        _vm._v("/"),
+                                      ]),
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(em.em_code) +
+                                          "\n                            "
+                                      ),
+                                      _c("b", { staticClass: "divider" }, [
+                                        _vm._v("/"),
+                                      ]),
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(em.em_catno) +
+                                          "\n                            "
+                                      ),
+                                      _c("b", { staticClass: "divider" }, [
+                                        _vm._v("/"),
+                                      ]),
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(em.em_maker) +
+                                          "\n                            "
+                                      ),
+                                      _c("b", { staticClass: "divider" }, [
+                                        _vm._v("/"),
+                                      ]),
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(em.em_unit) +
+                                          "\n                        "
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-col",
+                                    { attrs: { tag: "i" } },
+                                    [
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(_vm._f("comma")(em.em_price)) +
+                                          " 원 "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "times" },
+                                      }),
+                                      _vm._v(
+                                        "\n                            " +
+                                          _vm._s(_vm._f("comma")(em.em_ea)) +
+                                          " 개 "
+                                      ),
+                                      _c("font-awesome-icon", {
+                                        attrs: { icon: "equals" },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b", { staticClass: "multi" }, [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("comma")(
+                                              em.em_price * em.em_ea
+                                            )
+                                          ) + " 원"
+                                        ),
+                                      ]),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  em.estimate_option.length
+                                    ? _c(
                                         "b-col",
-                                        { staticClass: "op_info" },
+                                        {
+                                          staticClass: "opc",
+                                          attrs: { cols: "12" },
+                                        },
                                         _vm._l(
                                           em.estimate_option,
-                                          function (option, i) {
+                                          function (option) {
                                             return _c(
-                                              "div",
+                                              "b-row",
                                               { key: option.eo_id },
                                               [
-                                                _c("span", [
-                                                  _vm._v(
-                                                    _vm._s(option.eo_tit) +
-                                                      ": " +
-                                                      _vm._s(option.eo_name)
-                                                  ),
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("i", [
-                                                  _vm._v(
-                                                    "수량: " +
-                                                      _vm._s(option.eo_ea) +
-                                                      " 개"
-                                                  ),
-                                                ]),
-                                                _vm._v(" "),
                                                 _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "float-right text-right",
-                                                  },
+                                                  "b-col",
+                                                  { attrs: { offset: "6" } },
                                                   [
                                                     _vm._v(
-                                                      "\n                                        " +
+                                                      _vm._s(option.eo_tit) +
+                                                        ": " +
+                                                        _vm._s(option.eo_name)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "b-col",
+                                                  { attrs: { tag: "i" } },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                    " +
                                                         _vm._s(
                                                           _vm._f("comma")(
                                                             option.eo_price
                                                           )
                                                         ) +
-                                                        " "
+                                                        " 원 "
                                                     ),
                                                     _c("font-awesome-icon", {
                                                       attrs: { icon: "times" },
                                                     }),
                                                     _vm._v(
-                                                      " " +
-                                                        _vm._s(option.eo_ea) +
-                                                        " "
+                                                      "\n                                    " +
+                                                        _vm._s(
+                                                          _vm._f("comma")(
+                                                            option.eo_ea
+                                                          )
+                                                        ) +
+                                                        " 개 "
                                                     ),
                                                     _c("font-awesome-icon", {
                                                       attrs: { icon: "equals" },
                                                     }),
-                                                    _vm._v(
-                                                      " " +
-                                                        _vm._s(
-                                                          _vm._f("comma")(
-                                                            option.eo_price *
-                                                              option.eo_ea
-                                                          )
-                                                        ) +
-                                                        "\n                                    "
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b",
+                                                      { staticClass: "multi" },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm._f("comma")(
+                                                              option.eo_price *
+                                                                option.eo_ea
+                                                            )
+                                                          ) + " 원"
+                                                        ),
+                                                      ]
                                                     ),
                                                   ],
                                                   1
                                                 ),
-                                              ]
+                                              ],
+                                              1
                                             )
                                           }
                                         ),
-                                        0
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                : _vm._e(),
-                            ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                ],
+                                1
+                              )
+                            }),
                             1
-                          )
-                        }),
-                      ]
+                          ),
+                        ],
+                        1
+                      )
                     }),
                   ],
                   2
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  {
-                    staticClass:
-                      "m-0 row align-items-center border border-danger",
-                    attrs: { cols: "1" },
-                  },
-                  [
-                    _c(
-                      "b-col",
-                      { staticClass: "text-right" },
-                      [
-                        pa.price.air_add_vat
-                          ? [
-                              _c("b-badge", { attrs: { variant: "warning" } }, [
-                                _vm._v("항공운임료"),
-                              ]),
-                            ]
-                          : [_c("b-badge", [_vm._v("배송비")])],
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(
-                              _vm._f("comma")(
-                                pa.price.air_add_vat
-                                  ? pa.price.air_add_vat
-                                  : pa.price.dlvy_add_vat
-                              )
-                            ) +
-                            " 원\n                "
-                        ),
-                      ],
-                      2
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            )
-          }),
-        ],
-        2
-      ),
+                )
+              }),
+            ],
+            2
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "b-alert",

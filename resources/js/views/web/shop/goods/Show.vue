@@ -65,9 +65,11 @@
                     <ul v-if="content.file_goods_add">
                         <li><hr /></li>
                         <li>
-                            <div>첨부파일</div>
+                            <div>첨부파일2</div>
                             <div>
-                                <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(file.path, file.fi_original)">{{file.fi_original}}</b-button>
+                                <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(`api/downloadGoods/${file.fi_id}`, file.fi_original)">{{file.fi_original}}</b-button>
+                                <!-- <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown('api/downloadGoods/1760', file.fi_original)">{{file.fi_original}}</b-button> -->
+                                
                             </div>
                         </li>
                     </ul>
@@ -165,7 +167,7 @@
         </b-row>
 
         <transition name="fade">
-            <b-row class="action_btn pt-3 sticky-top">
+            <b-row class="action_btn">
                 <b-col cols="12" class="text-right">
                     <b-button-group>
                         <b-button variant="success" @click="action('pay')">구매하기</b-button>
@@ -177,9 +179,14 @@
             </b-row>
         </transition>
 
+        <scrollactive class="goods_nav" :offset="90">
+            <a href="#goods_desc" class="scrollactive-item">상품상세</a>
+            <a href="#return_info" class="scrollactive-item">반품/교환 안내</a>
+            <a href="#review" class="scrollactive-item">상품평</a>
+            <a href="#gd_inquiry" class="scrollactive-item">상품문의</a>
+        </scrollactive>
 
-
-        <b-row class="mt-5 goods_desc"><b-col v-html="content.gd_desc"></b-col></b-row>
+        <b-row id="goods_desc"><b-col v-html="content.gd_desc"></b-col></b-row>
         
         <b-row class="mt-5">
             <b-col class="text-center">
@@ -195,7 +202,34 @@
             </b-col>
         </b-row>
 
+        <!-- 반품/교환 안내 -->
+        <div id="return_info">
+			<em>포사이언스에서는 다음과 같은 기간 및 내용으로 상품 및 용역에 대하여 교환, 반품, 환불을 보장하고 있으며, 상품의 반환에 의한 추가비용을 고객에게 부담시키지 않습니다.<br>(단, 고객 변심 또는 주문 번복으로 인한 경우의 반환비용은 고객님이 부담하셔야 합니다.)</em><br><br>
 
+			1. 단순변심일경우 : 물품수령 후 7일이내 반품가능(반품배송비 구매자가 부담) <br>
+			2. 표시, 광고 내용과 상이하거나 물품 하자인 경우 : 물품수령 후 3개월이내, 또는 그 사실을 안날 또는 알수 있었던 날로부터 30일이내 반품가능 (반품배송비 판매자가 부담)<br><br>
+
+			<em>단, 아래의 내용인 경우에는 교환/반품/환불이 불가능하오니 참조하시기 바랍니다.</em><br><br>
+
+			1. 반품요청기간이 지난 경우<br>
+			2. 고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우(단 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)<br>
+			3. 주문 당시 해외 발주 상품의 경우<br>
+			4. 고객의 요청으로 주문제작이 이루어진 경우<br>
+			5. 포장을 개봉하였거나 포장이 훼손되어 상품의 가치가 현저하게 감소한 경우<br>
+			6. 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우<br>
+			7. 재판매가 곤란한 정도로 상품등의 가치가 현저히 감소한 경우<br>
+			8. 복제가 가능한 상품 등의 포장을 훼손한 경우<br><br>
+
+			주문 취소 및 반품으로 환불을 요청하실 경우에는 E-mail(sales@4science.net) 상담서비스나 고객만족센터(1644-4214)를 통해 요청하시면 친절하게 처리해 드리겠습니다.<br>
+			주문 취소 후 반품 가능 여부를 확인한 다음 3일 이내에 결제 금액을 환불해 드리겠습니다.
+		</div>
+
+        <!-- 상품평 -->
+        <BoReview :bo_cd="'review'" id="review" />
+
+
+        <!-- 상품문의 -->
+        <BoGdInquiry :bo_cd="'gd_inquiry'" id="gd_inquiry" />
     </b-container>
 </template>
 
@@ -246,6 +280,8 @@ export default {
         'Location': () => import('./_comp/Location.vue'),
         // Splide, SplideSlide,
         VueNumericInput,
+        'BoReview': () => import('./_comp/BoReview.vue'),
+        'BoGdInquiry': () => import('./_comp/BoGdInquiry.vue'),
     },
     data() {
         return {
@@ -484,6 +520,7 @@ export default {
                 this.$set(opc, 'show', false);
             }
         },
+
     },
     async mounted() {
         await this.show();
@@ -525,9 +562,15 @@ export default {
 #goods_show .goods_model .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
 #goods_show .goods_model .cube.show_right, #goods_show .goods_model .cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
 
-#goods_show .goods_desc img { width:100%; }
+#goods_show .action_btn { position:sticky; top:78px; margin-top:1rem; z-index:1; }
 
+#goods_show .goods_nav { position:sticky; top:80px; z-index:1; }
+#goods_show .goods_nav a { background:#576aa1; color:#FFF; padding:9px 6px; }
 
+#goods_show #goods_desc { margin-top:50px; }
+#goods_show #goods_desc img { width:100%; }
+
+#goods_show #return_info em { color: #ce0000; font-weight: bold; }
 /*
 <div class="cube_box">
     <div class="cube">

@@ -189,24 +189,14 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("input", {
-    directives: [
-      {
-        name: "model",
-        rawName: "v-model",
-        value: _vm.displayValue,
-        expression: "displayValue",
+  return _c("b-form-input", {
+    attrs: { id: _vm.id, type: "number", min: "0", max: "99" },
+    model: {
+      value: _vm.displayValue,
+      callback: function ($$v) {
+        _vm.displayValue = $$v
       },
-    ],
-    attrs: { id: _vm.id, type: "number", min: "0", max: "99", required: "" },
-    domProps: { value: _vm.displayValue },
-    on: {
-      input: function ($event) {
-        if ($event.target.composing) {
-          return
-        }
-        _vm.displayValue = $event.target.value
-      },
+      expression: "displayValue",
     },
   })
 }

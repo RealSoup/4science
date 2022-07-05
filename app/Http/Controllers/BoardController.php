@@ -18,70 +18,49 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        $board->setCode($req->filled('bo_cd') ? $req->bo_cd : 'open');
+        $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'open');
         $this->board = $board;
         $this->param['config'] = $board->config;
     }
     public function index(Request $req, $bo_cd) {
-     
-        // $bo = $this->board 
-        //         ->where('bo_group', 0)
-        //         ->orderByRaw('bo_seq, bo_seq_cd');
-        // $bo = $bo->paginate($this->param['row']);
-        // $this->param['list'] = $bo;
-        // return view("web.board.$bo_cd.index", $this->param);
-// abort(500, 'We could not retrieve the users');
-        // $boards = $this->board
-        //         ->where('bo_group', 0)
-        //         ->orderByRaw('bo_seq, bo_seq_cd')->get()->toArray();
         $bo = $this->board
                 ->where('bo_group', 0)
+                ->whereNull('bo_seq_cd')
                 ->orderByRaw('bo_seq, bo_seq_cd');
+        
+        if (( $bo_cd == 'gd_inquiry' || $bo_cd == 'review' ) &&  $req->filled('bo_gd_id'))
+            $bo = $bo->where('bo_gd_id', $req->bo_gd_id);
 
         if ($req->filled('sch_txt')) {
-/*            $orders = $orders->where(function($query) use ($params){
-                        $query->SchOd_no($params['sch_text'])->orWhere(function (Builder $query) use ($params) {
-                            $query->SchWriter(User::SchName($params['sch_text'])->pluck('id'));
-                        })->orWhere(function (Builder $query) use ($params) {
-                            $query->SchOd_addr($params['sch_text']);
-                        })->orWhere(function (Builder $query) use ($params) {
-                            $query->SchOd_hp($params['sch_text']);
-                        });
-                    });*/
             $sch_txt = trim($req->sch_txt);
             $bo = $bo->where(function (Builder $query) use ($sch_txt) {
                         $query->where('bo_subject', 'like', "%".$sch_txt."%")
                             ->orWhere('bo_content', 'like', "%".$sch_txt."%")
                             ->orWhere('bo_writer', 'like', "%".$sch_txt."%");
                     });
-        }
+        }        
         
-        if ($req->filled('limit')) {
-            $bo = $bo->take($req->limit)->get();
-            if ($req->filled('type') && $req->type == 'photo') {
-                foreach ($bo as $b) {
-                    $b->goods;
-                }
-            }
-        } else {
-            // echo_query($bo);
-            $bo = $bo->paginate(10);
-            $bo->appends($req->all())->links();
-        }
-        
-        
-        
-        // foreach ($bo as $key => $val) {
-        //     if($val->created_at->format('Y')<now()->format('Y'))
-        //         $val->bo_date = $val->created_at->format('y-m-d');
-        //     elseif($val->created_at->format('Y-m-d')<now()->format('Y-m-d'))
-        //         $val->bo_date = $val->created_at->format('m-d');
-        //     else
-        //         $val->bo_date = $val->created_at->format('H:i');
-        // }
+        $bo = $bo->paginate($req->filled('limit') ? $req->limit : 10);
+        $bo->appends($req->all())->links();
 
+
+        //  답변 가져오기
+        if ( $this->param['config']['is_qna'] )
+            foreach ($bo as $v)
+                $v->answer = DB::table($this->board->getTable())->where('bo_seq', $v->bo_seq)->where('bo_seq_cd', 'A')->first();
+
+
+
+        // if ( $this->param['config']['is_qna'] ) {
+        //     for ($i=0; $i < count($bo); $i++)   //  다음에 답변이 있는지 체크하는 루프
+        //         if(is_null($bo[$i]->bo_seq_cd)) //  질문 글 인가??
+        //             if( isset($bo[$i+1]) && $bo[$i+1]->bo_seq_cd == 'A' && $bo[$i]->bo_seq == $bo[$i+1]->bo_seq )   //  답변이 있는가??
+        //                 $bo[$i]->answer = true;
+        //             else
+        //                 $bo[$i]->answer = false;
+        // }
         $this->param['list'] = $bo;
-        // return view("layouts.app", $bo);
+
         return response()->json($this->param);
 
     }
@@ -122,6 +101,15 @@ class BoardController extends Controller {
         if ($req->wri_type == 'comment')    $pieces = $this->co_reqImplant($req);
         else if ($req->wri_type == 'reply') $pieces = $this->re_reqImplant($req);
         else                                $pieces = ['bo_seq' => ($this->board->min('bo_seq'))-1];
+
+        if ($bo_cd == 'gd_inquiry') 
+            $pieces = Arr::collapse([['bo_gd_id' => $req->bo_gd_id ], $pieces]);
+        if ($bo_cd == 'review') {
+            $pieces = Arr::collapse([[
+                'bo_gd_id' => $req->filled('bo_gd_id') ? $req->bo_gd_id : 0,
+                'bo_good' => $req->filled('bo_good') ? $req->bo_good : 100,
+            ], $pieces]);
+        }
         $pieces = Arr::collapse([$this->bo_reqImplant($req), $pieces]);
         $pieces = Arr::collapse([['created_id' => auth()->user()->id ], $pieces]);
         $bo_id = $this->board->insertGetId($pieces);    //  가공된 자료DB insert

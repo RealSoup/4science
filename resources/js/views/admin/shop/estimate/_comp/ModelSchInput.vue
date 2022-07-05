@@ -1,24 +1,21 @@
 <template lang="html">
-    <div class="awesome_p">
-        <input type="text" required autocomplete="off"
-            :id="id"
-            v-model="input_val"
-            @keyup.enter="getModelList"
-            v-b-tooltip.hover title="입력 후 엔터 or 버튼"
-            ref="sch_field"
-        />
-        <label :for="id" v-if="type=='em_catno'">Cat. No.</label>
-        <label :for="id" v-else-if="type=='em_code'">모델명</label>
+<div>
+    <b-form-input autocomplete="off"
+        v-model="input_val"
+        @keyup.enter="getModelList"
+        v-b-tooltip.hover title="입력 후 엔터 or 버튼"
+        ref="sch_field"
+    />
 
-        <b-button @click="getModelList" size="sm"><b-icon-search /></b-button>
-        <ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
-            <li href="#" class="list-group-item" v-for="(md, i) in model" @click="setModel(i)">
-                {{ md.gm_name }}<br />
-                <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
-                <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
-            </li>
-        </ul>
-    </div>
+    <b-button @click="getModelList" size="sm" class="overlap"><b-icon-search /></b-button>
+    <ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
+        <li href="#" class="list-group-item" v-for="(md, i) in model" @click="setModel(i)">
+            {{ md.gm_name }}<br />
+            <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
+            <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
+        </li>
+    </ul>
+</div>
 </template>
 
 <script>

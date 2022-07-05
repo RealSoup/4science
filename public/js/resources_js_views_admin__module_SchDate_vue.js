@@ -42,7 +42,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   methods: {
@@ -102,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sch_date .width_btn[data-v-4bb13613] { display:flex;\n}\n.sch_date .width_btn .btn[data-v-4bb13613] { flex:1;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .period[data-v-4bb13613] { flex:0 0 43%; max-width:43%; display:flex; align-items:center; justify-content:space-between;\n}\n.row .period > b[data-v-4bb13613] { font-size:20px;\n}\n.row .period > div[data-v-4bb13613] { width: calc(50% - 10px);\n}\n.row .period_btn .btn-group[data-v-4bb13613] { display:flex;\n}\n.row .period_btn .btn-group .btn[data-v-4bb13613] { flex:1;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -238,15 +237,16 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-row",
-    { staticClass: "mb-3 sch_date" },
     [
       _vm._t("prev"),
       _vm._v(" "),
       _c(
         "b-col",
+        { staticClass: "period" },
         [
           _c(
             "b-input-group",
+            { attrs: { size: "sm" } },
             [
               _c("b-form-input", {
                 attrs: {
@@ -267,7 +267,7 @@ var render = function () {
                 "b-input-group-append",
                 [
                   _c("b-form-datepicker", {
-                    attrs: { "button-only": "", right: "" },
+                    attrs: { size: "sm", "button-only": "", right: "" },
                     model: {
                       value: _vm.value.startDate,
                       callback: function ($$v) {
@@ -282,15 +282,12 @@ var render = function () {
             ],
             1
           ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-col",
-        [
+          _vm._v(" "),
+          _c("b", [_vm._v("~")]),
+          _vm._v(" "),
           _c(
             "b-input-group",
+            { attrs: { size: "sm" } },
             [
               _c("b-form-input", {
                 attrs: {
@@ -311,7 +308,7 @@ var render = function () {
                 "b-input-group-append",
                 [
                   _c("b-form-datepicker", {
-                    attrs: { "button-only": "", right: "" },
+                    attrs: { size: "sm", "button-only": "", right: "" },
                     model: {
                       value: _vm.value.endDate,
                       callback: function ($$v) {
@@ -332,16 +329,16 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-col",
-        { attrs: { lg: "6", md: "4", sm: "12" } },
+        { staticClass: "period_btn" },
         [
           _c(
             "b-button-group",
-            { staticClass: "width_btn" },
+            { attrs: { size: "sm" } },
             [
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "primary" },
+                  attrs: { variant: "outline-secondary" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("today")
@@ -354,7 +351,7 @@ var render = function () {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "info" },
+                  attrs: { variant: "outline-secondary" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("3day")
@@ -367,7 +364,7 @@ var render = function () {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "success" },
+                  attrs: { variant: "outline-secondary" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("week")
@@ -380,7 +377,7 @@ var render = function () {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "danger" },
+                  attrs: { variant: "outline-secondary" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("month")
@@ -393,7 +390,7 @@ var render = function () {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "warning" },
+                  attrs: { variant: "outline-secondary" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("3month")
@@ -406,7 +403,6 @@ var render = function () {
               _c(
                 "b-button",
                 {
-                  attrs: { variant: "dark" },
                   on: {
                     click: function ($event) {
                       return _vm.setDate("all")

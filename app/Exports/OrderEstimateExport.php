@@ -88,7 +88,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $data[] = [''];
         $data[] = ['결제방식'];
         $data[] = [''];
-        $data[] = [cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner']];
+        $data[] = [cache('bank')->name01.' '.cache('bank')->num01.' '.cache('bank')->owner];
         $data[] = ['Your R&D Consultant www.4science.net'];
 
 

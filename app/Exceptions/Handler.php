@@ -4,9 +4,9 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
     /**
      * A list of the exception types that are not reported.
      *
@@ -32,10 +32,24 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->reportable(function (Throwable $e) {
             //
         });
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception) {
+        if ($request->expectsJson()) {
+            return response()->json(['message' => '로그인이 필요한 서비스입니다.'], 401);
+        }
+        return redirect()->guest('login');
+    }
+
+    // public function render($request, Exception $exception) {
+    //     if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+    //         return redirect('/login')->withErrors(['email'=>'세션이 만료되었습니다. 다시 로그인해주세요.']);
+    //     }
+    //     return parent::render($request, $exception);
+    // }
+
 }

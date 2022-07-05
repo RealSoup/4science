@@ -56,6 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'UserInput': function UserInput() {
@@ -70,58 +71,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user[data-v-20e46888] { margin-top:1.5rem;\n}\r\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_style_index_0_id_20e46888_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_style_index_0_id_20e46888_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_style_index_0_id_20e46888_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
 /***/ "./resources/js/views/admin/shop/estimate/FormUser.vue":
 /*!*************************************************************!*\
   !*** ./resources/js/views/admin/shop/estimate/FormUser.vue ***!
@@ -132,25 +81,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html& */ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html&");
+/* harmony import */ var _FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormUser.vue?vue&type=template&id=20e46888& */ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&");
 /* harmony import */ var _FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormUser.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=script&lang=js&");
-/* harmony import */ var _FormUser_vue_vue_type_style_index_0_id_20e46888_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& */ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
-;
 
 
 /* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "20e46888",
+  null,
   null
   
 )
@@ -177,38 +124,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& ***!
-  \**********************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_style_index_0_id_20e46888_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=style&index=0&id=20e46888&lang=css&scoped=true&");
-
-
-/***/ }),
-
-/***/ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html& ***!
-  \******************************************************************************************************************/
+/***/ "./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888& ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_20e46888___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=template&id=20e46888& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html&":
-/*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&scoped=true&lang=html& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormUser.vue?vue&type=template&id=20e46888& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -221,185 +156,193 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "user" },
+    "b-card",
+    { staticClass: "adform" },
     [
-      _c("div", { staticClass: "m_title" }, [_vm._v("요청자")]),
-      _vm._v(" "),
       _c(
-        "b-row",
+        "b-container",
         [
           _c(
-            "b-col",
+            "b-row",
+            [_c("b-col", { staticClass: "tit" }, [_vm._v("요청자")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
             [
-              _c("UserInput", {
-                attrs: { type: "name", frm: _vm.value },
-                model: {
-                  value: _vm.value.eq_name,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "eq_name", $$v)
-                  },
-                  expression: "value.eq_name",
-                },
-              }),
+              _c("b-col", { staticClass: "label" }, [_vm._v("이름")]),
               _vm._v(" "),
-              _c("Validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_name },
-              }),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("UserInput", {
+                    attrs: { type: "name", frm: _vm.value },
+                    model: {
+                      value: _vm.value.eq_name,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_name", $$v)
+                      },
+                      expression: "value.eq_name",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("Validation", {
+                    attrs: {
+                      error: _vm.$store.state.error.validations.eq_name,
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("이메일")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("UserInput", {
+                    attrs: { type: "email", frm: _vm.value },
+                    model: {
+                      value: _vm.value.eq_email,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_email", $$v)
+                      },
+                      expression: "value.eq_email",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("Validation", {
+                    attrs: {
+                      error: _vm.$store.state.error.validations.eq_email,
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("소속")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("UserInput", {
+                    attrs: { type: "department", frm: _vm.value },
+                    model: {
+                      value: _vm.value.eq_department,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_department", $$v)
+                      },
+                      expression: "value.eq_department",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("Validation", {
+                    attrs: {
+                      error: _vm.$store.state.error.validations.eq_department,
+                    },
+                  }),
+                ],
+                1
+              ),
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "b-col",
+            "b-row",
             [
-              _c("UserInput", {
-                attrs: { type: "email", frm: _vm.value },
-                model: {
-                  value: _vm.value.eq_email,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "eq_email", $$v)
-                  },
-                  expression: "value.eq_email",
-                },
-              }),
+              _c("b-col", { staticClass: "label" }, [_vm._v("휴대폰")]),
               _vm._v(" "),
-              _c("Validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_email },
-              }),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("UserInput", {
+                    attrs: { type: "hp", frm: _vm.value },
+                    model: {
+                      value: _vm.value.eq_hp,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_hp", $$v)
+                      },
+                      expression: "value.eq_hp",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("Validation", {
+                    attrs: { error: _vm.$store.state.error.validations.eq_hp },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("일반전화")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("b-form-input", {
+                    attrs: { formatter: _vm.formatTel },
+                    model: {
+                      value: _vm.value.eq_tel,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_tel", $$v)
+                      },
+                      expression: "value.eq_tel",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("팩스")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type02" },
+                [
+                  _c("b-form-input", {
+                    attrs: { formatter: _vm.formatTel },
+                    model: {
+                      value: _vm.value.eq_fax,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.value, "eq_fax", $$v)
+                      },
+                      expression: "value.eq_fax",
+                    },
+                  }),
+                ],
+                1
+              ),
             ],
             1
           ),
           _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c("UserInput", {
-                attrs: { type: "department", frm: _vm.value },
-                model: {
-                  value: _vm.value.eq_department,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "eq_department", $$v)
-                  },
-                  expression: "value.eq_department",
-                },
-              }),
-              _vm._v(" "),
-              _c("Validation", {
-                attrs: {
-                  error: _vm.$store.state.error.validations.eq_department,
-                },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c("UserInput", {
-                attrs: { type: "hp", frm: _vm.value },
-                model: {
-                  value: _vm.value.eq_hp,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "eq_hp", $$v)
-                  },
-                  expression: "value.eq_hp",
-                },
-              }),
-              _vm._v(" "),
-              _c("Validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_hp },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("b-col", { staticClass: "awesome_p" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.value.eq_tel,
-                  expression: "value.eq_tel",
-                },
-              ],
-              attrs: {
-                type: "text",
-                id: "eq_tel",
-                formatter: _vm.formatTel,
-                required: "",
-              },
-              domProps: { value: _vm.value.eq_tel },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.value, "eq_tel", $event.target.value)
-                },
-              },
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "eq_tel" } }, [_vm._v("전화")]),
-          ]),
-          _vm._v(" "),
-          _c("b-col", { staticClass: "awesome_p" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.value.eq_fax,
-                  expression: "value.eq_fax",
-                },
-              ],
-              attrs: {
-                type: "text",
-                id: "eq_fax",
-                formatter: _vm.formatTel,
-                required: "",
-              },
-              domProps: { value: _vm.value.eq_fax },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.value, "eq_fax", $event.target.value)
-                },
-              },
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "eq_fax" } }, [_vm._v("팩스")]),
-          ]),
+          _vm.value.eq_content
+            ? _c(
+                "b-row",
+                [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("요청내용")]),
+                  _vm._v(" "),
+                  _c("b-col", {
+                    staticClass: "type11",
+                    domProps: {
+                      innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
+                    },
+                  }),
+                ],
+                1
+              )
+            : _vm._e(),
         ],
         1
       ),
-      _vm._v(" "),
-      _vm.value.eq_content
-        ? _c(
-            "b-row",
-            [
-              _c("b-col", { attrs: { cols: "12" } }, [_c("hr")]),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "awesome_p force" }, [
-                _c("div", {
-                  staticClass: "pt-4",
-                  domProps: {
-                    innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
-                  },
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "eq_content" } }, [
-                  _vm._v("요청내용"),
-                ]),
-              ]),
-            ],
-            1
-          )
-        : _vm._e(),
     ],
     1
   )

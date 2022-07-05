@@ -1,29 +1,23 @@
 <template lang="html">
-    <div class="awesome_p">
-        <input type="text" required autocomplete="off"
-            :id="'eq_'+type"
-            v-model="input_val"
-            @keyup.enter="getUserList"
-            v-b-tooltip.hover title="입력 후 엔터 or 버튼"
-            ref="sch_field"
-        />
-        <!-- :formatter="formatter"  -->
+<div>
+    <b-form-input autocomplete="off"
+        :id="'eq_'+type"
+        v-model="input_val"
+        @keyup.enter="getUserList"
+        v-b-tooltip.hover title="입력 후 엔터 or 버튼"
+        ref="sch_field"
+    />
 
-        <label :for="type" v-if="type=='name'">이름</label>
-        <label :for="type" v-else-if="type=='email'">이메일</label>
-        <label :for="type" v-else-if="type=='department'">소속 <small><i>직장/학교/부서/학과/연구실명</i></small></label>
-        <label :for="type" v-else-if="type=='hp'">HP</label>
-
-        <b-button @click="getUserList" size="sm"><b-icon-search /></b-button>
-        <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
-            <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)">
-                {{ us.name }}<br />
-                <p v-if="us.email">{{us.email}}</p>
-                <p v-if="us.hp">{{us.hp}}</p>
-                <p v-if="us.department">{{us.department}}</p>
-            </li>
-        </ul>
-    </div>
+    <b-button @click="getUserList" size="sm" class="overlap"><b-icon-search /></b-button>
+    <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
+        <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)">
+            {{ us.name }}<br />
+            <p v-if="us.email">{{us.email}}</p>
+            <p v-if="us.hp">{{us.hp}}</p>
+            <p v-if="us.department">{{us.department}}</p>
+        </li>
+    </ul>
+</div>
 </template>
 
 <script>

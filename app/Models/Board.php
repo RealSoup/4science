@@ -23,16 +23,16 @@ class Board extends Model {
     
 
     protected $options = [
-        'open'      => ['name'=> '열린게시판', 'wlv'=>0, 'is_comment'=>true, 'is_addFile'=>false ],
-        'notice'    => ['name'=> '공지사항',   'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>true ],
-        'goods'     => ['name'=> '상품문의',   'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>true ],
-        'event'     => ['name'=> '이벤트',     'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>false ],
-        'inquiry'   => ['name'=> '1:1문의',    'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false ],
-        'as'        => ['name'=> 'A/S신청',    'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false ],
-        'cancel'    => ['name'=> '취소/교환',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false ],
+        'gd_inquiry'=> ['name'=> '상품문의', 'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
+        'notice'    => ['name'=> '공지사항', 'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>true, 'is_qna'=>false ],
+        'review'    => ['name'=> '상품평',   'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>true, 'is_qna'=>false ],
+        'event'     => ['name'=> '이벤트',   'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>false ],
+        'inquiry'   => ['name'=> '1:1문의',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
+        'as'        => ['name'=> 'A/S신청',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
+        'cancel'    => ['name'=> '취소/교환','wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
     ];   
 
-    public function setCode($bo_cd='open') {
+    public function setCode($bo_cd) {
         $this->table = 'board_'. $bo_cd;
         self::$code = $bo_cd;
         self::$config = $this->options[$bo_cd];

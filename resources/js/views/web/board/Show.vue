@@ -16,7 +16,9 @@
         </li>
     </ul>
     <hr />
-
+<b-link :to="{name: 'bo_show', params: { bo_cd:'notice', bo_id:301 }}">
+                 1231231
+                    </b-link>
     <div class="con">
         <!-- @isset($img_file)
         @foreach($img_file as $fi)
@@ -96,6 +98,12 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
+    },
+    beforeRouteUpdate (to, from, next) {
+        // console.log(to, from);
+        this.bo_id = to.params.bo_id;
+        this.show();
+        next();
     },
     mounted() {
         this.show();

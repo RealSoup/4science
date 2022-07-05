@@ -215,9 +215,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEdit',
@@ -227,45 +224,72 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'Mileage': function Mileage() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_user__comp_Mileage_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Mileage.vue */ "./resources/js/views/admin/user/_comp/Mileage.vue"));
+    },
+    'Order': function Order() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_order__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/order/_comp/List.vue */ "./resources/js/views/admin/shop/order/_comp/List.vue"));
+    },
+    'Estimate': function Estimate() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/List.vue */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
     }
   },
   data: function data() {
     return {
       isModalViewed: false,
-      frm: {}
+      frm: {
+        option: [],
+        user_mng: {}
+      },
+      order: [],
+      estimate: []
     };
   },
   mounted: function mounted() {
-    this.edit();
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var user, od, eq;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/user/".concat(_this.$route.params.id, "/edit"));
+
+            case 2:
+              user = _context.sent;
+              if (user && user.status === 200) _this.frm = user.data;
+              _context.next = 6;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/order/", {
+                params: {
+                  writer: _this.$route.params.id,
+                  limit: 10
+                }
+              });
+
+            case 6:
+              od = _context.sent;
+              if (od && od.status === 200) _this.order = od.data.list;
+              _context.next = 10;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/", {
+                params: {
+                  writer: _this.$route.params.id,
+                  limit: 10
+                }
+              });
+
+            case 10:
+              eq = _context.sent;
+              if (eq && eq.status === 200) _this.estimate = eq.data.list;
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   methods: {
-    edit: function edit() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/user/".concat(_this.$route.params.id, "/edit"));
-
-              case 2:
-                res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.frm = res.data;
-                }
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
     update: function update() {
       var _this2 = this;
 
@@ -287,7 +311,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 res = _context2.sent;
 
-                if (res && res.status === 200) {}
+                if (res && res.status === 200) {
+                  Notify.toast('success', '수정 완료');
+                }
 
               case 5:
               case "end":
@@ -318,7 +344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user .row[data-v-fbc80902] { margin-bottom:1rem;\n}\n.card .row .col div span[data-v-fbc80902] { margin-right:1rem;\n}\n.card .row .col div span svg[data-v-fbc80902] { margin-right:0.5rem;\n}\n.card .row .col div.awesome_p.force[data-v-fbc80902],\r\n.card .row .col div select[data-v-fbc80902] { display:inline-block; width:auto;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.card .row .checkbox01[data-v-fbc80902],\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\n.modalForm-enter-active[data-v-fbc80902],\r\n.modalForm-leave-active[data-v-fbc80902] { transition: opacity .3s;\n}\n.modalForm-enter[data-v-fbc80902],\r\n.modalForm-leave-to[data-v-fbc80902] { opacity: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card.ctrl .row[data-v-fbc80902] { align-items:center;\n}\n.card.ctrl .row .col .type_icon[data-v-fbc80902] { display:inline-block; margin-right:25px;\n}\n.card.ctrl .row .col .type_icon svg[data-v-fbc80902] { margin-right:10px;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.card .row .checkbox01[data-v-fbc80902],\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -454,42 +480,44 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "p_warp" },
     [
-      _c("h3", [_vm._v("회원 정보 수정")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("회원 정보 수정")]),
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow mb-2 sticky-top p-2", attrs: { "no-body": "" } },
+        { staticClass: "ctrl", attrs: { "no-body": "" } },
         [
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
               _c(
                 "b-row",
                 [
-                  _c(
-                    "b-col",
-                    { attrs: { cols: "12", sm: "6" } },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { size: "sm", variant: "danger" },
-                          on: { click: _vm.destroy },
-                        },
-                        [_vm._v("삭제")]
-                      ),
-                    ],
-                    1
-                  ),
+                  _c("b-col", [
+                    _c(
+                      "div",
+                      { staticClass: "type_icon" },
+                      [_c("b-icon-tags-fill"), _vm._v(_vm._s(_vm.frm.id))],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "type_icon" },
+                      [
+                        _c("b-icon-calendar2-date-fill"),
+                        _vm._v(
+                          _vm._s(_vm._f("formatDate")(_vm.frm.created_at))
+                        ),
+                      ],
+                      1
+                    ),
+                  ]),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "text-right",
-                      attrs: { cols: "12", sm: "6" },
-                    },
+                    { staticClass: "text-right" },
                     [
                       _c(
                         "b-button-group",
@@ -499,7 +527,6 @@ var render = function () {
                             "b-button",
                             {
                               attrs: {
-                                size: "sm",
                                 variant: "light",
                                 to: { name: "adm_user" },
                               },
@@ -511,11 +538,24 @@ var render = function () {
                           _c(
                             "b-button",
                             {
-                              attrs: { size: "sm", variant: "primary" },
+                              attrs: { variant: "primary" },
                               on: { click: _vm.update },
                             },
                             [_c("b-icon-pencil-square"), _vm._v("수정 완료")],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "info" },
+                              on: {
+                                click: function ($event) {
+                                  _vm.isModalViewed = !_vm.isModalViewed
+                                },
+                              },
+                            },
+                            [_vm._v("마일리지")]
                           ),
                         ],
                         1
@@ -535,99 +575,25 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        {
-          staticClass: "shadow mt-3 user",
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("h4", [_vm._v("회원 정보")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        { staticClass: "adform" },
         [
-          _vm._v(" "),
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
               _c(
                 "b-row",
+                [_c("b-col", { staticClass: "tit" }, [_vm._v("회원정보")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
                 [
-                  _c(
-                    "b-col",
-                    {
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
-                    [
-                      _c("div", [
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "b-tooltip",
-                                rawName: "v-b-tooltip.hover",
-                                modifiers: { hover: true },
-                              },
-                            ],
-                            attrs: { title: "회원고유번호" },
-                          },
-                          [
-                            _c("font-awesome-icon", {
-                              attrs: { icon: "tags" },
-                            }),
-                            _vm._v(_vm._s(_vm.frm.id)),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            directives: [
-                              {
-                                name: "b-tooltip",
-                                rawName: "v-b-tooltip.hover",
-                                modifiers: { hover: true },
-                              },
-                            ],
-                            attrs: { title: "가입일" },
-                          },
-                          [
-                            _c("b-icon-calendar2-date-fill"),
-                            _vm._v(
-                              _vm._s(_vm._f("formatDate")(_vm.frm.created_at))
-                            ),
-                          ],
-                          1
-                        ),
-                      ]),
-                    ]
-                  ),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("회원 유형")]),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c(
                         "b-form-select",
@@ -641,58 +607,24 @@ var render = function () {
                             expression: "frm.group",
                           },
                         },
-                        [
-                          _c("b-form-select-option", { attrs: { value: "" } }, [
-                            _vm._v("◖회원 유형◗"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
+                        _vm._l(_vm.frm.option.group, function (v, i) {
+                          return _c(
                             "b-form-select-option",
-                            { attrs: { value: "일반" } },
-                            [_vm._v("일반")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "특별" } },
-                            [_vm._v("특별")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "미수" } },
-                            [_vm._v("미수")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "후불" } },
-                            [_vm._v("후불")]
-                          ),
-                        ],
+                            { key: i, attrs: { value: i } },
+                            [_vm._v(_vm._s(v))]
+                          )
+                        }),
                         1
                       ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "group" } }, [
-                        _vm._v("회원 유형"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("회원등급")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c(
                         "b-form-select",
@@ -707,11 +639,7 @@ var render = function () {
                           },
                         },
                         [
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "0" } },
-                            [_vm._v("◖회원등급◗")]
-                          ),
+                          _c("b-form-select-option", { attrs: { value: "0" } }),
                           _vm._v(" "),
                           _vm._l(_vm.frm.option.grade, function (grade, k) {
                             return _c(
@@ -723,27 +651,15 @@ var render = function () {
                         ],
                         2
                       ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "level" } }, [
-                        _vm._v("회원등급"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("담당자")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c(
                         "b-form-select",
@@ -758,11 +674,7 @@ var render = function () {
                           },
                         },
                         [
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "0" } },
-                            [_vm._v("◖담당자◗")]
-                          ),
+                          _c("b-form-select-option", { attrs: { value: "0" } }),
                           _vm._v(" "),
                           _vm._l(_vm.frm.mng_list, function (v, k) {
                             return _c(
@@ -774,10 +686,6 @@ var render = function () {
                         ],
                         2
                       ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "mng" } }, [
-                        _vm._v("담당자"),
-                      ]),
                     ],
                     1
                   ),
@@ -788,22 +696,13 @@ var render = function () {
               _c(
                 "b-row",
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("이름")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "name", required: "" },
                         model: {
                           value: _vm.frm.name,
                           callback: function ($$v) {
@@ -812,28 +711,17 @@ var render = function () {
                           expression: "frm.name",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "name" } }, [_vm._v("이름")]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("이메일")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "email", required: "" },
                         model: {
                           value: _vm.frm.email,
                           callback: function ($$v) {
@@ -842,20 +730,13 @@ var render = function () {
                           expression: "frm.email",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "email" } }, [
-                        _vm._v("이메일"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "checkbox01",
-                      attrs: { col: "", xl: "1", lg: "2", sm: "3", cols: "6" },
-                    },
+                    { staticClass: "checkbox01" },
                     [
                       _c(
                         "b-form-checkbox",
@@ -875,29 +756,34 @@ var render = function () {
                           },
                         },
                         [
-                          _vm._v("\n                        수신 동의 "),
-                          _vm.frm.receive_mail == "N"
-                            ? _c("b", [_vm._v("안함")])
-                            : _vm._e(),
+                          _vm._v(
+                            "\n                        수신\n                        "
+                          ),
+                          _vm.frm.receive_mail == "Y"
+                            ? _c("b", [_vm._v("동의")])
+                            : _c("b", [_vm._v("안함")]),
                         ]
                       ),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("성별")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      attrs: { col: "", xl: "1", lg: "2", sm: "3", cols: "6" },
-                    },
+                    { staticClass: "type01" },
                     [
                       _c(
                         "b-form-checkbox",
                         {
                           attrs: {
                             button: "",
+                            size: "sm",
                             value: "male",
                             "unchecked-value": "female",
+                            "button-variant":
+                              _vm.frm.sex == "male" ? "primary" : "danger",
                           },
                           model: {
                             value: _vm.frm.sex,
@@ -909,28 +795,21 @@ var render = function () {
                         },
                         [
                           _vm.frm.sex == "male"
-                            ? _c("b", [_vm._v("남")])
-                            : _c("b", [_vm._v("여")]),
+                            ? [_vm._v("남")]
+                            : [_vm._v("여")],
                           _vm._v("자\n                    "),
-                        ]
+                        ],
+                        2
                       ),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("생년월일")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c(
                         "b-input-group",
@@ -976,10 +855,6 @@ var render = function () {
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "birth" } }, [
-                        _vm._v("생년월일"),
-                      ]),
                     ],
                     1
                   ),
@@ -990,22 +865,13 @@ var render = function () {
               _c(
                 "b-row",
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("일반전화")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "tel", required: "" },
                         model: {
                           value: _vm.frm.tel,
                           callback: function ($$v) {
@@ -1014,30 +880,17 @@ var render = function () {
                           expression: "frm.tel",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "tel" } }, [
-                        _vm._v("일반전화"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("휴대폰")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "hp", required: "" },
                         model: {
                           value: _vm.frm.hp,
                           callback: function ($$v) {
@@ -1046,18 +899,13 @@ var render = function () {
                           expression: "frm.hp",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "hp" } }, [_vm._v("휴대폰")]),
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "checkbox01",
-                      attrs: { col: "", xl: "1", lg: "2", sm: "3", cols: "6" },
-                    },
+                    { staticClass: "checkbox01" },
                     [
                       _c(
                         "b-form-checkbox",
@@ -1077,32 +925,25 @@ var render = function () {
                           },
                         },
                         [
-                          _vm._v("\n                        수신 동의 "),
-                          _vm.frm.receive_sms == "N"
-                            ? _c("b", [_vm._v("안함")])
-                            : _vm._e(),
+                          _vm._v(
+                            "\n                        수신\n                        "
+                          ),
+                          _vm.frm.receive_sms == "Y"
+                            ? _c("b", [_vm._v("동의")])
+                            : _c("b", [_vm._v("안함")]),
                         ]
                       ),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("팩스")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "fax", required: "" },
                         model: {
                           value: _vm.frm.fax,
                           callback: function ($$v) {
@@ -1111,8 +952,6 @@ var render = function () {
                           expression: "frm.fax",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "fax" } }, [_vm._v("팩스")]),
                     ],
                     1
                   ),
@@ -1125,17 +964,15 @@ var render = function () {
               _c(
                 "b-row",
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("직업")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: { col: "", lg: "2", cols: "6" },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c(
                         "b-form-select",
                         {
-                          attrs: { id: "um_position" },
                           model: {
                             value: _vm.frm.job,
                             callback: function ($$v) {
@@ -1153,30 +990,19 @@ var render = function () {
                         }),
                         1
                       ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "um_position" } }, [
-                        _vm._v("직업"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [
+                    _vm._v("직장/학교명"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "office", required: "" },
                         model: {
                           value: _vm.frm.office,
                           callback: function ($$v) {
@@ -1185,30 +1011,21 @@ var render = function () {
                           expression: "frm.office",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "office" } }, [
-                        _vm._v("직장/학교명"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("부서/학과/"),
+                    _c("br"),
+                    _vm._v("연구실명"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "department", required: "" },
                         model: {
                           value: _vm.frm.department,
                           callback: function ($$v) {
@@ -1217,30 +1034,17 @@ var render = function () {
                           expression: "frm.department",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "department" } }, [
-                        _vm._v("부서/학과/연구실명"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("직급/학년")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "grade", required: "" },
                         model: {
                           value: _vm.frm.grade,
                           callback: function ($$v) {
@@ -1249,30 +1053,19 @@ var render = function () {
                           expression: "frm.grade",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "grade" } }, [
-                        _vm._v("직급/학년"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("지도/담당교수"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "tutor", required: "" },
                         model: {
                           value: _vm.frm.tutor,
                           callback: function ($$v) {
@@ -1281,30 +1074,19 @@ var render = function () {
                           expression: "frm.tutor",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "tutor" } }, [
-                        _vm._v("지도/담당교수"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("추천인 Email"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "offer", required: "" },
                         model: {
                           value: _vm.frm.offer,
                           callback: function ($$v) {
@@ -1313,36 +1095,19 @@ var render = function () {
                           expression: "frm.offer",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "offer" } }, [
-                        _vm._v("추천인 Email"),
-                      ]),
                     ],
                     1
                   ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("추천인연구실"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p",
-                      attrs: {
-                        col: "",
-                        xl: "2",
-                        lg: "2",
-                        md: "3",
-                        sm: "4",
-                        cols: "6",
-                      },
-                    },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
-                        attrs: { id: "offer_lab", required: "" },
                         model: {
                           value: _vm.frm.offer_lab,
                           callback: function ($$v) {
@@ -1351,53 +1116,34 @@ var render = function () {
                           expression: "frm.offer_lab",
                         },
                       }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "offer_lab" } }, [
-                        _vm._v("추천인연구실"),
-                      ]),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("가입경로")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    {
-                      staticClass: "awesome_p force",
-                      attrs: { col: "", lg: "2", cols: "6" },
-                    },
+                    { staticClass: "type02" },
                     [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { id: "um_position" },
-                          model: {
-                            value: _vm.frm.join_route,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.frm, "join_route", $$v)
-                            },
-                            expression: "frm.join_route",
+                      _c("b-form-input", {
+                        model: {
+                          value: _vm.frm.join_route,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.frm, "join_route", $$v)
                           },
+                          expression: "frm.join_route",
                         },
-                        _vm._l(_vm.frm.option.join_route, function (v, k) {
-                          return _c(
-                            "b-form-select-option",
-                            { key: k, attrs: { value: v } },
-                            [_vm._v(_vm._s(v))]
-                          )
-                        }),
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "join_route" } }, [
-                        _vm._v("가입경로"),
-                      ]),
+                      }),
                     ],
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("관심분야")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "awesome_p force pt-2" },
+                    { staticClass: "type11" },
                     [
                       _vm._v(
                         "\n                    " + _vm._s(_vm.frm.interest)
@@ -1405,63 +1151,12 @@ var render = function () {
                       _vm.frm.interest_etc
                         ? [_vm._v(", " + _vm._s(_vm.frm.interest_etc))]
                         : _vm._e(),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "office" } }, [
-                        _vm._v("관심분야"),
-                      ]),
                     ],
                     2
                   ),
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          on: {
-                            click: function ($event) {
-                              _vm.isModalViewed = !_vm.isModalViewed
-                            },
-                          },
-                        },
-                        [_vm._v("마일리지")]
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "transition",
-            { attrs: { name: "modalForm" } },
-            [
-              _vm.isModalViewed
-                ? _c(
-                    "Modal",
-                    {
-                      attrs: { max_width: 700 },
-                      on: {
-                        "close-modal": function ($event) {
-                          _vm.isModalViewed = false
-                        },
-                      },
-                    },
-                    [_c("Mileage")],
-                    1
-                  )
-                : _vm._e(),
             ],
             1
           ),
@@ -1469,38 +1164,29 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm.frm.level > 19
+      _vm.frm.level > 10
         ? _c(
             "b-card",
-            {
-              staticClass: "shadow mt-3",
-              scopedSlots: _vm._u(
-                [
-                  {
-                    key: "header",
-                    fn: function () {
-                      return [_c("h4", [_vm._v("관리자 정보")])]
-                    },
-                    proxy: true,
-                  },
-                ],
-                null,
-                false,
-                2974719892
-              ),
-            },
+            { staticClass: "adform" },
             [
-              _vm._v(" "),
               _c(
                 "b-container",
-                { attrs: { fluid: "" } },
                 [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "tit" }, [
+                        _vm._v("관리자 정보"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c(
                     "b-row",
                     [
                       _c(
                         "b-col",
-                        { attrs: { col: "", lg: "2", cols: "6" } },
                         [
                           _c(
                             "b-form-checkbox",
@@ -1530,12 +1216,11 @@ var render = function () {
                         1
                       ),
                       _vm._v(" "),
+                      _c("b-col", { staticClass: "label" }, [_vm._v("직위")]),
+                      _vm._v(" "),
                       _c(
                         "b-col",
-                        {
-                          staticClass: "awesome_p force",
-                          attrs: { col: "", lg: "2", cols: "6" },
-                        },
+                        { staticClass: "type02" },
                         [
                           _c(
                             "b-form-select",
@@ -1549,32 +1234,24 @@ var render = function () {
                                 expression: "frm.user_mng.um_position",
                               },
                             },
-                            _vm._l(
-                              _vm.frm.user_mng.mng_info.position,
-                              function (p, k) {
-                                return _c(
-                                  "b-form-select-option",
-                                  { key: k, attrs: { value: k } },
-                                  [_vm._v(_vm._s(p))]
-                                )
-                              }
-                            ),
+                            _vm._l(_vm.frm.mng_info.position, function (p, k) {
+                              return _c(
+                                "b-form-select-option",
+                                { key: k, attrs: { value: k } },
+                                [_vm._v(_vm._s(p))]
+                              )
+                            }),
                             1
                           ),
-                          _vm._v(" "),
-                          _c("label", { attrs: { for: "um_position" } }, [
-                            _vm._v("직위"),
-                          ]),
                         ],
                         1
                       ),
                       _vm._v(" "),
+                      _c("b-col", { staticClass: "label" }, [_vm._v("소속팀")]),
+                      _vm._v(" "),
                       _c(
                         "b-col",
-                        {
-                          staticClass: "awesome_p force",
-                          attrs: { col: "", lg: "2", cols: "6" },
-                        },
+                        { staticClass: "type02" },
                         [
                           _c(
                             "b-form-select",
@@ -1588,22 +1265,61 @@ var render = function () {
                                 expression: "frm.user_mng.um_group",
                               },
                             },
-                            _vm._l(
-                              _vm.frm.user_mng.mng_info.group,
-                              function (g, k) {
-                                return _c(
-                                  "b-form-select-option",
-                                  { key: k, attrs: { value: k } },
-                                  [_vm._v(_vm._s(g))]
-                                )
-                              }
-                            ),
+                            _vm._l(_vm.frm.mng_info.group, function (g, k) {
+                              return _c(
+                                "b-form-select-option",
+                                { key: k, attrs: { value: k } },
+                                [_vm._v(_vm._s(g))]
+                              )
+                            }),
                             1
                           ),
-                          _vm._v(" "),
-                          _c("label", { attrs: { for: "um_group" } }, [
-                            _vm._v("소속팀"),
-                          ]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "label" }, [_vm._v("직책")]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "type02" },
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              attrs: { id: "um_responsibility" },
+                              model: {
+                                value: _vm.frm.user_mng.um_responsibility,
+                                callback: function ($$v) {
+                                  _vm.$set(
+                                    _vm.frm.user_mng,
+                                    "um_responsibility",
+                                    $$v
+                                  )
+                                },
+                                expression: "frm.user_mng.um_responsibility",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: null } },
+                                [_vm._v("◖없음◗")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(
+                                _vm.frm.mng_info.responsibility,
+                                function (p, k) {
+                                  return _c(
+                                    "b-form-select-option",
+                                    { key: k, attrs: { value: k } },
+                                    [_vm._v(_vm._s(p))]
+                                  )
+                                }
+                              ),
+                            ],
+                            2
+                          ),
                         ],
                         1
                       ),
@@ -1617,6 +1333,83 @@ var render = function () {
             1
           )
         : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "b-card",
+        [
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { staticClass: "tit" }, [
+                    _vm._v("최근 주문 내역"),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("Order", { attrs: { list: _vm.order } }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-card",
+        [
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { staticClass: "tit" }, [
+                    _vm._v("최근 견적 내역"),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("Estimate", { attrs: { list: _vm.estimate } }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "modal" } },
+        [
+          _vm.isModalViewed
+            ? _c(
+                "Modal",
+                {
+                  attrs: { max_width: 700 },
+                  on: {
+                    "close-modal": function ($event) {
+                      _vm.isModalViewed = false
+                    },
+                  },
+                },
+                [
+                  _c("template", { staticClass: "tit", slot: "header" }, [
+                    _vm._v("마일리지 목록"),
+                  ]),
+                  _vm._v(" "),
+                  _c("Mileage"),
+                ],
+                2
+              )
+            : _vm._e(),
+        ],
+        1
+      ),
     ],
     1
   )

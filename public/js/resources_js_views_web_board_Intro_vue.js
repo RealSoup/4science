@@ -70,7 +70,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       open: [],
       notice: [],
-      goods: [],
+      gd_inquiry: [],
       event: [],
       blog: [{
         bo_id: 1,
@@ -107,14 +107,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/open", {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/notice", {
                   params: {
                     'limit': 5
                   }
@@ -122,53 +121,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context.sent;
-                if (res && res.status === 200) _this.open = res.data.list;
-                _context.next = 7;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/notice", {
-                  params: {
-                    'limit': 5
-                  }
-                });
-
-              case 7:
-                res = _context.sent;
                 if (res && res.status === 200) _this.notice = res.data.list;
-                _context.next = 11;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/goods", {
+                _context.next = 7;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/gd_inquiry", {
                   params: {
                     'limit': 3,
                     'type': 'photo'
                   }
                 });
 
-              case 11:
+              case 7:
                 res = _context.sent;
-                if (res && res.status === 200) _this.goods = res.data.list;
-                _context.next = 15;
+                if (res && res.status === 200) _this.gd_inquiry = res.data.list;
+                _context.next = 11;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/event", {
                   params: {
                     'limit': 5
                   }
                 });
 
-              case 15:
+              case 11:
                 res = _context.sent;
                 if (res && res.status === 200) _this.event = res.data.list;
-                _context.next = 23;
+                _context.next = 19;
                 break;
 
-              case 19:
-                _context.prev = 19;
+              case 15:
+                _context.prev = 15;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 23:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 19]]);
+        }, _callee, null, [[0, 15]]);
       }))();
     }
   }
@@ -339,25 +328,6 @@ var render = function () {
                 "b-link",
                 {
                   attrs: {
-                    to: { name: "bo_index", params: { bo_cd: "open" } },
-                  },
-                },
-                [_vm._v("열린게시판 "), _c("b-icon-plus-square-fill")],
-                1
-              ),
-              _vm._v(" "),
-              _c("IntroList", { attrs: { list: _vm.open } }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-link",
-                {
-                  attrs: {
                     to: { name: "bo_index", params: { bo_cd: "notice" } },
                   },
                 },
@@ -383,7 +353,7 @@ var render = function () {
                 "b-link",
                 {
                   attrs: {
-                    to: { name: "bo_index", params: { bo_cd: "goods" } },
+                    to: { name: "bo_index", params: { bo_cd: "gd_inquiry" } },
                   },
                 },
                 [_vm._v("상품문의 "), _c("b-icon-plus-square-fill")],
@@ -391,7 +361,7 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("IntroListPhoto", {
-                attrs: { list: _vm.goods, type: "inner" },
+                attrs: { list: _vm.gd_inquiry, type: "inner" },
               }),
             ],
             1

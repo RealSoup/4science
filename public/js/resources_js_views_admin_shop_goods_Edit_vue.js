@@ -861,7 +861,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -875,6 +874,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     'Validation': function Validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
+    },
+    'Categorys': function Categorys() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
     },
     Ckeditor: _views_common_ckeditor5_Ckeditor_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
@@ -920,14 +922,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 id = 0;
                 if (dp == 0) id = 0;else if (dp == 1 && !isEmpty(_this.ca01)) id = _this.ca01.ca_id;else if (dp == 2 && !isEmpty(_this.ca02)) id = _this.ca02.ca_id;else if (dp == 3 && !isEmpty(_this.ca03)) id = _this.ca03.ca_id;
-                _context.next = 4;
+
+                if (!(dp == 0 || dp > 0 && id > 0)) {
+                  _context.next = 22;
+                  break;
+                }
+
+                _context.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/category/".concat(id));
 
-              case 4:
+              case 5:
                 res = _context.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context.next = 21;
+                  _context.next = 22;
                   break;
                 }
 
@@ -951,26 +959,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.t0 = dp;
-                _context.next = _context.t0 === 0 ? 13 : _context.t0 === 1 ? 15 : _context.t0 === 2 ? 17 : _context.t0 === 3 ? 19 : 21;
+                _context.next = _context.t0 === 0 ? 14 : _context.t0 === 1 ? 16 : _context.t0 === 2 ? 18 : _context.t0 === 3 ? 20 : 22;
                 break;
 
-              case 13:
+              case 14:
                 _this.list01 = res.data;
-                return _context.abrupt("break", 21);
+                return _context.abrupt("break", 22);
 
-              case 15:
+              case 16:
                 _this.list02 = res.data;
-                return _context.abrupt("break", 21);
+                return _context.abrupt("break", 22);
 
-              case 17:
+              case 18:
                 _this.list03 = res.data;
-                return _context.abrupt("break", 21);
+                return _context.abrupt("break", 22);
 
-              case 19:
+              case 20:
                 _this.list04 = res.data;
-                return _context.abrupt("break", 21);
+                return _context.abrupt("break", 22);
 
-              case 21:
+              case 22:
               case "end":
                 return _context.stop();
             }
@@ -983,11 +991,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         Notify.modal("카테고리를 선택하세요.");
       } else {
         var ca = {};
-
-        if (!isEmpty(this.ca01)) {
-          ca.gc_ca01 = this.ca01.ca_id;
-          ca.gc_ca01_name = this.ca01.ca_name;
-        }
+        ca.gc_ca01 = this.ca01.ca_id;
+        ca.gc_ca01_name = this.ca01.ca_name;
 
         if (!isEmpty(this.ca02)) {
           ca.gc_ca02 = this.ca02.ca_id;
@@ -1005,19 +1010,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
 
         this.value.goods_category.push(ca);
-        this.ca04 = 0;
-        this.ca03 = 0;
-        this.ca02 = 0;
-        this.ca01 = 0;
+        this.ca01 = this.ca02 = this.ca03 = this.ca04 = 0;
       }
     },
     removeCate: function removeCate(i) {
-      if (this.$route.name == 'adm_goods_edit' && this.value.goods_category[i].gc_id) {
-        if (!this.value.hasOwnProperty("delete_goods_category")) this.value.delete_goods_category = Array();
-        this.value.delete_goods_category.push(this.value.goods_category[i].gc_id);
-      }
+      var _this2 = this;
 
-      this.value.goods_category.splice(i, 1);
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var rst;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return Notify.confirm('카테고리를 삭제', 'danger');
+
+              case 2:
+                rst = _context2.sent;
+
+                if (rst) {
+                  if (_this2.$route.name == 'adm_goods_edit' && _this2.value.goods_category[i].gc_id) {
+                    if (!_this2.value.hasOwnProperty("delete_goods_category")) _this2.value.delete_goods_category = Array();
+
+                    _this2.value.delete_goods_category.push(_this2.value.goods_category[i].gc_id);
+                  }
+
+                  _this2.value.goods_category.splice(i, 1);
+                }
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     insertAtModel: function insertAtModel() {
       this.value.goods_model.push({
@@ -1250,7 +1277,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { box-shadow:0 0.625rem 1.25rem #0000001a; border-radius:20px; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; height:100px; border-radius:20px; font-weight:bold; font-size:1.6rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border: 1px solid #ced4da; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; height:100px; border-radius:20px; font-weight:bold; font-size:1.6rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1281,10 +1308,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.ck-editor .ck-content  ul, ol { pad
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1298,7 +1325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.adm_goods_frm .card { margin-top:2rem; box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);}\n.adm_goods_frm .card .card-body .row { margin-top:1rem;\n}\n.adm_goods_frm #goods_cate .card-body .row:nth-child(1) .col .row { margin-top:0;\n}\n.adm_goods_frm #goods_cate .card-body .select_cate { display:flex; flex-wrap:wrap; padding:0;\n}\n.adm_goods_frm #goods_cate .card-body .selected .col .input-group { PADDING:.5rem 0;\n}\n.adm_goods_frm #goods_cate .card-body .selected .col .input-group:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.adm_goods_frm #goods_cate .card-body .selected .col .input-group .gbody { position:relative; flex:1 1 auto; width:1%; min-width:0; margin-bottom:0;\n}\n.adm_goods_frm #goods_cate .card-body .selected .col .input-group .gbody span { font-size:1.2rem; margin-right:1rem;\n}\n.adm_goods_frm #goods_cate .card-body .selected .col .input-group .gbody svg { margin-right:1rem;\n}\n#goods_model .card-body { padding-left:.5rem; padding-right:.5rem;\n}\n#goods_model .card-body .row .col { padding-left:10px; padding-right:10px;\n}\n#goods_model .card-body .row .col .bundle_box { position:absolute; top:2rem; right:0; width:300px; margin-top:.5rem; z-index:1;\n}\n#goods_model .card-body .row .col .bundle_box .card { margin-top:0;\n}\n#goods_model .card-body .row .col .bundle_box .card header button { padding-top: 0.1rem; padding-bottom: 0.1rem; float:right;\n}\n#goods_model .card-body .row .col.ctrlBox button { padding-left:.4rem; padding-right:.4rem;\n}\n#goods_option_child { margin-top:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cate .selecter[data-v-311c4b87] { border-bottom:2px solid #000; padding-bottom:1rem; margin-bottom:1rem;\n}\n.cate .selecter div[data-v-311c4b87]:first-child { display:flex; flex-wrap:wrap; padding:0;\n}\n.cate .selected[data-v-311c4b87]:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.cate .selected .col[data-v-311c4b87] { display:flex; align-items:center; padding:.5rem;\n}\n.cate .selected .col .btn[data-v-311c4b87] { padding:0 3px; margin-left:2rem;\n}\n.cate .selected .col>svg[data-v-311c4b87] { margin:0 1rem; font-size:1.5rem; color:#000;\n}\n.model .head .col[data-v-311c4b87] { text-align:center;\n}\n.model .row .col .bundle_box[data-v-311c4b87] { position:absolute; top:2rem; right:0; width:300px; margin-top:.5rem; z-index:1;\n}\n.model .row .col .bundle_box .card[data-v-311c4b87] { margin-top:0;\n}\n.model .row .col .bundle_box .card header button[data-v-311c4b87] { padding-top: 0.1rem; padding-bottom: 0.1rem; float:right;\n}\n.model .row .col.ctrlBox[data-v-311c4b87] { text-align:right;\n}\n.model .row .col.ctrlBox button[data-v-311c4b87] { padding-left:.4rem; padding-right:.4rem;\n}\n.option.adform .row .label[data-v-311c4b87] { flex:0 0 12%; max-width:12%;\n}\n.option.adform .row .label + .type04[data-v-311c4b87] { flex: 0 0 29.666667%; max-width:29.666667%;\n}\n.option.adform .row .label + .type05[data-v-311c4b87] { flex: 0 0 38%; max-width:38%;\n}\n.option.adform .row .col .btn-xm[data-v-311c4b87] { padding:.1rem .2rem; font-size: 0.7rem;\n}\n.option .head>div[data-v-311c4b87] { text-align:center;\n}\n.option .body[data-v-311c4b87] { align-items: flex-start !important;\n}\n.option .body>.col:first-child span[data-v-311c4b87] { color:#dc3545; cursor:pointer;\n}\n.option .body>.col:first-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n.option .body>.col .row .col[data-v-311c4b87] { padding-top:0;\n}\n.option .body>.col .row .col:last-child span[data-v-311c4b87] { cursor:pointer;\n}\n.option .body>.col .row .col:last-child span.add[data-v-311c4b87] { color:#17a2b8;\n}\n.option .body>.col .row .col:last-child span.del[data-v-311c4b87] { color:#dc3545;\n}\n.option .body>.col .row .col:last-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5106,10 +5133,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5119,7 +5146,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=style&index=1&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_id_311c4b87_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&");
 
             
 
@@ -5128,11 +5155,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_id_311c4b87_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_id_311c4b87_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -5298,10 +5325,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=311c4b87&lang=html& */ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html&");
+/* harmony import */ var _Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=311c4b87&scoped=true& */ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true&");
 /* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=script&lang=js&");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _Form_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form.vue?vue&type=style&index=1&lang=css& */ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&");
+/* harmony import */ var _Form_vue_vue_type_style_index_1_id_311c4b87_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& */ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -5314,11 +5341,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_4__["default"])(
   _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "311c4b87",
   null
   
 )
@@ -5433,15 +5460,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=style&index=1&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_style_index_1_id_311c4b87_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=style&index=1&id=311c4b87&lang=css&scoped=true&");
 
 
 /***/ }),
@@ -5497,19 +5524,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true& ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=311c4b87&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_311c4b87_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=311c4b87&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true&");
 
 
 /***/ }),
@@ -5690,16 +5717,16 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { staticClass: "p_warp" },
     [
-      _c("h3", [_vm._v("수정")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 수정")]),
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow mb-2 sticky-top p-2", attrs: { "no-body": "" } },
+        { staticClass: "ctrl", attrs: { "no-body": "" } },
         [
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
               _c(
                 "b-row",
@@ -5808,10 +5835,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&lang=html& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/goods/Form.vue?vue&type=template&id=311c4b87&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5826,37 +5853,31 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "adm_goods_frm" },
     [
       _c(
         "b-card",
-        {
-          attrs: { id: "goods_cate", "header-tag": "header" },
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("상품 카테고리")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        { staticClass: "cate" },
         [
-          _vm._v(" "),
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
               _c(
                 "b-row",
                 [
+                  _c("b-col", { staticClass: "tit" }, [
+                    _vm._v("상품 카테고리"),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "selecter" },
+                [
                   _c(
                     "b-col",
-                    {
-                      staticClass: "select_cate",
-                      attrs: { sm: "12", md: "11" },
-                    },
+                    { attrs: { sm: "12", md: "11" } },
                     [
                       _c("b-col", { attrs: { sm: "12", md: "6", lg: "3" } }, [
                         _c(
@@ -5896,13 +5917,14 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("◄ 카테고리 1 ►"),
+                              _vm._v("◖카테고리 1◗"),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.list01, function (opt) {
                               return _c(
                                 "option",
                                 {
+                                  key: opt.ca_id,
                                   domProps: {
                                     value: {
                                       ca_id: opt.ca_id,
@@ -5955,13 +5977,14 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("◄ 카테고리 2 ►"),
+                              _vm._v("◖카테고리 2◗"),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.list02, function (opt) {
                               return _c(
                                 "option",
                                 {
+                                  key: opt.ca_id,
                                   domProps: {
                                     value: {
                                       ca_id: opt.ca_id,
@@ -6014,13 +6037,14 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("◄ 카테고리 3 ►"),
+                              _vm._v("◖카테고리 3◗"),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.list03, function (opt) {
                               return _c(
                                 "option",
                                 {
+                                  key: opt.ca_id,
                                   domProps: {
                                     value: {
                                       ca_id: opt.ca_id,
@@ -6067,13 +6091,14 @@ var render = function () {
                           },
                           [
                             _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("◄ 카테고리 4 ►"),
+                              _vm._v("◖카테고리 4◗"),
                             ]),
                             _vm._v(" "),
                             _vm._l(_vm.list04, function (opt) {
                               return _c(
                                 "option",
                                 {
+                                  key: opt.ca_id,
                                   domProps: {
                                     value: {
                                       ca_id: opt.ca_id,
@@ -6099,10 +6124,10 @@ var render = function () {
                       _c(
                         "b-button",
                         {
-                          attrs: { variant: "primary", block: "" },
+                          attrs: { variant: "info", size: "sm" },
                           on: { click: _vm.add_cate },
                         },
-                        [_c("b-icon-arrow-return-left"), _vm._v(" 추가")],
+                        [_c("b-icon-plus-lg"), _vm._v(" 추가")],
                         1
                       ),
                     ],
@@ -6112,84 +6137,54 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "b-row",
-                { staticClass: "selected", attrs: { cols: "12" } },
-                [
-                  _c(
-                    "b-col",
-                    _vm._l(_vm.value.goods_category, function (ca, i) {
-                      return _c(
-                        "b-input-group",
-                        { key: i, attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "gbody" },
-                            [
-                              _c("span", [_vm._v(_vm._s(ca.gc_ca01_name))]),
-                              _vm._v(" "),
-                              ca.gc_ca02
-                                ? [
-                                    _c("b-icon-chevron-right"),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(_vm._s(ca.gc_ca02_name)),
-                                    ]),
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              ca.gc_ca03
-                                ? [
-                                    _c("b-icon-chevron-right"),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(_vm._s(ca.gc_ca03_name)),
-                                    ]),
-                                  ]
-                                : _vm._e(),
-                              _vm._v(" "),
-                              ca.gc_ca04
-                                ? [
-                                    _c("b-icon-chevron-right"),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(_vm._s(ca.gc_ca04_name)),
-                                    ]),
-                                  ]
-                                : _vm._e(),
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "danger" },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.removeCate(i)
-                                    },
-                                  },
-                                },
-                                [_c("b-icon-trash-fill")],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      )
-                    }),
-                    1
-                  ),
-                ],
-                1
-              ),
+              _vm._l(_vm.value.goods_category, function (ca, i) {
+                return _c(
+                  "b-row",
+                  { key: i, staticClass: "selected" },
+                  [
+                    _c(
+                      "b-col",
+                      [
+                        _c("span", [_vm._v(_vm._s(ca.gc_ca01_name))]),
+                        _vm._v(" "),
+                        ca.gc_ca02 ? _c("b-icon-chevron-right") : _vm._e(),
+                        _vm._v(" "),
+                        ca.gc_ca02
+                          ? _c("span", [_vm._v(_vm._s(ca.gc_ca02_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        ca.gc_ca03 ? _c("b-icon-chevron-right") : _vm._e(),
+                        _vm._v(" "),
+                        ca.gc_ca03
+                          ? _c("span", [_vm._v(_vm._s(ca.gc_ca03_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        ca.gc_ca04 ? _c("b-icon-chevron-right") : _vm._e(),
+                        _vm._v(" "),
+                        ca.gc_ca04
+                          ? _c("span", [_vm._v(_vm._s(ca.gc_ca04_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { pill: "", size: "sm", variant: "danger" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.removeCate(i)
+                              },
+                            },
+                          },
+                          [_c("b-icon-trash-fill")],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                )
+              }),
               _vm._v(" "),
               _c("Validation", {
                 attrs: {
@@ -6197,7 +6192,7 @@ var render = function () {
                 },
               }),
             ],
-            1
+            2
           ),
         ],
         1
@@ -6205,33 +6200,26 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        {
-          attrs: { id: "goods_info", "header-tag": "header" },
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("상품정보")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        { staticClass: "info adform" },
         [
-          _vm._v(" "),
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
               _c(
                 "b-row",
+                [_c("b-col", { staticClass: "tit" }, [_vm._v("상품정보")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("상품명")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { tag: "label", cols: "5" } },
+                    { staticClass: "type05" },
                     [
-                      _c("b", [_vm._v("상품명")]),
-                      _vm._v(" "),
                       _c("b-form-input", {
                         attrs: { id: "gd_name" },
                         model: {
@@ -6252,12 +6240,73 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("납기일")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { tag: "label", cols: "2" } },
+                    { staticClass: "type03" },
                     [
-                      _c("b", [_vm._v("제조사")]),
+                      _c("b-form-input", {
+                        attrs: { id: "gd_dlvy_at" },
+                        model: {
+                          value: _vm.value.gd_dlvy_at,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "gd_dlvy_at", $$v)
+                          },
+                          expression: "value.gd_dlvy_at",
+                        },
+                      }),
                       _vm._v(" "),
+                      _c("Validation", {
+                        attrs: {
+                          error: _vm.$store.state.error.validations.gd_dlvy_at,
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("활성화")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "type01" },
+                    [
+                      _c(
+                        "b-form-checkbox",
+                        {
+                          attrs: {
+                            switch: "",
+                            size: "lg",
+                            value: "Y",
+                            "unchecked-value": "N",
+                          },
+                          model: {
+                            value: _vm.value.gd_enable,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.value, "gd_enable", $$v)
+                            },
+                            expression: "value.gd_enable",
+                          },
+                        },
+                        [_vm._v(_vm._s(_vm.gd_enable_text))]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("제조사")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "type03" },
+                    [
                       _c(
                         "select",
                         {
@@ -6292,14 +6341,15 @@ var render = function () {
                           },
                         },
                         [
-                          _c("option", { attrs: { value: "0" } }, [
-                            _vm._v("◄ 제조사 ►"),
-                          ]),
+                          _c("option", { attrs: { value: "" } }),
                           _vm._v(" "),
                           _vm._l(_vm.makers, function (opt) {
                             return _c(
                               "option",
-                              { domProps: { value: opt.mk_id } },
+                              {
+                                key: opt.mk_id,
+                                domProps: { value: opt.mk_id },
+                              },
                               [_vm._v(_vm._s(opt.mk_name))]
                             )
                           }),
@@ -6316,101 +6366,11 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { tag: "label", cols: "3" } },
-                    [
-                      _c("b", [_vm._v("납기일")]),
-                      _vm._v(" "),
-                      _c("b-form-input", {
-                        attrs: { id: "gd_dlvy_at" },
-                        model: {
-                          value: _vm.value.gd_dlvy_at,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "gd_dlvy_at", $$v)
-                          },
-                          expression: "value.gd_dlvy_at",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: _vm.$store.state.error.validations.gd_dlvy_at,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("매입처 직배송"),
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { tag: "label", cols: "2" } },
-                    [
-                      _c("b", [_vm._v("활성화")]),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-checkbox",
-                        {
-                          attrs: {
-                            switch: "",
-                            size: "lg",
-                            value: "Y",
-                            "unchecked-value": "N",
-                          },
-                          model: {
-                            value: _vm.value.gd_enable,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.value, "gd_enable", $$v)
-                            },
-                            expression: "value.gd_enable",
-                          },
-                        },
-                        [_vm._v(_vm._s(_vm.gd_enable_text))]
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    { attrs: { tag: "label" } },
-                    [
-                      _c("b", [_vm._v("키워드")]),
-                      _vm._v(" "),
-                      _c("multiselect", {
-                        attrs: {
-                          "tag-placeholder": "새로운 키워드 추가",
-                          placeholder: "키워드를 선택 및 입력하세요",
-                          deselectLabel: "클릭 or 엔터를 눌러 제거",
-                          selectedLabel: "선택됨",
-                          label: "hs_tag",
-                          "track-by": "hs_id",
-                          options: _vm.hashs,
-                          multiple: true,
-                          taggable: true,
-                        },
-                        on: { tag: _vm.addTag },
-                        model: {
-                          value: _vm.value.hash_join,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "hash_join", $$v)
-                          },
-                          expression: "value.hash_join",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { attrs: { tag: "label", cols: "2" } }, [
-                    _c("b", [_vm._v("매입처 직배송")]),
-                    _vm._v(" "),
+                  _c("b-col", { staticClass: "type03" }, [
                     _c(
                       "select",
                       {
@@ -6444,14 +6404,12 @@ var render = function () {
                         },
                       },
                       [
-                        _c("option", { attrs: { value: "0" } }, [
-                          _vm._v("◄ 매입처 직배송 ►"),
-                        ]),
+                        _c("option", { attrs: { value: "0" } }),
                         _vm._v(" "),
                         _vm._l(_vm.purchaseAt, function (opt) {
                           return _c(
                             "option",
-                            { domProps: { value: opt.pa_id } },
+                            { key: opt.pa_id, domProps: { value: opt.pa_id } },
                             [_vm._v(_vm._s(opt.pa_name))]
                           )
                         }),
@@ -6460,12 +6418,14 @@ var render = function () {
                     ),
                   ]),
                   _vm._v(" "),
+                  _c("b-col", { staticClass: "label short" }, [
+                    _vm._v("관리자 정보"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { tag: "label", cols: "2" } },
+                    { staticClass: "type03" },
                     [
-                      _c("b", [_vm._v("관리자 정보")]),
-                      _vm._v(" "),
                       _c("b-form-input", {
                         model: {
                           value: _vm.value.gd_mng_info,
@@ -6485,11 +6445,50 @@ var render = function () {
               _c(
                 "b-row",
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("키워드")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
+                    { staticClass: "type11" },
                     [
-                      _c("b", [_vm._v("상품 설명")]),
-                      _vm._v(" "),
+                      _c("multiselect", {
+                        attrs: {
+                          "tag-placeholder": "새로운 키워드 추가",
+                          placeholder: "키워드를 선택 및 입력하세요",
+                          deselectLabel: "클릭 or 엔터를 눌러 제거",
+                          selectedLabel: "선택됨",
+                          label: "hs_tag",
+                          "track-by": "hs_id",
+                          options: _vm.hashs,
+                          multiple: true,
+                          taggable: true,
+                        },
+                        on: { tag: _vm.addTag },
+                        model: {
+                          value: _vm.value.hash_join,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "hash_join", $$v)
+                          },
+                          expression: "value.hash_join",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "align-items-baseline" },
+                [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("상품 설명")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "type11" },
+                    [
                       _c("Ckeditor", {
                         model: {
                           value: _vm.value.gd_desc,
@@ -6514,12 +6513,14 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
+                { staticClass: "align-items-baseline" },
                 [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("영상 정보")]),
+                  _vm._v(" "),
                   _c(
                     "b-col",
+                    { staticClass: "type11" },
                     [
-                      _c("b", [_vm._v("영상 정보")]),
-                      _vm._v(" "),
                       _c("b-form-textarea", {
                         attrs: { placeholder: "영상 태그 입력", rows: "2" },
                         model: {
@@ -6545,129 +6546,142 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        {
-          attrs: { id: "goods_file", "header-tag": "header" },
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("파일 등록")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        { staticClass: "adform" },
         [
-          _vm._v(" "),
-          _c("b-row", [_c("b-col", [_c("b", [_vm._v("상품 이미지")])])], 1),
-          _vm._v(" "),
-          _c("file-upload", {
-            ref: "fileupload1",
-            attrs: { fi_group: "goods", fi_kind: "goods", is_thumb: true },
-            model: {
-              value: _vm.value.file_goods_goods,
-              callback: function ($$v) {
-                _vm.$set(_vm.value, "file_goods_goods", $$v)
-              },
-              expression: "value.file_goods_goods",
-            },
-          }),
-          _vm._v(" "),
-          _c("b-row", [_c("b-col", [_c("b", [_vm._v("첨부 파일")])])], 1),
-          _vm._v(" "),
-          _c("file-upload", {
-            ref: "fileupload2",
-            attrs: { fi_group: "goods", fi_kind: "add" },
-            model: {
-              value: _vm.value.file_goods_add,
-              callback: function ($$v) {
-                _vm.$set(_vm.value, "file_goods_add", $$v)
-              },
-              expression: "value.file_goods_add",
-            },
-          }),
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [_c("b-col", { staticClass: "tit" }, [_vm._v("파일 등록")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "align-items-start" },
+                [
+                  _c("b-col", { staticClass: "label" }, [
+                    _vm._v("상품 이미지"),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "type11" },
+                    [
+                      _c("file-upload", {
+                        ref: "fileupload1",
+                        attrs: {
+                          fi_group: "goods",
+                          fi_kind: "goods",
+                          is_thumb: true,
+                        },
+                        model: {
+                          value: _vm.value.file_goods_goods,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "file_goods_goods", $$v)
+                          },
+                          expression: "value.file_goods_goods",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "align-items-start" },
+                [
+                  _c("b-col", { staticClass: "label" }, [_vm._v("첨부 파일")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "type11" },
+                    [
+                      _c("file-upload", {
+                        ref: "fileupload2",
+                        attrs: { fi_group: "goods", fi_kind: "add" },
+                        model: {
+                          value: _vm.value.file_goods_add,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "file_goods_add", $$v)
+                          },
+                          expression: "value.file_goods_add",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
         ],
         1
       ),
       _vm._v(" "),
       _c(
         "b-card",
-        {
-          attrs: {
-            id: "goods_model",
-            tabindex: "-1",
-            "header-tag": "header",
-            "footer-tag": "footer",
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("Model")])]
-              },
-              proxy: true,
-            },
-            {
-              key: "footer",
-              fn: function () {
-                return [
-                  _c(
-                    "div",
-                    { staticClass: "text-right" },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "info", size: "sm" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.insertAtModel()
-                            },
-                          },
-                        },
-                        [
-                          _c("b-icon", { attrs: { icon: "plus-square-fill" } }),
-                          _vm._v(" 모델 추가"),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        { staticClass: "model adform", attrs: { tabindex: "-1" } },
         [
-          _vm._v(" "),
           _c(
             "b-container",
-            { attrs: { fluid: "" } },
             [
-              _vm._l(_vm.value.goods_model, function (model, idx) {
+              _c(
+                "b-row",
+                [_c("b-col", { staticClass: "tit" }, [_vm._v("Model")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "head cell" },
+                [
+                  _c("b-col", { attrs: { col: "", lg: "3" } }, [
+                    _vm._v("제품명"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                    _vm._v("CAT.No"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                    _vm._v("모델명"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { col: "", lg: "3" } }, [
+                    _vm._v("스펙"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                    _vm._v("판매단위"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { col: "", lg: "2" } }, [
+                    _vm._v("활성화 / 가격"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("Ctrl")]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.value.goods_model, function (model, i) {
                 return _c(
                   "b-row",
-                  { key: idx },
+                  { key: i },
                   [
                     _c(
                       "b-col",
                       { attrs: { col: "", lg: "3" } },
                       [
                         _c("b-form-input", {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: {
-                            id: "goods_model." + idx + ".gm_name",
-                            placeholder: "제품명",
-                            title: "제품명",
-                          },
+                          attrs: { id: "goods_model." + i + ".gm_name" },
                           model: {
                             value: model.gm_name,
                             callback: function ($$v) {
@@ -6681,7 +6695,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_name"
+                                "goods_model." + i + ".gm_name"
                               ],
                           },
                         }),
@@ -6694,18 +6708,7 @@ var render = function () {
                       { attrs: { col: "", lg: "1" } },
                       [
                         _c("b-form-input", {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: {
-                            placeholder: "Cat.No",
-                            readonly: "",
-                            title: "CAT.No",
-                          },
+                          attrs: { readonly: "" },
                           model: {
                             value: model.gm_catno,
                             callback: function ($$v) {
@@ -6714,15 +6717,6 @@ var render = function () {
                             expression: "model.gm_catno",
                           },
                         }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_catno"
-                              ],
-                          },
-                        }),
                       ],
                       1
                     ),
@@ -6732,18 +6726,7 @@ var render = function () {
                       { attrs: { col: "", lg: "1" } },
                       [
                         _c("b-form-input", {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: {
-                            id: "goods_model." + idx + ".gm_code",
-                            placeholder: "모델명",
-                            title: "모델명",
-                          },
+                          attrs: { id: "goods_model." + i + ".gm_code" },
                           model: {
                             value: model.gm_code,
                             callback: function ($$v) {
@@ -6757,7 +6740,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_code"
+                                "goods_model." + i + ".gm_code"
                               ],
                           },
                         }),
@@ -6770,18 +6753,7 @@ var render = function () {
                       { attrs: { col: "", lg: "3" } },
                       [
                         _c("b-form-input", {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: {
-                            id: "goods_model." + idx + ".gm_spec",
-                            placeholder: "스펙",
-                            title: "스펙",
-                          },
+                          attrs: { id: "goods_model." + i + ".gm_spec" },
                           model: {
                             value: model.gm_spec,
                             callback: function ($$v) {
@@ -6795,7 +6767,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_spec"
+                                "goods_model." + i + ".gm_spec"
                               ],
                           },
                         }),
@@ -6808,18 +6780,7 @@ var render = function () {
                       { attrs: { col: "", lg: "1" } },
                       [
                         _c("b-form-input", {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: {
-                            id: "goods_model." + idx + ".gm_unit",
-                            placeholder: "판매단위",
-                            title: "판매단위",
-                          },
+                          attrs: { id: "goods_model." + i + ".gm_unit" },
                           model: {
                             value: model.gm_unit,
                             callback: function ($$v) {
@@ -6833,7 +6794,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_unit"
+                                "goods_model." + i + ".gm_unit"
                               ],
                           },
                         }),
@@ -6847,25 +6808,14 @@ var render = function () {
                       [
                         _c(
                           "b-input-group",
+                          { attrs: { size: "sm" } },
                           [
                             _c(
                               "b-input-group-prepend",
-                              {
-                                directives: [
-                                  {
-                                    name: "b-tooltip",
-                                    rawName: "v-b-tooltip.hover",
-                                    modifiers: { hover: true },
-                                  },
-                                ],
-                                attrs: {
-                                  "is-text": "",
-                                  title: "판매 가능 여부",
-                                },
-                              },
+                              { attrs: { "is-text": "" } },
                               [
                                 _c("b-form-checkbox", {
-                                  staticClass: "mr-n2",
+                                  staticClass: "mr-n2 mb-n1",
                                   attrs: {
                                     switch: "",
                                     value: "Y",
@@ -6884,19 +6834,8 @@ var render = function () {
                             ),
                             _vm._v(" "),
                             _c("b-form-input", {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
                               staticClass: "text-right",
-                              attrs: {
-                                id: "goods_model." + idx + ".gm_price",
-                                placeholder: "가격",
-                                title: "가격",
-                              },
+                              attrs: { id: "goods_model." + i + ".gm_price" },
                               model: {
                                 value: model.gm_price,
                                 callback: function ($$v) {
@@ -6913,7 +6852,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "goods_model." + idx + ".gm_price"
+                                "goods_model." + i + ".gm_price"
                               ],
                           },
                         }),
@@ -6932,8 +6871,8 @@ var render = function () {
                               {
                                 name: "b-toggle",
                                 rawName: "v-b-toggle",
-                                value: "bundleDc_box" + idx,
-                                expression: "'bundleDc_box'+idx",
+                                value: "bundleDc_box" + i,
+                                expression: "`bundleDc_box${i}`",
                               },
                               {
                                 name: "b-tooltip",
@@ -6968,7 +6907,7 @@ var render = function () {
                             },
                             on: {
                               click: function ($event) {
-                                return _vm.removeAtModel(idx)
+                                return _vm.removeAtModel(i)
                               },
                             },
                           },
@@ -6980,7 +6919,7 @@ var render = function () {
                           "b-collapse",
                           {
                             staticClass: "bundle_box",
-                            attrs: { id: "bundleDc_box" + idx },
+                            attrs: { id: "bundleDc_box" + i },
                             on: {
                               hide: function ($event) {
                                 return _vm.bd_hide(model.bundle_dc)
@@ -7141,33 +7080,16 @@ var render = function () {
             ],
             2
           ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        {
-          attrs: {
-            id: "goods_option",
-            "header-tag": "header",
-            "footer-tag": "footer",
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("Option")])]
-              },
-              proxy: true,
-            },
-            {
-              key: "footer",
-              fn: function () {
-                return [
+          _vm._v(" "),
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
                   _c(
-                    "div",
-                    { staticClass: "text-right" },
+                    "b-col",
+                    { staticClass: "btn_box" },
                     [
                       _c(
                         "b-button",
@@ -7175,273 +7097,11 @@ var render = function () {
                           attrs: { variant: "info", size: "sm" },
                           on: {
                             click: function ($event) {
-                              return _vm.insertAtOpt()
+                              return _vm.insertAtModel()
                             },
                           },
                         },
-                        [
-                          _c("b-icon", { attrs: { icon: "plus-square-fill" } }),
-                          _vm._v(" 옵션 추가"),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ]
-              },
-              proxy: true,
-            },
-          ]),
-        },
-        [
-          _vm._v(" "),
-          _c(
-            "b-container",
-            { attrs: { fluid: "" } },
-            _vm._l(_vm.value.option, function (op, idx) {
-              return _c(
-                "b-row",
-                { key: idx },
-                [
-                  _c(
-                    "b-col",
-                    { attrs: { col: "", lg: "4" } },
-                    [
-                      _c("b-form-input", {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true },
-                          },
-                        ],
-                        attrs: { placeholder: "옵션명", title: "옵션명" },
-                        model: {
-                          value: op.op_name,
-                          callback: function ($$v) {
-                            _vm.$set(op, "op_name", $$v)
-                          },
-                          expression: "op.op_name",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-checkbox",
-                        {
-                          staticClass: "mt-2",
-                          attrs: {
-                            value: "Y",
-                            "unchecked-value": "N",
-                            switch: "",
-                          },
-                          model: {
-                            value: op.op_required,
-                            callback: function ($$v) {
-                              _vm.$set(op, "op_required", $$v)
-                            },
-                            expression: "op.op_required",
-                          },
-                        },
-                        [_vm._v("필수 옵션")]
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { col: "", lg: "7" } },
-                    [
-                      _c(
-                        "b-card",
-                        {
-                          staticClass: "shadow",
-                          attrs: {
-                            id: "goods_option_child",
-                            "header-tag": "header",
-                            "footer-tag": "footer",
-                          },
-                          scopedSlots: _vm._u(
-                            [
-                              {
-                                key: "header",
-                                fn: function () {
-                                  return [_c("b", [_vm._v("Option - Item")])]
-                                },
-                                proxy: true,
-                              },
-                              {
-                                key: "footer",
-                                fn: function () {
-                                  return [
-                                    _c(
-                                      "div",
-                                      { staticClass: "text-right" },
-                                      [
-                                        _c(
-                                          "b-button",
-                                          {
-                                            attrs: {
-                                              variant: "info",
-                                              size: "sm",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.insertAtOptItem(
-                                                  op.option_child
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [
-                                            _c("b-icon", {
-                                              attrs: {
-                                                icon: "plus-square-fill",
-                                              },
-                                            }),
-                                            _vm._v(" 아이템 추가"),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ]
-                                },
-                                proxy: true,
-                              },
-                            ],
-                            null,
-                            true
-                          ),
-                        },
-                        [
-                          _vm._v(" "),
-                          _vm._l(op.option_child, function (opc, opc_idx) {
-                            return _c(
-                              "b-row",
-                              { key: opc_idx },
-                              [
-                                _c(
-                                  "b-col",
-                                  { attrs: { col: "", lg: "6" } },
-                                  [
-                                    _c("b-form-input", {
-                                      directives: [
-                                        {
-                                          name: "b-tooltip",
-                                          rawName: "v-b-tooltip.hover",
-                                          modifiers: { hover: true },
-                                        },
-                                      ],
-                                      attrs: {
-                                        size: "sm",
-                                        placeholder: "옵션항목",
-                                        title: "옵션항목",
-                                      },
-                                      model: {
-                                        value: opc.opc_name,
-                                        callback: function ($$v) {
-                                          _vm.$set(opc, "opc_name", $$v)
-                                        },
-                                        expression: "opc.opc_name",
-                                      },
-                                    }),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { col: "", lg: "5" } },
-                                  [
-                                    _c("b-form-input", {
-                                      directives: [
-                                        {
-                                          name: "b-tooltip",
-                                          rawName: "v-b-tooltip.hover",
-                                          modifiers: { hover: true },
-                                        },
-                                      ],
-                                      attrs: {
-                                        size: "sm",
-                                        placeholder: "가격",
-                                        title: "가격",
-                                      },
-                                      model: {
-                                        value: opc.opc_price,
-                                        callback: function ($$v) {
-                                          _vm.$set(opc, "opc_price", $$v)
-                                        },
-                                        expression: "opc.opc_price",
-                                      },
-                                    }),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  {
-                                    staticClass: "ctrlBox",
-                                    attrs: { col: "", lg: "1" },
-                                  },
-                                  [
-                                    opc_idx !== 0
-                                      ? _c(
-                                          "b-button",
-                                          {
-                                            attrs: {
-                                              size: "sm",
-                                              variant: "danger",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.removeAtOptItem(
-                                                  op.option_child,
-                                                  opc_idx
-                                                )
-                                              },
-                                            },
-                                          },
-                                          [
-                                            _c("b-icon", {
-                                              attrs: { icon: "trash-fill" },
-                                            }),
-                                          ],
-                                          1
-                                        )
-                                      : _vm._e(),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            )
-                          }),
-                        ],
-                        2
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "ctrlBox", attrs: { col: "", lg: "1" } },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { size: "sm", variant: "danger" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.removeAtOpt(idx)
-                            },
-                          },
-                        },
-                        [_c("b-icon", { attrs: { icon: "trash-fill" } })],
+                        [_c("b-icon-plus-lg"), _vm._v(" 모델 추가")],
                         1
                       ),
                     ],
@@ -7449,8 +7109,220 @@ var render = function () {
                   ),
                 ],
                 1
-              )
-            }),
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        { staticClass: "justify-content-center" },
+        [
+          _c(
+            "b-col",
+            { attrs: { sm: "12", md: "10", lg: "10" } },
+            [
+              _c(
+                "b-card",
+                { staticClass: "adform option" },
+                [
+                  _c(
+                    "b-container",
+                    [
+                      _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            { staticClass: "tit" },
+                            [
+                              _vm._v(
+                                "\r\n                            Option\r\n                            "
+                              ),
+                              _c(
+                                "b-button",
+                                {
+                                  staticClass: "float-right",
+                                  attrs: { variant: "info", size: "sm" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.insertAtOpt()
+                                    },
+                                  },
+                                },
+                                [_c("b-icon-plus-lg")],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-row",
+                        { staticClass: "head cell" },
+                        [
+                          _c("b-col", { attrs: { lg: "6" } }, [
+                            _vm._v("옵션명"),
+                          ]),
+                          _vm._v(" "),
+                          _c("b-col", { attrs: { lg: "3" } }, [_vm._v("항목")]),
+                          _vm._v(" "),
+                          _c("b-col", [_vm._v("가격")]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.value.option, function (op, idx) {
+                        return _c(
+                          "b-row",
+                          { key: idx, staticClass: "body" },
+                          [
+                            _c(
+                              "b-col",
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.removeAtOpt(idx)
+                                      },
+                                    },
+                                  },
+                                  [_c("b-icon-x-circle-fill")],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("b-form-input", {
+                                  attrs: { size: "sm" },
+                                  model: {
+                                    value: op.op_name,
+                                    callback: function ($$v) {
+                                      _vm.$set(op, "op_name", $$v)
+                                    },
+                                    expression: "op.op_name",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "b-form-checkbox",
+                                  {
+                                    staticClass: "mt-2",
+                                    attrs: {
+                                      value: "Y",
+                                      "unchecked-value": "N",
+                                      switch: "",
+                                    },
+                                    model: {
+                                      value: op.op_required,
+                                      callback: function ($$v) {
+                                        _vm.$set(op, "op_required", $$v)
+                                      },
+                                      expression: "op.op_required",
+                                    },
+                                  },
+                                  [_vm._v("필수 옵션")]
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              _vm._l(op.option_child, function (opc, opc_idx) {
+                                return _c(
+                                  "b-row",
+                                  { key: opc_idx },
+                                  [
+                                    _c(
+                                      "b-col",
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: { size: "sm" },
+                                          model: {
+                                            value: opc.opc_name,
+                                            callback: function ($$v) {
+                                              _vm.$set(opc, "opc_name", $$v)
+                                            },
+                                            expression: "opc.opc_name",
+                                          },
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: { size: "sm" },
+                                          model: {
+                                            value: opc.opc_price,
+                                            callback: function ($$v) {
+                                              _vm.$set(opc, "opc_price", $$v)
+                                            },
+                                            expression: "opc.opc_price",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        opc_idx == 0
+                                          ? _c(
+                                              "span",
+                                              {
+                                                staticClass: "add",
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.insertAtOptItem(
+                                                      op.option_child
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_c("b-icon-plus-circle-fill")],
+                                              1
+                                            )
+                                          : _c(
+                                              "span",
+                                              {
+                                                staticClass: "del",
+                                                on: {
+                                                  click: function ($event) {
+                                                    return _vm.removeAtOptItem(
+                                                      op.option_child,
+                                                      opc_idx
+                                                    )
+                                                  },
+                                                },
+                                              },
+                                              [_c("b-icon-x-circle-fill")],
+                                              1
+                                            ),
+                                      ],
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                )
+                              }),
+                              1
+                            ),
+                          ],
+                          1
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+            ],
             1
           ),
         ],

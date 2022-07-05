@@ -230,6 +230,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // import { Splide, SplideSlide } from '@splidejs/vue-splide';
 // import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
@@ -274,7 +308,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_Location_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Location.vue */ "./resources/js/views/web/shop/goods/_comp/Location.vue"));
     },
     // Splide, SplideSlide,
-    VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_2___default())
+    VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_2___default()),
+    'BoReview': function BoReview() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_BoReview_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/BoReview.vue */ "./resources/js/views/web/shop/goods/_comp/BoReview.vue"));
+    },
+    'BoGdInquiry': function BoGdInquiry() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_BoGdInquiry_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/BoGdInquiry.vue */ "./resources/js/views/web/shop/goods/_comp/BoGdInquiry.vue"));
+    }
   },
   data: function data() {
     return {
@@ -615,7 +655,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#goods_show .slide_goods[data-v-48c5d9f6] .carousel-inner .carousel-item img { width:100%; height:600px; -o-object-fit:cover; object-fit:cover;\n}\n#goods_show .splide[data-v-48c5d9f6] { margin: auto;\n}\n#goods_show .splide .splide__track ul li img[data-v-48c5d9f6] { width:333px; height:301px; -o-object-fit:cover; object-fit:cover;\n}\n#goods_show .gd_info ul li[data-v-48c5d9f6]:after { content:\"&nbsp;\"; display:block; clear:both; visibility:hidden; line-height:0; height:0;\n}\n#goods_show .gd_info ul li div[data-v-48c5d9f6] { float:left; font-size:1.5rem;\n}\n#goods_show .gd_info ul li div[data-v-48c5d9f6]:nth-child(1) { width:30%; min-width:100px; font-weight:bold;\n}\n#goods_show .optoins li[data-v-48c5d9f6] { position:relative; margin:1rem; background-color:#666; color:#fff; border-radius:1rem; padding:1rem; cursor:pointer;\n}\n#goods_show .optoins li ul[data-v-48c5d9f6] { position:absolute; z-index:2; width:90%; overflow:hidden; background-color:#fff; border-radius:10px; max-height:0; border:0px solid #000; transition:all .3s ease-in;\n}\n#goods_show .optoins li ul.focus[data-v-48c5d9f6] { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:3px;\n}\n#goods_show .optoins li ul li[data-v-48c5d9f6]:after { content:\"&nbsp;\"; display:block; clear:both; visibility:hidden; line-height:0; height:0;\n}\n#goods_show .optoins li ul li span[data-v-48c5d9f6]:nth-of-type(1) { float:left;\n}\n#goods_show .optoins li ul li span[data-v-48c5d9f6]:nth-of-type(2) { float:right;\n}\n#goods_show .selectedOptoins li[data-v-48c5d9f6] { margin:1rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;\n}\n#goods_show .selectedOptoins li .cellName[data-v-48c5d9f6] { flex: 4 1 auto;\n}\n#goods_show .selectedOptoins li .cellCalc[data-v-48c5d9f6] { flex: 1 1 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;\n}\n#goods_show .selectedOptoins li .cellCalc span svg[data-v-48c5d9f6] { margin:0 1rem;\n}\n#goods_show .goods_model table thead tr th[data-v-48c5d9f6] { text-align:center;\n}\n#goods_show .goods_model .cube_box[data-v-48c5d9f6], #goods_show .goods_model .cube_box *[data-v-48c5d9f6] { box-sizing: border-box;\n}\n#goods_show .goods_model .cube_box[data-v-48c5d9f6] { width:100px; height:30px; perspective:400px; margin:auto;\n}\n#goods_show .goods_model .cube_box .cube[data-v-48c5d9f6] { position: relative; transform-style: preserve-3d;\r\n    width:100px; height:30px;\r\n    transform: translateZ(-50px); transition: transform .2s;\n}\n#goods_show .goods_model .cube_box .cube .piece[data-v-48c5d9f6] { position:absolute; width:100px; height:30px; text-align: center;\n}\n#goods_show .goods_model .cube_box .cube .piece.front[data-v-48c5d9f6]  { transform: rotateY(  0deg) translateZ(50px);\n}\n#goods_show .goods_model .cube_box .cube .piece.right[data-v-48c5d9f6]  { transform: rotateY( 90deg) translateZ(50px);\n}\n#goods_show .goods_model .cube.show_front[data-v-48c5d9f6]  { transform: translateZ(-50px) rotateY(   0deg);\n}\n#goods_show .goods_model .cube.show_right[data-v-48c5d9f6], #goods_show .goods_model .cube_box .cube[data-v-48c5d9f6]:hover  { transform: translateZ(-50px) rotateY( -90deg);\n}\n#goods_show .goods_desc img[data-v-48c5d9f6] { width:100%;\n}\r\n\r\n\r\n/*\r\n<div class=\"cube_box\">\r\n    <div class=\"cube\">\r\n        <div class=\"piece front\">front</div>\r\n        <div class=\"piece back\">back</div>\r\n        <div class=\"piece right\">right</div>\r\n        <div class=\"piece left\">left</div>\r\n        <div class=\"piece top\">top</div>\r\n        <div class=\"piece bottom\">bottom</div>\r\n    </div>\r\n</div>\r\n\r\n.cube_box, .cube_box * { box-sizing: border-box; }\r\n.cube_box { width: 200px; height: 200px; border: 1px solid #CCC; margin: 80px; perspective: 400px; }\r\n.cube_box .cube {\r\n    position: relative; transform-style: preserve-3d;\r\n     width: 200px; height: 200px;\r\n    transform: translateZ(-100px); transition: transform 1s; }\r\n\r\n.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }\r\n.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }\r\n.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }\r\n.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }\r\n.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }\r\n.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }\r\n\r\n.cube_box .cube .piece {\r\n    position: absolute; font-weight: bold; color: white; text-align: center;\r\n    width: 200px; height: 200px; line-height: 200px;\r\n    border: 2px solid black; font-size: 40px;  }\r\n\r\n.cube_box .cube .front  { background: hsla(  0, 100%, 50%, 0.7); }\r\n.cube_box .cube .right  { background: hsla( 60, 100%, 50%, 0.7); }\r\n.cube_box .cube .back   { background: hsla(120, 100%, 50%, 0.7); }\r\n.cube_box .cube .left   { background: hsla(180, 100%, 50%, 0.7); }\r\n.cube_box .cube .top    { background: hsla(240, 100%, 50%, 0.7); }\r\n.cube_box .cube .bottom { background: hsla(300, 100%, 50%, 0.7); }\r\n\r\n.cube_box .cube .front  { transform: rotateY(  0deg) translateZ(100px); }\r\n.cube_box .cube .right  { transform: rotateY( 90deg) translateZ(100px); }\r\n.cube_box .cube .back   { transform: rotateY(180deg) translateZ(100px); }\r\n.cube_box .cube .left   { transform: rotateY(-90deg) translateZ(100px); }\r\n.cube_box .cube .top    { transform: rotateX( 90deg) translateZ(100px); }\r\n.cube_box .cube .bottom { transform: rotateX(-90deg) translateZ(100px); }\r\n*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#goods_show .slide_goods[data-v-48c5d9f6] .carousel-inner .carousel-item img { width:100%; height:600px; -o-object-fit:cover; object-fit:cover;\n}\n#goods_show .splide[data-v-48c5d9f6] { margin: auto;\n}\n#goods_show .splide .splide__track ul li img[data-v-48c5d9f6] { width:333px; height:301px; -o-object-fit:cover; object-fit:cover;\n}\n#goods_show .gd_info ul li[data-v-48c5d9f6]:after { content:\"&nbsp;\"; display:block; clear:both; visibility:hidden; line-height:0; height:0;\n}\n#goods_show .gd_info ul li div[data-v-48c5d9f6] { float:left; font-size:1.5rem;\n}\n#goods_show .gd_info ul li div[data-v-48c5d9f6]:nth-child(1) { width:30%; min-width:100px; font-weight:bold;\n}\n#goods_show .optoins li[data-v-48c5d9f6] { position:relative; margin:1rem; background-color:#666; color:#fff; border-radius:1rem; padding:1rem; cursor:pointer;\n}\n#goods_show .optoins li ul[data-v-48c5d9f6] { position:absolute; z-index:2; width:90%; overflow:hidden; background-color:#fff; border-radius:10px; max-height:0; border:0px solid #000; transition:all .3s ease-in;\n}\n#goods_show .optoins li ul.focus[data-v-48c5d9f6] { max-height:1000px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); border-width:3px;\n}\n#goods_show .optoins li ul li[data-v-48c5d9f6]:after { content:\"&nbsp;\"; display:block; clear:both; visibility:hidden; line-height:0; height:0;\n}\n#goods_show .optoins li ul li span[data-v-48c5d9f6]:nth-of-type(1) { float:left;\n}\n#goods_show .optoins li ul li span[data-v-48c5d9f6]:nth-of-type(2) { float:right;\n}\n#goods_show .selectedOptoins li[data-v-48c5d9f6] { margin:1rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;\n}\n#goods_show .selectedOptoins li .cellName[data-v-48c5d9f6] { flex: 4 1 auto;\n}\n#goods_show .selectedOptoins li .cellCalc[data-v-48c5d9f6] { flex: 1 1 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;\n}\n#goods_show .selectedOptoins li .cellCalc span svg[data-v-48c5d9f6] { margin:0 1rem;\n}\n#goods_show .goods_model table thead tr th[data-v-48c5d9f6] { text-align:center;\n}\n#goods_show .goods_model .cube_box[data-v-48c5d9f6], #goods_show .goods_model .cube_box *[data-v-48c5d9f6] { box-sizing: border-box;\n}\n#goods_show .goods_model .cube_box[data-v-48c5d9f6] { width:100px; height:30px; perspective:400px; margin:auto;\n}\n#goods_show .goods_model .cube_box .cube[data-v-48c5d9f6] { position: relative; transform-style: preserve-3d;\r\n    width:100px; height:30px;\r\n    transform: translateZ(-50px); transition: transform .2s;\n}\n#goods_show .goods_model .cube_box .cube .piece[data-v-48c5d9f6] { position:absolute; width:100px; height:30px; text-align: center;\n}\n#goods_show .goods_model .cube_box .cube .piece.front[data-v-48c5d9f6]  { transform: rotateY(  0deg) translateZ(50px);\n}\n#goods_show .goods_model .cube_box .cube .piece.right[data-v-48c5d9f6]  { transform: rotateY( 90deg) translateZ(50px);\n}\n#goods_show .goods_model .cube.show_front[data-v-48c5d9f6]  { transform: translateZ(-50px) rotateY(   0deg);\n}\n#goods_show .goods_model .cube.show_right[data-v-48c5d9f6], #goods_show .goods_model .cube_box .cube[data-v-48c5d9f6]:hover  { transform: translateZ(-50px) rotateY( -90deg);\n}\n#goods_show .action_btn[data-v-48c5d9f6] { position:-webkit-sticky; position:sticky; top:78px; margin-top:1rem; z-index:1;\n}\n#goods_show .goods_nav[data-v-48c5d9f6] { position:-webkit-sticky; position:sticky; top:80px; z-index:1;\n}\n#goods_show .goods_nav a[data-v-48c5d9f6] { background:#576aa1; color:#FFF; padding:9px 6px;\n}\n#goods_show #goods_desc[data-v-48c5d9f6] { margin-top:50px;\n}\n#goods_show #goods_desc img[data-v-48c5d9f6] { width:100%;\n}\n#goods_show #return_info em[data-v-48c5d9f6] { color: #ce0000; font-weight: bold;\n}\r\n/*\r\n<div class=\"cube_box\">\r\n    <div class=\"cube\">\r\n        <div class=\"piece front\">front</div>\r\n        <div class=\"piece back\">back</div>\r\n        <div class=\"piece right\">right</div>\r\n        <div class=\"piece left\">left</div>\r\n        <div class=\"piece top\">top</div>\r\n        <div class=\"piece bottom\">bottom</div>\r\n    </div>\r\n</div>\r\n\r\n.cube_box, .cube_box * { box-sizing: border-box; }\r\n.cube_box { width: 200px; height: 200px; border: 1px solid #CCC; margin: 80px; perspective: 400px; }\r\n.cube_box .cube {\r\n    position: relative; transform-style: preserve-3d;\r\n     width: 200px; height: 200px;\r\n    transform: translateZ(-100px); transition: transform 1s; }\r\n\r\n.cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }\r\n.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }\r\n.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }\r\n.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }\r\n.cube.show-top    { transform: translateZ(-100px) rotateX( -90deg); }\r\n.cube.show-bottom { transform: translateZ(-100px) rotateX(  90deg); }\r\n\r\n.cube_box .cube .piece {\r\n    position: absolute; font-weight: bold; color: white; text-align: center;\r\n    width: 200px; height: 200px; line-height: 200px;\r\n    border: 2px solid black; font-size: 40px;  }\r\n\r\n.cube_box .cube .front  { background: hsla(  0, 100%, 50%, 0.7); }\r\n.cube_box .cube .right  { background: hsla( 60, 100%, 50%, 0.7); }\r\n.cube_box .cube .back   { background: hsla(120, 100%, 50%, 0.7); }\r\n.cube_box .cube .left   { background: hsla(180, 100%, 50%, 0.7); }\r\n.cube_box .cube .top    { background: hsla(240, 100%, 50%, 0.7); }\r\n.cube_box .cube .bottom { background: hsla(300, 100%, 50%, 0.7); }\r\n\r\n.cube_box .cube .front  { transform: rotateY(  0deg) translateZ(100px); }\r\n.cube_box .cube .right  { transform: rotateY( 90deg) translateZ(100px); }\r\n.cube_box .cube .back   { transform: rotateY(180deg) translateZ(100px); }\r\n.cube_box .cube .left   { transform: rotateY(-90deg) translateZ(100px); }\r\n.cube_box .cube .top    { transform: rotateX( 90deg) translateZ(100px); }\r\n.cube_box .cube .bottom { transform: rotateX(-90deg) translateZ(100px); }\r\n*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -895,7 +935,7 @@ var render = function () {
                     _c("li", [_c("hr")]),
                     _vm._v(" "),
                     _c("li", [
-                      _c("div", [_vm._v("첨부파일")]),
+                      _c("div", [_vm._v("첨부파일2")]),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -907,7 +947,7 @@ var render = function () {
                               on: {
                                 click: function ($event) {
                                   return _vm.fileDown(
-                                    file.path,
+                                    "api/downloadGoods/" + file.fi_id,
                                     file.fi_original
                                   )
                                 },
@@ -955,7 +995,7 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                        " +
+                            "\n                            " +
                               _vm._s(op.op_name) +
                               " "
                           ),
@@ -1034,9 +1074,9 @@ var render = function () {
                                           [_vm._v("X")]
                                         ),
                                         _vm._v(
-                                          "\n                                    " +
+                                          "\n                                        " +
                                             _vm._s(opc.opc_name) +
-                                            "\n                                "
+                                            "\n                                    "
                                         ),
                                       ],
                                       1
@@ -1260,7 +1300,9 @@ var render = function () {
                 [
                   _c("b", { staticClass: "mr-3" }, [_vm._v("합계")]),
                   _vm._v(
-                    " " + _vm._s(_vm._f("comma")(_vm.total)) + " 원\n        "
+                    " " +
+                      _vm._s(_vm._f("comma")(_vm.total)) +
+                      " 원\n            "
                   ),
                 ]
               ),
@@ -1275,7 +1317,7 @@ var render = function () {
         [
           _c(
             "b-row",
-            { staticClass: "action_btn pt-3 sticky-top" },
+            { staticClass: "action_btn" },
             [
               _c(
                 "b-col",
@@ -1348,9 +1390,35 @@ var render = function () {
         1
       ),
       _vm._v(" "),
+      _c("scrollactive", { staticClass: "goods_nav", attrs: { offset: 90 } }, [
+        _c(
+          "a",
+          { staticClass: "scrollactive-item", attrs: { href: "#goods_desc" } },
+          [_vm._v("상품상세")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "scrollactive-item", attrs: { href: "#return_info" } },
+          [_vm._v("반품/교환 안내")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "scrollactive-item", attrs: { href: "#review" } },
+          [_vm._v("상품평")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          { staticClass: "scrollactive-item", attrs: { href: "#gd_inquiry" } },
+          [_vm._v("상품문의")]
+        ),
+      ]),
+      _vm._v(" "),
       _c(
         "b-row",
-        { staticClass: "mt-5 goods_desc" },
+        { attrs: { id: "goods_desc" } },
         [_c("b-col", { domProps: { innerHTML: _vm._s(_vm.content.gd_desc) } })],
         1
       ),
@@ -1384,6 +1452,73 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "return_info" } }, [
+        _c("em", [
+          _vm._v(
+            "포사이언스에서는 다음과 같은 기간 및 내용으로 상품 및 용역에 대하여 교환, 반품, 환불을 보장하고 있으며, 상품의 반환에 의한 추가비용을 고객에게 부담시키지 않습니다."
+          ),
+          _c("br"),
+          _vm._v(
+            "(단, 고객 변심 또는 주문 번복으로 인한 경우의 반환비용은 고객님이 부담하셔야 합니다.)"
+          ),
+        ]),
+        _c("br"),
+        _c("br"),
+        _vm._v(
+          "\n\n\t\t\t1. 단순변심일경우 : 물품수령 후 7일이내 반품가능(반품배송비 구매자가 부담) "
+        ),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t2. 표시, 광고 내용과 상이하거나 물품 하자인 경우 : 물품수령 후 3개월이내, 또는 그 사실을 안날 또는 알수 있었던 날로부터 30일이내 반품가능 (반품배송비 판매자가 부담)"
+        ),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _c("em", [
+          _vm._v(
+            "단, 아래의 내용인 경우에는 교환/반품/환불이 불가능하오니 참조하시기 바랍니다."
+          ),
+        ]),
+        _c("br"),
+        _c("br"),
+        _vm._v("\n\n\t\t\t1. 반품요청기간이 지난 경우"),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t2. 고객님의 책임있는 사유로 상품등이 멸실 또는 훼손된 경우(단 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)"
+        ),
+        _c("br"),
+        _vm._v("\n\t\t\t3. 주문 당시 해외 발주 상품의 경우"),
+        _c("br"),
+        _vm._v("\n\t\t\t4. 고객의 요청으로 주문제작이 이루어진 경우"),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t5. 포장을 개봉하였거나 포장이 훼손되어 상품의 가치가 현저하게 감소한 경우"
+        ),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t6. 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우"
+        ),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t7. 재판매가 곤란한 정도로 상품등의 가치가 현저히 감소한 경우"
+        ),
+        _c("br"),
+        _vm._v("\n\t\t\t8. 복제가 가능한 상품 등의 포장을 훼손한 경우"),
+        _c("br"),
+        _c("br"),
+        _vm._v(
+          "\n\n\t\t\t주문 취소 및 반품으로 환불을 요청하실 경우에는 E-mail(sales@4science.net) 상담서비스나 고객만족센터(1644-4214)를 통해 요청하시면 친절하게 처리해 드리겠습니다."
+        ),
+        _c("br"),
+        _vm._v(
+          "\n\t\t\t주문 취소 후 반품 가능 여부를 확인한 다음 3일 이내에 결제 금액을 환불해 드리겠습니다.\n\t\t"
+        ),
+      ]),
+      _vm._v(" "),
+      _c("BoReview", { attrs: { bo_cd: "review", id: "review" } }),
+      _vm._v(" "),
+      _c("BoGdInquiry", { attrs: { bo_cd: "gd_inquiry", id: "gd_inquiry" } }),
     ],
     1
   )

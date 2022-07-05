@@ -243,11 +243,10 @@ var render = function () {
     "b-container",
     { staticClass: "p_warp" },
     [
-      _c("h1", [_vm._v("매입처 / 항공운임 관리")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("매입처 / 항공운임 관리")]),
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow" },
         [
           _vm._l(_vm.purchase_at, function (row, idx) {
             return _vm.purchase_at && _vm.purchase_at.length

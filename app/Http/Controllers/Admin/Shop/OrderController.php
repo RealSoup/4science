@@ -50,7 +50,8 @@ class OrderController extends Controller {
         if ($req->filled('ca03') && $req->ca03>0 )    $data['categorys'][3] = $this->category->getCate($req->ca03);
         if ($req->filled('ca04') && $req->ca04>0 )    $data['categorys'][4] = $this->category->getCate($req->ca04);
 
-		$data['mng_info'] = $this->user->getMngInfo();
+		$um = new UserMng;
+		$data['mng_info'] = $um->getMngInfo();
 		$data['order_config'] = $this->order->getOrderConfig();
 		$data['mng'] = $this->user::has('UserMng')->get();
 		foreach ($data['mng'] as $u)
@@ -58,7 +59,7 @@ class OrderController extends Controller {
 
 
 		//if ($request->filled('mk_name'))   $makers = $makers->Sch_Mk_name($request->mk_name);
-		$orders = $this->order->select("shop_order.*",
+		$orders = $this->order->with('orderGoods')->with('orderExtraInfo')->select("shop_order.*",
 										DB::raw("(SELECT name FROM la_users
 										WHERE la_users.id = la_shop_order.od_mng) as od_mng_nm"),);
 					// ->join('users', 'users.id', '=', 'shop_order.created_id');
@@ -72,6 +73,7 @@ class OrderController extends Controller {
 		if (isset($data['startPrice'])) $orders = $orders->SchStartPrice(preg_replace('/\D/', '', $data['startPrice']));
 		if (isset($data['endPrice'])) $orders = $orders->SchEndPrice(preg_replace('/\D/', '', $data['endPrice']));
         if (isset($data['um_group'])) $orders = $orders->SchMngGroup(UserMng::Group($data['um_group'])->pluck('um_user_id'));
+		if (isset($data['writer'])) $orders = $orders->SchWriter($data['writer']);
 
 
         if (isset($data['keyword'])){
@@ -128,13 +130,17 @@ class OrderController extends Controller {
             }
         }
 
-		$data['list'] = $orders->latest('od_no')->latest('od_id')->paginate();
-		$data['list']->appends($input)->links();
-
-		foreach ($data['list'] as $od) {
-			$od->orderGoods;
-			// $od->od_mng = $this->user::find($od->od_mng);
+		if ($req->filled('limit'))
+            $data['list'] = $orders->latest('od_id')->limit($req->limit)->get();
+        else {
+			$data['list'] = $orders->latest('od_id')->paginate();
+			$data['list']->appends($input)->links();
 		}
+
+		// foreach ($data['list'] as $od) {
+		// 	$od->orderGoods;
+		// 	// $od->od_mng = $this->user::find($od->od_mng);
+		// }
 
 		// $data['steps'] = Setting::Group("od_step")->orderBy("st_sort")->get();
 		// $data['manager'] = User::Manager()->orderBy("name")->get();

@@ -579,10 +579,9 @@ var render = function () {
           _vm._v(" "),
           _c(
             "b-col",
-            { staticClass: "awesome_p" },
             [
               _c("b-form-input", {
-                attrs: { id: "lg_hp", required: "", formatter: _vm.formatHp },
+                attrs: { type: "text", id: "lg_hp", formatter: _vm.formatHp },
                 model: {
                   value: _vm.value.lg_hp,
                   callback: function ($$v) {

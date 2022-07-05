@@ -3,30 +3,43 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User, UserMng};
 use DB;
 
 class UserController extends Controller {
     public function index(User $user, Request $req) {
-        $data['user'] = $user->paginate(10);
+        // dd($req->all());
+        $data['option'] = $user->getOption();
+
+        if ($req->filled('startDate'))  $user = $user->StartDate($req->startDate);
+        if ($req->filled('endDate'))    $user = $user->EndDate($req->endDate);
+        if ($req->filled('group'))      $user = $user->Group($req->group);
+        if ($req->filled('level'))      $user = $user->Level($req->level);
+        if ($req->filled('keyword')){
+            switch ($req->keyword_type) {
+                case 'name':        $user = $user->Name($req->keyword); break;
+                case 'email':       $user = $user->Email($req->keyword); break;
+                case 'office':      $user = $user->Office($req->keyword); break;
+                case 'department':  $user = $user->Department($req->keyword); break;
+                case 'tutor':       $user = $user->Tutor($req->keyword); break;
+                case 'tel':         $user = $user->Tel($req->keyword); break;
+                case 'hp':          $user = $user->Hp($req->keyword); break;
+            }
+        }
+
+        $data['user'] = $user->latest()->paginate(20);
         $data['user']->appends($req->all())->links();
 
-        $data['option'] = $user->getOption();
+        
         return response()->json($data);
     }
 
     public function edit(Request $req, $id) {
-        $user = User::find($id);
+        $user = User::with('UserMng')->find($id);
         $user->option = $user->getOption();
-        $user->mng_list = User::whereHas('userMng', function ($query) {
-                                $query->where('um_status', 'Y');
-                            })->get();
-
-        if ($user->level > 19) {
-            $user->userMng;
-            $user->userMng->mng_info = $user->userMng->getMngInfo();
-        }
-
+        $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
+        $um = new UserMng;
+        $user->mng_info = $um->getMngInfo();
         return response()->json($user, 200);
     }
 
@@ -43,7 +56,7 @@ class UserController extends Controller {
 
     public function update(Request $req, $id) {
         DB::table('users')->where('id', $id)->update([
-            'name' => $req->filled('name') ? $req->name : '',            
+            'name' => $req->filled('name') ? $req->name : '',
             'sex' => $req->filled('sex') ? $req->sex : 'male',
             'hp' => $req->filled('hp') ? $req->hp : '',
             'tel' => $req->filled('tel') ? $req->tel : '',
@@ -63,7 +76,16 @@ class UserController extends Controller {
             'join_route' => $req->filled('join_route') ? $req->join_route : '',
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',
             'receive_mail' => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
-        ]);        
+        ]);
+        
+        if ( $req->level > 10 ) {
+            DB::table('user_mng')->updateOrInsert(
+            [   'um_user_id', $id   ],
+            [   'um_status'         => array_key_exists('um_status', $req->user_mng) ? $req->user_mng['um_status'] : 'Y',
+                'um_position'       => array_key_exists('um_position', $req->user_mng) ? $req->user_mng['um_position'] : 1,
+                'um_group'          => array_key_exists('um_group', $req->user_mng) ? $req->user_mng['um_group'] : 'etc',
+                'um_responsibility' => array_key_exists('um_responsibility', $req->user_mng) ? $req->user_mng['um_responsibility'] : NULL, ]);
+        }
         return response()->json("success", 200);
     }
 }
