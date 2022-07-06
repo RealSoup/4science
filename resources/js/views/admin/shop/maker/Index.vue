@@ -43,7 +43,7 @@
                 <pagination :data="maker" @pagination-change-page="setPage" :limit="3" align="center" class="mt-5"></pagination>
             </b-card>
         </b-col>
-    </b-row>    
+    </b-row>
 </b-container>
 </template>
 
