@@ -222,11 +222,11 @@ export default {
         if (user && user.status === 200) 
             this.frm = user.data;
         
-        const od = await ax.get(`/api/admin/shop/order/`, { params: {writer:this.$route.params.id, limit:10}});
+        const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.$route.params.id, limit:10}});
         if (od && od.status === 200)
             this.order = od.data.list;
         
-        const eq = await ax.get(`/api/admin/shop/estimate/`, { params: {writer:this.$route.params.id, limit:10}});
+        const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.$route.params.id, limit:10}});
         if (eq && eq.status === 200) 
             this.estimate = eq.data.list;
     },

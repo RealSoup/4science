@@ -259,7 +259,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               user = _context.sent;
               if (user && user.status === 200) _this.frm = user.data;
               _context.next = 6;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/order/", {
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/order", {
                 params: {
                   writer: _this.$route.params.id,
                   limit: 10
@@ -270,7 +270,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               od = _context.sent;
               if (od && od.status === 200) _this.order = od.data.list;
               _context.next = 10;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/", {
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate", {
                 params: {
                   writer: _this.$route.params.id,
                   limit: 10

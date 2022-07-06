@@ -74,7 +74,7 @@ export default {
                     params.append('mk_name', this.sch_mk_name);
                 if (this.page)
                     params.append('page', this.page);
-                const res = await axios.get(`/api/admin/shop/maker/`, { params: params});
+                const res = await axios.get(`/api/admin/shop/maker`, { params: params});
 
                 if (res && res.status === 200) {
                     this.maker = res.data.list;
@@ -90,7 +90,7 @@ export default {
         },
         async store(){
             try {
-                const res = await axios.post(`/api/admin/shop/maker/`, {mk_name:this.new_mk_name});
+                const res = await axios.post(`/api/admin/shop/maker`, {mk_name:this.new_mk_name});
                 if (res && res.status === 200) {
                     this.maker.data.unshift(res.data);
                     this.maker.total++;

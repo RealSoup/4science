@@ -107,7 +107,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (_this.sch_mk_name) params.append('mk_name', _this.sch_mk_name);
                 if (_this.page) params.append('page', _this.page);
                 _context.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/admin/shop/maker/", {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/admin/shop/maker", {
                   params: params
                 });
 
@@ -150,7 +150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/admin/shop/maker/", {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/admin/shop/maker", {
                   mk_name: _this2.new_mk_name
                 });
 
