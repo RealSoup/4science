@@ -29,7 +29,7 @@
                             <b-form-select-option v-for="(v, i) in frm.option.group" :value="i" :key="i">{{v}}</b-form-select-option>
                         </b-form-select>
                     </b-col>
-                    
+
                     <b-col class="label">회원등급</b-col>
                     <b-col class="type02">
                         <b-form-select v-model="frm.level" id="level">
@@ -59,7 +59,7 @@
                             <b v-else>안함</b>
                         </b-form-checkbox>
                     </b-col>
-                    
+
                     <b-col class="label">성별</b-col>
                     <b-col class="type01">
                         <b-form-checkbox v-model="frm.sex" button size="sm" value="male" unchecked-value="female" :button-variant="frm.sex == 'male' ? 'primary' : 'danger'">
@@ -80,7 +80,7 @@
                 <b-row>
                     <b-col class="label">일반전화</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.tel" /></b-col>
-                    
+
                     <b-col class="label">휴대폰</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.hp" /></b-col>
 
@@ -91,7 +91,7 @@
                             <b v-else>안함</b>
                         </b-form-checkbox>
                     </b-col>
-                    
+
                     <b-col class="label">팩스</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.fax" /></b-col>
                 </b-row>
@@ -105,28 +105,28 @@
                             <b-form-select-option v-for="(v, k) in frm.option.job" :key="k" :value="v">{{v}}</b-form-select-option>
                         </b-form-select>
                     </b-col>
-                    
+
                     <b-col class="label">직장/학교명</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.office" /></b-col>
-                    
+
                     <b-col class="label short">부서/학과/<br />연구실명</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.department" /></b-col>
-                    
+
                     <b-col class="label">직급/학년</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.grade" /></b-col>
-                    
+
                     <b-col class="label short">지도/담당교수</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.tutor" /></b-col>
-                    
+
                     <b-col class="label short">추천인 Email</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.offer" /></b-col>
-                    
+
                     <b-col class="label short">추천인연구실</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.offer_lab" /></b-col>
-                    
+
                     <b-col class="label">가입경로</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.join_route" /></b-col>
-                    
+
                     <b-col class="label">관심분야</b-col>
                     <b-col class="type11">
                         {{frm.interest}}<template v-if="frm.interest_etc">, {{frm.interest_etc}}</template>
@@ -134,7 +134,7 @@
                 </b-row>
             </b-container>
         </b-card>
-        
+
         <b-card v-if="frm.level>10" class="adform">
             <b-container>
                 <b-row><b-col class="tit">관리자 정보</b-col></b-row>
@@ -151,7 +151,7 @@
                             <b-form-select-option v-for="(p, k) in frm.mng_info.position" :key="k" :value="k">{{p}}</b-form-select-option>
                         </b-form-select>
                     </b-col>
-                    
+
                     <b-col class="label">소속팀</b-col>
                     <b-col class="type02">
                         <b-form-select v-model="frm.user_mng.um_group" id="um_group">
@@ -190,7 +190,7 @@
                 <Mileage />
             </Modal>
         </transition>
-    </div>    
+    </div>
 </template>
 
 <script>
@@ -219,15 +219,15 @@ export default {
 
     async mounted() {
         const user = await ax.get(`/api/admin/user/${this.$route.params.id}/edit`);
-        if (user && user.status === 200) 
+        if (user && user.status === 200)
             this.frm = user.data;
-        
+
         const od = await ax.get(`/api/admin/shop/order/`, { params: {writer:this.$route.params.id, limit:10}});
         if (od && od.status === 200)
             this.order = od.data.list;
-        
+
         const eq = await ax.get(`/api/admin/shop/estimate/`, { params: {writer:this.$route.params.id, limit:10}});
-        if (eq && eq.status === 200) 
+        if (eq && eq.status === 200)
             this.estimate = eq.data.list;
     },
 
