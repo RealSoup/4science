@@ -20,8 +20,8 @@ mix.js('resources/js/app.js', 'public/js')
         },
     });
 
-// mix.browserSync ( 'http://dev.4science.net/');
-mix.browserSync (process.env.APP_URL);
+mix.browserSync ( 'https://dev.4science.net/');
+// mix.browserSync (process.env.APP_URL);
 // mix.disableNotifications();
 // mix.browserSync({
 //     proxy: '127.0.0.1:8000',
