@@ -367,7 +367,7 @@ export default {
                 case 'send': this.frm.er_step = 1; break;
             }
             try {
-                const res = await ax.post(`/api/admin/shop/estimate/`, this.frm);
+                const res = await ax.post(`/api/admin/shop/estimate`, this.frm);
                 if (res && res.status === 200) {
                     this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:res.data } })
                 }

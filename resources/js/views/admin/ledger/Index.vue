@@ -197,7 +197,7 @@ export default {
         },
         
         async store(frm) {
-            let res = await ax.post(`/api/admin/ledger/`, frm);
+            let res = await ax.post(`/api/admin/ledger`, frm);
             if (res && res.status === 200) {
                 this.index();
                 Notify.toast('success', '등록 완료');

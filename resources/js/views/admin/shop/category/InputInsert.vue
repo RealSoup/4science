@@ -35,7 +35,7 @@ export default {
                     ca_papa: this.ca_papa,
                     ca_seq: this.cate.length+1,
                 };
-                const res = await ax.post(`/api/admin/shop/category/`, newCate);
+                const res = await ax.post(`/api/admin/shop/category`, newCate);
                 if (res && res.status === 200) {
                     this.cate.push(Object.assign(newCate, {ca_id:res.data.ca_id}));
                     this.$emit('recount');

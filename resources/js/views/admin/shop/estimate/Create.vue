@@ -67,7 +67,7 @@ export default {
                     case 'send': this.frm.er_step = 1; break;
                 }
                 this.isLoadingModalViewed=true;
-                const res = await ax.post(`/api/admin/shop/estimate/`, this.frm);
+                const res = await ax.post(`/api/admin/shop/estimate`, this.frm);
                 if (res && res.status === 200) {
                     await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
                     this.isLoadingModalViewed=false;

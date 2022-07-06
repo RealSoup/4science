@@ -55,7 +55,7 @@ export default {
             this.$emit('save', type);
         },
         preview () {
-            var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}/`;
+            var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}`;
             var name = "견적서 미리보기";
             var option = "width = 900, height = 900, top = 10, left = 10, location = no"
             window.open(url, name, option);

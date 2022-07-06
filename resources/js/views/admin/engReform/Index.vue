@@ -112,7 +112,7 @@ export default {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
                     return false;
                 }
-                const res = await ax.get(`/api/admin/engReform/`, { params: this.sch_frm});
+                const res = await ax.get(`/api/admin/engReform`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data;
                 }

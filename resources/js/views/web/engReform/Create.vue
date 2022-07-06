@@ -247,7 +247,7 @@ export default {
     methods: {
         async store() {
             this.isLoadingModalViewed=true;
-            const res = await ax.post(`/api/engReform/`, this.frm);
+            const res = await ax.post(`/api/engReform`, this.frm);
             if (res && res.status === 200) {                        
                 await this.$refs.fileupload1.fileProcessor(res.data.er_id);
                 await this.$refs.fileupload2.fileProcessor(res.data.er_id);

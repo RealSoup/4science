@@ -164,7 +164,7 @@ export default {
             if (isok) {
                 let frm = new FormData();
                 frm.append("_method", 'DELETE');
-                let url = `/api/admin/ledger/${this.ledger[lg_i].lg_id}/`;
+                let url = `/api/admin/ledger/${this.ledger[lg_i].lg_id}`;
                 if (lm_i != null && lm_i >= 0)
                     url += `?lm_id=${this.ledger[lg_i].ledger_model[lm_i].lm_id}`
                 const res = await ax.post(url, frm);

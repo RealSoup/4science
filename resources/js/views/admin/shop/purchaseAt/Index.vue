@@ -53,7 +53,7 @@ export default {
         },
         async store(){
             try {
-                const res = await ax.post(`/api/admin/shop/purchase_at/`, this.frm);
+                const res = await ax.post(`/api/admin/shop/purchase_at`, this.frm);
                 if (res && res.status === 200) {
                     Notify.toast('success', '등록');
                     var ist = Object.assign(
