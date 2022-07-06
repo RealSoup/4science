@@ -154,7 +154,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _context.next = 6;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/user/", {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/user", {
                   params: _this.sch_frm
                 });
 

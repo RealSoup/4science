@@ -484,7 +484,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.isLoadingModalViewed = true;
                 _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform/", _this.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
 
               case 3:
                 res = _context.sent;

@@ -172,7 +172,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 15:
                 _this2.isLoadingModalViewed = true;
                 _context2.next = 18;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/", _this2.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate", _this2.frm);
 
               case 18:
                 res = _context2.sent;

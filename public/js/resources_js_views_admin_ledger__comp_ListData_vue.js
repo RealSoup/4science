@@ -204,7 +204,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 frm = new FormData();
                 frm.append("_method", 'DELETE');
-                url = "/api/admin/ledger/".concat(_this.ledger[lg_i].lg_id, "/");
+                url = "/api/admin/ledger/".concat(_this.ledger[lg_i].lg_id);
                 if (lm_i != null && lm_i >= 0) url += "?lm_id=".concat(_this.ledger[lg_i].ledger_model[lm_i].lm_id);
                 _context.next = 11;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post(url, frm);

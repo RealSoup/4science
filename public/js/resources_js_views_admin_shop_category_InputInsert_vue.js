@@ -73,7 +73,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   ca_seq: _this.cate.length + 1
                 };
                 _context.next = 6;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/category/", newCate);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/category", newCate);
 
               case 6:
                 res = _context.sent;

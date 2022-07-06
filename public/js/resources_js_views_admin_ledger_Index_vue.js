@@ -373,7 +373,7 @@ startDate = '';
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/", frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger", frm);
 
               case 2:
                 res = _context2.sent;

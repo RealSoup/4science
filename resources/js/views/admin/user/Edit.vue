@@ -221,15 +221,6 @@ export default {
         const user = await ax.get(`/api/admin/user/${this.$route.params.id}/edit`);
         if (user && user.status === 200)
             this.frm = user.data;
-<<<<<<< HEAD
-
-        const od = await ax.get(`/api/admin/shop/order/`, { params: {writer:this.$route.params.id, limit:10}});
-        if (od && od.status === 200)
-            this.order = od.data.list;
-
-        const eq = await ax.get(`/api/admin/shop/estimate/`, { params: {writer:this.$route.params.id, limit:10}});
-        if (eq && eq.status === 200)
-=======
         
         const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.$route.params.id, limit:10}});
         if (od && od.status === 200)
@@ -237,7 +228,6 @@ export default {
         
         const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.$route.params.id, limit:10}});
         if (eq && eq.status === 200) 
->>>>>>> 970cac31ead4ce4a3106aab89a72b01210509d6b
             this.estimate = eq.data.list;
     },
 

@@ -110,7 +110,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/purchase_at/", _this2.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/purchase_at", _this2.frm);
 
               case 3:
                 res = _context2.sent;

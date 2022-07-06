@@ -25,7 +25,9 @@
                 >
                     <b-form-input type="password" id="password" placeholder="비밀번호를 입력하세요"
                         v-model="frm.password"
-                        :state="getValidationState(validationContext)">
+                        :state="getValidationState(validationContext)"
+                        @keyup.enter="login"
+                    >
                     </b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </b-form-group>
@@ -48,8 +50,8 @@ export default {
     data() {
         return {
             frm:{
-                email: 'kjk@4science.net',
-                password: 'tkskdl38',
+                // email: 'kjk@4science.net',
+                // password: 'tkskdl38',
             },
         }
     },

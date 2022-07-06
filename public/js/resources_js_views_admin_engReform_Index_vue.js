@@ -150,7 +150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _context.next = 6;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/engReform/", {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/engReform", {
                   params: _this.sch_frm
                 });
 

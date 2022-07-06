@@ -80,7 +80,7 @@ class UserController extends Controller {
         
         if ( $req->level > 10 ) {
             DB::table('user_mng')->updateOrInsert(
-            [   'um_user_id', $id   ],
+            [   'um_user_id' => $id ],
             [   'um_status'         => array_key_exists('um_status', $req->user_mng) ? $req->user_mng['um_status'] : 'Y',
                 'um_position'       => array_key_exists('um_position', $req->user_mng) ? $req->user_mng['um_position'] : 1,
                 'um_group'          => array_key_exists('um_group', $req->user_mng) ? $req->user_mng['um_group'] : 'etc',
