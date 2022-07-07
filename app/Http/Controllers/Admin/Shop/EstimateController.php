@@ -498,4 +498,7 @@ class EstimateController extends Controller {
         return view('admin.estimate.pdf.estimate', ['er' => $er, 'type'=>$type]);
 	}
 
+    public function getEmptyEm () {
+        return response()->json($this->emptyEm());
+    }
 }

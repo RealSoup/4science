@@ -163,6 +163,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('estimate/printEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@printEstimatePdf')->name('admin.shop.estimate.printEstimatePdf');
             Route::POST('estimate/reSend/{er_id}', 'Admin\Shop\EstimateController@reSend')->name('admin.shop.estimate.reSend');
             Route::get('estimate/showEstimate/{er_id}', 'Admin\Shop\EstimateController@showEstimate');
+            Route::get('estimate/getEmptyEm', 'Admin\Shop\EstimateController@getEmptyEm');
             Route::resource('estimate', 'Admin\Shop\EstimateController');
             // Route::POST('estimate/estimateModelPurchaseCollection', 'Admin\Shop\EstimateController@estimateModelPurchaseCollection')->name('admin.shop.estimate.estimateModelPurchaseCollection');
         });

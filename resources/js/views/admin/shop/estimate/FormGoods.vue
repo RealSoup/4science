@@ -12,12 +12,11 @@
                     <div class="flag_tag tag_red" v-if="em.bundle_dc && em.bundle_dc.length">묶음 할인</div>
                     <div class="flag_tag tag_green" v-if="em.goods && em.goods.purchase_at">매입처 상품</div>
                     <b-button size="sm" @click="openOption(mi, em.em_gd_id)"><b-icon-search /> 옵션</b-button>
+                    <span @click="emReset(em)"><b-icon-x-square-fill /></span>
                     23-1-1
                 </b-col>
                 <b-col class="text-right">
-                    <b-button variant="outline-danger" size="sm" @click="emDel(mi)" v-if="(mi!=0)">
-                        <b-icon-x-square-fill />
-                    </b-button>
+                    <b-button variant="outline-danger" size="sm" @click="emDel(mi)" v-if="(mi!=0)"><b-icon-x-square-fill /></b-button>
                 </b-col>
             </b-row>
             <b-row>
@@ -112,6 +111,7 @@
 </template>
 
 <script>
+import ax from '@/api/http';
 import OptionAdd from "./_comp/OptionAdd.vue";
 import moment from 'moment';
 
@@ -152,6 +152,9 @@ export default {
                 this.$set(em, 'em_dc_rate', this.frm.all_dc);
             }
         },
+        async emReset(em) {
+            console.log(await ax.post(`/api/admin/shop/estimate/getEmptyEm`));
+        }
     },
 }
 </script>

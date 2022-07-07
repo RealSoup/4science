@@ -123,8 +123,9 @@ class LedgerController extends Controller {
             ]);
 
             foreach ($req->order_goods as $gd) {
+                $lm = array();
                 foreach ($gd['order_option'] as $opc) {
-                    $rst = LedgerModel::create([
+                    $lm[] = array(
                         'lm_lg_id'     => $lg_id,
                         'lm_gm_name'   => $opc['odo_opc_name'],
                         'lm_gm_price'  => $opc['odo_price'],
@@ -134,10 +135,24 @@ class LedgerController extends Controller {
                         'lm_sum_price' => intval(($opc['odo_price']*$opc['odo_ea'])*1.1),
                         'created_id'   => auth()->user()->id,
                         'ip'           => $req->ip(),
-                    ]);      
+                    );
+                    // $rst = LedgerModel::create([
+                    //     'lm_lg_id'     => $lg_id,
+                    //     'lm_gm_name'   => $opc['odo_opc_name'],
+                    //     'lm_gm_price'  => $opc['odo_price'],
+                    //     'lm_ea'        => $opc['odo_ea'],
+                    //     'lm_ea_price'  => $opc['odo_price']*$opc['odo_ea'],
+                    //     'lm_surtax'    => intval(($opc['odo_price']*$opc['odo_ea'])*0.1),
+                    //     'lm_sum_price' => intval(($opc['odo_price']*$opc['odo_ea'])*1.1),
+                    //     'created_id'   => auth()->user()->id,
+                    //     'ip'           => $req->ip(),
+                    // ]);      
                 }
+                DB::table('ledger_model')->insert($lm);
+                
+                $lm = array();
                 foreach ($gd['order_model'] as $gm) {
-                    $rst = LedgerModel::create([
+                    $lm[] = array(
                         'lm_lg_id'     => $lg_id,
                         'lm_gm_name'   => $gm['odm_gm_name'],
                         'lm_gm_spec'   => $gm['odm_gm_spec'],
@@ -150,8 +165,23 @@ class LedgerController extends Controller {
                         'lm_sum_price' => intval(($gm['odm_price']*$gm['odm_ea'])*1.1),
                         'created_id'   => auth()->user()->id,
                         'ip'           => $req->ip(),
-                    ]);
+                    );
+                    // $rst = LedgerModel::create([
+                    //     'lm_lg_id'     => $lg_id,
+                    //     'lm_gm_name'   => $gm['odm_gm_name'],
+                    //     'lm_gm_spec'   => $gm['odm_gm_spec'],
+                    //     'lm_catno'     => $gm['odm_gm_catno'],
+                    //     'lm_gm_code'   => $gm['odm_gm_code'],
+                    //     'lm_gm_price'  => $gm['odm_price'],
+                    //     'lm_ea'        => $gm['odm_ea'],
+                    //     'lm_ea_price'  => $gm['odm_price']*$gm['odm_ea'],
+                    //     'lm_surtax'    => intval(($gm['odm_price']*$gm['odm_ea'])*0.1),
+                    //     'lm_sum_price' => intval(($gm['odm_price']*$gm['odm_ea'])*1.1),
+                    //     'created_id'   => auth()->user()->id,
+                    //     'ip'           => $req->ip(),
+                    // ]);
                 }
+                DB::table('ledger_model')->insert($lm);
             }
             
         } else if($req->filled('data_type') && $req->data_type == 'EST') {

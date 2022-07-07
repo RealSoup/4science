@@ -184,7 +184,7 @@ export default {
 
 #Cart .list_box ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
 #Cart .list_box ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
-#Cart .list_box ul >>> li>div .btn_x { position:absolute; top:0; right:-15px; padding: 0.35em 0.4em; cursor:pointer; }
+#Cart .list_box ul >>> li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1; }
 #Cart .list_box ul >>> li>div a img { transition:all 0.4s; width:100px; height:100px; object-fit:cover; }
 #Cart .list_box ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
 
@@ -204,7 +204,7 @@ export default {
 
 #Cart.fixed_header { position:fixed; top:85px; }
 #Cart.hideCart { height:auto; }
-#Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0; }
+#Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important; }
 #Cart.hideCart ul>>>li>div a img { border-radius: 50%; width: 62px; height: 62px; }
 
 

@@ -30,7 +30,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CartModel",
@@ -221,6 +220,16 @@ var render = function () {
               expression: "value.ct_check_opt",
             },
           }),
+          _vm._v(" "),
+          _c(
+            "b-badge",
+            {
+              staticClass: "btn_x hide",
+              attrs: { pill: "", variant: "danger" },
+              on: { click: _vm.outCart },
+            },
+            [_vm._v("X")]
+          ),
           _vm._v(" "),
           _c(
             "router-link",

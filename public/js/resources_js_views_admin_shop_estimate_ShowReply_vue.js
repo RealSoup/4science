@@ -304,6 +304,7 @@ var dt = new Date();
         }, _callee2, null, [[4, 14]]);
       }))();
     },
+    ///////////////////////////////////////////////////////////////////////////////////////////
     print: function print() {
       var url = "/api/admin/shop/estimate/showEstimate/".concat(this.$route.params.er_id, "/?type=print");
       var name = "견적서 인쇄";

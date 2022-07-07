@@ -308,9 +308,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _comp_OptionAdd_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_comp/OptionAdd.vue */ "./resources/js/views/admin/shop/estimate/_comp/OptionAdd.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var _comp_OptionAdd_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_comp/OptionAdd.vue */ "./resources/js/views/admin/shop/estimate/_comp/OptionAdd.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -435,12 +436,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    OptionAdd: _comp_OptionAdd_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    OptionAdd: _comp_OptionAdd_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     'PriceInput': function PriceInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_PriceInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/PriceInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue"));
     },
@@ -514,6 +515,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } finally {
         _iterator.f();
       }
+    },
+    emReset: function emReset(em) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.t0 = console;
+                _context2.next = 3;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/getEmptyEm");
+
+              case 3:
+                _context2.t1 = _context2.sent;
+
+                _context2.t0.log.call(_context2.t0, _context2.t1);
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -1295,6 +1319,19 @@ var render = function () {
                             },
                           },
                           [_c("b-icon-search"), _vm._v(" 옵션")],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            on: {
+                              click: function ($event) {
+                                return _vm.emReset(em)
+                              },
+                            },
+                          },
+                          [_c("b-icon-x-square-fill")],
                           1
                         ),
                         _vm._v(

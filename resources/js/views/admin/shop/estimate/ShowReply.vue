@@ -218,14 +218,7 @@ export default {
                 }
             }
         },
-
-
-
-
-
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////
         print () {
             var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}/?type=print`;
             var name = "견적서 인쇄";
@@ -296,9 +289,6 @@ export default {
                 Notify.toast('warning', e.response);
             }
         }
-
-
-
     },
     mounted() {
         this.show();

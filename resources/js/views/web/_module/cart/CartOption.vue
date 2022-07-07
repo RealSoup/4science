@@ -13,7 +13,7 @@
         <b-col class="hide">
             <div></div>
             <VueNumericInput align="center" :min="1" width="100px" v-model="value.ea" @input="update" />
-            <!-- <b-badge pill variant="danger" class="btn_x" @click="outCart">X</b-badge> -->
+            <b-badge pill variant="danger" class="btn_x" @click="outCart">X</b-badge>
         </b-col>
     </b-row>
 </template>
