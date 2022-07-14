@@ -264,7 +264,7 @@ class OrderController extends Controller {
 			$subject = '거래명세서 메일입니다.';
 			$content = '이용해주셔서 감사합니다.';
 			$to_email = $req->trans_email;
-			$pdf = PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id)]);
+			$pdf = PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id), 'trans_date' => $req->trans_date, 'trans_receive' => $req->trans_receive]);
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
 			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
