@@ -125,13 +125,18 @@ class Goods extends Model {
             case 'order':   //  주문페이지에서 주문 상품을 보여주기 위한 데이터 편집
                 $od = $some->orderGoods;
                 foreach ($od as $odg) {
+                    
                     $collect[$odg->odg_gd_id] = collect(['model'=>collect(), 'option'=>collect()]);
                     foreach ($odg->orderModel as $odm) {
-                        $collect[$odg->odg_gd_id]['model']->put($odm->odm_gm_id, collect([
-                            'gm_id'  => $odm->odm_gm_id,
-                            'ea'     => $odm->odm_ea,
-                            'odm_id' => $odm->odm_id,
-                            'odm_price' => $odm->odm_price ]));
+                        if ( $odm->odm_gm_id > 0 ) {
+                            $collect[$odg->odg_gd_id]['model']->put($odm->odm_gm_id, collect([
+                                'gm_id'  => $odm->odm_gm_id,
+                                'ea'     => $odm->odm_ea,
+                                'odm_id' => $odm->odm_id,
+                                'odm_price' => $odm->odm_price ]));
+                        } else {
+                            $collect[$odg->odg_gd_id]['model'][] = $odm;
+                        }
                     }
                     foreach ($odg->orderOption as $odo) {
                         $collect[$odg->odg_gd_id]['option']->put($odo->odo_opc_id, collect([
@@ -209,34 +214,58 @@ class Goods extends Model {
                 }
             } else {
                 $gd = self::find($gd_id);
-                if ($type == 'cart') $gd->ct_id = $collect[$gd_id]['ct_id'];
-                $gd->purchaseAt;
-                $gd->maker;
-                $gd->goods_model = GoodsModel::find($val['model']->pluck('gm_id'));
-                foreach ($gd->goods_model as $gm) {
-                    $gm->ea = $collect[$gd_id]['model'][$gm->gm_id]['ea'];
-                    if ($type == 'cart') $gm->cm_id = $collect[$gd_id]['model'][$gm->gm_id]['cm_id'];
-                    if ($type == 'order') {
-                        //  주문은 주문 시점 가격을 가져온다
-                        $gm->odm_price = $collect[$gd_id]['model'][$gm->gm_id]['odm_price'];
-                        $gm->odm_price_add_vat = rrp($collect[$gd_id]['model'][$gm->gm_id]['odm_price']);
-                        $gd->goods_p += $gm->odm_price*$gm->ea;
-                    } else {
-                        if ($gm->bundleDc()->exists()) { // 묶음할인이 있다면 적용
-                            foreach($gm->bundleDc as $dc){
-                                if ($gm->ea < $dc->bd_ea)      { break; }
-                                else if ($gm->ea == $dc->bd_ea){ $gm->gm_price = $dc->bd_price; break; }
-                                else if ($gm->ea > $dc->bd_ea) { $gm->gm_price = $dc->bd_price; }
-                                /*
-                                bd_price_add_vat를 넣어주지 않고 bd_price를 넣어주는 이유는
-                                gm_price 부가세 포함이 이후에 이루어 져서
-                                여기서 포함가를 넣어주면 이중으로 된다.
-                                */
+                if ( $gd_id > 0 ) {
+                    if ($type == 'cart') $gd->ct_id = $collect[$gd_id]['ct_id'];
+                    $gd->purchaseAt;
+                    $gd->maker;
+                    $gd->goods_model = GoodsModel::find($val['model']->pluck('gm_id'));
+                    foreach ($gd->goods_model as $gm) {
+                        $gm->ea = $collect[$gd_id]['model'][$gm->gm_id]['ea'];
+                        if ($type == 'cart') $gm->cm_id = $collect[$gd_id]['model'][$gm->gm_id]['cm_id'];
+                        if ($type == 'order') {
+                            $gm->odm_id = $collect[$gd_id]['model'][$gm->gm_id]['odm_id'];
+                            //  주문은 주문 시점 가격을 가져온다
+                            $gm->odm_price = $collect[$gd_id]['model'][$gm->gm_id]['odm_price'];
+                            $gm->odm_price_add_vat = rrp($collect[$gd_id]['model'][$gm->gm_id]['odm_price']);
+                            $gd->goods_p += $gm->odm_price*$gm->ea;
+                        } else {
+                            if ($gm->bundleDc()->exists()) { // 묶음할인이 있다면 적용
+                                foreach($gm->bundleDc as $dc){
+                                    if ($gm->ea < $dc->bd_ea)      { break; }
+                                    else if ($gm->ea == $dc->bd_ea){ $gm->gm_price = $dc->bd_price; break; }
+                                    else if ($gm->ea > $dc->bd_ea) { $gm->gm_price = $dc->bd_price; }
+                                    /*
+                                    bd_price_add_vat를 넣어주지 않고 bd_price를 넣어주는 이유는
+                                    gm_price 부가세 포함이 이후에 이루어 져서
+                                    여기서 포함가를 넣어주면 이중으로 된다.
+                                    */
+                                }
                             }
+                            $gd->goods_p += $gm->gm_price*$gm->ea;
                         }
-                        $gd->goods_p += $gm->gm_price*$gm->ea;
+                    }
+                } else {               
+                    $gd['gd_name'] = '';
+                    $gd['maker'] = array();
+                    $gd['maker']['mk_name'] = '';
+                    $gd['image_src_thumb'] = array();
+                    $gd['image_src_thumb'][] = noimg(true);
+                    $gd['goods_model'] = collect();
+                    $gd['goods_p'] = 0;
+                    foreach ($val['model'] as $gm) {
+                        $gm->gm_name = $gm->odm_gm_name;
+                        $gm->gm_code = $gm->odm_gm_code;
+                        $gm->gm_catno = $gm->odm_gm_catno;
+                        $gm->gm_unit = $gm->odm_gm_unit;
+                        $gm->gm_spec = $gm->odm_gm_spec;
+                        $gm->ea = $gm->odm_ea;
+                        $gm->odm_price_add_vat = rrp($gm->odm_price);
+                        $gd['goods_model'][] = $gm;
+                        $gd['goods_p'] += $gm->odm_price*$gm->ea;
                     }
                 }
+
+                
                 if($val['option']->isNotEmpty()){
                     $gd->option_child = OptionChild::find($val['option']->pluck('opc_id'));
                     foreach ($gd->option_child as $opc) {
@@ -257,11 +286,11 @@ class Goods extends Model {
             }
 
             $pa_id = 0;
-            if ($gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출
+            if ($gd_id > 0 && $gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출
             if (!$params['lists']->has($pa_id)) {
                 $params['lists']->put($pa_id, collect([ //  직배송 키로 컬랙션 생성
-                'price'=>collect([ 'goods'=>0, 'goods_add_vat'=>0, 'dlvy'=>0, 'dlvy_add_vat'=>0, 'air'=>0, 'air_add_vat'=>0 ]),
-                'list'=>collect(),
+                    'price'=>collect([ 'goods'=>0, 'goods_add_vat'=>0, 'dlvy'=>0, 'dlvy_add_vat'=>0, 'air'=>0, 'air_add_vat'=>0 ]),
+                    'list'=>collect(),
                 ]));
             }
             $params['lists'][$pa_id]['list'][] = $gd;

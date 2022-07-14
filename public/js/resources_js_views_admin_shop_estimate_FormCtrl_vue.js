@@ -28,40 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['value'],
-  watch: {
-    'value.all_dc': {
-      handler: function handler(n, o) {
-        this.$emit('all_dc_update');
-      }
-    },
-    'value.er_no_dlvy_fee': {
-      handler: function handler(n, o) {
-        this.$emit('calculator');
-      }
-    }
-  },
   methods: {
     save: function save(type) {
       this.$emit('save', type);
@@ -93,7 +60,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\n.extra_func .row .col:last-child label span[data-v-270d5b48] { font-size:.9rem;\n}\n#all_dc[data-v-270d5b48] { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -228,171 +195,73 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "b-card",
+    { staticClass: "ctrl", attrs: { "no-body": "" } },
     [
       _c(
-        "b-card",
-        { staticClass: "ctrl", attrs: { "no-body": "" } },
+        "b-container",
         [
           _c(
-            "b-container",
+            "b-row",
+            { attrs: { cols: "1", "cols-md": "2" } },
             [
               _c(
-                "b-row",
-                { attrs: { cols: "1", "cols-md": "2" } },
+                "b-col",
                 [
                   _c(
-                    "b-col",
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-sm btn-light",
-                          attrs: { to: { name: "adm_estimate_index" } },
-                        },
-                        [_c("b-icon-list"), _vm._v(" 목록")],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { size: "sm", variant: "info" },
-                          on: { click: _vm.preview },
-                        },
-                        [_c("b-icon-search"), _vm._v(" 미리보기")],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { size: "sm", variant: "success" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.save("store")
-                            },
-                          },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                          _vm._v(" 저장"),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { size: "sm", variant: "primary" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.save("send")
-                            },
-                          },
-                        },
-                        [_c("b-icon-mailbox"), _vm._v(" 발송")],
-                        1
-                      ),
-                    ],
+                    "router-link",
+                    {
+                      staticClass: "btn btn-sm btn-light",
+                      attrs: { to: { name: "adm_estimate_index" } },
+                    },
+                    [_c("b-icon-list"), _vm._v(" 목록")],
                     1
                   ),
                 ],
                 1
               ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        { staticClass: "extra_func adform", attrs: { "no-body": "" } },
-        [
-          _c(
-            "b-container",
-            [
+              _vm._v(" "),
               _c(
-                "b-row",
+                "b-col",
                 [
                   _c(
-                    "b-col",
+                    "b-button",
                     {
-                      staticClass: "label",
-                      attrs: { tag: "label", for: "all_dc" },
+                      attrs: { size: "sm", variant: "info" },
+                      on: { click: _vm.preview },
                     },
-                    [_vm._v("일괄할인")]
+                    [_c("b-icon-search"), _vm._v(" 미리보기")],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "type01" },
+                    "b-button",
+                    {
+                      attrs: { size: "sm", variant: "success" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.save("store")
+                        },
+                      },
+                    },
                     [
-                      _c("b-form-input", {
-                        attrs: {
-                          id: "all_dc",
-                          type: "number",
-                          min: "0",
-                          max: "99",
-                          placeholder: "00%",
-                        },
-                        model: {
-                          value: _vm.value.all_dc,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "all_dc", $$v)
-                          },
-                          expression: "value.all_dc",
-                        },
-                      }),
+                      _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                      _vm._v(" 저장"),
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
+                    "b-button",
                     {
-                      staticClass: "label short",
-                      attrs: { tag: "label", for: "er_no_dlvy_fee" },
-                    },
-                    [_vm._v("배송료 제외")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type05" },
-                    [
-                      _c(
-                        "b-form-checkbox",
-                        {
-                          attrs: {
-                            id: "er_no_dlvy_fee",
-                            value: "Y",
-                            "unchecked-value": "N",
-                            size: "lg",
-                          },
-                          model: {
-                            value: _vm.value.er_no_dlvy_fee,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.value, "er_no_dlvy_fee", $$v)
-                            },
-                            expression: "value.er_no_dlvy_fee",
-                          },
+                      attrs: { size: "sm", variant: "primary" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.save("send")
                         },
-                        [
-                          _c("span", { staticClass: "point" }, [
-                            _vm._v("※주의 - 상품가격에 반영되지 않음"),
-                          ]),
-                        ]
-                      ),
-                    ],
+                      },
+                    },
+                    [_c("b-icon-mailbox"), _vm._v(" 발송")],
                     1
                   ),
                 ],

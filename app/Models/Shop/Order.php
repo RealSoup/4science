@@ -14,8 +14,8 @@ class Order extends Model {
     protected $orderConfig = [
         'step' => [
             10 => '주문접수',
-            11 => '승인대기',
-            12 => '결제대기',
+            11 => '입금확인요청',
+            12 => '입금 확인중',
             20 => '결제완료',
             30 => '배송준비',
             31 => '배송중',
@@ -25,15 +25,15 @@ class Order extends Model {
             51 => '결제실패',
         ],
         'type' => [
-            'inst' => '바로구매',
-            'cart' => '장바구니',
-            'quote' => '견적구매',
+            'buy_inst'      => '바로주문',
+            'buy_cart'      => '장바구니주문',
+            'buy_estimate'  => '견적주문',
+            'buy_temp'      => '임의주문',
         ],
         'pay_method' => [
             'C' => '카드',
             'B' => '계좌이체',
             'P' => 'PSYS',
-            'S' => '전표',
             'E' => '에스크로',
         ],
     ];

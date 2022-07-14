@@ -46,9 +46,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
@@ -57,6 +54,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     'FormCtrl': function FormCtrl() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormCtrl_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormCtrl.vue */ "./resources/js/views/admin/shop/estimate/FormCtrl.vue"));
+    },
+    'FormSetting': function FormSetting() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormSetting_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormSetting.vue */ "./resources/js/views/admin/shop/estimate/FormSetting.vue"));
     },
     'FormUser': function FormUser() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormUser_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormUser.vue */ "./resources/js/views/admin/shop/estimate/FormUser.vue"));
@@ -516,22 +516,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _iterator.f();
       }
     },
-    emReset: function emReset(em) {
+    emReset: function emReset(i) {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var def;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.t0 = console;
-                _context2.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/getEmptyEm");
+                _context2.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/getEmptyEm");
 
-              case 3:
-                _context2.t1 = _context2.sent;
+              case 2:
+                def = _context2.sent;
 
-                _context2.t0.log.call(_context2.t0, _context2.t1);
+                _this2.$set(_this2.value, i, def.data);
 
-              case 5:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -1177,12 +1179,10 @@ var render = function () {
     [
       _c("h3", [_vm._v("견적서 작성")]),
       _vm._v(" "),
-      _c("FormCtrl", {
-        on: {
-          save: _vm.store,
-          all_dc_update: _vm.all_dc_apply,
-          calculator: _vm.calculator,
-        },
+      _c("FormCtrl", { on: { save: _vm.store } }),
+      _vm._v(" "),
+      _c("FormSetting", {
+        on: { all_dc_update: _vm.all_dc_apply },
         model: {
           value: _vm.frm,
           callback: function ($$v) {
@@ -1216,16 +1216,6 @@ var render = function () {
             },
           })
         : _vm._e(),
-      _vm._v("\n" + _vm._s(_vm.frm.er_gd_price)),
-      _c("br"),
-      _vm._v("\n" + _vm._s(_vm.frm.er_surtax)),
-      _c("br"),
-      _vm._v("\n" + _vm._s(_vm.frm.er_dlvy_price)),
-      _c("br"),
-      _vm._v("\n" + _vm._s(_vm.frm.er_air_price)),
-      _c("br"),
-      _vm._v("\n" + _vm._s(_vm.frm.er_all_price)),
-      _c("br"),
       _vm._v(" "),
       _c("FormExtra", {
         ref: "form_extra",
@@ -1321,19 +1311,6 @@ var render = function () {
                           [_c("b-icon-search"), _vm._v(" 옵션")],
                           1
                         ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            on: {
-                              click: function ($event) {
-                                return _vm.emReset(em)
-                              },
-                            },
-                          },
-                          [_c("b-icon-x-square-fill")],
-                          1
-                        ),
                         _vm._v(
                           "\r\n                    23-1-1\r\n                "
                         ),
@@ -1345,13 +1322,35 @@ var render = function () {
                       "b-col",
                       { staticClass: "text-right" },
                       [
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "em_reset",
+                            attrs: { variant: "warning", size: "sm" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.emReset(mi)
+                              },
+                            },
+                          },
+                          [_vm._v("초기화")]
+                        ),
+                        _vm._v(" "),
                         mi != 0
                           ? _c(
                               "b-button",
                               {
+                                directives: [
+                                  {
+                                    name: "b-tooltip",
+                                    rawName: "v-b-tooltip.hover",
+                                    modifiers: { hover: true },
+                                  },
+                                ],
                                 attrs: {
-                                  variant: "outline-danger",
+                                  variant: "danger",
                                   size: "sm",
+                                  title: "삭제",
                                 },
                                 on: {
                                   click: function ($event) {
@@ -1359,7 +1358,7 @@ var render = function () {
                                   },
                                 },
                               },
-                              [_c("b-icon-x-square-fill")],
+                              [_c("b-icon-x-lg")],
                               1
                             )
                           : _vm._e(),

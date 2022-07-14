@@ -238,6 +238,19 @@ var render = function () {
             "b-col",
             [
               _c(
+                "b-link",
+                { attrs: { to: "/auth/create/dealer" } },
+                [_c("b-img", { attrs: { src: "/img/auth/dealer.png" } })],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c(
                 "b-row",
                 [
                   _c(

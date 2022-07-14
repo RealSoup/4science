@@ -85,7 +85,7 @@
             </b-row>
             <hr>
 
-            <List v-if="list.data && list.data.length" :list="list.data" />
+            <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" />
             
             <b-alert v-else variant="danger" show>No Item</b-alert>
         </b-container>
@@ -163,14 +163,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#adm_order .card { border-radius:10px; margin-bottom:20px; }
-
-#adm_order .od_list .row.list_item > div { padding:10px 4px; }
-#adm_order .od_list .row.list_item:nth-child(odd) > div:nth-child(odd),
-#adm_order .od_list .row.list_item:nth-child(even) > div:nth-child(even) { /*border:1px solid #EAF2FF;*/ }
-#adm_order .od_list .row.list_item:nth-child(odd) > div:nth-child(even),
-#adm_order .od_list .row.list_item:nth-child(even) > div:nth-child(odd) { background-color:#EAF2FF; }
-#adm_order .od_list .row.list_item div .badge { font-size:1rem; }
-#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge { font-size:75%;  }
-#adm_order .od_list .row.list_item > div:nth-of-type(1) .badge:hover { font-size:125%; position:absolute; z-index:1; }
 </style>

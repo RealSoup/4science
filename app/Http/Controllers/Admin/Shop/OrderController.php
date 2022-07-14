@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\Shop\{Order, OrderModel, OrderGoods, OrderOption, OrderExtraInfo, DeliveryCompany, Maker, Category, Goods, OrderAnswer, OrderAddRefundPay};
 use App\Models\{User, UserMng, FileNote};
 // use App\Traits\{InicisUtil, InicisHttpClient};
+use Illuminate\Support\Facades\Storage;
+use Mail;
 use DateTime;
 use Session;
 use DB;
@@ -17,6 +19,7 @@ use App\Exports\OrderEstimateExport;
 use App\Exports\OrderTransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use App\Mail\TransactionSend;
 
 class OrderController extends Controller {
 	// use InicisUtil;    //  trait
@@ -147,6 +150,71 @@ class OrderController extends Controller {
 		// dump($data);
 		return response()->json($data);
     }
+	
+	public function store (Request $req) {
+		// dd(collect($req->estimate_model)->groupBy('em_gd_id'));
+		$eq_title = $req->estimate_model[0]['em_name'].'외 ['.(count($req->estimate_model) - 1).']';
+		$od_id = $this->order->insertGetId([
+			'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
+			'od_name'          => $eq_title,
+			'od_type'          => 'buy_temp',
+			'od_step'          => '10',
+			'od_gd_price'      => $req->filled('er_gd_price')		? $req->er_gd_price   : 0,
+			'od_surtax'        => $req->filled('er_surtax')            ? $req->er_surtax          : 0,
+			'od_dlvy_price'    => $req->filled('er_dlvy_price')            ? $req->er_dlvy_price    : 0,
+			'od_air_price'     => $req->filled('er_air_price') ? $req->er_air_price     : 0,
+			'od_all_price'     => $req->filled('er_all_price') ? $req->er_all_price           : 0,
+			'od_orderer'       => $req->filled('estimate_req')       ? $req->estimate_req['eq_name']       : '',
+			'od_orderer_hp'    => $req->filled('estimate_req')    ? $req->estimate_req['eq_hp']    : '',
+			'od_orderer_email' => $req->filled('estimate_req') ? $req->estimate_req['eq_email'] : '',
+			'od_receiver'      => $req->filled('estimate_req')       ? $req->estimate_req['eq_name']       : '',
+			'od_receiver_hp'   => $req->filled('estimate_req')    ? $req->estimate_req['eq_hp']    : '',
+			'od_zip'           => $req->filled('od_zip')           ? $req->od_zip           : '',
+			'od_addr1'         => '',
+			'od_addr2'         => '',
+			'od_memo'          => '',
+			'od_pay_method'    => NULL,
+			'od_sale_env'      => NULL,
+			'ip'               => NULL,
+			'created_id'       => auth()->user()->id
+		], 'od_id');
+
+		foreach (collect($req->estimate_model)->groupBy('em_gd_id') as $gd_id => $gd) {
+			$odg_id = 0;
+			foreach ($gd as $seq => $em) {
+				if ($seq == 0) {
+					$odg_id = OrderGoods::insertGetId([
+						'odg_od_id'     => $od_id,
+						'odg_gd_id'     => $gd_id,
+						'odg_gd_name'   => $em['em_name'],
+					], 'odg_id');
+				}
+				OrderModel::insert([
+					'odm_od_id'     => $od_id,
+					'odm_odg_id'    => $odg_id,
+					'odm_gm_id'     => $em['em_gm_id'],
+					'odm_gm_catno'  => $em['em_catno'],
+					'odm_gm_name'   => $em['em_name'],
+					'odm_gm_code'   => $em['em_code'],
+					'odm_gm_spec'   => $em['em_spec'],
+					'odm_gm_unit'   => $em['em_unit'],
+					'odm_ea'        => $em['em_ea'],
+					'odm_price'     => $em['em_price']
+				]);
+
+				foreach ($em['estimate_option'] as $eo) {
+					OrderOption::insert([
+						'odo_od_id'     => $od_id,
+						'odo_odg_id'    => $odg_id,
+						'odo_opc_id'    => $eo['eo_opc_id'],
+						'odo_opc_name'  => $eo['eo_tit']." ".$eo['eo_name'],
+						'odo_ea'        => $eo['eo_ea'],
+						'odo_price'     => $eo['eo_price']
+					]);
+				}
+			}
+		}
+	}
 
 	public function edit($od_id) {
 		// $params['dlvy_url'] = "https://b2c.goodsflow.com/zkm/V1/whereis/";
@@ -173,7 +241,9 @@ class OrderController extends Controller {
 
 		// $params['user'] = User::find($params['od']->created_id);
 		// dump($data);
-		return response()->json($data);
+		
+		$data['order_config'] = $this->order->getOrderConfig();
+		return response()->json($data, 200);
 	}
 
 	public function exportEstimateExcel(int $od_id) {
@@ -189,21 +259,59 @@ class OrderController extends Controller {
 		return Excel::download(new OrderTransactionExport($od_id), 'order.xlsx');
 	}
 
-	public function exportTransactionPdf(int $od_id) {
-		return PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id)])
+	public function exportTransactionPdf(Request $req, int $od_id) {
+		if ($req->filled('trans_date')) {
+			$subject = '거래명세서 메일입니다.';
+			$content = '이용해주셔서 감사합니다.';
+			$to_email = $req->trans_email;
+			$pdf = PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id)]);
+			// $pdf->setOptions(['dpi' => 96 ]);
+			$filename = uniqid();
+			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
+			return Mail::to($to_email)->queue(new TransactionSend(cache('biz')->email, $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+		} else {
+			return PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id)])
 				// ->download('order.pdf');
 				->stream();
+		}
 	}
 
 
 
 	public function update(Request $req, $od_id) {
+		// dd($req->all());
 		$od = $this->order->find($od_id);
 		if ($req->filled('type')) {
 			if 		($req->type == 'od_mng' && 	$req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step'))	$od->od_step = $req->od_step;
+			else if ($req->type == 'odm_ea') {
+				foreach ($req->pa_list['lists'] as $pa) {
+					foreach ($pa['list'] as $gd) {
+						foreach ($gd['goods_model'] as $gm)
+							DB::table('shop_order_model')->where('odm_id', $gm['odm_id'])->update(['odm_ea' => $gm['ea']]);
+					}
+				}
+				$gd = new Goods;
+				$updated_item = $gd->getGoodsDataCollection($this->order->find($od_id), 'order');
+				$od_rst = DB::table('shop_order')->where('od_id', $od_id)->update([
+					'od_gd_price' 	=> $updated_item['price']['goods'],
+					'od_surtax' 	=> $updated_item['price']['surtax'],
+					'od_dlvy_price' => $updated_item['price']['dlvy_add_vat'],
+					'od_air_price' 	=> $updated_item['price']['air_add_vat'],
+					'od_all_price' 	=> $updated_item['price']['total'],
+				] );
+			} else if ($req->type == 'addr') {
+				
+				$od->od_receiver = $req->od_receiver;
+				$od->od_receiver_hp = $req->od_receiver_hp;
+				$od->od_zip = $req->od_zip;
+				$od->od_addr1 = $req->od_addr1;
+				$od->od_addr2 = $req->od_addr2;
+			}
+			$od_rst = $od->save();
 		}
-	   	$od_rst = $od->save();
+		
+	   	
 		if ($od_rst)
             return response()->json(["msg"=>"success"], 200);
         else

@@ -3,16 +3,13 @@
 
         <h3>견적서 작성</h3>
 
-        <FormCtrl v-model="frm" @save="store" @all_dc_update="all_dc_apply" @calculator="calculator" />
+        <FormCtrl @save="store" />
+
+        <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
 
         <FormUser v-model="frm" />
 
         <FormGoods ref="form_goods" v-model="frm.estimate_model" v-if="frm.estimate_model.length" :frm="frm" @hook:mounted="" />
-{{frm.er_gd_price}}<br/>
-{{frm.er_surtax}}<br/>
-{{frm.er_dlvy_price}}<br/>
-{{frm.er_air_price}}<br/>
-{{frm.er_all_price}}<br/>
 
         <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
 
@@ -27,6 +24,7 @@ export default {
     name: 'Create',
     components: {
         'FormCtrl': () =>      import('./FormCtrl.vue'),
+        'FormSetting': () =>   import('./FormSetting.vue'),
         'FormUser': () =>      import('./FormUser.vue'),
         FormGoods,
         'FormExtra': () =>      import('./FormExtra.vue'),

@@ -80,8 +80,8 @@ table tr th, table tr td { padding:5px; }
         </tr>
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
-                <p>{{ date('Y년 m월 d일') }}</p>
-                <p>{{ $od->od_department }} 귀하</p>
+                <p>{{ $trans_date ? $trans_date : date('Y년 m월 d일') }}</p>
+                <p>{{ $trans_receive ? $trans_receive : $od->od_department }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
             <td align="center" valign="middle"><img src="./img/common/addr_estimate200921.gif" width="270px" /></td>

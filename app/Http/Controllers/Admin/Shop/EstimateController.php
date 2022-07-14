@@ -397,7 +397,7 @@ class EstimateController extends Controller {
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-        return Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+        return Mail::to($to_email)->queue(new EstimateSend(cache('biz')->email, $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
     }
 
     public function estimateReq_paramImplant($req){

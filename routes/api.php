@@ -148,13 +148,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('order/exportTransactionExcel/{od_id}', 'Admin\Shop\OrderController@exportTransactionExcel')->name('admin.shop.order.exportTransactionExcel');
             Route::get('order/exportTransactionPdf/{od_id}', 'Admin\Shop\OrderController@exportTransactionPdf')->name('admin.shop.order.exportTransactionPdf');
             Route::resource('order', 'Admin\Shop\OrderController', [
-                'except' => [ 'show', 'create', 'store', 'destroy' ],
+                'except' => [ 'show', 'create', 'destroy' ],
     			'names' => [
     				'index'		=> 'admin.shop.order.index',
+                    'store'     => 'admin.shop.order.store',
                     'edit'		=> 'admin.shop.order.edit',
     				'update'	=> 'admin.shop.order.update',
     			],
     		]);
+
+            Route::get('bundleDc/findGmId/{gm_id}', 'Admin\Shop\BundleDcController@findGmId');
+            
 
             Route::get('estimate/exportEstimateExcel/{er_id}', 'Admin\Shop\EstimateController@exportEstimateExcel')->name('admin.shop.estimate.exportEstimateExcel');
             Route::get('estimate/exportEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@exportEstimatePdf')->name('admin.shop.estimate.exportEstimatePdf');

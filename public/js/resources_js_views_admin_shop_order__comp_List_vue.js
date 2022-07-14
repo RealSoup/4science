@@ -70,15 +70,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmOrderIndexList',
-  props: ['list'],
+  props: ['list', 'config'],
   data: function data() {
     return {};
   },
@@ -104,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row[data-v-ef34b7ac]:first-of-type { border-bottom:2px solid #000;\n}\n#order_list .row[data-v-ef34b7ac]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background: #d8f2fd94;\n}\n#order_list .row>div[data-v-ef34b7ac]{ padding-top:15px; padding-bottom:15px;\n}\n#order_list .body>div[data-v-ef34b7ac]:nth-of-type(2) { background-color:#7fffd454;\n}\n#order_list .head>div[data-v-ef34b7ac] { font-weight:bold; background:#666; color:#fff;\n}\n#order_list .row>div>span[data-v-ef34b7ac]:nth-of-type(2) { float:right;\n}\n#order_list .row>div .type_icon[data-v-ef34b7ac] { display:inline-block; margin-left:5px;\n}\r\n/* \r\n#order_list .row .col:nth-of-type(1) { flex: 0 0 205px; max-width:205px; }\r\n#order_list .row .col .type_icon { display:inline-block; margin-left:5px; }\r\n#order_list .row .col .type_icon svg { margin-right:5px; }\r\n.row .col:nth-of-type(3) { text-align:center; }\r\n.row .col:nth-of-type(4) { text-align:right; }\r\n */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row[data-v-ef34b7ac]:first-of-type { border-bottom:2px solid #000;\n}\n#order_list .row[data-v-ef34b7ac]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background: #20613744;\n}\n#order_list .row>div[data-v-ef34b7ac]{ padding-top:15px; padding-bottom:15px;\n}\n#order_list .body>div[data-v-ef34b7ac]:nth-of-type(2) { background-color:#20613717;\n}\n#order_list .head>div[data-v-ef34b7ac] { font-weight:bold; background:#206137f0; color:#fff;\n}\n#order_list .row>div>span[data-v-ef34b7ac]:nth-of-type(2) { float:right;\n}\n#order_list .row>div .type_icon[data-v-ef34b7ac] { display:inline-block; margin-left:5px;\n}\r\n/* \r\n#order_list .row .col:nth-of-type(1) { flex: 0 0 205px; max-width:205px; }\r\n#order_list .row .col .type_icon { display:inline-block; margin-left:5px; }\r\n#order_list .row .col .type_icon svg { margin-right:5px; }\r\n.row .col:nth-of-type(3) { text-align:center; }\r\n.row .col:nth-of-type(4) { text-align:right; }\r\n */\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -247,17 +241,17 @@ var render = function () {
         { staticClass: "head" },
         [
           _c("b-col", { attrs: { lg: "3", md: "3" } }, [
-            _c("span", [_vm._v("번호/주문번호")]),
-            _c("span", [_vm._v("진행단계")]),
+            _c("span", [_vm._v("번호 / 주문번호")]),
+            _c("span", [_vm._v("처리상태")]),
           ]),
           _vm._v(" "),
           _c("b-col", { attrs: { lg: "6", md: "3" } }, [
             _c("span", [_vm._v("주문상품")]),
-            _c("span", [_vm._v("주문유형/결제방식/금액")]),
+            _c("span", [_vm._v("주문유형 / 결제방식 / 금액")]),
           ]),
           _vm._v(" "),
           _c("b-col", { attrs: { lg: "3", md: "3" } }, [
-            _c("span", [_vm._v("주문자/담당자")]),
+            _c("span", [_vm._v("주문자 / 담당자")]),
             _c("span", [_vm._v("주문일")]),
           ]),
         ],
@@ -280,62 +274,85 @@ var render = function () {
               { staticClass: "d-none d-lg-block", attrs: { lg: "3", md: "3" } },
               [
                 _c("span", [
-                  _vm._v("\r\n                " + _vm._s(row.od_id) + ". ["),
+                  _vm._v("\r\n                " + _vm._s(row.od_id) + ". "),
                   _c(
                     "div",
                     { staticClass: "type_icon" },
                     [_c("b-icon-tags-fill"), _vm._v(_vm._s(row.od_no))],
                     1
                   ),
-                  _vm._v("]\r\n            "),
                 ]),
                 _vm._v(" "),
                 _c(
                   "span",
                   [
-                    row.od_step == 10
-                      ? _c("b-badge", { attrs: { variant: "primary" } }, [
-                          _vm._v("접수"),
-                        ])
-                      : row.od_step == 11
-                      ? _c("b-badge", { attrs: { variant: "warning" } }, [
-                          _vm._v("승인대기"),
-                        ])
-                      : row.od_step == 12
-                      ? _c("b-badge", { attrs: { variant: "warning" } }, [
-                          _vm._v("결제대기"),
-                        ])
-                      : row.od_step == 20
-                      ? _c("b-badge", { attrs: { variant: "success" } }, [
-                          _vm._v("결제완료"),
-                        ])
-                      : row.od_step == 30
-                      ? _c("b-badge", { attrs: { variant: "info" } }, [
-                          _vm._v("배송준비"),
-                        ])
-                      : row.od_step == 31
-                      ? _c("b-badge", { attrs: { variant: "info" } }, [
-                          _vm._v("배송중"),
-                        ])
-                      : row.od_step == 32
-                      ? _c("b-badge", { attrs: { variant: "info" } }, [
-                          _vm._v("배송완료"),
-                        ])
-                      : row.od_step == 40
-                      ? _c("b-badge", { attrs: { variant: "secondary" } }, [
-                          _vm._v("구매확정"),
-                        ])
-                      : row.od_step == 50
-                      ? _c("b-badge", { attrs: { variant: "danger" } }, [
-                          _vm._v("주문취소"),
-                        ])
-                      : row.od_step == 51
-                      ? _c("b-badge", { attrs: { variant: "danger" } }, [
-                          _vm._v("결제실패"),
-                        ])
-                      : _vm._e(),
+                    _vm._l(_vm.config.step, function (c, k) {
+                      return [
+                        k == row.od_step && k == 10
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "primary" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 11
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "warning" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 12
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "warning" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 20
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "success" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 30
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "info" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 31
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "info" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 32
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "info" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 40
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "secondary" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 50
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "danger" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : k == row.od_step && k == 51
+                          ? _c(
+                              "b-badge",
+                              { key: k, attrs: { variant: "danger" } },
+                              [_vm._v(_vm._s(c))]
+                            )
+                          : _vm._e(),
+                      ]
+                    }),
                   ],
-                  1
+                  2
                 ),
               ]
             ),
@@ -352,88 +369,121 @@ var render = function () {
               _c(
                 "span",
                 [
-                  row.od_type == "buy_inst"
-                    ? _c(
-                        "b-badge",
-                        {
-                          directives: [
+                  _vm._l(_vm.config.type, function (c, k) {
+                    return [
+                      k == row.od_type && k == "buy_inst"
+                        ? _c(
+                            "b-badge",
                             {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
+                              directives: [
+                                {
+                                  name: "b-tooltip",
+                                  rawName: "v-b-tooltip.hover",
+                                  modifiers: { hover: true },
+                                },
+                              ],
+                              key: k,
+                              attrs: { title: "바로주문", variant: "primary" },
                             },
-                          ],
-                          attrs: { title: "바로구매", variant: "primary" },
-                        },
-                        [_c("b-icon-hand-index-thumb")],
-                        1
-                      )
-                    : row.od_type == "buy_cart"
-                    ? _c(
-                        "b-badge",
-                        {
-                          directives: [
+                            [_vm._v(_vm._s(c.charAt(0)))]
+                          )
+                        : k == row.od_type && k == "buy_cart"
+                        ? _c(
+                            "b-badge",
                             {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
+                              directives: [
+                                {
+                                  name: "b-tooltip",
+                                  rawName: "v-b-tooltip.hover",
+                                  modifiers: { hover: true },
+                                },
+                              ],
+                              key: k,
+                              attrs: { title: "카트주문", variant: "info" },
                             },
-                          ],
-                          attrs: { title: "카트구매", variant: "info" },
-                        },
-                        [_c("b-icon-basket3")],
-                        1
-                      )
-                    : row.od_type == "buy_estimate"
-                    ? _c(
-                        "b-badge",
-                        {
-                          directives: [
+                            [_vm._v(_vm._s(c.charAt(0)))]
+                          )
+                        : k == row.od_type && k == "buy_estimate"
+                        ? _c(
+                            "b-badge",
                             {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
+                              directives: [
+                                {
+                                  name: "b-tooltip",
+                                  rawName: "v-b-tooltip.hover",
+                                  modifiers: { hover: true },
+                                },
+                              ],
+                              key: k,
+                              attrs: { title: "견적주문", variant: "success" },
                             },
-                          ],
-                          attrs: { title: "견적구매", variant: "success" },
-                        },
-                        [_c("b-icon-receipt")],
-                        1
-                      )
-                    : _vm._e(),
+                            [_vm._v(_vm._s(c.charAt(0)))]
+                          )
+                        : k == row.od_type && k == "buy_temp"
+                        ? _c(
+                            "b-badge",
+                            {
+                              directives: [
+                                {
+                                  name: "b-tooltip",
+                                  rawName: "v-b-tooltip.hover",
+                                  modifiers: { hover: true },
+                                },
+                              ],
+                              key: k,
+                              attrs: { title: "임시주문", variant: "warning" },
+                            },
+                            [_vm._v(_vm._s(c.charAt(0)))]
+                          )
+                        : _vm._e(),
+                    ]
+                  }),
                   _vm._v(" "),
-                  row.od_pay_method == "C"
-                    ? _c("b-badge", { attrs: { variant: "secondary" } }, [
-                        _vm._v("카드"),
-                      ])
-                    : row.od_pay_method == "B"
-                    ? _c("b-badge", { attrs: { variant: "light" } }, [
-                        _vm._v(
-                          "계좌이체 (" +
-                            _vm._s(row.order_extra_info.oex_finance_type) +
-                            ")"
-                        ),
-                      ])
-                    : row.od_pay_method == "P"
-                    ? _c("b-badge", { attrs: { variant: "secondary" } }, [
-                        _vm._v("PSYS"),
-                      ])
-                    : row.od_pay_method == "S"
-                    ? _c("b-badge", { attrs: { variant: "secondary" } }, [
-                        _vm._v("전표"),
-                      ])
-                    : row.od_pay_method == "E"
-                    ? _c("b-badge", { attrs: { variant: "light" } }, [
-                        _vm._v("에스크로"),
-                      ])
-                    : _vm._e(),
+                  _vm._l(_vm.config.pay_method, function (c, k) {
+                    return [
+                      k == row.od_pay_method && k == "C"
+                        ? _c(
+                            "b-badge",
+                            { key: k, attrs: { variant: "secondary" } },
+                            [_vm._v(_vm._s(c))]
+                          )
+                        : k == row.od_pay_method && k == "B"
+                        ? _c(
+                            "b-badge",
+                            { key: k, attrs: { variant: "light" } },
+                            [
+                              _vm._v(
+                                _vm._s(c) +
+                                  " (" +
+                                  _vm._s(
+                                    row.order_extra_info.oex_finance_type
+                                  ) +
+                                  ")"
+                              ),
+                            ]
+                          )
+                        : k == row.od_pay_method && k == "P"
+                        ? _c(
+                            "b-badge",
+                            { key: k, attrs: { variant: "secondary" } },
+                            [_vm._v(_vm._s(c))]
+                          )
+                        : k == row.od_pay_method && k == "E"
+                        ? _c(
+                            "b-badge",
+                            { key: k, attrs: { variant: "light" } },
+                            [_vm._v(_vm._s(c))]
+                          )
+                        : _vm._e(),
+                    ]
+                  }),
                   _vm._v(
                     "\r\n                " +
                       _vm._s(_vm._f("comma")(row.od_all_price)) +
                       " 원\r\n            "
                   ),
                 ],
-                1
+                2
               ),
             ]),
             _vm._v(" "),

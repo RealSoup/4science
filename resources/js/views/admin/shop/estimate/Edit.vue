@@ -3,7 +3,9 @@
 
         <h1>견적서 수정</h1>
 
-        <FormCtrl v-model="frm" @save="update" @all_dc_update="all_dc_apply" @calculator="calculator" />
+        <FormCtrl @save="store" />
+
+        <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
 
         <FormUser v-if="frm.estimate_req" v-model="frm.estimate_req" />
 
@@ -24,6 +26,7 @@ export default {
     name: 'Edit',
     components: {
         'FormCtrl': () =>      import('./FormCtrl.vue'),
+        'FormSetting': () =>   import('./FormSetting.vue'),
         'FormUser': () =>      import('./FormUser.vue'),
         FormGoods,
         'FormExtra': () =>      import('./FormExtra.vue'),

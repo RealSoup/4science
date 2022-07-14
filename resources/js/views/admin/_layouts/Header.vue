@@ -30,11 +30,13 @@
                         <b-dropdown-item :to="{name: 'adm_estimate_create'}">임의견적</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_eng_reform_index'}">영문교정</b-dropdown-item>
                     </b-nav-item-dropdown>
+                    
+                    <b-nav-item :to="{name: 'adm_order_index'}" active-class="active" exact>주문목록</b-nav-item>
 
-                    <b-nav-item-dropdown text="주문관리">
+                    <!-- <b-nav-item-dropdown text="주문관리">
                         <b-dropdown-item :to="{name: 'adm_order_index'}">주문목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_merck_index'}">Merck 발주</b-dropdown-item>
-                    </b-nav-item-dropdown>
+                    </b-nav-item-dropdown> -->
                     <b-nav-item-dropdown text="통계">
                         <b-dropdown-item :to="{name: 'adm_stats_join'}">가입자</b-dropdown-item>
                         <b-dropdown-divider></b-dropdown-divider>
@@ -58,6 +60,8 @@
                             <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}">취소/교환신청</b-dropdown-item>
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
+                    
+                    <b-nav-item :to="{name: 'adm_merck_index'}" active-class="active" exact>Merck 발주</b-nav-item>
                 </b-navbar-nav>
 
 

@@ -71,7 +71,7 @@ export default {
 <style type="text/css">
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:"나눔고딕","Nanum Gothic",  "돋움", "굴림","dotum", "Gulim"; color: #333; font-size:16px; }
-#site.adm { background:#FADBFB; }
+#site.adm { /*background:#FADBFB;*/ }
 #header {  }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
@@ -145,6 +145,9 @@ label { margin-bottom:0; }
 .card.adform .row .label + .period { display:flex; align-items:center; justify-content:space-between; }
 .card.adform .row .label + .period b { font-size:20px; }
 .card.adform .row .label + .period input { width: calc(50% - 10px); }
+
+.card.adform .row .col .form_icon { margin-right:2rem; }
+.card.adform .row .col .form_icon svg { margin-right:.5rem; font-size:1.4rem; }
 
 .card.adform .row div input { font-size:.85rem; padding-left:8px; padding-right:8px; }
 .card.adform .row>div { position:relative; }

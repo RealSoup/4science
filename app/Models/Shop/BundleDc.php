@@ -13,5 +13,5 @@ class BundleDc extends Model {
 
     public function goodsModel() { return $this->belongsTo(GoodsModel::class); }
     public function getBdPriceAddVatAttribute() { return (int)($this->bd_price*1.1); }
-    public function scopeGm_id($query, $gm_id) { return $query->where('bd_gm_id', $gm_id); }
+    public function scopeGm_id($q, $v) { return $q->where('bd_gm_id', $v); }
 }

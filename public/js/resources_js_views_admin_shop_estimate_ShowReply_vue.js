@@ -190,6 +190,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -538,6 +542,41 @@ var dt = new Date();
           }
         }, _callee8, null, [[0, 8]]);
       }))();
+    },
+    passOrder: function passOrder() {
+      var _this9 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                _context9.prev = 0;
+                _context9.next = 3;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/order", _this9.frm);
+
+              case 3:
+                res = _context9.sent;
+                if (res && res.status === 200) _this9.$router.push({
+                  name: 'adm_order_index'
+                });else Notify.toast('warning', '기록 실패');
+                _context9.next = 11;
+                break;
+
+              case 7:
+                _context9.prev = 7;
+                _context9.t0 = _context9["catch"](0);
+                Notify.consolePrint(_context9.t0);
+                Notify.toast('warning', _context9.t0.response);
+
+              case 11:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, null, [[0, 7]]);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -722,42 +761,60 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-button",
+                    "b-dropdown",
                     {
-                      attrs: { variant: "success" },
-                      on: { click: _vm.estimateExcel },
+                      attrs: {
+                        size: "sm",
+                        text: "파일 출력",
+                        variant: "warning",
+                      },
                     },
-                    [_vm._v("견적서"), _c("b-badge", [_vm._v("E")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "outline-success" },
-                      on: { click: _vm.estimatePdf },
-                    },
-                    [_vm._v("견적서"), _c("b-badge", [_vm._v("P")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "warning" },
-                      on: { click: _vm.transactionExcel },
-                    },
-                    [_vm._v("거래명세서"), _c("b-badge", [_vm._v("E")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "outline-warning" },
-                      on: { click: _vm.transactionPdf },
-                    },
-                    [_vm._v("거래명세서"), _c("b-badge", [_vm._v("P")])],
+                    [
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "success" },
+                          on: { click: _vm.estimateExcel },
+                        },
+                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("EXCEL")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "warning" },
+                          on: { click: _vm.estimatePdf },
+                        },
+                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("PDF")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-dropdown-divider"),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "success" },
+                          on: { click: _vm.transactionExcel },
+                        },
+                        [
+                          _vm._v("거래명세서 "),
+                          _c("b-badge", [_vm._v("EXCEL")]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "warning" },
+                          on: { click: _vm.transactionPdf },
+                        },
+                        [_vm._v("거래명세서 "), _c("b-badge", [_vm._v("PDF")])],
+                        1
+                      ),
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -784,10 +841,10 @@ var render = function () {
                   _c(
                     "b-button",
                     {
-                      attrs: { variant: "info" },
-                      on: { click: _vm.onlineBooks },
+                      attrs: { variant: "dark" },
+                      on: { click: _vm.passOrder },
                     },
-                    [_c("b-icon-journal-bookmark-fill"), _vm._v(" 장부기록")],
+                    [_c("b-icon-box-arrow-up-right"), _vm._v(" 임의주문")],
                     1
                   ),
                   _vm._v(" "),

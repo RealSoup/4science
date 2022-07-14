@@ -160,7 +160,7 @@ export default {
                 else if (ea == bd.bd_ea){ p = bd.bd_price; break; }
                 else if (ea > bd.bd_ea) { p = bd.bd_price; }
             }
-            return p;
+            return (p*1.1).toFixed();
         };
 
         window.priceCalculator = function (esti){

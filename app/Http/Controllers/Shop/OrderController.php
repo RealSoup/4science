@@ -79,16 +79,14 @@ class OrderController extends Controller {
             foreach ($gd_list['list'] as $gd){
                 // 판매 가능 여부 재확인 Start
                 if($gd->gd_enable == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
-                foreach ($gd->goods_model as $gm) {
-                    if(!$gm->gm_enable)    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
-
-                    //  견적가(0원) 구매 금지
-                    if($gm->gm_price<1) abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
+                if($req->type === 'buy_inst' || $req->type === 'buy_cart') {
+                    foreach ($gd->goods_model as $gm) {
+                        if(!$gm->gm_enable)    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+                        //  견적가(0원) 구매 금지
+                        if($gm->gm_price<1) abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
+                    }
                 }
                 // 판매 가능 여부 재확인 End
-
-                
-
 
                 if ($params['od_name'] == '')
                     $params['od_name'] = $gd->gd_name;
@@ -116,6 +114,7 @@ class OrderController extends Controller {
             $od_id = $this->order->insertGetId([
                 'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
+                'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_step'          => $req->filled('od_step')          ? $req->od_step          : '10',
                 'od_gd_price'      => $req->filled('price')            ? $req->price['goods_add_vat']   : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
@@ -140,10 +139,10 @@ class OrderController extends Controller {
             if ($req->od_type == 'buy_estimate') {
                 //  견적 주문일때 주문 정보 저장
                 foreach (collect($req->goods)->groupBy('gd_id') as $gd_id => $gd) {
+                    $odg_id = 0;
                     foreach ($gd as $seq => $v) {
-                        $odg_id = 0;
                         if (array_key_exists('em_id', $v)) {
-                            $em = EstimateModel::find($v->em_id);
+                            $em = EstimateModel::find($v['em_id']);
                             if ($seq == 0) {
                                 $odg_id = OrderGoods::insertGetId([
                                     'odg_od_id'     => $od_id,
@@ -165,7 +164,7 @@ class OrderController extends Controller {
                             ]);
                             
                         } else if (array_key_exists('eo_id', $v)) {
-                            $eo = EstimateOption::find($v->eo_id);
+                            $eo = EstimateOption::find($v['eo_id']);
                             OrderOption::insert([
                                 'odo_od_id'     => $od_id,
                                 'odo_odg_id'    => $odg_id,
