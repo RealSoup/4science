@@ -158,10 +158,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerListData',
-  props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width'],
+  props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width', 'all_chk_cplt', 'indeterminate', 'config'],
   components: {
     'Modal': function Modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
@@ -225,6 +231,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    chkChange: function chkChange() {
+      this.$emit('chkChange');
     }
   },
   mounted: function mounted() {}
@@ -248,7 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content[data-v-58092b80] { padding:5px 0; overflow:hidden;\n}\n.content.cxl[data-v-58092b80],\r\n.content.cxl .model .row[data-v-58092b80],\r\n.content .model .row.cxl[data-v-58092b80] { background:#ff000044;\n}\n.content.cxl .col[data-v-58092b80], \r\n.content.cxl .model .row .col[data-v-58092b80],\r\n.content .model .row.cxl .col[data-v-58092b80] { text-decoration:line-through;\n}\n.content[data-v-58092b80]:not(:last-of-type) { border-bottom:2px solid #777;\n}\n.content .model .row[data-v-58092b80] { padding:5px 0; background:#f7f7f7; margin:0; overflow:hidden; min-height:35px; display: flex; align-items: center;\n}\n.content .model .row[data-v-58092b80]:not(:last-of-type) { border-bottom:1px solid #AAA;\n}\n.content .model .row .col[data-v-58092b80]:nth-child(2) { padding-left:32px !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content[data-v-58092b80] { padding:5px 0; overflow:hidden;\n}\n.content.step_2[data-v-58092b80],\r\n.content.step_2 .model .row[data-v-58092b80] { background:#20613720;\n}\n.content.cxl[data-v-58092b80],\r\n.content.cxl .model .row[data-v-58092b80],\r\n.content .model .row.cxl[data-v-58092b80] { background:#ff000044;\n}\n.content.cxl .col[data-v-58092b80], \r\n.content.cxl .model .row .col[data-v-58092b80],\r\n.content .model .row.cxl .col[data-v-58092b80] { text-decoration:line-through;\n}\n.content[data-v-58092b80]:not(:last-of-type) { border-bottom:2px solid #777;\n}\n.content .model .row[data-v-58092b80] { padding:5px 0; background:#f7f7f7; margin:0; overflow:hidden; min-height:35px; display: flex; align-items: center;\n}\n.content .model .row[data-v-58092b80]:not(:last-of-type) { border-bottom:1px solid #AAA;\n}\n.content .model .row .col[data-v-58092b80]:nth-child(2) { padding-left:32px !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -391,7 +400,10 @@ var render = function () {
         {
           key: lg_i + "_" + lg.lg_id,
           staticClass: "content",
-          class: { cxl: lg.lg_pay_type == "CXL" },
+          class: {
+            cxl: lg.lg_pay_type == "CXL",
+            step_2: lg.lg_step == 2 || lg.chk_cplt,
+          },
           style: { width: _vm.row_width + "px" },
         },
         [
@@ -453,9 +465,36 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("b-col", { staticClass: "list_id" }, [
-            _vm._v("\r\n            " + _vm._s(lg.lg_id) + "\r\n        "),
-          ]),
+          _c(
+            "b-col",
+            { staticClass: "list_id" },
+            [
+              lg.lg_step == 1
+                ? _c(
+                    "b-form-checkbox",
+                    {
+                      attrs: { name: "chk_cplt" },
+                      on: { change: _vm.chkChange },
+                      model: {
+                        value: lg.chk_cplt,
+                        callback: function ($$v) {
+                          _vm.$set(lg, "chk_cplt", $$v)
+                        },
+                        expression: "lg.chk_cplt",
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                " +
+                          _vm._s(lg.lg_id) +
+                          "\r\n            "
+                      ),
+                    ]
+                  )
+                : [_vm._v(_vm._s(lg.lg_id))],
+            ],
+            2
+          ),
           _vm._v(" "),
           _vm._l(_vm.mng_config_column, function (mcc, i) {
             return [
@@ -484,47 +523,14 @@ var render = function () {
                           },
                         },
                         [
-                          lg.lg_pay_type == "CARD"
-                            ? _c("b-badge", { attrs: { variant: "primary" } }, [
-                                _vm._v("온라인 카드"),
-                              ])
-                            : lg.lg_pay_type == "PSYS"
-                            ? _c("b-badge", { attrs: { variant: "warning" } }, [
-                                _vm._v("PSYS"),
-                              ])
-                            : lg.lg_pay_type == "BILL"
-                            ? _c("b-badge", { attrs: { variant: "seccess" } }, [
-                                _vm._v("계산서"),
-                              ])
-                            : lg.lg_pay_type == "STAT"
-                            ? _c(
-                                "b-badge",
-                                { attrs: { variant: "secondary" } },
-                                [_vm._v("전표")]
-                              )
-                            : lg.lg_pay_type == "CASH"
-                            ? _c("b-badge", { attrs: { variant: "info" } }, [
-                                _vm._v("현금영수증"),
-                              ])
-                            : lg.lg_pay_type == "MEMB"
-                            ? _c("b-badge", { attrs: { variant: "warning" } }, [
-                                _vm._v("회원"),
-                              ])
-                            : lg.lg_pay_type == "REV"
-                            ? _c("b-badge", { attrs: { variant: "danger" } }, [
-                                _vm._v("역발행"),
-                              ])
-                            : lg.lg_pay_type == "NOT"
-                            ? _c("b-badge", { attrs: { variant: "dark" } }, [
-                                _vm._v("미발급"),
-                              ])
-                            : lg.lg_pay_type == "CXL"
-                            ? _c("b-badge", { attrs: { variant: "light" } }, [
-                                _vm._v("거래 취소"),
+                          lg.lg_pay_type
+                            ? _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.config.pay_type[lg.lg_pay_type])
+                                ),
                               ])
                             : _vm._e(),
-                        ],
-                        1
+                        ]
                       )
                     : k == mcc.umc_val && k == "mng"
                     ? _c(
@@ -538,7 +544,7 @@ var render = function () {
                         },
                         [_vm._v(_vm._s(lg.lg_mng))]
                       )
-                    : k == mcc.umc_val && k == "source_no"
+                    : k == mcc.umc_val && k == "od_id"
                     ? _c(
                         "b-col",
                         {
@@ -549,55 +555,30 @@ var render = function () {
                           },
                         },
                         [
-                          lg.lg_source_no
-                            ? [
-                                lg.lg_source_type == "ORD"
-                                  ? _c(
-                                      "b-button",
-                                      {
-                                        attrs: {
-                                          to: {
-                                            name: "adm_order_edit",
-                                            params: { od_id: lg.lg_source_no },
-                                          },
-                                          variant: "outline-primary",
-                                          block: "",
-                                        },
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(lg.lg_source_no) +
-                                            "\r\n                        "
-                                        ),
-                                      ]
-                                    )
-                                  : lg.lg_source_type == "EST"
-                                  ? _c(
-                                      "b-button",
-                                      {
-                                        attrs: {
-                                          to: {
-                                            name: "adm_estimate_show_reply",
-                                            params: { er_id: lg.lg_source_no },
-                                          },
-                                          variant: "outline-danger",
-                                          block: "",
-                                        },
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(lg.lg_source_no) +
-                                            "\r\n                        "
-                                        ),
-                                      ]
-                                    )
-                                  : _vm._e(),
-                              ]
+                          lg.lg_od_id
+                            ? _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "adm_order_edit",
+                                      params: { od_id: lg.lg_od_id },
+                                    },
+                                    variant: "outline-primary",
+                                    block: "",
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                        " +
+                                      _vm._s(lg.lg_od_id) +
+                                      "\r\n                    "
+                                  ),
+                                ]
+                              )
                             : _vm._e(),
                         ],
-                        2
+                        1
                       )
                     : k == mcc.umc_val && k == "sale_dt"
                     ? _c(
@@ -685,6 +666,81 @@ var render = function () {
                           _vm._v(
                             "\r\n                    " +
                               _vm._s(lg.lg_orderer) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : k == mcc.umc_val && k == "od_name"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(lg.lg_od_name) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : k == mcc.umc_val && k == "sum_ea_p"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                            textAlign: "right",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm._f("comma")(lg.lg_sum_ea_p)) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : k == mcc.umc_val && k == "sum_surtax"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                            textAlign: "right",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm._f("comma")(lg.lg_sum_surtax)) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : k == mcc.umc_val && k == "sum_sum_p"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                            textAlign: "right",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm._f("comma")(lg.lg_sum_sum_p)) +
                               "\r\n                "
                           ),
                         ]
@@ -1060,7 +1116,7 @@ var render = function () {
                         }),
                         1
                       )
-                    : k == mcc.umc_val && k == "email"
+                    : k == mcc.umc_val && k == "tax_name"
                     ? _c(
                         "b-col",
                         {
@@ -1073,12 +1129,12 @@ var render = function () {
                         [
                           _vm._v(
                             "\r\n                    " +
-                              _vm._s(lg.lg_email) +
+                              _vm._s(lg.lg_tax_name) +
                               "\r\n                "
                           ),
                         ]
                       )
-                    : k == mcc.umc_val && k == "hp"
+                    : k == mcc.umc_val && k == "tax_email"
                     ? _c(
                         "b-col",
                         {
@@ -1091,7 +1147,25 @@ var render = function () {
                         [
                           _vm._v(
                             "\r\n                    " +
-                              _vm._s(lg.lg_hp) +
+                              _vm._s(lg.lg_tax_email) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : k == mcc.umc_val && k == "tax_hp"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(lg.lg_tax_hp) +
                               "\r\n                "
                           ),
                         ]

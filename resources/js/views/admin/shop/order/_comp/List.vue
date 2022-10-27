@@ -14,17 +14,8 @@
                 {{row.od_id}}. <div class="type_icon"><b-icon-tags-fill />{{row.od_no}}</div>
             </span>
             <span>
-                <template v-for="(c, k) in config.step">
-                    <b-badge variant="primary" v-if="k==row.od_step && k==10" :key="k">{{c}}</b-badge> 
-                    <b-badge variant="warning" v-else-if="k==row.od_step && k==11" :key="k">{{c}}</b-badge>
-                    <b-badge variant="warning" v-else-if="k==row.od_step && k==12" :key="k">{{c}}</b-badge>
-                    <b-badge variant="success" v-else-if="k==row.od_step && k==20" :key="k">{{c}}</b-badge>
-                    <b-badge variant="info" v-else-if="k==row.od_step && k==30" :key="k">{{c}}</b-badge>
-                    <b-badge variant="info" v-else-if="k==row.od_step && k==31" :key="k">{{c}}</b-badge>
-                    <b-badge variant="info" v-else-if="k==row.od_step && k==32" :key="k">{{c}}</b-badge>
-                    <b-badge variant="secondary" v-else-if="k==row.od_step && k==40" :key="k">{{c}}</b-badge>
-                    <b-badge variant="danger" v-else-if="k==row.od_step && k==50" :key="k">{{c}}</b-badge>
-                    <b-badge variant="danger" v-else-if="k==row.od_step && k==51" :key="k">{{c}}</b-badge>
+                <template v-for="(v, k) in config.step">
+                    <b-badge :key="k" v-if="k==row.od_step" :variant="v.class">{{v.name}}</b-badge>
                 </template>
             </span>
         </b-col>
@@ -36,13 +27,13 @@
             <span>
                 <template v-for="(c, k) in config.type">
                     <b-badge v-b-tooltip.hover title="바로주문" variant="primary" v-if="k==row.od_type && k=='buy_inst'" :key="k">{{c.charAt(0)}}</b-badge>
-                    <b-badge v-b-tooltip.hover title="카트주문" variant="info" v-else-if="k==row.od_type && k=='buy_cart'" :key="k">{{c.charAt(0)}}</b-badge>
+                    <b-badge v-b-tooltip.hover title="장바구니주문" variant="info" v-else-if="k==row.od_type && k=='buy_cart'" :key="k">{{c.charAt(0)}}</b-badge>
                     <b-badge v-b-tooltip.hover title="견적주문" variant="success" v-else-if="k==row.od_type && k=='buy_estimate'" :key="k">{{c.charAt(0)}}</b-badge>
                     <b-badge v-b-tooltip.hover title="임시주문" variant="warning" v-else-if="k==row.od_type && k=='buy_temp'" :key="k">{{c.charAt(0)}}</b-badge>
                 </template>
                 <template v-for="(c, k) in config.pay_method">
                     <b-badge v-if="k==row.od_pay_method && k == 'C'" :key="k" variant="secondary">{{c}}</b-badge>
-                    <b-badge v-else-if="k==row.od_pay_method && k == 'B'" :key="k" variant="light">{{c}} ({{row.order_extra_info.oex_finance_type}})</b-badge>
+                    <b-badge v-else-if="k==row.od_pay_method && k == 'B'" :key="k" variant="light">{{c}} ({{row.order_extra_info.oex_bank}})</b-badge>
                     <b-badge v-else-if="k==row.od_pay_method && k == 'P'" :key="k" variant="secondary">{{c}}</b-badge>
                     <b-badge v-else-if="k==row.od_pay_method && k == 'E'" :key="k" variant="light">{{c}}</b-badge>
                 </template>

@@ -6,172 +6,174 @@ const isAdmin = () => (to, from, next) => {
         }
         Notify.modal("관리자만 접근 할 수 있습니다.");
         next('/');
+    } else {
+        next({name:'login', query:{redirect:to.path}});
+        Notify.modal('로그인이 필요한 서비스입니다.');
     }
-    // next('/login');
-    next({name:'login', query:{redirect:to.path}});
 };
 
 export default [
-    {
-        path: '/admin/',
-        name: 'adm_main',
-        component:() => import('@/views/admin/Main.vue'),
-        beforeEnter: isAdmin()
-    }, 
-    
-    //  Site관리
-    {
-        path: '/admin/site/info',
-        name: 'adm_site_info',
-        component:() => import('@/views/admin/site/Info.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/site/mainCateGoods',
-        name: 'adm_site_main_cate_goods',
-        component:() => import('@/views/admin/site/MainCateGoods.vue'),
-        beforeEnter: isAdmin()
-    }, 
+    {   path: '/admin',
+        component:() => import('@/views/admin/Common'),
+        beforeEnter: isAdmin(),
+        children: [
+            {   path: '',
+                name: 'adm_main',
+                component:() => import('@/views/admin/Main'),
+            },
 
-    //  유저
-    {
-        path: '/admin/user',
-        name: 'adm_user',
-        component:() => import('@/views/admin/user/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/user/:id/edit',
-        name: 'adm_user_edit',
-        component:() => import('@/views/admin/user/Edit.vue'),
-        beforeEnter: isAdmin()
-    }, 
-    
-    
-    //   상품
-    {
-        path: '/admin/shop/goods',
-        name: 'adm_goods_index',
-        component:() => import('@/views/admin/shop/goods/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/goods/:gd_id/edit',
-        name: 'adm_goods_edit',
-        component:() => import('@/views/admin/shop/goods/Edit.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/goods/create',
-        name: 'adm_goods_create',
-        component:() => import('@/views/admin/shop/goods/Create.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/category',
-        name: 'adm_category',
-        component:() => import('@/views/admin/shop/category/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/maker',
-        name: 'adm_maker',
-        component:() => import('@/views/admin/shop/maker/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/purchaseAt',
-        name: 'adm_purchaseAt',
-        component:() => import('@/views/admin/shop/purchaseAt/Index.vue'),
-        beforeEnter: isAdmin()
-    },
+            //  Site관리
+            {   path: 'site/info',
+                name: 'adm_site_info',
+                component:() => import('@/views/admin/site/Info'),
+            }, {
+                path: 'site/mainCateGoods',
+                name: 'adm_site_main_cate_goods',
+                component:() => import('@/views/admin/site/MainCateGoods'),
+            },
 
-    //   주문
-    {
-        path: '/admin/shop/order',
-        name: 'adm_order_index',
-        component:() => import('@/views/admin/shop/order/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/order/:od_id',
-        name: 'adm_order_edit',
-        component:() => import('@/views/admin/shop/order/Edit.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/order',
-        name: 'adm_merck_index',
-        component:() => import('@/views/admin/shop/order/Index.vue'),
-        beforeEnter: isAdmin()
-    },
-    //   견적
-    {
-        path: '/admin/shop/estimate',
-        name: 'adm_estimate_index',
-        component:() => import('@/views/admin/shop/estimate/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/estimate/create',
-        name: 'adm_estimate_create',
-        component:() => import('@/views/admin/shop/estimate/Create.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/estimate/:er_id/edit',
-        name: 'adm_estimate_edit',
-        component:() => import('@/views/admin/shop/estimate/Edit.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/estimate/req/:eq_id',
-        name: 'adm_estimate_show_req',
-        component:() => import('@/views/admin/shop/estimate/ShowReq.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/shop/estimate/reply/:er_id',
-        name: 'adm_estimate_show_reply',
-        component:() => import('@/views/admin/shop/estimate/ShowReply.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/eng_reform',
-        name: 'adm_eng_reform_index',
-        component:() => import('@/views/admin/engReform/Index.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/eng_reform/:er_id/edit',
-        name: 'adm_eng_reform_edit',
-        component:() => import('@/views/admin/engReform/Edit.vue'),
-        beforeEnter: isAdmin()
-    },
+            //  유저
+            {   path: 'user',
+                name: 'adm_user',
+                component:() => import('@/views/admin/user/Index'),
+            }, {
+                path: 'user/:id/edit',
+                name: 'adm_user_edit',
+                component:() => import('@/views/admin/user/Edit'),
+            }, 
+            
+            
+            //   상품
+            {   path: 'shop/goods',
+                name: 'adm_goods_index',
+                component:() => import('@/views/admin/shop/goods/Index'),
+            }, {
+                path: 'shop/goods/:gd_id/edit',
+                name: 'adm_goods_edit',
+                component:() => import('@/views/admin/shop/goods/Edit'),
+            }, {
+                path: 'shop/goods/create',
+                name: 'adm_goods_create',
+                component:() => import('@/views/admin/shop/goods/Create'),
+            }, {
+                path: 'shop/category',
+                name: 'adm_category',
+                component:() => import('@/views/admin/shop/category/Index'),
+            }, {
+                path: 'shop/maker',
+                name: 'adm_maker',
+                component:() => import('@/views/admin/shop/maker/Index'),
+            }, {
+                path: 'shop/purchaseAt',
+                name: 'adm_purchaseAt',
+                component:() => import('@/views/admin/shop/purchaseAt/Index'),
+            },
 
-    //  게시판
-    {   path: '/admin/board/:bo_cd',
-        name: 'adm_board_index',
-        component:() => import('@/views/admin/board/Index'),
-    }, {   
-        path: '/admin/board/:bo_cd/create',
-        name: 'adm_board_create',
-        component:() => import('@/views/admin/board/Create'),
-    }, {   
-        path: '/admin/board/:bo_cd/edit/:bo_id',
-        name: 'adm_board_edit',
-        component:() => import('@/views/admin/board/Edit'),
-    }, {   
-        path: '/admin/board/:bo_cd/answer/:bo_id',
-        name: 'adm_board_answer',
-        component:() => import('@/views/admin/board/Answer'),
-    },
-    
+            //   주문
+            {   path: 'shop/order',
+                name: 'adm_order_index',
+                component:() => import('@/views/admin/shop/order/Index'),
+            }, {
+                path: 'shop/order/:od_id',
+                name: 'adm_order_edit',
+                component:() => import('@/views/admin/shop/order/Edit'),
+            },
+           
+            //   견적
+            {   path: 'shop/estimate',
+                name: 'adm_estimate_index',
+                component:() => import('@/views/admin/shop/estimate/Index'),
+            }, {
+                path: 'shop/estimate/create',
+                name: 'adm_estimate_create',
+                component:() => import('@/views/admin/shop/estimate/Create'),
+            }, {
+                path: 'shop/estimate/:er_id/edit',
+                name: 'adm_estimate_edit',
+                component:() => import('@/views/admin/shop/estimate/Edit'),
+            }, {
+                path: 'shop/estimate/req/:eq_id',
+                name: 'adm_estimate_show_req',
+                component:() => import('@/views/admin/shop/estimate/ShowReq'),
+            }, {
+                path: 'shop/estimate/reply/:er_id',
+                name: 'adm_estimate_show_reply',
+                component:() => import('@/views/admin/shop/estimate/ShowReply'),
+            }, {
+                path: 'eng_reform',
+                name: 'adm_eng_reform_index',
+                component:() => import('@/views/admin/engReform/Index'),
+            }, {
+                path: 'eng_reform/:er_id/edit',
+                name: 'adm_eng_reform_edit',
+                component:() => import('@/views/admin/engReform/Edit'),
+            },
 
-    //  통계
-    {
-        path: '/admin/stats/join',
-        name: 'adm_stats_join',
-        component:() => import('@/views/admin/stats/IndexJoin.vue'),
-        beforeEnter: isAdmin()
-    }, {
-        path: '/admin/stats/order',
-        name: 'adm_stats_order',
-        component:() => import('@/views/admin/stats/IndexOrder.vue'),
-        beforeEnter: isAdmin()
-    },
+            //  게시판
+            {   path: 'board/:bo_cd',
+                name: 'adm_board_index',
+                component:() => import('@/views/admin/board/Index'),
+            }, {   
+                path: 'board/:bo_cd/create',
+                name: 'adm_board_create',
+                component:() => import('@/views/admin/board/Create'),
+            }, {   
+                path: 'board/:bo_cd/edit/:bo_id',
+                name: 'adm_board_edit',
+                component:() => import('@/views/admin/board/Edit'),
+            }, {   
+                path: 'board/:bo_cd/answer/:bo_id',
+                name: 'adm_board_answer',
+                component:() => import('@/views/admin/board/Answer'),
+            },
+            
 
-    //  영업장부
-    {
-        path: '/admin/ledger',
-        name: 'adm_ledger',
-        component:() => import('@/views/admin/ledger/Index.vue'),
-        beforeEnter: isAdmin()
+            //  통계
+            {   path: 'stats/join',
+                name: 'adm_stats_join',
+                component:() => import('@/views/admin/stats/IndexJoin'),
+            }, {
+                path: 'stats/order',
+                name: 'adm_stats_order',
+                component:() => import('@/views/admin/stats/IndexOrder'),
+            },
+
+            //  영업장부
+            {   path: 'ledger',
+                name: 'adm_ledger',
+                component:() => import('@/views/admin/ledger/Index'),
+            }, {    
+                path: 'ledger_acct_wait',
+                name: 'adm_ledger_acct_wait',
+                component:() => import('@/views/admin/ledger/AcctWait'),
+            }, {    
+                path: 'ledger_acct_soon',
+                name: 'adm_ledger_acct_soon',
+                component:() => import('@/views/admin/ledger/AcctSoon'),
+            }, {    
+                path: 'ledger_acct_pay_od',
+                name: 'adm_ledger_acct_pay_od',
+                component:() => import('@/views/admin/ledger/AcctPayOd'),
+            }, {    
+                path: 'ledger_acct_pay_tx',
+                name: 'adm_ledger_acct_pay_tx',
+                component:() => import('@/views/admin/ledger/AcctPayTx'),
+            },
+            
+             //  Merck 발주
+            {   path: 'shop/b2b_merck/order',
+                name: 'adm_b2b_merck_order',
+                component:() => import('@/views/admin/shop/b2b_merck/Order'),
+            }, { 
+                path: 'shop/b2b_merck/order_result',
+                name: 'adm_b2b_merck_order_result',
+                component:() => import('@/views/admin/shop/b2b_merck/OrderResult'),
+            }, { 
+                path: 'shop/b2b_merck/stock_result',
+                name: 'adm_b2b_merck_stock_result',
+                component:() => import('@/views/admin/shop/b2b_merck/StockResult'),
+            },
+            
+        ],
     },
-    
 ]

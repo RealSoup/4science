@@ -50,7 +50,7 @@ export default {
     name: "MyBought",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('../_comp/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
         'OrderStep': () => import('../_comp/OrderStep.vue'),
     },
     data() {

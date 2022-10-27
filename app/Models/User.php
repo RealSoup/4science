@@ -14,7 +14,7 @@ class User extends Authenticatable {
 
     protected $guarded = [];
     protected $hidden = [ 'password', 'remember_token', ];
-    protected $appends = ['is_admin'];
+    protected $appends = ['is_admin', 'my_mileage_rate'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     protected $option = [
         'group' => [    '1' => '일반',
@@ -64,8 +64,17 @@ class User extends Authenticatable {
                             '12' => '화학/화공',
                             '13' => '환경',
                             '14' => '시약', ],
+        'email_domain'  => [    '1'  => 'naver.com',
+                                '2'  => 'hanmail.net',
+                                '3'  => 'nate.com',
+                                '4'  => 'gmail.com',
+                                '5'  => 'korea.com',
+                                '6'  => 'hotmail.com',],
 
     ];
+
+    protected $mileage_rate = [ 2 => 0.5, 3 => 1, 4 => 1.5 ];
+    
 
     public function userMng() { return $this->hasOne(UserMng::class, 'um_user_id')->withDefault(); }
     public function userMngConfig() { return $this->hasMany(UserMngConfig::class, 'umc_user_id')->orderBy('umc_key')->orderBy('umc_seq'); }
@@ -74,6 +83,7 @@ class User extends Authenticatable {
     public function mileage() { return $this->hasMany(Mileage::class, "ml_uid"); }
     public function wish() { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
     public function engReform() { return $this->hasMany(EngReform::class, "created_id"); }
+    public function userAddr() { return $this->hasMany(UserAddr::class, 'ua_key')->orderByRaw("FIELD(ua_def, \"Y\", \"N\")"); }
 
     public function scopeStartDate($query, $d) { return $query->whereDate('created_at', '>=', $d); }
     public function scopeEndDate($query, $d) { return $query->whereDate('created_at', '<=', $d); }
@@ -89,6 +99,10 @@ class User extends Authenticatable {
     public function scopeHp($query, $v) { return $query->where('hp', 'like', "%{$v}%"); }
 
     public function getIsAdminAttribute() { return $this->level > 10 ? true : false; }
+    public function getMyMileageRateAttribute() {
+        $lv = $this->level>4?4:$this->level;
+        return $lv < 2 ? 0 : $this->mileage_rate[$lv]; 
+    }
     // public function getEnablemileageAttribute() {
     //     return DB::table('mileage')->where([['created_id', $this->id], ['created_at', '>', date("Y-m-d", strtotime("-1 years"))]])->sum('po_enable_p');
     // }

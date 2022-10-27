@@ -13,19 +13,21 @@ use Illuminate\Queue\SerializesModels;
 class Mileage {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $type;
-    public $ml_type;
-    public $key;
-    public $mileage;
-    public $content;
+    public $mode;
     public $uid;
-    public function __construct($type, $ml_type, $key, $mileage, $content, $uid) {
-        $this->type = $type;
-        $this->ml_type = $ml_type;
-        $this->key = $key;
-        $this->mileage = $mileage;
-        $this->content = $content;
+    public $tbl;
+    public $key;
+    public $type;
+    public $content;
+    public $mileage;
+    public function __construct($mode, $uid, $tbl, $key, $type, $content, $mileage) {
+        $this->mode = $mode;
         $this->uid = $uid;
+        $this->tbl = $tbl;
+        $this->key = $key;
+        $this->type = $type;
+        $this->content = $content;
+        $this->mileage = $mileage;
     }
 
     public function broadcastOn() {

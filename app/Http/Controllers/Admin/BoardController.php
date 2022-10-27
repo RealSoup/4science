@@ -19,7 +19,7 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'open');
+        $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'notice');
         $this->board = $board;
         $this->param['config'] = $board->config;
     }

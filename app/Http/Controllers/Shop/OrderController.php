@@ -4,16 +4,17 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{ Goods, GoodsModel, Cart, CartModel, CartOption, OptionChild, Order, OrderGoods, OrderModel, OrderOption, OrderExtraInfo, 
+use App\Models\Shop\{ Goods, GoodsModel, Cart, CartModel, CartOption, OptionChild, Order, OrderPurchaseAt, OrderModel, OrderOption, OrderExtraInfo, OrderDlvyInfo,
     EstimateModel, EstimateOption};
-use App\Models\{FileInfo};
+use App\Models\{FileInfo, User};
 use App\Http\Requests\SaveOrderRequest;
+use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
 use Session;
 use Exception;
 use Log;
 use Mail;
-use Illuminate\Support\Facades\DB;
+use DB;
 use Illuminate\Support\Arr;
 use App\Mail\Buy;
 use Carbon\Carbon;
@@ -75,33 +76,34 @@ class OrderController extends Controller {
         //
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
-        foreach ($params['lists'] as $gd_list) {    //  주문 갯수
-            foreach ($gd_list['list'] as $gd){
-                // 판매 가능 여부 재확인 Start
-                if($gd->gd_enable == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+        foreach ($params['lists'] as $pa_group) {    //  주문 갯수
+            foreach ($pa_group as $item){
+                // 판매 가능 여부 재확인
+                if(isset($item['gd_enable']) && $item['gd_enable'] == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
                 if($req->type === 'buy_inst' || $req->type === 'buy_cart') {
-                    foreach ($gd->goods_model as $gm) {
-                        if(!$gm->gm_enable)    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
-                        //  견적가(0원) 구매 금지
-                        if($gm->gm_price<1) abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
-                    }
+                    if(isset($item['gm_enable']) && $item['gm_enable'] == 'N')    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+                    //  견적가(0원) 구매 금지
+                    if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
                 }
-                // 판매 가능 여부 재확인 End
 
                 if ($params['od_name'] == '')
-                    $params['od_name'] = $gd->gd_name;
-                $params['md_cnt'] += count($gd->goods_model);
+                    $params['od_name'] = $item['gd_name'];
+                if ( $item['type'] == 'model' )
+                    $params['md_cnt']++;
             }
         }
         if ($params['md_cnt'] > 1)
             $params['od_name'] .= '외 '.($params['md_cnt']-1).'개';
-        // return view("web.shop.order.pay", $params);
-        // dd($params);
+
+        $params['config'] = $this->order->getOrderConfig();
+        $user = new User;
+        $params['config']['email_domain'] = $user->getOption()['email_domain'];
+        $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
+        
         return response()->json($params);
     }
 
     public function pay(Request $req) {
-        // dd($req->input());
         // try {
             DB::beginTransaction();
 
@@ -116,7 +118,7 @@ class OrderController extends Controller {
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_step'          => $req->filled('od_step')          ? $req->od_step          : '10',
-                'od_gd_price'      => $req->filled('price')            ? $req->price['goods_add_vat']   : 0,
+                'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
                 'od_dlvy_price'    => $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0,
                 'od_air_price'     => $req->filled('price')            ? $req->price['air_add_vat']     : 0,
@@ -179,69 +181,79 @@ class OrderController extends Controller {
                 }
             } else {
                 //  바로주문, 장바구니 주문 정보 저장
-                foreach ($req->goods as $gd) {
-                    $gd_name = DB::table('shop_goods')->where('gd_id', $gd['gd_id'])->first()->gd_name;
-                    
-                    $odg_id = OrderGoods::insertGetId([
-                        'odg_od_id'     => $od_id,
-                        'odg_gd_id'     => $gd['gd_id'],
-                        'odg_gd_name'   => $gd_name
-                    ], 'odg_id');
-    
-                    if(auth()->check() && $req->od_type == 'buy_cart')
-                        $ct = Cart::where([['ct_gd_id', $gd['gd_id']], ['created_id', $created_id]])->first();
-                   
-                    foreach ($gd['model'] as $gm) {
-                        $model = GoodsModel::find($gm['gm_id']);
-                        OrderModel::insert([
-                            'odm_od_id'     => $od_id,
-                            'odm_odg_id'    => $odg_id,
-                            'odm_gm_id'     => $gm['gm_id'],
-                            'odm_gm_catno'  => $model->gm_catno,
-                            'odm_gm_name'   => $model->gm_name,
-                            'odm_gm_code'   => $model->gm_code,
-                            'odm_gm_spec'   => $model->gm_spec,
-                            'odm_gm_unit'   => $model->gm_unit,
-                            'odm_ea'        => $gm['ea'],
-                            'odm_price'     => $model->bundleCheck($gm['ea'])]);
-    
-                        if(isset($ct)) {
-                            $ct->delete();
-                            CartModel::where([['cm_ct_id', $ct->ct_id], ['cm_gm_id', $gm['gm_id']]])->delete();
+                foreach ($req->lists as $pa_id => $pa) {
+                    $insert_tmp = array();
+                    foreach ($pa as $k => $item) {
+                        // $gd_name = DB::table('shop_goods')->where('gd_id', $item['gd_id'])->first()->gd_name;
+                        if ( $k == 0 ) {
+                            $odpa_id = OrderPurchaseAt::insertGetId([   'odpa_od_id'   => $od_id,
+                                                                        'odpa_pa_id'   => $pa_id,
+                                                                        'odpa_pa_type' => $item['pa_type'],
+                                                                        'odpa_pa_name' => isset($item['pa_name']) ? $item['pa_name'] : '',
+                                                                        'odpa_dlvy_p'  => isset($item['pa_dlvy_p']) ? $item['pa_dlvy_p'] : 0 ], 'odpa_id');
                         }
-    
-                    }
-                    foreach ($gd['option'] as $op) {
-                        $opc = OptionChild::find($op['opc_id']);
-                        OrderOption::insert([
-                            'odo_od_id'     => $od_id,
-                            'odo_odg_id'    => $odg_id,
-                            'odo_opc_id'    => $op['opc_id'],
-                            'odo_opc_name'  => $opc->opc_name,
-                            'odo_ea'        => $op['ea'],
-                            'odo_price'     => $opc->opc_price_add_vat]);
-                        if(isset($ct)) {
-                            CartOption::where([['co_ct_id', $ct->ct_id], ['co_opc_id', $op['opc_id']]])->delete();
+                        if(auth()->check() && $req->od_type == 'buy_cart')
+                            $ct = Cart::where([['ct_gd_id', $item['gd_id']], ['created_id', $created_id]])->first();
+
+                        if ($item['type'] == 'model') {
+                            $insert_tmp[] = array(
+                                'odm_od_id'    => $od_id,
+                                'odm_odpa_id'  => $odpa_id,
+                                'odm_type'     => 'MODEL',
+                                'odm_gd_id'    => $item['gd_id'],
+                                'odm_gm_id'    => $item['gm_id'],
+                                'odm_gm_catno' => $item['gm_catno'],
+                                'odm_gd_name'  => $item['gd_name'],
+                                'odm_gm_name'  => $item['gm_name'],
+                                'odm_gm_code'  => $item['gm_code'],
+                                'odm_gm_spec'  => $item['gm_spec'],
+                                'odm_gm_unit'  => $item['gm_unit'],
+                                'odm_mk_name'  => $item['mk_name'],
+                                'odm_ea'       => $item['ea'],
+                                'odm_price'    => $item['price'],
+                            );
+
+                            //  장바구니 주문일 경우 주문 성공시 바구니 비우기
+                            // if(isset($ct)) {
+                            //     $ct->delete();
+                            //     CartModel::where([['cm_ct_id', $ct->ct_id], ['cm_gm_id', $item['gm_id']]])->delete();
+                            // }
+                        } else if ($item['type'] == 'option') {
+                            $insert_tmp[] = array(
+                                'odm_od_id'    => $od_id,
+                                'odm_odpa_id'  => $odpa_id,
+                                'odm_type'     => 'OPTION',
+                                'odm_gd_id'    => $item['gd_id'],
+                                'odm_gm_id'    => $item['opc_id'],
+                                'odm_gm_catno' => '',
+                                'odm_gd_name'  => '',
+                                'odm_gm_name'  => $item['op_name'],
+                                'odm_gm_code'  => '',
+                                'odm_gm_spec'  => $item['opc_name'],
+                                'odm_gm_unit'  => '',
+                                'odm_mk_name'  => '',
+                                'odm_ea'       => $item['ea'],
+                                'odm_price'    => $item['price'],
+                            );
+                            
+                            // if(isset($ct))
+                                // CartOption::where([['co_ct_id', $ct->ct_id], ['co_opc_id', $item['opc_id']]])->delete();                        
                         }
-                    }
+                    }                    
+                    DB::table('shop_order_model')->insert($insert_tmp);
                 }
             }
 
-            if (    $req->od_pay_method == 'B' || //  결제 수단이 계좌이체이거나
-                    $req->od_pay_method == 'P' || //  결제 수단이 PSYS 이거나
-                    $req->od_pay_method == 'S' || //  결제 수단이 전표 이거나
-                    (   $req->od_pay_method == 'E' && //  결제 수단이 에스크로
-                        $req->extra['oex_type'] != 'NO' //  지출 증빙이 미발급( 발급선택안함 )
-                    )
-                ) {
-                $this->orderExtraInfo->oex_od_id = $od_id;
-                $this->orderExtraInfo->oex_finance_type = array_key_exists('oex_finance_type', $req->extra) ? $req->extra['oex_finance_type'] : "";
-                if ($req->extra['oex_finance_type'] == 'ETC') $this->orderExtraInfo->oex_finance_type = $req->extra['oex_finance_type_etc'];
+            //  지출 증빙 & 요청 첨부서류 등록
+            $this->orderExtraInfo->oex_od_id = $od_id;
+            if ($req->od_pay_method == 'B'){
+                $this->orderExtraInfo->oex_bank = array_key_exists('oex_bank', $req->extra) ? $req->extra['oex_bank'] : "";
                 $this->orderExtraInfo->oex_depositor = array_key_exists('oex_depositor', $req->extra) ? $req->extra['oex_depositor'] : "";
-                
-                if ($req->od_pay_method == 'B' || $req->od_pay_method == 'P' || $req->od_pay_method == 'S') //  계좌이체, PSYS, 전표는 결제 예정일 등록 ( soon, week1, week2, month1, month2 )
-                    $this->orderExtraInfo->oex_pay_plan = array_key_exists('oex_pay_plan', $req->extra) ? $req->extra['oex_pay_plan'] : "";
-                $this->orderExtraInfo->oex_type = array_key_exists('oex_type', $req->extra) ? $req->extra['oex_type'] : ""; //  지출증빙 방법 ( IV, IN, HP, CN, BN, NO )
+            }
+            if ($req->od_pay_method == 'B' || $req->od_pay_method == 'P' || $req->od_pay_method == 'R') //  계좌이체, PSYS, 원격결제는 결제 예정일 등록
+                $this->orderExtraInfo->oex_pay_plan = array_key_exists('oex_pay_plan', $req->extra) ? $req->extra['oex_pay_plan'] : "";
+            if ($req->extra['oex_type'] != 'NO') {    //  지출증빙 방법 ( IV, IN, HP, CN, BN, NO )
+                $this->orderExtraInfo->oex_type = array_key_exists('oex_type', $req->extra) ? $req->extra['oex_type'] : ""; 
                 switch ($req->extra['oex_type']) {
                     case 'IV': 
                         if (!$req->extra['oex_hasBizLicense']) {
@@ -257,18 +269,23 @@ class OrderController extends Controller {
                         $this->orderExtraInfo->oex_email = array_key_exists('oex_email', $req->extra)   ? $req->extra['oex_email'] : '';
                         $this->orderExtraInfo->oex_num   = array_key_exists('oex_num_tel', $req->extra) ? $req->extra['oex_num_tel'] : '';
                     break;
-                    case 'IN': $this->orderExtraInfo->oex_num = array_key_exists('oex_num_in', $req->extra) ? $req->extra['oex_num_in'] : ''; break;
-                    case 'HP': $this->orderExtraInfo->oex_num = array_key_exists('oex_num_hp', $req->extra) ? $req->extra['oex_num_hp'] : ''; break;
-                    case 'CN': $this->orderExtraInfo->oex_num = array_key_exists('oex_num_cn', $req->extra) ? $req->extra['oex_num_cn'] : ''; break;
-                    case 'BN': $this->orderExtraInfo->oex_num = array_key_exists('oex_num_bn', $req->extra) ? $req->extra['oex_num_bn'] : ''; break;
+                    case 'IN': 
+                    case 'HP': 
+                    case 'CN': 
+                    case 'BN': $this->orderExtraInfo->oex_num = array_key_exists('oex_num', $req->extra) ? $req->extra['oex_num'] : ''; break;
                 }
-                
-                $this->orderExtraInfo->oex_req_est  = array_key_exists('oex_req_est', $req->extra)  ? $req->extra['oex_req_est']  : 'N';
-                $this->orderExtraInfo->oex_req_tran = array_key_exists('oex_req_tran', $req->extra) ? $req->extra['oex_req_tran'] : 'N';
-                $this->orderExtraInfo->oex_req_biz  = array_key_exists('oex_req_biz', $req->extra)  ? $req->extra['oex_req_biz']  : 'N';
-                $this->orderExtraInfo->oex_req_bank = array_key_exists('oex_req_bank', $req->extra) ? $req->extra['oex_req_bank'] : 'N';
-                $this->orderExtraInfo->save();
             }
+
+            if ($req->od_pay_method == 'R') {
+                $this->orderExtraInfo->oex_mng   = array_key_exists('oex_mng', $req->extra)     ? $req->extra['oex_mng'] : '';
+                $this->orderExtraInfo->oex_num   = array_key_exists('oex_num_tel', $req->extra) ? $req->extra['oex_num_tel'] : '';
+            }  
+            $this->orderExtraInfo->oex_req_est  = array_key_exists('oex_req_est', $req->extra)  ? $req->extra['oex_req_est']  : 'N';
+            $this->orderExtraInfo->oex_req_tran = array_key_exists('oex_req_tran', $req->extra) ? $req->extra['oex_req_tran'] : 'N';
+            $this->orderExtraInfo->oex_req_biz  = array_key_exists('oex_req_biz', $req->extra)  ? $req->extra['oex_req_biz']  : 'N';
+            $this->orderExtraInfo->oex_req_bank = array_key_exists('oex_req_bank', $req->extra) ? $req->extra['oex_req_bank'] : 'N';
+            $this->orderExtraInfo->oex_memo     = array_key_exists('oex_memo', $req->extra)     ? $req->extra['oex_memo']     : '';
+            $this->orderExtraInfo->save();
 
             $order_goodsInfo = $this->goods->getGoodsDataCollection($req, $req->od_type);
             // dd($order_goodsInfo);
@@ -312,57 +329,65 @@ class OrderController extends Controller {
     }
 
     public function index(Request $req) {
+        $data = array();
         $od = $this->order;
 
-        if ($req->filled('startDate'))  $od = $od->SchStartDate($req->startDate.' 00:00:00');
-        if ($req->filled('endDate'))  	$od = $od->SchEndDate($req->endDate.' 23:59:59');
+        if ($req->filled('startDate'))  $od = $od->StartDate($req->startDate);
+        if ($req->filled('endDate'))  	$od = $od->EndDate($req->endDate);
 
         $od = $od->SchWriter(auth()->user()->id)->latest();
-        $od = $od->paginate();
-        $od->appends($req->all())->links();
-        return response()->json($od, 200);
+
+        if ($req->filled('limit'))
+            $data['order'] = $od->limit($req->limit)->get();
+        else {
+			$data['order'] = $od->paginate();
+			$data['order']->appends($req->all())->links();
+		}
+
+        $data['order_config'] = $this->order->getOrderConfig();
+        return response()->json($data, 200);
     }
 
     public function show($od_id) {
-        $od = $this->order->find($od_id);
-        foreach ($od->orderGoods as $v) {
-            $v->goods;
-            $v->orderModel;
-        }
-        return response()->json($od, 200);
+        $data = $this->order->with('OrderPurchaseAt')->find($od_id);
+
+        foreach ($data->orderPurchaseAt as $opa) {
+			foreach ($opa->orderModel as $odm)
+				$odm->orderDlvyInfo;
+		}
+        
+        $data['order_config'] = $this->order->getOrderConfig();
+        return response()->json($data, 200);
+    }
+
+    public function update(Request $req, $id) {
+		if ($req->filled('type')) {
+			if ($req->type == 'receipt_confirm')
+                $rst = DB::table('shop_order_dlvy_info')->where('oddi_id', $req->order_dlvy_info['oddi_id'])->update(['oddi_receive_date'=> \Carbon\Carbon::now()]);
+		}
+		if ($rst) {
+            $m = new \App\Models\Mileage;
+            event(new Mileage("insert", 'shop_order_model', $req->odm_id, $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level), '수취 확인', auth()->user()->id));
+            return response()->json(["msg"=>"success"], 200);
+        } else
+            return response()->json(["msg"=>"Fail"], 500);
     }
 
     public function bought(Request $req) {
         $rst = array();
-        $od = $this->order->SchWriter(auth()->user()->id)->get();
-        $fi = new FileInfo;
-        foreach ($od as $v) {
-            foreach ($v->orderGoods as $odg) {
-                foreach ($odg->orderModel as $odm) {
-                    $f = $fi->Fi_type('goods')->Fi_key($odg->odg_gd_id)->Fi_path('product')->first();
-                    if ($f) $odm->src = $f -> src_thumb;
-                    else    $odm->src = noimg(true);
-
-                    $odm->gd_id = $odg->odg_gd_id;
-                    $rst[] = $odm;
-                }
-            }
-        }
+        $order = $this->order->with('OrderModel')->SchWriter(auth()->user()->id)->get();
+        foreach ($order as $od)
+            foreach ($od->orderModel as $odm)
+                $rst[] = $odm;
         return $rst;
     }
-
-
-
-
-
-
 
     public function gdImgSrc($thumb=FALSE) {
         $rst = NULL;
         if ( !!$this->gd_id ) {
-            foreach ($this->fileInfo()->fi_path('product')->get() as $fi_piece) {
-                if ($thumb) { $fi_piece->fi_path.='/thumbnails'; }
-                $rst[] = "/storage/{$fi_piece->fi_type}/{$fi_piece->fi_path}/".$fi_piece->fi_new;
+            foreach ($this->fileInfo()->Fi_kind('product')->get() as $fi_piece) {
+                if ($thumb) { $fi_piece->fi_kind.='/thumbnails'; }
+                $rst[] = "/storage/{$fi_piece->fi_group}/{$fi_piece->fi_kind}/".$fi_piece->fi_new;
             }
         }
         if (!$rst){ $rst[] = self::noimg($thumb); }

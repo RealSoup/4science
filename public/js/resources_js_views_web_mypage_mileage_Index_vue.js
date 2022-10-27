@@ -14,12 +14,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -93,6 +100,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyMileageIndex',
@@ -101,10 +117,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     }
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+    enableMileage: 'auth/enableMileage'
+  })),
   data: function data() {
     return {
       frm: {},
-      mileage: {}
+      mileage: {},
+      config: {}
     };
   },
   mounted: function mounted() {
@@ -134,7 +154,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.mileage = res.data;
+                  _this.mileage = res.data.list;
+                  _this.config = res.data.config;
                 }
 
                 _context.next = 12;
@@ -163,32 +184,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                if (!(_this2.frm.type && _this2.frm.ea)) {
+                  _context2.next = 18;
+                  break;
+                }
+
+                console.log(_this2.enableMileage, _this2.config[_this2.frm.type].point * _this2.frm.ea);
+
+                if (!(_this2.enableMileage < _this2.config[_this2.frm.type].point * _this2.frm.ea)) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                Notify.modal('마일리지가 모자릅니다.');
+                return _context2.abrupt("return", false);
+
+              case 5:
+                _context2.prev = 5;
+                _context2.next = 8;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/mileage", _this2.frm);
 
-              case 3:
+              case 8:
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
                   Notify.modal("신청 되었습니다.");
                 }
 
-                _context2.next = 11;
+                _context2.next = 16;
                 break;
 
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](5);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.response.data.message);
 
-              case 11:
+              case 16:
+                _context2.next = 19;
+                break;
+
+              case 18:
+                Notify.modal('신청 정보를 입력하세요.');
+
+              case 19:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[5, 12]]);
       }))();
     }
   }
@@ -212,7 +256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".list .header[data-v-69500633] {\n  background-color: #DDD;\n}\n.list .header .col[data-v-69500633] {\n  font-weight: bold;\n}\n.list .data[data-v-69500633] {\n  border-top: 1px solid #ddd;\n}\n.list .row .col[data-v-69500633] {\n  padding: 0.6rem 0;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n@media (max-width: 768px) {\n.list .header[data-v-69500633] {\n    display: none;\n}\n.list .row .col[data-v-69500633] {\n    max-width: none !important;\n    width: auto !important;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n    flex-basis: 30%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(2) {\n    flex-basis: 70%;\n    flex-grow: 1;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n}\n.request[data-v-69500633] {\n  margin-top: 2rem;\n}\n.request .row .col[data-v-69500633] {\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".list .header[data-v-69500633] {\n  background-color: #DDD;\n}\n.list .header .col[data-v-69500633] {\n  font-weight: bold;\n}\n.list .data[data-v-69500633] {\n  border-top: 1px solid #ddd;\n}\n.list .row .col[data-v-69500633] {\n  padding: 0.6rem 0;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: right;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n@media (max-width: 768px) {\n.list .header[data-v-69500633] {\n    display: none;\n}\n.list .row .col[data-v-69500633] {\n    max-width: none !important;\n    width: auto !important;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n    flex-basis: 30%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(2) {\n    flex-basis: 70%;\n    flex-grow: 1;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n}\n.request[data-v-69500633] {\n  margin-top: 2rem;\n}\n.request .row .col[data-v-69500633] {\n  text-align: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -373,7 +417,11 @@ var render = function () {
           _vm._l(_vm.mileage.data, function (ml) {
             return _c(
               "b-row",
-              { key: ml.ml_id, staticClass: "data" },
+              {
+                key: ml.ml_id,
+                staticClass: "data",
+                class: { "bg-danger": ml.expiration || ml.ml_type == "SP" },
+              },
               [
                 _c("b-col", [
                   _vm._v(
@@ -381,29 +429,99 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
-                _c("b-col", [_vm._v(_vm._s(ml.ml_content))]),
-                _vm._v(" "),
                 _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(ml.ml_mileage)) + " "),
-                  _c("b", [_vm._v("P")]),
+                  ml.ml_tbl == "voucher"
+                    ? _c(
+                        "div",
+                        [
+                          _c("b-icon-gift-fill"),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.config[ml.refine_content[0]].name) +
+                              " : " +
+                              _vm._s(ml.refine_content[1]) +
+                              " 장 "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                          _vm._v(" " + _vm._s(ml.refine_content[2]) + " "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("font-awesome-icon", {
+                            attrs: { icon: "mobile-alt" },
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(ml.refine_content[3]) +
+                              "\n                "
+                          ),
+                        ],
+                        1
+                      )
+                    : _c(
+                        "div",
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(ml.ml_content) +
+                              "\n                    "
+                          ),
+                          ml.ml_type == "SP"
+                            ? _c(
+                                "b-badge",
+                                {
+                                  staticClass: "ml-3",
+                                  attrs: { variant: "warning" },
+                                },
+                                [_vm._v("상품권 구매")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          ml.expiration
+                            ? _c(
+                                "b-badge",
+                                {
+                                  staticClass: "ml-3",
+                                  attrs: { variant: "warning" },
+                                },
+                                [_vm._v("만료")]
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      ),
                 ]),
                 _vm._v(" "),
                 _c(
                   "b-col",
                   [
-                    ml.ml_mileage < 0
+                    ml.ml_tbl == "voucher"
+                      ? [_vm._v("상품권 신청")]
+                      : [
+                          _vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)) + " "),
+                          _c("b", [_vm._v("P")]),
+                        ],
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    ml.ml_tbl == "voucher"
                       ? [
-                          ml.ml_enable_m == 0
+                          ml.ml_type == "REQ"
                             ? _c(
                                 "b-badge",
                                 { attrs: { variant: "secondary" } },
                                 [_vm._v("요청")]
                               )
-                            : ml.ml_enable_m == 1
+                            : ml.ml_type == "OK"
                             ? _c("b-badge", { attrs: { variant: "success" } }, [
                                 _vm._v("승인"),
                               ])
-                            : ml.ml_enable_m == 2
+                            : ml.ml_type == "NO"
                             ? _c("b-badge", { attrs: { variant: "warning" } }, [
                                 _vm._v("반려"),
                               ])
@@ -433,65 +551,43 @@ var render = function () {
           _c(
             "b-row",
             [
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-radio",
-                    {
-                      attrs: { value: "5" },
-                      model: {
-                        value: _vm.frm.type,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.frm, "type", $$v)
+              _vm._l(_vm.config, function (v, k) {
+                return _c(
+                  "b-col",
+                  { key: k },
+                  [
+                    _c(
+                      "b-form-radio",
+                      {
+                        attrs: { value: k },
+                        model: {
+                          value: _vm.frm.type,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.frm, "type", $$v)
+                          },
+                          expression: "frm.type",
                         },
-                        expression: "frm.type",
                       },
-                    },
-                    [
-                      _c("img", {
-                        attrs: { src: "/img/mypage/mileage/gift50000.png" },
-                      }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("신세계백화점 상품권 (5만원)")]),
-                    ]
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-radio",
-                    {
-                      attrs: { value: "10" },
-                      model: {
-                        value: _vm.frm.type,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.frm, "type", $$v)
-                        },
-                        expression: "frm.type",
-                      },
-                    },
-                    [
-                      _c("img", {
-                        attrs: { src: "/img/mypage/mileage/gift100000.png" },
-                      }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("신세계백화점 상품권 (10만원)")]),
-                    ]
-                  ),
-                ],
-                1
-              ),
+                      [
+                        _c("img", {
+                          attrs: {
+                            src: "/img/mypage/mileage/gift" + v.point + ".png",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(v.name))]),
+                      ]
+                    ),
+                  ],
+                  1
+                )
+              }),
               _vm._v(" "),
               _c("Validation", {
                 attrs: { error: this.$store.state.error.validations.type },
               }),
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c(

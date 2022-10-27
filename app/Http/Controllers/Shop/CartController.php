@@ -43,10 +43,10 @@ class CartController extends Controller {
         } else {                $mb_yn = 'N'; $created_id = $req->cookie($this->c_nm_guest_id); }
 
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
-        foreach ($collect['lists'] as $g) {
-            foreach ($g['list'] as $m) {
-                $rst[] = $m;
-            }
+
+        foreach ($collect['lists'] as $pa) {
+            foreach ($pa as $item)
+                $rst[] = $item;
         }
         // $ca_gd['lists'] = $ca_gd['lists']->collapse();
         // dump($ca_gd['lists']->toArray());
@@ -91,22 +91,12 @@ class CartController extends Controller {
     }
 
     public function store(Request $req) {
-        $ct_id = 0;
-        $model = [];
-        $option = [];
-        if ($req->filled('gd_id')) {
-            $rst[] = $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
-            $ct_id = $ct->ct_id;
-            $model = $req->model;
-            $option = $req->option;
-        } else {
-            $ct_id = $req->ct_id;
-            if ($req->filled('gm_id')) $model = [[ "gm_id" => $req->gm_id, "ea" => $req->ea ]];
-            if ($req->filled('op_id')) $option = [[ "op_id" => $req->op_id, "opc_id" => $req->opc_id, "ea" => $req->ea ]];
-        }
-        foreach ($model as $key => $val)   $rst[] = $this->cartModel->updateOrCreate( ['cm_ct_id'=>$ct_id, 'cm_gm_id'=>$val['gm_id']], ['cm_ea'=>$val['ea']] );
-        foreach ($option as $key => $val)  $rst[] = $this->cartOption->updateOrCreate( ['co_ct_id'=>$ct_id, 'co_op_id'=>$val['op_id'], 'co_opc_id'=>$val['opc_id']], ['co_ea'=>$val['ea']] );
-        if ($rst)    return response()->json($rst, 200);
+        $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
+
+        if ($req->filled('gm_id')) $rst = $this->cartModel->create(['cm_ct_id'=>$ct->ct_id, 'cm_gm_id'=>$req->gm_id, 'cm_ea'=>$req->ea]);
+        if ($req->filled('op_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_op_id'=>$req->op_id, 'co_opc_id'=>$req->opc_id, 'co_ea'=>$req->ea]);
+
+        if ($rst)   return response()->json($rst, 200);
         else        return response()->json("장바구니 에러", 400);// return alertRedirect("모델을 선택하세요", '');
     }
 
@@ -119,18 +109,13 @@ class CartController extends Controller {
 
 
     public function destroy(Request $req, $id) {
-        if($req->mode == 'cart') {
-            $this->cartOption->where('co_ct_id', $id)->delete();
-            $this->cartModel->where('cm_ct_id', $id)->delete();
-            $rst = $this->cart->where('ct_id', $id)->delete();
-        } else if($req->mode == 'cart_model') {
+        if($req->type == 'model') {
             $rst = $this->cartModel->where('cm_id', $id)->delete();
-        } else if($req->mode == 'cart_option'){
+        } else if($req->type == 'option'){
             $rst = $this->cartOption->where('co_id', $id)->delete();
         }
 
-		if($rst){
-            return response()->json("삭제완료", 200);
-        } else return response()->json(["type"=>"alert", "message"=>"삭제 오류"], 400);
+		if($rst) return response()->json("삭제완료", 200);
+        else return response()->json(["type"=>"alert", "message"=>"삭제 오류"], 400);
     }
 }

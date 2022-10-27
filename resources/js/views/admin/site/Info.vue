@@ -122,7 +122,6 @@
 </template>
 <script>
 import ax from '@/api/http';
-import router from '@/router';
 export default {
     name: 'configEdit',
     data() {
@@ -131,6 +130,7 @@ export default {
                 site:{},
                 biz:{},
                 bank:{},
+                _method : 'PATCH'
             }
         };
     },
@@ -138,27 +138,9 @@ export default {
 
     },
     methods: {
-        async index(){
-            try {
-                const res = await ax.get(`/api/admin/site/info`);
-                if (res && res.status === 200) {
-                    if(res.data.site) this.frm.site = res.data.site.var;
-                    if(res.data.biz) this.frm.biz = res.data.biz.var;
-                    if(res.data.bank) this.frm.bank = res.data.bank.var;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
-            }
-        },
         async update(){
-            try {
-                this.frm = Object.assign(
-                    {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                    this.frm, // 수정하려는 객체
-                    {_method : 'PATCH'} // 삽입하려는 내용
-                );
-                const res = await ax.post(`/api/admin/site/infoUpdate`, this.frm);
+            try {               
+                const res = await ax.post(`/api/admin/site`, this.frm);
                 // if (res && res.status === 200)
                 //     // router.push({ name: 'adm_goods_index' })
                 // else
@@ -167,10 +149,16 @@ export default {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
+
         },
     },
-    created() {
-        this.index();
+    async mounted() {
+        const res = await ax.get(`/api/admin/site`);
+        if (res && res.status === 200) {
+            if(res.data.site) this.frm.site = res.data.site.var;
+            if(res.data.biz) this.frm.biz = res.data.biz.var;
+            if(res.data.bank) this.frm.bank = res.data.bank.var;
+        }
     },
 }
 </script>

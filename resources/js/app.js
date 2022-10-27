@@ -137,8 +137,6 @@ import ax from '@/api/http';
 ax.get('auth_check').then((res) => {
     if (res.data === 1) {
         ax.get('/api/user').then((response) => {
-            console.log('app.js auth check : ', response.data);
-
             store.state.auth.isLoggedin= true;
             store.state.auth.user= response.data.user;
             store.state.auth.csrfToken= response.data.token;

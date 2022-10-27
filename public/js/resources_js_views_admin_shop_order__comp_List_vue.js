@@ -61,15 +61,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmOrderIndexList',
   props: ['list', 'config'],
@@ -286,67 +277,13 @@ var render = function () {
                 _c(
                   "span",
                   [
-                    _vm._l(_vm.config.step, function (c, k) {
+                    _vm._l(_vm.config.step, function (v, k) {
                       return [
-                        k == row.od_step && k == 10
+                        k == row.od_step
                           ? _c(
                               "b-badge",
-                              { key: k, attrs: { variant: "primary" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 11
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "warning" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 12
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "warning" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 20
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "success" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 30
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "info" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 31
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "info" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 32
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "info" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 40
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "secondary" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 50
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "danger" } },
-                              [_vm._v(_vm._s(c))]
-                            )
-                          : k == row.od_step && k == 51
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: "danger" } },
-                              [_vm._v(_vm._s(c))]
+                              { key: k, attrs: { variant: v.class } },
+                              [_vm._v(_vm._s(v.name))]
                             )
                           : _vm._e(),
                       ]
@@ -399,7 +336,7 @@ var render = function () {
                                 },
                               ],
                               key: k,
-                              attrs: { title: "카트주문", variant: "info" },
+                              attrs: { title: "장바구니주문", variant: "info" },
                             },
                             [_vm._v(_vm._s(c.charAt(0)))]
                           )
@@ -455,9 +392,7 @@ var render = function () {
                               _vm._v(
                                 _vm._s(c) +
                                   " (" +
-                                  _vm._s(
-                                    row.order_extra_info.oex_finance_type
-                                  ) +
+                                  _vm._s(row.order_extra_info.oex_bank) +
                                   ")"
                               ),
                             ]

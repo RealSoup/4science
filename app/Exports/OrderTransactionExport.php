@@ -16,13 +16,10 @@ use Maatwebsite\Excel\Events\BeforeSheet;
 use Illuminate\Support\Arr;
 
 class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    protected $od_id;
-    protected $gm_cnt = 0;
+    protected $od;
+    protected $odm_map = [];
 
-    function __construct($id) { $this->od_id = $id; }
+    function __construct($od) { $this->od = $od; }
 
     public function columnWidths(): array {
         return [
@@ -38,32 +35,48 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
     public function collection() {
         $data = [];
-        $od = Order::find($this->od_id);
-        $gd = new Goods;
-        // $pa_list = $gd->getGoodsInfo($od, 'order');
-        // dd($od->orderGoods);
+        $od = $this->od;
         $data[] = ['거   래   명   세   서'];
         $data[] = ['(공급받는자 보관용)'];
         $data[] = [''];
         $data[] = [date('Y년 m월 d일')];
-        $data[] = [$od->od_department." 귀하"];
+        $data[] = [$od['od_department']." 귀하"];
         $data[] = ['아래와 같이 계산합니다.'];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', 'Cat. No.', '모델명', '단가', '수량', '공급가액'];
-        $goods_p = 0;
-        foreach ($od->orderGoods as $key => $odg) {
-            foreach ($odg->orderModel as $key => $odm) {
-                $this->gm_cnt++;
-                $data[] = [$this->gm_cnt, $odm->odm_gm_name, $odm->odm_gm_catno, $odm->odm_gm_code, number_format($odm->odm_price), $odm->odm_ea, number_format($odm->odm_price*$odm->odm_ea)];
-                $goods_p += $odm->odm_price*$odm->odm_ea;
+        $goods_p = 0;        
+        $seq = 0;
+        foreach ($od['order_purchase_at'] as $opa) {
+            foreach ($opa['order_model'] as $k => $odm) {
+                if ($odm['odm_type'] == 'MODEL') {
+                    $seq++;
+                    $this->odm_map[] = 'm';
+                    if ( $opa['dlvy_all_in'] && $k == 0) {
+                        //  부동소수점 오류 해결을 위한 식
+                        $odm['odm_price'] += bcdiv( $od['od_dlvy_price']/$odm['odm_ea'], 1.1 );
+                        $this->od['od_dlvy_price']  = 0;
+                        $od['od_dlvy_price']        = 0;
+                        //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
+                    }
+                    $data[] = [$seq, $odm['odm_gm_name'], $odm['odm_gm_catno'], $odm['odm_gm_code'], number_format($odm['odm_price']), $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea']) ];
+                } else {
+                    $this->odm_map[] = 'o';
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', number_format($odm['odm_price']), $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea'])];
+                }                
+                $goods_p += $odm['odm_price']*$odm['odm_ea'];
             }
         }
+
         $data[] = ['SUPPLY PRICE', '', '', '', number_format($goods_p)];
         $data[] = ['V. A. T.', '', '', '', surtax($goods_p, 1)];
-        $data[] = ['TOTAL AMOUNT', '', '', '', rrp($goods_p, 1)];
+        if ($od['od_dlvy_price'])
+            $data[] = ['SHIPPING FEES', '', '', '', number_format($od['od_dlvy_price'])];
+        if ($od['od_air_price'])
+            $data[] = ['항공 운임료', '', '', '', number_format($od['od_air_price'])];
+        $data[] = ['TOTAL AMOUNT', '', '', '', number_format(rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price'])];
         $data[] = [''];
-        $data[] = ['담당자 : '.$od->mng->name.' '.$od->mng->userMng->um_position.', TEL : '.$od->mng->tel.', FAX : '.$od->mng->fax];
-        $data[] = ['계좌번호 : '.cache('bank')->name01.' '.cache('bank')->num01.', '.cache('bank')->name02.' '.cache('bank')->num02.' '.cache('bank')->owner];
+        $data[] = ['담당자 : '.$od['mng']['name'].' '.$od['mng']['user_mng']['pos_name'].', TEL : '.$od['mng']['tel'].', FAX : '.$od['mng']['fax']];
+        $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
         return collect($data);
     }
 
@@ -86,26 +99,52 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $sheet->getRowDimension('7')->setRowHeight(9);
         $sheet->getRowDimension('8')->setRowHeight(20);
 
-        for ($i=0; $i < $this->gm_cnt; $i++) {
-            $r = 9+$i;
-            $sheet->getRowDimension($r)->setRowHeight(23);
+        $n = 9;
+        foreach ($this->odm_map as $row) {
+            $sheet->getRowDimension($n)->setRowHeight(23);
+            $n++;
         }
 
-        $sheet->getRowDimension($this->gm_cnt+9)->setRowHeight(23);
-        $sheet->mergeCells('A'.($this->gm_cnt+9).':D'.($this->gm_cnt+9))->mergeCells('E'.($this->gm_cnt+9).':G'.($this->gm_cnt+9));
-        $sheet->getRowDimension($this->gm_cnt+10)->setRowHeight(23);
-        $sheet->mergeCells('A'.($this->gm_cnt+10).':D'.($this->gm_cnt+10))->mergeCells('E'.($this->gm_cnt+10).':G'.($this->gm_cnt+10));
-        $sheet->getRowDimension($this->gm_cnt+11)->setRowHeight(30);
-        $sheet->mergeCells('A'.($this->gm_cnt+11).':D'.($this->gm_cnt+11))->mergeCells('E'.($this->gm_cnt+11).':G'.($this->gm_cnt+11));
 
-        $sheet->getRowDimension($this->gm_cnt+12)->setRowHeight(7);
-        $sheet->getRowDimension($this->gm_cnt+13)->setRowHeight(23);
-        $sheet->mergeCells('A'.($this->gm_cnt+13).':G'.($this->gm_cnt+13));
-        $sheet->getRowDimension($this->gm_cnt+14)->setRowHeight(23);
-        $sheet->mergeCells('A'.($this->gm_cnt+14).':G'.($this->gm_cnt+14));
-        $sheet->getRowDimension($this->gm_cnt+15)->setRowHeight(7);
-        $sheet->getRowDimension($this->gm_cnt+16)->setRowHeight(40);
-        $sheet->mergeCells('A'.($this->gm_cnt+16).':G'.($this->gm_cnt+16));
+        $sheet->getRowDimension($n)->setRowHeight(23);
+        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(23);
+        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $n++;
+
+        if ($this->od['od_dlvy_price']) {
+            $sheet->getRowDimension($n)->setRowHeight(23);
+            $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+            $n++;
+        }
+        if ($this->od['od_air_price']) {
+            $sheet->getRowDimension($n)->setRowHeight(23);
+            $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+            $n++;
+        }
+
+        $sheet->getRowDimension($n)->setRowHeight(30);  //  TOTAL AMOUNT
+        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(7);
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(23);  //  담당자
+        $sheet->mergeCells("A{$n}:G{$n}");
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(23);
+        $sheet->mergeCells("A{$n}:G{$n}");
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(7);
+        $n++;
+
+        $sheet->getRowDimension($n)->setRowHeight(40);
+        $sheet->mergeCells("A{$n}:G{$n}");
 
         $sheet_style = [
             'A1:G1' => [
@@ -184,9 +223,10 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
         $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT ] ];
         $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-        for ($i=0; $i < $this->gm_cnt; $i++) {
-            $r = 9+$i;
-            $sheet_style['A'.$r.':G'.$r] = [
+
+        $r = 9;
+        foreach ($this->odm_map as $row) {
+            $sheet_style["A{$r}:G{$r}"] = [
                 'borders' => [
                     'inside' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -198,13 +238,17 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ];
-            $sheet_style['A'.$r] = $text_center;
-            $sheet_style['C'.$r] = $text_center;
-            $sheet_style['D'.$r] = $text_center;
-            $sheet_style['E'.$r] = $text_right;
-            $sheet_style['F'.$r] = $text_center;
-            $sheet_style['G'.$r] = $text_right;
+            $sheet_style["A{$r}"] = $text_center;
+            $sheet_style["C{$r}"] = $text_center;
+            $sheet_style["D{$r}"] = $text_center;
+            $sheet_style["E{$r}"] = $text_right;
+            $sheet_style["F{$r}"] = $text_center;
+            $sheet_style["G{$r}"] = $text_right;
+            $r++;
         }
+
+
+
         $border_medium_dashed = [
             'borders' => [
                 'bottom' => [
@@ -213,17 +257,38 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
-        $sheet_style['A'.($this->gm_cnt+9).':G'.($this->gm_cnt+9)] = Arr::collapse([
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
         ]);
-        $sheet_style['A'.($this->gm_cnt+10).':G'.($this->gm_cnt+10)] = Arr::collapse([
+        $r++;
+
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
         ]);
-        $sheet_style['A'.($this->gm_cnt+11).':G'.($this->gm_cnt+11)] = Arr::collapse([
+        $r++;
+
+        if ($this->od['od_dlvy_price']) {
+            $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+                ['font' => ['color' =>  ['argb' => 'FF999999'],]],
+                $text_right,
+                $border_medium_dashed
+            ]);
+            $r++;
+        }
+        if ($this->od['od_air_price']) {
+            $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+                ['font' => ['color' =>  ['argb' => 'FF999999'],]],
+                $text_right,
+                $border_medium_dashed
+            ]);
+            $r++;
+        }
+
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([   //  TOTAL AMOUNT
             ['font' => ['size' => 11, 'bold' => true]],
             ['borders' => [
                     'bottom' => [
@@ -234,8 +299,9 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             ],
             $text_right
         ]);
+        $r+=2;
 
-        $sheet_style['A'.($this->gm_cnt+13).':G'.($this->gm_cnt+13)] = [
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -250,7 +316,9 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
-        $sheet_style['A'.($this->gm_cnt+14).':G'.($this->gm_cnt+14)] = [
+        $r++;
+
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -265,7 +333,9 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
-        $sheet_style['A'.($this->gm_cnt+15).':G'.($this->gm_cnt+15)] = [
+        $r++;
+        
+        $sheet_style["A{$r}:G{$r}"] = [
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'startColor' => [
@@ -273,7 +343,9 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
-        $sheet_style['A'.($this->gm_cnt+16).':G'.($this->gm_cnt+16)] = [
+        $r++;
+
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -323,7 +395,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 $drawing2 = new Drawing();
                 $drawing2->setPath(public_path('/img/common/estimate_logo.png'));
                 $drawing2->setHeight(43);
-                $drawing2->setCoordinates('C'.($this->gm_cnt+16));
+                $drawing2->setCoordinates('C'.(count($this->odm_map)+2+16));
                 $drawing2->setWorksheet($event->sheet->getDelegate());
             }
         ];

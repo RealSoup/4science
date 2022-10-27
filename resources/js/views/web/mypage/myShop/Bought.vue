@@ -20,9 +20,9 @@
 
             <transition-group class="container bought" tag="div" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
                 <b-row v-for="(m, i) in computedModel" :key="m.odm_id" class="data">
-                    <b-col md="2"><img :src="m.src" class="rounded-circle" /></b-col>
+                    <b-col md="2"><img :src="m.img_src" class="rounded-circle" /></b-col>
                     <b-col>
-                        <b-button variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:m.gd_id} }">
+                        <b-button variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:m.odm_gd_id} }">
                             <p><b>{{m.odm_gm_name}}</b></p>
                      
                             {{m.odm_gm_catno}}<br />
@@ -55,8 +55,7 @@ export default {
     name: "MyBought",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('../_comp/SchDate.vue'),
-        'OrderStep': () => import('../_comp/OrderStep.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
     },
     data() {
         return {

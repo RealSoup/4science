@@ -13,38 +13,55 @@ class MileageController extends Controller {
         $this->mileage = $ml;
     }
 
-    public function index(Request $req) {
-        $id = 0;
-        $ml = $this->mileage;
-        if ($req->filled('writer')) $ml = $ml->Uid($req->writer);
-        if ($req->filled('ml_type')) $ml = $ml->Type($req->ml_type);
-        if ($req->filled('ml_key')) $ml = $ml->Key($req->ml_key);
-        $ml = $ml->latest();
+    public function index(Request $req, $id) {
+        $rst = array();
+        $ml = $this->mileage->Uid($id)->latest();
         if ($req->filled('limit'))
-            $ml = $ml->limit($req->limit)->get();
+            $rst['list'] = $ml->limit($req->limit)->get();
         else {
-			$ml = $ml->paginate(10);
-            $ml->appends($req->all())->links();
+			$rst['list'] = $ml->paginate(10);
+            $rst['list']->appends($req->all())->links();
 		}
-
-
-        
-        return response()->json($ml, 200);
+        $rst['config'] = Mileage::$config;
+        return response()->json($rst, 200);
     }
 
     public function update(Request $req, $id) {
-        DB::table('Mileage')->where('ml_id', $id)->update([
-            "ml_key" => $req->filled('ml_key') ? $req->ml_key : 0,
-            "updated_id"  => auth()->check() ? auth()->user()->id : 0
-        ]);        
+        $ml =  $this->mileage->find($id);
+        $config = Mileage::$config['voucher'];
+        $req_price = $config[$ml->refine_content[0]]['point'] * $ml->refine_content[1];
+        $enable_price = (int) $this->enable($ml->ml_uid);
+        
+        if ( $req->ml_type == 'OK') {
+            if ( $enable_price >= $req_price  ) {
+                foreach ($this->mileage->Uid($ml->ml_uid)->Enable()->where('ml_enable_m', '>', 0)->get() as $v) {
+                    $req_price -= $v->ml_enable_m;
+                    $tmp = 0;
+                    if ($req_price >= 0) 	$tmp = 0;
+                    else 					$tmp = abs($req_price);
+                    DB::table('Mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
+                    if ($req_price <= 0) break;
+                }
+            } else 
+                return response()->json(["msg"=>"마일리지 부족"], 500);
+        }
+        
+        $ml->ml_type = $req->ml_type;
+        $ml->updated_id = auth()->user()->id;
+        $ml->save();   
+
         return response()->json("success", 200);
     }
 
     public function getRequesterVoucher(Request $req) {
         $ml = $this->mileage->with('user');
-        if ($req->filled('ml_type')) $ml = $ml->Type($req->ml_type);
+        if ($req->filled('ml_tbl')) $ml = $ml->Tbl($req->ml_tbl);
         if ($req->filled('ml_key')) $ml = $ml->Key($req->ml_key);
         $ml = $ml->latest()->get();
         return response()->json($ml, 200);
+    }
+
+    public function enable($id) {
+        return $this->mileage->enableMileage($id);
     }
 }

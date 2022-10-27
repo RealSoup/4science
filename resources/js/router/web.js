@@ -3,8 +3,8 @@ const isLoggedin = () => (to, from, next) => {
     if (store.state.auth.isLoggedin) {
         return next();
     }
-    // Notify.modal("로그인이 필요한 서비스입니다.");
     next({name:'login', query:{redirect:to.path}});
+    Notify.modal("로그인이 필요한 서비스입니다.");
 };
 
 const isNotLoggedin = () => (to, from, next) => {

@@ -16,7 +16,7 @@ export default {
             page:0,
         },
         list: {},
-        categorys: {},
+        // categorys: {},
         sch_cate_info: {},
         pick: [],
         isLoadingModalViewed:false,
@@ -37,7 +37,7 @@ export default {
         },
         setData (state, param) {
             state.list = param.list;
-            state.categorys = param.categorys;
+            // state.categorys = param.categorys;
             state.sch_cate_info = param.sch_cate_info;
             state.pick = param.pick;
             state.isLoadingModalViewed= false;

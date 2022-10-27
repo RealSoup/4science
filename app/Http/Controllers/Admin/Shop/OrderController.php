@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveMakerRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Shop\{Order, OrderModel, OrderGoods, OrderOption, OrderExtraInfo, DeliveryCompany, Maker, Category, Goods, OrderAnswer, OrderAddRefundPay};
+use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods};
 use App\Models\{User, UserMng, FileNote};
+use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
 use Illuminate\Support\Facades\Storage;
 use Mail;
@@ -15,6 +16,7 @@ use DateTime;
 use Session;
 use DB;
 
+use App\Exports\InvoicesExport;
 use App\Exports\OrderEstimateExport;
 use App\Exports\OrderTransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -62,74 +64,52 @@ class OrderController extends Controller {
 
 
 		//if ($request->filled('mk_name'))   $makers = $makers->Sch_Mk_name($request->mk_name);
-		$orders = $this->order->with('orderGoods')->with('orderExtraInfo')->select("shop_order.*",
+		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->select("shop_order.*",
 										DB::raw("(SELECT name FROM la_users
 										WHERE la_users.id = la_shop_order.od_mng) as od_mng_nm"),);
 					// ->join('users', 'users.id', '=', 'shop_order.created_id');
 
-		if (isset($data['startDate']))  $orders = $orders->SchStartDate($data['startDate'].' 00:00:00');
-        if (isset($data['endDate']))  	$orders = $orders->SchEndDate($data['endDate'].' 23:59:59');
-		if (isset($data['od_type']))    $orders = $orders->SchType($data['od_type']);
-		if (isset($data['od_pay_method']))    $orders = $orders->SchPayMethod($data['od_pay_method']);
-		if (isset($data['od_step']))   $orders = $orders->SchStep($data['od_step']);
-        if (isset($data['od_mng']))    $orders = $orders->SchManager($data['od_mng']);
-		if (isset($data['startPrice'])) $orders = $orders->SchStartPrice(preg_replace('/\D/', '', $data['startPrice']));
-		if (isset($data['endPrice'])) $orders = $orders->SchEndPrice(preg_replace('/\D/', '', $data['endPrice']));
-        if (isset($data['um_group'])) $orders = $orders->SchMngGroup(UserMng::Group($data['um_group'])->pluck('um_user_id'));
+		if (isset($data['startDate']))  	$orders = $orders->StartDate($req->startDate);
+        if (isset($data['endDate']))  		$orders = $orders->EndDate($req->endDate);
+		if (isset($data['od_type']))    	$orders = $orders->where('od_type', $data['od_type']);
+		if (isset($data['od_pay_method']))	$orders = $orders->where('od_pay_method', $data['od_pay_method']);
+		if (isset($data['od_step']))   		$orders = $orders->where('od_step', $data['od_step']);
+        if (isset($data['od_mng']))    		$orders = $orders->where('od_mng', $data['od_mng']);
+		if (isset($data['startPrice'])) { 	$orders = $orders->where('od_all_price', '>=', preg_replace('/\D/', '', $data['startPrice'])); }
+		if (isset($data['endPrice'])) { 	$orders = $orders->where('od_all_price', '<=', preg_replace('/\D/', '', $data['endPrice'])); }
+        if (isset($data['um_group'])) {
+			$group = UserMng::Group($data['um_group'])->pluck('um_user_id');
+			$orders = $orders->whereIn('od_mng', (count($group) ? $group : ['']));
+		}
 		if (isset($data['writer'])) $orders = $orders->SchWriter($data['writer']);
 
-
         if (isset($data['keyword'])){
+			$txt = $data['keyword'];
             switch ($data['mode']) {
-				case 'od_orderer':			$orders = $orders->SchOrderer($data['keyword']); break;
-				case 'orderer_email':		$orders = $orders->SchWriterArr($this->user::SchEmail($data['keyword'])->pluck('id')); break;
-				case 'orderer_hp':		$orders = $orders->SchOrdererHp($data['keyword']); break;
-				case 'od_no':			$orders = $orders->SchOdNo($data['keyword']); break;
-				case 'od_id':			$orders = $orders->SchOdId($data['keyword']); break;
-				case 'od_receiver':			$orders = $orders->SchReceiver($data['keyword']); break;
-				case 'od_addr1':			$orders = $orders->SchAddr1($data['keyword']); break;
-
-				case 'oex_depositor':			$orders = $orders->SchOdIdArr($this->orderExtraInfo::Depositor($data['keyword'])->pluck('oex_od_id')); break;
-				case 'gm_name':			$orders = $orders->SchAddr1($data['keyword']); break;
-				case 'gm_code':			$orders = $orders->SchAddr1($data['keyword']); break;
-				case 'catno':			$orders = $orders->SchAddr1($data['keyword']); break;
-
-
-				case 'orderer_department':	$orders = $orders->SchOrdererId($this->user::SchDepartment($data['keyword'])->pluck('id')); break;
-
-				// case 'gd_name':
-				//
-				// 	$orders = $orders->join(
-				// 		DB::raw("
-				// 			(	SELECT ODM.odm_od_id
-				// 				FROM sc_shop_order_model AS ODM
-				// 					join sc_shop_goods_model AS GM ON GM.gm_id = ODM.odm_gm_id
-				// 				WHERE GM.gm_name LIKE '%".$data['keyword']."%'
-				// 				GROUP BY ODM.odm_od_id
-				// 			) AS sc_gm_tb"
-				// 		), function($join) {
-				// 		   $join->on('shop_order.od_id', '=', 'gm_tb.odm_od_id');
-				// 		}
-				// 	);
-				//
-				// break;
-				// case 'od_no':			$orders = $orders->SchOd_no($data['keyword']); break;
-                case 'od_user':     	$orders = $orders->SchOd_orderer($data['keyword']); break;
-				case 'od_depositor':    $orders = $orders->SchDepositor($data['keyword']); break;
-				case 'department':    	$orders = $orders->SchDepartment($this->user::SchDepartment($data['keyword'])->pluck('id')); break;
-				// case 'od_addr':		$orders = $orders->SchOd_addr($data['keyword']); break;
-				// case 'od_hp':		$orders = $orders->SchOd_hp($data['keyword']); break;
-                default:
-                    $orders = $orders->where(function($query) use ($data){
-                        $query->SchOd_no($data['keyword'])->orWhere(function (Builder $query) use ($data) {
-                            $query->SchOd_orderer($data['keyword']);
-                        })->orWhere(function (Builder $query) use ($data) {
-                            $query->SchOd_addr($data['keyword']);
-                        })->orWhere(function (Builder $query) use ($data) {
-                            $query->SchOd_hp($data['keyword']);
-                        });
-                    });
-                break;
+				case 'od_orderer':		$orders = $orders->where('od_orderer', 'like', "%$txt%"); break;
+				case 'orderer_email':	$orders = $orders->where('od_orderer_email', 'like', "%$txt%"); break;
+				case 'orderer_hp':		$orders = $orders->where('od_orderer_hp', 'like', "%$txt%"); break;
+				case 'od_no':			$orders = $orders->where('od_no', $txt); break;
+				case 'od_id':			$orders = $orders->where('od_id', $txt); break;
+				case 'od_receiver':		$orders = $orders->where('od_receiver', 'like' , "%$txt%"); break;
+				case 'od_addr1':		$orders = $orders->where('od_addr1', 'like' , "%$txt%"); break;
+				case 'or_department':	$orders = $orders->where('or_department', 'like' , "%$txt%"); break;
+				case 'oex_depositor':
+					$ids = $this->orderExtraInfo::where('oex_depositor', 'like' , "%$txt%")->pluck('oex_od_id');
+					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
+				break;
+				case 'gm_name':
+					$ids = OrderModel::where('odm_gm_name', $txt)->pluck('odm_od_id');
+					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
+				break;
+				case 'gm_code':
+					$ids = OrderModel::where('odm_gm_code', $txt)->pluck('odm_od_id');
+					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
+				break;
+				case 'catno':
+					$ids = OrderModel::where('odm_gm_catno', $txt)->pluck('odm_od_id');
+					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
+				break;
             }
         }
 
@@ -221,56 +201,45 @@ class OrderController extends Controller {
 		// $params['site_code'] = config('const.dlvy.siteCode');
 		// $params['dlvy_com_code'] = config('const.dlvy.dlvyComCode');
 		// $params['refund_bank_code'] = config('const.iamport.bank_code');
-		$data = $this->order->select("shop_order.*",
-										DB::raw("(SELECT name FROM la_users
-										WHERE la_users.id = la_shop_order.od_mng) as od_mng_nm"),)->find($od_id);
+		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('mng')->find($od_id);
+		if ($data->mng)
+			$data->mng->userMng;
+		foreach ($data->orderPurchaseAt as $opa) {
+			foreach ($opa->orderModel as $odm) {
+				$odm->orderDlvyInfo;
+			}
+		}
 
-		$gd = new Goods;
-		$data->pa_list = $gd->getGoodsDataCollection($data, 'order');
-		// dd($data->pa_list->toArray());
-		// foreach ($data->orderGoods as $odg) {
-		// 	$odg->goods;
-		// 	foreach ($odg->orderModel as $odm) $odm->goodsModel;
-		// 	foreach ($odg->orderOption as $odo) $odo->optionChild;
-		// }
-
-		$data->orderExtraInfo;
-		// $data->fileInfo;
-		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;
-
-
-		// $params['user'] = User::find($params['od']->created_id);
-		// dump($data);
-		
+		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;		
 		$data['order_config'] = $this->order->getOrderConfig();
 		return response()->json($data, 200);
 	}
 
-	public function exportEstimateExcel(int $od_id) {
-		return Excel::download(new OrderEstimateExport($od_id), 'order.xlsx');
+	public function exportEstimateExcel(Request $req) {
+		return Excel::download(new OrderEstimateExport($req->all()), 'order.xlsx');
 	}
 
-	public function exportEstimatePdf(int $od_id) {
-		return PDF::loadView('admin.order.pdf.order_estimate', ['od' => Order::find($od_id)])
+	public function exportEstimatePdf(Request $req) {
+		return PDF::loadView('admin.order.pdf.order_estimate', $req->all())
 				->download('order.pdf'); // ->stream();
 	}
 
-	public function exportTransactionExcel(int $od_id) {
-		return Excel::download(new OrderTransactionExport($od_id), 'order.xlsx');
+	public function exportTransactionExcel(Request $req) {
+		return Excel::download(new OrderTransactionExport($req->all()), 'order.xlsx');
 	}
 
-	public function exportTransactionPdf(Request $req, int $od_id) {
+	public function exportTransactionPdf(Request $req) {
 		if ($req->filled('trans_date')) {
 			$subject = '거래명세서 메일입니다.';
 			$content = '이용해주셔서 감사합니다.';
-			$to_email = $req->trans_email;
-			$pdf = PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id), 'trans_date' => $req->trans_date, 'trans_receive' => $req->trans_receive]);
+			$to_email = [$req->trans_email, $req->trans_mng_email];
+			$pdf = PDF::loadView('admin.order.pdf.order_transaction', $req->all());
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
-			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-			return Mail::to($to_email)->queue(new TransactionSend(cache('biz')->email, $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());			
+			return Mail::to($to_email)->queue(new TransactionSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
 		} else {
-			return PDF::loadView('admin.order.pdf.order_transaction', ['od' => Order::find($od_id)])
+			return PDF::loadView('admin.order.pdf.order_transaction', $req->all())
 				// ->download('order.pdf');
 				->stream();
 		}
@@ -285,10 +254,19 @@ class OrderController extends Controller {
 			if 		($req->type == 'od_mng' && 	$req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step'))	$od->od_step = $req->od_step;
 			else if ($req->type == 'odm_ea') {
-				foreach ($req->pa_list['lists'] as $pa) {
-					foreach ($pa['list'] as $gd) {
-						foreach ($gd['goods_model'] as $gm)
-							DB::table('shop_order_model')->where('odm_id', $gm['odm_id'])->update(['odm_ea' => $gm['ea']]);
+				foreach ($req->order_purchase_at as $opa) {
+					foreach ($opa['order_model'] as $odm) {
+						$odModel = OrderModel::find($odm['odm_id']);
+						$gapEa = $odModel->odm_ea - $odm['odm_ea'];
+						if ($gapEa) {
+							$odModel->odm_ea = $odm['odm_ea'];
+							$odModel->save();
+							if (DB::table('mileage')->where([['ml_tbl', 'shop_order_model'], ['ml_key', $odm['odm_id']]])->exists()) {
+								$m = new \App\Models\Mileage;
+								$gapMileage = $m->mileage_calculation($odm['odm_price'], $gapEa, auth()->user()->level);
+								event(new Mileage("insert", $req->created_id, 'shop_order_model', $odm['odm_id'], 'SV', '수량 변경', -$gapMileage));
+							}
+						}
 					}
 				}
 				$gd = new Goods;
@@ -301,13 +279,40 @@ class OrderController extends Controller {
 					'od_all_price' 	=> $updated_item['price']['total'],
 				] );
 			} else if ($req->type == 'addr') {
-				
 				$od->od_receiver = $req->od_receiver;
 				$od->od_receiver_hp = $req->od_receiver_hp;
 				$od->od_zip = $req->od_zip;
 				$od->od_addr1 = $req->od_addr1;
 				$od->od_addr2 = $req->od_addr2;
+			} else if ($req->type == 'dlvy') {
+				foreach ($req->order_purchase_at as $opa) {
+					foreach ($opa['order_model'] as $odm) {
+						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
+							OrderDlvyInfo::updateOrCreate( [
+								'oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']
+							], [
+								'oddi_dlvy_com' => $odm['order_dlvy_info']['oddi_dlvy_com'],
+								'oddi_dlvy_num'	=> $odm['order_dlvy_info']['oddi_dlvy_num'],
+								'oddi_dlvy_created_at' => \Carbon\Carbon::now()
+							]);
+						}
+					}
+				}
+			} else if ($req->type == 'arrival') {
+				foreach ($req->order_purchase_at as $opa) {
+					foreach ($opa['order_model'] as $odm) {
+						if ($odm['odm_type'] == 'MODEL' && $odm['dlvy_chk'] == 'Y') {
+							if ( $odm['order_dlvy_info']['oddi_arrival_date'] ) {
+								OrderDlvyInfo::updateOrCreate(
+									['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']], 
+									['oddi_arrival_date'=> \Carbon\Carbon::now()]
+								);
+							}
+						}
+					}
+				}
 			}
+			
 			$od_rst = $od->save();
 		}
 		

@@ -71,7 +71,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
     'SchDate': function SchDate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/SchDate.vue */ "./resources/js/views/web/mypage/_comp/SchDate.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     },
     'OrderList': function OrderList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop_OrderList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./OrderList.vue */ "./resources/js/views/web/mypage/myShop/OrderList.vue"));
@@ -85,7 +85,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: 1,
         startDate: '',
         endDate: ''
-      }
+      },
+      order_config: {}
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
@@ -115,7 +116,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.order = res.data;
+                  _this.order = res.data.order;
+                  _this.order_config = res.data.order_config;
                   _this.isLoadingModalViewed = false;
                 }
 
@@ -320,6 +322,7 @@ var render = function () {
             ),
             _vm._v(" "),
             _c("OrderList", {
+              attrs: { order_config: _vm.order_config },
               model: {
                 value: _vm.order.data,
                 callback: function ($$v) {
@@ -330,7 +333,13 @@ var render = function () {
             }),
             _vm._v(" "),
             _c("pagination", {
-              attrs: { data: _vm.order },
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.order,
+                size: "small",
+                limit: 5,
+                align: "center",
+              },
               on: { "pagination-change-page": _vm.index },
             }),
           ],

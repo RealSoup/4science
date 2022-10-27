@@ -10,7 +10,7 @@ use Cache;
 use DB;
 
 class SiteController extends Controller {
-    public function info() {
+    public function index() {
         $cfg = Info::all()->keyBy('key');
         foreach ($cfg as $v) {
             $v->var = json_decode($v->var);
@@ -18,7 +18,7 @@ class SiteController extends Controller {
         return response()->json($cfg);
     }
 
-    public function infoUpdate(Request $req, Info $info) {
+    public function update(Request $req, Info $info) {
         if ($req->filled('site')) $info->updateOrCreate(['key' => 'site'], ['var' => json_encode($req->site)]);
         if ($req->filled('biz')) $info->updateOrCreate(['key' => 'biz'], ['var' => json_encode($req->biz)]);
         if ($req->filled('bank')) $info->updateOrCreate(['key' => 'bank'], ['var' => json_encode($req->bank)]);

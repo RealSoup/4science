@@ -14,7 +14,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -144,7 +143,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'configEdit',
   data: function data() {
@@ -152,13 +150,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       frm: {
         site: {},
         biz: {},
-        bank: {}
+        bank: {},
+        _method: 'PATCH'
       }
     };
   },
   computed: {},
   methods: {
-    index: function index() {
+    update: function update() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -169,75 +168,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/site/info");
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/site", _this.frm);
 
               case 3:
                 res = _context.sent;
-
-                if (res && res.status === 200) {
-                  if (res.data.site) _this.frm.site = res.data.site["var"];
-                  if (res.data.biz) _this.frm.biz = res.data.biz["var"];
-                  if (res.data.bank) _this.frm.bank = res.data.bank["var"];
-                }
-
-                _context.next = 11;
+                _context.next = 10;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 6:
+                _context.prev = 6;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 11:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
-      }))();
-    },
-    update: function update() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _this2.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                _this2.frm, // 수정하려는 객체
-                {
-                  _method: 'PATCH'
-                } // 삽입하려는 내용
-                );
-                _context2.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/site/infoUpdate", _this2.frm);
-
-              case 4:
-                res = _context2.sent;
-                _context2.next = 11;
-                break;
-
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
-                Notify.consolePrint(_context2.t0);
-                Notify.toast('warning', _context2.t0.response.data.message);
-
-              case 11:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee, null, [[0, 6]]);
       }))();
     }
   },
-  created: function created() {
-    this.index();
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/site");
+
+            case 2:
+              res = _context2.sent;
+
+              if (res && res.status === 200) {
+                if (res.data.site) _this2.frm.site = res.data.site["var"];
+                if (res.data.biz) _this2.frm.biz = res.data.biz["var"];
+                if (res.data.bank) _this2.frm.bank = res.data.bank["var"];
+              }
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 

@@ -49,6 +49,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
@@ -56,10 +60,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {
-        id: this.$route.params.id,
         page: 0
       },
-      list: {}
+      list: {},
+      enableMileage: 0,
+      config: null
     };
   },
   computed: {
@@ -78,7 +83,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("api/mileage", {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("api/admin/mileage/".concat(_this.$route.params.id), {
                   params: _this.frm
                 });
 
@@ -86,7 +91,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.list = res.data;
+                  _this.list = res.data.list;
+                  _this.config = res.data.config;
                 }
 
               case 4:
@@ -120,9 +126,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context2.next = 6;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/mileage/".concat(id), {
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/mileage/".concat(id), {
                   _method: 'PATCH',
-                  ml_key: v
+                  ml_type: v
                 });
 
               case 6:
@@ -139,7 +145,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.index();
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var ml;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _this2.index();
+
+              _context3.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/mileage/enable/".concat(_this2.$route.params.id));
+
+            case 3:
+              ml = _context3.sent;
+              _this2.enableMileage = ml.data;
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
   }
 });
 
@@ -207,7 +236,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html& */ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html&");
+/* harmony import */ var _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true& */ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&");
 /* harmony import */ var _Mileage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Mileage.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=script&lang=js&");
 /* harmony import */ var _Mileage_vue_vue_type_style_index_0_id_4ea7ee84_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Mileage.vue?vue&type=style&index=0&id=4ea7ee84&lang=css&scoped=true& */ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=style&index=0&id=4ea7ee84&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -221,8 +250,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Mileage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "4ea7ee84",
@@ -264,26 +293,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true& ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Mileage_vue_vue_type_template_id_4ea7ee84_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&lang=html& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/_comp/Mileage.vue?vue&type=template&id=4ea7ee84&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -297,25 +326,44 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { staticClass: "p_warp" },
     [
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("h3", [
+              _vm._v("가용 마일리지: "),
+              _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)))]),
+            ]),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _vm._l(_vm.list.data, function (ml, i) {
         return _c(
           "b-row",
-          { key: i },
+          {
+            key: i,
+            class: { "bg-danger": ml.expiration || ml.ml_type == "SP" },
+          },
           [
             _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "1" } }, [
               _vm._v(_vm._s(ml.ml_id)),
             ]),
             _vm._v(" "),
             _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "7" } }, [
-              ml.ml_type == "voucher"
+              ml.ml_tbl == "voucher"
                 ? _c(
                     "div",
                     [
                       _c("b-icon-gift-fill"),
                       _vm._v(
                         " " +
-                          _vm._s(ml.refine_content[0]) +
+                          _vm._s(
+                            _vm.config.voucher[ml.refine_content[0]].name
+                          ) +
                           " : " +
                           _vm._s(ml.refine_content[1]) +
                           " 장 "
@@ -335,14 +383,45 @@ var render = function () {
                     ],
                     1
                   )
-                : _c("div", [_vm._v(_vm._s(ml.ml_content))]),
+                : _c(
+                    "div",
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(ml.ml_content) +
+                          "\n                "
+                      ),
+                      ml.ml_type == "SP"
+                        ? _c(
+                            "b-badge",
+                            {
+                              staticClass: "ml-3",
+                              attrs: { variant: "warning" },
+                            },
+                            [_vm._v("상품권 구매")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      ml.expiration
+                        ? _c(
+                            "b-badge",
+                            {
+                              staticClass: "ml-3",
+                              attrs: { variant: "warning" },
+                            },
+                            [_vm._v("만료")]
+                          )
+                        : _vm._e(),
+                    ],
+                    1
+                  ),
             ]),
             _vm._v(" "),
             _c(
               "b-col",
               { attrs: { col: "", sm: "12", md: "6", lg: "2" } },
               [
-                ml.ml_type == "voucher"
+                ml.ml_tbl == "voucher"
                   ? _c(
                       "b-form-select",
                       {
@@ -352,29 +431,23 @@ var render = function () {
                           },
                         },
                         model: {
-                          value: ml.ml_key,
+                          value: ml.ml_type,
                           callback: function ($$v) {
-                            _vm.$set(ml, "ml_key", $$v)
+                            _vm.$set(ml, "ml_type", $$v)
                           },
-                          expression: "ml.ml_key",
+                          expression: "ml.ml_type",
                         },
                       },
-                      [
-                        _c("b-form-select-option", { attrs: { value: "0" } }, [
-                          _vm._v("요청"),
-                        ]),
-                        _vm._v(" "),
-                        _c("b-form-select-option", { attrs: { value: "1" } }, [
-                          _vm._v("승인"),
-                        ]),
-                        _vm._v(" "),
-                        _c("b-form-select-option", { attrs: { value: "2" } }, [
-                          _vm._v("반려"),
-                        ]),
-                      ],
+                      _vm._l(_vm.config.v_option, function (o, k) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: k, attrs: { value: k } },
+                          [_vm._v(_vm._s(o))]
+                        )
+                      }),
                       1
                     )
-                  : [_vm._v(_vm._s(_vm._f("comma")(ml.ml_mileage)))],
+                  : [_vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)))],
               ],
               2
             ),

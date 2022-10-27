@@ -5,7 +5,12 @@
         :class="[{active:mouseHover}]"
     >
         <b-card>
-            <div class="tit">검색 옵션 <b-button size="sm" @click="isModalViewed = true" class="ml-4"><b-icon-gear /></b-button></div>
+            <div class="tit">
+                검색 옵션 
+                <b-button size="sm" @click="editSearch" class="ml-4" v-b-tooltip.hover="'검색 항목 나열 순서'">
+                    <b-icon-gear />
+                </b-button>
+            </div>
             <b-row class="mb-3">
                 <template v-for="(sch, i) in search">
                     <template v-for="(cl, k) in sch_item_list">
@@ -55,8 +60,8 @@
                         <template v-else-if="k == sch.umc_val && k == 'catno'">
                             <InputText :key="`${i}${k}`" v-model="value.catno" @index="index" :label="cl.name" />
                         </template>
-                        <template v-else-if="k == sch.umc_val && k == 'source_no'">
-                            <InputText :key="`${i}${k}`" v-model="value.source_no" @index="index" :label="cl.name" />
+                        <template v-else-if="k == sch.umc_val && k == 'od_id'">
+                            <InputText :key="`${i}${k}`" v-model="value.od_id" @index="index" :label="cl.name" />
                         </template>
                         <template v-else-if="k == sch.umc_val && k == 'gm_price'">
                             <InputTextRange v-if="value" :key="`${i}${k}`" v-model="value" :label="cl.name" />
@@ -86,15 +91,6 @@
                 <b-button variant="primary" @click="index" size="sm"><b-icon-search /> 검색</b-button>
             </div>
         </b-card>
-        <transition name="modal">
-            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">
-                <CustomSetSearch
-                    @updateSearchComplete="updateSearchComplete"
-                    :db_data_config_sch="search"
-                    :sch_item_list="sch_item_list"
-                />
-            </Modal>
-        </transition>
     </div>
 </template>
 
@@ -102,51 +98,24 @@
 import { mapGetters } from 'vuex'
 export default {
     name: 'AdmLedgerSearch',
-    props: ['value', 'search', 'mng_list', 'writer'],
+    props: ['value', 'search', 'mng_list', 'writer', 'sch_item_list', 'config'],
 
-    components: {
-        'Modal'           : () => import('@/views/_common/Modal.vue'),
-        'InputText'       : () => import('./search/InputText.vue'),
-        'InputTextRange'  : () => import('./search/InputTextRange.vue'),
-        'InputSelect'     : () => import('./search/InputSelect.vue'),
-        'CustomSetSearch' : () => import('./CustomSetSearch.vue'),
-    },
+    components: {   'InputText'       : () => import('./search/InputText.vue'),
+                    'InputTextRange'  : () => import('./search/InputTextRange.vue'),
+                    'InputSelect'     : () => import('./search/InputSelect.vue'), },
 
     data() {
         return {
             mouseHover: false,
-            isModalViewed: false,
-            sch_item_list: {  
-                created_at  : {name:'작성일',   umc_val:'created_at'},
-                gm_price    : {name:'단가',     umc_val:'gm_price'},
-                ea_price    : {name:'공급가액', umc_val:'ea_price'},
-                surtax      : {name:'세액',     umc_val:'surtax'},
-                sum_price   : {name:'합계',     umc_val:'sum_price'},
-                mng         : {name:'담당자',   umc_val:'mng'},
-                pay_type    : {name:'결제방식', umc_val:'pay_type'},
-                orderer     : {name:'고객명',   umc_val:'orderer'},
-                source_no   : {name:'번호',     umc_val:'source_no'},
-                distributor : {name:'매출처',   umc_val:'distributor'},
-                gm_name     : {name:'품목명',   umc_val:'gm_name'},
-                catno       : {name:'CAT.No  ', umc_val:'catno'},
-                gm_code     : {name:'모델명',   umc_val:'gm_code'},
-                writer      : {name:'작성자',   umc_val:'writer'} 
-            },
         };
     },
 
     computed: {
         pay_type_option: function () {
-            return [
-                {val: 'CARD', name: '온라인 카드'},
-                {val: 'PSYS', name: 'PSYS'},
-                {val: 'BILL', name: '계산서'},
-                {val: 'STAT', name: '전표'},
-                {val: 'CASH', name: '현금영수증'},
-                {val: 'MEMB', name: '회원'},
-                {val: 'REV',  name: '역발행'},
-                {val: 'NOT',  name: '미발급'},
-            ]
+            const tmp = []; // need to convert it before using not with XMLHttpRequest
+            for (let [k, v] of Object.entries(this.config.pay_type))
+                tmp.push({ val: k, name: v });
+            return tmp;
         },
         mng_option: function () {
             return this.mng_list.map(mng => {
@@ -193,17 +162,14 @@ export default {
             this.value.startDate = sdt;
             this.value.endDate = edt;
         },
-        
-        updateSearchComplete() {
-            this.isModalViewed = false;
-            this.index();
-        },
+
+        editSearch () { this.$emit('editSearch'); },
     },
 };
 </script>
 
 <style lang="css">
-.ledger_search { max-width:1600px; width:100%; padding-right:15px; padding-left:15px; margin-right: auto; margin-left: auto; height:74px; z-index:2; position:relative; margin-bottom:1rem; }
+.ledger_search { max-width:1600px; width:100%; padding-right:15px; padding-left:15px; margin-right: auto; margin-left: auto; height:74px; z-index:3; position:relative; margin-bottom:1rem; }
 .ledger_search .card { position:relative; overflow:hidden; max-height:68px; transition:all .4s; }
 .ledger_search .card .row { opacity:0; transition:all .4s; }
 .ledger_search.active .card { overflow:visible; max-height:400px; }

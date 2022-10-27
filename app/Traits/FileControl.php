@@ -9,7 +9,7 @@ use Storage;
 
 trait FileControl {
 
-    public function file_upload($file, $subFolder, $thumb) {
+    public function file_upload($file, $subFolder, $thumb, $kind=null) {
         $def_wid = config('const.file.def_wid');
         $def_hei = config('const.file.def_hei');
         $thumb_wid = config('const.file.thumb_wid');
@@ -22,7 +22,7 @@ trait FileControl {
         if (in_array($mimeContentType, $mimeTypes))
             $image_info = getimagesize($file);
         $this->mkDir($physicalPath.$subFolder);
-        if (isset($image_info)) {
+        if ($kind!='desc' && isset($image_info)) {
             if($image_info[0]>$def_wid||$image_info[1]>$def_hei)
                 $this->imageResizeSave($file, $physicalFullPath, $def_wid, $def_hei);
             else

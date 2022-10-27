@@ -8,35 +8,21 @@ use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
     protected $goods;
-    protected $category;
 
 	public function __construct( Goods $gd, Category $cate ) {
         $this->goods = $gd;
-        $this->category = $cate;
     }
 
     public function index(Request $req) {
-        $data['categorys'] = collect();
-        $data['categorys'][0] = $this->category->getCate(0);
-        if ($req->filled('ca01'))    $data['categorys'][1] = $this->category->getCate($req->ca01);
-        if ($req->filled('ca02'))    $data['categorys'][2] = $this->category->getCate($req->ca02);
-        if ($req->filled('ca03'))    $data['categorys'][3] = $this->category->getCate($req->ca03);
+        $gd = $this->goods->with('maker')
+            ->select("shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit")
+            ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1]);
+        $goodsCate = DB::table('shop_goods_category')->select('*', DB::raw('MIN(gc_id)'))->groupBy('gc_gd_id');
+        $gd = $gd   ->joinSub($goodsCate, 'shop_goods_category', function ($join) { $join->on('gd_id', '=', 'gc_gd_id'); });
 
-        $gd = $this->goods->joinGoodsCate();
-        // 판매 가능 모델만 Join...
-        $gd = $gd->join('shop_goods_model', function ($join) { 
-            $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id')->where('gm_enable', 'Y'); 
-        });
+        $goodsModel = DB::table('shop_goods_model')->select('*', DB::raw('MIN(gm_catno03)'))->where('gm_enable', 'Y')->groupBy('gm_gd_id');
+        $gd = $gd   ->joinSub($goodsModel, 'shop_goods_model', function ($join) { $join->on('gd_id', '=', 'gm_gd_id'); });
 
-        $gd = $gd->select(
-                "shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit",
-                DB::raw('MIN(gc_id)'), DB::raw('MIN(gm_catno03)'),
-                DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_makers.mk_id = la_shop_goods.gd_mk_id) as mk_name")
-            )
-            ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
-            ->groupBy('shop_goods.gd_id');
-
-  
         if ($req->keyword){
             switch ($req->mode) {
                 case 'gd_name':     $gd = $gd->SchGd_name($req->keyword); break;
@@ -77,6 +63,8 @@ class GoodsController extends Controller {
         }
 
         if ($req->filled('keyword')) {
+            //  검색시 카테고리 상세 검색을 위한
+            //  검생 상품이 속한 카테고리 배열정보
             // $grouped = collect($data['list']->items())->groupBy('gc_ca01');
             $grouped = $gd->get();
             $data['sch_cate_info']['all'] = count($grouped);
@@ -129,7 +117,7 @@ class GoodsController extends Controller {
         // 정렬 설정 Strart
         switch ($req->sort) {
             case 'hot':     $gd = $gd->orderBy('gd_view_cnt', 'DESC');  break;
-            case 'new':     $gd = $gd->latest();                        break;
+            case 'new':     $gd = $gd->latest('shop_goods.created_at'); break;
             case 'lowPri':  $gd = $gd->oldest('gm_price');              break;
             case 'highPri': $gd = $gd->latest('gm_price');              break;
         }
@@ -151,30 +139,30 @@ class GoodsController extends Controller {
 		return response()->json($data);
     }
 
-    public function show(Request $req, $gd_id) {
-        $data['goods'] = $this->goods->find($gd_id);
-        $data['goods']->maker;
-        $data['goods']->purchaseAt;
-        $data['goods']->fileGoodsAdd;
-        // $data['goods']->goodsCategoryFirst;
-        $data['goods']->load(['goodsModel' => function ($query) {
-            $query->where('gm_enable', 'Y');
-        }]);
-
+    public function show(Category $cate, Request $req, $gd_id) {
+        $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('option')->with('goodsCategoryFirst')
+            ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
+            ->find($gd_id);
+        
+        //  모델의 appends에 초기 값을 세팅 할수 있지만
+        //  데이터를 가공하고 나면 
+        //  나중에 appends 초기 세팅값이 들어가서
+        //  가공한게 날아간다.
         foreach ($data['goods']->goodsModel as $val)
-            $val->ea = 0;
+            $val->ea = 1;
         
         foreach ($data['goods']->option as $op) {
             foreach ($op->optionChild as $opc)
                 $opc->ea = 0;
         }
-        event(new \App\Events\GoodsView($data['goods']));  //  조회수 증가
-        $data['categorys'] = collect();
-        $data['categorys'][0] = $this->category->getCate(0);
-        if ($data['goods']->goodsCategoryFirst->gc_ca01)    $data['categorys'][1] = $this->category->getCate($data['goods']->goodsCategoryFirst->gc_ca01);
-        if ($data['goods']->goodsCategoryFirst->gc_ca02)    $data['categorys'][2] = $this->category->getCate($data['goods']->goodsCategoryFirst->gc_ca02);
-        if ($data['goods']->goodsCategoryFirst->gc_ca03)    $data['categorys'][3] = $this->category->getCate($data['goods']->goodsCategoryFirst->gc_ca03);
 
+
+        event(new \App\Events\GoodsView($data['goods']));  //  조회수 증가
+        // $data['categorys'] = collect();
+        // $data['categorys'][0] = $cate->getCate(0);
+        // if ($data['goods']->goodsCategoryFirst->gc_ca01)    $data['categorys'][1] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca01);
+        // if ($data['goods']->goodsCategoryFirst->gc_ca02)    $data['categorys'][2] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca02);
+        // if ($data['goods']->goodsCategoryFirst->gc_ca03)    $data['categorys'][3] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca03);
         
         return response()->json($data);
     }

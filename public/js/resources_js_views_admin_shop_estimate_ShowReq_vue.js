@@ -130,6 +130,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -438,147 +442,168 @@ var render = function () {
       _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
       _vm._v(" "),
       _c(
-        "b-row",
-        { staticClass: "page_ctrl" },
+        "b-card",
+        { staticClass: "ctrl", attrs: { "no-body": "" } },
         [
           _c(
-            "b-col",
+            "b-container",
             [
               _c(
-                "b-button",
-                {
-                  attrs: { variant: "danger", size: "sm" },
-                  on: { click: _vm.destroy },
-                },
-                [
-                  _c("b-icon", { attrs: { icon: "trash-fill" } }),
-                  _vm._v(" 삭제"),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "text-right" },
-            [
-              _c(
-                "b-input-group",
-                { attrs: { size: "sm" } },
+                "b-row",
                 [
                   _c(
-                    "b-input-group-prepend",
-                    { staticClass: "bg-light btn_group" },
-                    [
-                      _c(
-                        "b-button",
-                        { attrs: { to: { name: "adm_estimate_index" } } },
-                        [
-                          _c("b-icon", { attrs: { icon: "list-ul" } }),
-                          _vm._v(" 목록"),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-form-select",
-                    {
-                      model: {
-                        value: _vm.frm.eq_step,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.frm, "eq_step", $$v)
-                        },
-                        expression: "frm.eq_step",
-                      },
-                    },
-                    [
-                      _c(
-                        "b-form-select-option",
-                        { attrs: { value: "DONOT" } },
-                        [_vm._v("미처리")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-select-option",
-                        { attrs: { value: "DOING" } },
-                        [_vm._v("처리중")]
-                      ),
-                      _vm._v(" "),
-                      _c("b-form-select-option", { attrs: { value: "DONE" } }, [
-                        _vm._v("처리완료"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-select-option",
-                        { attrs: { value: "CANCEL" } },
-                        [_vm._v("취소")]
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-input-group-append",
+                    "b-col",
                     [
                       _c(
                         "b-button",
                         {
-                          attrs: { variant: "warning" },
-                          on: { click: _vm.update },
+                          attrs: { variant: "danger", size: "sm" },
+                          on: { click: _vm.destroy },
                         },
                         [
-                          _c("b-icon", { attrs: { icon: "tools" } }),
-                          _vm._v(" 진행현황 수정"),
+                          _c("b-icon", { attrs: { icon: "trash-fill" } }),
+                          _vm._v(" 삭제"),
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _vm.frm.estimate_reply &&
-                      _vm.frm.estimate_reply.length > 0
-                        ? _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "success",
-                                to: {
-                                  name: "adm_estimate_show_reply",
-                                  params: {
-                                    er_id:
-                                      _vm.frm.estimate_reply[
-                                        _vm.frm.estimate_reply.length - 1
-                                      ].er_id,
-                                  },
-                                },
-                              },
-                            },
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "text-right" },
+                    [
+                      _c(
+                        "b-input-group",
+                        { attrs: { size: "sm" } },
+                        [
+                          _c(
+                            "b-input-group-prepend",
+                            { staticClass: "bg-light btn_group" },
                             [
-                              _c("b-icon-newspaper"),
-                              _vm._v(" 견적서 확인\n                    "),
-                            ],
-                            1
-                          )
-                        : _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "light",
-                                to: {
-                                  name: "adm_estimate_create",
-                                  query: { eq_id: _vm.frm.eq_id },
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { to: { name: "adm_estimate_index" } },
                                 },
-                              },
-                            },
-                            [
-                              _c("b-icon-pencil-square"),
-                              _vm._v(" 견적서 작성\n                    "),
+                                [
+                                  _c("b-icon", { attrs: { icon: "list-ul" } }),
+                                  _vm._v(" 목록"),
+                                ],
+                                1
+                              ),
                             ],
                             1
                           ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-select",
+                            {
+                              model: {
+                                value: _vm.frm.eq_step,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "eq_step", $$v)
+                                },
+                                expression: "frm.eq_step",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "DONOT" } },
+                                [_vm._v("미처리")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "DOING" } },
+                                [_vm._v("처리중")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "DONE" } },
+                                [_vm._v("처리완료")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "CANCEL" } },
+                                [_vm._v("취소")]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { variant: "warning" },
+                                  on: { click: _vm.update },
+                                },
+                                [
+                                  _c("b-icon", { attrs: { icon: "tools" } }),
+                                  _vm._v(" 진행현황 수정"),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm.frm.estimate_reply &&
+                              _vm.frm.estimate_reply.length > 0
+                                ? _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        variant: "success",
+                                        to: {
+                                          name: "adm_estimate_show_reply",
+                                          params: {
+                                            er_id:
+                                              _vm.frm.estimate_reply[
+                                                _vm.frm.estimate_reply.length -
+                                                  1
+                                              ].er_id,
+                                          },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("b-icon-newspaper"),
+                                      _vm._v(
+                                        " 견적서 확인\n                            "
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                : _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        variant: "light",
+                                        to: {
+                                          name: "adm_estimate_create",
+                                          query: { eq_id: _vm.frm.eq_id },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("b-icon-pencil-square"),
+                                      _vm._v(
+                                        " 견적서 작성\n                            "
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),

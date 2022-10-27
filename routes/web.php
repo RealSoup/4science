@@ -45,7 +45,7 @@ use Illuminate\Support\Facades\Route;
 //         });
 
 // Auth::routes();
-
+Route::get('/excel', 'ExcelController@index');
 
 
 Route::get('auth_check', function (Request $request) { return auth()->check(); });

@@ -1,76 +1,75 @@
 <template>
-<div id="adm_order">
-    <b-card>
-        <b-container>
-            <SchDate v-model="sch_frm" />
+<b-container class="p_warp">
+    <h3 class="p_tit">주문 목록</h3>
 
-            <b-row class="mb-3">
-                <b-col lg="2" md="4" sm="6">
-                    <select class="custom-select" v-model="sch_frm.od_type">
-                        <option value="">◄ 주문유형 ►</option>
-                        <option v-for="(val, key) in order_config.type" :key="key" :value="key">{{ val }}</option>
-                    </select>
-                </b-col>
-                <b-col lg="2" md="4" sm="6">
-                    <select class="custom-select" v-model="sch_frm.od_pay_method">
-                        <option value="">◄ 결제수단 ►</option>
-                        <option v-for="(val, key) in order_config.pay_method" :key="key" :value="key">{{ val }}</option>
-                    </select>
-                </b-col>
-                <b-col lg="2" md="4" sm="6">
-                    <select class="custom-select" v-model="sch_frm.od_step">
-                        <option value="">◄ 처리상태 ►</option>
-                        <option v-for="(val, key) in order_config.step" :key="key" :value="key">{{ val }}</option>
-                    </select>
-                </b-col>
-                <b-col lg="2" md="4" sm="6">
-                    <b-input-group prepend="주문액">
-                        <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma"></b-form-input>
-                        <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma"></b-form-input>
-                    </b-input-group>
-                </b-col>
-                <b-col lg="2" md="4" sm="6">
-                    <select class="custom-select" v-model="sch_frm.od_mng">
-                        <option value="">◄ 담당자 ►</option>
-                        <option v-for="opt in mng" :key="opt.id" :value="opt.id">{{ opt.name }}</option>
-                    </select>
-                </b-col>
-                <b-col lg="2" md="4" sm="6">
-                    <select class="custom-select" v-model="sch_frm.um_group">
-                        <option value="">◄ 담당팀 ►</option>
-                        <option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</option>
-                    </select>
-                </b-col>
-            </b-row>
+    <b-card class="search adform">
+        <SchDate v-model="sch_frm"><b-col slot="prev" class="label">주문일</b-col></SchDate>
+        <b-row>
+            <b-col class="label">주문유형</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.od_type" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.type" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">결제수단</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.od_pay_method" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.pay_method" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">처리상태</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.od_step" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.step" :key="key" :value="key">{{ val.name }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">주문액</b-col>
+            <b-col class="type03 period">
+                <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" size="sm" />
+                <b>~</b>
+                <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" size="sm" />
+            </b-col>
+            <b-col class="label">담당자</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.od_mng" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="opt in mng" :key="opt.id" :value="opt.id">{{ opt.name }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">담당팀</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.um_group" size="sm">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-            <b-row class="justify-content-end mt-3">
-                <b-col md="12" lg="8">
-                    <b-input-group>
-                        <b-input-group-prepend>
-                            <select class="custom-select" v-model="sch_frm.mode">
-                                <option value="od_orderer">주문자</option>
-                                <option value="orderer_email">주문자이메일</option>
-                                <option value="orderer_hp">주문자휴대폰</option>
-                                <option value="od_no">주문번호</option>
-                                <option value="od_id">글번호</option>
-                                <option value="od_receiver">수취인명</option>
-                                <option value="od_addr1">배송주소</option>
-                                <option value="oex_depositor">입금자</option>
-                                <option value="gm_name">제품명</option>
-                                <option value="gm_code">모델명</option>
-                                <option value="catno">Cat.No</option>
-                            </select>
-                        </b-input-group-prepend>
-
-                        <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword" @keyup.enter="index"></b-form-input>
-
-                        <b-input-group-append>
-                            <b-button variant="outline-primary" @click="index">Search</b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-col>
-            </b-row>
-        </b-container>
+            <b-col class="label" offset-lg="4">검색</b-col>
+            <b-col class="type05">
+                <b-input-group size="sm">
+                    <b-input-group-prepend>
+                        <b-form-select class="custom-select" v-model="sch_frm.mode" size="sm">
+                            <b-form-select-option value="od_orderer">주문자</b-form-select-option>
+                            <b-form-select-option value="orderer_email">주문자이메일</b-form-select-option>
+                            <b-form-select-option value="orderer_hp">주문자휴대폰</b-form-select-option>
+                            <b-form-select-option value="od_no">주문번호</b-form-select-option>
+                            <b-form-select-option value="od_id">글번호</b-form-select-option>
+                            <b-form-select-option value="od_receiver">수취인명</b-form-select-option>
+                            <b-form-select-option value="od_addr1">배송주소</b-form-select-option>
+                            <b-form-select-option value="oex_depositor">입금자</b-form-select-option>
+                            <b-form-select-option value="gm_name">제품명</b-form-select-option>
+                            <b-form-select-option value="gm_code">모델명</b-form-select-option>
+                            <b-form-select-option value="catno">Cat.No</b-form-select-option>
+                        </b-form-select>
+                    </b-input-group-prepend>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index"></b-form-input>
+                    <b-input-group-append><b-button @click="index"><b-icon-search /></b-button></b-input-group-append>
+                </b-input-group>
+            </b-col>
+        </b-row>
     </b-card>
 
     <b-card class="od_list">
@@ -92,7 +91,7 @@
 
         <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5"></pagination>
     </b-card>
-</div>
+</b-container>
 </template>
 
 <script>
@@ -100,7 +99,7 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
         'List': () => import('./_comp/List.vue'),
     },
     data() {

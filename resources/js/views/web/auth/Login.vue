@@ -1,5 +1,5 @@
 <template>
-    <div class="auth">
+    <b-container fluid="sm" class="auth">
         <h1>로그인</h1>
         <b-form class="frm">
             <validation-provider
@@ -38,7 +38,7 @@
                 <b-button variant="primary" @click="login" >로그인</b-button>
             </div>
         </b-form>
-    </div>
+    </b-container>
 </template>
 
 <script>
@@ -74,3 +74,7 @@ export default {
     // }
 }
 </script>
+
+<style scoped>
+.auth { max-width:540px; }
+</style>

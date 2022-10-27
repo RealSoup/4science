@@ -10,5 +10,4 @@ class OrderExtraInfo extends Model {
     public $timestamps = false;
     protected $guarded = [];
 
-    public function scopeDepositor($query, $txt) { return $query->where('oex_depositor', 'like' , "%$txt%"); }
 }

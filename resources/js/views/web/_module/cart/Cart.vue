@@ -8,23 +8,14 @@
         
         <div class="list_box">
             <ul>
-            <template v-for="(gd, i) in cartList">
-                <CartModel
-                    v-for="(gm, j) in gd.goods_model"
-                    :key="gm.gm_id"
-                    :src="gd.image_src_thumb[0]"
-                    v-model="cartList[i].goods_model[j]"
-                    @outCart="outCart('model', i, j)"
-                />
+            <template v-for="(item, i) in cartList">
+                <CartModel v-if="item.type=='model'" v-model="cartList[i]" @outCart="outCart(i)" />
+                <!--  -->
 
-                <CartOption
-                    v-for="(opc, k) in gd.option_child"
-                    :key="opc.opc_id"
-                    v-model="cartList[i].option_child[k]"
-                    @outCart="outCart('option', i, k)"
-                />
+                <CartOption v-else-if="item.type=='option'" v-model="cartList[i]" @outCart="outCart(i)" />
+                <!-- @outCart="outCart('option', i, k)" -->
 
-                <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row>
+                <!-- <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row> -->
             </template>
             </ul>
         </div>
@@ -64,31 +55,26 @@ export default {
         ...mapState('cart', ['cartList']),
         ...mapGetters('cart', ['totalPrice']),
         cntItem() {
-            if(this.cartList.length) {  //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
-                return this.cartList.reduce(function (acc, el) {
-                    return acc + el.goods_model.length;
-                }, 0);
-            }
+            return this.cartList.length;  //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
         },
     },
     methods: {
         index() {
             this.$store.dispatch('cart/index');
         },
-        outCart(type, p_idx, c_idx){
-            this.$store.dispatch('cart/destroy', { type:type, p_idx:p_idx, c_idx:c_idx });
+        outCart(i){
+            this.$store.dispatch('cart/destroy', { i:i });
         },
         action(type) {
             let params = this.makeParam();
-            let cntModel = params.reduce((acc, el) => {
-                return acc + el.model.length;
+            let cntModel = params.reduce(function(acc, el) {
+                return (el.hasOwnProperty('gm_id')) ? acc+1 : acc;
             }, 0);
+
             if (!cntModel) {
                 Notify.modal("모델을 선택하세요");
                 return false;
             }
-
-
 
             switch (type) {
                 case "settle":
@@ -103,25 +89,12 @@ export default {
 
         makeParam () {
             let params = [];
-            for (var gd of this.cartList) {
-                let temp_gm = [];
-                let temp_opc = [];
-                temp_gm = gd.goods_model.reduce((acc, el) => {
-                    if (el.ea > 0 && el.ct_check_opt == 'Y')
-                        acc.push({gm_id:el.gm_id, ea:el.ea});
-                    return acc;
-                }, []);
-
-                if (gd.hasOwnProperty('option_child')) {
-                    temp_opc =  gd.option_child.reduce((acc, el) => {
-                        if (el.ea > 0 && el.ct_check_opt == 'Y')
-                            acc.push({opc_id:el.opc_id, ea:el.ea});
-                        return acc;
-                    }, []);
-                }
-                if (temp_gm.length)
-                    params.push( {gd_id:gd.gd_id, model:temp_gm, option:temp_opc });
-            }
+            this.cartList.forEach(ct => {
+                if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
+                    if (ct.type == 'model')         params.push({gd_id:ct.gd_id, gm_id:ct.gm_id, ea:ct.ea});
+                    else if (ct.type == 'option')   params.push({gd_id:ct.gd_id, opc_id:ct.opc_id, ea:ct.ea});
+                }               
+            });
             return params;
         },
 

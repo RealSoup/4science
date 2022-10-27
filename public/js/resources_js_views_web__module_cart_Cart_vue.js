@@ -14,27 +14,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-numeric-input */ "./node_modules/vue-numeric-input/dist/vue-numeric-input.umd.js");
 /* harmony import */ var vue_numeric_input__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_numeric_input__WEBPACK_IMPORTED_MODULE_0__);
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -91,29 +76,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)('cart', ['totalPrice'])), {}, {
     cntItem: function cntItem() {
-      if (this.cartList.length) {
-        //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
-        return this.cartList.reduce(function (acc, el) {
-          return acc + el.goods_model.length;
-        }, 0);
-      }
+      return this.cartList.length; //  초기 디비 로딩 시간동안 없는걸로 나와서 오류 발생 방지 분기문
     }
   }),
   methods: {
     index: function index() {
       this.$store.dispatch('cart/index');
     },
-    outCart: function outCart(type, p_idx, c_idx) {
+    outCart: function outCart(i) {
       this.$store.dispatch('cart/destroy', {
-        type: type,
-        p_idx: p_idx,
-        c_idx: c_idx
+        i: i
       });
     },
     action: function action(type) {
       var params = this.makeParam();
       var cntModel = params.reduce(function (acc, el) {
-        return acc + el.model.length;
+        return el.hasOwnProperty('gm_id') ? acc + 1 : acc;
       }, 0);
 
       if (!cntModel) {
@@ -144,45 +122,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     makeParam: function makeParam() {
       var params = [];
-
-      var _iterator = _createForOfIteratorHelper(this.cartList),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var gd = _step.value;
-          var temp_gm = [];
-          var temp_opc = [];
-          temp_gm = gd.goods_model.reduce(function (acc, el) {
-            if (el.ea > 0 && el.ct_check_opt == 'Y') acc.push({
-              gm_id: el.gm_id,
-              ea: el.ea
-            });
-            return acc;
-          }, []);
-
-          if (gd.hasOwnProperty('option_child')) {
-            temp_opc = gd.option_child.reduce(function (acc, el) {
-              if (el.ea > 0 && el.ct_check_opt == 'Y') acc.push({
-                opc_id: el.opc_id,
-                ea: el.ea
-              });
-              return acc;
-            }, []);
-          }
-
-          if (temp_gm.length) params.push({
-            gd_id: gd.gd_id,
-            model: temp_gm,
-            option: temp_opc
+      this.cartList.forEach(function (ct) {
+        if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
+          if (ct.type == 'model') params.push({
+            gd_id: ct.gd_id,
+            gm_id: ct.gm_id,
+            ea: ct.ea
+          });else if (ct.type == 'option') params.push({
+            gd_id: ct.gd_id,
+            opc_id: ct.opc_id,
+            ea: ct.ea
           });
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
+      });
       return params;
     },
     // randomIndex() {
@@ -405,50 +357,37 @@ var render = function () {
         _c(
           "ul",
           [
-            _vm._l(_vm.cartList, function (gd, i) {
+            _vm._l(_vm.cartList, function (item, i) {
               return [
-                _vm._l(gd.goods_model, function (gm, j) {
-                  return _c("CartModel", {
-                    key: gm.gm_id,
-                    attrs: { src: gd.image_src_thumb[0] },
-                    on: {
-                      outCart: function ($event) {
-                        return _vm.outCart("model", i, j)
+                item.type == "model"
+                  ? _c("CartModel", {
+                      on: {
+                        outCart: function ($event) {
+                          return _vm.outCart(i)
+                        },
                       },
-                    },
-                    model: {
-                      value: _vm.cartList[i].goods_model[j],
-                      callback: function ($$v) {
-                        _vm.$set(_vm.cartList[i].goods_model, j, $$v)
+                      model: {
+                        value: _vm.cartList[i],
+                        callback: function ($$v) {
+                          _vm.$set(_vm.cartList, i, $$v)
+                        },
+                        expression: "cartList[i]",
                       },
-                      expression: "cartList[i].goods_model[j]",
-                    },
-                  })
-                }),
-                _vm._v(" "),
-                _vm._l(gd.option_child, function (opc, k) {
-                  return _c("CartOption", {
-                    key: opc.opc_id,
-                    on: {
-                      outCart: function ($event) {
-                        return _vm.outCart("option", i, k)
+                    })
+                  : item.type == "option"
+                  ? _c("CartOption", {
+                      on: {
+                        outCart: function ($event) {
+                          return _vm.outCart(i)
+                        },
                       },
-                    },
-                    model: {
-                      value: _vm.cartList[i].option_child[k],
-                      callback: function ($$v) {
-                        _vm.$set(_vm.cartList[i].option_child, k, $$v)
+                      model: {
+                        value: _vm.cartList[i],
+                        callback: function ($$v) {
+                          _vm.$set(_vm.cartList, i, $$v)
+                        },
+                        expression: "cartList[i]",
                       },
-                      expression: "cartList[i].option_child[k]",
-                    },
-                  })
-                }),
-                _vm._v(" "),
-                i != Object.keys(_vm.cartList).length - 1
-                  ? _c("b-row", {
-                      key: "gd_" + gd.gd_id,
-                      staticClass: "hr",
-                      attrs: { tag: "li" },
                     })
                   : _vm._e(),
               ]

@@ -28,7 +28,7 @@
                 <label for="er_content">추가정보</label>
             </b-col>
             <b-col cols="6">
-                <file-upload ref="fileupload" v-model="value.file_info" :fi_type="'estimateReply'" />
+                <file-upload ref="fileupload" v-model="value.file_info" :fi_group="'estimateReply'" />
                 <transition name="fade">
                     <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">
                         첨부파일 전송중 ......

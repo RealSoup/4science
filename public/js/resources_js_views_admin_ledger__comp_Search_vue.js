@@ -12,6 +12,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -114,18 +126,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerSearch',
-  props: ['value', 'search', 'mng_list', 'writer'],
+  props: ['value', 'search', 'mng_list', 'writer', 'sch_item_list', 'config'],
   components: {
-    'Modal': function Modal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
-    },
     'InputText': function InputText() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_search_InputText_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./search/InputText.vue */ "./resources/js/views/admin/ledger/_comp/search/InputText.vue"));
     },
@@ -134,102 +139,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     'InputSelect': function InputSelect() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_search_InputSelect_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./search/InputSelect.vue */ "./resources/js/views/admin/ledger/_comp/search/InputSelect.vue"));
-    },
-    'CustomSetSearch': function CustomSetSearch() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_CustomSetSearch_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CustomSetSearch.vue */ "./resources/js/views/admin/ledger/_comp/CustomSetSearch.vue"));
     }
   },
   data: function data() {
     return {
-      mouseHover: false,
-      isModalViewed: false,
-      sch_item_list: {
-        created_at: {
-          name: '작성일',
-          umc_val: 'created_at'
-        },
-        gm_price: {
-          name: '단가',
-          umc_val: 'gm_price'
-        },
-        ea_price: {
-          name: '공급가액',
-          umc_val: 'ea_price'
-        },
-        surtax: {
-          name: '세액',
-          umc_val: 'surtax'
-        },
-        sum_price: {
-          name: '합계',
-          umc_val: 'sum_price'
-        },
-        mng: {
-          name: '담당자',
-          umc_val: 'mng'
-        },
-        pay_type: {
-          name: '결제방식',
-          umc_val: 'pay_type'
-        },
-        orderer: {
-          name: '고객명',
-          umc_val: 'orderer'
-        },
-        source_no: {
-          name: '번호',
-          umc_val: 'source_no'
-        },
-        distributor: {
-          name: '매출처',
-          umc_val: 'distributor'
-        },
-        gm_name: {
-          name: '품목명',
-          umc_val: 'gm_name'
-        },
-        catno: {
-          name: 'CAT.No  ',
-          umc_val: 'catno'
-        },
-        gm_code: {
-          name: '모델명',
-          umc_val: 'gm_code'
-        },
-        writer: {
-          name: '작성자',
-          umc_val: 'writer'
-        }
-      }
+      mouseHover: false
     };
   },
   computed: _objectSpread({
     pay_type_option: function pay_type_option() {
-      return [{
-        val: 'CARD',
-        name: '온라인 카드'
-      }, {
-        val: 'PSYS',
-        name: 'PSYS'
-      }, {
-        val: 'BILL',
-        name: '계산서'
-      }, {
-        val: 'STAT',
-        name: '전표'
-      }, {
-        val: 'CASH',
-        name: '현금영수증'
-      }, {
-        val: 'MEMB',
-        name: '회원'
-      }, {
-        val: 'REV',
-        name: '역발행'
-      }, {
-        val: 'NOT',
-        name: '미발급'
-      }];
+      var tmp = []; // need to convert it before using not with XMLHttpRequest
+
+      for (var _i = 0, _Object$entries = Object.entries(this.config.pay_type); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            k = _Object$entries$_i[0],
+            v = _Object$entries$_i[1];
+
+        tmp.push({
+          val: k,
+          name: v
+        });
+      }
+
+      return tmp;
     },
     mng_option: function mng_option() {
       return this.mng_list.map(function (mng) {
@@ -301,9 +233,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.value.startDate = sdt;
       this.value.endDate = edt;
     },
-    updateSearchComplete: function updateSearchComplete() {
-      this.isModalViewed = false;
-      this.index();
+    editSearch: function editSearch() {
+      this.$emit('editSearch');
     }
   }
 });
@@ -326,7 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ledger_search { max-width:1600px; width:100%; padding-right:15px; padding-left:15px; margin-right: auto; margin-left: auto; height:74px; z-index:2; position:relative; margin-bottom:1rem;\n}\n.ledger_search .card { position:relative; overflow:hidden; max-height:68px; transition:all .4s;\n}\n.ledger_search .card .row { opacity:0; transition:all .4s;\n}\n.ledger_search.active .card { overflow:visible; max-height:400px;\n}\n.ledger_search.active .card .row { opacity:1;\n}\n.ledger_search .card .row .col { padding:8px 5px;\n}\n.ledger_search .card .row .col-1 { flex:0 0 6%; max-width:6%; text-align:right;\n}\n.ledger_search .card .row .col-1 + .col-2 { flex:0 0 19%; max-width:19%;\n}\n.ledger_search .card .row .label { display:flex; align-items:center; justify-content:flex-end; font-weight:bold; padding-right:15px !important;\n}\n.ledger_search .card .row .col-9 { display:flex; flex-wrap:wrap; padding:0;\n}\n.ledger_search .card .row .col-9 > div { flex-basis:0; flex-grow:1; max-width:100%; padding:8px 5px;\n}\n.ledger_search .card .row .col-9 > div:nth-child(1) { flex:0 0 8%; max-width:8%; text-align:right;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) { flex:0 0 25.333333%; max-width:25.333333%; display:flex; align-items:center; justify-content:space-between;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) > b { font-size:20px;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) > div { width: calc(50% - 10px);\n}\n.ledger_search .card .row .col-9 > div:nth-child(3) .width_btn { display:flex;\n}\n.ledger_search .card .row .col-9 > div:nth-child(3) .width_btn .btn { flex:1;\n}\n.ledger_search .card .footer { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ledger_search { max-width:1600px; width:100%; padding-right:15px; padding-left:15px; margin-right: auto; margin-left: auto; height:74px; z-index:3; position:relative; margin-bottom:1rem;\n}\n.ledger_search .card { position:relative; overflow:hidden; max-height:68px; transition:all .4s;\n}\n.ledger_search .card .row { opacity:0; transition:all .4s;\n}\n.ledger_search.active .card { overflow:visible; max-height:400px;\n}\n.ledger_search.active .card .row { opacity:1;\n}\n.ledger_search .card .row .col { padding:8px 5px;\n}\n.ledger_search .card .row .col-1 { flex:0 0 6%; max-width:6%; text-align:right;\n}\n.ledger_search .card .row .col-1 + .col-2 { flex:0 0 19%; max-width:19%;\n}\n.ledger_search .card .row .label { display:flex; align-items:center; justify-content:flex-end; font-weight:bold; padding-right:15px !important;\n}\n.ledger_search .card .row .col-9 { display:flex; flex-wrap:wrap; padding:0;\n}\n.ledger_search .card .row .col-9 > div { flex-basis:0; flex-grow:1; max-width:100%; padding:8px 5px;\n}\n.ledger_search .card .row .col-9 > div:nth-child(1) { flex:0 0 8%; max-width:8%; text-align:right;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) { flex:0 0 25.333333%; max-width:25.333333%; display:flex; align-items:center; justify-content:space-between;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) > b { font-size:20px;\n}\n.ledger_search .card .row .col-9 > div:nth-child(2) > div { width: calc(50% - 10px);\n}\n.ledger_search .card .row .col-9 > div:nth-child(3) .width_btn { display:flex;\n}\n.ledger_search .card .row .col-9 > div:nth-child(3) .width_btn .btn { flex:1;\n}\n.ledger_search .card .footer { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -482,17 +413,22 @@ var render = function () {
             "div",
             { staticClass: "tit" },
             [
-              _vm._v("검색 옵션 "),
+              _vm._v("\n            검색 옵션 \n            "),
               _c(
                 "b-button",
                 {
+                  directives: [
+                    {
+                      name: "b-tooltip",
+                      rawName: "v-b-tooltip.hover",
+                      value: "검색 항목 나열 순서",
+                      expression: "'검색 항목 나열 순서'",
+                      modifiers: { hover: true },
+                    },
+                  ],
                   staticClass: "ml-4",
                   attrs: { size: "sm" },
-                  on: {
-                    click: function ($event) {
-                      _vm.isModalViewed = true
-                    },
-                  },
+                  on: { click: _vm.editSearch },
                 },
                 [_c("b-icon-gear")],
                 1
@@ -818,18 +754,18 @@ var render = function () {
                               },
                             }),
                           ]
-                        : k == sch.umc_val && k == "source_no"
+                        : k == sch.umc_val && k == "od_id"
                         ? [
                             _c("InputText", {
                               key: "" + i + k,
                               attrs: { label: cl.name },
                               on: { index: _vm.index },
                               model: {
-                                value: _vm.value.source_no,
+                                value: _vm.value.od_id,
                                 callback: function ($$v) {
-                                  _vm.$set(_vm.value, "source_no", $$v)
+                                  _vm.$set(_vm.value, "od_id", $$v)
                                 },
-                                expression: "value.source_no",
+                                expression: "value.od_id",
                               },
                             }),
                           ]
@@ -979,36 +915,6 @@ var render = function () {
             ],
             1
           ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "modal" } },
-        [
-          _vm.isModalViewed
-            ? _c(
-                "Modal",
-                {
-                  on: {
-                    "close-modal": function ($event) {
-                      _vm.isModalViewed = false
-                    },
-                  },
-                },
-                [
-                  _c("CustomSetSearch", {
-                    attrs: {
-                      db_data_config_sch: _vm.search,
-                      sch_item_list: _vm.sch_item_list,
-                    },
-                    on: { updateSearchComplete: _vm.updateSearchComplete },
-                  }),
-                ],
-                1
-              )
-            : _vm._e(),
         ],
         1
       ),

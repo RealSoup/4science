@@ -38,14 +38,24 @@ class GoodsController extends Controller {
         $goodsCate = DB::table('shop_goods_category')->select('*', DB::raw('MIN(gc_id)'))->groupBy('gc_gd_id');
         $gd = $gd->joinSub($goodsCate, 'goods_category', function ($join) { $join->on('gd_id', '=', 'gc_gd_id'); });
         $gm = $this->goods_model;
-        if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
-        if ($req->ca02)         $gd = $gd->where('gc_ca02', $req->ca02);
-        if ($req->ca03)         $gd = $gd->where('gc_ca03', $req->ca03);
-        if ($req->ca04)         $gd = $gd->where('gc_ca04', $req->ca04);
-        if ($req->startDate)    $gd = $gd->StartDate($req->startDate);
-        if ($req->endDate)      $gd = $gd->EndDate($req->endDate);
-        if ($req->gd_enable)    $gd = $gd->enable($req->gd_enable);
-        if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
+
+
+        $gd->when($req->ca01, fn ($q, $v) => $q->whereGcCa01($v));
+        $gd->when($req->ca02, fn ($q, $v) => $q->whereGcCa02($v));
+        $gd->when($req->ca03, fn ($q, $v) => $q->whereGcCa03($v));
+        $gd->when($req->ca04, fn ($q, $v) => $q->whereGcCa04($v));
+        // if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
+        // if ($req->ca02)         $gd = $gd->where('gc_ca02', $req->ca02);
+        // if ($req->ca03)         $gd = $gd->where('gc_ca03', $req->ca03);
+        // if ($req->ca04)         $gd = $gd->where('gc_ca04', $req->ca04);
+        $gd->when($req->startDate,  fn ($q, $v) => $q->StartDate($v));
+        $gd->when($req->endDate,    fn ($q, $v) => $q->EndDate($v));
+        $gd->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v));
+        $gd->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v));
+        // if ($req->startDate)    $gd = $gd->StartDate($req->startDate);
+        // if ($req->endDate)      $gd = $gd->EndDate($req->endDate);
+        // if ($req->gd_enable)    $gd = $gd->enable($req->gd_enable);
+        // if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
 
         if ($req->keyword){
             switch ($req->mode) {

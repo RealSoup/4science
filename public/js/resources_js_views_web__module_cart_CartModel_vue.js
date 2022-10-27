@@ -33,7 +33,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CartModel",
-  props: ['value', 'src'],
+  props: ['value'],
   components: {
     VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_0___default())
   },
@@ -235,13 +235,10 @@ var render = function () {
             "router-link",
             {
               attrs: {
-                to: {
-                  name: "goods_show",
-                  params: { gd_id: _vm.value.gm_gd_id },
-                },
+                to: { name: "goods_show", params: { gd_id: _vm.value.gd_id } },
               },
             },
-            [_c("img", { attrs: { src: _vm.src } })]
+            [_c("img", { attrs: { src: _vm.value.img } })]
           ),
         ],
         1
@@ -254,7 +251,7 @@ var render = function () {
           _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.gm_name, 15)))]),
           _vm._v(" "),
           _c("div", { staticClass: "price" }, [
-            _vm._v(_vm._s(_vm._f("comma")(_vm.value.gm_price_add_vat))),
+            _vm._v(_vm._s(_vm._f("comma")(_vm.value.price_add_vat))),
           ]),
           _vm._v(" "),
           _c("VueNumericInput", {

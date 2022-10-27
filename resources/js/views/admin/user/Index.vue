@@ -92,7 +92,7 @@ export default {
     name: 'AdmUserIndex',
 
     components: {
-        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
     },
 
     data() {

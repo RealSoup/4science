@@ -1,7 +1,7 @@
 const validationChecker = (frm) => {
     if (frm.od_pay_method == 'B' || frm.od_pay_method == 'E') {
         if ( frm.extra.oex_type == 'IV' ) {
-            if ( frm.extra.oex_hasBizLicense) {
+            if ( frm.extra.oex_hasBizLicense ) {
                 if (isEmpty(frm.extra.oex_file)) {
                     Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요");
                     this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus();

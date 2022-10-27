@@ -85,10 +85,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
     'SchDate': function SchDate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/SchDate.vue */ "./resources/js/views/web/mypage/_comp/SchDate.vue"));
-    },
-    'OrderStep': function OrderStep() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     }
   },
   data: function data() {
@@ -385,7 +382,7 @@ var render = function () {
                     _c("b-col", { attrs: { md: "2" } }, [
                       _c("img", {
                         staticClass: "rounded-circle",
-                        attrs: { src: m.src },
+                        attrs: { src: m.img_src },
                       }),
                     ]),
                     _vm._v(" "),
@@ -400,7 +397,7 @@ var render = function () {
                               block: "",
                               to: {
                                 name: "goods_show",
-                                params: { gd_id: m.gd_id },
+                                params: { gd_id: m.odm_gd_id },
                               },
                             },
                           },

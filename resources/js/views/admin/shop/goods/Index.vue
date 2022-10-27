@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <b-container class="p_warp">
     <h3 class="p_tit">상품 목록</h3>
 
@@ -100,7 +100,7 @@ import ax from '@/api/http';
 export default {
     components: {
         'Categorys': () => import('./_comp/Categorys.vue'),
-        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
     },
     data() {
         return {

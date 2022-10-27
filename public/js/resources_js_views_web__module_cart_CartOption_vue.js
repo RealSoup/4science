@@ -29,11 +29,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CartModel",
@@ -43,7 +38,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     opc_check: function opc_check() {
-      if (this.value.option.op_required == 'Y') {
+      if (this.value.op_required == 'Y') {
         Notify.toast('danger', "필수옵션은 해제 할 수 없습니다.");
         this.$set(this.value, 'ct_check_opt', 'Y');
       }
@@ -232,34 +227,13 @@ var render = function () {
             },
           }),
           _vm._v(" "),
-          _c(
-            "div",
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.strCut(_vm.value.opc_name, 10)) +
-                  "\n            "
-              ),
-              _vm.value.option.op_required == "Y"
-                ? _c(
-                    "b-badge",
-                    { staticClass: "hide", attrs: { variant: "danger" } },
-                    [_vm._v("필수")]
-                  )
-                : _vm._e(),
-            ],
-            1
-          ),
+          _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.opc_name, 10)))]),
         ],
         1
       ),
       _vm._v(" "),
       _c("b-col", { staticClass: "hide price" }, [
-        _vm._v(
-          "\n        " +
-            _vm._s(_vm._f("comma")(_vm.value.opc_price_add_vat)) +
-            "\n    "
-        ),
+        _vm._v(_vm._s(_vm._f("comma")(_vm.value.price_add_vat))),
       ]),
       _vm._v(" "),
       _c(

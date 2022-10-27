@@ -240,6 +240,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user_mng: {}
       },
       order: [],
+      order_config: {},
       estimate: []
     };
   },
@@ -268,7 +269,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 6:
               od = _context.sent;
-              if (od && od.status === 200) _this.order = od.data.list;
+
+              if (od && od.status === 200) {
+                _this.order = od.data.list;
+                _this.order_config = od.data.order_config;
+              }
+
               _context.next = 10;
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate", {
                 params: {
@@ -482,7 +488,7 @@ var render = function () {
     "div",
     { staticClass: "p_warp" },
     [
-      _c("h3", { staticClass: "p_tit" }, [_vm._v("회원 정보 수정")]),
+      _c("h3", [_vm._v("회원 정보 수정")]),
       _vm._v(" "),
       _c(
         "b-card",
@@ -1350,7 +1356,9 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c("Order", { attrs: { list: _vm.order } }),
+              _c("Order", {
+                attrs: { list: _vm.order, config: _vm.order_config },
+              }),
             ],
             1
           ),

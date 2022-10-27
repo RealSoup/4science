@@ -44,7 +44,16 @@
                             <b-dropdown-item :to="{name: 'adm_stats_order'}">매출</b-dropdown-item>
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
-                    <b-nav-item :to="{name: 'adm_ledger'}" active-class="active" exact>영업장부</b-nav-item>
+
+                    <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc'" text="매출장부">
+                        <b-dropdown-item :to="{name: 'adm_ledger'}">통합 장부</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_wait'}">매출 대기</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_soon'}">결제 예정분</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_od'}">매출 내역</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_tx'}">매출장</b-dropdown-item>
+                    </b-nav-item-dropdown>
+
+                    <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
 
                     <b-nav-item-dropdown text="게시판">
                         <b-dropdown-group header="일반글">
@@ -60,8 +69,12 @@
                             <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}">취소/교환신청</b-dropdown-item>
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
-                    
-                    <b-nav-item :to="{name: 'adm_merck_index'}" active-class="active" exact>Merck 발주</b-nav-item>
+
+                    <b-nav-item-dropdown text="Merck 발주">
+                        <b-dropdown-item :to="{name: 'adm_b2b_merck_order'}">주문 목록</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_b2b_merck_order_result'}">발주 내역</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_b2b_merck_stock_result'}">재고 확인 결과</b-dropdown-item>
+                    </b-nav-item-dropdown>                   
                 </b-navbar-nav>
 
 
@@ -104,6 +117,11 @@ export default {
         'Modal': () => import('@/views/_common/Modal.vue'),
         'RequestVoucher': () => import('./_comp/RequestVoucher.vue'),
     },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user',
+        })
+    },
     data() {
         return {
             isModalViewed: false,
@@ -112,7 +130,8 @@ export default {
     },
 
     async mounted(){
-        const res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_type:'voucher', ml_key:0, limit: 10,}});
+        //  ml_key=0 => 상품권 요청
+        const res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0, limit: 10,}});
         if (res && res.status === 200) 
             this.requestVoucher = res.data;
     }

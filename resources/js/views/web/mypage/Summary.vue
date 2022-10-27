@@ -16,7 +16,7 @@
         </LoadingModal>
         <template v-else>
             <h5>최근 주문 내역</h5>
-            <OrderList v-model="order" />
+            <OrderList v-model="order" :order_config="order_config" />
 
             <h5>최근 견적 내역</h5>
             <EstimateList v-model="estimateReq" />
@@ -38,26 +38,17 @@ export default {
         return {
             isLoadingModalViewed: true,
             order:[],
+            order_config:{},
             estimateReq:[],
         }
     },
-    methods:{
-        async index(){
-            try {
-                const res = await ax.get(`/api/mypage`);
-                if (res && res.status === 200) {
-                    this.order          =res.data.order;
-                    this.estimateReq    =res.data.estimateReq;
-                    this.isLoadingModalViewed= false;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
-            }
-        },
-    },
-    mounted() {
-        this.index();
+    async mounted() {
+        let data_od = await ax.get(`/api/shop/order`, { params: {limit:5}});
+        this.order = data_od.data.order;
+        this.order_config = data_od.data.order_config;
+        let data_eq = await ax.get(`/api/shop/estimate`, { params: {limit:5}});
+        this.estimateReq = data_eq.data;
+        this.isLoadingModalViewed= false;
     },
 }
 </script>

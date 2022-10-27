@@ -49,23 +49,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ShopGoodsReview',
-  props: ['bo_cd'],
+  props: ['bo_cd', 'bo_cnt'],
   data: function data() {
     return {
       frm: {
@@ -73,8 +60,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         limit: 5,
         bo_gd_id: this.$route.params.gd_id
       },
-      list: {},
-      config: {}
+      list: {}
     };
   },
   methods: {
@@ -100,7 +86,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res && res.status === 200) {
                   _this.list = res.data.list;
-                  _this.config = res.data.config;
+                  _this.bo_cnt.review = res.data.list.total;
                 }
 
               case 6:
@@ -135,7 +121,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bo_index[data-v-212a3e8e] { max-width:1000px;\n}\n.bo_index table tr td.satisfaction[data-v-212a3e8e] { color:gold;\n}\n.bo_index table tr th[data-v-212a3e8e]:nth-child(1),\r\n.bo_index table tr td[data-v-212a3e8e]:nth-child(1),\r\n.bo_index table tr th[data-v-212a3e8e]:nth-child(2),\r\n.bo_index table tr th[data-v-212a3e8e]:nth-child(3),\r\n.bo_index table tr td[data-v-212a3e8e]:nth-child(3),\r\n.bo_index table tr th[data-v-212a3e8e]:nth-child(4),\r\n.bo_index table tr td[data-v-212a3e8e]:nth-child(4) { text-align:center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bo_index[data-v-212a3e8e] { max-width:1000px;\n}\n.bo_index table tr td[data-v-212a3e8e] { padding:.7rem 0; text-align:center; border-top-width:0; border-bottom:1px solid #959595;\n}\n.bo_index table tr td.satisfaction[data-v-212a3e8e] { color:red;\n}\n.bo_index table tr td[data-v-212a3e8e]:nth-child(3) { text-align:left;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -270,87 +256,61 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-container",
+    "div",
     { staticClass: "bo_index" },
     [
-      _c(
-        "b-row",
-        [_c("b-col", [_c("h4", [_vm._v(_vm._s(_vm.config.name))])])],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("table", { staticClass: "table table-striped table-hover" }, [
-              _c("colgroup", [
-                _c("col", { attrs: { width: "15%" } }),
-                _vm._v(" "),
-                _c("col", { attrs: { width: "" } }),
-                _vm._v(" "),
-                _c("col", { attrs: { width: "15%" } }),
-                _vm._v(" "),
-                _c("col", { attrs: { width: "15%" } }),
-              ]),
-              _vm._v(" "),
-              _c("thead", { staticClass: "thead-dark" }, [
-                _c("tr", [
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("만족도")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("제목")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("작성자")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("작성일")]),
-                ]),
+      _c("table", { staticClass: "table" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.list.data, function (bo, i) {
+            return _c("tr", { key: i }, [
+              _c("td", [
+                _vm._v(
+                  _vm._s(
+                    _vm.list.total -
+                      _vm.list.per_page * (_vm.list.current_page - 1) -
+                      i
+                  )
+                ),
               ]),
               _vm._v(" "),
               _c(
-                "tbody",
-                _vm._l(_vm.list.data, function (bo) {
-                  return _c("tr", { key: bo.bo_id }, [
-                    _c(
-                      "td",
-                      { staticClass: "satisfaction" },
-                      [
-                        bo.bo_good == 100
-                          ? [
-                              _c("b-icon-star-fill"),
-                              _c("b-icon-star-fill"),
-                              _c("b-icon-star-fill"),
-                            ]
-                          : bo.bo_good == 50
-                          ? [
-                              _c("b-icon-star-fill"),
-                              _c("b-icon-star-fill"),
-                              _c("b-icon-star"),
-                            ]
-                          : [
-                              _c("b-icon-star-fill"),
-                              _c("b-icon-star"),
-                              _c("b-icon-star"),
-                            ],
+                "td",
+                { staticClass: "satisfaction" },
+                [
+                  bo.bo_good == 100
+                    ? [
+                        _c("b-icon-star-fill"),
+                        _c("b-icon-star-fill"),
+                        _c("b-icon-star-fill"),
+                      ]
+                    : bo.bo_good == 50
+                    ? [
+                        _c("b-icon-star-fill"),
+                        _c("b-icon-star-fill"),
+                        _c("b-icon-star"),
+                      ]
+                    : [
+                        _c("b-icon-star-fill"),
+                        _c("b-icon-star"),
+                        _c("b-icon-star"),
                       ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(bo.bo_content))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm._f("formatDate")(bo.created_at))),
-                    ]),
-                  ])
-                }),
-                0
+                ],
+                2
               ),
-            ]),
-          ]),
-        ],
-        1
-      ),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(bo.bo_content))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("formatDate")(bo.created_at)))]),
+            ])
+          }),
+          0
+        ),
+      ]),
       _vm._v(" "),
       _c("pagination", {
         attrs: { data: _vm.list, align: "center" },
@@ -360,7 +320,24 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("colgroup", [
+      _c("col", { attrs: { width: "10%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "15%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "15%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "10%" } }),
+    ])
+  },
+]
 render._withStripped = true
 
 

@@ -56,7 +56,7 @@ export default {
 #categorys { background:#626C75; z-index:16; position:relative; }
 #categorys .depth01 { display:flex; }
 #categorys .depth01 > li { width:4.761904%; }
-#categorys .depth01 > li a { display:flex; align-items:center; flex-direction:column; padding:10.5px 5px; }
+#categorys .depth01 > li a { display:flex; align-items:center; flex-direction:column; padding:10.5px 5px; overflow:hidden; }
 #categorys .depth01 > li:first-of-type a { padding-left:0; }
 #categorys .depth01 > li:last-of-type a { padding-right:0; }
 #categorys .depth01 > li a img { margin-bottom:2px; }

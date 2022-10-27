@@ -30,7 +30,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       bd: {},
-      defVal: this.value.ea
+      defVal: this.value.odm_ea
     };
   },
   methods: {
@@ -50,7 +50,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 Notify.modal('수량 증가 불가'); // this.gm.ea = this.defVal;
 
-                _this.$set(_this.value, 'ea', _this.defVal);
+                _this.$set(_this.value, 'odm_ea', _this.defVal);
 
                 return _context.abrupt("return", false);
 
@@ -61,7 +61,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 7;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/bundleDc/findGmId/".concat(_this.value.gm_id));
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/bundleDc/findGmId/".concat(_this.value.odm_gm_id));
 
               case 7:
                 res = _context.sent;
@@ -243,11 +243,11 @@ var render = function () {
     attrs: { size: "sm" },
     on: { update: _vm.valUpdate, focus: _vm.thisFocus, blur: _vm.thisBlur },
     model: {
-      value: _vm.value.ea,
+      value: _vm.value.odm_ea,
       callback: function ($$v) {
-        _vm.$set(_vm.value, "ea", $$v)
+        _vm.$set(_vm.value, "odm_ea", $$v)
       },
-      expression: "value.ea",
+      expression: "value.odm_ea",
     },
   })
 }

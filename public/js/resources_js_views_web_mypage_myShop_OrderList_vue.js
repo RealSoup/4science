@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['value'],
+  props: ['value', 'order_config'],
   components: {
     'OrderStep': function OrderStep() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
@@ -265,6 +265,7 @@ var render = function () {
               "b-col",
               [
                 _c("OrderStep", {
+                  attrs: { order_config: _vm.order_config },
                   model: {
                     value: od.od_step,
                     callback: function ($$v) {

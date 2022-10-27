@@ -1,33 +1,37 @@
 <template>
     <div id="adm_estimate_show" class="p_warp">
         <h3 class="p_tit">견적 요청</h3>
-        <b-row class="page_ctrl">
-            <b-col>
-                <b-button variant="danger" size="sm" @click="destroy"><b-icon icon="trash-fill" /> 삭제</b-button>
-            </b-col>
-            <b-col class="text-right">
-                <b-input-group size="sm">
-                    <b-input-group-prepend class="bg-light btn_group">
-                        <b-button :to="{name: 'adm_estimate_index'}"><b-icon icon="list-ul" /> 목록</b-button>
-                    </b-input-group-prepend>
-                    <b-form-select v-model="frm.eq_step">
-                        <b-form-select-option value="DONOT">미처리</b-form-select-option>
-                        <b-form-select-option value="DOING">처리중</b-form-select-option>
-                        <b-form-select-option value="DONE">처리완료</b-form-select-option>
-                        <b-form-select-option value="CANCEL">취소</b-form-select-option>
-                    </b-form-select>
-                    <b-input-group-append>
-                        <b-button variant="warning" @click="update"><b-icon icon="tools" /> 진행현황 수정</b-button>
-                        <b-button variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:frm.estimate_reply[frm.estimate_reply.length-1].er_id }}" v-if="frm.estimate_reply && frm.estimate_reply.length>0">
-                            <b-icon-newspaper /> 견적서 확인
-                        </b-button>
-                        <b-button variant="light" :to="{name: 'adm_estimate_create', query: { eq_id:frm.eq_id }}" v-else>
-                            <b-icon-pencil-square /> 견적서 작성
-                        </b-button>
-                    </b-input-group-append>
-                </b-input-group>
-            </b-col>
-        </b-row>
+        <b-card no-body class="ctrl">
+            <b-container>
+                <b-row>
+                    <b-col>
+                        <b-button variant="danger" size="sm" @click="destroy"><b-icon icon="trash-fill" /> 삭제</b-button>
+                    </b-col>
+                    <b-col class="text-right">
+                        <b-input-group size="sm">
+                            <b-input-group-prepend class="bg-light btn_group">
+                                <b-button :to="{name: 'adm_estimate_index'}"><b-icon icon="list-ul" /> 목록</b-button>
+                            </b-input-group-prepend>
+                            <b-form-select v-model="frm.eq_step">
+                                <b-form-select-option value="DONOT">미처리</b-form-select-option>
+                                <b-form-select-option value="DOING">처리중</b-form-select-option>
+                                <b-form-select-option value="DONE">처리완료</b-form-select-option>
+                                <b-form-select-option value="CANCEL">취소</b-form-select-option>
+                            </b-form-select>
+                            <b-input-group-append>
+                                <b-button variant="warning" @click="update"><b-icon icon="tools" /> 진행현황 수정</b-button>
+                                <b-button variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:frm.estimate_reply[frm.estimate_reply.length-1].er_id }}" v-if="frm.estimate_reply && frm.estimate_reply.length>0">
+                                    <b-icon-newspaper /> 견적서 확인
+                                </b-button>
+                                <b-button variant="light" :to="{name: 'adm_estimate_create', query: { eq_id:frm.eq_id }}" v-else>
+                                    <b-icon-pencil-square /> 견적서 작성
+                                </b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </b-card>
        
         <b-card>
             <b-container>

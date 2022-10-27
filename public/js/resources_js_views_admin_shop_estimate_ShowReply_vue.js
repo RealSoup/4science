@@ -194,6 +194,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -743,75 +747,105 @@ var render = function () {
       _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 응답")]),
       _vm._v(" "),
       _c(
-        "b-row",
-        { staticClass: "page_ctrl" },
+        "b-card",
+        { staticClass: "ctrl", attrs: { "no-body": "" } },
         [
           _c(
-            "b-col",
+            "b-container",
             [
               _c(
-                "b-button-group",
-                { attrs: { size: "sm" } },
+                "b-row",
                 [
                   _c(
-                    "b-button",
-                    { attrs: { to: { name: "adm_estimate_index" } } },
-                    [_c("b-icon-list-ul"), _vm._v(" 목록")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-dropdown",
-                    {
-                      attrs: {
-                        size: "sm",
-                        text: "파일 출력",
-                        variant: "warning",
-                      },
-                    },
+                    "b-col",
                     [
                       _c(
-                        "b-dropdown-item-button",
-                        {
-                          attrs: { variant: "success" },
-                          on: { click: _vm.estimateExcel },
-                        },
-                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("EXCEL")])],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item-button",
-                        {
-                          attrs: { variant: "warning" },
-                          on: { click: _vm.estimatePdf },
-                        },
-                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("PDF")])],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("b-dropdown-divider"),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item-button",
-                        {
-                          attrs: { variant: "success" },
-                          on: { click: _vm.transactionExcel },
-                        },
+                        "b-button-group",
+                        { attrs: { size: "sm" } },
                         [
-                          _vm._v("거래명세서 "),
-                          _c("b-badge", [_vm._v("EXCEL")]),
+                          _c(
+                            "b-button",
+                            { attrs: { to: { name: "adm_estimate_index" } } },
+                            [_c("b-icon-list-ul"), _vm._v(" 목록")],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-dropdown",
+                            {
+                              attrs: {
+                                size: "sm",
+                                text: "파일 출력",
+                                variant: "warning",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-dropdown-item-button",
+                                {
+                                  attrs: { variant: "success" },
+                                  on: { click: _vm.estimateExcel },
+                                },
+                                [
+                                  _vm._v("견적서 "),
+                                  _c("b-badge", [_vm._v("EXCEL")]),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-dropdown-item-button",
+                                {
+                                  attrs: { variant: "warning" },
+                                  on: { click: _vm.estimatePdf },
+                                },
+                                [
+                                  _vm._v("견적서 "),
+                                  _c("b-badge", [_vm._v("PDF")]),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("b-dropdown-divider"),
+                              _vm._v(" "),
+                              _c(
+                                "b-dropdown-item-button",
+                                {
+                                  attrs: { variant: "success" },
+                                  on: { click: _vm.transactionExcel },
+                                },
+                                [
+                                  _vm._v("거래명세서 "),
+                                  _c("b-badge", [_vm._v("EXCEL")]),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-dropdown-item-button",
+                                {
+                                  attrs: { variant: "warning" },
+                                  on: { click: _vm.transactionPdf },
+                                },
+                                [
+                                  _vm._v("거래명세서 "),
+                                  _c("b-badge", [_vm._v("PDF")]),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "dark" },
+                              on: { click: _vm.print },
+                            },
+                            [_vm._v("인쇄")]
+                          ),
                         ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-dropdown-item-button",
-                        {
-                          attrs: { variant: "warning" },
-                          on: { click: _vm.transactionPdf },
-                        },
-                        [_vm._v("거래명세서 "), _c("b-badge", [_vm._v("PDF")])],
                         1
                       ),
                     ],
@@ -819,82 +853,79 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-button",
-                    { attrs: { variant: "dark" }, on: { click: _vm.print } },
-                    [_vm._v("인쇄")]
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "text-right" },
-            [
-              _c(
-                "b-button-group",
-                { attrs: { size: "sm" } },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "dark" },
-                      on: { click: _vm.passOrder },
-                    },
-                    [_c("b-icon-box-arrow-up-right"), _vm._v(" 임의주문")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "primary" },
-                      on: { click: _vm.reSend },
-                    },
-                    [_c("b-icon-mailbox"), _vm._v(" 재발송")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: {
-                        variant: "success",
-                        to: {
-                          name: "adm_estimate_create",
-                          query: { eq_id: _vm.frm.estimate_req.eq_id },
-                        },
-                      },
-                    },
-                    [_c("b-icon-pencil-square"), _vm._v(" 재작성")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: {
-                        variant: "warning",
-                        to: {
-                          name: "adm_estimate_edit",
-                          params: { er_id: _vm.$route.params.er_id },
-                        },
-                      },
-                    },
-                    [_c("b-icon-tools"), _vm._v(" 수정")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "danger" },
-                      on: { click: _vm.destroy },
-                    },
-                    [_c("b-icon-trash-fill"), _vm._v(" 삭제")],
+                    "b-col",
+                    { staticClass: "text-right" },
+                    [
+                      _c(
+                        "b-button-group",
+                        { attrs: { size: "sm" } },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "dark" },
+                              on: { click: _vm.passOrder },
+                            },
+                            [
+                              _c("b-icon-box-arrow-up-right"),
+                              _vm._v(" 임의주문"),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "primary" },
+                              on: { click: _vm.reSend },
+                            },
+                            [_c("b-icon-mailbox"), _vm._v(" 재발송")],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "success",
+                                to: {
+                                  name: "adm_estimate_create",
+                                  query: { eq_id: _vm.frm.estimate_req.eq_id },
+                                },
+                              },
+                            },
+                            [_c("b-icon-pencil-square"), _vm._v(" 재작성")],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "warning",
+                                to: {
+                                  name: "adm_estimate_edit",
+                                  params: { er_id: _vm.$route.params.er_id },
+                                },
+                              },
+                            },
+                            [_c("b-icon-tools"), _vm._v(" 수정")],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "danger" },
+                              on: { click: _vm.destroy },
+                            },
+                            [_c("b-icon-trash-fill"), _vm._v(" 삭제")],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
                     1
                   ),
                 ],

@@ -1,8 +1,11 @@
 <template>
-<div id="adm_order_edit">
+<div id="adm_shop_order_edit" class="p_warp order_edit">
+    <h3 class="p_tit">주문 상세</h3>
+    
     <div class="actionArea">
         <b-input-group size="sm">
             <b-input-group-prepend class="bg-light btn_group">
+                <b-button @click="writeDlvyInfo('bundle')">배송정보</b-button>
                 <b-button :to="{name: 'adm_order_index'}" variant="outline-secondary">목록</b-button>
                 <b-dropdown size="sm" text="파일 출력" variant="warning">
                     <template v-if="od.od_mng">
@@ -15,124 +18,124 @@
                     </template>
                     <b-dropdown-item-button v-else disabled>담당장 등록 후 사용 가능</b-dropdown-item-button>
                 </b-dropdown>
-                <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 영업장부</b-button>
+                <b-button v-if="od.od_has_ledger == 'N'" variant="info" @click="ledger"><b-icon-journal-bookmark-fill /> 영업장부</b-button>
                 <b-button variant="dark" @click="print">인쇄</b-button>
                 <b-button v-if="od.od_mng < 1" @click="update('od_mng')">담당</b-button>
-                <b-button v-else>{{od.od_mng_nm}}</b-button>
+                <b-button v-else>{{od.mng.name}}</b-button>
             </b-input-group-prepend>
 
             <b-form-select v-model="od.od_step">
                 <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
-                <b-form-select-option v-for="(val, key) in od.order_config.step" :key="key" :value="key">{{val}}</b-form-select-option>
-                <template>
-                    
- 
-
-                    <!-- 
-                    <b-form-select-option value="10">주문접수</b-form-select-option>
-                    <b-form-select-option-group label="---- ** 옵션 ----">
-                        <b-form-select-option value="11">입금확인요청</b-form-select-option>
-                        <b-form-select-option value="12">입금확인중</b-form-select-option>
-                    </b-form-select-option-group>
-                    <b-form-select-option value="20">결제완료</b-form-select-option>
-
-                    <b-form-select-option-group label="---- 배송 옵션 ----">
-                        <b-form-select-option value="30">배송준비</b-form-select-option>
-                        <b-form-select-option value="31">배송중</b-form-select-option>
-                        <b-form-select-option value="32">배송완료</b-form-select-option>
-                    </b-form-select-option-group>
-                    <b-form-select-option value="40">구매확정</b-form-select-option>
-
-                    <b-form-select-option-group label="---- 주문 실패 옵션 ----">
-                        <b-form-select-option value="50">주문취소</b-form-select-option>
-                        <b-form-select-option value="51">결제실패</b-form-select-option>
-                    </b-form-select-option-group> 
-                    -->
-                </template>
+                <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
             </b-form-select>
 
             <b-input-group-append><b-button @click="update('od_step')">변경</b-button></b-input-group-append>
         </b-input-group>
     </div>
-    <div id="print_area">
+    <div id="print_area" class="order_edit">
         <b-card no-body class="head">
             <div>
                 <b-badge>{{ od.od_id }}.</b-badge>
                 <span><font-awesome-icon icon="tags" />{{ od.od_no }}</span>
                 <span><b-icon-calendar2-date-fill />{{ od.created_at | formatDate }}</span>
-                <span><font-awesome-icon icon="user" />{{ od.od_orderer }}</span>
+                <span>
+                    <b-link :to="{name: 'adm_user_edit', params: { id:od.created_id }}">
+                        <font-awesome-icon icon="user" />{{ od.od_orderer }}
+                    </b-link>
+                </span>
                 <span><font-awesome-icon icon="phone" />{{ od.od_orderer_hp }}</span>
                 <span><font-awesome-icon icon="at" />{{ od.od_orderer_email }}</span>
             </div>
         </b-card>
 
-        <b-card class="body">
+        <b-card class="goods">
             <div class="tit">
                 주문 상품
                 <b-button @click="update('odm_ea')">주문 상품 정보 수정</b-button>
             </div>
-            <b-container v-for="(pa, pa_i) in od.pa_list.lists" :key="`pa_${pa_i}`">
+            <b-container v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
                 <h5>
-                    <template v-if="pa.list[0].purchase_at">{{pa.list[0].purchase_at.pa_name}} <b>직배송 상품</b></template>
+                    <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
+                    <template v-if="pa.odpa_pa_id">{{pa.odpa_pa_name}} <b>직배송 상품</b></template>
                     <template v-else>4SCIENCE</template>
                 </h5>
-                    
-                <b-row v-for="(gd, gd_i) in pa.list" :key="`gd_${gd_i}`">
-                    <b-col v-if="gd_i != 0" cols="12"><hr /></b-col>
-
-                    <b-link v-if="gd.gd_id>0" :to="{name: 'adm_goods_edit', params: { gd_id:gd.gd_id }}">
-                        <img :src="gd.image_src_thumb[0]" />
-                    </b-link>
+                <b-row>
                     <b-col>
-                        <b-row class="gd_name"><b-col>{{gd.gd_name}}</b-col></b-row>
-                        
-                        <b-row v-for="(gm, gm_i) in gd.goods_model" :key="`gm_${gm_i}`" class="gm">
-                            <b-col>
-                                <b class="gd_name">{{gm.gm_name}}</b>
-                                <b class="divider">/</b>
-                                {{gm.gm_code}}
-                                <b class="divider">/</b>
-                                {{gm.gm_catno}}
-                                <b class="divider">/</b>
-                                {{gd.maker.mk_name}}
-                                <b class="divider">/</b>
-                                {{gm.gm_unit}}
+                        <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
+                            <b-col class="chk">
+                                <b-form-checkbox class="myCheck"
+                                    v-if="odm.odm_type=='MODEL'" 
+                                    v-model="odm.dlvy_chk" 
+                                    value="Y" 
+                                    unchecked-value="N" 
+                                    @change="changeSon(pa)" 
+                                />
                             </b-col>
-                            <b-col>{{gm.gm_spec}}</b-col>
+                            <b-link class="col gd_img" v-if="odm.odm_type=='MODEL' && odm.odm_gd_id>0" :to="{name: 'adm_goods_edit', params: { gd_id:odm.odm_gd_id }}">
+                                <img :src="odm.img_src" />
+                            </b-link>
+                            <b-col class="gd_img" v-else-if="odm.odm_type=='MODEL'"><img :src="odm.img_src" /></b-col>
+                            
+                            <b-col v-if="odm.odm_type=='MODEL'" class="gd_info">
+                                <div>
+                                    <b>◖{{odm.odm_gd_name}}◗</b>
+                                    <p>
+                                        {{odm.odm_gm_name}} <br />
+                                        {{odm.odm_gm_code}} <b class="divider">/</b> 
+                                        {{odm.odm_gm_catno}} <b class="divider">/</b> 
+                                        {{odm.odm_mk_name}} <b class="divider">/</b> 
+                                        {{odm.odm_gm_unit}}
+                                    </p>
+                                </div>
+                            </b-col>
+                            <b-col class="spec"><b v-if="odm.odm_type=='OPTION'">{{odm.odm_gm_name}}: </b>{{odm.odm_gm_spec}}</b-col>
                             <b-col class="price">
-                                {{gm.odm_price_add_vat | comma}} 원
-                                <font-awesome-icon icon="times" />
-                                <!-- 
-                                    인풋테그로 했었는데
-                                    인쇄시 인풋테그가 나와서
-                                    팝업으로 변경
-                                 -->
-                                <span class="ea">
-                                    <div class="cube_box">
-                                        <div class="cube" :class="{show_right: gm.show_right}">
-                                            <div class="piece front">{{gm.ea | comma}}</div>
-                                            <div class="piece right">
-                                                <EaInput v-model="gd.goods_model[gm_i]" />
+                                <p>
+                                    {{odm.odm_price_add_vat | comma}} 원
+                                    <font-awesome-icon icon="times" />
+                                    <!-- 인풋테그로 했었는데 인쇄시 인풋테그가 나와서 팝업으로 변경 -->
+                                    <span class="ea">
+                                        <div class="cube_box">
+                                            <div class="cube" :class="{show_right: odm.show_right}">
+                                                <div class="piece front">{{odm.odm_ea | comma}}</div>
+                                                <div class="piece right"><EaInput v-model="pa.order_model[odm_i]" /></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </span> 개
-                                <font-awesome-icon icon="equals" />
-                                <b class="multi">{{gm.odm_price_add_vat*gm.ea | comma}} 원</b>
+                                    </span> 개
+                                    <font-awesome-icon icon="equals" />
+                                    <b class="multi">{{odm.odm_price_add_vat*odm.odm_ea | comma}} 원</b>
+                                </p>
+                            </b-col>
+                            <b-col class="dlvy_info">
+                                <template v-if="odm.odm_type=='MODEL'">                                    
+                                    <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" variant="light">수취완료</b-badge>
+                                    <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" variant="success">배송완료</b-badge>
+                                    <b-button v-else-if="odm.order_dlvy_info.oddi_dlvy_num" size="sm" variant="info"
+                                        :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)"
+                                    >
+                                        배송추적
+                                    </b-button>
+                                    <b-button v-else size="sm" @click="writeDlvyInfo(odm)">배송정보</b-button>
+                                </template>
                             </b-col>
                         </b-row>
-
-                        <b-row v-for="(opc, opc_idx) in gd.option_child" :key="`opc_${opc_idx}`" class="opc">
-                            <b-col cols="6" class="option_info">
-                                {{opc.option.op_name}}: {{opc.opc_name}}
-                            </b-col>
-                            <b-col class="price">
-                                {{opc.odo_price_add_vat | comma}} 원
-                                <font-awesome-icon icon="times" />
-                                <!-- <b-form-input v-model="text" placeholder="Enter your name"></b-form-input> -->
-                                {{opc.ea | comma}} 개
-                                <font-awesome-icon icon="equals" />
-                                <b class="multi">{{opc.odo_price_add_vat*opc.ea | comma}} 원</b>
+                    </b-col>
+                    <b-col>
+                        <b-row>
+                            <b-col class="dlvy_p">
+                                <p>
+                                    <b-badge v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</b-badge>
+                                    <b-badge v-else>배송비</b-badge>
+                                    <br />
+                                    {{pa.odpa_dlvy_p_add_vat | comma}} 원
+                                
+                                    <template v-if="pa.odpa_pa_type !== 'AIR'">
+                                        <br />
+                                        <b-form-checkbox v-model="pa.dlvy_all_in" @change="DlvyAllIn(pa.odpa_id)" button button-variant="light" size="sm">
+                                            배송비 포함
+                                        </b-form-checkbox>
+                                    </template>
+                                </p>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -192,7 +195,7 @@
                         </span>
 
                         <span class="form_icon">
-                            <font-awesome-icon icon="map-marked-alt" v-b-tooltip="'수령인 주소 복사'" @click="copyToClipboard(od.od.od_addr1)" />
+                            <font-awesome-icon icon="map-marked-alt" v-b-tooltip="'수령인 주소 복사'" @click="copyToClipboard(od.od_addr1)" />
                             <div class="cube_box">
                                 <div class="cube">
                                     <div class="piece front">
@@ -219,8 +222,8 @@
                         </span>
                         <span v-else-if="od.od_pay_method == 'B'">
                             <b-badge variant="light">계좌이체</b-badge>
-                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'K'">국민은행</b-badge>
-                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'W'">우리은행</b-badge>
+                            <b-badge variant="light" v-if="od.order_extra_info.oex_bank == 'K'">국민은행</b-badge>
+                            <b-badge variant="light" v-if="od.order_extra_info.oex_bank == 'W'">우리은행</b-badge>
                             <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
                             <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
                         </span>
@@ -229,13 +232,11 @@
                             <b-badge variant="light">{{od.order_extra_info.oex_depositor}}</b-badge>
                             <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
                         </span>
-                        <span v-else-if="od.od_pay_method == 'S'">
-                            <b-badge variant="light">전표</b-badge>
-                            <b-badge variant="light" v-if="od.order_extra_info.oex_finance_type == 'SH'">신한</b-badge>
-                            <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'BC'">BC</b-badge>
-                            <b-badge variant="light" v-else-if="od.order_extra_info.oex_finance_type == 'SS'">삼성</b-badge>
-                            <b-badge variant="light" v-else>{{od.order_extra_info.oex_finance_type}}</b-badge>
-                            <b-badge variant="light">{{payPlanDisplay}} 결제</b-badge>
+                        <span v-else-if="od.od_pay_method == 'R'">
+                            <b-badge variant="light">원격결제</b-badge>
+                            <b-badge variant="light">{{od.order_extra_info.oex_mng}}</b-badge>
+                            <b-badge variant="light">{{od.order_extra_info.oex_num}}</b-badge>
+                            <b-badge variant="light">{{payPlanDisplay}}</b-badge>
                         </span>
                         <span v-else-if="od.od_pay_method == 'E'">에스크로</span>
 
@@ -253,6 +254,10 @@
                                 <b-badge variant="light" v-if="od.order_extra_info.oex_req_bank == 'Y'">통장사본</b-badge>
                                 <b-badge variant="warning" v-if="od.order_extra_info.oex_req_est == 'N' && od.order_extra_info.oex_req_tran == 'N' && od.order_extra_info.oex_req_biz == 'N' && od.order_extra_info.oex_req_bank == 'N'">없음</b-badge>
                             </template>
+                            <b-alert show variant="success" class="mt-3">
+                                <h4 class="alert-heading">첨부서류 메모</h4>
+                                <p>{{od.order_extra_info.oex_memo}}</p>
+                            </b-alert>
                         </span>
                     </b-col>
                 </b-row>
@@ -279,18 +284,24 @@
                                     <b-badge variant="light">종목: {{od.order_extra_info.oex_biz_item}}</b-badge><b>,</b>
                                     <b-badge variant="light">대표자: {{od.order_extra_info.oex_ceo}}</b-badge><b>,</b>
                                     <b-badge variant="light">소재지: {{od.order_extra_info.oex_addr}}</b-badge><b>,</b>
-                                    <b-badge variant="light">요청사항: {{od.order_extra_info.oex_requirement}}</b-badge><b>,</b>
                                 </template>
                                 <b-badge variant="light">담당자: {{od.order_extra_info.oex_mng}}</b-badge><b>,</b>
                                 <b-badge variant="light">담당이메일: {{od.order_extra_info.oex_email}}</b-badge><b>,</b>
-                                <b-badge variant="light">담당HP: {{od.order_extra_info.oex_num}}</b-badge>
+                                <b-badge variant="light">담당HP: {{od.order_extra_info.oex_num}}</b-badge>                                
+                                <b-badge variant="light" class="long_type">요청사항: {{od.order_extra_info.oex_requirement}}</b-badge>
                             </b-alert>
                         </span>
-                        <span v-else-if="od.order_extra_info.oex_type == 'HP'"></span>
-                        <span v-else-if="od.order_extra_info.oex_type == 'CN'"></span>
-                        <span v-else-if="od.order_extra_info.oex_type == 'BN'"></span>
-                        <span v-else-if="od.order_extra_info.oex_type == 'NO'"><b-badge variant="warning">없음</b-badge></span>
-
+                        <span v-else-if="od.order_extra_info.oex_type == 'IVNO'">세금계산서 입력안함</span>
+                        <span v-else-if="od.order_extra_info.oex_type == 'NO'">없음</span>
+                        <span v-else>
+                            <b-alert show variant="info">
+                                <h5 class="alert-heading" v-if="od.order_extra_info.oex_type == 'HP'">휴대폰번호</h5>
+                                <h5 class="alert-heading" v-else-if="od.order_extra_info.oex_type == 'IN'">주민등록번호</h5>
+                                <h5 class="alert-heading" v-else-if="od.order_extra_info.oex_type == 'CN'">카드번호</h5>
+                                <h5 class="alert-heading" v-else-if="od.order_extra_info.oex_type == 'BN'">사업자번호</h5>
+                                {{od.order_extra_info.oex_num}}
+                            </b-alert>
+                        </span>
                     </b-col>
                 </b-row>
 
@@ -356,11 +367,31 @@
                 </b-container>
             </b-card>
 
-            
+            <b-card v-else-if="modalType == 'dlvyInfo'" class="adform layerModal">
+                <b-container>
+                    <b-row>
+                        <b-col class="label">운송사</b-col>
+                        <b-col>
+                            <b-form-select v-model="dlvy_info.company" size="sm">
+                                <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
+                            </b-form-select>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">송장번호</b-col>
+                        <b-col><b-form-input v-model="dlvy_info.number" /></b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col><b-button variant="success" @click="update('arrival')">배송완료</b-button></b-col>
+                        <b-col class="ctrl"><b-button @click="update('dlvy')">등록</b-button></b-col>
+                    </b-row>
+                </b-container>
+            </b-card>
         </Modal>
     </transition>
 </div>
 </template>
+
 <script>
 import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
@@ -383,10 +414,13 @@ export default {
             },
             od: {
                 order_extra_info:{},
-                pa_list: {
-                    price: { },
-                },
                 order_config: {},
+                mng: {},
+            },
+            dlvy_info: {
+                selected: [],
+                company: '한진택배',
+                number: ''
             },
         };
     },
@@ -394,11 +428,13 @@ export default {
         payPlanDisplay() {
             var plan = this.od.order_extra_info.oex_pay_plan;
             var returnMsg = '';
-            if (plan == 'soon')         returnMsg = '선';
-            else if (plan == 'week1')   returnMsg = '1주이내';
-            else if (plan == 'week2')   returnMsg = '2주이내';
-            else if (plan == 'month1')  returnMsg = '한달이내';
-            else if (plan == 'month2')  returnMsg = '2개월이내';
+            if (plan == 'soon')         returnMsg = '선 결제';
+            else if (plan == 'week1')   returnMsg = '1주이내 결제';
+            else if (plan == 'week2')   returnMsg = '2주이내 결제';
+            else if (plan == 'month1')  returnMsg = '한달이내 결제';
+            else if (plan == 'month2')  returnMsg = '2개월이내 결제';
+            else if (plan == 'dlvy')    returnMsg = '납품시 결제';
+            else                        returnMsg = plan;
 
             return returnMsg;
         },
@@ -416,7 +452,7 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        async update(type){
+        async update(type, v=null){
             try {
                 this.od = Object.assign(
                     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
@@ -426,7 +462,23 @@ export default {
 
                 if (type == 'od_mng') {
                     this.od.od_mng = Auth.user().id;
-                    this.od.od_mng_nm = Auth.user().name;
+                    this.od.mng = Auth.user();
+                } else if (type == 'dlvy') {
+                    this.od.order_purchase_at.forEach(opa => {
+                        opa.order_model.forEach(odm => {
+                            if (odm.dlvy_chk == 'Y') {
+                                odm.order_dlvy_info.oddi_dlvy_com = this.dlvy_info.company;
+                                odm.order_dlvy_info.oddi_dlvy_num = this.dlvy_info.number;
+                            }
+                        });
+                    });
+                } else if (type == 'arrival') {
+                    this.od.order_purchase_at.forEach(opa => {
+                        opa.order_model.forEach(odm => {
+                            if (odm.dlvy_chk == 'Y')
+                                odm.order_dlvy_info.oddi_arrival_date = true;
+                        });
+                    });
                 }
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
                 if (res && res.status === 200 && res.data.msg === 'success') {
@@ -440,7 +492,16 @@ export default {
                     } else if (type == 'addr') {
                         Notify.toast('success', '상품 수령 정보 수정');
                         this.$router.go();
+                    } else if (type == 'dlvy') {
+                        Notify.toast('success', '배송 정보 등록');
+                        this.isModalViewed = false;
+                        this.offAllCheck();
+                    } else if (type == 'arrival') {
+                        Notify.toast('success', '배송 완료 등록');
+                        this.isModalViewed = false;
+                        this.offAllCheck();
                     }
+                    this.$delete(this.od, '_method');
                 } else
                     Notify.toast('warning', '수정 실패');
             } catch (e) {
@@ -471,10 +532,11 @@ export default {
                 '/css/adm_shop_order_edit.css'
             ]});
         },
+
         async estimateExcel(){
             try {
                 this.mngChk();
-                const res = await ax.get(`/api/admin/shop/order/exportEstimateExcel/${this.$route.params.od_id}`, { responseType: 'blob' });
+                const res = await ax.post(`/api/admin/shop/order/exportEstimateExcel`, this.od, { responseType: 'blob' });
                 this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
             } catch (e) {
                 Notify.consolePrint(e);
@@ -483,7 +545,7 @@ export default {
         async estimatePdf(){
             try {
                 this.mngChk();
-                const res = await ax.get(`/api/admin/shop/order/exportEstimatePdf/${this.$route.params.od_id}`, { responseType: 'blob' });
+                const res = await ax.post(`/api/admin/shop/order/exportEstimatePdf`, this.od, { responseType: 'blob' });
                 this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.pdf');
             } catch (e) {
                 Notify.consolePrint(e);
@@ -492,7 +554,7 @@ export default {
         async transactionExcel(){
             try {
                 this.mngChk();
-                const res = await ax.get(`/api/admin/shop/order/exportTransactionExcel/${this.$route.params.od_id}`, { responseType: 'blob' });
+                const res = await ax.post(`/api/admin/shop/order/exportTransactionExcel`, this.od, { responseType: 'blob' });
                 this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
             } catch (e) {
                 Notify.consolePrint(e);
@@ -501,7 +563,7 @@ export default {
         async transactionPdf(query = ''){
             try {
                 this.mngChk();
-                const res = await ax.get(`/api/admin/shop/order/exportTransactionPdf/${this.$route.params.od_id}?${query}`, { responseType: 'blob' });
+                const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
                 this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
             } catch (e) {
                 Notify.consolePrint(e);
@@ -522,12 +584,15 @@ export default {
             }
         },
 
-        async onlineBooks() {
+        async ledger() {
             try {
                 this.od.data_type="ORD";
                 const res = await ax.post(`/api/admin/ledger`, this.od);
                 if (res && res.status === 200) {
-                    this.$router.push({ name: 'adm_ledger' })
+                    if ( res.data.msg == 'Success' )
+                        this.$router.push({ name: 'adm_ledger' })
+                    else if ( res.data.msg == 'Existed' )
+                        Notify.modal('이미 등록된 주문입니다.');
                 } else
                     Notify.toast('warning', '기록 실패');
             } catch (e) {
@@ -553,10 +618,85 @@ export default {
         },
 
         sendTransaction () {            
-            this.transactionPdf(`trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}`);
+            this.transactionPdf(`trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`);
             this.isModalViewed = false;
         },
 
+        toggleAll(pa) {
+            let opt = 'N';
+            if (pa.dlvy_all_chk) opt = 'Y';
+            pa.order_model.forEach(el => {
+                if (el.odm_type == 'MODEL') el.dlvy_chk = opt;
+            });
+            pa.indeterminate = false;
+        },
+        changeSon (pa) {
+            let tmp = [];
+            pa.order_model.forEach(el => {
+                if (el.odm_type == 'MODEL') tmp.push(el.dlvy_chk);
+            });
+            let isSame = tmp.every( v => v === tmp[0] );
+            if(isSame) {
+                if (tmp[0] == 'Y') {
+                    pa.indeterminate = false;
+                    pa.dlvy_all_chk = true;
+                } else {
+                    pa.indeterminate = false;
+                    pa.dlvy_all_chk = false;
+                }
+            } else {
+                pa.indeterminate = true;
+                pa.dlvy_all_chk = false;
+            }
+        },
+        writeDlvyInfo(odm) {
+            if ( odm !== 'bundle' ) {
+                odm.dlvy_chk = 'Y';
+                this.od.order_purchase_at
+                for (let opa of this.od.order_purchase_at) {
+                    opa.dlvy_all_chk = false;
+                    for (let odm02 of opa.order_model) {
+                        if (odm.odm_id !== odm02.odm_id)
+                            odm02.dlvy_chk = 'N';
+                    }
+                }
+            }
+            if (this.didCheck()) {
+                this.modalType = 'dlvyInfo';
+                this.isModalViewed = !this.isModalViewed;
+            }
+        },
+        didCheck () {
+            let didCheck = false;
+            opa_loop : for (let opa of this.od.order_purchase_at) {
+                for (let odm of opa.order_model) {
+                    if (odm.dlvy_chk == 'Y') {
+                        didCheck = true;
+                        break opa_loop;
+                    }
+                }
+            }
+            if (!didCheck) {
+                Notify.toast('warning', '모델을 먼저 체크하세요.');
+                return false;
+            } else return true;
+        },
+        offAllCheck () {
+            for (let opa of this.od.order_purchase_at) {
+                opa.indeterminate = false;
+                opa.dlvy_all_chk = false;
+                for (let odm of opa.order_model) odm.dlvy_chk = 'N';
+            }
+        },
+        DlvyAllIn (odpa_id) {
+            for (let opa of this.od.order_purchase_at) {
+                if (opa.odpa_id !== odpa_id)
+                    opa.dlvy_all_in = false;
+            }
+        },
+        getHref (com, num) {
+            return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+        }
 
     },
     mounted() {
@@ -569,6 +709,8 @@ export default {
 @import '/css/adm_shop_order_edit.css';
 .card .tit button { display:block; float:right; }
 
+.card .container { max-width:100%; }
+.card .container .row .col .long_type { white-space: pre-wrap; word-wrap: break-word; text-align:left; margin-top:5px; }
 .card .container .row .col .cube_box { display:inline-block; }
 .card .container .row .col .cube_box, 
 .card .container .row .col .cube_box * { box-sizing: border-box; }
@@ -578,11 +720,19 @@ export default {
 .card .container .row .col .cube_box,
 .card .container .row .col .cube_box .cube,
 .card .container .row .col .cube_box .cube .piece { width:100%; max-width:40px; height:20px; }
-.card .container .row .col .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(50px); line-height:2; }
-.card .container .row .col .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(50px); display:block; }
+.card .container .row .col .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(20px); line-height:2; }
+.card .container .row .col .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(20px); display:block; }
 .card .container .row .col .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
 .card .container .row .col .cube.show_right,
 .card .container .row .col .cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
+
+.goods .container h5 .myCheck { display:inline; }
+.goods .container .myCheck { min-height:2rem; padding-left:1.7rem; min-width:2.1rem; display:inline; }
+.goods .container .myCheck .custom-control-label::before, 
+.goods .container .myCheck .custom-control-label::after { width:2rem; height:2rem; }
+.goods .container .row .col .row .dlvy_p p .btn.active { color:#fff; background-color:#1d2124; border-color:#171a1d; }
+.goods .container .row .col .row .chk { display:flex; }
+
 
 .card .row .col .form_icon svg { cursor:pointer; }
 

@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['max_width']
+  props: ['max_width', 'min_height', 'padding']
 });
 
 /***/ }),
@@ -43,7 +43,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* Modal */\n.rs_modal,\r\n.overlay { width:100%; height:100%; position:fixed; left: 0; top: 0;\n}\n.rs_modal { z-index:1030; background:none;\n}\n.rs_modal .overlay { opacity:0.75; background-color: black;\n}\n.rs_modal .rs_modal-card { position:relative; max-width:80%; max-height:92%; min-height:500px; margin:auto; margin-top:30px; padding:20px; background-color:#fff; z-index:10; opacity:1; overflow:auto;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* Modal */\n.rs_modal,\r\n.overlay { width:100%; height:100%; position:fixed; left: 0; top: 0;\n}\n.rs_modal { z-index:1030; background:none;\n}\n.rs_modal .overlay { opacity:0.75; background-color: black;\n}\n.rs_modal .rs_modal-card { position:relative; max-width:80%; max-height:92%; min-height:500px; margin:auto; margin-top:30px; padding:20px; background-color:#fff; z-index:10; opacity:1; overflow:auto; border-radius:10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -191,7 +191,11 @@ var render = function () {
       "div",
       {
         staticClass: "rs_modal-card",
-        style: { maxWidth: _vm.max_width + "px" },
+        style: {
+          maxWidth: _vm.max_width + "px",
+          minHeight: _vm.min_height + "px",
+          padding: _vm.padding,
+        },
       },
       [
         _c("header", { staticClass: "tit" }, [_vm._t("header")], 2),

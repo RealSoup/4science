@@ -20,7 +20,7 @@ class InfoRegister {
         $info = Info::all();
         foreach ($info as $v) {
             if(!Cache::has($v->key)) {
-                Cache::forever($v->key, json_decode($v->var));
+                Cache::forever($v->key, json_decode($v->var, true));
             }
         }
         return $next($request);

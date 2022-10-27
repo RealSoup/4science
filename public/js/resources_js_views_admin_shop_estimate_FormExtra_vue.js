@@ -4505,7 +4505,7 @@ var render = function () {
             [
               _c("file-upload", {
                 ref: "fileupload",
-                attrs: { fi_type: "estimateReply" },
+                attrs: { fi_group: "estimateReply" },
                 model: {
                   value: _vm.value.file_info,
                   callback: function ($$v) {

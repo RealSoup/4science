@@ -1,5 +1,5 @@
 <template>
-    <b-form-input v-model="value.ea" @update="valUpdate" @focus="thisFocus" @blur="thisBlur" size="sm" />
+    <b-form-input v-model="value.odm_ea" @update="valUpdate" @focus="thisFocus" @blur="thisBlur" size="sm" />
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             bd:{},
-            defVal:this.value.ea,
+            defVal:this.value.odm_ea,
         };
     },
     methods: {
@@ -18,12 +18,12 @@ export default {
             if (this.defVal < v) {
                 Notify.modal('수량 증가 불가');
                 // this.gm.ea = this.defVal;
-                this.$set(this.value, 'ea', this.defVal);
+                this.$set(this.value, 'odm_ea', this.defVal);
                 return false;
             }
 
             if ( isEmpty(this.bd) ) {
-                const res = await ax.get(`/api/admin/shop/bundleDc/findGmId/${this.value.gm_id}`);
+                const res = await ax.get(`/api/admin/shop/bundleDc/findGmId/${this.value.odm_gm_id}`);
                 if (res && res.status === 200)
                     this.bd = res.data;
             }

@@ -63,7 +63,7 @@
 
     <Categorys v-if="true" />
 
-    <Cart v-if="cartComponentConnector" /> <!-- 장바구니 -->
+    <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
 
 </header>
 </template>
@@ -99,24 +99,23 @@ export default {
             // if (to.mode) this.sch_frm.mode = to.mode;
             // if (to.sort) this.sch_frm.sort = to.sort;
             // this.index();
-            this.$store.commit('goods/setFrm', {
-                ca01:this.$route.query.ca01 ?? 0,
-                ca02:this.$route.query.ca02 ?? 0,
-                ca03:this.$route.query.ca03 ?? 0,
-                ca04:this.$route.query.ca04 ?? 0,
-                mk_id:this.$route.query.mk_id ?? 0,
-                mode:this.$route.query.mode ?? "",
-                keyword:this.$route.query.keyword ?? "",
-                sort:this.$route.query.sort ?? "",
-                page:this.$route.query.page ?? 0,
-            });
-            this.$store.dispatch('goods/index');
+            if ( this.$route.name == 'goods_index' ) {
+                this.$store.commit('goods/setFrm', {
+                    ca01:this.$route.query.ca01 ?? 0,
+                    ca02:this.$route.query.ca02 ?? 0,
+                    ca03:this.$route.query.ca03 ?? 0,
+                    ca04:this.$route.query.ca04 ?? 0,
+                    mk_id:this.$route.query.mk_id ?? 0,
+                    mode:this.$route.query.mode ?? "",
+                    keyword:this.$route.query.keyword ?? "",
+                    sort:this.$route.query.sort ?? "",
+                    page:this.$route.query.page ?? 0,
+                });
+                this.$store.dispatch('goods/index');
+            }
         }
     },
     computed: {
-        cartComponentConnector(){
-            return this.$route.name !== 'order_settle';
-        },
         ...mapGetters({
             isLoggedin: 'auth/isLoggedin',
             user: 'auth/user',
@@ -150,7 +149,7 @@ export default {
 
 <style lang="css" scoped>
 #header { background-color:#F5F5F5; }
-#header #real nav { align-items:flex-end; padding:16.5px 10px; }
+#header #real nav { align-items:flex-end; padding:16.5px 0; }
 #header #real nav .navbar-brand { padding:0; margin-bottom:-5px; }
 #header #real nav .navbar-brand img { width:100%; transition:all .3s; }
 

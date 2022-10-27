@@ -64,52 +64,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: true,
       order: [],
+      order_config: {},
       estimateReq: []
     };
   },
-  methods: {
-    index: function index() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/mypage");
-
-              case 3:
-                res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.order = res.data.order;
-                  _this.estimateReq = res.data.estimateReq;
-                  _this.isLoadingModalViewed = false;
-                }
-
-                _context.next = 11;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                Notify.consolePrint(_context.t0);
-                Notify.toast('warning', _context.t0.response.data.message);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 7]]);
-      }))();
-    }
-  },
   mounted: function mounted() {
-    this.index();
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var data_od, data_eq;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order", {
+                params: {
+                  limit: 5
+                }
+              });
+
+            case 2:
+              data_od = _context.sent;
+              _this.order = data_od.data.order;
+              _this.order_config = data_od.data.order_config;
+              _context.next = 7;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/estimate", {
+                params: {
+                  limit: 5
+                }
+              });
+
+            case 7:
+              data_eq = _context.sent;
+              _this.estimateReq = data_eq.data;
+              _this.isLoadingModalViewed = false;
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -287,6 +284,7 @@ var render = function () {
             _c("h5", [_vm._v("최근 주문 내역")]),
             _vm._v(" "),
             _c("OrderList", {
+              attrs: { order_config: _vm.order_config },
               model: {
                 value: _vm.order,
                 callback: function ($$v) {

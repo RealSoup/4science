@@ -16,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
     /*  <<<<<<<<<<<<<<<<<<<<<<      WEB        >>>>>>>>>>>>>>>>>>>>>>>*/
     // Route::get('/user', function (Request $request) { return [ 'user' => $request->user(), 'token' => csrf_token() ]; });
-    Route::GET('user', 'Auth\UserController@auth');
-    Route::PATCH('user', 'Auth\UserController@update');
+
+    Route::prefix('user')->group(function () {
+        Route::GET('/', 'Auth\UserController@auth');
+        Route::PATCH('/', 'Auth\UserController@update');
+        Route::RESOURCE('addr', 'UserAddrController')->middleware('auth');
+    });
 
     Route::GET('mypage/print/{code}', 'MyPageController@print');
     Route::RESOURCE('mypage', MyPageController::class)->only([ 'index', 'edit', 'update', 'destroy' ]);
 
-    Route::RESOURCE('mileage', 'MileageController')->only([ 'index', 'store', 'update' ]);
+    Route::RESOURCE('mileage', 'MileageController')->only([ 'index', 'store' ]);
     Route::GET('mileage/enable', 'MileageController@enable');
 
     Route::prefix('shop')->group(function () {
@@ -39,9 +43,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::GET('estimate', 'Shop\EstimateController@index');
 
         Route::prefix('order')->group(function () {
-            Route::GET('/', 'Shop\OrderController@index');
             Route::GET('bought', 'Shop\OrderController@bought');
         });
+        Route::RESOURCE('order', 'Shop\OrderController')->only([ 'index', 'update' ]);
         Route::RESOURCE('wish', 'Shop\WishController')->only([ 'index', 'store', 'destroy' ]);
     });
 
@@ -58,11 +62,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
-    Route::prefix('admin')->group(function () {
-
+    Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
         Route::prefix('site')->group(function () {
-            Route::GET('info', 'Admin\SiteController@info');
-            Route::PATCH('info/update', 'Admin\SiteController@infoUpdate');
+            Route::GET('/', 'Admin\SiteController@index');
+            Route::PATCH('/', 'Admin\SiteController@update');
 
             Route::GET('mainCateGoods/{ca_id}', 'Admin\SiteController@mainCateGoods');
             Route::POST('mainCateGoodsUpdate', 'Admin\SiteController@mainCateGoodsUpdate');
@@ -72,17 +75,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::prefix('user')->group(function () {
             Route::GET('list', 'Admin\UserController@list')->name('user.list');
         });
-
         
-        Route::GET('mileage/requesterVoucher', 'Admin\MileageController@getRequesterVoucher');
-        Route::RESOURCE('mileage', 'Admin\MileageController', [
-            'names'     => [
-                'index'   => 'admin.mileage.index',
-                'update'  => 'admin.mileage.update',
-            ]
-        ])->only([ 'index', 'update' ]);
-
-
+        Route::prefix('mileage')->group(function () {
+            Route::GET('requesterVoucher',  'Admin\MileageController@getRequesterVoucher');
+            Route::GET('enable/{id}',       'Admin\MileageController@enable');
+            Route::GET('{id}',              'Admin\MileageController@index');
+            Route::PATCH('{id}',            'Admin\MileageController@update');
+        });
 
         Route::prefix('shop')->group(function () {
             Route::GET('category/index_init', 'Admin\Shop\CategoryController@indexInit')->name('category.index_init');
@@ -143,10 +142,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     			]
     		]);
 
-            Route::get('order/exportEstimateExcel/{od_id}', 'Admin\Shop\OrderController@exportEstimateExcel')->name('admin.shop.order.exportEstimateExcel');
-            Route::get('order/exportEstimatePdf/{od_id}', 'Admin\Shop\OrderController@exportEstimatePdf')->name('admin.shop.order.exportEstimatePdf');
-            Route::get('order/exportTransactionExcel/{od_id}', 'Admin\Shop\OrderController@exportTransactionExcel')->name('admin.shop.order.exportTransactionExcel');
-            Route::get('order/exportTransactionPdf/{od_id}', 'Admin\Shop\OrderController@exportTransactionPdf')->name('admin.shop.order.exportTransactionPdf');
+            Route::POST('order/exportEstimateExcel',    'Admin\Shop\OrderController@exportEstimateExcel')->name('admin.shop.order.exportEstimateExcel');
+            Route::POST('order/exportEstimatePdf',      'Admin\Shop\OrderController@exportEstimatePdf')->name('admin.shop.order.exportEstimatePdf');
+            Route::POST('order/exportTransactionExcel', 'Admin\Shop\OrderController@exportTransactionExcel')->name('admin.shop.order.exportTransactionExcel');
+            Route::POST('order/exportTransactionPdf',   'Admin\Shop\OrderController@exportTransactionPdf')->name('admin.shop.order.exportTransactionPdf');
             Route::resource('order', 'Admin\Shop\OrderController', [
                 'except' => [ 'show', 'create', 'destroy' ],
     			'names' => [
@@ -170,6 +169,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('estimate/getEmptyEm', 'Admin\Shop\EstimateController@getEmptyEm');
             Route::resource('estimate', 'Admin\Shop\EstimateController');
             // Route::POST('estimate/estimateModelPurchaseCollection', 'Admin\Shop\EstimateController@estimateModelPurchaseCollection')->name('admin.shop.estimate.estimateModelPurchaseCollection');
+
+            //  Merck 발주
+            Route::prefix('b2b_merck')->group(function () {
+                Route::GET('/order',        'Admin\Shop\B2bMerckController@order');
+                Route::POST('/orderExe',    'Admin\Shop\B2bMerckController@orderExe');
+                
+                Route::GET('/orderResult',  'Admin\Shop\B2bMerckController@orderRst');
+                Route::POST('/stockCheck',  'Admin\Shop\B2bMerckController@stockCheck');
+                Route::GET('/stockResult',  'Admin\Shop\B2bMerckController@stockRst');
+            });
         });
 
         //  영문교정
@@ -196,17 +205,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::RESOURCE('ledger', 'Admin\LedgerController')->only([ 'index', 'store', 'update', 'destroy' ]);
         Route::POST('ledger/updateSearch', 'Admin\LedgerController@updateSearch');
         Route::POST('ledger/updateColumn', 'Admin\LedgerController@updateColumn');
-        
-        
-        
+        Route::RESOURCE('ledgerAcct', 'Admin\LedgerAcctController')->only([ 'index', 'store', 'update', 'destroy' ]);
         
         //  통계
         Route::prefix('stats')->group(function () {
             Route::GET('/user', 'Admin\StatsController@user');
             Route::GET('/order', 'Admin\StatsController@order');
         });
-
-
     });
 
 

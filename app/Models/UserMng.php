@@ -9,7 +9,7 @@ class UserMng extends Model {
 
     protected $primaryKey = 'um_id';
     protected $table = 'user_mng';
-    // protected $appends = ['refine_group', 'refine_position'];
+    protected $appends = ['pos_name'];
     protected $mngInfo = [
         'group' => [
             '1' => '1팀',
@@ -37,7 +37,7 @@ class UserMng extends Model {
             'etc' => '기타',
         ],
     ];
-
+    public function getPosNameAttribute() { return $this->mngInfo['position'][$this->um_position]; }
     public function scopeGroup($query, $group) { return $query->where('um_group', $group); }
 
     // public function getRefinePositionAttribute() { return $this->mngInfo['position'][$this->um_position]; }

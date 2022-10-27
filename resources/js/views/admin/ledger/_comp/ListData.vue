@@ -2,7 +2,7 @@
 <div class="ledger_module">
     <b-row class="content"
         v-for="(lg, lg_i) in ledger" :key="`${lg_i}_${lg.lg_id}`"
-        :class="{cxl:lg.lg_pay_type == 'CXL'}"
+        :class="{cxl:lg.lg_pay_type == 'CXL', step_2:(lg.lg_step == 2 || lg.chk_cplt)}"
         :style="{ width: row_width+'px' }"
     >
         <div class="ctrl">
@@ -14,32 +14,22 @@
             <b-icon-caret-right-fill />
         </div>
         <b-col class="list_id">
-            {{lg.lg_id}}
+            <b-form-checkbox v-if="lg.lg_step == 1" v-model="lg.chk_cplt" name="chk_cplt" @change="chkChange">
+                {{lg.lg_id}}
+            </b-form-checkbox>
+            <template v-else>{{lg.lg_id}}</template>
         </b-col>
         <template v-for="(mcc, i) in mng_config_column">
             <template v-for="(cl, k) in column_list_clmn">
                 <b-col :key="`${i}${k}`" v-if="k == mcc.umc_val && k == 'order_dt'"         :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">{{lg.lg_order_dt}}</b-col>
                 <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'pay_type'"    :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
-                    <b-badge variant="primary" v-if="lg.lg_pay_type == 'CARD'">온라인 카드</b-badge>
-                    <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'PSYS'">PSYS</b-badge>
-                    <b-badge variant="seccess" v-else-if="lg.lg_pay_type == 'BILL'">계산서</b-badge>
-                    <b-badge variant="secondary" v-else-if="lg.lg_pay_type == 'STAT'">전표</b-badge>
-                    <b-badge variant="info" v-else-if="lg.lg_pay_type == 'CASH'">현금영수증</b-badge>
-                    <b-badge variant="warning" v-else-if="lg.lg_pay_type == 'MEMB'">회원</b-badge>
-                    <b-badge variant="danger" v-else-if="lg.lg_pay_type == 'REV'">역발행</b-badge>
-                    <b-badge variant="dark" v-else-if="lg.lg_pay_type == 'NOT'">미발급</b-badge>
-                    <b-badge variant="light" v-else-if="lg.lg_pay_type == 'CXL'">거래 취소</b-badge>
+                    <span v-if="lg.lg_pay_type">{{config.pay_type[lg.lg_pay_type]}}</span>
                 </b-col>
                 <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'mng'"         :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">{{lg.lg_mng}}</b-col>
-                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'source_no'"   :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
-                    <template v-if="lg.lg_source_no">
-                        <b-button v-if="lg.lg_source_type == 'ORD'" :to="{name: 'adm_order_edit', params: { od_id:lg.lg_source_no }}" variant="outline-primary" block>
-                            {{lg.lg_source_no}}
-                        </b-button>
-                        <b-button v-else-if="lg.lg_source_type == 'EST'" :to="{name: 'adm_estimate_show_reply', params: { er_id:lg.lg_source_no }}" variant="outline-danger" block>
-                            {{lg.lg_source_no}}
-                        </b-button>
-                    </template>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'od_id'"       :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
+                    <b-button v-if="lg.lg_od_id" :to="{name: 'adm_order_edit', params: { od_id:lg.lg_od_id }}" variant="outline-primary" block>
+                        {{lg.lg_od_id}}
+                    </b-button>
                 </b-col>
                 <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'sale_dt'"     :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
                     {{lg.lg_sale_dt}}
@@ -56,6 +46,19 @@
                 <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'orderer'"     :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
                     {{lg.lg_orderer}}
                 </b-col>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'od_name'"     :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
+                    {{lg.lg_od_name}}
+                </b-col>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'sum_ea_p'"    :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px', textAlign: 'right' }">
+                    {{lg.lg_sum_ea_p | comma}}
+                </b-col>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'sum_surtax'"  :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px', textAlign: 'right' }">
+                    {{lg.lg_sum_surtax | comma}}
+                </b-col>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'sum_sum_p'"   :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px', textAlign: 'right' }">
+                    {{lg.lg_sum_sum_p | comma}}
+                </b-col>
+
                 <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'model'" class="model" :style="{ width: model_width+'px' }">
                     <b-row 
                         v-for="(lm, lm_i) in lg.ledger_model" 
@@ -118,16 +121,19 @@
                         </template>
                     </b-row>
                 </b-col>
-                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'email'"       :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
-                    {{lg.lg_email}}
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'tax_name'"       :style="{flexBasis:cl.w+'px', maxWidth:cl.w+'px'}">
+                    {{lg.lg_tax_name}}
                 </b-col>
-                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'hp'"          :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
-                    {{lg.lg_hp}}
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'tax_email'"       :style="{flexBasis:cl.w+'px', maxWidth:cl.w+'px'}">
+                    {{lg.lg_tax_email}}
                 </b-col>
-                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'note'"        :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'tax_hp'"          :style="{flexBasis:cl.w+'px', maxWidth:cl.w+'px'}">
+                    {{lg.lg_tax_hp}}
+                </b-col>
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'note'"        :style="{flexBasis:cl.w+'px', maxWidth:cl.w+'px'}">
                     {{lg.lg_note}}
                 </b-col>
-                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'created_at'"  :style="{ flexBasis: cl.w + 'px', maxWidth: cl.w + 'px' }">
+                <b-col :key="`${i}${k}`" v-else-if="k == mcc.umc_val && k == 'created_at'"  :style="{flexBasis:cl.w+'px', maxWidth:cl.w+'px'}">
                     {{ lg.created_at | formatDate }}
                 </b-col>
             </template>
@@ -140,7 +146,7 @@
 import ax from '@/api/http';
 export default {
     name: 'AdmLedgerListData',
-    props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width'],
+    props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width', 'all_chk_cplt', 'indeterminate', 'config'],
     components: {
         'Modal'           : () => import('@/views/_common/Modal.vue'),
         'CustomSetColumn' : () => import('./CustomSetColumn.vue'),
@@ -174,6 +180,10 @@ export default {
                 }
             }
         },
+        
+        chkChange () {
+            this.$emit('chkChange');
+        },
     },
 
     mounted() {    
@@ -183,6 +193,8 @@ export default {
 
 <style lang="css" scoped>
 .content { padding:5px 0; overflow:hidden; }
+.content.step_2,
+.content.step_2 .model .row { background:#20613720; }
 .content.cxl,
 .content.cxl .model .row,
 .content .model .row.cxl { background:#ff000044; }

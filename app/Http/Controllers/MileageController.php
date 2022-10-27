@@ -14,38 +14,34 @@ class MileageController extends Controller {
     }
 
     public function index(Request $req) {
-        $id = 0;
-        if($req->filled('id')) $id = $req->id;
-        else $id = auth()->user()->id;
-        $po = $this->mileage->Uid($id)->latest();
-        $po = $po->paginate(10);
-        $po->appends($req->all())->links();
-        return response()->json($po, 200);
-    }
-    public function enable() {
-        $data = auth()->user()->mileage()->where([
-            ['created_at', '>', date("Y-m-d", strtotime("-1 years"))],
-            ['ml_mileage', '>', 0],
-        ])->sum('ml_enable_m');
-        return response()->json($data, 200);
+        $rst = array();
+        $ml = $this->mileage->Uid(auth()->user()->id)->latest();
+        $rst['list'] = $ml->paginate(10);
+        $rst['list']->appends($req->all())->links();
+        $rst['config'] = Mileage::$config['voucher'];
+        return response()->json($rst, 200);
     }
 
+    public function enable() { return $this->mileage->enableMileage(auth()->user()->id); }
+    
     public function store(StoreGiftCard $req) {
         Mileage::insert([
-            "ml_uid"      => auth()->check() ? auth()->user()->id : 0,
-            "ml_content"  => '신세계 상품권 '.$req->type.'만원||'.$req->ea.'||'.$req->name.'||'.$req->hp,
-            "ml_mileage"    => $req->type == '5' ? -50000 : -100000,
-            // "ml_enable_p" => $req->type == '5' ? -50000 : -100000,
-            'created_id'  => auth()->check() ? auth()->user()->id : 0
+            "ml_uid"     => auth()->check() ? auth()->user()->id : 0,
+            "ml_tbl"     => 'voucher',
+            "ml_key"     => 0,
+            "ml_type"    => 'REQ',
+            "ml_content" => "{$req->type}||{$req->ea}||{$req->name}||{$req->hp}",
+            "ml_mileage" => -Mileage::$config['voucher'][$req->type]['point'],
+            'created_id' => auth()->check() ? auth()->user()->id : 0
         ]);
         return response()->json("success", 200);
     }
 
-    public function update(Request $req, $id) {
-        DB::table('Mileage')->where('ml_id', $id)->update([
-            "ml_key" => $req->filled('ml_key') ? $req->ml_key : 0,
-            "updated_id"  => auth()->check() ? auth()->user()->id : 0
-        ]);        
-        return response()->json("success", 200);
-    }
+    // public function update(Request $req, $id) {
+    //     DB::table('Mileage')->where('ml_id', $id)->update([
+    //         "ml_key" => $req->filled('ml_key') ? $req->ml_key : 0,
+    //         "updated_id"  => auth()->check() ? auth()->user()->id : 0
+    //     ]);        
+    //     return response()->json("success", 200);
+    // }
 }

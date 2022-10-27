@@ -100,19 +100,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerCellModel',
-  props: ['value'],
+  props: ['value', 'lg'],
   data: function data() {
     return {};
   },
-  mounted: function mounted() {},
   methods: {
     register: function register() {
       this.$emit('register');
+    },
+    edit_price: function edit_price(lm) {
+      //  금액이나 갯수 수정시 자동으로 합계등이 업데이트
+      lm.lm_ea_price = lm.lm_gm_price.toString().replace(/[^0-9]/g, '') * lm.lm_ea.toString().replace(/[^0-9]/g, '');
+      lm.lm_surtax = (lm.lm_ea_price * 0.1).toFixed();
+      lm.lm_sum_price = (lm.lm_ea_price * 1.1).toFixed(); //  .toFixed()  부동 소수점 오류를 해결하기위한 방법
+    },
+    frm_priceComma: function frm_priceComma(v) {
+      return this.priceComma(v);
+    },
+    frm_formatDate: function frm_formatDate(v) {
+      return this.formatDate(v);
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -275,7 +286,7 @@ var render = function () {
         { staticClass: "tit" },
         [
           _c("b-col", [
-            _vm._v("\n            제품\n            "),
+            _vm._v("\n            제품 "),
             _vm.value.lm_id > 0
               ? _c("span", [_vm._v("수정")])
               : _c("span", [_vm._v("추가")]),
@@ -376,7 +387,12 @@ var render = function () {
                 attrs: {
                   id: "lm_gm_price",
                   required: "",
-                  formatter: _vm.priceComma,
+                  formatter: _vm.frm_priceComma,
+                },
+                on: {
+                  update: function ($event) {
+                    return _vm.edit_price(_vm.value)
+                  },
                 },
                 model: {
                   value: _vm.value.lm_gm_price,
@@ -397,7 +413,16 @@ var render = function () {
             { staticClass: "awesome_p" },
             [
               _c("b-form-input", {
-                attrs: { id: "lm_ea", required: "", formatter: _vm.priceComma },
+                attrs: {
+                  id: "lm_ea",
+                  required: "",
+                  formatter: _vm.frm_priceComma,
+                },
+                on: {
+                  update: function ($event) {
+                    return _vm.edit_price(_vm.value)
+                  },
+                },
                 model: {
                   value: _vm.value.lm_ea,
                   callback: function ($$v) {
@@ -408,80 +433,6 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("label", { attrs: { for: "lm_ea" } }, [_vm._v("수량")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lm_ea_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lm_ea_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lm_ea_price", $$v)
-                  },
-                  expression: "value.lm_ea_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lm_ea_price" } }, [
-                _vm._v("공급가액"),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lm_surtax",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lm_surtax,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lm_surtax", $$v)
-                  },
-                  expression: "value.lm_surtax",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lm_surtax" } }, [_vm._v("세액")]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "awesome_p" },
-            [
-              _c("b-form-input", {
-                attrs: {
-                  id: "lm_sum_price",
-                  required: "",
-                  formatter: _vm.priceComma,
-                },
-                model: {
-                  value: _vm.value.lm_sum_price,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.value, "lm_sum_price", $$v)
-                  },
-                  expression: "value.lm_sum_price",
-                },
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "lm_sum_price" } }, [_vm._v("합계")]),
             ],
             1
           ),
@@ -499,7 +450,7 @@ var render = function () {
                       id: "lm_com_order_dt",
                       placeholder: "YYYY-MM-DD",
                       autocomplete: "off",
-                      formatter: _vm.formatDate,
+                      formatter: _vm.frm_formatDate,
                       required: "",
                     },
                     model: {
@@ -588,7 +539,7 @@ var render = function () {
                 attrs: {
                   id: "lm_purchase_price",
                   required: "",
-                  formatter: _vm.priceComma,
+                  formatter: _vm.frm_priceComma,
                 },
                 model: {
                   value: _vm.value.lm_purchase_price,
@@ -619,7 +570,7 @@ var render = function () {
                       id: "lm_shipping_dt",
                       placeholder: "YYYY-MM-DD",
                       autocomplete: "off",
-                      formatter: _vm.formatDate,
+                      formatter: _vm.frm_formatDate,
                       required: "",
                     },
                     model: {

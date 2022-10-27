@@ -229,8 +229,8 @@
                             :file_info='frm.file_info'
                             @fileUp="pushFileInfo"
                             @fileDel="delFileInfo"
-                            :fi_type = "'estimateReply'"
-                            :fi_path = "''"
+                            :fi_group = "'estimateReply'"
+                            :fi_kind = "''"
                             :is_thumb = "0"
                         />
                     </b-col>

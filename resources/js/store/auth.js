@@ -6,11 +6,13 @@ export default {
         isLoggedin: false,
         user:{},
         csrfToken: "",
+        enable_mileage:0,
     },
     getters:{
         user (state) { return state.user; },
         isLoggedin (state) { return state.isLoggedin; },
         csrfToken (state) { return state.csrfToken; },
+        enableMileage (state) { return state.enable_mileage; },
     },
     mutations: {
         setUser(state, v) {
@@ -21,6 +23,9 @@ export default {
         },
         setToken(state, v) {
             state.csrfToken = v;
+        },
+        setEnableMileage(state, v) {
+            state.enable_mileage = v;
         },
     },
     actions: {

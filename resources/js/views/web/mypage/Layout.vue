@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <b-container>
         <b-row>
             <b-col lg="2" md="12" class="left">
@@ -20,7 +20,7 @@
                             등급
                         </div>
                         <div class="mileage">
-                            마일리지 <b>{{enable_mileage}}</b>P
+                            마일리지 <b>{{enableMileage}}</b>P
                         </div>
                     </div>
 
@@ -77,19 +77,19 @@ export default {
     computed: {
         ...mapGetters({
             user: 'auth/user',
+            enableMileage: 'auth/enableMileage',
         })
     },
     data() {
         return {
-            enable_mileage:0,
         }
     },
     methods:{
-        async enableMileage(){
+        async getEnableMileage(){
             try {
                 const res = await ax.get(`/api/mileage/enable`);
                 if (res && res.status === 200) {
-                    this.enable_mileage   =res.data
+                    this.$store.commit("auth/setEnableMileage", res.data);
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -98,7 +98,7 @@ export default {
         },
     },
     mounted() {
-        this.enableMileage();
+        this.getEnableMileage();
     },
 }
 </script>

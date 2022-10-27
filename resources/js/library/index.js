@@ -331,7 +331,15 @@ export default {
             } catch (e) {
                 Notify.consolePrint(e);
             }
-        }
+        };
+        
+        Vue.prototype.$focusNext = function (e, max, next) {
+            if (e.target.value.length === max) {
+                // const nextElement = this.$refs?.[ `ua_hp${Number(e.target.dataset.index) + 1}` ];
+                const nextElement = this.$refs?.[ `${next}` ];
+                if (nextElement) nextElement.focus();
+            }
+        };
 
 
 

@@ -20,15 +20,7 @@
             <b-col class="awesome_p force">
                 <b-form-select v-model="value.lg_pay_type" id="lg_pay_type">
                     <b-form-select-option value="">◖결제방식◗</b-form-select-option>
-                    <b-form-select-option value="CARD">온라인 카드</b-form-select-option>
-                    <b-form-select-option value="PSYS">PSYS</b-form-select-option>
-                    <b-form-select-option value="BILL">계산서</b-form-select-option>
-                    <b-form-select-option value="STAT">전표</b-form-select-option>
-                    <b-form-select-option value="CASH">현금영수증</b-form-select-option>
-                    <b-form-select-option value="MEMB">회원</b-form-select-option>
-                    <b-form-select-option value="REV">역발행</b-form-select-option>
-                    <b-form-select-option value="NOT">미발급</b-form-select-option>
-                    <b-form-select-option value="CXL">거래 취소</b-form-select-option>
+                    <b-form-select-option v-for="(v, k) in pay_type_option" :key="k" :value="k">{{ v }}</b-form-select-option>
                 </b-form-select>
                 <label for="lg_pay_type">결제방식</label>
             </b-col>
@@ -37,8 +29,8 @@
                 <label for="lg_mng">담당자</label>
             </b-col>
             <!-- <b-col class="awesome_p">
-                <b-form-input v-model="value.lg_source_no" id="lg_source_no" required />
-                <label for="lg_source_no">번호</label>
+                <b-form-input v-model="value.lg_od_id" id="lg_od_id" required />
+                <label for="lg_od_id">번호</label>
             </b-col> -->
             <b-col class="awesome_p force">
                 <b-input-group size="sm">
@@ -56,22 +48,42 @@
             <b-col class="awesome_p">
                 <b-form-input v-model="value.lg_depart" id="lg_depart" required />
                 <label for="lg_depart">소속</label>
-            </b-col>            
+            </b-col>
             <b-col class="awesome_p">
                 <b-form-input v-model="value.lg_lab_prof" id="lg_lab_prof" required />
                 <label for="lg_lab_prof">연구실/교수명</label>
-            </b-col>            
+            </b-col>
             <b-col class="awesome_p">
                 <b-form-input v-model="value.lg_orderer" id="lg_orderer" required />
                 <label for="lg_orderer">고객명</label>
+            </b-col>
+            <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_od_name" id="lg_od_name" required />
+                <label for="lg_od_name">주문명</label>
+            </b-col>            
+            <!-- <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_sum_ea_p" id="lg_sum_ea_p" required />
+                <label for="lg_sum_ea_p">총 공급가액</label>
             </b-col>            
             <b-col class="awesome_p">
-                <b-form-input v-model="value.lg_email" id="lg_email" required />
-                <label for="lg_email">메일</label>
+                <b-form-input v-model="value.lg_sum_surtax" id="lg_sum_surtax" required />
+                <label for="lg_sum_surtax">총 세액</label>
             </b-col>
-            <b-col>
-                <b-form-input type="text" v-model="value.lg_hp" id="lg_hp" :formatter="formatHp" />
-                <label for="lg_hp">HP</label>
+            <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_sum_sum_p" id="lg_sum_sum_p" required />
+                <label for="lg_sum_sum_p">총 합계</label>
+            </b-col> -->
+            <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_tax_email" id="lg_tax_email" required />
+                <label for="lg_tax_email">메일</label>
+            </b-col>
+            <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_tax_email" id="lg_tax_email" required />
+                <label for="lg_tax_email">메일</label>
+            </b-col>
+            <b-col class="awesome_p">
+                <b-form-input v-model="value.lg_tax_hp" id="lg_tax_hp" required />
+                <label for="lg_tax_hp">HP</label>
             </b-col>
             <b-col class="awesome_p">
                 <b-form-input v-model="value.lg_note" id="lg_note" required />
@@ -87,7 +99,7 @@
 <script>
 export default {
     name: 'AdmLedgerCell',
-    props: ['value'],
+    props: ['value', 'pay_type_option'],
     data() {
         return {
             

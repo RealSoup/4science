@@ -65,9 +65,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerListHead',
-  props: ['mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'total', 'row_width', 'model_width'],
+  props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width', 'total_ea_price', 'total_sum_price', 'all_chk_cplt', 'indeterminate'],
   components: {
     'Modal': function Modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
@@ -79,11 +88,24 @@ __webpack_require__.r(__webpack_exports__);
       headTop: 0
     };
   },
+  computed: {
+    all_chk: {
+      get: function get() {
+        return this.all_chk_cplt;
+      },
+      set: function set(v) {
+        this.$emit('input', v);
+      }
+    }
+  },
   methods: {
     scrollListener: function scrollListener(e) {
       var head_top = 310;
       this.isScrollPass = window.scrollY >= head_top;
       if (this.isScrollPass) this.headTop = window.scrollY - head_top;else this.headTop = 0;
+    },
+    toggle_all_chk: function toggle_all_chk(checked) {
+      this.$emit('toggle_all_chk', checked);
     }
   },
   mounted: function mounted() {
@@ -112,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#admLedger .ledger_module .ctrl[data-v-aa360294]  { left:-42px; width:60px;\n}\n#admLedger .ledger_module .ctrl[data-v-aa360294]:hover { left:0;\n}\n.ledger_module[data-v-aa360294] { position:relative\n}\n.ledger_module .head[data-v-aa360294] { background:#666; padding:5px 0;\n}\n.ledger_module .head .col[data-v-aa360294] { font-weight:bold; font-size:.9rem; color:#fff;\n}\n.ledger_module .head .col .badge[data-v-aa360294] { font-size:1rem;\n}\n.ledger_module.fixed_header .head[data-v-aa360294] { z-index:2;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ledger_module[data-v-aa360294] { position:relative\n}\n.ledger_module .head[data-v-aa360294] { background:#666; padding:5px 0;\n}\n.ledger_module .head .col[data-v-aa360294] { font-weight:bold; font-size:.9rem; color:#fff;\n}\n.ledger_module .head .col .badge[data-v-aa360294] { font-size:1rem;\n}\n.ledger_module.fixed_header .head[data-v-aa360294] { z-index:2;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -257,7 +279,28 @@ var render = function () {
           style: { width: _vm.row_width + "px", top: _vm.headTop + "px" },
         },
         [
-          _c("b-col", { staticClass: "list_id" }, [_vm._v("#")]),
+          _c(
+            "b-col",
+            { staticClass: "list_id" },
+            [
+              _c(
+                "b-form-checkbox",
+                {
+                  attrs: { indeterminate: _vm.indeterminate },
+                  on: { change: _vm.toggle_all_chk },
+                  model: {
+                    value: _vm.all_chk,
+                    callback: function ($$v) {
+                      _vm.all_chk = $$v
+                    },
+                    expression: "all_chk",
+                  },
+                },
+                [_vm._v("\r\n                All\r\n            ")]
+              ),
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm._l(_vm.mng_config_column, function (mcc, i) {
             return [
@@ -299,7 +342,7 @@ var render = function () {
                         },
                         [_vm._v(_vm._s(cl.name))]
                       )
-                    : k == mcc.umc_val && k == "source_no"
+                    : k == mcc.umc_val && k == "od_id"
                     ? _c(
                         "b-col",
                         {
@@ -360,6 +403,54 @@ var render = function () {
                         [_vm._v(_vm._s(cl.name))]
                       )
                     : k == mcc.umc_val && k == "orderer"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [_vm._v(_vm._s(cl.name))]
+                      )
+                    : k == mcc.umc_val && k == "od_name"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [_vm._v(_vm._s(cl.name))]
+                      )
+                    : k == mcc.umc_val && k == "sum_ea_p"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [_vm._v(_vm._s(cl.name))]
+                      )
+                    : k == mcc.umc_val && k == "sum_surtax"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [_vm._v(_vm._s(cl.name))]
+                      )
+                    : k == mcc.umc_val && k == "sum_sum_p"
                     ? _c(
                         "b-col",
                         {
@@ -497,7 +588,7 @@ var render = function () {
                                                     _vm._v(
                                                       _vm._s(
                                                         _vm._f("comma")(
-                                                          _vm.total.ea_price
+                                                          _vm.total_ea_price
                                                         )
                                                       )
                                                     ),
@@ -545,7 +636,7 @@ var render = function () {
                                                     _vm._v(
                                                       _vm._s(
                                                         _vm._f("comma")(
-                                                          _vm.total.sum_price
+                                                          _vm.total_sum_price
                                                         )
                                                       )
                                                     ),
@@ -630,7 +721,7 @@ var render = function () {
                         ],
                         1
                       )
-                    : k == mcc.umc_val && k == "email"
+                    : k == mcc.umc_val && k == "tax_name"
                     ? _c(
                         "b-col",
                         {
@@ -642,7 +733,19 @@ var render = function () {
                         },
                         [_vm._v(_vm._s(cl.name))]
                       )
-                    : k == mcc.umc_val && k == "hp"
+                    : k == mcc.umc_val && k == "tax_email"
+                    ? _c(
+                        "b-col",
+                        {
+                          key: "" + i + k,
+                          style: {
+                            flexBasis: cl.w + "px",
+                            maxWidth: cl.w + "px",
+                          },
+                        },
+                        [_vm._v(_vm._s(cl.name))]
+                      )
+                    : k == mcc.umc_val && k == "tax_hp"
                     ? _c(
                         "b-col",
                         {

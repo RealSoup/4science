@@ -16,6 +16,7 @@ class UserController extends Controller {
 
     public function auth(Request $req) {
         $u = $req->user();
+        $u->userMng;
         $interest = explode(', ', $u->interest);
         if (count($interest) > 0 && $interest[0] != '') $u->interest = $interest;
         else                                            $u->interest = Array();

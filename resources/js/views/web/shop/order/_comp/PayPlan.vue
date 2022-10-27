@@ -1,28 +1,16 @@
-<template lang="html">
-    <div class="border border-info rounded-lg location mt-3">
-        <div class="p-3 bg-info">
-            <h5>결제 예정일 선택</h5>
-            (학교, 국가기관, 연구소만 해당/<span class="text-danger">업체 및 개인은 선결제로 선택</span>)
+<template>
+    <div>
+        <div class="head">
+            <h6>결제 예정일 선택</h6>
+            <p>(학교, 국가기관, 연구소만 해당/<span>업체 및 개인은 선결제로 선택</span>)</p>
         </div>
-
-
-        <b-form-group class="mt-3">
-            <div class="custom-control custom-control-inline custom-radio mr-0">
-                <b-form-radio v-model="value.oex_pay_plan" value="soon">선결제</b-form-radio>
-            </div>
-            <div class="custom-control custom-control-inline custom-radio mr-0">
-                <b-form-radio v-model="value.oex_pay_plan" value="week1">1주이내</b-form-radio>
-            </div>
-            <div class="custom-control custom-control-inline custom-radio mr-0">
-                <b-form-radio v-model="value.oex_pay_plan" value="week2">2주이내</b-form-radio>
-            </div>
-            <div class="custom-control custom-control-inline custom-radio mr-0">
-                <b-form-radio v-model="value.oex_pay_plan" value="month1">한달이내</b-form-radio>
-            </div>
-            <div class="custom-control custom-control-inline custom-radio mr-0">
-                <b-form-radio v-model="value.oex_pay_plan" value="month2">2개월이내</b-form-radio>
-            </div>
-        </b-form-group>
+        <b-row>
+            <b-form-radio v-model="value.oex_pay_plan" value="soon">선결제</b-form-radio>
+            <b-form-radio v-model="value.oex_pay_plan" value="week1">1주이내</b-form-radio>
+            <b-form-radio v-model="value.oex_pay_plan" value="week2">2주이내</b-form-radio>
+            <b-form-radio v-model="value.oex_pay_plan" value="month1">30일이내</b-form-radio>
+            <b-form-radio v-model="value.oex_pay_plan" value="month2">60일이내</b-form-radio>
+        </b-row>
     </div>
 </template>
 
@@ -32,3 +20,11 @@ export default {
     props:['value'],
 }
 </script>
+<style lang="css" scoped>
+.head p { font-size:.75rem; }
+.head p span { color:red; }
+.row { margin:0; justify-content:space-between;}
+.row .custom-radio>>>label { font-size:.8rem; }
+.row .custom-radio>>>label::before, 
+.row .custom-radio>>>label::after { top:.15rem; left:-1.2rem; }
+</style>

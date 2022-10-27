@@ -1,25 +1,25 @@
 <template>
     <div id="ReceiptConfirm">
         <div class="head">
-            <b-img :src="item.goods.image_src_thumb[0]" />
+            <b-img :src="item.img_src" />
             
         </div>
-        <p class="gd_name">{{item.goods.gd_name}}</p>
+        <p class="gd_name">{{item.odm_gd_name}}</p>
         <div class="body">
             <p>제품을 잘 받으셨나요?</p>
             <div class="radio_ctrl">
                 <span>총평</span>
-                <b-form-radio v-model="frm.bo_good" inline value="100">만족</b-form-radio>
-                <b-form-radio v-model="frm.bo_good" inline value="50">보통</b-form-radio>
-                <b-form-radio v-model="frm.bo_good" inline value="10">불만족</b-form-radio>
+                <b-form-radio v-model="boFrm.bo_good" inline value="100">만족</b-form-radio>
+                <b-form-radio v-model="boFrm.bo_good" inline value="50">보통</b-form-radio>
+                <b-form-radio v-model="boFrm.bo_good" inline value="10">불만족</b-form-radio>
             </div>
             <div class="awesome_p">
-                <input id="bo_subject" v-model="frm.bo_subject" required />
+                <input id="bo_subject" v-model="boFrm.bo_subject" required />
                 <label for="bo_subject">제목</label>
             </div>
             
             <div class="awesome_p">
-                <textarea id="'bo_content" v-model="frm.bo_content" rows="5" required></textarea>
+                <textarea id="'bo_content" v-model="boFrm.bo_content" rows="5" required></textarea>
                 <label for="bo_content">구매평</label>
             </div>
             <div class="ctrl">
@@ -37,19 +37,30 @@ export default {
     props:['item'],
     data() {
         return {
-            frm: {
-                bo_gd_id:this.item.goods.gd_id,
+            boFrm: {
+                bo_gd_id:this.item.odm_gd_id,
                 bo_good:100,
+            },
+            odFrm: {
+                _method: 'PATCH',
+                type: 'receipt_confirm'
             },
         };
     },
 
     methods: {
         async store() {
-            if ( isEmpty(this.frm.bo_subject) ) this.frm.bo_subject = this.item.goods.gd_name;
-            if ( isEmpty(this.frm.bo_content) ) this.frm.bo_content = "만족";
-            const res = await ax.post(`/api/board/review/store`, this.frm);
-            if (res && res.status === 200) {                
+            if ( isEmpty(this.boFrm.bo_subject) ) this.boFrm.bo_subject = this.item.odm_gd_name;
+            if ( isEmpty(this.boFrm.bo_content) ) this.boFrm.bo_content = "만족";
+            const resBo = await ax.post(`/api/board/review/store`, this.boFrm);
+            this.odFrm = Object.assign(
+                {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                this.odFrm, // 수정하려는 객체
+                this.item // 삽입하려는 내용
+            );
+            const resOr = await ax.post(`/api/shop/order/${this.item.odm_od_id}`, this.odFrm);
+            if (resOr && resOr.status === 200) {     
+                this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
                 Notify.toast('success', '수취 확인 완료')
                 this.$emit('hide_modal');
             }

@@ -2,7 +2,11 @@
 <div id="site" :class="{'adm' : this.$store.state.mode == 'adm'}">
     
     <component :is="choiceHeader" />
-    <main :class="{'layout' : this.$route.name !== 'main' && this.$route.name !== 'adm_ledger' && this.$route.name !== 'goods_index'}">
+    <main :class="{'layout' : 
+        this.$store.state.mode !== 'adm' &&
+        this.$route.name !== 'main' && 
+        this.$route.name !== 'goods_index'
+    }">
         <router-view />
     </main>
     <component :is="choiceFooter" />
@@ -71,7 +75,7 @@ export default {
 <style type="text/css">
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:"나눔고딕","Nanum Gothic",  "돋움", "굴림","dotum", "Gulim"; color: #333; font-size:16px; }
-#site.adm { /*background:#FADBFB;*/ }
+#site.adm{ /*background:#FADBFB;*/ margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}
 #header {  }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
@@ -125,14 +129,13 @@ label { margin-bottom:0; }
 
 .p_warp h3 { padding:20px; font-weight:bold; }
 .p_warp h3:before { content: ''; border-left: 8px solid #469f8169; position: relative; left: -20px; }
-.p_warp .page_ctrl { position: -webkit-sticky; position:sticky; top:0; z-index:1; background-color:#fff; padding:.3rem 0; margin:0 0 20px; border-radius:10px; border:1px solid #ddd; }
 .p_warp .card { border-radius:10px; margin-bottom:20px; }
 .p_warp .card.ctrl { position:sticky; top:0; padding:8px; z-index:3; border:3px solid #138496; }
 .p_warp .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
 
 .card.adform .row { align-items:center; }
 .card.adform .row > div:not(.tit) { padding:8px 5px; }
-.card.adform .row .label { flex:0 0 7%; max-width:7%; text-align:right; font-weight:bold; font-size:.85rem; padding-right:15px !important; }
+.card.adform .row .label { flex:0 0 7%; max-width:7%; min-width:100px; text-align:right; font-weight:bold; font-size:.85rem; padding-right:15px !important; }
 .card.adform .row .label.short { letter-spacing: -1px; font-size: .7rem; }
 .card.adform .row .label + .type01 { flex: 0 0 9.666667%; max-width:9.666667%; }
 .card.adform .row .label + .type02 { flex: 0 0 18%; max-width:18%; }

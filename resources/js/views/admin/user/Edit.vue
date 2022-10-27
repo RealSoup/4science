@@ -1,6 +1,6 @@
 <template>
     <div class="p_warp">
-        <h3 class="p_tit">회원 정보 수정</h3>
+        <h3>회원 정보 수정</h3>
         <b-card no-body class="ctrl">
             <b-container>
                 <b-row>
@@ -173,7 +173,7 @@
         <b-card>
             <b-container>
                 <b-row><b-col class="tit">최근 주문 내역</b-col></b-row>
-                <Order :list="order" />
+                <Order :list="order" :config="order_config" />
             </b-container>
         </b-card>
 
@@ -213,6 +213,7 @@ export default {
                 user_mng: {},
             },
             order: [],
+            order_config: {},
             estimate: [],
         };
     },
@@ -223,8 +224,10 @@ export default {
             this.frm = user.data;
         
         const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.$route.params.id, limit:10}});
-        if (od && od.status === 200)
+        if (od && od.status === 200) {
             this.order = od.data.list;
+            this.order_config = od.data.order_config;
+        }
         
         const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.$route.params.id, limit:10}});
         if (eq && eq.status === 200) 

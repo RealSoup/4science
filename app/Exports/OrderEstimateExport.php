@@ -19,21 +19,21 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
     /**
     * @return \Illuminate\Support\Collection
     */
-    protected $od_id;
-    protected $gm_cnt = 0;
+    protected $od;
+    protected $odm_map = [];
 
-    function __construct($id) { $this->od_id = $id; }
+    function __construct($od) { $this->od = $od; }
 
     public function columnWidths(): array {
         return [
-            'A' => 6,
-            'B' => 6,
+            'A' => 5,
+            'B' => 5,
             'C' => 11,
             'D' => 11,
             'E' => 11,
             'F' => 11,
-            'G' => 6,
-            'H' => 6,
+            'G' => 5,
+            'H' => 5,
             'I' => 11,
             'J' => 11,
             'K' => 11,
@@ -42,41 +42,57 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
     }
 
     public function collection() {
+        $od = $this->od;
         $data = [];
-        $od = Order::find($this->od_id);
-        $gd = new Goods;
-        // $pa_list = $gd->getGoodsInfo($od, 'order');
-        // dd($od->orderGoods);
         $data[] = ['견    적    서'];
         $data[] = [''];
         $data[] = [''];
         $data[] = [''];
-        $data[] = ['구매번호', '', '', $od->od_no, '', '', '납품기일', '', '', '납기 2주이내'];
+        $data[] = ['구매번호', '', '', $od['od_no'], '', '', '납품기일', '', '', '납기 2주이내'];
         $data[] = ['견적일자', '', '', date('Y-m-d'), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
-        $data[] = ['수신', '', '', $od->od_department, '', '', '유효기간', '', '', '견적일로부터 2주 까지'];
+        $data[] = ['수신', '', '', $od['od_department'], '', '', '유효기간', '', '', '견적일로부터 2주 까지'];
         $data[] = [''];
-        $data[] = ['견적요청인', '', '', $od->od_orderer, '', '', '견적담당자', '', '', $od->mng->name];
-        $data[] = ['전화번호', '', '', $od->od_orderer_tel, '', '', '전화번호', '', '', $od->mng->tel];
-        $data[] = ['휴대폰번호', '', '', $od->od_orderer_hp, '', '', '이메일주소', '', '', $od->mng->email];
-        $data[] = ['이메일주소', '', '', $od->od_orderer_email, '', '', '펙스번호', '', '', $od->mng->fax];
-        $data[] = ['펙스번호', '', '', $od->od_orderer_fax];
+        $data[] = ['견적요청인', '', '', $od['od_orderer'], '', '', '견적담당자', '', '', $od['mng']['name']];
+        $data[] = ['전화번호', '', '', $od['od_orderer_tel'], '', '', '전화번호', '', '', $od['mng']['tel']];
+        $data[] = ['휴대폰번호', '', '', $od['od_orderer_hp'], '', '', '이메일주소', '', '', $od['mng']['email']];
+        $data[] = ['이메일주소', '', '', $od['od_orderer_email'], '', '', '펙스번호', '', '', $od['mng']['fax']];
+        $data[] = ['펙스번호', '', '', $od['od_orderer_fax']];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
 
         $goods_p = 0;
-        foreach ($od->orderGoods as $key => $odg) {
-            foreach ($odg->orderModel as $key => $odm) {
-                $this->gm_cnt++;
-                $data[] = [$this->gm_cnt, $odm->odm_gm_name, '', '', '', $odm->odm_gm_unit, '', number_format($odm->odm_price), '', $odm->odm_ea, number_format($odm->odm_price*$odm->odm_ea)];
-                $data[] = ['', $odm->odm_gm_catno.' / '.$odm->odm_gm_code];
-                $data[] = ['', $odm->odm_gm_spec];
-                $goods_p += $odm->odm_price*$odm->odm_ea;
+        $seq = 0;
+        foreach ($od['order_purchase_at'] as $opa) {
+            foreach ($opa['order_model'] as $k => $odm) {
+                if ($odm['odm_type'] == 'MODEL') {
+                    $seq++;
+                    $this->odm_map[] = 'm';
+                    if ( $opa['dlvy_all_in'] && $k == 0) {
+                        //  부동소수점 오류 해결을 위한 식
+                        $odm['odm_price'] += bcdiv($od['od_dlvy_price']/$odm['odm_ea'], 1.1);
+                        $this->od['od_dlvy_price']  = 0;
+                        $od['od_dlvy_price']        = 0;
+                        //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
+                    }
+                    $data[] = [$seq, $odm['odm_gm_name'], '', '', '', $odm['odm_gm_unit'], '', number_format($odm['odm_price']), '', $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea']) ];
+                    $data[] = ['', $odm['odm_gm_catno'].' / '.$odm['odm_gm_code']];
+                    $data[] = ['', $odm['odm_gm_spec']];
+                } else {
+                    $this->odm_map[] = 'o';
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', number_format($odm['odm_price']), '', $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea'])];
+                }
+                
+                $goods_p += $odm['odm_price']*$odm['odm_ea'];
             }
         }
         $data[] = [''];
         $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', number_format($goods_p)];
         $data[] = ['V. A. T.', '', '', '', '', '', '', surtax($goods_p, 1)];
-        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', rrp($goods_p, 1)];
+        if ($od['od_dlvy_price'])
+            $data[] = ['SHIPPING FEES', '', '', '', '', '', '', number_format($od['od_dlvy_price'])];
+        if ($od['od_air_price'])
+            $data[] = ['항공 운임료', '', '', '', '', '', '', number_format($od['od_air_price'])];
+        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', number_format(rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price'])];
         $data[] = [''];
         $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
         $data[] = ['발주일'];
@@ -88,20 +104,8 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $data[] = [''];
         $data[] = ['결제방식'];
         $data[] = [''];
-        $data[] = [cache('bank')->name01.' '.cache('bank')->num01.' '.cache('bank')->owner];
+        $data[] = [cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner']];
         $data[] = ['Your R&D Consultant www.4science.net'];
-
-
-
-
-
-
-
-
-
-
-
-
         return collect($data);
     }
 
@@ -144,51 +148,83 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $sheet->getRowDimension('15')->setRowHeight(18);
         $sheet->mergeCells('B15:E15')->mergeCells('F15:G15')->mergeCells('H15:I15')->mergeCells('K15:L15');
 
-
-        for ($i=0; $i < $this->gm_cnt; $i++) {
-            $r = 16+($i*3);
-            $sheet->getRowDimension($r)->setRowHeight(20);
-            $sheet->mergeCells('B'.$r.':E'.$r)->mergeCells('F'.$r.':G'.$r)->mergeCells('H'.$r.':I'.$r)->mergeCells('K'.$r.':L'.$r);
-            $sheet->getRowDimension($r+1)->setRowHeight(20);
-            $sheet->mergeCells('B'.($r+1).':L'.($r+1));
-            $sheet->getRowDimension($r+2)->setRowHeight(20);
-            $sheet->mergeCells('B'.($r+2).':L'.($r+2));
+        $n = 16;
+        foreach ($this->odm_map as $row) {
+            if ( $row == 'm' ) {
+                $sheet->getRowDimension($n)->setRowHeight(20);
+                $sheet->mergeCells("B{$n}:E{$n}")->mergeCells("F{$n}:G{$n}")->mergeCells("H{$n}:I{$n}")->mergeCells("K{$n}:L{$n}");
+                $n++;
+                $sheet->getRowDimension($n)->setRowHeight(20);
+                $sheet->mergeCells("B{$n}:L{$n}");
+                $n++;
+                $sheet->getRowDimension($n)->setRowHeight(20);
+                $sheet->mergeCells("B{$n}:L{$n}");
+                $n++;
+            } else {
+                $sheet->getRowDimension($n)->setRowHeight(20);
+                $sheet->mergeCells("B{$n}:E{$n}")->mergeCells("F{$n}:G{$n}")->mergeCells("H{$n}:I{$n}")->mergeCells("K{$n}:L{$n}");
+                $n++;
+            }
         }
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+        $n++;
+        if ($this->od['od_dlvy_price']) {
+            $sheet->getRowDimension($n)->setRowHeight(18);
+            $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+            $n++;
+        }
+        if ($this->od['od_air_price']) {
+            $sheet->getRowDimension($n)->setRowHeight(18);
+            $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+            $n++;
+        }
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:G{$n}")->mergeCells("H{$n}:L{$n}");
+        $n+=2;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+17)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+17).':G'.(($this->gm_cnt*3)+17))->mergeCells('H'.(($this->gm_cnt*3)+17).':L'.(($this->gm_cnt*3)+17));
-        $sheet->getRowDimension(($this->gm_cnt*3)+18)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+18).':G'.(($this->gm_cnt*3)+18))->mergeCells('H'.(($this->gm_cnt*3)+18).':L'.(($this->gm_cnt*3)+18));
-        $sheet->getRowDimension(($this->gm_cnt*3)+19)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+19).':G'.(($this->gm_cnt*3)+19))->mergeCells('H'.(($this->gm_cnt*3)+19).':L'.(($this->gm_cnt*3)+19));
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $n++;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+21)->setRowHeight(18);
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        $n++;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+22)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+22).':E'.(($this->gm_cnt*3)+22))->mergeCells('F'.(($this->gm_cnt*3)+22).':L'.(($this->gm_cnt*3)+22));
-        $sheet->getRowDimension(($this->gm_cnt*3)+23)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+23).':E'.(($this->gm_cnt*3)+23))->mergeCells('F'.(($this->gm_cnt*3)+23).':L'.(($this->gm_cnt*3)+23));
-        $sheet->getRowDimension(($this->gm_cnt*3)+24)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+24).':E'.(($this->gm_cnt*3)+24))->mergeCells('F'.(($this->gm_cnt*3)+24).':L'.(($this->gm_cnt*3)+24));
-        $sheet->getRowDimension(($this->gm_cnt*3)+25)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+25).':E'.(($this->gm_cnt*3)+25))->mergeCells('F'.(($this->gm_cnt*3)+25).':L'.(($this->gm_cnt*3)+25));
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E".$n+2)->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet/*->mergeCells("A{$n}:E{$n}")*/->mergeCells("F{$n}:L{$n}");
+        $n++;
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:L{$n}");
+        $n++;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+26)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+26).':E'.(($this->gm_cnt*3)+28))->mergeCells('F'.(($this->gm_cnt*3)+26).':L'.(($this->gm_cnt*3)+26));
-        $sheet->getRowDimension(($this->gm_cnt*3)+27)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.(($this->gm_cnt*3)+27).':E'.(($this->gm_cnt*3)+27))*/->mergeCells('F'.(($this->gm_cnt*3)+27).':L'.(($this->gm_cnt*3)+27));
-        $sheet->getRowDimension(($this->gm_cnt*3)+28)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.(($this->gm_cnt*3)+28).':E'.(($this->gm_cnt*3)+28))*/->mergeCells('F'.(($this->gm_cnt*3)+28).':L'.(($this->gm_cnt*3)+28));
-        $sheet->getRowDimension(($this->gm_cnt*3)+29)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+29).':E'.(($this->gm_cnt*3)+29))->mergeCells('F'.(($this->gm_cnt*3)+29).':L'.(($this->gm_cnt*3)+29));
+        $sheet->getRowDimension($n)->setRowHeight(8);
+        $n++;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+30)->setRowHeight(8);
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:L{$n}");
+        $n++;
 
-        $sheet->getRowDimension(($this->gm_cnt*3)+31)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+31).':L'.(($this->gm_cnt*3)+31));
-
-        $sheet->getRowDimension(($this->gm_cnt*3)+32)->setRowHeight(18);
-        $sheet->mergeCells('A'.(($this->gm_cnt*3)+32).':L'.(($this->gm_cnt*3)+32));
+        $sheet->getRowDimension($n)->setRowHeight(18);
+        $sheet->mergeCells("A{$n}:L{$n}");
 
         $tit01 = [ 'font' => ['size' => 9, 'bold' => true], 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ]];
         $sheet_style = [
@@ -297,27 +333,47 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
-        for ($i=0; $i < $this->gm_cnt; $i++) {
-            $r = 16+($i*3);
-            $sheet_style['A'.$r] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-            $sheet_style['H'.$r] = $text_right;
-            $sheet_style['J'.$r] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-            $sheet_style['K'.$r] = $text_right;
 
-            $sheet_style['A'.$r.':L'.$r] = $border_medium_dashed;
-            $sheet_style['A'.($r+1).':L'.($r+1)] = $border_medium_dashed;
-            $sheet_style['A'.($r+2).':L'.($r+2)] = [
-                'borders' => [
-                    'bottom' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                        'color' => ['argb' => 'FFD5D5D5'],
+        $r = 16;
+        foreach ($this->odm_map as $row) {
+            if ( $row == 'm' ) {
+                $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+                $sheet_style["H{$r}"] = $text_right;
+                $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+                $sheet_style["K{$r}"] = $text_right;
+
+                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+                $r++;
+                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+                $r++;
+                $sheet_style["A{$r}:L{$r}"] = [
+                    'borders' => [
+                        'bottom' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'color' => ['argb' => 'FFD5D5D5'],
+                        ],
                     ],
-                ],
-            ];
+                ];
+                $r++;
+            } else {
+                $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+                $sheet_style["H{$r}"] = $text_right;
+                $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+                $sheet_style["K{$r}"] = $text_right;
+
+                $sheet_style["A{$r}:L{$r}"] = [
+                    'borders' => [
+                        'bottom' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'color' => ['argb' => 'FFD5D5D5'],
+                        ],
+                    ],
+                ];
+                $r++;
+            }
         }
 
-
-        $sheet_style['A'.(($this->gm_cnt*3)+16).':L'.(($this->gm_cnt*3)+16)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -325,16 +381,28 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r++;
+        
+        $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+        $r++;
+        $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+        $r++;
+        if ($this->od['od_dlvy_price']) {
+            $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+            $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+            $r++;
+        }
+        if ($this->od['od_air_price']) {
+            $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+            $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+            $r++;
+        }
 
-        $sheet_style['A'.(($this->gm_cnt*3)+17)] = Arr::collapse([['font' => ['size' => 17, 'bold' => true]], $text_right]);
-        $sheet_style['A'.(($this->gm_cnt*3)+17)] = $sheet_style['H'.(($this->gm_cnt*3)+17)] = $text_right;
-        $sheet_style['A'.(($this->gm_cnt*3)+17).':L'.(($this->gm_cnt*3)+17)] = $border_medium_dashed;
-        $sheet_style['A'.(($this->gm_cnt*3)+18)] = $sheet_style['H'.(($this->gm_cnt*3)+18)] = $text_right;
-        $sheet_style['A'.(($this->gm_cnt*3)+18).':L'.(($this->gm_cnt*3)+18)] = $border_medium_dashed;
-
-        $sheet_style['A'.(($this->gm_cnt*3)+19)] = Arr::collapse([['font' => ['bold' => true]], $text_right]);
-        $sheet_style['H'.(($this->gm_cnt*3)+19)] = $text_right;
-        $sheet_style['A'.(($this->gm_cnt*3)+19).':L'.(($this->gm_cnt*3)+19)] = [
+        $sheet_style["A{$r}"] = Arr::collapse([['font' => ['bold' => true]], $text_right]);
+        $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = [
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -342,8 +410,9 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r+=2;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+21).':L'.(($this->gm_cnt*3)+21)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['bold' => true],
             'borders' => [
                 'bottom' => [
@@ -352,8 +421,9 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r++;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+22).':L'.(($this->gm_cnt*3)+25)] = [
+        $sheet_style["A{$r}:L".$r+3] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -367,8 +437,9 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r+=4;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+26).':E'.(($this->gm_cnt*3)+28)] = [
+        $sheet_style["A{$r}:E".$r+2] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -378,8 +449,9 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r+=3;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+29).':L'.(($this->gm_cnt*3)+29)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -397,8 +469,9 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r++;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+30).':L'.(($this->gm_cnt*3)+30)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -406,13 +479,15 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
+        $r++;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+31).':L'.(($this->gm_cnt*3)+31)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['size' => 12],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
         ];
+        $r++;
 
-        $sheet_style['A'.(($this->gm_cnt*3)+32).':L'.(($this->gm_cnt*3)+32)] = [
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['color' =>  ['argb' => 'FFFFFFFF'], 'bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [

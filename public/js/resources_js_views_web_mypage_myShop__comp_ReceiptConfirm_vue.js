@@ -57,9 +57,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['item'],
   data: function data() {
     return {
-      frm: {
-        bo_gd_id: this.item.goods.gd_id,
+      boFrm: {
+        bo_gd_id: this.item.odm_gd_id,
         bo_good: 100
+      },
+      odFrm: {
+        _method: 'PATCH',
+        type: 'receipt_confirm'
       }
     };
   },
@@ -68,26 +72,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var resBo, resOr;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (isEmpty(_this.frm.bo_subject)) _this.frm.bo_subject = _this.item.goods.gd_name;
-                if (isEmpty(_this.frm.bo_content)) _this.frm.bo_content = "만족";
+                if (isEmpty(_this.boFrm.bo_subject)) _this.boFrm.bo_subject = _this.item.odm_gd_name;
+                if (isEmpty(_this.boFrm.bo_content)) _this.boFrm.bo_content = "만족";
                 _context.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/board/review/store", _this.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/board/review/store", _this.boFrm);
 
               case 4:
-                res = _context.sent;
+                resBo = _context.sent;
+                _this.odFrm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                _this.odFrm, // 수정하려는 객체
+                _this.item // 삽입하려는 내용
+                );
+                _context.next = 8;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/".concat(_this.item.odm_od_id), _this.odFrm);
 
-                if (res && res.status === 200) {
+              case 8:
+                resOr = _context.sent;
+
+                if (resOr && resOr.status === 200) {
+                  _this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
                   Notify.toast('success', '수취 확인 완료');
 
                   _this.$emit('hide_modal');
                 }
 
-              case 6:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -254,13 +268,11 @@ var render = function () {
     _c(
       "div",
       { staticClass: "head" },
-      [_c("b-img", { attrs: { src: _vm.item.goods.image_src_thumb[0] } })],
+      [_c("b-img", { attrs: { src: _vm.item.img_src } })],
       1
     ),
     _vm._v(" "),
-    _c("p", { staticClass: "gd_name" }, [
-      _vm._v(_vm._s(_vm.item.goods.gd_name)),
-    ]),
+    _c("p", { staticClass: "gd_name" }, [_vm._v(_vm._s(_vm.item.odm_gd_name))]),
     _vm._v(" "),
     _c("div", { staticClass: "body" }, [
       _c("p", [_vm._v("제품을 잘 받으셨나요?")]),
@@ -276,11 +288,11 @@ var render = function () {
             {
               attrs: { inline: "", value: "100" },
               model: {
-                value: _vm.frm.bo_good,
+                value: _vm.boFrm.bo_good,
                 callback: function ($$v) {
-                  _vm.$set(_vm.frm, "bo_good", $$v)
+                  _vm.$set(_vm.boFrm, "bo_good", $$v)
                 },
-                expression: "frm.bo_good",
+                expression: "boFrm.bo_good",
               },
             },
             [_vm._v("만족")]
@@ -291,11 +303,11 @@ var render = function () {
             {
               attrs: { inline: "", value: "50" },
               model: {
-                value: _vm.frm.bo_good,
+                value: _vm.boFrm.bo_good,
                 callback: function ($$v) {
-                  _vm.$set(_vm.frm, "bo_good", $$v)
+                  _vm.$set(_vm.boFrm, "bo_good", $$v)
                 },
-                expression: "frm.bo_good",
+                expression: "boFrm.bo_good",
               },
             },
             [_vm._v("보통")]
@@ -306,11 +318,11 @@ var render = function () {
             {
               attrs: { inline: "", value: "10" },
               model: {
-                value: _vm.frm.bo_good,
+                value: _vm.boFrm.bo_good,
                 callback: function ($$v) {
-                  _vm.$set(_vm.frm, "bo_good", $$v)
+                  _vm.$set(_vm.boFrm, "bo_good", $$v)
                 },
-                expression: "frm.bo_good",
+                expression: "boFrm.bo_good",
               },
             },
             [_vm._v("불만족")]
@@ -325,18 +337,18 @@ var render = function () {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.frm.bo_subject,
-              expression: "frm.bo_subject",
+              value: _vm.boFrm.bo_subject,
+              expression: "boFrm.bo_subject",
             },
           ],
           attrs: { id: "bo_subject", required: "" },
-          domProps: { value: _vm.frm.bo_subject },
+          domProps: { value: _vm.boFrm.bo_subject },
           on: {
             input: function ($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.frm, "bo_subject", $event.target.value)
+              _vm.$set(_vm.boFrm, "bo_subject", $event.target.value)
             },
           },
         }),
@@ -350,18 +362,18 @@ var render = function () {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.frm.bo_content,
-              expression: "frm.bo_content",
+              value: _vm.boFrm.bo_content,
+              expression: "boFrm.bo_content",
             },
           ],
           attrs: { id: "'bo_content", rows: "5", required: "" },
-          domProps: { value: _vm.frm.bo_content },
+          domProps: { value: _vm.boFrm.bo_content },
           on: {
             input: function ($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.frm, "bo_content", $event.target.value)
+              _vm.$set(_vm.boFrm, "bo_content", $event.target.value)
             },
           },
         }),

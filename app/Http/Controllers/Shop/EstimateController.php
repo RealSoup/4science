@@ -8,18 +8,22 @@ use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, 
 use App\Models\{FileInfo};
 use App\Http\Requests\StoreEstimateReq;
 use Illuminate\Support\Arr;
+use DB;
 
 class EstimateController extends Controller {
 
     public function index(EstimateReq $eq, Request $req) {
-        if ($req->filled('startDate'))  $eq = $eq->StartDate($req->startDate.' 00:00:00');
-        if ($req->filled('endDate'))  	$eq = $eq->EndDate($req->endDate.' 23:59:59');
+        if ($req->filled('startDate'))  $eq = $eq->StartDate($req->startDate);
+        if ($req->filled('endDate'))  	$eq = $eq->EndDate($req->endDate);
 
-        $eq = $eq->CreatedId(auth()->user()->id)->latest();
-        $eq = $eq->paginate();
-        $eq->appends($req->all())->links();
-        foreach ($eq as $v)
-            $v->estimateReply;
+        $eq = $eq->with('estimateReply')->CreatedId(auth()->user()->id)->latest();
+        
+        if ($req->filled('limit'))
+            $eq = $eq->limit($req->limit)->get();
+        else {
+            $eq = $eq->paginate();
+            $eq->appends($req->all())->links();
+		}
         return response()->json($eq, 200);
     }
 
@@ -34,11 +38,12 @@ class EstimateController extends Controller {
         $eq_title = '';
         $item_cnt = 0;
         if ($req->filled('lists') && count($req->lists)) {
-            foreach ($req->lists as $pa) {
-                foreach ($pa['list'] as $gd) {
+            foreach ($req->lists as $pa_group) {    //  주문 갯수
+                foreach ($pa_group as $item){
                     if ($eq_title == '')
-                        $eq_title = $gd['goods_model'][0]['gm_name'];
-                    $item_cnt += count($gd['goods_model']);
+                        $eq_title = $item['gd_name'];
+                    if ( $item['type'] == 'model' )
+                        $item_cnt++;
                 }
             }
             if ($item_cnt > 1)
@@ -63,49 +68,51 @@ class EstimateController extends Controller {
             "eq_department" => $req->filled('eq_department')    ? $req->eq_department   : '',
             "eq_1depth"     => $req->filled('eq_1depth')        ? $req->eq_1depth       : '',
             "eq_content"    => $req->filled('eq_content')       ? $req->eq_content      : '',
-
             'ip'            => $req->ip(),
             'created_id'    => auth()->check() ? auth()->user()->id : 0
         ]);
 
         if ($req->filled('lists')) {
-            foreach ($req->lists as $pa) {
-                foreach ($pa['list'] as $gd) {
-                    $em_id = 0;
-                    foreach ($gd['goods_model'] as $gm) {
-                        $em_id = EstimateModel::insertGetId([
+            foreach ($req->lists as $pa_id => $pa) {
+                $insert_tmp = array();
+                foreach ($pa as $item) {
+                    if ($item['type'] == 'model') {
+                        $insert_tmp[] = array(
                             'em_type'       => 'estimateReq',
+                            'em_model_type' => 'MODEL',
                             'em_papa_id'    => $eq_id,
-                            'em_gd_id'      => $gd['gd_id'],
-                            'em_gm_id'      => $gm['gm_id'],
-                            'em_name'       => $gm['gm_name'],
-                            'em_catno01'    => $gm['gm_catno01'],
-                            'em_catno02'    => $gm['gm_catno02'],
-                            'em_catno03'    => $gm['gm_catno03'],
-                            'em_code'       => $gm['gm_code'],
-                            'em_unit'       => $gm['gm_unit'],
-                            'em_spec'       => $gm['gm_spec'],
-                            'em_maker'      => $gd['maker']['mk_name'],
-                            'em_ea'         => $gm['ea'],
-                            'em_cost_price' => $gm['gm_price'],
-                            'em_price'      => $gm['gm_price'],
-                        ]);
+                            'em_gd_id'      => $item['gd_id'],
+                            'em_gm_id'      => $item['gm_id'],
+                            'em_name'       => $item['gm_name'],
+                            'em_catno'      => $item['gm_catno'],
+                            'em_code'       => $item['gm_code'],
+                            'em_unit'       => $item['gm_unit'],
+                            'em_spec'       => $item['gm_spec'],
+                            'em_maker'      => $item['mk_name'],
+                            'em_ea'         => $item['ea'],
+                            'em_cost_price' => $item['price'],
+                            'em_price'      => $item['price'],
+                        );
+                    } else if ($item['type'] == 'option') {
+                        $insert_tmp[] = array(
+                            'em_type'       => 'estimateReq',
+                            'em_model_type' => 'OPTION',
+                            'em_papa_id'    => $eq_id,
+                            'em_gd_id'      => $item['gd_id'],
+                            'em_gm_id'      => $item['opc_id'],
+                            'em_name'       => $item['op_name'],
+                            'em_catno'      => '',
+                            'em_code'       => '',
+                            'em_unit'       => '',
+                            'em_spec'       => $item['opc_name'],
+                            'em_maker'      => '',
+                            'em_ea'         => $item['ea'],
+                            'em_cost_price' => $item['price'],
+                            'em_price'      => $item['price'],
+                        );                       
                     }
-                    if (array_key_exists('option_child', $gd)) {
-                        foreach ($gd['option_child'] as $opc) {
-                            EstimateOption::insert([
-                                'eo_em_id'  => $em_id,
-                                'eo_gd_id'  => $gd['gd_id'],
-                                'eo_opc_id' => $opc['opc_id'],
-                                'eo_tit'    => $opc['option']['op_name'],
-                                'eo_name'   => $opc['opc_name'],
-                                'eo_ea'     => $opc['ea'],
-                                'eo_price'  => $opc['opc_price'],
-                            ]);
-                        }
-                    }
-
-                }
+                }                    
+                DB::table('shop_estimate_model')->insert($insert_tmp);
             }
         }
         if ($eq_id) return response()->json($eq_id, 200);

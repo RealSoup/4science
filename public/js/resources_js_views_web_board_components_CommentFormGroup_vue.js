@@ -150,8 +150,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (file.files.length) frm.append("file", file.files[0]);
       frm.append("bo_subject", 'comment');
       frm.append("bo_content", this.bo_content);
-      frm.append('fi_type', 'board');
-      frm.append('fi_path', this.bo_cd);
+      frm.append('fi_group', 'board');
+      frm.append('fi_kind', this.bo_cd);
       frm.append('is_thumb', true);
       return frm;
     },

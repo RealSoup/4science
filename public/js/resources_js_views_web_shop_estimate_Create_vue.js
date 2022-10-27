@@ -315,61 +315,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -377,6 +322,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     'Validation': function Validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
+    },
+    'PaList': function PaList() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList.vue */ "./resources/js/views/web/_module/PaList.vue"));
     }
   },
   data: function data() {
@@ -409,33 +357,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
+                console.log(_this.od_goods);
+                _context.next = 4;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/estimate/create", {
                   goods: _this.od_goods
                 });
 
-              case 3:
+              case 4:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.frm.lists = res.data.lists;
                 }
 
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.responsee);
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[0, 8]]);
       }))();
     },
     store: function store() {
@@ -4414,7 +4363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html& */ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html&");
+/* harmony import */ var _Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=109c2224&scoped=true& */ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&");
 /* harmony import */ var _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create.vue?vue&type=script&lang=js& */ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=script&lang=js&");
 /* harmony import */ var _Create_vue_vue_type_style_index_0_id_109c2224_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Create.vue?vue&type=style&index=0&id=109c2224&lang=css&scoped=true& */ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=style&index=0&id=109c2224&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -4428,8 +4377,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "109c2224",
@@ -4519,19 +4468,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true& ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_109c2224_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=109c2224&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&");
 
 
 /***/ }),
@@ -4652,10 +4601,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&lang=html& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/Create.vue?vue&type=template&id=109c2224&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4678,257 +4627,14 @@ var render = function () {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _vm._l(_vm.frm.lists, function (pa, idx) {
-        return [
-          _c(
-            "b-card",
-            {
-              key: idx,
-              staticClass: "shadow mt-3",
-              attrs: { "header-tag": "header" },
-              scopedSlots: _vm._u(
-                [
-                  {
-                    key: "header",
-                    fn: function () {
-                      return [
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              pa.list[0].purchase_at
-                                ? pa.list[0].purchase_at.pa_name
-                                : "4SCIENCE"
-                            )
-                          ),
-                        ]),
-                        _vm._v(" 직배송 상품"),
-                      ]
-                    },
-                    proxy: true,
-                  },
-                ],
-                null,
-                true
-              ),
-            },
-            [
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { attrs: { fluid: "" } },
-                [
-                  _c(
-                    "b-row",
-                    { staticClass: "mt-3" },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "col" },
-                        [
-                          _vm._l(pa.list, function (gd, gd_idx) {
-                            return [
-                              _vm._l(gd.goods_model, function (gm, gm_idx) {
-                                return [
-                                  _c(
-                                    "b-row",
-                                    {
-                                      key:
-                                        idx + "_gd" + gd_idx + "_gm" + gm_idx,
-                                      staticClass: "mt-3",
-                                    },
-                                    [
-                                      _c("b-col", { attrs: { cols: "2" } }, [
-                                        _c("img", {
-                                          attrs: { src: gd.image_src_thumb[0] },
-                                        }),
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        { attrs: { cols: "5" } },
-                                        [
-                                          _c("b", [_vm._v(_vm._s(gd.gd_name))]),
-                                          _vm._v(" "),
-                                          _c("P", { staticClass: "bg-light" }, [
-                                            _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(gm.gm_name) +
-                                                " /\n                                            " +
-                                                _vm._s(gm.gm_catno) +
-                                                " /\n                                            " +
-                                                _vm._s(gm.gm_code) +
-                                                " /\n                                            " +
-                                                _vm._s(gm.gm_spec) +
-                                                " /\n                                            " +
-                                                _vm._s(gm.gm_unit) +
-                                                " /\n                                        "
-                                            ),
-                                          ]),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("b-col", { attrs: { cols: "2" } }, [
-                                        _vm._v(
-                                          "\n                                        " +
-                                            _vm._s(gd.maker.mk_name) +
-                                            "\n                                    "
-                                        ),
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        {
-                                          staticClass: "text-right",
-                                          attrs: { cols: "3" },
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                _vm._f("comma")(
-                                                  gm.gm_price_add_vat
-                                                )
-                                              ) +
-                                              " X " +
-                                              _vm._s(gm.ea) +
-                                              " = " +
-                                              _vm._s(
-                                                _vm._f("comma")(
-                                                  gm.gm_price_add_vat * gm.ea
-                                                )
-                                              ) +
-                                              " 원\n                                    "
-                                          ),
-                                        ]
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                ]
-                              }),
-                              _vm._v(" "),
-                              gd.option_child
-                                ? [
-                                    _c(
-                                      "b-row",
-                                      { staticClass: "mt-5 bg-warning" },
-                                      [
-                                        _c("b-col", [
-                                          _c("b", [_vm._v("추가 옵션")]),
-                                        ]),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._l(
-                                      gd.option_child,
-                                      function (opc, opc_idx) {
-                                        return [
-                                          _c(
-                                            "b-row",
-                                            {
-                                              key:
-                                                idx +
-                                                "_gd" +
-                                                gd_idx +
-                                                "_opc" +
-                                                opc_idx,
-                                              staticClass: "mt-3",
-                                            },
-                                            [
-                                              _c(
-                                                "b-col",
-                                                { attrs: { cols: "6" } },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        opc.option.op_name
-                                                      ) +
-                                                      ": " +
-                                                      _vm._s(opc.opc_name) +
-                                                      "\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-col",
-                                                {
-                                                  staticClass: "text-right",
-                                                  attrs: { cols: "6" },
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                            " +
-                                                      _vm._s(
-                                                        opc.opc_price_add_vat
-                                                      ) +
-                                                      " X " +
-                                                      _vm._s(opc.ea) +
-                                                      " = " +
-                                                      _vm._s(
-                                                        _vm._f("comma")(
-                                                          opc.opc_price_add_vat *
-                                                            opc.ea
-                                                        )
-                                                      ) +
-                                                      " 원\n                                        "
-                                                  ),
-                                                ]
-                                              ),
-                                            ],
-                                            1
-                                          ),
-                                        ]
-                                      }
-                                    ),
-                                  ]
-                                : _vm._e(),
-                            ]
-                          }),
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        {
-                          staticClass:
-                            "bg-info text-white align-items-center justify-content-center d-flex",
-                          attrs: { cols: "2" },
-                        },
-                        [
-                          pa.price.air_add_vat
-                            ? [_vm._v("항공운임료")]
-                            : [_vm._v("배송비")],
-                          _vm._v(" "),
-                          _c("br"),
-                          _vm._v(
-                            "\n                         " +
-                              _vm._s(
-                                _vm._f("comma")(
-                                  pa.price.air_add_vat
-                                    ? pa.price.air_add_vat
-                                    : pa.price.dlvy_add_vat
-                                )
-                              ) +
-                              " 원\n                    "
-                          ),
-                        ],
-                        2
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ]
+      _c("PaList", {
+        model: {
+          value: _vm.frm.lists,
+          callback: function ($$v) {
+            _vm.$set(_vm.frm, "lists", $$v)
+          },
+          expression: "frm.lists",
+        },
       }),
       _vm._v(" "),
       _c(
@@ -5415,7 +5121,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("file-upload", {
                     ref: "fileupload",
-                    attrs: { fi_type: "estimateReq", fi_path: "add" },
+                    attrs: { fi_group: "estimateReq", fi_kind: "add" },
                     model: {
                       value: _vm.files,
                       callback: function ($$v) {
@@ -5444,7 +5150,7 @@ var render = function () {
         [_vm._v("요청하기")]
       ),
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []

@@ -87,7 +87,7 @@
 import ax from '@/api/http';
 export default {
     components: {
-        'SchDate': () => import('@/views/admin/_module/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
     },
     data() {
         return {

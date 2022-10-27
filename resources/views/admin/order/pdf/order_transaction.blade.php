@@ -80,8 +80,8 @@ table tr th, table tr td { padding:5px; }
         </tr>
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
-                <p>{{ $trans_date ? $trans_date : date('Y년 m월 d일') }}</p>
-                <p>{{ $trans_receive ? $trans_receive : $od->od_department }} 귀하</p>
+                <p>{{ isset($trans_date) ? $trans_date : date('Y년 m월 d일') }}</p>
+                <p>{{ isset($trans_receive) ? $trans_receive : $od_department }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
             <td align="center" valign="middle"><img src="./img/common/addr_estimate200921.gif" width="270px" /></td>
@@ -102,22 +102,38 @@ table tr th, table tr td { padding:5px; }
 $no=1;
 $goods_p = 0;
 @endphp
-@foreach ($od->orderGoods as $odg)
-    @foreach ($odg->orderModel as $odm)
+@foreach ($order_purchase_at as $opa)
+    @foreach ($opa['order_model'] as $odm)
         <tr class="line01">
-            <td>{{ $no }}</td>
-            <td>{{ $odm->odm_gm_name }}</td>
-            <td>{{ $odm->odm_gm_catno }}</td>
-            <td>{{ $odm->odm_gm_code }}</td>
-            <td>{{ number_format($odm->odm_price) }}</td>
-            <td>{{ $odm->odm_ea }}</td>
-            <td>{{ number_format($odm->odm_price*$odm->odm_ea) }}</td>
+            @if ($odm['odm_type'] == 'MODEL')
+                @if ( $opa['dlvy_all_in'] && $loop->first)
+                    @php
+
+                    //  부동소수점 오류 해결을 위한 식
+                    $odm['odm_price'] += bcdiv( $od_dlvy_price/$odm['odm_ea'], 1.1 );
+                    $od_dlvy_price = 0;
+
+                    @endphp
+                @endif
+                <td>{{ $no }}</td>
+                <td>{{ $odm['odm_gm_name'] }}</td>
+                <td>{{ $odm['odm_gm_catno'] }}</td>
+                <td>{{ $odm['odm_gm_code'] }}</td>
+            @else
+                <td></td>
+                <td>{{ $odm['odm_gm_name'] }}: {{ $odm['odm_gm_spec'] }}</td>
+                <td></td>
+                <td></td>
+            @endif
+            <td>{{ number_format($odm['odm_price']) }}</td>
+            <td>{{ $odm['odm_ea'] }}</td>
+            <td>{{ number_format($odm['odm_price']*$odm['odm_ea']) }}</td>
         </tr>
 
         @php
 
         $no++;
-        $goods_p += $odm->odm_price*$odm->odm_ea;
+        $goods_p += $odm['odm_price']*$odm['odm_ea'];
 
         @endphp
     @endforeach
@@ -125,15 +141,21 @@ $goods_p = 0;
 
         <tr class="line03 line04"><td colspan="4">SUPPLY PRICE</td>   <td colspan="3">{{ number_format($goods_p) }}</td></tr>
         <tr class="line03 line04"><td colspan="4">V.A.T</td>          <td colspan="3">{{ surtax($goods_p, 1) }}</td></tr>
-        <tr class="line03 line05"><td colspan="4">TOTAL AMOUNT</td>   <td colspan="3">{{ rrp($goods_p, 1) }}</td></tr>
+            @if ($od_dlvy_price)
+            <tr class="line03 line04"><td colspan="4">SHIPPING FEES</td>  <td colspan="3">{{ number_format($od_dlvy_price) }}</td></tr>
+            @endif
+            @if ($od_air_price)
+            <tr class="line03 line04"><td colspan="4">항공 운임료</td>     <td colspan="3">{{ number_format($od_air_price) }}</td></tr>
+            @endif
+        <tr class="line03 line05"><td colspan="4">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format(rrp($goods_p)+$od_dlvy_price+$od_air_price) }}</td></tr>
     </table>
 
     <table class="bottom">
         <tr>
             <td>
-                <p>담당자 : {{$od->mng->name}} {{$od->mng->userMng->um_position}}, TEL : {{$od->mng->tel}}, FAX : {{$od->mng->fax}}</p>
-                계좌번호 : {{cache('bank')->name01}} {{cache('bank')->num01}},
-                            {{cache('bank')->name02}} {{cache('bank')->num02}} {{cache('bank')->owner}}
+                <p>담당자 : {{$mng['name']}} {{$mng['user_mng']['pos_name']}}, TEL : {{$mng['tel']}}, FAX : {{$mng['fax']}}</p>
+                계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
+                            {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
             </td>
         </tr>
         <tr>

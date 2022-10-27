@@ -40,7 +40,7 @@ class CommonController extends Controller {
     public function uploadSimple(Request $req) {
         $file = $req->file;
         if($file) {
-            $this->file_upload($file, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb);
+            $this->file_upload($file, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb, $req->fi_kind);
             return response()->json("/storage/{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}", 200);
         }
            
@@ -76,12 +76,12 @@ class CommonController extends Controller {
     //     return $this->getImage($path, $fi->fi_new);
     // }
 
-    public function download($fi_id) {
-        $fi = FileInfo::findOrFail($fi_id);
-        // $fi->increment('down');
-        // return response()->download(storage_path('app/public/'. $fi->fi_path. '/'. $fi->fi_new), $fi->fi_original);
-        return response()->json(['path'=>storage_path('app/public/'. $fi->fi_room. '/'. $fi->fi_new), 'name'=>$fi->fi_original], 200);
-    }
+    // public function download($fi_id) {
+    //     $fi = FileInfo::findOrFail($fi_id);
+    //     // $fi->increment('down');
+    //     // return response()->download(storage_path('app/public/'. $fi->fi_kind. '/'. $fi->fi_new), $fi->fi_original);
+    //     return response()->json(['path'=>storage_path('app/public/'. $fi->fi_room. '/'. $fi->fi_new), 'name'=>$fi->fi_original], 200);
+    // }
 
     public function downloadGoods($fi_id) {
         $fi = FileGoods::findOrFail($fi_id);

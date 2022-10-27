@@ -97,9 +97,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerCell',
-  props: ['value'],
+  props: ['value', 'pay_type_option'],
   data: function data() {
     return {};
   },
@@ -357,43 +369,15 @@ var render = function () {
                     _vm._v("◖결제방식◗"),
                   ]),
                   _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "CARD" } }, [
-                    _vm._v("온라인 카드"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "PSYS" } }, [
-                    _vm._v("PSYS"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "BILL" } }, [
-                    _vm._v("계산서"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "STAT" } }, [
-                    _vm._v("전표"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "CASH" } }, [
-                    _vm._v("현금영수증"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "MEMB" } }, [
-                    _vm._v("회원"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "REV" } }, [
-                    _vm._v("역발행"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "NOT" } }, [
-                    _vm._v("미발급"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-select-option", { attrs: { value: "CXL" } }, [
-                    _vm._v("거래 취소"),
-                  ]),
+                  _vm._l(_vm.pay_type_option, function (v, k) {
+                    return _c(
+                      "b-form-select-option",
+                      { key: k, attrs: { value: k } },
+                      [_vm._v(_vm._s(v))]
+                    )
+                  }),
                 ],
-                1
+                2
               ),
               _vm._v(" "),
               _c("label", { attrs: { for: "lg_pay_type" } }, [
@@ -562,36 +546,77 @@ var render = function () {
             { staticClass: "awesome_p" },
             [
               _c("b-form-input", {
-                attrs: { id: "lg_email", required: "" },
+                attrs: { id: "lg_od_name", required: "" },
                 model: {
-                  value: _vm.value.lg_email,
+                  value: _vm.value.lg_od_name,
                   callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_email", $$v)
+                    _vm.$set(_vm.value, "lg_od_name", $$v)
                   },
-                  expression: "value.lg_email",
+                  expression: "value.lg_od_name",
                 },
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: "lg_email" } }, [_vm._v("메일")]),
+              _c("label", { attrs: { for: "lg_od_name" } }, [_vm._v("주문명")]),
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "b-col",
+            { staticClass: "awesome_p" },
             [
               _c("b-form-input", {
-                attrs: { type: "text", id: "lg_hp", formatter: _vm.formatHp },
+                attrs: { id: "lg_tax_email", required: "" },
                 model: {
-                  value: _vm.value.lg_hp,
+                  value: _vm.value.lg_tax_email,
                   callback: function ($$v) {
-                    _vm.$set(_vm.value, "lg_hp", $$v)
+                    _vm.$set(_vm.value, "lg_tax_email", $$v)
                   },
-                  expression: "value.lg_hp",
+                  expression: "value.lg_tax_email",
                 },
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: "lg_hp" } }, [_vm._v("HP")]),
+              _c("label", { attrs: { for: "lg_tax_email" } }, [_vm._v("메일")]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "awesome_p" },
+            [
+              _c("b-form-input", {
+                attrs: { id: "lg_tax_email", required: "" },
+                model: {
+                  value: _vm.value.lg_tax_email,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "lg_tax_email", $$v)
+                  },
+                  expression: "value.lg_tax_email",
+                },
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "lg_tax_email" } }, [_vm._v("메일")]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "awesome_p" },
+            [
+              _c("b-form-input", {
+                attrs: { id: "lg_tax_hp", required: "" },
+                model: {
+                  value: _vm.value.lg_tax_hp,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "lg_tax_hp", $$v)
+                  },
+                  expression: "value.lg_tax_hp",
+                },
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "lg_tax_hp" } }, [_vm._v("HP")]),
             ],
             1
           ),

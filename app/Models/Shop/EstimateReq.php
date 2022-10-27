@@ -33,8 +33,8 @@ class EstimateReq extends Model {
     public function scopeEqEmail($query, $keyword) { return $query->where('eq_email', 'like', "%" . $keyword . "%"); }
 
     public function scopeEqHp($query, $keyword) { return $query->where('eq_hp', 'like', "%" . $keyword . "%"); }
-    public function scopeStartDate($query, $date) { return $query->where('shop_estimate_req.created_at', '>=', $date); }
-    public function scopeEndDate($query, $date) { return $query->where('shop_estimate_req.created_at', '<=', $date); }
+    public function scopeStartDate($q, $d)          { return $q->whereDate('shop_estimate_req.created_at', '>=', $d); }
+    public function scopeEndDate($q, $d)            { return $q->whereDate('shop_estimate_req.created_at', '<=', $d); }
     public function scopeEqType($query, $type) { return $query->where('eq_type', $type); }
     public function scopeEqStep($query, $step) { return $query->where('eq_step', $step); }
     public function scopeEqMng($query, $mng) { return $query->where('eq_mng', $mng); }

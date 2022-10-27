@@ -11,19 +11,19 @@ class MileageSubscriber {
     }
 
     public function Mileage($event) {
-        if ($event->type == 'insert') {
+        if ($event->mode == 'insert') {
             DB::table('mileage')->insert( [
-                'ml_uid' => auth()->user()->id,
-                'ml_type' => $event->ml_type,
-                'ml_key' => $event->key,
-                'ml_content' => $event->content,
-                'ml_mileage' => $event->mileage,
-                'ml_enable_p' => $event->mileage,
+                'ml_uid'        => $event->uid,
+                'ml_tbl'        => $event->tbl,
+                'ml_key'        => $event->key,
+                'ml_type'       => $event->type,
+                'ml_content'    => $event->content,
+                'ml_enable_m'   => $event->mileage,
                 'created_id' => auth()->user()->id
             ] );
-        } else if ($event->type == 'delete') {
+        } else if ($event->mode == 'delete') {
             DB::table('mileage')
-                ->where([ ['ml_uid', $event->uid], ['ml_type', $event->ml_type], ['ml_key', $event->key] ])
+                ->where([ ['ml_uid', $event->uid], ['ml_tbl', $event->tbl], ['ml_key', $event->key] ])
                 ->delete();
         }
 

@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler {
         if ($request->expectsJson()) {
             return response()->json(['message' => '로그인이 필요한 서비스입니다.'], 401);
         }
-        return redirect()->guest('login');
+        // return redirect()->guest('login');
     }
 
     // public function render($request, Exception $exception) {

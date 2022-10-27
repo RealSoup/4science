@@ -9,11 +9,10 @@ class EstimateModel extends Model {
     use HasFactory;
     protected $table = 'shop_estimate_model';
     protected $primaryKey = 'em_id';
-    protected $appends = ['em_catno', 'em_check_opt'];
+    protected $appends = ['em_check_opt'];
     protected $guarded = [];
     public $timestamps = false;
 
-    public function getEmCatnoAttribute() { return $this->em_catno01.'-'.$this->em_catno02.'-'.$this->em_catno03; }
     public function getEmCheckOptAttribute() { return 'Y'; }
 
     public function estimateAble() { return $this->morphTo(); }

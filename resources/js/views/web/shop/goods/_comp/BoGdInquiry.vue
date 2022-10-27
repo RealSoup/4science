@@ -1,62 +1,37 @@
 <template>
 <b-container class="bo_index">
-    <b-row>
-        <b-col><h4>{{config.name}}</h4></b-col>
-    </b-row>
-    <b-row>
-        <b-col class="bo_list">
-            <b-row class="bo_head">
-                <b-col>번호</b-col>
-                <b-col>제목</b-col>
-                <b-col>답변상태</b-col>
-                <b-col>작성자</b-col>
-                <b-col>작성일</b-col>
-            </b-row>
-            <b-row v-for="bo in list.data" :key="bo.bo_id" class="bo_body">
-                <b-col>{{bo.bo_id}}</b-col>
-                <b-col><b-button v-b-toggle="`collapse_${bo.bo_id}`" block variant="outline-secondary">{{bo.bo_subject}}</b-button></b-col>
-                <b-col>
-                    <b-badge v-if="bo.answer" variant="success">답변완료</b-badge>
-                    <b-badge v-else>답변대기</b-badge>
-                </b-col>
-                <b-col>{{bo.bo_writer}}</b-col>
-                <b-col>{{bo.created_at | formatDate}}</b-col>
-                <b-col class="answer">
-                    <b-collapse :id="`collapse_${bo.bo_id}`">
-                        <b-card>
-                            <div>
-                                <p><b>Q</b>. {{bo.bo_subject}}</p>
-                                <p>{{bo.bo_content}}</p>
-                            </div>
-                            <hr />
-                            <div v-if="bo.answer">
-                                <p>
-                                    <b>A</b>.
-                                    <span v-b-tooltip.hover title="작성번호"><font-awesome-icon icon="tags" />{{ bo.answer.bo_id }}</span>
-                                    <span v-b-tooltip.hover title="작성자"><font-awesome-icon icon="user" />{{ bo.answer.bo_writer }}</span>
-                                    <span v-b-tooltip.hover title="작성일"><b-icon-calendar-date />{{ bo.answer.created_at | formatDate }}</span>
-                                </p>
-                                <div class="card-text" v-html="getContent(bo.answer.bo_content)"></div>
-                            </div>
-                            
-                        </b-card>
-                    </b-collapse>
-                </b-col>
-            </b-row>
+    <b-row v-for="(bo, i) in list.data" :key="bo.bo_id" class="bo_body">
+        <b-col>{{list.total-(list.per_page*(list.current_page-1))-i}}</b-col>
+        <b-col><b-button v-b-toggle="`collapse_${bo.bo_id}`" block variant="light">{{bo.bo_subject}}</b-button></b-col>
+        <b-col>
+            <b-badge v-if="bo.answer" class="answer_mark">답변완료</b-badge>
+            <b-badge v-else>답변대기</b-badge>
         </b-col>
-    </b-row>
-    
-    <b-row>
-        <b-col class="text-right">
-            <b-button @click="create">문의하기</b-button>
-            <transition name="modal">
-                <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
-                    <BoCreate v-model="bo" @store="store" />
-                </Modal>
-            </transition>
+        <b-col>{{bo.bo_writer}}</b-col>
+        <b-col>{{bo.created_at | formatDate}}</b-col>
+        <b-col class="answer">
+            <b-collapse :id="`collapse_${bo.bo_id}`">
+                <b-card>
+                    <div class="ask">
+                        <p><b>Q</b>. {{bo.bo_subject}}</p>
+                        <p>{{bo.bo_content}}</p>
+                    </div>
+                    <div class="ans" v-if="bo.answer">
+                        <p><b class="aa">A</b>. 담당자 <b>{{ bo.answer.bo_writer }}</b> 의 답변입니다.</p>
+                        <div class="card-text" v-html="getContent(bo.answer.bo_content)"></div>
+                        <p>{{ bo.answer.created_at | formatDate }}</p>
+                    </div>                    
+                </b-card>
+            </b-collapse>
         </b-col>
     </b-row>
     <pagination :data="list" align="center" @pagination-change-page="index"></pagination>
+    
+    <transition name="modal">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+            <BoCreate v-model="bo" @store="store" />
+        </Modal>
+    </transition>
 </b-container>
 </template>
 
@@ -69,7 +44,7 @@ export default {
         'Modal': () => import('@/views/_common/Modal.vue'),
         'BoCreate': () => import('./BoCreate.vue'),
     },
-    props:['bo_cd'],
+    props:['bo_cd', 'bo_cnt'],
     data() {
         return {
             isModalViewed: false,
@@ -93,6 +68,7 @@ export default {
             if (res && res.status === 200) {
                 this.list = res.data.list;
                 this.config = res.data.config;
+                this.bo_cnt.inquiry = res.data.list.total;
             }
         },
         create() {
@@ -122,22 +98,22 @@ export default {
 
 <style lang="scss" scoped>
 .bo_index { max-width:1000px; }
-.bo_index .bo_list .row { margin-bottom:10px; align-items:baseline; }
-.bo_index .bo_list .bo_head .col { padding:10px; background:#555; color:#fff; font-weight:900; text-align:center; }
-.bo_index .bo_list .bo_body .col { padding:3px; text-align:center; }
-.bo_index .bo_list .bo_head .col:nth-of-type(1),
-.bo_index .bo_list .bo_body .col:nth-of-type(1) { flex:0 0 10%; max-width:10%; }
-.bo_index .bo_list .bo_body .col:nth-of-type(2) button { text-align:left; }
-.bo_index .bo_list .bo_head .col:nth-of-type(3),
-.bo_index .bo_list .bo_body .col:nth-of-type(3),
-.bo_index .bo_list .bo_head .col:nth-of-type(4),
-.bo_index .bo_list .bo_body .col:nth-of-type(4),
-.bo_index .bo_list .bo_head .col:nth-of-type(5),
-.bo_index .bo_list .bo_body .col:nth-of-type(5) { flex:0 0 7%; max-width:7%; }
-.bo_index .bo_list .bo_body .answer { flex:0 0 100%; max-width:100%; display:flex; justify-content:flex-end; text-align:left; }
-.bo_index .bo_list .bo_body .answer .collapse { flex:0 0 90%; max-width:90%; margin-bottom:20px; }
-.bo_index .bo_list .bo_body .answer .collapse .card-body { background:#d8f1f5; }
-.bo_index .bo_list .bo_body .answer .collapse .card-body div { margin-bottom:20px; }
-.bo_index .bo_list .bo_body .answer .collapse .card-body div span { margin-right:1rem; }
-.bo_index .bo_list .bo_body .answer .collapse .card-body div span>svg { margin-right:0.5rem; }
+.bo_index .row { align-items:baseline; border-bottom: 1px solid #959595; }
+.bo_index .bo_body .col { padding:3px; text-align:center; }
+.bo_index .bo_body .col .answer_mark { background:#F7941C; }
+.bo_index .bo_body .col:nth-of-type(1) { flex-basis:7%; max-width:7%; }
+.bo_index .bo_body .col:nth-of-type(2) button { text-align:left; background:none; border-color:#fff; padding:10px 0; }
+.bo_index .bo_body .col:nth-of-type(3),
+.bo_index .bo_body .col:nth-of-type(4),
+.bo_index .bo_body .col:nth-of-type(5) { flex-basis:7%; max-width:7%; }
+.bo_index .bo_body .answer { flex-basis:100%; max-width:100%; display:flex; justify-content:flex-end; text-align:left; }
+.bo_index .bo_body .answer .collapse { flex-basis:93%; max-width:93%; margin-bottom:20px; }
+.bo_index .bo_body .answer .collapse .card { border-width:0; background:#ECEAEB; border-radius:10px; margin-top:1rem; }
+.bo_index .bo_body .answer .collapse .card .card-body { padding:1.25rem 2rem }
+.bo_index .bo_body .answer .collapse .card .card-body div { font-size:.87rem; }
+.bo_index .bo_body .answer .collapse .card .card-body .ans { margin-top:3rem; }
+.bo_index .bo_body .answer .collapse .card .card-body .ans p { margin:1.5rem 0 0; }
+.bo_index .bo_body .answer .collapse .card .card-body .ans p .aa { color:#FA931D; }
+.bo_index .bo_body .answer .collapse .card .card-body .ans p b { font-size: 1.2rem; }
+.bo_index .bo_body .answer .collapse .card .card-body .ans .card-text { margin-top:1.3rem; }
 </style>

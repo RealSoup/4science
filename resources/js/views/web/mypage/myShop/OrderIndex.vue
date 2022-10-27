@@ -26,9 +26,9 @@
                 </b-col>
             </div>
 
-            <OrderList v-model="order.data" />
+            <OrderList v-model="order.data" :order_config="order_config" />
 
-            <pagination :data="order" @pagination-change-page="index" />
+            <pagination :data="order" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5" />
         </template>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default {
     name: "MyOrder",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('../_comp/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
         'OrderList': () => import('./OrderList.vue'),
     },
     data() {
@@ -52,7 +52,8 @@ export default {
                 page:1,
                 startDate:'',
                 endDate:'',
-            }
+            },
+            order_config: {},
         }
     },
     computed: {
@@ -66,8 +67,9 @@ export default {
             this.frm.page = page;
             try {
                 const res = await ax.get(`/api/shop/order`, { params: this.frm});
-                if (res && res.status === 200) {
-                    this.order = res.data;
+                if (res && res.status === 200) {           
+                    this.order = res.data.order;
+                    this.order_config = res.data.order_config;
                     this.isLoadingModalViewed= false;
                 }
             } catch (e) {

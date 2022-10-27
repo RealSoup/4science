@@ -16,14 +16,14 @@
                 </b-button>
             </b-col>
             <b-col>{{od.od_all_price | comma}} 원</b-col>
-            <b-col><OrderStep v-model="od.od_step" /></b-col>
+            <b-col><OrderStep v-model="od.od_step" :order_config="order_config" /></b-col>
         </b-row>
     </b-container>
 </template>
 
 <script>
 export default {
-    props: ['value'],
+    props: ['value', 'order_config'],
     components: {
         'OrderStep': () => import('../_comp/OrderStep.vue'),
     },

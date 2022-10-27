@@ -1,31 +1,35 @@
 <template>
     <div id="adm_estimate_show" class="p_warp">
         <h3 class="p_tit">견적 응답</h3>
-        <b-row class="page_ctrl">
-            <b-col>
-                <b-button-group size="sm">
-                    <b-button :to="{name: 'adm_estimate_index'}"><b-icon-list-ul /> 목록</b-button>
-                    <b-dropdown size="sm" text="파일 출력" variant="warning">
-                        <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                    </b-dropdown>
-                    <b-button variant="dark" @click="print">인쇄</b-button>
-                </b-button-group>
-            </b-col>
-            <b-col class="text-right">
-                <b-button-group size="sm">
-                    <b-button variant="dark" @click="passOrder"><b-icon-box-arrow-up-right /> 임의주문</b-button> 
-                    <!-- <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 영업장부</b-button> -->
-                    <b-button variant="primary" @click="reSend"><b-icon-mailbox /> 재발송</b-button>
-                    <b-button variant="success" :to="{name: 'adm_estimate_create', query: { eq_id:frm.estimate_req.eq_id }}"><b-icon-pencil-square /> 재작성</b-button>
-                    <b-button variant="warning" :to="{name: 'adm_estimate_edit', params: { er_id:$route.params.er_id }}"><b-icon-tools /> 수정</b-button>
-                    <b-button variant="danger" @click="destroy"><b-icon-trash-fill /> 삭제</b-button>
-                </b-button-group>
-            </b-col>
-        </b-row>
+        <b-card no-body class="ctrl">
+            <b-container>
+                <b-row>
+                    <b-col>
+                        <b-button-group size="sm">
+                            <b-button :to="{name: 'adm_estimate_index'}"><b-icon-list-ul /> 목록</b-button>
+                            <b-dropdown size="sm" text="파일 출력" variant="warning">
+                                <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
+                                <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
+                                <b-dropdown-divider></b-dropdown-divider>
+                                <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
+                                <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
+                            </b-dropdown>
+                            <b-button variant="dark" @click="print">인쇄</b-button>
+                        </b-button-group>
+                    </b-col>
+                    <b-col class="text-right">
+                        <b-button-group size="sm">
+                            <b-button variant="dark" @click="passOrder"><b-icon-box-arrow-up-right /> 임의주문</b-button> 
+                            <!-- <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 영업장부</b-button> -->
+                            <b-button variant="primary" @click="reSend"><b-icon-mailbox /> 재발송</b-button>
+                            <b-button variant="success" :to="{name: 'adm_estimate_create', query: { eq_id:frm.estimate_req.eq_id }}"><b-icon-pencil-square /> 재작성</b-button>
+                            <b-button variant="warning" :to="{name: 'adm_estimate_edit', params: { er_id:$route.params.er_id }}"><b-icon-tools /> 수정</b-button>
+                            <b-button variant="danger" @click="destroy"><b-icon-trash-fill /> 삭제</b-button>
+                        </b-button-group>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </b-card>
 
         <b-alert show variant="primary" class="container user_info mt-4">
             <h4 class="alert-heading">요청자</h4>

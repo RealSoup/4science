@@ -35,7 +35,7 @@ export default {
     name: "MyOrder",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('../_comp/SchDate.vue'),
+        'SchDate': () => import('@/views/_common/SchDate.vue'),
         'EstimateList': () => import('./EstimateList.vue'),
     },
     data() {
