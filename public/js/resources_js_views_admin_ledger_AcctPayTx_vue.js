@@ -34,14 +34,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admLedgerPayTx',
   components: {
     'AcctList': function AcctList() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_acct_AcctList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/acct/AcctList */ "./resources/js/views/admin/ledger/_comp/acct/AcctList.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_AcctList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/AcctList */ "./resources/js/views/admin/ledger/_comp/AcctList.vue"));
     }
   },
   data: function data() {
@@ -115,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-1890f69c] { max-width:1500px; margin:auto;\n}\n.ps[data-v-1890f69c] .container-fluid>.row,\r\n.ps[data-v-1890f69c] .container-fluid .draggable>.row { width:2750px;\n}\n.ps[data-v-1890f69c] .container-fluid .draggable { min-height: 24rem;\n}\n.ps[data-v-1890f69c] .ps__rail-x { height:25px; position:fixed; z-index:1; opacity:.65;\n}\n.ps[data-v-1890f69c] .ps__rail-x:hover { background-color:#eee; opacity:.9;\n}\n.ps[data-v-1890f69c] .ps__rail-x .ps__thumb-x { height:18px; background-color:pink; position:fixed;\n}\n.ps[data-v-1890f69c] .ps__rail-x:hover > .ps__thumb-x, \r\n.ps[data-v-1890f69c] .ps__rail-x:focus > .ps__thumb-x, \r\n.ps[data-v-1890f69c] .ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-1890f69c] { max-width:1500px; margin:auto;\n}\n.p_wrap[data-v-1890f69c] .container-fluid>.row,\r\n.p_wrap[data-v-1890f69c] .container-fluid .draggable>.row {\n}\n.p_wrap[data-v-1890f69c] .container-fluid .draggable { min-height: 24rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -251,34 +249,28 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("매출장")]),
       _vm._v(" "),
-      _c(
-        "perfect-scrollbar",
-        { attrs: { suppressScrollX: "true" } },
-        [
-          _c("AcctList", {
-            attrs: {
-              mode: "pay_tx",
-              config: _vm.config,
-              lga_step: "PTx",
-              sch: _vm.frm,
-              mng: _vm.mng,
-            },
-            on: { index: _vm.index },
-            model: {
-              value: _vm.lga,
-              callback: function ($$v) {
-                _vm.lga = $$v
-              },
-              expression: "lga",
-            },
-          }),
-        ],
-        1
-      ),
+      _c("AcctList", {
+        style: { width: "2750px", paddingRight: "2rem" },
+        attrs: {
+          mode: "pay_tx",
+          config: _vm.config,
+          lga_step: "PTx",
+          sch: _vm.frm,
+          mng: _vm.mng,
+        },
+        on: { index: _vm.index },
+        model: {
+          value: _vm.lga,
+          callback: function ($$v) {
+            _vm.lga = $$v
+          },
+          expression: "lga",
+        },
+      }),
     ],
     1
   )

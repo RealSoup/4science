@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <h3 class="p_tit">상품 생성</h3>
     <b-card no-body class="mb-2 sticky-top p-2">
         <b-container>

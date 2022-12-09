@@ -337,6 +337,8 @@ class OrderController extends Controller {
 
         $od = $od->SchWriter(auth()->user()->id)->latest();
 
+        $od->when(request('type', 'with_gm'), fn ($q) => $q->with('orderModel'));
+
         if ($req->filled('limit'))
             $data['order'] = $od->limit($req->limit)->get();
         else {
@@ -382,21 +384,28 @@ class OrderController extends Controller {
         return $rst;
     }
 
-    public function gdImgSrc($thumb=FALSE) {
-        $rst = NULL;
-        if ( !!$this->gd_id ) {
-            foreach ($this->fileInfo()->Fi_kind('product')->get() as $fi_piece) {
-                if ($thumb) { $fi_piece->fi_kind.='/thumbnails'; }
-                $rst[] = "/storage/{$fi_piece->fi_group}/{$fi_piece->fi_kind}/".$fi_piece->fi_new;
-            }
-        }
-        if (!$rst){ $rst[] = self::noimg($thumb); }
-        return $rst;
+    public function cnt_od_step(Request $req) {
+        $od = $this->order->SchWriter(auth()->user()->id)->StartDate(date('Y-m-d', strtotime(date('Y-m-d')." -1 month")))->get();
+        $rst = $od->countBy(function ($item) { return $item['od_step']; });
+
+        return response()->json($rst, 200);
     }
 
-    public function noimg($thumb=false) {
-        return "/img/common/noimage".($thumb ? "_thumb" : "").".jpg";
-    }
+    // public function gdImgSrc($thumb=FALSE) {
+    //     $rst = NULL;
+    //     if ( !!$this->gd_id ) {
+    //         foreach ($this->fileInfo()->Fi_kind('product')->get() as $fi_piece) {
+    //             if ($thumb) { $fi_piece->fi_kind.='/thumbnails'; }
+    //             $rst[] = "/storage/{$fi_piece->fi_group}/{$fi_piece->fi_kind}/".$fi_piece->fi_new;
+    //         }
+    //     }
+    //     if (!$rst){ $rst[] = self::noimg($thumb); }
+    //     return $rst;
+    // }
+
+    // public function noimg($thumb=false) {
+    //     return "/img/common/noimage".($thumb ? "_thumb" : "").".jpg";
+    // }
 
 
 

@@ -11,7 +11,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_kinesis__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-kinesis */ "./node_modules/vue-kinesis/dist/vue-kinesis.esm.js");
 //
 //
 //
@@ -61,13 +60,119 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    KinesisContainer: vue_kinesis__WEBPACK_IMPORTED_MODULE_0__.KinesisContainer,
-    KinesisElement: vue_kinesis__WEBPACK_IMPORTED_MODULE_0__.KinesisElement // https://github.com/Aminerman/vue-kinesis
-
-  }
+  components: {}
 });
 
 /***/ }),
@@ -88,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.outer[data-v-f7d3c2b8] { display: flex; flex-direction: column; justify-content: center;\r\n    align-items: center; height:40vh; position: relative;\n}\n.outer[data-v-f7d3c2b8] {\r\n    background: linear-gradient(124deg, #FFCBCB, #FFDBCB, #FFF2CB, #FFFFD3, #D1FFD8, #CEFCFF, #D6D1FF, #FCD3FF, #FCD3FF);\r\n    background-size: 1800% 1800%;\r\n    -webkit-animation: rainbow-data-v-f7d3c2b8 18s ease infinite; -z-animation: rainbow-data-v-f7d3c2b8 18s ease infinite; animation: rainbow-data-v-f7d3c2b8 18s ease infinite;\n}\n@-webkit-keyframes rainbow-data-v-f7d3c2b8 {\n0%{background-position:0% 82%}\n50%{background-position:100% 19%}\n100%{background-position:0% 82%}\n}\n@keyframes rainbow-data-v-f7d3c2b8 {\n0%{background-position:0% 82%}\n50%{background-position:100% 19%}\n100%{background-position:0% 82%}\n}\n.outer .item[data-v-f7d3c2b8] { position:absolute; background-repeat:no-repeat; background-size:contain; cursor:pointer;\n}\n.outer .item.heart[data-v-f7d3c2b8] { background-image:url(/img/main/heart.png); width:7vw; height:7vw; right:7vw;\n}\n.outer .item.molecular[data-v-f7d3c2b8]  { background-image:url(/img/main/molecular.png); width:13vw; height:13vw; right:20%;\n}\n.outer .item.microscope[data-v-f7d3c2b8] { background-image:url(/img/main/microscope.png); width:8vw; height:8vw; left:30%; top:25%;\n}\n.outer .item.neurons[data-v-f7d3c2b8] { background-image:url(/img/main/neurons.png); width:10vw; height:10vw; right:20%; top:90%;\n}\n.outer .item.dna[data-v-f7d3c2b8] { background-image:url(/img/main/dna.png); width:8vw; height:8vw; left:20%; top:60%;\n}\n.outer .item.spoid[data-v-f7d3c2b8] { background-image:url(/img/main/spoid.png); width:15vw; height:15vw; left:2vw; top:15%;\n}\n.outer .item a[data-v-f7d3c2b8] { display:block; width:100%; height:100%;\n}\n.outer .item a .bx[data-v-f7d3c2b8] { position:absolute; top:30px; bottom:30px; right:30px; width:100%; display:flex; justify-content:center; align-items:center;\r\n                    background:rgba(0,0,0,0.7); transition:transform .5s; transform-origin:right; transform:scaleX(0);\n}\n.outer .item a .bx span[data-v-f7d3c2b8] { position:relative; opacity:0; color:#fff; font-weight:bold; font-size:2em;\n}\n.outer .item:hover a .bx[data-v-f7d3c2b8] { transition:transform .5s; transform-origin:left; transform:scaleX(1);\n}\n.outer .item:hover a .bx span[data-v-f7d3c2b8] { opacity:1; transition:.2s; transition-delay:.2s;\n}\n.outer h1[data-v-f7d3c2b8] {position:relative;display:flex;color:#351b1b;font-size:72px}\n.outer h1 span[data-v-f7d3c2b8]:first-of-type{margin-top:0}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(2){margin-top:-20px}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(3){margin-top:-7px}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(4){margin-top:8px}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(5){margin-top:-13px}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(6){margin-top:-5px}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(7){margin-top:0}\n.outer h1 span[data-v-f7d3c2b8]:nth-of-type(8){margin-top:-6px}\n.outer .slogan[data-v-f7d3c2b8] { z-index:2;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv .row[data-v-f7d3c2b8] { padding-left:70px; margin:auto;\n}\n.root .row[data-v-f7d3c2b8] { padding-top:92px; align-items:flex-end;\n}\n.root .row .col[data-v-f7d3c2b8]:not(:first-child) { margin-bottom:2rem;\n}\n.sub[data-v-f7d3c2b8] { background:#0094EA;\n}\n.sub .row[data-v-f7d3c2b8] { height:350px;\n}\n.row .col[data-v-f7d3c2b8] { padding:0;\n}\n.row .col[data-v-f7d3c2b8]:first-child { flex-basis:314px; max-width:314px;\n}\n.row .col[data-v-f7d3c2b8]:not(:first-child) { text-align:center; flex-basis:200px; max-width:200px; margin-bottom:2rem;\n}\n.row .col[data-v-f7d3c2b8]:nth-child(2) { margin-left:4rem;\n}\n.row .col div[data-v-f7d3c2b8] { font-weight:bold; color:#6F6F6F;\n}\n.sub .row .col[data-v-f7d3c2b8] {\n}\n.sub .row .col[data-v-f7d3c2b8]:first-child { padding-top:18px;\n}\n.sub .row .col .collapse[data-v-f7d3c2b8] { height:100%; max-height:262.5px; position:relative;\n}\n.sub .row .col:nth-child(3) .collapse[data-v-f7d3c2b8],\r\n.sub .row .col:nth-child(6) .collapse[data-v-f7d3c2b8] { max-height:132px;\n}\n.sub .row .col .collapse[data-v-f7d3c2b8]::before { content:' '; background:#fff; width:4px; height:100%; top:0; position:absolute; left:50%; transform:translateX(-50%);\n}\n.sub .row .col .collapse .section[data-v-f7d3c2b8] { display:inline-block; background:#fff; border-radius:58px; position:absolute; left:0; z-index:2; overflow:hidden; transition: all .4s;\n}\n.sub .row .col .collapse .section[data-v-f7d3c2b8]:first-child { top:25%; transform:translateY(-25%);\n}\n.sub .row .col .collapse .section[data-v-f7d3c2b8]:nth-child(2) { bottom:0%;\n}\n.sub .row .col:nth-child(3) .collapse .section[data-v-f7d3c2b8]:first-child,\r\n.sub .row .col:nth-child(6) .collapse .section[data-v-f7d3c2b8]:first-child { top:33%; transform:none;\n}\n.sub .row .col .collapse .frame[data-v-f7d3c2b8] { height:132px;\n}\n.sub .row .col .collapse .section .flex_wrap[data-v-f7d3c2b8] { height:88px; display:flex; align-items:center; overflow:hidden; max-width:200px; transition: all .5s;\n}\n.sub .row .col .collapse .section:hover .flex_wrap[data-v-f7d3c2b8] { transform:translateX(-170px); margin-right:-140px; max-width:1362px;\n}\n.sub .row .col #tweezer .section[data-v-f7d3c2b8]:first-child:hover { left:-533px;\n}\n.sub .row .col #tweezer .section[data-v-f7d3c2b8]:nth-child(2):hover { left:-275px;\n}\n.sub .row .col #hotplate .section[data-v-f7d3c2b8]:first-child:hover { left:-693px;\n}\n.sub .row .col #hotplate .section[data-v-f7d3c2b8]:nth-child(2):hover { left:-140px;\n}\n.sub .row .col #meter .section[data-v-f7d3c2b8]:first-child:hover { left:-592px;\n}\n.sub .row .col .collapse .section .flex_wrap b[data-v-f7d3c2b8] { min-width:200px; display:inline-block; color:#0094EA; font-weight:900; font-size:1.5rem;\n}\n.sub .row .col .collapse .section .flex_wrap a[data-v-f7d3c2b8] { transform:scale(1); transition:transform .2s; margin:0 1rem; white-space:nowrap;\n}\n.sub .row .col .collapse .section .flex_wrap a[data-v-f7d3c2b8]:hover { transform:scale(1.3);\n}\n.sub .row .col #tweezer .section:first-child .flex_wrap a img[data-v-f7d3c2b8] { border:3px solid #AFAFAF; border-radius:50%; max-width:54px;\n}\n.sub .row .col #tweezer .section:first-child .flex_wrap a[data-v-f7d3c2b8] { display:flex; align-items:center; color:#AFAFAF;\n}\n.sub .row .col #tweezer .section:first-child .flex_wrap a span[data-v-f7d3c2b8] { color:#AFAFAF; white-space:normal; line-height:1;\n}\r\n    \r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -134,7 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html& */ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html&");
+/* harmony import */ var _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true& */ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&");
 /* harmony import */ var _Cover_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cover.vue?vue&type=script&lang=js& */ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=script&lang=js&");
 /* harmony import */ var _Cover_vue_vue_type_style_index_0_id_f7d3c2b8_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cover.vue?vue&type=style&index=0&id=f7d3c2b8&lang=css&scoped=true& */ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=style&index=0&id=f7d3c2b8&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -148,8 +253,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Cover_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "f7d3c2b8",
@@ -191,26 +296,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true& ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cover_vue_vue_type_template_id_f7d3c2b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&lang=html& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/outlet/Cover.vue?vue&type=template&id=f7d3c2b8&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -222,264 +327,1046 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "kinesis-container",
-    { staticClass: "outer" },
-    [
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item heart",
-          attrs: { transformOrigin: "center center", strength: 30 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "layout root" },
+      [
+        _c(
+          "b-row",
+          [
+            _c("b-col", [
+              _c("img", { attrs: { src: "/img/outlet/logo.png" } }),
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              {
+                directives: [
+                  {
+                    name: "b-toggle",
+                    rawName: "v-b-toggle.pipette",
+                    modifiers: { pipette: true },
+                  },
+                ],
               },
-            },
-            [_c("div", { staticClass: "bx" }, [_c("span", [_vm._v("피펫관")])])]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item molecular",
-          attrs: { transformOrigin: "center center", strength: -20 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
+              [
+                _c("img", { attrs: { src: "/img/outlet/list01.png" } }),
+                _vm._v(" "),
+                _c("div", [_vm._v("피펫관")]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              {
+                directives: [
+                  {
+                    name: "b-toggle",
+                    rawName: "v-b-toggle.measure",
+                    modifiers: { measure: true },
+                  },
+                ],
               },
-            },
-            [
-              _c("div", { staticClass: "bx" }, [
-                _c("span", [_vm._v("광파워미터관")]),
-              ]),
-            ]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item microscope",
-          attrs: { transformOrigin: "center center", strength: 20 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
+              [
+                _c("img", { attrs: { src: "/img/outlet/list02.png" } }),
+                _vm._v(" "),
+                _c("div", [_vm._v("환경측정기관")]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              {
+                directives: [
+                  {
+                    name: "b-toggle",
+                    rawName: "v-b-toggle.tweezer",
+                    modifiers: { tweezer: true },
+                  },
+                ],
               },
-            },
-            [
-              _c("div", { staticClass: "bx" }, [
-                _c("span", [_vm._v("핫플레이트관")]),
-              ]),
-            ]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item meurons",
-          attrs: { transformOrigin: "center center", strength: -10 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
+              [
+                _c("img", { attrs: { src: "/img/outlet/list03.png" } }),
+                _vm._v(" "),
+                _c("div", [_vm._v("트위져관")]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              {
+                directives: [
+                  {
+                    name: "b-toggle",
+                    rawName: "v-b-toggle.hotplate",
+                    modifiers: { hotplate: true },
+                  },
+                ],
               },
-            },
-            [
-              _c("div", { staticClass: "bx" }, [
-                _c("span", [_vm._v("트위져관")]),
-              ]),
-            ]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item dna",
-          attrs: { transformOrigin: "center center", strength: -7 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
+              [
+                _c("img", { attrs: { src: "/img/outlet/list04.png" } }),
+                _vm._v(" "),
+                _c("div", [_vm._v("핫플레이트관")]),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              {
+                directives: [
+                  {
+                    name: "b-toggle",
+                    rawName: "v-b-toggle.meter",
+                    modifiers: { meter: true },
+                  },
+                ],
               },
-            },
-            [
-              _c("div", { staticClass: "bx" }, [
-                _c("span", [_vm._v("환경측정기관")]),
-              ]),
-            ]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        {
-          staticClass: "item spoid",
-          attrs: { transformOrigin: "center center", strength: 15 },
-        },
-        [
-          _c(
-            "b-link",
-            {
-              attrs: {
-                to: { name: "outlet_index", params: { code: "pipette" } },
-              },
-            },
-            [_c("div", { staticClass: "bx" }, [_c("span", [_vm._v("피펫관")])])]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "h1",
-        [
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: -5,
-                type: "translate",
-              },
-            },
-            [_vm._v("4")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: 15,
-                type: "rotate",
-              },
-            },
-            [_vm._v("S")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: -25,
-                type: "translate",
-              },
-            },
-            [_vm._v("C")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: 15,
-                type: "rotate",
-              },
-            },
-            [_vm._v("I")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: -3,
-                type: "translate",
-              },
-            },
-            [_vm._v("E")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: 25,
-                type: "translate",
-              },
-            },
-            [_vm._v("N")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: -5,
-                type: "rotate",
-              },
-            },
-            [_vm._v("C")]
-          ),
-          _vm._v(" "),
-          _c(
-            "kinesis-element",
-            {
-              attrs: {
-                tag: "span",
-                transformOrigin: "center center",
-                strength: 25,
-                type: "rotate",
-              },
-            },
-            [_vm._v("E")]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "kinesis-element",
-        { staticClass: "slogan", attrs: { strength: -20, type: "translate" } },
-        [_vm._v("Your R&D Consultants")]
-      ),
-    ],
-    1
-  )
+              [
+                _c("img", { attrs: { src: "/img/outlet/list05.png" } }),
+                _vm._v(" "),
+                _c("div", [_vm._v("광파워미터관")]),
+              ]
+            ),
+          ],
+          1
+        ),
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "sub" },
+      [
+        _c(
+          "b-row",
+          { staticClass: "layout" },
+          [
+            _c("b-col", [
+              _c("img", { attrs: { src: "/img/outlet/title.png" } }),
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                _c(
+                  "b-collapse",
+                  { attrs: { id: "pipette", accordion: "outlet" } },
+                  [
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("브랜드별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/pipette/thermo.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/pipette/witeg.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/pipette/gilson.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/pipette/eppen.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/pipette/axygen.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/pipette/sartorius.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/pipette/socorex.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/pipette/etc.png" },
+                              }),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("종류별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "01" },
+                                },
+                              },
+                            },
+                            [_vm._v("싱글피펫")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "02" },
+                                },
+                              },
+                            },
+                            [_vm._v("멀티피펫")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "03" },
+                                },
+                              },
+                            },
+                            [_vm._v("피펫에이드")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "04" },
+                                },
+                              },
+                            },
+                            [_vm._v("전자피펫")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "05" },
+                                },
+                              },
+                            },
+                            [_vm._v("팁")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { code: "pipette", group: "06" },
+                                },
+                              },
+                            },
+                            [_vm._v("거치대 / 스타트키트")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                _c(
+                  "b-collapse",
+                  { attrs: { id: "measure", accordion: "outlet" } },
+                  [
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("종류별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("종합환경측정기")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("미세먼지측정기")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("수질측정기")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("소음측정기")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("온습도계")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("기타측정기")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "frame" }, [
+                      _vm._v("1"),
+                      _c("br"),
+                      _vm._v("1"),
+                      _c("br"),
+                      _vm._v("1"),
+                      _c("br"),
+                      _vm._v("1"),
+                      _c("br"),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                _c(
+                  "b-collapse",
+                  { attrs: { id: "tweezer", accordion: "outlet" } },
+                  [
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("용도별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: { to: { name: "goods_index", params: 1 } },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t01.png" },
+                              }),
+                              _c("span", [_vm._v("Flat tip tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t02.png" },
+                              }),
+                              _c("span", [_vm._v("Wafer tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t03.png" },
+                              }),
+                              _c("span", [_vm._v("Fine tip tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t04.png" },
+                              }),
+                              _c("span", [_vm._v("Teflon& coating tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t05.png" },
+                              }),
+                              _c("span", [_vm._v("Reverse action tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t06.png" },
+                              }),
+                              _c("span", [_vm._v("Fiber tip tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t07.png" },
+                              }),
+                              _c("span", [_vm._v("Plastic tweezer")]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/t08.png" },
+                              }),
+                              _c("span", [_vm._v("Vacuum tweezer")]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("브랜드별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/tweezer/ideal-tek.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/rubis.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/tweezer/sipel.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/tweezer/techni.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("기타 브랜드")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                _c(
+                  "b-collapse",
+                  { attrs: { id: "hotplate", accordion: "outlet" } },
+                  [
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("브랜드별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/hotplate/ika.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/asone.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/daihan.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/jeiotech.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/globallab.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/corning.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/hotplate/mtops.png",
+                                },
+                              }),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("종류별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("온도별")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("사이즈별")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("기능별")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [_vm._v("HOTPLATE & Stirrer")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                _c(
+                  "b-collapse",
+                  { attrs: { id: "meter", accordion: "outlet" } },
+                  [
+                    _c("div", { staticClass: "section" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex_wrap" },
+                        [
+                          _c("b", [_vm._v("브랜드별")]),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/meter/ophir.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/meter/thorlabs.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/meter/newport.png" },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/meter/powerenergy.png",
+                                },
+                              }),
+                              _vm._v(" Power/Energy"),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/outlet/meter/photodiode.png",
+                                },
+                              }),
+                              _vm._v(" Photodiode"),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: "/img/outlet/meter/thermal.png" },
+                              }),
+                              _vm._v(" Thermal"),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

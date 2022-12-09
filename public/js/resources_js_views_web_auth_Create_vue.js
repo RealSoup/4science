@@ -345,13 +345,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "auth_create" },
+    { staticClass: "auth_create w_fence" },
     [
-      _c(
-        "b-row",
-        [_c("b-col", { attrs: { tag: "h1" } }, [_vm._v("회원가입")])],
-        1
-      ),
+      _c("h3", [_vm._v("회원가입 정보 입력")]),
       _vm._v(" "),
       _c("FormUser", {
         model: {

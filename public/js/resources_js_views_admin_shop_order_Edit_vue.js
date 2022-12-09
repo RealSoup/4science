@@ -1251,7 +1251,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp order_edit", attrs: { id: "adm_shop_order_edit" } },
+    { staticClass: "p_wrap order_edit", attrs: { id: "adm_shop_order_edit" } },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("주문 상세")]),
       _vm._v(" "),

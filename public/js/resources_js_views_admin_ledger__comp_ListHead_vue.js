@@ -65,18 +65,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerListHead',
-  props: ['ledger', 'mng_config_column', 'column_list_clmn', 'mng_config_model', 'column_list_model', 'row_width', 'model_width', 'total_ea_price', 'total_sum_price', 'all_chk_cplt', 'indeterminate'],
+  props: ['mng_config', 'column_list', 'model_width', 'total_ea_price', 'total_sum_price', 'all_chk_cplt', 'indeterminate'],
   components: {
     'Modal': function Modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
@@ -85,7 +76,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isScrollPass: false,
-      headTop: 0
+      headTop: 0,
+      show_head_menu: false
     };
   },
   computed: {
@@ -99,20 +91,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    scrollListener: function scrollListener(e) {
-      var head_top = 310;
-      this.isScrollPass = window.scrollY >= head_top;
-      if (this.isScrollPass) this.headTop = window.scrollY - head_top;else this.headTop = 0;
-    },
     toggle_all_chk: function toggle_all_chk(checked) {
       this.$emit('toggle_all_chk', checked);
+    },
+    create: function create() {
+      this.$emit('create', 'lg');
     }
-  },
-  mounted: function mounted() {
-    window.addEventListener('scroll', this.scrollListener);
-  },
-  beforeDestroy: function beforeDestroy() {
-    window.removeEventListener('scroll', this.scrollListener);
   }
 });
 
@@ -134,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ledger_module[data-v-aa360294] { position:relative\n}\n.ledger_module .head[data-v-aa360294] { background:#666; padding:5px 0;\n}\n.ledger_module .head .col[data-v-aa360294] { font-weight:bold; font-size:.9rem; color:#fff;\n}\n.ledger_module .head .col .badge[data-v-aa360294] { font-size:1rem;\n}\n.ledger_module.fixed_header .head[data-v-aa360294] { z-index:2;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row[data-v-aa360294] { background:#666;\n}\n.row .col[data-v-aa360294] { font-weight:bold; font-size:.9rem; color:#fff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -269,528 +253,558 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "ledger_module", class: { fixed_header: _vm.isScrollPass } },
+    "b-row",
+    {
+      attrs: { tabindex: -1 },
+      on: {
+        mousedown: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "right", 39, $event.key, [
+              "Right",
+              "ArrowRight",
+            ])
+          ) {
+            return null
+          }
+          if ("button" in $event && $event.button !== 2) {
+            return null
+          }
+          _vm.show_head_menu = true
+        },
+        contextmenu: function ($event) {
+          $event.preventDefault()
+        },
+        blur: function ($event) {
+          _vm.show_head_menu = false
+        },
+      },
+    },
     [
       _c(
-        "b-row",
-        {
-          staticClass: "head",
-          style: { width: _vm.row_width + "px", top: _vm.headTop + "px" },
-        },
+        "b-col",
+        { staticClass: "list_id" },
         [
+          _c("transition", { attrs: { name: "slide-fade" } }, [
+            _vm.show_head_menu
+              ? _c(
+                  "div",
+                  { staticClass: "hidden_menu" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        directives: [
+                          {
+                            name: "b-tooltip",
+                            rawName: "v-b-tooltip.hover",
+                            value: "정보 나열 순서",
+                            expression: "'정보 나열 순서'",
+                            modifiers: { hover: true },
+                          },
+                        ],
+                        attrs: { size: "sm", variant: "warning" },
+                        on: {
+                          click: function ($event) {
+                            _vm.isModalViewed = true
+                          },
+                        },
+                      },
+                      [_c("b-icon-gear")],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-button",
+                      {
+                        directives: [
+                          {
+                            name: "b-tooltip",
+                            rawName: "v-b-tooltip.hover",
+                            value: "생성",
+                            expression: "'생성'",
+                            modifiers: { hover: true },
+                          },
+                        ],
+                        attrs: { size: "sm", variant: "primary" },
+                        on: { click: _vm.create },
+                      },
+                      [_c("b-icon-plus-lg")],
+                      1
+                    ),
+                  ],
+                  1
+                )
+              : _vm._e(),
+          ]),
+          _vm._v(" "),
           _c(
-            "b-col",
-            { staticClass: "list_id" },
-            [
-              _c(
-                "b-form-checkbox",
+            "b-form-checkbox",
+            {
+              attrs: { indeterminate: _vm.indeterminate },
+              on: { change: _vm.toggle_all_chk },
+              model: {
+                value: _vm.all_chk,
+                callback: function ($$v) {
+                  _vm.all_chk = $$v
+                },
+                expression: "all_chk",
+              },
+            },
+            [_vm._v("All")]
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.mng_config.COLUMN, function (mcc, i) {
+        return [
+          mcc.umc_val == "order_dt"
+            ? _c(
+                "b-col",
                 {
-                  attrs: { indeterminate: _vm.indeterminate },
-                  on: { change: _vm.toggle_all_chk },
-                  model: {
-                    value: _vm.all_chk,
-                    callback: function ($$v) {
-                      _vm.all_chk = $$v
-                    },
-                    expression: "all_chk",
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.order_dt.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.order_dt.w + "px",
                   },
                 },
-                [_vm._v("\r\n                All\r\n            ")]
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.mng_config_column, function (mcc, i) {
-            return [
-              _vm._l(_vm.column_list_clmn, function (cl, k) {
-                return [
-                  k == mcc.umc_val && k == "order_dt"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "pay_type"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "mng"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "od_id"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "sale_dt"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "distributor"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "depart"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "lab_prof"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "orderer"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "od_name"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "sum_ea_p"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "sum_surtax"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "sum_sum_p"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "model"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          staticClass: "model",
-                          style: { width: _vm.model_width + "px" },
-                        },
-                        [
-                          _c(
-                            "b-row",
-                            { style: { width: _vm.model_width + "px" } },
-                            [
-                              _vm._l(_vm.mng_config_model, function (mcm, mi) {
-                                return [
-                                  _vm._l(
-                                    _vm.column_list_model,
-                                    function (clm, mk) {
-                                      return [
-                                        mk == mcm.umc_val && mk == "gm_name"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "gm_name",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val && mk == "gm_spec"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "gm_spec",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val && mk == "catno"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "catno",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val && mk == "gm_code"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "gm_code",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "gm_price"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "gm_price",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val && mk == "ea"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "ea",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "ea_price"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                staticClass: "ea_price",
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\r\n                                    " +
-                                                    _vm._s(clm.name) +
-                                                    "\r\n                                    "
-                                                ),
-                                                _c("br"),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "info" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        _vm._f("comma")(
-                                                          _vm.total_ea_price
-                                                        )
-                                                      )
-                                                    ),
-                                                  ]
-                                                ),
-                                              ],
-                                              1
-                                            )
-                                          : mk == mcm.umc_val && mk == "surtax"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "sum_price"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [
-                                                _vm._v(
-                                                  "\r\n                                    " +
-                                                    _vm._s(clm.name) +
-                                                    "\r\n                                    "
-                                                ),
-                                                _c("br"),
-                                                _c(
-                                                  "b-badge",
-                                                  {
-                                                    attrs: { variant: "info" },
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        _vm._f("comma")(
-                                                          _vm.total_sum_price
-                                                        )
-                                                      )
-                                                    ),
-                                                  ]
-                                                ),
-                                              ],
-                                              1
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "com_order_dt"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val && mk == "buyer"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "order_mng"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "purchase_price"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : mk == mcm.umc_val &&
-                                            mk == "shipping_dt"
-                                          ? _c(
-                                              "b-col",
-                                              {
-                                                key: "" + mi + mk,
-                                                style: {
-                                                  flexBasis: clm.w + "px",
-                                                  maxWidth: clm.w + "px",
-                                                },
-                                              },
-                                              [_vm._v(_vm._s(clm.name))]
-                                            )
-                                          : _vm._e(),
-                                      ]
-                                    }
-                                  ),
-                                ]
-                              }),
-                            ],
-                            2
-                          ),
-                        ],
-                        1
-                      )
-                    : k == mcc.umc_val && k == "tax_name"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "tax_email"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "tax_hp"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "note"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : k == mcc.umc_val && k == "created_at"
-                    ? _c(
-                        "b-col",
-                        {
-                          key: "" + i + k,
-                          style: {
-                            flexBasis: cl.w + "px",
-                            maxWidth: cl.w + "px",
-                          },
-                        },
-                        [_vm._v(_vm._s(cl.name))]
-                      )
-                    : _vm._e(),
-                ]
-              }),
-            ]
-          }),
-        ],
-        2
-      ),
+                [_vm._v("주문일")]
+              )
+            : mcc.umc_val == "pay_type"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.pay_type.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.pay_type.w + "px",
+                  },
+                },
+                [_vm._v("결제방식")]
+              )
+            : mcc.umc_val == "mng"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.mng.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.mng.w + "px",
+                  },
+                },
+                [_vm._v("담당자")]
+              )
+            : mcc.umc_val == "od_id"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.od_id.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.od_id.w + "px",
+                  },
+                },
+                [_vm._v("주문번호")]
+              )
+            : mcc.umc_val == "sale_dt"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.sale_dt.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.sale_dt.w + "px",
+                  },
+                },
+                [_vm._v("매출일")]
+              )
+            : mcc.umc_val == "distributor"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.distributor.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.distributor.w + "px",
+                  },
+                },
+                [_vm._v("매출처")]
+              )
+            : mcc.umc_val == "depart"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.depart.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.depart.w + "px",
+                  },
+                },
+                [_vm._v("소속")]
+              )
+            : mcc.umc_val == "lab_prof"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.lab_prof.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.lab_prof.w + "px",
+                  },
+                },
+                [_vm._v("연구실/교수님")]
+              )
+            : mcc.umc_val == "orderer"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.orderer.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.orderer.w + "px",
+                  },
+                },
+                [_vm._v("고객명")]
+              )
+            : mcc.umc_val == "od_name"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.od_name.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.od_name.w + "px",
+                  },
+                },
+                [_vm._v("주문명")]
+              )
+            : mcc.umc_val == "sum_ea_p"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.sum_ea_p.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.sum_ea_p.w + "px",
+                  },
+                },
+                [_vm._v("총 공급가액")]
+              )
+            : mcc.umc_val == "sum_surtax"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.sum_surtax.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.sum_surtax.w + "px",
+                  },
+                },
+                [_vm._v("총 세액")]
+              )
+            : mcc.umc_val == "sum_sum_p"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.sum_sum_p.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.sum_sum_p.w + "px",
+                  },
+                },
+                [_vm._v("총 합계")]
+              )
+            : mcc.umc_val == "tax_name"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.tax_name.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.tax_name.w + "px",
+                  },
+                },
+                [_vm._v("tax담당")]
+              )
+            : mcc.umc_val == "tax_email"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.tax_email.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.tax_email.w + "px",
+                  },
+                },
+                [_vm._v("tax메일")]
+              )
+            : mcc.umc_val == "tax_hp"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.tax_hp.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.tax_hp.w + "px",
+                  },
+                },
+                [_vm._v("tax번호")]
+              )
+            : mcc.umc_val == "note"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.note.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.note.w + "px",
+                  },
+                },
+                [_vm._v("비고")]
+              )
+            : mcc.umc_val == "created_at"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  style: {
+                    flexBasis: _vm.column_list.COLUMN.created_at.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.created_at.w + "px",
+                  },
+                },
+                [_vm._v("작성일")]
+              )
+            : mcc.umc_val == "model"
+            ? _c(
+                "b-col",
+                {
+                  key: i,
+                  staticClass: "model",
+                  style: { width: _vm.model_width + "px" },
+                },
+                [
+                  _c(
+                    "b-row",
+                    { style: { width: _vm.model_width + "px" } },
+                    [
+                      _vm._l(_vm.mng_config.MODEL, function (mcm, mi) {
+                        return [
+                          mcm.umc_val == "gm_name"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.gm_name.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.gm_name.w + "px",
+                                  },
+                                },
+                                [_vm._v("품목명")]
+                              )
+                            : mcm.umc_val == "gm_spec"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.gm_spec.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.gm_spec.w + "px",
+                                  },
+                                },
+                                [_vm._v("사양")]
+                              )
+                            : mcm.umc_val == "catno"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.catno.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.catno.w + "px",
+                                  },
+                                },
+                                [_vm._v("CAT.No")]
+                              )
+                            : mcm.umc_val == "gm_code"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.gm_code.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.gm_code.w + "px",
+                                  },
+                                },
+                                [_vm._v("모델명")]
+                              )
+                            : mcm.umc_val == "gm_price"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.gm_price.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.gm_price.w + "px",
+                                  },
+                                },
+                                [_vm._v("단가")]
+                              )
+                            : mcm.umc_val == "ea"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.ea.w + "px",
+                                    maxWidth: _vm.column_list.MODEL.ea.w + "px",
+                                  },
+                                },
+                                [_vm._v("수량")]
+                              )
+                            : mcm.umc_val == "ea_price"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.ea_price.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.ea_price.w + "px",
+                                  },
+                                },
+                                [_vm._v("공급가액")]
+                              )
+                            : mcm.umc_val == "surtax"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.surtax.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.surtax.w + "px",
+                                  },
+                                },
+                                [_vm._v("세액")]
+                              )
+                            : mcm.umc_val == "sum_price"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.sum_price.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.sum_price.w + "px",
+                                  },
+                                },
+                                [_vm._v("함계")]
+                              )
+                            : mcm.umc_val == "com_order_dt"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.com_order_dt.w +
+                                      "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.com_order_dt.w +
+                                      "px",
+                                  },
+                                },
+                                [_vm._v("업체발주일")]
+                              )
+                            : mcm.umc_val == "buyer"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.buyer.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.buyer.w + "px",
+                                  },
+                                },
+                                [_vm._v("매입처")]
+                              )
+                            : mcm.umc_val == "order_mng"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.order_mng.w + "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.order_mng.w + "px",
+                                  },
+                                },
+                                [_vm._v("발주담당")]
+                              )
+                            : mcm.umc_val == "purchase_price"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.purchase_price.w +
+                                      "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.purchase_price.w +
+                                      "px",
+                                  },
+                                },
+                                [_vm._v("매입금액")]
+                              )
+                            : mcm.umc_val == "shipping_dt"
+                            ? _c(
+                                "b-col",
+                                {
+                                  key: mi,
+                                  style: {
+                                    flexBasis:
+                                      _vm.column_list.MODEL.shipping_dt.w +
+                                      "px",
+                                    maxWidth:
+                                      _vm.column_list.MODEL.shipping_dt.w +
+                                      "px",
+                                  },
+                                },
+                                [_vm._v("제품방송일")]
+                              )
+                            : _vm._e(),
+                        ]
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+        ]
+      }),
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []

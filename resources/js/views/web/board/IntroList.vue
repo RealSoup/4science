@@ -9,13 +9,7 @@
     </ul>
 </template>
 
-<script>
-
-export default {
-    name: 'BoardIntroList',
-    props:['list'],
-};
-</script>
+<script> export default { name: 'BoardIntroList', props:['list'], }; </script>
 
 <style lang="scss" scoped>
 ul { margin-top:1.5rem; }

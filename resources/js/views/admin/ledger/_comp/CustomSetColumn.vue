@@ -1,90 +1,53 @@
 <template>
-    <b-container>
-        <b-row><b-col><h3>목록 배열 사용자 정의</h3></b-col></b-row>
-
-        <b-row class="mt-5">
-            <b-col><h4>사용 항목</h4></b-col>
-            <b-col class="text-right">
-                <b-button variant="info" @click="update">수정</b-button>
-            </b-col>
-        </b-row>
-        <b-row>
-            <draggable :list="list_chosen_clmn" handle=".handle" group="column" class="col p-4 border border-info">
-                <b-button v-for="(cc, i) in list_chosen_clmn" :key="i" variant="success" class="handle">
-                    {{cc.name}}
-                </b-button>
-            </draggable>
-    
-            <draggable :list="list_chosen_model" handle=".handle" group="model" class="col p-4 border border-info">
-                <b-button v-for="(cc, i) in list_chosen_model" :key="i" variant="info" class="handle">
-                    {{cc.name}}
-                </b-button>
-            </draggable>
-        </b-row>
-        
-        
-
-        
-        <b-row class="mt-5"><b-col><h4>미사용 항목</h4></b-col></b-row>
-        <b-row>
-            <draggable :list="list_unchosen_clmn" handle=".handle" group="column" class="col p-4 border border-info">
-                <b-button v-for="(cc, i) in list_unchosen_clmn" :key="i" variant="warning" class="handle">
-                    {{cc.name}}
-                </b-button>
-            </draggable>
-            
-            <draggable :list="list_unchosen_model" handle=".handle" group="model" class="col p-4 border border-info">
-                <b-button v-for="(cc, i) in list_unchosen_model" :key="i" variant="danger" class="handle">
-                    {{cc.name}}
-                </b-button>
-            </draggable>
-        </b-row>
-        
-    </b-container>
+<b-container>
+    <b-row><b-col><h3>목록 배열 사용자 정의</h3></b-col></b-row>
+    <b-row class="mt-5">
+        <b-col><h4>사용 항목</h4></b-col>
+        <b-col class="text-right"><b-button variant="info" @click="update">수정</b-button></b-col>
+    </b-row>
+    <b-row>
+        <draggable :list="mng_config.COLUMN" handle=".handle" group="column" class="col p-4 border border-info">
+            <b-button v-for="v in mng_config.COLUMN" :key="v.umc_id" variant="success" class="handle">{{v.name}}</b-button>
+        </draggable>
+        <draggable :list="mng_config.MODEL" handle=".handle" group="model" class="col p-4 border border-info">
+            <b-button v-for="v in mng_config.MODEL" :key="v.umc_id" variant="info" class="handle">{{v.name}}</b-button>
+        </draggable>
+    </b-row>
+    <b-row class="mt-5"><b-col><h4>미사용 항목</h4></b-col></b-row>
+    <b-row>
+        <draggable :list="unchosen.COLUMN" handle=".handle" group="column" class="col p-4 border border-info">
+            <b-button v-for="v in unchosen.COLUMN" :key="v.umc_val" variant="warning" class="handle">{{v.name}}</b-button>
+        </draggable>
+        <draggable :list="unchosen.MODEL" handle=".handle" group="model" class="col p-4 border border-info">
+            <b-button v-for="v in unchosen.MODEL" :key="v.umc_val" variant="danger" class="handle">{{v.name}}</b-button>
+        </draggable>
+    </b-row>
+</b-container>
 </template>
 
 <script>
 import ax from '@/api/http';
 import draggable from 'vuedraggable';
+import copy from "fast-copy";
 
 export default {
     name: 'AdmLedgerCustomSetColumn',
     components: { 
         draggable,
     },
-    props:['db_config_clmn', 'db_config_model', 'column_list_clmn', 'column_list_model'],
-    data() {
-        return {
-            list_chosen_clmn:[],
-            list_unchosen_clmn:[],
-            list_chosen_model:[],
-            list_unchosen_model:[],
-        };
-    },
-
+    props:['mng_config', 'column_list'],
+    data() { return { unchosen : { COLUMN:[], MODEL:[], }, }; },
     mounted() {
-        let temp_column_list_clmn = Object.assign( {}, this.column_list_clmn );
-        let temp_db_config_clmn = this.db_config_clmn ? this.db_config_clmn.slice() : [];
-        temp_db_config_clmn.forEach(el => {
-            el.name=temp_column_list_clmn[el.umc_val].name;
-            delete temp_column_list_clmn[el.umc_val];
-        });
-        this.list_chosen_clmn = temp_db_config_clmn;
-        this.list_unchosen_clmn = Object.values(temp_column_list_clmn);
-
-        let temp_column_list_model = Object.assign( {}, this.column_list_model );
-        let temp_db_config_model = this.db_config_model ? this.db_config_model.slice() : [];
-        temp_db_config_model.forEach(el => {
-            el.name=temp_column_list_model[el.umc_val].name;
-            delete temp_column_list_model[el.umc_val];
-        });
-        this.list_chosen_model = temp_db_config_model;
-        this.list_unchosen_model = Object.values(temp_column_list_model);
+        let tmp = copy(this.column_list);
+        this.mng_config.COLUMN.forEach(el => { this.$set(el, 'name', tmp.COLUMN[el.umc_val].name); delete tmp.COLUMN[el.umc_val]; });
+        this.mng_config.MODEL.forEach(el => { this.$set(el, 'name', tmp.MODEL[el.umc_val].name); delete tmp.MODEL[el.umc_val]; });
+        for (let k in tmp.COLUMN) this.unchosen.COLUMN.push({ name:tmp.COLUMN[k].name, umc_val:k, });
+        for (let k in tmp.MODEL) this.unchosen.MODEL.push({ name:tmp.MODEL[k].name, umc_val:k, });
     },
 
     methods: {
         async update() {
-            let res = await ax.post(`/api/admin/ledger/updateColumn`, {chosen_data_clmn : this.list_chosen_clmn, chosen_data_model : this.list_chosen_model});
+            let res = await ax.post(`/api/admin/ledger/updateColumn`, this.mng_config);
             if (res && res.status === 200) {
                 this.$emit('updateColumnComplete');
                 Notify.toast('success', '수정 완료');

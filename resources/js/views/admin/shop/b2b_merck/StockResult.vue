@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <h3>Merck Stock List</h3>
     <b-row class="head">
         <b-col><span>모델명</span><span>가격</span></b-col>
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_warp { margin-bottom:2rem; }
+.p_wrap { margin-bottom:2rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body:hover { background: #d8f2fd94; }
 .body>div:nth-child(even) { background-color:#7fffd454; }

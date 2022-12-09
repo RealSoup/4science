@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <b-row class="justify-content-center">
         <b-col sm="12" md="10" lg="6">
             <h3 class="p_tit">카테고리</h3>

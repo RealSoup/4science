@@ -113,10 +113,11 @@ export default [
                 component:() => import('@/views/web/mypage/myUser/Destroy'),
             },
         ],
-        beforeEnter: function(to, from, next) {
-            if (to.path === '/mypage' || to.path === '/mypage/')    return next('/mypage/summary');
-            else                                                    return next();
-        }
+        beforeEnter: isLoggedin(),
+        // beforeEnter: function(to, from, next) {
+        //     if (to.path === '/mypage' || to.path === '/mypage/')    return next('/mypage/summary');
+        //     else                                                    return next();
+        // }
     },
 
 //      커뮤니티
@@ -182,7 +183,7 @@ export default [
         name: 'outlet',
         component:() => import('@/views/web/shop/outlet/Cover'),
     }, {
-        path: '/shop/outlet/:code',
+        path: '/shop/outlet/:code/:group',
         name: 'outlet_index',
         component:() => import('@/views/web/shop/outlet/Index'),
     },

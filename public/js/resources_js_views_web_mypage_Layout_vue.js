@@ -97,16 +97,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Mypage",
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     user: 'auth/user',
     enableMileage: 'auth/enableMileage'
-  })),
+  })), {}, {
+    od_step1019: function od_step1019() {
+      var _this$cnt_od_step$, _this$cnt_od_step$2, _this$cnt_od_step$3;
+
+      return Number((_this$cnt_od_step$ = this.cnt_od_step[10]) !== null && _this$cnt_od_step$ !== void 0 ? _this$cnt_od_step$ : 0) + Number((_this$cnt_od_step$2 = this.cnt_od_step[11]) !== null && _this$cnt_od_step$2 !== void 0 ? _this$cnt_od_step$2 : 0) + Number((_this$cnt_od_step$3 = this.cnt_od_step[12]) !== null && _this$cnt_od_step$3 !== void 0 ? _this$cnt_od_step$3 : 0);
+    }
+  }),
   data: function data() {
-    return {};
+    return {
+      cnt_wish: 0,
+      cnt_od_step: []
+    };
   },
   methods: {
     getEnableMileage: function getEnableMileage() {
@@ -148,7 +173,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    this.getEnableMileage();
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res, cnt_wish, cnt_od_step;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/mileage/enable");
+
+            case 2:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.$store.commit("auth/setEnableMileage", res.data);
+              _context2.next = 6;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/wish", {
+                params: {
+                  type: 'cnt'
+                }
+              });
+
+            case 6:
+              cnt_wish = _context2.sent;
+              if (cnt_wish && cnt_wish.status === 200) _this2.cnt_wish = cnt_wish.data;
+              _context2.next = 10;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/cnt_od_step");
+
+            case 10:
+              cnt_od_step = _context2.sent;
+              if (cnt_od_step && cnt_od_step.status === 200) _this2.cnt_od_step = cnt_od_step.data;
+
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -170,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.left[data-v-bc72bc98] { position: relative;\n}\n.left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n.left .myinfo[data-v-bc72bc98] { background: #ECECEC; padding: 1rem; margin-bottom:1rem; text-align: center; border-radius: 20px;\n}\n.left .myinfo .name b[data-v-bc72bc98] { font-size:2rem;\n}\n.left .myinfo img[data-v-bc72bc98] { width:20px; margin-right:4px\n}\n.left .myinfo .mileage[data-v-bc72bc98] { border-top: 1px solid #fff; padding-top: 1rem;\n}\n.left .nav[data-v-bc72bc98] { border: 0 solid #ddd; border-width: 0 0 1px 1px;\n}\n.left .nav li[data-v-bc72bc98] { width:100%; border: 0 solid #ddd; border-width: 1px 1px 0 0; padding:.5rem 0;\n}\n.left .nav li h5[data-v-bc72bc98] { padding:.5rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n.left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n.left .nav li div a[data-v-bc72bc98]:hover { background-color:#17A2B8; color:#fff; font-weight:bold;\n}\n.left .b-sidebar-outer[data-v-bc72bc98] { z-index:10;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container h2[data-v-bc72bc98] { margin:2rem 1rem; font-weight:bold;\n}\n#mypage .top[data-v-bc72bc98] { border:1px solid #9EA7B0;\n}\n#mypage .top .col[data-v-bc72bc98] { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative;\n}\n#mypage .top .col p[data-v-bc72bc98] { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold;\n}\n#mypage .top .col b[data-v-bc72bc98] { font-size:1.6rem; color:#186CB4; font-weight:bold; line-height:1;\n}\n#mypage .top .col b small[data-v-bc72bc98] { font-size:1.1rem;\n}\n#mypage .top .col a[data-v-bc72bc98] { color:#FFF; display:block; margin-top:.25rem; font-size:.9rem;\n}\n#mypage .top .col[data-v-bc72bc98]:nth-child(2):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(3):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(4):after { background:url(/img/mypage/divider.png) no-repeat 0px 0px; content:\"\"; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px;\n}\n#mypage .top .name[data-v-bc72bc98] { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0;\n}\n#mypage .top .name b[data-v-bc72bc98] { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold;\n}\n#mypage .top .od_step[data-v-bc72bc98] { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem;\n}\n#mypage .top .od_step p[data-v-bc72bc98] { margin-bottom:.1rem;\n}\n#mypage .top .od_step ul[data-v-bc72bc98] { display:flex;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { text-align:center; font-size:.79rem; flex-grow:1;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { color:#fff; position:relative;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child) { margin-right:2rem;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem;\n}\n#mypage .top .od_step ul li a[data-v-bc72bc98] { position:absolute; top:-14px; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center;\n}\n#mypage .top .od_step ul li img[data-v-bc72bc98] { display:block; margin:0 auto -.05rem auto;\n}\n#mypage .middle .left[data-v-bc72bc98] { flex-basis:200px; max-width:200px; padding:0;\n}\n#mypage .middle .left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n#mypage .middle .left .nav li[data-v-bc72bc98] { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0;\n}\n#mypage .middle .left .nav li h5[data-v-bc72bc98] { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98]:hover { background-color:#00ADBB; color:#fff; font-weight:bold;\n}\n#mypage .middle .left .b-sidebar-outer[data-v-bc72bc98] { z-index:16;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -189,37 +251,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_comp_PTitle_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! -!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./_comp/PTitle.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./resources/js/views/web/mypage/_comp/PTitle.css");
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_comp_PTitle_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.mypage .order .header { background-color:#DDD;\n}\n.mypage .order .header .col { font-weight:bold;\n}\n.mypage .order .data { border-top:1px solid #ddd;\n}\n.mypage .order .row .col { padding:.6rem 0;\n}\n.mypage .order .row .col:nth-child(1) { flex:0 0 10%; max-width:10%; text-align:center;\n}\n.mypage .order .row .col:nth-child(2) { flex:0 0 10%; max-width:10%; text-align:center;\n}\n.mypage .order .row .col:nth-child(3) .btn { text-align:left;\n}\n.mypage .order .row .col:nth-child(4) { flex:0 0 15%; max-width:15%; text-align:right;\n}\n.mypage .order .row .col:nth-child(5) { flex:0 0 8%; max-width:8%; text-align:center;\n}\n@media (max-width: 768px) {\n.mypage .order .header { display:none;\n}\n.mypage .order .row .col { max-width:none !important; width:auto !important;\n}\n.mypage .order .row .col:nth-child(1) { flex-basis:100%; text-align:left;\n}\n.mypage .order .row .col:nth-child(2) { flex-basis:auto;\n}\n.mypage .order .row .col:nth-child(3) { flex-basis:60%; flex-grow:1;\n}\n.mypage .order .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left;\n}\n.mypage .order .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right;\n}\n}\n.mypage .estimate .header { background-color:#DDD;\n}\n.mypage .estimate .header .col { font-weight:bold;\n}\n.mypage .estimate .data { border-top:1px solid #ddd; margin-bottom:1rem;\n}\n.mypage .estimate .row .col { padding:.6rem 0;\n}\n.mypage .estimate .row .col:nth-child(1) { flex:0 0 10%; max-width:10%; text-align:center;\n}\n.mypage .estimate .row .col:nth-child(2) { flex:0 0 10%; max-width:10%; text-align:center;\n}\n.mypage .estimate .row .col:nth-child(3) .btn { text-align:left;\n}\n.mypage .estimate .row .col:nth-child(4) { flex:0 0 8%; max-width:8%; text-align:center;\n}\n.mypage .estimate .row .col:nth-child(5) { flex:0 0 18%; max-width:18%; text-align:center;\n}\n@media (max-width: 768px) {\n.mypage .estimate .header { display:none;\n}\n.mypage .estimate .row .col { max-width:none !important; width:auto !important;\n}\n.mypage .estimate .row .col:nth-child(1) { flex-basis:100%; text-align:left;\n}\n.mypage .estimate .row .col:nth-child(2) { flex-basis:auto;\n}\n.mypage .estimate .row .col:nth-child(3) { flex-basis:60%; flex-grow:1;\n}\n.mypage .estimate .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left;\n}\n.mypage .estimate .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right;\n}\n}\r\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./resources/js/views/web/mypage/_comp/PTitle.css":
-/*!**********************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./resources/js/views/web/mypage/_comp/PTitle.css ***!
-  \**********************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n.pTitle { display:flex; flex-flow: row wrap; align-items:center; background:#17A2B8; min-height: 150px; border-radius: 10px; padding: 1rem; margin: 1rem auto; max-width:650px;}\r\n.pTitle span { position:relative; display: inline-block; width:80px; height:80px; border-radius:10px; padding:8px 15px; margin: 8px 4px;\r\n    background:linear-gradient(180deg, #282828, #202020);\r\n    box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15), inset 0 -8px 8px rgba(0, 0, 0, 0.25),\r\n                      0 0 0 2px rgba(0, 0, 0, 0.75), 10px 20px 25px rgba(0, 0, 0, 0.4); overflow:hidden; }\r\n.pTitle span::before { content:''; position:absolute; top:3px; left:4px; bottom:14px; right:12px;\r\n    background:linear-gradient(90deg, #232323, #4a4a4a); border-radius: 10px; box-shadow:-10px -10px 10px rgba(255, 255, 255, 0.25), 10px 5px 10px rgba(0, 0, 0, 0.15);\r\n    border-left:1px solid #0004; border-bottom:1px solid #0004; border-top:1px solid #0009; }\r\n.pTitle span:last-child { width:100%; height: 60px; }\r\n.pTitle span i { position:relative; color:#fff; font-size:1.6rem; font-style:normal; font-weight: bold; }\r\n.pTitle .break { flex-basis: 100%; height: 0; }\r\n@media (max-width: 992px) {\r\n    .pTitle span { width:60px; height:60px; margin:3px; }\r\n    .pTitle span i { font-size:1rem; }\r\n    .pTitle span:last-child { width:100%; height:40px; }\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#mypage .middle .mypage { padding:0 0 0 3rem ;\n}\n#mypage .middle .mypage h5 { font-size:1.5rem; margin-top: 2.6rem; margin-bottom:1.2rem; font-weight:bold;\n}\n#mypage .middle .mypage h5 small { font-size:.8rem; color:#777; margin-left:.3rem;\n}\n#mypage .middle .list01 .data .col { padding:.7rem 0;\n}\n#mypage .middle .list01 .data .product a { flex:0 0 100px; max-width:100px; margin:0 .6rem;\n}\n#mypage .middle .list01 .data .product a div { font-size:.7rem; margin-top:.4rem;\n}\n#mypage .middle .list01 .data .product a .over_flow { display:flex; align-items:flex-end;\n}\n.list01 .header { background-color:#ECECEC; border-top:2px solid #363636; border-bottom:1px solid #ACACAC;\n}\n.list01 .header .col { font-weight:bold; font-size:.9rem; padding:.68rem 0;\n}\n.list01 .data:not(:last-child) { border-bottom:1px solid #ddd;\n}\n.list01 .row { align-items:center;\n}\n.list01 .row .col { text-align:center;\n}\n.list01 .row .chk { flex:0 0 7%; max-width:7%;\n}\n.list01 .row .date { flex:0 0 10%; max-width:10%;\n}\n.list01 .row .num { flex:0 0 12%; max-width:12%;\n}\n.list01 .row .num .btn { padding:.13rem .6rem; font-size:.8rem; font-weight:bold; margin:.3rem auto;\n}\n.list01 .row .price { flex:0 0 12%; max-width:12%;\n}\n.list01 .row .step { flex:0 0 10%; max-width:10%;\n}\n.list01 .data .product { text-align:left;\n}\n.list01 .data .product a { display:inline-block; width:100px;\n}\n.list01 .data .product a img { border:1px solid #B1B1B1; width:100px; height:100px; -o-object-fit:cover; object-fit:cover; transition: all .1s;\n}\n.list01 .data .product a img:hover { border:4px solid black; border-radius:5px;\n}\n@media (max-width: 768px) {\n.mypage .order .header { display:none;\n}\n.mypage .order .row .col { max-width:none !important; width:auto !important;\n}\n.mypage .order .row .col:nth-child(1) { flex-basis:100%; text-align:left;\n}\n.mypage .order .row .col:nth-child(2) { flex-basis:auto;\n}\n.mypage .order .row .col:nth-child(3) { flex-basis:60%; flex-grow:1;\n}\n.mypage .order .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left;\n}\n.mypage .order .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right;\n}\n}\n@media (max-width: 768px) {\n.mypage .estimate .header { display:none;\n}\n.mypage .estimate .row .col { max-width:none !important; width:auto !important;\n}\n.mypage .estimate .row .col:nth-child(1) { flex-basis:100%; text-align:left;\n}\n.mypage .estimate .row .col:nth-child(2) { flex-basis:auto;\n}\n.mypage .estimate .row .col:nth-child(3) { flex-basis:60%; flex-grow:1;\n}\n.mypage .estimate .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left;\n}\n.mypage .estimate .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right;\n}\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/*\r\n.order .header { background-color:#DDD; }\r\n.order .header .col { font-weight:bold; }\r\n.order .data { border-top:1px solid #ddd; }\r\n.order .row .col { padding:.6rem 0; }\r\n.order .row .col:nth-child(1) { flex:0 0 10%; max-width:10%; text-align:center; }\r\n.order .row .col:nth-child(2) { flex:0 0 10%; max-width:10%; text-align:center; }\r\n.order .row .col:nth-child(3) .btn { text-align:left; }\r\n.order .row .col:nth-child(4) { flex:0 0 15%; max-width:15%; text-align:right; }\r\n.order .row .col:nth-child(5) { flex:0 0 8%; max-width:8%; text-align:center; }\r\n@media (max-width: 768px) {\r\n    .order .header { display:none; }\r\n    .order .row .col { max-width:none !important; width:auto !important; }\r\n    .order .row .col:nth-child(1) { flex-basis:100%; text-align:left; }\r\n    .order .row .col:nth-child(2) { flex-basis:auto; }\r\n    .order .row .col:nth-child(3) { flex-basis:60%; flex-grow:1; }\r\n    .order .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left; }\r\n    .order .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right; }\r\n}\r\n*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -398,13 +434,221 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { attrs: { id: "mypage" } },
     [
+      _c("h2", [_vm._v("마이페이지")]),
+      _vm._v(" "),
       _c(
         "b-row",
+        { staticClass: "top" },
+        [
+          _c("b-col", { staticClass: "name" }, [
+            _c("b", [_vm._v(_vm._s(_vm.user.name))]),
+            _vm._v(" 님\n            "),
+            _c("p", [_vm._v(_vm._s(_vm.user.email))]),
+          ]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "rank" },
+            [
+              _c("p", [_vm._v("나의 등급")]),
+              _vm._v(" "),
+              _c(
+                "b",
+                [
+                  _vm.user.level == 1
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_normal.png" },
+                        }),
+                        _vm._v("일반"),
+                      ]
+                    : _vm.user.level == 2
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_bronze.png" },
+                        }),
+                        _vm._v("브론즈"),
+                      ]
+                    : _vm.user.level == 3
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_silver.png" },
+                        }),
+                        _vm._v("실버"),
+                      ]
+                    : _vm.user.level == 4
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_gold.png" },
+                        }),
+                        _vm._v("골드"),
+                      ]
+                    : _vm.user.level == 5
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_diamond.png" },
+                        }),
+                        _vm._v("다이아"),
+                      ]
+                    : _vm.user.level == 11
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_normal_d.png" },
+                        }),
+                        _vm._v("딜러"),
+                      ]
+                    : _vm.user.level == 13
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_silver_d.png" },
+                        }),
+                        _vm._v("실버딜러"),
+                      ]
+                    : _vm.user.level == 14
+                    ? [
+                        _c("img", {
+                          attrs: { src: "/img/mypage/mb_mark_gold_d.png" },
+                        }),
+                        _vm._v("골드딜러"),
+                      ]
+                    : _vm.user.level > 14
+                    ? [
+                        _vm._v(
+                          "                                               킹왕짱"
+                        ),
+                      ]
+                    : _vm._e(),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("b-link", { attrs: { to: "/foo" } }, [
+                _vm._v("혜택 보러가기 >"),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("p", [_vm._v("나의 마일리지")]),
+              _vm._v(" "),
+              _c("b", [
+                _vm._v(_vm._s(_vm.enableMileage) + " "),
+                _c("small", [_vm._v("P")]),
+              ]),
+              _vm._v(" "),
+              _c("b-link", { attrs: { to: "/mypage/mileage" } }, [
+                _vm._v("어떻게 사용하시나요? >"),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("p", [_vm._v("내가 찜한 상품")]),
+              _vm._v(" "),
+              _c("b-link", { attrs: { to: { name: "my_wish" } } }, [
+                _c("b", [
+                  _vm._v(_vm._s(_vm.cnt_wish) + " "),
+                  _c("small", [_vm._v("개")]),
+                ]),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "od_step" }, [
+            _c("p", [_vm._v("나의 주문 건")]),
+            _vm._v(" "),
+            _c("ul", [
+              _c(
+                "li",
+                [
+                  _vm.od_step1019
+                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
+                        _vm._v(_vm._s(_vm.od_step1019)),
+                      ])
+                    : _vm._e(),
+                  _c("img", { attrs: { src: "/img/mypage/step01.png" } }),
+                  _vm._v("주문접수"),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _vm.cnt_od_step[20]
+                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
+                        _vm._v(_vm._s(_vm.cnt_od_step[20])),
+                      ])
+                    : _vm._e(),
+                  _c("img", { attrs: { src: "/img/mypage/step02.png" } }),
+                  _vm._v("결제완료"),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _vm.cnt_od_step[30]
+                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
+                        _vm._v(_vm._s(_vm.cnt_od_step[30])),
+                      ])
+                    : _vm._e(),
+                  _c("img", { attrs: { src: "/img/mypage/step03.png" } }),
+                  _vm._v("상품준비중"),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _vm.cnt_od_step[40]
+                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
+                        _vm._v(_vm._s(_vm.cnt_od_step[40])),
+                      ])
+                    : _vm._e(),
+                  _c("img", { attrs: { src: "/img/mypage/step04.png" } }),
+                  _vm._v("배송중"),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _vm.cnt_od_step[50]
+                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
+                        _vm._v(_vm._s(_vm.cnt_od_step[50])),
+                      ])
+                    : _vm._e(),
+                  _c("img", { attrs: { src: "/img/mypage/step05.png" } }),
+                  _vm._v("배송완료"),
+                ],
+                1
+              ),
+            ]),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        { staticClass: "middle" },
         [
           _c(
             "b-col",
-            { staticClass: "left", attrs: { lg: "2", md: "12" } },
+            { staticClass: "left" },
             [
               _c(
                 "b-button",
@@ -433,123 +677,6 @@ var render = function () {
                   },
                 },
                 [
-                  _c("div", { staticClass: "myinfo" }, [
-                    _c("div", { staticClass: "name" }, [
-                      _c("b", [_vm._v(_vm._s(_vm.user.name))]),
-                      _vm._v(" 님"),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "rank" },
-                      [
-                        _vm.user.level == 1
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_normal.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#6AA3B6" } }, [
-                                _vm._v("일반"),
-                              ]),
-                            ]
-                          : _vm.user.level == 2
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_bronze.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#E76344" } }, [
-                                _vm._v("브론즈"),
-                              ]),
-                            ]
-                          : _vm.user.level == 3
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_silver.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#D9D9D7" } }, [
-                                _vm._v("실버"),
-                              ]),
-                            ]
-                          : _vm.user.level == 4
-                          ? [
-                              _c("img", {
-                                attrs: { src: "/img/mypage/mb_mark_gold.png" },
-                              }),
-                              _c("b", { staticStyle: { color: "#F4C34A" } }, [
-                                _vm._v("골드"),
-                              ]),
-                            ]
-                          : _vm.user.level == 5
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_diamond.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#D6D5D6" } }, [
-                                _vm._v("다이아"),
-                              ]),
-                            ]
-                          : _vm.user.level == 11
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_normal_d.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#6AA3B6" } }, [
-                                _vm._v("딜러"),
-                              ]),
-                            ]
-                          : _vm.user.level == 13
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_silver_d.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#D9D9D7" } }, [
-                                _vm._v("실버딜러"),
-                              ]),
-                            ]
-                          : _vm.user.level == 14
-                          ? [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/mypage/mb_mark_gold_d.png",
-                                },
-                              }),
-                              _c("b", { staticStyle: { color: "#F4C34A" } }, [
-                                _vm._v("골드딜러"),
-                              ]),
-                            ]
-                          : _vm.user.level > 14
-                          ? [
-                              _c("b", { staticStyle: { color: "#00BF86" } }, [
-                                _vm._v("킹왕짱"),
-                              ]),
-                            ]
-                          : _vm._e(),
-                        _vm._v(
-                          "\n                        등급\n                    "
-                        ),
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mileage" }, [
-                      _vm._v("\n                        마일리지 "),
-                      _c("b", [_vm._v(_vm._s(_vm.enableMileage))]),
-                      _vm._v("P\n                    "),
-                    ]),
-                  ]),
-                  _vm._v(" "),
                   _c("ul", { staticClass: "nav" }, [
                     _c(
                       "li",
@@ -565,7 +692,7 @@ var render = function () {
                               },
                             ],
                           },
-                          [_vm._v("나의 쇼핑내역")]
+                          [_vm._v("나의 구매내역")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -588,12 +715,6 @@ var render = function () {
                               "b-link",
                               { attrs: { to: { name: "my_bought" } } },
                               [_vm._v("구매상품 목록")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-link",
-                              { attrs: { to: { name: "my_wish" } } },
-                              [_vm._v("관심상품")]
                             ),
                           ],
                           1
@@ -684,23 +805,6 @@ var render = function () {
                             ),
                           ],
                           1
-                        ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "b-link",
-                          {
-                            attrs: {
-                              to: "/mypage/mileage",
-                              "router-tag": "h5",
-                            },
-                          },
-                          [_vm._v("마일리지")]
                         ),
                       ],
                       1

@@ -77,6 +77,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
+  components: {
+    'ModelSchInput': function ModelSchInput() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_b2b_merck__comp_ModelSchInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ModelSchInput */ "./resources/js/views/admin/shop/b2b_merck/_comp/ModelSchInput.vue"));
+    }
+  },
   data: function data() {
     return {
       list: [],
@@ -235,6 +240,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[0, 7]]);
       }))();
+    },
+    addModel: function addModel(m) {
+      this.list.unshift({
+        "b2b_chk": true,
+        "odm_id": 0,
+        "odm_gm_id": m.gm_id,
+        "odm_gm_name": m.gm_name,
+        "odm_gm_code": m.gm_code,
+        "odm_gm_unit": m.gm_unit,
+        "odm_price": m.gm_price,
+        "odm_gm_spec": m.gm_spec,
+        "odm_ea": 1,
+        "odm_mk_name": m.mk_name,
+        "req_order": null
+      });
     }
   },
   mounted: function mounted() {
@@ -260,7 +280,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_warp[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.list[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc]{ padding-top:15px; padding-bottom:15px;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.list>div[data-v-d2573ecc] { font-size:.9rem;\n}\n.list>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.list .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.list .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.list .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.list .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.list .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.row>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.row>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -396,7 +416,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("Merck Order List")]),
       _vm._v(" "),
@@ -438,24 +458,8 @@ var render = function () {
           _vm._v(" "),
           _c(
             "b-col",
-            {
-              staticClass: "text-right",
-              attrs: { col: "", sm: "12", md: "6" },
-            },
-            [
-              _c(
-                "b-button",
-                {
-                  attrs: {
-                    to: { name: "adm_goods_create" },
-                    variant: "info",
-                    size: "sm",
-                  },
-                },
-                [_c("b-icon-plus-lg"), _vm._v(" 추가")],
-                1
-              ),
-            ],
+            { staticClass: "addModel", attrs: { col: "", sm: "12", md: "6" } },
+            [_c("ModelSchInput", { on: { addModel: _vm.addModel } })],
             1
           ),
         ],
@@ -463,25 +467,8 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "div",
-        [
-          _c("b-form-textarea", {
-            attrs: { placeholder: "배송시 요청사항 입력" },
-            model: {
-              value: _vm.req_dlvy,
-              callback: function ($$v) {
-                _vm.req_dlvy = $$v
-              },
-              expression: "req_dlvy",
-            },
-          }),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "b-row",
-        { staticClass: "list head" },
+        { staticClass: "head" },
         [
           _c("b-col", [
             _c("span", [_vm._v("주문번호")]),
@@ -509,7 +496,7 @@ var render = function () {
       _vm._l(_vm.list, function (row) {
         return _c(
           "b-row",
-          { key: row.odm_id, staticClass: "list body" },
+          { key: row.odm_id, staticClass: "body" },
           [
             _c("b-col", [
               _c(
@@ -616,6 +603,29 @@ var render = function () {
           1
         )
       }),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c("b-form-textarea", {
+                attrs: { placeholder: "배송시 요청사항 입력" },
+                model: {
+                  value: _vm.req_dlvy,
+                  callback: function ($$v) {
+                    _vm.req_dlvy = $$v
+                  },
+                  expression: "req_dlvy",
+                },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
     ],
     2
   )

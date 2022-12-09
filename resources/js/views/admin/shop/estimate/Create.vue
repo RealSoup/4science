@@ -1,5 +1,5 @@
 <template lang="html">
-    <b-container id="adm_estimate_create" class="p_warp">
+    <b-container id="adm_estimate_create" class="p_wrap">
 
         <h3>견적서 작성</h3>
 

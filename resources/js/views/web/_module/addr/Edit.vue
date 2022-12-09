@@ -1,5 +1,5 @@
 <template>
-    <div class="p_warp">
+    <div class="p_wrap">
         <h3>배송지 수정</h3>
         <Form v-model="addr" />
         
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-.p_warp { margin:0 -15px; }
-.p_warp h3 { margin-left:15px; }
+.p_wrap { margin:0 -15px; }
+.p_wrap h3 { margin-left:15px; }
 .row { justify-content:space-between; margin:15px; }
 </style>

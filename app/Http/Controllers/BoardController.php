@@ -27,6 +27,8 @@ class BoardController extends Controller {
                 ->where('bo_group', 0)
                 ->whereNull('bo_seq_cd')
                 ->orderByRaw('bo_seq, bo_seq_cd');
+        if ( $bo_cd == 'gd_inquiry' )
+            $bo = $bo->with('goods');
         
         if (( $bo_cd == 'gd_inquiry' || $bo_cd == 'review' ) &&  $req->filled('bo_gd_id'))
             $bo = $bo->where('bo_gd_id', $req->bo_gd_id);
@@ -97,7 +99,10 @@ class BoardController extends Controller {
         return response()->json($this->param);
     }
 
-    public function store(\App\Models\Mileage $p, StoreBoard $req, $bo_cd) {
+    public function store(\App\Models\Mileage $p, StoreBoard $req, $bo_cd) {       
+
+        abort_if(!auth()->check(), 401);
+
         if ($req->wri_type == 'comment')    $pieces = $this->co_reqImplant($req);
         else if ($req->wri_type == 'reply') $pieces = $this->re_reqImplant($req);
         else                                $pieces = ['bo_seq' => ($this->board->min('bo_seq'))-1];

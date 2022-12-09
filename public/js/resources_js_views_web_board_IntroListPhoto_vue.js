@@ -29,19 +29,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'BoardIntroList',
-  props: ['list', 'type'],
-  methods: {
-    link: function link(code, bo_id) {
-      if (this.type == 'inner') {
-        return;
-      } else if (this.type == 'outer') {
-        return {
-          path: "".concat(code)
-        };
-      }
-    }
-  }
+  name: 'BoardIntroListPhoto',
+  props: ['list']
 });
 
 /***/ }),
@@ -62,7 +51,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\nul[data-v-2c3f6d2a] {\n  margin-top: 1.5rem;\n}\nul li a[data-v-2c3f6d2a] {\n  padding: 0.2rem 0;\n  display: block;\n  clear: both;\n}\nul li a[data-v-2c3f6d2a]:hover {\n  background: #f5f5f5;\n}\nul li a img[data-v-2c3f6d2a] {\n  width: 100px;\n  height: 100px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  float: left;\n  margin-right: 1rem;\n}\nul li a p[data-v-2c3f6d2a]:nth-of-type(1) {\n  font-weight: bold;\n}\nul li a p[data-v-2c3f6d2a]:last-child {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  /* 라인수 */\n  -webkit-box-orient: vertical;\n  word-wrap: break-word;\n  line-height: 1.2em;\n  height: 3.6em;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\nul[data-v-2c3f6d2a] {\n  margin-top: 1.5rem;\n}\nul li a[data-v-2c3f6d2a] {\n  padding: 0.2rem 0;\n  display: block;\n  clear: both;\n}\nul li a[data-v-2c3f6d2a]:hover {\n  background: #f5f5f5;\n}\nul li a img[data-v-2c3f6d2a] {\n  width: 70px;\n  height: 70px;\n  -o-object-fit: cover;\n     object-fit: cover;\n  float: left;\n  margin-right: 1rem;\n  border: 1px solid #D1D1D1;\n}\nul li a p[data-v-2c3f6d2a] {\n  font-weight: bold;\n  margin-bottom: 0;\n}\nul li a div[data-v-2c3f6d2a] {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3;\n  /* 라인수 */\n  -webkit-box-orient: vertical;\n  word-wrap: break-word;\n  line-height: 1.2em;\n  height: 3.6em;\n  margin-top: 0.4rem;\n}\nul li a.blog div[data-v-2c3f6d2a] {\n  -webkit-line-clamp: 2;\n  height: 2.4em;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -203,50 +192,40 @@ var render = function () {
         "li",
         { key: bo.bo_id },
         [
-          _vm.type == "inner"
+          bo.code == "gd_inquiry"
             ? _c(
                 "b-link",
                 {
                   attrs: {
-                    to: {
-                      name: "bo_show",
-                      params: { bo_cd: bo.code, bo_id: bo.bo_id },
-                    },
+                    to: { name: "goods_show", params: { gd_id: bo.bo_gd_id } },
                   },
                 },
                 [
                   _c("b-img", {
-                    attrs: {
-                      src: bo.goods.image_src_thumb[0],
-                      rounded: "circle",
-                    },
+                    attrs: { src: bo.goods.image_src_thumb[0], rounded: "" },
                   }),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(bo.bo_subject))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(bo.bo_content))]),
+                  _c("div", [_vm._v(_vm._s(bo.bo_content))]),
                 ],
                 1
               )
-            : _vm.type == "outer"
-            ? _c(
+            : _c(
                 "b-link",
-                { attrs: { href: bo.href, target: "_blank" } },
+                {
+                  staticClass: "blog",
+                  attrs: { href: bo.href, target: "_blank" },
+                },
                 [
                   _c("b-img", {
-                    attrs: {
-                      src: bo.goods.image_src_thumb[0],
-                      rounded: "circle",
-                    },
+                    attrs: { src: bo.goods.image_src_thumb[0], rounded: "" },
                   }),
                   _vm._v(" "),
                   _c("p", [_vm._v(_vm._s(bo.bo_subject))]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(bo.bo_content))]),
+                  _c("div", [_vm._v(_vm._s(bo.bo_content))]),
                 ],
                 1
-              )
-            : _vm._e(),
+              ),
         ],
         1
       )

@@ -1,5 +1,5 @@
 <template>
-<div class="p_warp">
+<div class="p_wrap">
     <h3 class="p_tit">견적 목록</h3>
     <b-card class="search adform">
         <b-container fluid>

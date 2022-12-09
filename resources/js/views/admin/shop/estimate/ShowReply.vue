@@ -1,5 +1,5 @@
 <template>
-    <div id="adm_estimate_show" class="p_warp">
+    <div id="adm_estimate_show" class="p_wrap">
         <h3 class="p_tit">견적 응답</h3>
         <b-card no-body class="ctrl">
             <b-container>

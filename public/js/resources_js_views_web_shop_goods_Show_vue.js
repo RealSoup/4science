@@ -428,9 +428,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           break;
 
         case "putCart":
+          // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
           this.$store.dispatch('cart/examine', {
-            goods: this.content,
-            params: params
+            goods: this.content
           });
           break;
 
@@ -497,6 +497,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     create: function create() {
+      if (!Auth.check()) {
+        this.$bvModal.show('login-modal');
+        return false;
+      }
+
       this.$refs.gd_inquiry.create();
     },
     scrollListener: function scrollListener(e) {
@@ -585,6 +590,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ShopGoodsInquiry',
@@ -596,7 +602,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_BoCreate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./BoCreate.vue */ "./resources/js/views/web/shop/goods/_comp/BoCreate.vue"));
     }
   },
-  props: ['bo_cd', 'bo_cnt'],
+  props: ['bo_cd', 'bo_cnt', 'bo_subject'],
   data: function data() {
     return {
       isModalViewed: false,
@@ -608,6 +614,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       list: {},
       config: {},
       bo: {
+        bo_subject: this.bo_subject,
         bo_gd_id: this.$route.params.gd_id
       }
     };
@@ -709,7 +716,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".bo_index[data-v-12beb264] {\n  max-width: 1000px;\n}\n.bo_index .row[data-v-12beb264] {\n  align-items: baseline;\n  border-bottom: 1px solid #959595;\n}\n.bo_index .bo_body .col[data-v-12beb264] {\n  padding: 3px;\n  text-align: center;\n}\n.bo_index .bo_body .col .answer_mark[data-v-12beb264] {\n  background: #F7941C;\n}\n.bo_index .bo_body .col[data-v-12beb264]:nth-of-type(1) {\n  flex-basis: 7%;\n  max-width: 7%;\n}\n.bo_index .bo_body .col:nth-of-type(2) button[data-v-12beb264] {\n  text-align: left;\n  background: none;\n  border-color: #fff;\n  padding: 10px 0;\n}\n.bo_index .bo_body .col[data-v-12beb264]:nth-of-type(3),\n.bo_index .bo_body .col[data-v-12beb264]:nth-of-type(4),\n.bo_index .bo_body .col[data-v-12beb264]:nth-of-type(5) {\n  flex-basis: 7%;\n  max-width: 7%;\n}\n.bo_index .bo_body .answer[data-v-12beb264] {\n  flex-basis: 100%;\n  max-width: 100%;\n  display: flex;\n  justify-content: flex-end;\n  text-align: left;\n}\n.bo_index .bo_body .answer .collapse[data-v-12beb264] {\n  flex-basis: 93%;\n  max-width: 93%;\n  margin-bottom: 20px;\n}\n.bo_index .bo_body .answer .collapse .card[data-v-12beb264] {\n  border-width: 0;\n  background: #ECEAEB;\n  border-radius: 10px;\n  margin-top: 1rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body[data-v-12beb264] {\n  padding: 1.25rem 2rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body div[data-v-12beb264] {\n  font-size: 0.87rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans[data-v-12beb264] {\n  margin-top: 3rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans p[data-v-12beb264] {\n  margin: 1.5rem 0 0;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans p .aa[data-v-12beb264] {\n  color: #FA931D;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans p b[data-v-12beb264] {\n  font-size: 1.2rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans .card-text[data-v-12beb264] {\n  margin-top: 1.3rem;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.bo_index[data-v-12beb264] {\n  max-width: 1000px;\n}\n.bo_index .row[data-v-12beb264] {\n  align-items: baseline;\n  border-bottom: 1px solid #959595;\n}\n.bo_index .bo_body .col[data-v-12beb264] {\n  padding: 3px;\n  text-align: center;\n}\n.bo_index .bo_body .col .answer_mark[data-v-12beb264] {\n  background: #F7941C;\n}\n.bo_index > .bo_body > .col[data-v-12beb264]:nth-of-type(1) {\n  flex-basis: 7%;\n  max-width: 7%;\n}\n.bo_index > .bo_body > .col[data-v-12beb264]:nth-of-type(2) {\n  text-align: left;\n  background: none;\n  border-color: #fff;\n  margin: 10px 0;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 1;\n  /* 라인수 */\n  -webkit-box-orient: vertical;\n  word-wrap: break-word;\n  height: 1.5em;\n}\n.bo_index > .bo_body > .col[data-v-12beb264]:nth-of-type(3),\n.bo_index > .bo_body > .col[data-v-12beb264]:nth-of-type(4),\n.bo_index > .bo_body > .col[data-v-12beb264]:nth-of-type(5) {\n  flex-basis: 7%;\n  max-width: 7%;\n}\n.bo_index .bo_body .answer[data-v-12beb264] {\n  flex-basis: 100%;\n  max-width: 100%;\n  display: flex;\n  justify-content: flex-end;\n  text-align: left;\n}\n.bo_index .bo_body .answer .collapse[data-v-12beb264] {\n  flex-basis: 93%;\n  max-width: 93%;\n  margin-bottom: 20px;\n}\n.bo_index .bo_body .answer .collapse .card[data-v-12beb264] {\n  border-width: 0;\n  background: #ECEAEB;\n  border-radius: 10px;\n  margin-top: 1rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body[data-v-12beb264] {\n  padding: 1.25rem 2rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body div[data-v-12beb264] {\n  font-size: 0.87rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans[data-v-12beb264] {\n  margin-top: 3rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans p[data-v-12beb264] {\n  margin: 1.5rem 0 0;\n  color: #FA931D;\n  font-size: 1.2rem;\n  font-weight: bold;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans .card-text[data-v-12beb264] {\n  margin-top: 1.3rem;\n}\n.bo_index .bo_body .answer .collapse .card .card-body .ans .date[data-v-12beb264] {\n  margin-top: 1.3rem;\n}\n.bo_index .pagination[data-v-12beb264] {\n  margin-top: 1rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1688,7 +1695,11 @@ var render = function () {
                   _vm._v(" "),
                   _c("bo-gd-inquiry", {
                     ref: "gd_inquiry",
-                    attrs: { bo_cd: "gd_inquiry", bo_cnt: _vm.bo_cnt },
+                    attrs: {
+                      bo_cd: "gd_inquiry",
+                      bo_cnt: _vm.bo_cnt,
+                      bo_subject: _vm.content.gd_name + "의 문의",
+                    },
                   }),
                 ],
                 1
@@ -1747,24 +1758,17 @@ var render = function () {
             _vm._v(" "),
             _c(
               "b-col",
-              [
-                _c(
-                  "b-button",
+              {
+                directives: [
                   {
-                    directives: [
-                      {
-                        name: "b-toggle",
-                        rawName: "v-b-toggle",
-                        value: "collapse_" + bo.bo_id,
-                        expression: "`collapse_${bo.bo_id}`",
-                      },
-                    ],
-                    attrs: { block: "", variant: "light" },
+                    name: "b-toggle",
+                    rawName: "v-b-toggle",
+                    value: "collapse_" + bo.bo_id,
+                    expression: "`collapse_${bo.bo_id}`",
                   },
-                  [_vm._v(_vm._s(bo.bo_subject))]
-                ),
-              ],
-              1
+                ],
+              },
+              [_vm._v(_vm._s(bo.bo_content))]
             ),
             _vm._v(" "),
             _c(
@@ -1793,22 +1797,14 @@ var render = function () {
                   [
                     _c("b-card", [
                       _c("div", { staticClass: "ask" }, [
-                        _c("p", [
-                          _c("b", [_vm._v("Q")]),
-                          _vm._v(". " + _vm._s(bo.bo_subject)),
-                        ]),
+                        _c("p", [_vm._v("Q.")]),
                         _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(bo.bo_content))]),
+                        _c("div", [_vm._v(_vm._s(bo.bo_content))]),
                       ]),
                       _vm._v(" "),
                       bo.answer
                         ? _c("div", { staticClass: "ans" }, [
-                            _c("p", [
-                              _c("b", { staticClass: "aa" }, [_vm._v("A")]),
-                              _vm._v(". 담당자 "),
-                              _c("b", [_vm._v(_vm._s(bo.answer.bo_writer))]),
-                              _vm._v(" 의 답변입니다."),
-                            ]),
+                            _c("p", [_vm._v("A.")]),
                             _vm._v(" "),
                             _c("div", {
                               staticClass: "card-text",
@@ -1819,7 +1815,7 @@ var render = function () {
                               },
                             }),
                             _vm._v(" "),
-                            _c("p", [
+                            _c("div", { staticClass: "date" }, [
                               _vm._v(
                                 _vm._s(
                                   _vm._f("formatDate")(bo.answer.created_at)
@@ -1841,7 +1837,7 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("pagination", {
-        attrs: { data: _vm.list, align: "center" },
+        attrs: { data: _vm.list, align: "center", size: "small" },
         on: { "pagination-change-page": _vm.index },
       }),
       _vm._v(" "),

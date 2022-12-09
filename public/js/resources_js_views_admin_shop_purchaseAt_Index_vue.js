@@ -241,7 +241,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("매입처 / 항공운임 관리")]),
       _vm._v(" "),

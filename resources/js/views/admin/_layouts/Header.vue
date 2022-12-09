@@ -80,13 +80,13 @@
 
                 <b-navbar-nav class="">
                     <b-button variant="light" class="blink"
-                        v-if="requestVoucher.length" 
-                        @click="isModalViewed = !isModalViewed"
+                        v-if="reqVoucher.length" 
+                        @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
                         v-b-tooltip.leftbottom.hover title="상품권 신청"
                     ><b-icon-gift /></b-button>
                     <b-button variant="light" class="blink"
-                        v-if="requestVoucher.length" 
-                        @click="isModalViewed = !isModalViewed"
+                        v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length"
+                        @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
                         v-b-tooltip.rightbottom.hover title="답변 요청"
                     ><b-icon-chat-square-text /> (9)</b-button>                    
         
@@ -100,7 +100,8 @@
 
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
-            <RequestVoucher @close-modal="isModalViewed = false" :list="requestVoucher" />
+            <reqVoucher v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
+            <reqAsk v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
         </Modal>
     </transition>
 </header>
@@ -114,8 +115,9 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
     name: 'Header',
     components: {
-        'Modal': () => import('@/views/_common/Modal.vue'),
-        'RequestVoucher': () => import('./_comp/RequestVoucher.vue'),
+        'Modal'     : () => import('@/views/_common/Modal'),
+        'reqVoucher': () => import('./_comp/ReqVoucher'),
+        'reqAsk'    : () => import('./_comp/ReqAsk'),
     },
     computed: {
         ...mapGetters({
@@ -124,16 +126,25 @@ export default {
     },
     data() {
         return {
+            modalMode:'',
             isModalViewed: false,
-            requestVoucher: [],
+            reqVoucher: [],
+            reqAsk: {
+                as:[],
+                cancel:[],
+                gd_inquiry:[],
+                inquiry:[],
+            },
         }
     },
 
     async mounted(){
         //  ml_key=0 => 상품권 요청
-        const res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0, limit: 10,}});
-        if (res && res.status === 200) 
-            this.requestVoucher = res.data;
+        let res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0, limit: 10,}});
+        if (res && res.status === 200) this.reqVoucher = res.data;
+        
+        res = await ax.get(`api/admin/board/requestAsk`, { params: {type:'cnt'}});
+        if (res && res.status === 200) this.reqAsk = res.data;
     }
 }
 </script>

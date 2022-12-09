@@ -19,9 +19,11 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'notice');
-        $this->board = $board;
-        $this->param['config'] = $board->config;
+        if($req->filled('bo_cd') && $req->bo_cd !== 'requestask') {
+            $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'notice');
+            $this->board = $board;
+            $this->param['config'] = $board->config;
+        }
     }
     public function index(Request $req, $bo_cd) {
         $bo = $this->board
@@ -57,6 +59,15 @@ class BoardController extends Controller {
         $this->param['list'] = $bo;
         return response()->json($this->param);
 
+    }
+
+    public function requestAsk(Request $req) {
+        $rst['inquiry']    = DB::table('board_inquiry')->whereNull('bo_seq_cd')->get();
+        $rst['as']         = DB::table('board_as')->whereNull('bo_seq_cd')->get();
+        $rst['cancel']     = DB::table('board_cancel')->whereNull('bo_seq_cd')->get();
+        $rst['gd_inquiry'] = DB::table('board_gd_inquiry')->whereNull('bo_seq_cd')->get();
+        
+        return response()->json($rst);
     }
     
     public function create($bo_cd) {

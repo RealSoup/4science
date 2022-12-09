@@ -1,5 +1,5 @@
 <template>
-<div id="adm_shop_order_edit" class="p_warp order_edit">
+<div id="adm_shop_order_edit" class="p_wrap order_edit">
     <h3 class="p_tit">주문 상세</h3>
     
     <div class="actionArea">

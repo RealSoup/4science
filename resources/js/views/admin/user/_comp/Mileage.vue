@@ -1,5 +1,5 @@
 <template>
-    <b-container class="p_warp">
+    <b-container class="p_wrap">
         <b-row>
             <b-col>
                 <h3>가용 마일리지: <b>{{enableMileage | comma}}</b></h3>

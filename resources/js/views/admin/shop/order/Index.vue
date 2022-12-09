@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <h3 class="p_tit">주문 목록</h3>
 
     <b-card class="search adform">

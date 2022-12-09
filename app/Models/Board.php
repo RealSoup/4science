@@ -30,6 +30,7 @@ class Board extends Model {
         'inquiry'   => ['name'=> '1:1문의',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
         'as'        => ['name'=> 'A/S신청',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
         'cancel'    => ['name'=> '취소/교환','wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
+        'requestAsk'=>'',
     ];   
 
     public function setCode($bo_cd) {

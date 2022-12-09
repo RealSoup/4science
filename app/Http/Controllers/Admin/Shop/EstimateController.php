@@ -88,46 +88,24 @@ class EstimateController extends Controller {
                 case 'em_name':
                     $em = $em   ->TypeReply()
                                 ->where('em_name', 'like', $req->keyword.'%')
-                                ->pluck('em_parent_id');
+                                ->pluck('em_papa_id');
                     $eq->EqId( $er->ErId($em)->pluck('er_eq_id') );
-                    break;
+                break;
+
                 case 'em_code':
                     $em = $em   ->TypeReply()
                                 ->where('em_code', 'like', $req->keyword.'%')
-                                ->pluck('em_parent_id');
+                                ->pluck('em_papa_id');
                     $eq->EqId( $er->ErId($em)->pluck('er_eq_id') );
-                    break;
+                break;
+
                 case 'cat_no':
-                    $keyword = explode('-', $req->keyword);
-                    if (count($keyword) == 3) {
-                        $eq->EqId(
-                            $er->ErId(
-                                $em->TypeReply()
-                                    ->where('em_catno01', $keyword[0])
-                                    ->where('em_catno02', $keyword[1])
-                                    ->where('em_catno03', $keyword[2])->pluck('em_parent_id')
-                            )->pluck('er_eq_id')
-                        );
-                    } else if (count($keyword) == 2){
-                        $eq->EqId(
-                            $er->ErId(
-                                $em->TypeReply()
-                                    ->where('em_catno01', $keyword[0])
-                                    ->where('em_catno02', $keyword[1])->pluck('em_parent_id')
-                            )->pluck('er_eq_id')
-                        );
-                    } else if (count($keyword) == 1){
-                        $eq->EqId(
-                            $er->ErId(
-                                $em->TypeReply()->where(function($query) use ($keyword){
-                                    $query->where('em_catno01', $keyword[0])
-                                            ->orWhere('em_catno02', $keyword[0])
-                                            ->orWhere('em_catno03', $keyword[0]);
-                                })->pluck('em_parent_id')
-                            )->pluck('er_eq_id')
-                        );
-                    }
-                    break;
+                    $eq->EqId(
+                        $er->ErId(
+                            $em->TypeReply()->where('em_catno', 'like', $req->keyword)->pluck('em_papa_id')
+                        )->pluck('er_eq_id')
+                    );
+                break;
             }
         }
 
@@ -206,9 +184,7 @@ class EstimateController extends Controller {
             'em_gd_id'          => '',
             'em_gm_id'          => '',
             'em_name'           => '',
-            'em_catno01'        => '',
-            'em_catno02'        => '',
-            'em_catno03'        => '',
+            'em_catno'        => '',
             'em_code'           => '',
             'em_unit'           => '',
             'em_maker'          => '',
@@ -430,9 +406,7 @@ class EstimateController extends Controller {
                     'em_gd_id'      => array_key_exists('em_gd_id', $em) && $em['em_gd_id']             ? $em['em_gd_id']      : 0,
                     'em_gm_id'      => array_key_exists('em_gm_id', $em) && $em['em_gm_id']             ? $em['em_gm_id']      : 0,
                     'em_name'       => array_key_exists('em_name', $em) && $em['em_name']               ? $em['em_name']       : '',
-                    'em_catno01'    => array_key_exists('em_catno01', $em) && $em['em_catno01']         ? $em['em_catno01']    : 0,
-                    'em_catno02'    => array_key_exists('em_catno02', $em) && $em['em_catno02']         ? $em['em_catno02']    : 0,
-                    'em_catno03'    => array_key_exists('em_catno03', $em) && $em['em_catno03']         ? $em['em_catno03']    : 0,
+                    'em_catno'      => array_key_exists('em_catno', $em) && $em['em_catno']             ? $em['em_catno']      : '',
                     'em_code'       => array_key_exists('em_code', $em) && $em['em_code']               ? $em['em_code']       : '',
                     'em_unit'       => array_key_exists('em_unit', $em) && $em['em_unit']               ? $em['em_unit']       : '',
                     'em_maker'      => array_key_exists('em_maker', $em) && $em['em_maker']             ? $em['em_maker']      : '',

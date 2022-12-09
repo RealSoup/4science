@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler {
 
     protected function unauthenticated($request, AuthenticationException $exception) {
         if ($request->expectsJson()) {
-            return response()->json(['message' => '로그인이 필요한 서비스입니다.'], 401);
+            return response()->json(['message' => 'Sever(Exception):로그인이 필요한 서비스입니다.'], 401);
         }
         // return redirect()->guest('login');
     }

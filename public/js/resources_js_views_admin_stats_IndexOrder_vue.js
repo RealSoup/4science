@@ -150,7 +150,9 @@ var _year = new Date().getFullYear();
                     datasets: [{
                       label: label,
                       data: res.data.price,
-                      backgroundColor: "#f87979"
+                      backgroundColor: "#ff638477",
+                      borderColor: "#ff6384",
+                      borderWidth: 2
                     }]
                   };
                 }

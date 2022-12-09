@@ -5,7 +5,9 @@
     <main :class="{'layout' : 
         this.$store.state.mode !== 'adm' &&
         this.$route.name !== 'main' && 
-        this.$route.name !== 'goods_index'
+        this.$route.name !== 'goods_index' && 
+        this.$route.name !== 'outlet' && 
+        this.$route.name !== 'outlet_index'
     }">
         <router-view />
     </main>
@@ -122,16 +124,16 @@ label { margin-bottom:0; }
 .autocomplete li:hover { background-color: rgba(51, 217, 178,0.2); }
 .autocomplete li p { margin:.5rem 0;  }
 
-.p_warp { margin-top:30px; }
+.p_wrap { margin-top:30px; }
 @media (max-width:1500px) {
-    .p_warp { padding:1.25rem; }
+    .p_wrap { padding:1.25rem; }
 }
 
-.p_warp h3 { padding:20px; font-weight:bold; }
-.p_warp h3:before { content: ''; border-left: 8px solid #469f8169; position: relative; left: -20px; }
-.p_warp .card { border-radius:10px; margin-bottom:20px; }
-.p_warp .card.ctrl { position:sticky; top:0; padding:8px; z-index:3; border:3px solid #138496; }
-.p_warp .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
+.p_wrap h3 { padding:20px; font-weight:bold; }
+.p_wrap h3:before { content: ''; border-left: 8px solid #469f8169; position: relative; left: -20px; }
+.p_wrap .card { border-radius:10px; margin-bottom:20px; }
+.p_wrap .card.ctrl { position:sticky; top:0; padding:8px; z-index:3; border:3px solid #138496; }
+.p_wrap .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
 
 .card.adform .row { align-items:center; }
 .card.adform .row > div:not(.tit) { padding:8px 5px; }
@@ -168,8 +170,8 @@ label { margin-bottom:0; }
 
 
 
-
-
+.w_fence { padding-top:3rem; margin-bottom:2rem; }
+.w_fence h3 { margin-bottom:2rem; font-size:1.8rem; font-weight:bold; }
 
 
 </style>

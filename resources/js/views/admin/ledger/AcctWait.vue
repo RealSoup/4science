@@ -1,5 +1,5 @@
 <template>
-<div class="p_warp">
+<div class="p_wrap">
     <h3>매출 대기</h3>
     <b-container fluid>
         <b-row class="ctrl">

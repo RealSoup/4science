@@ -55,18 +55,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyPrintIndex',
   methods: {
@@ -104,7 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".print .col.cell01[data-v-b2110854] {\n  margin-bottom: 15px;\n}\n.print .col.cell02[data-v-b2110854] {\n  margin-top: 15px;\n}\n.print .col .inner_wrap[data-v-b2110854] {\n  background: #eee;\n  border-radius: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  min-height: 170px;\n  cursor: pointer;\n  flex-wrap: wrap;\n  align-content: center;\n}\n.print .col .inner_wrap p[data-v-b2110854] {\n  width: 100%;\n  text-align: center;\n}\n@media (max-width: 992px) {\n.print .col.cell02[data-v-b2110854] {\n    margin-bottom: 15px;\n}\n.print .col.cell03[data-v-b2110854] {\n    margin-bottom: 15px;\n}\n.print .col.cell04[data-v-b2110854] {\n    margin-top: 15px;\n}\n.print .col.cell05[data-v-b2110854] {\n    margin-top: 15px;\n}\n}\n@media (max-width: 576px) {\n.print .col.cell02[data-v-b2110854] {\n    margin-top: 0;\n}\n.print .col.cell04[data-v-b2110854] {\n    margin-top: 0;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".print .col.cell01[data-v-b2110854] {\n  margin-bottom: 10px;\n}\n.print .col.cell02[data-v-b2110854] {\n  margin-top: 10px;\n}\n.print .col .inner_wrap[data-v-b2110854] {\n  background: #B7B7B7;\n  border-radius: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  min-height: 190px;\n  cursor: pointer;\n  flex-wrap: wrap;\n  align-content: center;\n}\n.print .col .inner_wrap[data-v-b2110854]:hover {\n  background: #00ADBB;\n}\n.print .col .inner_wrap p[data-v-b2110854] {\n  width: 100%;\n  text-align: center;\n  color: #FFF;\n  font-weight: bold;\n  margin-top: 0.5rem;\n}\n.print .col .inner_wrap p small[data-v-b2110854] {\n  display: block;\n}\n.print > .row > .col > .inner_wrap > p[data-v-b2110854] {\n  margin-top: 1.9rem;\n}\n@media (max-width: 992px) {\n.print .col.cell02[data-v-b2110854] {\n    margin-bottom: 15px;\n}\n.print .col.cell03[data-v-b2110854] {\n    margin-bottom: 15px;\n}\n.print .col.cell04[data-v-b2110854] {\n    margin-top: 15px;\n}\n.print .col.cell05[data-v-b2110854] {\n    margin-top: 15px;\n}\n}\n@media (max-width: 576px) {\n.print .col.cell02[data-v-b2110854] {\n    margin-top: 0;\n}\n.print .col.cell04[data-v-b2110854] {\n    margin-top: 0;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -242,29 +230,7 @@ var render = function () {
     "b-container",
     { staticClass: "print" },
     [
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("div", { staticClass: "pTitle" }, [
-              _c("span", [_c("i", [_vm._v("서")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("류")])]),
-              _vm._v(" "),
-              _c("div", { staticClass: "break d-md-block d-none" }),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("출")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("력")])]),
-              _vm._v(" "),
-              _c("div", { staticClass: "break" }),
-              _vm._v(" "),
-              _c("span", [_c("i")]),
-            ]),
-          ]),
-        ],
-        1
-      ),
+      _c("h5", [_vm._v("서류 출력")]),
       _vm._v(" "),
       _c(
         "b-row",
@@ -292,7 +258,10 @@ var render = function () {
                           attrs: { src: "/img/mypage/print/bankbook.png" },
                         }),
                         _vm._v(" "),
-                        _c("p", [_vm._v("통장사본(우리)출력")]),
+                        _c("p", [
+                          _vm._v("우리은행 통장사본 출력"),
+                          _c("small", [_vm._v("bank book (Woori)")]),
+                        ]),
                       ],
                       1
                     ),
@@ -320,7 +289,10 @@ var render = function () {
                           attrs: { src: "/img/mypage/print/bankbook.png" },
                         }),
                         _vm._v(" "),
-                        _c("p", [_vm._v("통장사본(국민)출력")]),
+                        _c("p", [
+                          _vm._v("국민은행 통장사본 출력"),
+                          _c("small", [_vm._v("bankbook (KB)")]),
+                        ]),
                       ],
                       1
                     ),
@@ -354,7 +326,10 @@ var render = function () {
                     attrs: { src: "/img/mypage/print/businesslicense.png" },
                   }),
                   _vm._v(" "),
-                  _c("p", [_vm._v("사업자 등록증 출력")]),
+                  _c("p", [
+                    _vm._v("사업자 등록증 출력"),
+                    _c("small", [_vm._v("Busineess license")]),
+                  ]),
                 ],
                 1
               ),
@@ -379,7 +354,10 @@ var render = function () {
                     attrs: { src: "/img/mypage/print/estimate.png" },
                   }),
                   _vm._v(" "),
-                  _c("p", [_vm._v("견적서 출력")]),
+                  _c("p", [
+                    _vm._v("견적서 출력"),
+                    _c("small", [_vm._v("estimate")]),
+                  ]),
                 ],
                 1
               ),
@@ -399,10 +377,13 @@ var render = function () {
                 { staticClass: "inner_wrap", attrs: { to: "/mypage/order" } },
                 [
                   _c("b-img", {
-                    attrs: { src: "/img/mypage/print/order.png" },
+                    attrs: { src: "/img/mypage/print/statement.png" },
                   }),
                   _vm._v(" "),
-                  _c("p", [_vm._v("거래명세서 출력")]),
+                  _c("p", [
+                    _vm._v("거래명세서 출력"),
+                    _c("small", [_vm._v("statement")]),
+                  ]),
                 ],
                 1
               ),

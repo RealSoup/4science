@@ -34,12 +34,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admLedgerPayOd',
   components: {
     'AcctList': function AcctList() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_acct_AcctList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/acct/AcctList */ "./resources/js/views/admin/ledger/_comp/acct/AcctList.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_AcctList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/AcctList */ "./resources/js/views/admin/ledger/_comp/AcctList.vue"));
     }
   },
   data: function data() {
@@ -50,7 +51,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       lga: {
         data: []
       },
-      config: []
+      config: [],
+      mng: []
     };
   },
   mounted: function mounted() {
@@ -80,6 +82,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res && res.status === 200) {
                   _this.lga = res.data.lga;
                   _this.config = res.data.config;
+                  _this.mng = res.data.mng;
                 }
 
               case 6:
@@ -247,7 +250,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("매출 내역")]),
       _vm._v(" "),
@@ -257,6 +260,7 @@ var render = function () {
           config: _vm.config,
           lga_step: "POd",
           sch: _vm.frm,
+          mng: _vm.mng,
         },
         on: { index: _vm.index },
         model: {

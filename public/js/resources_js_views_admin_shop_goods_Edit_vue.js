@@ -5717,7 +5717,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 수정")]),
       _vm._v(" "),

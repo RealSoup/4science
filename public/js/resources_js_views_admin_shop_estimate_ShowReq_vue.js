@@ -437,7 +437,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp", attrs: { id: "adm_estimate_show" } },
+    { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
       _vm._v(" "),

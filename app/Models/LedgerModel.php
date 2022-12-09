@@ -7,6 +7,10 @@ class LedgerModel extends Model {
     protected $primaryKey = 'lm_id';
     protected $table = 'ledger_model';
     protected $guarded = [];
+    protected $appends = ['show_menu', 'is_edit'];
+    
+    public function getShowMenuAttribute() { return false; }
+    public function getIsEditAttribute() { return false; }
 
     public function scopeStartGmPrice($query, $p) { return $query->where('lm_gm_price', '>=', $p); }
     public function scopeEndGmPrice($query, $p) { return $query->where('lm_gm_price', '<=', $p); }

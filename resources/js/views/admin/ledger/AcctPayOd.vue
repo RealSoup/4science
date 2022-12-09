@@ -1,5 +1,5 @@
 <template>
-<div class="p_warp">
+<div class="p_wrap">
     <h3>매출 내역</h3>
     <AcctList v-model="lga"
         @index="index"
@@ -7,6 +7,7 @@
         :config="config"
         :lga_step="'POd'"
         :sch="frm"
+        :mng="mng"
     />
     <pagination :data="lga" @pagination-change-page="index" align="center" class="mt-5"></pagination>
 </div>
@@ -17,7 +18,7 @@ import ax from '@/api/http';
 export default {
     name: 'admLedgerPayOd',
     components: {
-        'AcctList' : () => import('./_comp/acct/AcctList'),
+        'AcctList' : () => import('./_comp/AcctList'),
     },
     data() {
         return {
@@ -26,6 +27,7 @@ export default {
             },
             lga:{data:[]},
             config:[],
+            mng:[],
         };
     },
     
@@ -41,6 +43,7 @@ export default {
             if (res && res.status === 200) {
                 this.lga = res.data.lga;
                 this.config = res.data.config;
+                this.mng = res.data.mng;
             }
         },
         

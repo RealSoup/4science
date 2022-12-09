@@ -72,9 +72,7 @@ export default {
             if (this.model[i] && this.model[i].gm_name != "정보없음") {
                 this.$set(this.em, 'em_gd_id'     , this.model[i].gm_gd_id);
                 this.$set(this.em, 'em_gm_id'     , this.model[i].gm_id);
-                this.$set(this.em, 'em_catno01'   , this.model[i].gm_catno01);
-                this.$set(this.em, 'em_catno02'   , this.model[i].gm_catno02);
-                this.$set(this.em, 'em_catno03'   , this.model[i].gm_catno03);
+                this.$set(this.em, 'em_catno'     , this.model[i].gm_catno);
                 this.$set(this.em, 'em_name'      , this.model[i].gm_name);
                 this.$set(this.em, 'em_catno'     , this.model[i].gm_catno);
                 this.$set(this.em, 'em_code'      , this.model[i].gm_code);

@@ -18,14 +18,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmLedgerSearchItemInputSelect',
-  props: ['value', 'label', 'option'],
+  props: ['value', 'option'],
   computed: {
     input_val: {
       get: function get() {
@@ -34,6 +29,11 @@ __webpack_require__.r(__webpack_exports__);
       set: function set(v) {
         this.$emit('input', v);
       }
+    }
+  },
+  methods: {
+    index: function index() {
+      this.$emit('index');
     }
   }
 });
@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.col-3[data-v-5baeddd7] { display:flex; flex-wrap:wrap; padding:0;\n}\n.col-3 div[data-v-5baeddd7] { flex-basis:0; flex-grow:1; max-width:100%; padding:8px 5px;\n}\n.col-3 div[data-v-5baeddd7]:nth-child(1) { flex:0 0 24%; max-width:24%; text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nselect[data-v-5baeddd7] { padding:0 4px; height:1.4rem; font-size:.8rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -190,41 +190,31 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("b-col", { attrs: { cols: "3" } }, [
-    _c("div", { staticClass: "label" }, [_vm._v(_vm._s(_vm.label))]),
-    _vm._v(" "),
-    _c(
-      "div",
-      [
-        _c(
-          "b-form-select",
-          {
-            attrs: { size: "sm" },
-            model: {
-              value: _vm.input_val,
-              callback: function ($$v) {
-                _vm.input_val = $$v
-              },
-              expression: "input_val",
-            },
-          },
-          [
-            _c("b-form-select-option", { attrs: { value: "" } }),
-            _vm._v(" "),
-            _vm._l(_vm.option, function (v) {
-              return _c(
-                "b-form-select-option",
-                { key: v.val, attrs: { value: v.val } },
-                [_vm._v(_vm._s(v.name))]
-              )
-            }),
-          ],
-          2
-        ),
-      ],
-      1
-    ),
-  ])
+  return _c(
+    "b-form-select",
+    {
+      on: { change: _vm.index },
+      model: {
+        value: _vm.input_val,
+        callback: function ($$v) {
+          _vm.input_val = $$v
+        },
+        expression: "input_val",
+      },
+    },
+    [
+      _c("b-form-select-option", { attrs: { value: "" } }),
+      _vm._v(" "),
+      _vm._l(_vm.option, function (v) {
+        return _c(
+          "b-form-select-option",
+          { key: v.val, attrs: { value: v.val } },
+          [_vm._v(_vm._s(v.name))]
+        )
+      }),
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

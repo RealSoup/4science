@@ -1,16 +1,14 @@
 <template>
-<div class="p_warp">
+<div class="p_wrap">
     <h3>매출장</h3>
-    <perfect-scrollbar suppressScrollX="true">
-        <AcctList v-model="lga"
-            @index="index"
-            :mode="'pay_tx'" 
-            :config="config" 
-            :lga_step="'PTx'"
-            :sch="frm"
-            :mng="mng" 
-        />
-    </perfect-scrollbar>
+    <AcctList v-model="lga" :style="{ width:'2750px', paddingRight:'2rem' }"
+        @index="index"
+        :mode="'pay_tx'" 
+        :config="config" 
+        :lga_step="'PTx'"
+        :sch="frm"
+        :mng="mng" 
+    />
 </div>
 </template>
 
@@ -19,7 +17,7 @@ import ax from '@/api/http';
 export default {
     name: 'admLedgerPayTx',
     components: {
-        'AcctList' : () => import('./_comp/acct/AcctList'),
+        'AcctList' : () => import('./_comp/AcctList'),
     },
     data() {
         return {
@@ -57,13 +55,7 @@ export default {
 <style lang="css" scoped>
 h3 { max-width:1500px; margin:auto; }
 
-.ps>>>.container-fluid>.row,
-.ps>>>.container-fluid .draggable>.row { width:2750px; }
-.ps>>>.container-fluid .draggable { min-height: 24rem; }
-.ps>>>.ps__rail-x { height:25px; position:fixed; z-index:1; opacity:.65; }
-.ps>>>.ps__rail-x:hover { background-color:#eee; opacity:.9; }
-.ps>>>.ps__rail-x .ps__thumb-x { height:18px; background-color:pink; position:fixed;  }
-.ps>>>.ps__rail-x:hover > .ps__thumb-x, 
-.ps>>>.ps__rail-x:focus > .ps__thumb-x, 
-.ps>>>.ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px; }
+.p_wrap>>>.container-fluid>.row,
+.p_wrap>>>.container-fluid .draggable>.row {  }
+.p_wrap>>>.container-fluid .draggable { min-height: 24rem; }
 </style>

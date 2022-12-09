@@ -1,5 +1,5 @@
 <template>
-    <b-container class="p_warp">
+    <b-container class="p_wrap">
         <h2>{{config.name}} 게시글 목록</h2>
         <b-card class="shadow">
             <b-container fluid class="list">            

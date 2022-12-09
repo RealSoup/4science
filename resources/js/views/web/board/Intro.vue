@@ -1,33 +1,26 @@
 <template>
-    <b-container>
+    <b-container class="w_fence">
+        <h3>커뮤니티</h3>
         <b-row>
-            <!-- <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'open' }}">열린게시판 <b-icon-plus-square-fill /></b-link>
-                <IntroList :list="open" />
-            </b-col> -->
-
             <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'notice' }}">공지사항 <b-icon-plus-square-fill /></b-link>
+                <b-link :to="{name: 'bo_index', params: { bo_cd:'notice' }}"></b-link>
                 <IntroList :list="notice" />
             </b-col>
-        </b-row>
-
-        <b-row>
-            <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'gd_inquiry' }}">상품문의 <b-icon-plus-square-fill /></b-link>
-                <IntroListPhoto :list="gd_inquiry" :type="'inner'" />
-            </b-col>
-
-            <b-col>
-                <b-link href="https://blog.naver.com/4science">블로그 <b-icon-plus-square-fill /></b-link>
-                <IntroListPhoto :list="blog" :type="'outer'" />
-            </b-col>
-        </b-row>
-
-        <b-row>
             <b-col col lg="6">
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'event' }}">이벤트 <b-icon-plus-square-fill /></b-link>
+                <b-link :to="{name: 'bo_index', params: { bo_cd:'event' }}"></b-link>
                 <IntroList :list="event" />
+            </b-col>
+        </b-row>
+
+        <b-row>
+            <b-col>
+                <b-link :to="{name: 'bo_index', params: { bo_cd:'gd_inquiry' }}"></b-link>
+                <IntroListPhoto :list="gd_inquiry" />
+            </b-col>
+
+            <b-col>
+                <b-link href="https://blog.naver.com/4science"></b-link>
+                <IntroListPhoto :list="blog" />
             </b-col>
         </b-row>
     </b-container>
@@ -89,14 +82,14 @@ export default {
                 // let res = await ax.get(`/api/board/open`, { params: {'limit':5}});
                 // if (res && res.status === 200) this.open = res.data.list;
                 
-                res = await ax.get(`/api/board/notice`, { params: {'limit':5}});
-                if (res && res.status === 200) this.notice = res.data.list;
+                let res = await ax.get(`/api/board/notice`, { params: {'limit':5}});
+                if (res && res.status === 200) this.notice = res.data.list.data;
 
-                res = await ax.get(`/api/board/gd_inquiry`, { params: {'limit':3, 'type':'photo'}});
-                if (res && res.status === 200) this.gd_inquiry = res.data.list;
+                res = await ax.get(`/api/board/gd_inquiry`, { params: {'limit':3}});
+                if (res && res.status === 200) this.gd_inquiry = res.data.list.data;
 
                 res = await ax.get(`/api/board/event`, { params: {'limit':5}});
-                if (res && res.status === 200) this.event = res.data.list;
+                if (res && res.status === 200) this.event = res.data.list.data;
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
@@ -106,8 +99,19 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.row  { margin-top:2rem; }
-.row .col a { background:#DDD; padding:1rem; display:block; font-weight: bold; font-size: 1.5rem; }
-.row .col a svg { float:right; color:#FFF; }
+<style lang="css" scoped>
+.w_fence h3 { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px; }
+
+.w_fence .row .col { padding:30px; }
+.w_fence .row .col a { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1; }
+.w_fence .row .col>>>ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative; }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a { background-image:url('/img/community/notice.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a { background-image:url('/img/community/event.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a { background-image:url('/img/community/gd_inquiry.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a { background-image:url('/img/community/blog.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a:hover { background-image:url('/img/community/notice_h.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a:hover { background-image:url('/img/community/event_h.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a:hover { background-image:url('/img/community/gd_inquiry_h.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a:hover { background-image:url('/img/community/blog_h.png'); }
+
 </style>

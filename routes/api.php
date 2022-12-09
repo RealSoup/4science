@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::GET('mypage/print/{code}', 'MyPageController@print');
     Route::RESOURCE('mypage', MyPageController::class)->only([ 'index', 'edit', 'update', 'destroy' ]);
+    
 
     Route::RESOURCE('mileage', 'MileageController')->only([ 'index', 'store' ]);
     Route::GET('mileage/enable', 'MileageController@enable');
@@ -44,6 +45,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::prefix('order')->group(function () {
             Route::GET('bought', 'Shop\OrderController@bought');
+            Route::GET('cnt_od_step', 'Shop\OrderController@cnt_od_step');
         });
         Route::RESOURCE('order', 'Shop\OrderController')->only([ 'index', 'update' ]);
         Route::RESOURCE('wish', 'Shop\WishController')->only([ 'index', 'store', 'destroy' ]);
@@ -51,7 +53,45 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::RESOURCE('engReform', EngReformController::class)->only([ 'index', 'store' ]);
 
+    Route::prefix('board/{bo_cd}')->group(function () {
+        // Route::get('', [BoardController::class, 'index'])->name('board.index');
+        Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::get('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
 
+        Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::get('create/{bo_papa_id?}', 'BoardController@create')->name('board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::post('store', 'BoardController@store')->name('board.store')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::GET('edit/{bo_id}', 'BoardController@edit')->name('board.edit')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::PATCH('update/{bo_id}', 'BoardController@update')->name('board.update')->where('bo_cd', '[a-zA-Z0-9_]+');
+        Route::delete('destroy/{bo_id}', 'BoardController@destroy')->name('board.destroy')->where('bo_cd', '[a-zA-Z0-9_]+');
+
+        Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
+    });
+
+    Route::prefix('order')->group(function () {
+        Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
+        Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
+        Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
+        Route::GET( '{od_id}',      'Shop\OrderController@show');
+
+    });
+
+    Route::prefix('estimate')->group(function () {
+        Route::POST('create',   'Shop\EstimateController@create')->name('shop.estimate.create');
+        Route::POST('/',        'Shop\EstimateController@store')->name('shop.estimate.store');
+        Route::GET( '{eq_id}',  'Shop\EstimateController@show')->name('shop.estimate.show');
+        Route::GET( 'reply/{er_id}',  'Shop\EstimateController@replyShow')->name('shop.estimate.replyShow');
+        Route::POST('reEstimate', 'Shop\EstimateController@reEstimate');
+        Route::get('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
+
+    });
+
+    Route::prefix('outlet')->group(function () {
+        Route::GET('{code}/{type}/{group}', 'Shop\OutletController@index')->name('shop.outlet.index');
+    });
+
+    Route::get('listing/{type}', 'Shop\ListingController@index');
+    Route::get('maker', 'Shop\MakerController@index');
 
 
 
@@ -189,6 +229,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         //  게시판
+        Route::get('board/requestAsk', 'Admin\BoardController@requestAsk');
         Route::prefix('board/{bo_cd}')->group(function () {
             Route::GET('',                      'Admin\BoardController@index')->name(   'admin.board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
             Route::GET('create',                'Admin\BoardController@create')->name(  'admin.board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
@@ -248,44 +289,4 @@ Route::prefix('shop')->group(function () {
             'show'   => 'shop.goods.show',
         ]
     ]);
-
-
-    Route::prefix('order')->group(function () {
-        Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
-        Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
-        Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
-        Route::GET( '{od_id}',      'Shop\OrderController@show');
-
-    });
-
-    Route::prefix('estimate')->group(function () {
-        Route::POST('create',   'Shop\EstimateController@create')->name('shop.estimate.create');
-        Route::POST('/',        'Shop\EstimateController@store')->name('shop.estimate.store');
-        Route::GET( '{eq_id}',  'Shop\EstimateController@show')->name('shop.estimate.show');
-        Route::GET( 'reply/{er_id}',  'Shop\EstimateController@replyShow')->name('shop.estimate.replyShow');
-        Route::POST('reEstimate', 'Shop\EstimateController@reEstimate');
-        Route::get('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
-
-    });
-
-    Route::prefix('outlet')->group(function () {
-        Route::GET('{code}/{type}/{group}', 'Shop\OutletController@index')->name('shop.outlet.index');
-    });
-
-    Route::get('listing/{type}', 'Shop\ListingController@index');
-    Route::get('maker', 'Shop\MakerController@index');
-});
-Route::prefix('board/{bo_cd}')->group(function () {
-    // Route::get('', [BoardController::class, 'index'])->name('board.index');
-    Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::get('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
-
-    Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::get('create/{bo_papa_id?}', 'BoardController@create')->name('board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::post('store', 'BoardController@store')->name('board.store')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::GET('edit/{bo_id}', 'BoardController@edit')->name('board.edit')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::PATCH('update/{bo_id}', 'BoardController@update')->name('board.update')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::delete('destroy/{bo_id}', 'BoardController@destroy')->name('board.destroy')->where('bo_cd', '[a-zA-Z0-9_]+');
-
-    Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
 });

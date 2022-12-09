@@ -121,6 +121,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -146,7 +153,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //     deep: true
     // },
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys'])),
   methods: {
     numCalc: function numCalc(i) {
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
@@ -322,52 +329,45 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "p_warp" }, [
-    _vm.sch_cate_info
-      ? _c(
-          "div",
-          { staticClass: "layout" },
-          [
-            _c(
-              "b-container",
-              { staticClass: "sch_detail" },
-              [
-                _c(
-                  "b-row",
-                  [
-                    _c(
-                      "b-col",
-                      [
-                        _c("h5", [_vm._v("카테고리")]),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            on: {
-                              click: function ($event) {
-                                ;(_vm.frm.ca01 = 0),
-                                  (_vm.frm.ca02 = 0),
-                                  (_vm.frm.ca03 = 0),
-                                  (_vm.frm.mk_id = 0),
-                                  _vm.routerPush()
-                              },
-                            },
-                          },
-                          [
-                            _vm._v("전체보기 "),
-                            _c("span", [_vm._v(_vm._s(_vm.sch_cate_info.all))]),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.sch_cate_info.ca01, function (ca, i) {
-                          return _c(
+  return _c(
+    "div",
+    { staticClass: "p_wrap" },
+    [
+      _vm.$route.name == "goods_index" && !_vm.$route.query.keyword
+        ? _c("Location", {
+            attrs: {
+              categorys: _vm.categorys,
+              p_ca01: _vm.$route.query.ca01,
+              p_ca02: _vm.$route.query.ca02,
+              p_ca03: _vm.$route.query.ca03,
+              p_ca04: _vm.$route.query.ca04,
+            },
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.sch_cate_info
+        ? _c(
+            "div",
+            { staticClass: "layout" },
+            [
+              _c(
+                "b-container",
+                { staticClass: "sch_detail" },
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c("h5", [_vm._v("카테고리")]),
+                          _vm._v(" "),
+                          _c(
                             "p",
                             {
-                              key: ca.key,
-                              class: { chk: _vm.frm.ca01 == ca.key },
                               on: {
                                 click: function ($event) {
-                                  ;(_vm.frm.ca01 = ca.key),
+                                  ;(_vm.frm.ca01 = 0),
                                     (_vm.frm.ca02 = 0),
                                     (_vm.frm.ca03 = 0),
                                     (_vm.frm.mk_id = 0),
@@ -376,369 +376,398 @@ var render = function () {
                               },
                             },
                             [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(ca.name) +
-                                  " "
-                              ),
-                              _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                              _vm._v("전체보기 "),
+                              _c("span", [
+                                _vm._v(_vm._s(_vm.sch_cate_info.all)),
+                              ]),
                             ]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      [
-                        _c("h5", [_vm._v("중분류")]),
-                        _vm._v(" "),
-                        _vm._l(_vm.sch_cate_info.ca02, function (ca, i) {
-                          return _c(
-                            "p",
-                            {
-                              key: ca.key,
-                              class: { chk: _vm.frm.ca02 == ca.key },
-                              on: {
-                                click: function ($event) {
-                                  ;(_vm.frm.ca02 = ca.key),
-                                    (_vm.frm.ca03 = 0),
-                                    (_vm.frm.mk_id = 0),
-                                    _vm.routerPush()
-                                },
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(ca.name) +
-                                  " "
-                              ),
-                              _c("span", [_vm._v(_vm._s(ca.cnt))]),
-                            ]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      [
-                        _c("h5", [_vm._v("소분류")]),
-                        _vm._v(" "),
-                        _vm._l(_vm.sch_cate_info.ca03, function (ca, i) {
-                          return _c(
-                            "p",
-                            {
-                              key: ca.key,
-                              class: { chk: _vm.frm.ca03 == ca.key },
-                              on: {
-                                click: function ($event) {
-                                  ;(_vm.frm.ca03 = ca.key),
-                                    (_vm.frm.mk_id = 0),
-                                    _vm.routerPush()
-                                },
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(ca.name) +
-                                  " "
-                              ),
-                              _c("span", [_vm._v(_vm._s(ca.cnt))]),
-                            ]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      [
-                        _c("h5", [_vm._v("제조사")]),
-                        _vm._v(" "),
-                        _vm._l(_vm.sch_cate_info.maker, function (mk, i) {
-                          return _c(
-                            "p",
-                            {
-                              key: mk.key,
-                              class: { chk: _vm.frm.mk_id == mk.key },
-                              on: {
-                                click: function ($event) {
-                                  ;(_vm.frm.mk_id = mk.key), _vm.routerPush()
-                                },
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(mk.name) +
-                                  " "
-                              ),
-                              _c("span", [_vm._v(_vm._s(mk.cnt))]),
-                            ]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "pick" },
-      [
-        _c(
-          "b-row",
-          { staticClass: "layout" },
-          [
-            _c(
-              "b-col",
-              { staticClass: "fir" },
-              [_c("b-img", { attrs: { src: "/img/goods/4spick.png" } })],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              _vm._l(_vm.pick, function (row, i) {
-                return _c(
-                  "b-row",
-                  {
-                    key: i,
-                    class: { active: i == _vm.pick_hover },
-                    attrs: { tag: "ul" },
-                    on: {
-                      mouseover: function ($event) {
-                        return _vm.actHover(i)
-                      },
-                    },
-                  },
-                  _vm._l(row, function (gd) {
-                    return _c(
-                      "b-link",
-                      {
-                        key: gd.gd_id,
-                        attrs: {
-                          to: {
-                            name: "goods_show",
-                            params: { gd_id: gd.gd_id },
-                          },
-                          "router-tag": "li",
-                        },
-                      },
-                      [
-                        _c("div", [
-                          _c("img", { attrs: { src: gd.image_src_thumb[0] } }),
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "tit" }, [
-                          _vm._v(_vm._s(gd.gd_name)),
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "pri" }, [
-                          _vm._v(
-                            _vm._s(_vm._f("comma")(gd.gm_price_add_vat)) + "원"
                           ),
-                        ]),
-                      ]
-                    )
-                  }),
-                  1
-                )
-              }),
-              1
-            ),
-          ],
-          1
-        ),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "layout" },
-      [
-        _c(
-          "b-container",
-          [
-            _c(
-              "b-row",
-              { staticClass: "list" },
-              [
-                _c("b-col", { staticClass: "sort" }, [
-                  _c("ul", [
-                    _c(
-                      "li",
-                      {
-                        class: { active: _vm.frm.sort == "" },
-                        on: {
-                          click: function ($event) {
-                            return _vm.sort()
-                          },
-                        },
-                      },
-                      [_vm._v("인기상품순")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: { active: _vm.frm.sort == "new" },
-                        on: {
-                          click: function ($event) {
-                            return _vm.sort("new")
-                          },
-                        },
-                      },
-                      [_vm._v("신상품순")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: { active: _vm.frm.sort == "lowPri" },
-                        on: {
-                          click: function ($event) {
-                            return _vm.sort("lowPri")
-                          },
-                        },
-                      },
-                      [_vm._v("낮은가격순")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: { active: _vm.frm.sort == "highPri" },
-                        on: {
-                          click: function ($event) {
-                            return _vm.sort("highPri")
-                          },
-                        },
-                      },
-                      [_vm._v("높은가격순")]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c(
-                      "b-row",
-                      { staticClass: "lhead" },
-                      [
-                        _c("b-col", [_vm._v("상품")]),
-                        _vm._v(" "),
-                        _c("b-col", [_vm._v("가격")]),
-                        _vm._v(" "),
-                        _c("b-col", [_vm._v("제조사")]),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.list.data, function (row, idx) {
-                      return _vm.list.data && _vm.list.data.length
-                        ? _c(
-                            "b-row",
-                            { key: row.gd_id, staticClass: "lbody" },
-                            [
-                              _c(
-                                "b-link",
-                                {
-                                  staticClass: "col link",
-                                  attrs: {
-                                    to: {
-                                      name: "goods_show",
-                                      params: { gd_id: row.gd_id },
-                                    },
-                                    "router-tag": "div",
+                          _vm._v(" "),
+                          _vm._l(_vm.sch_cate_info.ca01, function (ca, i) {
+                            return _c(
+                              "p",
+                              {
+                                key: ca.key,
+                                class: { chk: _vm.frm.ca01 == ca.key },
+                                on: {
+                                  click: function ($event) {
+                                    ;(_vm.frm.ca01 = ca.key),
+                                      (_vm.frm.ca02 = 0),
+                                      (_vm.frm.ca03 = 0),
+                                      (_vm.frm.mk_id = 0),
+                                      _vm.routerPush()
                                   },
                                 },
-                                [
-                                  _c("img", {
-                                    attrs: { src: row.image_src_thumb[0] },
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _c("b", [_vm._v(_vm._s(row.gd_name))]),
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                        " +
+                                    _vm._s(ca.name) +
+                                    " "
+                                ),
+                                _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                              ]
+                            )
+                          }),
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("h5", [_vm._v("중분류")]),
+                          _vm._v(" "),
+                          _vm._l(_vm.sch_cate_info.ca02, function (ca, i) {
+                            return _c(
+                              "p",
+                              {
+                                key: ca.key,
+                                class: { chk: _vm.frm.ca02 == ca.key },
+                                on: {
+                                  click: function ($event) {
+                                    ;(_vm.frm.ca02 = ca.key),
+                                      (_vm.frm.ca03 = 0),
+                                      (_vm.frm.mk_id = 0),
+                                      _vm.routerPush()
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                        " +
+                                    _vm._s(ca.name) +
+                                    " "
+                                ),
+                                _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                              ]
+                            )
+                          }),
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("h5", [_vm._v("소분류")]),
+                          _vm._v(" "),
+                          _vm._l(_vm.sch_cate_info.ca03, function (ca, i) {
+                            return _c(
+                              "p",
+                              {
+                                key: ca.key,
+                                class: { chk: _vm.frm.ca03 == ca.key },
+                                on: {
+                                  click: function ($event) {
+                                    ;(_vm.frm.ca03 = ca.key),
+                                      (_vm.frm.mk_id = 0),
+                                      _vm.routerPush()
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                        " +
+                                    _vm._s(ca.name) +
+                                    " "
+                                ),
+                                _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                              ]
+                            )
+                          }),
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("h5", [_vm._v("제조사")]),
+                          _vm._v(" "),
+                          _vm._l(_vm.sch_cate_info.maker, function (mk, i) {
+                            return _c(
+                              "p",
+                              {
+                                key: mk.key,
+                                class: { chk: _vm.frm.mk_id == mk.key },
+                                on: {
+                                  click: function ($event) {
+                                    ;(_vm.frm.mk_id = mk.key), _vm.routerPush()
+                                  },
+                                },
+                              },
+                              [
+                                _vm._v(
+                                  "\r\n                        " +
+                                    _vm._s(mk.name) +
+                                    " "
+                                ),
+                                _c("span", [_vm._v(_vm._s(mk.cnt))]),
+                              ]
+                            )
+                          }),
+                        ],
+                        2
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "pick" },
+        [
+          _c(
+            "b-row",
+            { staticClass: "layout" },
+            [
+              _c(
+                "b-col",
+                { staticClass: "fir" },
+                [_c("b-img", { attrs: { src: "/img/goods/4spick.png" } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                _vm._l(_vm.pick, function (row, i) {
+                  return _c(
+                    "b-row",
+                    {
+                      key: i,
+                      class: { active: i == _vm.pick_hover },
+                      attrs: { tag: "ul" },
+                      on: {
+                        mouseover: function ($event) {
+                          return _vm.actHover(i)
+                        },
+                      },
+                    },
+                    _vm._l(row, function (gd) {
+                      return _c(
+                        "b-link",
+                        {
+                          key: gd.gd_id,
+                          attrs: {
+                            to: {
+                              name: "goods_show",
+                              params: { gd_id: gd.gd_id },
+                            },
+                            "router-tag": "li",
+                          },
+                        },
+                        [
+                          _c("div", [
+                            _c("img", {
+                              attrs: { src: gd.image_src_thumb[0] },
+                            }),
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "tit" }, [
+                            _vm._v(_vm._s(gd.gd_name)),
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "pri" }, [
+                            _vm._v(
+                              _vm._s(_vm._f("comma")(gd.gm_price_add_vat)) +
+                                "원"
+                            ),
+                          ]),
+                        ]
+                      )
+                    }),
+                    1
+                  )
+                }),
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "layout" },
+        [
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                { staticClass: "list" },
+                [
+                  _c("b-col", { staticClass: "sort" }, [
+                    _c("ul", [
+                      _c(
+                        "li",
+                        {
+                          class: { active: _vm.frm.sort == "" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort()
+                            },
+                          },
+                        },
+                        [_vm._v("인기상품순")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        {
+                          class: { active: _vm.frm.sort == "new" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort("new")
+                            },
+                          },
+                        },
+                        [_vm._v("신상품순")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        {
+                          class: { active: _vm.frm.sort == "lowPri" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort("lowPri")
+                            },
+                          },
+                        },
+                        [_vm._v("낮은가격순")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        {
+                          class: { active: _vm.frm.sort == "highPri" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.sort("highPri")
+                            },
+                          },
+                        },
+                        [_vm._v("높은가격순")]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-row",
+                        { staticClass: "lhead" },
+                        [
+                          _c("b-col", [_vm._v("상품")]),
+                          _vm._v(" "),
+                          _c("b-col", [_vm._v("가격")]),
+                          _vm._v(" "),
+                          _c("b-col", [_vm._v("제조사")]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.list.data, function (row, idx) {
+                        return _vm.list.data && _vm.list.data.length
+                          ? _c(
+                              "b-row",
+                              { key: row.gd_id, staticClass: "lbody" },
+                              [
+                                _c(
+                                  "b-link",
+                                  {
+                                    staticClass: "col link",
+                                    attrs: {
+                                      to: {
+                                        name: "goods_show",
+                                        params: { gd_id: row.gd_id },
+                                      },
+                                      "router-tag": "div",
+                                    },
+                                  },
+                                  [
+                                    _c("img", {
+                                      attrs: { src: row.image_src_thumb[0] },
+                                    }),
                                     _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(
-                                        " " +
-                                          _vm._s(row.gm_code) +
-                                          " / " +
-                                          _vm._s(row.gm_spec) +
-                                          " / " +
-                                          _vm._s(row.gm_unit)
-                                      ),
+                                    _c("p", [
+                                      _c("b", [_vm._v(_vm._s(row.gd_name))]),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(row.gm_code) +
+                                            " / " +
+                                            _vm._s(row.gm_spec) +
+                                            " / " +
+                                            _vm._s(row.gm_unit)
+                                        ),
+                                      ]),
                                     ]),
-                                  ]),
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { staticClass: "price" },
-                                [
-                                  _vm._v(
-                                    "\r\n                            " +
-                                      _vm._s(
-                                        _vm._f("comma")(row.gm_price_add_vat)
-                                      ) +
-                                      " \r\n                            "
-                                  ),
-                                  row.gm_price_add_vat > 0
-                                    ? [_vm._v("원")]
-                                    : _vm._e(),
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(row.mk_name))]),
-                            ],
-                            1
-                          )
-                        : _c(
-                            "b-alert",
-                            { attrs: { variant: "danger", show: "" } },
-                            [_vm._v("No Item")]
-                          )
-                    }),
-                    _vm._v(" "),
-                    _c("pagination", {
-                      staticClass: "mt-5",
-                      attrs: { data: _vm.list, align: "center" },
-                      on: { "pagination-change-page": _vm.setPage },
-                    }),
-                  ],
-                  2
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        ),
-      ],
-      1
-    ),
-  ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { staticClass: "price" },
+                                  [
+                                    _vm._v(
+                                      "\r\n                            " +
+                                        _vm._s(
+                                          _vm._f("comma")(row.gm_price_add_vat)
+                                        ) +
+                                        " \r\n                            "
+                                    ),
+                                    row.gm_price_add_vat > 0
+                                      ? [_vm._v("원")]
+                                      : _vm._e(),
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(row.mk_name))]),
+                              ],
+                              1
+                            )
+                          : _c(
+                              "b-alert",
+                              { attrs: { variant: "danger", show: "" } },
+                              [_vm._v("No Item")]
+                            )
+                      }),
+                      _vm._v(" "),
+                      _c("pagination", {
+                        staticClass: "mt-5",
+                        attrs: { data: _vm.list, align: "center" },
+                        on: { "pagination-change-page": _vm.setPage },
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

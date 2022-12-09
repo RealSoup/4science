@@ -1,5 +1,5 @@
 <template>
-<b-container id="adm_estimate_create" class="p_warp">
+<b-container id="adm_estimate_create" class="p_wrap">
 
     <h1>메인 카테고리별 추천 상품</h1>
 

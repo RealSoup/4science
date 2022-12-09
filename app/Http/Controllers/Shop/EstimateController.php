@@ -17,6 +17,8 @@ class EstimateController extends Controller {
         if ($req->filled('endDate'))  	$eq = $eq->EndDate($req->endDate);
 
         $eq = $eq->with('estimateReply')->CreatedId(auth()->user()->id)->latest();
+
+        $eq->when(request('type', 'with_em'), fn ($q) => $q->with('estimateModel'));
         
         if ($req->filled('limit'))
             $eq = $eq->limit($req->limit)->get();
@@ -147,9 +149,7 @@ class EstimateController extends Controller {
                     'em_gd_id'      => $em['em_gd_id'],
                     'em_gm_id'      => $em['em_gm_id'],
                     'em_name'       => $em['em_name'],
-                    'em_catno01'    => $em['em_catno01'],
-                    'em_catno02'    => $em['em_catno02'],
-                    'em_catno03'    => $em['em_catno03'],
+                    'em_catno'      => $em['em_catno'],
                     'em_code'       => $em['em_code'],
                     'em_unit'       => $em['em_unit'],
                     'em_spec'       => $em['em_spec'],

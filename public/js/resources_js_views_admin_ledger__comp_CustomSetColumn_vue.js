@@ -16,6 +16,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! fast-copy */ "./node_modules/fast-copy/dist/fast-copy.js");
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(fast_copy__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -49,24 +51,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -74,36 +59,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_2___default())
   },
-  props: ['db_config_clmn', 'db_config_model', 'column_list_clmn', 'column_list_model'],
+  props: ['mng_config', 'column_list'],
   data: function data() {
     return {
-      list_chosen_clmn: [],
-      list_unchosen_clmn: [],
-      list_chosen_model: [],
-      list_unchosen_model: []
+      unchosen: {
+        COLUMN: [],
+        MODEL: []
+      }
     };
   },
   mounted: function mounted() {
-    var temp_column_list_clmn = Object.assign({}, this.column_list_clmn);
-    var temp_db_config_clmn = this.db_config_clmn ? this.db_config_clmn.slice() : [];
-    temp_db_config_clmn.forEach(function (el) {
-      el.name = temp_column_list_clmn[el.umc_val].name;
-      delete temp_column_list_clmn[el.umc_val];
+    var _this = this;
+
+    var tmp = fast_copy__WEBPACK_IMPORTED_MODULE_3___default()(this.column_list);
+    this.mng_config.COLUMN.forEach(function (el) {
+      _this.$set(el, 'name', tmp.COLUMN[el.umc_val].name);
+
+      delete tmp.COLUMN[el.umc_val];
     });
-    this.list_chosen_clmn = temp_db_config_clmn;
-    this.list_unchosen_clmn = Object.values(temp_column_list_clmn);
-    var temp_column_list_model = Object.assign({}, this.column_list_model);
-    var temp_db_config_model = this.db_config_model ? this.db_config_model.slice() : [];
-    temp_db_config_model.forEach(function (el) {
-      el.name = temp_column_list_model[el.umc_val].name;
-      delete temp_column_list_model[el.umc_val];
+    this.mng_config.MODEL.forEach(function (el) {
+      _this.$set(el, 'name', tmp.MODEL[el.umc_val].name);
+
+      delete tmp.MODEL[el.umc_val];
     });
-    this.list_chosen_model = temp_db_config_model;
-    this.list_unchosen_model = Object.values(temp_column_list_model);
+
+    for (var k in tmp.COLUMN) {
+      this.unchosen.COLUMN.push({
+        name: tmp.COLUMN[k].name,
+        umc_val: k
+      });
+    }
+
+    for (var _k in tmp.MODEL) {
+      this.unchosen.MODEL.push({
+        name: tmp.MODEL[_k].name,
+        umc_val: _k
+      });
+    }
   },
   methods: {
     update: function update() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var res;
@@ -112,16 +108,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/updateColumn", {
-                  chosen_data_clmn: _this.list_chosen_clmn,
-                  chosen_data_model: _this.list_chosen_model
-                });
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/updateColumn", _this2.mng_config);
 
               case 2:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.$emit('updateColumnComplete');
+                  _this2.$emit('updateColumnComplete');
 
                   Notify.toast('success', '수정 완료');
                 }
@@ -4052,24 +4045,20 @@ var render = function () {
             {
               staticClass: "col p-4 border border-info",
               attrs: {
-                list: _vm.list_chosen_clmn,
+                list: _vm.mng_config.COLUMN,
                 handle: ".handle",
                 group: "column",
               },
             },
-            _vm._l(_vm.list_chosen_clmn, function (cc, i) {
+            _vm._l(_vm.mng_config.COLUMN, function (v) {
               return _c(
                 "b-button",
                 {
-                  key: i,
+                  key: v.umc_id,
                   staticClass: "handle",
                   attrs: { variant: "success" },
                 },
-                [
-                  _vm._v(
-                    "\n                " + _vm._s(cc.name) + "\n            "
-                  ),
-                ]
+                [_vm._v(_vm._s(v.name))]
               )
             }),
             1
@@ -4080,20 +4069,20 @@ var render = function () {
             {
               staticClass: "col p-4 border border-info",
               attrs: {
-                list: _vm.list_chosen_model,
+                list: _vm.mng_config.MODEL,
                 handle: ".handle",
                 group: "model",
               },
             },
-            _vm._l(_vm.list_chosen_model, function (cc, i) {
+            _vm._l(_vm.mng_config.MODEL, function (v) {
               return _c(
                 "b-button",
-                { key: i, staticClass: "handle", attrs: { variant: "info" } },
-                [
-                  _vm._v(
-                    "\n                " + _vm._s(cc.name) + "\n            "
-                  ),
-                ]
+                {
+                  key: v.umc_id,
+                  staticClass: "handle",
+                  attrs: { variant: "info" },
+                },
+                [_vm._v(_vm._s(v.name))]
               )
             }),
             1
@@ -4117,24 +4106,20 @@ var render = function () {
             {
               staticClass: "col p-4 border border-info",
               attrs: {
-                list: _vm.list_unchosen_clmn,
+                list: _vm.unchosen.COLUMN,
                 handle: ".handle",
                 group: "column",
               },
             },
-            _vm._l(_vm.list_unchosen_clmn, function (cc, i) {
+            _vm._l(_vm.unchosen.COLUMN, function (v) {
               return _c(
                 "b-button",
                 {
-                  key: i,
+                  key: v.umc_val,
                   staticClass: "handle",
                   attrs: { variant: "warning" },
                 },
-                [
-                  _vm._v(
-                    "\n                " + _vm._s(cc.name) + "\n            "
-                  ),
-                ]
+                [_vm._v(_vm._s(v.name))]
               )
             }),
             1
@@ -4145,20 +4130,20 @@ var render = function () {
             {
               staticClass: "col p-4 border border-info",
               attrs: {
-                list: _vm.list_unchosen_model,
+                list: _vm.unchosen.MODEL,
                 handle: ".handle",
                 group: "model",
               },
             },
-            _vm._l(_vm.list_unchosen_model, function (cc, i) {
+            _vm._l(_vm.unchosen.MODEL, function (v) {
               return _c(
                 "b-button",
-                { key: i, staticClass: "handle", attrs: { variant: "danger" } },
-                [
-                  _vm._v(
-                    "\n                " + _vm._s(cc.name) + "\n            "
-                  ),
-                ]
+                {
+                  key: v.umc_val,
+                  staticClass: "handle",
+                  attrs: { variant: "danger" },
+                },
+                [_vm._v(_vm._s(v.name))]
               )
             }),
             1

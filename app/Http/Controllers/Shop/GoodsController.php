@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
     protected $goods;
+    protected $cate;
 
 	public function __construct( Goods $gd, Category $cate ) {
         $this->goods = $gd;
+        $this->cate = $cate;
     }
 
     public function index(Request $req) {
+        $data['categorys'] = collect();
+        $data['categorys'][0] = $this->cate->getCate(0);
+        if ($req->filled('ca01'))    $data['categorys'][1] = $this->cate->getCate($req->ca01);
+        if ($req->filled('ca02'))    $data['categorys'][2] = $this->cate->getCate($req->ca02);
+        if ($req->filled('ca03'))    $data['categorys'][3] = $this->cate->getCate($req->ca03);
+
+
         $gd = $this->goods->with('maker')
             ->select("shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit")
             ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1]);

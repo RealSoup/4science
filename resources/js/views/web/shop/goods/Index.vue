@@ -1,5 +1,12 @@
 <template lang="html">
-<div class="p_warp">
+<div class="p_wrap">
+    <Location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
+            :categorys="categorys"
+            :p_ca01="$route.query.ca01" 
+            :p_ca02="$route.query.ca02" 
+            :p_ca03="$route.query.ca03" 
+            :p_ca04="$route.query.ca04"
+        />
     <div class="layout" v-if="sch_cate_info">
         <b-container class="sch_detail">
             <b-row>
@@ -133,7 +140,7 @@ export default {
         //     }
         //     return nfrm;
         // },
-        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick']),
+        ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys']),
     },
     methods: {
         numCalc(i) {
@@ -153,7 +160,6 @@ export default {
         },
 
         actHover:function(i){ this.pick_hover = i; },
-
 
     },
     // mounted() { this.$store.dispatch('goods/index'); },

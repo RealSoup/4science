@@ -414,6 +414,9 @@ class GoodsController extends Controller {
             case 'em_code': $gm = $gm->Code($req->key); break;
             default: return response()->json('검색 자료 부족', 500); break;
         }
+        
+        $gm->when($req->ca01, fn ($q, $v) => $q->Catno01($v));
+
         $rst['gd'] = $gm->orderBy('gm_catno01')->orderBy('gm_catno02')->orderBy('gm_catno03')->get();
         foreach ($rst['gd'] as $md)
             $md->bundleDc;

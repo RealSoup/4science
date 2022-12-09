@@ -199,7 +199,7 @@
                             <b-button @click="create" variant="light">문의하기</b-button>
                         </p>
                     </div>
-                    <bo-gd-inquiry :bo_cd="'gd_inquiry'" :bo_cnt="bo_cnt" ref="gd_inquiry" />
+                    <bo-gd-inquiry :bo_cd="'gd_inquiry'" :bo_cnt="bo_cnt" :bo_subject="content.gd_name+'의 문의'" ref="gd_inquiry" />
                 </div>
             </b-col><!-- conRight -->
         </b-row>
@@ -350,7 +350,8 @@ export default {
                 break;
 
                 case "putCart":
-                    this.$store.dispatch('cart/examine', {goods:this.content, params:params});
+                    // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
+                    this.$store.dispatch('cart/examine', {goods:this.content});
                 break;
 
                 case "wish":
@@ -401,6 +402,10 @@ export default {
         },
 
         create () {
+            if(!Auth.check()) {
+                this.$bvModal.show('login-modal');
+                return false;
+            }
             this.$refs.gd_inquiry.create();
         },
 

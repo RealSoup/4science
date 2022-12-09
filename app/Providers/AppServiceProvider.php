@@ -12,6 +12,8 @@ class AppServiceProvider extends ServiceProvider {
     }
     
     public function boot() {
+        
+        if(head( explode('://', config('app.url'))) == 'https') { URL::forceScheme('https'); }
         //  다형성 타입 사용자 정의
         //  한 모델의 여러 모델이 관계형성을 할때 키값과 타입값이 같이 들어간다
         //  타입값으로 모델의 경로 + 모델명이 들어가는데 이렇게 제정의 한다.

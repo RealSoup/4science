@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <h3>Merck Order List</h3>
     
     <b-row class="top">
@@ -7,23 +7,20 @@
             <b-form-checkbox v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk">All</b-form-checkbox>
             <b-button variant="primary" size="sm" @click="order">선택 발주</b-button>
         </b-col>
-        <b-col col sm="12" md="6" class="text-right">
-            <b-button :to="{name: 'adm_goods_create'}" variant="info" size="sm"><b-icon-plus-lg /> 추가</b-button>
+        <b-col col sm="12" md="6" class="addModel">
+            <ModelSchInput @addModel="addModel" />
         </b-col>
     </b-row>
     
-    <div>
-        <b-form-textarea v-model="req_dlvy" placeholder="배송시 요청사항 입력" />
-    </div>
 
-    <b-row class="list head">
+    <b-row class="head">
         <b-col><span>주문번호</span><span>제품명</span></b-col>                
         <b-col><span>모델명</span><span>판매단위</span></b-col>
         <b-col><span>수량</span><span>가격</span></b-col>
         <b-col><span>요청사항</span><span>Ctrl</span></b-col>
     </b-row>
     
-    <b-row class="list body" v-for="row in list" :key="row.odm_id">
+    <b-row class="body" v-for="row in list" :key="row.odm_id">
         <b-col>
             <span>
                 <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="chkChange">
@@ -48,6 +45,9 @@
             <span><b-button size="sm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button></span>
         </b-col>
     </b-row>
+    <b-row>
+        <b-col><b-form-textarea v-model="req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
+    </b-row>
       
 </b-container>
 </template>
@@ -58,7 +58,9 @@ import ax from '@/api/http';
 
 export default {
     name: 'admShopB2bMerckOrder',
-
+    components: {
+        'ModelSchInput': () => import('./_comp/ModelSchInput'),
+    },
     data() {
         return {
             list: [],
@@ -125,6 +127,22 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
+
+        addModel(m) {
+            this.list.unshift({
+                "b2b_chk"       : true,
+                "odm_id"        : 0,
+                "odm_gm_id"     : m.gm_id,
+                "odm_gm_name"   : m.gm_name,
+                "odm_gm_code"   : m.gm_code,
+                "odm_gm_unit"   : m.gm_unit,
+                "odm_price"     : m.gm_price,
+                "odm_gm_spec"   : m.gm_spec,
+                "odm_ea"        : 1,
+                "odm_mk_name"   : m.mk_name,
+                "req_order"     : null,
+            });	
+        }
     },
 
     mounted() {
@@ -134,20 +152,21 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_warp { margin-bottom:2rem; }
+.p_wrap { margin-bottom:2rem; }
 .top .col { display:flex; align-items:center; }
-.list:not(:last-of-type) { border-bottom:1px solid #333; }
+.top .col.addModel { justify-content:flex-end; } 
+.top .col.addModel>div { width:100%; max-width:10rem; } 
+.row:not(:last-of-type) { border-bottom:1px solid #333; }
 .body:hover { background: #d8f2fd94; }
 /*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/
-.list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
-.list>div{ padding-top:15px; padding-bottom:15px; }
+.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
+.row>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
-.list>div { font-size:.9rem; }
-.list>div>span:nth-of-type(2) { float:right; }
+.row>div>span:nth-of-type(2) { float:right; }
 
 .row .custom-control { display: inline; }
-.list .custom-control>>>label { font-size:.9rem; }
+.row .custom-control>>>label { font-size:.9rem; }
 .row .custom-control>>>label::before, 
 .row .custom-control>>>label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem; }
 
@@ -155,8 +174,8 @@ export default {
 .top .custom-control>>>label::before,
 .top .custom-control>>>label::after { top:0; }
 
-.list .col span .odm_ea { width:30%; display:inline-block; min-width:40px; text-align:center; }
-.list .col span.req_order_box { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem; }
-.list .col span.req_order_box .req_order { height: 1.9rem; padding: 0.1rem 0.8rem; }
-.list .col span.req_order_box .req_order:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0; }
+.row .col span .odm_ea { width:30%; display:inline-block; min-width:40px; text-align:center; }
+.row .col span.req_order_box { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem; }
+.row .col span.req_order_box .req_order { height: 1.9rem; padding: 0.1rem 0.8rem; }
+.row .col span.req_order_box .req_order:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0; }
 </style>

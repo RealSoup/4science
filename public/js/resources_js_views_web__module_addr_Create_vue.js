@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_warp[data-v-48af320c] { margin:0 -15px;\n}\n.p_warp h3[data-v-48af320c] { margin-left:15px;\n}\n.row[data-v-48af320c] { justify-content:space-between; margin:15px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-48af320c] { margin:0 -15px;\n}\n.p_wrap h3[data-v-48af320c] { margin-left:15px;\n}\n.row[data-v-48af320c] { justify-content:space-between; margin:15px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -267,7 +267,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("배송지 추가")]),
       _vm._v(" "),

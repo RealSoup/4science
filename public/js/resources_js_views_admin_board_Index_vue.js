@@ -278,7 +278,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h2", [_vm._v(_vm._s(_vm.config.name) + " 게시글 목록")]),
       _vm._v(" "),

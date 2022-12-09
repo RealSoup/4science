@@ -486,7 +486,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("회원 정보 수정")]),
       _vm._v(" "),

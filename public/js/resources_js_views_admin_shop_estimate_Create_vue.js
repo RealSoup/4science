@@ -1175,7 +1175,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp", attrs: { id: "adm_estimate_create" } },
+    { staticClass: "p_wrap", attrs: { id: "adm_estimate_create" } },
     [
       _c("h3", [_vm._v("견적서 작성")]),
       _vm._v(" "),

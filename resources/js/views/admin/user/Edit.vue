@@ -1,5 +1,5 @@
 <template>
-    <div class="p_warp">
+    <div class="p_wrap">
         <h3>회원 정보 수정</h3>
         <b-card no-body class="ctrl">
             <b-container>

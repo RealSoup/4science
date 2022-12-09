@@ -91,10 +91,18 @@ class CartController extends Controller {
     }
 
     public function store(Request $req) {
-        $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
+        
+        if ($req->filled('type') && $req->type == 'add') {
+            foreach ($req->list as $v) {
+                $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$v['gd_id'], "created_id"=>auth()->user()->id] );
+                $rst = $this->cartModel->firstOrCreate( ['cm_ct_id'=>$ct->ct_id, "cm_gm_id"=>$v['gm_id']], ['cm_ea' => 1] );
+            }
+        } else {
+            $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
 
-        if ($req->filled('gm_id')) $rst = $this->cartModel->create(['cm_ct_id'=>$ct->ct_id, 'cm_gm_id'=>$req->gm_id, 'cm_ea'=>$req->ea]);
-        if ($req->filled('op_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_op_id'=>$req->op_id, 'co_opc_id'=>$req->opc_id, 'co_ea'=>$req->ea]);
+            if ($req->filled('gm_id')) $rst = $this->cartModel->create(['cm_ct_id'=>$ct->ct_id, 'cm_gm_id'=>$req->gm_id, 'cm_ea'=>$req->ea]);
+            if ($req->filled('op_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_op_id'=>$req->op_id, 'co_opc_id'=>$req->opc_id, 'co_ea'=>$req->ea]);
+        }
 
         if ($rst)   return response()->json($rst, 200);
         else        return response()->json("장바구니 에러", 400);// return alertRedirect("모델을 선택하세요", '');

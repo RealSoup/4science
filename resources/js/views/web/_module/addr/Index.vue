@@ -1,5 +1,5 @@
 <template>
-    <b-container class="p_warp">
+    <b-container class="p_wrap">
         <h3>
             배송지 선택
             <b-button variant="primary" size="sm" @click="create"><b-icon-plus-lg /></b-button>
@@ -56,9 +56,9 @@ export default {
 </script>
 
 <style scoped>
-.p_warp { width:calc( 100% - 30px ); }
-.p_warp h3 { margin-right:-30px; margin-left:-15px; }
-.p_warp h3 button { float:right; }
+.p_wrap { width:calc( 100% - 30px ); }
+.p_wrap h3 { margin-right:-30px; margin-left:-15px; }
+.p_wrap h3 button { float:right; }
 .row { border:1px solid #CCC; cursor:pointer; position:relative; }
 .row:not(:last-child) { border-bottom-width:0; }
 .row:hover { background:#20613722; }

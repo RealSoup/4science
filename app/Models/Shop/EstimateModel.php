@@ -9,15 +9,17 @@ class EstimateModel extends Model {
     use HasFactory;
     protected $table = 'shop_estimate_model';
     protected $primaryKey = 'em_id';
-    protected $appends = ['em_check_opt'];
+    protected $appends = ['em_check_opt', 'img_src'];
     protected $guarded = [];
     public $timestamps = false;
 
     public function getEmCheckOptAttribute() { return 'Y'; }
-
+    public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
+    
     public function estimateAble() { return $this->morphTo(); }
     public function estimateOption() {  return $this->hasMany(EstimateOption::class, "eo_em_id"); }
     public function bundleDc() { return $this->hasMany(BundleDc::class, "bd_gm_id", "em_gm_id"); }
+    public function fileGoodsGoods() {  return $this->hasMany(\App\Models\FileGoods::class, 'fi_key', 'em_gd_id')->Kind('goods')->orderBy('fi_seq'); }
 
     public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'em_gd_id')->withDefault(); }
     public function goodsModel() {  return $this->hasMany(GoodsModel::class, "gm_id", "em_gm_id"); }
@@ -26,6 +28,21 @@ class EstimateModel extends Model {
     public function scopeType($query, $type) { return $query->where('em_type', $type); }
     public function scopePapaId($query, $id) { return $query->where('em_papa_id', $id); }
 
+    public function gdImgSrc($thumb=FALSE) {    // 상품 상세화면, 목록 이미지
+        $rst = NULL;
+        foreach ($this->fileGoodsGoods as $fi) {
+            $th = $thumb ? '/thumb' : '';
+            $src = "";
+            if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
+                $src = $fi->fi_new;
+            else
+                $src = "/storage/goods/{$fi->fi_room}/{$fi->fi_group}{$th}/".$fi->fi_new;
+            
+            $rst[] = $src;
+        }
+        if (!$rst){ $rst[] = noimg($thumb); }
+        return $rst;
+    }
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
     public function dataAwesomeCollection($data) {

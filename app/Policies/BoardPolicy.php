@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class BoardPolicy
-{
+class BoardPolicy {
     use HandlesAuthorization;
 
     protected $msg =  '권한이 없습니다.';
@@ -23,6 +22,10 @@ class BoardPolicy
 
     public function create(User $user) {
         //
+    }
+
+    public function store() {
+        return auth()->check();
     }
 
     public function update(User $user, Board $board) {
@@ -44,6 +47,4 @@ class BoardPolicy
     public function goodBad(User $user, Board $board) {
         return $user->id !== $board->created_id ? Response::allow() : Response::deny('자신의 글은 할 수 없습니다.');
     }
-
-
 }

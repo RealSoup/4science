@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_warp[data-v-0fbaa4d7] { margin-bottom:2rem;\n}\n.head>div[data-v-0fbaa4d7] { font-weight:bold; background:#666; color:#fff;\n}\n.head>div>span[data-v-0fbaa4d7] { float:right;\n}\n.body[data-v-0fbaa4d7]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-0fbaa4d7]:nth-child(even) { background-color:#7fffd454;\n}\n.body .result div[data-v-0fbaa4d7] { display:flex; justify-content: space-between;\n}\n.body .result div ul[data-v-0fbaa4d7] { margin-left:1rem;\n}\n.body .result div ul li span[data-v-0fbaa4d7] { display:inline-block; margin-left:1rem;\n}\n.body .result div ul li span[data-v-0fbaa4d7]:nth-of-type(2) { min-width:6rem; text-align:right;\n}\n.row[data-v-0fbaa4d7]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-0fbaa4d7] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div[data-v-0fbaa4d7]:nth-of-type(1),\r\n.row>div[data-v-0fbaa4d7]:nth-of-type(4) { flex:0 0 11%; max-width:11%;\n}\n.row>div[data-v-0fbaa4d7]:nth-of-type(2) { flex:0 0 20%; max-width:20%;\n}\n.row .price[data-v-0fbaa4d7] { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-0fbaa4d7] { margin-bottom:2rem;\n}\n.head>div[data-v-0fbaa4d7] { font-weight:bold; background:#666; color:#fff;\n}\n.head>div>span[data-v-0fbaa4d7] { float:right;\n}\n.body[data-v-0fbaa4d7]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-0fbaa4d7]:nth-child(even) { background-color:#7fffd454;\n}\n.body .result div[data-v-0fbaa4d7] { display:flex; justify-content: space-between;\n}\n.body .result div ul[data-v-0fbaa4d7] { margin-left:1rem;\n}\n.body .result div ul li span[data-v-0fbaa4d7] { display:inline-block; margin-left:1rem;\n}\n.body .result div ul li span[data-v-0fbaa4d7]:nth-of-type(2) { min-width:6rem; text-align:right;\n}\n.row[data-v-0fbaa4d7]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-0fbaa4d7] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div[data-v-0fbaa4d7]:nth-of-type(1),\r\n.row>div[data-v-0fbaa4d7]:nth-of-type(4) { flex:0 0 11%; max-width:11%;\n}\n.row>div[data-v-0fbaa4d7]:nth-of-type(2) { flex:0 0 20%; max-width:20%;\n}\n.row .price[data-v-0fbaa4d7] { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -267,7 +267,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp" },
+    { staticClass: "p_wrap" },
     [
       _c("h3", [_vm._v("Merck Order List")]),
       _vm._v(" "),

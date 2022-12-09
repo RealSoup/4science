@@ -50,7 +50,11 @@ class B2bMerckController extends Controller {
 		$addressID		= '2035422570';
 		$FromIdentity	= $this -> MerckMemberCode;
 		$SenderIdentity	= $this -> MerckMemberCode;
-		
+
+		$bm_id = DB::table('shop_b2b_merck')->insertGetId([ 'bm_orderid'	=> $orderID,
+															'bm_req_dlvy'	=> $req->req_dlvy,
+															'bm_total_amt'	=> $total_amt,
+															'created_id'	=> auth()->user()->id, ]);
 		$xml = new \XMLWriter;
 		$xml->openMemory();
 		$xml->startDocument('1.0', 'UTF-8');
@@ -175,9 +179,8 @@ class B2bMerckController extends Controller {
 					$xml->endElement();
 
 					foreach ($req->list as $k => $v) {
-						dd($v);
 						$bmm_id = DB::table('shop_b2b_merck_model')->insertGetId([
-							'bmm_b2b_od_id'		=> $orderID,
+							'bmm_bm_id'			=> $bm_id,
 							'bmm_lineNumber'	=> $k+1,
 							'bmm_odm_id'		=> $v['odm_id'],
 							'bmm_gm_id'			=> $v['odm_gm_id'],
@@ -235,8 +238,8 @@ class B2bMerckController extends Controller {
 		$xml->endElement();
 		$xml->endDocument();
 		$XmlData = $xml->outputMemory(TRUE);
-		//		header('Content-type: text/xml; charset=UTF-8');
-		//		echo $XmlData;
+				header('Content-type: text/xml; charset=UTF-8');
+				echo $XmlData;
 				exit;
 		$options = array(
 			'http' => array(
@@ -251,18 +254,8 @@ class B2bMerckController extends Controller {
 		if ($result === FALSE) {
 			echo "발주 실패";
 			var_dump($result);
-		} else {
-			$bm_id = DB::table('shop_b2b_merck')->insertGetId([
-				'bm_od_id'					=> $orderID,
-				'bm_payloadid'				=> $payloadID,
-				'bm_req_dlvy'				=> $req->req_dlvy,
-				'bm_total_amt'				=> $total_amt,
-				'bm_data'					=> $XmlData,
-				'bm_result'					=> $result,
-				'created_id'      			=> auth()->user()->id,
-			]);			
-			
-			if ( $bm_id )
+		} else {			
+			if ( DB::table('shop_b2b_merck')->where('bm_id', $bm_id)->update(['bm_data' => $XmlData, 'bm_result' => $result]) )
 				return response()->json(["msg"=>'success'], 200);
 			else
 				return response()->json(["msg"=>"Fail"], 500);

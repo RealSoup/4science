@@ -83,26 +83,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var init_dt = new Date();
 var endDate = init_dt.format("yyyy-MM-dd"); // init_dt.setMonth(0); 
@@ -114,17 +94,11 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admLedger',
   components: {
-    'Search': function Search() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_Search_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Search.vue */ "./resources/js/views/admin/ledger/_comp/Search.vue"));
+    'ListTop': function ListTop() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_ListTop_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ListTop.vue */ "./resources/js/views/admin/ledger/_comp/ListTop.vue"));
     },
-    'Modal': function Modal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
-    },
-    'FormLedger': function FormLedger() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_FormLedger_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormLedger.vue */ "./resources/js/views/admin/ledger/_comp/FormLedger.vue"));
-    },
-    'FormLedgerModel': function FormLedgerModel() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_FormLedgerModel_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormLedgerModel.vue */ "./resources/js/views/admin/ledger/_comp/FormLedgerModel.vue"));
+    'ListSearch': function ListSearch() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_ListSearch_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ListSearch.vue */ "./resources/js/views/admin/ledger/_comp/ListSearch.vue"));
     },
     'ListHead': function ListHead() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_ListHead_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ListHead.vue */ "./resources/js/views/admin/ledger/_comp/ListHead.vue"));
@@ -132,11 +106,11 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
     'ListData': function ListData() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_ListData_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ListData.vue */ "./resources/js/views/admin/ledger/_comp/ListData.vue"));
     },
+    'Modal': function Modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
+    },
     'CustomSetColumn': function CustomSetColumn() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_CustomSetColumn_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/CustomSetColumn.vue */ "./resources/js/views/admin/ledger/_comp/CustomSetColumn.vue"));
-    },
-    'CustomSetSearch': function CustomSetSearch() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_ledger__comp_CustomSetSearch_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/CustomSetSearch.vue */ "./resources/js/views/admin/ledger/_comp/CustomSetSearch.vue"));
     }
   },
   data: function data() {
@@ -146,249 +120,155 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
       actType: 'create',
       editIndex: 0,
       isScrollPass: false,
+      headTop: 0,
       ledger: {
         data: []
       },
       config: {},
-      frm_ledger: {},
-      frm_ledger_model: {},
-      schFrm: {
-        startDate: startDate,
-        endDate: endDate
-      },
+      schFrm: {},
       mng_list: {},
-      user_mng_config: {
+      mng_config: {
         COLUMN: [],
-        SEARCH: [],
         MODEL: []
       },
       mng_info: {},
       writer: [],
-      sch_item_list: {
-        created_at: {
-          name: '작성일',
-          umc_val: 'created_at'
+      column_list: {
+        COLUMN: {
+          order_dt: {
+            w: 120,
+            name: '주문일'
+          },
+          pay_type: {
+            w: 120,
+            name: '결제방식'
+          },
+          mng: {
+            w: 120,
+            name: '담당자'
+          },
+          od_id: {
+            w: 120,
+            name: '주문번호'
+          },
+          sale_dt: {
+            w: 120,
+            name: '매출일'
+          },
+          distributor: {
+            w: 120,
+            name: '매출처'
+          },
+          depart: {
+            w: 120,
+            name: '소속'
+          },
+          lab_prof: {
+            w: 120,
+            name: '연구실/교수님'
+          },
+          orderer: {
+            w: 120,
+            name: '고객명'
+          },
+          od_name: {
+            w: 120,
+            name: '주문명'
+          },
+          sum_ea_p: {
+            w: 120,
+            name: '총 공급가액'
+          },
+          sum_surtax: {
+            w: 120,
+            name: '총 세액'
+          },
+          sum_sum_p: {
+            w: 120,
+            name: '총 합계'
+          },
+          tax_name: {
+            w: 120,
+            name: 'tax담당'
+          },
+          tax_email: {
+            w: 120,
+            name: 'tax메일'
+          },
+          tax_hp: {
+            w: 120,
+            name: 'tax번호'
+          },
+          note: {
+            w: 120,
+            name: '비고'
+          },
+          created_at: {
+            w: 120,
+            name: '작성일'
+          },
+          model: {
+            w: 0,
+            name: '제품정보'
+          }
         },
-        gm_price: {
-          name: '단가',
-          umc_val: 'gm_price'
-        },
-        ea_price: {
-          name: '공급가액',
-          umc_val: 'ea_price'
-        },
-        surtax: {
-          name: '세액',
-          umc_val: 'surtax'
-        },
-        sum_price: {
-          name: '합계',
-          umc_val: 'sum_price'
-        },
-        mng: {
-          name: '담당자',
-          umc_val: 'mng'
-        },
-        pay_type: {
-          name: '결제방식',
-          umc_val: 'pay_type'
-        },
-        orderer: {
-          name: '고객명',
-          umc_val: 'orderer'
-        },
-        od_id: {
-          name: '번호',
-          umc_val: 'od_id'
-        },
-        distributor: {
-          name: '매출처',
-          umc_val: 'distributor'
-        },
-        gm_name: {
-          name: '품목명',
-          umc_val: 'gm_name'
-        },
-        catno: {
-          name: 'CAT.No  ',
-          umc_val: 'catno'
-        },
-        gm_code: {
-          name: '모델명',
-          umc_val: 'gm_code'
-        },
-        writer: {
-          name: '작성자',
-          umc_val: 'writer'
-        }
-      },
-      column_list_clmn: {
-        order_dt: {
-          w: 120,
-          umc_val: 'order_dt',
-          name: '주문일'
-        },
-        pay_type: {
-          w: 120,
-          umc_val: 'pay_type',
-          name: '결제방식'
-        },
-        mng: {
-          w: 120,
-          umc_val: 'mng',
-          name: '담당자'
-        },
-        od_id: {
-          w: 120,
-          umc_val: 'od_id',
-          name: '주문번호'
-        },
-        sale_dt: {
-          w: 120,
-          umc_val: 'sale_dt',
-          name: '매출일'
-        },
-        distributor: {
-          w: 120,
-          umc_val: 'distributor',
-          name: '매출처'
-        },
-        depart: {
-          w: 120,
-          umc_val: 'depart',
-          name: '소속'
-        },
-        lab_prof: {
-          w: 120,
-          umc_val: 'lab_prof',
-          name: '연구실/교수님'
-        },
-        orderer: {
-          w: 120,
-          umc_val: 'orderer',
-          name: '고객명'
-        },
-        od_name: {
-          w: 120,
-          umc_val: 'od_name',
-          name: '주문명'
-        },
-        sum_ea_p: {
-          w: 120,
-          umc_val: 'sum_ea_p',
-          name: '총 공급가액'
-        },
-        sum_surtax: {
-          w: 120,
-          umc_val: 'sum_surtax',
-          name: '총 세액'
-        },
-        sum_sum_p: {
-          w: 120,
-          umc_val: 'sum_sum_p',
-          name: '총 합계'
-        },
-        tax_name: {
-          w: 120,
-          umc_val: 'tax_name',
-          name: 'tax담당'
-        },
-        tax_email: {
-          w: 120,
-          umc_val: 'tax_email',
-          name: 'tax메일'
-        },
-        tax_hp: {
-          w: 120,
-          umc_val: 'tax_hp',
-          name: 'tax번호'
-        },
-        note: {
-          w: 120,
-          umc_val: 'note',
-          name: '비고'
-        },
-        created_at: {
-          w: 120,
-          umc_val: 'created_at',
-          name: '작성일'
-        },
-        model: {
-          w: 0,
-          umc_val: 'model',
-          name: '제품정보'
-        }
-      },
-      column_list_model: {
-        gm_name: {
-          w: 250,
-          umc_val: 'gm_name',
-          name: '품목명'
-        },
-        gm_spec: {
-          w: 250,
-          umc_val: 'gm_spec',
-          name: '사양'
-        },
-        catno: {
-          w: 115,
-          umc_val: 'catno',
-          name: 'CAT.No'
-        },
-        gm_code: {
-          w: 120,
-          umc_val: 'gm_code',
-          name: '모델명'
-        },
-        gm_price: {
-          w: 90,
-          umc_val: 'gm_price',
-          name: '단가'
-        },
-        ea: {
-          w: 45,
-          umc_val: 'ea',
-          name: '수량'
-        },
-        ea_price: {
-          w: 130,
-          umc_val: 'ea_price',
-          name: '공급가액'
-        },
-        surtax: {
-          w: 90,
-          umc_val: 'surtax',
-          name: '세액'
-        },
-        sum_price: {
-          w: 130,
-          umc_val: 'sum_price',
-          name: '합계'
-        },
-        com_order_dt: {
-          w: 120,
-          umc_val: 'com_order_dt',
-          name: '업체발주일'
-        },
-        buyer: {
-          w: 120,
-          umc_val: 'buyer',
-          name: '매입처'
-        },
-        order_mng: {
-          w: 120,
-          umc_val: 'order_mng',
-          name: '발주담당'
-        },
-        purchase_price: {
-          w: 120,
-          umc_val: 'purchase_price',
-          name: '매입금액'
-        },
-        shipping_dt: {
-          w: 120,
-          umc_val: 'shipping_dt',
-          name: '제품발송일'
+        MODEL: {
+          gm_name: {
+            w: 250,
+            name: '품목명'
+          },
+          gm_spec: {
+            w: 250,
+            name: '사양'
+          },
+          catno: {
+            w: 115,
+            name: 'CAT.No'
+          },
+          gm_code: {
+            w: 120,
+            name: '모델명'
+          },
+          gm_price: {
+            w: 90,
+            name: '단가'
+          },
+          ea: {
+            w: 45,
+            name: '수량'
+          },
+          ea_price: {
+            w: 130,
+            name: '공급가액'
+          },
+          surtax: {
+            w: 90,
+            name: '세액'
+          },
+          sum_price: {
+            w: 130,
+            name: '합계'
+          },
+          com_order_dt: {
+            w: 120,
+            name: '업체발주일'
+          },
+          buyer: {
+            w: 120,
+            name: '매입처'
+          },
+          order_mng: {
+            w: 120,
+            name: '발주담당'
+          },
+          purchase_price: {
+            w: 120,
+            name: '매입금액'
+          },
+          shipping_dt: {
+            w: 120,
+            name: '제품발송일'
+          }
         }
       },
       indeterminate: false,
@@ -400,10 +280,10 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
       var _this = this;
 
       var sum = 0;
-      this.user_mng_config.COLUMN.forEach(function (e) {
-        if (e.umc_val == 'model') _this.user_mng_config.MODEL.forEach(function (e) {
-          sum += _this.column_list_model[e.umc_val].w;
-        });else sum += _this.column_list_clmn[e.umc_val].w;
+      this.mng_config.COLUMN.forEach(function (e) {
+        if (e.umc_val == 'model') _this.mng_config.MODEL.forEach(function (e) {
+          sum += _this.column_list.MODEL[e.umc_val].w;
+        });else sum += _this.column_list.COLUMN[e.umc_val].w;
       }); //  번호 넓이(90)를 추가한다
 
       return sum + 90;
@@ -412,21 +292,21 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
       var _this2 = this;
 
       var sum = 0;
-      this.user_mng_config.MODEL.forEach(function (e) {
-        sum += _this2.column_list_model[e.umc_val].w;
+      this.mng_config.MODEL.forEach(function (e) {
+        sum += _this2.column_list.MODEL[e.umc_val].w;
       });
-      return sum; //this.user_mng_config.MODEL.reduce( (a, e) => a + e.w, 0);
+      return sum; //this.mng_config.MODEL.reduce( (a, e) => a + e.w, 0);
     },
     total_ea_price: function total_ea_price() {
       return this.ledger.data.reduce(function (acc, lg) {
-        return acc + (lg.lg_pay_type !== 'CXL' ? lg.ledger_model.reduce(function (acc02, lm) {
+        return acc + (lg.lg_pay_type !== 'CXL' && lg.hasOwnProperty('ledger_model') ? lg.ledger_model.reduce(function (acc02, lm) {
           return acc02 + (lm.lm_cxl !== 'Y' ? Number(lm.lm_ea_price) : 0);
         }, 0) : 0);
       }, 0);
     },
     total_sum_price: function total_sum_price() {
       return this.ledger.data.reduce(function (acc, lg) {
-        return acc + (lg.lg_pay_type !== 'CXL' ? lg.ledger_model.reduce(function (acc02, lm) {
+        return acc + (lg.lg_pay_type !== 'CXL' && lg.hasOwnProperty('ledger_model') ? lg.ledger_model.reduce(function (acc02, lm) {
           return acc02 + (lm.lm_cxl !== 'Y' ? Number(lm.lm_sum_price) : 0);
         }, 0) : 0);
       }, 0);
@@ -456,7 +336,7 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
                 if (res && res.status === 200) {
                   _this3.ledger = res.data.lg;
                   _this3.mng_list = res.data.mng;
-                  _this3.user_mng_config = res.data.user_mng_config;
+                  _this3.mng_config = res.data.mng_config;
                   _this3.mng_info = res.data.mng_info;
                   _this3.writer = res.data.writer ? res.data.writer : [];
                   _this3.config = res.data.config;
@@ -470,138 +350,43 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
         }, _callee);
       }))();
     },
-    create: function create(target, lg_i) {
-      this.isModalViewed = true;
-      this.actTarget = target;
-      this.actType = 'create';
-
-      if (target == 'child') {
-        this.frm_ledger_model = {};
-        this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
-      }
+    create: function create() {
+      this.ledger.data.unshift({
+        lg_sum_ea_p: 0,
+        lg_sum_surtax: 0,
+        lg_sum_sum_p: 0
+      });
     },
-    editSearch: function editSearch() {
-      this.isModalViewed = true;
-      this.actTarget = 'editSearch';
-    },
-    editColumn: function editColumn() {
-      this.isModalViewed = true;
-      this.actTarget = 'editColumn';
+    createModel: function createModel(lg_i) {
+      this.ledger.data[lg_i].ledger_model.unshift({
+        lm_lg_id: this.ledger.data[lg_i].lg_id,
+        lm_gm_price: 0,
+        lm_ea: 0,
+        lm_ea_price: 0,
+        lm_surtax: 0,
+        lm_sum_price: 0,
+        lm_purchase_price: 0
+      });
     },
     updateColumnComplete: function updateColumnComplete() {
       this.isModalViewed = false;
       this.index();
     },
-    updateSearchComplete: function updateSearchComplete() {
-      this.isModalViewed = false;
-      this.index();
-    },
-    store: function store(frm) {
+    all_price_update: function all_price_update() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var res;
+        var sum_ea_p, sum_surtax, sum_sum_p, fm, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger", frm);
-
-              case 2:
-                res = _context2.sent;
-
-                if (res && res.status === 200) {
-                  _this4.index();
-
-                  Notify.toast('success', '등록 완료');
-                }
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    edit: function edit(target, lg_i) {
-      var lm_i = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      this.isModalViewed = true;
-      this.actTarget = target;
-      this.editIndex = lg_i;
-      this.frm_ledger = this.ledger.data[lg_i];
-
-      if (target == 'child') {
-        this.frm_ledger_model = this.ledger.data[lg_i].ledger_model[lm_i];
-        this.frm_ledger_model.lm_lg_id = this.ledger.data[lg_i].lg_id;
-      }
-
-      this.actType = 'edit';
-    },
-    update: function update(frm) {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var lg_id, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                frm = Object.assign({}, frm, {
-                  _method: 'PATCH'
-                });
-                lg_id = frm.lg_id ? frm.lg_id : frm.lm_lg_id;
-                _context3.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/".concat(lg_id), frm);
-
-              case 4:
-                res = _context3.sent;
-
-                if (res && res.status === 200) {
-                  _this5.index();
-
-                  Notify.toast('success', '수정 완료');
-                }
-
-                if (_this5.actTarget == 'child') _this5.all_price_update();
-
-              case 7:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    register: function register() {
-      var tmp = {};
-      if (this.actTarget == 'papa') tmp = Object.assign({}, this.frm_ledger);else if (this.actTarget == 'child') tmp = Object.assign({}, this.frm_ledger_model);
-      if (this.actType == 'create') this.store(tmp);else if (this.actType == 'edit') this.update(tmp);
-      this.frm_ledger = {
-        lg_pay_type: 'CARD',
-        lg_source_type: 'ORD',
-        lg_od_id: 0,
-        ledger_model: []
-      };
-      this.frm_ledger_model = {};
-      this.isModalViewed = false;
-    },
-    all_price_update: function all_price_update() {
-      var _this6 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var sum_ea_p, sum_surtax, sum_sum_p, fm, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
               case 0:
                 //  금액이나 갯수 수정시 자동으로 ""총"" 합계등이 업데이트
                 sum_ea_p = 0;
                 sum_surtax = 0;
                 sum_sum_p = 0;
 
-                _this6.ledger.data[_this6.editIndex].ledger_model.forEach(function (lm) {
+                _this4.ledger.data[_this4.editIndex].ledger_model.forEach(function (lm) {
                   if (lm.lm_cxl !== "Y") {
                     sum_ea_p += Number(lm.lm_ea_price);
                     sum_surtax += Number(lm.lm_surtax);
@@ -609,9 +394,9 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
                   }
                 });
 
-                _this6.ledger.data[_this6.editIndex].lg_sum_ea_p = sum_ea_p;
-                _this6.ledger.data[_this6.editIndex].lg_sum_surtax = sum_surtax;
-                _this6.ledger.data[_this6.editIndex].lg_sum_sum_p = sum_sum_p;
+                _this4.ledger.data[_this4.editIndex].lg_sum_ea_p = sum_ea_p;
+                _this4.ledger.data[_this4.editIndex].lg_sum_surtax = sum_surtax;
+                _this4.ledger.data[_this4.editIndex].lg_sum_sum_p = sum_sum_p;
                 fm = {
                   _method: 'PATCH',
                   type: 'all_price_update',
@@ -619,24 +404,24 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
                   'lg_sum_surtax': sum_surtax,
                   'lg_sum_sum_p': sum_sum_p
                 };
-                _context4.next = 10;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/".concat(_this6.ledger.data[_this6.editIndex].lg_id), fm);
+                _context2.next = 10;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/".concat(_this4.ledger.data[_this4.editIndex].lg_id), fm);
 
               case 10:
-                res = _context4.sent;
+                res = _context2.sent;
 
                 if (res && res.status === 200) {
-                  _this6.index();
+                  _this4.index();
 
                   Notify.toast('success', '수정 완료');
                 }
 
               case 12:
               case "end":
-                return _context4.stop();
+                return _context2.stop();
             }
           }
-        }, _callee4);
+        }, _callee2);
       }))();
     },
     chkChange: function chkChange() {
@@ -662,59 +447,68 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
       this.indeterminate = false;
     },
     to_accounting: function to_accounting() {
-      var _this7 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var tmpFrm, res, res02;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 tmpFrm = {
                   _method: 'PATCH',
                   type: 'to_accounting',
-                  lg_ids: _this7.ledger.data.filter(function (el) {
+                  lg_ids: _this5.ledger.data.filter(function (el) {
                     return el.chk_cplt == true;
                   }).map(function (el) {
                     return el.lg_id;
                   })
                 };
-                _context5.next = 3;
+                _context3.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledger/0", tmpFrm);
 
               case 3:
-                res = _context5.sent;
+                res = _context3.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context5.next = 9;
+                  _context3.next = 9;
                   break;
                 }
 
-                _context5.next = 7;
+                _context3.next = 7;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/ledgerAcct", {
-                  lg: _this7.ledger.data
+                  lg: _this5.ledger.data
                 });
 
               case 7:
-                res02 = _context5.sent;
+                res02 = _context3.sent;
 
                 if (res02 && res02.status === 200) {
-                  _this7.index();
+                  _this5.index();
 
                   Notify.toast('success', '수정 완료');
                 }
 
               case 9:
               case "end":
-                return _context5.stop();
+                return _context3.stop();
             }
           }
-        }, _callee5);
+        }, _callee3);
       }))();
+    },
+    scrollListener: function scrollListener(e) {
+      var head_top = 290;
+      this.isScrollPass = window.scrollY >= head_top;
+      if (this.isScrollPass) this.headTop = window.scrollY - head_top;else this.headTop = 0;
     }
   },
   mounted: function mounted() {
     this.index();
+    window.addEventListener('scroll', this.scrollListener);
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('scroll', this.scrollListener);
   }
 });
 
@@ -736,7 +530,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#admLedger { font-size:.85rem;\n}\n#admLedger .p_tit { max-width:1500px; margin:auto;\n}\n#admLedger .data .list_top { margin-bottom: 2px;\n}\n#admLedger .data .list_top div:nth-child(2) { text-align:right;\n}\n#admLedger .data .ledger_module .row .list_id { flex: 0 0 90px; max-width:90px;\n}\n#admLedger .data .ledger_module .row .list_id .custom-control { padding-left:0; margin-left:1.5rem;\n}\n#admLedger .data .ledger_module .row .list_id .custom-control .custom-control-label { line-height:1.5rem; cursor:pointer;\n}\r\n        \r\n/*\r\n#admLedger .data .ledger_module .row .list_id .custom-control-label::before, \r\n#admLedger .data .ledger_module .row .list_id .custom-control-label::after { width:2rem; height:2rem; }\r\n*/\n#admLedger .data .ledger_module .row { margin:0; align-items:center; position:relative;\n}\n#admLedger .data .ledger_module>.row { margin:auto;\n}\n#admLedger .data .ledger_module .row .col { padding-left:5px; padding-right:5px; text-align:center; line-height:1.1rem;\n}\n#admLedger .data .ledger_module .row .model { flex-grow: 0; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; min-height:28px; padding:0;\n}\n#admLedger .data .ledger_module .ctrl { position:absolute; top:50%; transform:translateY(-50%); left:-104px; width:120px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s; z-index:1; background:#fff;\n}\n#admLedger .data .ledger_module .row .model .row .ctrl { left:-76px; width:95px;\n}\n#admLedger .data .ledger_module .ctrl:hover { left:0 !important; z-index: 2;\n}\r\n\r\n\r\n/*#admLedger .data >>> .ps .ps__rail-x { top:0; bottom:auto; height:25px; }*/\n#admLedger .data .ps .ps__rail-x { height:25px; position:fixed; z-index: 1;\n}\n#admLedger .data .ps .ps__rail-x:hover { background-color:#eee; opacity:.9;\n}\n#admLedger .data .ps .ps__rail-x .ps__thumb-x { height:18px; background-color:pink; position:fixed;\n}\n#admLedger .data .ps .ps__rail-x:hover > .ps__thumb-x, \r\n#admLedger .data .ps .ps__rail-x:focus > .ps__thumb-x, \r\n#admLedger .data .ps .ps__rail-x.ps--clicking .ps__thumb-x { background-color:hotpink; height:22px;\n}\n#admLedger .to_accounting { position:fixed; left:0; top:47%; border-radius:0 10px 10px 0; z-index:1; -ms-writing-mode:tb-lr; writing-mode:vertical-lr; width:40px; padding:2px 8px;\n}\r\n/*\r\n.slideLeftRight-enter-to,\r\n.slideLeftRight-leave ,\r\n.slideLeftRight-enter-active  { transition:all 0.9s; }\r\n.slideLeftRight-enter,\r\n.slideLeftRight-leave-to { transform:translateX(100%); }\r\n*/\n.slideLeftRight-enter-to,\r\n.slideLeftRight-leave { transform: translateX(0%);\n}\n.slideLeftRight-enter-active,\r\n.slideLeftRight-leave-active { transition: all .3s ease;\n}\n.slideLeftRight-enter,\r\n.slideLeftRight-leave-to { transform: translateX(-100%); opacity: 0;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#admLedger { font-size:.85rem;\n}\n#admLedger .p_tit { max-width:1500px; margin:auto;\n}\n#admLedger .list_top { margin-bottom: 2px;\n}\n#admLedger .list_top div:nth-child(2) { text-align:right;\n}\n#admLedger .top .model .col .badge { font-size:1rem;\n}\n#admLedger .fixed_header { position:relative;\n}\n#admLedger .fixed_header.head { z-index:2;\n}\n#admLedger .fixed_header.top .model .col .badge { position:relative; top:96px; z-index:2;\n}\n#admLedger .row .list_id { flex: 0 0 90px; max-width:90px; min-height:22.39px;\n}\n#admLedger .row .list_id .custom-control .custom-control-label { line-height:1.5rem; cursor:pointer;\n}\r\n        \r\n/*\r\n#admLedger .data .ledger_module .row .list_id .custom-control-label::before, \r\n#admLedger .data .ledger_module .row .list_id .custom-control-label::after { width:2rem; height:2rem; }\r\n*/\n#admLedger .row { margin:0; align-items:center; position:relative; padding:5px 0;\n}\n#admLedger .row { margin:auto;\n}\n#admLedger .row:not(.list_top) .col { padding-left:5px; padding-right:5px; text-align:center; line-height:1.1rem;\n}\n#admLedger .row .model { flex-grow: 0; flex-wrap: wrap; flex-basis:auto; flex-shrink:1; max-width:none; padding:0;\n}\n#admLedger .ctrl { position:absolute; top:50%; transform:translateY(-50%); left:-104px; width:120px; text-align:right; border-right:2px solid #55aebf; border-radius:0 5px 5px 0; color:#126b7c; transition:all .4s; z-index:1; background:#fff;\n}\n#admLedger .row .model .row { padding:0;\n}\n#admLedger .row .model .row .ctrl { left:-76px; width:95px;\n}\n#admLedger .ctrl:hover { left:0 !important; z-index: 2;\n}\r\n\r\n/*\r\n.slideLeftRight-enter-to,\r\n.slideLeftRight-leave ,\r\n.slideLeftRight-enter-active  { transition:all 0.9s; }\r\n.slideLeftRight-enter,\r\n.slideLeftRight-leave-to { transform:translateX(100%); }\r\n*/\n.slideLeftRight-enter-to,\r\n.slideLeftRight-leave { transform: translateX(0%);\n}\n.slideLeftRight-enter-active,\r\n.slideLeftRight-leave-active { transition: all .3s ease;\n}\n.slideLeftRight-enter,\r\n.slideLeftRight-leave-to { transform: translateX(-100%); opacity: 0;\n}\n.row .col .btn-sm { padding: 0.1rem 0.3rem; font-size: 0.7rem;\n}\n.row .col .hidden_menu { position:absolute; left:0; z-index:2;\n}\n.slide-fade-enter-active { transition: all .2s ease;\n}\n.slide-fade-leave-active { transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\r\n/* .slide-fade-leave-active below version 2.1.8 */ { transform: translateX(-20px); opacity: 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -872,31 +666,19 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_warp", attrs: { id: "admLedger" } },
+    { staticClass: "p_wrap", attrs: { id: "admLedger" } },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("영업 장부")]),
       _vm._v(" "),
-      _c("Search", {
-        attrs: {
-          search: _vm.user_mng_config.SEARCH,
-          sch_item_list: _vm.sch_item_list,
-          mng_list: _vm.mng_list,
-          writer: _vm.writer,
-          config: _vm.config,
-        },
-        on: { index: _vm.index, editSearch: _vm.editSearch },
-        model: {
-          value: _vm.schFrm,
-          callback: function ($$v) {
-            _vm.schFrm = $$v
-          },
-          expression: "schFrm",
-        },
-      }),
-      _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "shadow data" },
+        {
+          staticClass: "shadow",
+          style: {
+            width: "calc( " + _vm.row_width + "px + 2.5rem )",
+            marginRight: "15px",
+          },
+        },
         [
           _c(
             "b-row",
@@ -905,50 +687,10 @@ var render = function () {
               _c(
                 "b-col",
                 [
-                  _vm._v("\r\n                Total : "),
+                  _vm._v("Total : "),
                   _c("b-badge", { attrs: { variant: "info" } }, [
                     _vm._v(_vm._s(_vm.ledger.total)),
                   ]),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          value: "정보 나열 순서",
-                          expression: "'정보 나열 순서'",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      staticClass: "ml-4",
-                      attrs: { size: "sm" },
-                      on: { click: _vm.editColumn },
-                    },
-                    [_c("b-icon-gear")],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "info", size: "sm" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.create("papa")
-                        },
-                      },
-                    },
-                    [_c("b-icon-plus-lg"), _vm._v(" 추가")],
-                    1
-                  ),
                 ],
                 1
               ),
@@ -956,59 +698,79 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c(
-            "perfect-scrollbar",
-            { attrs: { suppressScrollX: "true" } },
-            [
-              _c("ListHead", {
-                attrs: {
-                  ledger: _vm.ledger.data,
-                  mng_config_column: _vm.user_mng_config.COLUMN,
-                  column_list_clmn: _vm.column_list_clmn,
-                  mng_config_model: _vm.user_mng_config.MODEL,
-                  column_list_model: _vm.column_list_model,
-                  row_width: _vm.row_width,
-                  model_width: _vm.model_width,
-                  total_ea_price: _vm.total_ea_price,
-                  total_sum_price: _vm.total_sum_price,
-                  indeterminate: _vm.indeterminate,
-                  all_chk_cplt: _vm.all_chk_cplt,
-                },
-                on: { index: _vm.index, toggle_all_chk: _vm.toggle_all_chk },
-              }),
-              _vm._v(" "),
-              _c("ListData", {
-                attrs: {
-                  ledger: _vm.ledger.data,
-                  mng_config_column: _vm.user_mng_config.COLUMN,
-                  column_list_clmn: _vm.column_list_clmn,
-                  mng_config_model: _vm.user_mng_config.MODEL,
-                  column_list_model: _vm.column_list_model,
-                  row_width: _vm.row_width,
-                  model_width: _vm.model_width,
-                  indeterminate: _vm.indeterminate,
-                  all_chk_cplt: _vm.all_chk_cplt,
-                  config: _vm.config,
-                },
-                on: {
-                  index: _vm.index,
-                  create: _vm.create,
-                  edit: _vm.edit,
-                  chkChange: _vm.chkChange,
-                },
-              }),
-            ],
-            1
-          ),
+          _c("ListTop", {
+            staticClass: "top",
+            class: { fixed_header: _vm.isScrollPass },
+            style: { width: _vm.row_width + "px", top: _vm.headTop + "px" },
+            attrs: {
+              mng_config: _vm.mng_config,
+              column_list: _vm.column_list,
+              model_width: _vm.model_width,
+              total_ea_price: _vm.total_ea_price,
+              total_sum_price: _vm.total_sum_price,
+            },
+          }),
           _vm._v(" "),
-          _c("pagination", {
-            staticClass: "mt-5",
-            attrs: { data: _vm.ledger, align: "center" },
-            on: { "pagination-change-page": _vm.index },
+          _c("ListSearch", {
+            staticClass: "search",
+            style: { width: _vm.row_width + "px" },
+            attrs: {
+              mng_config: _vm.mng_config,
+              column_list: _vm.column_list,
+              model_width: _vm.model_width,
+              mng_list: _vm.mng_list,
+              config: _vm.config,
+            },
+            on: { index: _vm.index },
+            model: {
+              value: _vm.schFrm,
+              callback: function ($$v) {
+                _vm.schFrm = $$v
+              },
+              expression: "schFrm",
+            },
+          }),
+          _vm._v(" "),
+          _c("ListHead", {
+            staticClass: "head",
+            class: { fixed_header: _vm.isScrollPass },
+            style: { width: _vm.row_width + "px", top: _vm.headTop + "px" },
+            attrs: {
+              mng_config: _vm.mng_config,
+              column_list: _vm.column_list,
+              model_width: _vm.model_width,
+              indeterminate: _vm.indeterminate,
+              all_chk_cplt: _vm.all_chk_cplt,
+            },
+            on: { create: _vm.create, toggle_all_chk: _vm.toggle_all_chk },
+          }),
+          _vm._v(" "),
+          _c("ListData", {
+            staticClass: "content",
+            style: { width: _vm.row_width + "px" },
+            attrs: {
+              ledger: _vm.ledger.data,
+              mng_config: _vm.mng_config,
+              column_list: _vm.column_list,
+              model_width: _vm.model_width,
+              config: _vm.config,
+              mng_list: _vm.mng_list,
+            },
+            on: {
+              index: _vm.index,
+              createModel: _vm.createModel,
+              chkChange: _vm.chkChange,
+            },
           }),
         ],
         1
       ),
+      _vm._v(" "),
+      _c("pagination", {
+        staticClass: "my-5",
+        attrs: { data: _vm.ledger, align: "center" },
+        on: { "pagination-change-page": _vm.index },
+      }),
       _vm._v(" "),
       _c(
         "transition",
@@ -1025,49 +787,13 @@ var render = function () {
                   },
                 },
                 [
-                  _vm.actTarget == "papa"
-                    ? _c("FormLedger", {
-                        attrs: { pay_type_option: _vm.config.pay_type },
-                        on: { register: _vm.register },
-                        model: {
-                          value: _vm.frm_ledger,
-                          callback: function ($$v) {
-                            _vm.frm_ledger = $$v
-                          },
-                          expression: "frm_ledger",
-                        },
-                      })
-                    : _vm.actTarget == "child"
-                    ? _c("FormLedgerModel", {
-                        attrs: { lg: _vm.frm_ledger },
-                        on: { register: _vm.register },
-                        model: {
-                          value: _vm.frm_ledger_model,
-                          callback: function ($$v) {
-                            _vm.frm_ledger_model = $$v
-                          },
-                          expression: "frm_ledger_model",
-                        },
-                      })
-                    : _vm.actTarget == "editSearch"
-                    ? _c("CustomSetSearch", {
-                        attrs: {
-                          db_data_config_sch: _vm.user_mng_config.SEARCH,
-                          sch_item_list: _vm.sch_item_list,
-                        },
-                        on: { updateSearchComplete: _vm.updateSearchComplete },
-                      })
-                    : _vm.actTarget == "editColumn"
-                    ? _c("CustomSetColumn", {
-                        attrs: {
-                          db_config_clmn: _vm.user_mng_config.COLUMN,
-                          db_config_model: _vm.user_mng_config.MODEL,
-                          column_list_clmn: _vm.column_list_clmn,
-                          column_list_model: _vm.column_list_model,
-                        },
-                        on: { updateColumnComplete: _vm.updateColumnComplete },
-                      })
-                    : _vm._e(),
+                  _c("CustomSetColumn", {
+                    attrs: {
+                      mng_config: _vm.mng_config,
+                      column_list: _vm.column_list,
+                    },
+                    on: { updateColumnComplete: _vm.updateColumnComplete },
+                  }),
                 ],
                 1
               )

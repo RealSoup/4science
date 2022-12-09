@@ -1022,7 +1022,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "p_warp", attrs: { id: "adm_estimate_edit" } },
+    { staticClass: "p_wrap", attrs: { id: "adm_estimate_edit" } },
     [
       _c("h1", [_vm._v("견적서 수정")]),
       _vm._v(" "),

@@ -1,5 +1,5 @@
 <template lang="html">
-    <b-container id="adm_estimate_edit" class="p_warp">
+    <b-container id="adm_estimate_edit" class="p_wrap">
 
         <h1>견적서 수정</h1>
 

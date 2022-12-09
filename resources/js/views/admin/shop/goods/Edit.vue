@@ -1,5 +1,5 @@
 <template>
-<b-container class="p_warp">
+<b-container class="p_wrap">
     <h3 class="p_tit">상품 수정</h3>
     <b-card no-body class="ctrl">
         <b-container>

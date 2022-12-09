@@ -1,5 +1,5 @@
 <template lang="html">
-    <b-container class="p_warp">
+    <b-container class="p_wrap">
         <h3 class="p_tit">매입처 / 항공운임 관리</h3>
         <b-card>
             <template v-if="purchase_at && purchase_at.length" v-for="(row, idx) in purchase_at">

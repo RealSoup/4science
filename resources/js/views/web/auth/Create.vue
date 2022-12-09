@@ -1,6 +1,6 @@
 <template>
-    <b-container class="auth_create">
-        <b-row><b-col tag="h1">회원가입</b-col></b-row>
+    <b-container class="auth_create w_fence">
+        <h3>회원가입 정보 입력</h3>
 
         <FormUser v-model="frm" />
         <FormDealer v-if="$route.params.code == 'dealer'" v-model="frm" />
