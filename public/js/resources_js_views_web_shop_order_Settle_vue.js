@@ -2067,7 +2067,7 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: "/img/order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_card.png",
                                         },
                                       }),
                                     ]),
@@ -2079,7 +2079,7 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: "/img/order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_card.png",
                                         },
                                       }),
                                     ]),
@@ -2091,7 +2091,7 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: "/img/order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_card.png",
                                         },
                                       }),
                                     ]),
@@ -2103,7 +2103,7 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: "/img/order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_card.png",
                                         },
                                       }),
                                     ]),
@@ -2115,7 +2115,7 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: "/img/order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_card.png",
                                         },
                                       }),
                                     ]),

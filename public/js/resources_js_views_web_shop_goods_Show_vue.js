@@ -613,10 +613,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       list: {},
       config: {},
-      bo: {
-        bo_subject: this.bo_subject,
-        bo_gd_id: this.$route.params.gd_id
-      }
+      bo: {}
     };
   },
   methods: {
@@ -666,21 +663,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.bo = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                _this2.bo, // 수정하려는 객체
+                {
+                  bo_subject: _this2.bo_subject,
+                  bo_gd_id: _this2.$route.params.gd_id
+                } // 삽입하려는 내용
+                );
+                _context2.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/board/".concat(_this2.bo_cd, "/store"), _this2.bo);
 
-              case 2:
+              case 3:
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
                   _this2.isModalViewed = false;
 
-                  _this2.index(); // this.bo.bo_subject = '';
-                  // this.bo.bo_content = '';
+                  _this2.index();
 
+                  _this2.bo.bo_subject = '';
+                  _this2.bo.bo_content = '';
                 }
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -1799,7 +1804,11 @@ var render = function () {
                       _c("div", { staticClass: "ask" }, [
                         _c("p", [_vm._v("Q.")]),
                         _vm._v(" "),
-                        _c("div", [_vm._v(_vm._s(bo.bo_content))]),
+                        _c("div", {
+                          domProps: {
+                            innerHTML: _vm._s(_vm.getContent(bo.bo_content)),
+                          },
+                        }),
                       ]),
                       _vm._v(" "),
                       bo.answer

@@ -49,6 +49,31 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
         Route::RESOURCE('order', 'Shop\OrderController')->only([ 'index', 'update' ]);
         Route::RESOURCE('wish', 'Shop\WishController')->only([ 'index', 'store', 'destroy' ]);
+
+        Route::prefix('order')->group(function () {
+            Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
+            Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
+            Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
+            Route::GET( '{od_id}',      'Shop\OrderController@show');
+
+        });
+
+        Route::prefix('estimate')->group(function () {
+            Route::POST('create',   'Shop\EstimateController@create')->name('shop.estimate.create');
+            Route::POST('/',        'Shop\EstimateController@store')->name('shop.estimate.store');
+            Route::GET( '{eq_id}',  'Shop\EstimateController@show')->name('shop.estimate.show');
+            Route::GET( 'reply/{er_id}',  'Shop\EstimateController@replyShow')->name('shop.estimate.replyShow');
+            Route::POST('reEstimate', 'Shop\EstimateController@reEstimate');
+            Route::get('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
+
+        });
+
+        Route::prefix('outlet')->group(function () {
+            Route::GET('{code}/{type}/{group}', 'Shop\OutletController@index')->name('shop.outlet.index');
+        });
+
+        Route::get('listing/{type}', 'Shop\ListingController@index');
+        Route::get('maker', 'Shop\MakerController@index');
     });
 
     Route::RESOURCE('engReform', EngReformController::class)->only([ 'index', 'store' ]);
@@ -68,30 +93,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::GET('goodBad/{bo_id}/{type}', 'BoardController@goodBad')->name('board.goodBad')->where('bo_cd', '[a-zA-Z0-9_]+');
     });
 
-    Route::prefix('order')->group(function () {
-        Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
-        Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
-        Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
-        Route::GET( '{od_id}',      'Shop\OrderController@show');
-
-    });
-
-    Route::prefix('estimate')->group(function () {
-        Route::POST('create',   'Shop\EstimateController@create')->name('shop.estimate.create');
-        Route::POST('/',        'Shop\EstimateController@store')->name('shop.estimate.store');
-        Route::GET( '{eq_id}',  'Shop\EstimateController@show')->name('shop.estimate.show');
-        Route::GET( 'reply/{er_id}',  'Shop\EstimateController@replyShow')->name('shop.estimate.replyShow');
-        Route::POST('reEstimate', 'Shop\EstimateController@reEstimate');
-        Route::get('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
-
-    });
-
-    Route::prefix('outlet')->group(function () {
-        Route::GET('{code}/{type}/{group}', 'Shop\OutletController@index')->name('shop.outlet.index');
-    });
-
-    Route::get('listing/{type}', 'Shop\ListingController@index');
-    Route::get('maker', 'Shop\MakerController@index');
+    
 
 
 

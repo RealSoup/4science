@@ -227,7 +227,11 @@ var render = function () {
               _c(
                 "b-link",
                 { attrs: { to: "/auth/create/personal" } },
-                [_c("b-img", { attrs: { src: "/img/auth/personal.png" } })],
+                [
+                  _c("b-img", {
+                    attrs: { src: _vm.s3url + "auth/personal.png" },
+                  }),
+                ],
                 1
               ),
             ],
@@ -240,7 +244,11 @@ var render = function () {
               _c(
                 "b-link",
                 { attrs: { to: "/auth/create/dealer" } },
-                [_c("b-img", { attrs: { src: "/img/auth/dealer.png" } })],
+                [
+                  _c("b-img", {
+                    attrs: { src: _vm.s3url + "auth/dealer.png" },
+                  }),
+                ],
                 1
               ),
             ],
@@ -261,7 +269,7 @@ var render = function () {
                         { attrs: { to: "/auth" } },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/auth/naver.png" },
+                            attrs: { src: _vm.s3url + "auth/naver.png" },
                           }),
                         ],
                         1
@@ -284,7 +292,7 @@ var render = function () {
                         { attrs: { to: "/auth" } },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/auth/kakao.png" },
+                            attrs: { src: _vm.s3url + "auth/kakao.png" },
                           }),
                         ],
                         1

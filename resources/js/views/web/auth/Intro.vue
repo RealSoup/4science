@@ -6,26 +6,26 @@
         <b-row class="con">
             <b-col>
                 <b-link to="/auth/create/personal">
-                    <b-img src='/img/auth/personal.png' />
+                    <b-img :src="s3url+'auth/personal.png'" />
                 </b-link>
             </b-col>
             <b-col>
                 <b-link to="/auth/create/dealer">
-                    <b-img src='/img/auth/dealer.png' />
+                    <b-img :src="s3url+'auth/dealer.png'" />
                 </b-link>
             </b-col>
             <b-col>
                 <b-row>
                     <b-col>
                         <b-link to="/auth">
-                            <b-img src='/img/auth/naver.png' />
+                            <b-img :src="s3url+'auth/naver.png'" />
                         </b-link>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
                         <b-link to="/auth">
-                            <b-img src='/img/auth/kakao.png' />
+                            <b-img :src="s3url+'auth/kakao.png'" />
                         </b-link>
                     </b-col>
                 </b-row>

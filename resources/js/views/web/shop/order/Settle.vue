@@ -171,11 +171,11 @@
                         <div class="method">
                             <div v-for="(v, k) in config.pay_method" :key="k">
                                 <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
-                                <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img src="/img/order/pay_card.png" /></b></span>
-                                <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img src="/img/order/pay_card.png" /></b></span>
-                                <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img src="/img/order/pay_card.png" /></b></span>
-                                <span v-else-if="k=='R'">이니시스 온라인 신용카드 결제<b>[자세히]<img src="/img/order/pay_card.png" /></b></span>
-                                <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img src="/img/order/pay_card.png" /></b></span>
+                                <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                <span v-else-if="k=='R'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
                             </div> 
                         </div>
 

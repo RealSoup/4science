@@ -240,7 +240,7 @@ export default {
         Vue.prototype.$myMethod = function (methodOptions) {
         // 필요한 로직 ...
         }
-
+        Vue.prototype.s3url = 'https://fourscience.s3.ap-northeast-2.amazonaws.com/';
         Vue.prototype.isEmpty = function (v) {
             if( v == "" || v == null || v == undefined || Number.isNaN(v) || ( v != null && typeof v == "object" && !Object.keys(v).length ) ) return true;
             else return false;

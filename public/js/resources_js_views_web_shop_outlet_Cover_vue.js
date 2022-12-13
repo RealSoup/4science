@@ -336,7 +336,7 @@ var render = function () {
           "b-row",
           [
             _c("b-col", [
-              _c("img", { attrs: { src: "/img/outlet/logo.png" } }),
+              _c("img", { attrs: { src: _vm.s3url + "outlet/logo.png" } }),
             ]),
             _vm._v(" "),
             _c(
@@ -351,7 +351,7 @@ var render = function () {
                 ],
               },
               [
-                _c("img", { attrs: { src: "/img/outlet/list01.png" } }),
+                _c("img", { attrs: { src: _vm.s3url + "outlet/list01.png" } }),
                 _vm._v(" "),
                 _c("div", [_vm._v("피펫관")]),
               ]
@@ -369,7 +369,7 @@ var render = function () {
                 ],
               },
               [
-                _c("img", { attrs: { src: "/img/outlet/list02.png" } }),
+                _c("img", { attrs: { src: _vm.s3url + "outlet/list02.png" } }),
                 _vm._v(" "),
                 _c("div", [_vm._v("환경측정기관")]),
               ]
@@ -387,7 +387,7 @@ var render = function () {
                 ],
               },
               [
-                _c("img", { attrs: { src: "/img/outlet/list03.png" } }),
+                _c("img", { attrs: { src: _vm.s3url + "outlet/list03.png" } }),
                 _vm._v(" "),
                 _c("div", [_vm._v("트위져관")]),
               ]
@@ -405,7 +405,7 @@ var render = function () {
                 ],
               },
               [
-                _c("img", { attrs: { src: "/img/outlet/list04.png" } }),
+                _c("img", { attrs: { src: _vm.s3url + "outlet/list04.png" } }),
                 _vm._v(" "),
                 _c("div", [_vm._v("핫플레이트관")]),
               ]
@@ -423,7 +423,7 @@ var render = function () {
                 ],
               },
               [
-                _c("img", { attrs: { src: "/img/outlet/list05.png" } }),
+                _c("img", { attrs: { src: _vm.s3url + "outlet/list05.png" } }),
                 _vm._v(" "),
                 _c("div", [_vm._v("광파워미터관")]),
               ]
@@ -444,7 +444,7 @@ var render = function () {
           { staticClass: "layout" },
           [
             _c("b-col", [
-              _c("img", { attrs: { src: "/img/outlet/title.png" } }),
+              _c("img", { attrs: { src: _vm.s3url + "outlet/title.png" } }),
             ]),
             _vm._v(" "),
             _c(
@@ -479,99 +479,7 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/pipette/thermo.png",
-                                },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "goods_index",
-                                  query: {
-                                    ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
-                                  },
-                                },
-                              },
-                            },
-                            [
-                              _c("img", {
-                                attrs: { src: "/img/outlet/pipette/witeg.png" },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "goods_index",
-                                  query: {
-                                    ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
-                                  },
-                                },
-                              },
-                            },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/outlet/pipette/gilson.png",
-                                },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "goods_index",
-                                  query: {
-                                    ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
-                                  },
-                                },
-                              },
-                            },
-                            [
-                              _c("img", {
-                                attrs: { src: "/img/outlet/pipette/eppen.png" },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "goods_index",
-                                  query: {
-                                    ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
-                                  },
-                                },
-                              },
-                            },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  src: "/img/outlet/pipette/axygen.png",
+                                  src: _vm.s3url + "outlet/pipette/thermo.png",
                                 },
                               }),
                             ]
@@ -595,7 +503,7 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/pipette/sartorius.png",
+                                  src: _vm.s3url + "outlet/pipette/witeg.png",
                                 },
                               }),
                             ]
@@ -619,7 +527,7 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/pipette/socorex.png",
+                                  src: _vm.s3url + "outlet/pipette/gilson.png",
                                 },
                               }),
                             ]
@@ -642,7 +550,106 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/pipette/etc.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/pipette/eppen.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.s3url + "outlet/pipette/axygen.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src:
+                                    _vm.s3url + "outlet/pipette/sartorius.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.s3url + "outlet/pipette/socorex.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "27",
+                                    ca02: "1291",
+                                    ca03: "1294",
+                                    ca04: "1302",
+                                  },
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.s3url + "outlet/pipette/etc.png",
+                                },
                               }),
                             ]
                           ),
@@ -860,7 +867,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t01.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t01.png",
+                                },
                               }),
                               _c("span", [_vm._v("Flat tip tweezer")]),
                             ]
@@ -875,7 +884,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t02.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t02.png",
+                                },
                               }),
                               _c("span", [_vm._v("Wafer tweezer")]),
                             ]
@@ -890,7 +901,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t03.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t03.png",
+                                },
                               }),
                               _c("span", [_vm._v("Fine tip tweezer")]),
                             ]
@@ -905,7 +918,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t04.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t04.png",
+                                },
                               }),
                               _c("span", [_vm._v("Teflon& coating tweezer")]),
                             ]
@@ -920,7 +935,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t05.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t05.png",
+                                },
                               }),
                               _c("span", [_vm._v("Reverse action tweezer")]),
                             ]
@@ -935,7 +952,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t06.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t06.png",
+                                },
                               }),
                               _c("span", [_vm._v("Fiber tip tweezer")]),
                             ]
@@ -950,7 +969,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t07.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t07.png",
+                                },
                               }),
                               _c("span", [_vm._v("Plastic tweezer")]),
                             ]
@@ -965,7 +986,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/t08.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/t08.png",
+                                },
                               }),
                               _c("span", [_vm._v("Vacuum tweezer")]),
                             ]
@@ -992,7 +1015,8 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/tweezer/ideal-tek.png",
+                                  src:
+                                    _vm.s3url + "outlet/tweezer/ideal-tek.png",
                                 },
                               }),
                             ]
@@ -1007,21 +1031,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/rubis.png" },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: { name: "outlet_index", params: 1 },
-                              },
-                            },
-                            [
-                              _c("img", {
-                                attrs: { src: "/img/outlet/tweezer/sipel.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/rubis.png",
+                                },
                               }),
                             ]
                           ),
@@ -1036,7 +1048,23 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/tweezer/techni.png",
+                                  src: _vm.s3url + "outlet/tweezer/sipel.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.s3url + "outlet/tweezer/techni.png",
                                 },
                               }),
                             ]
@@ -1084,22 +1112,8 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/hotplate/ika.png" },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: { name: "outlet_index", params: 1 },
-                              },
-                            },
-                            [
-                              _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/asone.png",
+                                  src: _vm.s3url + "outlet/hotplate/ika.png",
                                 },
                               }),
                             ]
@@ -1115,7 +1129,7 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/daihan.png",
+                                  src: _vm.s3url + "outlet/hotplate/asone.png",
                                 },
                               }),
                             ]
@@ -1131,7 +1145,7 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/jeiotech.png",
+                                  src: _vm.s3url + "outlet/hotplate/daihan.png",
                                 },
                               }),
                             ]
@@ -1147,7 +1161,8 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/globallab.png",
+                                  src:
+                                    _vm.s3url + "outlet/hotplate/jeiotech.png",
                                 },
                               }),
                             ]
@@ -1163,7 +1178,8 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/corning.png",
+                                  src:
+                                    _vm.s3url + "outlet/hotplate/globallab.png",
                                 },
                               }),
                             ]
@@ -1179,7 +1195,24 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/hotplate/mtops.png",
+                                  src:
+                                    _vm.s3url + "outlet/hotplate/corning.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: _vm.s3url + "outlet/hotplate/mtops.png",
                                 },
                               }),
                             ]
@@ -1268,22 +1301,8 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/meter/ophir.png" },
-                              }),
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                to: { name: "outlet_index", params: 1 },
-                              },
-                            },
-                            [
-                              _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/meter/thorlabs.png",
+                                  src: _vm.s3url + "outlet/meter/ophir.png",
                                 },
                               }),
                             ]
@@ -1298,7 +1317,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/meter/newport.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/meter/thorlabs.png",
+                                },
                               }),
                             ]
                           ),
@@ -1313,7 +1334,24 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/meter/powerenergy.png",
+                                  src: _vm.s3url + "outlet/meter/newport.png",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-link",
+                            {
+                              attrs: {
+                                to: { name: "outlet_index", params: 1 },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src:
+                                    _vm.s3url + "outlet/meter/powerenergy.png",
                                 },
                               }),
                               _vm._v(" Power/Energy"),
@@ -1330,7 +1368,8 @@ var render = function () {
                             [
                               _c("img", {
                                 attrs: {
-                                  src: "/img/outlet/meter/photodiode.png",
+                                  src:
+                                    _vm.s3url + "outlet/meter/photodiode.png",
                                 },
                               }),
                               _vm._v(" Photodiode"),
@@ -1346,7 +1385,9 @@ var render = function () {
                             },
                             [
                               _c("img", {
-                                attrs: { src: "/img/outlet/meter/thermal.png" },
+                                attrs: {
+                                  src: _vm.s3url + "outlet/meter/thermal.png",
+                                },
                               }),
                               _vm._v(" Thermal"),
                             ]

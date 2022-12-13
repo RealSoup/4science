@@ -15,7 +15,7 @@
                 <b-card>
                     <div class="ask">
                         <p>Q.</p>
-                        <div>{{bo.bo_content}}</div>
+                        <div v-html="getContent(bo.bo_content)"></div>
                     </div>
                     <div class="ans" v-if="bo.answer">
                         <p>A.</p>
@@ -56,10 +56,7 @@ export default {
             },
             list: {},
             config: {},
-            bo: {
-                bo_subject:this.bo_subject,
-                bo_gd_id:this.$route.params.gd_id,
-            },
+            bo: {},
         };
     },
 
@@ -76,12 +73,17 @@ export default {
         create() { this.isModalViewed = true; },
 
         async store() {
+            this.bo = Object.assign(
+                {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                this.bo, // 수정하려는 객체
+                { bo_subject:this.bo_subject, bo_gd_id:this.$route.params.gd_id, } // 삽입하려는 내용
+            );
             const res = await ax.post(`/api/board/${this.bo_cd}/store`, this.bo);
             if (res && res.status === 200) {
                 this.isModalViewed = false;
                 this.index();
-                // this.bo.bo_subject = '';
-                // this.bo.bo_content = '';
+                this.bo.bo_subject = '';
+                this.bo.bo_content = '';
             }
         },
 

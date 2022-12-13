@@ -19,17 +19,14 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        if($req->filled('bo_cd') && $req->bo_cd !== 'requestask') {
+        if(isset($req->bo_cd) && $req->bo_cd !== 'requestask') {
             $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'notice');
             $this->board = $board;
             $this->param['config'] = $board->config;
         }
     }
     public function index(Request $req, $bo_cd) {
-        $bo = $this->board
-                ->where('bo_group', 0)
-                // ->whereNull('bo_seq_cd')
-                ->orderByRaw('bo_seq, bo_seq_cd');
+        $bo = $this->board->where('bo_group', 0)->orderByRaw('bo_seq, bo_seq_cd'); // ->whereNull('bo_seq_cd')
 
         if ($req->filled('sch_txt')) {
             $sch_txt = trim($req->sch_txt);

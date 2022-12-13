@@ -70,7 +70,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         bo_subject: "DURRIDGE사 라돈측정기",
         bo_content: "공기 중의 Radon Gas 농도 측정 <br> 건축물, 토목 자재 및 가구의 Radon 방출량 측정<br> 지하수 및 하천수의 Radon Gas 농도 측정(옵션 추가 필요)......",
         goods: {
-          'image_src_thumb': ['/img/board/blog220122.jpg']
+          'image_src_thumb': ["".concat(this.s3url, "board/blog220122.jpg")]
         },
         href: 'https://blog.naver.com/4science/221778968634'
       }, {
@@ -78,7 +78,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         bo_subject: "GRIMM사 미세먼지 측정기",
         bo_content: "요즘 미세먼지가 매우매우 큰 이슈입니다. 그래서 준비했다!!!<br> 환경부에서 공기질을 측정하는 기기 중 신뢰성이 가장 높다고 발표한 그림(Grimm)사의 제품. 본제품은 국내외 미세먼지 측정기 및 공기청......",
         goods: {
-          'image_src_thumb': ['/img/board/blog191113.jpg']
+          'image_src_thumb': ["".concat(this.s3url, "board/blog191113.jpg")]
         },
         href: 'https://blog.naver.com/4science/221658684815'
       }, {
@@ -86,14 +86,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         bo_subject: "GRIMM Aerosol Generators",
         bo_content: "미세먼지 측정기의 대가 GRIMM 사의 Aerosol Generators입니다. 우선 모델 7811의 경우 다목적 분무기는 입자를 분무할 수 있는 공기와 에어로졸 원료를 선택적으로 희석 및 건조를 위한 2개의 통합 펌프를 갖춘 .......",
         goods: {
-          'image_src_thumb': ['/img/board/blog190911.jpg']
+          'image_src_thumb': ["".concat(this.s3url, "board/blog190911.jpg")]
         },
         href: 'https://blog.naver.com/4science/221645634590'
       }]
     };
   },
   mounted: function mounted() {
-    this.index();
+    this.index(); // console.log(`${this.s3url}/img/board/blog190911.jpg`);
   },
   methods: {
     index: function index() {
@@ -174,7 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-f8d8820e] { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px;\n}\n.w_fence .row .col[data-v-f8d8820e] { padding:30px;\n}\n.w_fence .row .col a[data-v-f8d8820e] { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1;\n}\n.w_fence .row .col[data-v-f8d8820e] ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative;\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('/img/community/notice.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('/img/community/event.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('/img/community/gd_inquiry.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('/img/community/blog.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('/img/community/notice_h.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('/img/community/event_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('/img/community/gd_inquiry_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('/img/community/blog_h.png');\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-f8d8820e] { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px;\n}\n.w_fence .row .col[data-v-f8d8820e] { padding:30px;\n}\n.w_fence .row .col a[data-v-f8d8820e] { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1;\n}\n.w_fence .row .col[data-v-f8d8820e] ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative;\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice_h.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog_h.png');\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
