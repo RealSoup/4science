@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider {
     public function register() {
-        
+
     }
-    
+
     public function boot() {
         
         // if(head( explode('://', config('app.url'))) == 'https') { URL::forceScheme('https'); }
