@@ -59,10 +59,12 @@ class BoardController extends Controller {
     }
 
     public function requestAsk(Request $req) {
-        $rst['inquiry']    = DB::table('board_inquiry')->whereNull('bo_seq_cd')->get();
-        $rst['as']         = DB::table('board_as')->whereNull('bo_seq_cd')->get();
-        $rst['cancel']     = DB::table('board_cancel')->whereNull('bo_seq_cd')->get();
-        $rst['gd_inquiry'] = DB::table('board_gd_inquiry')->whereNull('bo_seq_cd')->get();
+        $rst['inquiry']    = DB::table('board_inquiry')   ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
+        $rst['as']         = DB::table('board_as')        ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
+        $rst['cancel']     = DB::table('board_cancel')    ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
+        $rst['gd_inquiry'] = DB::table('board_gd_inquiry')->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
+
+
         
         return response()->json($rst);
     }
@@ -84,7 +86,7 @@ class BoardController extends Controller {
     }
 
     public function edit(Request $req, $bo_cd, $bo_id) {
-        $bo = $this->board->find($bo_id);        
+        $bo = $this->board->find($bo_id);
         $bo->img_file = collect();
         $bo->add_file = collect();
         foreach ($bo->fileInfo_bo as $fi) {

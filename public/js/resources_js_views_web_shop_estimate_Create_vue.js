@@ -312,9 +312,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -334,6 +331,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fi_id: [],
         eq_name: "김선우",
         eq_email: "sunwoo@nate.com",
+        eq_email02: '',
         eq_tel: "031-133-1232",
         eq_fax: "031-133-1232",
         eq_hp: "010-1333-1232",
@@ -343,7 +341,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       cate: {},
       od_goods: this.$route.params.od_goods,
-      files: []
+      files: [],
+      email_domain: [],
+      email_domain_slt_idx: 0
     };
   },
   methods: {
@@ -476,11 +476,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[0, 7]]);
       }))();
+    },
+    email_domain_slt: function email_domain_slt() {
+      console.log(this.email_domain_slt_idx);
+      this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
     }
   },
   mounted: function mounted() {
-    if (this.$route.params.od_goods) this.create();
-    this.getCateList();
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (_this4.$route.params.od_goods) _this4.create();
+
+              _this4.getCateList();
+
+              _context4.next = 4;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/user/getEmailDomain");
+
+            case 4:
+              res = _context4.sent;
+              if (res && res.status === 200) _this4.email_domain = res.data;
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
   }
 });
 
@@ -527,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#estimate_req .card .card-body .row div img[data-v-109c2224] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st .row[data-v-109c2224] { margin-top:.8rem; margin-bottom:.8rem; align-items:baseline;\n}\n.frm_st .row .col[data-v-109c2224] {\n}\n.frm_st .row .col[data-v-109c2224]:first-child { flex-basis:140px; max-width:140px;\n}\n.frm_st .row .col input[data-v-109c2224] { background:#F2F3F5; padding:2px 5px; border-width: 0;\n}\n.frm_st .row .col.hp[data-v-109c2224] { display:flex; justify-content:space-between;\n}\n.frm_st .row .col.hp span[data-v-109c2224] { position:relative; flex:0 0 30%; max-width:30%;\n}\n.frm_st .row .col.hp input[data-v-109c2224]:not(:last-child) {\n}\n.frm_st .row .col.hp span[data-v-109c2224]:not(:last-child):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989;\n}\n.frm_st .row .col.email[data-v-109c2224] { display:flex; justify-content:space-between;\n}\n.frm_st .row .col.email span[data-v-109c2224] { position:relative; flex:0 0 30%; max-width:30%;\n}\n.frm_st .row .col.email span[data-v-109c2224]:first-child:after { content:'@'; position:absolute; top:6px; right:-23px; font-weight:bold; font-size:20px; color:#898989;\n}\n#estimate_req .card .card-body .row div img[data-v-109c2224] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4619,13 +4647,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { attrs: { id: "estimate_req" } },
+    { staticClass: "w_fence", attrs: { id: "estimate_req" } },
     [
-      _c("h2", { staticClass: "bg-info p-4 text-light mt-5" }, [
-        _vm._v("견적요청"),
-      ]),
-      _vm._v(" "),
-      _c("hr"),
+      _c("h3", [_vm._v("견적요청")]),
       _vm._v(" "),
       _c("PaList", {
         model: {
@@ -4643,70 +4667,70 @@ var render = function () {
           _c(
             "b-col",
             [
+              _c("h4", [_vm._v("01. 회원 정보")]),
+              _vm._v(" "),
               _c(
-                "b-card",
-                {
-                  staticClass: "shadow mt-3",
-                  scopedSlots: _vm._u([
-                    {
-                      key: "header",
-                      fn: function () {
-                        return [_c("b", [_vm._v("요청자 정보")])]
-                      },
-                      proxy: true,
-                    },
-                  ]),
-                },
+                "b-container",
+                { staticClass: "frm_st" },
                 [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", [
+                        _vm._v("주문자명"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            attrs: { id: "eq_name" },
+                            model: {
+                              value: _vm.frm.eq_name,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "eq_name", $$v)
+                              },
+                              expression: "frm.eq_name",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.eq_name,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
-                    "b-container",
+                    "b-row",
                     [
+                      _c("b-col", [
+                        _vm._v("연락처"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "b-row",
+                        "b-col",
+                        { staticClass: "hp" },
                         [
                           _c(
-                            "b-col",
-                            { staticClass: "awesome_p" },
+                            "span",
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.eq_name,
-                                    expression: "frm.eq_name",
+                              _c("b-form-input", {
+                                attrs: { id: "eq_hp" },
+                                model: {
+                                  value: _vm.frm.eq_hp01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp01", $$v)
                                   },
-                                ],
-                                ref: "eq_name",
-                                attrs: {
-                                  type: "text",
-                                  id: "eq_name",
-                                  required: "",
-                                },
-                                domProps: { value: _vm.frm.eq_name },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.frm,
-                                      "eq_name",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: "eq_name" } }, [
-                                _c("span", [_vm._v("이름")]),
-                              ]),
-                              _vm._v(" "),
-                              _c("Validation", {
-                                attrs: {
-                                  error:
-                                    this.$store.state.error.validations.eq_name,
+                                  expression: "frm.eq_hp01",
                                 },
                               }),
                             ],
@@ -4714,241 +4738,165 @@ var render = function () {
                           ),
                           _vm._v(" "),
                           _c(
-                            "b-col",
-                            { staticClass: "awesome_p" },
+                            "span",
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.eq_department,
-                                    expression: "frm.eq_department",
+                              _c("b-form-input", {
+                                model: {
+                                  value: _vm.frm.eq_hp02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp02", $$v)
                                   },
-                                ],
-                                ref: "eq_department",
-                                attrs: {
-                                  type: "text",
-                                  id: "eq_department",
-                                  required: "",
-                                },
-                                domProps: { value: _vm.frm.eq_department },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.frm,
-                                      "eq_department",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: "eq_department" } }, [
-                                _c("span", [
-                                  _vm._v("소속 "),
-                                  _c("small", [
-                                    _c("i", [
-                                      _vm._v("직장/학교/부서/학과/연구실명"),
-                                    ]),
-                                  ]),
-                                ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("Validation", {
-                                attrs: {
-                                  error:
-                                    this.$store.state.error.validations
-                                      .eq_department,
+                                  expression: "frm.eq_hp02",
                                 },
                               }),
                             ],
                             1
                           ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                model: {
+                                  value: _vm.frm.eq_hp03,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp03", $$v)
+                                  },
+                                  expression: "frm.eq_hp03",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.eq_hp,
+                            },
+                          }),
                         ],
                         1
                       ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", [
+                        _vm._v("이메일"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
                       _vm._v(" "),
                       _c(
-                        "b-row",
+                        "b-col",
+                        { staticClass: "email" },
                         [
                           _c(
-                            "b-col",
-                            { staticClass: "awesome_p" },
+                            "span",
                             [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.eq_email,
-                                    expression: "frm.eq_email",
+                              _c("b-form-input", {
+                                attrs: { id: "eq_email" },
+                                model: {
+                                  value: _vm.frm.eq_email01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_email01", $$v)
                                   },
-                                ],
-                                ref: "eq_email",
-                                attrs: {
-                                  type: "email",
-                                  id: "eq_email",
-                                  required: "",
-                                },
-                                domProps: { value: _vm.frm.eq_email },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.frm,
-                                      "eq_email",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: "eq_email" } }, [
-                                _c("span", [_vm._v("이메일")]),
-                              ]),
-                              _vm._v(" "),
-                              _c("Validation", {
-                                attrs: {
-                                  error:
-                                    this.$store.state.error.validations
-                                      .eq_email,
+                                  expression: "frm.eq_email01",
                                 },
                               }),
                             ],
                             1
                           ),
                           _vm._v(" "),
-                          _c("b-col", { staticClass: "awesome_p" }, [
-                            _c("input", {
-                              directives: [
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                model: {
+                                  value: _vm.frm.eq_email02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_email02", $$v)
+                                  },
+                                  expression: "frm.eq_email02",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c(
+                                "b-form-select",
                                 {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.frm.eq_tel,
-                                  expression: "frm.eq_tel",
+                                  on: { change: _vm.email_domain_slt },
+                                  model: {
+                                    value: _vm.email_domain_slt_idx,
+                                    callback: function ($$v) {
+                                      _vm.email_domain_slt_idx = $$v
+                                    },
+                                    expression: "email_domain_slt_idx",
+                                  },
                                 },
-                              ],
-                              ref: "eq_tel",
-                              attrs: {
-                                type: "text",
-                                id: "eq_tel",
-                                required: "",
-                              },
-                              domProps: { value: _vm.frm.eq_tel },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.frm,
-                                    "eq_tel",
-                                    $event.target.value
-                                  )
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "eq_tel" } }, [
-                              _c("span", [_vm._v("전화")]),
-                            ]),
-                          ]),
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "" } },
+                                    [_vm._v("직접입력")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.email_domain, function (dm, i) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      { key: i, attrs: { value: i } },
+                                      [_vm._v(_vm._s(dm))]
+                                    )
+                                  }),
+                                ],
+                                2
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.eq_email,
+                            },
+                          }),
                         ],
                         1
                       ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", [
+                        _vm._v("소속"),
+                        _c("small", [
+                          _c("i", [_vm._v("직장/학교/부서/학과/연구실명")]),
+                        ]),
+                      ]),
                       _vm._v(" "),
                       _c(
-                        "b-row",
+                        "b-col",
                         [
-                          _c("b-col", { staticClass: "awesome_p" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.frm.eq_fax,
-                                  expression: "frm.eq_fax",
-                                },
-                              ],
-                              ref: "eq_fax",
-                              attrs: {
-                                type: "text",
-                                id: "eq_fax",
-                                required: "",
+                          _c("b-form-input", {
+                            model: {
+                              value: _vm.frm.eq_department,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "eq_department", $$v)
                               },
-                              domProps: { value: _vm.frm.eq_fax },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.frm,
-                                    "eq_fax",
-                                    $event.target.value
-                                  )
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "eq_fax" } }, [
-                              _c("span", [_vm._v("팩스")]),
-                            ]),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            { staticClass: "awesome_p" },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.eq_hp,
-                                    expression: "frm.eq_hp",
-                                  },
-                                ],
-                                ref: "eq_hp",
-                                attrs: {
-                                  type: "text",
-                                  id: "eq_hp",
-                                  required: "",
-                                },
-                                domProps: { value: _vm.frm.eq_hp },
-                                on: {
-                                  input: function ($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.frm,
-                                      "eq_hp",
-                                      $event.target.value
-                                    )
-                                  },
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c("label", { attrs: { for: "eq_hp" } }, [
-                                _c("span", [_vm._v("휴대폰")]),
-                              ]),
-                              _vm._v(" "),
-                              _c("Validation", {
-                                attrs: {
-                                  error:
-                                    this.$store.state.error.validations.eq_hp,
-                                },
-                              }),
-                            ],
-                            1
-                          ),
+                              expression: "frm.eq_department",
+                            },
+                          }),
                         ],
                         1
                       ),

@@ -294,7 +294,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmBoardEdit',
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'Validation': function Validation() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
+    }
   },
   data: function data() {
     return {
@@ -317,23 +320,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    store: function store() {
+    create: function create() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var bo;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/board/".concat(_this.bo_cd, "/answer/").concat(_this.bo_id), _this.frm);
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/board/".concat(_this.bo_cd, "/edit/").concat(_this.bo_id));
 
               case 2:
-                res = _context.sent;
-                if (res && res.status === 200) _this.$router.push({
-                  name: 'adm_board_index'
-                });
+                bo = _context.sent;
+
+                if (bo && bo.status === 200) {
+                  _this.board = bo.data;
+                  _this.frm.bo_subject = "\u25D6\uB2F5\uBCC0\u25D7 ".concat(_this.board.bo_subject);
+
+                  if (_this.bo_cd == 'gd_inquiry') {
+                    _this.frm.bo_gd_id = _this.board.bo_gd_id;
+                  }
+                }
 
               case 4:
               case "end":
@@ -342,38 +351,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    store: function store() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/board/".concat(_this2.bo_cd, "/answer/").concat(_this2.bo_id), _this2.frm);
+
+              case 2:
+                res = _context2.sent;
+                if (res && res.status === 200) _this2.$router.push({
+                  name: 'adm_board_index'
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    // console.log(to, from);
+    this.bo_id = to.params.bo_id;
+    this.bo_cd = to.params.bo_cd;
+    this.create();
+    next();
+  },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/board/".concat(_this2.bo_cd, "/edit/").concat(_this2.bo_id));
+              _this3.create();
 
-            case 2:
-              res = _context2.sent;
-
-              if (res && res.status === 200) {
-                _this2.board = res.data;
-                _this2.frm.bo_subject = "\u25D6\uB2F5\uBCC0\u25D7 ".concat(_this2.board.bo_subject);
-
-                if (_this2.bo_cd == 'gd_inquiry') {
-                  _this2.frm.bo_gd_id = _this2.board.bo_gd_id;
-                }
-              }
-
-            case 4:
+            case 1:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }))();
   }
 });

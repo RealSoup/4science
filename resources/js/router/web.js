@@ -124,6 +124,7 @@ export default [
     {   path: '/board',
         name: 'bo_intro',
         component:() => import('@/views/web/board/Intro'),
+        beforeEnter: isLoggedin(),
     }, {   
         path: '/board',
         component:() => import('@/views/web/board/Layout'),
@@ -145,6 +146,7 @@ export default [
                 component:() => import('@/views/web/board/Edit'),
             },
         ],
+        beforeEnter: isLoggedin(),
         // beforeEnter: function(to, from, next) {
         //     if (to.path === '/board' || to.path === '/board/')    return next('/board/summary');
         //     else                                                  return next();
@@ -156,26 +158,31 @@ export default [
     {   path: '/shop/goods',
         name: 'goods_index',
         component:() => import('@/views/web/shop/goods/Index'),
+        beforeEnter: isLoggedin(),
     },{
         path: '/shop/goods/:gd_id',
         name: 'goods_show',
         component:() => import('@/views/web/shop/goods/Show'),
+        beforeEnter: isLoggedin(),
     },
 
 //      주문
     {   path: '/shop/order/settle',
         name: 'order_settle',
         component:() => import('@/views/web/shop/order/Settle'),
+        beforeEnter: isLoggedin(),
     },{
         path: '/shop/order/done/:od_id',
         name: 'order_done',
         component:() => import('@/views/web/shop/order/Done'),
+        beforeEnter: isLoggedin(),
     },
 
 //      견적요청
     {   path: '/shop/estimate/create',
         name: 'estimate_create',
         component:() => import('@/views/web/shop/estimate/Create'),
+        beforeEnter: isLoggedin(),
     },
 
 //      전문관
@@ -204,5 +211,6 @@ export default [
     {   path: '/engReform/create',
         name: 'engReform_create',
         component:() => import('@/views/web/engReform/Create'),
+        beforeEnter: isLoggedin(),
     },
 ];

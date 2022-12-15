@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <b-container>
         <b-row>
             <b-col>

@@ -79,16 +79,20 @@
 
 
                 <b-navbar-nav class="">
-                    <b-button variant="light" class="blink"
+                    <b-button variant="light" size="sm" class="blink"
                         v-if="reqVoucher.length" 
                         @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
                         v-b-tooltip.leftbottom.hover title="상품권 신청"
-                    ><b-icon-gift /></b-button>
-                    <b-button variant="light" class="blink"
+                    >
+                        <b-icon-gift /> ({{reqVoucher.length}})
+                    </b-button>
+                    <b-button variant="light" size="sm" class="blink"
                         v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length"
                         @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
                         v-b-tooltip.rightbottom.hover title="답변 요청"
-                    ><b-icon-chat-square-text /> (9)</b-button>                    
+                    >
+                        <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
+                    </b-button>                    
         
                     <b-link :to="{name:'main'}" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
                         <b-img src="/img/common/estimate_logo.png" />
@@ -99,7 +103,7 @@
     </div>
 
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
             <reqVoucher v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
             <reqAsk v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
         </Modal>

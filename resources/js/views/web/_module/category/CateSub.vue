@@ -1,21 +1,20 @@
-<template lang="html">
-    <ul class="" v-if="sub_show" :class="{focus:sub_show}">
-        <li v-if="depth==1" class="depth01_tit">{{papaName}}</li>
-        <li v-for="(ca, idx) in cate"
-            @mouseenter="ca.sub_show = true"
-            @mouseleave="ca.sub_show = false"
-        >
-            <b-link :to="{name: 'goods_index', query: queryParam(ca.ca_id) }">{{ca.ca_name}}</b-link>
-            <tree-view
-                v-if="ca.sub"
-                :key="ca.ca_id"
-                :cate="ca.sub"
-                :depth="depth + 1"
-                :sub_show="ca.sub_show && ca.sub.length"
-                :paramLink="paramLink+'/'+ca.ca_id"
-            />
-        </li>
-    </ul>
+<template>
+    <transition name="modal">
+        <ul class="" v-if="sub_show" :class="{focus:sub_show}">
+            <li v-if="depth==1" class="depth01_tit">{{papaName}}</li>
+            <li v-for="ca in cate" @mouseenter="ca.sub_show = true" @mouseleave="ca.sub_show = false" :key="ca.ca_id">
+                <b-link :to="{name: 'goods_index', query: queryParam(ca.ca_id) }">{{ca.ca_name}}</b-link>
+                <tree-view
+                    v-if="ca.sub"
+                    :key="ca.ca_id"
+                    :cate="ca.sub"
+                    :depth="depth + 1"
+                    :sub_show="ca.sub_show && ca.sub.length"
+                    :paramLink="paramLink+'/'+ca.ca_id"
+                />
+            </li>
+        </ul>
+    </transition>
 </template>
 
 <script>
@@ -79,7 +78,8 @@ export default {
 #categorys ul li ul { -webkit-transform:translateX(99%); transform:translateX(99%); }
  */
 
-
-
-
+/*
+.modal-enter-active { transition-delay:.5s; }
+.modal-leave-active { transition-delay:0; }
+*/
 </style>

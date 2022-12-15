@@ -71,6 +71,7 @@ export default {
     name: 'AdmBoardEdit',
     components: {
         FileUpload,
+        'Validation': () => import('@/views/_common/Validation.vue'),
     },
     
     data() {
@@ -96,22 +97,33 @@ export default {
     },
 
     methods: {
+        async create() {
+            const bo = await ax.get(`/api/admin/board/${this.bo_cd}/edit/${this.bo_id}`);
+            if (bo && bo.status === 200) {
+                this.board = bo.data;
+                this.frm.bo_subject = `◖답변◗ ${this.board.bo_subject}`;
+                if (this.bo_cd == 'gd_inquiry') {
+                    this.frm.bo_gd_id = this.board.bo_gd_id;
+                    
+                }
+            }
+        },
+
         async store() {
             const res = await ax.post(`/api/admin/board/${this.bo_cd}/answer/${this.bo_id}`, this.frm);
             if (res && res.status === 200) 
                 this.$router.push({ name: 'adm_board_index' })            
         },
     },
+    beforeRouteUpdate (to, from, next) {
+        // console.log(to, from);
+        this.bo_id = to.params.bo_id;
+        this.bo_cd = to.params.bo_cd;
+        this.create();
+        next();
+    },
     async mounted() {
-        const res = await ax.get(`/api/admin/board/${this.bo_cd}/edit/${this.bo_id}`);
-        if (res && res.status === 200) {
-            this.board = res.data;
-            this.frm.bo_subject = `◖답변◗ ${this.board.bo_subject}`;
-            if (this.bo_cd == 'gd_inquiry') {
-                this.frm.bo_gd_id = this.board.bo_gd_id;
-                
-            }
-        }
+        this.create();
     },
 
 }

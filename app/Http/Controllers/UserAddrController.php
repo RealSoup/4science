@@ -50,4 +50,6 @@ class UserAddrController extends Controller {
 		if(DB::table('user_addr')->where('ua_id', $id)->delete()) return response()->json('success', 200);
 		else return response()->json("Fail", 500);
     }
+
+    public function getEmailDomain(Request $req) { return auth()->user()::$option['email_domain']; }
 }

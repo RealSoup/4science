@@ -16,7 +16,7 @@ class User extends Authenticatable {
     protected $hidden = [ 'password', 'remember_token', ];
     protected $appends = ['is_admin', 'my_mileage_rate'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
-    protected $option = [
+    public static $option = [
         'group' => [    '1' => '일반',
                         '2' => '특수',
                         '3' => '미수',
@@ -106,6 +106,4 @@ class User extends Authenticatable {
     // public function getEnablemileageAttribute() {
     //     return DB::table('mileage')->where([['created_id', $this->id], ['created_at', '>', date("Y-m-d", strtotime("-1 years"))]])->sum('po_enable_p');
     // }
-    
-    public function getOption() { return $this->option; }
 }

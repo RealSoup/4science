@@ -20,6 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('user')->group(function () {
         Route::GET('/', 'Auth\UserController@auth');
         Route::PATCH('/', 'Auth\UserController@update');
+        Route::GET('getEmailDomain', 'UserAddrController@getEmailDomain');
         Route::RESOURCE('addr', 'UserAddrController')->middleware('auth');
     });
 
