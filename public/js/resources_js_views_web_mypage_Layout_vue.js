@@ -575,7 +575,9 @@ var render = function () {
                         _vm._v(_vm._s(_vm.od_step1019)),
                       ])
                     : _vm._e(),
-                  _c("img", { attrs: { src: "/img/mypage/step01.png" } }),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "mypage/step01.png" },
+                  }),
                   _vm._v("주문접수"),
                 ],
                 1
@@ -589,7 +591,9 @@ var render = function () {
                         _vm._v(_vm._s(_vm.cnt_od_step[20])),
                       ])
                     : _vm._e(),
-                  _c("img", { attrs: { src: "/img/mypage/step02.png" } }),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "mypage/step02.png" },
+                  }),
                   _vm._v("결제완료"),
                 ],
                 1
@@ -603,7 +607,9 @@ var render = function () {
                         _vm._v(_vm._s(_vm.cnt_od_step[30])),
                       ])
                     : _vm._e(),
-                  _c("img", { attrs: { src: "/img/mypage/step03.png" } }),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "mypage/step03.png" },
+                  }),
                   _vm._v("상품준비중"),
                 ],
                 1
@@ -617,7 +623,9 @@ var render = function () {
                         _vm._v(_vm._s(_vm.cnt_od_step[40])),
                       ])
                     : _vm._e(),
-                  _c("img", { attrs: { src: "/img/mypage/step04.png" } }),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "mypage/step04.png" },
+                  }),
                   _vm._v("배송중"),
                 ],
                 1
@@ -631,7 +639,9 @@ var render = function () {
                         _vm._v(_vm._s(_vm.cnt_od_step[50])),
                       ])
                     : _vm._e(),
-                  _c("img", { attrs: { src: "/img/mypage/step05.png" } }),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "mypage/step05.png" },
+                  }),
                   _vm._v("배송완료"),
                 ],
                 1

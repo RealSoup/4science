@@ -16,8 +16,8 @@
             <template v-if="code==='maker'">
                 <b-col v-for="(li, i) in list" :key="li.mk_id" :class="{ 'maker': code==='maker' }" lg="2" cols="6" col>
                     <b-link to="">
-                        <b-img v-if="i<3" :src="'/img/listing/maker/'+li.mk_id+'.png'" rounded />
-                        <b-img v-else src="/img/common/noimage.jpg" rounded />
+                        <b-img v-if="i<3" :src="`${s3url}listing/maker/${li.mk_id}.png`" rounded />
+                        <b-img v-else :src="`${s3url}common/noimage.jpg`" rounded />
                         <p>{{li.mk_name}}</p>
                     </b-link>
                 </b-col>

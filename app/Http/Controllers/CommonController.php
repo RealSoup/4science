@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Traits\FileControl;
 use App\Models\{FileInfo, FileGoods};
 use DB;
+use Illuminate\Support\Facades\Storage;
 
 class CommonController extends Controller {
     use FileControl;    //  trait
@@ -13,7 +14,14 @@ class CommonController extends Controller {
         if (is_array($req->file)) {
             foreach ($req['file'] as $k => $f) {
                 if (gettype($f) == 'object') {
-                    $this->file_upload($f, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb);
+                    /*  s3  */
+                    // $file = $request->file('image');
+                    
+                    // return back()->with('success','Image Uploaded successfully');
+                    /*  s3  */
+
+
+                    $this->file_upload($f, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
                     DB::table('file_info')->insert([
                         'fi_group' => $req->fi_group,
                         'fi_key' => $req->fi_key, 

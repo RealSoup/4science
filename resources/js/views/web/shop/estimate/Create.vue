@@ -1,22 +1,26 @@
 <template>
     <b-container class="w_fence" id="estimate_req">
         <h3>견적요청</h3>
-        
-        <PaList v-model="frm.lists" />
+        <b-row v-if="Object.keys(frm.lists).length">
+            <b-col class="goods">
+                <h4>01. 견적요청 상품</h4>
+                <PaList v-model="frm.lists" />
+            </b-col>
+        </b-row>
 
         <b-row>
-            <b-col>
-                <h4>01. 회원 정보</h4>
+            <b-col class="user">
+                <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. 회원 정보</h4>
                 <b-container class="frm_st">
                     <b-row>
-                        <b-col>주문자명<b class="need" /></b-col>
+                        <b-col class="label_st">주문자명<b class="need" /></b-col>
                         <b-col>
                             <b-form-input v-model="frm.eq_name" id="eq_name" />
                             <Validation :error="this.$store.state.error.validations.eq_name" />
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col>연락처<b class="need" /></b-col>
+                        <b-col class="label_st">연락처<b class="need" /></b-col>
                         <b-col class="hp">
                             <span><b-form-input v-model="frm.eq_hp01" id="eq_hp" /></span>
                             <span><b-form-input v-model="frm.eq_hp02" /></span>
@@ -25,13 +29,13 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col>이메일<b class="need" /></b-col>
+                        <b-col class="label_st">이메일<b class="need" /></b-col>
                         <b-col class="email">
                             <span><b-form-input v-model="frm.eq_email01" id="eq_email" /></span>
                             <span><b-form-input v-model="frm.eq_email02" /></span>
                             <span>
                                 <b-form-select v-model="email_domain_slt_idx" @change="email_domain_slt">
-                                    <b-form-select-option value="">직접입력</b-form-select-option>
+                                    <b-form-select-option value="0">직접입력</b-form-select-option>
                                     <b-form-select-option v-for="(dm, i) in email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
                                 </b-form-select>
                             </span>
@@ -39,50 +43,50 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <b-col>소속<small><i>직장/학교/부서/학과/연구실명</i></small></b-col>
+                        <b-col class="label_st">소속<small><i>직장/학교/연구실</i></small></b-col>
                         <b-col>
                             <b-form-input v-model="frm.eq_department" />
                         </b-col>
-                    </b-row>                    
+                    </b-row>
+                    <b-row>
+                        <b-col class="label_st">첨부파일</b-col>
+                        <b-col>
+                            <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" :height="100" />
+                        </b-col>
+                    </b-row>
+                    <b-row class="agree">
+                        <b-col>
+                            [SMS 수신동의] 본 견적요청과 관련된 문자메세지를 수신하시겠습니까? 
+                            <b-form-radio v-model="receive_yn" value="Y">수신</b-form-radio>
+                            <b-form-radio v-model="receive_yn" value="N">수신 안함</b-form-radio>
+                        </b-col>
+                    </b-row>
                 </b-container>
             </b-col>
 
-            <b-col>
-
-                <b-card class="shadow mt-3">
-                    <template #header><b>문의사항</b></template>
-                    <b-container>
-                        <b-row v-if="isEmpty(frm.lists)">
+            <b-col class="inquiry">
+                <h4>0{{Object.keys(frm.lists).length ? 3 : 2}}. 문의사항</h4>
+                <b-container class="frm_st">
+                    <div class="frm_bd">
+                        <b-row v-if="isEmpty(frm.lists)" class="cate">
+                            <b-col class="label_st">카테고리</b-col>
                             <b-col>
                                 <b-form-select size="sm" id="eq_1depth" ref="eq_1depth" v-model="frm.eq_1depth" required>
-                                    <b-form-select-option value="">분야 선택</b-form-select-option>
+                                    <b-form-select-option value="">선택</b-form-select-option>
                                     <b-form-select-option v-for="ca in cate" :key="ca.ca_id" :value="ca.ca_name">{{ca.ca_name}}</b-form-select-option>
                                 </b-form-select>
                                 <Validation :error="this.$store.state.error.validations.eq_1depth" />
                             </b-col>
                         </b-row>
                         <b-row>
-                            <b-col class="awesome_p">
-                                <textarea id="eq_content" v-model="frm.eq_content" required rows="5"></textarea>
-                                <label for="eq_content"><span>견적 요청 내용</span></label>
-                            </b-col>
+                            <b-col><b-form-textarea v-model="frm.eq_content" rows="13" /></b-col>
                         </b-row>
-                    </b-container>
-                </b-card>
+                    </div>
+                </b-container>
             </b-col>
         </b-row>
-
-        <b-row>
-            <b-col>
-                <b-card class="shadow mt-3">
-                    <template #header><b>첨부파일</b></template>
-                    <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" />
-                </b-card>
-            </b-col>
-        </b-row>
-
-
-        <b-button block size="lg" variant="primary" class="mt-4 p-5" @click="store">요청하기</b-button>
+        <b-row><b-col class="btn_box"><b-button class="blue wd_33p" @click="store">견적 요청하기</b-button></b-col></b-row>
+        
     </b-container>
 </template>
 
@@ -93,22 +97,23 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     components: {
         FileUpload,
-        'Validation': () => import('@/views/_common/Validation.vue'),
-        'PaList': () => import('@/views/web/_module/PaList.vue'),
+        'Validation':   () => import('@/views/_common/Validation.vue'),
+        'PaList':       () => import('@/views/web/_module/PaList.vue'),
     },
     data() {
         return {
             frm:{
-                lists:[],
+                lists:{},
+                price:{},
                 fi_id:[],
-                eq_name: "김선우",
-                eq_email: "sunwoo@nate.com",
+                eq_name: "",
+                eq_email: "",
                 eq_email02: '',
-                eq_tel: "031-133-1232",
-                eq_fax: "031-133-1232",
-                eq_hp: "010-1333-1232",
-                eq_department: "한국과학기술연구원 바이오마이크로시스템 연구단",
-                eq_content: "나는 가슴이 두근거려요 \n당신만 아세요 열 일곱 살이예요 \n가만 가만히 오세요 요리조리로 \n노랑새 꿈꾸는 버드나무 아래로 가만히 오세요 \n\n나는 얼굴이 붉어졌어요 \n가르쳐 드릴까요 열일곱살이예요",
+                eq_tel: "",
+                eq_fax: "",
+                eq_hp: "",
+                eq_department: "",
+                eq_content: "제품명: \n사양: \n수량:",
                 eq_1depth:'',
             },
             cate:{},
@@ -116,16 +121,15 @@ export default {
             files:[],
             email_domain: [],
             email_domain_slt_idx:0,
+            receive_yn:'Y',
         }
     },
     methods: {
         async create(){
             try {
-                console.log(this.od_goods);
                 const res = await ax.post(`/api/shop/estimate/create`, {goods:this.od_goods});
-                if (res && res.status === 200) {
-                    this.frm.lists = res.data.lists;
-                }
+                if (res && res.status === 200) 
+                    this.frm.lists = res.data.lists;                
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.responsee);
@@ -159,7 +163,6 @@ export default {
             }
         },
         email_domain_slt() {
-            console.log(this.email_domain_slt_idx);
             this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
         },
     },
@@ -175,18 +178,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.frm_st .row { margin-top:.8rem; margin-bottom:.8rem; align-items:baseline; }
-.frm_st .row .col {  }
-.frm_st .row .col:first-child { flex-basis:140px; max-width:140px; } 
-.frm_st .row .col input { background:#F2F3F5; padding:2px 5px; border-width: 0; }
-.frm_st .row .col.hp { display:flex; justify-content:space-between; }
-.frm_st .row .col.hp span { position:relative; flex:0 0 30%; max-width:30%; }
-.frm_st .row .col.hp input:not(:last-child) {  }
-.frm_st .row .col.hp span:not(:last-child):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989; }
-.frm_st .row .col.email { display:flex; justify-content:space-between; }
-.frm_st .row .col.email span { position:relative; flex:0 0 30%; max-width:30%; }
-.frm_st .row .col.email span:first-child:after { content:'@'; position:absolute; top:6px; right:-23px; font-weight:bold; font-size:20px; color:#898989; }
-#estimate_req .card .card-body .row div img { width:119px; height:119px; object-fit:cover; }
-
-
+.goods { padding:0; }
+.user { flex-basis:49.2%; max-width:49.2%; padding-left:0; }
+.inquiry { padding-left:35px; padding-right:0; }
+.inquiry .container { padding-left:15px; padding-right:15px; }
+.inquiry .container .frm_bd { border:2px solid #D7D7D7; padding:8px 25px; }
+.inquiry .container .frm_bd .cate { border-bottom: 1px solid #D7D7D7; padding-bottom:8px; }
+.inquiry .container .frm_bd .cate .label_st { flex-basis:100px; max-width:100px; }
+.inquiry .container .frm_bd .row .col textarea { border-color:#fff; font-size:.9rem; color:#878787; line-height:1.6rem; }
 </style>

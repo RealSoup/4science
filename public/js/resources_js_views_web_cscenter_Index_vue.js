@@ -1818,7 +1818,9 @@ var render = function () {
             { attrs: { title: "회원혜택 안내" } },
             [
               _c("b-card-text", [
-                _c("img", { attrs: { src: "/img/cscenter/member_info.png" } }),
+                _c("img", {
+                  attrs: { src: _vm.s3url + "cscenter/member_info.png" },
+                }),
               ]),
             ],
             1

@@ -11,14 +11,12 @@
         <li class="list-inline-item add_file" v-if="board.add_file && board.add_file.length">
             <b-icon icon="file-earmark-arrow-down-fill" />
             <template v-for="file in board.add_file">
-                <span class="piece" @click="fileDown(file.path, file.fi_original)">{{file.fi_original}}</span>
+                <span class="piece" @click="fileDown(file.path, file.fi_original)" :key="file.fi_id">{{file.fi_original}}</span>
             </template>
         </li>
     </ul>
     <hr />
-<b-link :to="{name: 'bo_show', params: { bo_cd:'notice', bo_id:301 }}">
-                 1231231
-                    </b-link>
+
     <div class="con">
         <!-- @isset($img_file)
         @foreach($img_file as $fi)
@@ -26,7 +24,7 @@
         @endforeach
         @endisset -->
         <template v-if="board.img_file && board.img_file.length">
-            <img v-for="(image, index) in board.img_file" :src="image.path" class='me-auto ms-auto d-block' />
+            <img v-for="(image, i) in board.img_file" :src="image.path" class='me-auto ms-auto d-block' :key="i" />
             <hr />
         </template>
         <div v-html="nl2br(board.bo_content)" />

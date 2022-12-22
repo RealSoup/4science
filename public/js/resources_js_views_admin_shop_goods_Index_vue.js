@@ -683,7 +683,10 @@ var render = function () {
                     "span",
                     [
                       _c("b-img", {
-                        attrs: { src: row.image_src_thumb[0], rounded: "" },
+                        attrs: {
+                          src: row.file_goods_goods[0].path_thumb,
+                          rounded: "",
+                        },
                       }),
                     ],
                     1

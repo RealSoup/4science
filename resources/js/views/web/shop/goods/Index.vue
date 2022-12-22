@@ -45,7 +45,7 @@
     <div class="pick">
         <b-row class="layout">
             <b-col class="fir">
-                <b-img src="/img/goods/4spick.png" />
+                <b-img :src="`${s3url}goods/4spick.png`" />
             </b-col>
             
             <b-col>

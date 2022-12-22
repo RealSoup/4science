@@ -1,7 +1,7 @@
 <?php
 return [
     'file' => [
-        'def_wid' => 1920,
+        'def_wid' => 1500,
         'def_hei' => 1080,
         'thumb_wid' => 350,
         'thumb_hei' => 240,

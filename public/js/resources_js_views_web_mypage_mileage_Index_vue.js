@@ -571,7 +571,11 @@ var render = function () {
                       [
                         _c("img", {
                           attrs: {
-                            src: "/img/mypage/mileage/gift" + v.point + ".png",
+                            src:
+                              _vm.s3url +
+                              "mypage/mileage/gift" +
+                              v.point +
+                              ".png",
                           },
                         }),
                         _vm._v(" "),

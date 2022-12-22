@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Models\{User, FileGoods};
 use DB;
+use Storage;
 use DateTimeInterface;
 use Illuminate\Support\Arr;
 
@@ -74,7 +75,7 @@ class Goods extends Model {
             if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
                 $src = $fi->fi_new;
             else
-                $src = "/storage/goods/{$fi->fi_room}/{$fi->fi_group}{$th}/".$fi->fi_new;
+                $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_group}{$th}/{$fi->fi_new}");
             
             $rst[] = $src;
         }

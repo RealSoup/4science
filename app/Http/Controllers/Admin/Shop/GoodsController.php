@@ -301,7 +301,7 @@ class GoodsController extends Controller {
         if (is_array($req->file)) {
             foreach ($req['file'] as $k => $f) {
                 if (gettype($f) == 'object') {
-                    $this->file_upload($f, $req->fi_group.'/'.(@intval($req->fi_key/1000)+1).'/'.$req->fi_kind.'/', $req->is_thumb);
+                    $this->file_upload($f, "api_{$req->fi_group}/".(@intval($req->fi_key/1000)+1)."/{$req->fi_kind}/", $req->is_thumb);
                     DB::table('file_goods')->insert([
                         'fi_key' => $req->fi_key, 
                         'fi_room' => $req->fi_room,

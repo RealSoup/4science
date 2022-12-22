@@ -4,7 +4,7 @@
         @mouseleave="mouseHover = false"
         :class="[{fixed_header:isScrollPass}, {hideCart:!mouseHover}]"
     >
-        <b-link><b-img src="/img/common/basket.png" /></b-link>
+        <b-link><b-img :src="s3url+'common/basket.png'" /></b-link>
         
         <div class="list_box">
             <ul>

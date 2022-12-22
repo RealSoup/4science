@@ -2,17 +2,17 @@
     <div>
         <b-carousel indicators class="slide_banner">
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/slide/banner.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="s3url+'main/slide/banner.jpg'"></b-carousel-slide>
             </b-link>
             
             <b-link href="/">
-                <b-carousel-slide img-src="/img/main/slide/220531.jpg"></b-carousel-slide>
+                <b-carousel-slide :img-src="s3url+'main/slide/220531.jpg'"></b-carousel-slide>
             </b-link>           
         </b-carousel>
 
         <b-row id="best" class="layout">
             <b-col>
-                <b-img src="/img/main/best.gif" />
+                <b-img :src="`${s3url}main/best.gif`" />
             </b-col>
             <b-col>
                 <div class="box-row">
@@ -38,14 +38,14 @@
                     <b-col class="tit">포사의 추천 ></b-col>
                 </b-row>
                 <b-row>
-                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec01.jpg" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec02.jpg" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec03.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec01.jpg`" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec02.jpg`" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec03.jpg`" /></b-link></b-col>
                 </b-row>
                 <b-row>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec04.jpg" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec06.jpg" /></b-link></b-col>
-                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img src="/img/main/rec05.jpg" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec04.jpg`" /></b-link></b-col>
+                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec06.jpg`" /></b-link></b-col>
+                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1}}"><b-img :src="`${s3url}main/rec05.jpg`" /></b-link></b-col>
                 </b-row>
             </b-container>
         </div>
@@ -63,7 +63,7 @@
                         @click="scrollToCate(i)"
                         :class="{ 'active': ca.showing }"
                     >
-                        <img :src="ca.hover||ca.showing ? `/img/main/cate/${ca.ca_id}_.png` :`/img/main/cate/${ca.ca_id}.png`" />
+                        <img :src="ca.hover||ca.showing ? `${s3url}main/cate/${ca.ca_id}_.png` :`${s3url}main/cate/${ca.ca_id}.png`" />
                         <span v-if="ca.hover">{{ca.ca_name}}</span>
                     </li>
                     
@@ -79,7 +79,7 @@
                 <b-row v-for="(ca, i) in category" :key="ca.ca_id">
                     <b-col class="tit">                    
                         <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
-                            <b-img :src="`/img/main/cate/bg${ca.ca_id}.gif`" />
+                            <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
                             <h6>{{ca.ca_name}}</h6>
                             <span>전체보기 <b-icon-chevron-right /></span>
                         </b-link>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class FileGoods extends Model {
     protected $primaryKey = 'fi_id';
@@ -20,14 +21,15 @@ class FileGoods extends Model {
 
     public function getPath($sub=NULL) {
         if (isImg($this->fi_ext)) {
-            $src = "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/";
+            $src = "api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/";
             $src .= ($sub) ? "{$sub}/" : '';
             $src .= $this->fi_new;
+            $src = Storage::disk('s3')->url($src);
         } else {
-            if ($this->fi_ext=='pdf') $src = "/img/common/file_icon_pdf.png";
-            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = "/img/common/file_icon_excel.png";
-            else $src = "/img/common/file_icon_default.png";
-        }        
+            if ($this->fi_ext=='pdf') $src = Storage::disk('s3')->url("common/file_icon_pdf.png");
+            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = Storage::disk('s3')->url("common/file_icon_excel.png");
+            else $src = Storage::disk('s3')->url("common/file_icon_default.png");
+        }
         return $src;
     }
 }

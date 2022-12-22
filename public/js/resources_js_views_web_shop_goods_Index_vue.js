@@ -532,7 +532,11 @@ var render = function () {
               _c(
                 "b-col",
                 { staticClass: "fir" },
-                [_c("b-img", { attrs: { src: "/img/goods/4spick.png" } })],
+                [
+                  _c("b-img", {
+                    attrs: { src: _vm.s3url + "goods/4spick.png" },
+                  }),
+                ],
                 1
               ),
               _vm._v(" "),

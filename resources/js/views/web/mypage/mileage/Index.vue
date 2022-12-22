@@ -49,7 +49,7 @@
             <b-row>
                 <b-col v-for="(v, k) in config" :key="k">
                     <b-form-radio v-model="frm.type" :value="k">
-                        <img :src="`/img/mypage/mileage/gift${v.point}.png`" />
+                        <img :src="`${s3url}mypage/mileage/gift${v.point}.png`" />
                         <p>{{v.name}}</p>
                     </b-form-radio>
                 </b-col>

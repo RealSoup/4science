@@ -1,7 +1,7 @@
 <template>
     <b-container>
         <b-row @dragover="onDragover" @drop="onDrop" @click="onClick">
-            <b-col class="intro" col-12 :class="{ hide: value.length }">파일 추가 영역</b-col>
+            <b-col class="intro" col-12 :class="{ hide: value.length }" :style="{ height:height + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
             <input type="file" ref="fileInput" @change="onFileChange" multiple />
             
             <draggable :list="value" handle=".handle" class="col-12 imgList" @change="seqUpdate=true">
@@ -24,7 +24,7 @@ import draggable from 'vuedraggable';
 export default {
     name: 'FileUpload',
     components: { draggable },
-    props: ['value', 'fi_group', 'fi_kind', 'is_thumb'],
+    props: ['value', 'fi_group', 'fi_kind', 'is_thumb', 'height'],
     data: function () {
         return {
             seqUpdate:false,
@@ -110,9 +110,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container { border: 1px solid #ced4da; border-radius: 0.25rem; padding:15px; }
+.container { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px; }
 .container .row { cursor:pointer; }
-.container .row .intro { display:flex; justify-content:center; align-items:center; height:100px; border-radius:20px; font-weight:bold; font-size:1.6rem; color:#AAA; }
+.container .row .intro { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA; }
 .container .row .intro.hide { display:none; }
 .container .row input[type="file"] { display:none; }
 .container .row .imgList { display:flex; flex-wrap:wrap; padding:0; }

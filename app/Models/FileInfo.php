@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class FileInfo extends Model {
     use HasFactory;
@@ -16,7 +17,7 @@ class FileInfo extends Model {
 
     public function fileable() { return $this->morphTo(); }
 
-    public function getPathAttribute() { return "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new"; }
+    public function getPathAttribute() { return Storage::disk('s3')->url("api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new"); }
     public function getPathThumbAttribute() {
         if (isImg($this->fi_ext)) {
             $src = "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new";

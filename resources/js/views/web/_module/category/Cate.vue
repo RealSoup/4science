@@ -9,8 +9,8 @@
                 @mouseleave="ca.sub_show = false"
             >
                 <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">                    
-                    <img v-if="check_query(ca.ca_id) || ca.sub_show" :src="'/img/common/cate/'+ca.ca_id+'_.png'" />
-                    <img v-else :src="'/img/common/cate/'+ca.ca_id+'.png'" />
+                    <img v-if="check_query(ca.ca_id) || ca.sub_show" :src="s3url+'common/cate/'+ca.ca_id+'_.png'" />
+                    <img v-else :src="s3url+'common/cate/'+ca.ca_id+'.png'" />
                 </b-link>
                 <CateSub
                     :sub_show   = 'ca.sub_show && ca.sub.length'
@@ -22,7 +22,7 @@
             </li>
             <li>
                 <b-link :to="{name: 'goods_index' }">
-                    <img :src="'/img/common/cate/custom.png'" />
+                    <img :src="s3url+'common/cate/custom.png'" />
                     <!-- <span>주문제작</span> -->
                 </b-link>
             </li>

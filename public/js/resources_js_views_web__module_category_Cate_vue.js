@@ -250,11 +250,13 @@ var render = function () {
                   _vm.check_query(ca.ca_id) || ca.sub_show
                     ? _c("img", {
                         attrs: {
-                          src: "/img/common/cate/" + ca.ca_id + "_.png",
+                          src: _vm.s3url + "common/cate/" + ca.ca_id + "_.png",
                         },
                       })
                     : _c("img", {
-                        attrs: { src: "/img/common/cate/" + ca.ca_id + ".png" },
+                        attrs: {
+                          src: _vm.s3url + "common/cate/" + ca.ca_id + ".png",
+                        },
                       }),
                 ]
               ),
@@ -277,7 +279,9 @@ var render = function () {
           "li",
           [
             _c("b-link", { attrs: { to: { name: "goods_index" } } }, [
-              _c("img", { attrs: { src: "/img/common/cate/custom.png" } }),
+              _c("img", {
+                attrs: { src: _vm.s3url + "common/cate/custom.png" },
+              }),
             ]),
           ],
           1

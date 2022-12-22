@@ -8,31 +8,40 @@ use Response;
 use Storage;
 
 trait FileControl {
-
+            // $this->file_upload($f, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb);
     public function file_upload($file, $subFolder, $thumb, $kind=null) {
         $def_wid = config('const.file.def_wid');
         $def_hei = config('const.file.def_hei');
         $thumb_wid = config('const.file.thumb_wid');
         $thumb_hei = config('const.file.thumb_hei');
-        $mimeTypes=['image/jpeg','image/gif','image/png','image/bmp','image/svg+xml'];
-        $mimeContentType = mime_content_type($file->getPathName());
-        $physicalPath = storage_path('app/public/');
-        $physicalFullPath = $physicalPath.$subFolder;
+        $mimeArr=['png', 'jpe', 'jpeg', 'jpg', 'gif', 'bmp', 'ico', 'tiff', 'tif', 'svg', 'svgz'];
+        $mime = $file->getClientOriginalExtension();
+        
+        
+
+        
+
+
+
         $image_info;
-        if (in_array($mimeContentType, $mimeTypes))
+        if (in_array($mime, $mimeArr)) 
             $image_info = getimagesize($file);
-        $this->mkDir($physicalPath.$subFolder);
+
         if ($kind!='desc' && isset($image_info)) {
-            if($image_info[0]>$def_wid||$image_info[1]>$def_hei)
-                $this->imageResizeSave($file, $physicalFullPath, $def_wid, $def_hei);
+            $img;
+            if($image_info[0]>$def_wid||$image_info[1]>$def_hei) 
+                $img = (string)Image::make($file)->resize($def_wid, null, function ($constraint) {$constraint->aspectRatio();})->encode($mime);                
             else
-                $file->storeAs("public/".$subFolder, $file->hashName());
+                $img = file_get_contents($file);
+            
+            Storage::disk('s3')->put($subFolder.$file->hashName(), $img);
+            
             if ($thumb) {
-                $this->mkDir($physicalFullPath.'thumb/');
-                $this->imageResizeSave($file, $physicalFullPath.'thumb', $thumb_wid, $thumb_hei);
+                $img = (string)Image::make($file)->resize($thumb_wid, null, function ($constraint) {$constraint->aspectRatio();})->encode($mime);
+                Storage::disk('s3')->put($subFolder.'thumb/'.$file->hashName(), $img);
             }
         } else {
-            $file->storeAs("public/".$subFolder, $file->hashName());
+            Storage::disk('s3')->put($subFolder.$file->hashName(), file_get_contents($file));
         }
     }
 

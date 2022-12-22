@@ -69,8 +69,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -868,6 +866,7 @@ var render = function () {
                     _c(
                       "span",
                       {
+                        key: file.fi_id,
                         staticClass: "piece",
                         on: {
                           click: function ($event) {
@@ -888,23 +887,14 @@ var render = function () {
       _c("hr"),
       _vm._v(" "),
       _c(
-        "b-link",
-        {
-          attrs: {
-            to: { name: "bo_show", params: { bo_cd: "notice", bo_id: 301 } },
-          },
-        },
-        [_vm._v("\r\n                 1231231\r\n                    ")]
-      ),
-      _vm._v(" "),
-      _c(
         "div",
         { staticClass: "con" },
         [
           _vm.board.img_file && _vm.board.img_file.length
             ? [
-                _vm._l(_vm.board.img_file, function (image, index) {
+                _vm._l(_vm.board.img_file, function (image, i) {
                   return _c("img", {
+                    key: i,
                     staticClass: "me-auto ms-auto d-block",
                     attrs: { src: image.path },
                   })

@@ -349,7 +349,7 @@ var render = function () {
     [
       _c(
         "b-link",
-        [_c("b-img", { attrs: { src: "/img/common/basket.png" } })],
+        [_c("b-img", { attrs: { src: _vm.s3url + "common/basket.png" } })],
         1
       ),
       _vm._v(" "),

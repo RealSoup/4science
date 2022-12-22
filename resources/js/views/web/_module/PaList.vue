@@ -1,5 +1,5 @@
 <template>
-<b-container>
+<b-container class="pa_list frm_st">
     <b-row class="lhead">
         <b-col>주문 상품</b-col>        
         <b-col>제조사</b-col>
@@ -56,7 +56,7 @@
         </b-col>
     </b-row>
 
-    <b-row class="total">
+    <b-row v-if="price" class="total">
         <b-col>상품금액</b-col>
         <b-col><b>{{price.goods_add_vat | comma}}</b> 원</b-col>
         <b-col>배송료</b-col>
@@ -64,7 +64,7 @@
         <b-col>결제 예정 금액</b-col>
         <b-col><b>{{price.total | comma}}</b> 원</b-col>
     </b-row>
-    <b-row class="total_sub" id="total_sub">
+    <b-row v-if="price" class="total_sub" id="total_sub">
         <b-col>
             <div>
                 <b-col>상품가</b-col>
@@ -121,58 +121,58 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container { margin-bottom:2.5rem; padding:0; }
-.row { margin:0; border-bottom:1px solid #D6D6D6; }
-.row .col { padding:0; font-size:.93rem; color:#666; }
-.row.lbody .col:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center; }
+.pa_list { margin-bottom:2.5rem; padding:0; }
+.pa_list .row { margin:0; border-bottom:1px solid #D6D6D6; }
+.pa_list .row .col { padding:0; font-size:.93rem; color:#666; }
+.pa_list .row.lbody .col:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center; }
 
-.row .col .row:last-child { border-bottom-width:0; }
-.row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }
-.row.lbody>.col:last-child { border-left:1px solid #D6D6D6; }
+.pa_list .row .col .row:last-child { border-bottom-width:0; }
+.pa_list .row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }
+.pa_list .row.lbody>.col:last-child { border-left:1px solid #D6D6D6; }
 
-.lhead .col { font-weight:bold; text-align:center; padding:.74rem 0; color:#000; }
-.lhead .col:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%; }
-.lhead .col:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%; }
-.lhead .col:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%; }
-.lhead .col:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%; }
-.lhead .col:nth-of-type(6) { flex-basis:10%; max-width:10%; }
+.pa_list .lhead .col { font-weight:bold; text-align:center; padding:.74rem 0; color:#000; }
+.pa_list .lhead .col:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%; }
+.pa_list .lhead .col:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%; }
+.pa_list .lhead .col:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%; }
+.pa_list .lhead .col:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%; }
+.pa_list .lhead .col:nth-of-type(6) { flex-basis:10%; max-width:10%; }
 
-.lbody>.col:nth-of-type(1),
-.lbody>.col:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000; }
-.lbody .col .row .col:nth-of-type(1) { flex-basis:14%; max-width:14%; }
-.lbody .col .row .col:nth-of-type(3) { flex-basis:14%; max-width:14%; }
-.lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
-.lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
-.lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
-.lbody .col .row .col:nth-of-type(6) span { font-size:.7rem; color:#666;  }
+.pa_list .lbody>.col:nth-of-type(1),
+.pa_list .lbody>.col:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000; }
+.pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:14%; max-width:14%; }
+.pa_list .lbody .col .row .col:nth-of-type(3) { flex-basis:14%; max-width:14%; }
+.pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(6) span { font-size:.7rem; color:#666;  }
 
-.row .col .row.option { background:#F4F1EC; }
-.row .col .row .col { padding:.8rem 0; }
-.row .col .row .col img { width:119px; height:119px; object-fit:cover; }
-.row .col .row .col p { margin-bottom:.2rem; }
-.row .col .row .col:nth-of-type(2) { padding-left:1rem; }
-.row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }
+.pa_list .row .col .row.option { background:#F4F1EC; }
+.pa_list .row .col .row .col { padding:.8rem 0; }
+.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:cover; }
+.pa_list .row .col .row .col p { margin-bottom:.2rem; }
+.pa_list .row .col .row .col:nth-of-type(2) { padding-left:1rem; }
+.pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }
 
-.total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
-.total .col { color:#000; font-weight:bold; padding:1rem 3rem; }
-.total .col b { font-size:1.4rem; }
-.total .col:nth-of-type(1) { display:flex; align-items:center; }
-.total .col:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6; }
-.total .col:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"+"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
-.total .col:nth-of-type(3) { display:flex; align-items:center; }
-.total .col:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6; }
-.total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"="; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
-.total .col:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%; }
-.total .col:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%; }
+.pa_list .total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
+.pa_list .total .col { color:#000; font-weight:bold; padding:1rem 3rem; }
+.pa_list .total .col b { font-size:1.4rem; }
+.pa_list .total .col:nth-of-type(1) { display:flex; align-items:center; }
+.pa_list .total .col:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"+"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
+.pa_list .total .col:nth-of-type(3) { display:flex; align-items:center; }
+.pa_list .total .col:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"="; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
+.pa_list .total .col:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%; }
+.pa_list .total .col:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%; }
 
-.total_sub { background:#F2F3F5; border-bottom-width:0; }
-.total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
-.total_sub .col>div { display:flex; flex-wrap:wrap; }
-.total_sub .col>div:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem; }
-.total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
-.total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+.pa_list .total_sub { background:#F2F3F5; border-bottom-width:0; }
+.pa_list .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
+.pa_list .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
+.pa_list .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
+.pa_list .total_sub .col>div { display:flex; flex-wrap:wrap; }
+.pa_list .total_sub .col>div:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem; }
+.pa_list .total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
+.pa_list .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
+.pa_list .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
 
 </style>

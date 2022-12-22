@@ -148,7 +148,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-108a11ad] { margin-bottom:2.5rem; padding:0;\n}\n.row[data-v-108a11ad] { margin:0; border-bottom:1px solid #D6D6D6;\n}\n.row .col[data-v-108a11ad] { padding:0; font-size:.93rem; color:#666;\n}\n.row.lbody .col[data-v-108a11ad]:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center;\n}\n.row .col .row[data-v-108a11ad]:last-child { border-bottom-width:0;\n}\n.row.lbody>.col[data-v-108a11ad]:first-child { border-right:1px solid #D6D6D6;\n}\n.row.lbody>.col[data-v-108a11ad]:last-child { border-left:1px solid #D6D6D6;\n}\n.lhead .col[data-v-108a11ad] { font-weight:bold; text-align:center; padding:.74rem 0; color:#000;\n}\n.lhead .col[data-v-108a11ad]:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%;\n}\n.lhead .col[data-v-108a11ad]:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%;\n}\n.lhead .col[data-v-108a11ad]:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%;\n}\n.lhead .col[data-v-108a11ad]:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%;\n}\n.lhead .col[data-v-108a11ad]:nth-of-type(6) { flex-basis:10%; max-width:10%;\n}\n.lbody>.col[data-v-108a11ad]:nth-of-type(1),\r\n.lbody>.col[data-v-108a11ad]:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000;\n}\n.lbody .col .row .col[data-v-108a11ad]:nth-of-type(1) { flex-basis:14%; max-width:14%;\n}\n.lbody .col .row .col[data-v-108a11ad]:nth-of-type(3) { flex-basis:14%; max-width:14%;\n}\n.lbody .col .row .col[data-v-108a11ad]:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem;\n}\n.lbody .col .row .col[data-v-108a11ad]:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem;\n}\n.lbody .col .row .col[data-v-108a11ad]:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem;\n}\n.lbody .col .row .col:nth-of-type(6) span[data-v-108a11ad] { font-size:.7rem; color:#666;\n}\n.row .col .row.option[data-v-108a11ad] { background:#F4F1EC;\n}\n.row .col .row .col[data-v-108a11ad] { padding:.8rem 0;\n}\n.row .col .row .col img[data-v-108a11ad] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\n.row .col .row .col p[data-v-108a11ad] { margin-bottom:.2rem;\n}\n.row .col .row .col[data-v-108a11ad]:nth-of-type(2) { padding-left:1rem;\n}\n.row .col .row .col:nth-of-type(2) p[data-v-108a11ad]:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000;\n}\n.total[data-v-108a11ad] { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6;\n}\n.total .col[data-v-108a11ad] { color:#000; font-weight:bold; padding:1rem 3rem;\n}\n.total .col b[data-v-108a11ad] { font-size:1.4rem;\n}\n.total .col[data-v-108a11ad]:nth-of-type(1) { display:flex; align-items:center;\n}\n.total .col[data-v-108a11ad]:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6;\n}\n.total .col[data-v-108a11ad]:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"+\"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1;\n}\n.total .col[data-v-108a11ad]:nth-of-type(3) { display:flex; align-items:center;\n}\n.total .col[data-v-108a11ad]:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6;\n}\n.total .col[data-v-108a11ad]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"=\"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1;\n}\n.total .col[data-v-108a11ad]:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%;\n}\n.total .col[data-v-108a11ad]:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%;\n}\n.total_sub[data-v-108a11ad] { background:#F2F3F5; border-bottom-width:0;\n}\n.total_sub>.col[data-v-108a11ad]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.total_sub>.col[data-v-108a11ad]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.total_sub>.col[data-v-108a11ad]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.total_sub .col>div[data-v-108a11ad] { display:flex; flex-wrap:wrap;\n}\n.total_sub .col>div[data-v-108a11ad]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.total_sub .col>div[data-v-108a11ad]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.total_sub .col>div .col[data-v-108a11ad] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.total_sub .col>div .col[data-v-108a11ad]:nth-of-type(2) { text-align:right;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pa_list[data-v-108a11ad] { margin-bottom:2.5rem; padding:0;\n}\n.pa_list .row[data-v-108a11ad] { margin:0; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .row .col[data-v-108a11ad] { padding:0; font-size:.93rem; color:#666;\n}\n.pa_list .row.lbody .col[data-v-108a11ad]:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center;\n}\n.pa_list .row .col .row[data-v-108a11ad]:last-child { border-bottom-width:0;\n}\n.pa_list .row.lbody>.col[data-v-108a11ad]:first-child { border-right:1px solid #D6D6D6;\n}\n.pa_list .row.lbody>.col[data-v-108a11ad]:last-child { border-left:1px solid #D6D6D6;\n}\n.pa_list .lhead .col[data-v-108a11ad] { font-weight:bold; text-align:center; padding:.74rem 0; color:#000;\n}\n.pa_list .lhead .col[data-v-108a11ad]:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%;\n}\n.pa_list .lhead .col[data-v-108a11ad]:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%;\n}\n.pa_list .lhead .col[data-v-108a11ad]:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%;\n}\n.pa_list .lhead .col[data-v-108a11ad]:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%;\n}\n.pa_list .lhead .col[data-v-108a11ad]:nth-of-type(6) { flex-basis:10%; max-width:10%;\n}\n.pa_list .lbody>.col[data-v-108a11ad]:nth-of-type(1),\r\n.pa_list .lbody>.col[data-v-108a11ad]:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000;\n}\n.pa_list .lbody .col .row .col[data-v-108a11ad]:nth-of-type(1) { flex-basis:14%; max-width:14%;\n}\n.pa_list .lbody .col .row .col[data-v-108a11ad]:nth-of-type(3) { flex-basis:14%; max-width:14%;\n}\n.pa_list .lbody .col .row .col[data-v-108a11ad]:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-108a11ad]:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-108a11ad]:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col:nth-of-type(6) span[data-v-108a11ad] { font-size:.7rem; color:#666;\n}\n.pa_list .row .col .row.option[data-v-108a11ad] { background:#F4F1EC;\n}\n.pa_list .row .col .row .col[data-v-108a11ad] { padding:.8rem 0;\n}\n.pa_list .row .col .row .col img[data-v-108a11ad] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\n.pa_list .row .col .row .col p[data-v-108a11ad] { margin-bottom:.2rem;\n}\n.pa_list .row .col .row .col[data-v-108a11ad]:nth-of-type(2) { padding-left:1rem;\n}\n.pa_list .row .col .row .col:nth-of-type(2) p[data-v-108a11ad]:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000;\n}\n.pa_list .total[data-v-108a11ad] { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-108a11ad] { color:#000; font-weight:bold; padding:1rem 3rem;\n}\n.pa_list .total .col b[data-v-108a11ad] { font-size:1.4rem;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(1) { display:flex; align-items:center;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"+\"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(3) { display:flex; align-items:center;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"=\"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%;\n}\n.pa_list .total .col[data-v-108a11ad]:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%;\n}\n.pa_list .total_sub[data-v-108a11ad] { background:#F2F3F5; border-bottom-width:0;\n}\n.pa_list .total_sub>.col[data-v-108a11ad]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-108a11ad]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-108a11ad]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.pa_list .total_sub .col>div[data-v-108a11ad] { display:flex; flex-wrap:wrap;\n}\n.pa_list .total_sub .col>div[data-v-108a11ad]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.pa_list .total_sub .col>div[data-v-108a11ad]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.pa_list .total_sub .col>div .col[data-v-108a11ad] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.pa_list .total_sub .col>div .col[data-v-108a11ad]:nth-of-type(2) { text-align:right;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -284,6 +284,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { staticClass: "pa_list frm_st" },
     [
       _c(
         "b-row",
@@ -468,114 +469,120 @@ var render = function () {
         )
       }),
       _vm._v(" "),
-      _c(
-        "b-row",
-        { staticClass: "total" },
-        [
-          _c("b-col", [_vm._v("상품금액")]),
-          _vm._v(" "),
-          _c("b-col", [
-            _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.goods_add_vat)))]),
-            _vm._v(" 원"),
-          ]),
-          _vm._v(" "),
-          _c("b-col", [_vm._v("배송료")]),
-          _vm._v(" "),
-          _c("b-col", [
-            _c("b", [
-              _vm._v(
-                _vm._s(
-                  _vm._f("comma")(
-                    _vm.price.air_add_vat + _vm.price.dlvy_add_vat
-                  )
-                )
-              ),
-            ]),
-            _vm._v(" 원"),
-          ]),
-          _vm._v(" "),
-          _c("b-col", [_vm._v("결제 예정 금액")]),
-          _vm._v(" "),
-          _c("b-col", [
-            _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.total)))]),
-            _vm._v(" 원"),
-          ]),
-        ],
-        1
-      ),
+      _vm.price
+        ? _c(
+            "b-row",
+            { staticClass: "total" },
+            [
+              _c("b-col", [_vm._v("상품금액")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("b", [
+                  _vm._v(_vm._s(_vm._f("comma")(_vm.price.goods_add_vat))),
+                ]),
+                _vm._v(" 원"),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("배송료")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("b", [
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("comma")(
+                        _vm.price.air_add_vat + _vm.price.dlvy_add_vat
+                      )
+                    )
+                  ),
+                ]),
+                _vm._v(" 원"),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("결제 예정 금액")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.total)))]),
+                _vm._v(" 원"),
+              ]),
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "b-row",
-        { staticClass: "total_sub", attrs: { id: "total_sub" } },
-        [
-          _c("b-col", [
-            _c(
-              "div",
-              [
-                _c("b-col", [_vm._v("상품가")]),
+      _vm.price
+        ? _c(
+            "b-row",
+            { staticClass: "total_sub", attrs: { id: "total_sub" } },
+            [
+              _c("b-col", [
+                _c(
+                  "div",
+                  [
+                    _c("b-col", [_vm._v("상품가")]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(_vm.price.goods)) + " 원"),
+                    ]),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(_vm.price.goods)) + " 원"),
-                ]),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              [
-                _c("b-col", [_vm._v("부가세")]),
+                _c(
+                  "div",
+                  [
+                    _c("b-col", [_vm._v("부가세")]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(_vm.price.surtax)) + " 원"),
+                    ]),
+                  ],
+                  1
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c(
+                  "div",
+                  [
+                    _c("b-col", [_vm._v("포사이언스 배송")]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)) + " 원"),
+                    ]),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(_vm.price.surtax)) + " 원"),
-                ]),
-              ],
-              1
-            ),
-          ]),
-          _vm._v(" "),
-          _c("b-col", [
-            _c(
-              "div",
-              [
-                _c("b-col", [_vm._v("포사이언스 배송")]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)) + " 원"),
-                ]),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              [
-                _c("b-col", [_vm._v("업체 배송")]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)) + " 원"),
-                ]),
-              ],
-              1
-            ),
-          ]),
-          _vm._v(" "),
-          _c("b-col", [
-            _c(
-              "div",
-              [
-                _c("b-col", [_vm._v("적립예정 마일리지")]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원"),
-                ]),
-              ],
-              1
-            ),
-          ]),
-        ],
-        1
-      ),
+                _c(
+                  "div",
+                  [
+                    _c("b-col", [_vm._v("업체 배송")]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)) + " 원"),
+                    ]),
+                  ],
+                  1
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c(
+                  "div",
+                  [
+                    _c("b-col", [_vm._v("적립예정 마일리지")]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원"),
+                    ]),
+                  ],
+                  1
+                ),
+              ]),
+            ],
+            1
+          )
+        : _vm._e(),
     ],
     2
   )

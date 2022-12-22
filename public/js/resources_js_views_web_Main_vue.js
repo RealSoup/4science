@@ -489,7 +489,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/slide/banner.jpg" },
+                attrs: { "img-src": _vm.s3url + "main/slide/banner.jpg" },
               }),
             ],
             1
@@ -500,7 +500,7 @@ var render = function () {
             { attrs: { href: "/" } },
             [
               _c("b-carousel-slide", {
-                attrs: { "img-src": "/img/main/slide/220531.jpg" },
+                attrs: { "img-src": _vm.s3url + "main/slide/220531.jpg" },
               }),
             ],
             1
@@ -515,7 +515,7 @@ var render = function () {
         [
           _c(
             "b-col",
-            [_c("b-img", { attrs: { src: "/img/main/best.gif" } })],
+            [_c("b-img", { attrs: { src: _vm.s3url + "main/best.gif" } })],
             1
           ),
           _vm._v(" "),
@@ -590,7 +590,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec01.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec01.jpg" },
                           }),
                         ],
                         1
@@ -612,7 +612,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec02.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec02.jpg" },
                           }),
                         ],
                         1
@@ -634,7 +634,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec03.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec03.jpg" },
                           }),
                         ],
                         1
@@ -662,7 +662,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec04.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec04.jpg" },
                           }),
                         ],
                         1
@@ -684,7 +684,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec06.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec06.jpg" },
                           }),
                         ],
                         1
@@ -706,7 +706,7 @@ var render = function () {
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: "/img/main/rec05.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec05.jpg" },
                           }),
                         ],
                         1
@@ -774,8 +774,8 @@ var render = function () {
                         attrs: {
                           src:
                             ca.hover || ca.showing
-                              ? "/img/main/cate/" + ca.ca_id + "_.png"
-                              : "/img/main/cate/" + ca.ca_id + ".png",
+                              ? _vm.s3url + "main/cate/" + ca.ca_id + "_.png"
+                              : _vm.s3url + "main/cate/" + ca.ca_id + ".png",
                         },
                       }),
                       _vm._v(" "),
@@ -815,7 +815,8 @@ var render = function () {
                         [
                           _c("b-img", {
                             attrs: {
-                              src: "/img/main/cate/bg" + ca.ca_id + ".gif",
+                              src:
+                                _vm.s3url + "main/cate/bg" + ca.ca_id + ".gif",
                             },
                           }),
                           _vm._v(" "),

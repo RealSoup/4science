@@ -16,7 +16,7 @@
                         <span class="ic">M</span> <b-link :href="`mailto:${siteInfo.biz.email}`">{{siteInfo.biz.email}}</b-link>
                     </p>
                     <p>
-                        <b-img src="/img/common/footer/kakao-talk.png" />
+                        <b-img :src="`${s3url}common/footer/kakao-talk.png`" />
                         카카오 채널: <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank'>포사이언스</b-link>
                     </p>
                 </b-col>
@@ -24,11 +24,11 @@
                 <b-col class="sec">
                     <p class="tit">계좌안내</p>
                     <b-row>
-                        <b-col><b-img src="/img/common/footer/account_woori.png" /></b-col>
+                        <b-col><b-img :src="`${s3url}common/footer/account_woori.png`" /></b-col>
                         <b-col>{{siteInfo.bank.num01}}</b-col>
                     </b-row>
                     <b-row>
-                        <b-col><b-img src="/img/common/footer/account_kb.png" /></b-col>
+                        <b-col><b-img :src="`${s3url}common/footer/account_kb.png`" /></b-col>
                         <b-col>{{siteInfo.bank.num02}}</b-col>
                     </b-row>
                     <p class="owner">예금주 : {{siteInfo.bank.owner}}</p>
@@ -74,7 +74,7 @@
                             <b-col>Copyright(c)2016 by iNexus, inc. All rights reserved.</b-col>
                         </p>                        
                     </b-col>
-                    <b-col class="logo"><b-img src="/img/common/footer_logo.png" /></b-col>
+                    <b-col class="logo"><b-img :src="`${s3url}common/footer_logo.png`" /></b-col>
                 </b-row>
             </b-container>
         </div>        

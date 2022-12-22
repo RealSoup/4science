@@ -165,7 +165,7 @@ export default {
 #header #real nav .head_sch_box { margin-bottom:3px; }
 #header #real nav .head_sch_box .head_sch { background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
 #header #real nav .head_sch_box .head_sch form { min-width:36rem; transition:all .3s; }
-#header #real nav .head_sch_box .head_sch form select { border-radius:17px 0 0 17px; height:36px; padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(/img/common/arrow_dn.gif)  no-repeat right 8px center; }
+#header #real nav .head_sch_box .head_sch form select { border-radius:17px 0 0 17px; height:36px; padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
 #header #real nav .head_sch_box .head_sch form input { border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:1.2rem; height:36px; margin-left:.17rem; flex-grow:1; }
 #header #real nav .head_sch_box .head_sch form input:focus { outline:0; }
 #header #real nav .head_sch_box .head_sch form button { padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }

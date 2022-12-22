@@ -48,7 +48,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_2___default())
   },
-  props: ['value', 'fi_group', 'fi_kind', 'is_thumb'],
+  props: ['value', 'fi_group', 'fi_kind', 'is_thumb', 'height'],
   data: function data() {
     return {
       seqUpdate: false,
@@ -312,6 +312,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -327,23 +331,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {
-        lists: [],
+        lists: {},
+        price: {},
         fi_id: [],
-        eq_name: "김선우",
-        eq_email: "sunwoo@nate.com",
+        eq_name: "",
+        eq_email: "",
         eq_email02: '',
-        eq_tel: "031-133-1232",
-        eq_fax: "031-133-1232",
-        eq_hp: "010-1333-1232",
-        eq_department: "한국과학기술연구원 바이오마이크로시스템 연구단",
-        eq_content: "나는 가슴이 두근거려요 \n당신만 아세요 열 일곱 살이예요 \n가만 가만히 오세요 요리조리로 \n노랑새 꿈꾸는 버드나무 아래로 가만히 오세요 \n\n나는 얼굴이 붉어졌어요 \n가르쳐 드릴까요 열일곱살이예요",
+        eq_tel: "",
+        eq_fax: "",
+        eq_hp: "",
+        eq_department: "",
+        eq_content: "제품명: \n사양: \n수량:",
         eq_1depth: ''
       },
       cate: {},
       od_goods: this.$route.params.od_goods,
       files: [],
       email_domain: [],
-      email_domain_slt_idx: 0
+      email_domain_slt_idx: 0,
+      receive_yn: 'Y'
     };
   },
   methods: {
@@ -357,34 +363,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                console.log(_this.od_goods);
-                _context.next = 4;
+                _context.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/estimate/create", {
                   goods: _this.od_goods
                 });
 
-              case 4:
+              case 3:
                 res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.frm.lists = res.data.lists;
-                }
-
-                _context.next = 12;
+                if (res && res.status === 200) _this.frm.lists = res.data.lists;
+                _context.next = 11;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.responsee);
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 7]]);
       }))();
     },
     store: function store() {
@@ -478,7 +479,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     email_domain_slt: function email_domain_slt() {
-      console.log(this.email_domain_slt_idx);
       this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
     }
   },
@@ -531,7 +531,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border: 1px solid #ced4da; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; height:100px; border-radius:20px; font-weight:bold; font-size:1.6rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -555,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st .row[data-v-109c2224] { margin-top:.8rem; margin-bottom:.8rem; align-items:baseline;\n}\n.frm_st .row .col[data-v-109c2224] {\n}\n.frm_st .row .col[data-v-109c2224]:first-child { flex-basis:140px; max-width:140px;\n}\n.frm_st .row .col input[data-v-109c2224] { background:#F2F3F5; padding:2px 5px; border-width: 0;\n}\n.frm_st .row .col.hp[data-v-109c2224] { display:flex; justify-content:space-between;\n}\n.frm_st .row .col.hp span[data-v-109c2224] { position:relative; flex:0 0 30%; max-width:30%;\n}\n.frm_st .row .col.hp input[data-v-109c2224]:not(:last-child) {\n}\n.frm_st .row .col.hp span[data-v-109c2224]:not(:last-child):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989;\n}\n.frm_st .row .col.email[data-v-109c2224] { display:flex; justify-content:space-between;\n}\n.frm_st .row .col.email span[data-v-109c2224] { position:relative; flex:0 0 30%; max-width:30%;\n}\n.frm_st .row .col.email span[data-v-109c2224]:first-child:after { content:'@'; position:absolute; top:6px; right:-23px; font-weight:bold; font-size:20px; color:#898989;\n}\n#estimate_req .card .card-body .row div img[data-v-109c2224] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.goods[data-v-109c2224] { padding:0;\n}\n.user[data-v-109c2224] { flex-basis:49.2%; max-width:49.2%; padding-left:0;\n}\n.inquiry[data-v-109c2224] { padding-left:35px; padding-right:0;\n}\n.inquiry .container[data-v-109c2224] { padding-left:15px; padding-right:15px;\n}\n.inquiry .container .frm_bd[data-v-109c2224] { border:2px solid #D7D7D7; padding:8px 25px;\n}\n.inquiry .container .frm_bd .cate[data-v-109c2224] { border-bottom: 1px solid #D7D7D7; padding-bottom:8px;\n}\n.inquiry .container .frm_bd .cate .label_st[data-v-109c2224] { flex-basis:100px; max-width:100px;\n}\n.inquiry .container .frm_bd .row .col textarea[data-v-109c2224] { border-color:#fff; font-size:.9rem; color:#878787; line-height:1.6rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4547,9 +4547,10 @@ var render = function () {
             {
               staticClass: "intro",
               class: { hide: _vm.value.length },
+              style: { height: _vm.height + "px" },
               attrs: { "col-12": "" },
             },
-            [_vm._v("파일 추가 영역")]
+            [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -4651,23 +4652,47 @@ var render = function () {
     [
       _c("h3", [_vm._v("견적요청")]),
       _vm._v(" "),
-      _c("PaList", {
-        model: {
-          value: _vm.frm.lists,
-          callback: function ($$v) {
-            _vm.$set(_vm.frm, "lists", $$v)
-          },
-          expression: "frm.lists",
-        },
-      }),
+      Object.keys(_vm.frm.lists).length
+        ? _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                { staticClass: "goods" },
+                [
+                  _c("h4", [_vm._v("01. 견적요청 상품")]),
+                  _vm._v(" "),
+                  _c("PaList", {
+                    model: {
+                      value: _vm.frm.lists,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.frm, "lists", $$v)
+                      },
+                      expression: "frm.lists",
+                    },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "b-row",
         [
           _c(
             "b-col",
+            { staticClass: "user" },
             [
-              _c("h4", [_vm._v("01. 회원 정보")]),
+              _c("h4", [
+                _vm._v(
+                  "0" +
+                    _vm._s(Object.keys(_vm.frm.lists).length ? 2 : 1) +
+                    ". 회원 정보"
+                ),
+              ]),
               _vm._v(" "),
               _c(
                 "b-container",
@@ -4676,7 +4701,7 @@ var render = function () {
                   _c(
                     "b-row",
                     [
-                      _c("b-col", [
+                      _c("b-col", { staticClass: "label_st" }, [
                         _vm._v("주문자명"),
                         _c("b", { staticClass: "need" }),
                       ]),
@@ -4711,7 +4736,7 @@ var render = function () {
                   _c(
                     "b-row",
                     [
-                      _c("b-col", [
+                      _c("b-col", { staticClass: "label_st" }, [
                         _vm._v("연락처"),
                         _c("b", { staticClass: "need" }),
                       ]),
@@ -4784,7 +4809,7 @@ var render = function () {
                   _c(
                     "b-row",
                     [
-                      _c("b-col", [
+                      _c("b-col", { staticClass: "label_st" }, [
                         _vm._v("이메일"),
                         _c("b", { staticClass: "need" }),
                       ]),
@@ -4844,7 +4869,7 @@ var render = function () {
                                 [
                                   _c(
                                     "b-form-select-option",
-                                    { attrs: { value: "" } },
+                                    { attrs: { value: "0" } },
                                     [_vm._v("직접입력")]
                                   ),
                                   _vm._v(" "),
@@ -4878,11 +4903,9 @@ var render = function () {
                   _c(
                     "b-row",
                     [
-                      _c("b-col", [
+                      _c("b-col", { staticClass: "label_st" }, [
                         _vm._v("소속"),
-                        _c("small", [
-                          _c("i", [_vm._v("직장/학교/부서/학과/연구실명")]),
-                        ]),
+                        _c("small", [_c("i", [_vm._v("직장/학교/연구실")])]),
                       ]),
                       _vm._v(" "),
                       _c(
@@ -4903,132 +4926,78 @@ var render = function () {
                     ],
                     1
                   ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-card",
-                {
-                  staticClass: "shadow mt-3",
-                  scopedSlots: _vm._u([
-                    {
-                      key: "header",
-                      fn: function () {
-                        return [_c("b", [_vm._v("문의사항")])]
-                      },
-                      proxy: true,
-                    },
-                  ]),
-                },
-                [
                   _vm._v(" "),
                   _c(
-                    "b-container",
+                    "b-row",
                     [
-                      _vm.isEmpty(_vm.frm.lists)
-                        ? _c(
-                            "b-row",
-                            [
-                              _c(
-                                "b-col",
-                                [
-                                  _c(
-                                    "b-form-select",
-                                    {
-                                      ref: "eq_1depth",
-                                      attrs: {
-                                        size: "sm",
-                                        id: "eq_1depth",
-                                        required: "",
-                                      },
-                                      model: {
-                                        value: _vm.frm.eq_1depth,
-                                        callback: function ($$v) {
-                                          _vm.$set(_vm.frm, "eq_1depth", $$v)
-                                        },
-                                        expression: "frm.eq_1depth",
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "b-form-select-option",
-                                        { attrs: { value: "" } },
-                                        [_vm._v("분야 선택")]
-                                      ),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.cate, function (ca) {
-                                        return _c(
-                                          "b-form-select-option",
-                                          {
-                                            key: ca.ca_id,
-                                            attrs: { value: ca.ca_name },
-                                          },
-                                          [_vm._v(_vm._s(ca.ca_name))]
-                                        )
-                                      }),
-                                    ],
-                                    2
-                                  ),
-                                  _vm._v(" "),
-                                  _c("Validation", {
-                                    attrs: {
-                                      error:
-                                        this.$store.state.error.validations
-                                          .eq_1depth,
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          )
-                        : _vm._e(),
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("첨부파일"),
+                      ]),
                       _vm._v(" "),
                       _c(
-                        "b-row",
+                        "b-col",
                         [
-                          _c("b-col", { staticClass: "awesome_p" }, [
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.frm.eq_content,
-                                  expression: "frm.eq_content",
-                                },
-                              ],
-                              attrs: {
-                                id: "eq_content",
-                                required: "",
-                                rows: "5",
+                          _c("file-upload", {
+                            ref: "fileupload",
+                            attrs: {
+                              fi_group: "estimateReq",
+                              fi_kind: "add",
+                              height: 100,
+                            },
+                            model: {
+                              value: _vm.files,
+                              callback: function ($$v) {
+                                _vm.files = $$v
                               },
-                              domProps: { value: _vm.frm.eq_content },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.frm,
-                                    "eq_content",
-                                    $event.target.value
-                                  )
+                              expression: "files",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "agree" },
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _vm._v(
+                            "\n                        [SMS 수신동의] 본 견적요청과 관련된 문자메세지를 수신하시겠습니까? \n                        "
+                          ),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { value: "Y" },
+                              model: {
+                                value: _vm.receive_yn,
+                                callback: function ($$v) {
+                                  _vm.receive_yn = $$v
                                 },
+                                expression: "receive_yn",
                               },
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "eq_content" } }, [
-                              _c("span", [_vm._v("견적 요청 내용")]),
-                            ]),
-                          ]),
+                            },
+                            [_vm._v("수신")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { value: "N" },
+                              model: {
+                                value: _vm.receive_yn,
+                                callback: function ($$v) {
+                                  _vm.receive_yn = $$v
+                                },
+                                expression: "receive_yn",
+                              },
+                            },
+                            [_vm._v("수신 안함")]
+                          ),
                         ],
                         1
                       ),
@@ -5041,6 +5010,118 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "inquiry" },
+            [
+              _c("h4", [
+                _vm._v(
+                  "0" +
+                    _vm._s(Object.keys(_vm.frm.lists).length ? 3 : 2) +
+                    ". 문의사항"
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-container", { staticClass: "frm_st" }, [
+                _c(
+                  "div",
+                  { staticClass: "frm_bd" },
+                  [
+                    _vm.isEmpty(_vm.frm.lists)
+                      ? _c(
+                          "b-row",
+                          { staticClass: "cate" },
+                          [
+                            _c("b-col", { staticClass: "label_st" }, [
+                              _vm._v("카테고리"),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              [
+                                _c(
+                                  "b-form-select",
+                                  {
+                                    ref: "eq_1depth",
+                                    attrs: {
+                                      size: "sm",
+                                      id: "eq_1depth",
+                                      required: "",
+                                    },
+                                    model: {
+                                      value: _vm.frm.eq_1depth,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.frm, "eq_1depth", $$v)
+                                      },
+                                      expression: "frm.eq_1depth",
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "b-form-select-option",
+                                      { attrs: { value: "" } },
+                                      [_vm._v("선택")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.cate, function (ca) {
+                                      return _c(
+                                        "b-form-select-option",
+                                        {
+                                          key: ca.ca_id,
+                                          attrs: { value: ca.ca_name },
+                                        },
+                                        [_vm._v(_vm._s(ca.ca_name))]
+                                      )
+                                    }),
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c("Validation", {
+                                  attrs: {
+                                    error:
+                                      this.$store.state.error.validations
+                                        .eq_1depth,
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "b-row",
+                      [
+                        _c(
+                          "b-col",
+                          [
+                            _c("b-form-textarea", {
+                              attrs: { rows: "13" },
+                              model: {
+                                value: _vm.frm.eq_content,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "eq_content", $$v)
+                                },
+                                expression: "frm.eq_content",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ],
+            1
+          ),
         ],
         1
       ),
@@ -5050,52 +5131,18 @@ var render = function () {
         [
           _c(
             "b-col",
+            { staticClass: "btn_box" },
             [
               _c(
-                "b-card",
-                {
-                  staticClass: "shadow mt-3",
-                  scopedSlots: _vm._u([
-                    {
-                      key: "header",
-                      fn: function () {
-                        return [_c("b", [_vm._v("첨부파일")])]
-                      },
-                      proxy: true,
-                    },
-                  ]),
-                },
-                [
-                  _vm._v(" "),
-                  _c("file-upload", {
-                    ref: "fileupload",
-                    attrs: { fi_group: "estimateReq", fi_kind: "add" },
-                    model: {
-                      value: _vm.files,
-                      callback: function ($$v) {
-                        _vm.files = $$v
-                      },
-                      expression: "files",
-                    },
-                  }),
-                ],
-                1
+                "b-button",
+                { staticClass: "blue wd_33p", on: { click: _vm.store } },
+                [_vm._v("견적 요청하기")]
               ),
             ],
             1
           ),
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-button",
-        {
-          staticClass: "mt-4 p-5",
-          attrs: { block: "", size: "lg", variant: "primary" },
-          on: { click: _vm.store },
-        },
-        [_vm._v("요청하기")]
       ),
     ],
     1

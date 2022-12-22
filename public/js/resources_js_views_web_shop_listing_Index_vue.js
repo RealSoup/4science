@@ -379,13 +379,16 @@ var render = function () {
                               ? _c("b-img", {
                                   attrs: {
                                     src:
-                                      "/img/listing/maker/" + li.mk_id + ".png",
+                                      _vm.s3url +
+                                      "listing/maker/" +
+                                      li.mk_id +
+                                      ".png",
                                     rounded: "",
                                   },
                                 })
                               : _c("b-img", {
                                   attrs: {
-                                    src: "/img/common/noimage.jpg",
+                                    src: _vm.s3url + "common/noimage.jpg",
                                     rounded: "",
                                   },
                                 }),

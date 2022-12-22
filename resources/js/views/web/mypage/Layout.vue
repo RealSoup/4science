@@ -33,11 +33,11 @@
             <b-col class="od_step">
                 <p>나의 주문 건</p>
                 <ul>
-                    <li><b-link :to="{name:'my_order'}" v-if="od_step1019">{{od_step1019}}</b-link><img src="/img/mypage/step01.png" />주문접수</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b-link><img src="/img/mypage/step02.png" />결제완료</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b-link><img src="/img/mypage/step03.png" />상품준비중</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b-link><img src="/img/mypage/step04.png" />배송중</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b-link><img src="/img/mypage/step05.png" />배송완료</li>
+                    <li><b-link :to="{name:'my_order'}" v-if="od_step1019">{{od_step1019}}</b-link><img :src="`${s3url}mypage/step01.png`" />주문접수</li>
+                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b-link><img :src="`${s3url}mypage/step02.png`" />결제완료</li>
+                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b-link><img :src="`${s3url}mypage/step03.png`" />상품준비중</li>
+                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b-link><img :src="`${s3url}mypage/step04.png`" />배송중</li>
+                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b-link><img :src="`${s3url}mypage/step05.png`" />배송완료</li>
                 </ul>
             </b-col>
         </b-row>

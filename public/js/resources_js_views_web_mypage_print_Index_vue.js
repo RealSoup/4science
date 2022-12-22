@@ -255,7 +255,9 @@ var render = function () {
                       },
                       [
                         _c("b-img", {
-                          attrs: { src: "/img/mypage/print/bankbook.png" },
+                          attrs: {
+                            src: _vm.s3url + "mypage/print/bankbook.png",
+                          },
                         }),
                         _vm._v(" "),
                         _c("p", [
@@ -286,7 +288,9 @@ var render = function () {
                       },
                       [
                         _c("b-img", {
-                          attrs: { src: "/img/mypage/print/bankbook.png" },
+                          attrs: {
+                            src: _vm.s3url + "mypage/print/bankbook.png",
+                          },
                         }),
                         _vm._v(" "),
                         _c("p", [
@@ -323,7 +327,9 @@ var render = function () {
                 },
                 [
                   _c("b-img", {
-                    attrs: { src: "/img/mypage/print/businesslicense.png" },
+                    attrs: {
+                      src: _vm.s3url + "mypage/print/businesslicense.png",
+                    },
                   }),
                   _vm._v(" "),
                   _c("p", [
@@ -351,7 +357,7 @@ var render = function () {
                 },
                 [
                   _c("b-img", {
-                    attrs: { src: "/img/mypage/print/estimate.png" },
+                    attrs: { src: _vm.s3url + "mypage/print/estimate.png" },
                   }),
                   _vm._v(" "),
                   _c("p", [
@@ -377,7 +383,7 @@ var render = function () {
                 { staticClass: "inner_wrap", attrs: { to: "/mypage/order" } },
                 [
                   _c("b-img", {
-                    attrs: { src: "/img/mypage/print/statement.png" },
+                    attrs: { src: _vm.s3url + "mypage/print/statement.png" },
                   }),
                   _vm._v(" "),
                   _c("p", [

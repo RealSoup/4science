@@ -12,11 +12,11 @@
 </head>
 <body onload="window.print()">
 @if ($code === 'w')
-    <img src="{{asset('img/mypage/print/bankbook_w.jpg')}}" width="652px" />
+    <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/print/bankbook_w.jpg" width="652px" />
 @elseif ($code === 'k')
-    <img src="{{asset('img/mypage/print/bankbook_k.png')}}" width="530px" />
+    <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/print/bankbook_k.png" width="530px" />
 @else
-    <img src="{{asset('img/mypage/print/license200921.jpg')}}" width="100%" />
+    <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/print/license200921.jpg" width="100%" />
 @endif    
     
 </body>

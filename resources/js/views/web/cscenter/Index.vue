@@ -214,7 +214,7 @@
             </b-tab>
             <b-tab title="회원혜택 안내">
                 <b-card-text>
-                    <img src="/img/cscenter/member_info.png">
+                    <img :src="`${s3url}cscenter/member_info.png`">
                 </b-card-text>
             </b-tab>
 

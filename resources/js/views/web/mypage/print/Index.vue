@@ -6,7 +6,7 @@
                 <b-row>
                     <b-col class="cell01">
                         <div class="inner_wrap" @click="print('w')">
-                            <b-img src="/img/mypage/print/bankbook.png" />
+                            <b-img :src="`${s3url}mypage/print/bankbook.png`" />
                             <p>우리은행 통장사본 출력<small>bank book (Woori)</small></p>
                         </div>
                     </b-col>
@@ -14,7 +14,7 @@
                 <b-row>
                     <b-col class="cell02">
                         <div class="inner_wrap" @click="print('k')">
-                            <b-img src="/img/mypage/print/bankbook.png" />
+                            <b-img :src="`${s3url}mypage/print/bankbook.png`" />
                             <p>국민은행 통장사본 출력<small>bankbook (KB)</small></p>
                         </div>
                     </b-col>
@@ -22,19 +22,19 @@
             </b-col>
             <b-col col lg="3" sm="6" cols="12" class="cell03">
                 <div class="inner_wrap" @click="print('b')">
-                    <b-img src="/img/mypage/print/businesslicense.png" />
+                    <b-img :src="`${s3url}mypage/print/businesslicense.png`" />
                     <p>사업자 등록증 출력<small>Busineess license</small></p>
                 </div>
             </b-col>
             <b-col col lg="3" sm="6" cols="12" class="cell04">
                 <b-link to="/mypage/estimate" class="inner_wrap">
-                    <b-img src="/img/mypage/print/estimate.png" />
+                    <b-img :src="`${s3url}mypage/print/estimate.png`" />
                     <p>견적서 출력<small>estimate</small></p>
                 </b-link>
             </b-col>
             <b-col col lg="3" sm="6" cols="12" class="cell05">
                 <b-link to="/mypage/order" class="inner_wrap">
-                    <b-img src="/img/mypage/print/statement.png" />
+                    <b-img :src="`${s3url}mypage/print/statement.png`" />
                     <p>거래명세서 출력<small>statement</small></p>
                 </b-link>
             </b-col>
