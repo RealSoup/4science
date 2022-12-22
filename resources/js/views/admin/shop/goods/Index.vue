@@ -67,7 +67,7 @@
             <b-col>
                 <span>{{row.gd_id}}. <b>{{row.gd_name}}</b></span>
                 <span>
-                    <b-img :src="row.file_goods_goods[0].path_thumb" rounded />
+                    <b-img :src="row.image_src_thumb[0]" rounded />
                 </span>
             </b-col>
 

@@ -87,7 +87,10 @@
                         <b-col>{{gm.gm_name}}</b-col>
                         <b-col>{{gm.gm_spec}}</b-col>
                         <b-col>{{gm.gm_unit}}</b-col>
-                        <b-col>{{gm.gm_price_add_vat | comma}}</b-col>
+                        <b-col class="price">
+                            {{gm.gm_price_add_vat | comma}}
+                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{bd.bd_price | comma}}원</i>
+                        </b-col>
                         <b-col><vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea"></vue-numeric-input></b-col>
                     </b-row>
                 </div>
@@ -468,6 +471,7 @@ export default {
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input { height:1.3rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> button { width:1.2rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> .numeric-input { padding:2px 1rem; }
+.conRight .model .row .col.price i { font-size:.7rem; display:block; }
 
 .conRight .pick_info { text-align:right; }
 .conRight .pick_info .total { padding-right:2rem; font-weight:bold; margin-top:1.5rem; }
