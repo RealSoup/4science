@@ -5720,7 +5720,9 @@ var render = function () {
     "b-container",
     { staticClass: "p_wrap" },
     [
-      _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 수정")]),
+      _c("h3", { staticClass: "p_tit" }, [
+        _vm._v("상품 수정 " + _vm._s(_vm.frm.glt_no)),
+      ]),
       _vm._v(" "),
       _c(
         "b-card",

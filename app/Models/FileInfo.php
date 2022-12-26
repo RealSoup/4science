@@ -18,16 +18,16 @@ class FileInfo extends Model {
     public function fileable() { return $this->morphTo(); }
 
     public function getPathAttribute() { return Storage::disk('s3')->url("api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new"); }
-    public function getPathThumbAttribute() {
-        if (isImg($this->fi_ext)) {
-            $src = "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new";
-        } else {
-            if ($this->fi_ext=='pdf') $src = "/img/common/file_icon_pdf.png";
-            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = "/img/common/file_icon_excel.png";
-            else $src = "/img/common/file_icon_default.png";
-        }        
-        return $src;
-    }
+    // public function getPathThumbAttribute() {
+    //     if (isImg($this->fi_ext)) {
+    //         $src = "/storage/{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new";
+    //     } else {
+    //         if ($this->fi_ext=='pdf') $src = "/img/common/file_icon_pdf.png";
+    //         else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = "/img/common/file_icon_excel.png";
+    //         else $src = "/img/common/file_icon_default.png";
+    //     }        
+    //     return $src;
+    // }
 
     public function scopeFi_group($query, string $fi_group) { return $query->where('fi_group', $fi_group); }
     public function scopeFi_key($query, int $fi_key) { return $query->where('fi_key', $fi_key); }
