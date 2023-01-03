@@ -61,7 +61,7 @@
         </b-row>
         
         <b-link class="row list body" router-tag="div"
-            v-for="(row, idx) in list.data" :key="row.mk_id"
+            v-for="row in list.data" :key="row.mk_id"
             :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}"
         >
             <b-col>
@@ -138,7 +138,6 @@ export default {
                 if (res && res.status === 200) {
                     this.list = res.data.list;
                     // this.categorys = res.data.categorys;
-                    this.makers = res.data.makers;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -151,8 +150,11 @@ export default {
         },
 
     },
-    mounted() {
+    async mounted() {
         this.index();
+        const res = await ax.get(`/api/admin/shop/maker`, { params: {type: 'all'}});
+        if (res && res.status === 200)
+            this.makers = res.data.list;
     },
 }
 </script>

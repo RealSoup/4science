@@ -1,19 +1,21 @@
 <template>
-<div>
-    <div class="form-group">
-        <label for="bo_subject">제목</label>
-        <input type="text" class="form-control" id="bo_subject" ref="bo_subject" v-model="value.bo_subject" />
-        <Validation :error="this.$store.state.error.validations.bo_subject" />
-    </div>
-    <div class="form-group">
-        <label for="bo_content">내용</label>
-        <textarea class="form-control" id="bo_content" ref="bo_content" rows="10" v-model="value.bo_content" />
-        <Validation :error="this.$store.state.error.validations.bo_content" />
-    </div>
-
+<b-container class="frm_st">
+    <b-row>
+        <b-col class="label_st">제목<b class="need" /></b-col>
+        <b-col>
+            <b-form-input v-model="value.bo_subject" ref="bo_subject" id="bo_subject" />
+            <Validation :error="this.$store.state.error.validations.bo_subject" />
+        </b-col>
+    </b-row>
+    <b-row>
+        <b-col class="label_st">내용<b class="need" /></b-col>
+        <b-col>
+            <b-form-textarea v-model="value.bo_content" ref="bo_content" rows="13" id="bo_content" />
+            <Validation :error="this.$store.state.error.validations.bo_content" />
+        </b-col>
+    </b-row>
     <file-upload v-if="config.is_addFile" ref="fileupload" v-model="value.file_info_bo" :fi_group = "'board'" :fi_kind="this.$route.params.bo_cd" />
-
-</div>
+</b-container>
 </template>
 
 <script>

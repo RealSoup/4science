@@ -124,6 +124,7 @@ class GoodsController extends Controller {
         if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
 
         // 정렬 설정 Strart
+        $gd = $gd->orderByRaw('ISNULL(gd_rank), gd_rank ASC')->orderBy('gd_view_cnt', 'DESC');
         switch ($req->sort) {
             case 'hot':     $gd = $gd->orderBy('gd_view_cnt', 'DESC');  break;
             case 'new':     $gd = $gd->latest('shop_goods.created_at'); break;
@@ -131,7 +132,7 @@ class GoodsController extends Controller {
             case 'highPri': $gd = $gd->latest('gm_price');              break;
         }
         // 정렬 설정 End
-
+        
         // echo_query($gd);
         if ($req->filled('limit'))  //  메인 베스트
             $data['list'] = $gd->limit($req->limit)->get(); 

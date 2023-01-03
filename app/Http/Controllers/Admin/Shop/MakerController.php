@@ -24,7 +24,7 @@ class MakerController extends Controller {
         $this->maker = $this->maker->orderBy('mk_name');
         if ($req->filled('type') && $req->type == 'all')    $this->maker = $this->maker->get();
         else $this->maker = $this->maker->paginate();
-		$data['list'] = $this->maker;
+		$data['list'] = $this->maker;        
         return response()->json($data);
     }
 

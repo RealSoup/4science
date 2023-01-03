@@ -8,4 +8,6 @@ class GoodsCategory extends Model {
     protected $table = 'shop_goods_category';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function scopePrime($q) { return $q->where('gc_prime', 'Y'); }
 }

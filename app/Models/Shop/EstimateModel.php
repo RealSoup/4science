@@ -4,6 +4,7 @@ namespace App\Models\Shop;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class EstimateModel extends Model {
     use HasFactory;
@@ -36,8 +37,7 @@ class EstimateModel extends Model {
             if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
                 $src = $fi->fi_new;
             else
-                $src = "/storage/goods/{$fi->fi_room}/{$fi->fi_group}{$th}/".$fi->fi_new;
-            
+                $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}");
             $rst[] = $src;
         }
         if (!$rst){ $rst[] = noimg($thumb); }

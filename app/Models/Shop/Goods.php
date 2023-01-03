@@ -41,7 +41,7 @@ class Goods extends Model {
 
 
     public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id"); }
-    public function goodsCategoryfirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id"); }
+    public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->where('gc_prime', 'Y'); }
     public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id"); }
     public function option() {              return $this->hasMany(Option::class, "op_gd_id")->orderBy('op_required'); }
     public function hashJoin() {            return $this->hasMany(HashJoin::class, "gd_id"); }
@@ -75,8 +75,7 @@ class Goods extends Model {
             if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
                 $src = $fi->fi_new;
             else
-                $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_group}{$th}/{$fi->fi_new}");
-            
+                $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}");
             $rst[] = $src;
         }
         if (!$rst){ $rst[] = noimg($thumb); }

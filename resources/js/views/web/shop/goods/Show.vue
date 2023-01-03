@@ -515,6 +515,12 @@ export default {
 
 .conRight #goods_desc { margin-top:50px; }
 .conRight #goods_desc >>> img { max-width:100%; }
+/* trc 옵션 설명 스타일 */
+.conRight #goods_desc #style01 h1 { font-weight:bold; font-size:40px; line-height:40px; margin:20px 0 10px 0; }
+.conRight #goods_desc #style01 span { display:inline-block; line-height:24px; color:#666; padding:5px 15px; }
+.conRight #goods_desc #style01 { padding-left:0px; }
+.conRight #goods_desc #style01 .desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:10%; background-color:#F8F8F8; }
+/* trc 옵션 설명 스타일 */
 .conRight .desc_pdf { margin-top:3rem; }
 
 .conRight .goods_desc_piece { margin-top:3rem; }

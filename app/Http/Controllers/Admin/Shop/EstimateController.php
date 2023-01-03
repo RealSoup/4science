@@ -33,7 +33,7 @@ class EstimateController extends Controller {
         $this->userMng = $um;
         $this->estimateModel = $em;
         $this->estimateOption = $eo;
-        $option = ['defaultPaperSize'=>'a4'];
+        $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
         if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
         $this->pdf = PDF::setOptions($option);
     }
@@ -452,7 +452,10 @@ class EstimateController extends Controller {
 	}
 
 	public function exportEstimatePdf(int $er_id) {
-		return $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id)])
+		return $this->pdf->loadView('admin.estimate.pdf.estimate', 
+                [   'er' => EstimateReply::find($er_id), 
+                    'logo'=>Storage::disk('s3')->url("common/estimate_logo.png"),
+                    'addr'=>Storage::disk('s3')->url("common/addr_estimate200921.gif")])
 				->download('estimate.pdf'); // ->stream();
 	}
 

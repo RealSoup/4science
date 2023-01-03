@@ -68,7 +68,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         $data[] = ['TOTAL AMOUNT', '', '', '', number_format($this->er->er_all_price)];
         $data[] = [''];
         $data[] = ['담당자 : '.$this->er->estimateReq->mng->name.' '.$this->er->estimateReq->mng->userMng->um_position.', TEL : '.$this->er->estimateReq->mng->tel.', FAX : '.$this->er->estimateReq->mng->fax];
-        $data[] = ['계좌번호 : '.cache('bank')->name01.' '.cache('bank')->num01.', '.cache('bank')->name02.' '.cache('bank')->num02.' '.cache('bank')->owner];
+        $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
         return collect($data);
     }
 
@@ -355,7 +355,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
     }
     public function drawings() {
         $drawing = new Drawing();
-        $drawing->setPath(public_path('/img/common/addr_estimate200921.gif'));
+        $drawing->setPath(public_path('img\addr_estimate200921.gif'));
         $drawing->setHeight(80);
         $drawing->setCoordinates('D4');
         return $drawing;
@@ -382,7 +382,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             },
             AfterSheet::class    => function(AfterSheet $event) {
                 $drawing2 = new Drawing();
-                $drawing2->setPath(public_path('/img/common/estimate_logo.png'));
+                $drawing2->setPath(public_path('img\estimate_logo.png'));
                 $drawing2->setHeight(43);
                 $drawing2->setCoordinates('C'.($this->logo_position));
                 $drawing2->setWorksheet($event->sheet->getDelegate());

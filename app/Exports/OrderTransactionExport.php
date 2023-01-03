@@ -366,7 +366,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
     }
     public function drawings() {
         $drawing = new Drawing();
-        $drawing->setPath(public_path('/img/common/addr_estimate200921.gif'));
+        $drawing->setPath(public_path('img\addr_estimate200921.gif'));
         $drawing->setHeight(80);
         $drawing->setCoordinates('D4');
         return $drawing;
@@ -393,7 +393,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             },
             AfterSheet::class    => function(AfterSheet $event) {
                 $drawing2 = new Drawing();
-                $drawing2->setPath(public_path('/img/common/estimate_logo.png'));
+                $drawing2->setPath(public_path('img\estimate_logo.png'));
                 $drawing2->setHeight(43);
                 $drawing2->setCoordinates('C'.(count($this->odm_map)+2+16));
                 $drawing2->setWorksheet($event->sheet->getDelegate());

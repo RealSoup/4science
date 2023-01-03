@@ -190,8 +190,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res && res.status === 200) {
                   _this.list = res.data.list; // this.categorys = res.data.categorys;
-
-                  _this.makers = res.data.makers;
                 }
 
                 _context.next = 14;
@@ -217,7 +215,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.index();
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.index();
+
+              _context2.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/maker", {
+                params: {
+                  type: 'all'
+                }
+              });
+
+            case 3:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.makers = res.data.list;
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -661,7 +686,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.list.data, function (row, idx) {
+          _vm._l(_vm.list.data, function (row) {
             return _c(
               "b-link",
               {

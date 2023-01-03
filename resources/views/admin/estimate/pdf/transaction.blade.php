@@ -66,7 +66,7 @@ table tr th, table tr td { padding:5px; }
                 <p>{{ $er->estimateReq->eq_department }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
-            <td align="center" valign="middle"><img src="{{ URL::asset('img/common/addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/addr_estimate200921.gif" width="270px" height="67px" /></td>
         </tr>
     </table>
 
@@ -113,12 +113,12 @@ $no=1;
         <tr>
             <td>
                 <p>담당자 : {{$er->estimateReq->mng->name}} {{$er->estimateReq->mng->userMng->um_position}}, TEL : {{$er->estimateReq->mng->tel}}, FAX : {{$er->estimateReq->mng->fax}}</p>
-                계좌번호 : {{cache('bank')->name01}} {{cache('bank')->num01}},
-                            {{cache('bank')->name02}} {{cache('bank')->num02}} {{cache('bank')->owner}}
+                계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
+                            {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
             </td>
         </tr>
         <tr>
-            <td align="center" valign="middle"><img src="{{ URL::asset('img/common/estimate_logo.png') }}" width="100px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/estimate_logo.png" width="100px" /></td>
         </tr>
     </table>
 </body>

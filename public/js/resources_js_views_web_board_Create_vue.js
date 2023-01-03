@@ -251,9 +251,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     FormGroup: _FormGroup_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  props: ['cs_bo_cd'],
   data: function data() {
     return {
-      bo_cd: this.$route.params.bo_cd,
+      bo_cd: this.cs_bo_cd ? this.cs_bo_cd : this.$route.params.bo_cd,
       frm: {
         file_info_bo: []
       },
@@ -381,6 +382,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/views/_common/FileUpload.vue */ "./resources/js/views/_common/FileUpload.vue");
+//
+//
 //
 //
 //
@@ -4639,76 +4642,75 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "b-container",
+    { staticClass: "frm_st" },
     [
       _c(
-        "div",
-        { staticClass: "form-group" },
+        "b-row",
         [
-          _c("label", { attrs: { for: "bo_subject" } }, [_vm._v("제목")]),
+          _c("b-col", { staticClass: "label_st" }, [
+            _vm._v("제목"),
+            _c("b", { staticClass: "need" }),
+          ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.value.bo_subject,
-                expression: "value.bo_subject",
-              },
+          _c(
+            "b-col",
+            [
+              _c("b-form-input", {
+                ref: "bo_subject",
+                attrs: { id: "bo_subject" },
+                model: {
+                  value: _vm.value.bo_subject,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "bo_subject", $$v)
+                  },
+                  expression: "value.bo_subject",
+                },
+              }),
+              _vm._v(" "),
+              _c("Validation", {
+                attrs: {
+                  error: this.$store.state.error.validations.bo_subject,
+                },
+              }),
             ],
-            ref: "bo_subject",
-            staticClass: "form-control",
-            attrs: { type: "text", id: "bo_subject" },
-            domProps: { value: _vm.value.bo_subject },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.value, "bo_subject", $event.target.value)
-              },
-            },
-          }),
-          _vm._v(" "),
-          _c("Validation", {
-            attrs: { error: this.$store.state.error.validations.bo_subject },
-          }),
+            1
+          ),
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "form-group" },
+        "b-row",
         [
-          _c("label", { attrs: { for: "bo_content" } }, [_vm._v("내용")]),
+          _c("b-col", { staticClass: "label_st" }, [
+            _vm._v("내용"),
+            _c("b", { staticClass: "need" }),
+          ]),
           _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.value.bo_content,
-                expression: "value.bo_content",
-              },
+          _c(
+            "b-col",
+            [
+              _c("b-form-textarea", {
+                ref: "bo_content",
+                attrs: { rows: "13", id: "bo_content" },
+                model: {
+                  value: _vm.value.bo_content,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "bo_content", $$v)
+                  },
+                  expression: "value.bo_content",
+                },
+              }),
+              _vm._v(" "),
+              _c("Validation", {
+                attrs: {
+                  error: this.$store.state.error.validations.bo_content,
+                },
+              }),
             ],
-            ref: "bo_content",
-            staticClass: "form-control",
-            attrs: { id: "bo_content", rows: "10" },
-            domProps: { value: _vm.value.bo_content },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.value, "bo_content", $event.target.value)
-              },
-            },
-          }),
-          _vm._v(" "),
-          _c("Validation", {
-            attrs: { error: this.$store.state.error.validations.bo_content },
-          }),
+            1
+          ),
         ],
         1
       ),

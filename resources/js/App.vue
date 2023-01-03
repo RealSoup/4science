@@ -103,16 +103,17 @@ label { margin-bottom:0; }
 
 .w_fence { padding-top:3rem; margin-bottom:2rem; }
 .w_fence h3 { margin-bottom:2rem; font-size:1.8rem; font-weight:bold; }
-.w_fence h4 { font-size:1.3rem; font-weight:bold; padding:0 0 0.7rem 1.6rem; }
+.w_fence h4 { font-size:1.3rem; font-weight:bold; padding:0 0 0.7rem 1.6rem; border-bottom:3px solid #000; margin-bottom:2.3rem; }
 
 
-.frm_st { border-top:3px solid #000; padding-top:2.3rem; }
+.frm_st {  }
 .frm_st .row { margin-bottom:1.1rem; }
 .frm_st .row .col.label_st { flex-basis:140px; max-width:140px; font-weight:bold; padding-top:6px; } 
 .frm_st .row .col .need { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px; }
 .frm_st .row .col small { font-size:60%; }
 .frm_st .row .col input,
-.frm_st .row .col select { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; }
+.frm_st .row .col select,
+.frm_st .row .col textarea { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; }
 .frm_st .row .col input:focus,
 .frm_st .row .col select:focus,
 .frm_st .row .col textarea:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}

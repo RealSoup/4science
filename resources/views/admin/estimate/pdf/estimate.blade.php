@@ -106,8 +106,8 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         </tr>
         <tr><td colspan="8" height="0" style="border-bottom:solid 1px #d5d5d5;"></td></tr>
         <tr>
-            <td align="center" valign="middle" width="60%"><img src="{{ URL::asset('img/common/estimate_logo.png') }}" width="120px" /></td>
-            <td align="center" valign="middle"><img src="{{ URL::asset('img/common/addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
+            <td align="center" valign="middle" width="60%"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/estimate_logo.png" width="120px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/addr_estimate200921.gif" width="270px" height="67px" /></td>
         </tr>
     </table>
 
@@ -213,7 +213,7 @@ $no=1;
     </table>
 
     <table class="bottom">
-        <tr><td>{{ cache('bank')->name01.'은행 '.cache('bank')->num01.' '.cache('bank')->owner }}</td></tr>
+        <tr><td>{{ cache('bank')['name01'].'은행 '.cache('bank')['num01'].' '.cache('bank')['owner'] }}</td></tr>
         <tr><td>Your R&D Consultant <a href="https://www.4science.net/" target="_blank">www.4science.net</a></td></tr>
     </table>
 </body>

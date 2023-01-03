@@ -27,9 +27,10 @@ export default {
     components: {
         FormGroup,
     },
+    props: ['cs_bo_cd'],
     data() {
         return {
-            bo_cd:this.$route.params.bo_cd,
+            bo_cd:this.cs_bo_cd ? this.cs_bo_cd : this.$route.params.bo_cd ,
             frm:{
                 file_info_bo:[],
             },
@@ -49,7 +50,7 @@ export default {
             }
         },
         async write(){
-            try {    
+            try {
                 const res = await ax.post(`/api/board/${this.bo_cd}/store`, this.frm);
                 if (res && res.status === 200) {
                     if (this.frm.file_info_bo.length)

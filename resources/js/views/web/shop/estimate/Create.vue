@@ -179,6 +179,7 @@ export default {
 
 <style lang="css" scoped>
 .goods { padding:0; }
+.goods h4 { margin-bottom:0; }
 .user { flex-basis:49.2%; max-width:49.2%; padding-left:0; }
 .inquiry { padding-left:35px; padding-right:0; }
 .inquiry .container { padding-left:15px; padding-right:15px; }

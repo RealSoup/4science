@@ -55,7 +55,7 @@ export default {
 
 <style lang="css" scoped>
 #categorys ul ul { position:absolute; width:15rem; padding:0.5rem; background-color:#FFF; border:2px solid #000; z-index:10; }
-#categorys>ul>li>ul:before { content:''; position:absolute; top:-32px; left:20px; background:url('/img/common/cate/semo.png') no-repeat center; width:31px; height:34px; }
+#categorys>ul>li>ul:before { content:''; position:absolute; top:-32px; left:20px; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/cate/semo.png') no-repeat center; width:31px; height:34px; }
 
 #categorys ul ul li { position: relative; }
 #categorys ul ul li.depth01_tit { padding:5px 10px; font-weight:900; font-size:20px; border-bottom:1px solid #000; margin-bottom:5px; }

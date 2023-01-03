@@ -92,7 +92,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $data[] = [''];
         $data[] = ['결제방식'];
         $data[] = [''];
-        $data[] = [cache('bank')->name01.' '.cache('bank')->num01.' '.cache('bank')->owner];
+        $data[] = [cache('bank')['name01'].' '.cache('bank')['num01'].' '.cache('bank')['owner']];
         $data[] = ['Your R&D Consultant www.4science.net'];
 
         return collect($data);
@@ -489,14 +489,14 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $drawing = new Drawing();
         // $drawing->setName('Logo');
         // $drawing->setDescription('This is my logo');
-        $drawing->setPath(public_path('/img/common/estimate_logo.png'));
+        $drawing->setPath(public_path('img\estimate_logo.png'));
         $drawing->setHeight(42);
         $drawing->setCoordinates('C4');
 
         $drawing2 = new Drawing();
         // $drawing2->setName('Other image');
         // $drawing2->setDescription('This is a second image');
-        $drawing2->setPath(public_path('/img/common/addr_estimate200921.gif'));
+        $drawing2->setPath(public_path('img\addr_estimate200921.gif'));
         $drawing2->setHeight(80);
         $drawing2->setCoordinates('G3');
 

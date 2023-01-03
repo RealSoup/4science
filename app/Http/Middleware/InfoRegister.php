@@ -19,9 +19,8 @@ class InfoRegister {
     public function handle(Request $request, Closure $next) {
         $info = Info::all();
         foreach ($info as $v) {
-            if(!Cache::has($v->key)) {
-                Cache::forever($v->key, json_decode($v->var, true));
-            }
+            if(!Cache::has($v->key))
+                Cache::forever($v->key, json_decode($v->var, true));    //  배열 형태로 들어감
         }
         return $next($request);
     }

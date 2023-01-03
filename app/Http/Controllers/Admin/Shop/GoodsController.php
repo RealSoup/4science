@@ -34,30 +34,35 @@ class GoodsController extends Controller {
 
     public function index(Category $cate, Request $req) {
         //  카테고리 검색때문에 with을 안쓰고 조인을 했다.
-        $gd = $this->goods->with('fileGoodsGoods')->with('maker')->with('user');
-        $goodsCate = DB::table('shop_goods_category')->select('*', DB::raw('MIN(gc_id)'))->groupBy('gc_gd_id');
-        $gd = $gd->joinSub($goodsCate, 'goods_category', function ($join) { $join->on('gd_id', '=', 'gc_gd_id'); });
-        $gm = $this->goods_model;
+        $gd = $this->goods->with('fileGoodsGoods')->with('maker')->with('user')
+                ->rightJoin(
+                     DB::raw("
+                        (SELECT 
+                            gc_gd_id, gc_prime, 
+                            gc_ca01, gc_ca01_name, 
+                            gc_ca02, gc_ca02_name, 
+                            gc_ca03, gc_ca03_name, 
+                            gc_ca04, gc_ca04_name
+                        from la_shop_goods_category
+                        where gc_prime = 'Y') la_shop_goods_category
+                    "), 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'
+                );
+                // ->rightJoin('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
+                // ->where('gc_prime', 'Y');
 
-
+                
         $gd->when($req->ca01, fn ($q, $v) => $q->whereGcCa01($v));
+        // if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
         $gd->when($req->ca02, fn ($q, $v) => $q->whereGcCa02($v));
         $gd->when($req->ca03, fn ($q, $v) => $q->whereGcCa03($v));
         $gd->when($req->ca04, fn ($q, $v) => $q->whereGcCa04($v));
-        // if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
-        // if ($req->ca02)         $gd = $gd->where('gc_ca02', $req->ca02);
-        // if ($req->ca03)         $gd = $gd->where('gc_ca03', $req->ca03);
-        // if ($req->ca04)         $gd = $gd->where('gc_ca04', $req->ca04);
         $gd->when($req->startDate,  fn ($q, $v) => $q->StartDate($v));
         $gd->when($req->endDate,    fn ($q, $v) => $q->EndDate($v));
         $gd->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v));
         $gd->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v));
-        // if ($req->startDate)    $gd = $gd->StartDate($req->startDate);
-        // if ($req->endDate)      $gd = $gd->EndDate($req->endDate);
-        // if ($req->gd_enable)    $gd = $gd->enable($req->gd_enable);
-        // if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
 
         if ($req->keyword){
+            $gm = $this->goods_model;
             switch ($req->mode) {
                 case 'gd_name':     $gd = $gd->SchGd_name($req->keyword); break;
                 case 'gm_name':     $gd = $gd->SchGd_id($gm->Name($req->keyword)->pluck('gm_gd_id')); break;
@@ -86,10 +91,9 @@ class GoodsController extends Controller {
                 break;
             }
         }
-        $data['list'] = $gd->latest()->latest("gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
+        $data['list'] = $gd->latest("gc_gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
-
-        $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();
+        
 		return response()->json($data);
     }
 
