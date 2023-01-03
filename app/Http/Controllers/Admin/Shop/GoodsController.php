@@ -70,17 +70,18 @@ class GoodsController extends Controller {
                 case 'manager':     $gd = $gd->SchWriter(User::Name($req->keyword)->pluck('id')); break;
                 case 'cat_no':      $keyword = explode('-', $req->keyword);
                     if (count($keyword) == 3) {
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
-                                    ->where('gm_catno02', $keyword[1])
-                                    ->where('gm_catno03', 'like', $keyword[2].'%')->pluck('gm_gd_id'));
+                        $gd = $gd->SchGd_id($gm->where('gm_catno01', @intval($keyword[0]))
+                                                ->where('gm_catno02', @intval($keyword[1]))
+                                                ->where('gm_catno03', @intval($keyword[2]))->pluck('gm_gd_id'));
                     } else if (count($keyword) == 2){
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
-                                    ->where('gm_catno02', 'like', $keyword[1].'%')->pluck('gm_gd_id'));
-                    } else if (count($keyword) == 1){
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', 'like', $keyword[0].'%')
-                                    ->where('gm_catno02', 'like', $keyword[0].'%')
-                                    ->where('gm_catno03', 'like', $keyword[0].'%')->pluck('gm_gd_id'));
-                    }
+                        $gd = $gd->SchGd_id($gm->where('gm_catno01', @intval($keyword[0]))
+                                                ->where('gm_catno02', @intval($keyword[1]))->pluck('gm_gd_id'));
+                    } 
+                    // else if (count($keyword) == 1){
+                    //     $gd = $gd->SchGd_id($gm->where('gm_catno01', 'like', $keyword[0].'%')
+                    //                 ->where('gm_catno02', 'like', $keyword[0].'%')
+                    //                 ->where('gm_catno03', 'like', $keyword[0].'%')->pluck('gm_gd_id'));
+                    // }
                 break;
                 default:
                     $gd = $gd->where(function($query) use ($req){
