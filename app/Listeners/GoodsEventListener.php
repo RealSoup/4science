@@ -26,7 +26,7 @@ class GoodsEventListener {
     public function goodsView(GoodsView $event) {
         $sessionName = 'cnt_ckeck';
         if(!session()->get($sessionName)) {
-            $event->goods->increment('gd_view_cnt');
+            $event->goods->decrement('gd_view_cnt');
             session()->put($sessionName, true);
         }
     }

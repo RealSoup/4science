@@ -76,14 +76,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Location',
   props: ['categorys', 'p_ca01', 'p_ca02', 'p_ca03', 'p_ca04']
@@ -288,32 +280,28 @@ var render = function () {
             _vm._v(" "),
             _c(
               "ul",
-              [
-                _vm._l(_vm.categorys[0], function (ca, idx) {
-                  return [
+              _vm._l(_vm.categorys[0], function (ca) {
+                return _c(
+                  "li",
+                  { class: ca.ca_id == _vm.p_ca01 ? "focus" : "" },
+                  [
                     _c(
-                      "li",
-                      { class: ca.ca_id == _vm.p_ca01 ? "focus" : "" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            attrs: {
-                              to: {
-                                name: "goods_index",
-                                query: { ca01: ca.ca_id },
-                              },
-                            },
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            name: "goods_index",
+                            query: { ca01: ca.ca_id },
                           },
-                          [_vm._v(_vm._s(ca.ca_name))]
-                        ),
-                      ],
-                      1
+                        },
+                      },
+                      [_vm._v(_vm._s(ca.ca_name))]
                     ),
-                  ]
-                }),
-              ],
-              2
+                  ],
+                  1
+                )
+              }),
+              0
             ),
           ])
         : _vm._e(),
@@ -484,37 +472,36 @@ var render = function () {
             _vm._v(" "),
             _c(
               "ul",
-              [
-                _vm._l(_vm.categorys[3], function (ca, idx) {
-                  return [
+              _vm._l(_vm.categorys[3], function (ca) {
+                return _c(
+                  "li",
+                  {
+                    key: ca.ca_id,
+                    class: ca.ca_id == _vm.p_ca04 ? "focus" : "",
+                  },
+                  [
                     _c(
-                      "li",
-                      { class: ca.ca_id == _vm.p_ca04 ? "focus" : "" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            attrs: {
-                              to: {
-                                name: "goods_index",
-                                query: {
-                                  ca01: _vm.p_ca01,
-                                  ca02: _vm.p_ca02,
-                                  ca03: _vm.p_ca03,
-                                  ca04: ca.ca_id,
-                                },
-                              },
+                      "router-link",
+                      {
+                        attrs: {
+                          to: {
+                            name: "goods_index",
+                            query: {
+                              ca01: _vm.p_ca01,
+                              ca02: _vm.p_ca02,
+                              ca03: _vm.p_ca03,
+                              ca04: ca.ca_id,
                             },
                           },
-                          [_vm._v(_vm._s(ca.ca_name))]
-                        ),
-                      ],
-                      1
+                        },
+                      },
+                      [_vm._v(_vm._s(ca.ca_name))]
                     ),
-                  ]
-                }),
-              ],
-              2
+                  ],
+                  1
+                )
+              }),
+              0
             ),
           ])
         : _vm._e(),

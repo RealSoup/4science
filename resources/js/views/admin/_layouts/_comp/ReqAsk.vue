@@ -38,5 +38,5 @@ export default {
 <style lang="css" scoped>
 .row .col { display:flex; align-items:center; flex-wrap:wrap; }
 .row .col:first-child { flex-basis:17%; max-width:17%; }
-.row .col .btn { margin:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:20rem; text-align:left; }
+.row .col .btn { margin:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:16rem; text-align:left; }
 </style>

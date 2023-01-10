@@ -1,110 +1,115 @@
 <template lang="html">
 <div class="p_wrap">
-    <Location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
-            :categorys="categorys"
-            :p_ca01="$route.query.ca01" 
-            :p_ca02="$route.query.ca02" 
-            :p_ca03="$route.query.ca03" 
-            :p_ca04="$route.query.ca04"
-        />
-    <div class="layout" v-if="sch_cate_info">
-        <b-container class="sch_detail">
-            <b-row>
-                <b-col>
-                    <h5>카테고리</h5>
-                    <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
-                    <p v-for="(ca, i) in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
-                        {{ca.name}} <span>{{ca.cnt}}</span>
-                    </p>
-                </b-col>
-                
-                <b-col>
-                    <h5>중분류</h5>
-                    <p v-for="(ca, i) in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
-                        {{ca.name}} <span>{{ca.cnt}}</span>
-                    </p>
-                </b-col>
-                
-                <b-col>
-                    <h5>소분류</h5>
-                    <p v-for="(ca, i) in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
-                        {{ca.name}} <span>{{ca.cnt}}</span>
-                    </p>
-                </b-col>
-                
-                <b-col>
-                    <h5>제조사</h5>
-                    <p v-for="(mk, i) in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
-                        {{mk.name}} <span>{{mk.cnt}}</span>
-                    </p>
-                </b-col>
-            </b-row>
-        </b-container>
-    </div>
-
-    <div class="pick">
-        <b-row class="layout">
-            <b-col class="fir">
-                <b-img :src="`${s3url}goods/4spick.png`" />
-            </b-col>
-            
-            <b-col>
-                <b-row v-for="(row, i) in pick" :key="i" :class="{active:i == pick_hover}" @mouseover="actHover(i)" tag="ul">
-                    <b-link v-for="gd in row" :key="gd.gd_id"
-                        :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }"
-                        router-tag="li"
-                    >   
-                        <div>
-                            <img :src="gd.image_src_thumb[0]" />
-                        </div>
-                        <p class="tit">{{gd.gd_name}}</p>
-                        <p class="pri">{{gd.gm_price_add_vat | comma}}원</p>
-                    </b-link>
-                </b-row>
-            </b-col>
-        </b-row>
-    </div>
-
-    <div class="layout">
-        <b-container>
-            <b-row class="list">
-                <b-col class="sort">
-                    <ul>
-                        <li :class="{active : frm.sort == ''}" @click="sort()">인기상품순</li>
-                        <li :class="{active : frm.sort == 'new'}" @click="sort('new')">신상품순</li>
-                        <li :class="{active : frm.sort == 'lowPri'}" @click="sort('lowPri')">낮은가격순</li>
-                        <li :class="{active : frm.sort == 'highPri'}" @click="sort('highPri')">높은가격순</li>
-                    </ul>
-                </b-col>
-                
-                <b-col>
-                    <b-row class="lhead">
-                        <b-col>상품</b-col>
-                        <b-col>가격</b-col>
-                        <b-col>제조사</b-col>
-                    </b-row>
-                    <b-row v-if="list.data && list.data.length" v-for="(row, idx) in list.data" :key="row.gd_id" class="lbody">
+    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+        Loading ......
+    </LoadingModal>
+    <template v-else>
+        <Location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
+                :categorys="categorys"
+                :p_ca01="$route.query.ca01" 
+                :p_ca02="$route.query.ca02" 
+                :p_ca03="$route.query.ca03" 
+                :p_ca04="$route.query.ca04"
+            />
+        <div class="layout" v-if="sch_cate_info">
+            <b-container class="sch_detail">
+                <b-row>
+                    <b-col>
+                        <h5>카테고리</h5>
+                        <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
+                        <p v-for="(ca, i) in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
+                            {{ca.name}} <span>{{ca.cnt}}</span>
+                        </p>
+                    </b-col>
                     
-                        <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" router-tag="div" class="col link">
-                            <img :src="row.image_src_thumb[0]" />
-                            <p>
-                                <b>{{row.gd_name}}</b>
-                                <span> {{row.gm_code}} / {{row.gm_spec}} / {{row.gm_unit}}</span>
-                            </p>
+                    <b-col>
+                        <h5>중분류</h5>
+                        <p v-for="(ca, i) in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
+                            {{ca.name}} <span>{{ca.cnt}}</span>
+                        </p>
+                    </b-col>
+                    
+                    <b-col>
+                        <h5>소분류</h5>
+                        <p v-for="(ca, i) in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
+                            {{ca.name}} <span>{{ca.cnt}}</span>
+                        </p>
+                    </b-col>
+                    
+                    <b-col>
+                        <h5>제조사</h5>
+                        <p v-for="(mk, i) in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
+                            {{mk.name}} <span>{{mk.cnt}}</span>
+                        </p>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </div>
+
+        <div class="pick">
+            <b-row class="layout">
+                <b-col class="fir">
+                    <b-img :src="`${s3url}goods/4spick.png`" />
+                </b-col>
+                
+                <b-col>
+                    <b-row v-for="(row, i) in pick" :key="i" :class="{active:i == pick_hover}" @mouseover="actHover(i)" tag="ul">
+                        <b-link v-for="gd in row" :key="gd.gd_id"
+                            :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }"
+                            router-tag="li"
+                        >   
+                            <div>
+                                <img :src="gd.image_src_thumb[0]" />
+                            </div>
+                            <p class="tit">{{gd.gd_name}}</p>
+                            <p class="pri">{{gd.gm_price_add_vat | comma}}원</p>
                         </b-link>
-                        <b-col class="price">
-                            {{row.gm_price_add_vat | comma}} 
-                            <template v-if="row.gm_price_add_vat>0">원</template>
-                        </b-col>
-                        <b-col>{{row.mk_name}}</b-col>
                     </b-row>
-                    <b-alert v-else variant="danger" show>No Item</b-alert>
-                    <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5" />
                 </b-col>
             </b-row>
-        </b-container>
-    </div>
+        </div>
 
+        <div class="layout">
+            <b-container>
+                <b-row class="list">
+                    <b-col class="sort">
+                        <ul>
+                            <li :class="{active : frm.sort == ''}" @click="sort()">인기상품순</li>
+                            <li :class="{active : frm.sort == 'new'}" @click="sort('new')">신상품순</li>
+                            <li :class="{active : frm.sort == 'lowPri'}" @click="sort('lowPri')">낮은가격순</li>
+                            <li :class="{active : frm.sort == 'highPri'}" @click="sort('highPri')">높은가격순</li>
+                        </ul>
+                    </b-col>
+                    
+                    <b-col>
+                        <b-row class="lhead">
+                            <b-col>상품</b-col>
+                            <b-col>가격</b-col>
+                            <b-col>제조사</b-col>
+                        </b-row>
+                        <template v-if="list.data && list.data.length">
+                            <b-row v-for="(row, idx) in list.data" :key="row.gd_id" class="lbody">
+                                <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" router-tag="div" class="col link">
+                                    <img :src="row.image_src_thumb[0]" />
+                                    <p>
+                                        <b>{{row.gd_name}}</b>
+                                        <span> {{row.gm_code}} / {{row.gm_spec}} / {{row.gm_unit}}</span>
+                                    </p>
+                                </b-link>
+                                <b-col class="price">
+                                    {{row.gm_price_add_vat | comma}} 
+                                    <template v-if="row.gm_price_add_vat>0">원</template>
+                                </b-col>
+                                <b-col>{{row.mk_name}}</b-col>
+                            </b-row>
+                        </template>
+                        <b-alert v-else variant="danger" show>No Item</b-alert>
+                        <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5" />
+                    </b-col>
+                </b-row>
+            </b-container>
+        </div>
+    </template>
 </div>
 </template>
 

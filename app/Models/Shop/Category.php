@@ -39,4 +39,35 @@ class Category extends Model {
     // 카테고리 이름 리턴
     // public function getName($ca_id) { return Category::find($ca_id)->ca_name; }
     public function getName($ca_id) { return $this->find($ca_id)->ca_name; }
+
+    public static function getSelectedCate ($ca01=0, $ca02=0, $ca03=0) {
+        $cate = \Cache::get('categoryAll');
+        $rst = Array();
+        $rst[0] = self::filterCate($cate);
+        foreach ($cate as $v_1){
+            if ( $v_1['ca_id'] == $ca01 ) {
+                $rst[1] = self::filterCate($v_1['sub']);
+                foreach ($v_1['sub'] as $v_2) {
+                    if ( $v_2['ca_id'] == $ca02 ) {
+                        $rst[2] = self::filterCate($v_2['sub']);
+                        foreach ($v_2['sub'] as $v_3) {
+                            if ( $v_3['ca_id'] == $ca03 )
+                                $rst[3] = self::filterCate($v_3['sub']);
+                        }
+                    }
+                }
+            }
+        }
+        return $rst;
+    }
+
+    public static function filterCate($cate) {
+        $rst = Array();
+        foreach ($cate as $v) {
+            Arr::forget($v, 'sub');
+            Arr::forget($v, 'sub_show');
+            $rst[] = $v;
+        }
+        return $rst;
+    }
 }

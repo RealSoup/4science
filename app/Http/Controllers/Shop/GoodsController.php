@@ -3,75 +3,88 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category};
+use App\Models\Shop\{Goods, Category, GoodsCategory};
 use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
     protected $goods;
-    protected $cate;
 
-	public function __construct( Goods $gd, Category $cate ) {
-        $this->goods = $gd;
-        $this->cate = $cate;
-    }
-
+	public function __construct( Goods $gd ) { $this->goods = $gd; }
+    
     public function index(Request $req) {
-        $data['categorys'] = collect();
-        $data['categorys'][0] = $this->cate->getCate(0);
-        if ($req->filled('ca01'))    $data['categorys'][1] = $this->cate->getCate($req->ca01);
-        if ($req->filled('ca02'))    $data['categorys'][2] = $this->cate->getCate($req->ca02);
-        if ($req->filled('ca03'))    $data['categorys'][3] = $this->cate->getCate($req->ca03);
+        $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
+                                                        $req->filled('ca02') ? $req->ca02 : 0, 
+                                                        $req->filled('ca03') ? $req->ca03 : 0 );
 
+        $gd = $this->goods->select(
+                                "shop_goods.gd_id", "shop_goods.gd_name", "shop_goods.gd_mk_id", "shop_makers.mk_name",
+                                "shop_goods_category.gc_ca01", "shop_goods_category.gc_ca01_name", "shop_goods_category.gc_ca02", "shop_goods_category.gc_ca02_name",
+                                "shop_goods_category.gc_ca03", "shop_goods_category.gc_ca03_name", "shop_goods_category.gc_ca04", "shop_goods_category.gc_ca04_name",
+                                "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit")
+                            ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
+                            ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')->where('gc_prime', '=', 'Y'); })
+                            ->join('shop_goods_model', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id')->where('gm_prime', '=', 'Y'); })
+                            ->join('shop_makers', function ($join) { $join->on('shop_goods.gd_mk_id', '=', 'shop_makers.mk_id'); });
 
-        $gd = $this->goods->with('maker')
-            ->select("shop_goods.*", "shop_goods_category.*", "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit")
-            ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1]);
-        $goodsCate = DB::table('shop_goods_category')->select('*', DB::raw('MIN(gc_id)'))->groupBy('gc_gd_id');
-        $gd = $gd   ->joinSub($goodsCate, 'shop_goods_category', function ($join) { $join->on('gd_id', '=', 'gc_gd_id'); });
-
-        $goodsModel = DB::table('shop_goods_model')->select('*', DB::raw('MIN(gm_catno03)'))->where('gm_enable', 'Y')->groupBy('gm_gd_id');
-        $gd = $gd   ->joinSub($goodsModel, 'shop_goods_model', function ($join) { $join->on('gd_id', '=', 'gm_gd_id'); });
-
-        if ($req->keyword){
-            switch ($req->mode) {
-                case 'gd_name':     $gd = $gd->SchGd_name($req->keyword); break;
-                case 'gm_name':     $gd = $gd->where('gm_name', 'like', '%'.$req->keyword.'%'); break;
-                case 'gm_code':     $gd = $gd->where('gm_code', 'like', '%'.$req->keyword.'%'); break;
-                case 'cat_no':      $ct = explode('-', $req->keyword);
-                    if (count($ct) == 3) {
-                        $gd = $gd->where('gm_catno01', $ct[0])->where('gm_catno02', $ct[1])->where('gm_catno03', $ct[2]);
-                    } else if (count($ct) == 2){
-                        $gd = $gd->where('gm_catno01', $ct[0])->where('gm_catno02', 'like', $ct[1].'%');
-                    } else if (count($ct) == 1){
-                        $gd = $gd->where( function($query) use ($ct) {
-                                $query->where('gm_catno01', 'like', $ct[0].'%')
-                                    ->orWhere('gm_catno02', 'like', $ct[0].'%'); 
-                        });
+        if ($req->filled('keyword')){
+            $gd_name = $gm_name = $gm_code = $cat_no = null;
+            if ( !$req->filled('mode') || $req->mode == 'gd_name' ) $gd_name = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            if ( !$req->filled('mode') || $req->mode == 'gm_name' ) $gm_name = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            if ( !$req->filled('mode') || $req->mode == 'gm_code' ) $gm_code = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            $isNum=true;
+            if ( !$req->filled('mode') || $req->mode == 'cat_no'  ) {
+                $cat_no  = $req->keyword;
+                $cat_no = explode('-', $cat_no);
+                foreach ($cat_no as $k=>$vv) {
+                    $cat_no[$k] = @intval($vv);
+                    if ( preg_match("/[^0-9]/i", $vv) ) {
+                        $isNum = false; 
+                        break;
                     }
-                break;
-                default:                    
-                    $gd = $gd->where( function($query) use ($req) {
-                        $query->SchGd_name($req->keyword)
-                                ->orWhere('gm_name', 'like', '%'.$req->keyword.'%')
-                                ->orWhere('gm_code', 'like', '%'.$req->keyword.'%');                        
-                        $ct = explode('-', $req->keyword);
-                        if (count($ct) == 3) {
-                            //  숫자로만 되어있는 조합만 캣넘버
-                            if( preg_match("/^[0-9]/i", $ct[0]) && preg_match("/^[0-9]/i", $ct[1]) && preg_match("/^[0-9]/i", $ct[2]) )
-                                $query->orWhere('gm_catno01', $ct[0])->orWhere('gm_catno02', $ct[1])->orWhere('gm_catno03', $ct[2]);
-                        } else if (count($ct) == 2){
-                            if( preg_match("/^[0-9]/i", $ct[0]) && preg_match("/^[0-9]/i", $ct[1]) )
-                                $query->orWhere('gm_catno01', $ct[0])->orWhere('gm_catno02', 'like', $ct[1].'%');
-                        } else if (count($ct) == 1){
-                            if( preg_match("/^[0-9]/i", $ct[0]) )
-                                $query->orWhere('gm_catno01', $ct[0])->orWhere('gm_catno02', 'like', $ct[0].'%');
-                        }
-                    });
-                break;
+                }
             }
+            $gd->when($gd_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gd_id')->from('shop_goods')->whereFullText('gd_name', $v)->where('gd_enable', 'Y'); }, 'or'))
+                ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }, 'or'))
+                ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }, 'or'))
+                ->when($cat_no, function ($q, $v) use($isNum) {
+                    if (!$isNum) return;
+                    else         return $q->whereIn('gd_id', function($q) use($v) {
+                        if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
+                        else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
+                    }, 'or');
+                })
+                ->when($req->ca01,     fn ($q, $v) => $q->Ca01($v))
+                ->when($req->ca02,     fn ($q, $v) => $q->Ca02($v))
+                ->when($req->ca03,     fn ($q, $v) => $q->Ca03($v))
+                ->when($req->ca04,     fn ($q, $v) => $q->Ca04($v))
+                ->when($req->gd_mk_id, fn ($q, $v) => $q->maker($v));
         }
 
-        if ($req->filled('keyword')) {
+        // 정렬 설정 Strart
+        $gd = $gd->orderBy('gd_rank')->orderBy('gd_view_cnt');
+        switch ($req->sort) {
+            case 'hot':     $gd = $gd->orderBy('gd_view_cnt'); break;
+            case 'new':     $gd = $gd->latest('gd_id');        break;
+            case 'lowPri':  $gd = $gd->oldest('gm_price');     break;
+            case 'highPri': $gd = $gd->latest('gm_price');     break;
+        }
+        // 정렬 설정 End
+        
+        // echo_query($gd);
+        if ($req->filled('limit'))  //  메인 베스트
+            $data['list'] = $gd->limit($req->limit)->get(); 
+        else {
+            $data['list'] = $gd->paginate();
+            $data['list']->appends($req->all())->links();
+
+                       
+            $data['pick'][0] = $data['list']->take(6);
+            if (count($data['list']) > 6)
+                $data['pick'][1] = $data['list']->skip(6)->take(6);
+            
+        }
+
+        if ( $req->filled('keyword') && $data['list']->total()>0 ) {
             //  검색시 카테고리 상세 검색을 위한
             //  검생 상품이 속한 카테고리 배열정보
             // $grouped = collect($data['list']->items())->groupBy('gc_ca01');
@@ -115,36 +128,6 @@ class GoodsController extends Controller {
                     $data['sch_cate_info']['maker'][] = $tmp;
                 }
             }
-        }
-
-        if ($req->ca01)         $gd = $gd->Ca01($req->ca01);
-        if ($req->ca02)         $gd = $gd->Ca02($req->ca02);
-        if ($req->ca03)         $gd = $gd->Ca03($req->ca03);
-        if ($req->ca04)         $gd = $gd->Ca04($req->ca04);
-        if ($req->gd_mk_id)     $gd = $gd->maker($req->gd_mk_id);
-
-        // 정렬 설정 Strart
-        $gd = $gd->orderByRaw('ISNULL(gd_rank), gd_rank ASC')->orderBy('gd_view_cnt', 'DESC');
-        switch ($req->sort) {
-            case 'hot':     $gd = $gd->orderBy('gd_view_cnt', 'DESC');  break;
-            case 'new':     $gd = $gd->latest('shop_goods.created_at'); break;
-            case 'lowPri':  $gd = $gd->oldest('gm_price');              break;
-            case 'highPri': $gd = $gd->latest('gm_price');              break;
-        }
-        // 정렬 설정 End
-        
-        // echo_query($gd);
-        if ($req->filled('limit'))  //  메인 베스트
-            $data['list'] = $gd->limit($req->limit)->get(); 
-        else {
-            $data['list'] = $gd->paginate();
-            $data['list']->appends($req->all())->links();
-
-                       
-            $data['pick'][0] = $data['list']->take(6);
-            if (count($data['list']) > 6)
-                $data['pick'][1] = $data['list']->skip(6)->take(6);
-            
         }
 		return response()->json($data);
     }

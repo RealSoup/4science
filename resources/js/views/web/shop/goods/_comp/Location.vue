@@ -9,11 +9,9 @@
                     <b-icon-caret-down-fill></b-icon-caret-down-fill>
                 </span>
                 <ul>
-                    <template v-for="(ca, idx) in categorys[0]">
-                        <li :class="ca.ca_id == p_ca01 ? 'focus' : ''">
-                            <router-link :to="{name: 'goods_index', query:{ca01:ca.ca_id} }">{{ca.ca_name}}</router-link>
-                        </li>
-                    </template>
+                    <li v-for="ca in categorys[0]" :class="ca.ca_id == p_ca01 ? 'focus' : ''">
+                        <router-link :to="{name: 'goods_index', query:{ca01:ca.ca_id} }">{{ca.ca_name}}</router-link>
+                    </li>
                 </ul>
             </li>
             <li v-if="categorys[1]" class="ca_div"><b-icon-chevron-compact-right></b-icon-chevron-compact-right></li>
@@ -56,15 +54,9 @@
                     <b-icon-caret-down-fill></b-icon-caret-down-fill>
                 </span>
                 <ul>
-                    <template v-for="(ca, idx) in categorys[3]">
-                        <li :class="ca.ca_id == p_ca04 ? 'focus' : ''">
-                            <router-link :to="{name: 'goods_index', query:{
-                                ca01:p_ca01,
-                                ca02:p_ca02,
-                                ca03:p_ca03,
-                                ca04:ca.ca_id} }">{{ca.ca_name}}</router-link>
-                        </li>
-                    </template>
+                    <li v-for="ca in categorys[3]" :key="ca.ca_id" :class="ca.ca_id == p_ca04 ? 'focus' : ''">
+                        <router-link :to="{name: 'goods_index', query:{ ca01:p_ca01, ca02:p_ca02, ca03:p_ca03, ca04:ca.ca_id} }">{{ca.ca_name}}</router-link>
+                    </li>
                 </ul>
             </li>
         </ul>
