@@ -152,7 +152,7 @@ class GoodsController extends Controller {
         //  나중에 appends 초기 세팅값이 들어가서
         //  가공한게 날아간다.
         foreach ($data['goods']->goodsModel as $val) {
-            $val->ea = 1;
+            $val->ea = 0;
             $val->bundleDc;
         }
         
