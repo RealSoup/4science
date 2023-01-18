@@ -190,7 +190,7 @@ export default [
         name: 'outlet',
         component:() => import('@/views/web/shop/outlet/Cover'),
     }, {
-        path: '/shop/outlet/:code/:group',
+        path: '/shop/outlet/:type/:group',
         name: 'outlet_index',
         component:() => import('@/views/web/shop/outlet/Index'),
     },

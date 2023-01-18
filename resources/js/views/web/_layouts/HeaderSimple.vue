@@ -30,11 +30,11 @@ export default { name: 'Header', }
     background-color:#fff; background-size: cover; border:1px solid #666;
     display: block; position: absolute; width:120px; height:72px;
     -webkit-transform: rotateY(45deg) translateZ(-200px) rotateX(15deg); -webkit-transform-origin: 50% 50% 0; }
-#cube_logo .cube-wrap .box .side-front { -webkit-transform: translateZ(60px); background-image:url(/img/common/logo01.png); }
-#cube_logo .cube-wrap .box .side-back { -webkit-transform: rotateY(180deg) translateZ(60px); background-image:url(/img/common/logo01.png); }
+#cube_logo .cube-wrap .box .side-front { -webkit-transform: translateZ(60px); background-image:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo01.png); }
+#cube_logo .cube-wrap .box .side-back { -webkit-transform: rotateY(180deg) translateZ(60px); background-image:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo01.png); }
 #cube_logo .cube-wrap .box .side-top { -webkit-transform: rotateX(90deg) translateZ(60px); height:120px; }
 #cube_logo .cube-wrap .box .side-bottom { -webkit-transform: rotateX(-90deg) translateZ(36px); }
-#cube_logo .cube-wrap .box .side-left { -webkit-transform: rotateY(-90deg) translateZ(60px); background-image:url(/img/common/logo02.png); }
-#cube_logo .cube-wrap .box .side-right { -webkit-transform: rotateY(90deg) translateZ(60px); background-image:url(/img/common/logo02.png); }
+#cube_logo .cube-wrap .box .side-left { -webkit-transform: rotateY(-90deg) translateZ(60px); background-image:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo02.png); }
+#cube_logo .cube-wrap .box .side-right { -webkit-transform: rotateY(90deg) translateZ(60px); background-image:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo02.png); }
 @-webkit-keyframes rotate { 0% { -webkit-transform: rotateY(0deg); } 100% { -webkit-transform: rotateY(-360deg); } }
 </style>

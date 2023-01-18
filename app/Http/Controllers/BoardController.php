@@ -93,6 +93,19 @@ class BoardController extends Controller {
         return response()->json($bo);
     }
 
+    public function edit($bo_cd, $bo_id) {
+        // $this->authorize('update', $this->board);
+        // $this->param['act_type'] = 'edit';
+        $bo = $this->board->find($bo_id);
+        $bo->img_file = collect();
+        $bo->add_file = collect();
+        foreach ($bo->fileInfo_bo as $fi) {
+            if(isImg($fi->fi_ext)) $bo->img_file[] = $fi;
+            else                $bo->add_file[] = $fi;
+        }
+        return response()->json($bo);
+    }
+
     public function create($bo_cd, $bo_papa_id=null) {
         $this->param['act_type'] = 'create';
         $this->param['bo_papa_id'] = $bo_papa_id;
@@ -115,6 +128,14 @@ class BoardController extends Controller {
                 'bo_good' => $req->filled('bo_good') ? $req->bo_good : 100,
             ], $pieces]);
         }
+        if ($bo_cd == 'as') {
+            $pieces = Arr::collapse([[
+                'bo_od_type' => $req->filled('bo_od_type') ? $req->bo_od_type : "ON",
+                'bo_od_no' => $req->filled('bo_od_no') ? $req->bo_od_no : 0,
+            ], $pieces]);
+        }
+        if ($bo_cd == 'cancel') 
+            $pieces = Arr::collapse([['bo_type' => $req->bo_type ], $pieces]);
         $pieces = Arr::collapse([$this->bo_reqImplant($req), $pieces]);
         $pieces = Arr::collapse([['created_id' => auth()->user()->id ], $pieces]);
         $bo_id = $this->board->insertGetId($pieces);    //  가공된 자료DB insert
@@ -166,25 +187,20 @@ class BoardController extends Controller {
                     'bo_co_seq_cd' => $bo_co_seq_cd ];
     }
 
-    // public function edit($bo_cd, $bo_id) {
-    //     $this->param['act_type'] = 'edit';
-    //     $bo = $this->board->where('bo_id', $bo_id)->first();
-    //     $this->authorize('update', $bo);
-    //     $this->param['bo'] = $bo;
-    //     if(count($bo->fileInfo_bo)){
-    //         foreach($bo->fileInfo_bo as $fi){
-    //             $fi->src = $fi->getSrc();
-    //             $this->param['add_file'][] = $fi;
-    //         }
-    //     }
-    //     return response()->json($this->param);
-    // }
 
     public function update(StoreBoard $req, $bo_cd, $bo_id) {
         $bo = $this->board->where('bo_id', $bo_id)->first();
         $this->authorize('update', $bo);
 
         $pieces = ['updated_id' => auth()->user()->id, 'updated_at' => now()];
+        if ($bo_cd == 'as') {
+            $pieces = Arr::collapse([[
+                'bo_od_type' => $req->filled('bo_od_type') ? $req->bo_od_type : "ON",
+                'bo_od_no' => $req->filled('bo_od_no') ? $req->bo_od_no : 0,
+            ], $pieces]);
+        }
+        if ($bo_cd == 'cancel') 
+            $pieces = Arr::collapse([['bo_type' => $req->bo_type ], $pieces]);
         $pieces = Arr::collapse([$this->bo_reqImplant($req), $pieces]);
         $bo->update($pieces);
 

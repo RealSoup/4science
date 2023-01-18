@@ -10,7 +10,7 @@ class FileGoods extends Model {
     protected $table = 'file_goods';
     public $timestamps = false;
     protected $fillable = ['down']; // 수정가능 필드 입력
-    protected $appends = ['path', 'path_thumb', 'path'];
+    protected $appends = ['path', 'path_thumb'];
 
     public function getPathAttribute() { return $this->getPath(); }
     public function getPathThumbAttribute() { return $this->getPath('thumb'); }

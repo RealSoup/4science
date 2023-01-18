@@ -13,7 +13,7 @@ class Hash extends Model {
 
     // public function hashJoin() { return $this->hasOne(HashJoin::class, "hs_id"); }
 
-    public function scopeSchHs_tag($query, $hs_tag) { return $query->where('hs_tag', $hs_tag); }
+    public function scopeHsTag($query, $hs_tag) { return $query->where('hs_tag', $hs_tag); }
 
     // 카테고리 목록
     public function hashList($hash_tag=null) {

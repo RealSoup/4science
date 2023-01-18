@@ -75,8 +75,14 @@ export default {
 
 
 <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
-{ height:100%; margin:0px; padding:0px; font-family:"나눔고딕","Nanum Gothic",  "돋움", "굴림","dotum", "Gulim"; color: #333; font-size:16px; }
+{ height:100%; margin:0px; padding:0px; font-family:'Nanum Gothic', '나눔고딕','NanumGothicWeb', '맑은 고딕', 'Malgun Gothic', Dotum; color: #333; font-size:16px; }
 #site.adm{ /*background:#FADBFB;*/ margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}
 #header {  }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
@@ -87,6 +93,10 @@ a, a:hover { color:#333; text-decoration:none; }
 .no_item { border:1px solid #CCC; text-align:center; }
 .btn_box { margin-top:3rem; text-align:center; }
 .btn_box.btn_right { text-align:right; }
+
+.btn_box .lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
+.btn_box .xl { width:440px; font-weight:900; padding:25px 0px; font-size:1.2rem; border-radius:8px; }
+.btn_box .gray { background-color:#B7B7B7; border-color:#B7B7B7; }
 .btn_box .blue { background-color:#0094EA; border-color:#0094EA; }
 .btn_box .wd_33p { font-weight:bold; padding:25px; width:33%; border-radius:9px; border-radius:9px; font-size:1.2rem; }
 input::placeholder, textarea::placeholder { color:#CCC !important; }
@@ -113,7 +123,8 @@ label { margin-bottom:0; }
 .frm_st .row .col small { font-size:60%; }
 .frm_st .row .col input,
 .frm_st .row .col select,
-.frm_st .row .col textarea { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; }
+.frm_st .row .col textarea { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; color:#898989; }
+.frm_st .row .col textarea { padding:13px 23px; }
 .frm_st .row .col input:focus,
 .frm_st .row .col select:focus,
 .frm_st .row .col textarea:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}
@@ -124,8 +135,12 @@ label { margin-bottom:0; }
 .frm_st .row .col.email { display:flex; justify-content:space-between; }
 .frm_st .row .col.email span { position:relative; flex:0 0 30%; max-width:30%; }
 .frm_st .row .col.email span:first-child:after { content:'@'; position:absolute; top:6px; right:-23px; font-weight:bold; font-size:20px; color:#898989; }
+.frm_st .row .col .btn-group-toggle .btn { border-radius:20px; border-width:1px; border-color:#ACACAC; background:#FFF; color:#000; padding:2px 0; min-width:125px; font-size:.85rem;}
+.frm_st .row .col .btn-group-toggle .btn.active { border-width:2px; border-color:#1A90D6; background:#C0E7F8; font-weight:bold; }
+.frm_st .row .col .btn-group-toggle .btn:focus { box-shadow:none; }
 .frm_st .agree { margin-left:0; margin-right:0; }
 .frm_st .agree .col { font-weight:normal; color:#fff; background:#4F708F; border-radius:10px; font-size:.9rem; display:flex; padding:18px 25px; justify-content:space-between; }
+.frm_st .agree .col a { color:#fff; }
 
 
 

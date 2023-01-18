@@ -1,7 +1,7 @@
 <template>
     <b-container>
         <b-row @dragover="onDragover" @drop="onDrop" @click="onClick">
-            <b-col class="intro" col-12 :class="{ hide: value.length }" :style="{ height:height + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
+            <b-col class="intro" col-12 :class="{ hide: value.length }" :style="{ minHeight:(height-30) + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
             <input type="file" ref="fileInput" @change="onFileChange" multiple />
             
             <draggable :list="value" handle=".handle" class="col-12 imgList" @change="seqUpdate=true">
@@ -111,7 +111,7 @@ export default {
 
 <style lang="css" scoped>
 .container { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px; }
-.container .row { cursor:pointer; }
+.container .row { cursor:pointer; margin-bottom:0; }
 .container .row .intro { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA; }
 .container .row .intro.hide { display:none; }
 .container .row input[type="file"] { display:none; }

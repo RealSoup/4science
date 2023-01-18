@@ -5,13 +5,13 @@
                 v-for="ca in category"
                 :key="ca.ca_id"
                 :class="{ 'active': check_query(ca.ca_id) }"
-                @mouseenter="ca.sub_show = true"
+                @click="ca.sub_show = true"
                 @mouseleave="ca.sub_show = false"
             >
-                <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">                    
+                <span class="ca01">
                     <img v-if="check_query(ca.ca_id) || ca.sub_show" :src="s3url+'common/cate/'+ca.ca_id+'_.png'" />
                     <img v-else :src="s3url+'common/cate/'+ca.ca_id+'.png'" />
-                </b-link>
+                </span>
                 <CateSub
                     :sub_show   = 'ca.sub_show && ca.sub.length'
                     :depth      = '1'
@@ -56,13 +56,13 @@ export default {
 #categorys { background:#626C75; z-index:16; position:relative; }
 #categorys .depth01 { display:flex; }
 #categorys .depth01 > li { width:4.761904%; }
-#categorys .depth01 > li a { display:flex; align-items:center; flex-direction:column; padding:10.5px 5px; overflow:hidden; }
-#categorys .depth01 > li:first-of-type a { padding-left:0; }
-#categorys .depth01 > li:last-of-type a { padding-right:0; }
-#categorys .depth01 > li a img { margin-bottom:2px; }
-#categorys .depth01 > li a span { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap; }
-#categorys .depth01 > li.active a span,
-#categorys .depth01 > li:hover a span { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px; }
+#categorys .depth01 > li .ca01 { display:flex; align-items:center; flex-direction:column; padding:10.5px 5px; overflow:hidden; cursor:pointer; }
+#categorys .depth01 > li:first-of-type .ca01 { padding-left:0; }
+#categorys .depth01 > li:last-of-type .ca01 { padding-right:0; }
+#categorys .depth01 > li .ca01 img { margin-bottom:2px; }
+#categorys .depth01 > li .ca01 span { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap; }
+#categorys .depth01 > li.active .ca01 span,
+#categorys .depth01 > li:hover .ca01 span { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px; }
 
 
 

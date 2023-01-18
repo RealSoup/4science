@@ -115,9 +115,6 @@ export default {
     },
     data() {
         return {
-            listType:{
-                best: {sort:'new', limit:6},
-            },
             list:{
                 best:{},
             },
@@ -222,10 +219,11 @@ export default {
     async mounted() {
         window.addEventListener('scroll', this.scrollListener)
 
-        this.index(this.listType.best);
+        // this.index(this.listType.best);
 
         let rst = await ax.get(`/api/main`);
-        this.bestByCategory = rst.data;
+        this.bestByCategory = rst.data.bestByCate;
+        this.list.best = rst.data.best;
     },
     beforeDestroy: function () {
        window.removeEventListener('scroll', this.scrollListener)

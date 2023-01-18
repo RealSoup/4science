@@ -397,50 +397,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                _this2.frm.eq_hp = "".concat(_this2.frm.eq_hp01, "-").concat(_this2.frm.eq_hp02, "-").concat(_this2.frm.eq_hp03);
+                _this2.frm.eq_email = "".concat(_this2.frm.eq_email01, "@").concat(_this2.frm.eq_email02);
+                _context2.prev = 2;
+                _context2.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/estimate", _this2.frm);
 
-              case 3:
+              case 5:
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 11;
+                  _context2.next = 13;
                   break;
                 }
 
-                _context2.next = 7;
+                _context2.next = 9;
                 return _this2.$refs.fileupload.fileProcessor(res.data);
 
-              case 7:
+              case 9:
                 Notify.toast('success', '견적 요청 완료');
 
                 _this2.$router.push({
                   name: 'main'
                 });
 
-                _context2.next = 12;
+                _context2.next = 14;
                 break;
 
-              case 11:
+              case 13:
                 Notify.toast('warning', res);
 
-              case 12:
-                _context2.next = 18;
+              case 14:
+                _context2.next = 20;
                 break;
 
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](0);
+              case 16:
+                _context2.prev = 16;
+                _context2.t0 = _context2["catch"](2);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.responsee);
 
-              case 18:
+              case 20:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 14]]);
+        }, _callee2, null, [[2, 16]]);
       }))();
     },
     pushFi_id: function pushFi_id(fi_id) {
@@ -480,13 +482,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     email_domain_slt: function email_domain_slt() {
       this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
+    },
+    focusNext: function focusNext(e, max, next) {
+      this.$focusNext(e, max, next);
+    },
+    maxlength_3: function maxlength_3(e) {
+      return String(e).substring(0, 3);
+    },
+    maxlength_4: function maxlength_4(e) {
+      return String(e).substring(0, 4);
     }
   },
   mounted: function mounted() {
     var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var res;
+      var res, eq_hp, eq_email;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -501,8 +512,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 4:
               res = _context4.sent;
               if (res && res.status === 200) _this4.email_domain = res.data;
+              eq_hp = Auth.user().hp.split('-');
+              eq_email = Auth.user().email.split('@');
+              _this4.frm.eq_name = Auth.user().name;
+              _this4.frm.eq_hp01 = eq_hp[0];
+              _this4.frm.eq_hp02 = eq_hp[1];
+              _this4.frm.eq_hp03 = eq_hp[2];
+              _this4.frm.eq_email01 = eq_email[0];
+              _this4.frm.eq_email02 = eq_email[1];
+              _this4.frm.eq_department = Auth.user().department;
 
-            case 6:
+            case 15:
             case "end":
               return _context4.stop();
           }
@@ -531,7 +551,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer; margin-bottom:0;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4547,7 +4567,7 @@ var render = function () {
             {
               staticClass: "intro",
               class: { hide: _vm.value.length },
-              style: { height: _vm.height + "px" },
+              style: { minHeight: _vm.height - 30 + "px" },
               attrs: { "col-12": "" },
             },
             [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]
@@ -4749,7 +4769,16 @@ var render = function () {
                             "span",
                             [
                               _c("b-form-input", {
-                                attrs: { id: "eq_hp" },
+                                ref: "eq_hp01",
+                                attrs: {
+                                  formatter: _vm.maxlength_3,
+                                  id: "eq_hp",
+                                },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 3, "eq_hp02")
+                                  },
+                                },
                                 model: {
                                   value: _vm.frm.eq_hp01,
                                   callback: function ($$v) {
@@ -4766,6 +4795,13 @@ var render = function () {
                             "span",
                             [
                               _c("b-form-input", {
+                                ref: "eq_hp02",
+                                attrs: { formatter: _vm.maxlength_4 },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 4, "eq_hp03")
+                                  },
+                                },
                                 model: {
                                   value: _vm.frm.eq_hp02,
                                   callback: function ($$v) {
@@ -4782,6 +4818,8 @@ var render = function () {
                             "span",
                             [
                               _c("b-form-input", {
+                                ref: "eq_hp03",
+                                attrs: { formatter: _vm.maxlength_4 },
                                 model: {
                                   value: _vm.frm.eq_hp03,
                                   callback: function ($$v) {

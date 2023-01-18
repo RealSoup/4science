@@ -31,31 +31,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CSCenterIndex',
   components: {
@@ -74,12 +49,7 @@ __webpack_require__.r(__webpack_exports__);
     'Faq': function Faq() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_cscenter__comp_Faq_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Faq */ "./resources/js/views/web/cscenter/_comp/Faq.vue"));
     }
-  },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -100,7 +70,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#cscenter[data-v-548fa0c2] .tabs { border:5px solid #E2E2E2;\n}\n#cscenter[data-v-548fa0c2] .tabs .col-auto { width:370px;\n}\n#cscenter[data-v-548fa0c2] .tabs .col-auto .nav-tabs .nav-link { background:#4F708F; color:#FFF; font-weight:bold; text-align:center; border-bottom:1px solid #FFF; margin:0; padding:47px 0;\n}\n#cscenter[data-v-548fa0c2] .tabs .col-auto .nav-tabs .nav-link.active { background:#FFF; color:#4F708F;\n}\n.accordion > .card > .card-header[data-v-548fa0c2] { padding: 0.25rem;\n}\n.con_piece[data-v-548fa0c2] { margin:50px 30px;\n}\n.con_piece h3[data-v-548fa0c2] { color:#FE9800; font-weight:bold; font-size:1rem;\n}\n.con_piece h3 span[data-v-548fa0c2] { background-color:#FE9800; color:#fff; display:inline-block; padding:10px 18px; border-radius:25px;\n}\n.con_piece ol[data-v-548fa0c2] { margin:10px 0 0 80px; list-style:decimal; margin-bottom:40px;\n}\n.con_piece ol li .point[data-v-548fa0c2] { color:#FE9800;\n}\ndl.payment dt[data-v-548fa0c2] { font-size:1rem; background-color:#F6F6F6; padding:1rem;\n}\ndl.payment dd[data-v-548fa0c2] { padding:15px;\n}\ndl.payment dd ul[data-v-548fa0c2] { list-style:decimal;\n}\ndl.payment dd ul[data-v-548fa0c2] { margin-left:15px;\n}\ndl.payment dd b[data-v-548fa0c2] { font-weight:900;\n}\ndl.payment dd .point[data-v-548fa0c2] { color:#0D4D9C; font-weight:900;\n}\ndl.payment dd .point span[data-v-548fa0c2] { background-color:#0D4D9C; color:#fff; font-weight:bold; display:inline-block; padding:1px 12px; border-radius:11px;\n}\ndl.payment dd .point b[data-v-548fa0c2] { color:#000;\n}\ndl.payment dd p[data-v-548fa0c2] { margin:0.5rem 0 0.2rem 0;\n}\ndl.payment dd a[data-v-548fa0c2] { font-weight:900; color:#0D4D9C;\n}\ndl.payment dd .view_img[data-v-548fa0c2] { font-size: 0.7rem; padding: 0.12rem 0.2rem 0 0.2rem; line-height: 0.9rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#cscenter[data-v-548fa0c2] .cscenter_tab { border:5px solid #E2E2E2; margin-bottom:5rem;\n}\n#cscenter[data-v-548fa0c2] .cscenter_tab>.col-auto { width:370px; padding-left:0; padding-right:0;\n}\n#cscenter[data-v-548fa0c2] .cscenter_tab>.col-auto .nav-tabs .nav-link { background:#4F708F; color:#FFF; font-weight:bold; text-align:center; border:1px solid #FFF; padding:47px 0; border-radius:0;\n}\n#cscenter[data-v-548fa0c2] .cscenter_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#4F708F;\n}\n#cscenter[data-v-548fa0c2] .cscenter_tab>.tab-content { padding:30px 45px 0;\n}\n#cscenter[data-v-548fa0c2] .info_tab>.col-auto .nav-tabs .nav-link { background:#01B7CD;\n}\n#cscenter[data-v-548fa0c2] .info_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#01B7CD;\n}\n#cscenter[data-v-548fa0c2] .info_tab h3 { color:#FD9800; font-size:1rem; margin-bottom:0;\n}\n#cscenter[data-v-548fa0c2] .info_tab h3 span { background:#FD9800; border-radius:20px; padding:10px 20px; font-weight:bold; font-size:1rem; display:inline-block; color:#fff;\n}\n#cscenter[data-v-548fa0c2] .info_tab ol { margin:10px 0 25px 80px;\n}\n#cscenter[data-v-548fa0c2] .info_tab ol li { font-size:.8rem; list-style:decimal;\n}\n#cscenter[data-v-548fa0c2] .info_tab ol li .point { color:#FD9800;\n}\n#cscenter[data-v-548fa0c2] .info_tab>.tab-content .tab-pane:nth-of-type(4) { text-align:center;\n}\n#cscenter[data-v-548fa0c2] .info_tab>.tab-content .tab-pane:nth-of-type(4) img { margin-bottom:3rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -242,34 +212,28 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-tabs",
-        { attrs: { vertical: "" } },
+        { staticClass: "cscenter_tab", attrs: { vertical: "" } },
         [
-          _c("b-tab", { attrs: { title: "1:1 문의", active: "" } }, [
-            _c(
-              "div",
-              { staticClass: "con_piece" },
-              [_c("BoardCreate", { attrs: { cs_bo_cd: "inquiry" } })],
-              1
-            ),
-          ]),
+          _c(
+            "b-tab",
+            { attrs: { title: "1:1 문의", active: "" } },
+            [_c("BoardCreate", { attrs: { cs_bo_cd: "inquiry" } })],
+            1
+          ),
           _vm._v(" "),
-          _c("b-tab", { attrs: { title: "A/S 신청" } }, [
-            _c(
-              "div",
-              { staticClass: "con_piece" },
-              [_c("BoardCreate", { attrs: { cs_bo_cd: "as" } })],
-              1
-            ),
-          ]),
+          _c(
+            "b-tab",
+            { attrs: { title: "A/S 신청" } },
+            [_c("BoardCreate", { attrs: { cs_bo_cd: "as" } })],
+            1
+          ),
           _vm._v(" "),
-          _c("b-tab", { attrs: { title: "취소/교환" } }, [
-            _c(
-              "div",
-              { staticClass: "con_piece" },
-              [_c("BoardCreate", { attrs: { cs_bo_cd: "cancel" } })],
-              1
-            ),
-          ]),
+          _c(
+            "b-tab",
+            { attrs: { title: "취소/교환" } },
+            [_c("BoardCreate", { attrs: { cs_bo_cd: "cancel" } })],
+            1
+          ),
           _vm._v(" "),
           _c("b-tab", { attrs: { title: "FAQ" } }, [_c("Faq")], 1),
         ],
@@ -278,7 +242,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-tabs",
-        { attrs: { vertical: "" } },
+        { staticClass: "cscenter_tab info_tab", attrs: { vertical: "" } },
         [
           _c(
             "b-tab",
@@ -291,18 +255,11 @@ var render = function () {
           _vm._v(" "),
           _c("b-tab", { attrs: { title: "결제 안내" } }, [_c("PayGuide")], 1),
           _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "회원혜택 안내" } },
-            [
-              _c("b-card-text", [
-                _c("img", {
-                  attrs: { src: _vm.s3url + "cscenter/member_info.png" },
-                }),
-              ]),
-            ],
-            1
-          ),
+          _c("b-tab", { attrs: { title: "회원혜택 안내" } }, [
+            _c("img", {
+              attrs: { src: _vm.s3url + "cscenter/member_info.png" },
+            }),
+          ]),
         ],
         1
       ),

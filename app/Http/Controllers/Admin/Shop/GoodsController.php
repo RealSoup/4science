@@ -386,7 +386,8 @@ class GoodsController extends Controller {
                     'gm_spec'   => $gm['gm_spec'],
                     'gm_unit'   => $gm['gm_unit'],
                     'gm_enable' => $gm['gm_enable'] ?? 'N',
-                    'gm_price'  => $gm['gm_price']];
+                    'gm_price'  => $gm['gm_price'],
+                    'gm_prime'  => $gm['gm_prime']];
     }
     public function option_paramImplant($gd_id, $op){
         return [    'op_gd_id'      => $gd_id,

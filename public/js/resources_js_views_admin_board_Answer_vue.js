@@ -289,6 +289,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -425,7 +443,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer; margin-bottom:0;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4441,7 +4459,7 @@ var render = function () {
             {
               staticClass: "intro",
               class: { hide: _vm.value.length },
-              style: { height: _vm.height + "px" },
+              style: { minHeight: _vm.height - 30 + "px" },
               attrs: { "col-12": "" },
             },
             [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]
@@ -4689,6 +4707,45 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _vm.board.add_file && _vm.board.add_file.length
+                ? _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-icon", {
+                            attrs: { icon: "file-earmark-arrow-down-fill" },
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.board.add_file, function (file) {
+                            return [
+                              _c(
+                                "span",
+                                {
+                                  key: file.fi_id,
+                                  staticClass: "piece",
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.fileDown(
+                                        file.down_path,
+                                        file.fi_original
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v(_vm._s(file.fi_original))]
+                              ),
+                            ]
+                          }),
+                        ],
+                        2
+                      ),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "b-row",
                 [
@@ -4699,11 +4756,11 @@ var render = function () {
                         directives: [
                           {
                             name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true },
+                            rawName: "v-b-tooltip",
+                            value: "제목",
+                            expression: "'제목'",
                           },
                         ],
-                        attrs: { title: "제목" },
                       },
                       [
                         _c("b-icon-chat-right-quote"),
@@ -4719,26 +4776,45 @@ var render = function () {
               _c(
                 "b-row",
                 [
-                  _c("b-col", [
-                    _c(
-                      "span",
+                  _c("b-col", {
+                    directives: [
                       {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true },
-                          },
-                        ],
-                        attrs: { title: "내용" },
+                        name: "b-tooltip",
+                        rawName: "v-b-tooltip",
+                        value: "내용",
+                        expression: "'내용'",
                       },
-                      [
-                        _c("b-icon-chat-right-text"),
-                        _vm._v(_vm._s(_vm.board.bo_content)),
-                      ],
-                      1
-                    ),
-                  ]),
+                    ],
+                    domProps: {
+                      innerHTML: _vm._s(_vm.nl2br(_vm.board.bo_content)),
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    [
+                      _vm.board.img_file && _vm.board.img_file.length
+                        ? [
+                            _vm._l(_vm.board.img_file, function (image, i) {
+                              return _c("img", {
+                                key: i,
+                                staticClass: "me-auto ms-auto d-block",
+                                attrs: { src: image.path },
+                              })
+                            }),
+                            _vm._v(" "),
+                            _c("hr"),
+                          ]
+                        : _vm._e(),
+                    ],
+                    2
+                  ),
                 ],
                 1
               ),

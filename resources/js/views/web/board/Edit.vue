@@ -33,7 +33,7 @@ export default {
     methods: {
         async edit(){
             try {
-                const res = await ax.get(`/api/board/${this.bo_cd}/show/${this.bo_id}`);
+                const res = await ax.get(`/api/board/${this.bo_cd}/edit/${this.bo_id}`);
                 if (res && res.status === 200) {
                     this.frm = res.data;
                     this.config = res.data.config;

@@ -1,27 +1,38 @@
 <template>
     <div>
         <div class="top_back"></div>
-        <b-container class="w_fence">
+        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+            Loading ......
+        </LoadingModal>
+        <b-container v-else class="w_fence">
             <ul class="top">
                 <li><b-link :to="{name:'outlet'}">포사전문관</b-link></li>
                 <li>
-                    <template v-if="$route.params.code == 'pipette'">피펫</template>
-                    <template v-else-if="$route.params.code == 'measure'">환경측정기</template>
-                    <template v-else-if="$route.params.code == 'tweezer'">트위져</template>
-                    <template v-else-if="$route.params.code == 'hotplate'">핫플레이트</template>
-                    <template v-else-if="$route.params.code == 'meter'">광파워미터</template>
+                    <template v-if="$route.params.type == 'pipette'">피펫</template>
+                    <template v-else-if="$route.params.type == 'measure'">환경측정기</template>
+                    <template v-else-if="$route.params.type == 'tweezer'">트위져</template>
+                    <template v-else-if="$route.params.type == 'hotplate'">핫플레이트</template>
+                    <template v-else-if="$route.params.type == 'meter'">광파워미터</template>
                 </li>
-                <li>{{menu[$route.params.code][$route.params.group]}}</li>
+                <li>{{menu[$route.params.type][$route.params.group]}}</li>
             </ul>
-
-            <b-row>
-                <b-col v-for="ol in list" :key="ol.gd_id">
-                    <b-link :to="{name:'goods_show', params:{gd_id:ol.gd_id}}">
-                        <b-img :src="ol.image_src_thumb[0]" />
-                        <p>{{ol.gd_name}}</p>
-                    </b-link>
-                </b-col>
-            </b-row>
+            <template v-if="list.data && list.data.length">
+                <Hotplate v-if="$route.params.type == 'hotplate'" 
+                    v-model="list.data"
+                />
+                <template v-else>
+                    <b-row v-if="list.data && list.data.length">
+                        <b-col v-for="ol in list.data" :key="ol.gd_id">
+                            <b-link :to="{name:'goods_show', params:{gd_id:ol.gd_id}}">
+                                <b-img :src="ol.image_src_thumb[0]" />
+                                <p>{{ol.gd_name}}</p>
+                            </b-link>
+                        </b-col>
+                    </b-row>
+                </template>
+            </template>
+            <b-alert v-else variant="danger" show>No Item</b-alert>
+            <pagination :data="list" @pagination-change-page="index" align="center" class="mt-5" />
         </b-container>
 
     </div>
@@ -32,19 +43,28 @@ import ax from '@/api/http';
 import { menu } from './_comp/ListMenu.js'
 
 export default {
+    components: { 
+        'LoadingModal': () => import('@/views/_common/LoadingModal'),
+        'Hotplate':     () => import('./_comp/Hotplate'), 
+    },
     data() {
         return {
             menu:menu,
-            list:{}
+            list:{},
+            isLoadingModalViewed:true,
+            frm:{
+                page:0,
+            },
         }
     },
     methods: {
-        async index(){
+        async index(page=1){
+            this.frm.page = page;
             try {
-                const res = await ax.get(`/api/shop/outlet/${this.$route.params.code}/${this.$route.params.group}/12`);
+                const res = await ax.get(`/api/shop/outlet/${this.$route.params.type}/${this.$route.params.group}`, { params: this.frm});
                 if (res && res.status === 200) {
                     this.list=res.data;
-                    console.log(this.list);
+                    this.isLoadingModalViewed= false;
                 }
             } catch (e) {
                 Notify.consolePrint(e);

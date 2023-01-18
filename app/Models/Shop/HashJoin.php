@@ -13,7 +13,7 @@ class HashJoin extends Model {
     public function hash() { return $this->hasOne(Hash::class, 'hs_id', 'hs_id'); }
     public function joinHash() { return $this->join('shop_hash', 'shop_hash_join.hs_id', '=', 'shop_hash.hs_id')->select('shop_hash.hs_id', 'shop_hash.hs_tag'); }
 
-    public function scopeGd_id($query, $gd_id) { return $query->where('gd_id', $gd_id); }
-    public function scopeHs_id($query, $hs_id) { return $query->where('hs_id', $hs_id); }
+    public function scopeGdId($query, $gd_id) { return $query->where('gd_id', $gd_id); }
+    public function scopeHsId($query, $hs_id) { return $query->where('hs_id', $hs_id); }
 
 }

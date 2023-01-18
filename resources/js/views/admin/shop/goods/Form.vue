@@ -151,41 +151,46 @@
             <b-row><b-col class="tit">Model</b-col></b-row>
             
             <b-row class="head cell">
-                <b-col col lg="3">제품명</b-col>
+                <b-col col lg="3">활성화 / 제품명</b-col>
                 <b-col col lg="1">CAT.No</b-col>                
                 <b-col col lg="1">모델명</b-col>
                 <b-col col lg="3">스펙</b-col>
                 <b-col col lg="1">판매단위</b-col>
-                <b-col col lg="2">활성화 / 가격</b-col>
+                <b-col col lg="2">가격 / 대표 가격</b-col>
                 <b-col>Ctrl</b-col>
             </b-row>
 
             <b-row v-for="(model, i) in value.goods_model" :key="i">
                 <b-col col lg="3">
-                    <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name'></b-form-input>
+                    <b-input-group size="sm">
+                        <b-input-group-prepend is-text v-b-tooltip="'제품 활성화'">
+                            <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_enable' value="Y" unchecked-value="N" />
+                        </b-input-group-prepend>
+                        <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name' />
+                    </b-input-group>
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]" />
                 </b-col>
                 <b-col col lg="1">
-                    <b-form-input v-model='model.gm_catno' readonly></b-form-input>
+                    <b-form-input v-model='model.gm_catno' readonly />
                 </b-col>
                 <b-col col lg="1">
-                    <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code'></b-form-input>
+                    <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code' />
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]" />
                 </b-col>
                 <b-col col lg="3">
-                    <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec'></b-form-input>
+                    <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec' />
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]" />
                 </b-col>
                 <b-col col lg="1">
-                    <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit'></b-form-input>
+                    <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit' />
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]" />
                 </b-col>
                 <b-col col lg="2">
                     <b-input-group size="sm">
-                        <b-input-group-prepend is-text>
-                            <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_enable' value="Y" unchecked-value="N" />
-                        </b-input-group-prepend>
-                        <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right"></b-form-input>
+                        <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right" />
+                        <b-input-group-append is-text v-b-tooltip="'대표 가격'">
+                            <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" />
+                        </b-input-group-append>
                     </b-input-group>
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
                 </b-col>
@@ -356,7 +361,7 @@ export default {
             }
         },
 
-        insertAtModel() { this.value.goods_model.push({ gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_price:'', bundle_dc:[], bd_open:false }); },
+        insertAtModel() { this.value.goods_model.push({ gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_price:'', bundle_dc:[], bd_open:false }); },
         removeAtModel(i) {
             if (this.$route.name == 'adm_goods_edit' && this.value.goods_model[i].gm_id) {
                 if (!this.value.hasOwnProperty("delete_goods_model"))

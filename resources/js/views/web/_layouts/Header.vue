@@ -41,6 +41,7 @@
                                 <option value="gm_name">제품명</option>
                                 <option value="gm_code">모델명</option>
                                 <option value="cat_no">Cat.No</option>
+                                <option value="maker">제조사</option>
                             </select>
                             <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
                             <b-button type="submit"><font-awesome-icon icon="search" /></b-button>

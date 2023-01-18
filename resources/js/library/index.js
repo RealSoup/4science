@@ -314,12 +314,10 @@ export default {
             }
             return res
         };
-
-        Vue.prototype.fileDown = async function (src, oriName) {
-            // this.$store.dispatch('board/fileDown', { src:src, oriName:oriName });
-// console.log('prototype');
+        
+        Vue.prototype.fileDown = async function (path, oriName) {
             try {
-                const res = await ax.get(`${src}`, { responseType: 'blob' });
+                const res = await ax.post(`api/download`, {path:path}, { responseType:'blob' });
                 let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
                 let fileLink = document.createElement('a');
                 fileLink.href = fileUrl;
@@ -332,6 +330,21 @@ export default {
                 Notify.consolePrint(e);
             }
         };
+        // Vue.prototype.fileDown = async function (src, oriName) {
+        //     try {
+        //         const res = await ax.get(`${src}`, { responseType: 'blob' });
+        //         let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+        //         let fileLink = document.createElement('a');
+        //         fileLink.href = fileUrl;
+
+        //         fileLink.setAttribute('download', oriName);
+        //         document.body.appendChild(fileLink);
+
+        //         fileLink.click();
+        //     } catch (e) {
+        //         Notify.consolePrint(e);
+        //     }
+        // };
         
         Vue.prototype.$focusNext = function (e, max, next) {
             if (e.target.value.length === max) {

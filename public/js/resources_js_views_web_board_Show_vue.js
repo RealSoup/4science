@@ -870,7 +870,10 @@ var render = function () {
                         staticClass: "piece",
                         on: {
                           click: function ($event) {
-                            return _vm.fileDown(file.path, file.fi_original)
+                            return _vm.fileDown(
+                              file.down_path,
+                              file.fi_original
+                            )
                           },
                         },
                       },

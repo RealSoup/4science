@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory};
+use App\Models\Shop\{Goods, Category, GoodsCategory, Hash};
 use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
@@ -27,10 +27,13 @@ class GoodsController extends Controller {
                             ->join('shop_makers', function ($join) { $join->on('shop_goods.gd_mk_id', '=', 'shop_makers.mk_id'); });
 
         if ($req->filled('keyword')){
-            $gd_name = $gm_name = $gm_code = $cat_no = null;
-            if ( !$req->filled('mode') || $req->mode == 'gd_name' ) $gd_name = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
-            if ( !$req->filled('mode') || $req->mode == 'gm_name' ) $gm_name = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
-            if ( !$req->filled('mode') || $req->mode == 'gm_code' ) $gm_code = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            $gd_name = $gm_name = $gm_code = $cat_no = $hash = $maker = null;
+            $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            if ( !$req->filled('mode') || $req->mode == 'gd_name' ) $gd_name = $ftWord;
+            if ( !$req->filled('mode') || $req->mode == 'gm_name' ) $gm_name = $ftWord;
+            if ( !$req->filled('mode') || $req->mode == 'gm_code' ) $gm_code = $req->keyword;
+            if ( !$req->filled('mode') || $req->mode == 'maker' )   $maker = $req->keyword;
+            if ( !$req->filled('mode') ) $hash = $req->keyword;
             $isNum=true;
             if ( !$req->filled('mode') || $req->mode == 'cat_no'  ) {
                 $cat_no  = $req->keyword;
@@ -43,6 +46,7 @@ class GoodsController extends Controller {
                     }
                 }
             }
+
             $gd->when($gd_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gd_id')->from('shop_goods')->whereFullText('gd_name', $v)->where('gd_enable', 'Y'); }, 'or'))
                 ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }, 'or'))
                 ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }, 'or'))
@@ -52,13 +56,19 @@ class GoodsController extends Controller {
                         if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
                         else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
                     }, 'or');
-                })
-                ->when($req->ca01,     fn ($q, $v) => $q->Ca01($v))
-                ->when($req->ca02,     fn ($q, $v) => $q->Ca02($v))
-                ->when($req->ca03,     fn ($q, $v) => $q->Ca03($v))
-                ->when($req->ca04,     fn ($q, $v) => $q->Ca04($v))
-                ->when($req->gd_mk_id, fn ($q, $v) => $q->maker($v));
+                })->when($hash, function ($q, $v) {
+                    $h = Hash::HsTag($v)->first();
+                    if ( !$h )  return;
+                    else        return $q->whereIn('gd_id', function($q) use($h) {
+                        $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
+                    }, 'or');
+                })->when($maker, fn ($q, $v) => $q->where("mk_name", $v));
         }
+        $gd->when($req->ca01,     fn ($q, $v) => $q->Ca01($v))
+            ->when($req->ca02,     fn ($q, $v) => $q->Ca02($v))
+            ->when($req->ca03,     fn ($q, $v) => $q->Ca03($v))
+            ->when($req->ca04,     fn ($q, $v) => $q->Ca04($v))
+            ->when($req->gd_mk_id, fn ($q, $v) => $q->maker($v));
 
         // 정렬 설정 Strart
         $gd = $gd->orderBy('gd_rank')->orderBy('gd_view_cnt');

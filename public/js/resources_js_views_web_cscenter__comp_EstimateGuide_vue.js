@@ -144,7 +144,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "con_piece active" }, [
+    return _c("div", [
       _c("h3", [_vm._v("step 1. "), _c("span", [_vm._v("원하는 제품 찾기")])]),
       _vm._v(" "),
       _c("ol", [

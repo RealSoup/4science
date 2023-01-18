@@ -469,9 +469,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1288",
                                   },
                                 },
                               },
@@ -493,9 +493,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1286",
                                   },
                                 },
                               },
@@ -517,9 +517,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1281",
                                   },
                                 },
                               },
@@ -541,9 +541,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1283",
                                   },
                                 },
                               },
@@ -565,9 +565,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1287",
                                   },
                                 },
                               },
@@ -589,9 +589,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1282",
                                   },
                                 },
                               },
@@ -614,9 +614,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1284",
                                   },
                                 },
                               },
@@ -638,9 +638,9 @@ var render = function () {
                                   name: "goods_index",
                                   query: {
                                     ca01: "27",
-                                    ca02: "1291",
-                                    ca03: "1294",
-                                    ca04: "1302",
+                                    ca02: "1277",
+                                    ca03: "1280",
+                                    ca04: "1293",
                                   },
                                 },
                               },
@@ -671,7 +671,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "01" },
+                                  params: { type: "pipette", group: "01" },
                                 },
                               },
                             },
@@ -684,7 +684,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "02" },
+                                  params: { type: "pipette", group: "02" },
                                 },
                               },
                             },
@@ -697,7 +697,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "03" },
+                                  params: { type: "pipette", group: "03" },
                                 },
                               },
                             },
@@ -710,7 +710,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "04" },
+                                  params: { type: "pipette", group: "04" },
                                 },
                               },
                             },
@@ -723,7 +723,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "05" },
+                                  params: { type: "pipette", group: "05" },
                                 },
                               },
                             },
@@ -736,7 +736,7 @@ var render = function () {
                               attrs: {
                                 to: {
                                   name: "outlet_index",
-                                  params: { code: "pipette", group: "06" },
+                                  params: { type: "pipette", group: "06" },
                                 },
                               },
                             },
@@ -770,7 +770,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "700",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("종합환경측정기")]
@@ -780,7 +787,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "701",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("미세먼지측정기")]
@@ -790,7 +804,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "702",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("수질측정기")]
@@ -800,7 +821,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "703",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("소음측정기")]
@@ -810,7 +838,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "704",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("온습도계")]
@@ -820,7 +855,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "25",
+                                    ca02: "699",
+                                    ca03: "705",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("기타측정기")]
@@ -863,7 +905,12 @@ var render = function () {
                           _c(
                             "b-link",
                             {
-                              attrs: { to: { name: "goods_index", params: 1 } },
+                              attrs: {
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmfl" },
+                                },
+                              },
                             },
                             [
                               _c("img", {
@@ -879,7 +926,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmwf" },
+                                },
                               },
                             },
                             [
@@ -896,7 +946,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmfi" },
+                                },
                               },
                             },
                             [
@@ -913,7 +966,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmtf" },
+                                },
                               },
                             },
                             [
@@ -930,7 +986,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmra" },
+                                },
                               },
                             },
                             [
@@ -947,7 +1006,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmfb" },
+                                },
                               },
                             },
                             [
@@ -964,7 +1026,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmpt" },
+                                },
                               },
                             },
                             [
@@ -981,7 +1046,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "tweezer", group: "tmvc" },
+                                },
                               },
                             },
                             [
@@ -1009,7 +1077,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    mode: "maker",
+                                    keyword: "Ideal-tek",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1026,7 +1100,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: { mode: "maker", keyword: "rubis" },
+                                },
                               },
                             },
                             [
@@ -1042,7 +1119,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: { mode: "maker", keyword: "SIPEL" },
+                                },
                               },
                             },
                             [
@@ -1058,7 +1138,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    mode: "maker",
+                                    keyword: "Techni-tool",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1074,7 +1160,14 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "goods_index",
+                                  query: {
+                                    ca01: "33",
+                                    ca02: "5618",
+                                    ca03: "5670",
+                                  },
+                                },
                               },
                             },
                             [_vm._v("기타 브랜드")]
@@ -1107,7 +1200,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "IKA" },
+                                },
                               },
                             },
                             [
@@ -1123,7 +1219,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "AS ONE" },
+                                },
                               },
                             },
                             [
@@ -1139,7 +1238,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: {
+                                    type: "hotplate",
+                                    group: "대한과학",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1155,7 +1260,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: {
+                                    type: "hotplate",
+                                    group: "Lab companion",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1172,7 +1283,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: {
+                                    type: "hotplate",
+                                    group: "Global Lab",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1189,7 +1306,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: {
+                                    type: "hotplate",
+                                    group: "Corning",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1206,7 +1329,13 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: {
+                                    type: "hotplate",
+                                    group: "미성과학기기",
+                                  },
+                                },
                               },
                             },
                             [
@@ -1233,7 +1362,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "01" },
+                                },
                               },
                             },
                             [_vm._v("온도별")]
@@ -1243,7 +1375,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "02" },
+                                },
                               },
                             },
                             [_vm._v("사이즈별")]
@@ -1253,7 +1388,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "03" },
+                                },
                               },
                             },
                             [_vm._v("기능별")]
@@ -1263,7 +1401,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "hotplate", group: "04" },
+                                },
                               },
                             },
                             [_vm._v("HOTPLATE & Stirrer")]
@@ -1296,7 +1437,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "01" },
+                                },
                               },
                             },
                             [
@@ -1312,7 +1456,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "02" },
+                                },
                               },
                             },
                             [
@@ -1328,7 +1475,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "03" },
+                                },
                               },
                             },
                             [
@@ -1344,7 +1494,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "04" },
+                                },
                               },
                             },
                             [
@@ -1362,7 +1515,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "05" },
+                                },
                               },
                             },
                             [
@@ -1380,7 +1536,10 @@ var render = function () {
                             "b-link",
                             {
                               attrs: {
-                                to: { name: "outlet_index", params: 1 },
+                                to: {
+                                  name: "outlet_index",
+                                  params: { type: "meter", group: "04" },
+                                },
                               },
                             },
                             [

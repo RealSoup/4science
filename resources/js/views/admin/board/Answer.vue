@@ -29,14 +29,32 @@ v-model="something"
                     <span v-b-tooltip.hover title="작성일"><b-icon-calendar-date />{{ board.created_at | formatDate }}</span>
                 </b-col>
             </b-row>
+            <b-row v-if="board.add_file && board.add_file.length">
+                <b-col>
+                    <b-icon icon="file-earmark-arrow-down-fill" />
+                    <template v-for="file in board.add_file">
+                        <span class="piece" @click="fileDown(file.down_path, file.fi_original)" :key="file.fi_id">{{file.fi_original}}</span>
+                    </template>
+                </b-col>
+            
+            </b-row>
+
+            
+
             <b-row>
                 <b-col>
-                    <span v-b-tooltip.hover title="제목"><b-icon-chat-right-quote />{{ board.bo_subject }}</span>
+                    <span v-b-tooltip="'제목'"><b-icon-chat-right-quote />{{ board.bo_subject }}</span>
                 </b-col>
             </b-row>
             <b-row>
+                <b-col v-b-tooltip="'내용'" v-html="nl2br(board.bo_content)" />
+            </b-row>
+            <b-row>
                 <b-col>
-                    <span v-b-tooltip.hover title="내용"><b-icon-chat-right-text />{{ board.bo_content }}</span>
+                    <template v-if="board.img_file && board.img_file.length">
+                        <img v-for="(image, i) in board.img_file" :src="image.path" class='me-auto ms-auto d-block' :key="i" />
+                        <hr />
+                    </template>
                 </b-col>
             </b-row>
         </b-container>

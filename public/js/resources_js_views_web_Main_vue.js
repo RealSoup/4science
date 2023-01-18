@@ -147,12 +147,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      listType: {
-        best: {
-          sort: 'new',
-          limit: 6
-        }
-      },
       list: {
         best: {}
       },
@@ -284,16 +278,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              window.addEventListener('scroll', _this2.scrollListener);
+              window.addEventListener('scroll', _this2.scrollListener); // this.index(this.listType.best);
 
-              _this2.index(_this2.listType.best);
-
-              _context2.next = 4;
+              _context2.next = 3;
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/main");
 
-            case 4:
+            case 3:
               rst = _context2.sent;
-              _this2.bestByCategory = rst.data;
+              _this2.bestByCategory = rst.data.bestByCate;
+              _this2.list.best = rst.data.best;
 
             case 6:
             case "end":

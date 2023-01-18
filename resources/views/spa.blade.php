@@ -10,7 +10,6 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet" /> -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
 </head>
 <body>
     <div id="app"></div>

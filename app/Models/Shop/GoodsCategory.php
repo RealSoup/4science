@@ -10,4 +10,7 @@ class GoodsCategory extends Model {
     public $timestamps = false;
 
     public function scopePrime($q) { return $q->where('gc_prime', 'Y'); }
+    public function scopeCaId01($q, $id) { return $q->where('gc_ca01', $id); }
+    public function scopeCaId02($q, $id) { return $q->where('gc_ca02', $id); }
+    public function scopeCaId03($q, $id) { return $q->where('gc_ca03', $id); }
 }

@@ -23,13 +23,13 @@ class Board extends Model {
     
 
     protected $options = [
-        'gd_inquiry'=> ['name'=> '상품문의', 'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
-        'notice'    => ['name'=> '공지사항', 'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>true, 'is_qna'=>false ],
-        'review'    => ['name'=> '상품평',   'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>true, 'is_qna'=>false ],
-        'event'     => ['name'=> '이벤트',   'wlv'=>20, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>false ],
-        'inquiry'   => ['name'=> '1:1문의',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
-        'as'        => ['name'=> 'A/S신청',  'wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
-        'cancel'    => ['name'=> '취소/교환','wlv'=>1, 'is_comment'=>true, 'is_addFile'=>false, 'is_qna'=>true ],
+        'gd_inquiry'=> [ 'bo_cd'=> 'gd_inquiry', 'name'=> '상품문의', 'wlv'=>1, 'is_comment'=>false, 'is_addFile'=>false, 'is_qna'=>true ],
+        'notice'    => [ 'bo_cd'=> 'notice',     'name'=> '공지사항', 'wlv'=>20, 'is_comment'=>false, 'is_addFile'=>true, 'is_qna'=>false ],
+        'review'    => [ 'bo_cd'=> 'review',     'name'=> '상품평',   'wlv'=>1, 'is_comment'=>false, 'is_addFile'=>true, 'is_qna'=>false ],
+        'event'     => [ 'bo_cd'=> 'event',      'name'=> '이벤트',   'wlv'=>20, 'is_comment'=>false, 'is_addFile'=>false, 'is_qna'=>false ],
+        'inquiry'   => [ 'bo_cd'=> 'inquiry',    'name'=> '1:1문의',  'wlv'=>1, 'is_comment'=>false, 'is_addFile'=>true, 'is_qna'=>true ],
+        'as'        => [ 'bo_cd'=> 'as',         'name'=> 'A/S신청',  'wlv'=>1, 'is_comment'=>false, 'is_addFile'=>false, 'is_qna'=>true ],
+        'cancel'    => [ 'bo_cd'=> 'cancel',     'name'=> '취소/교환','wlv'=>1, 'is_comment'=>false, 'is_addFile'=>false, 'is_qna'=>true ],
         'requestAsk'=>'',
     ];   
 
@@ -41,7 +41,7 @@ class Board extends Model {
         return $this;
     }
 
-    public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
+    // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
     public function getCodeAttribute() { return self::$code; }
     public function getConfigAttribute() { return self::$config; }
     // public function getUploadPathAttribute() { return self::$upload_path; }

@@ -203,6 +203,7 @@ class Goods extends Model {
                                         'pa_dlvy_p_add_vat' => $gd->purchaseAt ? $gd->purchaseAt->pa_price_add_vat : 0,
                                         'gd_enable'         => $gd->gd_enable,
                                         'gm_enable'         => $gm->gm_enable,
+                                        'gm_prime'          => $gm->gm_prime,
                                         'gm_id'             => $gm->gm_id,
                                         'ea'                => $v['model'][$gm->gm_id]['ea'],
                                         'img'               => $gd->image_src_thumb[0],

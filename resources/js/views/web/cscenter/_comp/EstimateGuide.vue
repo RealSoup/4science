@@ -1,5 +1,5 @@
 <template>
-<div class="con_piece active">
+<div>
     <h3>step 1. <span>원하는 제품 찾기</span></h3>
     <ol>
         <li>홈페이지의 상단에 있는 <b>[상품검색]</b>에서 통합검색 또는 상품명, Cat.No, 모델명, 제조사(브랜드)를 입력하시면 원하시는 상품을 검색할 수 있습니다.</li>

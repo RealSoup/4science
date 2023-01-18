@@ -70,7 +70,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         Route::prefix('outlet')->group(function () {
-            Route::GET('{code}/{type}/{group}', 'Shop\OutletController@index')->name('shop.outlet.index');
+            Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
         });
 
         Route::get('listing/{type}', 'Shop\ListingController@index');
@@ -261,20 +261,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-    
-
-
-
-
 
 
     /*  <<<<<<<<<<<<<<<<<<<<<<      공통        >>>>>>>>>>>>>>>>>>>>>>>*/
-    Route::post('upload', 'CommonController@upload')->name('upload');
-    Route::post('uploadSimple', 'CommonController@uploadSimple')->name('uploadSimple');
+    Route::post('upload', 'CommonController@upload');
+    Route::post('download', 'CommonController@download');
+    Route::get('deleteFiles/{fi_id?}', 'CommonController@deleteFiles');
+    // Route::post('uploadSimple', 'CommonController@uploadSimple')->name('uploadSimple');
     
-    Route::get('download/{fi_id}', 'CommonController@download')->name('download');
-    Route::get('downloadGoods/{fi_id}', 'CommonController@downloadGoods')->name('downloadGoods');
-    Route::get('deleteFiles/{fi_id?}', 'CommonController@deleteFiles')->name('deleteFiles');
+    // Route::get('downloadGoods/{fi_id}', 'CommonController@downloadGoods');
 });
 
 

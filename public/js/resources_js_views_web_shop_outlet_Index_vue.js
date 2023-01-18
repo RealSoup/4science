@@ -50,52 +50,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    'LoadingModal': function LoadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal */ "./resources/js/views/_common/LoadingModal.vue"));
+    },
+    'Hotplate': function Hotplate() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_outlet__comp_Hotplate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Hotplate */ "./resources/js/views/web/shop/outlet/_comp/Hotplate.vue"));
+    }
+  },
   data: function data() {
     return {
       menu: _comp_ListMenu_js__WEBPACK_IMPORTED_MODULE_2__.menu,
-      list: {}
+      list: {},
+      isLoadingModalViewed: true,
+      frm: {
+        page: 0
+      }
     };
   },
   methods: {
     index: function index() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var page, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/outlet/".concat(_this.$route.params.code, "/").concat(_this.$route.params.group, "/12"));
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _this.frm.page = page;
+                _context.prev = 2;
+                _context.next = 5;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/outlet/".concat(_this.$route.params.type, "/").concat(_this.$route.params.group), {
+                  params: _this.frm
+                });
 
-              case 3:
+              case 5:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.list = res.data;
-                  console.log(_this.list);
+                  _this.isLoadingModalViewed = false;
                 }
 
-                _context.next = 11;
+                _context.next = 13;
                 break;
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](2);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[2, 9]]);
       }))();
     }
   },
@@ -116,13 +144,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "menu": () => (/* binding */ menu)
 /* harmony export */ });
-// const menu = [
-//     { kor: '피펫관',          eng:  'pipette', },
-//     { kor: '환경측정기관',    eng:  'measure', },
-//     { kor: '트위져관',        eng:  'tweezer', },
-//     { kor: '핫플레이트관',    eng:  'hotplate', },
-//     { kor: '광파워미터관',    eng:  'meter', },
-// ];
 var menu = {
   pipette: {
     '01': '싱글피펫',
@@ -131,13 +152,47 @@ var menu = {
     '04': '전자피펫',
     '05': '팁',
     '06': '거치대 / 스타트키트'
+  },
+  measure: {
+    '01': '종합환경측정기',
+    '02': '미세먼지측정기',
+    '03': '수질측정기',
+    '04': '소음측정기',
+    '05': '온습도계',
+    '06': '기타측정기'
+  },
+  tweezer: {
+    'tmfl': 'Flat tip tweezer',
+    'tmwf': 'Wafer tweezer',
+    'tmfi': 'Fine tip tweezer',
+    'tmtf': 'Teflon & coating tweezer',
+    'tmra': 'Reverse action tweezer',
+    'tmfb': 'Fiber tip tweezer',
+    'tmpt': 'Plastic tweezer',
+    'tmvc': 'Vacuum tweezer'
+  },
+  hotplate: {
+    'IKA': 'IKA',
+    'AS ONE': 'AS ONE',
+    '대한과학': '대한과학',
+    'Lab companion': 'Lab companion',
+    'Global Lab': 'Global Lab',
+    'Corning': 'Corning',
+    '미성과학기기': '미성과학기기',
+    '01': '온도별',
+    '02': '사이즈별',
+    '03': '기능형',
+    '04': 'Hotplate&Stirrer'
+  },
+  meter: {
+    '01': 'OPHIR',
+    '02': 'Thorlabs',
+    '03': 'Newport',
+    '04': 'Power/Energy Meter',
+    '05': 'Photodiode Detector',
+    '06': 'Thermal Detector'
   }
-}; // { pipette: '피펫관',          eng:  'pipette', },
-// { kor: '환경측정기관',    eng:  'measure', },
-// { kor: '트위져관',        eng:  'tweezer', },
-// { kor: '핫플레이트관',    eng:  'hotplate', },
-// { kor: '광파워미터관',    eng:  'meter', },
-
+};
 
 
 /***/ }),
@@ -297,78 +352,124 @@ var render = function () {
     [
       _c("div", { staticClass: "top_back" }),
       _vm._v(" "),
-      _c(
-        "b-container",
-        { staticClass: "w_fence" },
-        [
-          _c("ul", { staticClass: "top" }, [
-            _c(
-              "li",
-              [
-                _c("b-link", { attrs: { to: { name: "outlet" } } }, [
-                  _vm._v("포사전문관"),
-                ]),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              [
-                _vm.$route.params.code == "pipette"
-                  ? [_vm._v("피펫")]
-                  : _vm.$route.params.code == "measure"
-                  ? [_vm._v("환경측정기")]
-                  : _vm.$route.params.code == "tweezer"
-                  ? [_vm._v("트위져")]
-                  : _vm.$route.params.code == "hotplate"
-                  ? [_vm._v("핫플레이트")]
-                  : _vm.$route.params.code == "meter"
-                  ? [_vm._v("광파워미터")]
-                  : _vm._e(),
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v(
-                _vm._s(
-                  _vm.menu[_vm.$route.params.code][_vm.$route.params.group]
-                )
-              ),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            _vm._l(_vm.list, function (ol) {
-              return _c(
-                "b-col",
-                { key: ol.gd_id },
-                [
-                  _c(
-                    "b-link",
-                    {
-                      attrs: {
-                        to: { name: "goods_show", params: { gd_id: ol.gd_id } },
-                      },
-                    },
-                    [
-                      _c("b-img", { attrs: { src: ol.image_src_thumb[0] } }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(ol.gd_name))]),
-                    ],
-                    1
+      _vm.isLoadingModalViewed
+        ? _c(
+            "LoadingModal",
+            {
+              attrs: { position: "absolute" },
+              on: {
+                "close-modal": function ($event) {
+                  _vm.isLoadingModalViewed = false
+                },
+              },
+            },
+            [_vm._v("\n        Loading ......\n    ")]
+          )
+        : _c(
+            "b-container",
+            { staticClass: "w_fence" },
+            [
+              _c("ul", { staticClass: "top" }, [
+                _c(
+                  "li",
+                  [
+                    _c("b-link", { attrs: { to: { name: "outlet" } } }, [
+                      _vm._v("포사전문관"),
+                    ]),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _vm.$route.params.type == "pipette"
+                      ? [_vm._v("피펫")]
+                      : _vm.$route.params.type == "measure"
+                      ? [_vm._v("환경측정기")]
+                      : _vm.$route.params.type == "tweezer"
+                      ? [_vm._v("트위져")]
+                      : _vm.$route.params.type == "hotplate"
+                      ? [_vm._v("핫플레이트")]
+                      : _vm.$route.params.type == "meter"
+                      ? [_vm._v("광파워미터")]
+                      : _vm._e(),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v(
+                    _vm._s(
+                      _vm.menu[_vm.$route.params.type][_vm.$route.params.group]
+                    )
                   ),
-                ],
-                1
-              )
-            }),
-            1
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm.list.data && _vm.list.data.length
+                ? [
+                    _vm.$route.params.type == "hotplate"
+                      ? _c("Hotplate", {
+                          model: {
+                            value: _vm.list.data,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.list, "data", $$v)
+                            },
+                            expression: "list.data",
+                          },
+                        })
+                      : [
+                          _vm.list.data && _vm.list.data.length
+                            ? _c(
+                                "b-row",
+                                _vm._l(_vm.list.data, function (ol) {
+                                  return _c(
+                                    "b-col",
+                                    { key: ol.gd_id },
+                                    [
+                                      _c(
+                                        "b-link",
+                                        {
+                                          attrs: {
+                                            to: {
+                                              name: "goods_show",
+                                              params: { gd_id: ol.gd_id },
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("b-img", {
+                                            attrs: {
+                                              src: ol.image_src_thumb[0],
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("p", [_vm._v(_vm._s(ol.gd_name))]),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                }),
+                                1
+                              )
+                            : _vm._e(),
+                        ],
+                  ]
+                : _c("b-alert", { attrs: { variant: "danger", show: "" } }, [
+                    _vm._v("No Item"),
+                  ]),
+              _vm._v(" "),
+              _c("pagination", {
+                staticClass: "mt-5",
+                attrs: { data: _vm.list, align: "center" },
+                on: { "pagination-change-page": _vm.index },
+              }),
+            ],
+            2
           ),
-        ],
-        1
-      ),
     ],
     1
   )

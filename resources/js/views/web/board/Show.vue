@@ -11,7 +11,7 @@
         <li class="list-inline-item add_file" v-if="board.add_file && board.add_file.length">
             <b-icon icon="file-earmark-arrow-down-fill" />
             <template v-for="file in board.add_file">
-                <span class="piece" @click="fileDown(file.path, file.fi_original)" :key="file.fi_id">{{file.fi_original}}</span>
+                <span class="piece" @click="fileDown(file.down_path, file.fi_original)" :key="file.fi_id">{{file.fi_original}}</span>
             </template>
         </li>
     </ul>

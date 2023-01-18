@@ -36,26 +36,26 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>브랜드별</b>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/thermo.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/witeg.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/gilson.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/eppen.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/axygen.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/sartorius.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/socorex.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1291', ca03:'1294', ca04:'1302' }}" ><img :src="s3url+'outlet/pipette/etc.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1288' }}" ><img :src="s3url+'outlet/pipette/thermo.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1286' }}" ><img :src="s3url+'outlet/pipette/witeg.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1281' }}" ><img :src="s3url+'outlet/pipette/gilson.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1283' }}" ><img :src="s3url+'outlet/pipette/eppen.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1287' }}" ><img :src="s3url+'outlet/pipette/axygen.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1282' }}" ><img :src="s3url+'outlet/pipette/sartorius.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1284' }}" ><img :src="s3url+'outlet/pipette/socorex.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1293' }}" ><img :src="s3url+'outlet/pipette/etc.png'" /></b-link>
                             </div>
                         </div>
                         
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>종류별</b>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'01'}}" >싱글피펫</b-link>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'02'}}" >멀티피펫</b-link>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'03'}}" >피펫에이드</b-link>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'04'}}" >전자피펫</b-link>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'05'}}" >팁</b-link>
-                                <b-link :to="{name: 'outlet_index', params: {code:'pipette', group:'06'}}" >거치대 / 스타트키트</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'01'}}" >싱글피펫</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'02'}}" >멀티피펫</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'03'}}" >피펫에이드</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'04'}}" >전자피펫</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'05'}}" >팁</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'pipette', group:'06'}}" >거치대 / 스타트키트</b-link>
                             </div>
                         </div>
                     </b-collapse>
@@ -66,12 +66,12 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>종류별</b>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >종합환경측정기</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >미세먼지측정기</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >수질측정기</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >소음측정기</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >온습도계</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >기타측정기</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'700' }}" >종합환경측정기</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'701' }}" >미세먼지측정기</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'702' }}" >수질측정기</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'703' }}" >소음측정기</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'704' }}" >온습도계</b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'25', ca02:'699', ca03:'705' }}" >기타측정기</b-link>
                             </div>
                         </div>
                         <div class="frame">1<br />1<br />1<br />1<br /></div>
@@ -85,25 +85,25 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>용도별</b>
-                                <b-link :to="{name: 'goods_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t01.png'" /><span>Flat tip tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t02.png'" /><span>Wafer tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t03.png'" /><span>Fine tip tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t04.png'" /><span>Teflon& coating tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t05.png'" /><span>Reverse action tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t06.png'" /><span>Fiber tip tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t07.png'" /><span>Plastic tweezer</span></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/t08.png'" /><span>Vacuum tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmfl'}}" ><img :src="s3url+'outlet/tweezer/t01.png'" /><span>Flat tip tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmwf'}}" ><img :src="s3url+'outlet/tweezer/t02.png'" /><span>Wafer tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmfi'}}" ><img :src="s3url+'outlet/tweezer/t03.png'" /><span>Fine tip tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmtf'}}" ><img :src="s3url+'outlet/tweezer/t04.png'" /><span>Teflon& coating tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmra'}}" ><img :src="s3url+'outlet/tweezer/t05.png'" /><span>Reverse action tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmfb'}}" ><img :src="s3url+'outlet/tweezer/t06.png'" /><span>Fiber tip tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmpt'}}" ><img :src="s3url+'outlet/tweezer/t07.png'" /><span>Plastic tweezer</span></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'tweezer', group:'tmvc'}}" ><img :src="s3url+'outlet/tweezer/t08.png'" /><span>Vacuum tweezer</span></b-link>
                             </div>
                         </div>
                         
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>브랜드별</b>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/ideal-tek.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/rubis.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/sipel.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/tweezer/techni.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >기타 브랜드</b-link>
+                                <b-link :to="{name: 'goods_index', query: { mode:'maker', keyword:'Ideal-tek' }}" ><img :src="s3url+'outlet/tweezer/ideal-tek.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { mode:'maker', keyword:'rubis' }}" ><img :src="s3url+'outlet/tweezer/rubis.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { mode:'maker', keyword:'SIPEL' }}" ><img :src="s3url+'outlet/tweezer/sipel.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { mode:'maker', keyword:'Techni-tool' }}" ><img :src="s3url+'outlet/tweezer/techni.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'33', ca02:'5618', ca03:'5670' }}" >기타 브랜드</b-link>
                             </div>
                         </div>
                     </b-collapse>
@@ -114,23 +114,23 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>브랜드별</b>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/ika.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/asone.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/daihan.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/jeiotech.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/globallab.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/corning.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/hotplate/mtops.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'IKA'}}" ><img :src="s3url+'outlet/hotplate/ika.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'AS ONE'}}" ><img :src="s3url+'outlet/hotplate/asone.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'대한과학'}}" ><img :src="s3url+'outlet/hotplate/daihan.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'Lab companion'}}" ><img :src="s3url+'outlet/hotplate/jeiotech.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'Global Lab'}}" ><img :src="s3url+'outlet/hotplate/globallab.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'Corning'}}" ><img :src="s3url+'outlet/hotplate/corning.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'미성과학기기'}}" ><img :src="s3url+'outlet/hotplate/mtops.png'" /></b-link>
                             </div>
                         </div>
                         
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>종류별</b>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >온도별</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >사이즈별</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >기능별</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" >HOTPLATE & Stirrer</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'01'}}" >온도별</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'02'}}" >사이즈별</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'03'}}" >기능별</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'hotplate', group:'04'}}" >HOTPLATE & Stirrer</b-link>
                             </div>
                         </div>
                     </b-collapse>
@@ -141,12 +141,12 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>브랜드별</b>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/ophir.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/thorlabs.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/newport.png'" /></b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/powerenergy.png'" /> Power/Energy</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/photodiode.png'" /> Photodiode</b-link>
-                                <b-link :to="{name: 'outlet_index', params: 1}" ><img :src="s3url+'outlet/meter/thermal.png'" /> Thermal</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'01'}}" ><img :src="s3url+'outlet/meter/ophir.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'02'}}" ><img :src="s3url+'outlet/meter/thorlabs.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'03'}}" ><img :src="s3url+'outlet/meter/newport.png'" /></b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'04'}}" ><img :src="s3url+'outlet/meter/powerenergy.png'" /> Power/Energy</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'05'}}" ><img :src="s3url+'outlet/meter/photodiode.png'" /> Photodiode</b-link>
+                                <b-link :to="{name: 'outlet_index', params: {type:'meter', group:'04'}}" ><img :src="s3url+'outlet/meter/thermal.png'" /> Thermal</b-link>
                             </div>
                         </div>
                     </b-collapse>

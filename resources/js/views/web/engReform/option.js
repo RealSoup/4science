@@ -1,5 +1,5 @@
 const use_opt = [
-    { value:'',     text:'선택 하세요' },
+    { value:'',     text:'필수 선택' },
     { value:'1',    text:'[학술] 초록' },
     { value:'2',    text:'[학술] 사례연구' },
     { value:'3',    text:'[학술] 연구비 신청서' },
@@ -19,7 +19,7 @@ const use_opt = [
     { value:'17',   text:'[학술 문서 이외] 기타 (학술문서 외)' },
 ];
 const branch_opt = [
-    { value:"",  text:'선택 하세요' },
+    { value:"",  text:'필수 선택' },
     { value:"1",  text:'Arts, Media, and Communication' },
     { value:"2",  text:'Biochemistry, Genetics, and Molecular Biology' },
     { value:"3",  text:'Business and Finance' },

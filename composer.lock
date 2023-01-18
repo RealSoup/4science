@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "777624769c7492dbcdbb718a160ab1a9",
+    "content-hash": "93e90a5ed69b5f506708305da3c5a6ba",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3963,6 +3963,64 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "rolandstarke/laravel-thumbnail",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rolandstarke/laravel-thumbnail.git",
+                "reference": "c4376091f4f4dcfecd0d9b64d46d26acd18bbc04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rolandstarke/laravel-thumbnail/zipball/c4376091f4f4dcfecd0d9b64d46d26acd18bbc04",
+                "reference": "c4376091f4f4dcfecd0d9b64d46d26acd18bbc04",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.0",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rolandstarke\\Thumbnail\\ThumbnailServiceProvider"
+                    ],
+                    "aliases": {
+                        "Thumbnail": "Rolandstarke\\Thumbnail\\Facades\\Thumbnail"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rolandstarke\\Thumbnail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roland Starke"
+                }
+            ],
+            "description": "Laravel Thumbnail generator",
+            "keywords": [
+                "image",
+                "laravel",
+                "thumbnail"
+            ],
+            "support": {
+                "issues": "https://github.com/rolandstarke/laravel-thumbnail/issues",
+                "source": "https://github.com/rolandstarke/laravel-thumbnail/tree/v1.0.6"
+            },
+            "time": "2022-09-23T11:03:34+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

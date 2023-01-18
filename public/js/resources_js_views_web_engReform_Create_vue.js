@@ -436,6 +436,133 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -447,6 +574,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'LoadingModal': function LoadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    },
+    'Modal': function Modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
     }
   },
   watch: {
@@ -464,12 +594,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         er_editor: '',
         er_eng_style: 'AM',
         file_info_work: [],
-        file_info_ref: []
+        file_info_ref: [],
+        agree: 'Y'
       },
       isLoadingModalViewed: false,
       use_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.use_opt,
       branch_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.branch_opt,
-      editor_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.editor_opt
+      editor_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.editor_opt,
+      email_domain: [],
+      email_domain_slt_idx: 0,
+      isModalViewed: false
     };
   },
   methods: {
@@ -482,40 +616,87 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
+                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
                 _this.isLoadingModalViewed = true;
-                _context.next = 3;
+                _context.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
 
-              case 3:
+              case 5:
                 res = _context.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context.next = 11;
+                  _context.next = 13;
                   break;
                 }
 
-                _context.next = 7;
+                _context.next = 9;
                 return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
 
-              case 7:
-                _context.next = 9;
+              case 9:
+                _context.next = 11;
                 return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
 
-              case 9:
+              case 11:
                 _this.isLoadingModalViewed = false;
 
                 _this.$router.push({
                   name: 'my_eng_reform_index'
                 });
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    email_domain_slt: function email_domain_slt() {
+      this.frm.er_email02 = this.email_domain[this.email_domain_slt_idx];
+    },
+    focusNext: function focusNext(e, max, next) {
+      this.$focusNext(e, max, next);
+    },
+    maxlength_3: function maxlength_3(e) {
+      return String(e).substring(0, 3);
+    },
+    maxlength_4: function maxlength_4(e) {
+      return String(e).substring(0, 4);
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res, er_hp, er_email;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/user/getEmailDomain");
+
+            case 2:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.email_domain = res.data;
+              er_hp = Auth.user().hp.split('-');
+              er_email = Auth.user().email.split('@');
+              _this2.frm.er_name = Auth.user().name;
+              _this2.frm.er_hp01 = er_hp[0];
+              _this2.frm.er_hp02 = er_hp[1];
+              _this2.frm.er_hp03 = er_hp[2];
+              _this2.frm.er_email01 = er_email[0];
+              _this2.frm.er_email02 = er_email[1];
+              _this2.frm.er_depart = Auth.user().department;
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -536,7 +717,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var use_opt = [{
   value: '',
-  text: '선택 하세요'
+  text: '필수 선택'
 }, {
   value: '1',
   text: '[학술] 초록'
@@ -591,7 +772,7 @@ var use_opt = [{
 }];
 var branch_opt = [{
   value: "",
-  text: '선택 하세요'
+  text: '필수 선택'
 }, {
   value: "1",
   text: 'Arts, Media, and Communication'
@@ -1908,7 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer; margin-bottom:0;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1932,7 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.engReform .card .row[data-v-5d903260] { margin-bottom:1rem;\n}\n.engReform .card .row .col small[data-v-5d903260] { color:#aaa;\n}\n.engReform[data-v-5d903260] { clear:both;padding:0 0 0 0;/*text-align:center;*/\n}\n.engReform[data-v-5d903260]:after { content:\"\";display:block;clear:both;\n}\n.engReform div.section[data-v-5d903260] { margin:0 0 30px 0;\n}\n.engReform table[data-v-5d903260] { width:100%;border-collapse:collapse;border:1px solid #d5d5d5;\n}\n.engReform table tr th[data-v-5d903260] { height:30px;background-color:#3a3a3a;color:#fff;border:1px solid #ececec;\n}\n.engReform table tr th.h40[data-v-5d903260] { height:40px;\n}\n.engReform table tr th > p[data-v-5d903260] { text-align:center;font-weight:normal;color:#d5d5d5;font-size:11px;padding:0;margin:5px 0 0 0;\n}\n.engReform table tr td[data-v-5d903260] { height:30px;border:1px solid #d5d5d5;padding:5px 20px;line-height:20px;\n}\n.engReform table tr td.bg1[data-v-5d903260] { background-color:#ececec;\n}\n.engReform table tr td.bg2[data-v-5d903260] { background-color:#f8f8f8;\n}\n.engReform table tr td.bold[data-v-5d903260] { font-weight:bold;\n}\n.engReform table tr td span[data-v-5d903260] { font-size:11px;\n}\n.engReform p[data-v-5d903260] { padding:10px 0 0 0;text-align:left;line-height:20px;\n}\n.engReform span.sub_title[data-v-5d903260] {\r\n\tdisplay:block;\r\n\twidth:100%;\r\n\tfont-family:'Nanum Gothic Bold','맑은고딕',Helvetica,'Apple SD Gothic Neo';\r\n\tcolor:#1a1a1a;\r\n\tfont-size:16px;\r\n\ttext-align:left;\r\n\tpadding:0 0 6px 0;\r\n\tborder-bottom:1px solid #888888;\n}\n.engReform span.sub_title img[data-v-5d903260] { margin:-2px 5px 0 0;\n}\n.engReform ul[data-v-5d903260] { margin:10px 0 0 0;padding:0;text-align:left;\n}\n.engReform ul li[data-v-5d903260] { padding:0 0 0 10px;list-style:none;line-height:20px;\n}\n.engReform ul li[data-v-5d903260]:before { content:'- ';\n}\n.engReform .line[data-v-5d903260] { width:100%;border-bottom:1px dashed #d5d5d5;margin:0 0 30px 0;\n}\n.engReform_quotationArea[data-v-5d903260] { clear:both;padding:0 0 0 0;text-align:center;\n}\n.engReform_quotationArea[data-v-5d903260]:after { content:\"\";display:block;clear:both;\n}\n#engR_q_cont[data-v-5d903260] { display:none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-5d903260] { margin-top:0; text-align:left;\n}\n.w_fence .lg[data-v-5d903260] { padding: 7px 0px; margin-left:1rem;\n}\n#engReform>.row>.col[data-v-5d903260] { padding:0;\n}\n#engReform .row .col h5[data-v-5d903260] { margin:30px 0 20px 20px;\n}\n.tbl01[data-v-5d903260] { width:100%; border:5px solid #E1E1E1;\n}\n.tbl01.strong tr th[data-v-5d903260],\r\n.tbl01.strong tr td[data-v-5d903260] { font-weight:bold;\n}\n.tbl01 tr th[data-v-5d903260],\r\n.tbl01 tr td[data-v-5d903260] { text-align:center; font-size:.9rem;\n}\n.tbl01 tr th[data-v-5d903260] { background:#4F708F; color:#fff; text-align:center; width:300px; padding:10px 0;\n}\n.tbl01 tr td[data-v-5d903260] { padding:10px 30px;\n}\n.tbl01 tr td.bg1[data-v-5d903260] { background:#B7B7B7;\n}\n.tbl01 tr td.bg2[data-v-5d903260] { background:#EFF0F2;\n}\n.tbl01 tr td.other[data-v-5d903260] { text-align:left; font-weight:normal;\n}\nol.num_list[data-v-5d903260] { margin:15px 0 0 40px;\n}\nol.num_list li[data-v-5d903260] { list-style-type:decimal; font-size:.82rem; margin:.3rem 0;\n}\nol.num_list li:first-child b[data-v-5d903260] { color:#0094EA;\n}\n.style01[data-v-5d903260] { border:3px solid #7EA8DA; position:relative; padding:22px 80px 30px 140px; border-radius:2.7rem; margin:2.5rem -15px 2.5rem 4rem;\n}\n.style01 .circle[data-v-5d903260] { position:absolute; top:50%; left:-6%; transform:translateY(-50%); background:#7EA8DA; width:170px; padding:67px 0; text-align:center; font-size:1.25rem; color:#fff; font-weight:bold; border-radius:50%;\n}\n.style01 p[data-v-5d903260] { font-weight:bold; margin-bottom:.1rem;\n}\n.style01 .point[data-v-5d903260] { color:#0094EA; margin-top:.7rem;font-size:1.2rem;\n}\n.style01 hr[data-v-5d903260] { border-color:#D7D7D7;\n}\n.style01.premium[data-v-5d903260] { border-color:#5674BA;\n}\n.style01.premium .circle[data-v-5d903260] { background:#5674BA;\n}\n.style01.plus[data-v-5d903260] { border-color:#855FAA;\n}\n.style01.plus .circle[data-v-5d903260] { background:#855FAA;\n}\n#engReform .row .user[data-v-5d903260] { flex-basis:38%; max-width:38%; margin-right:45px;\n}\n#engReform .row .user .rs_modal[data-v-5d903260] { color:#1a1a1a;\n}\n.frm_st .row .col.label_st[data-v-5d903260] { font-size:.9rem; flex-basis:115px; max-width:115px;\n}\n.frm_st .row .col small[data-v-5d903260] { font-size:.68rem; color:#999; margin-left:.6rem;\n}\n.frm_st .row .col small.line2[data-v-5d903260]  { width:45%; display:inline-block;\n}\n.frm_st .row .col .len01[data-v-5d903260] { width:40%; float:left;\n}\n.frm_st .row .col .len02[data-v-5d903260] { width:50%; float:left;\n}\n.frm_st .row .col_er_type>div[data-v-5d903260]:not(:last-child) { margin-right:12px;\n}\n.frm_st .row .col .b-form-btn-label-control[data-v-5d903260] { background:#F2F3F5;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:first-child { float:left;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:last-child { float:right; border:2px solid #1A90D6; border-radius:17px; overflow:hidden;\n}\n.frm_st .row .col_er_format .input-group[data-v-5d903260] { width:80%;\n}\n.frm_st .row .col_er_format .input-group .input-group-text[data-v-5d903260] { padding:0; border-width:0; background:none;\n}\n.frm_st .row .col_er_format .input-group input[data-v-5d903260] { height:auto;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn { border-width:0 !important;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn.active { border-radius: 20px 0 0 20px;\n}\n.frm_st .row .col input[data-v-5d903260], \r\n.frm_st .row .col select[data-v-5d903260], \r\n.frm_st .row .col textarea[data-v-5d903260] { padding:2px 16px;\n}\n.frm_st .row .col input[data-v-5d903260]:focus, \r\n.frm_st .row .col select[data-v-5d903260]:focus, \r\n.frm_st .row .col textarea[data-v-5d903260]:focus { background: #fff; border-width:0 !important;\n}\n.frm_st .row .col.hp span[data-v-5d903260]:not(:last-child):after { right: -14px;\n}\n.frm_st .row .col.email span[data-v-5d903260]:first-child:after { right:-19px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5768,7 +5949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html& */ "./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html&");
+/* harmony import */ var _Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Create.vue?vue&type=template&id=5d903260&scoped=true& */ "./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&");
 /* harmony import */ var _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create.vue?vue&type=script&lang=js& */ "./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js&");
 /* harmony import */ var _Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& */ "./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -5782,8 +5963,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "5d903260",
@@ -5873,19 +6054,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html&":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html& ***!
-  \**********************************************************************************************************/
+/***/ "./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true& ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=5d903260&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&");
 
 
 /***/ }),
@@ -5924,7 +6105,7 @@ var render = function () {
             {
               staticClass: "intro",
               class: { hide: _vm.value.length },
-              style: { height: _vm.height + "px" },
+              style: { minHeight: _vm.height - 30 + "px" },
               attrs: { "col-12": "" },
             },
             [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]
@@ -6007,10 +6188,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html&":
-/*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&lang=html& ***!
-  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6024,739 +6205,1552 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "engReform" },
+    "b-container",
+    { staticClass: "w_fence", attrs: { id: "engReform" } },
     [
       _c(
-        "b-card",
-        {
-          staticClass: "shadow mt-3",
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("요청자 정보")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        "h3",
+        { staticClass: "btn_box" },
         [
-          _vm._v(" "),
+          _vm._v("영문교정 "),
           _c(
-            "b-container",
-            [
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    { staticClass: "awesome_p" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { id: "er_name", required: "" },
-                        model: {
-                          value: _vm.frm.er_name,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_name", $$v)
-                          },
-                          expression: "frm.er_name",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "er_name" } }, [
-                        _c("span", [_vm._v("이름")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_name,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "awesome_p" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { type: "email", id: "er_email", required: "" },
-                        model: {
-                          value: _vm.frm.er_email,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_email", $$v)
-                          },
-                          expression: "frm.er_email",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "er_email" } }, [
-                        _c("span", [_vm._v("이메일")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_email,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "awesome_p" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { id: "er_depart", required: "" },
-                        model: {
-                          value: _vm.frm.er_depart,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_depart", $$v)
-                          },
-                          expression: "frm.er_depart",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "er_depart" } }, [
-                        _c("span", [
-                          _vm._v("소속 "),
-                          _c("small", [
-                            _c("i", [_vm._v("직장/학교/부서/학과/연구실명")]),
-                          ]),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_depart,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "awesome_p" },
-                    [
-                      _c("b-form-input", {
-                        attrs: {
-                          id: "er_hp",
-                          required: "",
-                          formatter: _vm.formatHp,
-                        },
-                        model: {
-                          value: _vm.frm.er_hp,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_hp", $$v)
-                          },
-                          expression: "frm.er_hp",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "er_hp" } }, [
-                        _c("span", [_vm._v("휴대폰")]),
-                      ]),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_hp,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "awesome_p" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { id: "er_tel", formatter: _vm.formatTel },
-                        model: {
-                          value: _vm.frm.er_tel,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_tel", $$v)
-                          },
-                          expression: "frm.er_tel",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "er_tel" } }, [
-                        _c("span", [_vm._v("전화")]),
-                      ]),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
+            "b-button",
+            {
+              staticClass: "blue lg",
+              attrs: { href: "#engReform_form_od_top" },
+            },
+            [_vm._v("영문 교정 신청하기")]
           ),
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        {
-          staticClass: "shadow mt-3",
-          scopedSlots: _vm._u([
-            {
-              key: "header",
-              fn: function () {
-                return [_c("b", [_vm._v("요청 정보")])]
-              },
-              proxy: true,
-            },
-          ]),
-        },
+        "b-row",
         [
-          _vm._v(" "),
-          _c(
-            "b-container",
-            [
-              _c("b-row", [
-                _c(
-                  "label",
-                  { staticClass: "col col-lg-3" },
-                  [
-                    _c("b", { staticClass: "d-block" }, [_vm._v("서비스선택")]),
+          _c("b-col", [
+            _c(
+              "table",
+              {
+                staticClass: "tbl01 strong",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", [_vm._v("서비스내용")]),
                     _vm._v(" "),
                     _c(
-                      "b-form-radio-group",
-                      {
-                        attrs: {
-                          "button-variant": "outline-info",
-                          size: "sm",
-                          buttons: "",
-                          id: "er_type",
-                        },
-                        model: {
-                          value: _vm.frm.er_type,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_type", $$v)
-                          },
-                          expression: "frm.er_type",
-                        },
-                      },
+                      "td",
+                      { staticClass: "other", attrs: { colspan: "5" } },
                       [
-                        _c("b-form-radio", { attrs: { value: "1" } }, [
-                          _vm._v("일반 교정"),
-                        ]),
-                        _vm._v(" "),
-                        _c("b-form-radio", { attrs: { value: "2" } }, [
-                          _vm._v("프리미엄 교정"),
-                        ]),
-                        _vm._v(" "),
-                        _c("b-form-radio", { attrs: { value: "3" } }, [
-                          _vm._v("프리미엄플러스  교정"),
-                        ]),
-                      ],
-                      1
+                        _vm._v(
+                          "영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서"
+                        ),
+                      ]
                     ),
-                    _vm._v(" "),
-                    _c("Validation", {
-                      attrs: {
-                        error: this.$store.state.error.validations.er_type,
-                      },
-                    }),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    directives: [
-                      {
-                        name: "b-tooltip",
-                        rawName: "v-b-tooltip.hover",
-                        modifiers: { hover: true },
-                      },
-                    ],
-                    staticClass: "col col-lg-3",
-                    attrs: {
-                      title:
-                        "교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.",
-                    },
-                  },
-                  [
-                    _c("b", [_vm._v("납기일")]),
-                    _vm._v(" "),
-                    _c("b-form-datepicker", {
-                      staticClass: "mb-2",
-                      attrs: {
-                        id: "er_dlvy_at",
-                        placeholder: "Choose a start date",
-                      },
-                      model: {
-                        value: _vm.frm.er_dlvy_at,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.frm, "er_dlvy_at", $$v)
-                        },
-                        expression: "frm.er_dlvy_at",
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c("Validation", {
-                      attrs: {
-                        error: this.$store.state.error.validations.er_dlvy_at,
-                      },
-                    }),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "b-tooltip",
-                        rawName: "v-b-tooltip.hover",
-                        modifiers: { hover: true },
-                      },
-                    ],
-                    staticClass: "col",
-                    attrs: {
-                      title: "저널지침에 따른 포맷팅 여부를 선택해주세요.",
-                    },
-                  },
-                  [
-                    _c("b", [_vm._v("포맷팅")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("파일서식")]),
                     _vm._v(" "),
                     _c(
-                      "b-input-group",
-                      { attrs: { id: "er_format" } },
+                      "td",
+                      { staticClass: "other", attrs: { colspan: "5" } },
                       [
-                        _c(
-                          "b-input-group-prepend",
-                          { attrs: { "is-text": "" } },
-                          [
-                            _c("label", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.er_format,
-                                    expression: "frm.er_format",
-                                  },
-                                ],
-                                attrs: {
-                                  type: "radio",
-                                  name: "er_format",
-                                  value: "NFM",
-                                },
-                                domProps: {
-                                  checked: _vm._q(_vm.frm.er_format, "NFM"),
-                                },
-                                on: {
-                                  change: function ($event) {
-                                    return _vm.$set(_vm.frm, "er_format", "NFM")
-                                  },
-                                },
-                              }),
-                              _vm._v(" No-formatting"),
-                            ]),
-                          ]
+                        _vm._v(
+                          "\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"
                         ),
-                        _vm._v(" "),
-                        _c(
-                          "b-input-group-prepend",
-                          { attrs: { "is-text": "" } },
-                          [
-                            _c("label", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.frm.er_format,
-                                    expression: "frm.er_format",
-                                  },
-                                ],
-                                attrs: {
-                                  type: "radio",
-                                  name: "er_format",
-                                  value: "FM",
-                                },
-                                domProps: {
-                                  checked: _vm._q(_vm.frm.er_format, "FM"),
-                                },
-                                on: {
-                                  change: function ($event) {
-                                    return _vm.$set(_vm.frm, "er_format", "FM")
-                                  },
-                                },
-                              }),
-                              _vm._v(" Formatting"),
-                            ]),
-                          ]
+                        _c("br"),
+                        _vm._v(
+                          "\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"
                         ),
-                        _vm._v(" "),
-                        _c("b-form-input", {
-                          attrs: { placeholder: "저널URL" },
-                          model: {
-                            value: _vm.frm.er_format_url,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.frm, "er_format_url", $$v)
-                            },
-                            expression: "frm.er_format_url",
-                          },
-                        }),
-                      ],
-                      1
+                        _c("br"),
+                        _vm._v(
+                          "\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    "
+                        ),
+                      ]
                     ),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { attrs: { rowspan: "2" } }, [
+                      _vm._v("일반 교정"),
+                      _c("p", [_vm._v("(부가세포함)")]),
+                    ]),
                     _vm._v(" "),
-                    _c("Validation", {
-                      attrs: {
-                        error: this.$store.state.error.validations.er_format,
-                      },
-                    }),
-                  ],
-                  1
-                ),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("소요 기간")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("1~2일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("3~4일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("5~6일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("7~8일")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("18,700원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("16,500원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("14,300원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("13,200원")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("프리미엄 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("29,700원")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("논문")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("프리미엄 플러스 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("33,000원")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("논문 + 저널답변서 교정 포함"),
+                    ]),
+                  ]),
+                ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c("ol", { staticClass: "num_list" }, [
+              _c("li", [_vm._v("- 부가세 포함 가격입니다.")]),
+              _vm._v(" "),
+              _c("li", [
+                _vm._v("- "),
+                _c("b", [_vm._v("1page = 영문 200단어")]),
+                _vm._v("를 기준합니다."),
               ]),
               _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: {
-                        tag: "label",
-                        title:
-                          "문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다.",
-                      },
-                    },
-                    [
-                      _c("b", [_vm._v("문서용도")]),
-                      _vm._v(" "),
-                      _c("b-form-select", {
-                        attrs: { id: "er_use", options: _vm.use_opt },
-                        model: {
-                          value: _vm.frm.er_use,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_use", $$v)
-                          },
-                          expression: "frm.er_use",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_use,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
+              _c("li", [
+                _vm._v(
+                  "- 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다."
+                ),
+              ]),
+            ]),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("h5", [_vm._v("◈  서비스 내용")]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "tbl01",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("colgroup", [
+                  _c("col", { attrs: { width: "50%" } }),
                   _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: {
-                        tag: "label",
-                        title:
-                          "주제분야를 보시려면 관련된 학문분야를 먼저 선택하여 주십시오.",
-                      },
-                    },
-                    [
-                      _c("b", [_vm._v("학문분야")]),
-                      _vm._v(" "),
-                      _c("b-form-select", {
-                        attrs: { id: "er_branch", options: _vm.branch_opt },
-                        model: {
-                          value: _vm.frm.er_branch,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_branch", $$v)
-                          },
-                          expression: "frm.er_branch",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_branch,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
+                  _c("col", { attrs: { width: "50%" } }),
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: {
-                        tag: "label",
-                        title:
-                          "어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?",
-                      },
-                    },
-                    [
-                      _c("b", [_vm._v("에디터")]),
-                      _vm._v(" "),
-                      _c("b-form-select", {
-                        attrs: {
-                          id: "er_editor",
-                          options: _vm.editor_opt[this.frm.er_branch - 1],
-                        },
-                        model: {
-                          value: _vm.frm.er_editor,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_editor", $$v)
-                          },
-                          expression: "frm.er_editor",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error: this.$store.state.error.validations.er_editor,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: {
-                        tag: "label",
-                        title:
-                          "고객님의 연구분야가 매우 특수하여 해당 전문 경험이 있는 교정자에게 맡기고 싶은 경우에만 기재하여 주십시오.",
-                      },
-                    },
-                    [
-                      _c("b", [_vm._v("하위 학문 분야")]),
-                      _vm._v(" "),
-                      _c("b-form-input", {
-                        attrs: { placeholder: "하위 학문 분야 기재" },
-                        model: {
-                          value: _vm.frm.er_branch_sub,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_branch_sub", $$v)
-                          },
-                          expression: "frm.er_branch_sub",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { tag: "label" } },
-                    [
-                      _c("b", [_vm._v("문체스타일")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.frm.er_eng_style,
-                              expression: "frm.er_eng_style",
-                            },
-                          ],
-                          staticClass: "custom-select",
-                          attrs: { id: "er_eng_style" },
-                          on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.frm,
-                                "er_eng_style",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                          },
-                        },
-                        [
-                          _c("option", { attrs: { value: "AM" } }, [
-                            _vm._v("American English"),
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "BR" } }, [
-                            _vm._v("British English"),
-                          ]),
-                        ]
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v(
+                        "경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버"
                       ),
-                      _vm._v(" "),
-                      _c("Validation", {
-                        attrs: {
-                          error:
-                            this.$store.state.error.validations.er_eng_style,
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("문법, 맞춤법, 오타")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("단어수 무료 축소 10%")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("단어수 무료 축소 20%")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("레퍼런스 일관성 점검")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("재교정시 50% 할인 적용"),
+                      _c("br"),
+                      _c("span", [
+                        _vm._v(
+                          "(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)"
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("논문 수정까지 고려하신다면 무료 재교정"),
+                      _c("br"),
+                      _c("span", [
+                        _vm._v(
+                          "(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)"
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]
+            ),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("일반 교정")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\r\n            영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며, \r\n            비영어권 고객과 영어권 고객 묻에게 유용합니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\r\n            문서 크기에 따라 유연한 납품기일 선택이 가능합니다. \r\n            저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "\r\n            합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [_vm._v("- 빠른 납기일을 제공하고 있습니다.")]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)"
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01 premium" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 교정")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "영문 교정 후 1년 이내 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등을 포함해 인상적인 원고로 교정해 드립니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "저널 투고 논문 교정에 만전을 기하고 싶은 분에게 최적의 서비스입니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "저널 무료 포맷팅은 교정서비스에 포함되는 분분에 한하여 1회 무료입니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다."
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01 plus" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 플러스")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("프리미엄 교정 + 저널 답변서 교정")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "\r\n            저널 리뷰어 코멘트 하나 하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검하여 드립니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다."
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("h5", [_vm._v("◈  일반 교정 VS 프리미엄 교정")]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "tbl01",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("colgroup", [
+                  _c("col", { attrs: { width: "50%" } }),
+                  _vm._v(" "),
+                  _c("col", { attrs: { width: "25%" } }),
+                  _vm._v(" "),
+                  _c("col", { attrs: { width: "25%" } }),
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", [_vm._v("교정사항")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("일반 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("프리미엄 교정")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)"),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v(
+                        "문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)"
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("어휘선택")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("언어 관련 조언")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("논리체계 및 연관성")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("체계성 및 문체: 흐름, presentation, 어조 등"),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("커버레터")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("문장구조")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("무료 저널 양식 맞춤")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", { attrs: { id: "engReform_form_od_top" } }, [
+                    _c("td", [_vm._v("과학 기술 용어 체크")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                ]),
+              ]
+            ),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        { attrs: { id: "engReform_form" } },
+        [
+          _c(
+            "b-col",
+            { staticClass: "user" },
+            [
+              _c("h4", [_vm._v("01. 주문자 정보")]),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-container",
+                { staticClass: "frm_st" },
                 [
                   _c(
-                    "b-col",
+                    "b-row",
                     [
-                      _c("b", [_vm._v("작업문서 업로드")]),
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("주문자명"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
                       _vm._v(" "),
-                      _c("small", [_vm._v("최대 업로드 가능 용량 : 200MB")]),
-                      _vm._v(" "),
-                      _c("file-upload", {
-                        ref: "fileupload1",
-                        attrs: { fi_group: "engReform", fi_kind: "work" },
-                        model: {
-                          value: _vm.frm.file_info_work,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "file_info_work", $$v)
-                          },
-                          expression: "frm.file_info_work",
-                        },
-                      }),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            attrs: { id: "er_name" },
+                            model: {
+                              value: _vm.frm.er_name,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_name", $$v)
+                              },
+                              expression: "frm.er_name",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_name,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
+                    "b-row",
                     [
-                      _c("b", [_vm._v("참고문서 업로드")]),
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("연락처"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
                       _vm._v(" "),
-                      _c("small", [_vm._v("최대 업로드 가능 용량 : 200MB")]),
-                      _vm._v(" "),
-                      _c("file-upload", {
-                        ref: "fileupload2",
-                        attrs: { fi_group: "engReform", fi_kind: "ref" },
-                        model: {
-                          value: _vm.frm.file_info_ref,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "file_info_ref", $$v)
-                          },
-                          expression: "frm.file_info_ref",
-                        },
-                      }),
+                      _c(
+                        "b-col",
+                        { staticClass: "hp" },
+                        [
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "er_hp01",
+                                attrs: {
+                                  formatter: _vm.maxlength_3,
+                                  id: "er_hp",
+                                },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 3, "er_hp02")
+                                  },
+                                },
+                                model: {
+                                  value: _vm.frm.er_hp01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_hp01", $$v)
+                                  },
+                                  expression: "frm.er_hp01",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "er_hp02",
+                                attrs: { formatter: _vm.maxlength_4 },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 4, "er_hp03")
+                                  },
+                                },
+                                model: {
+                                  value: _vm.frm.er_hp02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_hp02", $$v)
+                                  },
+                                  expression: "frm.er_hp02",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "er_hp03",
+                                attrs: { formatter: _vm.maxlength_4 },
+                                model: {
+                                  value: _vm.frm.er_hp03,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_hp03", $$v)
+                                  },
+                                  expression: "frm.er_hp03",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.er_hp,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "transition",
-                    { attrs: { name: "fade" } },
+                    "b-row",
                     [
-                      _vm.isLoadingModalViewed
-                        ? _c(
-                            "LoadingModal",
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("이메일"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "email" },
+                        [
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                attrs: { id: "er_email" },
+                                model: {
+                                  value: _vm.frm.er_email01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_email01", $$v)
+                                  },
+                                  expression: "frm.er_email01",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                model: {
+                                  value: _vm.frm.er_email02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_email02", $$v)
+                                  },
+                                  expression: "frm.er_email02",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  on: { change: _vm.email_domain_slt },
+                                  model: {
+                                    value: _vm.email_domain_slt_idx,
+                                    callback: function ($$v) {
+                                      _vm.email_domain_slt_idx = $$v
+                                    },
+                                    expression: "email_domain_slt_idx",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "0" } },
+                                    [_vm._v("직접입력")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.email_domain, function (dm, i) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      { key: i, attrs: { value: i } },
+                                      [_vm._v(_vm._s(dm))]
+                                    )
+                                  }),
+                                ],
+                                2
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_email,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("소속"),
+                        _c("b", { staticClass: "need" }),
+                        _c("small", [_c("i", [_vm._v("직장/학교/연구실")])]),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            attrs: { id: "er_depart" },
+                            model: {
+                              value: _vm.frm.er_depart,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_depart", $$v)
+                              },
+                              expression: "frm.er_depart",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_depart,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "agree" },
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _vm._v(
+                            "\r\n                        개인정보 수집 및 이용 동의 "
+                          ),
+                          _c(
+                            "b-link",
                             {
-                              attrs: { position: "" },
                               on: {
-                                "close-modal": function ($event) {
-                                  _vm.isLoadingModalViewed = false
+                                click: function ($event) {
+                                  _vm.isModalViewed = !_vm.isModalViewed
                                 },
                               },
                             },
+                            [_vm._v("[자세히 보기]")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { value: "Y" },
+                              model: {
+                                value: _vm.frm.agree,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "agree", $$v)
+                                },
+                                expression: "frm.agree",
+                              },
+                            },
+                            [_vm._v("동의함")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { value: "N" },
+                              model: {
+                                value: _vm.frm.agree,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "agree", $$v)
+                                },
+                                expression: "frm.agree",
+                              },
+                            },
+                            [_vm._v("동의하지 않음")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "transition",
+                            { attrs: { name: "modal" } },
                             [
-                              _vm._v(
-                                "\n                        첨부파일 전송중 ......\n                    "
-                              ),
-                            ]
-                          )
-                        : _vm._e(),
+                              _vm.isModalViewed
+                                ? _c(
+                                    "Modal",
+                                    {
+                                      attrs: { max_width: 700 },
+                                      on: {
+                                        "close-modal": function ($event) {
+                                          _vm.isModalViewed = false
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "strong",
+                                        {
+                                          attrs: { slot: "header" },
+                                          slot: "header",
+                                        },
+                                        [_vm._v("개인정보 수집동의")]
+                                      ),
+                                      _c("br"),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다."
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                제공대상: 포사이언스"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, 인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, 이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, 로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 보유 및 이용기간: 3개월"
+                                      ),
+                                      _c("br"),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                다만, 아래의 경우에는 예외로 합니다."
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                - 이용자들이 사전에 동의한 경우"
+                                      ),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\r\n                                - 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우\r\n                            "
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "notify" },
+                    [
+                      _c("b-col", [
+                        _c("ol", [
+                          _c("li", [
+                            _vm._v(
+                              '\r\n                                - "접수완료"가 된 후, 신청하신 서비스에 대한 소요신간과 요금이 명시된 견적서는 주문자 정보에 입력된 메일로 발송됩니다. \r\n                                (교정 신청 후 견적서를 못 받으셨다면 '
+                            ),
+                            _c("b", [_vm._v("1644-4214")]),
+                            _vm._v(
+                              "로 연락 바랍니다.)\r\n                            "
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._v(
+                              "- 내용을 확인하신 후 교정 진행 의사를 메일 or 전화로 알려주시면 영문교정 서비스가 진행됩니다."
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._v(
+                              "- 교정이 완료되면, 주문자 정보에 입력된 임일로 발송됩니다."
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._v("- 4science 회원으로 신청하여 주시면 "),
+                            _c("b", [_vm._v("MY PAGE")]),
+                            _vm._v("에 접수 확인이 가능합니다."),
+                          ]),
+                        ]),
+                      ]),
                     ],
                     1
                   ),
                 ],
                 1
               ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("h4", [_vm._v("02. 요청사항")]),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-container",
+                { staticClass: "frm_st" },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { tag: "label" } },
+                    "b-row",
                     [
-                      _c("b", [_vm._v("요구사항")]),
-                      _c("b-form-textarea", {
-                        attrs: { rows: "5" },
-                        model: {
-                          value: _vm.frm.er_demand,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "er_demand", $$v)
-                          },
-                          expression: "frm.er_demand",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("서비스 선택"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
                       _c(
-                        "b-button",
+                        "b-col",
+                        { staticClass: "col_er_type" },
+                        [
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { button: "", value: "1" },
+                              model: {
+                                value: _vm.frm.er_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_type", $$v)
+                                },
+                                expression: "frm.er_type",
+                              },
+                            },
+                            [_vm._v("일반 교정")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { button: "", value: "2" },
+                              model: {
+                                value: _vm.frm.er_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_type", $$v)
+                                },
+                                expression: "frm.er_type",
+                              },
+                            },
+                            [_vm._v("프리미엄 교정")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { button: "", value: "3" },
+                              model: {
+                                value: _vm.frm.er_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_type", $$v)
+                                },
+                                expression: "frm.er_type",
+                              },
+                            },
+                            [_vm._v("프리미엄플러스  교정")]
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_type,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("납기일"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
                         {
-                          attrs: { size: "lg", block: "", variant: "primary" },
-                          on: { click: _vm.store },
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip",
+                              value:
+                                "교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.",
+                              expression:
+                                "'교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.'",
+                            },
+                          ],
                         },
-                        [_vm._v("제출")]
+                        [
+                          _c("b-form-datepicker", {
+                            staticClass: "mb-2",
+                            attrs: {
+                              id: "er_dlvy_at",
+                              placeholder: "날짜를 선택하세요",
+                            },
+                            model: {
+                              value: _vm.frm.er_dlvy_at,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_dlvy_at", $$v)
+                              },
+                              expression: "frm.er_dlvy_at",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_dlvy_at,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("포맷팅"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip",
+                              value:
+                                "저널지침에 따른 포맷팅 여부를 선택해주세요.",
+                              expression:
+                                "'저널지침에 따른 포맷팅 여부를 선택해주세요.'",
+                            },
+                          ],
+                          staticClass: "col_er_format",
+                        },
+                        [
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: {
+                                button: "",
+                                value: "NFM",
+                                id: "er_format",
+                              },
+                              model: {
+                                value: _vm.frm.er_format,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_format", $$v)
+                                },
+                                expression: "frm.er_format",
+                              },
+                            },
+                            [_vm._v("No-formatting")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group",
+                            [
+                              _c(
+                                "b-input-group-prepend",
+                                { attrs: { "is-text": "" } },
+                                [
+                                  _c(
+                                    "b-form-radio",
+                                    {
+                                      attrs: { button: "", value: "FM" },
+                                      model: {
+                                        value: _vm.frm.er_format,
+                                        callback: function ($$v) {
+                                          _vm.$set(_vm.frm, "er_format", $$v)
+                                        },
+                                        expression: "frm.er_format",
+                                      },
+                                    },
+                                    [_vm._v("Formatting")]
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("b-form-input", {
+                                attrs: { placeholder: "저널 URL을 입력하세요" },
+                                model: {
+                                  value: _vm.frm.er_format_url,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "er_format_url", $$v)
+                                  },
+                                  expression: "frm.er_format_url",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_format,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("문서용도"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-select", {
+                            staticClass: "len01",
+                            attrs: { id: "er_use", options: _vm.use_opt },
+                            model: {
+                              value: _vm.frm.er_use,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_use", $$v)
+                              },
+                              expression: "frm.er_use",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              "문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다."
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.er_use,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("학문분야"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-select", {
+                            staticClass: "len01",
+                            attrs: { id: "er_branch", options: _vm.branch_opt },
+                            model: {
+                              value: _vm.frm.er_branch,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_branch", $$v)
+                              },
+                              expression: "frm.er_branch",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              "에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오."
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_branch,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("에디터"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-select", {
+                            staticClass: "len02",
+                            attrs: {
+                              id: "er_editor",
+                              options: _vm.editor_opt[this.frm.er_branch - 1],
+                            },
+                            model: {
+                              value: _vm.frm.er_editor,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_editor", $$v)
+                              },
+                              expression: "frm.er_editor",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              "어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?"
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.er_editor,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("하위 학문 분야"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            staticClass: "len02",
+                            attrs: { placeholder: "하위 학문 분야 기재" },
+                            model: {
+                              value: _vm.frm.er_branch_sub,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_branch_sub", $$v)
+                              },
+                              expression: "frm.er_branch_sub",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "line2" }, [
+                            _vm._v(
+                              "고객님의 연구분야가 매우 특수하여 해당 전문 경험이 있는 교정자에게 맡기고 싶은 경우에만 기재하여 주십시오."
+                            ),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("문체스타일"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              staticClass: "len01",
+                              attrs: { id: "er_eng_style" },
+                              model: {
+                                value: _vm.frm.er_eng_style,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_eng_style", $$v)
+                                },
+                                expression: "frm.er_eng_style",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "AM" } },
+                                [_vm._v("American English")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "BR" } },
+                                [_vm._v("British English")]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations
+                                  .er_eng_style,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("작업문서 업로드"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("file-upload", {
+                            ref: "fileupload1",
+                            attrs: {
+                              fi_group: "engReform",
+                              fi_kind: "work",
+                              height: 100,
+                            },
+                            model: {
+                              value: _vm.frm.file_info_work,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "file_info_work", $$v)
+                              },
+                              expression: "frm.file_info_work",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v("최대 업로드 가능 용량 : 200MB"),
+                          ]),
+                          _vm._v(" "),
+                          _c("Validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations
+                                  .er_eng_style,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("참고문서 업로드"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("file-upload", {
+                            ref: "fileupload2",
+                            attrs: {
+                              fi_group: "engReform",
+                              fi_kind: "ref",
+                              height: 100,
+                            },
+                            model: {
+                              value: _vm.frm.file_info_ref,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "file_info_ref", $$v)
+                              },
+                              expression: "frm.file_info_ref",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v("최대 업로드 가능 용량 : 200MB"),
+                          ]),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        { attrs: { name: "fade" } },
+                        [
+                          _vm.isLoadingModalViewed
+                            ? _c(
+                                "LoadingModal",
+                                {
+                                  attrs: { position: "" },
+                                  on: {
+                                    "close-modal": function ($event) {
+                                      _vm.isLoadingModalViewed = false
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n                            첨부파일 전송중 ......\r\n                        "
+                                  ),
+                                ]
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("요구사항"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-textarea", {
+                            attrs: { rows: "4" },
+                            model: {
+                              value: _vm.frm.er_demand,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "er_demand", $$v)
+                              },
+                              expression: "frm.er_demand",
+                            },
+                          }),
+                        ],
+                        1
                       ),
                     ],
                     1
@@ -6771,497 +7765,29 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { staticClass: "btn_box" },
+            [
+              _c(
+                "b-button",
+                { staticClass: "blue xl", on: { click: _vm.store } },
+                [_vm._v("제출하기")]
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
     ],
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "default_layout" }, [
-      _c("div", { staticClass: "g_btn3" }, [
-        _c("input", {
-          staticClass: "prdView_btn05 eng_toggle",
-          attrs: {
-            type: "button",
-            value: "영문 교정 신청하기",
-            title: "영문 교정 신청하기",
-          },
-        }),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c(
-          "table",
-          { attrs: { cellpadding: "0", cellspacing: "0", border: "0" } },
-          [
-            _c("tbody", [
-              _c("tr", [
-                _c("th", [_vm._v("서비스내용")]),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "5", align: "left" } }, [
-                  _vm._v(
-                    "영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서"
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("파일서식")]),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "5", align: "left" } }, [
-                  _vm._v(
-                    "MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"
-                  ),
-                  _c("br"),
-                  _vm._v(
-                    "(PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"
-                  ),
-                  _c("br"),
-                  _vm._v(
-                    "PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다."
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { attrs: { rowspan: "2" } }, [
-                  _vm._v("일반 교정"),
-                  _c("p", [_vm._v("(부가세포함)")]),
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg1" }, [_vm._v("소요 기간")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg2" }, [_vm._v("1~2일")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg2" }, [_vm._v("3~4일")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg2" }, [_vm._v("5~6일")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg2" }, [_vm._v("7~8일")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("18,700원")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("16,500원")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("14,300원")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("13,200원")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { attrs: { rowspan: "2" } }, [
-                  _vm._v("프리미엄 교정"),
-                  _c("p", [_vm._v("(부가세포함)")]),
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg1", attrs: { rowspan: "2" } }, [
-                  _vm._v("페이지 단가"),
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bg2" }, [_vm._v("프리미엄")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("29,700원")]),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _vm._v("소요기간 3~4일"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", { staticClass: "bg2" }, [_vm._v("프리미엄 플러스")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "bold" }, [_vm._v("33,000원")]),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _vm._v("논문+저널답변서 무료 재교정"),
-                ]),
-              ]),
-            ]),
-          ]
-        ),
-        _vm._v(" "),
-        _c("p", [
-          _c("strong", [_vm._v("* 1page = 영문 200단어를 기준")]),
-          _vm._v("합니다."),
-          _c("br"),
-          _vm._v("* 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다."),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "line" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("span", { staticClass: "sub_title" }, [
-          _c("img", {
-            attrs: {
-              src: "/templates/sites/basic/_images/topSearchArea_btn_right.png",
-              alt: "",
-            },
-          }),
-          _vm._v(" 서비스 내용"),
-        ]),
-        _vm._v(" "),
-        _c(
-          "table",
-          {
-            staticClass: "mgt10",
-            attrs: { cellpadding: "0", cellspacing: "0", border: "0" },
-          },
-          [
-            _c("colgroup", [
-              _c("col", { attrs: { width: "50%" } }),
-              _vm._v(" "),
-              _c("col", { attrs: { width: "50%" } }),
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [
-                  _vm._v(
-                    "경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버"
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("문법, 맞춤법, 오타")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("단어수 무료 축소 10%")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("단어수 무료 축소 20%")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("레퍼런스 일관성 점검")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [
-                  _vm._v("재교정시 50% 할인 적용"),
-                  _c("br"),
-                  _c("span", [
-                    _vm._v(
-                      "(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)"
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v("논문 수정까지 고려하신다면 무료 재교정"),
-                  _c("br"),
-                  _c("span", [
-                    _vm._v(
-                      "(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)"
-                    ),
-                  ]),
-                ]),
-              ]),
-            ]),
-          ]
-        ),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("img", {
-          attrs: {
-            src: "/templates/sites/basic/_images/engReform_normal.png",
-            alt: "일반 교정 / 영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며 비영어권 고객과 영어권 고객 모두에게 유용합니다. 문서 크기에 따라 다양한 납품기일 선택이 가능합니다. 저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다. 합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.",
-          },
-        }),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("빠른 납기일을 제공하고 있습니다.")]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)"
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("img", {
-          attrs: {
-            src: "/templates/sites/basic/_images/engReform_pm.png",
-            alt: "프리미엄 교정 / 학술논문 영문교정 후 저널 답변서 교정, 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등까지 포함해 인상적인 원고로 교정해 드립니다. 저널 투고 논문 교정을 위해 최선을 다하고 싶은 분에게 최적의 서비스입니다. 저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.",
-          },
-        }),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("img", {
-          attrs: {
-            src: "/templates/sites/basic/_images/engReform_pmplus.png",
-            alt: "프리미엄 플러스 교정 / 학술논문 영문교정 후 저널 답변서 교정, 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등까지 포함해 인상적인 원고로 교정해 드립니다. 저널 투고 논문 교정을 위해 최선을 다하고 싶은 분에게 최적의 서비스입니다. 저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.",
-          },
-        }),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "section" }, [
-        _c("span", { staticClass: "sub_title" }, [
-          _c("img", {
-            attrs: {
-              src: "/templates/sites/basic/_images/topSearchArea_btn_right.png",
-              alt: "",
-            },
-          }),
-          _vm._v(" 일반 교정 VS 프리미엄 교정"),
-        ]),
-        _vm._v(" "),
-        _c(
-          "table",
-          {
-            staticClass: "mgt10",
-            attrs: { cellpadding: "0", cellspacing: "0", border: "0" },
-          },
-          [
-            _c("colgroup", [
-              _c("col", { attrs: { width: "50%" } }),
-              _vm._v(" "),
-              _c("col", { attrs: { width: "25%" } }),
-              _vm._v(" "),
-              _c("col", { attrs: { width: "25%" } }),
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("th", { staticClass: "h40" }, [_vm._v("교정사항")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [
-                  _vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)"),
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [
-                  _vm._v(
-                    "문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)"
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("어휘선택")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("언어 관련 조언")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("논리체계 및 연관성")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("X")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [
-                  _vm._v("체계성 및 문체: 흐름, presentation, 어조 등"),
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v("X")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("커버레터")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("X")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("문장구조")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("X")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("무료 저널 양식 맞춤")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("과학 기술 용어 체크")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("O")]),
-              ]),
-            ]),
-          ]
-        ),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "g_btn" }, [
-        _c("input", {
-          staticClass: "prdView_btn04 eng_toggle",
-          attrs: {
-            type: "button",
-            value: "영문 교정 신청하기",
-            title: "영문 교정 신청하기",
-          },
-        }),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

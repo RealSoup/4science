@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <div>
         <FormGroup ref="form_group" v-model="frm" :config="config" />
     <!--
     v-model="something"
@@ -7,15 +7,16 @@
     :value="something"
     @input="value => { something = value }"
     -->
-        <b-row class="row mt-3">
-            <b-col>
-                <b-button :to="{name: 'bo_index', params: { bo_cd:bo_cd }}" size="sm" variant="light">목록</b-button>
-            </b-col>
-            <b-col class="text-right">
-                <b-button @click="write" size="sm" variant="info">저장</b-button>
-            </b-col>
-        </b-row>
-    </b-container>
+        <div class="btn_box">
+            <b-button  v-if="this.$route.params.bo_cd" :to="{name: 'bo_index', params: { bo_cd:bo_cd }}" size="sm" class="gray">목록</b-button>
+            <b-button @click="write" class="blue lg">
+                <template v-if="cs_bo_cd == 'inquiry'">문의하기</template>
+                <template v-else-if="cs_bo_cd == 'as'">A/S 신청하기</template>
+                <template v-else-if="cs_bo_cd == 'cancel'">신청하기</template>
+                <template v-else>저장</template>
+            </b-button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -33,6 +34,9 @@ export default {
             bo_cd:this.cs_bo_cd ? this.cs_bo_cd : this.$route.params.bo_cd ,
             frm:{
                 file_info_bo:[],
+                bo_od_type:'ON',
+                bo_type:'C',
+                bo_content: '',
             },
             config:{},
         };
@@ -72,7 +76,16 @@ export default {
     // },
     mounted() {
         this.create();
+        if (this.bo_cd=='as' || this.bo_cd=='cancel') {
+            this.frm.bo_content = "제품명: \n사양: \n수량: ";
+        }
     },
 
 }
 </script>
+
+
+<style scoped>
+
+.container .btn_box { margin-left:145px; margin-top:1rem; }
+</style>

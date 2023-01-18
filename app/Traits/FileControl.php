@@ -16,12 +16,6 @@ trait FileControl {
         $thumb_hei = config('const.file.thumb_hei');
         $mimeArr=['png', 'jpe', 'jpeg', 'jpg', 'gif', 'bmp', 'ico', 'tiff', 'tif', 'svg', 'svgz'];
         $mime = $file->getClientOriginalExtension();
-        
-        
-
-        
-
-
 
         $image_info;
         if (in_array($mime, $mimeArr)) 
@@ -44,17 +38,28 @@ trait FileControl {
             Storage::disk('s3')->put($subFolder.$file->hashName(), file_get_contents($file));
         }
     }
-
-    public function imageResizeSave($file, $filePath, $width, $height) {
-        try {
-            Image::make($file)->resize($width, $height, function ($constraint) {
-                  $constraint->aspectRatio();
-            })->save($filePath.'/'.$file->hashName());
-        } catch (Exception $e) {
-            report($e);
-            return false;
+    
+    public function deleteFiles($fi_id, $type=null) {
+        switch ($type) {
+            case 'goods':   $fi = FileGoods::findOrFail($fi_id);    break;
+            default:        $fi = FileInfo::findOrFail($fi_id);     break;
         }
+        $path = "api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}";
+        if(Storage::disk('s3')->exists("{$path}/{$fi->fi_new}"))        Storage::disk('s3')->delete("{$path}/{$fi->fi_new}");
+        if(Storage::disk('s3')->exists("{$path}/thumb/{$fi->fi_new}"))  Storage::disk('s3')->delete("{$path}/thumb/{$fi->fi_new}");
+        if ($fi->delete()) return response()->json("success", 200);
     }
+
+    // public function imageResizeSave($file, $filePath, $width, $height) {
+    //     try {
+    //         Image::make($file)->resize($width, $height, function ($constraint) {
+    //               $constraint->aspectRatio();
+    //         })->save($filePath.'/'.$file->hashName());
+    //     } catch (Exception $e) {
+    //         report($e);
+    //         return false;
+    //     }
+    // }
 
     // public function getImage($folderNm, $filename) {
     //     $path = public_path('storage/'.$folderNm.$filename);
@@ -69,24 +74,18 @@ trait FileControl {
     // }
 
     // 글 보기 중 첨부파일 다운로드
-    public function download(Request $request, $boardName, $writeId, $fileNo) {
-        $file = $this->boardFileModel->where([
-            'board_id' => $this->writeModel->board->id,
-            'write_id' => $writeId,
-            'board_file_no' => $fileNo,
-        ])->first();
+    // public function download(Request $request, $boardName, $writeId, $fileNo) {
+    //     $file = $this->boardFileModel->where([
+    //         'board_id' => $this->writeModel->board->id,
+    //         'write_id' => $writeId,
+    //         'board_file_no' => $fileNo,
+    //     ])->first();
 
 
 
-        return response()->download(public_path('storage/'. $request->boardName. '/'. $file->file), $file->source);
-    }
+    //     return response()->download(public_path('storage/'. $request->boardName. '/'. $file->file), $file->source);
+    // }
 
-    public function phyFileDel($path, $f_nm) {// 파일 삭제
-        if(Storage::exists($path.'/'.$f_nm)) return Storage::delete($path.'/'.$f_nm);
-        if(Storage::exists($path.'/thumb/'.$f_nm)) return Storage::delete($path.'/thumb/'.$f_nm);
-    }
 
-    public function mkDir($path) {
-        if(!File::isDirectory($path)) File::makeDirectory($path, 0777, true);
-    }
+
 }
