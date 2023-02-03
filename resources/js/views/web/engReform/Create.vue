@@ -309,7 +309,7 @@
                     <b-col>
                         <file-upload ref="fileupload1" v-model="frm.file_info_work" :fi_group="'engReform'" :fi_kind="'work'" :height="100" />
                         <small>최대 업로드 가능 용량 : 200MB</small>
-                        <Validation :error="this.$store.state.error.validations.er_eng_style" />
+                        <Validation :error="this.$store.state.error.validations.file_info_work" />
                     </b-col>
                 </b-row>
                 <b-row>

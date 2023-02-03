@@ -1,16 +1,14 @@
 import store from '@/store/index';
 const isLoggedin = () => (to, from, next) => {
-    if (store.state.auth.isLoggedin) {
-        return next();
-    }
+    if (store.state.auth.isLoggedin) 
+        return next();    
     next({name:'login', query:{redirect:to.path}});
     Notify.modal("로그인이 필요한 서비스입니다.");
 };
 
 const isNotLoggedin = () => (to, from, next) => {
-    if (!store.state.auth.isLoggedin) {
+    if (!store.state.auth.isLoggedin)
         return next();
-    }
     next('/');
 };
 
@@ -28,6 +26,10 @@ export default [
             // 인증 값 검증 로직 추가
         // }
 
+    }, {   
+        path: '/email_verify',
+        name: 'email_verify',
+        component:() => import('@/views/web/auth/EmailVerify'),
     }, {
         path: '/auth',
         name: 'auth_intro',
@@ -196,7 +198,7 @@ export default [
     },
 
 //      당일출고
-    {   path: '/shop/listing/:code',
+    {   path: '/shop/listing/:code/:group',
         name: 'listing',
         component:() => import('@/views/web/shop/listing/Index'),
     },

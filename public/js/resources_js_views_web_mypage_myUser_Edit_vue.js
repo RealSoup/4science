@@ -59,13 +59,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyUserEdit',
   components: {
-    'FormUser': function FormUser() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth_FormUser_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/auth/FormUser.vue */ "./resources/js/views/web/auth/FormUser.vue"));
+    'FormComp': function FormComp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormComp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/auth/_comp/FormComp */ "./resources/js/views/web/auth/_comp/FormComp.vue"));
     }
   },
   data: function data() {
     return {
-      frm: Object.assign({}, this.$store.state.auth.user)
+      frm: Object.assign({}, {
+        ub_file: [],
+        check: {
+          inexus: 'Y',
+          personal: 'Y',
+          marketing: 'N',
+          receive_mail: 'N',
+          receive_sms: 'N'
+        }
+      }, this.$store.state.auth.user)
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
@@ -297,7 +306,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("FormUser", {
+      _c("FormComp", {
         model: {
           value: _vm.frm,
           callback: function ($$v) {

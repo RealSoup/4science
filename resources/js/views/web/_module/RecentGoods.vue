@@ -138,7 +138,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.recent_box { position:fixed; bottom:15px; right:130px; transition:all .5s ease; }
+.recent_box { position:fixed; bottom:15px; right:130px; transition:all .5s ease; z-index:1; }
 .recent_box .list_item { width:50px; height:50px; margin:5px; border-radius:100%; }
 .recent_box .box_header  { background-color:#000; display:flex; align-items:center; justify-content:center; }
 .recent_box .box_header .b-icon { font-size:3rem; color:#FFF; }

@@ -52,8 +52,10 @@ export default {
     },
 
     async mounted() {
-        this.$store.dispatch('category/indexAll');
-        this.$store.dispatch('common/siteInfo');
+        if ( this.$store.state.mode !== 'simple') {
+            this.$store.dispatch('category/indexAll');
+            this.$store.dispatch('common/siteInfo');
+        }
     },
     // computed: {
     //     ...mapState('error', {
@@ -96,6 +98,8 @@ a, a:hover { color:#333; text-decoration:none; }
 
 .btn_box .lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
 .btn_box .xl { width:440px; font-weight:900; padding:25px 0px; font-size:1.2rem; border-radius:8px; }
+
+.btn_box .white { background-color:#FFF; border-color:#CCCCCC; }
 .btn_box .gray { background-color:#B7B7B7; border-color:#B7B7B7; }
 .btn_box .blue { background-color:#0094EA; border-color:#0094EA; }
 .btn_box .wd_33p { font-weight:bold; padding:25px; width:33%; border-radius:9px; border-radius:9px; font-size:1.2rem; }
@@ -141,6 +145,7 @@ label { margin-bottom:0; }
 .frm_st .agree { margin-left:0; margin-right:0; }
 .frm_st .agree .col { font-weight:normal; color:#fff; background:#4F708F; border-radius:10px; font-size:.9rem; display:flex; padding:18px 25px; justify-content:space-between; }
 .frm_st .agree .col a { color:#fff; }
+.alert.alert-danger { padding:0.1rem 1.25rem; font-size:.9rem; margin:0; flex-basis:0; flex-grow:1; max-width:100%; }
 
 
 

@@ -50,8 +50,9 @@ Route::get('/excel', 'ExcelController@index');
 
 
 Route::get('auth_check', function (Request $request) { return auth()->check(); });
+Route::get('verify_check', function (Request $request) { return auth()->user()->hasVerifiedEmail(); });
 // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
@@ -74,6 +75,14 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-
+// Route::post('email/resend', function (Request $request) {
+//     dd(auth()->user()->sendEmailVerificationNotification());
+ 
+//     return back()->with('message', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+// Auth::routes(['verify' => true]);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

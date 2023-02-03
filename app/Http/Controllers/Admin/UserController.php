@@ -8,8 +8,7 @@ use DB;
 
 class UserController extends Controller {
     public function index(User $user, Request $req) {
-        // dd($req->all());
-        $data['option'] = $user->getOption();
+        $data['option'] = User::$option;
 
         if ($req->filled('startDate'))  $user = $user->StartDate($req->startDate);
         if ($req->filled('endDate'))    $user = $user->EndDate($req->endDate);
@@ -36,7 +35,7 @@ class UserController extends Controller {
 
     public function edit(Request $req, $id) {
         $user = User::with('UserMng')->find($id);
-        $user->option = $user->getOption();
+        $user->option = User::$option;
         $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
         $um = new UserMng;
         $user->mng_info = $um->getMngInfo();

@@ -132,7 +132,7 @@ class GoodsController extends Controller {
         $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();    //  제조사
         $data['purchaseAt'] = PurchaseAt::orderBy('pa_name')->get(); //  매입처 직배송
         $data['hashs'] = Hash::orderBy('hs_tag')->get(); //  키워드 연결
-        $data['goods']->hash_join = $hj->joinHash()->Gd_id($gd_id)->get();
+        $data['goods']->hash_join = $hj->joinHash()->GdId($gd_id)->get();
 
         return response()->json($data);
     }

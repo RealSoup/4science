@@ -22,18 +22,9 @@ class RegisterController extends Controller {
 
     public function register(Request $request) {
         $this->validator($request)->validate();
-
         event(new Registered($user = $this->create($request)));
-
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+        $this->guard()->login($user);  
+        return $request->wantsJson() ? new JsonResponse($user->id, 201) : redirect($this->redirectPath());
     }
 
     protected function create($req) {
@@ -56,11 +47,11 @@ class RegisterController extends Controller {
                 'interest_etc'   => $req->filled('interest_etc') ? $req->interest_etc : NULL,
                 'join_route'     => $req->filled('join_route')   ? $req->join_route   : NULL,
                 'receive_sms'    => $req->filled('receive_sms')  ? $req->receive_sms  : 'Y',
-                'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',];
-        if ( $req->filled('level') ) $u['level'] = $req->level;
+                'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
+                'level'          => $req->filled('level')        ? $req->level        : 0,];
         $rst = User::create($u);
         if ( $req->filled('level') )
-            DB::table('users_biz')->insert( [
+            DB::table('user_biz')->insert( [
                 'ub_papa_id' => $rst->id,
                 'ub_num'   => $req->ub_num,
                 'ub_name'  => $req->ub_name,
@@ -70,15 +61,14 @@ class RegisterController extends Controller {
                 'ub_addr1' => $req->ub_addr1,
                 'ub_addr2' => $req->ub_addr2,
                 'ub_type'  => $req->ub_type,
-                'ub_cond'  => $req->ub_cond,
-                'updated_id' => auth()->check() ? auth()->user()->id : 0
+                'ub_cond'  => $req->ub_cond
             ] );
 
-        if ( $req->filled('ub_file') ) {
-            $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
-            $fi_id = $rst_upload->getData()->fi_id;
-            DB::table('filse_info')->where('fi_id', $fi_id)->update(['fi_key' => 1]);             
-        }
+        // if ( array_key_exists('ub_file', $req->all()) ) {
+        //     $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
+        //     $fi_id = $rst_upload->getData()->fi_id;
+        //     DB::table('filse_info')->where('fi_id', $fi_id)->update(['fi_key' => 1]);             
+        // }
         return $rst;
     }
 
@@ -87,7 +77,7 @@ class RegisterController extends Controller {
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'unique:users'],
             'password' => ['required', 'confirmed', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/'],
-            'sex' => ['required'],
+            // 'sex' => ['required'],
             'hp' => ['required', 'regex:/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/'],
             'birth' => ['required', 'regex:/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'],
         ];

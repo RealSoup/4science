@@ -1,6 +1,6 @@
 <template>
-    <div v-if="error">
-        <div v-for="(row, idx) in error" :key="idx" class="alert alert-danger">{{row}}</div>
+    <div v-if="error" class="alert alert-danger">
+        <div v-for="(row, idx) in error" :key="idx">{{row}}</div>
     </div>
 </template>
 <script>

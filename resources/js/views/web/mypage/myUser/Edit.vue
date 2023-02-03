@@ -14,7 +14,7 @@
             </b-col>
         </b-row>
 
-        <FormUser v-model="frm" />
+        <FormComp v-model="frm" />
 
         <b-row>
             <b-col class="text-center">
@@ -32,11 +32,24 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'MyUserEdit',
     components: {
-        'FormUser': () => import('@/views/web/auth/FormUser.vue'),
+        'FormComp': () => import('@/views/web/auth/_comp/FormComp'),
     },
     data() {
         return {
-            frm:Object.assign( {}, this.$store.state.auth.user ),
+            frm:Object.assign( 
+                {}, 
+                {
+                    ub_file:[],
+                    check:{
+                        inexus:'Y',
+                        personal:'Y',
+                        marketing:'N',
+                        receive_mail:'N',
+                        receive_sms:'N',
+                    },
+                },
+                this.$store.state.auth.user 
+            ),
         }
     },
     computed: {

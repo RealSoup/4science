@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use DB;
 
 class MainController extends Controller {
-    public function index(Request $request) {
+    public function index(Request $request) {     
         $rst = Array();
         foreach (Cache::get('categoryAll') as $ca) {
             $rst['bestByCate'][$ca['ca_id']] = ShowWindow::with('goods')

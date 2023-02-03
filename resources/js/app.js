@@ -137,12 +137,16 @@ import ax from '@/api/http';
 ax.get('auth_check').then((res) => {
     if (res.data === 1) {
         ax.get('/api/user').then((response) => {
-            store.state.auth.isLoggedin= true;
-            store.state.auth.user= response.data.user;
-            store.state.auth.csrfToken= response.data.token;
-            document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
-            playVue();
-        })
+            if (response) {
+                store.state.auth.isLoggedin= true;
+                store.state.auth.user= response.data.user;
+                store.state.auth.csrfToken= response.data.token;
+                document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
+                playVue();
+            } else {
+                playVue();
+            }
+        });
     } else {
         playVue();
     }

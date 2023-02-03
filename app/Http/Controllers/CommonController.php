@@ -14,13 +14,6 @@ class CommonController extends Controller {
         if (is_array($req->file)) {
             foreach ($req['file'] as $k => $f) {
                 if (gettype($f) == 'object') {
-                    /*  s3  */
-                    // $file = $request->file('image');
-                    
-                    // return back()->with('success','Image Uploaded successfully');
-                    /*  s3  */
-
-
                     $this->file_upload($f, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
                     DB::table('file_info')->insert([
                         'fi_group' => $req->fi_group,

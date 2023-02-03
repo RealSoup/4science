@@ -29,49 +29,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AuthCreate",
   components: {
-    'FormUser': function FormUser() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth_FormUser_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormUser.vue */ "./resources/js/views/web/auth/FormUser.vue"));
-    },
-    'FormDealer': function FormDealer() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth_FormDealer_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormDealer.vue */ "./resources/js/views/web/auth/FormDealer.vue"));
+    'FormComp': function FormComp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormComp_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormComp */ "./resources/js/views/web/auth/_comp/FormComp.vue"));
     }
   },
   data: function data() {
     return {
       frm: {
-        sex: 'male',
-        receive_mail: 'Y',
-        receive_sms: 'Y' //    name:'짐짐국',
-        //    email:'dvvb3820@nate.com',
-        //    password:'tkskdl38',
-        //    password_confirmation:'tkskdl38',
-        //    hp:'010-1111-2222',
-        //    birth:'2031-12-12',
-        //    ub_num:'123-12-12312',
-        //    ub_corp_name:'(주)짐짐국',
-        //    ub_name:'김짐국 ced 대표',
-        //    ub_tel:'070-4334-3433',
-        //    ub_zip:'12311',
-        //    ub_addr1:'짐국 ㄴㅁㅇㄹ ㄴㅇㄹ 2-3 @ㅇㅇ',
-        //    ub_addr2:'f 402 @',
-        //    ub_type:'짐국',
-        //    ub_cond:'짐국',
-
+        //    sex:'male',
+        ub_file: [],
+        check: {
+          inexus: 'Y',
+          personal: 'Y',
+          marketing: 'N',
+          receive_mail: 'N',
+          receive_sms: 'N'
+        },
+        name: 'qwe',
+        email: 'kjk@4science.net',
+        password: 'qwe123',
+        password_confirmation: 'qwe123',
+        birth: '1911-11-11',
+        hp01: '010',
+        hp02: '1111',
+        hp03: '1111',
+        ub_num01: '111',
+        ub_num02: '11',
+        ub_num03: '11111',
+        ub_corp_name: 'w',
+        ub_name: 'are',
+        ub_tel: '123-1231-2312',
+        ub_zip: '16886',
+        ub_addr1: '경기 용인시 처인구 모현읍 능곡로56번길 34 ',
+        ub_addr2: 'ㅁㅇㄴㄹ',
+        ub_type: 'asdf',
+        ub_cond: 'sfd'
       }
     };
   },
@@ -87,14 +84,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var frmDt, ub_file, reg;
+        var frmDt, reg;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                frmDt = new FormData();
-                ub_file = document.getElementById("ub_file");
+
+                if (!(_this.frm.check.inexus !== 'Y')) {
+                  _context.next = 5;
+                  break;
+                }
+
+                Notify.toast('danger', "(주)아이넥서스 이용약관에 동의 해주세요.");
+                document.getElementById('hp01').scrollIntoView();
+                return _context.abrupt("return", false);
+
+              case 5:
+                if (!(_this.frm.check.personal !== 'Y')) {
+                  _context.next = 9;
+                  break;
+                }
+
+                Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
+                document.getElementById('hp01').scrollIntoView();
+                return _context.abrupt("return", false);
+
+              case 9:
+                frmDt = new FormData(); // let ub_file = document.getElementById("ub_file");
+
                 if (!isEmpty(_this.frm.name)) frmDt.append("name", _this.frm.name);
                 if (!isEmpty(_this.frm.sex)) frmDt.append("sex", _this.frm.sex);
                 if (!isEmpty(_this.frm.email)) frmDt.append("email", _this.frm.email);
@@ -102,7 +120,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (!isEmpty(_this.frm.password)) frmDt.append("password", _this.frm.password);
                 if (!isEmpty(_this.frm.password_confirmation)) frmDt.append("password_confirmation", _this.frm.password_confirmation);
                 if (!isEmpty(_this.frm.birth)) frmDt.append("birth", _this.frm.birth);
-                if (!isEmpty(_this.frm.hp)) frmDt.append("hp", _this.frm.hp);
+                if (!isEmpty(_this.frm.hp01)) frmDt.append("hp", "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03));
                 if (!isEmpty(_this.frm.receive_sms)) frmDt.append("receive_sms", _this.frm.receive_sms);
                 if (!isEmpty(_this.frm.tel)) frmDt.append("tel", _this.frm.tel);
                 if (!isEmpty(_this.frm.fax)) frmDt.append("fax", _this.frm.fax);
@@ -119,8 +137,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (_this.$route.params.code == 'dealer') {
                   if (!isEmpty(_this.frm.level)) frmDt.append("level", _this.frm.level);
-                  if (!isEmpty(_this.frm.ub_num)) frmDt.append("ub_num", _this.frm.ub_num);
-                  if (!isEmpty(_this.frm.ub_file)) frmDt.append("ub_file", ub_file.files[0]);
+                  if (!isEmpty(_this.frm.ub_num01)) frmDt.append("ub_num", "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03));
+                  if (!isEmpty(_this.frm.ub_file.length)) frmDt.append("ub_file", _this.frm.ub_file.length);
                   if (!isEmpty(_this.frm.ub_corp_name)) frmDt.append("ub_corp_name", _this.frm.ub_corp_name);
                   if (!isEmpty(_this.frm.ub_name)) frmDt.append("ub_name", _this.frm.ub_name);
                   if (!isEmpty(_this.frm.ub_tel)) frmDt.append("ub_tel", _this.frm.ub_tel);
@@ -131,51 +149,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (!isEmpty(_this.frm.ub_cond)) frmDt.append("ub_cond", _this.frm.ub_cond);
                 }
 
-                _context.next = 27;
+                _context.next = 34;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/register", frmDt);
 
-              case 27:
+              case 34:
                 reg = _context.sent;
 
                 if (!(reg && reg.status === 201)) {
-                  _context.next = 31;
+                  _context.next = 41;
                   break;
                 }
 
-                _context.next = 31;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get('auth_check').then(function (res) {
-                  console.log(res.data);
+                if (!(_this.frm.level == 10)) {
+                  _context.next = 40;
+                  break;
+                }
 
-                  if (res.data === 1) {
-                    _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/user').then(function (response) {
-                      _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.isLoggedin = true;
-                      _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.user = response.data.user;
-                      _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].state.auth.csrfToken = response.data.token;
-                      document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
+                console.log(_this.frm.level);
+                _context.next = 40;
+                return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
 
-                      _this.$router.push({
-                        name: 'main'
-                      });
-                    });
-                  }
-                })["catch"](function () {});
+              case 40:
+                _this.$router.push({
+                  name: 'email_verify'
+                }); // await ax.get('auth_check').then((res) => {
+                //     if (res.data === 1) {
+                //         ax.get('/api/user').then((response) => {
+                //             store.state.auth.isLoggedin= true;
+                //             store.state.auth.user= response.data.user;
+                //             store.state.auth.csrfToken= response.data.token;
+                //             document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
+                //             this.$router.push({name: 'main'});
+                //         })
+                //     }
+                // }).catch(() => {});
 
-              case 31:
-                _context.next = 37;
+
+              case 41:
+                _context.next = 47;
                 break;
 
-              case 33:
-                _context.prev = 33;
+              case 43:
+                _context.prev = 43;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 37:
+              case 47:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 33]]);
+        }, _callee, null, [[0, 43]]);
       }))();
     }
   },
@@ -209,7 +234,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.auth_create { max-width: 992px;\n}\n.auth_create .form-group { margin:0;\n}\n.auth_create .row { margin-bottom:1rem;\n}\n.auth_create .col label.required::before { content: \"✭\"; color:red;\n}\n.auth_create .col .interest_etc { width:auto;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.auth_create { max-width:1436px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -349,7 +374,8 @@ var render = function () {
     [
       _c("h3", [_vm._v("회원가입 정보 입력")]),
       _vm._v(" "),
-      _c("FormUser", {
+      _c("FormComp", {
+        ref: "form_comp",
         model: {
           value: _vm.frm,
           callback: function ($$v) {
@@ -359,53 +385,17 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _vm.$route.params.code == "dealer"
-        ? _c("FormDealer", {
-            model: {
-              value: _vm.frm,
-              callback: function ($$v) {
-                _vm.frm = $$v
-              },
-              expression: "frm",
-            },
-          })
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "b-row",
         [
           _c(
             "b-col",
+            { staticClass: "btn_box" },
             [
               _c(
                 "b-button",
-                {
-                  staticClass: "float-left",
-                  attrs: { variant: "danger" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.$router.go(-1)
-                    },
-                  },
-                },
-                [_vm._v("취소")]
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "text-right" },
-            [
-              _c(
-                "b-button",
-                {
-                  staticClass: "float-right",
-                  attrs: { variant: "primary" },
-                  on: { click: _vm.register },
-                },
-                [_vm._v("회원가입")]
+                { staticClass: "blue xl", on: { click: _vm.register } },
+                [_vm._v("회원 가입하기")]
               ),
             ],
             1

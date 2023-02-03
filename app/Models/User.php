@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use DB;
 
-class User extends Authenticatable {
+class User extends Authenticatable implements MustVerifyEmail {
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $guarded = [];
-    protected $hidden = [ 'password', 'remember_token', ];
+    protected $hidden = [ 'password' ];
     protected $appends = ['is_admin', 'my_mileage_rate'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     public static $option = [
@@ -98,7 +98,7 @@ class User extends Authenticatable {
     public function scopeTel($query, $v) { return $query->where('tel', 'like', "%{$v}%"); }
     public function scopeHp($query, $v) { return $query->where('hp', 'like', "%{$v}%"); }
 
-    public function getIsAdminAttribute() { return $this->level > 10 ? true : false; }
+    public function getIsAdminAttribute() { return $this->level >= 20 ? true : false; }
     public function getMyMileageRateAttribute() {
         $lv = $this->level>4?4:$this->level;
         return $lv < 2 ? 0 : $this->mileage_rate[$lv]; 

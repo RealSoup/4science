@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider {
             'estimateReply' => 'App\Models\Shop\EstimateReply',
             'engReform'     => 'App\Models\EngReform',
             'boardGood'     => 'App\Models\BoardGood',
+            'userBiz'       => 'App\Models\UserBiz',
         ]);
     }
 }

@@ -109,10 +109,9 @@ var render = function () {
   return _vm.error
     ? _c(
         "div",
+        { staticClass: "alert alert-danger" },
         _vm._l(_vm.error, function (row, idx) {
-          return _c("div", { key: idx, staticClass: "alert alert-danger" }, [
-            _vm._v(_vm._s(row)),
-          ])
+          return _c("div", { key: idx }, [_vm._v(_vm._s(row))])
         }),
         0
       )
