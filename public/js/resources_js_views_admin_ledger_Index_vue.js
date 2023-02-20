@@ -83,6 +83,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var init_dt = new Date();
 var endDate = init_dt.format("yyyy-MM-dd"); // init_dt.setMonth(0); 
@@ -446,6 +447,9 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
       });
       this.indeterminate = false;
     },
+    modal_view: function modal_view(v) {
+      this.isModalViewed = v;
+    },
     to_accounting: function to_accounting() {
       var _this5 = this;
 
@@ -742,7 +746,11 @@ var render = function () {
               indeterminate: _vm.indeterminate,
               all_chk_cplt: _vm.all_chk_cplt,
             },
-            on: { create: _vm.create, toggle_all_chk: _vm.toggle_all_chk },
+            on: {
+              create: _vm.create,
+              modal_view: _vm.modal_view,
+              toggle_all_chk: _vm.toggle_all_chk,
+            },
           }),
           _vm._v(" "),
           _c("ListData", {

@@ -3,7 +3,7 @@
     <b-col class="list_id">
         <transition name="slide-fade">
             <div v-if="show_head_menu" class="hidden_menu">
-                <b-button size="sm" v-b-tooltip.hover="'정보 나열 순서'" @click="isModalViewed=true" variant="warning"><b-icon-gear /></b-button>
+                <b-button size="sm" v-b-tooltip.hover="'정보 나열 순서'" @click="modal_view(true)" variant="warning"><b-icon-gear /></b-button>
                 <b-button size="sm" v-b-tooltip.hover="'생성'" @click="create" variant="primary"><b-icon-plus-lg /></b-button>
             </div>
         </transition>
@@ -75,6 +75,9 @@ export default {
     methods: {
         toggle_all_chk(checked) {
             this.$emit('toggle_all_chk', checked);
+        },
+        modal_view(checked) {
+            this.$emit('modal_view', checked);
         },
         create() {
             this.$emit('create', 'lg');

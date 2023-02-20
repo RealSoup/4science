@@ -89,7 +89,7 @@
             <b-alert v-else variant="danger" show>No Item</b-alert>
         </b-container>
 
-        <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5"></pagination>
+        <pagination :data="list" @pagination-change-page="index" :limit="5" align="center" class="mt-5"></pagination>
     </b-card>
 </b-container>
 </template>
@@ -131,8 +131,9 @@ export default {
         numCalc(i) {
             return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
         },
-        async index() {
+        async index(p=0) {
             try {
+                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
                     return false;
@@ -148,10 +149,6 @@ export default {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
-        },
-        setPage(page) {
-            this.sch_frm.page = page;
-            this.index();
         },
         
     },

@@ -94,6 +94,9 @@ __webpack_require__.r(__webpack_exports__);
     toggle_all_chk: function toggle_all_chk(checked) {
       this.$emit('toggle_all_chk', checked);
     },
+    modal_view: function modal_view(checked) {
+      this.$emit('modal_view', checked);
+    },
     create: function create() {
       this.$emit('create', 'lg');
     }
@@ -306,7 +309,7 @@ var render = function () {
                         attrs: { size: "sm", variant: "warning" },
                         on: {
                           click: function ($event) {
-                            _vm.isModalViewed = true
+                            return _vm.modal_view(true)
                           },
                         },
                       },

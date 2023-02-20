@@ -24,6 +24,7 @@
         />
         <ListHead class="head" :class="{fixed_header:isScrollPass}" :style="{ width: row_width+'px', top: headTop+'px' }"
             @create="create"
+            @modal_view="modal_view"
             @toggle_all_chk="toggle_all_chk"
             :mng_config = mng_config
             :column_list = column_list
@@ -255,6 +256,9 @@ export default {
                 el.chk_cplt = checked ? true : false;
             });
             this.indeterminate = false;
+        },
+        modal_view(v){
+            this.isModalViewed = v;
         },
 
         async to_accounting() {

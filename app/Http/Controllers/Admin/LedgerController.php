@@ -121,9 +121,50 @@ class LedgerController extends Controller {
         
         $data['lg'] = $lg->latest()->orderByDesc('lg_id')->paginate(20);
         
-        $data['mng_config'] = auth()->user()->UserMngConfig->groupBy('umc_key');    
+        $config = auth()->user()->UserMngConfig;
+        if (!count($config->where('umc_key', 'COLUMN'))) {
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'order_dt']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'pay_type']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'mng']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'od_id']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'sale_dt']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'distributor']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'depart']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'lab_prof']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'orderer']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'od_name']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'sum_ea_p']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'sum_surtax']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'sum_sum_p']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'tax_name']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'tax_email']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'tax_hp']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'note']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'created_at']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'model']);
+               
+        }
+        
+        if (!count($config->where('umc_key', 'MODEL'))) {
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'gm_name']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'gm_spec']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'catno']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'gm_code']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'gm_price']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'ea']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'ea_price']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'surtax']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'sum_price']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'com_order_dt']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'buyer']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'order_mng']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'purchase_price']);
+            $config->push([ 'umc_key' => 'MODEL', 'umc_val' => 'shipping_dt']);
+        }
+        $data['mng_config'] = $config->groupBy('umc_key');
         //  여기서 groupBy는 쿼리 생성 엘로퀀트가 아니라, 콜렉션 메서드이다
         //  데이터를 해당 키워드로 분리해서 배열로 내보낸다
+        
         
         $data['mng'] = DB::table('users')->join('user_mng', 'users.id', '=', 'user_mng.um_user_id')->get();
 
