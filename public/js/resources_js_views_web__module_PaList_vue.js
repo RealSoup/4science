@@ -400,7 +400,7 @@ var render = function () {
                       ? [
                           _c("b-col", [_vm._v("추가 옵션")]),
                           _vm._v(" "),
-                          _c("b-col", [_vm._v(_vm._s(item.opc_name))]),
+                          _c("b-col", [_vm._v(_vm._s(item.goc_name))]),
                           _vm._v(" "),
                           _c("b-col"),
                           _vm._v(" "),

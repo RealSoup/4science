@@ -1170,7 +1170,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm.frm.level > 10
+      _vm.frm.is_admin
         ? _c(
             "b-card",
             { staticClass: "adform" },

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, Goods, Category};
-use App\Models\{User, UserMng, FileInfo};
 use App\Http\Requests\{StoreEstimateReq, StoreEstimateReply};
+use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, Goods, GoodsModel, Category};
+use App\Models\{User, UserMng, FileInfo};
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use DB;
+use Illuminate\Support\Arr;
 use App\Exports\EstimateEstimateExport;
 use App\Exports\EstimateTransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
+use DB;
 use PDF;
 
 use Mail;
@@ -23,16 +23,14 @@ class EstimateController extends Controller {
     protected $estimateReq;
     protected $estimateReply;
     protected $estimateModel;
-    protected $estimateOption;
     protected $user;
     protected $userMng;
-    public function __construct(EstimateReq $eq, EstimateReply $er, EstimateModel $em, EstimateOption $eo, User $user, UserMng $um, PDF $pdf) {
+    public function __construct(EstimateReq $eq, EstimateReply $er, EstimateModel $em, User $user, UserMng $um, PDF $pdf) {
         $this->estimateReq = $eq;
         $this->estimateReply = $er;
         $this->user = $user;
         $this->userMng = $um;
         $this->estimateModel = $em;
-        $this->estimateOption = $eo;
         $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
         if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
         $this->pdf = PDF::setOptions($option);
@@ -129,10 +127,18 @@ class EstimateController extends Controller {
             $data->estimateReq;
             $data->collect = $this->estimateReply->estimateModelPurchaseCollection($data->estimateModel);
         } else {
-            $data = $this->estimateReq->find($id);
-            $data->estimateReply;
-            foreach ($data->estimateModel as $em){
-                $em->estimateOption;
+            $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->find($id);
+            foreach ($data->estimateModel as $k => $em) {
+                if($em->name==''){
+                    $gm=GoodsModel::find($em->em_gm_id);
+                    // $data->estimateModel[$k]->name=$gm->gm_name;
+                    $em->em_name  = $gm->gm_name;
+                    $em->em_code  = $gm->gm_code;
+                    $em->em_catno = $gm->gm_catno;
+                    $em->em_maker = Goods::gdMaker($em->em_gd_id);
+                    $em->em_unit  = $gm->gm_unit;
+                    $em->em_spec  = $gm->gm_spec;
+                }
             }
         }
         $data->fileInfo;
@@ -166,9 +172,7 @@ class EstimateController extends Controller {
     }
 
     public function edit($er_id) {
-        $data = $this->estimateReply->find($er_id);
-        $data->estimateReq;
-        $data->fileInfo;
+        $data = $this->estimateReply->with('estimateReq')->with('fileInfo')->find($er_id);
         foreach ($data->estimateModel as $em) {
             if ($em->goods)
                 $em->goods->purchaseAt;
@@ -181,6 +185,7 @@ class EstimateController extends Controller {
     }
     public function emptyEm() {
         return [
+            'em_model_type'     => 'MODEL',
             'em_gd_id'          => '',
             'em_gm_id'          => '',
             'em_name'           => '',

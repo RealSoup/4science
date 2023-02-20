@@ -188,8 +188,8 @@
                 <b-col col lg="2">
                     <b-input-group size="sm">
                         <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right" />
-                        <b-input-group-append is-text v-b-tooltip="'대표 가격'">
-                            <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" />
+                        <b-input-group-append is-text>
+                            <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" @input="uniqueCheck(i)" v-b-tooltip="'대표 가격'" />
                         </b-input-group-append>
                     </b-input-group>
                     <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
@@ -245,21 +245,21 @@
                         <b-col lg="3">항목</b-col>                
                         <b-col>가격</b-col>
                     </b-row>
-                    <b-row v-for="(op, idx) in value.option" :key="idx" class="body">
+                    <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
                         <b-col>
                             <span @click="removeAtOpt(idx)"><b-icon-x-circle-fill /></span>
-                            <b-form-input v-model='op.op_name' size="sm" />
-                            <b-form-checkbox v-model='op.op_required' value="Y" unchecked-value="N" switch class="mt-2">필수 옵션</b-form-checkbox>
+                            <b-form-input v-model='go.go_name' size="sm" />
+                            <b-form-checkbox v-model='go.go_required' value="Y" unchecked-value="N" switch class="mt-2">필수 옵션</b-form-checkbox>
                         </b-col>
 
                         <b-col>
                             <!-- 옵션 아이템 -->
-                                    <b-row v-for="(opc, opc_idx) in op.option_child" :key="opc_idx">
-                                        <b-col><b-form-input size="sm" v-model="opc.opc_name" /></b-col>
+                                    <b-row v-for="(goc, goc_idx) in go.goods_option_child" :key="goc_idx">
+                                        <b-col><b-form-input size="sm" v-model="goc.goc_name" /></b-col>
                                         <b-col>
-                                            <b-form-input size="sm" v-model="opc.opc_price" />
-                                            <span v-if="opc_idx == 0" @click="insertAtOptItem(op.option_child)" class="add"><b-icon-plus-circle-fill /></span>
-                                            <span v-else @click="removeAtOptItem(op.option_child, opc_idx)" class="del"><b-icon-x-circle-fill /></span>
+                                            <b-form-input size="sm" v-model="goc.goc_price" />
+                                            <span v-if="goc_idx == 0" @click="insertAtOptItem(go.goods_option_child)" class="add"><b-icon-plus-circle-fill /></span>
+                                            <span v-else @click="removeAtOptItem(go.goods_option_child, goc_idx)" class="del"><b-icon-x-circle-fill /></span>
                                         </b-col>
                                     </b-row>
                             <!-- 옵션 아이템 -->
@@ -361,7 +361,18 @@ export default {
             }
         },
 
-        insertAtModel() { this.value.goods_model.push({ gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_price:'', bundle_dc:[], bd_open:false }); },
+        insertAtModel() {
+            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_price:'', bundle_dc:[], bd_open:false };
+            if(this.value.goods_model.length==0) tmp.gm_prime = 'Y';
+            this.value.goods_model.push(tmp); 
+        },
+        uniqueCheck(i){
+            if(this.value.goods_model[i].gm_prime == 'Y'){
+                for (var ii in this.value.goods_model)
+                    if(i != ii)
+                        this.value.goods_model[ii].gm_prime='N';
+            }
+        },
         removeAtModel(i) {
             if (this.$route.name == 'adm_goods_edit' && this.value.goods_model[i].gm_id) {
                 if (!this.value.hasOwnProperty("delete_goods_model"))
@@ -381,24 +392,24 @@ export default {
             bd.splice(i, 1); 
         },
 
-        insertAtOpt() { this.value.option.push({ op_id:0, op_name:'', option_child:[{ opc_id:0, opc_name:'', opc_price:'' }] }); },
+        insertAtOpt() { this.value.goods_option.push({ go_id:0, go_name:'', goods_option_child:[{ goc_id:0, goc_name:'', goc_price:'' }] }); },
         removeAtOpt(i) { 
-            if (this.$route.name == 'adm_goods_edit' && this.value.option[i].op_id) {
+            if (this.$route.name == 'adm_goods_edit' && this.value.goods_option[i].go_id) {
                 if (!this.value.hasOwnProperty("delete_option"))
                     this.value.delete_option = Array();  
-                this.value.delete_option.push(this.value.option[i].op_id);
+                this.value.delete_option.push(this.value.goods_option[i].go_id);
             }
-            this.value.option.splice(i, 1); 
+            this.value.goods_option.splice(i, 1); 
         },
 
-        insertAtOptItem(opc) { opc.push({ opc_id:0, opc_name:'', opc_price:'' }); },
-        removeAtOptItem(opc, i) {
-            if (this.$route.name == 'adm_goods_edit' && opc[i].opc_id) {
+        insertAtOptItem(goc) { goc.push({ goc_id:0, goc_name:'', goc_price:'' }); },
+        removeAtOptItem(goc, i) {
+            if (this.$route.name == 'adm_goods_edit' && goc[i].goc_id) {
                 if (!this.value.hasOwnProperty("delete_option_child"))
                     this.value.delete_option_child = Array();  
-                this.value.delete_option_child.push(opc[i].opc_id);
+                this.value.delete_option_child.push(goc[i].goc_id);
             }
-            opc.splice(i, 1); 
+            goc.splice(i, 1); 
         },
 
         bd_hide(bd) { for (let key in bd) { if(bd[key].bd_ea == '' || bd[key].bd_price == '') bd.splice(key, 1); } },

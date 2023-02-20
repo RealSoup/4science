@@ -2,7 +2,7 @@
     <b-row tag="li" class="gd_option">
         <b-col>
             <b-form-checkbox v-model="value.ct_check_opt" value="Y" unchecked-value="N" @change="opc_check" class="hide" />
-            <div>{{strCut(value.opc_name, 10)}}</div>
+            <div>{{strCut(value.goc_name, 10)}}</div>
         </b-col>
         <b-col class="hide price">{{value.price_add_vat | comma}}</b-col>        
         <b-col class="hide">
@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         opc_check() {
-            if (this.value.op_required == 'Y') {
+            if (this.value.go_required == 'Y') {
                 Notify.toast('danger', "필수옵션은 해제 할 수 없습니다.");
                 this.$set(this.value, 'ct_check_opt', 'Y');
             }

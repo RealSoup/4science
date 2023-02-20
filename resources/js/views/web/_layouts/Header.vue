@@ -20,7 +20,6 @@
                         </b-modal>
                     </b-nav-item>
                     <b-nav-item :to="{name: 'auth_intro'}">회원가입</b-nav-item>
-                    <b-nav-item @click="logout">.</b-nav-item>
                 </b-navbar-nav>
 
                 <b-collapse id="nav-collapse" is-nav>

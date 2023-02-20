@@ -4,6 +4,7 @@ namespace App\Models\Shop;
 
 // use App\Events\GoodsDeleted;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use App\Models\{User, FileGoods};
 use DB;
@@ -12,6 +13,7 @@ use DateTimeInterface;
 use Illuminate\Support\Arr;
 
 class Goods extends Model {
+    use SoftDeletes;
     protected $primaryKey = 'gd_id';
     protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
     protected $table = 'shop_goods';
@@ -40,10 +42,10 @@ class Goods extends Model {
     // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
 
-    public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id"); }
-    public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->where('gc_prime', 'Y'); }
+    public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id")->Prime(); }
+    public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->Prime(); }
     public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id"); }
-    public function option() {              return $this->hasMany(Option::class, "op_gd_id")->orderBy('op_required'); }
+    public function goodsOption() {         return $this->hasMany(GoodsOption::class, "go_gd_id")->orderBy('go_required'); }
     public function hashJoin() {            return $this->hasMany(HashJoin::class, "gd_id"); }
     public function fileGoods() {           return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
     public function fileGoodsAdd() {        return $this->hasMany(FileGoods::class, 'fi_key')->Kind('add')->orderBy('fi_seq'); }
@@ -82,6 +84,9 @@ class Goods extends Model {
         return $rst;
     }
 
+    public static function gdMaker($gd_id) {
+        return Maker::find(self::select('gd_mk_id')->find($gd_id)->gd_mk_id)->mk_name;
+    }
 
 
 
@@ -96,8 +101,8 @@ class Goods extends Model {
                 foreach ($some['goods'] as $item) {
                     if ( array_key_exists('gm_id', $item) ) 
                         $d_arrange[$item['gd_id']]['model'][$item['gm_id']] = [ 'gm_id' => $item['gm_id'], 'ea' => $item['ea'] ];
-                    else if ( array_key_exists('opc_id', $item) ) 
-                        $d_arrange[$item['gd_id']]['option'][$item['opc_id']] = [ 'opc_id' => $item['opc_id'], 'ea' => $item['ea'] ];
+                    else if ( array_key_exists('goc_id', $item) ) 
+                        $d_arrange[$item['gd_id']]['option'][$item['goc_id']] = [ 'goc_id' => $item['goc_id'], 'ea' => $item['ea'] ];
                 }
             break;
 
@@ -125,7 +130,7 @@ class Goods extends Model {
                                 ];
                             } else if ($odm->odm_type == 'OPTION') {
                                 $d_arrange[$odm->odm_gd_id]['option'][$odm->odm_gm_id] = [
-                                    'opc_id'    => $odm->odm_gm_id,
+                                    'goc_id'    => $odm->odm_gm_id,
                                     'ea'        => $odm->odm_ea,
                                     'odo_id'    => $odm->odm_id,
                                     'odo_price' => $odm->odm_price 
@@ -143,7 +148,7 @@ class Goods extends Model {
                         $d_arrange[$ct->ct_gd_id]['model'][$cm->cm_gm_id] = [ 'gm_id' => $cm->cm_gm_id, 'ea' => $cm->cm_ea, 'cm_id' => $cm->cm_id ];
                     
                     foreach ($ct->cartOption as $co)
-                        $d_arrange[$ct->ct_gd_id]['option'][$co->co_opc_id] = [ 'opc_id' => $co->co_opc_id, 'ea' => $co->co_ea, 'co_id' => $co->co_id ];
+                        $d_arrange[$ct->ct_gd_id]['option'][$co->co_goc_id] = [ 'goc_id' => $co->co_goc_id, 'ea' => $co->co_ea, 'co_id' => $co->co_id ];
                 }
             break;
         }
@@ -179,14 +184,14 @@ class Goods extends Model {
                 }
 
                 if($v['option']->isNotEmpty()){
-                    $gd->option_child = collect();
+                    $gd->goods_option_child = collect();
                     $eo = new EstimateOption();
                     foreach ($v['option'] as $k => $vo) {
                         $eo = $eo->find($k);
-                        $gd->option_child->push([
-                            'opc_name'          => $eo->eo_name,
+                        $gd->goods_option_child->push([
+                            'goc_name'          => $eo->eo_name,
                             'ea'                => $eo->eo_ea,
-                            'opc_price_add_vat' => rrp($eo->eo_price),
+                            'goc_price_add_vat' => rrp($eo->eo_price),
                         ]);
                         $gd->option_p += $eo->eo_price*$eo->eo_ea;
                     }
@@ -265,28 +270,28 @@ class Goods extends Model {
 
                 
                 if(isset($v['option'])){
-                    foreach (OptionChild::find(Arr::pluck($v['option'], 'opc_id')) as $opc) {   //  opc_id만 추출하여 옵션 검색
-                        $op = Option::find($opc->opc_op_id);
+                    foreach (GoodsOptionChild::find(Arr::pluck($v['option'], 'goc_id')) as $goc) {   //  goc_id만 추출하여 옵션 검색
+                        $go = GoodsOption::find($goc->goc_go_id);
                         $tmpOption = [
                             'type'          => 'option',
                             'gd_id'         => $gd_id,
-                            'opc_id'        => $opc->opc_id,
-                            'ea'            => $v['option'][$opc->opc_id]['ea'],
-                            'op_name'       => $op->op_name,
-                            'opc_name'      => $opc->opc_name,
-                            'price'         => $opc->opc_price,
-                            'price_add_vat' => $opc->opc_price_add_vat,
-                            'gain_mileage'  => $opc->gain_mileage,
+                            'goc_id'        => $goc->goc_id,
+                            'ea'            => $v['option'][$goc->goc_id]['ea'],
+                            'go_name'       => $go->go_name,
+                            'goc_name'      => $goc->goc_name,
+                            'price'         => $goc->goc_price,
+                            'price_add_vat' => $goc->goc_price_add_vat,
+                            'gain_mileage'  => $goc->gain_mileage,
                         ];
                         
                         if ($type == 'cart') {
-                            $tmpOption['co_id'] = $d_arrange[$gd_id]['option'][$opc->opc_id]['co_id'];
+                            $tmpOption['co_id'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['co_id'];
                             $tmpOption['ct_check_opt'] = 'Y';
                         } else if ($type == 'order') {
-                            $tmpOption['price'] = $d_arrange[$gd_id]['option'][$opc->opc_id]['odo_price'];
-                            $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$opc->opc_id]['odo_price']);
+                            $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
+                            $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);
                         } else {
-                            // $gd->option_p += $opc->opc_price*$opc->ea;
+                            // $gd->option_p += $goc->goc_price*$goc->ea;
                         }
 
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
@@ -356,7 +361,7 @@ class Goods extends Model {
                     foreach ($gd['model'] as $gm)
                         $collect[$gd['gd_id']]['model']->put($gm['gm_id'], collect([ 'gm_id' => $gm['gm_id'], 'ea' => $gm['ea'] ]));
                     foreach ($gd['option'] as $op)
-                        $collect[$gd['gd_id']]['option']->put($op['opc_id'], collect([ 'opc_id' => $op['opc_id'], 'ea' => $op['ea'] ]));
+                        $collect[$gd['gd_id']]['option']->put($op['goc_id'], collect([ 'goc_id' => $op['goc_id'], 'ea' => $op['ea'] ]));
                 }
             break;
 
@@ -365,7 +370,7 @@ class Goods extends Model {
             //     foreach ($some['goods']['model'] as $val)
             //         $collect[$some['goods']['gd_id']]['model']->put($val['gm_id'], collect([ 'gm_id' => $val['gm_id'], 'ea' => $val['ea'] ]));
             //     foreach ($some['goods']['option'] as $val)
-            //         $collect[$some['goods']['gd_id']]['option']->put($val['opc_id'], collect([ 'opc_id' => $val['opc_id'], 'ea' => $val['ea'] ]));
+            //         $collect[$some['goods']['gd_id']]['option']->put($val['goc_id'], collect([ 'goc_id' => $val['goc_id'], 'ea' => $val['ea'] ]));
             // break;
 
             case 'buy_estimate':    //  견적서에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
@@ -398,8 +403,8 @@ class Goods extends Model {
                         }
                     }
                     foreach ($odg->orderOption as $odo) {
-                        $collect[$odg->odg_gd_id]['option']->put($odo->odo_opc_id, collect([
-                            'opc_id'    => $odo->odo_opc_id,
+                        $collect[$odg->odg_gd_id]['option']->put($odo->odo_goc_id, collect([
+                            'goc_id'    => $odo->odo_goc_id,
                             'ea'    => $odo->odo_ea,
                             'odo_id' => $odo->odo_id,
                             'odo_price' => $odo->odo_price ]));
@@ -418,8 +423,8 @@ class Goods extends Model {
                             'cm_id' => $cartModel->cm_id ]));
                     }
                     foreach ($cart->cartOption as $cartOption) {
-                        $collect[$gd->gd_id]['option']->put($cartOption->co_opc_id, collect([
-                            'opc_id'    => $cartOption->co_opc_id,
+                        $collect[$gd->gd_id]['option']->put($cartOption->co_goc_id, collect([
+                            'goc_id'    => $cartOption->co_goc_id,
                             'ea'    => $cartOption->co_ea,
                             'co_id' => $cartOption->co_id ]));
                     }
@@ -464,9 +469,9 @@ class Goods extends Model {
                     foreach ($val['option'] as $k => $v) {
                         $eo = $eo->find($k);
                         $gd->option_child->push([
-                            'opc_name'          => $eo->eo_name,
+                            'goc_name'          => $eo->eo_name,
                             'ea'                => $eo->eo_ea,
-                            'opc_price_add_vat' => rrp($eo->eo_price),
+                            'goc_price_add_vat' => rrp($eo->eo_price),
                         ]);
                         $gd->option_p += $eo->eo_price*$eo->eo_ea;
                     }
@@ -532,17 +537,17 @@ class Goods extends Model {
 
                 
                 if($val['option']->isNotEmpty()){
-                    $gd->option_child = OptionChild::find($val['option']->pluck('opc_id'));
-                    foreach ($gd->option_child as $opc) {
-                        $opc->option;
-                        $opc->ea = $collect[$gd_id]['option'][$opc->opc_id]['ea'];
-                        if ($type == 'cart') $opc->co_id = $collect[$gd_id]['option'][$opc->opc_id]['co_id'];
+                    $gd->option_child = OptionChild::find($val['option']->pluck('goc_id'));
+                    foreach ($gd->option_child as $goc) {
+                        $goc->option;
+                        $goc->ea = $collect[$gd_id]['option'][$goc->goc_id]['ea'];
+                        if ($type == 'cart') $goc->co_id = $collect[$gd_id]['option'][$goc->goc_id]['co_id'];
                         if ($type == 'order') {
-                            $opc->odo_price = $collect[$gd_id]['option'][$opc->opc_id]['odo_price'];
-                            $opc->odo_price_add_vat = rrp($collect[$gd_id]['option'][$opc->opc_id]['odo_price']);
-                            $gd->option_p += $opc->odo_price*$opc->ea;
+                            $goc->odo_price = $collect[$gd_id]['option'][$goc->goc_id]['odo_price'];
+                            $goc->odo_price_add_vat = rrp($collect[$gd_id]['option'][$goc->goc_id]['odo_price']);
+                            $gd->option_p += $goc->odo_price*$goc->ea;
                         } else {
-                            $gd->option_p += $opc->opc_price*$opc->ea;
+                            $gd->option_p += $goc->goc_price*$goc->ea;
                         }
 
                     }

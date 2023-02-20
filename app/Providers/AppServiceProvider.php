@@ -25,10 +25,12 @@ class AppServiceProvider extends ServiceProvider {
             'board'         => 'App\Models\Board',
             'goods'         => 'App\Models\Shop\Goods',
             'order'         => 'App\Models\Shop\Order',
+            'orderExtra'    => 'App\Models\Shop\OrderExtraInfo',
             'estimateReq'   => 'App\Models\Shop\EstimateReq',
             'estimateReply' => 'App\Models\Shop\EstimateReply',
             'engReform'     => 'App\Models\EngReform',
             'boardGood'     => 'App\Models\BoardGood',
+            'userBiz'       => 'App\Models\UserBiz',
             'userBiz'       => 'App\Models\UserBiz',
         ]);
     }

@@ -394,7 +394,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         goods_category: [],
         gd_enable: 'Y',
         goods_model: [],
-        option: [],
+        goods_option: [],
         fi_id: [],
         hash_join: [],
         file_goods_goods: [],
@@ -997,7 +997,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     insertAtModel: function insertAtModel() {
-      this.value.goods_model.push({
+      var tmp = {
         gm_name: '',
         gm_catno: '',
         gm_code: '',
@@ -1008,7 +1008,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         gm_price: '',
         bundle_dc: [],
         bd_open: false
-      });
+      };
+      if (this.value.goods_model.length == 0) tmp.gm_prime = 'Y';
+      this.value.goods_model.push(tmp);
+    },
+    uniqueCheck: function uniqueCheck(i) {
+      if (this.value.goods_model[i].gm_prime == 'Y') {
+        for (var ii in this.value.goods_model) {
+          if (i != ii) this.value.goods_model[ii].gm_prime = 'N';
+        }
+      }
     },
     removeAtModel: function removeAtModel(i) {
       if (this.$route.name == 'adm_goods_edit' && this.value.goods_model[i].gm_id) {
@@ -1034,38 +1043,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       bd.splice(i, 1);
     },
     insertAtOpt: function insertAtOpt() {
-      this.value.option.push({
-        op_id: 0,
-        op_name: '',
-        option_child: [{
-          opc_id: 0,
-          opc_name: '',
-          opc_price: ''
+      this.value.goods_option.push({
+        go_id: 0,
+        go_name: '',
+        goods_option_child: [{
+          goc_id: 0,
+          goc_name: '',
+          goc_price: ''
         }]
       });
     },
     removeAtOpt: function removeAtOpt(i) {
-      if (this.$route.name == 'adm_goods_edit' && this.value.option[i].op_id) {
+      if (this.$route.name == 'adm_goods_edit' && this.value.goods_option[i].go_id) {
         if (!this.value.hasOwnProperty("delete_option")) this.value.delete_option = Array();
-        this.value.delete_option.push(this.value.option[i].op_id);
+        this.value.delete_option.push(this.value.goods_option[i].go_id);
       }
 
-      this.value.option.splice(i, 1);
+      this.value.goods_option.splice(i, 1);
     },
-    insertAtOptItem: function insertAtOptItem(opc) {
-      opc.push({
-        opc_id: 0,
-        opc_name: '',
-        opc_price: ''
+    insertAtOptItem: function insertAtOptItem(goc) {
+      goc.push({
+        goc_id: 0,
+        goc_name: '',
+        goc_price: ''
       });
     },
-    removeAtOptItem: function removeAtOptItem(opc, i) {
-      if (this.$route.name == 'adm_goods_edit' && opc[i].opc_id) {
+    removeAtOptItem: function removeAtOptItem(goc, i) {
+      if (this.$route.name == 'adm_goods_edit' && goc[i].goc_id) {
         if (!this.value.hasOwnProperty("delete_option_child")) this.value.delete_option_child = Array();
-        this.value.delete_option_child.push(opc[i].opc_id);
+        this.value.delete_option_child.push(goc[i].goc_id);
       }
 
-      opc.splice(i, 1);
+      goc.splice(i, 1);
     },
     bd_hide: function bd_hide(bd) {
       for (var key in bd) {
@@ -6787,24 +6796,27 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "b-input-group-append",
-                              {
-                                directives: [
-                                  {
-                                    name: "b-tooltip",
-                                    rawName: "v-b-tooltip",
-                                    value: "대표 가격",
-                                    expression: "'대표 가격'",
-                                  },
-                                ],
-                                attrs: { "is-text": "" },
-                              },
+                              { attrs: { "is-text": "" } },
                               [
                                 _c("b-form-checkbox", {
+                                  directives: [
+                                    {
+                                      name: "b-tooltip",
+                                      rawName: "v-b-tooltip",
+                                      value: "대표 가격",
+                                      expression: "'대표 가격'",
+                                    },
+                                  ],
                                   staticClass: "mr-n2 mb-n1",
                                   attrs: {
                                     switch: "",
                                     value: "Y",
                                     "unchecked-value": "N",
+                                  },
+                                  on: {
+                                    input: function ($event) {
+                                      return _vm.uniqueCheck(i)
+                                    },
                                   },
                                   model: {
                                     value: model.gm_prime,
@@ -7151,7 +7163,7 @@ var render = function () {
                         1
                       ),
                       _vm._v(" "),
-                      _vm._l(_vm.value.option, function (op, idx) {
+                      _vm._l(_vm.value.goods_option, function (go, idx) {
                         return _c(
                           "b-row",
                           { key: idx, staticClass: "body" },
@@ -7175,11 +7187,11 @@ var render = function () {
                                 _c("b-form-input", {
                                   attrs: { size: "sm" },
                                   model: {
-                                    value: op.op_name,
+                                    value: go.go_name,
                                     callback: function ($$v) {
-                                      _vm.$set(op, "op_name", $$v)
+                                      _vm.$set(go, "go_name", $$v)
                                     },
-                                    expression: "op.op_name",
+                                    expression: "go.go_name",
                                   },
                                 }),
                                 _vm._v(" "),
@@ -7193,11 +7205,11 @@ var render = function () {
                                       switch: "",
                                     },
                                     model: {
-                                      value: op.op_required,
+                                      value: go.go_required,
                                       callback: function ($$v) {
-                                        _vm.$set(op, "op_required", $$v)
+                                        _vm.$set(go, "go_required", $$v)
                                       },
-                                      expression: "op.op_required",
+                                      expression: "go.go_required",
                                     },
                                   },
                                   [_vm._v("필수 옵션")]
@@ -7208,81 +7220,84 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "b-col",
-                              _vm._l(op.option_child, function (opc, opc_idx) {
-                                return _c(
-                                  "b-row",
-                                  { key: opc_idx },
-                                  [
-                                    _c(
-                                      "b-col",
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: { size: "sm" },
-                                          model: {
-                                            value: opc.opc_name,
-                                            callback: function ($$v) {
-                                              _vm.$set(opc, "opc_name", $$v)
+                              _vm._l(
+                                go.goods_option_child,
+                                function (goc, goc_idx) {
+                                  return _c(
+                                    "b-row",
+                                    { key: goc_idx },
+                                    [
+                                      _c(
+                                        "b-col",
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: { size: "sm" },
+                                            model: {
+                                              value: goc.goc_name,
+                                              callback: function ($$v) {
+                                                _vm.$set(goc, "goc_name", $$v)
+                                              },
+                                              expression: "goc.goc_name",
                                             },
-                                            expression: "opc.opc_name",
-                                          },
-                                        }),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-col",
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: { size: "sm" },
-                                          model: {
-                                            value: opc.opc_price,
-                                            callback: function ($$v) {
-                                              _vm.$set(opc, "opc_price", $$v)
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: { size: "sm" },
+                                            model: {
+                                              value: goc.goc_price,
+                                              callback: function ($$v) {
+                                                _vm.$set(goc, "goc_price", $$v)
+                                              },
+                                              expression: "goc.goc_price",
                                             },
-                                            expression: "opc.opc_price",
-                                          },
-                                        }),
-                                        _vm._v(" "),
-                                        opc_idx == 0
-                                          ? _c(
-                                              "span",
-                                              {
-                                                staticClass: "add",
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.insertAtOptItem(
-                                                      op.option_child
-                                                    )
+                                          }),
+                                          _vm._v(" "),
+                                          goc_idx == 0
+                                            ? _c(
+                                                "span",
+                                                {
+                                                  staticClass: "add",
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.insertAtOptItem(
+                                                        go.goods_option_child
+                                                      )
+                                                    },
                                                   },
                                                 },
-                                              },
-                                              [_c("b-icon-plus-circle-fill")],
-                                              1
-                                            )
-                                          : _c(
-                                              "span",
-                                              {
-                                                staticClass: "del",
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.removeAtOptItem(
-                                                      op.option_child,
-                                                      opc_idx
-                                                    )
+                                                [_c("b-icon-plus-circle-fill")],
+                                                1
+                                              )
+                                            : _c(
+                                                "span",
+                                                {
+                                                  staticClass: "del",
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.removeAtOptItem(
+                                                        go.goods_option_child,
+                                                        goc_idx
+                                                      )
+                                                    },
                                                   },
                                                 },
-                                              },
-                                              [_c("b-icon-x-circle-fill")],
-                                              1
-                                            ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                )
-                              }),
+                                                [_c("b-icon-x-circle-fill")],
+                                                1
+                                              ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                }
+                              ),
                               1
                             ),
                           ],

@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function userMngConfig() { return $this->hasMany(UserMngConfig::class, 'umc_user_id')->orderBy('umc_key')->orderBy('umc_seq'); }
     public function order() { return $this->hasMany(\App\Models\Shop\Order::class, "created_id")->latest(); }
     public function estimateReq() { return $this->hasMany(\App\Models\Shop\EstimateReq::class, "created_id")->latest(); }
-    public function mileage() { return $this->hasMany(Mileage::class, "ml_uid"); }
+    public function userMileage() { return $this->hasMany(UserMileage::class, "ml_uid"); }
     public function wish() { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
     public function engReform() { return $this->hasMany(EngReform::class, "created_id"); }
     public function userAddr() { return $this->hasMany(UserAddr::class, 'ua_key')->orderByRaw("FIELD(ua_def, \"Y\", \"N\")"); }

@@ -12,7 +12,7 @@ class StoreEstimateReq extends FormRequest {
     public function rules() {
         return [
             'eq_name'       => 'required',
-            'eq_department' => 'required',
+            // 'eq_department' => 'required',
             'eq_email'      => 'required|email',
             'eq_hp'         => 'required',
             'eq_1depth'     => 'required_without:lists',

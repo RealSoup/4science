@@ -34,7 +34,7 @@ export default {
         cartIdUpdate(state, data) {
             state.cartList.forEach(ct => {
                 if (ct.type == 'model' && data.hasOwnProperty('cm_gm_id') && ct.gm_id == data.cm_gm_id)     ct.cm_id = data.cm_id;
-                if (ct.type == 'option' && data.hasOwnProperty('co_opc_id') && ct.opc_id == data.co_opc_id) ct.co_id = data.co_id;
+                if (ct.type == 'option' && data.hasOwnProperty('co_goc_id') && ct.goc_id == data.co_goc_id) ct.co_id = data.co_id;
             });            
         },
 
@@ -91,13 +91,13 @@ export default {
                     }
                 });
 
-                payload.goods.option.forEach(op => {
-                    op.option_child.forEach(opc => {
-                        if ( opc.ea > 0 ) {
+                payload.goods.goods_option.forEach(go => {
+                    go.goods_option_child.forEach(goc => {
+                        if ( goc.ea > 0 ) {
                             let existFlag = false;
                             context.state.cartList.forEach((ct, i) => {
-                                if ( ct.type == 'option' && ct.opc_id == opc.opc_id ) {
-                                    ct.ea += opc.ea;
+                                if ( ct.type == 'option' && ct.goc_id == goc.goc_id ) {
+                                    ct.ea += goc.ea;
                                     existFlag = true;
                                     context.dispatch('update', { co_id: ct.co_id, ea: ct.ea });
                                 }
@@ -107,14 +107,14 @@ export default {
                                 ct_index+=1;
                                 context.state.cartList.splice(ct_index+1, 0, {
                                     gd_id:          payload.goods.gd_id,
-                                    opc_id:         opc.opc_id,
+                                    goc_id:         goc.goc_id,
                                     type:           "option",
                                     ct_check_opt:   'Y',
-                                    opc_name:       opc.opc_name,
-                                    price_add_vat:  opc.opc_price_add_vat,
-                                    ea:             opc.ea,
+                                    goc_name:       goc.goc_name,
+                                    price_add_vat:  goc.goc_price_add_vat,
+                                    ea:             goc.ea,
                                 });
-                                context.dispatch('store', { gd_id: payload.goods.gd_id, op_id: opc.opc_op_id, opc_id: opc.opc_id, ea: opc.ea });
+                                context.dispatch('store', { gd_id: payload.goods.gd_id, go_id: goc.goc_go_id, goc_id: goc.goc_id, ea: goc.ea });
                             }
                         }
                     });

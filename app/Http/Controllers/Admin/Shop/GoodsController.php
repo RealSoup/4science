@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, BundleDc, Maker, Hash, HashJoin, Option, OptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, BundleDc, Maker, Hash, HashJoin, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -17,16 +17,16 @@ class GoodsController extends Controller {
 
     protected $goods;
     protected $goods_model;
-    protected $option;
-    protected $optionChild;
+    protected $goods_option;
+    protected $goods_option_child;
 	protected $maker;
     protected $bd;
 
-	public function __construct( Goods $gd, GoodsModel $gm, Option $option, OptionChild $optionChild, Maker $mk, BundleDc $bd ) {
+	public function __construct( Goods $gd, GoodsModel $gm, GoodsOption $option, GoodsOptionChild $optionChild, Maker $mk, BundleDc $bd ) {
         $this->goods = $gd;
         $this->goods_model = $gm;
-        $this->option = $option;
-        $this->optionChild = $optionChild;
+        $this->goods_option = $option;
+        $this->goods_option_child = $optionChild;
         $this->maker = $mk;
         $this->bd = $bd;
     }
@@ -34,32 +34,42 @@ class GoodsController extends Controller {
 
     public function index(Category $cate, Request $req) {
         //  카테고리 검색때문에 with을 안쓰고 조인을 했다.
-        $gd = $this->goods->with('fileGoodsGoods')->with('maker')->with('user')
-                ->rightJoin(
-                     DB::raw("
-                        (SELECT 
-                            gc_gd_id, gc_prime, 
-                            gc_ca01, gc_ca01_name, 
-                            gc_ca02, gc_ca02_name, 
-                            gc_ca03, gc_ca03_name, 
-                            gc_ca04, gc_ca04_name
-                        from la_shop_goods_category
-                        where gc_prime = 'Y') la_shop_goods_category
-                    "), 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'
-                );
+        $gd = $this->goods->with('goodsCategoryFirst')->with('fileGoodsGoods')->with('maker')->with('user')
+                // ->rightJoin(
+                //      DB::raw("
+                //         (SELECT 
+                //             gc_gd_id, gc_prime, 
+                //             gc_ca01, gc_ca01_name, 
+                //             gc_ca02, gc_ca02_name, 
+                //             gc_ca03, gc_ca03_name, 
+                //             gc_ca04, gc_ca04_name
+                //         from la_shop_goods_category
+                //         where gc_prime = 'Y') la_shop_goods_category
+                //     "), 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'
+                // )
+                ;
                 // ->rightJoin('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
                 // ->where('gc_prime', 'Y');
 
                 
-        $gd->when($req->ca01, fn ($q, $v) => $q->whereGcCa01($v));
         // if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
-        $gd->when($req->ca02, fn ($q, $v) => $q->whereGcCa02($v));
-        $gd->when($req->ca03, fn ($q, $v) => $q->whereGcCa03($v));
-        $gd->when($req->ca04, fn ($q, $v) => $q->whereGcCa04($v));
-        $gd->when($req->startDate,  fn ($q, $v) => $q->StartDate($v));
-        $gd->when($req->endDate,    fn ($q, $v) => $q->EndDate($v));
-        $gd->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v));
-        $gd->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v));
+        // $gd->when($req->ca01, fn ($q, $v) => $q->whereGcCa01($v));
+        // $gd->when($req->ca02, fn ($q, $v) => $q->whereGcCa02($v));
+        // $gd->when($req->ca03, fn ($q, $v) => $q->whereGcCa03($v));
+        // $gd->when($req->ca04, fn ($q, $v) => $q->whereGcCa04($v));
+        // $gd->when($req->ca01, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $v); }));
+        $gd->when($req->ca01, function ($q, $v) use($req) {
+            return $q->whereIn('gd_id', function($q) use($req) {
+                if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
+                else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
+                else if ($req->ca02) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02);
+                else                 $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01);
+            });
+        })
+        ->when($req->startDate,  fn ($q, $v) => $q->StartDate($v))
+        ->when($req->endDate,    fn ($q, $v) => $q->EndDate($v))
+        ->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v))
+        ->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v));
 
         if ($req->keyword){
             $gm = $this->goods_model;
@@ -92,7 +102,7 @@ class GoodsController extends Controller {
                 break;
             }
         }
-        $data['list'] = $gd->latest("gc_gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
+        $data['list'] = $gd->latest("gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
         
 		return response()->json($data);
@@ -123,10 +133,10 @@ class GoodsController extends Controller {
     }
 
     public function edit(HashJoin $hj, $gd_id) {
-        $data['goods'] = $this->goods->find($gd_id);
+        $data['goods'] = $this->goods->with('goodsModel')->with('goodsOption')->find($gd_id);
         $data['goods']->goodsCategory; 
-        foreach ($data['goods']->goodsModel as $md) $md->bundleDc;
-        foreach($data['goods']->option as $op) $op->optionChild;
+        foreach($data['goods']->goodsModel as $md) $md->bundleDc;
+        foreach($data['goods']->goodsOption as $go) $go->goodsOptionChild;
         $data['goods']->fileGoodsGoods;
         $data['goods']->fileGoodsAdd;
         $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();    //  제조사
@@ -169,11 +179,11 @@ class GoodsController extends Controller {
             }
         }
 
-        foreach ($req->option as $op) {
-            if (isset($op['op_name'])){
-                $op_id = $this->option->insertGetId($this->option_paramImplant($goods->gd_id, $op), 'op_id');
-                foreach ($op['option_child'] as $opc) {
-                    if (isset($opc['opc_name'])) $this->optionChild->insert($this->optionChild_paramImplant($op_id, $opc));
+        foreach ($req->goods_option as $go) {
+            if (isset($go['go_name'])){
+                $go_id = $this->goods_option->insertGetId($this->option_paramImplant($goods->gd_id, $go), 'go_id');
+                foreach ($go['goods_option_child'] as $goc) {
+                    if (isset($goc['goc_name'])) $this->goods_option_child->insert($this->optionChild_paramImplant($go_id, $goc));
                 }
             }
         }
@@ -237,7 +247,6 @@ class GoodsController extends Controller {
             $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
             $cat[2] = 0;
         }
-        
         foreach ($req->goods_model as $gm) {
             $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm);
             $gm_impl_add = array();
@@ -248,8 +257,10 @@ class GoodsController extends Controller {
                 $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => $cat[2] ]; 
             }
             $gm_impl = Arr::collapse([$gm_impl, $gm_impl_add, ['ip' => $req->ip()]]);
+      
             $udt_gm = $this->goods_model->updateOrCreate(['gm_id' => $gm_id], $gm_impl);
                     
+       
             foreach ($gm['bundle_dc'] as $bd) {
                 if (isset($bd['bd_ea'])){
                     if (isset($bd['bd_id']) && $bd['bd_id'])    $col_nm = 'updated_id';
@@ -268,12 +279,12 @@ class GoodsController extends Controller {
             }
         }
         
-        foreach ($req->option as $op) {
-            if (isset($op['op_name'])){
-                $udt_op = $this->option->updateOrCreate( ['op_id' => $op['op_id']], $this->option_paramImplant($gd_id, $op) );             
-                foreach ($op['option_child'] as $opc) {
-                    if (isset($opc['opc_name']))
-                        $this->optionChild->updateOrCreate( ['opc_id' => $opc['opc_id']], $this->optionChild_paramImplant($udt_op->op_id, $opc) );
+        foreach ($req->goods_option as $go) {
+            if (isset($go['go_name'])){
+                $udt_go = $this->goods_option->updateOrCreate( ['go_id' => $go['go_id']], $this->option_paramImplant($gd_id, $go) );             
+                foreach ($go['goods_option_child'] as $goc) {
+                    if (isset($goc['goc_name']))
+                        $this->goods_option_child->updateOrCreate( ['goc_id' => $goc['goc_id']], $this->optionChild_paramImplant($udt_go->go_id, $goc) );
                 }
             }
         }
@@ -281,8 +292,8 @@ class GoodsController extends Controller {
         if ($req->filled('delete_option')) {    //  옵션 삭제
             foreach ($req->delete_option as $id) {
                 if ($id) {
-                    DB::table('shop_option')->where('op_id', $id)->delete();
-                    DB::table('shop_option_child')->where('opc_op_id', $id)->delete();
+                    DB::table('shop_goods_option')->where('go_id', $id)->delete();
+                    DB::table('shop_goods_option_child')->where('goc_go_id', $id)->delete();
                 }
             }
         }
@@ -290,7 +301,7 @@ class GoodsController extends Controller {
         if ($req->filled('delete_option_child')) {    //  옵션 항목 삭제
             foreach ($req->delete_option_child as $id) {
                 if ($id)
-                    DB::table('shop_option_child')->where('opc_id', $id)->delete();
+                    DB::table('shop_goods_option_child')->where('goc_id', $id)->delete();
             }
         }
 
@@ -338,33 +349,32 @@ class GoodsController extends Controller {
     }
 
     public function destroy($id) {
-        DB::table('shop_hash_join')->where('gd_id', $id)->delete();       
-        foreach (FileGoods::Key($id)->get() as $v)
-            app('App\Http\Controllers\CommonController')->deleteFiles($v->fi_id, 'goods');        
-        foreach (Option::Gd_id($id)->get() as $op) {
-            foreach ($op->optionChild as $opc) 
-                $opc->delete();
-            $op->delete();
-        }
-        foreach (GoodsModel::Gd_id($id)->get() as $gm) {            
-            foreach ($gm->bundleDc as $bd) 
-                $bd->delete();
-            $gm->delete();
-        }
-        DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
-        DB::table('shop_goods')->where('gd_id', $id)->delete();
-        DB::table('shop_listing')->where('li_gd_id', $id)->delete();
+        // DB::table('shop_hash_join')->where('gd_id', $id)->delete();       
+        // foreach (FileGoods::Key($id)->get() as $v)
+        //     app('App\Http\Controllers\CommonController')->deleteFiles($v->fi_id, 'goods');        
+        // foreach (GoodsOption::Gd_id($id)->get() as $go) {
+        //     foreach ($go->goodsOptionChild as $goc) 
+        //         $goc->delete();
+        //     $go->delete();
+        // }
+        // foreach (GoodsModel::Gd_id($id)->get() as $gm) {            
+        //     foreach ($gm->bundleDc as $bd) 
+        //         $bd->delete();
+        //     $gm->delete();
+        // }
+        // DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
+        DB::table('shop_goods')->where('gd_id', $id)->update(['deleted_at' => \Carbon\Carbon::now()]);
     }
 
     public function hashStore($hash_join, $gd_id){
-        $prev = HashJoin::Gd_id($gd_id)->pluck('hs_id');
+        $prev = HashJoin::Gdid($gd_id)->pluck('hs_id');
         foreach ($hash_join as $v) {
             $r = Hash::firstOrCreate( ['hs_id'=>$v['hs_id']], ['hs_tag'=>$v['hs_tag']] );
             HashJoin::firstOrCreate( ['gd_id'=>$gd_id, 'hs_id'=>$r->hs_id] );
             $prev->forget($prev->search($v['hs_id']));
         }
         foreach ($prev as $id)
-            HashJoin::Gd_id($gd_id)->Hs_id($id)->delete();
+            HashJoin::GdId($gd_id)->Hs_id($id)->delete();
     }
 
     public function goods_paramImplant($goods, $req){
@@ -389,16 +399,16 @@ class GoodsController extends Controller {
                     'gm_price'  => $gm['gm_price'],
                     'gm_prime'  => $gm['gm_prime']];
     }
-    public function option_paramImplant($gd_id, $op){
-        return [    'op_gd_id'      => $gd_id,
-                    'op_required'   => $op['op_required'] ?? 'N',
-                    'op_name'       => $op['op_name'] ];
+    public function option_paramImplant($gd_id, $go){
+        return [    'go_gd_id'      => $gd_id,
+                    'go_required'   => $go['go_required'] ?? 'N',
+                    'go_name'       => $go['go_name'] ];
     }
 
-    public function optionChild_paramImplant($op_id, $opc){
-        return [    'opc_op_id'     => $op_id,
-                    'opc_name'      => $opc['opc_name'],
-                    'opc_price'     => $opc['opc_price'], ];
+    public function optionChild_paramImplant($go_id, $goc){
+        return [    'goc_go_id'     => $go_id,
+                    'goc_name'      => $goc['goc_name'],
+                    'goc_price'     => $goc['goc_price'], ];
     }
     public function bundleDc_paramImplant($gm_id, $bd){
         return [    'bd_gm_id' => $gm_id,

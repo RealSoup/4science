@@ -166,31 +166,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     index: function index() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var p, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                p = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 0;
+                _context.prev = 1;
+                _this.sch_frm.page = p;
 
                 if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                  _context.next = 4;
+                  _context.next = 6;
                   break;
                 }
 
                 Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
                 return _context.abrupt("return", false);
 
-              case 4:
-                _context.next = 6;
+              case 6:
+                _context.next = 8;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate", {
                   params: _this.sch_frm
                 });
 
-              case 6:
+              case 8:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -199,26 +202,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.mng_info = res.data.mng_info;
                 }
 
-                _context.next = 14;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](0);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](1);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 14:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[1, 12]]);
       }))();
-    },
-    setPage: function setPage(page) {
-      this.sch_frm.page = page;
-      this.index();
     }
   },
   mounted: function mounted() {
@@ -807,8 +806,13 @@ var render = function () {
           _vm._v(" "),
           _c("pagination", {
             staticClass: "mt-5",
-            attrs: { data: _vm.list, align: "center" },
-            on: { "pagination-change-page": _vm.setPage },
+            attrs: {
+              data: _vm.list,
+              size: "small",
+              limit: 15,
+              align: "center",
+            },
+            on: { "pagination-change-page": _vm.index },
           }),
         ],
         1

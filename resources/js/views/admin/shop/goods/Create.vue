@@ -41,7 +41,7 @@ export default {
                 goods_category: [],
                 gd_enable: 'Y',
                 goods_model : [],
-                option : [],
+                goods_option : [],
                 fi_id: [],
                 hash_join: [],
                 file_goods_goods: [],

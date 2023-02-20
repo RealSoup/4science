@@ -144,7 +144,7 @@ export default {
 
     async mounted(){
         //  ml_key=0 => 상품권 요청
-        let res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0, limit: 10,}});
+        let res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0}});
         if (res && res.status === 200) this.reqVoucher = res.data;
         
         res = await ax.get(`api/admin/board/requestAsk`, { params: {type:'cnt'}});

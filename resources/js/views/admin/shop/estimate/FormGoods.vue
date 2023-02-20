@@ -12,7 +12,6 @@
                     <div class="flag_tag tag_red" v-if="em.bundle_dc && em.bundle_dc.length">묶음 할인</div>
                     <div class="flag_tag tag_green" v-if="em.goods && em.goods.purchase_at">매입처 상품</div>
                     <b-button size="sm" @click="openOption(mi, em.em_gd_id)"><b-icon-search /> 옵션</b-button>
-                    23-1-1
                 </b-col>
                 <b-col class="text-right">
                     <b-button variant="warning" size="sm" class="em_reset" @click="emReset(mi)">초기화</b-button>
@@ -77,7 +76,7 @@
                 </b-col>
             </b-row>
 
-            <OptionAdd ref="option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
+            <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
 
             <template v-if="em.estimate_option.length">
                 <b-row v-for="(eo, oi) in em.estimate_option" :key="'op'+mi+'_'+oi" class="op_list mt-3" align-h="end">
@@ -97,7 +96,7 @@
                     </b-col>
                 </b-row>
             </template>
-            
+           
         </b-container>
 
         <Validation :error="$store.state.error.validations.estimate_model" />
@@ -112,12 +111,12 @@
 
 <script>
 import ax from '@/api/http';
-import OptionAdd from "./_comp/OptionAdd.vue";
+import GoodsOptionAdd from "./_comp/GoodsOptionAdd.vue";
 import moment from 'moment';
 
 export default {
     components: {
-        OptionAdd,
+        GoodsOptionAdd,
         'PriceInput': () =>     import('./_comp/PriceInput.vue'),
         'DcLateInput': () =>    import('./_comp/DcLateInput.vue'),
         'ModelSchInput': () =>  import('./_comp/ModelSchInput.vue'),
@@ -142,7 +141,7 @@ export default {
                 this.value.splice(i, 1);
         },
         openOption(i, id){
-            this.$refs.option_add[i].getOption(id);
+            this.$refs.goods_option_add[i].getOption(id);
         },
         delOption(mi, oi) {
             this.value[mi].estimate_option.splice(oi, 1);

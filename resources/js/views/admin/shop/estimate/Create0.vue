@@ -244,7 +244,7 @@
 import ax from '@/api/http';
 import moment from 'moment';
 import copy from "fast-copy";
-import OptionAdd from "./_comp/OptionAdd.vue";
+import OptionAdd from "./_comp/GoodsOptionAdd.vue";
 
 export default {
     components: {

@@ -12,6 +12,7 @@ class UserMng extends Model {
     protected $appends = ['pos_name'];
     protected $mngInfo = [
         'group' => [
+            0 => '',
             '1' => '1팀',
             '2' => '2팀',
             '3' => '3팀',
@@ -20,6 +21,7 @@ class UserMng extends Model {
             'etc' => '기타'
         ],
         'position' => [
+            0 => '',
             1 => '사원',
             2 => '대리',
             3 => '과장',
@@ -29,6 +31,7 @@ class UserMng extends Model {
             7 => 'CEO',
         ],
         'responsibility' => [
+            0 => '',
             '1' => '1팀장',
             '2' => '2팀장',
             '3' => '3팀장',
@@ -37,7 +40,7 @@ class UserMng extends Model {
             'etc' => '기타',
         ],
     ];
-    public function getPosNameAttribute() { return $this->mngInfo['position'][$this->um_position]; }
+    public function getPosNameAttribute() { return $this->mngInfo['position'][$this->um_position??0]; }
     public function scopeGroup($query, $group) { return $query->where('um_group', $group); }
 
     // public function getRefinePositionAttribute() { return $this->mngInfo['position'][$this->um_position]; }

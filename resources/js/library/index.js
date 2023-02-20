@@ -353,6 +353,15 @@ export default {
                 if (nextElement) nextElement.focus();
             }
         };
+        String.prototype.cut = function(len) {
+            var str = this;
+            var s = 0;
+            for (var i=0; i<str.length; i++) {
+                    s += (str.charCodeAt(i) > 128) ? 2 : 1;
+                    if (s > len) return str.substring(0,i);// + "...";
+            }        
+            return str;
+        } 
 
 
 

@@ -62,7 +62,7 @@ class GoodsController extends Controller {
                     else        return $q->whereIn('gd_id', function($q) use($h) {
                         $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
                     }, 'or');
-                })->when($maker, fn ($q, $v) => $q->where("mk_name", $v));
+                })->when($maker, fn ($q, $v) => $q->orWhere("mk_name", $v));
         }
         $gd->when($req->ca01,     fn ($q, $v) => $q->Ca01($v))
             ->when($req->ca02,     fn ($q, $v) => $q->Ca02($v))
@@ -143,7 +143,7 @@ class GoodsController extends Controller {
     }
 
     public function show(Category $cate, Request $req, $gd_id) {
-        $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('option')->with('goodsCategoryFirst')
+        $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
             ->find($gd_id);
         
@@ -156,9 +156,9 @@ class GoodsController extends Controller {
             $val->bundleDc;
         }
         
-        foreach ($data['goods']->option as $op) {
-            foreach ($op->optionChild as $opc)
-                $opc->ea = 0;
+        foreach ($data['goods']->goodsOption as $go) {
+            foreach ($go->goodsOptionChild as $goc)
+                $goc->ea = 0;
         }
 
 

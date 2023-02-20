@@ -95,35 +95,35 @@
                     </b-row>
                 </div>
                 
-                <div class="goods_option" v-if="content.option && content.option.length">
+                <div class="goods_option" v-if="content.goods_option && content.goods_option.length">
                     <ul class="opt">
-                        <li v-for="(op, i) in content.option"
-                            :key="op.op_id"
-                            @click="op.show = !op.show"
+                        <li v-for="(go, i) in content.goods_option"
+                            :key="go.go_id"
+                            @click="go.show = !go.show"
                             v-click-outside:option_hide="i"
                         >
-                            {{op.op_name}} <b-badge variant="danger" v-if="op.op_required == 'Y'">필수</b-badge>
-                            <ul :class="{focus:op.show}">
-                                <li v-for="opc in op.option_child" :key="opc.opc_id" @click="opc.show=true, opc.ea++">
-                                    <span>{{opc.opc_name}}</span>
-                                    <span>{{opc.opc_price_add_vat | comma}} 원</span>
+                            {{go.go_name}} <b-badge variant="danger" v-if="go.go_required == 'Y'">필수</b-badge>
+                            <ul :class="{focus:go.show}">
+                                <li v-for="goc in go.goods_option_child" :key="goc.goc_id" @click="goc.show=true, goc.ea++">
+                                    <span>{{goc.goc_name}}</span>
+                                    <span>{{goc.goc_price_add_vat | comma}} 원</span>
                                 </li>
                             </ul>
                         </li>
                     </ul>
 
                     <ul class="selOpt" v-if="selOpt_cnt">
-                        <template v-for="op in content.option">
-                            <template v-for="opc in op.option_child">
-                                <li v-if="opc.show" :key="opc.opc_id">
-                                    <span class="cellName">{{opc.opc_name}} <b-badge variant="danger" v-if="op.op_required == 'Y'">필수</b-badge></span>
+                        <template v-for="go in content.goods_option">
+                            <template v-for="goc in go.goods_option_child">
+                                <li v-if="goc.show" :key="goc.goc_id">
+                                    <span class="cellName">{{goc.goc_name}} <b-badge variant="danger" v-if="go.go_required == 'Y'">필수</b-badge></span>
                                     <span class="cellCalc">
-                                        <span class="opt_p">{{opc.opc_price_add_vat | comma}}</span>
+                                        <span class="opt_p">{{goc.goc_price_add_vat | comma}}</span>
                                         <font-awesome-icon icon="times" />
-                                        <vue-numeric-input align="center" :min="1" width="85px" v-model="opc.ea" @blur="checkValue(opc)"></vue-numeric-input>
+                                        <vue-numeric-input align="center" :min="1" width="85px" v-model="goc.ea" @blur="checkValue(goc)"></vue-numeric-input>
                                         <font-awesome-icon icon="equals" />
-                                        <span class="sum_p">{{opc.opc_price_add_vat*opc.ea | comma}} 원</span>
-                                        <span @click="opc.show=false, opc.ea=0" class="delOpt">X</span>
+                                        <span class="sum_p">{{goc.goc_price_add_vat*goc.ea | comma}} 원</span>
+                                        <span @click="goc.show=false, goc.ea=0" class="delOpt">X</span>
                                     </span>
                                 </li>
                             </template>
@@ -287,23 +287,23 @@ export default {
             let model =  this.content.goods_model.reduce((acc, el) => {
                 return acc + parseInt(el.gm_price_add_vat * el.ea);
             }, 0);
-            let option =  this.content.option.reduce((acc, el) => {
-                return acc + el.option_child.reduce((acc02, el02) => {
-                    return acc02 + parseInt(el02.opc_price_add_vat * el02.ea);
+            let option =  this.content.goods_option.reduce((acc, el) => {
+                return acc + el.goods_option_child.reduce((acc02, el02) => {
+                    return acc02 + parseInt(el02.goc_price_add_vat * el02.ea);
                 }, 0);
             }, 0);
             return model+option;
         },
         pick_cnt: function() {
             let model =  this.content.goods_model.filter(gm => gm.ea > 0).length
-            let option =  this.content.option.reduce((acc, el) => {
-                return acc + el.option_child.filter(opc => opc.ea > 0).length
+            let option =  this.content.goods_option.reduce((acc, el) => {
+                return acc + el.goods_option_child.filter(goc => goc.ea > 0).length
             }, 0);
             return model+option;
         },
         selOpt_cnt: function() {
-            return this.content.option.reduce((acc, el) => {
-                return acc + el.option_child.filter(opc => opc.ea > 0).length
+            return this.content.goods_option.reduce((acc, el) => {
+                return acc + el.goods_option_child.filter(goc => goc.ea > 0).length
             }, 0);
         },
 
@@ -331,14 +331,14 @@ export default {
                 case "pay":
                     let required_key = Array();
                     let required_key_cnt = 0;
-                    this.content.option.forEach(op => {
-                        if (op.op_required == 'Y')
-                            required_key.push(op.op_id);
+                    this.content.goods_option.forEach(go => {
+                        if (go.go_required == 'Y')
+                            required_key.push(go.go_id);
                     });
                     
                     required_key.forEach(k => {
                         params.forEach(item => {
-                            if (item.hasOwnProperty('opc_id') && item.op_id == k) {
+                            if (item.hasOwnProperty('goc_id') && item.go_id == k) {
                                 required_key_cnt++;
                                 return false;
                             }
@@ -372,9 +372,9 @@ export default {
             this.content.goods_model.forEach(gm => {
                 if (gm.ea > 0) params.push({gd_id:this.content.gd_id, gm_id:gm.gm_id, ea:gm.ea});
             });
-            this.content.option.forEach(op => {
-                op.option_child.forEach(opc => {
-                    if (opc.ea > 0) params.push({gd_id:this.content.gd_id, op_id:op.op_id, opc_id:opc.opc_id, ea:opc.ea});
+            this.content.goods_option.forEach(go => {
+                go.goods_option_child.forEach(goc => {
+                    if (goc.ea > 0) params.push({gd_id:this.content.gd_id, go_id:go.go_id, goc_id:goc.goc_id, ea:goc.ea});
                 });
             });
             return params;
@@ -389,18 +389,18 @@ export default {
         // paramOption () {
         //     return this.content.option.reduce((acc, el) => {
         //         return acc.concat(el.option_child.reduce((acc02, el02) => {
-        //             if (el02.ea > 0) acc02.push({op_id:el02.opc_op_id, opc_id:el02.opc_id, ea:el02.ea});
+        //             if (el02.ea > 0) acc02.push({op_id:el02.goc_op_id, goc_id:el02.goc_id, ea:el02.ea});
         //             return acc02;
         //         }, []));
         //     }, []);
         // },
         option_hide(e, idx) {
-            this.$set(this.content.option[idx], 'show', false);
+            this.$set(this.content.goods_option[idx], 'show', false);
         },
-        checkValue(opc) {
-            if (Number.isNaN(opc.ea)) {
-                this.$set(opc, 'ea', 0);
-                this.$set(opc, 'show', false);
+        checkValue(goc) {
+            if (Number.isNaN(goc.ea)) {
+                this.$set(goc, 'ea', 0);
+                this.$set(goc, 'show', false);
             }
         },
 

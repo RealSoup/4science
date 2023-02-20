@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use App\Models\{Board, BoardGood, FileInfo};
-use App\Events\{BoardView, Mileage};
+use App\Events\{BoardView, UserMileage};
 use App\Http\Requests\StoreBoard;
 use DB;
 use Gate;
@@ -112,9 +112,10 @@ class BoardController extends Controller {
         return response()->json($this->param);
     }
 
-    public function store(\App\Models\Mileage $p, StoreBoard $req, $bo_cd) {       
+    public function store(\App\Models\UserMileage $p, StoreBoard $req, $bo_cd) {       
 
-        abort_if(!auth()->check(), 401);
+        // abort_if(!auth()->check(), 401);
+        //  StoreBoard 에서 처리함
 
         if ($req->wri_type == 'comment')    $pieces = $this->co_reqImplant($req);
         else if ($req->wri_type == 'reply') $pieces = $this->re_reqImplant($req);
@@ -141,7 +142,7 @@ class BoardController extends Controller {
         $bo_id = $this->board->insertGetId($pieces);    //  가공된 자료DB insert
 
         if ($req->wri_type == 'comment') {
-            event(new Mileage("insert", 'board', $bo_id, $p->mileage['comment'], '댓글 작성', auth()->user()->id));
+            event(new UserMileage("insert", 'board', $bo_id, $p->mileage['comment'], '댓글 작성', auth()->user()->id));
             if (isset($req->file)) {
                 $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
                 $fi_id[] = $rst_upload->getData()->fi_id;
@@ -288,7 +289,7 @@ class BoardController extends Controller {
         }
     }
 
-    public function goodBad(App\Models\Mileage $p, $bo_cd, $bo_id, $type) {
+    public function goodBad(App\Models\UserMileage $p, $bo_cd, $bo_id, $type) {
         $good = DB::table('board_good')->where([    ['bg_table', $bo_cd],
                                                     ['bg_bo_id', $bo_id],
                                                     ['created_id', auth()->user()->id]  ])->first();
@@ -304,7 +305,7 @@ class BoardController extends Controller {
                                                     'bg_bo_id' => $bo_id,
                                                     'bg_type' => ($type=='GOOD')?'GOOD':'BAD',
                                                     'created_id' => auth()->user()->id ]);
-                event(new Mileage("insert", "boardGood", $bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
+                event(new UserMileage("insert", "boardGood", $bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
             }
         } else if ($type == 'already' || $type == 'reverse') {
             $bo->decrement(($good->bg_type=='GOOD')?'bo_good':'bo_bad');
@@ -315,7 +316,7 @@ class BoardController extends Controller {
                     ->update( ['bg_type' => ($good->bg_type=='GOOD')?'BAD':'GOOD'] );
             } else {
                 $bg = BoardGood::Table($bo_cd)->BoId($bo_id)->User(auth()->user()->id)->first();
-                event(new Mileage("delete", "boardGood", $bg->bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
+                event(new UserMileage("delete", "boardGood", $bg->bg_id, $p->mileage['good'], '게시물 추천/비추천', auth()->user()->id));
                 $bg->delete();
             }
         }

@@ -19,7 +19,7 @@ class EstimateReply extends Model {
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
-    public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
+    public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id")->orderBy('em_model_type'); }
     public function estimateReq() {     return $this->belongsTo(EstimateReq::class,      'er_eq_id'); }
     public function user() {            return $this->belongsTo(User::class, 'created_id'); }
     public function fileInfo() {    return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
@@ -54,10 +54,10 @@ class EstimateReply extends Model {
             }
             $collect[$em->em_gd_id]->estimate_model->push($em);
             $collect[$em->em_gd_id]->goods_p += $em->em_price*$em->em_ea;
-            foreach ($em->estimateOption as $v)
-                $collect[$em->em_gd_id]->goods_p += $v->eo_price*$v->eo_ea;
+            // foreach ($em->estimateOption as $v)
+            //     $collect[$em->em_gd_id]->goods_p += $v->eo_price*$v->eo_ea;
         }
-// dd($collect);
+// dd($collect->toArray());
         foreach ($collect as $key => $gd) {
             $pa_id = 0;
             if ($key && $gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출

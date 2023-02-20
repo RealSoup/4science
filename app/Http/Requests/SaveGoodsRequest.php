@@ -43,6 +43,7 @@ class SaveGoodsRequest extends FormRequest {
             'goods_model.*.gm_spec'  => 'required',
             'goods_model.*.gm_unit'  => 'required',
             'goods_model.*.gm_price' => 'required|integer',
+            'goods_model.*.gm_prime'  => 'min:1',
 
         ];
     }

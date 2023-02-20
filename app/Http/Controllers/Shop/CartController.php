@@ -4,7 +4,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Cart, CartModel, CartOption, OptionChild, Goods, GoodsModel, GoodsDiscount};
+use App\Models\Shop\{Cart, CartModel, CartOption, Goods, GoodsModel, GoodsDiscount};
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Arr;
@@ -101,7 +101,7 @@ class CartController extends Controller {
             $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
 
             if ($req->filled('gm_id')) $rst = $this->cartModel->create(['cm_ct_id'=>$ct->ct_id, 'cm_gm_id'=>$req->gm_id, 'cm_ea'=>$req->ea]);
-            if ($req->filled('op_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_op_id'=>$req->op_id, 'co_opc_id'=>$req->opc_id, 'co_ea'=>$req->ea]);
+            if ($req->filled('go_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_go_id'=>$req->go_id, 'co_goc_id'=>$req->goc_id, 'co_ea'=>$req->ea]);
         }
 
         if ($rst)   return response()->json($rst, 200);

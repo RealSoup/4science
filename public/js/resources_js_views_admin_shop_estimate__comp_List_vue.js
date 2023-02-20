@@ -63,8 +63,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
+  components: {
+    'SubString': function SubString() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
+    }
+  },
   props: ['list']
 });
 
@@ -86,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row div[data-v-3a911428] { font-size:.9rem;\n}\n.row>div>span[data-v-3a911428]:nth-of-type(2) { float:right;\n}\n.row div span .main[data-v-3a911428] { margin:0 10px;\n}\n.row div span ul li[data-v-3a911428] { margin-bottom:0.3rem; text-align:right;\n}\n.row div span ul li .btn[data-v-3a911428] { padding:0.2rem 0.4rem; font-size: 0.7rem;\n}\n.head[data-v-3a911428] { border-bottom:2px solid #000;\n}\n.head>div[data-v-3a911428] { font-weight:bold; background:#666; color:#fff;\n}\n.row[data-v-3a911428]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-3a911428]:hover { background: #d8f2fd94;\n}\n.row>div[data-v-3a911428]{ padding-top:15px; padding-bottom:15px;\n}\n.body>div[data-v-3a911428]:nth-of-type(1) { cursor:pointer;\n}\n.body>div[data-v-3a911428]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row .col[data-v-3a911428]:nth-of-type(2) { flex:0 0 15%; max-width:15%;\n}\n.row .col[data-v-3a911428]:nth-of-type(3) { flex:0 0 23%; max-width:23%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row div[data-v-3a911428] { font-size:.9rem;\n}\n.row>div>span[data-v-3a911428]:nth-of-type(2) { float:right;\n}\n.row div span .main[data-v-3a911428] { margin:0 10px;\n}\n.row div span ul li[data-v-3a911428] { margin-bottom:0.3rem; text-align:right;\n}\n.row div span ul li .btn[data-v-3a911428] { padding:0.2rem 0.4rem; font-size: 0.7rem;\n}\n.head[data-v-3a911428] { border-bottom:2px solid #000;\n}\n.head>div[data-v-3a911428] { font-weight:bold; background:#666; color:#fff;\n}\n.row[data-v-3a911428]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-3a911428]:hover { background: #d8f2fd94;\n}\n.row>div[data-v-3a911428]{ padding-top:15px; padding-bottom:15px;\n}\n.row>div .badge[data-v-3a911428] { vertical-align: text-bottom;\n}\n.body>div[data-v-3a911428]:nth-of-type(1) { cursor:pointer;\n}\n.body>div[data-v-3a911428]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row .col[data-v-3a911428]:nth-of-type(2) { flex:0 0 15%; max-width:15%;\n}\n.row .col[data-v-3a911428]:nth-of-type(3) { flex:0 0 23%; max-width:23%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -268,10 +283,51 @@ var render = function () {
                         _vm._s(row.eq_id) +
                         ".\r\n                "
                     ),
-                    _c("b", {
-                      staticClass: "main",
-                      domProps: { innerHTML: _vm._s(row.eq_title) },
-                    }),
+                    row.eq_title
+                      ? _c("b", {
+                          domProps: { innerHTML: _vm._s(row.eq_title) },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.eq_type == "REQ"
+                      ? [
+                          row.eq_1depth
+                            ? _c("b-badge", { attrs: { variant: "info" } }, [
+                                _vm._v(_vm._s(row.eq_1depth)),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !row.eq_title
+                            ? _c("SubString", {
+                                attrs: { width: 700 },
+                                model: {
+                                  value: row.eq_content,
+                                  callback: function ($$v) {
+                                    _vm.$set(row, "eq_content", $$v)
+                                  },
+                                  expression: "row.eq_content",
+                                },
+                              })
+                            : _vm._e(),
+                        ]
+                      : row.eq_type == "CUS"
+                      ? [
+                          _c(
+                            "b-badge",
+                            {
+                              directives: [
+                                {
+                                  name: "b-tooltip",
+                                  rawName: "v-b-tooltip.hover",
+                                  modifiers: { hover: true },
+                                },
+                              ],
+                              attrs: { variant: "primary", title: "주문제작" },
+                            },
+                            [_vm._v("주")]
+                          ),
+                        ]
+                      : _vm._e(),
                     _vm._v(" "),
                     row.eq_type == "TEMP"
                       ? _c(
@@ -299,13 +355,13 @@ var render = function () {
                                 modifiers: { hover: true },
                               },
                             ],
-                            attrs: { variant: "warning", title: "재견적요청" },
+                            attrs: { variant: "danger", title: "재견적요청" },
                           },
                           [_vm._v("재")]
                         )
                       : _vm._e(),
                   ],
-                  1
+                  2
                 ),
                 _vm._v(" "),
                 _c("span", [

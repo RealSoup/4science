@@ -3,13 +3,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreGiftCard;
-use App\Models\{Mileage, User};
+use App\Models\{User, UserMileage};
 use DB;
 
 class MileageController extends Controller {
     protected $mileage;
 
-    public function __construct(Request $req, Mileage $ml) {
+    public function __construct(Request $req, UserMileage $ml) {
         $this->mileage = $ml;
     }
 
@@ -18,20 +18,20 @@ class MileageController extends Controller {
         $ml = $this->mileage->Uid(auth()->user()->id)->latest();
         $rst['list'] = $ml->paginate(10);
         $rst['list']->appends($req->all())->links();
-        $rst['config'] = Mileage::$config['voucher'];
+        $rst['config'] = UserMileage::$config['voucher'];
         return response()->json($rst, 200);
     }
 
     public function enable() { return $this->mileage->enableMileage(auth()->user()->id); }
     
     public function store(StoreGiftCard $req) {
-        Mileage::insert([
+        UserMileage::insert([
             "ml_uid"     => auth()->check() ? auth()->user()->id : 0,
             "ml_tbl"     => 'voucher',
             "ml_key"     => 0,
             "ml_type"    => 'REQ',
             "ml_content" => "{$req->type}||{$req->ea}||{$req->name}||{$req->hp}",
-            "ml_mileage" => -Mileage::$config['voucher'][$req->type]['point'],
+            "ml_mileage" => -UserMileage::$config['voucher'][$req->type]['point'],
             'created_id' => auth()->check() ? auth()->user()->id : 0
         ]);
         return response()->json("success", 200);

@@ -816,100 +816,99 @@ var render = function () {
                     "b-row",
                     { key: em.em_id, staticClass: "gd_list" },
                     [
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "outline-primary",
-                                size: "sm",
-                                to: {
-                                  name: "adm_goods_edit",
-                                  params: { gd_id: em.em_gd_id },
-                                },
-                              },
-                            },
-                            [_c("b-icon-link45deg")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("b", { staticClass: "gd_name" }, [
-                            _vm._v(_vm._s(em.em_name)),
-                          ]),
-                          _vm._v(" "),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(em.em_code) +
-                              "\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(em.em_catno) +
-                              "\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(em.em_maker) +
-                              "\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(em.em_unit) +
-                              "\n                "
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
-                      _vm._v(" "),
-                      _c("b-col", { attrs: { tag: "i" } }, [
-                        _vm._v("수량 : "),
-                        _c("b", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
-                        _vm._v(" 개"),
-                      ]),
-                      _vm._v(" "),
-                      em.estimate_option.length
-                        ? _c(
+                      em.em_model_type == "MODEL"
+                        ? [
+                            _c(
+                              "b-col",
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      variant: "outline-primary",
+                                      size: "sm",
+                                      to: {
+                                        name: "adm_goods_edit",
+                                        params: { gd_id: em.em_gd_id },
+                                      },
+                                    },
+                                  },
+                                  [_c("b-icon-link45deg")],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("b", { staticClass: "gd_name" }, [
+                                  _vm._v(_vm._s(em.em_name)),
+                                ]),
+                                _vm._v(" "),
+                                _c("b", { staticClass: "divider" }, [
+                                  _vm._v("/"),
+                                ]),
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(em.em_code) +
+                                    "\n                        "
+                                ),
+                                _c("b", { staticClass: "divider" }, [
+                                  _vm._v("/"),
+                                ]),
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(em.em_catno) +
+                                    "\n                        "
+                                ),
+                                _c("b", { staticClass: "divider" }, [
+                                  _vm._v("/"),
+                                ]),
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(em.em_maker) +
+                                    "\n                        "
+                                ),
+                                _c("b", { staticClass: "divider" }, [
+                                  _vm._v("/"),
+                                ]),
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(em.em_unit) +
+                                    "\n                    "
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
+                            _vm._v(" "),
+                            _c("b-col", { attrs: { tag: "i" } }, [
+                              _vm._v("수량 : "),
+                              _c("b", [
+                                _vm._v(_vm._s(_vm._f("comma")(em.em_ea))),
+                              ]),
+                              _vm._v(" 개"),
+                            ]),
+                          ]
+                        : _c(
                             "b-col",
                             { staticClass: "opc", attrs: { cols: "12" } },
-                            _vm._l(em.estimate_option, function (option) {
-                              return _c(
-                                "b-row",
-                                { key: option.eo_id },
-                                [
-                                  _c("b-col", { attrs: { offset: "6" } }, [
-                                    _vm._v(
-                                      _vm._s(option.eo_tit) +
-                                        ": " +
-                                        _vm._s(option.eo_name)
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-col", { attrs: { tag: "i" } }, [
-                                    _vm._v("수량 : "),
-                                    _c("b", [
-                                      _vm._v(
-                                        _vm._s(_vm._f("comma")(option.eo_ea))
-                                      ),
-                                    ]),
-                                    _vm._v(" 개"),
-                                  ]),
-                                ],
-                                1
-                              )
-                            }),
+                            [
+                              _c("b-col", { attrs: { offset: "6" } }, [
+                                _vm._v(
+                                  _vm._s(em.em_name) + ": " + _vm._s(em.em_spec)
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("b-col", { attrs: { tag: "i" } }, [
+                                _vm._v("수량 : "),
+                                _c("b", [
+                                  _vm._v(_vm._s(_vm._f("comma")(em.em_ea))),
+                                ]),
+                                _vm._v(" 개"),
+                              ]),
+                            ],
                             1
-                          )
-                        : _vm._e(),
+                          ),
                     ],
-                    1
+                    2
                   )
                 }),
                 1

@@ -140,8 +140,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
                 // Route::get('goods/getGoodsMaker/{gd_id}', 'Admin\Shop\GoodsController@getGoodsMaker')->name('admin.shop.goods.getGoodsMaker');
 
-                Route::GET('option', 'Admin\Shop\OptionController@index')->name('admin.shop.option.index');
-                Route::GET('option_child', 'Admin\Shop\OptionChildController@index')->name('admin.shop.option_child.index');
+                Route::GET('goods_option', 'Admin\Shop\GoodsOptionController@index');
+                Route::GET('goods_option_child', 'Admin\Shop\GoodsOptionChildController@index');
 
                 Route::resource('maker', 'Admin\Shop\MakerController', [
                     'except' => [ 'show', 'create', 'edit' ],

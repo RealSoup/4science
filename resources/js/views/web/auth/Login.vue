@@ -50,8 +50,8 @@ export default {
     data() {
         return {
             frm:{
-                email: 'kjk@4science.net',
-                password: 'tkskdl38',
+                email: '',
+                password: '',
             },
         }
     },

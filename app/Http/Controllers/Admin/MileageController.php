@@ -3,13 +3,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{Mileage, User};
+use App\Models\{User, UserMileage};
 use DB;
 
 class MileageController extends Controller {
     protected $mileage;
 
-    public function __construct(Request $req, Mileage $ml) {
+    public function __construct(Request $req, UserMileage $ml) {
         $this->mileage = $ml;
     }
 
@@ -22,13 +22,13 @@ class MileageController extends Controller {
 			$rst['list'] = $ml->paginate(10);
             $rst['list']->appends($req->all())->links();
 		}
-        $rst['config'] = Mileage::$config;
+        $rst['config'] = UserMileage::$config;
         return response()->json($rst, 200);
     }
 
     public function update(Request $req, $id) {
         $ml =  $this->mileage->find($id);
-        $config = Mileage::$config['voucher'];
+        $config = UserMileage::$config['voucher'];
         $req_price = $config[$ml->refine_content[0]]['point'] * $ml->refine_content[1];
         $enable_price = (int) $this->enable($ml->ml_uid);
         
@@ -39,7 +39,7 @@ class MileageController extends Controller {
                     $tmp = 0;
                     if ($req_price >= 0) 	$tmp = 0;
                     else 					$tmp = abs($req_price);
-                    DB::table('Mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
+                    DB::table('user_mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
                     if ($req_price <= 0) break;
                 }
             } else 
@@ -54,9 +54,9 @@ class MileageController extends Controller {
     }
 
     public function getRequesterVoucher(Request $req) {
-        $ml = $this->mileage->with('user');
-        if ($req->filled('ml_tbl')) $ml = $ml->Tbl($req->ml_tbl);
-        if ($req->filled('ml_key')) $ml = $ml->Key($req->ml_key);
+        $ml = $this->mileage->with('user')->Type('REQ')
+                ->when($req->ml_tbl,  fn ($q, $v) => $q->Tbl($v))
+                ->when($req->ml_key,  fn ($q, $v) => $q->Key($v));
         $ml = $ml->latest()->get();
         return response()->json($ml, 200);
     }

@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import OptionAdd from "./_comp/OptionAdd.vue";
+import OptionAdd from "./_comp/GoodsOptionAdd.vue";
 import moment from 'moment';
 
 export default {

@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             ea: ct.ea
           });else if (ct.type == 'option') params.push({
             gd_id: ct.gd_id,
-            opc_id: ct.opc_id,
+            goc_id: ct.goc_id,
             ea: ct.ea
           });
         }

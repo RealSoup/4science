@@ -92,7 +92,7 @@ export default {
             this.cartList.forEach(ct => {
                 if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
                     if (ct.type == 'model')         params.push({gd_id:ct.gd_id, gm_id:ct.gm_id, ea:ct.ea});
-                    else if (ct.type == 'option')   params.push({gd_id:ct.gd_id, opc_id:ct.opc_id, ea:ct.ea});
+                    else if (ct.type == 'option')   params.push({gd_id:ct.gd_id, goc_id:ct.goc_id, ea:ct.ea});
                 }               
             });
             return params;

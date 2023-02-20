@@ -334,9 +334,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var model = this.content.goods_model.reduce(function (acc, el) {
         return acc + parseInt(el.gm_price_add_vat * el.ea);
       }, 0);
-      var option = this.content.option.reduce(function (acc, el) {
-        return acc + el.option_child.reduce(function (acc02, el02) {
-          return acc02 + parseInt(el02.opc_price_add_vat * el02.ea);
+      var option = this.content.goods_option.reduce(function (acc, el) {
+        return acc + el.goods_option_child.reduce(function (acc02, el02) {
+          return acc02 + parseInt(el02.goc_price_add_vat * el02.ea);
         }, 0);
       }, 0);
       return model + option;
@@ -345,17 +345,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var model = this.content.goods_model.filter(function (gm) {
         return gm.ea > 0;
       }).length;
-      var option = this.content.option.reduce(function (acc, el) {
-        return acc + el.option_child.filter(function (opc) {
-          return opc.ea > 0;
+      var option = this.content.goods_option.reduce(function (acc, el) {
+        return acc + el.goods_option_child.filter(function (goc) {
+          return goc.ea > 0;
         }).length;
       }, 0);
       return model + option;
     },
     selOpt_cnt: function selOpt_cnt() {
-      return this.content.option.reduce(function (acc, el) {
-        return acc + el.option_child.filter(function (opc) {
-          return opc.ea > 0;
+      return this.content.goods_option.reduce(function (acc, el) {
+        return acc + el.goods_option_child.filter(function (goc) {
+          return goc.ea > 0;
         }).length;
       }, 0);
     } // categorys[2].filter(ca => ca.ca_id == v_model.ca03)[0].ca_name
@@ -404,12 +404,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case "pay":
           var required_key = Array();
           var required_key_cnt = 0;
-          this.content.option.forEach(function (op) {
-            if (op.op_required == 'Y') required_key.push(op.op_id);
+          this.content.goods_option.forEach(function (go) {
+            if (go.go_required == 'Y') required_key.push(go.go_id);
           });
           required_key.forEach(function (k) {
             params.forEach(function (item) {
-              if (item.hasOwnProperty('opc_id') && item.op_id == k) {
+              if (item.hasOwnProperty('goc_id') && item.go_id == k) {
                 required_key_cnt++;
                 return false;
               }
@@ -463,13 +463,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           ea: gm.ea
         });
       });
-      this.content.option.forEach(function (op) {
-        op.option_child.forEach(function (opc) {
-          if (opc.ea > 0) params.push({
+      this.content.goods_option.forEach(function (go) {
+        go.goods_option_child.forEach(function (goc) {
+          if (goc.ea > 0) params.push({
             gd_id: _this3.content.gd_id,
-            op_id: op.op_id,
-            opc_id: opc.opc_id,
-            ea: opc.ea
+            go_id: go.go_id,
+            goc_id: goc.goc_id,
+            ea: goc.ea
           });
         });
       });
@@ -485,18 +485,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // paramOption () {
     //     return this.content.option.reduce((acc, el) => {
     //         return acc.concat(el.option_child.reduce((acc02, el02) => {
-    //             if (el02.ea > 0) acc02.push({op_id:el02.opc_op_id, opc_id:el02.opc_id, ea:el02.ea});
+    //             if (el02.ea > 0) acc02.push({op_id:el02.goc_op_id, goc_id:el02.goc_id, ea:el02.ea});
     //             return acc02;
     //         }, []));
     //     }, []);
     // },
     option_hide: function option_hide(e, idx) {
-      this.$set(this.content.option[idx], 'show', false);
+      this.$set(this.content.goods_option[idx], 'show', false);
     },
-    checkValue: function checkValue(opc) {
-      if (Number.isNaN(opc.ea)) {
-        this.$set(opc, 'ea', 0);
-        this.$set(opc, 'show', false);
+    checkValue: function checkValue(goc) {
+      if (Number.isNaN(goc.ea)) {
+        this.$set(goc, 'ea', 0);
+        this.$set(goc, 'show', false);
       }
     },
     create: function create() {
@@ -1234,12 +1234,12 @@ var render = function () {
                 2
               ),
               _vm._v(" "),
-              _vm.content.option && _vm.content.option.length
+              _vm.content.goods_option && _vm.content.goods_option.length
                 ? _c("div", { staticClass: "goods_option" }, [
                     _c(
                       "ul",
                       { staticClass: "opt" },
-                      _vm._l(_vm.content.option, function (op, i) {
+                      _vm._l(_vm.content.goods_option, function (go, i) {
                         return _c(
                           "li",
                           {
@@ -1252,20 +1252,20 @@ var render = function () {
                                 arg: "option_hide",
                               },
                             ],
-                            key: op.op_id,
+                            key: go.go_id,
                             on: {
                               click: function ($event) {
-                                op.show = !op.show
+                                go.show = !go.show
                               },
                             },
                           },
                           [
                             _vm._v(
                               "\n                        " +
-                                _vm._s(op.op_name) +
+                                _vm._s(go.go_name) +
                                 " "
                             ),
-                            op.op_required == "Y"
+                            go.go_required == "Y"
                               ? _c(
                                   "b-badge",
                                   { attrs: { variant: "danger" } },
@@ -1275,25 +1275,25 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "ul",
-                              { class: { focus: op.show } },
-                              _vm._l(op.option_child, function (opc) {
+                              { class: { focus: go.show } },
+                              _vm._l(go.goods_option_child, function (goc) {
                                 return _c(
                                   "li",
                                   {
-                                    key: opc.opc_id,
+                                    key: goc.goc_id,
                                     on: {
                                       click: function ($event) {
-                                        ;(opc.show = true), opc.ea++
+                                        ;(goc.show = true), goc.ea++
                                       },
                                     },
                                   },
                                   [
-                                    _c("span", [_vm._v(_vm._s(opc.opc_name))]),
+                                    _c("span", [_vm._v(_vm._s(goc.goc_name))]),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
                                         _vm._s(
-                                          _vm._f("comma")(opc.opc_price_add_vat)
+                                          _vm._f("comma")(goc.goc_price_add_vat)
                                         ) + " 원"
                                       ),
                                     ]),
@@ -1314,20 +1314,20 @@ var render = function () {
                           "ul",
                           { staticClass: "selOpt" },
                           [
-                            _vm._l(_vm.content.option, function (op) {
+                            _vm._l(_vm.content.goods_option, function (go) {
                               return [
-                                _vm._l(op.option_child, function (opc) {
+                                _vm._l(go.goods_option_child, function (goc) {
                                   return [
-                                    opc.show
-                                      ? _c("li", { key: opc.opc_id }, [
+                                    goc.show
+                                      ? _c("li", { key: goc.goc_id }, [
                                           _c(
                                             "span",
                                             { staticClass: "cellName" },
                                             [
                                               _vm._v(
-                                                _vm._s(opc.opc_name) + " "
+                                                _vm._s(goc.goc_name) + " "
                                               ),
-                                              op.op_required == "Y"
+                                              go.go_required == "Y"
                                                 ? _c(
                                                     "b-badge",
                                                     {
@@ -1353,7 +1353,7 @@ var render = function () {
                                                   _vm._v(
                                                     _vm._s(
                                                       _vm._f("comma")(
-                                                        opc.opc_price_add_vat
+                                                        goc.goc_price_add_vat
                                                       )
                                                     )
                                                   ),
@@ -1372,15 +1372,15 @@ var render = function () {
                                                 },
                                                 on: {
                                                   blur: function ($event) {
-                                                    return _vm.checkValue(opc)
+                                                    return _vm.checkValue(goc)
                                                   },
                                                 },
                                                 model: {
-                                                  value: opc.ea,
+                                                  value: goc.ea,
                                                   callback: function ($$v) {
-                                                    _vm.$set(opc, "ea", $$v)
+                                                    _vm.$set(goc, "ea", $$v)
                                                   },
-                                                  expression: "opc.ea",
+                                                  expression: "goc.ea",
                                                 },
                                               }),
                                               _vm._v(" "),
@@ -1395,8 +1395,8 @@ var render = function () {
                                                   _vm._v(
                                                     _vm._s(
                                                       _vm._f("comma")(
-                                                        opc.opc_price_add_vat *
-                                                          opc.ea
+                                                        goc.goc_price_add_vat *
+                                                          goc.ea
                                                       )
                                                     ) + " 원"
                                                   ),
@@ -1409,8 +1409,8 @@ var render = function () {
                                                   staticClass: "delOpt",
                                                   on: {
                                                     click: function ($event) {
-                                                      ;(opc.show = false),
-                                                        (opc.ea = 0)
+                                                      ;(goc.show = false),
+                                                        (goc.ea = 0)
                                                     },
                                                   },
                                                 },

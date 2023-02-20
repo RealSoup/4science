@@ -38,7 +38,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     opc_check: function opc_check() {
-      if (this.value.op_required == 'Y') {
+      if (this.value.go_required == 'Y') {
         Notify.toast('danger', "필수옵션은 해제 할 수 없습니다.");
         this.$set(this.value, 'ct_check_opt', 'Y');
       }
@@ -227,7 +227,7 @@ var render = function () {
             },
           }),
           _vm._v(" "),
-          _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.opc_name, 10)))]),
+          _c("div", [_vm._v(_vm._s(_vm.strCut(_vm.value.goc_name, 10)))]),
         ],
         1
       ),

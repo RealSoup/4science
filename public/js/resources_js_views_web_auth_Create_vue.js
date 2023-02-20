@@ -49,26 +49,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           marketing: 'N',
           receive_mail: 'N',
           receive_sms: 'N'
-        },
-        name: 'qwe',
-        email: 'kjk@4science.net',
-        password: 'qwe123',
-        password_confirmation: 'qwe123',
-        birth: '1911-11-11',
-        hp01: '010',
-        hp02: '1111',
-        hp03: '1111',
-        ub_num01: '111',
-        ub_num02: '11',
-        ub_num03: '11111',
-        ub_corp_name: 'w',
-        ub_name: 'are',
-        ub_tel: '123-1231-2312',
-        ub_zip: '16886',
-        ub_addr1: '경기 용인시 처인구 모현읍 능곡로56번길 34 ',
-        ub_addr2: 'ㅁㅇㄴㄹ',
-        ub_type: 'asdf',
-        ub_cond: 'sfd'
+        }
       }
     };
   },

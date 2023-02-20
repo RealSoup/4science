@@ -12,9 +12,19 @@
         >
             <span>
                 {{row.eq_id}}.
-                <b class="main" v-html="row.eq_title" />
+                <b v-if="row.eq_title" v-html="row.eq_title" />
+                <template v-if="row.eq_type == 'REQ'">
+                    <b-badge v-if="row.eq_1depth" variant="info">{{row.eq_1depth}}</b-badge>
+                    <SubString v-if="!row.eq_title" v-model="row.eq_content" :width="700" />
+                </template>
+                <template v-else-if="row.eq_type == 'CUS'">
+                    <b-badge variant="primary" v-b-tooltip.hover title="주문제작">주</b-badge>
+                    
+                </template>
+               
                 <b-badge variant="warning" v-b-tooltip.hover title="임의견적" v-if="row.eq_type == 'TEMP'">임</b-badge>
-                <b-badge variant="warning" v-b-tooltip.hover title="재견적요청" v-else-if="row.eq_type == 'REREQ'">재</b-badge>
+                <b-badge variant="danger" v-b-tooltip.hover title="재견적요청" v-else-if="row.eq_type == 'REREQ'">재</b-badge>
+                
             </span>
             <span>{{row.eq_name}} [ {{ row.created_at | formatDate }} ]</span>
         </b-link>
@@ -53,6 +63,7 @@
 <script>
 export default {
     name: 'AdmEstimateIndexList',
+    components: { 'SubString': () => import('@/views/_common/SubString.vue'), },
     props:['list'],
 };
 </script>
@@ -69,6 +80,7 @@ export default {
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
 .body:hover { background: #d8f2fd94; }
 .row>div{ padding-top:15px; padding-bottom:15px; }
+.row>div .badge { vertical-align: text-bottom; }
 .body>div:nth-of-type(1) { cursor:pointer; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
 

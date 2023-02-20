@@ -33,7 +33,7 @@
                 </template>
                 <template v-else-if="item.type == 'option'">
                     <b-col>추가 옵션</b-col>
-                    <b-col>{{item.opc_name}}</b-col>
+                    <b-col>{{item.goc_name}}</b-col>
                     <b-col></b-col>
                     <b-col>{{item.price_add_vat | comma}} 원</b-col>
                     <b-col>{{item.ea}} 개</b-col>

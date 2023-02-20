@@ -78,7 +78,7 @@
                 </b-col>
                 <b-col>{{ us.created_at | formatDate }}</b-col>
             </b-link>
-            <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
+            <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5" />
         </b-container>
     </b-card>
 
@@ -118,8 +118,9 @@ export default {
     },
 
     methods: {
-        async index() {
+        async index(p=0) {
             try {
+                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
                     return false;
@@ -133,10 +134,6 @@ export default {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
-        },
-        setPage(page) {
-            this.sch_frm.page = page;
-            this.index();
         },
     },
 };

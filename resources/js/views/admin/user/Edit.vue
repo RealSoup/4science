@@ -135,7 +135,7 @@
             </b-container>
         </b-card>
 
-        <b-card v-if="frm.level>10" class="adform">
+        <b-card v-if="frm.is_admin" class="adform">
             <b-container>
                 <b-row><b-col class="tit">관리자 정보</b-col></b-row>
                 <b-row>

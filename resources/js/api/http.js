@@ -49,7 +49,9 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 403) {
         Notify.modal(error.response.data.message);
         if ( error.response.data.message === "Your email address is not verified." )
-            router.push({name:'email_verify'});
+            router.push({name:'email_verify'})
+            // .catch((e) => console.log(e));
+            .catch(() => true);
         return false;
     } else if (error.response.status === 422) {
         if ( typeof error.response.data.errors['email'] !== "undefined" && error.response.data.errors['email'][0] === 'These credentials do not match our records.') {

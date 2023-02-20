@@ -74,10 +74,10 @@
             <b-col>
                 <span>
                     <ul>
-                        <li v-if="row.gc_ca01_name">{{row.gc_ca01_name}}</li>
-                        <li v-if="row.gc_ca02_name">{{row.gc_ca02_name}}</li>
-                        <li v-if="row.gc_ca03_name">{{row.gc_ca03_name}}</li>
-                        <li v-if="row.gc_ca04_name">{{row.gc_ca04_name}}</li>
+                        <li v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</li>
+                        <li v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</li>
+                        <li v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</li>
+                        <li v-if="row.goods_category_first.gc_ca04_name">{{row.goods_category_first.gc_ca04_name}}</li>
                     </ul>
                 </span>
                 <span>{{row.maker.mk_name}}</span>
