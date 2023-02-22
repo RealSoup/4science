@@ -71,15 +71,15 @@ export default {
     },
     methods: {
         async index(){
-            try {
-                const res = await ax.get(`/api/admin/shop/b2b_merck/order`);
-                if (res && res.status === 200) {
-                    this.list = res.data;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
-            }
+            // try {
+            //     const res = await ax.get(`/api/admin/shop/b2b_merck/order`);
+            //     if (res && res.status === 200) {
+            //         this.list = res.data;
+            //     }
+            // } catch (e) {
+            //     Notify.consolePrint(e);
+            //     Notify.toast('warning', e.response.data.message);
+            // }
         },
 
         chkChange () {

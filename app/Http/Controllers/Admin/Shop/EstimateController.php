@@ -129,7 +129,7 @@ class EstimateController extends Controller {
         } else {
             $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->find($id);
             foreach ($data->estimateModel as $k => $em) {
-                if($em->name==''){
+                if($em->em_name==''){
                     $gm=GoodsModel::find($em->em_gm_id);
                     // $data->estimateModel[$k]->name=$gm->gm_name;
                     $em->em_name  = $gm->gm_name;
@@ -254,9 +254,9 @@ class EstimateController extends Controller {
                 'er_all_price'    => $req->er_all_price,
                 'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
                 'redirect_url'    => 'dddd',
-                'domain'          => cache('site')->domain,
+                'domain'          => cache('site')['domain'],
             ];
-            // $this->estimateMailSend($to_email, $to_name, $params, $er_id);
+            $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
 
         if($er_id) return response()->json($er_id, 200);
@@ -335,7 +335,7 @@ class EstimateController extends Controller {
                     'er_all_price'    => $req->er_all_price,
                     'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
                     'redirect_url'    => 'dddd',
-                    'domain'          => cache('site')->domain,
+                    'domain'          => cache('site')['domain'],
                 ];
                 $this->estimateMailSend($to_email, $to_name, $params, $er_id);
             }
@@ -367,7 +367,7 @@ class EstimateController extends Controller {
             'er_all_price'    => $req->er_all_price,
             'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
             'redirect_url'    => 'dddd',
-            'domain'          => cache('site')->domain,
+            'domain'          => cache('site')['domain'],
         ];
         $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }
@@ -378,7 +378,7 @@ class EstimateController extends Controller {
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-        return Mail::to($to_email)->queue(new EstimateSend(cache('biz')->email, $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+        return Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
     }
 
     public function estimateReq_paramImplant($req){

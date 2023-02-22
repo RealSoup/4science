@@ -18,6 +18,7 @@ class EstimateModel extends Model {
     public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
     
     public function estimateAble() { return $this->morphTo(); }
+    public function estimateOption() {  return $this->hasMany(EstimateOption::class, "eo_em_id"); }
     public function bundleDc() { return $this->hasMany(BundleDc::class, "bd_gm_id", "em_gm_id"); }
     public function fileGoodsGoods() {  return $this->hasMany(\App\Models\FileGoods::class, 'fi_key', 'em_gd_id')->Kind('goods')->orderBy('fi_seq'); }
 

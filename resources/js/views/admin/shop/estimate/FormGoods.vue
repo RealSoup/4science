@@ -5,35 +5,35 @@
 
             <!--    이중(중첩)루프 순번을 넣기위한 공
                     {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
-        <b-container v-for="(em, mi) in value" :key="mi" class="gd_list">
+        <b-container v-for="(em, idx) in value" :key="idx" class="gd_list">
             <b-row class="mb-2">
                 <b-col>
-                    <font-awesome-icon icon="tags" class="mr-2" /> {{mi+1}}.
+                    <font-awesome-icon icon="tags" class="mr-2" /> {{idx+1}}.
                     <div class="flag_tag tag_red" v-if="em.bundle_dc && em.bundle_dc.length">묶음 할인</div>
                     <div class="flag_tag tag_green" v-if="em.goods && em.goods.purchase_at">매입처 상품</div>
-                    <b-button size="sm" @click="openOption(mi, em.em_gd_id)"><b-icon-search /> 옵션</b-button>
+                    <b-button size="sm" @click="openOption(idx, em.em_gd_id)"><b-icon-search /> 옵션</b-button>
                 </b-col>
                 <b-col class="text-right">
-                    <b-button variant="warning" size="sm" class="em_reset" @click="emReset(mi)">초기화</b-button>
-                    <b-button variant="danger" size="sm" @click="emDel(mi)" v-if="(mi!=0)" v-b-tooltip.hover title="삭제"><b-icon-x-lg /></b-button>
+                    <b-button variant="warning" size="sm" class="em_reset" @click="emReset(idx)">초기화</b-button>
+                    <b-button variant="danger" size="sm" @click="emDel(idx)" v-if="(idx!=0)" v-b-tooltip.hover title="삭제"><b-icon-x-lg /></b-button>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col class="label">제품명</b-col>
                 <b-col class="type02">
-                    <b-form-input :id="'estimate_model.'+mi+'.em_name'" v-model="em.em_name" />
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_name']" />
+                    <b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" />
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
                 </b-col>
 
                 <b-col class="label">CAT.No</b-col>
                 <b-col class="type02">
-                    <ModelSchInput v-model="em.em_catno" :type="'em_catno'" :id="'em_catno'+mi" :em="em" />
+                    <ModelSchInput v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
                 </b-col>
 
                 <b-col class="label">모델명</b-col>
                 <b-col class="type02">
-                    <ModelSchInput v-model="em.em_code" :type="'em_code'" :id="'estimate_model.'+mi+'.em_code'" :em="em" />
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_code']" />
+                    <ModelSchInput v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em" />
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
                 </b-col>
 
                 <b-col class="label">판매단위</b-col>
@@ -49,54 +49,52 @@
 
                 <b-col class="label">수량</b-col>
                 <b-col class="type01">
-                    <EaInput v-model="em.em_ea" :id="'estimate_model.'+mi+'.em_ea'" :em="em" />
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_ea']" />
+                    <EaInput v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" />
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
                 </b-col>
 
                 <b-col class="label long">판매단가({{em.em_cost_price | comma}})</b-col>
                 <b-col class="type01">
-                    <PriceInput v-model="em.em_price" :id="'estimate_model.'+mi+'.em_price'" />
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_price']" />
+                    <PriceInput v-model="em.em_price" :id="`estimate_model${idx}em_price`" />
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
                 </b-col>
                 <b-col class="label">할인율</b-col>
                 <b-col class="type01">
-                    <DcLateInput v-model="em.em_dc_rate" :id="'em_dc_rate'+mi" :em="em" />
+                    <DcLateInput v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" />
                 </b-col>
                 <b-col class="label">납품기일</b-col>
                 <b-col class="type01">
-                    <b-form-input :id="'estimate_model.'+mi+'.em_dlvy_at'" v-model="em.em_dlvy_at" />
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_dlvy_at']" />
+                    <b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" />
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]" />
                 </b-col>
             </b-row>
             <b-row>
                 <b-col class="label">제품정보</b-col>
                 <b-col class="type11">
-                    <b-form-textarea :id="'estimate_model.'+mi+'.em_spec'" v-model="em.em_spec" rows="3"></b-form-textarea>
-                    <Validation :error="$store.state.error.validations['estimate_model.'+mi+'.em_spec']" />
+                    <b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="3"></b-form-textarea>
+                    <Validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
                 </b-col>
             </b-row>
-
-            <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
+            <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />{{idx}}
 
             <template v-if="em.estimate_option.length">
-                <b-row v-for="(eo, oi) in em.estimate_option" :key="'op'+mi+'_'+oi" class="op_list mt-3" align-h="end">
+                <b-row v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`" class="op_list mt-3" align-h="end">
                     <b-col cols="2">
-                        <b-button variant="danger" size="xm" @click="delOption(mi, oi)">X</b-button>
+                        <b-button variant="danger" size="xm" @click="delOption(idx, oi)">X</b-button>
                         {{eo.eo_tit}}: {{eo.eo_name}}
                     </b-col>
                     <b-col cols="2" class="awesome_p">
-                        <EaInput v-model="eo.eo_ea" :id="'eo_ea'+mi+'_'+oi" />
-                        <label :for="'eo_ea'+mi+'_'+oi">수량</label>
+                        <EaInput v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
+                        <label :for="`eo_ea${idx}_${oi}`">수량</label>
                     </b-col>
                     <b-col cols="2">
                         <div class="awesome_p">
-                            <PriceInput v-model="eo.eo_price" :id="'eo_price'+mi+'_'+oi" />
-                            <label :for="'eo_price'+mi+'_'+oi">판매단가</label>
+                            <PriceInput v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
+                            <label :for="`eo_price${idx}_${oi}`">판매단가</label>
                         </div>
                     </b-col>
                 </b-row>
             </template>
-           
         </b-container>
 
         <Validation :error="$store.state.error.validations.estimate_model" />

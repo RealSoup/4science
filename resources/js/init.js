@@ -23,7 +23,7 @@ let initSet = () => {
 
     let path = window.location.pathname.split('/');
     if (path[1] === 'admin') {      store.state.mode = 'adm'; }
-    else if (path[1] == 'login' || path[1] == 'register' || path[1] == 'email_verify') { store.state.mode = 'simple'; }
+    else if (path[1] == 'login' || path[1] == 'register' || path[1] == 'email_verify' || path[1] == 'password') { store.state.mode = 'simple'; }
     else {                          store.state.mode = 'web'; }
 
 

@@ -433,8 +433,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 
@@ -692,7 +690,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         {
           eo_em_id: this.em_id,
           eo_gd_id: this.gd_id,
-          eo_gm_id: this.goods_option_child[i].goc_id,
+          eo_opc_id: this.goods_option_child[i].goc_id,
           eo_tit: this.selOpt.go_name,
           eo_name: this.goods_option_child[i].goc_name,
           eo_ea: 1,
@@ -1266,10 +1264,10 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.value, function (em, mi) {
+          _vm._l(_vm.value, function (em, idx) {
             return _c(
               "b-container",
-              { key: mi, staticClass: "gd_list" },
+              { key: idx, staticClass: "gd_list" },
               [
                 _c(
                   "b-row",
@@ -1283,7 +1281,7 @@ var render = function () {
                           attrs: { icon: "tags" },
                         }),
                         _vm._v(
-                          " " + _vm._s(mi + 1) + ".\r\n                    "
+                          " " + _vm._s(idx + 1) + ".\r\n                    "
                         ),
                         em.bundle_dc && em.bundle_dc.length
                           ? _c("div", { staticClass: "flag_tag tag_red" }, [
@@ -1303,7 +1301,7 @@ var render = function () {
                             attrs: { size: "sm" },
                             on: {
                               click: function ($event) {
-                                return _vm.openOption(mi, em.em_gd_id)
+                                return _vm.openOption(idx, em.em_gd_id)
                               },
                             },
                           },
@@ -1325,14 +1323,14 @@ var render = function () {
                             attrs: { variant: "warning", size: "sm" },
                             on: {
                               click: function ($event) {
-                                return _vm.emReset(mi)
+                                return _vm.emReset(idx)
                               },
                             },
                           },
                           [_vm._v("초기화")]
                         ),
                         _vm._v(" "),
-                        mi != 0
+                        idx != 0
                           ? _c(
                               "b-button",
                               {
@@ -1350,7 +1348,7 @@ var render = function () {
                                 },
                                 on: {
                                   click: function ($event) {
-                                    return _vm.emDel(mi)
+                                    return _vm.emDel(idx)
                                   },
                                 },
                               },
@@ -1375,7 +1373,7 @@ var render = function () {
                       { staticClass: "type02" },
                       [
                         _c("b-form-input", {
-                          attrs: { id: "estimate_model." + mi + ".em_name" },
+                          attrs: { id: "estimate_model" + idx + "em_name" },
                           model: {
                             value: em.em_name,
                             callback: function ($$v) {
@@ -1389,7 +1387,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_name"
+                                "estimate_model" + idx + "em_name"
                               ],
                           },
                         }),
@@ -1406,7 +1404,7 @@ var render = function () {
                         _c("ModelSchInput", {
                           attrs: {
                             type: "em_catno",
-                            id: "em_catno" + mi,
+                            id: "em_catno" + idx,
                             em: em,
                           },
                           model: {
@@ -1430,7 +1428,7 @@ var render = function () {
                         _c("ModelSchInput", {
                           attrs: {
                             type: "em_code",
-                            id: "estimate_model." + mi + ".em_code",
+                            id: "estimate_model" + idx + "em_code",
                             em: em,
                           },
                           model: {
@@ -1446,7 +1444,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_code"
+                                "estimate_model" + idx + "em_code"
                               ],
                           },
                         }),
@@ -1507,7 +1505,7 @@ var render = function () {
                       [
                         _c("EaInput", {
                           attrs: {
-                            id: "estimate_model." + mi + ".em_ea",
+                            id: "estimate_model" + idx + "em_ea",
                             em: em,
                           },
                           model: {
@@ -1523,7 +1521,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_ea"
+                                "estimate_model" + idx + "em_ea"
                               ],
                           },
                         }),
@@ -1544,7 +1542,7 @@ var render = function () {
                       { staticClass: "type01" },
                       [
                         _c("PriceInput", {
-                          attrs: { id: "estimate_model." + mi + ".em_price" },
+                          attrs: { id: "estimate_model" + idx + "em_price" },
                           model: {
                             value: em.em_price,
                             callback: function ($$v) {
@@ -1558,7 +1556,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_price"
+                                "estimate_model" + idx + "em_price"
                               ],
                           },
                         }),
@@ -1573,7 +1571,7 @@ var render = function () {
                       { staticClass: "type01" },
                       [
                         _c("DcLateInput", {
-                          attrs: { id: "em_dc_rate" + mi, em: em },
+                          attrs: { id: "em_dc_rate" + idx, em: em },
                           model: {
                             value: em.em_dc_rate,
                             callback: function ($$v) {
@@ -1593,7 +1591,7 @@ var render = function () {
                       { staticClass: "type01" },
                       [
                         _c("b-form-input", {
-                          attrs: { id: "estimate_model." + mi + ".em_dlvy_at" },
+                          attrs: { id: "estimate_model" + idx + "em_dlvy_at" },
                           model: {
                             value: em.em_dlvy_at,
                             callback: function ($$v) {
@@ -1607,7 +1605,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_dlvy_at"
+                                "estimate_model" + idx + "em_dlvy_at"
                               ],
                           },
                         }),
@@ -1629,7 +1627,7 @@ var render = function () {
                       [
                         _c("b-form-textarea", {
                           attrs: {
-                            id: "estimate_model." + mi + ".em_spec",
+                            id: "estimate_model" + idx + "em_spec",
                             rows: "3",
                           },
                           model: {
@@ -1645,7 +1643,7 @@ var render = function () {
                           attrs: {
                             error:
                               _vm.$store.state.error.validations[
-                                "estimate_model." + mi + ".em_spec"
+                                "estimate_model" + idx + "em_spec"
                               ],
                           },
                         }),
@@ -1668,13 +1666,13 @@ var render = function () {
                     expression: "em.estimate_option",
                   },
                 }),
-                _vm._v(" "),
+                _vm._v(_vm._s(idx) + "\r\n\r\n            "),
                 em.estimate_option.length
                   ? _vm._l(em.estimate_option, function (eo, oi) {
                       return _c(
                         "b-row",
                         {
-                          key: "op" + mi + "_" + oi,
+                          key: "op" + idx + "_" + oi,
                           staticClass: "op_list mt-3",
                           attrs: { "align-h": "end" },
                         },
@@ -1689,7 +1687,7 @@ var render = function () {
                                   attrs: { variant: "danger", size: "xm" },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.delOption(mi, oi)
+                                      return _vm.delOption(idx, oi)
                                     },
                                   },
                                 },
@@ -1711,7 +1709,7 @@ var render = function () {
                             { staticClass: "awesome_p", attrs: { cols: "2" } },
                             [
                               _c("EaInput", {
-                                attrs: { id: "eo_ea" + mi + "_" + oi },
+                                attrs: { id: "eo_ea" + idx + "_" + oi },
                                 model: {
                                   value: eo.eo_ea,
                                   callback: function ($$v) {
@@ -1723,7 +1721,7 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "label",
-                                { attrs: { for: "eo_ea" + mi + "_" + oi } },
+                                { attrs: { for: "eo_ea" + idx + "_" + oi } },
                                 [_vm._v("수량")]
                               ),
                             ],
@@ -1736,7 +1734,7 @@ var render = function () {
                               { staticClass: "awesome_p" },
                               [
                                 _c("PriceInput", {
-                                  attrs: { id: "eo_price" + mi + "_" + oi },
+                                  attrs: { id: "eo_price" + idx + "_" + oi },
                                   model: {
                                     value: eo.eo_price,
                                     callback: function ($$v) {
@@ -1749,7 +1747,7 @@ var render = function () {
                                 _c(
                                   "label",
                                   {
-                                    attrs: { for: "eo_price" + mi + "_" + oi },
+                                    attrs: { for: "eo_price" + idx + "_" + oi },
                                   },
                                   [_vm._v("판매단가")]
                                 ),

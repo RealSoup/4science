@@ -795,7 +795,12 @@ var render = function () {
                             _vm._v(" "),
                             _c("pagination", {
                               staticClass: "mt-5",
-                              attrs: { data: _vm.list, align: "center" },
+                              attrs: {
+                                data: _vm.list,
+                                size: "small",
+                                limit: 5,
+                                align: "center",
+                              },
                               on: { "pagination-change-page": _vm.setPage },
                             }),
                           ],

@@ -24,7 +24,7 @@
                     </li>
                     <li>
                         <div>배송료</div>
-                        <div>{{content.dlvy_fee | comma}}원</div>
+                        <div>{{content.dlvy_fee_add_vat | comma}}원</div>
                     </li>
                     <li>
                         <div>배송정보</div>

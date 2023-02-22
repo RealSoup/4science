@@ -14,7 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     protected $guarded = [];
     protected $hidden = [ 'password' ];
-    protected $appends = ['is_admin', 'my_mileage_rate'];
+    protected $appends = ['is_admin', 'is_super', 'my_mileage_rate'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     public static $option = [
         'group' => [    '1' => '일반',
@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail {
                         '2' => 'BRONZE',
                         '3' => 'SILVER',
                         '4' => 'GOLD',
-                        '11' => '관리자',
+                        '20' => '관리자',
                         '29' => '최고관리자', ],
                         
         'job'   => [    '1'  => '교수',
@@ -99,6 +99,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function scopeHp($query, $v) { return $query->where('hp', 'like', "%{$v}%"); }
 
     public function getIsAdminAttribute() { return $this->level >= 20 ? true : false; }
+    public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }
     public function getMyMileageRateAttribute() {
         $lv = $this->level>4?4:$this->level;
         return $lv < 2 ? 0 : $this->mileage_rate[$lv]; 

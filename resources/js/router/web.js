@@ -40,6 +40,16 @@ export default [
         name: 'auth_create',
         component:() => import('@/views/web/auth/Create'),
         beforeEnter: isNotLoggedin()
+    }, {
+        path: '/auth/password/forgot',
+        name: 'auth_password_forgot',
+        component:() => import('@/views/web/auth/PasswordForgot'),
+        beforeEnter: isNotLoggedin()
+    }, {
+        path: '/password/reset/:token',
+        name: 'auth_password_reset',
+        component:() => import('@/views/web/auth/PasswordReset'),
+        beforeEnter: isNotLoggedin()
     },
 //      마이페이지
     {   path: '/mypage',

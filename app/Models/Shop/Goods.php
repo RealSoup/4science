@@ -60,7 +60,7 @@ class Goods extends Model {
     public function scopeSchWriter($q, $id_arr)     { return $q->whereIn('created_id', $id_arr); }
     public function scopeStartDate($q, $d)          { return $q->whereDate('created_at', '>=', $d); }
     public function scopeEndDate($q, $d)            { return $q->whereDate('created_at', '<=', $d); }
-    public function scopeEnable($q, $v)             { return $q->where('gd_enable', $v); }
+    public function scopeEnable($q)                 { return $q->where('gd_enable', 'Y'); }
     public function scopeMaker($q, $v)              { return $q->where('gd_mk_id', $v); }
     public function scopeCa01($q, $id)              { return $q->where('gc_ca01', $id); }
     public function scopeCa02($q, $id)              { return $q->where('gc_ca02', $id); }

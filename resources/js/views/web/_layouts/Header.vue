@@ -13,12 +13,7 @@
                     <b-nav-item @click="logout">로그아웃</b-nav-item>
                 </b-navbar-nav>
                 <b-navbar-nav class="menu_user" v-else>
-                    <b-nav-item @click="loginView">
-                        로그인
-                        <b-modal id="login-modal" centered hide-footer title="Login">
-                            <LoginPopUp ref="login" />
-                        </b-modal>
-                    </b-nav-item>
+                    <b-nav-item @click="isModalViewed=true">로그인</b-nav-item>
                     <b-nav-item :to="{name: 'auth_intro'}">회원가입</b-nav-item>
                 </b-navbar-nav>
 
@@ -65,7 +60,13 @@
     <Categorys v-if="true" />
 
     <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
-
+    
+    <transition name="modal">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" >
+            <template slot="header">로그인</template>
+            <LoginPopUp @close-modal="isModalViewed = false" />
+        </Modal>
+    </transition>
 </header>
 </template>
 
@@ -80,6 +81,7 @@ export default {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         LoginPopUp,
+        'Modal'     : () => import('@/views/_common/Modal'),
         // 'Categorys': () => import('../_module/category/Index.vue'),
         // <categorys :cateOpen="cateOpen"></categorys>
         'Categorys': () => import('../_module/category/Cate.vue'),
@@ -88,6 +90,7 @@ export default {
     data() {
         return {
             headerFix: false,
+            isModalViewed: false,
         }
     },
     watch: {
@@ -124,9 +127,6 @@ export default {
         ...mapState('goods', ['frm']),
     },
     methods:{
-        loginView(){
-            this.$bvModal.show('login-modal')
-        },
         logout() {
             this.$store.dispatch('auth/logout');
         },
@@ -182,4 +182,6 @@ export default {
 #header.fixed #real nav .menu_user,
 #header.fixed #real nav .nav_menu { display:none; }
 #header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
+
+body >>> #login-modal___BV_modal_outer_ { border:3px solid red !important; }
 </style>

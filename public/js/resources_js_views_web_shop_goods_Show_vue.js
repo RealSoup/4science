@@ -1049,7 +1049,8 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
-                      _vm._s(_vm._f("comma")(_vm.content.dlvy_fee)) + "원"
+                      _vm._s(_vm._f("comma")(_vm.content.dlvy_fee_add_vat)) +
+                        "원"
                     ),
                   ]),
                 ]),

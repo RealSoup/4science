@@ -186,8 +186,8 @@ export default {
 #adm_estimate_show .gd_box .gd_list .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }
 #adm_estimate_show .gd_box .gd_list i { text-align:right; }
 #adm_estimate_show .gd_box .gd_list>.col:nth-child(2),
-#adm_estimate_show .gd_box .gd_list .opc .row div { background-color:#7fffd454; } 
-#adm_estimate_show .gd_box .gd_list .opc { border-top:1px solid #eee; }
+#adm_estimate_show .gd_box .gd_list .opc div { background-color:#7fffd454; } 
+#adm_estimate_show .gd_box .gd_list .opc { display:flex; padding:0; border-top:1px solid #eee; }
 
 #adm_estimate_show .gd_box .gd_list .col:nth-child(2),
 #adm_estimate_show .gd_box .gd_list .col:nth-child(3) { flex:0 0 25%; max-width:25%; }

@@ -21,15 +21,15 @@ mix.js('resources/js/app.js', 'public/js')
     });
 
 
-// mix.browserSync ( 'https://dev.4science.net/');
+mix.browserSync ( 'https://real.4science.net/');
 // mix.browserSync (process.env.APP_URL);
-mix.disableNotifications();
-mix.browserSync({
-    // proxy: 'localhost:3000',
-    proxy: '127.0.0.1:8000',
-    files: [
-        'app/**/*',        
-        'resources/**/*',
-        'routes/**/*'
-    ],
-});
+// mix.disableNotifications();
+// mix.browserSync({
+//     // proxy: 'localhost:3000',
+//     proxy: '127.0.0.1:8000',
+//     files: [
+//         'app/**/*',        
+//         'resources/**/*',
+//         'routes/**/*'
+//     ],
+// });

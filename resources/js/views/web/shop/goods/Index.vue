@@ -104,7 +104,7 @@
                             </b-row>
                         </template>
                         <b-alert v-else variant="danger" show>No Item</b-alert>
-                        <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5" />
+                        <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
                     </b-col>
                 </b-row>
             </b-container>

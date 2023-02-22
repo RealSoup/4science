@@ -16,24 +16,17 @@ class GoodsController extends Controller {
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
 
-        $gd = $this->goods->select(
-                                "shop_goods.gd_id", "shop_goods.gd_name", "shop_goods.gd_mk_id", "shop_makers.mk_name",
-                                "shop_goods_category.gc_ca01", "shop_goods_category.gc_ca01_name", "shop_goods_category.gc_ca02", "shop_goods_category.gc_ca02_name",
-                                "shop_goods_category.gc_ca03", "shop_goods_category.gc_ca03_name", "shop_goods_category.gc_ca04", "shop_goods_category.gc_ca04_name",
-                                "shop_goods_model.gm_code", "shop_goods_model.gm_spec", "shop_goods_model.gm_unit")
-                            ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
-                            ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')->where('gc_prime', '=', 'Y'); })
-                            ->join('shop_goods_model', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id')->where('gm_prime', '=', 'Y'); })
-                            ->join('shop_makers', function ($join) { $join->on('shop_goods.gd_mk_id', '=', 'shop_makers.mk_id'); });
+        $gd = $this->goods
+                ->select(   "gd_id", "gd_name", "gd_mk_id", "mk_name",
+                            "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name",
+                            "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
+                            "gm_code", "gm_spec", "gm_unit")
+                ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
+                ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')->where('gc_prime', '=', 'Y'); })
+                ->leftJoin('shop_goods_model', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id'); })
+                ->leftJoin('shop_makers', 'shop_goods.gd_mk_id', '=', 'shop_makers.mk_id');
 
         if ($req->filled('keyword')){
-            $gd_name = $gm_name = $gm_code = $cat_no = $hash = $maker = null;
-            $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
-            if ( !$req->filled('mode') || $req->mode == 'gd_name' ) $gd_name = $ftWord;
-            if ( !$req->filled('mode') || $req->mode == 'gm_name' ) $gm_name = $ftWord;
-            if ( !$req->filled('mode') || $req->mode == 'gm_code' ) $gm_code = $req->keyword;
-            if ( !$req->filled('mode') || $req->mode == 'maker' )   $maker = $req->keyword;
-            if ( !$req->filled('mode') ) $hash = $req->keyword;
             $isNum=true;
             if ( !$req->filled('mode') || $req->mode == 'cat_no'  ) {
                 $cat_no  = $req->keyword;
@@ -47,29 +40,118 @@ class GoodsController extends Controller {
                 }
             }
 
-            $gd->when($gd_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gd_id')->from('shop_goods')->whereFullText('gd_name', $v)->where('gd_enable', 'Y'); }, 'or'))
-                ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }, 'or'))
-                ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }, 'or'))
-                ->when($cat_no, function ($q, $v) use($isNum) {
-                    if (!$isNum) return;
-                    else         return $q->whereIn('gd_id', function($q) use($v) {
-                        if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
-                        else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
-                    }, 'or');
-                })->when($hash, function ($q, $v) {
-                    $h = Hash::HsTag($v)->first();
-                    if ( !$h )  return;
-                    else        return $q->whereIn('gd_id', function($q) use($h) {
-                        $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
-                    }, 'or');
-                })->when($maker, fn ($q, $v) => $q->orWhere("mk_name", $v));
-        }
-        $gd->when($req->ca01,     fn ($q, $v) => $q->Ca01($v))
-            ->when($req->ca02,     fn ($q, $v) => $q->Ca02($v))
-            ->when($req->ca03,     fn ($q, $v) => $q->Ca03($v))
-            ->when($req->ca04,     fn ($q, $v) => $q->Ca04($v))
-            ->when($req->gd_mk_id, fn ($q, $v) => $q->maker($v));
+            $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            if ( !$req->filled('mode') ) {
+                $goods = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ftWord)->where('gd_enable', 'Y');
+                $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
+                $model = $model_prev->whereFullText(['gm_name', 'gm_code'], $ftWord)->where('gm_enable', 'Y');
+                $maker = DB::table('shop_makers')->select('gd_id')->join('shop_goods', 'shop_makers.mk_id', '=', 'shop_goods.gd_mk_id')->where('mk_name', $ftWord);
+                $goods = $goods->union($model)->union($maker);
+                if ($h = Hash::HsTag($ftWord)->first()) {
+                    $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
+                    $goods = $goods->union($hash);
+                }
+                if ($isNum) {
+                    if (count($cat_no)==2)       $model_prev->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
+                    else if (count($cat_no)==3)  $model_prev->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y');
+                    $goods = $goods->union($model_prev);
+                }
+                $gd->whereIn('gd_id', $goods->pluck('gd_id'));
+            } else {
+                $gd_name = $gm_name = $gm_code = $cat_no = $hash = $maker = null;
+                
+                // $ftWord = $req->keyword;
+                if ( $req->mode == 'gd_name' ) $gd_name = $ftWord;
+                if ( $req->mode == 'gm_name' ) $gm_name = $ftWord;
+                if ( $req->mode == 'gm_code' ) $gm_code = $ftWord;
+                if ( $req->mode == 'maker' )   $maker   = $ftWord;
 
+                $gd->when($gd_name, fn ($q, $v) => $q->whereFullText('gd_name', $v))
+                    ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }))
+                    ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }))
+                    ->when($cat_no, function ($q, $v) use($isNum) {
+                        if (!$isNum) return;
+                        else         return $q->whereIn('gd_id', function($q) use($v) {
+                            if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
+                            else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
+                        });
+                    })
+                    /*
+                    ->when($hash, function ($q, $v) {
+                        $h = Hash::HsTag($v)->first();
+                        if ( !$h )  return;
+                        else        return $q->whereIn('gd_id', function($q) use($h) {
+                            $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
+                        }, 'or');
+                    })
+                    */
+                    ->when($maker, function ($q, $v) { 
+                        return $q->whereIn('gd_mk_id', function($q) use($v) { $q->select('mk_id')->from('shop_makers')->where('mk_name', $v); }); 
+                    });
+            }
+
+            $grouped = $gd->Enable()->groupBy('gd_id')->get();
+            if ( $grouped->count()) {
+                //  검색시 카테고리 상세 검색을 위한
+                //  검생 상품이 속한 카테고리 배열정보
+                // $grouped = collect($data['list']->items())->groupBy('gc_ca01');      
+                
+                $data['sch_cate_info']['all'] = count($grouped);
+
+                $grouped = $grouped->groupBy('gc_ca01');
+                
+                foreach ($grouped as $v) {
+                    $tmp['key'] = $v[0]->gc_ca01;
+                    $tmp['name'] = $v[0]->gc_ca01_name;
+                    $tmp['cnt'] = count($v);
+                    $data['sch_cate_info']['ca01'][] = $tmp;
+                }
+                if ($req->filled('ca01')) {
+                    $grouped = $grouped[$req->ca01]->groupBy('gc_ca02');
+                    foreach ($grouped as $v) {
+                        $tmp['key'] = $v[0]->gc_ca02;
+                        $tmp['name'] = $v[0]->gc_ca02_name;
+                        $tmp['cnt'] = count($v);
+                        $data['sch_cate_info']['ca02'][] = $tmp;
+                    }
+                }
+
+                if ($req->filled('ca02')) {
+                    $grouped = $grouped[$req->ca02]->groupBy('gc_ca03');
+                    foreach ($grouped as $v) {
+                        $tmp['key'] = $v[0]->gc_ca03;
+                        $tmp['name'] = $v[0]->gc_ca03_name;
+                        $tmp['cnt'] = count($v);
+                        $data['sch_cate_info']['ca03'][] = $tmp;
+                    }
+                }
+
+                if ($req->filled('ca03')) {
+                    $grouped = $grouped[$req->ca03]->groupBy('gd_mk_id');
+                    foreach ($grouped as $v) {
+                        $tmp['key'] = $v[0]->gd_mk_id;
+                        $tmp['name'] = $v[0]->mk_name;
+                        $tmp['cnt'] = count($v);
+                        $data['sch_cate_info']['maker'][] = $tmp;
+                    }
+                }
+            }
+        }
+        
+        //  결과 내 카테고리 선택 Start
+        $gd->when($req->ca01, function ($q, $v) use($req) {
+            return $q->whereIn('gd_id', function($q) use($req) {
+                if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
+                else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
+                else if ($req->ca02) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02);
+                else                 $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01);
+            });
+        });
+        $gd->when($req->mk_id, fn ($q, $v) => $q->maker($v));
+        //  결과 내 카테고리 선택 End
+
+
+        $gd->Enable()->groupBy('gd_id');
         // 정렬 설정 Strart
         $gd = $gd->orderBy('gd_rank')->orderBy('gd_view_cnt');
         switch ($req->sort) {
@@ -93,52 +175,7 @@ class GoodsController extends Controller {
                 $data['pick'][1] = $data['list']->skip(6)->take(6);
             
         }
-
-        if ( $req->filled('keyword') && $data['list']->total()>0 ) {
-            //  검색시 카테고리 상세 검색을 위한
-            //  검생 상품이 속한 카테고리 배열정보
-            // $grouped = collect($data['list']->items())->groupBy('gc_ca01');
-            $grouped = $gd->get();
-            $data['sch_cate_info']['all'] = count($grouped);
-
-            $grouped = $grouped->groupBy('gc_ca01');
-       
-            foreach ($grouped as $v) {
-                $tmp['key'] = $v[0]->gc_ca01;
-                $tmp['name'] = $v[0]->gc_ca01_name;
-                $tmp['cnt'] = count($v);
-                $data['sch_cate_info']['ca01'][] = $tmp;
-            }
-            if ($req->filled('ca01')) {
-                $grouped = $grouped[$req->ca01]->groupBy('gc_ca02');
-                foreach ($grouped as $v) {
-                    $tmp['key'] = $v[0]->gc_ca02;
-                    $tmp['name'] = $v[0]->gc_ca02_name;
-                    $tmp['cnt'] = count($v);
-                    $data['sch_cate_info']['ca02'][] = $tmp;
-                }
-            }
-
-            if ($req->filled('ca02')) {
-                $grouped = $grouped[$req->ca02]->groupBy('gc_ca03');
-                foreach ($grouped as $v) {
-                    $tmp['key'] = $v[0]->gc_ca03;
-                    $tmp['name'] = $v[0]->gc_ca03_name;
-                    $tmp['cnt'] = count($v);
-                    $data['sch_cate_info']['ca03'][] = $tmp;
-                }
-            }
-
-            if ($req->filled('ca03')) {
-                $grouped = $grouped[$req->ca03]->groupBy('gd_mk_id');
-                foreach ($grouped as $v) {
-                    $tmp['key'] = $v[0]->gd_mk_id;
-                    $tmp['name'] = $v[0]->mk_name;
-                    $tmp['cnt'] = count($v);
-                    $data['sch_cate_info']['maker'][] = $tmp;
-                }
-            }
-        }
+        
 		return response()->json($data);
     }
 

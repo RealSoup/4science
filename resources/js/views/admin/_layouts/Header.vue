@@ -12,26 +12,26 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mr-auto">
                     <b-nav-item-dropdown text="Site관리">
-                        <b-dropdown-item :to="{name: 'adm_site_info'}">정보설정</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_site_main_cate_goods'}">메인 카테고리별 추천 상품</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_site_info'}" target="_blank">정보설정</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_site_main_cate_goods'}" target="_blank">메인 카테고리별 추천 상품</b-dropdown-item>
                     </b-nav-item-dropdown>
                     
-                    <b-nav-item :to="{name: 'adm_user'}" active-class="active" exact>회원관리</b-nav-item>
+                    <b-nav-item :to="{name: 'adm_user'}" active-class="active" exact target="_blank">회원관리</b-nav-item>
 
                     <b-nav-item-dropdown text="상품관리">
-                        <b-dropdown-item :to="{name: 'adm_goods_index'}">상품목록</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_category'}">카테고리</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_maker'}">제조사</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_purchaseAt'}">직배송/항공운임</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_goods_index'}" target="_blank">상품목록</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_category'}" target="_blank">카테고리</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_maker'}" target="_blank">제조사</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_purchaseAt'}" target="_blank">직배송/항공운임</b-dropdown-item>
                     </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown text="견적관리">
-                        <b-dropdown-item :to="{name: 'adm_estimate_index'}">견적목록</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_estimate_create'}">임의견적</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_eng_reform_index'}">영문교정</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_estimate_index'}" target="_blank">견적목록</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_estimate_create'}" target="_blank">임의견적</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_eng_reform_index'}" target="_blank">영문교정</b-dropdown-item>
                     </b-nav-item-dropdown>
                     
-                    <b-nav-item :to="{name: 'adm_order_index'}" active-class="active" exact>주문목록</b-nav-item>
+                    <b-nav-item :to="{name: 'adm_order_index'}" target="_blank" active-class="active" exact>주문목록</b-nav-item>
 
                     <!-- <b-nav-item-dropdown text="주문관리">
                         <b-dropdown-item :to="{name: 'adm_order_index'}">주문목록</b-dropdown-item>
@@ -45,28 +45,29 @@
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
 
-                    <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc'" text="매출장부">
-                        <b-dropdown-item :to="{name: 'adm_ledger'}">통합 장부</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_ledger_acct_wait'}">매출 대기</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_ledger_acct_soon'}">결제 예정분</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_od'}">매출 내역</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_tx'}">매출장</b-dropdown-item>
+                    <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc' || user.is_super" text="매출장부">
+                        <b-dropdown-item :to="{name: 'adm_ledger'}" v-if="user.is_super" target="_blank">영업장부</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger'}" target="_blank">통합 장부</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_wait'}" target="_blank">매출 대기</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_soon'}" target="_blank">결제 예정분</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_od'}" target="_blank">매출 내역</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_ledger_acct_pay_tx'}" target="_blank">매출장</b-dropdown-item>
                     </b-nav-item-dropdown>
 
-                    <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
+                    <b-nav-item :to="{name: 'adm_ledger'}" target="_blank" v-else active-class="active" exact>영업장부</b-nav-item>
 
                     <b-nav-item-dropdown text="게시판">
                         <b-dropdown-group header="일반글">
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'notice' }}">공지사항</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'event' }}">이벤트</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'review' }}">상품평</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'notice' }}" target="_blank">공지사항</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'event' }}" target="_blank">이벤트</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'review' }}" target="_blank">상품평</b-dropdown-item>
                         </b-dropdown-group>
                         
                         <b-dropdown-group header="질의답변">
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'inquiry' }}">1:1문의</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'as' }}">A/S신청</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}">취소/교환신청</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'gd_inquiry' }}" target="_blank">상품문의</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'inquiry' }}" target="_blank">1:1문의</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'as' }}" target="_blank">A/S신청</b-dropdown-item>
+                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}" target="_blank">취소/교환신청</b-dropdown-item>
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
 
@@ -94,7 +95,7 @@
                         <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
                     </b-button>                    
         
-                    <b-link :to="{name:'main'}" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
+                    <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
                         <b-img :src="`${s3url}common/estimate_logo.png`" />
                     </b-link>
                 </b-navbar-nav>
