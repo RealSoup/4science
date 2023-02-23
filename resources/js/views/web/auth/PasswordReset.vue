@@ -44,8 +44,10 @@ export default {
         async update() {
             const res = await ax.post(`password/reset`, this.frm);
             if (res && res.status === 200) {          
-                Notify.modal('비밀번호가 재설정 되었습니다.<br>로그인 해주세요', 'success');
-                this.$router.push({name: 'login'});
+                Notify.modal('재설정 되었습니다.', 'success');
+                await this.$store.dispatch('auth/getAuth');
+                this.$store.dispatch('cart/index');
+                this.$router.push({name: 'main'});
             }
         },
     },
