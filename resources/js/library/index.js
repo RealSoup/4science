@@ -37,7 +37,7 @@ export default {
             // }
         };
 
-        window.Notify.modal = function (msg) {
+        window.Notify.modal = function (msg, type) {
             vm.$bvModal.msgBoxOk(msg, {
                 title: 'Confirmation',
                 size: 'sm',
@@ -45,7 +45,7 @@ export default {
                 okVariant: 'secondary',
                 headerClass: 'p-2 border-bottom-0',
                 footerClass: 'p-2 border-top-0',
-                headerBgVariant: 'danger',
+                headerBgVariant: type,
                 headerTextVariant: 'light',
                 centered: true,
             });

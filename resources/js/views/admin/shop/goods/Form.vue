@@ -338,7 +338,7 @@ export default {
         },
         add_cate() {
             if (isEmpty(this.ca01)) {
-                Notify.modal("카테고리를 선택하세요.");
+                Notify.modal("카테고리를 선택하세요.", 'warning');
             } else {
                 let ca = {};
                 ca.gc_ca01 = this.ca01.ca_id; ca.gc_ca01_name = this.ca01.ca_name;

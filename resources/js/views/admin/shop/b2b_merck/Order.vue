@@ -104,7 +104,7 @@ export default {
             try {
                 let chkList = this.list.filter(el => el.b2b_chk==true);
                 if (!chkList.length) {
-                    Notify.modal('선택하세요');
+                    Notify.modal('선택하세요', 'warning');
                     return false;
                 }
                 const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, req_dlvy: this.req_dlvy});

@@ -324,7 +324,7 @@ export default {
             }, 0);
 
             if (!cntModel) {
-                Notify.modal("모델을 선택하세요");
+                Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
             switch (type) {
@@ -346,7 +346,7 @@ export default {
                     });
 
                     if (required_key_cnt !== required_key.length) {
-                        Notify.modal("필수 옵션을 선택하셔야 합니다.");
+                        Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
                         return false;
                     }
                     this.$router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_inst' }});

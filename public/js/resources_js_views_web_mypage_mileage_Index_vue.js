@@ -196,7 +196,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                Notify.modal('마일리지가 모자릅니다.');
+                Notify.modal('마일리지가 모자릅니다.', 'warning');
                 return _context2.abrupt("return", false);
 
               case 5:
@@ -208,7 +208,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
-                  Notify.modal("신청 되었습니다.");
+                  Notify.modal("신청 되었습니다.", 'info');
                 }
 
                 _context2.next = 16;
@@ -225,7 +225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
 
               case 18:
-                Notify.modal('신청 정보를 입력하세요.');
+                Notify.modal('신청 정보를 입력하세요.', 'warning');
 
               case 19:
               case "end":

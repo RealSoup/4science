@@ -154,7 +154,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                Notify.modal('선택하세요');
+                Notify.modal('선택하세요', 'warning');
                 return _context2.abrupt("return", false);
 
               case 5:

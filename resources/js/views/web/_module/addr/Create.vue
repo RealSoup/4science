@@ -38,7 +38,7 @@ export default {
                     if (res && res.status === 200)
                         this.$emit('index');
                 } else
-                    Notify.modal("로그인이 필요한 서비스 입니다.");
+                    Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);

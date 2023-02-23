@@ -48,7 +48,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                Notify.modal('수량 증가 불가'); // this.gm.ea = this.defVal;
+                Notify.modal('수량 증가 불가', 'warning'); // this.gm.ea = this.defVal;
 
                 _this.$set(_this.value, 'odm_ea', _this.defVal);
 

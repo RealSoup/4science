@@ -62,7 +62,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  console.log(res.data);
+                  Notify.modal('이메일을 확인해 주세요', 'info');
                 }
 
               case 4:

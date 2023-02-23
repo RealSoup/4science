@@ -72,7 +72,7 @@ export default {
             }, 0);
 
             if (!cntModel) {
-                Notify.modal("모델을 선택하세요");
+                Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
 

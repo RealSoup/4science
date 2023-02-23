@@ -579,7 +579,7 @@ export default {
         },
         mngChk(){
             if (!this.od.od_mng) {
-                Notify.modal('담당자 배정 이후에 사용가능합니다.');
+                Notify.modal('담당자 배정 이후에 사용가능합니다.', 'warning');
                 return false;
             }
         },
@@ -592,7 +592,7 @@ export default {
                     if ( res.data.msg == 'Success' )
                         this.$router.push({ name: 'adm_ledger' })
                     else if ( res.data.msg == 'Existed' )
-                        Notify.modal('이미 등록된 주문입니다.');
+                        Notify.modal('이미 등록된 주문입니다.', 'warning');
                 } else
                     Notify.toast('warning', '기록 실패');
             } catch (e) {

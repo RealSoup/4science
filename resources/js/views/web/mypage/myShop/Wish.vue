@@ -126,7 +126,7 @@ export default {
             try {
                 let chkList = this.model.filter(el => el.check==true).map(row=>row.wi_id);
                 if (!chkList.length) {
-                    Notify.modal('선택하세요');
+                    Notify.modal('선택하세요', 'info');
                     return false;
                 }
                 var rst = await Notify.confirm('삭제', 'danger');
@@ -158,7 +158,7 @@ export default {
             try {
                 let chkList = this.model.filter(el => el.check==true);
                 if (!chkList.length) {
-                    Notify.modal('선택하세요');
+                    Notify.modal('선택하세요', 'info');
                     return false;
                 }
                 let params = [];

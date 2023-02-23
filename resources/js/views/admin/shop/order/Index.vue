@@ -135,7 +135,7 @@ export default {
             try {
                 this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
-                    Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
+                    Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
                 }
                 const res = await ax.get(`/api/admin/shop/order`, { params: this.sch_frm});

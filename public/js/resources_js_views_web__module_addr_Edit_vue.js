@@ -76,7 +76,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
 
               case 10:
-                Notify.modal("로그인이 필요한 서비스 입니다.");
+                Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
 
               case 11:
               case "end":

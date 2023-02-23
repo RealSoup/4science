@@ -182,7 +182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.');
+                Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                 return _context.abrupt("return", false);
 
               case 6:

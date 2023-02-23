@@ -32,13 +32,13 @@ export default {
     methods: {
         async getOption(id){
             if (!id)
-                Notify.modal('등록된 상품이 없습니다.');
+                Notify.modal('등록된 상품이 없습니다.', 'warning');
 
             try {
                 const res = await ax.get(`/api/admin/shop/goods_option`, {params:{gd_id:id}});
                 if (res && res.status === 200) {
                     if (res.data.length < 1)
-                        Notify.modal('등록된 옵션이 없습니다.');
+                        Notify.modal('등록된 옵션이 없습니다.', 'warning');
                     this.goods_option = res.data;
                 }
             } catch (e) {

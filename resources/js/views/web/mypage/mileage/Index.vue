@@ -122,20 +122,20 @@ export default {
             if (this.frm.type && this.frm.ea) {
                 console.log(this.enableMileage, this.config[this.frm.type].point*this.frm.ea);
                 if (this.enableMileage < this.config[this.frm.type].point*this.frm.ea) {
-                    Notify.modal('마일리지가 모자릅니다.');
+                    Notify.modal('마일리지가 모자릅니다.', 'warning');
                     return false;
                 }
                 try {
                     const res = await ax.post(`/api/mileage`, this.frm);
                     if (res && res.status === 200) {
-                        Notify.modal("신청 되었습니다.");
+                        Notify.modal("신청 되었습니다.", 'info');
                     }
                 } catch (e) {
                     Notify.consolePrint(e);
                     Notify.toast('warning', e.response.data.message);
                 }
             } else {
-                Notify.modal('신청 정보를 입력하세요.');
+                Notify.modal('신청 정보를 입력하세요.', 'warning');
             }
         },
     },

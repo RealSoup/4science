@@ -938,7 +938,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     add_cate: function add_cate() {
       if (isEmpty(this.ca01)) {
-        Notify.modal("카테고리를 선택하세요.");
+        Notify.modal("카테고리를 선택하세요.", 'warning');
       } else {
         var ca = {};
         ca.gc_ca01 = this.ca01.ca_id;

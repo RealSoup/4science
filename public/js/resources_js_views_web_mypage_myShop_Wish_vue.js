@@ -203,7 +203,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                Notify.modal('선택하세요');
+                Notify.modal('선택하세요', 'info');
                 return _context2.abrupt("return", false);
 
               case 5:
@@ -286,7 +286,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                Notify.modal('선택하세요');
+                Notify.modal('선택하세요', 'info');
                 return _context3.abrupt("return", false);
 
               case 5:

@@ -396,7 +396,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, 0);
 
       if (!cntModel) {
-        Notify.modal("모델을 선택하세요");
+        Notify.modal("모델을 선택하세요", 'info');
         return false;
       }
 
@@ -417,7 +417,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           if (required_key_cnt !== required_key.length) {
-            Notify.modal("필수 옵션을 선택하셔야 합니다.");
+            Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
             return false;
           }
 

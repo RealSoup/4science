@@ -16,7 +16,7 @@ export default {
     methods: {
         async valUpdate(v){
             if (this.defVal < v) {
-                Notify.modal('수량 증가 불가');
+                Notify.modal('수량 증가 불가', 'warning');
                 // this.gm.ea = this.defVal;
                 this.$set(this.value, 'odm_ea', this.defVal);
                 return false;

@@ -202,7 +202,7 @@ export default {
                 }
             }
             if (!rst.length) {
-                Notify.modal("모델을 선택하세요");
+                Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
             this.$router.push({name: 'order_settle', params: { od_goods: rst, od_type: 'buy_estimate' }});

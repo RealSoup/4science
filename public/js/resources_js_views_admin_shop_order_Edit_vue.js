@@ -821,7 +821,7 @@ var dt = new Date();
     },
     mngChk: function mngChk() {
       if (!this.od.od_mng) {
-        Notify.modal('담당자 배정 이후에 사용가능합니다.');
+        Notify.modal('담당자 배정 이후에 사용가능합니다.', 'warning');
         return false;
       }
     },
@@ -845,7 +845,7 @@ var dt = new Date();
                 if (res && res.status === 200) {
                   if (res.data.msg == 'Success') _this8.$router.push({
                     name: 'adm_ledger'
-                  });else if (res.data.msg == 'Existed') Notify.modal('이미 등록된 주문입니다.');
+                  });else if (res.data.msg == 'Existed') Notify.modal('이미 등록된 주문입니다.', 'warning');
                 } else Notify.toast('warning', '기록 실패');
 
                 _context9.next = 12;

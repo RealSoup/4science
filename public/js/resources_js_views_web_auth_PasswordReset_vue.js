@@ -82,7 +82,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  console.log(res.data);
+                  Notify.modal('비밀번호가 재설정 되었습니다.<br>로그인 해주세요', 'success');
+
+                  _this.$router.push({
+                    name: 'login'
+                  });
                 }
 
               case 4:

@@ -603,7 +603,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!id) Notify.modal('등록된 상품이 없습니다.');
+                if (!id) Notify.modal('등록된 상품이 없습니다.', 'warning');
                 _context.prev = 1;
                 _context.next = 4;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/goods_option", {
@@ -616,7 +616,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  if (res.data.length < 1) Notify.modal('등록된 옵션이 없습니다.');
+                  if (res.data.length < 1) Notify.modal('등록된 옵션이 없습니다.', 'warning');
                   _this.goods_option = res.data;
                 }
 
