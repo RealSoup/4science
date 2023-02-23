@@ -352,14 +352,16 @@ class LedgerController extends Controller {
     }
 
     public function destroy(Request $req, $lg_id) {
-        if($req->filled('lm_id'))   $rst = $this->ledgerModel->destroy($req->lm_id);
-        else {
-            DB::table('ledger_model')->where('lm_lg_id', $lg_id)->delete();
-            $lg = $this->ledger->find($lg_id);
-            DB::table('shop_order')->where('od_id', $lg->lg_od_id)->update(['od_has_ledger' => 'N']);
-            $rst = $lg->delete();            
+        if($req->filled('lm_id')) {
+            $rst = DB::table('ledger_model')->where('lm_id', $req->lm_id)->update(['lm_cxl' => 'Y']);
+        } else {
+            $rst = DB::table('ledger')->where('lg_id', $lg_id)->update(['lg_pay_type' => 'CXL']);
+            // $lg = $this->ledger->find($lg_id);
+            // DB::table('shop_order')->where('od_id', $lg->lg_od_id)->update(['od_has_ledger' => 'N']);
+            // $rst = $lg->delete();            
         }
-        if ($rst) return response()->json(["message"=>'success'], 200);
-        else      return response()->json(["msg"=>"Fail"], 500);
+        return response()->json(["message"=>'success'], 200);
+        // if ($rst) return response()->json(["message"=>'success'], 200);
+        // else      return response()->json(["msg"=>"Fail"], 500);
     }
 }

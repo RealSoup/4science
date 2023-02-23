@@ -41,6 +41,11 @@ class LoginController extends Controller {
             $ci_pw_check = $ci_pw == auth()->user()->password;
             if ($ci_pw_check)
                 DB::table('users')->where('id', auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
+
+            auth()->user()->last_login = \Carbon\Carbon::now();
+            auth()->user()->login_cnt = auth()->user()->login_cnt ? auth()->user()->login_cnt+1 : 1;
+            auth()->user()->save();
+            
             return $this->sendLoginResponse($request);
         }
         $this->incrementLoginAttempts($request);

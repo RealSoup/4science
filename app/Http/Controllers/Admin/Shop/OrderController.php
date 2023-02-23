@@ -120,10 +120,14 @@ class OrderController extends Controller {
 			$data['list']->appends($input)->links();
 		}
 
-		// foreach ($data['list'] as $od) {
-		// 	$od->orderGoods;
-		// 	// $od->od_mng = $this->user::find($od->od_mng);
-		// }
+		foreach ($data['list']->items() as $od) {
+			if($od->od_name == ''){
+				$tmp = $od->orderModel;
+				$od->od_name = $tmp[0]->odm_gd_name;
+				if ( count($tmp) > 1 ) $od->od_name .= "외 [".(count($tmp)-1)."]";
+			}
+			// $od->od_mng = $this->user::find($od->od_mng);
+		}
 
 		// $data['steps'] = Setting::Group("od_step")->orderBy("st_sort")->get();
 		// $data['manager'] = User::Manager()->orderBy("name")->get();

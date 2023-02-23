@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-c34621ca] { max-width:540px; margin-top:.6rem;\n}\n.frm_st .row .col input[data-v-c34621ca] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-c34621ca] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-c34621ca] { padding:.65rem; width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-c34621ca] { max-width:540px; margin-top:.6rem;\n}\n.frm_st h3[data-v-c34621ca] { text-align:center; font-size:3rem;\n}\n.frm_st .row .col input[data-v-c34621ca] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-c34621ca] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-c34621ca] { padding:.65rem; width:100%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

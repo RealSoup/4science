@@ -1666,7 +1666,7 @@ var render = function () {
                     expression: "em.estimate_option",
                   },
                 }),
-                _vm._v(_vm._s(idx) + "\r\n\r\n            "),
+                _vm._v(" "),
                 em.estimate_option.length
                   ? _vm._l(em.estimate_option, function (eo, oi) {
                       return _c(

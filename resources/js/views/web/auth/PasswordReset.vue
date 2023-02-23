@@ -55,6 +55,7 @@ export default {
 </script>
 <style scoped>
 .frm_st { max-width:540px; margin-top:.6rem; }
+.frm_st h3 { text-align:center; font-size:3rem; }
 .frm_st .row .col input { height: calc(1.5em + 1.4rem + 2px); }
 .frm_st .row .btn_box { margin-top: 2rem; }
 .frm_st .row .btn_box button.login { padding:.65rem; width:100%; }

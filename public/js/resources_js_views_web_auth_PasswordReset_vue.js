@@ -81,15 +81,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 res = _context.sent;
 
-                if (res && res.status === 200) {
-                  Notify.modal('비밀번호가 재설정 되었습니다.<br>로그인 해주세요', 'success');
-
-                  _this.$router.push({
-                    name: 'login'
-                  });
+                if (!(res && res.status === 200)) {
+                  _context.next = 9;
+                  break;
                 }
 
-              case 4:
+                Notify.modal('재설정 되었습니다.', 'success');
+                _context.next = 7;
+                return _this.$store.dispatch('auth/getAuth');
+
+              case 7:
+                _this.$store.dispatch('cart/index');
+
+                _this.$router.push({
+                  name: 'main'
+                });
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -118,7 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-2cc5dcf2] { max-width:540px; margin-top:.6rem;\n}\n.frm_st .row .col input[data-v-2cc5dcf2] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-2cc5dcf2] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-2cc5dcf2] { padding:.65rem; width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-2cc5dcf2] { max-width:540px; margin-top:.6rem;\n}\n.frm_st h3[data-v-2cc5dcf2] { text-align:center; font-size:3rem;\n}\n.frm_st .row .col input[data-v-2cc5dcf2] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-2cc5dcf2] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-2cc5dcf2] { padding:.65rem; width:100%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

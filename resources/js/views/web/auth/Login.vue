@@ -1,5 +1,6 @@
 <template>
-    <b-container fluid class="frm_st">
+    <b-container fluid class="w_fence frm_st">
+        <h3>로그인</h3>
         <b-row>
             <b-col>
                 <validation-provider name="이메일" rules="required|email" v-slot="validationContext">
@@ -74,6 +75,7 @@ export default {
 
 <style scoped>
 .frm_st { max-width:540px; margin-top:.75rem; }
+.frm_st h3 { text-align:center; font-size:3rem; }
 .frm_st .row { margin-bottom: 1.3rem; }
 .frm_st .row .col input { height: calc(1.5em + 1.5rem + 2px); font-size:1rem; }
 

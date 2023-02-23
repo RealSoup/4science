@@ -831,6 +831,7 @@ var render = function () {
                                         name: "adm_goods_edit",
                                         params: { gd_id: em.em_gd_id },
                                       },
+                                      target: "_blank",
                                     },
                                   },
                                   [_c("b-icon-link45deg")],

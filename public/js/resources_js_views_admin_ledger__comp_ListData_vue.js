@@ -426,7 +426,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               case 0:
                 lm_i = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : null;
                 _context2.next = 3;
-                return Notify.confirm('삭제', 'danger');
+                return Notify.confirm('주문 취소', 'danger');
 
               case 3:
                 isok = _context2.sent;
@@ -447,7 +447,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
-                  Notify.toast('success', '삭제 완료');
+                  Notify.toast('success', '취소 완료');
 
                   _this3.$emit('index');
                 }
@@ -707,8 +707,8 @@ var render = function () {
                                 {
                                   name: "b-tooltip",
                                   rawName: "v-b-tooltip",
-                                  value: "삭제",
-                                  expression: "'삭제'",
+                                  value: "취소",
+                                  expression: "'취소'",
                                 },
                               ],
                               attrs: { variant: "danger", size: "sm" },
@@ -1329,8 +1329,8 @@ var render = function () {
                                                     {
                                                       name: "b-tooltip",
                                                       rawName: "v-b-tooltip",
-                                                      value: "삭제",
-                                                      expression: "'삭제'",
+                                                      value: "취소",
+                                                      expression: "'취소'",
                                                     },
                                                   ],
                                                   staticClass: "hidden_menu",

@@ -8,7 +8,7 @@
     <b-row class="body" v-for="row in list" :key="row.eq_id">
         <b-link class="col"
             :to="{name: 'adm_estimate_show_req', params: { eq_id:row.eq_id }}"
-            router-tag="div"
+            target="_blank"
         >
             <span>
                 {{row.eq_id}}.
@@ -43,14 +43,15 @@
                 <b-button size="sm" variant="light"
                     v-if="row.estimate_reply.length < 1"
                     :to="{name: 'adm_estimate_create', query: { eq_id:row.eq_id }}"
+                    target="_blank"
                 >
                     <b-icon-pencil-square /> 견적서 작성
                 </b-button>
                 <ul v-else class="ctrl_box">
                     <li v-for="(er, i) in row.estimate_reply" :key="i">
                         [ {{ er.created_at | formatDate }} ]
-                        <b-button size="sm" class="main" variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-if="i===0"><b-icon-clipboard-data /> 견적서</b-button>
-                        <b-button size="sm" class="main" variant="warning" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-else><b-icon-back /> 재견적서</b-button>
+                        <b-button size="sm" class="main" variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-if="i===0" target="_blank"><b-icon-clipboard-data /> 견적서</b-button>
+                        <b-button size="sm" class="main" variant="warning" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-else target="_blank"><b-icon-back /> 재견적서</b-button>
                         .{{er.er_id}}
                     </li>
                 </ul>
@@ -69,21 +70,21 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.row div { font-size:.9rem; }
-.row>div>span:nth-of-type(2) { float:right; }
-.row div span .main { margin:0 10px; }
-.row div span ul li { margin-bottom:0.3rem; text-align:right; }
-.row div span ul li .btn { padding:0.2rem 0.4rem; font-size: 0.7rem; }
+.row .col { font-size:.9rem; }
+.row .col>span:nth-of-type(2) { float:right; }
+.row .col span .main { margin:0 10px; }
+.row .col span ul li { margin-bottom:0.3rem; text-align:right; }
+.row .col span ul li .btn { padding:0.2rem 0.4rem; font-size: 0.7rem; }
 
 .head { border-bottom:2px solid #000; }
-.head>div { font-weight:bold; background:#666; color:#fff; }
+.head .col { font-weight:bold; background:#666; color:#fff; }
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
 .body:hover { background: #d8f2fd94; }
-.row>div{ padding-top:15px; padding-bottom:15px; }
-.row>div .badge { vertical-align: text-bottom; }
-.body>div:nth-of-type(1) { cursor:pointer; }
-.body>div:nth-of-type(2) { background-color:#7fffd454; }
+.row .col { padding-top:15px; padding-bottom:15px; }
+.row .col .badge { vertical-align: text-bottom; }
+.body .col:nth-child(1) { cursor:pointer; }
+.body .col:nth-child(2) { background-color:#7fffd454; }
 
-.row .col:nth-of-type(2) { flex:0 0 15%; max-width:15%; }
-.row .col:nth-of-type(3) { flex:0 0 23%; max-width:23%; }
+.row .col:nth-child(2) { flex:0 0 15%; max-width:15%; }
+.row .col:nth-child(3) { flex:0 0 23%; max-width:23%; }
 </style>

@@ -86,7 +86,7 @@
                 <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
                     <template v-if="em.em_model_type=='MODEL'">
                         <b-col>
-                            <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}">
+                            <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}" target="_blank">
                                 <b-icon-link45deg />
                             </b-button>
                             <b class="gd_name">{{em.em_name}}</b>

@@ -73,6 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
@@ -101,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row div[data-v-3a911428] { font-size:.9rem;\n}\n.row>div>span[data-v-3a911428]:nth-of-type(2) { float:right;\n}\n.row div span .main[data-v-3a911428] { margin:0 10px;\n}\n.row div span ul li[data-v-3a911428] { margin-bottom:0.3rem; text-align:right;\n}\n.row div span ul li .btn[data-v-3a911428] { padding:0.2rem 0.4rem; font-size: 0.7rem;\n}\n.head[data-v-3a911428] { border-bottom:2px solid #000;\n}\n.head>div[data-v-3a911428] { font-weight:bold; background:#666; color:#fff;\n}\n.row[data-v-3a911428]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-3a911428]:hover { background: #d8f2fd94;\n}\n.row>div[data-v-3a911428]{ padding-top:15px; padding-bottom:15px;\n}\n.row>div .badge[data-v-3a911428] { vertical-align: text-bottom;\n}\n.body>div[data-v-3a911428]:nth-of-type(1) { cursor:pointer;\n}\n.body>div[data-v-3a911428]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row .col[data-v-3a911428]:nth-of-type(2) { flex:0 0 15%; max-width:15%;\n}\n.row .col[data-v-3a911428]:nth-of-type(3) { flex:0 0 23%; max-width:23%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] { font-size:.9rem;\n}\n.row .col>span[data-v-3a911428]:nth-of-type(2) { float:right;\n}\n.row .col span .main[data-v-3a911428] { margin:0 10px;\n}\n.row .col span ul li[data-v-3a911428] { margin-bottom:0.3rem; text-align:right;\n}\n.row .col span ul li .btn[data-v-3a911428] { padding:0.2rem 0.4rem; font-size: 0.7rem;\n}\n.head[data-v-3a911428] { border-bottom:2px solid #000;\n}\n.head .col[data-v-3a911428] { font-weight:bold; background:#666; color:#fff;\n}\n.row[data-v-3a911428]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-3a911428]:hover { background: #d8f2fd94;\n}\n.row .col[data-v-3a911428] { padding-top:15px; padding-bottom:15px;\n}\n.row .col .badge[data-v-3a911428] { vertical-align: text-bottom;\n}\n.body .col[data-v-3a911428]:nth-child(1) { cursor:pointer;\n}\n.body .col[data-v-3a911428]:nth-child(2) { background-color:#7fffd454;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 15%; max-width:15%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 23%; max-width:23%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -271,7 +272,7 @@ var render = function () {
                     name: "adm_estimate_show_req",
                     params: { eq_id: row.eq_id },
                   },
-                  "router-tag": "div",
+                  target: "_blank",
                 },
               },
               [
@@ -418,6 +419,7 @@ var render = function () {
                               name: "adm_estimate_create",
                               query: { eq_id: row.eq_id },
                             },
+                            target: "_blank",
                           },
                         },
                         [
@@ -451,6 +453,7 @@ var render = function () {
                                           name: "adm_estimate_show_reply",
                                           params: { er_id: er.er_id },
                                         },
+                                        target: "_blank",
                                       },
                                     },
                                     [
@@ -470,6 +473,7 @@ var render = function () {
                                           name: "adm_estimate_show_reply",
                                           params: { er_id: er.er_id },
                                         },
+                                        target: "_blank",
                                       },
                                     },
                                     [_c("b-icon-back"), _vm._v(" 재견적서")],

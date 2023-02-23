@@ -49,6 +49,7 @@
 
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false">
+            <template slot="header">항목 나열 사용자 정의</template>
             <CustomSetColumn 
                 @updateColumnComplete="updateColumnComplete" 
                 :mng_config="mng_config" 

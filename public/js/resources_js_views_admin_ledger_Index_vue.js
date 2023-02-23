@@ -84,6 +84,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var init_dt = new Date();
 var endDate = init_dt.format("yyyy-MM-dd"); // init_dt.setMonth(0); 
@@ -795,6 +796,10 @@ var render = function () {
                   },
                 },
                 [
+                  _c("template", { slot: "header" }, [
+                    _vm._v("항목 나열 사용자 정의"),
+                  ]),
+                  _vm._v(" "),
                   _c("CustomSetColumn", {
                     attrs: {
                       mng_config: _vm.mng_config,
@@ -803,7 +808,7 @@ var render = function () {
                     on: { updateColumnComplete: _vm.updateColumnComplete },
                   }),
                 ],
-                1
+                2
               )
             : _vm._e(),
         ],

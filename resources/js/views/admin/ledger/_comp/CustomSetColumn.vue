@@ -1,9 +1,13 @@
 <template>
 <b-container>
-    <b-row><b-col><h3>목록 배열 사용자 정의</h3></b-col></b-row>
     <b-row class="mt-5">
         <b-col><h4>사용 항목</h4></b-col>
         <b-col class="text-right"><b-button variant="info" @click="update">수정</b-button></b-col>
+    </b-row>
+    
+    <b-row class="head">
+        <b-col class="text-left">유저 포괄 정보</b-col>
+        <b-col class="text-right">제품정보</b-col>
     </b-row>
     <b-row>
         <draggable :list="mng_config.COLUMN" handle=".handle" group="column" class="col p-4 border border-info">
@@ -57,8 +61,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-h4 { text-align:left; }
-.row .col { text-align:left; margin:10px 0; }
-.row .col button { margin:10px; }
+<style lang="css" scoped>
+.container h4 { text-align:left; font-weight:bold; }
+.container .head .col { font-size:1.1rem; }
+.container .row .col { text-align:left; }
+.container .row .col button { margin:10px; }
 </style>

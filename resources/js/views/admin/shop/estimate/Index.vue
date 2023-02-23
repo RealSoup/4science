@@ -93,7 +93,7 @@
             <b-row>
                 <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
                 <b-col sm="12" md="6" class="text-right">
-                    <router-link :to="{name: 'adm_estimate_create'}">
+                    <router-link :to="{name: 'adm_estimate_create'}" target="_blank">
                         <b-button variant="primary" size="sm">임의견적</b-button>
                     </router-link>
                 </b-col>
@@ -105,7 +105,7 @@
         
         </b-container>
 
-        <pagination :data="list" @pagination-change-page="index" size="small" :limit="15" align="center" class="mt-5"></pagination>
+        <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5"></pagination>
     </b-card>
 </div>
 </template>

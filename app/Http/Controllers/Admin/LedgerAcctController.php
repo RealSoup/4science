@@ -149,7 +149,8 @@ class LedgerAcctController extends Controller {
     }
 
     public function destroy(Request $req, $lga_id) {
-        $rst = LedgerAcct::destroy($lga_id);
+        // $rst = LedgerAcct::destroy($lga_id);
+        DB::table('la_ledger_acct')->where('lga_id', $lga_id)->update(['lga_pay_type' => 'CXL']);
         if ($rst) return response()->json(["message"=>'success'], 200);
         else      return response()->json(["msg"=>"Fail"], 500);
     }

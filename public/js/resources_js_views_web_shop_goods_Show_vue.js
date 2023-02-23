@@ -332,7 +332,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     total: function total() {
       var model = this.content.goods_model.reduce(function (acc, el) {
-        return acc + parseInt(el.gm_price_add_vat * el.ea);
+        var tmp = el.gm_price_add_vat == '견적가' ? 0 : el.gm_price_add_vat;
+        return acc + parseInt(tmp * el.ea);
       }, 0);
       var option = this.content.goods_option.reduce(function (acc, el) {
         return acc + el.goods_option_child.reduce(function (acc02, el02) {
@@ -402,6 +403,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       switch (type) {
         case "pay":
+          var estimate_price = false;
+          this.content.goods_model.forEach(function (gm) {
+            if (gm.ea > 0 && gm.gm_price_add_vat == '견적가') estimate_price = true;
+          });
+
+          if (estimate_price) {
+            Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
+            return false;
+          }
+
           var required_key = Array();
           var required_key_cnt = 0;
           this.content.goods_option.forEach(function (go) {

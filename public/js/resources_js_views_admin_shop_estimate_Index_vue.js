@@ -778,7 +778,12 @@ var render = function () {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: { name: "adm_estimate_create" } } },
+                        {
+                          attrs: {
+                            to: { name: "adm_estimate_create" },
+                            target: "_blank",
+                          },
+                        },
                         [
                           _c(
                             "b-button",
@@ -806,12 +811,7 @@ var render = function () {
           _vm._v(" "),
           _c("pagination", {
             staticClass: "mt-5",
-            attrs: {
-              data: _vm.list,
-              size: "small",
-              limit: 15,
-              align: "center",
-            },
+            attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
             on: { "pagination-change-page": _vm.index },
           }),
         ],

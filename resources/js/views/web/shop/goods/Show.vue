@@ -285,7 +285,8 @@ export default {
         },
         total: function() {
             let model =  this.content.goods_model.reduce((acc, el) => {
-                return acc + parseInt(el.gm_price_add_vat * el.ea);
+                let tmp = el.gm_price_add_vat=='견적가' ? 0 : el.gm_price_add_vat;
+                return acc + parseInt(tmp * el.ea);
             }, 0);
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.reduce((acc02, el02) => {
@@ -329,6 +330,15 @@ export default {
             }
             switch (type) {
                 case "pay":
+                    let estimate_price = false;
+                    this.content.goods_model.forEach(gm => {
+                        if (gm.ea > 0 && gm.gm_price_add_vat=='견적가' ) estimate_price = true;
+                    });
+                    if (estimate_price) {
+                        Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
+                        return false;
+                    }
+                    
                     let required_key = Array();
                     let required_key_cnt = 0;
                     this.content.goods_option.forEach(go => {

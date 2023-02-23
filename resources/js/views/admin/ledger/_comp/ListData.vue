@@ -14,7 +14,7 @@
                 <b-icon-pencil-fill />
             </b-button>
             <div v-if="lg.show_menu" class="hidden_menu">                
-                <b-button variant="danger" size="sm" v-b-tooltip="'삭제'" @click="destroy(lg_i)"><b-icon-trash-fill /></b-button>
+                <b-button variant="danger" size="sm" v-b-tooltip="'취소'" @click="destroy(lg_i)"><b-icon-trash-fill /></b-button>
                 <b-button variant="primary" size="sm" v-b-tooltip="'생성'" @click="createModel(lg_i)"><b-icon-plus-lg /></b-button>
             </div>
         </transition>
@@ -68,7 +68,7 @@
                     <b-col v-if="mcm.umc_val == 'gm_name'" :style="gm_name" :key="mcm.umc_val">
                         <transition name="slide-fade">
                             <b-button v-if="lm.is_edit" variant="warning" size="sm" v-b-tooltip="'저장'" class="hidden_menu" @click="apply(lg_i, lm_i)"><b-icon-pencil-fill /></b-button>
-                            <b-button v-if="lm.show_menu" variant="danger" size="sm" v-b-tooltip="'삭제'" class="hidden_menu" @click="destroy(lg_i, lm_i)"><b-icon-trash-fill /></b-button>
+                            <b-button v-if="lm.show_menu" variant="danger" size="sm" v-b-tooltip="'취소'" class="hidden_menu" @click="destroy(lg_i, lm_i)"><b-icon-trash-fill /></b-button>
                         </transition>
                         <b-form-input @update="lm.is_edit=true" v-model="lm.lm_gm_name" size="sm" />
                     </b-col>
@@ -174,7 +174,7 @@ export default {
         },
 
         async destroy(lg_i, lm_i=null) {
-            var isok = await Notify.confirm('삭제', 'danger');            
+            var isok = await Notify.confirm('주문 취소', 'danger');            
             if (isok) {
                 let frm = new FormData();
                 frm.append("_method", 'DELETE');
@@ -183,7 +183,7 @@ export default {
                     url += `?lm_id=${this.ledger[lg_i].ledger_model[lm_i].lm_id}`
                 const res = await ax.post(url, frm);
                 if (res && res.status === 200) {
-                    Notify.toast('success', '삭제 완료');
+                    Notify.toast('success', '취소 완료');
                     this.$emit('index');
                 }
             }

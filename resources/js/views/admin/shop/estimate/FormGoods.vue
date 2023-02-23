@@ -75,7 +75,7 @@
                     <Validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
                 </b-col>
             </b-row>
-            <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />{{idx}}
+            <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
 
             <template v-if="em.estimate_option.length">
                 <b-row v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`" class="op_list mt-3" align-h="end">
