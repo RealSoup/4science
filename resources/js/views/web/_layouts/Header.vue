@@ -45,10 +45,11 @@
                 </b-collapse>
 
                 <div v-if="user && user.is_admin" class="admin">
-                    <router-link :to="{name: 'adm_main'}">관리자</router-link>
+                    <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
                     <router-link
                         v-if="this.$route.name === 'goods_show'"
                         :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
+                        target="_blank"
                     >
                         상품관리
                     </router-link>
