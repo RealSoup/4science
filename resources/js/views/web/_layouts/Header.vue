@@ -182,6 +182,4 @@ export default {
 #header.fixed #real nav .menu_user,
 #header.fixed #real nav .nav_menu { display:none; }
 #header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
-
-body >>> #login-modal___BV_modal_outer_ { border:3px solid red !important; }
 </style>

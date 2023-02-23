@@ -47,10 +47,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AuthIntro',
+  components: {
+    'Modal': function Modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
+    }
+  },
   data: function data() {
-    return {};
+    return {
+      isModalViewed: false
+    };
   },
   mounted: function mounted() {},
   methods: {}
@@ -74,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".row .col h4[data-v-0c37e902] {\n  margin: 4rem auto;\n  font-weight: bold;\n  font-size: 3rem;\n  text-align: center;\n}\n.con[data-v-0c37e902] {\n  justify-content: center;\n}\n.con > .col[data-v-0c37e902] {\n  margin-bottom: 1rem;\n}\n.con .col[data-v-0c37e902] {\n  max-width: 310px;\n}\n.con .col a[data-v-0c37e902] {\n  display: block;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container[data-v-0c37e902] {\n  max-width: 920px;\n}\n.container h3[data-v-0c37e902] {\n  margin: 4rem auto;\n  font-weight: bold;\n  font-size: 3rem;\n  text-align: center;\n}\n.container .con[data-v-0c37e902] {\n  margin-bottom: 1rem;\n}\n.container .con .col[data-v-0c37e902] {\n  flex: 0 0 300px;\n  max-width: 300px;\n}\n.container .con .col[data-v-0c37e902]:not(:last-child) {\n  margin-right: 10px;\n}\n.container .con .direct[data-v-0c37e902] {\n  min-height: 300px;\n  border: 3px solid #D7D7D7;\n  border-radius: 10px;\n  text-align: center;\n  background-repeat: no-repeat;\n  background-position: center 30%;\n  padding-top: 8.8rem;\n}\n.container .con .direct p[data-v-0c37e902] {\n  font-weight: bold;\n  margin-bottom: 0.4rem;\n  font-size: 1.5rem;\n}\n.container .con .direct[data-v-0c37e902]:first-child {\n  background-image: url(\"https://fourscience.s3.ap-northeast-2.amazonaws.com/auth/join_user.png\");\n}\n.container .con .direct[data-v-0c37e902]:first-child:hover {\n  background-image: url(\"https://fourscience.s3.ap-northeast-2.amazonaws.com/auth/join_user_h.png\");\n}\n.container .con .direct:first-child:hover p[data-v-0c37e902] {\n  color: #01ADBB;\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2) {\n  background-image: url(\"https://fourscience.s3.ap-northeast-2.amazonaws.com/auth/join_dealer.png\");\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2):hover {\n  background-image: url(\"https://fourscience.s3.ap-northeast-2.amazonaws.com/auth/join_dealer_h.png\");\n}\n.container .con .direct:nth-child(2):hover p[data-v-0c37e902] {\n  color: #01ADBB;\n}\n.container .con .direct span[data-v-0c37e902] {\n  font-size: 0.96rem;\n}\n.container .con .sns[data-v-0c37e902] {\n  padding: 0;\n}\n.container .con .sns a[data-v-0c37e902] {\n  display: inline-block;\n}\n.container .con .sns a[data-v-0c37e902]:first-child {\n  margin-bottom: 10px;\n}\n.container .info[data-v-0c37e902] {\n  justify-content: space-between;\n}\n.container .info .col[data-v-0c37e902] {\n  flex: 0 0 300px;\n  max-width: 300px;\n  font-size: 0.85rem;\n}\n.container .info .col p[data-v-0c37e902] {\n  font-weight: bold;\n  margin-bottom: 0.7px;\n  font-size: 1.05rem;\n}\n.container .info .col[data-v-0c37e902]:nth-child(2) {\n  text-align: right;\n  padding: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -210,102 +221,131 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { staticClass: "w_fence" },
     [
-      _c(
-        "b-row",
-        [_c("b-col", [_c("h4", [_vm._v("포사이언스 회원가입")])])],
-        1
-      ),
+      _c("h3", [_vm._v("포사이언스 회원가입")]),
       _vm._v(" "),
       _c(
         "b-row",
         { staticClass: "con" },
         [
           _c(
-            "b-col",
+            "b-link",
+            {
+              staticClass: "col direct",
+              attrs: { to: "/auth/create/personal" },
+            },
             [
-              _c(
-                "b-link",
-                { attrs: { to: "/auth/create/personal" } },
-                [
-                  _c("b-img", {
-                    attrs: { src: _vm.s3url + "auth/personal.png" },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
+              _c("p", [_vm._v("일반 회원 가입하기")]),
+              _vm._v(" "),
+              _c("span", [_vm._v("만 14세 이상 가입 가능합니다.")]),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-link",
+            { staticClass: "col direct", attrs: { to: "/auth/create/dealer" } },
+            [
+              _c("p", [_vm._v("딜러 회원 가입하기")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v("사업자 등록증을 보유한"),
+                _c("br"),
+                _vm._v("유통, 도소매 업체 (재판매업자)"),
+              ]),
+            ]
           ),
           _vm._v(" "),
           _c(
             "b-col",
+            { staticClass: "sns" },
             [
               _c(
                 "b-link",
-                { attrs: { to: "/auth/create/dealer" } },
+                { attrs: { to: "/auth" } },
                 [
                   _c("b-img", {
-                    attrs: { src: _vm.s3url + "auth/dealer.png" },
+                    attrs: { src: _vm.s3url + "auth/join_naver.png" },
                   }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-link",
-                        { attrs: { to: "/auth" } },
-                        [
-                          _c("b-img", {
-                            attrs: { src: _vm.s3url + "auth/naver.png" },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-link",
+                { attrs: { to: "/auth" } },
                 [
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-link",
-                        { attrs: { to: "/auth" } },
-                        [
-                          _c("b-img", {
-                            attrs: { src: _vm.s3url + "auth/kakao.png" },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
+                  _c("b-img", {
+                    attrs: { src: _vm.s3url + "auth/join_kakao.png" },
+                  }),
                 ],
                 1
               ),
             ],
             1
           ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        { staticClass: "info" },
+        [
+          _c("b-col", { staticClass: "mileage_info" }, [
+            _c("p", [_vm._v("신규 가입 시 3,000 마일리지 제공!")]),
+            _vm._v(
+              "            \r\n            (딜러회원 및 네이버/카카오 간편 가입 시 제외)\r\n        "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: { variant: "outline-dark" },
+                  on: {
+                    click: function ($event) {
+                      _vm.isModalViewed = true
+                    },
+                  },
+                },
+                [_vm._v("회원 등급별 혜택")]
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "modal" } },
+        [
+          _vm.isModalViewed
+            ? _c(
+                "Modal",
+                {
+                  attrs: { max_width: 850, min_height: 860 },
+                  on: {
+                    "close-modal": function ($event) {
+                      _vm.isModalViewed = false
+                    },
+                  },
+                },
+                [
+                  _c("template", { slot: "header" }, [_vm._v("회원혜택 안내")]),
+                  _vm._v(" "),
+                  _c("img", {
+                    attrs: { src: _vm.s3url + "cscenter/member_info.png" },
+                  }),
+                ],
+                2
+              )
+            : _vm._e(),
         ],
         1
       ),
