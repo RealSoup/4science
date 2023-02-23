@@ -13,9 +13,9 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     public function boot() {
-        if(config('app.env') === 'production') {
-            \URL::forceScheme('https');
-        }
+        // if(config('app.env') === 'production') {
+        //     \URL::forceScheme('https');
+        // }
         // if(head( explode('://', config('app.url'))) == 'https') { URL::forceScheme('https'); }
         //  다형성 타입 사용자 정의
         //  한 모델의 여러 모델이 관계형성을 할때 키값과 타입값이 같이 들어간다
