@@ -26,7 +26,7 @@ export default {
         async send() {
             const res = await ax.post(`password/email`, {email:this.email});
             if (res && res.status === 200) {                        
-                console.log(res.data);
+                Notify.confirm('이메일을 확인해 주세요', 'info');
             }
         },
     },
