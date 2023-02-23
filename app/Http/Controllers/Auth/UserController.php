@@ -22,7 +22,7 @@ class UserController extends Controller {
         if (count($interest) > 0 && $interest[0] != '') $u->interest = $interest;
         else                                            $u->interest = Array();
         if ($u->job == null)                            $u->job = '';
-        return response()->json([ 'user' => $u, 'token' => csrf_token() ], 200);  ;
+        return response()->json([ 'user' => $u, 'token' => csrf_token() ], 200);
     }
 
 
