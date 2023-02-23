@@ -21,7 +21,7 @@
         </b-row>
         <b-row class="link link_auth">
             <!--b-link class="col" @click="login"><span>아이디 찾기</span></!--b-link-->
-            <b-link class="col" @click="find_pw"><span>비밀번호 찾기</span></b-link>
+            <b-link class="col" @click="find_pw"><span>비밀번호 재설정</span></b-link>
             <b-link class="col" @click="join"><span>회원가입</span></b-link>
         </b-row>
         <b-row class="link">
