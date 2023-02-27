@@ -93,15 +93,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
                 _this.frm.page = page;
-                _context.prev = 2;
+                console.log(_this.ax);
+                _context.prev = 3;
                 url = '';
                 if (_this.code == 'maker') url = "/api/shop/maker";else url = "/api/shop/listing/".concat(_this.code, "/").concat(_this.group == 'all' ? '' : _this.group);
-                _context.next = 7;
+                _context.next = 8;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get(url, {
                   params: _this.frm
                 });
 
-              case 7:
+              case 8:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -110,21 +111,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.isLoadingModalViewed = false;
                 }
 
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 11:
-                _context.prev = 11;
-                _context.t0 = _context["catch"](2);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](3);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 11]]);
+        }, _callee, null, [[3, 12]]);
       }))();
     }
   }

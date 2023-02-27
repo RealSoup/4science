@@ -62,7 +62,8 @@ export default {
     methods: {
         async index(page=1){
             this.frm.page = page;
-            // try {
+            console.log(this.ax);
+            try {
                 let url = '';
                 if (this.code == 'maker') url = `/api/shop/maker`;
                 else url = `/api/shop/listing/${this.code}/${this.group == 'all' ? '' : this.group}`;
@@ -72,10 +73,10 @@ export default {
                     this.cate = res.data.cate;
                     this.isLoadingModalViewed = false;
                 }
-            // } catch (e) {
-            //     Notify.consolePrint(e);
-            //     Notify.toast('warning', e.response.data.message);
-            // }
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response.data.message);
+            }
         },
     },
 };
