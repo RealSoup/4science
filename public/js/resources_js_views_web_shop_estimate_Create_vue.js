@@ -418,7 +418,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 Notify.toast('success', '견적 요청 완료');
 
                 _this2.$router.push({
-                  name: 'main'
+                  name: 'my_estimate_show',
+                  params: {
+                    eq_id: res.data
+                  }
                 });
 
                 _context2.next = 14;

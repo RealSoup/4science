@@ -84,27 +84,27 @@
             <div class="tit">주문 상품</div>
             <b-container>
                 <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
-                    <template v-if="em.em_model_type=='MODEL'">
-                        <b-col>
-                            <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}" target="_blank">
-                                <b-icon-link45deg />
-                            </b-button>
-                            <b class="gd_name">{{em.em_name}}</b>
-                            <b class="divider">/</b>
-                            {{em.em_code}}
-                            <b class="divider">/</b>
-                            {{em.em_catno}}
-                            <b class="divider">/</b>
-                            {{em.em_maker}}
-                            <b class="divider">/</b>
-                            {{em.em_unit}}
-                        </b-col>
-                        <b-col>{{em.em_spec}}</b-col>
-                        <b-col tag="i">수량 : <b>{{em.em_ea | comma}}</b> 개</b-col>
-                    </template>
-                    <b-col cols="12" v-else class="opc">
-                        <b-col offset="6">{{em.em_name}}: {{em.em_spec}}</b-col>
-                        <b-col tag="i">수량 : <b>{{em.em_ea | comma}}</b> 개</b-col>
+                    <b-col>
+                        <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}">
+                            <b-icon-link45deg />
+                        </b-button>
+                        <b class="gd_name">{{em.em_name}}</b>
+                        <b class="divider">/</b>
+                        {{em.em_code}}
+                        <b class="divider">/</b>
+                        {{em.em_catno}}
+                        <b class="divider">/</b>
+                        {{em.em_maker}}
+                        <b class="divider">/</b>
+                        {{em.em_unit}}
+                    </b-col>
+                    <b-col>{{em.em_spec}}</b-col>
+                    <b-col tag="i">수량 : <b>{{em.em_ea | comma}}</b> 개</b-col>
+                    <b-col cols="12" v-if="em.estimate_option.length" class="opc">
+                        <b-row v-for="option in em.estimate_option" :key="option.eo_id">
+                            <b-col offset="6">{{option.eo_tit}}: {{option.eo_name}}</b-col>
+                            <b-col tag="i">수량 : <b>{{option.eo_ea | comma}}</b> 개</b-col>
+                        </b-row>
                     </b-col>
                 </b-row>
             </b-container>
@@ -186,8 +186,8 @@ export default {
 #adm_estimate_show .gd_box .gd_list .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }
 #adm_estimate_show .gd_box .gd_list i { text-align:right; }
 #adm_estimate_show .gd_box .gd_list>.col:nth-child(2),
-#adm_estimate_show .gd_box .gd_list .opc div { background-color:#7fffd454; } 
-#adm_estimate_show .gd_box .gd_list .opc { display:flex; padding:0; border-top:1px solid #eee; }
+#adm_estimate_show .gd_box .gd_list .opc .row div { background-color:#7fffd454; } 
+#adm_estimate_show .gd_box .gd_list .opc { border-top:1px solid #eee; }
 
 #adm_estimate_show .gd_box .gd_list .col:nth-child(2),
 #adm_estimate_show .gd_box .gd_list .col:nth-child(3) { flex:0 0 25%; max-width:25%; }

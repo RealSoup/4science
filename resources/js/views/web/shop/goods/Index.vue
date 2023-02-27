@@ -62,7 +62,7 @@
                                 <img :src="gd.image_src_thumb[0]" />
                             </div>
                             <p class="tit">{{gd.gd_name}}</p>
-                            <p class="pri">{{gd.gm_price_add_vat | comma}}원</p>
+                            <p class="pri">{{gd.gm_price_add_vat | comma | price_zero | won}}</p>
                         </b-link>
                     </b-row>
                 </b-col>
@@ -97,8 +97,7 @@
                                     </p>
                                 </b-link>
                                 <b-col class="price">
-                                    {{row.gm_price_add_vat | comma}} 
-                                    <template v-if="row.gm_price_add_vat>0">원</template>
+                                    {{row.gm_price_add_vat | comma | price_zero | won}} 
                                 </b-col>
                                 <b-col>{{row.mk_name}}</b-col>
                             </b-row>

@@ -160,7 +160,16 @@ export default {
                 else if (ea == bd.bd_ea){ p = bd.bd_price; break; }
                 else if (ea > bd.bd_ea) { p = bd.bd_price; }
             }
-            return (p*1.1).toFixed();
+            // return (p*1.1).toFixed();
+            return p;
+        };
+        window.bundleCheckAddVat = function (arr, ea, p){
+            for (var bd of arr) {
+                if (ea < bd.bd_ea)      { break; }
+                else if (ea == bd.bd_ea){ p = bd.bd_price_add_vat; break; }
+                else if (ea > bd.bd_ea) { p = bd.bd_price_add_vat; }
+            }
+            return p;
         };
 
         window.priceCalculator = function (esti){
@@ -401,5 +410,15 @@ export default {
         console.log("현재년도 : " + new Date().format("yyyy"));     //현재년도 : 2011
         출처: https://stove99.tistory.com/46 [스토브 훌로구]
         */
+
+        window.date_calc = function (t, v){
+            var now = new Date();	// 현재 날짜 및 시간
+            switch (t) {
+                case 'y': return new Date(now.setFullYear(now.getFullYear() + v)); break;
+                case 'm': return new Date(now.setMonth(now.getMonth() + v)); break;
+                case 'd': return new Date(now.setDate(now.getDate() + v)); break;
+            }
+        };
+        
     }
 };

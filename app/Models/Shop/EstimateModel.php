@@ -10,12 +10,13 @@ class EstimateModel extends Model {
     use HasFactory;
     protected $table = 'shop_estimate_model';
     protected $primaryKey = 'em_id';
-    protected $appends = ['em_check_opt', 'img_src'];
+    protected $appends = ['em_check_opt', 'img_src', 'gain_mileage'];
     protected $guarded = [];
     public $timestamps = false;
 
     public function getEmCheckOptAttribute() { return 'Y'; }
     public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
+    public function getGainMileageAttribute() { return $this->em_price * auth()->check() ? auth()->user()->my_mileage_rate : 0 / 100; }
     
     public function estimateAble() { return $this->morphTo(); }
     public function estimateOption() {  return $this->hasMany(EstimateOption::class, "eo_em_id"); }

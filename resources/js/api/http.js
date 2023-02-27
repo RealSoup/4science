@@ -47,7 +47,7 @@ instance.interceptors.response.use(function (response) {
             return false;
         }
     } else if (error.response.status === 403) {
-        Notify.modal(error.response.data.message);
+        Notify.modal(error.response.data.message, 'danger');
         if ( error.response.data.message === "Your email address is not verified." )
             router.push({name:'email_verify'})
             // .catch((e) => console.log(e));
@@ -55,7 +55,7 @@ instance.interceptors.response.use(function (response) {
         return false;
     } else if (error.response.status === 422) {
         if ( typeof error.response.data.errors['email'] !== "undefined" && error.response.data.errors['email'][0] === 'These credentials do not match our records.') {
-            Notify.modal('로그인 정보를 확인하세요');
+            Notify.modal('로그인 정보를 확인하세요', 'danger');
         } else {
             store.commit('error/setValidationError', error.response.data.errors);
             for (let i in error.response.data.errors) {
@@ -66,7 +66,7 @@ instance.interceptors.response.use(function (response) {
         return false;
     } else if (error.response.status === 500) {
         // store.commit('error/setAuthorizationError', error.response.data.message);
-        Notify.modal(error.response.data.msg);
+        Notify.modal(error.response.data.msg, 'danger');
         // router.go(-1);
         return false;
     }

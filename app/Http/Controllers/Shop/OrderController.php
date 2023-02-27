@@ -16,8 +16,8 @@ use Log;
 use Mail;
 use DB;
 use Illuminate\Support\Arr;
-use App\Mail\Buy;
 use Carbon\Carbon;
+use App\Mail\OrderEmail;
 
 class OrderController extends Controller {
     // use InicisUtil;    //  trait
@@ -103,7 +103,7 @@ class OrderController extends Controller {
     }
 
     public function pay(Request $req) {
-        // try {
+        try {
             DB::beginTransaction();
 
             $sale_env = "P";
@@ -116,6 +116,7 @@ class OrderController extends Controller {
                 'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
+                'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
                 'od_step'          => $req->filled('od_step')          ? $req->od_step          : '10',
                 'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
@@ -125,6 +126,7 @@ class OrderController extends Controller {
                 'od_orderer'       => $req->filled('od_orderer')       ? $req->od_orderer       : '',
                 'od_orderer_hp'    => $req->filled('od_orderer_hp')    ? $req->od_orderer_hp    : '',
                 'od_orderer_email' => $req->filled('od_orderer_email') ? $req->od_orderer_email : '',
+                'od_department'    => $req->filled('od_department')    ? $req->od_department   : '',
                 'od_receiver'      => $req->filled('od_receiver')      ? $req->od_receiver      : '',
                 'od_receiver_hp'   => $req->filled('od_receiver_hp')   ? $req->od_receiver_hp   : '',
         	   	'od_zip'           => $req->filled('od_zip')           ? $req->od_zip           : '',
@@ -137,48 +139,49 @@ class OrderController extends Controller {
                 'created_id'       => $created_id
             ], 'od_id');
 
-            if ($req->od_type == 'buy_estimate') {
-                //  견적 주문일때 주문 정보 저장
-                foreach (collect($req->goods)->groupBy('gd_id') as $gd_id => $gd) {
-                    $odg_id = 0;
-                    foreach ($gd as $seq => $v) {
-                        if (array_key_exists('em_id', $v)) {
-                            $em = EstimateModel::find($v['em_id']);
-                            if ($seq == 0) {
-                                $odg_id = OrderGoods::insertGetId([
-                                    'odg_od_id'     => $od_id,
-                                    'odg_gd_id'     => $gd_id,
-                                    'odg_gd_name'   => $em->em_name
-                                ], 'odg_id');
-                            }
-                            OrderModel::insert([
-                                'odm_od_id'     => $od_id,
-                                'odm_odg_id'    => $odg_id,
-                                'odm_gm_id'     => $em->em_gm_id,
-                                'odm_gm_catno'  => $em->em_catno,
-                                'odm_gm_name'   => $em->em_name,
-                                'odm_gm_code'   => $em->em_code,
-                                'odm_gm_spec'   => $em->em_spec,
-                                'odm_gm_unit'   => $em->em_unit,
-                                'odm_ea'        => $em->em_ea,
-                                'odm_price'     => $em->em_price
-                            ]);
+            // if ($req->od_type == 'buy_estimate') {
+            //     //  견적 주문일때 주문 정보 저장
+            //     dd($req->all());
+            //     foreach (collect($req->goods)->groupBy('gd_id') as $gd_id => $gd) {
+            //         $odg_id = 0;
+            //         foreach ($gd as $seq => $v) {
+            //             if (array_key_exists('em_id', $v)) {
+            //                 $em = EstimateModel::find($v['em_id']);
+            //                 if ($seq == 0) {
+            //                     $odg_id = OrderGoods::insertGetId([
+            //                         'odg_od_id'     => $od_id,
+            //                         'odg_gd_id'     => $gd_id,
+            //                         'odg_gd_name'   => $em->em_name
+            //                     ], 'odg_id');
+            //                 }
+            //                 OrderModel::insert([
+            //                     'odm_od_id'     => $od_id,
+            //                     'odm_odg_id'    => $odg_id,
+            //                     'odm_gm_id'     => $em->em_gm_id,
+            //                     'odm_gm_catno'  => $em->em_catno,
+            //                     'odm_gm_name'   => $em->em_name,
+            //                     'odm_gm_code'   => $em->em_code,
+            //                     'odm_gm_spec'   => $em->em_spec,
+            //                     'odm_gm_unit'   => $em->em_unit,
+            //                     'odm_ea'        => $em->em_ea,
+            //                     'odm_price'     => $em->em_price
+            //                 ]);
                             
-                        } else if (array_key_exists('eo_id', $v)) {
-                            $eo = EstimateOption::find($v['eo_id']);
-                            OrderOption::insert([
-                                'odo_od_id'     => $od_id,
-                                'odo_odg_id'    => $odg_id,
-                                'odo_opc_id'    => $eo->eo_opc_id,
-                                'odo_opc_name'  => $eo->eo_tit." ".$eo->eo_name,
-                                'odo_ea'        => $eo->eo_ea,
-                                'odo_price'     => $eo->eo_price
-                            ]);
-                        }
+            //             } else if (array_key_exists('eo_id', $v)) {
+            //                 $eo = EstimateOption::find($v['eo_id']);
+            //                 OrderOption::insert([
+            //                     'odo_od_id'     => $od_id,
+            //                     'odo_odg_id'    => $odg_id,
+            //                     'odo_opc_id'    => $eo->eo_opc_id,
+            //                     'odo_opc_name'  => $eo->eo_tit." ".$eo->eo_name,
+            //                     'odo_ea'        => $eo->eo_ea,
+            //                     'odo_price'     => $eo->eo_price
+            //                 ]);
+            //             }
                         
-                    }
-                }
-            } else {
+            //         }
+            //     }
+            // } else {
                 //  바로주문, 장바구니 주문 정보 저장
                 foreach ($req->lists as $pa_id => $pa) {
                     $insert_tmp = array();
@@ -213,10 +216,10 @@ class OrderController extends Controller {
                             );
 
                             //  장바구니 주문일 경우 주문 성공시 바구니 비우기
-                            // if(isset($ct)) {
-                            //     $ct->delete();
-                            //     CartModel::where([['cm_ct_id', $ct->ct_id], ['cm_gm_id', $item['gm_id']]])->delete();
-                            // }
+                            if(isset($ct)) {
+                                $ct->delete();
+                                CartModel::where([['cm_ct_id', $ct->ct_id], ['cm_gm_id', $item['gm_id']]])->delete();
+                            }
                         } else if ($item['type'] == 'option') {
                             $insert_tmp[] = array(
                                 'odm_od_id'    => $od_id,
@@ -235,13 +238,13 @@ class OrderController extends Controller {
                                 'odm_price'    => $item['price'],
                             );
                             
-                            // if(isset($ct))
-                                // CartOption::where([['co_ct_id', $ct->ct_id], ['co_opc_id', $item['opc_id']]])->delete();                        
+                            if(isset($ct))
+                                CartOption::where([['co_ct_id', $ct->ct_id], ['co_goc_id', $item['goc_id']]])->delete();                        
                         }
                     }                    
                     DB::table('shop_order_model')->insert($insert_tmp);
                 }
-            }
+            // }
 
             //  지출 증빙 & 요청 첨부서류 등록
             $this->orderExtraInfo->oex_od_id = $od_id;
@@ -291,17 +294,17 @@ class OrderController extends Controller {
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
 
-/*            $bank = '';
+            $bank = '';
             $account = '';
-            if ($od_pay_method != "C" ) {
+            if ($req->od_pay_method != "C" ) {
                 if ($req->bank_type == 'W') {
-                    $bank = cache("config.company")->bankNm01;
-                    $account = cache("config.company")->acctNum01;
+                    $bank = cache('bank')['name01'];
+                    $account = cache('bank')['num01'];
                 } else {
-                    $bank = cache("config.company")->bankNm02;
-                    $account = cache("config.company")->acctNum02;
+                    $bank = cache('bank')['name02'];
+                    $account = cache('bank')['num02'];
                 }
-                sendSms($req->od_orderer_hp, $req->od_orderer, $req->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache("config.company")->acctHolder, 'price'=>number_format($req->od_all_price)]);
+                sendSms($req->od_orderer_hp, $req->od_orderer, $req->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache('bank')['owner'], 'price'=>number_format($req->od_all_price)]);
             }
 
 
@@ -311,20 +314,20 @@ class OrderController extends Controller {
             $params['od_orderer_hp'] = $req->od_orderer_hp;
             $params['bank'] = $bank;
             $params['account'] = $account;
-            $params['holder'] = cache("config.company")->acctHolder;
+            $params['holder'] = cache('bank')['owner'];
             $params['price'] = number_format($req->od_all_price);
             $params['addr'] = "[$req->od_zip] $req->od_addr1 $req->od_addr2 $req->od_memo";
-            $rst = Mail::to($req->od_orderer_email)->queue(new Buy(cache("config.company")->email, "주문완료", $params));*/
-
+            Mail::to($req->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
+                
             DB::commit();
             return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
-        // } catch (Exception $e) {
-        //     Log::debug("구매 트랜젝션 에러");
-        //     Log::channel('4s_log')->alert($e->getMessage());
-        //     DB::rollBack();
-        //
-        //     return response()->json("주문 에러", 400);
-        // }
+        } catch (Exception $e) {
+            Log::debug("구매 트랜젝션 에러");
+            Log::channel('4s_log')->alert($e->getMessage());
+            DB::rollBack();
+        
+            return response()->json("주문 에러", 400);
+        }
     }
 
     public function index(Request $req) {
@@ -376,7 +379,7 @@ class OrderController extends Controller {
 
     public function bought(Request $req) {
         $rst = array();
-        $order = $this->order->with('OrderModel')->SchWriter(auth()->user()->id)->get();
+        $order = $this->order->with('orderModel')->SchWriter(auth()->user()->id)->get();
         foreach ($order as $od)
             foreach ($od->orderModel as $odm)
                 $rst[] = $odm;
@@ -1063,7 +1066,7 @@ class OrderController extends Controller {
         } else return response()->json(["type"=>"alert", "message"=>"주문정보 저장 오류"], 400);
     }
     public function done($od_id){
-        $data = $this->order->find($od_id);
+        $data = $this->order->with('orderExtraInfo')->find($od_id);
         return response()->json($data, 200);
     }
 

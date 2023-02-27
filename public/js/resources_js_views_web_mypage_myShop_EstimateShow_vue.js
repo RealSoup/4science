@@ -119,15 +119,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyOrder",
@@ -208,7 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.estimate_show .goods>.row[data-v-bda566d0] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.estimate_show .goods>.row>div img[data-v-bda566d0] { width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n.estimate_show .goods>.row>div:nth-child(2) .btn[data-v-bda566d0] { text-align:left;\n}\n.estimate_show .goods>.row>div[data-v-bda566d0]:nth-child(3) { text-align:right;\n}\n.estimate_show .goods>.row>div:nth-child(3) .md_multi[data-v-bda566d0] { display:inline-block; min-width:120px;\n}\n.estimate_show .price .row div[data-v-bda566d0] { text-align:right;\n}\n.estimate_show .price .row div b[data-v-bda566d0] { display:inline-block; min-width:200px;\n}\n.estimate_show .container[data-v-bda566d0] { margin-bottom:2rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .goods>.row[data-v-bda566d0] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.container .goods>.row>div img[data-v-bda566d0] { width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n.container .goods>.row>div:nth-child(2) .btn[data-v-bda566d0] { text-align:left;\n}\n.container .goods>.row>div[data-v-bda566d0]:nth-child(3) { text-align:right;\n}\n.container .goods>.row>div:nth-child(3) .md_multi[data-v-bda566d0] { display:inline-block; min-width:120px;\n}\n.container .price .row div[data-v-bda566d0] { text-align:right;\n}\n.container .price .row div b[data-v-bda566d0] { display:inline-block; min-width:200px;\n}\n.container .container[data-v-bda566d0] { margin-bottom:2rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -254,7 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html& */ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html&");
+/* harmony import */ var _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true& */ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&");
 /* harmony import */ var _EstimateShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstimateShow.vue?vue&type=script&lang=js& */ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=script&lang=js&");
 /* harmony import */ var _EstimateShow_vue_vue_type_style_index_0_id_bda566d0_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EstimateShow.vue?vue&type=style&index=0&id=bda566d0&lang=css&scoped=true& */ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=style&index=0&id=bda566d0&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -268,8 +259,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _EstimateShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "bda566d0",
@@ -311,26 +302,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html&":
-/*!********************************************************************************************************************!*\
-  !*** ./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html& ***!
-  \********************************************************************************************************************/
+/***/ "./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true& ***!
+  \**********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EstimateShow_vue_vue_type_template_id_bda566d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html&":
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&lang=html& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/EstimateShow.vue?vue&type=template&id=bda566d0&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -343,10 +334,10 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "estimate_show" },
+    "b-container",
+    { staticClass: "w_fence" },
     [
-      _vm._m(0),
+      _c("h3", [_vm._v("견적서 조회")]),
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
@@ -359,7 +350,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\n        Loading ......\n    ")]
+            [_vm._v("\r\n        Loading ......\r\n    ")]
           )
         : _c(
             "div",
@@ -369,9 +360,9 @@ var render = function () {
                 [
                   _c("b", [_vm._v(_vm._s(_vm.estimate.created_at))]),
                   _vm._v(
-                    "  \n            견적 요청 번호 " +
+                    "  \r\n            견적 요청 번호 " +
                       _vm._s(_vm.estimate.eq_id) +
-                      "  \n            진행상황 "
+                      "  \r\n            진행상황 "
                   ),
                   _c("EstimateStep", {
                     model: {
@@ -418,21 +409,21 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                        " +
+                                "\r\n                        " +
                                   _vm._s(em.em_name) +
-                                  "\n                        "
+                                  "\r\n                        "
                               ),
                               _c("P", { staticClass: "bg-light" }, [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\r\n                            " +
                                     _vm._s(em.em_catno) +
-                                    " /\n                            " +
+                                    " /\r\n                            " +
                                     _vm._s(em.em_code) +
-                                    " /\n                            " +
+                                    " /\r\n                            " +
                                     _vm._s(em.em_spec) +
-                                    " /\n                            " +
+                                    " /\r\n                            " +
                                     _vm._s(em.em_unit) +
-                                    " /\n                        "
+                                    " /\r\n                        "
                                 ),
                               ]),
                             ],
@@ -446,15 +437,15 @@ var render = function () {
                         "b-col",
                         [
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(_vm._f("rrp")(em.em_price)) +
-                              " 원\n                    "
+                              " 원\r\n                    "
                           ),
                           _c("font-awesome-icon", { attrs: { icon: "times" } }),
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(em.em_ea) +
-                              " 개\n                    "
+                              " 개\r\n                    "
                           ),
                           _c("font-awesome-icon", {
                             attrs: { icon: "equals" },
@@ -499,71 +490,61 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "b-col",
-                                _vm._l(
-                                  em.estimate_option,
-                                  function (option, i) {
-                                    return _c(
-                                      "b-row",
-                                      {
-                                        key: option.eo_id,
-                                        staticClass: "text-right",
-                                      },
-                                      [
-                                        _c("b-col", [
-                                          _c("span", [
-                                            _vm._v(
-                                              _vm._s(option.eo_tit) + ": "
-                                            ),
-                                            _c("b", [
-                                              _vm._v(_vm._s(option.eo_name)),
-                                            ]),
+                                _vm._l(em.estimate_option, function (option) {
+                                  return _c(
+                                    "b-row",
+                                    {
+                                      key: option.eo_id,
+                                      staticClass: "text-right",
+                                    },
+                                    [
+                                      _c("b-col", [
+                                        _c("span", [
+                                          _vm._v(_vm._s(option.eo_tit) + ": "),
+                                          _c("b", [
+                                            _vm._v(_vm._s(option.eo_name)),
                                           ]),
                                         ]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-col",
-                                          [
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        [
+                                          _vm._v(
+                                            "\r\n                                " +
+                                              _vm._s(
+                                                _vm._f("rrp")(option.eo_price)
+                                              ) +
+                                              " 원\r\n                                "
+                                          ),
+                                          _c("font-awesome-icon", {
+                                            attrs: { icon: "times" },
+                                          }),
+                                          _vm._v(
+                                            "\r\n                                " +
+                                              _vm._s(option.eo_ea) +
+                                              " 개\r\n                                "
+                                          ),
+                                          _c("font-awesome-icon", {
+                                            attrs: { icon: "equals" },
+                                          }),
+                                          _vm._v(" "),
+                                          _c("b", { staticClass: "md_multi" }, [
                                             _vm._v(
-                                              "\n                                " +
-                                                _vm._s(
-                                                  _vm._f("rrp")(option.eo_price)
-                                                ) +
-                                                " 원\n                                "
+                                              _vm._s(
+                                                _vm._f("rrp")(
+                                                  option.eo_price * option.eo_ea
+                                                )
+                                              ) + " 원"
                                             ),
-                                            _c("font-awesome-icon", {
-                                              attrs: { icon: "times" },
-                                            }),
-                                            _vm._v(
-                                              "\n                                " +
-                                                _vm._s(option.eo_ea) +
-                                                " 개\n                                "
-                                            ),
-                                            _c("font-awesome-icon", {
-                                              attrs: { icon: "equals" },
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "b",
-                                              { staticClass: "md_multi" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm._f("rrp")(
-                                                      option.eo_price *
-                                                        option.eo_ea
-                                                    )
-                                                  ) + " 원"
-                                                ),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        ),
-                                      ],
-                                      1
-                                    )
-                                  }
-                                ),
+                                          ]),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                }),
                                 1
                               ),
                             ],
@@ -713,7 +694,7 @@ var render = function () {
                                         er.created_at
                                       )
                                     ) +
-                                    ")\n                "
+                                    ")\r\n                "
                                 ),
                               ]
                             ),
@@ -732,30 +713,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pTitle" }, [
-      _c("span", [_c("i", [_vm._v("견")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("적")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("서")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break d-md-block d-none" }),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("조")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("회")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break" }),
-      _vm._v(" "),
-      _c("span", [_c("i")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

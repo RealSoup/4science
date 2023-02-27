@@ -189,17 +189,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -290,7 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.order_show .goods[data-v-6f27c228] { margin-top:2rem;\n}\n.order_show .goods .container[data-v-6f27c228] { margin-bottom:1rem;\n}\n.order_show .goods .container>b[data-v-6f27c228] { font-size:2rem;\n}\n.order_show .goods .container .row[data-v-6f27c228] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.order_show .goods .container .row>div[data-v-6f27c228] { align-items:center; justify-content:center; display:flex;\n}\n.order_show .goods .container .row>div img[data-v-6f27c228] { width:160px; height:160px; -o-object-fit:cover; object-fit:cover;\n}\n.order_show .goods .container .row>div:nth-child(2) .btn[data-v-6f27c228] { text-align:left;\n}\n.order_show .goods .container .row>div[data-v-6f27c228]:nth-child(3) { justify-content:end; text-align:right;\n}\n.order_show .goods .container .row>div:nth-child(3) svg[data-v-6f27c228] { margin:0 10px;\n}\n.order_show .goods .container .row>div:nth-child(3) .md_multi[data-v-6f27c228] { display:inline-block; min-width:90px;\n}\n.order_show .price .row div[data-v-6f27c228] { text-align:right;\n}\n.order_show .price .row div b[data-v-6f27c228] { display:inline-block; min-width:200px;\n}\n.order_show .orderer .row .col .row div[data-v-6f27c228]:first-child { font-weight:bold;\n}\n.order_show .container[data-v-6f27c228] { margin-bottom:2rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .goods[data-v-6f27c228] { margin-top:2rem;\n}\n.container .goods .container[data-v-6f27c228] { margin-bottom:1rem;\n}\n.container .goods .container>b[data-v-6f27c228] { font-size:2rem;\n}\n.container .goods .container .row[data-v-6f27c228] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.container .goods .container .row>div[data-v-6f27c228] { align-items:center; justify-content:center; display:flex;\n}\n.container .goods .container .row>div img[data-v-6f27c228] { width:160px; height:160px; -o-object-fit:cover; object-fit:cover;\n}\n.container .goods .container .row>div:nth-child(2) .btn[data-v-6f27c228] { text-align:left;\n}\n.container .goods .container .row>div[data-v-6f27c228]:nth-child(3) { justify-content:end; text-align:right;\n}\n.container .goods .container .row>div:nth-child(3) svg[data-v-6f27c228] { margin:0 10px;\n}\n.container .goods .container .row>div:nth-child(3) .md_multi[data-v-6f27c228] { display:inline-block; min-width:90px;\n}\n.container .price .row div[data-v-6f27c228] { text-align:right;\n}\n.container .price .row div b[data-v-6f27c228] { display:inline-block; min-width:200px;\n}\n.container .orderer .row .col .row div[data-v-6f27c228]:first-child { font-weight:bold;\n}\n.container .container[data-v-6f27c228] { margin-bottom:2rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -425,10 +414,10 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "order_show" },
+    "b-container",
+    { staticClass: "w_fence" },
     [
-      _vm._m(0),
+      _c("h3", [_vm._v("주문 배송조회")]),
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
@@ -441,7 +430,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\n        Loading ......\n    ")]
+            [_vm._v("\r\n        Loading ......\r\n    ")]
           )
         : _c(
             "div",
@@ -451,7 +440,7 @@ var render = function () {
                 [
                   _c("b", [_vm._v(_vm._s(_vm.od.created_at))]),
                   _vm._v(
-                    "   주문번호 " + _vm._s(_vm.od.od_id) + "  \n            "
+                    "   주문번호 " + _vm._s(_vm.od.od_id) + "  \r\n            "
                   ),
                   _c("OrderStep", {
                     attrs: { order_config: _vm.od.order_config },
@@ -477,7 +466,7 @@ var render = function () {
                         _vm._s(opa.odpa_pa_id ? opa.odpa_pa_name : "4SCIENCE")
                       ),
                     ]),
-                    _vm._v(" 직배송 상품\n            "),
+                    _vm._v(" 직배송 상품\r\n            "),
                     _c(
                       "b-container",
                       _vm._l(opa.order_model, function (odm) {
@@ -507,23 +496,23 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                            " +
+                                          "\r\n                            " +
                                             _vm._s(odm.odm_gd_name) +
-                                            "\n                            "
+                                            "\r\n                            "
                                         ),
                                         _c("P", { staticClass: "bg-light" }, [
                                           _vm._v(
-                                            "\n                                " +
+                                            "\r\n                                " +
                                               _vm._s(odm.odm_gm_name) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_catno) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_code) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_spec) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_unit) +
-                                              " /\n                            "
+                                              " /\r\n                            "
                                           ),
                                         ]),
                                       ],
@@ -533,23 +522,23 @@ var render = function () {
                                       "div",
                                       [
                                         _vm._v(
-                                          "\n                            " +
+                                          "\r\n                            " +
                                             _vm._s(odm.odm_gd_name) +
-                                            "\n                            "
+                                            "\r\n                            "
                                         ),
                                         _c("P", { staticClass: "bg-light" }, [
                                           _vm._v(
-                                            "\n                                " +
+                                            "\r\n                                " +
                                               _vm._s(odm.odm_gm_name) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_catno) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_code) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_spec) +
-                                              " /\n                                " +
+                                              " /\r\n                                " +
                                               _vm._s(odm.odm_gm_unit) +
-                                              " /\n                            "
+                                              " /\r\n                            "
                                           ),
                                         ]),
                                       ],
@@ -564,19 +553,19 @@ var render = function () {
                               { attrs: { cols: "3" } },
                               [
                                 _vm._v(
-                                  "\n                        " +
+                                  "\r\n                        " +
                                     _vm._s(
                                       _vm._f("comma")(odm.odm_price_add_vat)
                                     ) +
-                                    " \n                        "
+                                    " \r\n                        "
                                 ),
                                 _c("font-awesome-icon", {
                                   attrs: { icon: "times" },
                                 }),
                                 _vm._v(
-                                  " \n                        " +
+                                  " \r\n                        " +
                                     _vm._s(odm.odm_ea) +
-                                    " \n                        "
+                                    " \r\n                        "
                                 ),
                                 _c("font-awesome-icon", {
                                   attrs: { icon: "equals" },
@@ -629,7 +618,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                배송조회\n                            "
+                                                "\r\n                                배송조회\r\n                            "
                                               ),
                                             ]
                                           )
@@ -655,7 +644,7 @@ var render = function () {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                                수취확인\n                            "
+                                                "\r\n                                수취확인\r\n                            "
                                               ),
                                             ]
                                           )
@@ -684,7 +673,7 @@ var render = function () {
                     "b-row",
                     [
                       _c("b-col", { attrs: { cols: "12" } }, [
-                        _vm._v("\n                    총합 : "),
+                        _vm._v("\r\n                    총합 : "),
                         _c("b", [
                           _vm._v(
                             _vm._s(_vm._f("comma")(_vm.od.od_gd_price)) + " 원"
@@ -693,7 +682,7 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("b-col", { attrs: { cols: "12" } }, [
-                        _vm._v("\n                    부가세 : "),
+                        _vm._v("\r\n                    부가세 : "),
                         _c("b", [
                           _vm._v(
                             _vm._s(_vm._f("comma")(_vm.od.od_surtax)) + " 원"
@@ -702,7 +691,7 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("b-col", { attrs: { cols: "12" } }, [
-                        _vm._v("\n                    배송료 : "),
+                        _vm._v("\r\n                    배송료 : "),
                         _c("b", [
                           _vm._v(
                             _vm._s(_vm._f("comma")(_vm.od.od_dlvy_price)) +
@@ -712,7 +701,7 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("b-col", { attrs: { cols: "12" } }, [
-                        _vm._v("\n                    최종 결제 금액 : "),
+                        _vm._v("\r\n                    최종 결제 금액 : "),
                         _c("b", [
                           _vm._v(
                             _vm._s(_vm._f("comma")(_vm.od.od_all_price)) + " 원"
@@ -981,36 +970,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pTitle" }, [
-      _c("span", [_c("i", [_vm._v("주")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("문")])]),
-      _vm._v(" "),
-      _c("span", { staticClass: "d-md-none d-inline-block" }, [
-        _c("i", [_vm._v("/")]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break d-md-block d-none" }),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("배")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("송")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("조")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("회")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break" }),
-      _vm._v(" "),
-      _c("span", [_c("i")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

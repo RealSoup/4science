@@ -53,9 +53,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ListingIndex',
@@ -375,20 +372,17 @@ var render = function () {
                         _vm._v(" "),
                         _c("div", [_vm._v(_vm._s(row.gd_name))]),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          [
-                            _vm._v(
-                              "\r\n                    " +
-                                _vm._s(_vm._f("comma")(row.gm_price_add_vat)) +
-                                " \r\n                    "
-                            ),
-                            row.gm_price_add_vat > 0
-                              ? [_vm._v("원")]
-                              : _vm._e(),
-                          ],
-                          2
-                        ),
+                        _c("p", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("won")(
+                                _vm._f("price_zero")(
+                                  _vm._f("comma")(row.gm_price_add_vat)
+                                )
+                              )
+                            )
+                          ),
+                        ]),
                       ]
                     )
                   }),

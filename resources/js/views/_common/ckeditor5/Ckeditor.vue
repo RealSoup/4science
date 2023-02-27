@@ -81,6 +81,6 @@ export default {
 .ck-editor .ck-content  ul, ol { padding: 0 1rem; }
 .ck-editor .ck-content ul li { list-style-type:disc; }
 .ck-editor .ck-content ol li { list-style-type: decimal; }
-.ck-editor__editable:not(.ck-editor__nested-editable) { min-height:200px; }
+.ck-editor__editable:not(.ck-editor__nested-editable) { min-height:500px; }
 .ck-editor__editable_inline { max-height:500px; }
 </style>

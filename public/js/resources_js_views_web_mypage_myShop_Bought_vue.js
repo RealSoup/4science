@@ -65,17 +65,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -191,7 +180,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#ought .pTitle[data-v-2fbb6304] { margin-bottom: 2rem;\n}\n.bought .row[data-v-2fbb6304] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.bought .row div img[data-v-2fbb6304] { width:160px; height:160px; -o-object-fit:cover; object-fit:cover;\n}\n.bought .row>div[data-v-2fbb6304]:nth-child(1) { text-align: center;\n}\n.bought .row>div:nth-child(2) .btn[data-v-2fbb6304] { text-align:left;\n}\n.bought .row>div[data-v-2fbb6304]:nth-child(3) { text-align: right; align-items: center; display: flex; justify-content: right;\n}\n.bought .row>div:nth-child(3) .md_multi[data-v-2fbb6304] { display:inline-block; min-width:120px;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .row[data-v-2fbb6304] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.container .row div img[data-v-2fbb6304] { width:160px; height:160px; -o-object-fit:cover; object-fit:cover;\n}\n.container .row>div[data-v-2fbb6304]:nth-child(1) { text-align: center;\n}\n.container .row>div:nth-child(2) .btn[data-v-2fbb6304] { text-align:left;\n}\n.container .row>div[data-v-2fbb6304]:nth-child(3) { text-align: right; align-items: center; display: flex; justify-content: right;\n}\n.container .row>div:nth-child(3) .md_multi[data-v-2fbb6304] { display:inline-block; min-width:120px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -237,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html& */ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html&");
+/* harmony import */ var _Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bought.vue?vue&type=template&id=2fbb6304&scoped=true& */ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&");
 /* harmony import */ var _Bought_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Bought.vue?vue&type=script&lang=js& */ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=script&lang=js&");
 /* harmony import */ var _Bought_vue_vue_type_style_index_0_id_2fbb6304_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Bought.vue?vue&type=style&index=0&id=2fbb6304&lang=css&scoped=true& */ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=style&index=0&id=2fbb6304&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
@@ -251,8 +240,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Bought_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   "2fbb6304",
@@ -294,26 +283,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true& ***!
+  \****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Bought_vue_vue_type_template_id_2fbb6304_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Bought.vue?vue&type=template&id=2fbb6304&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&lang=html& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/Bought.vue?vue&type=template&id=2fbb6304&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -326,8 +315,8 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { attrs: { id: "bought" } },
+    "b-container",
+    { staticClass: "w_fence" },
     [
       _vm.isLoadingModalViewed
         ? _c(
@@ -340,32 +329,10 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\n        Loading ......\n    ")]
+            [_vm._v("\r\n        Loading ......\r\n    ")]
           )
         : [
-            _c("div", { staticClass: "pTitle" }, [
-              _c("span", [_c("i", [_vm._v("구")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("매")])]),
-              _vm._v(" "),
-              _c("span", { staticClass: "d-md-none d-inline-block" }, [
-                _c("i", [_vm._v("/")]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "break d-md-block d-none" }),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("상")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("품")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("목")])]),
-              _vm._v(" "),
-              _c("span", [_c("i", [_vm._v("록")])]),
-              _vm._v(" "),
-              _c("div", { staticClass: "break" }),
-              _vm._v(" "),
-              _c("span", [_c("i")]),
-            ]),
+            _c("h3", [_vm._v("구매 상품목록")]),
             _vm._v(" "),
             _c(
               "transition-group",
@@ -374,7 +341,7 @@ var render = function () {
                 attrs: { tag: "div", css: false },
                 on: { "before-enter": _vm.beforeEnter, enter: _vm.enter },
               },
-              _vm._l(_vm.computedModel, function (m, i) {
+              _vm._l(_vm.computedModel, function (m) {
                 return _c(
                   "b-row",
                   { key: m.odm_id, staticClass: "data" },
@@ -404,22 +371,22 @@ var render = function () {
                           [
                             _c("p", [_c("b", [_vm._v(_vm._s(m.odm_gm_name))])]),
                             _vm._v(
-                              "\n                 \n                        " +
+                              "\r\n                    \r\n                        " +
                                 _vm._s(m.odm_gm_catno)
                             ),
                             _c("br"),
                             _vm._v(
-                              "\n                        " +
+                              "\r\n                        " +
                                 _vm._s(m.odm_gm_code)
                             ),
                             _c("br"),
                             _vm._v(
-                              "\n                        " +
+                              "\r\n                        " +
                                 _vm._s(m.odm_gm_spec)
                             ),
                             _c("br"),
                             _vm._v(
-                              "\n                        " +
+                              "\r\n                        " +
                                 _vm._s(m.odm_gm_unit)
                             ),
                             _c("br"),
@@ -434,15 +401,15 @@ var render = function () {
                       { attrs: { md: "5" } },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(_vm._f("comma")(m.odm_price)) +
-                            " 원\n                    "
+                            " 원\r\n                    "
                         ),
                         _c("font-awesome-icon", { attrs: { icon: "times" } }),
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(_vm._f("comma")(m.odm_ea)) +
-                            " 개\n                    "
+                            " 개\r\n                    "
                         ),
                         _c("font-awesome-icon", { attrs: { icon: "equals" } }),
                         _vm._v(" "),

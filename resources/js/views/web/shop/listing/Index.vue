@@ -20,10 +20,7 @@
             <b-link v-for="row in list.data" :key="row.gd_id" :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col">
                 <img :src="row.image_src_thumb[0]" />
                 <div>{{row.gd_name}}</div>
-                <p>
-                    {{row.gm_price_add_vat | comma}} 
-                    <template v-if="row.gm_price_add_vat>0">원</template>
-                </p>
+                <p>{{row.gm_price_add_vat | comma | price_zero | won}}</p>
             </b-link>          
         </b-row>
         <b-alert v-else variant="danger" show>No Item</b-alert>

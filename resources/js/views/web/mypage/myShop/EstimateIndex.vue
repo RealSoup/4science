@@ -1,30 +1,21 @@
-<template lang="html">
-    <div>
-        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-            Loading ......
-        </LoadingModal>
-        <template v-else>
-            <div class="pTitle">
-                <span><i>견</i></span>
-                <span><i>적</i></span>
-                <span><i>서</i></span>
-                <div class="break d-md-block d-none"></div>
-                <span><i>조</i></span>
-                <span><i>회</i></span>
-                <div class="break"></div>
-                <span><i></i></span>
-            </div>
-            <div class="row mb-2">
-                <b-col lg="3" md="12" class="align-middle" style="line-height:31px;">총 게시물 : {{estimateReq.total}}</b-col>
-                <b-col><SchDate v-model="frm" /></b-col>
-                <b-col cols="1"><b-button size="sm" variant="primary" @click="index">검색</b-button></b-col>
-            </div>
+<template>
+<b-container class="w_fence">
+    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+        Loading ......
+    </LoadingModal>
+    <template v-else>
+        <h3>견적서 조회</h3>
+        <div class="row mb-2">
+            <b-col lg="3" md="12" class="align-middle" style="line-height:31px;">총 게시물 : {{estimateReq.total}}</b-col>
+            <b-col><SchDate v-model="frm" /></b-col>
+            <b-col cols="1"><b-button size="sm" variant="primary" @click="index">검색</b-button></b-col>
+        </div>
 
-            <EstimateList v-model="estimateReq.data" />
+        <EstimateList v-model="estimateReq.data" />
 
-            <pagination :data="estimateReq" @pagination-change-page="index" />
-        </template>
-    </div>
+        <pagination :data="estimateReq" @pagination-change-page="index" />
+    </template>
+</b-container>
 </template>
 
 <script>

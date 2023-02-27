@@ -66,29 +66,15 @@ Vue.filter('comma', function (val) {
 Vue.filter('rrp', function (val) {
     //  RECOMMENDED RETAIL PRICE     권장 소비자가격
     //  가격 + 부가세
-
     val = (val*1.1).toFixed();
-    if (val){
-        return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    } else {
-        return 0;
-    }
+    if (val) return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    else return 0;
 });
-//
-// export default {
-//     filters: {
-//         capitalize: function (value) {
-//             if (!value) return ''
-//             value = value.toString()
-//             return value.charAt(0).toUpperCase() + value.slice(1)
-//         },
-//
-//         formatDate: function (dt) {
-//             if (value) {
-//                 return moment(String(value)).format('MM/DD/YYYY hh:mm')
-//             }
-//         },
-//     }
-// }
-//
-//
+
+Vue.filter('price_zero', function (v) {   //  0원 견적가 표시
+    return Number(v)==0? '견적가' : v;
+});
+
+Vue.filter('won', function (v) {   //  0원 견적가 표시
+    return v=='견적가'? v : `${v} 원`;
+});

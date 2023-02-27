@@ -99,7 +99,7 @@ class EstimateController extends Controller {
                             EstimateOption::insert([
                                 'eo_em_id'  => $em_id,
                                 'eo_gd_id'  => $item['gd_id'],
-                                'eo_opc_id' => $item['goc_id'],
+                                'eo_goc_id' => $item['goc_id'],
                                 'eo_tit'    => $item['go_name'],
                                 'eo_name'   => $item['goc_name'],
                                 'eo_ea'     => $item['ea'],

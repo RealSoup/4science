@@ -16,7 +16,7 @@
 <script> 
 import ax from '@/api/http';
 export default { 
-    name: "AuthPasswordReset",
+    name: "AuthPasswordForgot",
     data() {
         return {
             email: '',

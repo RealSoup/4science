@@ -149,6 +149,6 @@ export default {
 .tax_iv .container .row b { margin:0 .5rem; }
 
 
-.tax_iv>button { position:absolute; bottom:0; background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0; }
+.tax_iv>button { position:absolute; left:0; bottom:0; background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0; }
 
 </style>

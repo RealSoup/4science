@@ -143,7 +143,7 @@ export default {
                 if (res && res.status === 200) {
                     await this.$refs.fileupload.fileProcessor(res.data);
                     Notify.toast('success', '견적 요청 완료')
-                    this.$router.push({name: 'main'});
+                    this.$router.push({name: 'my_estimate_show', params: { eq_id: res.data }});
                 } else {
                     Notify.toast('warning', res);
                 }

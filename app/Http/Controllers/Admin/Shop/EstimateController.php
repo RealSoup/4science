@@ -122,13 +122,14 @@ class EstimateController extends Controller {
 
     public function show(Request $req, int $id) {
         if ($req->filled('type') && $req->type=='reply') {
-            $data = $this->estimateReply->find($id);
-            $data->user;
-            $data->estimateReq;
+            $data = $this->estimateReply->with('estimateReq')->with('estimateModel')->with('user')->find($id);
+            foreach ($data->estimateModel as $k => $em)
+                $em->estimateOption;
             $data->collect = $this->estimateReply->estimateModelPurchaseCollection($data->estimateModel);
         } else {
             $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->find($id);
             foreach ($data->estimateModel as $k => $em) {
+                $em->estimateOption;
                 if($em->em_name==''){
                     $gm=GoodsModel::find($em->em_gm_id);
                     // $data->estimateModel[$k]->name=$gm->gm_name;
@@ -425,7 +426,7 @@ class EstimateController extends Controller {
     public function estimateOption_paramImplant($eo, $em_id){
         return [    'eo_em_id' => $em_id,
                     'eo_gd_id' => $eo['eo_gd_id'],
-                    'eo_opc_id' => $eo['eo_opc_id'],
+                    'eo_goc_id' => $eo['eo_goc_id'],
                     'eo_tit' => $eo['eo_tit'],
                     'eo_name' => $eo['eo_name'],
                     'eo_ea' => $eo['eo_ea'],

@@ -145,7 +145,7 @@ export default {
 #footer #footer_bottom .container .row .col { padding:0; color:#fff; font-size:13px; }
 #footer #footer_bottom .container .row { margin:0; }
 #footer #footer_bottom .container .row A { color:#fff; }
-#footer #footer_bottom .container .row:nth-child(1) { background: url(/img/common/footer/line.png) repeat-x bottom left; margin-bottom:10px; }
+#footer #footer_bottom .container .row:nth-child(1) { background: url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/footer/line.png) repeat-x bottom left; margin-bottom:10px; }
 #footer #footer_bottom .container .row:nth-child(1) a { display:inline-block; margin-right:50px; padding:13px 0; }
 #footer #footer_bottom .container .row .col p { margin:0; }
 #footer #footer_bottom .container .row .col .copy { margin-top: 22px; }

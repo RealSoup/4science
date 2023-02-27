@@ -301,7 +301,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-5bfe11e4] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-5bfe11e4] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-5bfe11e4] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc div[data-v-5bfe11e4] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-5bfe11e4] { display:flex; padding:0; border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\r\n\r\n/*#adm_estimate_show .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\n#adm_estimate_show .card .eq_info .col div[data-v-5bfe11e4] { margin:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span[data-v-5bfe11e4] { margin-right:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span svg[data-v-5bfe11e4] { margin-right:0.5rem;\n}\n#adm_estimate_show .card .eq_info .col div .content[data-v-5bfe11e4] { white-space:pre;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-5bfe11e4] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-5bfe11e4] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-5bfe11e4] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-5bfe11e4] { display:inline-block; min-width:10rem; text-align:left;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i[data-v-5bfe11e4] { display:inline-block; min-width:5rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i b[data-v-5bfe11e4] { display:inline-block; min-width:1.4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-5bfe11e4]:nth-child(3) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-5bfe11e4] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-5bfe11e4] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-5bfe11e4] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc .row div[data-v-5bfe11e4] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-5bfe11e4] { border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\r\n\r\n/*#adm_estimate_show .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\n#adm_estimate_show .card .eq_info .col div[data-v-5bfe11e4] { margin:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span[data-v-5bfe11e4] { margin-right:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span svg[data-v-5bfe11e4] { margin-right:0.5rem;\n}\n#adm_estimate_show .card .eq_info .col div .content[data-v-5bfe11e4] { white-space:pre;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-5bfe11e4] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-5bfe11e4] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-5bfe11e4] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-5bfe11e4] { display:inline-block; min-width:10rem; text-align:left;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i[data-v-5bfe11e4] { display:inline-block; min-width:5rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i b[data-v-5bfe11e4] { display:inline-block; min-width:1.4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-5bfe11e4]:nth-child(3) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -816,100 +816,100 @@ var render = function () {
                     "b-row",
                     { key: em.em_id, staticClass: "gd_list" },
                     [
-                      em.em_model_type == "MODEL"
-                        ? [
-                            _c(
-                              "b-col",
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    attrs: {
-                                      variant: "outline-primary",
-                                      size: "sm",
-                                      to: {
-                                        name: "adm_goods_edit",
-                                        params: { gd_id: em.em_gd_id },
-                                      },
-                                      target: "_blank",
-                                    },
-                                  },
-                                  [_c("b-icon-link45deg")],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("b", { staticClass: "gd_name" }, [
-                                  _vm._v(_vm._s(em.em_name)),
-                                ]),
-                                _vm._v(" "),
-                                _c("b", { staticClass: "divider" }, [
-                                  _vm._v("/"),
-                                ]),
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(em.em_code) +
-                                    "\n                        "
-                                ),
-                                _c("b", { staticClass: "divider" }, [
-                                  _vm._v("/"),
-                                ]),
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(em.em_catno) +
-                                    "\n                        "
-                                ),
-                                _c("b", { staticClass: "divider" }, [
-                                  _vm._v("/"),
-                                ]),
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(em.em_maker) +
-                                    "\n                        "
-                                ),
-                                _c("b", { staticClass: "divider" }, [
-                                  _vm._v("/"),
-                                ]),
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(em.em_unit) +
-                                    "\n                    "
-                                ),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
-                            _vm._v(" "),
-                            _c("b-col", { attrs: { tag: "i" } }, [
-                              _vm._v("수량 : "),
-                              _c("b", [
-                                _vm._v(_vm._s(_vm._f("comma")(em.em_ea))),
-                              ]),
-                              _vm._v(" 개"),
-                            ]),
-                          ]
-                        : _c(
-                            "b-col",
-                            { staticClass: "opc", attrs: { cols: "12" } },
-                            [
-                              _c("b-col", { attrs: { offset: "6" } }, [
-                                _vm._v(
-                                  _vm._s(em.em_name) + ": " + _vm._s(em.em_spec)
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", { attrs: { tag: "i" } }, [
-                                _vm._v("수량 : "),
-                                _c("b", [
-                                  _vm._v(_vm._s(_vm._f("comma")(em.em_ea))),
-                                ]),
-                                _vm._v(" 개"),
-                              ]),
-                            ],
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                variant: "outline-primary",
+                                size: "sm",
+                                to: {
+                                  name: "adm_goods_edit",
+                                  params: { gd_id: em.em_gd_id },
+                                },
+                              },
+                            },
+                            [_c("b-icon-link45deg")],
                             1
                           ),
+                          _vm._v(" "),
+                          _c("b", { staticClass: "gd_name" }, [
+                            _vm._v(_vm._s(em.em_name)),
+                          ]),
+                          _vm._v(" "),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_code) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_catno) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_maker) +
+                              "\n                    "
+                          ),
+                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(em.em_unit) +
+                              "\n                "
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { tag: "i" } }, [
+                        _vm._v("수량 : "),
+                        _c("b", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
+                        _vm._v(" 개"),
+                      ]),
+                      _vm._v(" "),
+                      em.estimate_option.length
+                        ? _c(
+                            "b-col",
+                            { staticClass: "opc", attrs: { cols: "12" } },
+                            _vm._l(em.estimate_option, function (option) {
+                              return _c(
+                                "b-row",
+                                { key: option.eo_id },
+                                [
+                                  _c("b-col", { attrs: { offset: "6" } }, [
+                                    _vm._v(
+                                      _vm._s(option.eo_tit) +
+                                        ": " +
+                                        _vm._s(option.eo_name)
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", { attrs: { tag: "i" } }, [
+                                    _vm._v("수량 : "),
+                                    _c("b", [
+                                      _vm._v(
+                                        _vm._s(_vm._f("comma")(option.eo_ea))
+                                      ),
+                                    ]),
+                                    _vm._v(" 개"),
+                                  ]),
+                                ],
+                                1
+                              )
+                            }),
+                            1
+                          )
+                        : _vm._e(),
                     ],
-                    2
+                    1
                   )
                 }),
                 1

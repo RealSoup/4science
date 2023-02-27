@@ -8,7 +8,7 @@ const isAdmin = () => (to, from, next) => {
         next('/');
     } else {
         next({name:'login', query:{redirect:to.path}});
-        Notify.modal('로그인이 필요한 서비스입니다.');
+        Notify.modal('로그인이 필요한 서비스입니다.', 'danger');
     }
 };
 

@@ -1316,7 +1316,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ck-editor .ck-content  ul, ol { padding: 0 1rem;\n}\n.ck-editor .ck-content ul li { list-style-type:disc;\n}\n.ck-editor .ck-content ol li { list-style-type: decimal;\n}\n.ck-editor__editable:not(.ck-editor__nested-editable) { min-height:200px;\n}\n.ck-editor__editable_inline { max-height:500px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ck-editor .ck-content  ul, ol { padding: 0 1rem;\n}\n.ck-editor .ck-content ul li { list-style-type:disc;\n}\n.ck-editor .ck-content ol li { list-style-type: decimal;\n}\n.ck-editor__editable:not(.ck-editor__nested-editable) { min-height:500px;\n}\n.ck-editor__editable_inline { max-height:500px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

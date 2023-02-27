@@ -332,8 +332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     total: function total() {
       var model = this.content.goods_model.reduce(function (acc, el) {
-        var tmp = el.gm_price_add_vat == '견적가' ? 0 : el.gm_price_add_vat;
-        return acc + parseInt(tmp * el.ea);
+        return acc + parseInt(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat) * el.ea);
       }, 0);
       var option = this.content.goods_option.reduce(function (acc, el) {
         return acc + el.goods_option_child.reduce(function (acc02, el02) {
@@ -405,7 +404,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case "pay":
           var estimate_price = false;
           this.content.goods_model.forEach(function (gm) {
-            if (gm.ea > 0 && gm.gm_price_add_vat == '견적가') estimate_price = true;
+            if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
           });
 
           if (estimate_price) {
@@ -1205,7 +1204,11 @@ var render = function () {
                           [
                             _vm._v(
                               "\n                        " +
-                                _vm._s(_vm._f("comma")(gm.gm_price_add_vat)) +
+                                _vm._s(
+                                  _vm._f("price_zero")(
+                                    _vm._f("comma")(gm.gm_price_add_vat)
+                                  )
+                                ) +
                                 "\n                        "
                             ),
                             _vm._l(gm.bundle_dc, function (bd) {
@@ -1213,7 +1216,9 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(bd.bd_ea) +
                                     "부터 " +
-                                    _vm._s(_vm._f("comma")(bd.bd_price)) +
+                                    _vm._s(
+                                      _vm._f("comma")(bd.bd_price_add_vat)
+                                    ) +
                                     "원"
                                 ),
                               ])

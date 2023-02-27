@@ -38,13 +38,13 @@ class Goods extends Model {
     public function getDlvyFeeAddVatAttribute() { return (int)($this->dlvy_fee*1.1); }
     public function getFreeDlvyMaxAttribute() { return $this->free_dlvy_max; }
 
-    public function getGmPriceAddVatAttribute($v) { return ($v>0) ? intval($v) : '견적가'; }
+    // public function getGmPriceAddVatAttribute($v) { return ($v>0) ? intval($v) : '견적가'; }
     // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
 
     public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id")->Prime(); }
     public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->Prime(); }
-    public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id"); }
+    public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id")->orderBy('gm_catno03'); }
     public function goodsOption() {         return $this->hasMany(GoodsOption::class, "go_gd_id")->orderBy('go_required'); }
     public function hashJoin() {            return $this->hasMany(HashJoin::class, "gd_id"); }
     public function fileGoods() {           return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
@@ -105,15 +105,14 @@ class Goods extends Model {
                         $d_arrange[$item['gd_id']]['option'][$item['goc_id']] = [ 'goc_id' => $item['goc_id'], 'ea' => $item['ea'] ];
                 }
             break;
-
             case 'buy_estimate':    //  견적서에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
                 foreach ($some['goods'] as $v) {
-                    if (!array_key_exists($v['gd_id'], $collect))
-                        $collect[$v['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
+                    // if (!array_key_exists($v['gd_id'], $d_arrange))
+                    //     $d_arrange[$v['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
                     if (array_key_exists('em_id', $v))
-                        $collect[$v['gd_id']]['model']->put($v['em_id'], collect([ 'em_id' => $v['em_id'] ]));
+                        $d_arrange[$v['gd_id']]['model'][$v['em_id']] = [ 'em_id' => $v['em_id']];
                     if (array_key_exists('eo_id', $v))
-                        $collect[$v['gd_id']]['option']->put($v['eo_id'], collect([ 'eo_id' => $v['eo_id'] ]));
+                        $d_arrange[$v['gd_id']]['option'][$v['eo_id']] = [ 'eo_id' => $v['eo_id']];
                 }
             break;
 
@@ -154,46 +153,48 @@ class Goods extends Model {
         }
 
         foreach ($d_arrange as $gd_id => $v) {
-            if ( $type== 'buy_estimate') {
-                $gd = self::find($gd_id);
-                if (!$gd_id)
-                    $gd = new self;
-                $gd->purchaseAt;
-                $gd->maker;
-                $gd->goods_model = collect();
-                $em = new EstimateModel();
-                $index = 0;
-                foreach ($v['model'] as $k => $vm) {
-                    $em = $em->find($vm['em_id']);
-                    if ($index === 0 && !$gd_id) {
-                        $gd->gd_name = $em->em_name;
-                        $gd->maker->mk_name = $em->em_maker;
+            if ($type== 'buy_estimate') {
+                if (isset($v['model'])) {
+                    $gd = self::with('purchaseAt')->find($gd_id) ?? new self;
+                    foreach (EstimateModel::find(Arr::pluck($v['model'], 'em_id')) as $em) {
+                        $tmpModel = [   'type'              => 'model',
+                                        'gd_id'             => $gd_id,
+                                        'pa_name'           => $gd->purchaseAt ? $gd->purchaseAt->pa_name : NULL,
+                                        'pa_type'           => $gd->purchaseAt ? $gd->purchaseAt->pa_type : NULL,
+                                        'pa_dlvy_p'         => $gd->purchaseAt ? $gd->purchaseAt->pa_price : 0,
+                                        'pa_dlvy_p_add_vat' => $gd->purchaseAt ? $gd->purchaseAt->pa_price_add_vat : 0,
+                                        'gd_enable'         => NULL,
+                                        'gm_enable'         => NULL,
+                                        'gm_prime'          => NULL,
+                                        'gm_id'             => $em->em_gm_id,
+                                        'ea'                => $em->em_ea,
+                                        'img'               => $gd->image_src_thumb[0],
+                                        'gd_name'           => $gd->gd_name,
+                                        'gm_name'           => $em->em_name,
+                                        'gm_catno'          => $em->em_catno,
+                                        'gm_code'           => $em->em_code,
+                                        'gm_spec'           => $em->em_spec,
+                                        'gm_unit'           => $em->em_unit,
+                                        'mk_name'           => $em->em_maker,
+                                        'price'             => $em->em_price,
+                                        'price_add_vat'     => rrp($em->em_price),
+                                        'gain_mileage'      => $em->gain_mileage];
+                        $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }
-                    $gd->goods_model->push([
-                        'gm_name'          => $em->em_name,
-                        'gm_catno'         => $em->em_catno,
-                        'gm_code'          => $em->em_code,
-                        'gm_spec'          => $em->em_spec,
-                        'gm_unit'          => $em->em_uint,
-                        'ea'               => $em->em_ea,
-                        'gm_price_add_vat' => rrp($em->em_price),
-                    ]);
-                    $gd->goods_p += $em->em_price*$em->em_ea;
 
-                    $index++;
-                }
-
-                if($v['option']->isNotEmpty()){
-                    $gd->goods_option_child = collect();
-                    $eo = new EstimateOption();
-                    foreach ($v['option'] as $k => $vo) {
-                        $eo = $eo->find($k);
-                        $gd->goods_option_child->push([
-                            'goc_name'          => $eo->eo_name,
-                            'ea'                => $eo->eo_ea,
-                            'goc_price_add_vat' => rrp($eo->eo_price),
-                        ]);
-                        $gd->option_p += $eo->eo_price*$eo->eo_ea;
+                    if(isset($v['option'])){
+                        foreach (EstimateOption::find(Arr::pluck($v['option'], 'eo_id')) as $eo) {
+                            $tmpOption = [  'type'          => 'option',
+                                            'gd_id'         => $gd_id,
+                                            'goc_id'        => $eo->eo_goc_id,
+                                            'ea'            => $eo->eo_ea,
+                                            'go_name'       => $eo->eo_tit,
+                                            'goc_name'      => $eo->eo_name,
+                                            'price'         => $eo->eo_price,
+                                            'price_add_vat' => rrp($eo->eo_price),
+                                            'gain_mileage'  => $eo->gain_mileage, ];
+                            $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
+                        }
                     }
                 }
             } else {
@@ -240,34 +241,7 @@ class Goods extends Model {
                         }
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }
-                    // dd($gd->toArray());
-                } else {
-                    $gd['odg_id']               = $val['odg_id'];
-                    $gd['odg_dlvy_com']         = $val['odg_dlvy_com'];
-                    $gd['odg_dlvy_num']         = $val['odg_dlvy_num'];
-                    $gd['odg_dlvy_created_at']  = $val['odg_dlvy_created_at'];
-                    $gd['odg_arrival_date']     = $val['odg_arrival_date'];
-                    $gd['odg_receive_date']     = $val['odg_receive_date'];
-                    $gd['gd_name'] = '';
-                    $gd['maker'] = array();
-                    $gd['maker']['mk_name'] = '';
-                    $gd['image_src_thumb'] = array();
-                    $gd['image_src_thumb'][] = noimg(true);
-                    $gd['goods_model'] = collect();
-                    $gd['goods_p'] = 0;
-                    foreach ($val['model'] as $gm) {
-                        $gm->gm_name = $gm->odm_gm_name;
-                        $gm->gm_code = $gm->odm_gm_code;
-                        $gm->gm_catno = $gm->odm_gm_catno;
-                        $gm->gm_unit = $gm->odm_gm_unit;
-                        $gm->gm_spec = $gm->odm_gm_spec;
-                        $gm->ea = $gm->odm_ea;
-                        $gm->odm_price_add_vat = rrp($gm->odm_price);
-                        $gd['goods_model'][] = $gm;
-                        $gd['goods_p'] += $gm->odm_price*$gm->ea;
-                    }
                 }
-
                 
                 if(isset($v['option'])){
                     foreach (GoodsOptionChild::find(Arr::pluck($v['option'], 'goc_id')) as $goc) {   //  goc_id만 추출하여 옵션 검색
@@ -290,20 +264,13 @@ class Goods extends Model {
                         } else if ($type == 'order') {
                             $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
                             $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);
-                        } else {
-                            // $gd->option_p += $goc->goc_price*$goc->ea;
                         }
-
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
                     }
                 }
-
-            }            
-            // $rst['lists'][$pa_id]['list'][] = $gd;
+            }
         }
 
-// dd($rst);
-// dd($params['lists']->toArray());
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
         foreach ($rst['lists'] as $pa_id => $pa_group) {
             $paSum = 0;
@@ -343,254 +310,5 @@ class Goods extends Model {
             */
         }
         return $p;
-    }
-
-
-    public function getGoodsDataCollection___old($some, $type='buy_cart') {
-        $params = collect([
-                    'lists'=>collect(),
-                    'price'=>collect([ 'goods'=>0, 'dlvy'=>0, 'air'=>0 ]) ]);
-        $collect = Array();
-        switch ($type) {
-            case 'buy_inst':    //  바로 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
-            case 'buy_cart':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
-            case 'request_estimate':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
-                dd($some);
-                foreach ($some['goods'] as $gd) {
-                    $collect[$gd['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
-                    foreach ($gd['model'] as $gm)
-                        $collect[$gd['gd_id']]['model']->put($gm['gm_id'], collect([ 'gm_id' => $gm['gm_id'], 'ea' => $gm['ea'] ]));
-                    foreach ($gd['option'] as $op)
-                        $collect[$gd['gd_id']]['option']->put($op['goc_id'], collect([ 'goc_id' => $op['goc_id'], 'ea' => $op['ea'] ]));
-                }
-            break;
-
-            // case 'buy_inst':    //  바로 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
-            //     $collect[$some['goods']['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
-            //     foreach ($some['goods']['model'] as $val)
-            //         $collect[$some['goods']['gd_id']]['model']->put($val['gm_id'], collect([ 'gm_id' => $val['gm_id'], 'ea' => $val['ea'] ]));
-            //     foreach ($some['goods']['option'] as $val)
-            //         $collect[$some['goods']['gd_id']]['option']->put($val['goc_id'], collect([ 'goc_id' => $val['goc_id'], 'ea' => $val['ea'] ]));
-            // break;
-
-            case 'buy_estimate':    //  견적서에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
-                foreach ($some['goods'] as $v) {
-                    if (!array_key_exists($v['gd_id'], $collect))
-                        $collect[$v['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);
-                    if (array_key_exists('em_id', $v))
-                        $collect[$v['gd_id']]['model']->put($v['em_id'], collect([ 'em_id' => $v['em_id'] ]));
-                    if (array_key_exists('eo_id', $v))
-                        $collect[$v['gd_id']]['option']->put($v['eo_id'], collect([ 'eo_id' => $v['eo_id'] ]));
-                }
-            break;
-
-            case 'order':   //  주문페이지에서 주문 상품을 보여주기 위한 데이터 편집
-                $od = $some->orderGoods;
-                foreach ($od as $odg) {
-                    $collect[$odg->odg_gd_id] = $odg;
-                    $collect[$odg->odg_gd_id]['model'] = collect();
-                    $collect[$odg->odg_gd_id]['option'] = collect();
-                    // dd($collect[$odg->odg_gd_id]->toArray());
-                    foreach ($odg->orderModel as $odm) {
-                        if ( $odm->odm_gm_id > 0 ) {
-                            $collect[$odg->odg_gd_id]['model']->put($odm->odm_gm_id, collect([
-                                'gm_id'  => $odm->odm_gm_id,
-                                'ea'     => $odm->odm_ea,
-                                'odm_id' => $odm->odm_id,
-                                'odm_price' => $odm->odm_price ]));
-                        } else {
-                            $collect[$odg->odg_gd_id]['model'][] = $odm;
-                        }
-                    }
-                    foreach ($odg->orderOption as $odo) {
-                        $collect[$odg->odg_gd_id]['option']->put($odo->odo_goc_id, collect([
-                            'goc_id'    => $odo->odo_goc_id,
-                            'ea'    => $odo->odo_ea,
-                            'odo_id' => $odo->odo_id,
-                            'odo_price' => $odo->odo_price ]));
-                    }
-                }
-            break;
-
-            case 'cart':    //  장바구니 목록을 보여주기 위한 데이터 편집
-                foreach ($some as $cart) {
-                    $gd = $cart->goods;
-                    $collect[$gd->gd_id] = collect(['ct_id'=>$cart->ct_id, 'model'=>collect(), 'option'=>collect()]);
-                    foreach ($cart->cartModel as $cartModel) {
-                        $collect[$gd->gd_id]['model']->put($cartModel->cm_gm_id, collect([
-                            'gm_id'    => $cartModel->cm_gm_id,
-                            'ea'    => $cartModel->cm_ea,
-                            'cm_id' => $cartModel->cm_id ]));
-                    }
-                    foreach ($cart->cartOption as $cartOption) {
-                        $collect[$gd->gd_id]['option']->put($cartOption->co_goc_id, collect([
-                            'goc_id'    => $cartOption->co_goc_id,
-                            'ea'    => $cartOption->co_ea,
-                            'co_id' => $cartOption->co_id ]));
-                    }
-                }
-            break;
-        }
-
-// dd($collect);
-        foreach ($collect as $gd_id => $val) {
-            if ( $type== 'buy_estimate') {
-                $gd = self::find($gd_id);
-                if (!$gd_id)
-                    $gd = new self;
-                $gd->purchaseAt;
-                $gd->maker;
-                $gd->goods_model = collect();
-                $em = new EstimateModel();
-                $index = 0;
-                foreach ($val['model'] as $k => $v) {
-                    $em = $em->find($v['em_id']);
-                    if ($index === 0 && !$gd_id) {
-                        $gd->gd_name = $em->em_name;
-                        $gd->maker->mk_name = $em->em_maker;
-                    }
-                    $gd->goods_model->push([
-                        'gm_name'          => $em->em_name,
-                        'gm_catno'         => $em->em_catno,
-                        'gm_code'          => $em->em_code,
-                        'gm_spec'          => $em->em_spec,
-                        'gm_unit'          => $em->em_uint,
-                        'ea'               => $em->em_ea,
-                        'gm_price_add_vat' => rrp($em->em_price),
-                    ]);
-                    $gd->goods_p += $em->em_price*$em->em_ea;
-
-                    $index++;
-                }
-
-                if($val['option']->isNotEmpty()){
-                    $gd->option_child = collect();
-                    $eo = new EstimateOption();
-                    foreach ($val['option'] as $k => $v) {
-                        $eo = $eo->find($k);
-                        $gd->option_child->push([
-                            'goc_name'          => $eo->eo_name,
-                            'ea'                => $eo->eo_ea,
-                            'goc_price_add_vat' => rrp($eo->eo_price),
-                        ]);
-                        $gd->option_p += $eo->eo_price*$eo->eo_ea;
-                    }
-                }
-            } else {
-                $gd = self::find($gd_id);
-                if ( $gd_id > 0 ) {
-                    if ($type == 'cart') $gd->ct_id = $collect[$gd_id]['ct_id'];
-                    $gd->purchaseAt;
-                    $gd->maker;
-                    $gd->goods_model = GoodsModel::find($val['model']->pluck('gm_id'));
-                    foreach ($gd->goods_model as $gm) {
-                        $gm->ea = $collect[$gd_id]['model'][$gm->gm_id]['ea'];
-                        if ($type == 'cart') $gm->cm_id = $collect[$gd_id]['model'][$gm->gm_id]['cm_id'];
-                        if ($type == 'order') {
-                            $gm->odm_id = $collect[$gd_id]['model'][$gm->gm_id]['odm_id'];
-                            //  주문은 주문 시점 가격을 가져온다
-                            $gm->odm_price = $collect[$gd_id]['model'][$gm->gm_id]['odm_price'];
-                            $gm->odm_price_add_vat = rrp($collect[$gd_id]['model'][$gm->gm_id]['odm_price']);
-                            $gd->goods_p += $gm->odm_price*$gm->ea;
-                        } else {
-                            if ($gm->bundleDc()->exists()) { // 묶음할인이 있다면 적용
-                                foreach($gm->bundleDc as $dc){
-                                    if ($gm->ea < $dc->bd_ea)      { break; }
-                                    else if ($gm->ea == $dc->bd_ea){ $gm->gm_price = $dc->bd_price; break; }
-                                    else if ($gm->ea > $dc->bd_ea) { $gm->gm_price = $dc->bd_price; }
-                                    /*
-                                    bd_price_add_vat를 넣어주지 않고 bd_price를 넣어주는 이유는
-                                    gm_price 부가세 포함이 이후에 이루어 져서
-                                    여기서 포함가를 넣어주면 이중으로 된다.
-                                    */
-                                }
-                            }
-                            $gd->goods_p += $gm->gm_price*$gm->ea;
-                        }
-                    }
-                } else {
-                    $gd['odg_id']               = $val['odg_id'];
-                    $gd['odg_dlvy_com']         = $val['odg_dlvy_com'];
-                    $gd['odg_dlvy_num']         = $val['odg_dlvy_num'];
-                    $gd['odg_dlvy_created_at']  = $val['odg_dlvy_created_at'];
-                    $gd['odg_arrival_date']     = $val['odg_arrival_date'];
-                    $gd['odg_receive_date']     = $val['odg_receive_date'];
-                    $gd['gd_name'] = '';
-                    $gd['maker'] = array();
-                    $gd['maker']['mk_name'] = '';
-                    $gd['image_src_thumb'] = array();
-                    $gd['image_src_thumb'][] = noimg(true);
-                    $gd['goods_model'] = collect();
-                    $gd['goods_p'] = 0;
-                    foreach ($val['model'] as $gm) {
-                        $gm->gm_name = $gm->odm_gm_name;
-                        $gm->gm_code = $gm->odm_gm_code;
-                        $gm->gm_catno = $gm->odm_gm_catno;
-                        $gm->gm_unit = $gm->odm_gm_unit;
-                        $gm->gm_spec = $gm->odm_gm_spec;
-                        $gm->ea = $gm->odm_ea;
-                        $gm->odm_price_add_vat = rrp($gm->odm_price);
-                        $gd['goods_model'][] = $gm;
-                        $gd['goods_p'] += $gm->odm_price*$gm->ea;
-                    }
-                }
-
-                
-                if($val['option']->isNotEmpty()){
-                    $gd->option_child = OptionChild::find($val['option']->pluck('goc_id'));
-                    foreach ($gd->option_child as $goc) {
-                        $goc->option;
-                        $goc->ea = $collect[$gd_id]['option'][$goc->goc_id]['ea'];
-                        if ($type == 'cart') $goc->co_id = $collect[$gd_id]['option'][$goc->goc_id]['co_id'];
-                        if ($type == 'order') {
-                            $goc->odo_price = $collect[$gd_id]['option'][$goc->goc_id]['odo_price'];
-                            $goc->odo_price_add_vat = rrp($collect[$gd_id]['option'][$goc->goc_id]['odo_price']);
-                            $gd->option_p += $goc->odo_price*$goc->ea;
-                        } else {
-                            $gd->option_p += $goc->goc_price*$goc->ea;
-                        }
-
-                    }
-                }
-
-            }
-
-            $pa_id = 0;
-            if ($gd_id > 0 && $gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출
-            if (!$params['lists']->has($pa_id)) {
-                $params['lists']->put($pa_id, collect([ //  직배송 키로 컬랙션 생성
-                    'price'=>collect([ 'goods'=>0, 'goods_add_vat'=>0, 'dlvy'=>0, 'dlvy_add_vat'=>0, 'air'=>0, 'air_add_vat'=>0 ]),
-                    'list'=>collect(),
-                ]));
-            }
-            $params['lists'][$pa_id]['list'][] = $gd;
-        }
-
-// dd($params);
-// dd($params['lists']->toArray());
-        foreach ($params['lists'] as $pa_id => $gd) {
-            $gd['price']['goods'] = $gd['list']->sum('goods_p') + $gd['list']->sum('option_p');
-            $gd['price']['goods_add_vat'] = rrp($gd['price']['goods']);
-            $params['price']['goods'] += $gd['price']['goods'];
-            if ($pa_id && $gd['list']->first()->purchaseAt->pa_type == "AIR") {
-                $gd['price']['air'] = $gd['list']->first()->purchaseAt->pa_price;
-                $gd['price']['air_add_vat'] = rrp($gd['price']['air']);
-                $params['price']['air'] += $gd['price']['air'];
-            } else {
-                //  10만원 이상시 배송료 무료 정책은
-                //  부가세 제외 금액을 기준으로 한다.
-                $gd['price']['dlvy'] = $gd['price']['goods'] < $this->free_dlvy_max ? $this->dlvy_fee : 0;
-                $gd['price']['dlvy_add_vat'] = rrp($gd['price']['dlvy']);
-                $params['price']['dlvy'] += $gd['price']['dlvy'];
-            }
-        }
-
-        $params['price']['surtax'] = surtax($params['price']['goods']);
-        $params['price']['goods_add_vat']  = $params['price']['goods'] + $params['price']['surtax'];
-        $params['price']['dlvy_add_vat']   = rrp($params['price']['dlvy']);
-        $params['price']['air_add_vat']   = rrp($params['price']['air']);
-        $params['price']['total']  = $params['price']['goods_add_vat'] + $params['price']['dlvy_add_vat'] + $params['price']['air_add_vat'];
-
-        return $params;
     }
 }

@@ -59,3 +59,53 @@ if (! function_exists('noImg')) { //  이미지 없을때 대체 이미지
         return Storage::disk('s3')->url("common/noimage".($thumb ? "_thumb" : "").".jpg");
     }
 }
+
+if (! function_exists('sendSms')) {
+    // 문자 발송
+    function sendSms($receiver_num, $receiver_name, $od_no, $content){
+
+        $subject    = "입금 정보 알림";
+        $message    = $receiver_name."님\n".$content['bank']." ".$content['account']."\n"."주문번호"." ".$od_no."\n"."합계"." ".$content['price']."\n-".cache('biz')['company']."-";
+
+        $data1 = [
+            "user_id"   => "admin",
+        	"sms_type"  => "S",
+        	"receiver"=> $receiver_num,
+            "sender"   => cache('biz')['tel'],
+        	"subject" => $subject,
+        	"message"=> $message,
+        	//"send_date"=> "2019-04-01 15:40:11",
+        	"file"=> ""
+        ];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.hiworks.com/office/v2/sms/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($data1),
+            CURLOPT_HTTPHEADER => array(
+            	// Set here requred headers
+                "Authorization: Bearer e106a633b531c76200c5fd44272f9ea6",
+                "content-type: application/json",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            // print_r(json_decode($response));
+            return json_decode($response);
+        }
+    }
+}

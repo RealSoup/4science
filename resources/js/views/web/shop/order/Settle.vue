@@ -67,7 +67,7 @@
                         <h4>02. 주문자 정보</h4>
                         <b-row>
                             <label for="od_orderer">주문자명<i class="require" /></label>
-                            <b-col><b-form-input v-model="order.od_orderer" id="od_orderer" /></b-col>
+                            <b-col><b-form-input v-model="order.od_orderer" ref="od_orderer" id="od_orderer" /></b-col>
                         </b-row>
                         <b-row>
                             <label for="od_orderer_hp">연락처<i class="require" /></label>
@@ -110,7 +110,7 @@
                         <b-row>
                             <label for="od_receiver">수령인<i class="require" /></label>
                             <b-col>
-                                <b-form-input v-model="order.od_receiver" id="od_receiver" />
+                                <b-form-input v-model="order.od_receiver" ref="od_receiver" id="od_receiver" />
                             </b-col>
                         </b-row>
                         <b-row>
@@ -158,7 +158,7 @@
                     <b-button  variant="primary" size="lg" @click="exePayment">주문하기</b-button>
                 </b-col>
 
-                <b-col class="payment">
+                <b-col id="payment" class="payment">
                     <b-row class="top">
                         <b-col>최종 결제 금액</b-col>
                         <b-col>
@@ -280,6 +280,10 @@
 
         <transition name="modal">
             <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="700" :padding="0">
+                <template slot="header">
+                    <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
+                    <template v-else>지출 증빙</template>
+                </template>
                 <AddrIndex v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
                 <AddrCreate v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
                 <AddrEdit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
@@ -293,7 +297,7 @@
 import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
 import router from '@/router';
-import { validationChecker } from './_comp/FormValidation.js'
+// import { validationChecker } from './_comp/FormValidation.js'
 // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
 
 ////////////////////////////////////////////////////
@@ -333,7 +337,7 @@ export default {
                 od_no: "",
                 od_name: "",
                 od_type: this.$route.params.od_type,
-                od_pay_method:'',
+                od_pay_method:'B',
                 od_orderer : '',
                 od_orderer_hp : "",
                 od_orderer_hp1 : '',
@@ -359,7 +363,7 @@ export default {
                 extra: {
                     oex_hasBizLicense: true,
                     oex_file:null,
-                    oex_depositor: '',
+                    oex_depositor: 'asfdf',
                     oex_email:'',
                     oex_mng:'',
                     oex_num_tel: '',
@@ -425,7 +429,7 @@ export default {
             this.order.od_orderer_hp = `${this.order.od_orderer_hp1}-${this.order.od_orderer_hp2}-${this.order.od_orderer_hp3}`;
             this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
             this.order.od_orderer_email = `${this.order.od_orderer_email_id}@${this.order.od_orderer_email_domain}`;
-            if (validationChecker(this.order)) {
+            if (this.validationChecker(this.order)) {
                 if (this.order.privacy !== 'Y')     { 
                     Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
                     document.getElementById('total_sub').scrollIntoView();
@@ -439,6 +443,11 @@ export default {
                 if (this.isDlvyAir && this.order.dlvy_air !== 'Y') { 
                     Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
                     document.getElementById('total_sub').scrollIntoView();
+                    return false;
+                }
+                if (this.order.od_pay_method == '') { 
+                    Notify.toast('danger', "결제 수단을 선택하세요.");
+                    document.getElementById('payment').scrollIntoView();
                     return false;
                 }
                 switch (this.order.extra.oex_type) {
@@ -548,7 +557,49 @@ export default {
             this.modal_type = 'tax';
         },
 
-        modal_close () { this.isModalViewed = false; }
+        modal_close () { this.isModalViewed = false; },
+
+        validationChecker (frm) {
+            switch (frm.od_pay_method) {
+                case 'B':
+                    if (isEmpty(frm.extra.oex_depositor)) { Notify.toast('danger', "입금자명을 입력해주세요"); this.$refs.oex_depositor.focus(); return false; }
+                case 'E':
+                    if ( frm.extra.oex_type == 'IV' ) {
+                        if ( frm.extra.oex_hasBizLicense ) {
+                            if (isEmpty(frm.extra.oex_file)) { Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요"); this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus(); return false; }
+                        } else {
+                            if (isEmpty(frm.extra.oex_biz_name)) { Notify.toast('danger', "법인명을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_name.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_num)) { Notify.toast('danger', "사업자 등록번호를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_num.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_type)) { Notify.toast('danger', "업태를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_type.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_item)) { Notify.toast('danger', "종목를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_item.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_ceo)) { Notify.toast('danger', "대표자명을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_ceo.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_addr)) { Notify.toast('danger', "사업장 소재지를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_addr.focus(); return false; }
+                        }
+                        if (isEmpty(frm.extra.oex_mng)) { Notify.toast('danger', "담장자를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_mng.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_email.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_num_tel.focus(); return false; }
+                    }
+                break;
+            
+                default: break;
+            }
+
+            if (isEmpty(frm.od_orderer)) { Notify.toast('danger', "주문자 이름을 입력하세요."); this.$refs.od_orderer.focus(); return false; }
+            if (isEmpty(frm.od_orderer_hp1)) { Notify.toast('danger', "주문자 전화번호 1를 입력하세요."); this.$refs.od_orderer_hp1.focus(); return false; }
+            if (isEmpty(frm.od_orderer_hp2)) { Notify.toast('danger', "주문자 전화번호 2를 입력하세요."); this.$refs.od_orderer_hp2.focus(); return false; }
+            if (isEmpty(frm.od_orderer_hp3)) { Notify.toast('danger', "주문자 전화번호 3를 입력하세요."); this.$refs.od_orderer_hp3.focus(); return false; }
+            if (isEmpty(frm.od_orderer_email_id)) { Notify.toast('danger', "주문자 이메일 ID을 입력하세요."); this.$refs.od_orderer_email_id.focus(); return false; }
+            if (isEmpty(frm.od_orderer_email_domain)) { Notify.toast('danger', "주문자 이메일 도메인을 입력하세요."); this.$refs.od_orderer_email_domain.focus(); return false; }
+            if (isEmpty(frm.od_receiver)) { Notify.toast('danger', "수령인을 입력하세요."); this.$refs.od_receiver.focus(); return false; }
+            if (isEmpty(frm.od_receiver_hp1)) { Notify.toast('danger', "수령인 연락처 1를 입력하세요."); this.$refs.od_receiver_hp1.focus(); return false; }
+            if (isEmpty(frm.od_receiver_hp2)) { Notify.toast('danger', "수령인 연락처 2를 입력하세요."); this.$refs.od_receiver_hp2.focus(); return false; }
+            if (isEmpty(frm.od_receiver_hp3)) { Notify.toast('danger', "수령인 연락처 3를 입력하세요."); this.$refs.od_receiver_hp3.focus(); return false; }
+            if (isEmpty(frm.od_zip)) { Notify.toast('danger', "배송지 우편번호를 입력하세요."); this.$refs.od_zip.focus(); return false; }
+            if (isEmpty(frm.od_addr1)) { Notify.toast('danger', "배송지 주소를 입력하세요."); this.$refs.od_addr1.focus(); return false; }
+            if (isEmpty(frm.od_addr2)) { Notify.toast('danger', "배송지 상세주소를 입력하세요."); this.$refs.od_addr2.focus(); return false; }
+            return true;
+
+        },
 
     },
     async created(){

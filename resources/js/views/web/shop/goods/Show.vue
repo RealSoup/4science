@@ -88,8 +88,8 @@
                         <b-col>{{gm.gm_spec}}</b-col>
                         <b-col>{{gm.gm_unit}}</b-col>
                         <b-col class="price">
-                            {{gm.gm_price_add_vat | comma}}
-                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{bd.bd_price | comma}}원</i>
+                            {{gm.gm_price_add_vat | comma | price_zero}}
+                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{bd.bd_price_add_vat | comma}}원</i>
                         </b-col>
                         <b-col><vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea"></vue-numeric-input></b-col>
                     </b-row>
@@ -284,9 +284,8 @@ export default {
             return mng_tel;
         },
         total: function() {
-            let model =  this.content.goods_model.reduce((acc, el) => {
-                let tmp = el.gm_price_add_vat=='견적가' ? 0 : el.gm_price_add_vat;
-                return acc + parseInt(tmp * el.ea);
+            let model =  this.content.goods_model.reduce((acc, el) => {                 
+                return acc + parseInt(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat) * el.ea);
             }, 0);
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.reduce((acc02, el02) => {
@@ -332,7 +331,7 @@ export default {
                 case "pay":
                     let estimate_price = false;
                     this.content.goods_model.forEach(gm => {
-                        if (gm.ea > 0 && gm.gm_price_add_vat=='견적가' ) estimate_price = true;
+                        if (gm.ea > 0 && gm.gm_price_add_vat=='0' ) estimate_price = true;
                     });
                     if (estimate_price) {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');

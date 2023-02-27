@@ -17,7 +17,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-daum-postcode */ "./node_modules/vue-daum-postcode/dist/index.js");
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
-/* harmony import */ var _comp_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_comp/FormValidation.js */ "./resources/js/views/web/shop/order/_comp/FormValidation.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -315,10 +314,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
-
- // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
+ // import { validationChecker } from './_comp/FormValidation.js'
+// https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
 ////////////////////////////////////////////////////
 // import "vue2-animate/src/sass/vue2-animate.scss";
 // <transition   name="flip" enter-active-class="flipInX" leave-active-class="flipOutX">
@@ -371,7 +374,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         od_no: "",
         od_name: "",
         od_type: this.$route.params.od_type,
-        od_pay_method: '',
+        od_pay_method: 'B',
         od_orderer: '',
         od_orderer_hp: "",
         od_orderer_hp1: '',
@@ -397,7 +400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         extra: {
           oex_hasBizLicense: true,
           oex_file: null,
-          oex_depositor: '',
+          oex_depositor: 'asfdf',
           oex_email: '',
           oex_mng: '',
           oex_num_tel: '',
@@ -473,8 +476,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
-                if (!(0,_comp_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationChecker)(_this.order)) {
-                  _context.next = 50;
+                if (!_this.validationChecker(_this.order)) {
+                  _context.next = 54;
                   break;
                 }
 
@@ -508,46 +511,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 16:
+                if (!(_this.order.od_pay_method == '')) {
+                  _context.next = 20;
+                  break;
+                }
+
+                Notify.toast('danger', "결제 수단을 선택하세요.");
+                document.getElementById('payment').scrollIntoView();
+                return _context.abrupt("return", false);
+
+              case 20:
                 _context.t0 = _this.order.extra.oex_type;
-                _context.next = _context.t0 === 'HP' ? 19 : _context.t0 === 'IN' ? 21 : _context.t0 === 'CN' ? 23 : _context.t0 === 'BN' ? 25 : 27;
+                _context.next = _context.t0 === 'HP' ? 23 : _context.t0 === 'IN' ? 25 : _context.t0 === 'CN' ? 27 : _context.t0 === 'BN' ? 29 : 31;
                 break;
 
-              case 19:
-                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_hp1, "-").concat(_this.order.extra.oex_num_hp2, "-").concat(_this.order.extra.oex_num_hp3);
-                return _context.abrupt("break", 27);
-
-              case 21:
-                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_in1, "-").concat(_this.order.extra.oex_num_in2);
-                return _context.abrupt("break", 27);
-
               case 23:
-                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_cn1, "-").concat(_this.order.extra.oex_num_cn2, "-").concat(_this.order.extra.oex_num_cn3, "-").concat(_this.order.extra.oex_num_cn4);
-                return _context.abrupt("break", 27);
+                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_hp1, "-").concat(_this.order.extra.oex_num_hp2, "-").concat(_this.order.extra.oex_num_hp3);
+                return _context.abrupt("break", 31);
 
               case 25:
-                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_bn1, "-").concat(_this.order.extra.oex_num_bn2, "-").concat(_this.order.extra.oex_num_bn3);
-                return _context.abrupt("break", 27);
+                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_in1, "-").concat(_this.order.extra.oex_num_in2);
+                return _context.abrupt("break", 31);
 
               case 27:
+                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_cn1, "-").concat(_this.order.extra.oex_num_cn2, "-").concat(_this.order.extra.oex_num_cn3, "-").concat(_this.order.extra.oex_num_cn4);
+                return _context.abrupt("break", 31);
+
+              case 29:
+                _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_bn1, "-").concat(_this.order.extra.oex_num_bn2, "-").concat(_this.order.extra.oex_num_bn3);
+                return _context.abrupt("break", 31);
+
+              case 31:
                 if (_this.order.od_pay_method == 'R') {
                   _this.order.extra.oex_num_tel = "".concat(_this.order.extra.oex_num_tel1, "-").concat(_this.order.extra.oex_num_tel2, "-").concat(_this.order.extra.oex_num_tel3);
                   if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
                 }
 
-                _context.prev = 28;
-                _context.next = 31;
+                _context.prev = 32;
+                _context.next = 35;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this.order);
 
-              case 31:
+              case 35:
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 44;
+                  _context.next = 48;
                   break;
                 }
 
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 42;
+                  _context.next = 46;
                   break;
                 }
 
@@ -556,14 +569,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_key', pay.data.od_id);
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 41;
+                _context.next = 45;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 41:
+              case 45:
                 up = _context.sent;
 
-              case 42:
-                _context.next = 44;
+              case 46:
+                _context.next = 48;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -571,22 +584,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 44:
-                _context.next = 50;
+              case 48:
+                _context.next = 54;
                 break;
 
-              case 46:
-                _context.prev = 46;
-                _context.t1 = _context["catch"](28);
+              case 50:
+                _context.prev = 50;
+                _context.t1 = _context["catch"](32);
                 Notify.consolePrint(_context.t1);
                 Notify.toast('warning', _context.t1.responsee);
 
-              case 50:
+              case 54:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[28, 46]]);
+        }, _callee, null, [[32, 50]]);
       }))();
     },
     email_domain_slt: function email_domain_slt() {
@@ -668,6 +681,166 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     modal_close: function modal_close() {
       this.isModalViewed = false;
+    },
+    validationChecker: function validationChecker(frm) {
+      switch (frm.od_pay_method) {
+        case 'B':
+          if (isEmpty(frm.extra.oex_depositor)) {
+            Notify.toast('danger', "입금자명을 입력해주세요");
+            this.$refs.oex_depositor.focus();
+            return false;
+          }
+
+        case 'E':
+          if (frm.extra.oex_type == 'IV') {
+            if (frm.extra.oex_hasBizLicense) {
+              if (isEmpty(frm.extra.oex_file)) {
+                Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요");
+                this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus();
+                return false;
+              }
+            } else {
+              if (isEmpty(frm.extra.oex_biz_name)) {
+                Notify.toast('danger', "법인명을 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_biz_name.focus();
+                return false;
+              }
+
+              if (isEmpty(frm.extra.oex_biz_num)) {
+                Notify.toast('danger', "사업자 등록번호를 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_biz_num.focus();
+                return false;
+              }
+
+              if (isEmpty(frm.extra.oex_biz_type)) {
+                Notify.toast('danger', "업태를 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_biz_type.focus();
+                return false;
+              }
+
+              if (isEmpty(frm.extra.oex_biz_item)) {
+                Notify.toast('danger', "종목를 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_biz_item.focus();
+                return false;
+              }
+
+              if (isEmpty(frm.extra.oex_ceo)) {
+                Notify.toast('danger', "대표자명을 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_ceo.focus();
+                return false;
+              }
+
+              if (isEmpty(frm.extra.oex_addr)) {
+                Notify.toast('danger', "사업장 소재지를 입력해주세요");
+                this.$refs.tax_invoice.$refs.oex_addr.focus();
+                return false;
+              }
+            }
+
+            if (isEmpty(frm.extra.oex_mng)) {
+              Notify.toast('danger', "담장자를 입력해주세요");
+              this.$refs.tax_invoice.$refs.oex_mng.focus();
+              return false;
+            }
+
+            if (isEmpty(frm.extra.oex_email)) {
+              Notify.toast('danger', "이메일을 입력해주세요");
+              this.$refs.tax_invoice.$refs.oex_email.focus();
+              return false;
+            }
+
+            if (isEmpty(frm.extra.oex_num_tel)) {
+              Notify.toast('danger', "핸드폰 번호를 입력해주세요");
+              this.$refs.tax_invoice.$refs.oex_num_tel.focus();
+              return false;
+            }
+          }
+
+          break;
+
+        default:
+          break;
+      }
+
+      if (isEmpty(frm.od_orderer)) {
+        Notify.toast('danger', "주문자 이름을 입력하세요.");
+        this.$refs.od_orderer.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_orderer_hp1)) {
+        Notify.toast('danger', "주문자 전화번호 1를 입력하세요.");
+        this.$refs.od_orderer_hp1.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_orderer_hp2)) {
+        Notify.toast('danger', "주문자 전화번호 2를 입력하세요.");
+        this.$refs.od_orderer_hp2.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_orderer_hp3)) {
+        Notify.toast('danger', "주문자 전화번호 3를 입력하세요.");
+        this.$refs.od_orderer_hp3.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_orderer_email_id)) {
+        Notify.toast('danger', "주문자 이메일 ID을 입력하세요.");
+        this.$refs.od_orderer_email_id.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_orderer_email_domain)) {
+        Notify.toast('danger', "주문자 이메일 도메인을 입력하세요.");
+        this.$refs.od_orderer_email_domain.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_receiver)) {
+        Notify.toast('danger', "수령인을 입력하세요.");
+        this.$refs.od_receiver.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_receiver_hp1)) {
+        Notify.toast('danger', "수령인 연락처 1를 입력하세요.");
+        this.$refs.od_receiver_hp1.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_receiver_hp2)) {
+        Notify.toast('danger', "수령인 연락처 2를 입력하세요.");
+        this.$refs.od_receiver_hp2.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_receiver_hp3)) {
+        Notify.toast('danger', "수령인 연락처 3를 입력하세요.");
+        this.$refs.od_receiver_hp3.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_zip)) {
+        Notify.toast('danger', "배송지 우편번호를 입력하세요.");
+        this.$refs.od_zip.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_addr1)) {
+        Notify.toast('danger', "배송지 주소를 입력하세요.");
+        this.$refs.od_addr1.focus();
+        return false;
+      }
+
+      if (isEmpty(frm.od_addr2)) {
+        Notify.toast('danger', "배송지 상세주소를 입력하세요.");
+        this.$refs.od_addr2.focus();
+        return false;
+      }
+
+      return true;
     }
   },
   created: function created() {
@@ -779,177 +952,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // })
   }
 });
-
-/***/ }),
-
-/***/ "./resources/js/views/web/shop/order/_comp/FormValidation.js":
-/*!*******************************************************************!*\
-  !*** ./resources/js/views/web/shop/order/_comp/FormValidation.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "validationChecker": () => (/* binding */ validationChecker)
-/* harmony export */ });
-var _this = undefined;
-
-var validationChecker = function validationChecker(frm) {
-  if (frm.od_pay_method == 'B' || frm.od_pay_method == 'E') {
-    if (frm.extra.oex_type == 'IV') {
-      if (frm.extra.oex_hasBizLicense) {
-        if (isEmpty(frm.extra.oex_file)) {
-          Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus();
-
-          return false;
-        }
-      } else {
-        if (isEmpty(frm.extra.oex_biz_name)) {
-          Notify.toast('danger', "법인명을 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_biz_name.focus();
-
-          return false;
-        }
-
-        if (isEmpty(frm.extra.oex_biz_num)) {
-          Notify.toast('danger', "사업자 등록번호를 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_biz_num.focus();
-
-          return false;
-        }
-
-        if (isEmpty(frm.extra.oex_biz_type)) {
-          Notify.toast('danger', "업태를 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_biz_type.focus();
-
-          return false;
-        }
-
-        if (isEmpty(frm.extra.oex_biz_item)) {
-          Notify.toast('danger', "종목를 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_biz_item.focus();
-
-          return false;
-        }
-
-        if (isEmpty(frm.extra.oex_ceo)) {
-          Notify.toast('danger', "대표자명을 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_ceo.focus();
-
-          return false;
-        }
-
-        if (isEmpty(frm.extra.oex_addr)) {
-          Notify.toast('danger', "사업장 소재지를 입력해주세요");
-
-          _this.$refs.tax_invoice.$refs.oex_addr.focus();
-
-          return false;
-        }
-      }
-
-      if (isEmpty(frm.extra.oex_mng)) {
-        Notify.toast('danger', "담장자를 입력해주세요");
-
-        _this.$refs.tax_invoice.$refs.oex_mng.focus();
-
-        return false;
-      }
-
-      if (isEmpty(frm.extra.oex_email)) {
-        Notify.toast('danger', "이메일을 입력해주세요");
-
-        _this.$refs.tax_invoice.$refs.oex_email.focus();
-
-        return false;
-      }
-
-      if (isEmpty(frm.extra.oex_num_tel)) {
-        Notify.toast('danger', "핸드폰 번호를 입력해주세요");
-
-        _this.$refs.tax_invoice.$refs.oex_num_tel.focus();
-
-        return false;
-      }
-    }
-  }
-
-  if (isEmpty(frm.od_orderer)) {
-    Notify.toast('danger', "주문자 이름을 입력하세요.");
-
-    _this.$refs.od_orderer.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_orderer_hp)) {
-    Notify.toast('danger', "주문자 전화번호를 입력하세요.");
-
-    _this.$refs.od_orderer_hp.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_orderer_email)) {
-    Notify.toast('danger', "주문자 이메일을 입력하세요.");
-
-    _this.$refs.od_orderer_email.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_receiver)) {
-    Notify.toast('danger', "받는 사람 이름을 입력하세요.");
-
-    _this.$refs.od_receiver.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_receiver_hp)) {
-    Notify.toast('danger', "받는 사람 번호를 입력하세요.");
-
-    _this.$refs.od_receiver_hp.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_zip)) {
-    Notify.toast('danger', "배송지 우편번호를 입력하세요.");
-
-    _this.$refs.od_zip.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_addr1)) {
-    Notify.toast('danger', "배송지 주소를 입력하세요.");
-
-    _this.$refs.od_addr1.focus();
-
-    return false;
-  }
-
-  if (isEmpty(frm.od_addr2)) {
-    Notify.toast('danger', "배송지 상세주소를 입력하세요.");
-
-    _this.$refs.od_addr2.focus();
-
-    return false;
-  }
-
-  return true;
-};
-
-
 
 /***/ }),
 
@@ -1429,6 +1431,7 @@ var render = function () {
                             "b-col",
                             [
                               _c("b-form-input", {
+                                ref: "od_orderer",
                                 attrs: { id: "od_orderer" },
                                 model: {
                                   value: _vm.order.od_orderer,
@@ -1726,6 +1729,7 @@ var render = function () {
                             "b-col",
                             [
                               _c("b-form-input", {
+                                ref: "od_receiver",
                                 attrs: { id: "od_receiver" },
                                 model: {
                                   value: _vm.order.od_receiver,
@@ -2010,7 +2014,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "payment" },
+                { staticClass: "payment", attrs: { id: "payment" } },
                 [
                   _c(
                     "b-row",
@@ -2835,6 +2839,17 @@ var render = function () {
                   },
                 },
                 [
+                  _c(
+                    "template",
+                    { slot: "header" },
+                    [
+                      ["index", "create", "edit"].includes(_vm.modal_type)
+                        ? [_vm._v("배송지")]
+                        : [_vm._v("지출 증빙")],
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
                   _vm.modal_type == "index"
                     ? _c("AddrIndex", {
                         attrs: { address: _vm.addr },
@@ -2876,7 +2891,7 @@ var render = function () {
                       })
                     : _vm._e(),
                 ],
-                1
+                2
               )
             : _vm._e(),
         ],

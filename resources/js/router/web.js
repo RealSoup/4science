@@ -3,7 +3,7 @@ const isLoggedin = () => (to, from, next) => {
     if (store.state.auth.isLoggedin) 
         return next();    
     next({name:'login', query:{redirect:to.path}});
-    Notify.modal("로그인이 필요한 서비스입니다.");
+    Notify.modal("로그인이 필요한 서비스입니다.", 'danger');
 };
 
 const isNotLoggedin = () => (to, from, next) => {
@@ -43,12 +43,12 @@ export default [
     }, {
         path: '/auth/password/forgot',
         name: 'auth_password_forgot',
-        component:() => import('@/views/web/auth/PasswordForgot'),
+        component:() => import('@/views/web/auth/password/Forgot'),
         beforeEnter: isNotLoggedin()
     }, {
-        path: '/password/reset/:token',
+        path: '/auth/password/reset/:token',
         name: 'auth_password_reset',
-        component:() => import('@/views/web/auth/PasswordReset'),
+        component:() => import('@/views/web/auth/password/Reset'),
         beforeEnter: isNotLoggedin()
     },
 //      마이페이지

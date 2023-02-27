@@ -132,7 +132,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -614,8 +613,12 @@ var render = function () {
                                 _c("p", { staticClass: "pri" }, [
                                   _vm._v(
                                     _vm._s(
-                                      _vm._f("comma")(gd.gm_price_add_vat)
-                                    ) + "원"
+                                      _vm._f("won")(
+                                        _vm._f("price_zero")(
+                                          _vm._f("comma")(gd.gm_price_add_vat)
+                                        )
+                                      )
+                                    )
                                   ),
                                 ]),
                               ]
@@ -760,25 +763,21 @@ var render = function () {
                                         ]
                                       ),
                                       _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        { staticClass: "price" },
-                                        [
-                                          _vm._v(
-                                            "\r\n                                    " +
-                                              _vm._s(
-                                                _vm._f("comma")(
-                                                  row.gm_price_add_vat
+                                      _c("b-col", { staticClass: "price" }, [
+                                        _vm._v(
+                                          "\r\n                                    " +
+                                            _vm._s(
+                                              _vm._f("won")(
+                                                _vm._f("price_zero")(
+                                                  _vm._f("comma")(
+                                                    row.gm_price_add_vat
+                                                  )
                                                 )
-                                              ) +
-                                              " \r\n                                    "
-                                          ),
-                                          row.gm_price_add_vat > 0
-                                            ? [_vm._v("원")]
-                                            : _vm._e(),
-                                        ],
-                                        2
-                                      ),
+                                              )
+                                            ) +
+                                            " \r\n                                "
+                                        ),
+                                      ]),
                                       _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(_vm._s(row.mk_name)),
