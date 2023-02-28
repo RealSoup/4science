@@ -23,7 +23,6 @@ instance.interceptors.request.use(function (config) {
     // }
     // store.commit('error/setAuthorizationError', {});
     // store.commit('error/setIdentifyError', {});
-    console.log(config);
     return config;
 });
 
