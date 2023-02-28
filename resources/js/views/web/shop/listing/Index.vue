@@ -65,9 +65,9 @@ export default {
             console.log(this.ax);
             try {
                 let url = '';
-                extra_url = this.group == 'all' ? '' : `/${this.group}`;
+                let extra_url = this.group == 'all' ? '' : `/${this.group}`;
                 if (this.code == 'maker') url = `/api/shop/maker`;
-                else url = `/api/shop/listing/${this.code}`;
+                else url = `/api/shop/listing/${this.code}${extra_url}`;
                 const res = await ax.get(url, { params: this.frm});
                 if (res && res.status === 200) {
                     this.list = res.data.data;
