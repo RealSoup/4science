@@ -23,6 +23,7 @@ instance.interceptors.request.use(function (config) {
     // }
     // store.commit('error/setAuthorizationError', {});
     // store.commit('error/setIdentifyError', {});
+    console.log(config);
     return config;
 });
 
@@ -34,11 +35,9 @@ instance.interceptors.request.use(function (config) {
   }
 )*/
 instance.interceptors.response.use(function (response) {
-    console.log('normal', instance.defaults.baseURL)
     store.commit('error/setValidationError', {});
     return response;
 }, function (error) {
-    console.log('error', instance.defaults.baseURL)
     if (error.response.status === 401) {
         if (error.response.config.url !== "/api/user") {
             store.dispatch('auth/logout');
