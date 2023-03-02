@@ -102,7 +102,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn.lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
 .btn.xl { width:440px; font-weight:900; padding:25px 0px; font-size:1.2rem; border-radius:8px; }
 
-.btn.white { background-color:#FFF; border-color:#CCCCCC; }
+.btn.white { background-color:#FFF; border-color:#CCCCCC; color:#000; }
 .btn.gray { background-color:#B7B7B7; border-color:#B7B7B7; }
 .btn.blue { background-color:#0094EA; border-color:#0094EA; }
 .btn.wd_33p { font-weight:bold; padding:25px; width:33%; border-radius:9px; border-radius:9px; font-size:1.2rem; }

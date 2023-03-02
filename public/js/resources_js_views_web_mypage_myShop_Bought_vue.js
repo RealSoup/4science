@@ -357,7 +357,7 @@ var render = function () {
                       "b-col",
                       [
                         _c(
-                          "b-button",
+                          "b-link",
                           {
                             attrs: {
                               variant: "outline-secondary",

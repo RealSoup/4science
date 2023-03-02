@@ -4,7 +4,7 @@
     <div class="layout">
         <b-navbar toggleable="lg" type="dark">
             <b-navbar-brand :to="{name: 'adm_main'}">
-                <b-img :src="`${s3url}common/admin_logo.png`" />
+                <b-img :src="`${s3url}common/logo/admin_logo.png`" />
             </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -95,7 +95,7 @@
                     </b-button>                    
         
                     <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
-                        <b-img :src="`${s3url}common/estimate_logo.png`" />
+                        <b-img :src="`${s3url}common/logo/estimate_logo.png`" />
                     </b-link>
                 </b-navbar-nav>
             </b-collapse>

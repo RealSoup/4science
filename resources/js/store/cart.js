@@ -1,4 +1,5 @@
 import http from '@/api/http';
+import router from '@/router';
 import copy from "fast-copy";
 
 export default {
@@ -151,20 +152,48 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        async destroy({commit, state}, payload){
+        async destroy(context, payload){
             try {
                 if (Auth.check()) {
-                    let params = {_method : 'DELETE', type:state.cartList[payload.i].type};
-                    let id = state.cartList[payload.i].cm_id ? state.cartList[payload.i].cm_id : state.cartList[payload.i].co_id;
-                    const res = await http.post(`/api/shop/cart/${id}`, params);
+                    let params = {_method : 'DELETE', payload};
+                    const res = await http.post(`/api/shop/cart/0`, params);
                     if (res.status === 200) {
                         Notify.toast('success', res.data);
-                        commit('destroyItem', payload);
+                        // commit('destroyItem', payload);
+                        context.dispatch('index')
                     }
                 }
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
+            }
+        },
+
+        routeAction({commit, state}, payload) {
+            let params = [];
+            state.cartList.forEach(ct => {
+                if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
+                    if (ct.type == 'model')         params.push({gd_id:ct.gd_id, gm_id:ct.gm_id, ea:ct.ea});
+                    else if (ct.type == 'option')   params.push({gd_id:ct.gd_id, goc_id:ct.goc_id, ea:ct.ea});
+                }               
+            });
+            let cntModel = params.reduce(function(acc, el) {
+                return (el.hasOwnProperty('gm_id')) ? acc+1 : acc;
+            }, 0);
+
+            if (!cntModel) {
+                Notify.modal("모델을 선택하세요", 'info');
+                return false;
+            }
+
+            switch (payload) {
+                case "settle":
+                    router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_cart' }});
+                break;
+
+                case "estimate":
+                    router.push({name: 'estimate_create', params: {od_goods: params}});
+                break;
             }
         },
     },

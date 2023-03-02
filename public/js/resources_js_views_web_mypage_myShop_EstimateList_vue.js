@@ -299,7 +299,7 @@ var render = function () {
                             ? _c("span", { key: i, staticClass: "over_flow" }, [
                                 _c("b", [
                                   _vm._v(
-                                    "+ " + _vm._s(eq.estimate_model.length - 5)
+                                    "외 " + _vm._s(eq.estimate_model.length - 5)
                                   ),
                                 ]),
                               ])

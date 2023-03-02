@@ -1,15 +1,7 @@
-<template lang="html">
+<template>
+<b-container class="w_fence">
+    <h3>견적서 조회</h3>
     <ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
-        <div class="pTitle">
-            <span><i>견</i></span>
-            <span><i>적</i></span>
-            <span><i>서</i></span>
-            <div class="break d-md-block d-none"></div>
-            <span><i>조</i></span>
-            <span><i>회</i></span>
-            <div class="break"></div>
-            <span><i></i></span>
-        </div>
         <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
             Loading ......
         </LoadingModal>
@@ -63,7 +55,7 @@
                         </div>
                     </b-col>
                     <b-col>
-                        <b-button v-if="!!em.em_gd_id" variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
+                        <b-link v-if="!!em.em_gd_id" variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
                             {{em.em_name}}
                             <P class="bg-light">
                                 {{em.em_catno}} /
@@ -71,7 +63,7 @@
                                 {{em.em_spec}} /
                                 {{em.em_unit}} /
                             </P>
-                        </b-button>
+                        </b-link>
                         <div v-else>
                             {{em.em_name}}
                             <P class="bg-light"> {{em.em_catno}} / {{em.em_code}} / {{em.em_spec}} / {{em.em_unit}} / </P>
@@ -147,6 +139,7 @@
             </b-container>
         </div>
     </ValidationObserver>
+</b-container>    
 </template>
 
 <script>

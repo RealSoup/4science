@@ -159,7 +159,7 @@ $goods_p = 0;
             </td>
         </tr>
         <tr>
-            <td align="center" valign="middle"><img src="./img/common/estimate_logo.png" width="100px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/estimate_logo.png" width="100px" /></td>
         </tr>
     </table>
 </body>

@@ -285,7 +285,7 @@ var render = function () {
                     i == 5
                       ? _c("span", { key: i, staticClass: "over_flow" }, [
                           _c("b", [
-                            _vm._v("+ " + _vm._s(od.order_model.length - 5)),
+                            _vm._v("외 " + _vm._s(od.order_model.length - 5)),
                           ]),
                         ])
                       : _vm._e(),

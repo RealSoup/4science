@@ -4,7 +4,7 @@
         @mouseleave="mouseHover = false"
         :class="[{fixed_header:isScrollPass}, {hideCart:!mouseHover}]"
     >
-        <b-link><b-img :src="s3url+'common/basket.png'" /></b-link>
+        <b-link :to="{name:'cart_index'}"><b-img :src="s3url+'common/basket.png'" /></b-link>
         
         <div class="list_box">
             <ul>
@@ -63,7 +63,7 @@ export default {
             this.$store.dispatch('cart/index');
         },
         outCart(i){
-            this.$store.dispatch('cart/destroy', { i:i });
+            this.$store.dispatch('cart/destroy', i);
         },
         action(type) {
             let params = this.makeParam();

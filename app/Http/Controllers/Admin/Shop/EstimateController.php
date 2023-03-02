@@ -460,7 +460,7 @@ class EstimateController extends Controller {
 	public function exportEstimatePdf(int $er_id) {
 		return $this->pdf->loadView('admin.estimate.pdf.estimate', 
                 [   'er' => EstimateReply::find($er_id), 
-                    'logo'=>Storage::disk('s3')->url("common/estimate_logo.png"),
+                    'logo'=>Storage::disk('s3')->url("common//logo/estimate_logo.png"),
                     'addr'=>Storage::disk('s3')->url("common/addr_estimate200921.gif")])
 				->download('estimate.pdf'); // ->stream();
 	}

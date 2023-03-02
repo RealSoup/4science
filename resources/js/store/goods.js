@@ -20,6 +20,7 @@ export default {
         sch_cate_info: {},
         pick: [],
         isLoadingModalViewed:false,
+        default: {},
     },
     getters:{
     },

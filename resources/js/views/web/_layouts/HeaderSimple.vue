@@ -1,6 +1,6 @@
 <template>
     <header id="header" class="bg-info">
-        <router-link :to="{name: 'main'}"><img :src="s3url+'common/logo.png'" /></router-link>
+        <router-link :to="{name: 'main'}"><img :src="s3url+'common/logo/logo_white.png'" /></router-link>
     </header>
 </template>
 

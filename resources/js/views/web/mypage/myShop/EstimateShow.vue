@@ -15,7 +15,7 @@
             <b-row v-for="em in estimate.estimate_model" :key="em.em_id">
                 <b-col cols="2"><img :src="em.goods.image_src_thumb[0]" class="rounded-circle" /></b-col>
                 <b-col>
-                    <b-button variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
+                    <b-link variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
                         {{em.em_name}}
                         <P class="bg-light">
                             {{em.em_catno}} /
@@ -23,7 +23,7 @@
                             {{em.em_spec}} /
                             {{em.em_unit}} /
                         </P>
-                    </b-button>
+                    </b-link>
                 </b-col>
                 <b-col>
                     {{em.em_price | rrp}} 원

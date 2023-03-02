@@ -5,7 +5,7 @@
     <div id="real">
         <div class="layout">
             <b-navbar toggleable="lg">
-                <b-navbar-brand :to="{name: 'main'}"><img :src="s3url+'common/logo.png'" /></b-navbar-brand>
+                <b-navbar-brand :to="{name: 'main'}"><img :src="s3url+'common/logo/logo.png'" /></b-navbar-brand>
                 <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
                 
                 <b-navbar-nav class="menu_user" v-if="isLoggedin">

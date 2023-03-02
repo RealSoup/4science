@@ -261,6 +261,7 @@ class Goods extends Model {
                         if ($type == 'cart') {
                             $tmpOption['co_id'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['co_id'];
                             $tmpOption['ct_check_opt'] = 'Y';
+                            $tmpOption['go_required'] = $go->go_required;
                         } else if ($type == 'order') {
                             $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
                             $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);

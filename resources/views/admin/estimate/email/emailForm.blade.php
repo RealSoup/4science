@@ -11,14 +11,14 @@
         <td style="padding:13px 30px 10px 30px;">
             <table width="100%"  style="font-size:12px;">
                 <tr>
-                    <td align="left" width="50%"><a href="{{$domain}}" target="_blank"><img src="{{$domain}}/img/common/email_logo.png" /></a></td>
+                    <td align="left" width="50%"><a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/email_logo.png" /></a></td>
                     <td align="right" valign="bottom" style="color:#888888;">본 메일은 {{ date('Y-m-d h:i:s') }}에 작성되었습니다.</td>
                 </tr>
             </table>
         </td>
     </tr>
     <tr>
-        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="{{$domain}}/img/common/email_top.png" /></td>
+        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_top.png" /></td>
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
@@ -129,8 +129,8 @@
     </tr>
     <tr>
         <td align="center" style="padding:20px 0 30px;">
-            <a href="{{$domain}}" target="_blank"><img src="{{$domain}}/img/common/email_btn01.png" /></a>&nbsp;
-            <a href="{{$redirect_url}}" target="_blank"><img src="{{$domain}}/img/common/email_btn02.png" /></a>
+            <a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn01.png" /></a>&nbsp;
+            <a href="{{$redirect_url}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn02.png" /></a>
         </td>
     </tr>
     <tr>
@@ -141,7 +141,7 @@
         </td>
     </tr>
     <tr>
-        <td><img src="{{$domain}}/img/common/email_bottom.png" /></td>
+        <td><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_bottom.png" /></td>
     </tr>
 </table>
 

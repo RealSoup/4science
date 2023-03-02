@@ -117,10 +117,11 @@ class CartController extends Controller {
 
 
     public function destroy(Request $req, $id) {
-        if($req->type == 'model') {
-            $rst = $this->cartModel->where('cm_id', $id)->delete();
-        } else if($req->type == 'option'){
-            $rst = $this->cartOption->where('co_id', $id)->delete();
+        foreach ($req->payload as $v) {
+            if($v['type'] == 'model')
+                $rst = $this->cartModel->where('cm_id', $v['id'])->delete();
+            else if($v['type'] == 'option')
+                $rst = $this->cartOption->where('co_id', $v['id'])->delete();
         }
 
 		if($rst) return response()->json("삭제완료", 200);

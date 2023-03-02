@@ -86,7 +86,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var page, url, res;
+        var page, url, extra_url, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -96,13 +96,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(_this.ax);
                 _context.prev = 3;
                 url = '';
-                if (_this.code == 'maker') url = "/api/shop/maker";else url = "/api/shop/listing/".concat(_this.code, "/").concat(_this.group == 'all' ? '' : _this.group);
-                _context.next = 8;
+                extra_url = _this.group == 'all' ? '' : "/".concat(_this.group);
+                if (_this.code == 'maker') url = "/api/shop/maker";else url = "/api/shop/listing/".concat(_this.code).concat(extra_url);
+                _context.next = 9;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get(url, {
                   params: _this.frm
                 });
 
-              case 8:
+              case 9:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -111,21 +112,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.isLoadingModalViewed = false;
                 }
 
-                _context.next = 16;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](3);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 16:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 12]]);
+        }, _callee, null, [[3, 13]]);
       }))();
     }
   }

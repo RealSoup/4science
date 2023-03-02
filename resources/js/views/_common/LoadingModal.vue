@@ -2,7 +2,8 @@
     <div class="rs_modal" :class="classObject">
         <div class="overlay" @click="$emit('close-modal')"></div>
         <div class="rs_modal-card">
-            <div class="cssload-container">
+			<b-img :src="`${s3url}common/logo/logo_loading.gif`" />
+            <!-- <div class="cssload-container">
             	<div class="cssload-circle-1">
             		<div class="cssload-circle-2">
             			<div class="cssload-circle-3">
@@ -19,7 +20,7 @@
             			</div>
             		</div>
             	</div>
-            </div>
+            </div> -->
             <div class="slot"><slot /></div>
         </div>
     </div>
@@ -45,9 +46,9 @@ export default {
 .rs_modal,
 .overlay { width:100%; height:100%; left: 0; top: 0; }
 .rs_modal { z-index:1050; }
-.rs_modal .overlay { position:absolute; opacity:0.65; background-color:#000; }
+.rs_modal .overlay { position:absolute; opacity:0.65; background-color:#FFF; }
 .rs_modal .rs_modal-card { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); }
-.rs_modal .rs_modal-card .slot { background-color:white; margin-top:0.4rem; padding:.4rem 1rem; color:#999; background-color:#333; border-radius:10px; }
+.rs_modal .rs_modal-card .slot { margin-top:0.4rem; padding:.4rem 1rem; color:#999; /*background-color:#333;*/ border-radius:10px; font-weight:900; text-align:center; font-size:1.2rem; }
 
 
 /* https://icons8.com/cssload/en/spinners */

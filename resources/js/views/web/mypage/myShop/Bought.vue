@@ -11,14 +11,14 @@
             <b-row v-for="m in computedModel" :key="m.odm_id" class="data">
                 <b-col md="2"><img :src="m.img_src" class="rounded-circle" /></b-col>
                 <b-col>
-                    <b-button variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:m.odm_gd_id} }">
+                    <b-link variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:m.odm_gd_id} }">
                         <p><b>{{m.odm_gm_name}}</b></p>
                     
                         {{m.odm_gm_catno}}<br />
                         {{m.odm_gm_code}}<br />
                         {{m.odm_gm_spec}}<br />
                         {{m.odm_gm_unit}}<br />
-                    </b-button>            
+                    </b-link>            
                 </b-col>
                 <b-col md="5">
                     {{m.odm_price | comma}} 원

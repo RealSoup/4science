@@ -142,6 +142,7 @@ ax.get('auth_check').then((res) => {
                 store.state.auth.user= response.data.user;
                 store.state.auth.csrfToken= response.data.token;
                 document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
+                ax.get('/api/shop/goods/getDef').then((response) => { if (response) store.state.goods.default= response.data; });
                 playVue();
             } else {
                 playVue();

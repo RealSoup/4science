@@ -219,4 +219,8 @@ class GoodsController extends Controller {
         // dd($data->toArray());
         return response()->json($data);
     }
+
+    public function getDef(Request $req) {        
+        return response()->json($this->goods);
+    }
 }

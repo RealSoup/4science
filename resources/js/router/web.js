@@ -225,4 +225,11 @@ export default [
         component:() => import('@/views/web/engReform/Create'),
         beforeEnter: isLoggedin(),
     },
+
+//      장바구니
+    {   path: '/shop/cart',
+        name: 'cart_index',
+        component:() => import('@/views/web/shop/cart/Index'),
+        beforeEnter: isLoggedin(),
+    },
 ];

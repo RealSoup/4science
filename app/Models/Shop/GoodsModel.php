@@ -17,7 +17,7 @@ class GoodsModel extends Model {
 
     public function getGmCatnoAttribute() { return $this->gm_catno01.'-'.$this->gm_catno02.'-'.$this->gm_catno03; }
     public function getGmPriceAddVatAttribute() { return ($this->gm_price>0) ? intval($this->gm_price*1.1) : $this->gm_price; }
-    public function getGainMileageAttribute() { return $this->gm_price * auth()->check() ? auth()->user()->my_mileage_rate : 0 / 100; }
+    public function getGainMileageAttribute() { return round($this->gm_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
 
     public function scopeGd_id($query, int $gd_id) { return $query->where('gm_gd_id', $gd_id); }
     public function scopeGm_id($query, $gm_id) {

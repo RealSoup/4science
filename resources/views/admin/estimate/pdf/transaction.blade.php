@@ -118,7 +118,7 @@ $no=1;
             </td>
         </tr>
         <tr>
-            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/estimate_logo.png" width="100px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/estimate_logo.png" width="100px" /></td>
         </tr>
     </table>
 </body>

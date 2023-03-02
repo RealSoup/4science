@@ -20,7 +20,7 @@
                             <img :src="em.img_src" />
                             <div>{{em.em_name}}</div>
                         </b-link>
-                        <span v-if="i == 5" :key="i" class="over_flow"><b>+ {{eq.estimate_model.length-5}}</b></span>
+                        <span v-if="i == 5" :key="i" class="over_flow"><b>외 {{eq.estimate_model.length-5}}</b></span>
                     </template>
                 </template>
                 <div v-else v-html="eq.eq_title" />

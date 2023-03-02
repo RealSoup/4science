@@ -38,6 +38,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['position'],
   computed: {
@@ -68,7 +69,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* Modal */\n.rs_modal[data-v-c4d5bf56],\r\n.overlay[data-v-c4d5bf56] { width:100%; height:100%; left: 0; top: 0;\n}\n.rs_modal[data-v-c4d5bf56] { z-index:1050;\n}\n.rs_modal .overlay[data-v-c4d5bf56] { position:absolute; opacity:0.65; background-color:#000;\n}\n.rs_modal .rs_modal-card[data-v-c4d5bf56] { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);\n}\n.rs_modal .rs_modal-card .slot[data-v-c4d5bf56] { background-color:white; margin-top:0.4rem; padding:.4rem 1rem; color:#999; background-color:#333; border-radius:10px;\n}\r\n\r\n\r\n/* https://icons8.com/cssload/en/spinners */\n.cssload-container[data-v-c4d5bf56] { width: 117px; margin: 0 auto;\n}\n.cssload-circle-1[data-v-c4d5bf56] { height: 117px; width: 117px; background: rgb(97,46,141);\n}\n.cssload-circle-2[data-v-c4d5bf56] { height: 97px; width: 97px; background: rgb(194,34,134);\n}\n.cssload-circle-3[data-v-c4d5bf56] { height: 78px; width: 78px; background: rgb(234,34,94);\n}\n.cssload-circle-4[data-v-c4d5bf56] { height: 58px; width: 58px; background: rgb(237,91,53);\n}\n.cssload-circle-5[data-v-c4d5bf56] { height: 39px; width: 39px; background: rgb(245,181,46);\n}\n.cssload-circle-6[data-v-c4d5bf56] { height: 19px; width: 19px; background: rgb(129,197,64);\n}\n.cssload-circle-7[data-v-c4d5bf56] { height: 10px; width: 10px; background: rgb(0,163,150);\n}\n.cssload-circle-8[data-v-c4d5bf56] { height: 5px; width: 5px; background: rgb(22,116,188);\n}\n.cssload-circle-1[data-v-c4d5bf56], .cssload-circle-2[data-v-c4d5bf56], .cssload-circle-3[data-v-c4d5bf56], .cssload-circle-4[data-v-c4d5bf56],\r\n.cssload-circle-5[data-v-c4d5bf56], .cssload-circle-6[data-v-c4d5bf56], .cssload-circle-7[data-v-c4d5bf56], .cssload-circle-8[data-v-c4d5bf56] {\r\n\tborder-bottom: none;\r\n\tborder-radius: 50%;\r\n\t\t-o-border-radius: 50%;\r\n\t\t-ms-border-radius: 50%;\r\n\t\t-webkit-border-radius: 50%;\r\n\t\t-moz-border-radius: 50%;\r\n\tbox-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-o-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-ms-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\tanimation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-o-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-ms-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-webkit-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-moz-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\tanimation-duration: 4600ms;\r\n\t\t-o-animation-duration: 4600ms;\r\n\t\t-ms-animation-duration: 4600ms;\r\n\t\t-webkit-animation-duration: 4600ms;\r\n\t\t-moz-animation-duration: 4600ms;\r\n\tanimation-iteration-count: infinite;\r\n\t\t-o-animation-iteration-count: infinite;\r\n\t\t-ms-animation-iteration-count: infinite;\r\n\t\t-webkit-animation-iteration-count: infinite;\r\n\t\t-moz-animation-iteration-count: infinite;\r\n\tanimation-timing-function: linear;\r\n\t\t-o-animation-timing-function: linear;\r\n\t\t-ms-animation-timing-function: linear;\r\n\t\t-webkit-animation-timing-function: linear;\r\n\t\t-moz-animation-timing-function: linear;\n}\n@keyframes cssload-spin-data-v-c4d5bf56 {\nfrom { transform: rotate(0deg);\n}\nto { transform: rotate(360deg);\n}\n}\n@-webkit-keyframes cssload-spin-data-v-c4d5bf56 {\nfrom { -webkit-transform: rotate(0deg);\n}\nto { -webkit-transform: rotate(360deg);\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* Modal */\n.rs_modal[data-v-c4d5bf56],\r\n.overlay[data-v-c4d5bf56] { width:100%; height:100%; left: 0; top: 0;\n}\n.rs_modal[data-v-c4d5bf56] { z-index:1050;\n}\n.rs_modal .overlay[data-v-c4d5bf56] { position:absolute; opacity:0.65; background-color:#FFF;\n}\n.rs_modal .rs_modal-card[data-v-c4d5bf56] { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);\n}\n.rs_modal .rs_modal-card .slot[data-v-c4d5bf56] { margin-top:0.4rem; padding:.4rem 1rem; color:#999; /*background-color:#333;*/ border-radius:10px; font-weight:900; text-align:center; font-size:1.2rem;\n}\r\n\r\n\r\n/* https://icons8.com/cssload/en/spinners */\n.cssload-container[data-v-c4d5bf56] { width: 117px; margin: 0 auto;\n}\n.cssload-circle-1[data-v-c4d5bf56] { height: 117px; width: 117px; background: rgb(97,46,141);\n}\n.cssload-circle-2[data-v-c4d5bf56] { height: 97px; width: 97px; background: rgb(194,34,134);\n}\n.cssload-circle-3[data-v-c4d5bf56] { height: 78px; width: 78px; background: rgb(234,34,94);\n}\n.cssload-circle-4[data-v-c4d5bf56] { height: 58px; width: 58px; background: rgb(237,91,53);\n}\n.cssload-circle-5[data-v-c4d5bf56] { height: 39px; width: 39px; background: rgb(245,181,46);\n}\n.cssload-circle-6[data-v-c4d5bf56] { height: 19px; width: 19px; background: rgb(129,197,64);\n}\n.cssload-circle-7[data-v-c4d5bf56] { height: 10px; width: 10px; background: rgb(0,163,150);\n}\n.cssload-circle-8[data-v-c4d5bf56] { height: 5px; width: 5px; background: rgb(22,116,188);\n}\n.cssload-circle-1[data-v-c4d5bf56], .cssload-circle-2[data-v-c4d5bf56], .cssload-circle-3[data-v-c4d5bf56], .cssload-circle-4[data-v-c4d5bf56],\r\n.cssload-circle-5[data-v-c4d5bf56], .cssload-circle-6[data-v-c4d5bf56], .cssload-circle-7[data-v-c4d5bf56], .cssload-circle-8[data-v-c4d5bf56] {\r\n\tborder-bottom: none;\r\n\tborder-radius: 50%;\r\n\t\t-o-border-radius: 50%;\r\n\t\t-ms-border-radius: 50%;\r\n\t\t-webkit-border-radius: 50%;\r\n\t\t-moz-border-radius: 50%;\r\n\tbox-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-o-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-ms-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\t\t-moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.1);\r\n\tanimation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-o-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-ms-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-webkit-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\t\t-moz-animation-name: cssload-spin-data-v-c4d5bf56;\r\n\tanimation-duration: 4600ms;\r\n\t\t-o-animation-duration: 4600ms;\r\n\t\t-ms-animation-duration: 4600ms;\r\n\t\t-webkit-animation-duration: 4600ms;\r\n\t\t-moz-animation-duration: 4600ms;\r\n\tanimation-iteration-count: infinite;\r\n\t\t-o-animation-iteration-count: infinite;\r\n\t\t-ms-animation-iteration-count: infinite;\r\n\t\t-webkit-animation-iteration-count: infinite;\r\n\t\t-moz-animation-iteration-count: infinite;\r\n\tanimation-timing-function: linear;\r\n\t\t-o-animation-timing-function: linear;\r\n\t\t-ms-animation-timing-function: linear;\r\n\t\t-webkit-animation-timing-function: linear;\r\n\t\t-moz-animation-timing-function: linear;\n}\n@keyframes cssload-spin-data-v-c4d5bf56 {\nfrom { transform: rotate(0deg);\n}\nto { transform: rotate(360deg);\n}\n}\n@-webkit-keyframes cssload-spin-data-v-c4d5bf56 {\nfrom { -webkit-transform: rotate(0deg);\n}\nto { -webkit-transform: rotate(360deg);\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -212,37 +213,21 @@ var render = function () {
       },
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "rs_modal-card" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "slot" }, [_vm._t("default")], 2),
-    ]),
+    _c(
+      "div",
+      { staticClass: "rs_modal-card" },
+      [
+        _c("b-img", {
+          attrs: { src: _vm.s3url + "common/logo/logo_loading.gif" },
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "slot" }, [_vm._t("default")], 2),
+      ],
+      1
+    ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cssload-container" }, [
-      _c("div", { staticClass: "cssload-circle-1" }, [
-        _c("div", { staticClass: "cssload-circle-2" }, [
-          _c("div", { staticClass: "cssload-circle-3" }, [
-            _c("div", { staticClass: "cssload-circle-4" }, [
-              _c("div", { staticClass: "cssload-circle-5" }, [
-                _c("div", { staticClass: "cssload-circle-6" }, [
-                  _c("div", { staticClass: "cssload-circle-7" }, [
-                    _c("div", { staticClass: "cssload-circle-8" }),
-                  ]),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

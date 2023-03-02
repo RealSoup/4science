@@ -190,7 +190,7 @@ export default {
 #mypage .middle .list01 .data .col { padding:.7rem 0; }
 #mypage .middle .list01 .data .product a { flex:0 0 100px; max-width:100px; margin:0 .6rem; }
 #mypage .middle .list01 .data .product a div { font-size:.7rem; margin-top:.4rem; }
-#mypage .middle .list01 .data .product a .over_flow { display:flex; align-items:flex-end; }
+#mypage .middle .list01 .data .product .over_flow { display:flex; align-items:flex-end; }
 
 .list01 .header { background-color:#ECECEC; border-top:2px solid #363636; border-bottom:1px solid #ACACAC; }
 .list01 .header .col { font-weight:bold; font-size:.9rem; padding:.68rem 0; }
@@ -206,10 +206,11 @@ export default {
 .list01 .row .price { flex:0 0 12%; max-width:12%; }
 .list01 .row .step { flex:0 0 10%; max-width:10%;  }
 
-.list01 .data .product { text-align:left; }
-.list01 .data .product a { display:inline-block; width:100px; }
+.list01 .data .product { text-align:left; display:flex; }
+.list01 .data .product a { display:inline-block; width:100px; min-height:140px; }
 .list01 .data .product a img { border:1px solid #B1B1B1; width:100px; height:100px; object-fit:cover; transition: all .1s; }
 .list01 .data .product a img:hover { border:4px solid black; border-radius:5px; } 
+.list01 .data .product a div { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
 
 

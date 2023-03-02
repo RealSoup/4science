@@ -13,7 +13,7 @@ class GoodsOptionChild extends Model {
 
     public function getShowAttribute() { return false; }
     public function getGocPriceAddVatAttribute() { return (int)($this->goc_price*1.1); }
-    public function getGainMileageAttribute() { return $this->goc_price * auth()->check() ? auth()->user()->my_mileage_rate : 0 / 100; }
+    public function getGainMileageAttribute() { return round($this->goc_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
 
     public function goodsOption() { return $this->belongsTo(GoodsOption::class, 'goc_go_id'); }
 

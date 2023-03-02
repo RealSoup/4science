@@ -304,7 +304,8 @@ class OrderController extends Controller {
                     $bank = cache('bank')['name02'];
                     $account = cache('bank')['num02'];
                 }
-                sendSms($req->od_orderer_hp, $req->od_orderer, $req->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache('bank')['owner'], 'price'=>number_format($req->od_all_price)]);
+                if ( auth()->user()->receive_sms == 'Y' )
+                    sendSms($req->od_orderer_hp, $req->od_orderer, $req->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache('bank')['owner'], 'price'=>number_format($req->od_all_price)]);
             }
 
 
@@ -317,7 +318,8 @@ class OrderController extends Controller {
             $params['holder'] = cache('bank')['owner'];
             $params['price'] = number_format($req->od_all_price);
             $params['addr'] = "[$req->od_zip] $req->od_addr1 $req->od_addr2 $req->od_memo";
-            Mail::to($req->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
+            if ( auth()->user()->receive_mail == 'Y' )
+                Mail::to($req->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
                 
             DB::commit();
             return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
