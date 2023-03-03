@@ -90,7 +90,7 @@ html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 #site.adm{ /*background:#FADBFB;*/ margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}
 #header {  }
-.layout { margin-left:auto; margin-right:auto; max-width:1500px; width:100%; }
+.layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
 a, a:hover { color:#333; text-decoration:none; }
 .cb { clear:both; font-size:0px !important; line-height:0px !important; margin:0px !important; padding:0px !important; height:0px !important; width:0px !important; float:none !important; }

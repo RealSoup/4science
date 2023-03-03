@@ -17,6 +17,13 @@ class WishController extends Controller {
 		return response()->json($rst, 200);
     }
 
+    public function store(Request $req) {
+        foreach ($req->input() as $v) 
+            $rst = Wish::firstOrCreate( ['wi_gm_id'=>$v['gm_id'], "created_id"=>auth()->user()->id] );
+        if ($rst)   return response()->json($rst, 200);
+        else        return response()->json("장바구니 에러", 400);// return alertRedirect("모델을 선택하세요", '');
+    }
+
     public function destroy(Request $req) {
         foreach ($req->wi_id as $id)
             Wish::destroy($id);

@@ -28,6 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'BoardIntroListPhoto',
   props: ['list']
@@ -197,7 +198,10 @@ var render = function () {
                 "b-link",
                 {
                   attrs: {
-                    to: { name: "goods_show", params: { gd_id: bo.bo_gd_id } },
+                    to: {
+                      name: "bo_show",
+                      params: { bo_cd: bo.code, bo_id: bo.bo_id },
+                    },
                   },
                 },
                 [

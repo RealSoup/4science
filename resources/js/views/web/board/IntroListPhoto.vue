@@ -1,7 +1,8 @@
 <template>
     <ul>
         <li v-for="bo in list" :key="bo.bo_id">            
-            <b-link v-if="bo.code=='gd_inquiry'" :to="{name: 'goods_show', params: { gd_id:bo.bo_gd_id }}">
+            <!--b-link v-if="bo.code=='gd_inquiry'" :to="{name: 'goods_show', params: { gd_id:bo.bo_gd_id }}"-->
+            <b-link v-if="bo.code=='gd_inquiry'" :to="{name: `bo_show`, params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
                 <b-img :src="bo.goods.image_src_thumb[0]" rounded />
                 <!-- <p>{{bo.bo_subject}}</p> -->
                 <div>{{bo.bo_content}}</div>

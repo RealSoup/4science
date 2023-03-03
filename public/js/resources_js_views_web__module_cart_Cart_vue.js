@@ -84,7 +84,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('cart/index');
     },
     outCart: function outCart(i) {
-      this.$store.dispatch('cart/destroy', i);
+      var _this$cartList$i$cm_i;
+
+      this.$store.dispatch('cart/destroy', [{
+        type: this.cartList[i].type,
+        id: (_this$cartList$i$cm_i = this.cartList[i].cm_id) !== null && _this$cartList$i$cm_i !== void 0 ? _this$cartList$i$cm_i : this.cartList[i].co_id
+      }]);
     },
     action: function action(type) {
       var params = this.makeParam();

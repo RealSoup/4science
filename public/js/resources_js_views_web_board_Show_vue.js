@@ -68,7 +68,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -893,6 +892,13 @@ var render = function () {
         "div",
         { staticClass: "con" },
         [
+          _vm.board.goods
+            ? _c("img", {
+                staticClass: "me-auto ms-auto d-block",
+                attrs: { src: _vm.board.goods.image_src[0] },
+              })
+            : _vm._e(),
+          _vm._v(" "),
           _vm.board.img_file && _vm.board.img_file.length
             ? [
                 _vm._l(_vm.board.img_file, function (image, i) {
@@ -912,6 +918,14 @@ var render = function () {
           }),
           _vm._v(" "),
           _c("hr"),
+          _vm._v(" "),
+          _c("h6", [_vm._v("답변")]),
+          _vm._v(" "),
+          _c("div", {
+            domProps: {
+              innerHTML: _vm._s(_vm.nl2br(_vm.board.answer.bo_content)),
+            },
+          }),
         ],
         2
       ),

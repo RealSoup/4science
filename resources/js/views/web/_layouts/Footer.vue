@@ -1,79 +1,79 @@
 <template>
-    <footer id="footer">
-        <RecentGoods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
-    
-        <b-container id="footer_top">
-            <b-row>
-                <b-col class="fir">
-                    <div>
-                        <p class="tit">고객센터</p>
-                        <p class="tel">{{siteInfo.biz.tel}}</p>
-                        <p>09:00 ~ 18:00 ( 점심: 12:00 ~ 13:00 )<br /> 주말 및 공휴일은 휴무입니다.</p>
-                        <p class="contact"> <span class="ic">F</span> {{siteInfo.biz.fax}} 
-                            <span class="ic">M</span> <b-link :href="`mailto:${siteInfo.biz.email}`">{{siteInfo.biz.email}}</b-link></p>
-                        <p class="contact"><b-img :src="`${s3url}common/footer/kakao-talk.png`" />
-                            카카오 채널: <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank'>포사이언스</b-link></p>
-                    </div>
-                </b-col>
+<footer id="footer">
+    <RecentGoods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
 
-                <b-col class="sec">
-                    <p class="tit">계좌안내</p>
-                    <b-row>
-                        <b-col><b-img :src="`${s3url}common/footer/account_woori.png`" /></b-col>
-                        <b-col>{{siteInfo.bank.num01}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col><b-img :src="`${s3url}common/footer/account_kb.png`" /></b-col>
-                        <b-col>{{siteInfo.bank.num02}}</b-col>
-                    </b-row>
-                    <p class="owner">예금주 : {{siteInfo.bank.owner}}</p>
-                </b-col>
+    <b-container id="footer_top" class="layout">
+        <b-row>
+            <b-col class="fir">
+                <div>
+                    <p class="tit">고객센터</p>
+                    <p class="tel">{{siteInfo.biz.tel}}</p>
+                    <p>09:00 ~ 18:00 ( 점심: 12:00 ~ 13:00 )<br /> 주말 및 공휴일은 휴무입니다.</p>
+                    <p class="contact"> <span class="ic">F</span> {{siteInfo.biz.fax}} 
+                        <span class="ic">M</span> <b-link :href="`mailto:${siteInfo.biz.email}`">{{siteInfo.biz.email}}</b-link></p>
+                    <p class="contact"><b-img :src="`${s3url}common/footer/kakao-talk.png`" />
+                        카카오 채널: <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank'>포사이언스</b-link></p>
+                </div>
+            </b-col>
+
+            <b-col class="sec">
+                <p class="tit">계좌안내</p>
+                <b-row>
+                    <b-col><b-img :src="`${s3url}common/footer/account_woori.png`" /></b-col>
+                    <b-col>{{siteInfo.bank.num01}}</b-col>
+                </b-row>
+                <b-row>
+                    <b-col><b-img :src="`${s3url}common/footer/account_kb.png`" /></b-col>
+                    <b-col>{{siteInfo.bank.num02}}</b-col>
+                </b-row>
+                <p class="owner">예금주 : {{siteInfo.bank.owner}}</p>
+            </b-col>
+            
+            <b-col class="thi">
+                <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
                 
-                <b-col class="thi">
-                    <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
-                    
-                    <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
-                        <span>{{bo.bo_subject}}</span>
-                        <span>{{bo.created_at | formatDate}}</span>
-                    </b-link>
-                    
+                <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
+                    <span>{{bo.bo_subject}}</span>
+                    <span>{{bo.created_at | formatDate}}</span>
+                </b-link>
+                
+            </b-col>
+        </b-row>
+    </b-container>
+
+    <div id="footer_bottom">
+        <b-container>
+            <b-row>
+                <b-col>
+                    <b-link>회사소개</b-link>
+                    <b-link>이용약관</b-link>
+                    <b-link>개인정보취급방침</b-link>
+                    <b-link>A/S</b-link>
+                    <b-link>FAQ</b-link>
                 </b-col>
             </b-row>
+            <b-row>
+                <b-col>
+                    <p>{{siteInfo.biz.addr}}</p>
+                    <p>
+                        <span>대표전화 : {{siteInfo.biz.tel}}</span>
+                        <span>팩스 : {{siteInfo.biz.fax}}</span>
+                        <span>이메일 : {{siteInfo.biz.email}}</span>
+                    </p>
+                    <p>
+                        <span>사업자등록번호 : {{siteInfo.biz.biz_num}}</span>
+                        <span>통신판매업신고번호 : {{siteInfo.biz.e_comm_num}}</span>
+                        <span>대표이사 : {{siteInfo.biz.ceo}}</span>
+                    </p>
+                    <p class="copy">
+                        <b-col>Copyright(c)2016 by iNexus, inc. All rights reserved.</b-col>
+                    </p>                        
+                </b-col>
+                <b-col class="logo"><b-img :src="`${s3url}common/logo/footer_logo.png`" /></b-col>
+            </b-row>
         </b-container>
-
-        <div id="footer_bottom">
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <b-link>회사소개</b-link>
-                        <b-link>이용약관</b-link>
-                        <b-link>개인정보취급방침</b-link>
-                        <b-link>A/S</b-link>
-                        <b-link>FAQ</b-link>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                        <p>{{siteInfo.biz.addr}}</p>
-                        <p>
-                            <span>대표전화 : {{siteInfo.biz.tel}}</span>
-                            <span>팩스 : {{siteInfo.biz.fax}}</span>
-                            <span>이메일 : {{siteInfo.biz.email}}</span>
-                        </p>
-                        <p>
-                            <span>사업자등록번호 : {{siteInfo.biz.biz_num}}</span>
-                            <span>통신판매업신고번호 : {{siteInfo.biz.e_comm_num}}</span>
-                            <span>대표이사 : {{siteInfo.biz.ceo}}</span>
-                        </p>
-                        <p class="copy">
-                            <b-col>Copyright(c)2016 by iNexus, inc. All rights reserved.</b-col>
-                        </p>                        
-                    </b-col>
-                    <b-col class="logo"><b-img :src="`${s3url}common/logo/footer_logo.png`" /></b-col>
-                </b-row>
-            </b-container>
-        </div>        
-    </footer>
+    </div>        
+</footer>
 </template>
 
 <script>
@@ -139,6 +139,7 @@ export default {
 #footer #footer_top .row .thi a span:nth-child(2) { float:right; }
 
 #footer #footer_bottom { background-color: #3A3A3A; padding:2rem 0; }
+#footer #footer_bottom .container { max-width:1120px; }
 #footer #footer_bottom .container,
 #footer #footer_bottom .container .row .col { padding:0; color:#fff; font-size:13px; }
 #footer #footer_bottom .container .row { margin:0; }

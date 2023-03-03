@@ -27,7 +27,7 @@
 
                     <b-nav-item-dropdown text="견적관리">
                         <b-dropdown-item :to="{name: 'adm_estimate_index'}">견적목록</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'adm_estimate_create'}" target="_blank">임의견적</b-dropdown-item>
+                        <b-dropdown-item @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)">임의견적</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_eng_reform_index'}">영문교정</b-dropdown-item>
                     </b-nav-item-dropdown>
                     

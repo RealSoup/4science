@@ -18,11 +18,8 @@
     <hr />
 
     <div class="con">
-        <!-- @isset($img_file)
-        @foreach($img_file as $fi)
-        <img src="{{$fi->getSrc()}}" class='me-auto ms-auto d-block' />
-        @endforeach
-        @endisset -->
+        <img v-if="board.goods" :src="board.goods.image_src[0]" class='me-auto ms-auto d-block' />
+
         <template v-if="board.img_file && board.img_file.length">
             <img v-for="(image, i) in board.img_file" :src="image.path" class='me-auto ms-auto d-block' :key="i" />
             <hr />
@@ -30,6 +27,8 @@
         <div v-html="nl2br(board.bo_content)" />
 
         <hr />
+        <h6>답변</h6>
+        <div v-html="nl2br(board.answer.bo_content)" />
     </div>
 
     <div class="row">

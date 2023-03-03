@@ -63,7 +63,7 @@ export default {
             this.$store.dispatch('cart/index');
         },
         outCart(i){
-            this.$store.dispatch('cart/destroy', i);
+            this.$store.dispatch('cart/destroy', [{type:this.cartList[i].type, id:this.cartList[i].cm_id??this.cartList[i].co_id}]);
         },
         action(type) {
             let params = this.makeParam();

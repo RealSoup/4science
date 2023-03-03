@@ -35,11 +35,23 @@ class BoardController extends Controller {
 
         if ($req->filled('sch_txt')) {
             $sch_txt = trim($req->sch_txt);
-            $bo = $bo->where(function (Builder $query) use ($sch_txt) {
+            
+
+            if ( $req->filled('mode') ) {
+                $subject = $content = $writer = null;
+                if ( $req->mode == 'subject' ) $subject = $sch_txt;
+                if ( $req->mode == 'content' ) $content = $sch_txt;
+                if ( $req->mode == 'writer' )  $writer = $sch_txt;
+                $bo->when($subject, fn ($q, $v) => $q->Subject( $v))
+                    ->when($content, fn ($q, $v) => $q->Content( $v))
+                    ->when($writer, fn ($q, $v) => $q->Writer( $v));
+            } else {
+                $bo->where(function (Builder $query) use ($sch_txt) {
                         $query->where('bo_subject', 'like', "%".$sch_txt."%")
                             ->orWhere('bo_content', 'like', "%".$sch_txt."%")
                             ->orWhere('bo_writer', 'like', "%".$sch_txt."%");
                     });
+            }
         }        
         
         $bo = $bo->paginate($req->filled('limit') ? $req->limit : 10);
@@ -85,6 +97,10 @@ class BoardController extends Controller {
         
         $bo->img_file = collect();
         $bo->add_file = collect();
+        if ( $bo_cd == 'gd_inquiry' ) {
+            $bo->goods;
+            $bo->answer=$this->board->where('bo_seq', $bo->bo_seq)->where('bo_seq_cd', 'A')->first();            
+        }
         foreach ($bo->fileInfo_bo as $fi) {
             if(isImg($fi->fi_ext)) $bo->img_file[] = $fi;
             else                $bo->add_file[] = $fi;

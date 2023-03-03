@@ -6,16 +6,13 @@
         <b-col><span>담당자</span><span>응답일/Ctrl/응답번호</span></b-col>
     </b-row>
     <b-row class="body" v-for="row in list" :key="row.eq_id">
-        <b-link class="col"
-            :to="{name: 'adm_estimate_show_req', params: { eq_id:row.eq_id }}"
-            target="_blank"
-        >
+        <b-link class="col" @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`, 1700, 900)">
             <span>
                 {{row.eq_id}}.
                 <b v-if="row.eq_title" v-html="row.eq_title" />
                 <template v-if="row.eq_type == 'REQ'">
                     <b-badge v-if="row.eq_1depth" variant="info">{{row.eq_1depth}}</b-badge>
-                    <SubString v-if="!row.eq_title" v-model="row.eq_content" :width="700" />
+                    <SubString v-if="!row.eq_title" v-model="row.eq_content" :width="900" />
                 </template>
                 <template v-else-if="row.eq_type == 'CUS'">
                     <b-badge variant="primary" v-b-tooltip.hover title="주문제작">주</b-badge>
@@ -42,7 +39,7 @@
             <span>
                 <b-button size="sm" variant="light"
                     v-if="row.estimate_reply.length < 1"
-                    :to="{name: 'adm_estimate_create', query: { eq_id:row.eq_id }}"
+                    @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`, 1700, 900)"
                     target="_blank"
                 >
                     <b-icon-pencil-square /> 견적서 작성
@@ -50,8 +47,8 @@
                 <ul v-else class="ctrl_box">
                     <li v-for="(er, i) in row.estimate_reply" :key="i">
                         [ {{ er.created_at | formatDate }} ]
-                        <b-button size="sm" class="main" variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-if="i===0" target="_blank"><b-icon-clipboard-data /> 견적서</b-button>
-                        <b-button size="sm" class="main" variant="warning" :to="{name: 'adm_estimate_show_reply', params: { er_id:er.er_id }}" v-else target="_blank"><b-icon-back /> 재견적서</b-button>
+                        <b-button size="sm" class="main" variant="success" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" v-if="i===0" target="_blank"><b-icon-clipboard-data /> 견적서</b-button>
+                        <b-button size="sm" class="main" variant="warning" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" v-else target="_blank"><b-icon-back /> 재견적서</b-button>
                         .{{er.er_id}}
                     </li>
                 </ul>

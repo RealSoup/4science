@@ -48,11 +48,11 @@ class Board extends Model {
 
     public function fileInfo() { return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function fileInfo_bo() { return $this->fileInfo()->where("fi_kind", self::$code); }
-    public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'bo_gd_id'); }
+    public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'bo_gd_id')->withDefault(); }
 
-    public function scopeSchSubject($query, $txt) { return $query->where('bo_subject', $txt); }
-    public function scopeSchContent($query, $txt) { return $query->where('bo_content', $txt); }
-    public function scopeSchWriter($query, $id) { return $query->where('created_id', $id); }
+    public function scopeSubject($query, $v) { return $query->where('bo_subject', 'LIKE', "%{$v}%"); }
+    public function scopeContent($query, $v) { return $query->where('bo_content', 'LIKE', "%{$v}%"); }
+    public function scopeWriter($query, $v) { return $query->where('bo_writer', 'LIKE', "%{$v}%"); }
 
 
 

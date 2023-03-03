@@ -16,7 +16,7 @@ export default {
                 title: 'Notice!',
                 variant: type,
                 toaster: "b-toaster-top-center",
-                autoHideDelay: 5000,
+                autoHideDelay: 2000,
                 appendToast: true
             })
 
@@ -206,22 +206,10 @@ export default {
 
             return rst;
         };
+        
 
 
 
-
-
-
-
-
-
-
-        // 2. 전역 에셋 추가
-        Vue.directive('my-directive', {
-            bind (el, binding, vnode, oldVnode) {
-            // 필요한 로직 ...
-            }
-        })
 
         Vue.directive("click-outside", {
           bind(el, binding, vnode) {
@@ -237,18 +225,6 @@ export default {
           },
         });
 
-
-        // 3. 컴포넌트 옵션 주입
-        Vue.mixin({
-            created: function () {
-            // 필요한 로직 ...
-            }
-        })
-
-        // 4. 인스턴스 메소드 추가
-        Vue.prototype.$myMethod = function (methodOptions) {
-        // 필요한 로직 ...
-        }
         Vue.prototype.s3url = 'https://fourscience.s3.ap-northeast-2.amazonaws.com/';
         Vue.prototype.isEmpty = function (v) {
             if( v == "" || v == null || v == undefined || Number.isNaN(v) || ( v != null && typeof v == "object" && !Object.keys(v).length ) ) return true;
@@ -372,8 +348,12 @@ export default {
             return str;
         } 
 
-
-
+        Vue.prototype.openWinPop = function ( uri, width, height ) {
+            let left = (screen.width) ? (screen.width - width) / 2 : 300;
+            let top = (screen.height) ? (screen.height - height) / 2 : 0;
+            let attr = 'top=' + top + ', left=' + left  + ', width=' + width + ', height=' + height + ', resizable=no,status=no';
+            window.open(uri, "", attr);
+        };
 
         Date.prototype.format = function(f) {
             if (!this.valueOf()) return " ";

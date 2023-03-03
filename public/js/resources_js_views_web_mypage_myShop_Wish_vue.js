@@ -14,19 +14,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -74,19 +67,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "MyBought",
+  name: "MyWish",
   components: {
     'LoadingModal': function LoadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
-    },
-    'SchDate': function SchDate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
-    },
-    'OrderStep': function OrderStep() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
     }
   },
   data: function data() {
@@ -98,14 +86,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       all_chk: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
-    isLoggedin: 'auth/isLoggedin',
-    user: 'auth/user'
-  })), {}, {
+  computed: {
     computedModel: function computedModel() {
       return this.model.slice(0, this.page * 7);
     }
-  }),
+  },
   methods: {
     index: function index() {
       var _this = this;
@@ -203,7 +188,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                Notify.modal('선택하세요', 'info');
+                Notify.modal('상품을 선택하세요', 'info');
                 return _context2.abrupt("return", false);
 
               case 5:
@@ -363,7 +348,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#mypage .middle .mypage h5 small[data-v-1aea720c] { color:#F5951A;\n}\n.list01 .row .product[data-v-1aea720c] { flex:0 0 12%; max-width:12%;\n}\n.list01 .row .desc[data-v-1aea720c] { text-align:left;\n}\n.list01 .row .make[data-v-1aea720c] { flex:0 0 10%; max-width:10%;\n}\n.row .custom-control[data-v-1aea720c] { display: inline;\n}\n.list01 .row .col .custom-control[data-v-1aea720c] label { font-size:.9rem;\n}\n.list01 .row .col .custom-control[data-v-1aea720c] label::before, \r\n.list01 .row .col .custom-control[data-v-1aea720c] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.btn_box[data-v-1aea720c] { text-align:center;\n}\n.btn_box button[data-v-1aea720c] { font-weight:bold; padding:1.25rem 2.7rem; min-width:18.5rem; border-width:0; font-size:1.25rem;\n}\n.btn_box button[data-v-1aea720c]:nth-child(1) { display:block; width:39rem; margin:1rem auto; padding:1.25rem;\n}\n.btn_box button[data-v-1aea720c]:nth-child(2) { background:#B7B7B7;\n}\n.btn_box button[data-v-1aea720c]:nth-child(3) { background:#0094EA; margin-left:1rem;\n} \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#mypage .middle .mypage h5 small[data-v-1aea720c] { color:#F5951A;\n}\n.list01 .transition-group[data-v-1aea720c] { border-bottom:1px solid #ddd;\n}\n.list01 .row .product[data-v-1aea720c] { flex:0 0 12%; max-width:12%;\n}\n.list01 .data .product a[data-v-1aea720c] { display:inline-block; width:100px; min-height:auto;\n}\n.list01 .row .desc[data-v-1aea720c] { text-align:left;\n}\n.list01 .row .make[data-v-1aea720c] { flex:0 0 10%; max-width:10%;\n}\n.row .custom-control[data-v-1aea720c] { display: inline;\n}\n.list01 .row .col .custom-control[data-v-1aea720c] label { font-size:.9rem;\n}\n.list01 .row .col .custom-control[data-v-1aea720c] label::before, \r\n.list01 .row .col .custom-control[data-v-1aea720c] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.list01 .row .col .more[data-v-1aea720c] { width:100%; margin:1rem auto; padding:.5rem;\n}\n.btn_box button[data-v-1aea720c] { font-weight:bold; padding:1.25rem 2.7rem; min-width:18.5rem; border-width:0; font-size:1.25rem;\n}\n.btn_box button[data-v-1aea720c]:nth-child(1) { background:#B7B7B7;\n}\n.btn_box button[data-v-1aea720c]:nth-child(2) { background:#0094EA; margin-left:1rem;\n} \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -563,6 +548,7 @@ var render = function () {
                 _c(
                   "transition-group",
                   {
+                    staticClass: "transition-group",
                     attrs: { tag: "div", css: false },
                     on: { "before-enter": _vm.beforeEnter, enter: _vm.enter },
                   },
@@ -645,6 +631,33 @@ var render = function () {
                   }),
                   1
                 ),
+                _vm._v(" "),
+                _c(
+                  "b-row",
+                  [
+                    _c(
+                      "b-col",
+                      [
+                        0 < _vm.model.length && _vm.model.length > _vm.page * 7
+                          ? _c(
+                              "b-button",
+                              {
+                                staticClass: "white lg more",
+                                on: {
+                                  click: function ($event) {
+                                    _vm.page++
+                                  },
+                                },
+                              },
+                              [_vm._v("더보기")]
+                            )
+                          : _vm._e(),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
               ],
               1
             ),
@@ -653,18 +666,6 @@ var render = function () {
               "div",
               { staticClass: "btn_box" },
               [
-                _c(
-                  "b-button",
-                  {
-                    on: {
-                      click: function ($event) {
-                        _vm.page++
-                      },
-                    },
-                  },
-                  [_vm._v("더보기")]
-                ),
-                _vm._v(" "),
                 _c("b-button", { on: { click: _vm.destroy } }, [
                   _vm._v("선택상품 삭제"),
                 ]),

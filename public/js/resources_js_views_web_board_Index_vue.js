@@ -70,18 +70,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['papa_bo_cd'],
@@ -98,6 +86,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       list: {},
       config: {},
       frm: {
+        mode: "",
         sch_txt: '',
         page: 0
       },
@@ -188,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ntable th[data-v-1f7fde5f],\r\ntable td[data-v-1f7fde5f]:nth-child(1),\r\ntable td[data-v-1f7fde5f]:nth-child(3),\r\ntable td[data-v-1f7fde5f]:nth-child(4) { text-align:center;\n}\ntable td .btn[data-v-1f7fde5f] { display:block; text-align:left;\n}\n.searchWrap[data-v-1f7fde5f] { font-family:consolas; display: flex; justify-content:flex-end; align-items: center; min-height:100px; background:#cfd1e1; overflow:hidden;\n}\n.searchWrap .searchBox[data-v-1f7fde5f] { position:relative; width:65px; height:50px; display: flex; justify-content:center; align-items: center; transition:.5s;\n}\n.searchWrap .searchBox[data-v-1f7fde5f]::before { content: ''; position:absolute; top:0; left:0; width:10px; height:100%; background:linear-gradient(#fff, #fff, #e3e3e3); z-index:1; filter: blur(1px);\n}\n.searchWrap .searchBox[data-v-1f7fde5f]::after { content: ''; position:absolute; top:0; right:-1px; width:10px; height:100%; background:#9d9d9d; z-index:1; filter: blur(1px);\n}\n.searchWrap .searchBox.active[data-v-1f7fde5f],\r\n.searchWrap .searchBox[data-v-1f7fde5f]:hover { width:400px;\n}\n.searchWrap .searchBox .searchBoxShadow[data-v-1f7fde5f] { position: absolute; top:0; left:-50px; width:calc(100% + 50px); height: 300px; \r\nbackground:linear-gradient(180deg, rgba(0,0,0,0.1), transparent, transparent); transform-origin:top; transform:skew(45deg); pointer-events:none;\n}\n.searchWrap .searchBox .searchBoxShadow[data-v-1f7fde5f]::before { content: ''; position:absolute; width:50px; height:50px; background:#cfd1e1; z-index:1;\n}\n.searchWrap .searchBox input[data-v-1f7fde5f] { position:relative; width:100%; height:100%; border:none; outline:none; padding:10px 25px; font-size: 1.1em; color:#555; \r\n    background: linear-gradient(#dbdae1, #a3aaba); \r\n    box-shadow: 5px 5px 5px rgba(0,0,0,0.1), \r\n    15px 15px 15px rgba(0,0,0,0.1), \r\n    20px 20px 15px rgba(0,0,0,0.1), \r\n    30px 30px 15px rgba(0,0,0,0.1),\r\n    inset 1px 1px 2px #fff;\n}\n.searchWrap .searchBox input[data-v-1f7fde5f]::-moz-placeholder { color:transparent;\n}\n.searchWrap .searchBox input[data-v-1f7fde5f]:-ms-input-placeholder { color:transparent;\n}\n.searchWrap .searchBox input[data-v-1f7fde5f],\r\n.searchWrap .searchBox input[data-v-1f7fde5f]::placeholder { color:transparent;\n}\n.searchWrap .searchBox.active input[data-v-1f7fde5f]::-moz-placeholder, .searchWrap .searchBox:hover input[data-v-1f7fde5f]::-moz-placeholder { color:#555 !important; opacity: 1;\n}\n.searchWrap .searchBox.active input[data-v-1f7fde5f]:-ms-input-placeholder, .searchWrap .searchBox:hover input[data-v-1f7fde5f]:-ms-input-placeholder { color:#555 !important; opacity: 1;\n}\n.searchWrap .searchBox.active input[data-v-1f7fde5f],\r\n.searchWrap .searchBox:hover input[data-v-1f7fde5f],\r\n.searchWrap .searchBox.active input[data-v-1f7fde5f]::placeholder,\r\n.searchWrap .searchBox:hover input[data-v-1f7fde5f]::placeholder { color:#555 !important; opacity: 1;\n}\n.searchWrap .searchBox svg[data-v-1f7fde5f] { position:absolute; right:20px; font-size:1.5rem; cursor:pointer;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .searchWrap[data-v-1f7fde5f] { margin:0;\n}\n.container .searchWrap .col[data-v-1f7fde5f] { display:flex; flex-wrap:wrap; max-width:31rem; background-color:#D7D7D7; color:#FFF; padding:3px; border-radius:26px;\n}\n.container .searchWrap .col select[data-v-1f7fde5f] { border-radius:17px 0 0 17px; height:30px; padding:.3rem 1.6rem 0.3rem 1.4rem; font-size:.9rem; border-width:0; \r\nbackground:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; \r\n    flex:0 0 25%; max-width:25%;\n}\n.container .searchWrap .col input[data-v-1f7fde5f] { flex:0 0 63%; max-width:63%; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:.9rem; height:30px; margin-left:.17rem; flex-grow:1;\n}\n.container .searchWrap .col input[data-v-1f7fde5f]:focus { outline:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#D7D7D7; border-width:0;\n}\n.container .searchWrap .col button svg[data-v-1f7fde5f] { font-size:1.4rem;\n}\n.container .data[data-v-1f7fde5f] { margin-top:1.8rem;\n}\n.container .data .col table th[data-v-1f7fde5f] { background-color:#ECECEC; color:#000; border-top:2px solid #000;\n}\n.container .data .col table th[data-v-1f7fde5f],\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(1),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(3),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(4),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(5) { text-align:center;\n}\n.container .data .col table td[data-v-1f7fde5f]:nth-child(2) { padding:0;\n}\n.container .data .col table td a[data-v-1f7fde5f] { display:block; padding:.75rem;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -324,69 +313,86 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "bo_index" },
     [
       _c(
         "b-row",
-        { attrs: { "align-h": "end" } },
+        { staticClass: "searchWrap", attrs: { "align-h": "end" } },
         [
-          _c("b-col", { staticClass: "searchWrap" }, [
-            _c(
-              "div",
-              { staticClass: "searchBox", class: _vm.classObject },
-              [
-                _c("div", { staticClass: "searchBoxShadow" }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.frm.sch_txt,
-                      expression: "frm.sch_txt",
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-form-select",
+                {
+                  model: {
+                    value: _vm.frm.mode,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.frm, "mode", $$v)
                     },
-                  ],
-                  attrs: { type: "text", placeholder: "검색어 입력" },
-                  domProps: { value: _vm.frm.sch_txt },
-                  on: {
-                    focus: function ($event) {
-                      _vm.sch_txt_focus = true
-                    },
-                    blur: function ($event) {
-                      _vm.sch_txt_focus = false
-                    },
-                    keyup: function ($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.index.apply(null, arguments)
-                    },
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.frm, "sch_txt", $event.target.value)
-                    },
+                    expression: "frm.mode",
                   },
-                }),
-                _vm._v(" "),
-                _c("b-icon-search"),
-              ],
-              1
-            ),
-          ]),
+                },
+                [
+                  _c("b-form-select-option", { attrs: { value: "" } }, [
+                    _vm._v("전체"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "subject" } }, [
+                    _vm._v("제목"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "content" } }, [
+                    _vm._v("내용"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "writer" } }, [
+                    _vm._v("글쓴이"),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-form-input", {
+                attrs: { placeholder: "검색어를 입력하세요" },
+                on: {
+                  keyup: function ($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.index.apply(null, arguments)
+                  },
+                },
+                model: {
+                  value: _vm.frm.sch_txt,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.frm, "sch_txt", $$v)
+                  },
+                  expression: "frm.sch_txt",
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                { attrs: { type: "submit" }, on: { click: _vm.index } },
+                [_c("font-awesome-icon", { attrs: { icon: "search" } })],
+                1
+              ),
+            ],
+            1
+          ),
         ],
         1
       ),
       _vm._v(" "),
       _c(
         "b-row",
+        { staticClass: "data" },
         [
           _c("b-col", [
-            _c("table", { staticClass: "table table-striped table-hover" }, [
+            _c("table", { staticClass: "table table-hover" }, [
               _c("colgroup", [
                 _c("col", { attrs: { width: "10%" } }),
                 _vm._v(" "),
@@ -395,9 +401,11 @@ var render = function () {
                 _c("col", { attrs: { width: "15%" } }),
                 _vm._v(" "),
                 _c("col", { attrs: { width: "10%" } }),
+                _vm._v(" "),
+                _c("col", { attrs: { width: "10%" } }),
               ]),
               _vm._v(" "),
-              _c("thead", { staticClass: "thead-dark" }, [
+              _c("thead", [
                 _c("tr", [
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("번호")]),
                   _vm._v(" "),
@@ -405,7 +413,9 @@ var render = function () {
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("작성자")]),
                   _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("작성일")]),
+                  _c("th", { attrs: { scope: "col" } }, [_vm._v("조회")]),
+                  _vm._v(" "),
+                  _c("th", { attrs: { scope: "col" } }, [_vm._v("등록일")]),
                 ]),
               ]),
               _vm._v(" "),
@@ -419,14 +429,13 @@ var render = function () {
                       "td",
                       [
                         _c(
-                          "b-button",
+                          "b-link",
                           {
                             attrs: {
                               to: {
                                 name: _vm.getLink + "bo_show",
                                 params: { bo_cd: _vm.bo_cd, bo_id: bo.bo_id },
                               },
-                              variant: "outline-secondary",
                             },
                           },
                           [_vm._v(_vm._s(bo.bo_subject))]
@@ -436,6 +445,8 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(bo.bo_click))]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(_vm._s(_vm._f("formatDate")(bo.created_at))),
@@ -450,34 +461,9 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            { staticClass: "text-right" },
-            [
-              _vm.$parent.enableLvChk(_vm.config.wlv)
-                ? _c(
-                    "b-link",
-                    {
-                      staticClass: "btn btn-sm btn-primary",
-                      attrs: {
-                        to: { name: "bo_create", params: { bo_cd: _vm.bo_cd } },
-                      },
-                    },
-                    [_vm._v("글쓰기")]
-                  )
-                : _vm._e(),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
       _c("pagination", {
-        attrs: { data: _vm.list, align: "center" },
+        staticClass: "mt-5",
+        attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
         on: { "pagination-change-page": _vm.index },
       }),
     ],

@@ -93,9 +93,7 @@
             <b-row>
                 <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
                 <b-col sm="12" md="6" class="text-right">
-                    <router-link :to="{name: 'adm_estimate_create'}" target="_blank">
-                        <b-button variant="primary" size="sm">임의견적</b-button>
-                    </router-link>
+                    <b-button @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)" class="white">임의견적</b-button>
                 </b-col>
             </b-row>
 

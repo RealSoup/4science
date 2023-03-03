@@ -822,12 +822,16 @@ var render = function () {
                           _c(
                             "b-button",
                             {
-                              attrs: {
-                                variant: "outline-primary",
-                                size: "sm",
-                                to: {
-                                  name: "adm_goods_edit",
-                                  params: { gd_id: em.em_gd_id },
+                              attrs: { variant: "outline-primary", size: "sm" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.openWinPop(
+                                    "/admin/shop/goods/" +
+                                      em.em_gd_id +
+                                      "/edit",
+                                    1700,
+                                    900
+                                  )
                                 },
                               },
                             },

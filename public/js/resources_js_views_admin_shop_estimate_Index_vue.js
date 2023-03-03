@@ -130,8 +130,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -777,21 +775,20 @@ var render = function () {
                     { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
                     [
                       _c(
-                        "router-link",
+                        "b-button",
                         {
-                          attrs: {
-                            to: { name: "adm_estimate_create" },
-                            target: "_blank",
+                          staticClass: "white",
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/shop/estimate/create",
+                                1700,
+                                900
+                              )
+                            },
                           },
                         },
-                        [
-                          _c(
-                            "b-button",
-                            { attrs: { variant: "primary", size: "sm" } },
-                            [_vm._v("임의견적")]
-                          ),
-                        ],
-                        1
+                        [_vm._v("임의견적")]
                       ),
                     ],
                     1

@@ -1,5 +1,11 @@
 <template>
 <b-container class="w_fence">
+    <h3>장바구니</h3>
+    <b-row class="cart_info">
+        <b-col>견적가 상품이 있을 경우 주문이 이루어지지 않고 '견적요청서 작성'으로 이동합니다. 견적요청서를 작성해 주세요.</b-col>
+        <b-col>구매가 상품으로 구성되었을 경우에만 주문서 작성 후 결제를 하실 수 있습니다.</b-col>
+        <b-col><b>최소구매 단위는 3만원 이상</b>으로 3만원 미만의 총 구매금액은 구매가 이루어지지 않습니다.</b-col>
+    </b-row>
     <b-row class="head cart_data">
         <b-col><b-form-checkbox v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk" /></b-col>
         <b-col></b-col>
@@ -83,7 +89,7 @@
         </b-col></b-row>
         <b-row class="btn_box" :key="'btn_box'"><b-col>
             <b-button @click="action('estimate')" class="gray xl">견적 요청하기</b-button>
-            <b-button @click="action('settle')" class="blue xl">주문하기</b-button>
+            <b-button @click="action('settle')" class="blue xl" v-if="!hide_order_btn">주문하기</b-button>
         </b-col></b-row>
     </transition-group>
     <b-row v-else><b-col><b-alert variant="danger" show>No Item</b-alert></b-col></b-row>
@@ -107,7 +113,8 @@ export default {
         return { 
             page:1, 
             indeterminate:false,
-            all_chk:false, 
+            all_chk:true,
+            hide_order_btn: false,
         }
     },
     computed: {
@@ -134,31 +141,34 @@ export default {
         goodsDefault() {
             return this.$store.state.goods.default;
         },
+        estimate_price_check () {
+            this.hide_order_btn = this.computedModel.filter(ct => ct.ct_check_opt == 'Y' && ct.price == 0).length ? true : false;
+        },
     },
     methods:{
         async outCart(i) {
             let id_arr = [];
             if (i=='chk') {
-                for (const v of this.computedModel) {
-                    if ( v.ct_check_opt == 'Y' ) {
-                        id_arr.push({type:v.type, id:v.cm_id??v.co_id});
-                    }
+                let chkCnt = Object.values(this.computedModel).filter(el => el.ct_check_opt=='Y').length;
+                if (chkCnt) {
+                    for (const v of this.computedModel) {
+                        if ( v.ct_check_opt == 'Y' ) {
+                            id_arr.push({type:v.type, id:v.cm_id??v.co_id});
+                        }
+                    }    
+                } else {
+                    Notify.modal("상품을 선택하세요", 'warning');
+                    return false;
                 }
+                
             } else 
                 id_arr.push({type:this.computedModel[i].type, id:this.computedModel[i].cm_id??this.computedModel[i].co_id});
             
             if (await Notify.confirm('삭제', 'danger'))
                 this.$store.dispatch('cart/destroy', id_arr);
         },
-        calculator() {
-            const p = priceCalculator(this.reply.estimate_model);
-            this.gd_price = p.gd_price;
-            this.surtax = p.surtax;
-            this.dlvy_price = p.dlvy_price;
-            this.air_price = p.air_price;
-            this.all_price = p.all_price;
-        },
         chkChange () {
+            this.estimate_price_check();
             let chkCnt = Object.values(this.computedModel).filter(el => el.ct_check_opt=='Y').length;         
             if (chkCnt === 0) {
                 this.indeterminate = false;
@@ -172,6 +182,7 @@ export default {
             }
         },
         toggle_all_chk(chk) {
+            this.estimate_price_check();
             for(let k in this.computedModel) this.computedModel[k].ct_check_opt = chk ? 'Y' : 'N';
             this.indeterminate = false;
         },
@@ -202,7 +213,7 @@ export default {
 
             switch (type) {
                 case "settle":
-                    let estimate_price_list = this.computedModel.filter(ct => ct.ea > 0 && ct.ct_check_opt == 'Y' && ct.price == 0);                    
+                    let estimate_price_list = this.computedModel.filter(ct => ct.ea > 0 && ct.ct_check_opt == 'Y' && ct.price == 0);
                     if (estimate_price_list.length) {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
@@ -239,6 +250,8 @@ export default {
 
 <style lang="css" scoped>
 .w_fence .container { padding:0; }
+.w_fence .cart_info { line-height:1.75; margin-bottom:2.4rem; }
+.w_fence .cart_info .col { flex:0 0 100%; max-width:100%; }
 .w_fence .head { border-top:2px solid #363636; border-bottom:1px solid #D7D7D7; padding:.7rem 0; }
 .w_fence .head .col { font-weight:bold; text-align:center; font-size:.9rem; }
 .w_fence .body .cart_data { border-bottom:1px solid #D7D7D7; }

@@ -71,9 +71,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
@@ -267,12 +264,14 @@ var render = function () {
               "b-link",
               {
                 staticClass: "col",
-                attrs: {
-                  to: {
-                    name: "adm_estimate_show_req",
-                    params: { eq_id: row.eq_id },
+                on: {
+                  click: function ($event) {
+                    return _vm.openWinPop(
+                      "/admin/shop/estimate/req/" + row.eq_id,
+                      1700,
+                      900
+                    )
                   },
-                  target: "_blank",
                 },
               },
               [
@@ -300,7 +299,7 @@ var render = function () {
                           _vm._v(" "),
                           !row.eq_title
                             ? _c("SubString", {
-                                attrs: { width: 700 },
+                                attrs: { width: 900 },
                                 model: {
                                   value: row.eq_content,
                                   callback: function ($$v) {
@@ -415,11 +414,17 @@ var render = function () {
                           attrs: {
                             size: "sm",
                             variant: "light",
-                            to: {
-                              name: "adm_estimate_create",
-                              query: { eq_id: row.eq_id },
-                            },
                             target: "_blank",
+                          },
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/shop/estimate/create?eq_id=" +
+                                  row.eq_id,
+                                1700,
+                                900
+                              )
+                            },
                           },
                         },
                         [
@@ -449,11 +454,17 @@ var render = function () {
                                       attrs: {
                                         size: "sm",
                                         variant: "success",
-                                        to: {
-                                          name: "adm_estimate_show_reply",
-                                          params: { er_id: er.er_id },
-                                        },
                                         target: "_blank",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.openWinPop(
+                                            "/admin/shop/estimate/reply/" +
+                                              er.er_id,
+                                            1700,
+                                            900
+                                          )
+                                        },
                                       },
                                     },
                                     [
@@ -469,11 +480,17 @@ var render = function () {
                                       attrs: {
                                         size: "sm",
                                         variant: "warning",
-                                        to: {
-                                          name: "adm_estimate_show_reply",
-                                          params: { er_id: er.er_id },
-                                        },
                                         target: "_blank",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.openWinPop(
+                                            "/admin/shop/estimate/reply/" +
+                                              er.er_id,
+                                            1700,
+                                            900
+                                          )
+                                        },
                                       },
                                     },
                                     [_c("b-icon-back"), _vm._v(" 재견적서")],

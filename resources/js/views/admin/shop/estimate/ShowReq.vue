@@ -85,7 +85,7 @@
             <b-container>
                 <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
                     <b-col>
-                        <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}">
+                        <b-button variant="outline-primary" size="sm" @click="openWinPop(`/admin/shop/goods/${em.em_gd_id}/edit`, 1700, 900)" >
                             <b-icon-link45deg />
                         </b-button>
                         <b class="gd_name">{{em.em_name}}</b>

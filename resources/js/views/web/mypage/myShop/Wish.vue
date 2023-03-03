@@ -15,7 +15,7 @@
                     <b-col class="make">제조사</b-col>
                     <b-col class="price">판매가</b-col>
                 </b-row>
-                <transition-group tag="div" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
+                <transition-group tag="div" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" class="transition-group">
                     <b-row v-for="(m, i) in computedModel" :key="m.wi_id" class="data">
                         <b-col class="chk">
                             <b-form-checkbox v-model="m.check" name="check" @change="chkChange" />
@@ -33,10 +33,12 @@
                         <b-col class="price">{{m.goods_model.gm_price | comma}} 원</b-col>
                     </b-row>
                 </transition-group>
+                <b-row>
+                    <b-col><b-button v-if="0<model.length && model.length>page*7" @click="page++" class="white lg more">더보기</b-button></b-col>
+                </b-row>
             </b-container>
             
             <div class="btn_box">
-                <b-button @click="page++">더보기</b-button>
                 <b-button @click="destroy">선택상품 삭제</b-button>
                 <b-button @click="cart">선택상품 장바구니에 담기</b-button>
             </div>
@@ -47,14 +49,11 @@
 
 <script>
 import ax from '@/api/http';
-import { mapGetters } from 'vuex'
 
 export default {
-    name: "MyBought",
+    name: "MyWish",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
-        'OrderStep': () => import('../_comp/OrderStep.vue'),
     },
     data() {
         return {
@@ -66,10 +65,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({
-            isLoggedin: 'auth/isLoggedin',
-            user: 'auth/user',
-        }),
         computedModel: function () {
             return this.model.slice( 0, this.page*7 );
         },
@@ -126,7 +121,7 @@ export default {
             try {
                 let chkList = this.model.filter(el => el.check==true).map(row=>row.wi_id);
                 if (!chkList.length) {
-                    Notify.modal('선택하세요', 'info');
+                    Notify.modal('상품을 선택하세요', 'info');
                     return false;
                 }
                 var rst = await Notify.confirm('삭제', 'danger');
@@ -182,10 +177,6 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-
-        
-
-
     },
     mounted() {
         const plugin = document.createElement("script");
@@ -200,17 +191,18 @@ export default {
 
 <style lang="css" scoped>
 #mypage .middle .mypage h5 small { color:#F5951A; }
+.list01 .transition-group { border-bottom:1px solid #ddd; }
 .list01 .row .product { flex:0 0 12%; max-width:12%; }
+.list01 .data .product a { display:inline-block; width:100px; min-height:auto; }
 .list01 .row .desc { text-align:left; }
 .list01 .row .make { flex:0 0 10%; max-width:10%; }
 .row .custom-control { display: inline; }
 .list01 .row .col .custom-control>>>label { font-size:.9rem; }
 .list01 .row .col .custom-control>>>label::before, 
 .list01 .row .col .custom-control>>>label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem; }
+.list01 .row .col .more { width:100%; margin:1rem auto; padding:.5rem; }
 
-.btn_box { text-align:center; }
-.btn_box button { font-weight:bold; padding:1.25rem 2.7rem; min-width:18.5rem; border-width:0; font-size:1.25rem; }
-.btn_box button:nth-child(1) { display:block; width:39rem; margin:1rem auto; padding:1.25rem; }
-.btn_box button:nth-child(2) { background:#B7B7B7; } 
-.btn_box button:nth-child(3) { background:#0094EA; margin-left:1rem; } 
+.btn_box button { font-weight:bold; padding:1.25rem 2.7rem; min-width:18.5rem; border-width:0; font-size:1.25rem; } 
+.btn_box button:nth-child(1) { background:#B7B7B7; } 
+.btn_box button:nth-child(2) { background:#0094EA; margin-left:1rem; } 
 </style>

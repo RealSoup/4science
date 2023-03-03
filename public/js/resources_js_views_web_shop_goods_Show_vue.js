@@ -390,85 +390,145 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     action: function action(type) {
-      var params = this.makeParam();
-      var cntModel = params.reduce(function (acc, el) {
-        return el.hasOwnProperty('gm_id') ? acc + 1 : acc;
-      }, 0);
+      var _this3 = this;
 
-      if (!cntModel) {
-        Notify.modal("모델을 선택하세요", 'info');
-        return false;
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var params, cntModel, estimate_price, required_key, required_key_cnt, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                params = _this3.makeParam();
+                cntModel = params.reduce(function (acc, el) {
+                  return el.hasOwnProperty('gm_id') ? acc + 1 : acc;
+                }, 0);
 
-      switch (type) {
-        case "pay":
-          var estimate_price = false;
-          this.content.goods_model.forEach(function (gm) {
-            if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
-          });
+                if (cntModel) {
+                  _context2.next = 5;
+                  break;
+                }
 
-          if (estimate_price) {
-            Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
-            return false;
-          }
+                Notify.modal("모델을 선택하세요", 'info');
+                return _context2.abrupt("return", false);
 
-          var required_key = Array();
-          var required_key_cnt = 0;
-          this.content.goods_option.forEach(function (go) {
-            if (go.go_required == 'Y') required_key.push(go.go_id);
-          });
-          required_key.forEach(function (k) {
-            params.forEach(function (item) {
-              if (item.hasOwnProperty('goc_id') && item.go_id == k) {
-                required_key_cnt++;
-                return false;
-              }
-            });
-          });
+              case 5:
+                _context2.t0 = type;
+                _context2.next = _context2.t0 === "pay" ? 8 : _context2.t0 === "putCart" ? 22 : _context2.t0 === "wish" ? 24 : _context2.t0 === "estimate" ? 36 : 38;
+                break;
 
-          if (required_key_cnt !== required_key.length) {
-            Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
-            return false;
-          }
+              case 8:
+                estimate_price = false;
 
-          this.$router.push({
-            name: 'order_settle',
-            params: {
-              od_goods: params,
-              od_type: 'buy_inst'
+                _this3.content.goods_model.forEach(function (gm) {
+                  if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
+                });
+
+                if (!estimate_price) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
+                return _context2.abrupt("return", false);
+
+              case 13:
+                required_key = Array();
+                required_key_cnt = 0;
+
+                _this3.content.goods_option.forEach(function (go) {
+                  if (go.go_required == 'Y') required_key.push(go.go_id);
+                });
+
+                required_key.forEach(function (k) {
+                  params.forEach(function (item) {
+                    if (item.hasOwnProperty('goc_id') && item.go_id == k) {
+                      required_key_cnt++;
+                      return false;
+                    }
+                  });
+                });
+
+                if (!(required_key_cnt !== required_key.length)) {
+                  _context2.next = 20;
+                  break;
+                }
+
+                Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
+                return _context2.abrupt("return", false);
+
+              case 20:
+                _this3.$router.push({
+                  name: 'order_settle',
+                  params: {
+                    od_goods: params,
+                    od_type: 'buy_inst'
+                  }
+                });
+
+                return _context2.abrupt("break", 38);
+
+              case 22:
+                // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
+                _this3.$store.dispatch('cart/examine', {
+                  goods: _this3.content
+                });
+
+                return _context2.abrupt("break", 38);
+
+              case 24:
+                _context2.prev = 24;
+                _context2.next = 27;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
+                  return gm.ea > 0;
+                }));
+
+              case 27:
+                res = _context2.sent;
+
+                if (res && res.status === 200) {
+                  Notify.toast('success', '관심 상품 등록 완료');
+                } else {
+                  Notify.toast('warning', res);
+                }
+
+                _context2.next = 35;
+                break;
+
+              case 31:
+                _context2.prev = 31;
+                _context2.t1 = _context2["catch"](24);
+                Notify.consolePrint(_context2.t1);
+                Notify.toast('warning', _context2.t1.responsee);
+
+              case 35:
+                return _context2.abrupt("break", 38);
+
+              case 36:
+                _this3.$router.push({
+                  name: 'estimate_create',
+                  params: {
+                    od_goods: params,
+                    od_type: 'request_estimate'
+                  }
+                });
+
+                return _context2.abrupt("break", 38);
+
+              case 38:
+              case "end":
+                return _context2.stop();
             }
-          });
-          break;
-
-        case "putCart":
-          // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
-          this.$store.dispatch('cart/examine', {
-            goods: this.content
-          });
-          break;
-
-        case "wish":
-          this.$store.dispatch('cart/examine', this.content);
-          break;
-
-        case "estimate":
-          this.$router.push({
-            name: 'estimate_create',
-            params: {
-              od_goods: params,
-              od_type: 'request_estimate'
-            }
-          });
-          break;
-      }
+          }
+        }, _callee2, null, [[24, 31]]);
+      }))();
     },
     makeParam: function makeParam() {
-      var _this3 = this;
+      var _this4 = this;
 
       var params = [];
       this.content.goods_model.forEach(function (gm) {
         if (gm.ea > 0) params.push({
-          gd_id: _this3.content.gd_id,
+          gd_id: _this4.content.gd_id,
           gm_id: gm.gm_id,
           ea: gm.ea
         });
@@ -476,7 +536,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.content.goods_option.forEach(function (go) {
         go.goods_option_child.forEach(function (goc) {
           if (goc.ea > 0) params.push({
-            gd_id: _this3.content.gd_id,
+            gd_id: _this4.content.gd_id,
             go_id: go.go_id,
             goc_id: goc.goc_id,
             ea: goc.ea
@@ -528,12 +588,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.show();
     window.addEventListener('scroll', this.scrollListener);
     this.interval = setInterval(function () {
-      _this4.scrollHeight = document.body.scrollHeight;
+      _this5.scrollHeight = document.body.scrollHeight;
     }, 100);
   },
   beforeDestroy: function beforeDestroy() {

@@ -317,7 +317,7 @@ export default {
                 // this.categorys = res.data.categorys;
             }
         },
-        action(type) {            
+        async action(type) {            
             let params = this.makeParam();
             let cntModel = params.reduce(function(acc, el) {
                 return (el.hasOwnProperty('gm_id')) ? acc+1 : acc;
@@ -366,8 +366,19 @@ export default {
                     this.$store.dispatch('cart/examine', {goods:this.content});
                 break;
 
-                case "wish":
-                    this.$store.dispatch('cart/examine', this.content);
+                case "wish":                     
+                    try {
+                        let res = await ax.post(`/api/shop/wish`, this.content.goods_model.filter(gm => gm.ea > 0));
+                        if (res && res.status === 200) {
+                            Notify.toast('success', '관심 상품 등록 완료')
+                        } else {
+                            Notify.toast('warning', res);
+                        }
+                    } catch (e) {
+                        Notify.consolePrint(e);
+                        Notify.toast('warning', e.responsee);
+                    }
+                    
                 break;
 
                 case "estimate":
