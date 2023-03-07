@@ -105,6 +105,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn.white { background-color:#FFF; border-color:#CCCCCC; color:#000; }
 .btn.gray { background-color:#B7B7B7; border-color:#B7B7B7; }
 .btn.blue { background-color:#0094EA; border-color:#0094EA; }
+.btn.green { background-color:#51B948; border-color:#51B948; }
 .btn.wd_33p { font-weight:bold; padding:25px; width:33%; border-radius:9px; border-radius:9px; font-size:1.2rem; }
 input::placeholder, textarea::placeholder { color:#CCC !important; }
 label { margin-bottom:0; }

@@ -27,8 +27,12 @@
         <div v-html="nl2br(board.bo_content)" />
 
         <hr />
-        <h6>답변</h6>
-        <div v-html="nl2br(board.answer.bo_content)" />
+        <div v-if="board.answer" class="answer">
+            <h6>A</h6>
+            <div v-html="nl2br(board.answer.bo_content)" />
+            <p class="date">{{board.answer.created_at | formatDate}}</p>
+        </div>
+        
     </div>
 
     <div class="row">
@@ -117,4 +121,7 @@ export default {
 #bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer; }
 #bo_show .con { margin-bottom:3rem; line-height:1.5rem; }
 #bo_show .con img { max-width: 100%; }
+#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem; }
+#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0; }
+#bo_show .con .answer .date { margin-top:4rem; }
 </style>

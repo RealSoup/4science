@@ -143,6 +143,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     'LoadingModal': function LoadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    },
+    'NoItem': function NoItem() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_NoItem_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/NoItem */ "./resources/js/views/web/_module/NoItem.vue"));
     }
   },
   data: function data() {
@@ -786,11 +789,7 @@ var render = function () {
                                     1
                                   )
                                 })
-                              : _c(
-                                  "b-alert",
-                                  { attrs: { variant: "danger", show: "" } },
-                                  [_vm._v("No Item")]
-                                ),
+                              : _c("NoItem"),
                             _vm._v(" "),
                             _c("pagination", {
                               staticClass: "mt-5",

@@ -70,6 +70,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['papa_bo_cd'],
@@ -177,7 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .searchWrap[data-v-1f7fde5f] { margin:0;\n}\n.container .searchWrap .col[data-v-1f7fde5f] { display:flex; flex-wrap:wrap; max-width:31rem; background-color:#D7D7D7; color:#FFF; padding:3px; border-radius:26px;\n}\n.container .searchWrap .col select[data-v-1f7fde5f] { border-radius:17px 0 0 17px; height:30px; padding:.3rem 1.6rem 0.3rem 1.4rem; font-size:.9rem; border-width:0; \r\nbackground:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; \r\n    flex:0 0 25%; max-width:25%;\n}\n.container .searchWrap .col input[data-v-1f7fde5f] { flex:0 0 63%; max-width:63%; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:.9rem; height:30px; margin-left:.17rem; flex-grow:1;\n}\n.container .searchWrap .col input[data-v-1f7fde5f]:focus { outline:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#D7D7D7; border-width:0;\n}\n.container .searchWrap .col button svg[data-v-1f7fde5f] { font-size:1.4rem;\n}\n.container .data[data-v-1f7fde5f] { margin-top:1.8rem;\n}\n.container .data .col table th[data-v-1f7fde5f] { background-color:#ECECEC; color:#000; border-top:2px solid #000;\n}\n.container .data .col table th[data-v-1f7fde5f],\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(1),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(3),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(4),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(5) { text-align:center;\n}\n.container .data .col table td[data-v-1f7fde5f]:nth-child(2) { padding:0;\n}\n.container .data .col table td a[data-v-1f7fde5f] { display:block; padding:.75rem;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .searchWrap[data-v-1f7fde5f] { margin:0;\n}\n.container .searchWrap .col[data-v-1f7fde5f] { display:flex; flex-wrap:wrap; max-width:31rem; background-color:#D7D7D7; color:#FFF; padding:3px; border-radius:26px;\n}\n.container .searchWrap .col select[data-v-1f7fde5f] { border-radius:17px 0 0 17px; height:30px; padding:.3rem 1.6rem 0.3rem 1.4rem; font-size:.9rem; border-width:0; \r\nbackground:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; \r\n    flex:0 0 25%; max-width:25%;\n}\n.container .searchWrap .col input[data-v-1f7fde5f] { flex:0 0 63%; max-width:63%; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:.9rem; height:30px; margin-left:.17rem; flex-grow:1;\n}\n.container .searchWrap .col input[data-v-1f7fde5f]:focus { outline:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#D7D7D7; border-width:0;\n}\n.container .searchWrap .col button svg[data-v-1f7fde5f] { font-size:1.4rem;\n}\n.container .data[data-v-1f7fde5f] { margin-top:1.8rem;\n}\n.container .data .col table th[data-v-1f7fde5f] { background-color:#ECECEC; color:#000; border-top:2px solid #000;\n}\n.container .data .col table th[data-v-1f7fde5f],\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(1),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(3),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(4),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(5) { text-align:center;\n}\n.container .data .col table td[data-v-1f7fde5f]:nth-child(2) { padding:0;\n}\n.container .data .col table td a[data-v-1f7fde5f] { display:block; padding:.75rem;\n}\n.container .data .col table td span[data-v-1f7fde5f] { background:#B7B7B7; padding:.3rem .7rem; color:#fff; font-size:.8rem; border-radius:4px;\n}\n.container .data .col table td span.active[data-v-1f7fde5f] { background:#F7941F;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -398,6 +404,10 @@ var render = function () {
                 _vm._v(" "),
                 _c("col", { attrs: { width: "" } }),
                 _vm._v(" "),
+                _vm.bo_cd == "gd_inquiry"
+                  ? _c("col", { attrs: { width: "10%" } })
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("col", { attrs: { width: "15%" } }),
                 _vm._v(" "),
                 _c("col", { attrs: { width: "10%" } }),
@@ -410,6 +420,10 @@ var render = function () {
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("번호")]),
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("제목")]),
+                  _vm._v(" "),
+                  _vm.bo_cd == "gd_inquiry"
+                    ? _c("th", { attrs: { scope: "col" } }, [_vm._v("상태")])
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("작성자")]),
                   _vm._v(" "),
@@ -443,6 +457,16 @@ var render = function () {
                       ],
                       1
                     ),
+                    _vm._v(" "),
+                    _vm.bo_cd == "gd_inquiry"
+                      ? _c("td", [
+                          bo.answer
+                            ? _c("span", { class: { active: bo.answer } }, [
+                                _vm._v("답변완료"),
+                              ])
+                            : _c("span", [_vm._v("답변대기")]),
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
                     _vm._v(" "),

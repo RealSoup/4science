@@ -29,6 +29,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -36,6 +43,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     'FormComp': function FormComp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormComp_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormComp */ "./resources/js/views/web/auth/_comp/FormComp.vue"));
+    },
+    'FormSync': function FormSync() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormSync_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormSync */ "./resources/js/views/web/auth/_comp/FormSync.vue"));
     }
   },
   data: function data() {
@@ -49,8 +59,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           marketing: 'N',
           receive_mail: 'N',
           receive_sms: 'N'
-        }
-      }
+        },
+        email: this.$route.query.email ? this.$route.query.email : '',
+        name: this.$route.query.name ? this.$route.query.name : ''
+      },
+      active_mode: 'inter_lock'
     };
   },
   methods: {
@@ -65,7 +78,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var frmDt, reg;
+        var frmDt, url, reg;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -115,6 +128,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (!isEmpty(_this.frm.interest)) frmDt.append("interest", _this.frm.interest);
                 if (!isEmpty(_this.frm.interest_etc)) frmDt.append("interest_etc", _this.frm.interest_etc);
                 if (!isEmpty(_this.frm.join_route)) frmDt.append("join_route", _this.frm.join_route);
+                if (!isEmpty(_this.$route.query.provider)) frmDt.append("provider", _this.$route.query.provider);
+                if (!isEmpty(_this.$route.query.social_id)) frmDt.append("social_id", _this.$route.query.social_id);
+                if (!isEmpty(_this.$route.query.social_token)) frmDt.append("social_token", _this.$route.query.social_token);
 
                 if (_this.$route.params.code == 'dealer') {
                   if (!isEmpty(_this.frm.level)) frmDt.append("level", _this.frm.level);
@@ -130,58 +146,87 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (!isEmpty(_this.frm.ub_cond)) frmDt.append("ub_cond", _this.frm.ub_cond);
                 }
 
-                _context.next = 34;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/register", frmDt);
+                url = "/register";
+                if (_this.$route.params.code == 'sync') url = "/social/connectExistAccount";
+                _context.next = 39;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("".concat(url), frmDt);
 
-              case 34:
+              case 39:
                 reg = _context.sent;
 
                 if (!(reg && reg.status === 201)) {
-                  _context.next = 41;
+                  _context.next = 61;
                   break;
                 }
 
                 if (!(_this.frm.level == 10)) {
-                  _context.next = 40;
+                  _context.next = 44;
                   break;
                 }
 
-                console.log(_this.frm.level);
-                _context.next = 40;
+                _context.next = 44;
                 return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
 
-              case 40:
+              case 44:
+                if (isEmpty(_this.$route.query.provider)) {
+                  _context.next = 51;
+                  break;
+                }
+
+                Notify.modal('가입 완료', 'success');
+                _context.next = 48;
+                return _this.$store.dispatch('auth/getAuth');
+
+              case 48:
                 _this.$router.push({
-                  name: 'email_verify'
-                }); // await ax.get('auth_check').then((res) => {
-                //     if (res.data === 1) {
-                //         ax.get('/api/user').then((response) => {
-                //             store.state.auth.isLoggedin= true;
-                //             store.state.auth.user= response.data.user;
-                //             store.state.auth.csrfToken= response.data.token;
-                //             document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
-                //             this.$router.push({name: 'main'});
-                //         })
-                //     }
-                // }).catch(() => {});
+                  name: 'main'
+                });
 
-
-              case 41:
-                _context.next = 47;
+                _context.next = 61;
                 break;
 
-              case 43:
-                _context.prev = 43;
+              case 51:
+                if (!(_this.$route.params.code == 'sync')) {
+                  _context.next = 60;
+                  break;
+                }
+
+                console.log(reg);
+                Notify.modal('연동 되었습니다.', 'success');
+                _context.next = 56;
+                return _this.$store.dispatch('auth/getAuth');
+
+              case 56:
+                _this.$store.dispatch('cart/index');
+
+                _this.$router.push({
+                  name: 'main'
+                });
+
+                _context.next = 61;
+                break;
+
+              case 60:
+                _this.$router.push({
+                  name: 'email_verify'
+                });
+
+              case 61:
+                _context.next = 67;
+                break;
+
+              case 63:
+                _context.prev = 63;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 47:
+              case 67:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 43]]);
+        }, _callee, null, [[0, 63]]);
       }))();
     }
   },
@@ -194,6 +239,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     if (this.$route.params.code == 'dealer') this.frm.level = 10;
+    if (this.$route.query.msg_type == 'duplicate') Notify.modal('이미 가입된 이메일입니다. 로그인하여 연동하세요.', 'warning');
   }
 });
 
@@ -215,7 +261,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.auth_create { max-width:1436px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence { max-width:1436px;\n}\n.w_fence.simple { max-width:500px;\n}\n.form_box.active { border:3px solid red;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -351,20 +397,33 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticClass: "auth_create w_fence" },
+    {
+      staticClass: "w_fence",
+      class: { simple: _vm.$route.params.code == "sync" },
+    },
     [
       _c("h3", [_vm._v("회원가입 정보 입력")]),
       _vm._v(" "),
-      _c("FormComp", {
-        ref: "form_comp",
-        model: {
-          value: _vm.frm,
-          callback: function ($$v) {
-            _vm.frm = $$v
-          },
-          expression: "frm",
-        },
-      }),
+      _vm.$route.params.code == "sync"
+        ? _c("FormSync", {
+            model: {
+              value: _vm.frm,
+              callback: function ($$v) {
+                _vm.frm = $$v
+              },
+              expression: "frm",
+            },
+          })
+        : _c("FormComp", {
+            ref: "form_comp",
+            model: {
+              value: _vm.frm,
+              callback: function ($$v) {
+                _vm.frm = $$v
+              },
+              expression: "frm",
+            },
+          }),
       _vm._v(" "),
       _c(
         "b-row",
@@ -376,7 +435,13 @@ var render = function () {
               _c(
                 "b-button",
                 { staticClass: "blue xl", on: { click: _vm.register } },
-                [_vm._v("회원 가입하기")]
+                [
+                  _vm._v("\r\n                회원 "),
+                  _vm.$route.params.code == "sync"
+                    ? _c("span", [_vm._v("연동")])
+                    : _c("span", [_vm._v("가입")]),
+                  _vm._v("하기\r\n            "),
+                ]
               ),
             ],
             1

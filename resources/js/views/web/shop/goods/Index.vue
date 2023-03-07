@@ -102,7 +102,7 @@
                                 <b-col>{{row.mk_name}}</b-col>
                             </b-row>
                         </template>
-                        <b-alert v-else variant="danger" show>No Item</b-alert>
+                        <NoItem v-else />
                         <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
                     </b-col>
                 </b-row>
@@ -120,7 +120,7 @@ export default {
         'Location': () => import('./_comp/Location.vue'),
         'Search': () => import('./_comp/Search.vue'),
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-
+        'NoItem': () => import('@/views/web/_module/NoItem'),
     },
     data() {
         return {

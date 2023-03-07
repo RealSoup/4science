@@ -18,6 +18,7 @@
                 <colgroup>
                     <col width="10%" />
                     <col width="" />
+                    <col width="10%" v-if="bo_cd=='gd_inquiry'" />
                     <col width="15%" />
                     <col width="10%" />
                     <col width="10%" />
@@ -26,6 +27,7 @@
                     <tr>
                         <th scope="col">번호</th>
                         <th scope="col">제목</th>
+                        <th scope="col" v-if="bo_cd=='gd_inquiry'">상태</th>
                         <th scope="col">작성자</th>
                         <th scope="col">조회</th>
                         <th scope="col">등록일</th>
@@ -36,6 +38,10 @@
                         <td>{{bo.bo_id}}</td>
                         <td>
                             <b-link :to="{name: `${getLink}bo_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">{{bo.bo_subject}}</b-link>
+                        </td>
+                        <td v-if="bo_cd=='gd_inquiry'">
+                            <span v-if="bo.answer" :class="{active:bo.answer}">답변완료</span>
+                            <span v-else>답변대기</span>
                         </td>
                         <td>{{bo.bo_writer}}</td>
                         <td>{{bo.bo_click}}</td>
@@ -131,6 +137,7 @@ background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/a
 .container .data .col table td:nth-child(5) { text-align:center; }
 .container .data .col table td:nth-child(2) { padding:0; }
 .container .data .col table td a { display:block; padding:.75rem; }
-
+.container .data .col table td span { background:#B7B7B7; padding:.3rem .7rem; color:#fff; font-size:.8rem; border-radius:4px; }
+.container .data .col table td span.active { background:#F7941F; }
 
 </style>

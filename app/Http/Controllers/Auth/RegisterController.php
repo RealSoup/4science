@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use App\Providers\RouteServiceProvider;
-use App\Models\{User, UserBiz};
+use App\Models\{User, UserBiz, UserSocial};
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,16 +18,21 @@ class RegisterController extends Controller {
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    public function __construct() { $this->middleware('guest'); }
+    public $userSocial;
 
-    public function register(Request $request) {
-        $this->validator($request)->validate();
-        event(new Registered($user = $this->create($request)));
+    public function __construct(UserSocial $social) {
+        $this->middleware('guest');
+        $this->userSocial = $social;
+    } 
+
+    public function register(Request $req) {
+        $this->validator($req)->validate();
+        event(new Registered($user = $this->userStore($req)));
         $this->guard()->login($user);  
-        return $request->wantsJson() ? new JsonResponse($user->id, 201) : redirect($this->redirectPath());
+        return $req->wantsJson() ? new JsonResponse($user->id, 201) : redirect($this->redirectPath());
     }
 
-    protected function create($req) {
+    protected function userStore($req) {
         $u = [  'email'          => $req->email,
                 'password'       => Hash::make($req->password),
                 'name'           => $req->name,
@@ -48,7 +53,8 @@ class RegisterController extends Controller {
                 'join_route'     => $req->filled('join_route')   ? $req->join_route   : NULL,
                 'receive_sms'    => $req->filled('receive_sms')  ? $req->receive_sms  : 'Y',
                 'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
-                'level'          => $req->filled('level')        ? $req->level        : 0,];
+                'level'          => $req->filled('level')        ? $req->level        : 0,
+                'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL];
         $rst = User::create($u);
         if ( $req->filled('level') )
             DB::table('user_biz')->insert( [
@@ -61,9 +67,9 @@ class RegisterController extends Controller {
                 'ub_addr1' => $req->ub_addr1,
                 'ub_addr2' => $req->ub_addr2,
                 'ub_type'  => $req->ub_type,
-                'ub_cond'  => $req->ub_cond
-            ] );
-
+                'ub_cond'  => $req->ub_cond ] );
+        if ( $req->filled('provider') && $req->provider !== '' )
+            $this->userSocial->store($req, $rst->id);
         // if ( array_key_exists('ub_file', $req->all()) ) {
         //     $rst_upload = app('App\Http\Controllers\CommonController')->upload($req);
         //     $fi_id = $rst_upload->getData()->fi_id;
@@ -129,5 +135,9 @@ class RegisterController extends Controller {
             $message['ub_cond.string'] = ['업태는 문자열만 입력 할 수 있습니다.'];
         }
         return Validator::make($req->all(), $rule, $message);
+    }
+
+    public function create (Request $req) {
+        return response()->json($req->all(), 200);
     }
 }

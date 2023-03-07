@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use App\Events\LoginAfter;
 
 class LoginController extends Controller {
     use AuthenticatesUsers;
@@ -36,15 +37,13 @@ class LoginController extends Controller {
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {
+        if ($this->attemptLogin($request)) {            
             $ci_pw = base64_encode(hash("sha512", $request['password'], true));
             $ci_pw_check = $ci_pw == auth()->user()->password;
             if ($ci_pw_check)
                 DB::table('users')->where('id', auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
 
-            auth()->user()->last_login = \Carbon\Carbon::now();
-            auth()->user()->login_cnt = auth()->user()->login_cnt ? auth()->user()->login_cnt+1 : 1;
-            auth()->user()->save();
+            event(new LoginAfter());
             
             return $this->sendLoginResponse($request);
         }
@@ -61,7 +60,7 @@ class LoginController extends Controller {
     // }
 
 
-    // 
+    
     // public function attempt(array $credentials = [], $remember = false)
     // {
     //     $this->fireAttemptEvent($credentials, $remember);
@@ -83,5 +82,26 @@ class LoginController extends Controller {
     //     $this->fireFailedEvent($user, $credentials);
 
     //     return false;
+    // }
+
+    // public function login(AuthenticatableContract $user, $remember = false)
+    // {
+    //     $this->updateSession($user->getAuthIdentifier());
+
+    //     // If the user should be permanently "remembered" by the application we will
+    //     // queue a permanent cookie that contains the encrypted copy of the user
+    //     // identifier. We will then decrypt this later to retrieve the users.
+    //     if ($remember) {
+    //         $this->ensureRememberTokenIsSet($user);
+
+    //         $this->queueRecallerCookie($user);
+    //     }
+
+    //     // If we have an event dispatcher instance set we will fire an event so that
+    //     // any listeners will hook into the authentication events and run actions
+    //     // based on the login and logout events fired from the guard instances.
+    //     $this->fireLoginEvent($user, $remember);
+
+    //     $this->setUser($user);
     // }
 }

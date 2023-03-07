@@ -27,6 +27,15 @@ export default [
         // }
 
     }, {   
+        path: '/auth/join_sync_choice',
+        name: 'auth_join_sync_choice',
+        component:() => import('@/views/web/auth/JoinSyncChoice'),
+        beforeEnter: isNotLoggedin(),
+        // beforeEnter: function(to, from, next) {
+            // 인증 값 검증 로직 추가
+        // }
+
+    }, {   
         path: '/email_verify',
         name: 'email_verify',
         component:() => import('@/views/web/auth/EmailVerify'),

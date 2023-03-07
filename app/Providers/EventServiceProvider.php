@@ -18,6 +18,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        // \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        //     // ... other providers
+        //     'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
+        // ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            \SocialiteProviders\Naver\NaverExtendSocialite::class,	// 네이버
+            \SocialiteProviders\Kakao\KakaoExtendSocialite::class,	// 카카오
+        ],
     ];
 
     /**
@@ -31,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
     }
 
     protected $subscribe = [
+        \App\Listeners\LoginSubscriber::class,
         \App\Listeners\BoardSubscriber::class,
         \App\Listeners\MileageSubscriber::class,
         \App\Listeners\GoodsEventListener::class,

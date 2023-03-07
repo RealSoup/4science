@@ -26,8 +26,8 @@
             <b-link class="col" @click="join"><span>회원가입</span></b-link>
         </b-row>
         <b-row class="link">
-            <b-link class="col"><img :src="s3url+'auth/naver_login.png'" /></b-link>
-            <b-link class="col"><img :src="s3url+'auth/kakao_login.png'" /></b-link>
+            <b-link class="col" href="/social/naver"><img :src="s3url+'auth/naver_login.png'" /></b-link>
+            <b-link class="col" href="/social/kakao"><img :src="s3url+'auth/kakao_login.png'" /></b-link>
         </b-row>
 
     </b-container>
@@ -63,6 +63,9 @@ export default {
             this.$emit('close-modal');
              this.$router.push({name: 'auth_intro'});
         },
+    },
+    mounted() {
+        
     },
     // beforeRouteEnter(to, from, next) {
     //     if (store.state.auth.isLoggedin) {

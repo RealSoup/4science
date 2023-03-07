@@ -12,10 +12,10 @@
             <span>사업자 등록증을 보유한<br />유통, 도소매 업체 (재판매업자)</span>
         </b-link>
         <b-col class="sns">
-            <b-link to="/auth">
+            <b-link href="/social/naver">
                 <b-img :src="s3url+'auth/join_naver.png'" />
             </b-link>
-            <b-link to="/auth">
+            <b-link href="/social/kakao">
                 <b-img :src="s3url+'auth/join_kakao.png'" />
             </b-link>
         </b-col>
@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .container { max-width:920px; }
 .container h3 { margin:4rem auto; font-weight:bold; font-size:3rem; text-align:center; }
 .container .con { margin-bottom:1rem; }
