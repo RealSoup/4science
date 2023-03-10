@@ -310,15 +310,15 @@
         <b-form-input name="merchantData"   :value="order.od_id" />       
     </form>
     <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form1" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="EUC-KR">
-        <input type="hidden" name="P_INI_PAYMENT"   value="CARD" />
-        <input type="hidden" name="P_MID"           :value="inicis.mid" />
-        <input type="hidden" name="P_OID"           :value="order.od_no" />
-        <input type="hidden" name="P_GOODS"         :value="order.od_name" />
-        <input type="hidden" name="P_AMT"           :value="order.price.total" />
-        <input type="hidden" name="P_UNAME"         :value="$store.state.auth.user.name" />
-        <input type="hidden" name="P_NEXT_URL"      :value="inicis.returnUrlMobaile" />
-        <input type="hidden" name="P_CHARSET"       value="utf8" />
-        <input type="hidden" name="P_NOTI"          value="" />
+        <b-form-input name="P_INI_PAYMENT"   value="CARD" />
+        <b-form-input name="P_MID"           :value="inicis.mid" />
+        <b-form-input name="P_OID"           :value="order.od_no" />
+        <b-form-input name="P_GOODS"         :value="order.od_name" />
+        <b-form-input name="P_AMT"           :value="order.price.total" />
+        <b-form-input name="P_UNAME"         :value="$store.state.auth.user.name" />
+        <b-form-input name="P_NEXT_URL"      :value="inicis.returnUrlMobaile" />
+        <b-form-input name="P_CHARSET"       value="utf8" />
+        <b-form-input name="P_NOTI"          value="" />
     </form>
 </div>
 </template>
