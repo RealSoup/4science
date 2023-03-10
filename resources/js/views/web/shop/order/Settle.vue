@@ -291,7 +291,7 @@
         </Modal>
     </transition>
 
-    <form id="SendPayForm" method="POST">      
+    <form v-if="inicis.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
         <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
         <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
         <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
@@ -308,6 +308,17 @@
         <b-form-input name="mKey" 		    :value="inicis.mKey" />
         <b-form-input name="gopaymethod"    value="Card" />
         <b-form-input name="merchantData"   :value="order.od_id" />       
+    </form>
+    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form1" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="EUC-KR">
+        <input type="hidden" name="P_INI_PAYMENT"   value="CARD" />
+        <input type="hidden" name="P_MID"           :value="inicis.mid" />
+        <input type="hidden" name="P_OID"           :value="order.od_no" />
+        <input type="hidden" name="P_GOODS"         :value="order.od_name" />
+        <input type="hidden" name="P_AMT"           :value="order.price.total" />
+        <input type="hidden" name="P_UNAME"         :value="$store.state.auth.user.name" />
+        <input type="hidden" name="P_NEXT_URL"      :value="inicis.returnUrlMobaile" />
+        <input type="hidden" name="P_CHARSET"       value="utf8" />
+        <input type="hidden" name="P_NOTI"          value="" />
     </form>
 </div>
 </template>
@@ -788,5 +799,5 @@ export default {
 #settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::after { top:.15rem; left:-1.2rem; }
 
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
-#settle #SendPayForm { width:0; height:0; visibility:hidden; overflow:hidden; }
+#settle .inicis_form { width:0; height:0; visibility:hidden; overflow:hidden; }
 </style>

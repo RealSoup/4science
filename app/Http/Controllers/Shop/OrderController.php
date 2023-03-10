@@ -51,7 +51,9 @@ class OrderController extends Controller {
         //     $params['od_type'] = 'cart';
         $params['inicis']['sale_env'] = $this->saleEnv();
         $params['inicis']['returnUrl'] = config('app.url')."shop/order/payReturn";
+        $params['inicis']['returnUrlMobaile'] = config('app.url')."shop/order/payReturnMobile";
         $params['inicis']['closeUrl'] = config('app.url')."shop/order/pgClose";
+        
         //
         // $goods_info = getGoodsDataCollection($req);
         // $params = Arr::collapse([$params, $goods_info]);
@@ -415,9 +417,8 @@ class OrderController extends Controller {
         로그인이 풀린다
         그래서 아래의 설정 추가
         /config/session.php
-            'same_site' => 'none',
-            'secure' => env('SESSION_SECURE_COOKIE', true),
-            
+            'same_site' => 'lax', <<- 주석
+
         \app\Http\Middleware\VerifyCsrfToken.php
             protected $except = [
                 'shop/order/payReturn',
@@ -503,7 +504,7 @@ class OrderController extends Controller {
         }
     }
 
-    public function payReturnMobaile(Request $req){
+    public function payReturnMobile(Request $req){
         if ($req->P_STATUS != "00") {
             $msg = "오류코드:".$req->P_STATUS."\\n".$req->P_RMESG1;
             return alertRedirect($msg);
@@ -522,8 +523,8 @@ class OrderController extends Controller {
             parse_str($inipay, $result);
 
             if ($result['P_STATUS'] == '00'){
-                $pgdb_rst = Pg::insert([
-                    'pg_od_no'    => $result['P_OID'],
+                $pgdb_rst = OrderPg::insert([
+                    'pg_od_id'    => $result['P_OID'],
                     'pg_app_no'   => $result['P_AUTH_NO'],
                     'pg_tid'      => $result['P_TID'],
                     'pg_pay_type' => $result['P_TYPE'],
@@ -531,24 +532,13 @@ class OrderController extends Controller {
                     'pg_card_com' => OrderPg::$option['cardComNm'][$result['P_FN_CD1']],
                     'pg_code'     => $result['P_STATUS'],
                     'pg_msg'      => $result['P_RMESG1']]);
-
-                if ( strpos( $result['P_NOTI'], "add_pay" ) === 0 ) {
-                    $return_info = explode('|', $result['P_NOTI']);
-                    DB::table('shop_order')->where('od_id', $return_info[1])->update(['od_step' => '20']);
-                    return redirect()->route('mypage.order.show', $return_info[1]);
-                } else {
-                    $ot = OrderTemp::find($result['P_NOTI']);
-                    $params = json_decode($ot->ot_data, TRUE);
-                    if($resultMap['applNum']) $params['od_step'] = '20';
-                    if ( (int)$params['od_all_price'] === (int)$result['P_AMT'] ) {
-                        $ot->delete();
-                        return view("web.shop.order.payReturn", $params);
-                    } else {
-                        abort(500, '카드결제에 실패 했습니다.\\n다시 해주시기 바랍니다.');
-                    }
-                }
+                
+                $od = $this->order->find(($result['P_NOTI']));
+                $od->od_step = '20';
+                $od->save();
+                return redirect("/shop/order/done/{$result['P_NOTI']}");               
             } else {
-                abort(500, '카드결제에 실패 했습니다.\\n다시 해주시기 바랍니다.');
+                return redirect("/shop/order/payCardFail?msg=카드결제에 실패 했습니다.\\n다시 해주시기 바랍니다.");
             }
         }
     }

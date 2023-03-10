@@ -143,7 +143,7 @@ return [
     */
 
     'path' => '/',
-    'same_site' => 'lax',
+    // 'same_site' => 'lax',
     'secure' => env('SESSION_SECURE_COOKIE'),
     // 'same_site' => 'none',
     // 'secure' => env('SESSION_SECURE_COOKIE', true),

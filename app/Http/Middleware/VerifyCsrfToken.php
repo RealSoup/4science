@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'shop/order/payReturn',
         'shop/order/payReturnMobaile',
+        'social/*/callback',
     ];
 }
