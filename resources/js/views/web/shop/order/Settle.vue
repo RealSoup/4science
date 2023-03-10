@@ -318,7 +318,7 @@
         <b-form-input name="P_UNAME"         :value="$store.state.auth.user.name" />
         <b-form-input name="P_NEXT_URL"      :value="inicis.returnUrlMobaile" />
         <b-form-input name="P_CHARSET"       value="utf8" />
-        <b-form-input name="P_NOTI"          value="" />
+        <b-form-input name="P_NOTI"          :value="order.od_id" />
     </form>
 </div>
 </template>
@@ -501,13 +501,9 @@ export default {
                     }
 
                     if (this.order.od_pay_method == 'C') {
-                        if(this.inicis.sale_env == 'P') {
-                            this.order.od_id = pay.data.od_id;
-                            INIStdPay.pay('SendPayForm');
-                        } else if(this.inicis.sale_env == 'M') {
-                            // $("input[name=P_NOTI]").val(response);
-                            // $("#MobilePayForm").submit();
-                        }
+                        this.order.od_id = pay.data.od_id;
+                        if(this.inicis.sale_env == 'P')         INIStdPay.pay('SendPayForm');
+                        else if(this.inicis.sale_env == 'M')    $("#MobilePayForm").submit();                        
                     } else {
                         
                     }
