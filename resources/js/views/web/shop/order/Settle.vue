@@ -309,7 +309,7 @@
         <b-form-input name="gopaymethod"    value="Card" />
         <b-form-input name="merchantData"   :value="order.od_id" />       
     </form>
-    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form1" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="EUC-KR">
+    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="EUC-KR">
         <b-form-input name="P_INI_PAYMENT"   value="CARD" />
         <b-form-input name="P_MID"           :value="inicis.mid" />
         <b-form-input name="P_OID"           :value="order.od_no" />
@@ -502,8 +502,33 @@ export default {
 
                     if (this.order.od_pay_method == 'C') {
                         this.order.od_id = pay.data.od_id;
-                        if(this.inicis.sale_env == 'P')         INIStdPay.pay('SendPayForm');
-                        else if(this.inicis.sale_env == 'M')    $("#MobilePayForm").submit();                        
+                        if(this.inicis.sale_env == 'P') 
+                            INIStdPay.pay('SendPayForm');
+                        else if(this.inicis.sale_env == 'M') {
+                            var form = document.createElement('form'); // 폼객체 생성
+                            var objs01 = document.createElement('input'); 
+                            var objs02 = document.createElement('input'); 
+                            var objs03 = document.createElement('input'); 
+                            var objs04 = document.createElement('input'); 
+                            var objs05 = document.createElement('input'); 
+                            var objs06 = document.createElement('input'); 
+                            var objs07 = document.createElement('input'); 
+                            var objs08 = document.createElement('input'); 
+                            var objs09 = document.createElement('input');
+                            objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                           form.appendChild(objs01);
+                            objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);                  form.appendChild(objs02);
+                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.order.od_no);                 form.appendChild(objs03);
+                            objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);               form.appendChild(objs04);
+                            objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);           form.appendChild(objs05);
+                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.$store.state.auth.user.name); form.appendChild(objs06);
+                            objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile);     form.appendChild(objs07);
+                            objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                           form.appendChild(objs08);
+                            objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);                 form.appendChild(objs09);                            
+                            form.setAttribute('method', 'post'); //get,post 가능
+                            form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
                     } else {
                         
                     }

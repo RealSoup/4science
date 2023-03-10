@@ -503,7 +503,10 @@ class OrderController extends Controller {
             return redirect("/shop/order/payCardFail?msg=".$params['msg']);
         }
     }
-
+    public function payRequestMobile(Request $req) {
+        $params=1;
+        return view("payRequestMobile", $params);
+    }
     public function payReturnMobile(Request $req){
         if ($req->P_STATUS != "00") {
             $msg = "오류코드:".$req->P_STATUS."\\n".$req->P_RMESG1;

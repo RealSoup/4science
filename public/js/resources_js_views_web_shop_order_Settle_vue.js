@@ -494,7 +494,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var pay, frm;
+        var pay, frm, form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -600,11 +600,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 44:
                 if (_this.order.od_pay_method == 'C') {
-                  if (_this.inicis.sale_env == 'P') {
-                    _this.order.od_id = pay.data.od_id;
-                    INIStdPay.pay('SendPayForm');
-                  } else if (_this.inicis.sale_env == 'M') {// $("input[name=P_NOTI]").val(response);
-                    // $("#MobilePayForm").submit();
+                  _this.order.od_id = pay.data.od_id;
+                  if (_this.inicis.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'M') {
+                    form = document.createElement('form'); // 폼객체 생성
+
+                    objs01 = document.createElement('input');
+                    objs02 = document.createElement('input');
+                    objs03 = document.createElement('input');
+                    objs04 = document.createElement('input');
+                    objs05 = document.createElement('input');
+                    objs06 = document.createElement('input');
+                    objs07 = document.createElement('input');
+                    objs08 = document.createElement('input');
+                    objs09 = document.createElement('input');
+                    objs01.setAttribute('name', 'P_INI_PAYMENT');
+                    objs01.setAttribute('value', 'CARD');
+                    form.appendChild(objs01);
+                    objs02.setAttribute('name', 'P_MID');
+                    objs02.setAttribute('value', _this.inicis.mid);
+                    form.appendChild(objs02);
+                    objs03.setAttribute('name', 'P_OID');
+                    objs03.setAttribute('value', _this.order.od_no);
+                    form.appendChild(objs03);
+                    objs04.setAttribute('name', 'P_GOODS');
+                    objs04.setAttribute('value', _this.order.od_name);
+                    form.appendChild(objs04);
+                    objs05.setAttribute('name', 'P_AMT');
+                    objs05.setAttribute('value', _this.order.price.total);
+                    form.appendChild(objs05);
+                    objs06.setAttribute('name', 'P_UNAME');
+                    objs06.setAttribute('value', _this.$store.state.auth.user.name);
+                    form.appendChild(objs06);
+                    objs07.setAttribute('name', 'P_NEXT_URL');
+                    objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
+                    form.appendChild(objs07);
+                    objs08.setAttribute('name', 'P_CHARSET');
+                    objs08.setAttribute('value', 'utf8');
+                    form.appendChild(objs08);
+                    objs09.setAttribute('name', 'P_NOTI');
+                    objs09.setAttribute('value', _this.order.od_id);
+                    form.appendChild(objs09);
+                    form.setAttribute('method', 'post'); //get,post 가능
+
+                    form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+
+                    document.body.appendChild(form);
+                    form.submit();
                   }
                 } else {} // await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
 
@@ -3004,7 +3045,7 @@ var render = function () {
         ? _c(
             "form",
             {
-              staticClass: "inicis_form1",
+              staticClass: "inicis_form",
               attrs: {
                 id: "MobilePayForm",
                 action: "https://mobile.inicis.com/smart/payment/",
@@ -3013,48 +3054,49 @@ var render = function () {
               },
             },
             [
-              _c("input", {
-                attrs: { type: "hidden", name: "P_INI_PAYMENT", value: "CARD" },
+              _c("b-form-input", {
+                attrs: { name: "P_INI_PAYMENT", value: "CARD" },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_MID" },
-                domProps: { value: _vm.inicis.mid },
+              _c("b-form-input", {
+                attrs: { name: "P_MID", value: _vm.inicis.mid },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_OID" },
-                domProps: { value: _vm.order.od_no },
+              _c("b-form-input", {
+                attrs: { name: "P_OID", value: _vm.order.od_no },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_GOODS" },
-                domProps: { value: _vm.order.od_name },
+              _c("b-form-input", {
+                attrs: { name: "P_GOODS", value: _vm.order.od_name },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_AMT" },
-                domProps: { value: _vm.order.price.total },
+              _c("b-form-input", {
+                attrs: { name: "P_AMT", value: _vm.order.price.total },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_UNAME" },
-                domProps: { value: _vm.$store.state.auth.user.name },
+              _c("b-form-input", {
+                attrs: {
+                  name: "P_UNAME",
+                  value: _vm.$store.state.auth.user.name,
+                },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_NEXT_URL" },
-                domProps: { value: _vm.inicis.returnUrlMobaile },
+              _c("b-form-input", {
+                attrs: {
+                  name: "P_NEXT_URL",
+                  value: _vm.inicis.returnUrlMobaile,
+                },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_CHARSET", value: "utf8" },
+              _c("b-form-input", {
+                attrs: { name: "P_CHARSET", value: "utf8" },
               }),
               _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "P_NOTI", value: "" },
+              _c("b-form-input", {
+                attrs: { name: "P_NOTI", value: _vm.order.od_id },
               }),
-            ]
+            ],
+            1
           )
         : _vm._e(),
     ],
