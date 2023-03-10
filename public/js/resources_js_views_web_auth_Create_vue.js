@@ -406,6 +406,7 @@ var render = function () {
       _vm._v(" "),
       _vm.$route.params.code == "sync"
         ? _c("FormSync", {
+            on: { register: _vm.register },
             model: {
               value: _vm.frm,
               callback: function ($$v) {

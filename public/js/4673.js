@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[4673],{14673:(e,n,t)=>{t.r(n),t.d(n,{default:()=>s});const l={name:"ShopOrderPayReturn"};const s=(0,t(51900).Z)(l,(function(){var e=this.$createElement;return(this._self._c||e)("div")}),[],!1,null,null,null).exports}}]);

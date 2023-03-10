@@ -47,39 +47,28 @@ class UserController extends Controller {
             'hp.required'                       => '휴대전화 번호를 입력해주세요',
         ])->validate();
 
-   
-
-
-
-        $model_user = new User;
-        $user = auth()->user();
-        
-        $user -> name =         $req -> name;
-        $user -> sex =          $req -> sex;
-        $user -> email =        $req -> email;
-        $user -> receive_mail = $req -> receive_mail;
-        $user -> birth =        $req -> birth;
-        $user -> hp =           $req -> hp;
-        $user -> receive_sms =  $req -> receive_sms;
-        $user -> tel =          $req -> tel;
-        $user -> fax =          $req -> fax;
-        $user -> job =          $req -> job;
-        $user -> office =       $req -> office;
-        $user -> department =   $req -> department;
-        $user -> grade =        $req -> grade;
-        $user -> tutor =        $req -> tutor;
-        $user -> offer =        $req -> offer;
-        $user -> offer_lab =    $req -> offer_lab;
-        $user -> interest =     $req->filled('interest') ? implode(", ", $req -> interest) : '';
-        $user -> interest_etc = $req -> interest_etc;
-        $user -> join_route =   $req -> join_route;
-
-        if ( $req->filled('password') ) {
-            $user->password = bcrypt($req->password);
-        }
-
+        $user = auth()->user();        
+        $user->name         = $req->name;
+        $user->sex          = $req->sex;
+        $user->email        = $req->email;
+        $user->receive_mail = $req->receive_mail;
+        $user->birth        = $req->birth;
+        $user->hp           = $req->hp;
+        $user->receive_sms  = $req->receive_sms;
+        $user->tel          = $req->tel;
+        $user->fax          = $req->fax;
+        $user->job          = $req->job;
+        $user->office       = $req->office;
+        $user->department   = $req->department;
+        $user->grade        = $req->grade;
+        $user->tutor        = $req->tutor;
+        $user->offer        = $req->offer;
+        $user->offer_lab    = $req->offer_lab;
+        $user->interest     = $req->filled('interest') ? implode(", ", $req -> interest) : '';
+        $user->interest_etc = $req->interest_etc;
+        $user->join_route   = $req->join_route;
+        if ( $req->filled('password') ) $user->password = bcrypt($req->password);
         $user->save();
-
         return response()->json("success", 200);
     }
 }

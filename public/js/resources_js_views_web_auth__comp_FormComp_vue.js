@@ -179,7 +179,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['value'],
   data: function data() {
+    var _this$$route$params$c;
+
     return {
+      user_type: (_this$$route$params$c = this.$route.params.code) !== null && _this$$route$params$c !== void 0 ? _this$$route$params$c : '',
       sex: [{
         value: "male",
         text: "남성"
@@ -191,6 +194,13 @@ __webpack_require__.r(__webpack_exports__);
       all_chk: false,
       isModalViewed: false
     };
+  },
+  computed: {
+    user_type_set: function user_type_set() {
+      if (isEmpty(this.value.id)) return this.user_type;else {
+        if (this.value.level < 10) return 'personal';else if (this.value.level < 20) return 'dealer';
+      }
+    }
   },
   methods: {
     getValidationState: function getValidationState(_ref) {
@@ -1192,7 +1202,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm.$route.params.code == "personal"
+      _vm.user_type_set == "personal"
         ? _c("FormUser", {
             model: {
               value: _vm.value,
@@ -1202,7 +1212,7 @@ var render = function () {
               expression: "value",
             },
           })
-        : _vm.$route.params.code == "dealer"
+        : _vm.user_type_set == "dealer"
         ? _c("FormDealer", {
             ref: "form_dealer",
             model: {

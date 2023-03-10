@@ -13,6 +13,7 @@ class Order extends Model {
     
     protected $orderConfig = [
         'step' => [
+            0 => [ 'receiveable' => false, 'class' => '',   'name' => '임시저장'],
             10 => [ 'receiveable' => false, 'class' => 'primary',   'name' => '주문접수'],
             11 => [ 'receiveable' => false, 'class' => 'warning',   'name' => '입금확인요청'],
             12 => [ 'receiveable' => false, 'class' => 'warning',   'name' => '입금확인중'],
@@ -53,6 +54,9 @@ class Order extends Model {
     ];
     //  이거 안하면 디비랑 다른(UTC) 시간을 내보낸다.
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
+
+    // 디폴트로 임시저장한 주문건은 제외
+    public function newQuery($excludeDeleted = true) { return parent::newQuery($excludeDeleted) ->where('od_step', '!=', 0); }
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
     public function getOrderConfig() { return $this->orderConfig; }

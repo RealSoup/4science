@@ -43,6 +43,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['value'],
   methods: {
+    register: function register() {
+      this.$emit('register');
+    },
     getValidationState: function getValidationState(_ref) {
       var dirty = _ref.dirty,
           validated = _ref.validated,
@@ -301,7 +304,7 @@ var render = function () {
                                   ) {
                                     return null
                                   }
-                                  return _vm.login.apply(null, arguments)
+                                  return _vm.register.apply(null, arguments)
                                 },
                               },
                               model: {

@@ -318,6 +318,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // import { validationChecker } from './_comp/FormValidation.js'
@@ -368,13 +388,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       modal_type: 'index',
       postcode_open: false,
       order: {
+        od_id: 0,
         goods: this.$route.params.od_goods,
         lists: {},
         price: {},
         od_no: "",
         od_name: "",
         od_type: this.$route.params.od_type,
-        od_pay_method: 'B',
+        od_pay_method: 'C',
         od_orderer: '',
         od_orderer_hp: "",
         od_orderer_hp1: '',
@@ -400,7 +421,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         extra: {
           oex_hasBizLicense: true,
           oex_file: null,
-          oex_depositor: 'asfdf',
+          oex_depositor: '',
           oex_email: '',
           oex_mng: '',
           oex_num_tel: '',
@@ -421,7 +442,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       addr: [],
       addr_edit_index: 0,
-      config: {}
+      config: {},
+      inicis: {}
     };
   },
   computed: {
@@ -448,12 +470,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    funNumCheck: function funNumCheck(val) {
-      return numCheck(val);
-    },
-    funIsEmpty: function funIsEmpty(val) {
-      return isEmpty(val);
-    },
     onPostcodeSlt: function onPostcodeSlt(result) {
       this.$set(this.order, 'od_zip', result.zonecode);
       var addr = result.roadAddress;
@@ -467,7 +483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var pay, frm, up;
+        var pay, frm;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -477,7 +493,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 54;
+                  _context.next = 45;
                   break;
                 }
 
@@ -547,20 +563,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
                 }
 
-                _context.prev = 32;
-                _context.next = 35;
+                _context.next = 34;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this.order);
 
-              case 35:
+              case 34:
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 48;
+                  _context.next = 45;
                   break;
                 }
 
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 46;
+                  _context.next = 44;
                   break;
                 }
 
@@ -569,37 +584,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_key', pay.data.od_id);
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 45;
+                _context.next = 44;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 45:
-                up = _context.sent;
-
-              case 46:
-                _context.next = 48;
-                return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
-                  name: 'order_done',
-                  params: {
-                    od_id: pay.data.od_id
+              case 44:
+                if (_this.order.od_pay_method == 'C') {
+                  if (_this.inicis.sale_env == 'P') {
+                    _this.order.od_id = pay.data.od_id;
+                    INIStdPay.pay('SendPayForm');
+                  } else if (_this.inicis.sale_env == 'M') {// $("input[name=P_NOTI]").val(response);
+                    // $("#MobilePayForm").submit();
                   }
-                });
+                } else {} // await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
 
-              case 48:
-                _context.next = 54;
-                break;
 
-              case 50:
-                _context.prev = 50;
-                _context.t1 = _context["catch"](32);
-                Notify.consolePrint(_context.t1);
-                Notify.toast('warning', _context.t1.responsee);
-
-              case 54:
+              case 45:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[32, 50]]);
+        }, _callee);
       }))();
     },
     email_domain_slt: function email_domain_slt() {
@@ -922,6 +926,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.order.od_name = res.data.od_name;
                 _this2.config = res.data.config;
                 _this2.addr = res.data.addr;
+                _this2.inicis = res.data.inicis;
 
                 _this2.set_orderer();
 
@@ -945,11 +950,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2, null, [[25, 32]]);
     }))();
   },
-  mounted: function mounted() {// console.log(this.$session.get('order'));
+  mounted: function mounted() {
+    // console.log(this.$session.get('order'));
     // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
     //     console.log('collapseId:', collapseId)
     //     console.log('isJustShown:', isJustShown)
     // })
+    var plugin = document.createElement("script");
+    plugin.setAttribute("src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js"); //  테스트1
+    // plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
+
+    plugin.async = true;
+    document.head.appendChild(plugin);
   }
 });
 
@@ -972,7 +984,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(2) .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a] { display:block; flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select[data-v-6c9bc94a] { max-width:446px;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs>button[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; width:28%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(2) .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a] { display:block; flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select[data-v-6c9bc94a] { max-width:446px;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs>button[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; width:28%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle #SendPayForm[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1229,7 +1241,7 @@ var render = function () {
                                 _vm._v(" "),
                                 _c("p", [
                                   _vm._v(
-                                    "\n                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, \n                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, \n                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, \n                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 \n                                    보유 및 이용기간: 3개월\n                                "
+                                    "\r\n                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, \r\n                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, \r\n                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, \r\n                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 \r\n                                    보유 및 이용기간: 3개월\r\n                                "
                                   ),
                                 ]),
                                 _vm._v(" "),
@@ -1400,7 +1412,7 @@ var render = function () {
                                 [
                                   _c("b-card", [
                                     _vm._v(
-                                      "\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\n                            "
+                                      "\r\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\r\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\r\n                            "
                                     ),
                                   ]),
                                 ],
@@ -2028,7 +2040,7 @@ var render = function () {
                             _vm._s(_vm._f("comma")(_vm.order.price.total))
                           ),
                         ]),
-                        _vm._v(" 원\n                        "),
+                        _vm._v(" 원\r\n                        "),
                         _c("span", [_vm._v("부가세 포함")]),
                       ]),
                     ],
@@ -2192,7 +2204,7 @@ var render = function () {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                                        국민은행 010-01-0944-960\n                                    "
+                                              "\r\n                                        국민은행 010-01-0944-960\r\n                                    "
                                             ),
                                           ]
                                         ),
@@ -2216,7 +2228,7 @@ var render = function () {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                                        우리은행 849-103249-13-002\n                                    "
+                                              "\r\n                                        우리은행 849-103249-13-002\r\n                                    "
                                             ),
                                           ]
                                         ),
@@ -2894,6 +2906,75 @@ var render = function () {
                 2
               )
             : _vm._e(),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { id: "SendPayForm", method: "POST" } },
+        [
+          _c("b-form-input", {
+            attrs: {
+              name: "buyername",
+              value: _vm.$store.state.auth.user.name,
+            },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "buyertel", value: _vm.$store.state.auth.user.hp },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: {
+              name: "buyeremail",
+              value: _vm.$store.state.auth.user.email,
+            },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", { attrs: { name: "version", value: "1.0" } }),
+          _vm._v(" "),
+          _c("b-form-input", { attrs: { name: "mid", value: _vm.inicis.mid } }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "goodname", value: _vm.order.od_name },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "oid", value: _vm.order.od_no },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "price", value: _vm.order.price.total },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", { attrs: { name: "currency", value: "WON" } }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "timestamp", value: _vm.inicis.timestamp },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "signature", value: _vm.inicis.sign },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "returnUrl", value: _vm.inicis.returnUrl },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "closeUrl", value: _vm.inicis.closeUrl },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "mKey", value: _vm.inicis.mKey },
+          }),
+          _vm._v(" "),
+          _c("b-form-input", { attrs: { name: "gopaymethod", value: "Card" } }),
+          _vm._v(" "),
+          _c("b-form-input", {
+            attrs: { name: "merchantData", value: _vm.order.od_id },
+          }),
         ],
         1
       ),

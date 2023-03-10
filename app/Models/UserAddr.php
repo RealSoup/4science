@@ -10,9 +10,9 @@ class UserAddr extends Model {
     protected $guarded = [];
     protected $appends = ['ua_hp1', 'ua_hp2', 'ua_hp3'];
 
-    public function getUaHp1Attribute() { return explode('-', $this->ua_hp)[0]; }
-    public function getUaHp2Attribute() { return explode('-', $this->ua_hp)[1]; }
-    public function getUaHp3Attribute() { return explode('-', $this->ua_hp)[2]; }
+    public function getUaHp1Attribute() { return count(explode('-', $this->ua_hp))>0 ? explode('-', $this->ua_hp)[0] : ''; }
+    public function getUaHp2Attribute() { return count(explode('-', $this->ua_hp))>1 ? explode('-', $this->ua_hp)[1] : ''; }
+    public function getUaHp3Attribute() { return count(explode('-', $this->ua_hp))>2 ? explode('-', $this->ua_hp)[2] : ''; }
 
     // public function user() { return $this->belongsTo(User::class, 'ua_key'); }
 }

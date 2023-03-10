@@ -224,6 +224,12 @@ export default {
         let rst = await ax.get(`/api/main`);
         this.bestByCategory = rst.data.bestByCate;
         this.list.best = rst.data.best;
+        if ( this.$route.query.rst=='social_login' ) {  //  소셜 로그인 후 개인정보가 없으면
+            if (isEmpty(this.$store.state.auth.user.email) || isEmpty(this.$store.state.auth.user.name) || isEmpty(this.$store.state.auth.user.birth) || isEmpty(this.$store.state.auth.user.hp)) {
+                this.$router.push({ name: 'my_user_edit'});
+                Notify.modal('필수 개인정보를 입력하세요.', 'warning');
+            }
+        }
     },
     beforeDestroy: function () {
        window.removeEventListener('scroll', this.scrollListener)

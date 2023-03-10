@@ -44,7 +44,7 @@ class LoginController extends Controller {
                 DB::table('users')->where('id', auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
 
             event(new LoginAfter());
-            
+            // if ($request->hasSession()) $request->session()->put('auth.password_confirmed_at', time());
             return $this->sendLoginResponse($request);
         }
         $this->incrementLoginAttempts($request);

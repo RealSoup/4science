@@ -41,19 +41,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -94,7 +81,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 _this.frm, // 수정하려는 객체
                 {
-                  _method: 'PATCH'
+                  _method: 'PATCH',
+                  hp: "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03)
                 } // 삽입하려는 내용
                 );
                 _context.next = 4;
@@ -279,32 +267,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
+    { staticClass: "w_fence" },
     [
-      _c(
-        "b-row",
-        [
-          _c("b-col", { staticClass: "pTitle" }, [
-            _c("span", [_c("i", [_vm._v("회")])]),
-            _vm._v(" "),
-            _c("span", [_c("i", [_vm._v("원")])]),
-            _vm._v(" "),
-            _c("span", [_c("i", [_vm._v("정")])]),
-            _vm._v(" "),
-            _c("span", [_c("i", [_vm._v("보")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "break d-md-block d-none" }),
-            _vm._v(" "),
-            _c("span", [_c("i", [_vm._v("수")])]),
-            _vm._v(" "),
-            _c("span", [_c("i", [_vm._v("정")])]),
-            _vm._v(" "),
-            _c("div", { staticClass: "break" }),
-            _vm._v(" "),
-            _c("span", [_c("i")]),
-          ]),
-        ],
-        1
-      ),
+      _c("h3", [_vm._v("회원정보 수정")]),
       _vm._v(" "),
       _c("FormComp", {
         model: {
@@ -321,15 +286,11 @@ var render = function () {
         [
           _c(
             "b-col",
-            { staticClass: "text-center" },
+            { staticClass: "btn_box" },
             [
               _c(
                 "b-button",
-                {
-                  staticClass: "w-25",
-                  attrs: { variant: "primary" },
-                  on: { click: _vm.update },
-                },
+                { staticClass: "blue xl", on: { click: _vm.update } },
                 [_vm._v("적용")]
               ),
             ],

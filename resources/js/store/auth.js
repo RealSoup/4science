@@ -1,4 +1,5 @@
 import ax from '@/api/http';
+import router from '@/router';
 
 export default {
     namespaced: true,
@@ -36,10 +37,12 @@ export default {
             }).catch(() => {});
         },
         async logout(context){
-            await ax.post('/logout')
-            context.commit('setIsLoggedin', false)
-            context.commit('setUser', null)
-            context.commit('setToken', null)
+            await ax.post('/logout');
+            context.commit('setIsLoggedin', false);
+            context.commit('setUser', null);
+            context.commit('setToken', null);
+            console.log(router.name);
+            router.push({ name: 'main' });
         },
         async getAuth({commit}){
             await ax.get('/api/user').then((response) => {

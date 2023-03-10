@@ -8,9 +8,11 @@
         <b-tab title="취소/교환"><BoardCreate :cs_bo_cd="'cancel'" /></b-tab>
         <b-tab title="FAQ"><Faq /></b-tab>
     </b-tabs>
+    
+    <div id="info_tab_scroll"><!-- 스크롤 이동을 위한 테그 --></div>
 
-    <b-tabs class="cscenter_tab info_tab" vertical>
-        <b-tab title="견적문의 안내" active><EstimateGuide /></b-tab>
+    <b-tabs class="cscenter_tab info_tab" vertical v-model="info_tab">
+        <b-tab title="견적문의 안내"><EstimateGuide /></b-tab>
         <b-tab title="주문 안내"><OrderGuide /></b-tab>
         <b-tab title="결제 안내"><PayGuide /></b-tab>
         <b-tab title="회원혜택 안내"><img :src="`${s3url}cscenter/member_info.png`" style="" /></b-tab>
@@ -28,6 +30,22 @@ export default {
         'PayGuide': () =>       import('./_comp/PayGuide'),
         'Faq': () =>            import('./_comp/Faq'),
     },
+    data() {
+        return {
+            info_tab:0,
+        }
+    },
+    mounted() {
+        if (this.$route.query.view_type == 'membership')
+            this.$nextTick(function () {
+                this.info_tab=3;
+                document.getElementById('info_tab_scroll').scrollIntoView();
+                // this.$route.params?.target && this.$refs.target?.scrollIntoView();
+                // https://velog.io/@tjdud0123/vue-router-target-scroll
+            });
+            
+        
+    },
 };
 </script>
 
@@ -37,6 +55,8 @@ export default {
 #cscenter >>> .cscenter_tab>.col-auto .nav-tabs .nav-link { background:#4F708F; color:#FFF; font-weight:bold; text-align:center; border:1px solid #FFF; padding:47px 0; border-radius:0; }
 #cscenter >>> .cscenter_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#4F708F; }
 #cscenter >>> .cscenter_tab>.tab-content { padding:30px 45px 0; }
+
+#cscenter #info_tab_scroll { position:relative; top:-100px; }
 
 #cscenter >>> .info_tab>.col-auto .nav-tabs .nav-link { background:#01B7CD; }
 #cscenter >>> .info_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#01B7CD; }

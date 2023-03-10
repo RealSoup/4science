@@ -17,7 +17,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         Route::GET('mypage/print/{code}', 'MyPageController@print');
-        Route::RESOURCE('mypage', MyPageController::class)->only([ 'index', 'edit', 'update', 'destroy' ]);
+        // Route::RESOURCE('mypage', MyPageController::class)->only([ 'index', 'edit', 'update', 'destroy' ]);
         
 
         Route::RESOURCE('mileage', 'MileageController')->only([ 'index', 'store' ]);

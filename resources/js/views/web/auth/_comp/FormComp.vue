@@ -128,8 +128,8 @@
             </b-row>
         </b-container>
     </b-col>
-    <FormUser v-if="$route.params.code == 'personal'" v-model="value" />  
-    <FormDealer ref="form_dealer" v-else-if="$route.params.code == 'dealer'" v-model="value" />        
+    <FormUser v-if="user_type_set == 'personal'" v-model="value" />  
+    <FormDealer ref="form_dealer" v-else-if="user_type_set == 'dealer'" v-model="value" />        
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
             <Inexus v-if="modalMode == 'inexus'" @close-modal="isModalViewed = false" />
@@ -154,6 +154,7 @@ export default {
     props: ['value'],
     data() {
         return {
+            user_type:this.$route.params.code??'',
             sex:[
                 { value:"male",     text:"남성" },
                 { value:"female",   text:"여성" },
@@ -162,6 +163,16 @@ export default {
             all_chk:false,
             isModalViewed: false,
         }
+    },
+    computed: {
+        user_type_set() {
+            if ( isEmpty(this.value.id) )
+                return this.user_type;
+            else {
+                if ( this.value.level<10  ) return 'personal';
+                else if ( this.value.level<20  ) return 'dealer';
+            }
+        },
     },
     methods: {
         getValidationState({ dirty, validated, valid = null }) {

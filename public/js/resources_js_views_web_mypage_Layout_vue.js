@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container h2[data-v-bc72bc98] { margin:2rem 1rem; font-weight:bold;\n}\n#mypage .top[data-v-bc72bc98] { border:1px solid #9EA7B0;\n}\n#mypage .top .col[data-v-bc72bc98] { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative;\n}\n#mypage .top .col p[data-v-bc72bc98] { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold;\n}\n#mypage .top .col b[data-v-bc72bc98] { font-size:1.6rem; color:#186CB4; font-weight:bold; line-height:1;\n}\n#mypage .top .col b small[data-v-bc72bc98] { font-size:1.1rem;\n}\n#mypage .top .col a[data-v-bc72bc98] { color:#FFF; display:block; margin-top:.25rem; font-size:.9rem;\n}\n#mypage .top .col[data-v-bc72bc98]:nth-child(2):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(3):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(4):after { background:url(/img/mypage/divider.png) no-repeat 0px 0px; content:\"\"; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px;\n}\n#mypage .top .name[data-v-bc72bc98] { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0;\n}\n#mypage .top .name b[data-v-bc72bc98] { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold;\n}\n#mypage .top .od_step[data-v-bc72bc98] { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem;\n}\n#mypage .top .od_step p[data-v-bc72bc98] { margin-bottom:.1rem;\n}\n#mypage .top .od_step ul[data-v-bc72bc98] { display:flex;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { text-align:center; font-size:.79rem; flex-grow:1;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { color:#fff; position:relative;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child) { margin-right:2rem;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem;\n}\n#mypage .top .od_step ul li a[data-v-bc72bc98] { position:absolute; top:-14px; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center;\n}\n#mypage .top .od_step ul li img[data-v-bc72bc98] { display:block; margin:0 auto -.05rem auto;\n}\n#mypage .middle .left[data-v-bc72bc98] { flex-basis:200px; max-width:200px; padding:0;\n}\n#mypage .middle .left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n#mypage .middle .left .nav li[data-v-bc72bc98] { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0;\n}\n#mypage .middle .left .nav li h5[data-v-bc72bc98] { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98]:hover { background-color:#00ADBB; color:#fff; font-weight:bold;\n}\n#mypage .middle .left .b-sidebar-outer[data-v-bc72bc98] { z-index:16;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container h2[data-v-bc72bc98] { margin:2rem 1rem; font-weight:bold;\n}\n#mypage .top[data-v-bc72bc98] { border:1px solid #9EA7B0;\n}\n#mypage .top .col[data-v-bc72bc98] { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative;\n}\n#mypage .top .col p[data-v-bc72bc98] { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold;\n}\n#mypage .top .col b[data-v-bc72bc98] { font-size:1.6rem; color:#186CB4; font-weight:bold; line-height:1;\n}\n#mypage .top .col b small[data-v-bc72bc98] { font-size:1.1rem;\n}\n#mypage .top .col a[data-v-bc72bc98] { color:#FFF; display:block; margin-top:.25rem; font-size:.9rem;\n}\n#mypage .top .col[data-v-bc72bc98]:nth-child(2):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(3):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(4):after { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/divider.png) no-repeat 0px 0px; content:\"\"; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px;\n}\n#mypage .top .name[data-v-bc72bc98] { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0;\n}\n#mypage .top .name b[data-v-bc72bc98] { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold;\n}\n#mypage .top .od_step[data-v-bc72bc98] { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem;\n}\n#mypage .top .od_step p[data-v-bc72bc98] { margin-bottom:.1rem;\n}\n#mypage .top .od_step ul[data-v-bc72bc98] { display:flex;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { text-align:center; font-size:.79rem; flex-grow:1;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { color:#fff; position:relative;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child) { margin-right:2rem;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem;\n}\n#mypage .top .od_step ul li a[data-v-bc72bc98] { position:absolute; top:-14px; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center;\n}\n#mypage .top .od_step ul li img[data-v-bc72bc98] { display:block; margin:0 auto -.05rem auto;\n}\n#mypage .middle .left[data-v-bc72bc98] { flex-basis:200px; max-width:200px; padding:0;\n}\n#mypage .middle .left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n#mypage .middle .left .nav li[data-v-bc72bc98] { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0;\n}\n#mypage .middle .left .nav li h5[data-v-bc72bc98] { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98]:hover { background-color:#00ADBB; color:#fff; font-weight:bold;\n}\n#mypage .middle .left .b-sidebar-outer[data-v-bc72bc98] { z-index:16;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -458,75 +458,33 @@ var render = function () {
                 "b",
                 [
                   _vm.user.level == 1
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_normal.png" },
-                        }),
-                        _vm._v("일반"),
-                      ]
+                    ? [_vm._v("       일반")]
                     : _vm.user.level == 2
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_bronze.png" },
-                        }),
-                        _vm._v("브론즈"),
-                      ]
+                    ? [_vm._v("  브론즈")]
                     : _vm.user.level == 3
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_silver.png" },
-                        }),
-                        _vm._v("실버"),
-                      ]
+                    ? [_vm._v("  실버")]
                     : _vm.user.level == 4
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_gold.png" },
-                        }),
-                        _vm._v("골드"),
-                      ]
+                    ? [_vm._v("  골드")]
                     : _vm.user.level == 5
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_diamond.png" },
-                        }),
-                        _vm._v("다이아"),
-                      ]
+                    ? [_vm._v("  다이아")]
                     : _vm.user.level == 11
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_normal_d.png" },
-                        }),
-                        _vm._v("딜러"),
-                      ]
+                    ? [_vm._v(" 딜러")]
                     : _vm.user.level == 13
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_silver_d.png" },
-                        }),
-                        _vm._v("실버딜러"),
-                      ]
+                    ? [_vm._v(" 실버딜러")]
                     : _vm.user.level == 14
-                    ? [
-                        _c("img", {
-                          attrs: { src: "/img/mypage/mb_mark_gold_d.png" },
-                        }),
-                        _vm._v("골드딜러"),
-                      ]
+                    ? [_vm._v(" 골드딜러")]
                     : _vm.user.level > 14
-                    ? [
-                        _vm._v(
-                          "                                               킹왕짱"
-                        ),
-                      ]
+                    ? [_vm._v("  킹왕짱")]
                     : _vm._e(),
                 ],
                 2
               ),
               _vm._v(" "),
-              _c("b-link", { attrs: { to: "/foo" } }, [
-                _vm._v("혜택 보러가기 >"),
-              ]),
+              _c(
+                "b-link",
+                { attrs: { to: "/cscenter?view_type=membership" } },
+                [_vm._v("혜택 보러가기 >")]
+              ),
             ],
             1
           ),
@@ -820,19 +778,17 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "li",
-                      [
-                        _c(
-                          "b-link",
-                          {
-                            attrs: { to: "/mypage/print", "router-tag": "h5" },
-                          },
-                          [_vm._v("서류 출력")]
-                        ),
-                      ],
-                      1
-                    ),
+                    _c("li", [
+                      _c(
+                        "h5",
+                        [
+                          _c("b-link", { attrs: { to: "/mypage/print" } }, [
+                            _vm._v("서류 출력"),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ]),
                     _vm._v(" "),
                     _c(
                       "li",

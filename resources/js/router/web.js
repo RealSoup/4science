@@ -5,6 +5,12 @@ const isLoggedin = () => (to, from, next) => {
     next({name:'login', query:{redirect:to.path}});
     Notify.modal("로그인이 필요한 서비스입니다.", 'danger');
 };
+// const hasRequiredInfo = () => (to, from, next) => {
+//     if (isEmpty(store.state.auth.user.email) || isEmpty(store.state.auth.user.password) || isEmpty(store.state.auth.user.name) || isEmpty(store.state.auth.user.birth) || isEmpty(store.state.auth.user.hp)) 
+//         return next();    
+//     next({name:'my_user_edit'});
+//     Notify.modal("필수 개인정보를 입력하세요.", 'danger');
+// };
 
 const isNotLoggedin = () => (to, from, next) => {
     if (!store.state.auth.isLoggedin)
@@ -192,10 +198,25 @@ export default [
         name: 'order_settle',
         component:() => import('@/views/web/shop/order/Settle'),
         beforeEnter: isLoggedin(),
-    },{
+    }, {
+        path: '/shop/order/payReturn',
+        name: 'order_pay_return',
+        component:() => import('@/views/web/shop/order/payReturn'),
+        // beforeEnter: isLoggedin(),
+    }, {
         path: '/shop/order/done/:od_id',
         name: 'order_done',
         component:() => import('@/views/web/shop/order/Done'),
+        // beforeEnter: isLoggedin(),
+    }, {
+        path: '/shop/order/pgClose',
+        name: 'order_pgclose',
+        component:() => import('@/views/web/shop/order/PgClose'),
+        beforeEnter: isLoggedin(),
+    }, {
+        path: '/shop/order/payCardFail',
+        name: 'order_pay_card_fail',
+        component:() => import('@/views/web/shop/order/PayCardFail'),
         beforeEnter: isLoggedin(),
     },
 

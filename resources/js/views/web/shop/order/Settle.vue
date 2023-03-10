@@ -1,297 +1,317 @@
 <template>
-    <div id="settle">
+<div id="settle">
 
-        <h2>결제하기</h2>
+    <h2>결제하기</h2>
 
-        <h4>01. 주문 상품 확인</h4>
+    <h4>01. 주문 상품 확인</h4>
 
-        <PaList v-model="order.lists" :price="order.price" />
-        
-        <b-container class="st_bottom">
-            <b-row>
-                <b-col class="inputs">
-                    <b-row class="agreement">
+    <PaList v-model="order.lists" :price="order.price" />
+    
+    <b-container class="st_bottom">
+        <b-row>
+            <b-col class="inputs">
+                <b-row class="agreement">
+                    <b-col>
+                        <div class="head">
+                            <span>개인정보 수집 및 이용 동의 <span v-b-toggle.privacy>[자세히 보기]</span></span>
+                            <b-form-radio v-model="order.privacy" value="Y">동의함</b-form-radio>
+                            <b-form-radio v-model="order.privacy" value="N">동의하지 않음</b-form-radio>
+                        </div>
+                        
+                        <b-collapse id="privacy">
+                            <b-card>
+                                <p>회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.</p>
+                                <p>제공대상: 포사이언스</p>
+                                <p>
+                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, 
+                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, 
+                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, 
+                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 
+                                    보유 및 이용기간: 3개월
+                                </p>
+
+                                <p>다만, 아래의 경우에는 예외로 합니다.</p>
+                                <p>- 이용자들이 사전에 동의한 경우</p>
+                                <p>- 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우</p>
+                            </b-card>
+                        </b-collapse>
+                    </b-col>
+                    <b-col v-if="isDlvyAir">
+                        <div class="head">
+                            <span>단순 제품 교환 및 반품 불가 안내 <span v-b-toggle.dlvy_air>[자세히 보기]</span></span>
+                            <b-form-radio v-model="order.dlvy_air" value="Y">동의함</b-form-radio>
+                            <b-form-radio v-model="order.dlvy_air" value="N">동의하지 않음</b-form-radio>
+                        </div>
+                        
+                        <b-collapse id="dlvy_air">
+                            <b-card>해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.</b-card>
+                        </b-collapse>
+                    </b-col>
+                    <b-col v-else>
+                        <div class="head">
+                            <span>구매자 및 사용자 확인사항 <span v-b-toggle.check_terms>[자세히 보기]</span></span>
+                            <b-form-radio v-model="order.check_terms" value="Y">동의함</b-form-radio>
+                            <b-form-radio v-model="order.check_terms" value="N">동의하지 않음</b-form-radio>
+                        </div>
+                        
+                        <b-collapse id="check_terms">
+                            <b-card>
+                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.
+                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.
+                            </b-card>
+                        </b-collapse>
+                    </b-col>
+                </b-row>
+
+                <div class="orderer">
+                    <h4>02. 주문자 정보</h4>
+                    <b-row>
+                        <label for="od_orderer">주문자명<i class="require" /></label>
+                        <b-col><b-form-input v-model="order.od_orderer" ref="od_orderer" id="od_orderer" /></b-col>
+                    </b-row>
+                    <b-row>
+                        <label for="od_orderer_hp">연락처<i class="require" /></label>
                         <b-col>
-                            <div class="head">
-                                <span>개인정보 수집 및 이용 동의 <span v-b-toggle.privacy>[자세히 보기]</span></span>
-                                <b-form-radio v-model="order.privacy" value="Y">동의함</b-form-radio>
-                                <b-form-radio v-model="order.privacy" value="N">동의하지 않음</b-form-radio>
-                            </div>
-                            
-                            <b-collapse id="privacy">
-                                <b-card>
-                                    <p>회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.</p>
-                                    <p>제공대상: 포사이언스</p>
-                                    <p>
-                                        제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, 
-                                        인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, 
-                                        이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, 
-                                        로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 
-                                        보유 및 이용기간: 3개월
-                                    </p>
-
-                                    <p>다만, 아래의 경우에는 예외로 합니다.</p>
-                                    <p>- 이용자들이 사전에 동의한 경우</p>
-                                    <p>- 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우</p>
-                                </b-card>
-                            </b-collapse>
-                        </b-col>
-                        <b-col v-if="isDlvyAir">
-                            <div class="head">
-                                <span>단순 제품 교환 및 반품 불가 안내 <span v-b-toggle.dlvy_air>[자세히 보기]</span></span>
-                                <b-form-radio v-model="order.dlvy_air" value="Y">동의함</b-form-radio>
-                                <b-form-radio v-model="order.dlvy_air" value="N">동의하지 않음</b-form-radio>
-                            </div>
-                            
-                            <b-collapse id="dlvy_air">
-                                <b-card>해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.</b-card>
-                            </b-collapse>
-                        </b-col>
-                        <b-col v-else>
-                            <div class="head">
-                                <span>구매자 및 사용자 확인사항 <span v-b-toggle.check_terms>[자세히 보기]</span></span>
-                                <b-form-radio v-model="order.check_terms" value="Y">동의함</b-form-radio>
-                                <b-form-radio v-model="order.check_terms" value="N">동의하지 않음</b-form-radio>
-                            </div>
-                            
-                            <b-collapse id="check_terms">
-                                <b-card>
-                                    구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.
-                                    이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.
-                                </b-card>
-                            </b-collapse>
+                            <b-form-input v-model="order.od_orderer_hp1" ref="od_orderer_hp1" @input.native="focusNext($event, 3, 'od_orderer_hp2')" :formatter="maxlength_3" id="od_orderer_hp" /><b-icon-dash />
+                            <b-form-input v-model="order.od_orderer_hp2" ref="od_orderer_hp2" @input.native="focusNext($event, 4, 'od_orderer_hp3')" :formatter="maxlength_4" /><b-icon-dash />
+                            <b-form-input v-model="order.od_orderer_hp3" ref="od_orderer_hp3" @input.native="focusNext($event, 4, 'od_orderer_email_id')" :formatter="maxlength_4" />
                         </b-col>
                     </b-row>
-
-                    <div class="orderer">
-                        <h4>02. 주문자 정보</h4>
-                        <b-row>
-                            <label for="od_orderer">주문자명<i class="require" /></label>
-                            <b-col><b-form-input v-model="order.od_orderer" ref="od_orderer" id="od_orderer" /></b-col>
-                        </b-row>
-                        <b-row>
-                            <label for="od_orderer_hp">연락처<i class="require" /></label>
-                            <b-col>
-                                <b-form-input v-model="order.od_orderer_hp1" ref="od_orderer_hp1" @input.native="focusNext($event, 3, 'od_orderer_hp2')" :formatter="maxlength_3" id="od_orderer_hp" /><b-icon-dash />
-                                <b-form-input v-model="order.od_orderer_hp2" ref="od_orderer_hp2" @input.native="focusNext($event, 4, 'od_orderer_hp3')" :formatter="maxlength_4" /><b-icon-dash />
-                                <b-form-input v-model="order.od_orderer_hp3" ref="od_orderer_hp3" @input.native="focusNext($event, 4, 'od_orderer_email_id')" :formatter="maxlength_4" />
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <label for="od_orderer_email">이메일<i class="require" /></label>
-                            <b-col>
-                                <b-form-input v-model="order.od_orderer_email_id" id="od_orderer_email" ref="od_orderer_email_id" /><b-icon-at />
-                                <b-form-input v-model="order.od_orderer_email_domain" />
-                                <b-form-select v-model="order.od_orderer_email_domain_slt" @change="email_domain_slt">
-                                    <b-form-select-option value="">직접입력</b-form-select-option>
-                                    <b-form-select-option v-for="(dm, i) in config.email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
-                                </b-form-select>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <label for="od_department">소속</label>
-                            <b-col><b-form-input v-model="order.od_department" id="od_department" /></b-col>
-                        </b-row>
-                    </div>
-
-                    <div id="address" class="address">
-                        <h4>
-                            <span>03. 배송지 정보</span>
-                            <div>
-                                <b-form-radio v-model="order.addr_type" value="D" @change="change_addr_type">기본 배송지</b-form-radio>
-                                <b-form-radio v-model="order.addr_type" value="N" @change="change_addr_type">신규 배송지</b-form-radio>
-                                <b-button variant="light" @click="config_addr">배송지 관리</b-button>
-                            </div>
-                        </h4>
-                        <b-row>
-                            <label for="od_orderer">배송지명</label>
-                            <b-col>{{order.od_ua_title}}</b-col>
-                        </b-row>
-                        <b-row>
-                            <label for="od_receiver">수령인<i class="require" /></label>
-                            <b-col>
-                                <b-form-input v-model="order.od_receiver" ref="od_receiver" id="od_receiver" />
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <label for="od_receiver_hp">연락처<i class="require" /></label>
-                            <b-col>
-                                <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash />
-                                <b-form-input v-model="order.od_receiver_hp2" ref="od_receiver_hp2" @input.native="focusNext($event, 4, 'od_receiver_hp3')" :formatter="maxlength_4" /><b-icon-dash />
-                                <b-form-input v-model="order.od_receiver_hp3" ref="od_receiver_hp3" @input.native="focusNext($event, 4, 'btn_postcode')" :formatter="maxlength_4" />
-                            </b-col>
-                        </b-row>                        
-                        <b-row>
-                            <label for="od_department">주소<i class="require" /></label>
-                            <b-col>
-                                <div>
-                                    <b-form-input v-model="order.od_zip" readonly />
-                                    <span class="btn" @click="postcode_open = !postcode_open" ref="btn_postcode">
-                                        <template v-if="postcode_open"><b-icon-x-square-fill /></template>
-                                        <template v-else>우편번호 찾기</template>
-                                    </span>
-
-                                    <template v-if="postcode_open">
-                                        <VueDaumPostcode class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" >
-                                            <template #loading>
-                                                <b-spinner variant="success" label="Spinning" />
-                                            </template>
-                                        </VueDaumPostcode>
-                                    </template>
-                                </div>
-                                <b-form-input v-model="order.od_addr1" readonly />
-                                <b-form-input v-model="order.od_addr2" ref="od_addr2" />
-                            </b-col>
-                        </b-row>
-                        
-                        <b-row>
-                            <label for="od_memo">배송 요청사항</label>
-                            <b-col>
-                                <b-form-select v-model="order.od_memo_slt" @change="memo_slt">
-                                    <b-form-select-option value="">선택</b-form-select-option>
-                                    <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
-                                </b-form-select>
-                                <b-form-input v-model="order.od_memo" id="od_memo" />
-                            </b-col>
-                        </b-row>
-                    </div>
-                    <b-button  variant="primary" size="lg" @click="exePayment">주문하기</b-button>
-                </b-col>
-
-                <b-col id="payment" class="payment">
-                    <b-row class="top">
-                        <b-col>최종 결제 금액</b-col>
+                    <b-row>
+                        <label for="od_orderer_email">이메일<i class="require" /></label>
                         <b-col>
-                            <b>{{order.price.total | comma}}</b> 원
-                            <span>부가세 포함</span>
+                            <b-form-input v-model="order.od_orderer_email_id" id="od_orderer_email" ref="od_orderer_email_id" /><b-icon-at />
+                            <b-form-input v-model="order.od_orderer_email_domain" />
+                            <b-form-select v-model="order.od_orderer_email_domain_slt" @change="email_domain_slt">
+                                <b-form-select-option value="">직접입력</b-form-select-option>
+                                <b-form-select-option v-for="(dm, i) in config.email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
+                            </b-form-select>
                         </b-col>
                     </b-row>
-                    <div class="body">
-                        <h5>결제 수단</h5>
-                        <div class="method">
-                            <div v-for="(v, k) in config.pay_method" :key="k">
-                                <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
-                                <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                                <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                                <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                                <span v-else-if="k=='R'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                                <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            </div> 
+                    <b-row>
+                        <label for="od_department">소속</label>
+                        <b-col><b-form-input v-model="order.od_department" id="od_department" /></b-col>
+                    </b-row>
+                </div>
+
+                <div id="address" class="address">
+                    <h4>
+                        <span>03. 배송지 정보</span>
+                        <div>
+                            <b-form-radio v-model="order.addr_type" value="D" @change="change_addr_type">기본 배송지</b-form-radio>
+                            <b-form-radio v-model="order.addr_type" value="N" @change="change_addr_type">신규 배송지</b-form-radio>
+                            <b-button variant="light" @click="config_addr">배송지 관리</b-button>
                         </div>
-
-                        <transition name="slideUpDown">
-                            <div v-if="order.od_pay_method == 'B'" class="pay_info">
-                                <h6>무통장 입금</h6>
-                                <b-row>
-                                    <b-col cols="3">결제금액</b-col>
-                                    <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col cols="3">은행선택</b-col>
-                                    <b-col>
-                                        <b-form-radio v-model="order.extra.oex_bank" value="K">
-                                            국민은행 010-01-0944-960
-                                        </b-form-radio>
-                                        <b-form-radio v-model="order.extra.oex_bank" value="W">
-                                            우리은행 849-103249-13-002
-                                        </b-form-radio>
-                                    </b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col cols="3">예금주</b-col>
-                                    <b-col>(주) 아이넥서스</b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col cols="3">입금자</b-col>
-                                    <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm" /></b-col>
-                                </b-row>
-                            </div>
-                            
-                            <div v-if="order.od_pay_method == 'P'" class="pay_info">
-                                <h6>PSYS 결제</h6>
-                                <b-row>
-                                    <b-col cols="3">결제금액</b-col>
-                                    <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col cols="3">결제자</b-col>
-                                    <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm" /></b-col>
-                                </b-row>
-                            </div>
-                            
-                            <div v-if="order.od_pay_method == 'R'" class="pay_info">
-                                <h6>원격 결제</h6>
-                                <p>(학교, 국가기관, 연구소만 해당/<span>업체 및 개인은 선결제로 선택</span>)</p>
-                                <b-row>
-                                    <b-col cols="3">결제 요청일</b-col>
-                                    <b-col>
-                                        <b-form-radio v-model="order.extra.oex_pay_plan" value="soon" class="m-0">주문시 결제</b-form-radio>
-                                        <b-form-radio v-model="order.extra.oex_pay_plan" value="dlvy">납품시 결제</b-form-radio>
-                                        <b-form-radio v-model="order.extra.oex_pay_plan" value="etc">기타</b-form-radio>
-                                        <transition name="slideUpDown">
-                                            <b-form-input v-if="order.extra.oex_pay_plan == 'etc'" v-model="order.extra.oex_pay_plan_etc" placeholder="30자 이내 작성" size="sm" />
-                                        </transition>
-                                    </b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col cols="3">담당자</b-col>
-                                    <b-col>
-                                        <b-form-input v-model="order.extra.oex_mng" size="sm" />
-                                    </b-col>
-                                </b-row>
-                                <b-row class="pay_r_tel">
-                                    <b-col cols="3">연락처</b-col>
-                                    <b-col>
-                                        <b-form-input v-model="order.extra.oex_num_tel1" ref="oex_num_tel1" @input.native="focusNext($event, 3, 'oex_num_tel2')" :formatter="maxlength_3" size="sm" /><b-icon-dash />
-                                        <b-form-input v-model="order.extra.oex_num_tel2" ref="oex_num_tel2" @input.native="focusNext($event, 4, 'oex_num_tel3')" :formatter="maxlength_4" size="sm" /><b-icon-dash />
-                                        <b-form-input v-model="order.extra.oex_num_tel3" ref="oex_num_tel3" :formatter="maxlength_4" size="sm" />
-                                    </b-col>
-                                </b-row>
-                            </div>
-                        </transition>
-
-                        <PayPlan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'P'" v-model="order.extra" />
-                        
-                        <transition name="slideUpDown">
-                            <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
-                                <h6>지출 증빙</h6>
-                                <div>
-                                    <b-form-radio v-model="order.extra.oex_type" value="IV" @click.native="tax_invoice()">세금계산서</b-form-radio>
-                                    <b-form-radio v-model="order.extra.oex_type" value="HP" @click.native="tax_invoice()">현금영수증</b-form-radio>
-                                    <b-form-radio v-model="order.extra.oex_type" value="NO">미발급</b-form-radio>
-                                </div>
-                            </div>
-                        </transition>
-                        
-                        <div class="order_paper">
-                            <h6>첨부 서류</h6>
+                    </h4>
+                    <b-row>
+                        <label for="od_orderer">배송지명</label>
+                        <b-col>{{order.od_ua_title}}</b-col>
+                    </b-row>
+                    <b-row>
+                        <label for="od_receiver">수령인<i class="require" /></label>
+                        <b-col>
+                            <b-form-input v-model="order.od_receiver" ref="od_receiver" id="od_receiver" />
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <label for="od_receiver_hp">연락처<i class="require" /></label>
+                        <b-col>
+                            <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash />
+                            <b-form-input v-model="order.od_receiver_hp2" ref="od_receiver_hp2" @input.native="focusNext($event, 4, 'od_receiver_hp3')" :formatter="maxlength_4" /><b-icon-dash />
+                            <b-form-input v-model="order.od_receiver_hp3" ref="od_receiver_hp3" @input.native="focusNext($event, 4, 'btn_postcode')" :formatter="maxlength_4" />
+                        </b-col>
+                    </b-row>                        
+                    <b-row>
+                        <label for="od_department">주소<i class="require" /></label>
+                        <b-col>
                             <div>
-                                <b-form-checkbox v-model="order.extra.oex_req_est" value='Y' unchecked-value="N">견적서</b-form-checkbox>
-                                <b-form-checkbox v-model="order.extra.oex_req_tran" value='Y' unchecked-value="N">거래명세서</b-form-checkbox>
-                                <b-form-checkbox v-model="order.extra.oex_req_biz" value='Y' unchecked-value="N">사업자 등록증 사본</b-form-checkbox>
-                                <b-form-checkbox v-model="order.extra.oex_req_bank" value='Y' unchecked-value="N">통장 사본</b-form-checkbox>
-                            </div>
-                            <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-container>
+                                <b-form-input v-model="order.od_zip" readonly />
+                                <span class="btn" @click="postcode_open = !postcode_open" ref="btn_postcode">
+                                    <template v-if="postcode_open"><b-icon-x-square-fill /></template>
+                                    <template v-else>우편번호 찾기</template>
+                                </span>
 
-        <transition name="modal">
-            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="700" :padding="0">
-                <template slot="header">
-                    <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
-                    <template v-else>지출 증빙</template>
-                </template>
-                <AddrIndex v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
-                <AddrCreate v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
-                <AddrEdit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
-                <TaxInvoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" @focusNext="focusNext" @maxlength_3="maxlength_3" @maxlength_4="maxlength_4" />
-            </Modal>
-        </transition>
-    </div>
+                                <template v-if="postcode_open">
+                                    <VueDaumPostcode class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" >
+                                        <template #loading>
+                                            <b-spinner variant="success" label="Spinning" />
+                                        </template>
+                                    </VueDaumPostcode>
+                                </template>
+                            </div>
+                            <b-form-input v-model="order.od_addr1" readonly />
+                            <b-form-input v-model="order.od_addr2" ref="od_addr2" />
+                        </b-col>
+                    </b-row>
+                    
+                    <b-row>
+                        <label for="od_memo">배송 요청사항</label>
+                        <b-col>
+                            <b-form-select v-model="order.od_memo_slt" @change="memo_slt">
+                                <b-form-select-option value="">선택</b-form-select-option>
+                                <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
+                            </b-form-select>
+                            <b-form-input v-model="order.od_memo" id="od_memo" />
+                        </b-col>
+                    </b-row>
+                </div>
+                <b-button  variant="primary" size="lg" @click="exePayment">주문하기</b-button>
+            </b-col>
+
+            <b-col id="payment" class="payment">
+                <b-row class="top">
+                    <b-col>최종 결제 금액</b-col>
+                    <b-col>
+                        <b>{{order.price.total | comma}}</b> 원
+                        <span>부가세 포함</span>
+                    </b-col>
+                </b-row>
+                <div class="body">
+                    <h5>결제 수단</h5>
+                    <div class="method">
+                        <div v-for="(v, k) in config.pay_method" :key="k">
+                            <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='R'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                        </div> 
+                    </div>
+
+                    <transition name="slideUpDown">
+                        <div v-if="order.od_pay_method == 'B'" class="pay_info">
+                            <h6>무통장 입금</h6>
+                            <b-row>
+                                <b-col cols="3">결제금액</b-col>
+                                <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col cols="3">은행선택</b-col>
+                                <b-col>
+                                    <b-form-radio v-model="order.extra.oex_bank" value="K">
+                                        국민은행 010-01-0944-960
+                                    </b-form-radio>
+                                    <b-form-radio v-model="order.extra.oex_bank" value="W">
+                                        우리은행 849-103249-13-002
+                                    </b-form-radio>
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col cols="3">예금주</b-col>
+                                <b-col>(주) 아이넥서스</b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col cols="3">입금자</b-col>
+                                <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm" /></b-col>
+                            </b-row>
+                        </div>
+                        
+                        <div v-if="order.od_pay_method == 'P'" class="pay_info">
+                            <h6>PSYS 결제</h6>
+                            <b-row>
+                                <b-col cols="3">결제금액</b-col>
+                                <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col cols="3">결제자</b-col>
+                                <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm" /></b-col>
+                            </b-row>
+                        </div>
+                        
+                        <div v-if="order.od_pay_method == 'R'" class="pay_info">
+                            <h6>원격 결제</h6>
+                            <p>(학교, 국가기관, 연구소만 해당/<span>업체 및 개인은 선결제로 선택</span>)</p>
+                            <b-row>
+                                <b-col cols="3">결제 요청일</b-col>
+                                <b-col>
+                                    <b-form-radio v-model="order.extra.oex_pay_plan" value="soon" class="m-0">주문시 결제</b-form-radio>
+                                    <b-form-radio v-model="order.extra.oex_pay_plan" value="dlvy">납품시 결제</b-form-radio>
+                                    <b-form-radio v-model="order.extra.oex_pay_plan" value="etc">기타</b-form-radio>
+                                    <transition name="slideUpDown">
+                                        <b-form-input v-if="order.extra.oex_pay_plan == 'etc'" v-model="order.extra.oex_pay_plan_etc" placeholder="30자 이내 작성" size="sm" />
+                                    </transition>
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                                <b-col cols="3">담당자</b-col>
+                                <b-col>
+                                    <b-form-input v-model="order.extra.oex_mng" size="sm" />
+                                </b-col>
+                            </b-row>
+                            <b-row class="pay_r_tel">
+                                <b-col cols="3">연락처</b-col>
+                                <b-col>
+                                    <b-form-input v-model="order.extra.oex_num_tel1" ref="oex_num_tel1" @input.native="focusNext($event, 3, 'oex_num_tel2')" :formatter="maxlength_3" size="sm" /><b-icon-dash />
+                                    <b-form-input v-model="order.extra.oex_num_tel2" ref="oex_num_tel2" @input.native="focusNext($event, 4, 'oex_num_tel3')" :formatter="maxlength_4" size="sm" /><b-icon-dash />
+                                    <b-form-input v-model="order.extra.oex_num_tel3" ref="oex_num_tel3" :formatter="maxlength_4" size="sm" />
+                                </b-col>
+                            </b-row>
+                        </div>
+                    </transition>
+
+                    <PayPlan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'P'" v-model="order.extra" />
+                    
+                    <transition name="slideUpDown">
+                        <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
+                            <h6>지출 증빙</h6>
+                            <div>
+                                <b-form-radio v-model="order.extra.oex_type" value="IV" @click.native="tax_invoice()">세금계산서</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type" value="HP" @click.native="tax_invoice()">현금영수증</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type" value="NO">미발급</b-form-radio>
+                            </div>
+                        </div>
+                    </transition>
+                    
+                    <div class="order_paper">
+                        <h6>첨부 서류</h6>
+                        <div>
+                            <b-form-checkbox v-model="order.extra.oex_req_est" value='Y' unchecked-value="N">견적서</b-form-checkbox>
+                            <b-form-checkbox v-model="order.extra.oex_req_tran" value='Y' unchecked-value="N">거래명세서</b-form-checkbox>
+                            <b-form-checkbox v-model="order.extra.oex_req_biz" value='Y' unchecked-value="N">사업자 등록증 사본</b-form-checkbox>
+                            <b-form-checkbox v-model="order.extra.oex_req_bank" value='Y' unchecked-value="N">통장 사본</b-form-checkbox>
+                        </div>
+                        <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
+                    </div>
+                </div>
+            </b-col>
+        </b-row>
+    </b-container>
+
+    <transition name="modal">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="700" :padding="0">
+            <template slot="header">
+                <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
+                <template v-else>지출 증빙</template>
+            </template>
+            <AddrIndex v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
+            <AddrCreate v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
+            <AddrEdit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
+            <TaxInvoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" @focusNext="focusNext" @maxlength_3="maxlength_3" @maxlength_4="maxlength_4" />
+        </Modal>
+    </transition>
+
+    <form id="SendPayForm" method="POST">      
+        <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
+        <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
+        <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
+        <b-form-input name="version" 	    value="1.0" />
+        <b-form-input name="mid" 		    :value="inicis.mid" />
+        <b-form-input name="goodname" 	    :value="order.od_name" />
+        <b-form-input name="oid" 		    :value="order.od_no" />
+        <b-form-input name="price" 		    :value="order.price.total" />
+        <b-form-input name="currency" 	    value="WON" />
+        <b-form-input name="timestamp" 	    :value="inicis.timestamp" />
+        <b-form-input name="signature" 	    :value="inicis.sign" />
+        <b-form-input name="returnUrl" 	    :value="inicis.returnUrl" />
+        <b-form-input name="closeUrl" 	    :value="inicis.closeUrl" />
+        <b-form-input name="mKey" 		    :value="inicis.mKey" />
+        <b-form-input name="gopaymethod"    value="Card" />
+        <b-form-input name="merchantData"   :value="order.od_id" />       
+    </form>
+</div>
 </template>
+
 
 <script>
 import ax from '@/api/http';
@@ -331,13 +351,14 @@ export default {
             modal_type: 'index',
             postcode_open: false,
             order:{
+                od_id:0,
                 goods: this.$route.params.od_goods,
                 lists:{},
                 price:{},
                 od_no: "",
                 od_name: "",
                 od_type: this.$route.params.od_type,
-                od_pay_method:'B',
+                od_pay_method:'C',
                 od_orderer : '',
                 od_orderer_hp : "",
                 od_orderer_hp1 : '',
@@ -363,7 +384,7 @@ export default {
                 extra: {
                     oex_hasBizLicense: true,
                     oex_file:null,
-                    oex_depositor: 'asfdf',
+                    oex_depositor: '',
                     oex_email:'',
                     oex_mng:'',
                     oex_num_tel: '',
@@ -389,6 +410,7 @@ export default {
             addr: [],
             addr_edit_index: 0,
             config: {},
+            inicis: {},
         }
     },
     computed: {
@@ -405,17 +427,9 @@ export default {
             if (isEmpty(this.order.od_receiver_hp)) cnt++;
             return {max:max, cur:max-cnt};
         },
-        isDlvyAir () {
-            return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; 
-        },
+        isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
     },
     methods:{
-        funNumCheck(val) {
-            return numCheck(val);
-        },
-        funIsEmpty(val) {
-            return isEmpty(val);
-        },
         onPostcodeSlt(result) {
             this.$set(this.order, 'od_zip', result.zonecode);
             let addr = result.roadAddress;
@@ -463,22 +477,32 @@ export default {
                         this.order.extra.oex_pay_plan = this.order.extra.oex_pay_plan_etc;
                 }
 
-                try {
-                    let pay = await ax.post(`/api/shop/order/pay`, this.order);
-                    if (pay && pay.status === 200) {
-                        if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
-                            let frm = new FormData();
-                            frm.append('fi_group', 'order');
-                            frm.append('fi_key', pay.data.od_id);
-                            frm.append('fi_room', new Date().getFullYear());
-                            frm.append("file[]", this.order.extra.oex_file);
-                            let up = await ax.post('/api/upload', frm);
-                        }
-                        await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
+               
+                let pay = await ax.post(`/api/shop/order/pay`, this.order);
+                if (pay && pay.status === 200) {
+                    if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
+                        let frm = new FormData();
+                        frm.append('fi_group', 'order');
+                        frm.append('fi_key', pay.data.od_id);
+                        frm.append('fi_room', new Date().getFullYear());
+                        frm.append("file[]", this.order.extra.oex_file);
+                        await ax.post('/api/upload', frm);
                     }
-                } catch (e) {
-                    Notify.consolePrint(e);
-                    Notify.toast('warning', e.responsee);
+
+                    if (this.order.od_pay_method == 'C') {
+                        if(this.inicis.sale_env == 'P') {
+                            this.order.od_id = pay.data.od_id;
+                            INIStdPay.pay('SendPayForm');
+                        } else if(this.inicis.sale_env == 'M') {
+                            // $("input[name=P_NOTI]").val(response);
+                            // $("#MobilePayForm").submit();
+                        }
+                    } else {
+                        
+                    }
+
+                    
+                    // await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
                 }
             }
         },
@@ -627,8 +651,7 @@ export default {
             Notify.toast('danger', "잘못된 접근 경로입니다.");
             this.$router.go(-1);
             return false;
-        }
-        
+        }        
         
         try {
             const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods});
@@ -639,6 +662,7 @@ export default {
                 this.order.od_name = res.data.od_name;
                 this.config = res.data.config;
                 this.addr = res.data.addr;
+                this.inicis = res.data.inicis;
                 this.set_orderer();
                 this.addr_choose(this.addr[0]);
             }
@@ -653,6 +677,11 @@ export default {
         //     console.log('collapseId:', collapseId)
         //     console.log('isJustShown:', isJustShown)
         // })
+        const plugin = document.createElement("script");
+        plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
+        // plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
+        plugin.async = true;
+        document.head.appendChild(plugin);
     },
 }
 </script>
@@ -759,4 +788,5 @@ export default {
 #settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::after { top:.15rem; left:-1.2rem; }
 
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
+#settle #SendPayForm { width:0; height:0; visibility:hidden; overflow:hidden; }
 </style>

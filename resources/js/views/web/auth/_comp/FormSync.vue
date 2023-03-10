@@ -13,7 +13,7 @@
         <b-row>
             <b-col>
                 <validation-provider name="패스워드" :rules="{ required:true, min:3 }" v-slot="validationContext">
-                    <b-form-input type="password" id="password" placeholder="비밀번호" v-model="value.password" :state="getValidationState(validationContext)" @keyup.enter="login" />
+                    <b-form-input type="password" id="password" placeholder="비밀번호" v-model="value.password" :state="getValidationState(validationContext)" @keyup.enter="register" />
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
             </b-col>
@@ -26,7 +26,10 @@ export default {
     name:"Auth_CompFormInterLock",
     components: { 'Validation': () => import('@/views/_common/Validation'), },
     props: ['value'],  
-    methods: { getValidationState({ dirty, validated, valid = null }) { return dirty || validated ? valid : null; }, },
+    methods: {
+        register() { this.$emit('register'); },
+        getValidationState({ dirty, validated, valid = null }) { return dirty || validated ? valid : null; }, 
+    },
 }
 </script>
 <style lang="css" scoped>

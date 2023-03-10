@@ -14,7 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     protected $guarded = [];
     protected $hidden = [ 'password' ];
-    protected $appends = ['is_admin', 'is_super', 'my_mileage_rate'];
+    protected $appends = ['is_admin', 'is_super', 'my_mileage_rate', 'hp01', 'hp02', 'hp03'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     public static $option = [
         'group' => [    '1' => '일반',
@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail {
                         '2' => 'BRONZE',
                         '3' => 'SILVER',
                         '4' => 'GOLD',
+                        '11' => '딜러',
                         '20' => '관리자',
                         '29' => '최고관리자', ],
                         
@@ -104,6 +105,9 @@ class User extends Authenticatable implements MustVerifyEmail {
         $lv = $this->level>4?4:$this->level;
         return $lv < 2 ? 0 : $this->mileage_rate[$lv]; 
     }
+    public function getHp01Attribute() { return count(explode('-', $this->hp))>0 ? explode('-', $this->hp)[0] : ''; }
+    public function getHp02Attribute() { return count(explode('-', $this->hp))>1 ? explode('-', $this->hp)[1] : ''; }
+    public function getHp03Attribute() { return count(explode('-', $this->hp))>2 ? explode('-', $this->hp)[2] : ''; }
     // public function getEnablemileageAttribute() {
     //     return DB::table('mileage')->where([['created_id', $this->id], ['created_at', '>', date("Y-m-d", strtotime("-1 years"))]])->sum('po_enable_p');
     // }

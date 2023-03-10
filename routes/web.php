@@ -86,6 +86,9 @@ Route::post('social/connectExistAccount', ['as' => 'social.connectExistAccount',
 Route::post('auth/create/{code}', 'Auth\SocialController@socialUserJoin')->name('auth.create');
 Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->name('auth.join_sync_choice');
 
+Route::get('/shop/order/pgClose',       'Shop\OrderController@pgClose')->name('shop.order.pgClose');
+Route::POST('/shop/order/payReturn',    'Shop\OrderController@payReturn')->name('shop.order.payReturn');
+
 
 
 // Route::post('email/resend', function (Request $request) {

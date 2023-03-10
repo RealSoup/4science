@@ -222,6 +222,8 @@ label { margin-bottom:0; }
 .modal-enter,
 .modal-leave-to { opacity: 0; }
 
+/*  없으면 카드결제창 안보임  */
+#inicisModalDiv { opacity:1 !important; }
 
 
 

@@ -1,28 +1,15 @@
 <template>
-    <b-container>
-        <b-row>
-            <b-col class="pTitle">
-                <span><i>회</i></span>
-                <span><i>원</i></span>
-                <span><i>정</i></span>
-                <span><i>보</i></span>
-                <div class="break d-md-block d-none"></div>
-                <span><i>수</i></span>
-                <span><i>정</i></span>
-                <div class="break"></div>
-                <span><i></i></span>
-            </b-col>
-        </b-row>
+<b-container class="w_fence">
+    <h3>회원정보 수정</h3>
 
-        <FormComp v-model="frm" />
+    <FormComp v-model="frm" />
 
-        <b-row>
-            <b-col class="text-center">
-                <b-button @click="update" variant="primary" class="w-25">적용</b-button>
-            </b-col>
-        </b-row>
-        
-    </b-container>
+    <b-row>
+        <b-col class="btn_box">
+            <b-button class="blue xl" @click="update">적용</b-button>
+        </b-col>
+    </b-row>
+</b-container>
 </template>
 
 <script>
@@ -65,7 +52,10 @@ export default {
                     this.frm = Object.assign(
                         {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                         this.frm, // 수정하려는 객체
-                        {_method : 'PATCH'} // 삽입하려는 내용
+                        {
+                            _method : 'PATCH',
+                            hp: `${this.frm.hp01}-${this.frm.hp02}-${this.frm.hp03}`,
+                        } // 삽입하려는 내용
                     );
                     const res = await ax.post(`/api/user`, this.frm);
                     if (res && res.status === 200)

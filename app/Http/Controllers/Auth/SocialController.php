@@ -50,17 +50,20 @@ class SocialController extends Controller {
         try {
             $config = $this->getConfig($provider);
             $userFromSocial = Socialite::with($provider)->setConfig($config)->user();
+            $userFromSocial->id=813770733;
             // dd($userFromSocial);
         } catch (InvalidStateException $e) {
-            return alert('잘못된 접근입니다.');
+            // return alert('잘못된 접근입니다.');
+            dd($e);
+            return response()->json('잘못된 접근입니다.', 500);
         } catch (ClientException $e) {
-            return alert('Bad client credentials');
+            // return alert('Bad client credentials');
+            return response()->json('Bad client credentials', 500);
         }
 
         // 소셜 로그인
         if(auth()->guest()) {
             $result = $this->socialLoginCallback($userFromSocial, $provider);
-
             if($result == 'view') {
                 // 소셜 계정을 처음 사용해서 로그인 했을 경우 기존 계정과 연결/ 회원가입 화면으로 연결
                 // $params = $this->socialModel->getSocialParams($provider);
@@ -83,7 +86,7 @@ class SocialController extends Controller {
                     'social_token'  => $userFromSocial->token,
                 ]);
             } else { // 소셜 계정으로 로그인
-                return redirect("/");
+                return redirect("/?rst=social_login");
             }
         } else { // 회원 정보 수정에서 소셜 계정 연결
             // $message = $this->userModel->connectSocialAccount($userFromSocial, $provider, $this->request);
@@ -94,18 +97,6 @@ class SocialController extends Controller {
             // ]);
         }
     }
-
-    // 소셜 로그인 -> 회원가입
-    // public function socialUserJoin(Request $req) {
-    //     // 회원가입
-    //     $user = $this->user->joinUser($req);
-    //     // 소셜로그인 정보 등록
-    //     $this->userSocial->register($req, $user);
-    //     // 가입한 유저 로그인
-    //     Auth::login($user);
-
-    //     return redirect(route('home'));
-    // }
 
     // 소셜 로그인 -> 기존 계정과 연결
     public function connectExistAccount(Request $req) {
@@ -135,7 +126,7 @@ class SocialController extends Controller {
             'social_id' => $userFromSocial->getId(),
         ])->first();
         
-        
+        // dd($userSocial);
         if(is_null($userSocial)) {
             // 소셜에서 받아온 데이터를 세션에 저장한다.
             // session()->put('userFromSocial', $userFromSocial);
@@ -146,19 +137,37 @@ class SocialController extends Controller {
                 return 'view';
         } else {
             // 연결된 소셜 정보에 해당하는 유저로 로그인
+            if (!$userSocial->social_token)
+                $this->prevUserMission($userFromSocial, $userSocial);
             $this->userToSocialLogin($userSocial);
             return 'redirect';
         }
     }
 
     // 연결된 소셜 정보에 해당하는 유저로 로그인
-    public function userToSocialLogin($userSocial)
-    {
+    public function userToSocialLogin($userSocial) {
         $user = $userSocial->user()->first();
         if(empty($user->leave_date)) {  //탈퇴한 소셜회원 로그인 불가
             auth()->guard()->login($user);
             event(new LoginAfter());
         } else return redirect()->route('home')->with('alert', '탈퇴한 회원입니다.');
+    }
+
+    // 연결된 소셜 정보에 해당하는 유저로 로그인
+    public function prevUserMission($userFromSocial, $social) {
+        // INSERT INTO la_user_social (provider, social_id, ip, created_at, user_id)
+        // SELECT IF( b.mbr_reg_type='K', 'kakao', 'naver' ), b.mbr_reg_code, b.cmm_remote_ip, b.cmm_reg_date, a.id
+        // FROM la_users a
+        // JOIN nc_member b ON a.mbr_no = b.mbr_no
+        // WHERE
+        // b.mbr_reg_type = 'N' OR b.mbr_reg_type = 'K'
+        // ORDER BY b.mbr_no;
+        
+        $social->social_token = $userFromSocial->token;
+        $social->save();
+
+        // $isSame = User::where('email', $userFromSocial->email)->where('email', $userFromSocial->email)->first();
+        // dd($isSame);
     }
 
 }

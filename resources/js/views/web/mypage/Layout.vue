@@ -9,17 +9,17 @@
             <b-col class="rank">
                 <p>나의 등급</p>
                 <b>
-                    <template v-if="user.level == 1"><img src="/img/mypage/mb_mark_normal.png"          />일반</template>
-                    <template v-else-if="user.level == 2"><img src="/img/mypage/mb_mark_bronze.png"     />브론즈</template>
-                    <template v-else-if="user.level == 3"><img src="/img/mypage/mb_mark_silver.png"     />실버</template>
-                    <template v-else-if="user.level == 4"><img src="/img/mypage/mb_mark_gold.png"       />골드</template>
-                    <template v-else-if="user.level == 5"><img src="/img/mypage/mb_mark_diamond.png"    />다이아</template>
-                    <template v-else-if="user.level == 11"><img src="/img/mypage/mb_mark_normal_d.png"  />딜러</template>
-                    <template v-else-if="user.level == 13"><img src="/img/mypage/mb_mark_silver_d.png"  />실버딜러</template>
-                    <template v-else-if="user.level == 14"><img src="/img/mypage/mb_mark_gold_d.png"    />골드딜러</template>
-                    <template v-else-if="user.level > 14">                                               킹왕짱</template>
+                    <template v-if="user.level == 1">       일반</template>
+                    <template v-else-if="user.level == 2">  브론즈</template>
+                    <template v-else-if="user.level == 3">  실버</template>
+                    <template v-else-if="user.level == 4">  골드</template>
+                    <template v-else-if="user.level == 5">  다이아</template>
+                    <template v-else-if="user.level == 11"> 딜러</template>
+                    <template v-else-if="user.level == 13"> 실버딜러</template>
+                    <template v-else-if="user.level == 14"> 골드딜러</template>
+                    <template v-else-if="user.level > 14">  킹왕짱</template>
                 </b>
-                <b-link to="/foo">혜택 보러가기 ></b-link>
+                <b-link to="/cscenter?view_type=membership">혜택 보러가기 ></b-link>
             </b-col>
             <b-col>
                 <p>나의 마일리지</p>
@@ -66,7 +66,7 @@
                             </b-collapse>
                         </li>
                         <li>
-                            <b-link to="/mypage/print" router-tag="h5">서류 출력</b-link>
+                            <h5><b-link to="/mypage/print">서류 출력</b-link></h5>
                         </li>
                         <li>
                             <h5 v-b-toggle.info_list>나의 정보관리</h5>
@@ -144,7 +144,7 @@ export default {
 
 #mypage .top .col:nth-child(2):after,
 #mypage .top .col:nth-child(3):after,
-#mypage .top .col:nth-child(4):after { background:url(/img/mypage/divider.png) no-repeat 0px 0px; content:""; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px; }
+#mypage .top .col:nth-child(4):after { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/divider.png) no-repeat 0px 0px; content:""; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px; }
 
 #mypage .top .name { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0; }
 #mypage .top .name b { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold; }

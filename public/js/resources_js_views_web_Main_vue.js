@@ -288,7 +288,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this2.bestByCategory = rst.data.bestByCate;
               _this2.list.best = rst.data.best;
 
-            case 6:
+              if (_this2.$route.query.rst == 'social_login') {
+                //  소셜 로그인 후 개인정보가 없으면
+                if (isEmpty(_this2.$store.state.auth.user.email) || isEmpty(_this2.$store.state.auth.user.name) || isEmpty(_this2.$store.state.auth.user.birth) || isEmpty(_this2.$store.state.auth.user.hp)) {
+                  _this2.$router.push({
+                    name: 'my_user_edit'
+                  });
+
+                  Notify.modal('필수 개인정보를 입력하세요.', 'warning');
+                }
+              }
+
+            case 7:
             case "end":
               return _context2.stop();
           }

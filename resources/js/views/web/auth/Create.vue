@@ -1,7 +1,7 @@
 <template>
 <b-container class="w_fence" :class="{simple:$route.params.code == 'sync'}">
     <h3>회원가입 정보 입력</h3>
-    <FormSync v-if="$route.params.code == 'sync'" v-model="frm" />
+    <FormSync v-if="$route.params.code == 'sync'" v-model="frm" @register="register" />
     <FormComp v-else ref="form_comp" v-model="frm" />
     <b-row>
         <b-col class="btn_box">
