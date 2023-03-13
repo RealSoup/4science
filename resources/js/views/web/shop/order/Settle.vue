@@ -527,7 +527,7 @@ export default {
                             form.setAttribute('method', 'post'); //get,post 가능
                             form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
                             document.body.appendChild(form);
-                            form.submit();
+                            // form.submit();
                         }
                     } else {
                         
