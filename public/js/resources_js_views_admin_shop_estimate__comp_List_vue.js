@@ -291,12 +291,6 @@ var render = function () {
                     _vm._v(" "),
                     row.eq_type == "REQ"
                       ? [
-                          row.eq_1depth
-                            ? _c("b-badge", { attrs: { variant: "info" } }, [
-                                _vm._v(_vm._s(row.eq_1depth)),
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
                           !row.eq_title
                             ? _c("SubString", {
                                 attrs: { width: 900 },

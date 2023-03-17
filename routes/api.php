@@ -34,8 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 ]
             ]);
 
-            Route::GET('estimate', 'Shop\EstimateController@index');
-
             Route::prefix('order')->group(function () {
                 Route::GET('bought', 'Shop\OrderController@bought');
                 Route::GET('cnt_od_step', 'Shop\OrderController@cnt_od_step');
@@ -52,12 +50,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
             });
 
             Route::prefix('estimate')->group(function () {
+                Route::GET('getCustomMadeCategory', 'Shop\EstimateController@getCustomMadeCategory');
+                Route::GET('/',         'Shop\EstimateController@index');
                 Route::POST('create',   'Shop\EstimateController@create')->name('shop.estimate.create');
                 Route::POST('/',        'Shop\EstimateController@store')->name('shop.estimate.store');
                 Route::GET( '{eq_id}',  'Shop\EstimateController@show')->name('shop.estimate.show');
                 Route::GET( 'reply/{er_id}',  'Shop\EstimateController@replyShow')->name('shop.estimate.replyShow');
                 Route::POST('reEstimate', 'Shop\EstimateController@reEstimate');
-                Route::get('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
+                Route::GET('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
 
             });
 

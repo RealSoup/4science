@@ -81,7 +81,7 @@ class EstimateController extends Controller {
                 case 'eq_tel':			$eq = $eq->EqTel($req->keyword); break;
                 case 'eq_hp':			$eq = $eq->EqHp($req->keyword); break;
                 case 'eq_email':		$eq = $eq->EqEmail($req->keyword); break;
-                case 'eq_id':			$eq = $eq->EqId($req->keyword); break;
+                case 'eq_id':			$eq = $eq->EqId([$req->keyword]); break;
                 case 'er_id':			$eq = $eq->EqId($er->ErId($req->keyword)->pluck('er_eq_id')); break;
                 case 'em_name':
                     $em = $em   ->TypeReply()
@@ -127,7 +127,7 @@ class EstimateController extends Controller {
                 $em->estimateOption;
             $data->collect = $this->estimateReply->estimateModelPurchaseCollection($data->estimateModel);
         } else {
-            $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->find($id);
+            $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->with('estimateCustom')->find($id);
             foreach ($data->estimateModel as $k => $em) {
                 $em->estimateOption;
                 if($em->em_name==''){
@@ -143,6 +143,7 @@ class EstimateController extends Controller {
             }
         }
         $data->fileInfo;
+        $data['made_cate'] = EstimateReq::$option['custom_made_category'];
         // foreach ($data['con']->estimateModel as $em) $em->img_src = $this->goods->find($em->em_gd_id)->gdImgSrc(true);
         return response()->json($data);
     }

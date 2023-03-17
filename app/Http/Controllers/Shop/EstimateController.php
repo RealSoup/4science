@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, Goods};
+use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, EstimateCustom, Goods};
 use App\Models\{FileInfo};
 use App\Http\Requests\StoreEstimateReq;
 use Illuminate\Support\Arr;
@@ -36,7 +36,7 @@ class EstimateController extends Controller {
         return response()->json($params);
     }
 
-    public function store(StoreEstimateReq $req) {
+    public function store(Request $req) {
         $eq_title = '';
         $item_cnt = 0;
         if ($req->filled('lists') && count($req->lists)) {
@@ -51,12 +51,11 @@ class EstimateController extends Controller {
             if ($item_cnt > 1)
                 $eq_title .= '외 ['.($item_cnt - 1).']';
         } else {
-            if ($req->filled('eq_1depth'))
-                $eq_title = "<b>[{$req->eq_1depth}]</b> ";
-            if (mb_strlen($req->eq_content, "UTF-8")>70)
-                $eq_title .= iconv_substr($req->eq_content, 0, 70, "UTF-8")."...";
-            else
-                $eq_title .= $req->eq_content;
+            if ($req->filled('made_name'))   $eq_title = "<b>[주문제작-{$req->made_name}]</b> ";
+            else if ($req->filled('eq_1depth'))      $eq_title = "<b>[{$req->eq_1depth}]</b> ";
+
+            if (mb_strlen($req->eq_content, "UTF-8")>70) $eq_title .= iconv_substr($req->eq_content, 0, 70, "UTF-8")."...";
+            else $eq_title .= $req->eq_content;
         }
 
         $eq_id = EstimateReq::insertGetId([
@@ -109,7 +108,17 @@ class EstimateController extends Controller {
                     }
                 }
             }
+        } else if ($req->filled('made_name')) {
+            foreach ($req->label as $k => $v) {
+                EstimateCustom::insert([
+                    'ec_eq_id' => $eq_id,
+                    'ec_seq'   => $k,
+                    'ec_label' => $v,
+                    'ec_val'   => array_key_exists($k, $req->val) ? $req->val[$k] : NULL,
+                ]);
+            }
         }
+        
         if ($eq_id) return response()->json($eq_id, 200);
     }
 
@@ -212,4 +221,5 @@ class EstimateController extends Controller {
         return view('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id), 'type'=>'print']);
 	}
 
+    public function getCustomMadeCategory() { return EstimateReq::$option['custom_made_category']; }
 }

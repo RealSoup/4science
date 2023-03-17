@@ -4506,7 +4506,11 @@ var render = function () {
             [
               _c("file-upload", {
                 ref: "fileupload",
-                attrs: { fi_group: "estimateReply" },
+                attrs: {
+                  fi_group: "estimateReply",
+                  fi_kind: "add",
+                  height: 100,
+                },
                 model: {
                   value: _vm.value.file_info,
                   callback: function ($$v) {

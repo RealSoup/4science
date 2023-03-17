@@ -309,13 +309,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4993,52 +4986,6 @@ var render = function () {
                               expression: "files",
                             },
                           }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    { staticClass: "agree" },
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _vm._v(
-                            "\n                        [SMS 수신동의] 본 견적요청과 관련된 문자메세지를 수신하시겠습니까? \n                        "
-                          ),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { value: "Y" },
-                              model: {
-                                value: _vm.receive_yn,
-                                callback: function ($$v) {
-                                  _vm.receive_yn = $$v
-                                },
-                                expression: "receive_yn",
-                              },
-                            },
-                            [_vm._v("수신")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { value: "N" },
-                              model: {
-                                value: _vm.receive_yn,
-                                callback: function ($$v) {
-                                  _vm.receive_yn = $$v
-                                },
-                                expression: "receive_yn",
-                              },
-                            },
-                            [_vm._v("수신 안함")]
-                          ),
                         ],
                         1
                       ),

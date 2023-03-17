@@ -369,7 +369,7 @@ export default {
                 od_no: "",
                 od_name: "",
                 od_type: this.$route.params.od_type,
-                od_pay_method:'C',
+                od_pay_method:'',
                 od_orderer : '',
                 od_orderer_hp : "",
                 od_orderer_hp1 : '',
@@ -455,26 +455,7 @@ export default {
             this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
             this.order.od_orderer_email = `${this.order.od_orderer_email_id}@${this.order.od_orderer_email_domain}`;
             if (this.validationChecker(this.order)) {
-                if (this.order.privacy !== 'Y')     { 
-                    Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-                    document.getElementById('total_sub').scrollIntoView();
-                    return false;
-                }
-                if (!this.isDlvyAir && this.order.check_terms !== 'Y')    { 
-                    Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
-                    document.getElementById('total_sub').scrollIntoView();
-                    return false;
-                }
-                if (this.isDlvyAir && this.order.dlvy_air !== 'Y') { 
-                    Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
-                    document.getElementById('total_sub').scrollIntoView();
-                    return false;
-                }
-                if (this.order.od_pay_method == '') { 
-                    Notify.toast('danger', "결제 수단을 선택하세요.");
-                    document.getElementById('payment').scrollIntoView();
-                    return false;
-                }
+                
                 switch (this.order.extra.oex_type) {
                     case 'HP': this.order.extra.oex_num = `${this.order.extra.oex_num_hp1}-${this.order.extra.oex_num_hp2}-${this.order.extra.oex_num_hp3}`; break;
                     case 'IN': this.order.extra.oex_num = `${this.order.extra.oex_num_in1}-${this.order.extra.oex_num_in2}`; break;
@@ -527,14 +508,11 @@ export default {
                             form.setAttribute('method', 'post'); //get,post 가능
                             form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
                             document.body.appendChild(form);
-                            // form.submit();
+                            form.submit();
                         }
                     } else {
-                        
+                        await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }});
                     }
-
-                    
-                    // await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
                 }
             }
         },
@@ -616,6 +594,26 @@ export default {
         modal_close () { this.isModalViewed = false; },
 
         validationChecker (frm) {
+            if (this.order.privacy !== 'Y')     { 
+                Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
+                document.getElementById('total_sub').scrollIntoView();
+                return false;
+            }
+            if (!this.isDlvyAir && this.order.check_terms !== 'Y')    { 
+                Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
+                document.getElementById('total_sub').scrollIntoView();
+                return false;
+            }
+            if (this.isDlvyAir && this.order.dlvy_air !== 'Y') { 
+                Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
+                document.getElementById('total_sub').scrollIntoView();
+                return false;
+            }
+            if (this.order.od_pay_method == '') { 
+                Notify.toast('danger', "결제 수단을 선택하세요.");
+                document.getElementById('payment').scrollIntoView();
+                return false;
+            }
             switch (frm.od_pay_method) {
                 case 'B':
                     if (isEmpty(frm.extra.oex_depositor)) { Notify.toast('danger', "입금자명을 입력해주세요"); this.$refs.oex_depositor.focus(); return false; }

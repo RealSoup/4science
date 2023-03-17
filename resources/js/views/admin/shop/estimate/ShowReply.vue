@@ -104,8 +104,9 @@
                         <span>
                             <b-icon icon="file-earmark-arrow-down-fill"></b-icon>
                             <template v-for="(file, i) in frm.file_info">
-                                <b-button size="sm" variant="outline-info" class="mr-2" @click="fileDown(file.path, file.fi_original)">{{file.fi_original}}</b-button>
-                                <b v-if="i != Object.keys(frm.file_info).length - 1"> </b>
+                                <b-button size="sm" variant="outline-info" class="mr-2" @click="fileDown(file.path, file.fi_original)" :key="i">
+                                    {{file.fi_original}}
+                                </b-button>
                             </template>
                         </span>
                     </div>

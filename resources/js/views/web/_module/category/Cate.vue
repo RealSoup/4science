@@ -21,7 +21,7 @@
                 />
             </li>
             <li>
-                <b-link :to="{name: 'goods_index' }">
+                <b-link :to="{name: 'estimate_custom_index' }" class="ca01">
                     <img :src="s3url+'common/cate/custom.png'" />
                     <!-- <span>주문제작</span> -->
                 </b-link>

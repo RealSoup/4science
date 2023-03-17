@@ -11,7 +11,7 @@
                 {{row.eq_id}}.
                 <b v-if="row.eq_title" v-html="row.eq_title" />
                 <template v-if="row.eq_type == 'REQ'">
-                    <b-badge v-if="row.eq_1depth" variant="info">{{row.eq_1depth}}</b-badge>
+                    <!-- <b-badge v-if="row.eq_1depth" variant="info">{{row.eq_1depth}}</b-badge> -->
                     <SubString v-if="!row.eq_title" v-model="row.eq_content" :width="900" />
                 </template>
                 <template v-else-if="row.eq_type == 'CUS'">

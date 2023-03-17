@@ -126,10 +126,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -336,64 +332,154 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "p_wrap" },
+    { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 목록")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "search adform" },
+        "b-container",
+        { staticClass: "search" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "SchDate",
+            {
+              model: {
+                value: _vm.sch_frm,
+                callback: function ($$v) {
+                  _vm.sch_frm = $$v
+                },
+                expression: "sch_frm",
+              },
+            },
             [
               _c(
-                "SchDate",
+                "b-col",
+                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                [_vm._v("기간")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
                 {
-                  model: {
-                    value: _vm.sch_frm,
-                    callback: function ($$v) {
-                      _vm.sch_frm = $$v
-                    },
-                    expression: "sch_frm",
-                  },
+                  style: { flex: "0 0 8%", maxWidth: "8%" },
+                  attrs: { slot: "prev" },
+                  slot: "prev",
                 },
                 [
                   _c(
-                    "b-col",
+                    "b-form-select",
                     {
-                      staticClass: "label",
-                      attrs: { slot: "prev" },
-                      slot: "prev",
+                      model: {
+                        value: _vm.sch_frm.date_type,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "date_type", $$v)
+                        },
+                        expression: "sch_frm.date_type",
+                      },
                     },
                     [
                       _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.date_type,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "date_type", $$v)
-                            },
-                            expression: "sch_frm.date_type",
-                          },
+                        "b-form-select-option",
+                        { attrs: { value: "reque" } },
+                        [_vm._v("요청일")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "reply" } },
+                        [_vm._v("응답일")]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", { staticClass: "label" }, [_vm._v("요청/임의")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.eq_type,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "eq_type", $$v)
                         },
-                        [
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "reque" } },
-                            [_vm._v("요청일")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "reply" } },
-                            [_vm._v("응답일")]
-                          ),
-                        ],
-                        1
+                        expression: "sch_frm.eq_type",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "REQ" } }, [
+                        _vm._v("요청견적"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "TEMP" } }, [
+                        _vm._v("임의견적"),
+                      ]),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("진행현황")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.eq_step,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "eq_step", $$v)
+                        },
+                        expression: "sch_frm.eq_step",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }, [
+                        _vm._v("처리단계"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "DONOT" } },
+                        [_vm._v("미처리")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "DOING" } },
+                        [_vm._v("처리중")]
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "DONE" } }, [
+                        _vm._v("처리완료"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-select-option",
+                        { attrs: { value: "CANCEL" } },
+                        [_vm._v("취소")]
                       ),
                     ],
                     1
@@ -402,341 +488,242 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("견적금액")]),
+              _vm._v(" "),
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "type03 period" },
                 [
-                  _c("b-col", { staticClass: "label" }, [_vm._v("요청/임의")]),
+                  _c("b-form-input", {
+                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    model: {
+                      value: _vm.sch_frm.startPrice,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.sch_frm, "startPrice", $$v)
+                      },
+                      expression: "sch_frm.startPrice",
+                    },
+                  }),
                   _vm._v(" "),
+                  _c("b", [_vm._v("~")]),
+                  _vm._v(" "),
+                  _c("b-form-input", {
+                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    model: {
+                      value: _vm.sch_frm.endPrice,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.sch_frm, "endPrice", $$v)
+                      },
+                      expression: "sch_frm.endPrice",
+                    },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", { staticClass: "label" }, [_vm._v("담당자")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
                   _c(
-                    "b-col",
-                    { staticClass: "type01" },
-                    [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.eq_type,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "eq_type", $$v)
-                            },
-                            expression: "sch_frm.eq_type",
-                          },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.eq_mng,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "eq_mng", $$v)
                         },
-                        [
-                          _c("b-form-select-option", { attrs: { value: "" } }),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "REQ" } },
-                            [_vm._v("요청견적")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "TEMP" } },
-                            [_vm._v("임의견적")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("처리단계")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type01" },
+                        expression: "sch_frm.eq_mng",
+                      },
+                    },
                     [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.eq_step,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "eq_step", $$v)
-                            },
-                            expression: "sch_frm.eq_step",
-                          },
-                        },
-                        [
-                          _c("b-form-select-option", { attrs: { value: "" } }, [
-                            _vm._v("처리단계"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "DONOT" } },
-                            [_vm._v("미처리")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "DOING" } },
-                            [_vm._v("처리중")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "DONE" } },
-                            [_vm._v("처리완료")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select-option",
-                            { attrs: { value: "CANCEL" } },
-                            [_vm._v("취소")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("견적금액")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type03 period" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { formatter: _vm.priceComma, size: "sm" },
-                        model: {
-                          value: _vm.sch_frm.startPrice,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.sch_frm, "startPrice", $$v)
-                          },
-                          expression: "sch_frm.startPrice",
-                        },
-                      }),
+                      _c("b-form-select-option", { attrs: { value: "" } }),
                       _vm._v(" "),
-                      _c("b", [_vm._v("~")]),
-                      _vm._v(" "),
-                      _c("b-form-input", {
-                        attrs: { formatter: _vm.priceComma, size: "sm" },
-                        model: {
-                          value: _vm.sch_frm.endPrice,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.sch_frm, "endPrice", $$v)
-                          },
-                          expression: "sch_frm.endPrice",
-                        },
+                      _vm._l(_vm.mng, function (m, k) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: k, attrs: { value: m.id } },
+                          [_vm._v(_vm._s(m.name))]
+                        )
                       }),
                     ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("팀검색")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type01" },
-                    [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.mng_group,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "mng_group", $$v)
-                            },
-                            expression: "sch_frm.mng_group",
-                          },
-                        },
-                        [
-                          _c("b-form-select-option", { attrs: { value: "" } }),
-                          _vm._v(" "),
-                          _vm._l(_vm.mng_info.group, function (v, key) {
-                            return _c(
-                              "b-form-select-option",
-                              { key: key, attrs: { value: key } },
-                              [_vm._v(_vm._s(v))]
-                            )
-                          }),
-                        ],
-                        2
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("담당자")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type01" },
-                    [
-                      _c(
-                        "b-form-select",
-                        {
-                          attrs: { size: "sm" },
-                          model: {
-                            value: _vm.sch_frm.eq_mng,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.sch_frm, "eq_mng", $$v)
-                            },
-                            expression: "sch_frm.eq_mng",
-                          },
-                        },
-                        [
-                          _c("b-form-select-option", { attrs: { value: "" } }),
-                          _vm._v(" "),
-                          _vm._l(_vm.mng, function (m, k) {
-                            return _c(
-                              "b-form-select-option",
-                              { key: k, attrs: { value: m.id } },
-                              [_vm._v(_vm._s(m.name))]
-                            )
-                          }),
-                        ],
-                        2
-                      ),
-                    ],
-                    1
+                    2
                   ),
                 ],
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("팀검색")]),
+              _vm._v(" "),
               _c(
-                "b-row",
-                { attrs: { "align-h": "end" } },
+                "b-col",
+                { staticClass: "type01" },
                 [
-                  _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
-                  _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "type05" },
+                    "b-form-select",
+                    {
+                      attrs: { size: "sm" },
+                      model: {
+                        value: _vm.sch_frm.mng_group,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "mng_group", $$v)
+                        },
+                        expression: "sch_frm.mng_group",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.mng_info.group, function (v, key) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: key, attrs: { value: key } },
+                          [_vm._v(_vm._s(v))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type05" },
+                [
+                  _c(
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
                     [
                       _c(
-                        "b-input-group",
-                        { attrs: { size: "sm" } },
+                        "b-input-group-prepend",
                         [
                           _c(
-                            "b-input-group-prepend",
+                            "b-form-select",
+                            {
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.sch_frm.keyword_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.sch_frm, "keyword_type", $$v)
+                                },
+                                expression: "sch_frm.keyword_type",
+                              },
+                            },
                             [
                               _c(
-                                "b-form-select",
-                                {
-                                  attrs: { size: "sm" },
-                                  model: {
-                                    value: _vm.sch_frm.keyword_type,
-                                    callback: function ($$v) {
-                                      _vm.$set(_vm.sch_frm, "keyword_type", $$v)
-                                    },
-                                    expression: "sch_frm.keyword_type",
-                                  },
-                                },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_name" } },
-                                    [_vm._v("요청자명")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_department" } },
-                                    [_vm._v("소속")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_tel" } },
-                                    [_vm._v("전화번호")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_hp" } },
-                                    [_vm._v("휴대폰")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_email" } },
-                                    [_vm._v("이메일")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "eq_id" } },
-                                    [_vm._v("요청번호")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "er_id" } },
-                                    [_vm._v("견적번호")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "em_name" } },
-                                    [_vm._v("제품명")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "em_code" } },
-                                    [_vm._v("모델명")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "cat_no" } },
-                                    [_vm._v("Cat.No")]
-                                  ),
-                                ],
-                                1
+                                "b-form-select-option",
+                                { attrs: { value: "eq_name" } },
+                                [_vm._v("요청자명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "eq_department" } },
+                                [_vm._v("소속")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "eq_tel" } },
+                                [_vm._v("전화번호")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "eq_hp" } },
+                                [_vm._v("휴대폰")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "eq_email" } },
+                                [_vm._v("이메일")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "eq_id" } },
+                                [_vm._v("요청번호")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "er_id" } },
+                                [_vm._v("견적번호")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "em_name" } },
+                                [_vm._v("제품명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "em_code" } },
+                                [_vm._v("모델명")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "cat_no" } },
+                                [_vm._v("Cat.No")]
                               ),
                             ],
                             1
                           ),
-                          _vm._v(" "),
-                          _c("b-form-input", {
-                            attrs: { placeholder: "Please enter a keyword" },
-                            on: {
-                              keyup: function ($event) {
-                                if (
-                                  !$event.type.indexOf("key") &&
-                                  _vm._k(
-                                    $event.keyCode,
-                                    "enter",
-                                    13,
-                                    $event.key,
-                                    "Enter"
-                                  )
-                                ) {
-                                  return null
-                                }
-                                return _vm.index.apply(null, arguments)
-                              },
-                            },
-                            model: {
-                              value: _vm.sch_frm.keyword,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.sch_frm, "keyword", $$v)
-                              },
-                              expression: "sch_frm.keyword",
-                            },
-                          }),
-                          _vm._v(" "),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        attrs: { placeholder: "Please enter a keyword" },
+                        on: {
+                          keyup: function ($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.index.apply(null, arguments)
+                          },
+                        },
+                        model: {
+                          value: _vm.sch_frm.keyword,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.sch_frm, "keyword", $$v)
+                          },
+                          expression: "sch_frm.keyword",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
                           _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                { on: { click: _vm.index } },
-                                [_c("b-icon-search")],
-                                1
-                              ),
-                            ],
+                            "b-button",
+                            { on: { click: _vm.index } },
+                            [_c("b-icon-search")],
                             1
                           ),
                         ],

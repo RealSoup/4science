@@ -406,7 +406,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         od_no: "",
         od_name: "",
         od_type: this.$route.params.od_type,
-        od_pay_method: 'C',
+        od_pay_method: '',
         od_orderer: '',
         od_orderer_hp: "",
         od_orderer_hp1: '',
@@ -504,89 +504,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 45;
+                  _context.next = 35;
                   break;
                 }
 
-                if (!(_this.order.privacy !== 'Y')) {
-                  _context.next = 8;
-                  break;
-                }
-
-                Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-                document.getElementById('total_sub').scrollIntoView();
-                return _context.abrupt("return", false);
-
-              case 8:
-                if (!(!_this.isDlvyAir && _this.order.check_terms !== 'Y')) {
-                  _context.next = 12;
-                  break;
-                }
-
-                Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
-                document.getElementById('total_sub').scrollIntoView();
-                return _context.abrupt("return", false);
-
-              case 12:
-                if (!(_this.isDlvyAir && _this.order.dlvy_air !== 'Y')) {
-                  _context.next = 16;
-                  break;
-                }
-
-                Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
-                document.getElementById('total_sub').scrollIntoView();
-                return _context.abrupt("return", false);
-
-              case 16:
-                if (!(_this.order.od_pay_method == '')) {
-                  _context.next = 20;
-                  break;
-                }
-
-                Notify.toast('danger', "결제 수단을 선택하세요.");
-                document.getElementById('payment').scrollIntoView();
-                return _context.abrupt("return", false);
-
-              case 20:
                 _context.t0 = _this.order.extra.oex_type;
-                _context.next = _context.t0 === 'HP' ? 23 : _context.t0 === 'IN' ? 25 : _context.t0 === 'CN' ? 27 : _context.t0 === 'BN' ? 29 : 31;
+                _context.next = _context.t0 === 'HP' ? 7 : _context.t0 === 'IN' ? 9 : _context.t0 === 'CN' ? 11 : _context.t0 === 'BN' ? 13 : 15;
                 break;
 
-              case 23:
+              case 7:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_hp1, "-").concat(_this.order.extra.oex_num_hp2, "-").concat(_this.order.extra.oex_num_hp3);
-                return _context.abrupt("break", 31);
+                return _context.abrupt("break", 15);
 
-              case 25:
+              case 9:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_in1, "-").concat(_this.order.extra.oex_num_in2);
-                return _context.abrupt("break", 31);
+                return _context.abrupt("break", 15);
 
-              case 27:
+              case 11:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_cn1, "-").concat(_this.order.extra.oex_num_cn2, "-").concat(_this.order.extra.oex_num_cn3, "-").concat(_this.order.extra.oex_num_cn4);
-                return _context.abrupt("break", 31);
+                return _context.abrupt("break", 15);
 
-              case 29:
+              case 13:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_bn1, "-").concat(_this.order.extra.oex_num_bn2, "-").concat(_this.order.extra.oex_num_bn3);
-                return _context.abrupt("break", 31);
+                return _context.abrupt("break", 15);
 
-              case 31:
+              case 15:
                 if (_this.order.od_pay_method == 'R') {
                   _this.order.extra.oex_num_tel = "".concat(_this.order.extra.oex_num_tel1, "-").concat(_this.order.extra.oex_num_tel2, "-").concat(_this.order.extra.oex_num_tel3);
                   if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
                 }
 
-                _context.next = 34;
+                _context.next = 18;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this.order);
 
-              case 34:
+              case 18:
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 45;
+                  _context.next = 35;
                   break;
                 }
 
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 44;
+                  _context.next = 28;
                   break;
                 }
 
@@ -595,62 +555,75 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_key', pay.data.od_id);
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 44;
+                _context.next = 28;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 44:
-                if (_this.order.od_pay_method == 'C') {
-                  _this.order.od_id = pay.data.od_id;
-                  if (_this.inicis.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'M') {
-                    form = document.createElement('form'); // 폼객체 생성
+              case 28:
+                if (!(_this.order.od_pay_method == 'C')) {
+                  _context.next = 33;
+                  break;
+                }
 
-                    objs01 = document.createElement('input');
-                    objs02 = document.createElement('input');
-                    objs03 = document.createElement('input');
-                    objs04 = document.createElement('input');
-                    objs05 = document.createElement('input');
-                    objs06 = document.createElement('input');
-                    objs07 = document.createElement('input');
-                    objs08 = document.createElement('input');
-                    objs09 = document.createElement('input');
-                    objs01.setAttribute('name', 'P_INI_PAYMENT');
-                    objs01.setAttribute('value', 'CARD');
-                    form.appendChild(objs01);
-                    objs02.setAttribute('name', 'P_MID');
-                    objs02.setAttribute('value', _this.inicis.mid);
-                    form.appendChild(objs02);
-                    objs03.setAttribute('name', 'P_OID');
-                    objs03.setAttribute('value', _this.order.od_no);
-                    form.appendChild(objs03);
-                    objs04.setAttribute('name', 'P_GOODS');
-                    objs04.setAttribute('value', _this.order.od_name);
-                    form.appendChild(objs04);
-                    objs05.setAttribute('name', 'P_AMT');
-                    objs05.setAttribute('value', _this.order.price.total);
-                    form.appendChild(objs05);
-                    objs06.setAttribute('name', 'P_UNAME');
-                    objs06.setAttribute('value', _this.$store.state.auth.user.name);
-                    form.appendChild(objs06);
-                    objs07.setAttribute('name', 'P_NEXT_URL');
-                    objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
-                    form.appendChild(objs07);
-                    objs08.setAttribute('name', 'P_CHARSET');
-                    objs08.setAttribute('value', 'utf8');
-                    form.appendChild(objs08);
-                    objs09.setAttribute('name', 'P_NOTI');
-                    objs09.setAttribute('value', _this.order.od_id);
-                    form.appendChild(objs09);
-                    form.setAttribute('method', 'post'); //get,post 가능
+                _this.order.od_id = pay.data.od_id;
+                if (_this.inicis.sale_env == 'P1') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'P') {
+                  form = document.createElement('form'); // 폼객체 생성
 
-                    form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+                  objs01 = document.createElement('input');
+                  objs02 = document.createElement('input');
+                  objs03 = document.createElement('input');
+                  objs04 = document.createElement('input');
+                  objs05 = document.createElement('input');
+                  objs06 = document.createElement('input');
+                  objs07 = document.createElement('input');
+                  objs08 = document.createElement('input');
+                  objs09 = document.createElement('input');
+                  objs01.setAttribute('name', 'P_INI_PAYMENT');
+                  objs01.setAttribute('value', 'CARD');
+                  form.appendChild(objs01);
+                  objs02.setAttribute('name', 'P_MID');
+                  objs02.setAttribute('value', _this.inicis.mid);
+                  form.appendChild(objs02);
+                  objs03.setAttribute('name', 'P_OID');
+                  objs03.setAttribute('value', _this.order.od_no);
+                  form.appendChild(objs03);
+                  objs04.setAttribute('name', 'P_GOODS');
+                  objs04.setAttribute('value', _this.order.od_name);
+                  form.appendChild(objs04);
+                  objs05.setAttribute('name', 'P_AMT');
+                  objs05.setAttribute('value', _this.order.price.total);
+                  form.appendChild(objs05);
+                  objs06.setAttribute('name', 'P_UNAME');
+                  objs06.setAttribute('value', _this.$store.state.auth.user.name);
+                  form.appendChild(objs06);
+                  objs07.setAttribute('name', 'P_NEXT_URL');
+                  objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
+                  form.appendChild(objs07);
+                  objs08.setAttribute('name', 'P_CHARSET');
+                  objs08.setAttribute('value', 'utf8');
+                  form.appendChild(objs08);
+                  objs09.setAttribute('name', 'P_NOTI');
+                  objs09.setAttribute('value', _this.order.od_id);
+                  form.appendChild(objs09);
+                  form.setAttribute('method', 'post'); //get,post 가능
 
-                    document.body.appendChild(form);
-                    form.submit();
+                  form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+
+                  document.body.appendChild(form);
+                  form.submit();
+                }
+                _context.next = 35;
+                break;
+
+              case 33:
+                _context.next = 35;
+                return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
+                  name: 'order_done',
+                  params: {
+                    od_id: pay.data.od_id
                   }
-                } else {} // await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }})
+                });
 
-
-              case 45:
+              case 35:
               case "end":
                 return _context.stop();
             }
@@ -739,6 +712,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isModalViewed = false;
     },
     validationChecker: function validationChecker(frm) {
+      if (this.order.privacy !== 'Y') {
+        Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
+        document.getElementById('total_sub').scrollIntoView();
+        return false;
+      }
+
+      if (!this.isDlvyAir && this.order.check_terms !== 'Y') {
+        Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
+        document.getElementById('total_sub').scrollIntoView();
+        return false;
+      }
+
+      if (this.isDlvyAir && this.order.dlvy_air !== 'Y') {
+        Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
+        document.getElementById('total_sub').scrollIntoView();
+        return false;
+      }
+
+      if (this.order.od_pay_method == '') {
+        Notify.toast('danger', "결제 수단을 선택하세요.");
+        document.getElementById('payment').scrollIntoView();
+        return false;
+      }
+
       switch (frm.od_pay_method) {
         case 'B':
           if (isEmpty(frm.extra.oex_depositor)) {

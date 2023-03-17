@@ -2,7 +2,7 @@
     <div>
         <div class="layout root">
             <b-row>
-                <b-col><img :src="s3url+'outlet/logo/logo.png'" /></b-col>
+                <b-col><img :src="s3url+'outlet/logo.png'" /></b-col>
                 
                 <b-col v-b-toggle.pipette>
                     <img :src="s3url+'outlet/list01.png'" />

@@ -225,6 +225,16 @@ export default [
         name: 'estimate_create',
         component:() => import('@/views/web/shop/estimate/Create'),
         beforeEnter: isLoggedin(),
+    }, {   //   주문 제작
+        path: '/shop/estimate/custom',
+        name: 'estimate_custom_index',
+        component:() => import('@/views/web/shop/estimate/custom/Index'),
+        beforeEnter: isLoggedin(),
+    }, {   //   주문 제작
+        path: '/shop/estimate/custom/:id',
+        name: 'estimate_custom_create',
+        component:() => import('@/views/web/shop/estimate/custom/Create'),
+        beforeEnter: isLoggedin(),
     },
 
 //      전문관

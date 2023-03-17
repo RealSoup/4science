@@ -56,7 +56,7 @@ class Order extends Model {
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 
     // 디폴트로 임시저장한 주문건은 제외
-    public function newQuery($excludeDeleted = true) { return parent::newQuery($excludeDeleted) ->where('od_step', '!=', 0); }
+    public function newQuery($excludeDeleted = true) { return parent::newQuery($excludeDeleted)->where('od_step', '!=', '0'); }
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
     public function getOrderConfig() { return $this->orderConfig; }

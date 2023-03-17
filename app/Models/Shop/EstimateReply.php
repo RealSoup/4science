@@ -25,7 +25,7 @@ class EstimateReply extends Model {
     public function fileInfo() {    return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
 
     public function scopeErId($query, $id_arr) {
-        if ($id_arr->count() == 0) $id_arr = [0];
+        if (count($id_arr) == 0) $id_arr = [0];
         return $query->whereIn('er_id', $id_arr);
     }
     public function scopeErEqId($query, $id) { return $query->where('er_eq_id', $id); }

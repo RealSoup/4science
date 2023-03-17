@@ -336,7 +336,7 @@ var render = function () {
           "b-row",
           [
             _c("b-col", [
-              _c("img", { attrs: { src: _vm.s3url + "outlet/logo/logo.png" } }),
+              _c("img", { attrs: { src: _vm.s3url + "outlet/logo.png" } }),
             ]),
             _vm._v(" "),
             _c(

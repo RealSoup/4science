@@ -198,6 +198,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1405,6 +1406,7 @@ var render = function () {
                               _c(
                                 "b-button",
                                 {
+                                  key: i,
                                   staticClass: "mr-2",
                                   attrs: {
                                     size: "sm",
@@ -1419,12 +1421,14 @@ var render = function () {
                                     },
                                   },
                                 },
-                                [_vm._v(_vm._s(file.fi_original))]
+                                [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(file.fi_original) +
+                                      "\n                            "
+                                  ),
+                                ]
                               ),
-                              _vm._v(" "),
-                              i != Object.keys(_vm.frm.file_info).length - 1
-                                ? _c("b")
-                                : _vm._e(),
                             ]
                           }),
                         ],

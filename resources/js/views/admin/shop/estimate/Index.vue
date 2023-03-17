@@ -1,91 +1,87 @@
 <template>
-<div class="p_wrap">
+<div id="adm_estimate_show" class="p_wrap">
     <h3 class="p_tit">견적 목록</h3>
-    <b-card class="search adform">
-        <b-container fluid>
+    <b-container class="search">
+        <SchDate v-model="sch_frm">
+            <b-col slot="prev" class="label">기간</b-col>
+            <b-col slot="prev" :style="{ flex:'0 0 8%', maxWidth:'8%' }">
+                <b-form-select v-model="sch_frm.date_type">
+                    <b-form-select-option value="reque">요청일</b-form-select-option>
+                    <b-form-select-option value="reply">응답일</b-form-select-option>
+                </b-form-select>
+            </b-col>
+        </SchDate>
+        <b-row>
+            <b-col class="label">요청/임의</b-col>
+            <b-col class="type01">
+                <b-form-select size="sm" v-model="sch_frm.eq_type">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option value="REQ">요청견적</b-form-select-option>
+                    <b-form-select-option value="TEMP">임의견적</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-            <SchDate v-model="sch_frm">
-                <b-col slot="prev" class="label">
-                    <b-form-select size="sm" v-model="sch_frm.date_type">
-                        <b-form-select-option value="reque">요청일</b-form-select-option>
-                        <b-form-select-option value="reply">응답일</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-            </SchDate>
+            <b-col class="label">진행현황</b-col>
+            <b-col class="type01">
+                <b-form-select size="sm" v-model="sch_frm.eq_step">
+                    <b-form-select-option value="">처리단계</b-form-select-option>
+                    <b-form-select-option value="DONOT">미처리</b-form-select-option>
+                    <b-form-select-option value="DOING">처리중</b-form-select-option>
+                    <b-form-select-option value="DONE">처리완료</b-form-select-option>
+                    <b-form-select-option value="CANCEL">취소</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">견적금액</b-col>
+            <b-col class="type03 period">
+                <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" size="sm" />
+                <b>~</b>
+                <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" size="sm" />
+            </b-col>
+        </b-row>
 
-            <b-row>
-                <b-col class="label">요청/임의</b-col>
-                <b-col class="type01">
-                    <b-form-select size="sm" v-model="sch_frm.eq_type">
-                        <b-form-select-option value=""></b-form-select-option>
-                        <b-form-select-option value="REQ">요청견적</b-form-select-option>
-                        <b-form-select-option value="TEMP">임의견적</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+        <b-row>
+            <b-col class="label">담당자</b-col>
+            <b-col class="type01">
+                <b-form-select size="sm" v-model="sch_frm.eq_mng">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(m, k) in mng" :value="m.id" :key="k">{{m.name}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">팀검색</b-col>
+            <b-col class="type01">
+                <b-form-select size="sm" v-model="sch_frm.mng_group">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(v, key) in mng_info.group" :value="key" :key="key">{{v}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+            <b-col class="label">검색</b-col>
+            <b-col class="type05">
+                <b-input-group size="sm">
+                    <b-input-group-prepend>
+                        <b-form-select v-model="sch_frm.keyword_type" size="sm">
+                            <b-form-select-option value="eq_name">요청자명</b-form-select-option>
+                            <b-form-select-option value="eq_department">소속</b-form-select-option>
+                            <b-form-select-option value="eq_tel">전화번호</b-form-select-option>
+                            <b-form-select-option value="eq_hp">휴대폰</b-form-select-option>
+                            <b-form-select-option value="eq_email">이메일</b-form-select-option>
+                            <b-form-select-option value="eq_id">요청번호</b-form-select-option>
+                            <b-form-select-option value="er_id">견적번호</b-form-select-option>
+                            <b-form-select-option value="em_name">제품명</b-form-select-option>
+                            <b-form-select-option value="em_code">모델명</b-form-select-option>
+                            <b-form-select-option value="cat_no">Cat.No</b-form-select-option>
+                        </b-form-select>
+                    </b-input-group-prepend>
 
-                <b-col class="label">처리단계</b-col>
-                <b-col class="type01">
-                    <b-form-select size="sm" v-model="sch_frm.eq_step">
-                        <b-form-select-option value="">처리단계</b-form-select-option>
-                        <b-form-select-option value="DONOT">미처리</b-form-select-option>
-                        <b-form-select-option value="DOING">처리중</b-form-select-option>
-                        <b-form-select-option value="DONE">처리완료</b-form-select-option>
-                        <b-form-select-option value="CANCEL">취소</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-                <b-col class="label">견적금액</b-col>
-                <b-col class="type03 period">
-                    <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" size="sm" />
-                    <b>~</b>
-                    <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" size="sm" />
-                </b-col>
-                
-                <b-col class="label">팀검색</b-col>
-                <b-col class="type01">
-                    <b-form-select size="sm" v-model="sch_frm.mng_group">
-                        <b-form-select-option value=""></b-form-select-option>
-                        <b-form-select-option v-for="(v, key) in mng_info.group" :value="key" :key="key">{{v}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-                
-                <b-col class="label">담당자</b-col>
-                <b-col class="type01">
-                    <b-form-select size="sm" v-model="sch_frm.eq_mng">
-                        <b-form-select-option value=""></b-form-select-option>
-                        <b-form-select-option v-for="(m, k) in mng" :value="m.id" :key="k">{{m.name}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-            </b-row>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword" @keyup.enter="index" />
 
-            <b-row align-h="end">
-                <b-col class="label">검색</b-col>
-                <b-col class="type05">
-                    <b-input-group size="sm">
-                        <b-input-group-prepend>
-                            <b-form-select v-model="sch_frm.keyword_type" size="sm">
-                                <b-form-select-option value="eq_name">요청자명</b-form-select-option>
-                                <b-form-select-option value="eq_department">소속</b-form-select-option>
-                                <b-form-select-option value="eq_tel">전화번호</b-form-select-option>
-                                <b-form-select-option value="eq_hp">휴대폰</b-form-select-option>
-                                <b-form-select-option value="eq_email">이메일</b-form-select-option>
-                                <b-form-select-option value="eq_id">요청번호</b-form-select-option>
-                                <b-form-select-option value="er_id">견적번호</b-form-select-option>
-                                <b-form-select-option value="em_name">제품명</b-form-select-option>
-                                <b-form-select-option value="em_code">모델명</b-form-select-option>
-                                <b-form-select-option value="cat_no">Cat.No</b-form-select-option>
-                            </b-form-select>
-                        </b-input-group-prepend>
+                    <b-input-group-append>
+                        <b-button @click="index"><b-icon-search /></b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </b-col>
+        </b-row>
+    </b-container>    
 
-                        <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword" @keyup.enter="index" />
-
-                        <b-input-group-append>
-                            <b-button @click="index"><b-icon-search /></b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
 
     <b-card class="shadow em_list">
         <b-container fluid>

@@ -54,13 +54,6 @@
                             <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" :height="100" />
                         </b-col>
                     </b-row>
-                    <b-row class="agree">
-                        <b-col>
-                            [SMS 수신동의] 본 견적요청과 관련된 문자메세지를 수신하시겠습니까? 
-                            <b-form-radio v-model="receive_yn" value="Y">수신</b-form-radio>
-                            <b-form-radio v-model="receive_yn" value="N">수신 안함</b-form-radio>
-                        </b-col>
-                    </b-row>
                 </b-container>
             </b-col>
 

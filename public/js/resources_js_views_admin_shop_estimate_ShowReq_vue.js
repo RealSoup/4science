@@ -134,14 +134,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'admShopEstimateShowReq',
+  components: {
+    'MadeType01': function MadeType01() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType01_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType01 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType01.vue"));
+    },
+    'MadeType08': function MadeType08() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType08_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType08 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType08.vue"));
+    },
+    'MadeType20': function MadeType20() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType20_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType20 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType20.vue"));
+    },
+    'MadeType24': function MadeType24() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType24_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType24 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType24.vue"));
+    },
+    'MadeTypeCommon': function MadeTypeCommon() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeTypeCommon_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeTypeCommon */ "./resources/js/views/admin/shop/estimate/_comp/MadeTypeCommon.vue"));
+    }
+  },
   data: function data() {
     return {
       frm: {
         file_info: []
       }
     };
+  },
+  computed: {
+    choiceSubType: function choiceSubType() {
+      switch (this.frm.eq_1depth) {
+        case '1':
+          return 'MadeType01';
+          break;
+
+        case '8':
+          return 'MadeType08';
+          break;
+
+        case '20':
+          return 'MadeType20';
+          break;
+
+        case '24':
+          return 'MadeType24';
+          break;
+
+        default:
+          return 'MadeTypeCommon';
+          break;
+      }
+    }
   },
   methods: {
     show: function show() {
@@ -574,7 +619,7 @@ var render = function () {
                                     [
                                       _c("b-icon-newspaper"),
                                       _vm._v(
-                                        " 견적서 확인\n                            "
+                                        " 견적서 확인\r\n                            "
                                       ),
                                     ],
                                     1
@@ -593,7 +638,7 @@ var render = function () {
                                     [
                                       _c("b-icon-pencil-square"),
                                       _vm._v(
-                                        " 견적서 작성\n                            "
+                                        " 견적서 작성\r\n                            "
                                       ),
                                     ],
                                     1
@@ -728,6 +773,33 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
+                    Number(_vm.frm.eq_1depth)
+                      ? _c(
+                          "div",
+                          [
+                            _c("h5", [
+                              _vm._v(
+                                "주문제작 정보: " +
+                                  _vm._s(_vm.frm.made_cate[_vm.frm.eq_1depth])
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c(_vm.choiceSubType, {
+                              ref: "custom_sub",
+                              tag: "component",
+                              model: {
+                                value: _vm.frm.estimate_custom,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "estimate_custom", $$v)
+                                },
+                                expression: "frm.estimate_custom",
+                              },
+                            }),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _vm.frm.eq_content
                       ? _c("div", [
                           _c(
@@ -767,7 +839,7 @@ var render = function () {
                                       on: {
                                         click: function ($event) {
                                           return _vm.fileDown(
-                                            file.path,
+                                            file.down_path,
                                             file.fi_original
                                           )
                                         },
@@ -775,15 +847,12 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(file.fi_original)
+                                        "\r\n                                    " +
+                                          _vm._s(file.fi_original) +
+                                          "\r\n                                "
                                       ),
                                     ]
                                   ),
-                                  _vm._v(" "),
-                                  i != Object.keys(_vm.frm.file_info).length - 1
-                                    ? _c("b", { key: i })
-                                    : _vm._e(),
                                 ]
                               }),
                             ],
@@ -807,7 +876,7 @@ var render = function () {
             "b-card",
             { staticClass: "gd_box" },
             [
-              _c("div", { staticClass: "tit" }, [_vm._v("주문 상품")]),
+              _c("div", { staticClass: "tit" }, [_vm._v("견적요청 상품")]),
               _vm._v(" "),
               _c(
                 "b-container",
@@ -845,27 +914,27 @@ var render = function () {
                           _vm._v(" "),
                           _c("b", { staticClass: "divider" }, [_vm._v("/")]),
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(em.em_code) +
-                              "\n                    "
+                              "\r\n                    "
                           ),
                           _c("b", { staticClass: "divider" }, [_vm._v("/")]),
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(em.em_catno) +
-                              "\n                    "
+                              "\r\n                    "
                           ),
                           _c("b", { staticClass: "divider" }, [_vm._v("/")]),
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(em.em_maker) +
-                              "\n                    "
+                              "\r\n                    "
                           ),
                           _c("b", { staticClass: "divider" }, [_vm._v("/")]),
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(em.em_unit) +
-                              "\n                "
+                              "\r\n                "
                           ),
                         ],
                         1

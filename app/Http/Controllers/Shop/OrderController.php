@@ -119,7 +119,7 @@ class OrderController extends Controller {
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
-                'od_step'          => $req->filled('od_step')          ? $req->od_step          : '0',
+                'od_step'          => $req->od_pay_method == 'B'       ? '10'                   : '0',
                 'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
                 'od_dlvy_price'    => $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0,
@@ -295,34 +295,6 @@ class OrderController extends Controller {
             // dd($order_goodsInfo);
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
-
-            // $bank = '';
-            // $account = '';
-            // if ($req->od_pay_method != "C" ) {
-            //     if ($req->bank_type == 'W') {
-            //         $bank = cache('bank')['name01'];
-            //         $account = cache('bank')['num01'];
-            //     } else {
-            //         $bank = cache('bank')['name02'];
-            //         $account = cache('bank')['num02'];
-            //     }
-            //     if ( auth()->user()->receive_sms == 'Y' )
-            //         sendSms($req->od_orderer_hp, $req->od_orderer, $req->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache('bank')['owner'], 'price'=>number_format($req->od_all_price)]);
-            // }
-
-
-            // $params['subject'] = "주문완료";
-            // $params['od_no'] = $req->od_no;
-            // $params['od_orderer'] = $req->od_orderer;
-            // $params['od_orderer_hp'] = $req->od_orderer_hp;
-            // $params['bank'] = $bank;
-            // $params['account'] = $account;
-            // $params['holder'] = cache('bank')['owner'];
-            // $params['price'] = number_format($req->od_all_price);
-            // $params['addr'] = "[$req->od_zip] $req->od_addr1 $req->od_addr2 $req->od_memo";
-            // if ( auth()->user()->receive_mail == 'Y' )
-            //     Mail::to($req->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
-                
             DB::commit();
             return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
         } catch (Exception $e) {
@@ -544,6 +516,37 @@ class OrderController extends Controller {
                 return redirect("/shop/order/payCardFail?msg=카드결제에 실패 했습니다.\\n다시 해주시기 바랍니다.");
             }
         }
+    }
+    
+    public function done($od_id){
+        $data = $this->order->with('orderExtraInfo')->find($od_id);
+        $bank = '';
+        $account = '';
+        if ($data->od_pay_method == "B" ) {
+            if ($data->orderExtraInfo->bank_type == 'W') {
+                $bank = cache('bank')['name01'];
+                $account = cache('bank')['num01'];
+            } else {
+                $bank = cache('bank')['name02'];
+                $account = cache('bank')['num02'];
+            }
+            if ( auth()->user()->receive_sms == 'Y' )
+                sendSms($data->od_orderer_hp, $data->od_orderer, $data->od_no, ['bank'=>$bank, 'account'=>$account, 'holder'=>cache('bank')['owner'], 'price'=>number_format($data->od_all_price)]);
+        }
+        
+        $params['subject'] = "주문완료";
+        $params['od_no'] = $data->od_no;
+        $params['od_orderer'] = $data->od_orderer;
+        $params['od_orderer_hp'] = $data->od_orderer_hp;
+        $params['bank'] = $bank;
+        $params['account'] = $account;
+        $params['holder'] = cache('bank')['owner'];
+        $params['price'] = number_format($data->od_all_price);
+        $params['addr'] = "[$data->od_zip] $data->od_addr1 $data->od_addr2 $data->od_memo";
+        if ( auth()->user()->receive_mail == 'Y' )
+            Mail::to($data->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
+
+        return response()->json($data, 200);
     }
 
 
@@ -1053,10 +1056,6 @@ class OrderController extends Controller {
     //     return response()->json($msg, $httpCode);
     // }
 
-    public function done($od_id){
-        $data = $this->order->with('orderExtraInfo')->find($od_id);
-        return response()->json($data, 200);
-    }
 
 
 }

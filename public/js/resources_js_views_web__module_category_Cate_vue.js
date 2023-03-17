@@ -270,11 +270,18 @@ var render = function () {
         _c(
           "li",
           [
-            _c("b-link", { attrs: { to: { name: "goods_index" } } }, [
-              _c("img", {
-                attrs: { src: _vm.s3url + "common/cate/custom.png" },
-              }),
-            ]),
+            _c(
+              "b-link",
+              {
+                staticClass: "ca01",
+                attrs: { to: { name: "estimate_custom_index" } },
+              },
+              [
+                _c("img", {
+                  attrs: { src: _vm.s3url + "common/cate/custom.png" },
+                }),
+              ]
+            ),
           ],
           1
         ),

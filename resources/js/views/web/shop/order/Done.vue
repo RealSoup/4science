@@ -26,10 +26,7 @@ export default {
     data() {
         return {
             od_id:this.$route.params.od_id,
-            order:{
-                order_extra_info:{},
-            },
-
+            order:{ order_extra_info:{}, },
         }
     },
     computed: {
@@ -53,21 +50,10 @@ export default {
             }
         },
     },
-    methods: {
-        async show(){
-            try {
-                const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
-                if (res && res.status === 200) {
-                    this.order = res.data;
-                }
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.responsee);
-            }
-        },
-    },
-    mounted() {
-        this.show();
+    async mounted() {
+        const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
+        if (res && res.status === 200)
+            this.order = res.data;
     },
 }
 </script>

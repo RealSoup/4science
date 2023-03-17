@@ -5,15 +5,13 @@
     <b-container id="footer_top" class="layout">
         <b-row>
             <b-col class="fir">
-                <div>
-                    <p class="tit">고객센터</p>
-                    <p class="tel">{{siteInfo.biz.tel}}</p>
-                    <p>09:00 ~ 18:00 ( 점심: 12:00 ~ 13:00 )<br /> 주말 및 공휴일은 휴무입니다.</p>
-                    <p class="contact"> <span class="ic">F</span> {{siteInfo.biz.fax}} 
-                        <span class="ic">M</span> <b-link :href="`mailto:${siteInfo.biz.email}`">{{siteInfo.biz.email}}</b-link></p>
-                    <p class="contact"><b-img :src="`${s3url}common/footer/kakao-talk.png`" />
-                        카카오 채널: <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank'>포사이언스</b-link></p>
-                </div>
+                <p class="tit">고객센터</p>
+                <p class="tel">{{siteInfo.biz.tel}}</p>
+                <p class="date">09:00 ~ 18:00 ( 점심: 12:00 ~ 13:00 )<br /> 주말 및 공휴일은 휴무입니다.</p>
+                <p class="contact"> <span class="ic">F</span> {{siteInfo.biz.fax}} 
+                    <span class="ic">M</span> <b-link :href="`mailto:${siteInfo.biz.email}`">{{siteInfo.biz.email}}</b-link></p>
+                <p class="contact kakao"><b-img :src="`${s3url}common/footer/kakao-talk.png`" />
+                    카카오 채널: <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank'>포사이언스</b-link></p>
             </b-col>
 
             <b-col class="sec">
@@ -31,12 +29,10 @@
             
             <b-col class="thi">
                 <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
-                
                 <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
                     <span>{{bo.bo_subject}}</span>
                     <span>{{bo.created_at | formatDate}}</span>
                 </b-link>
-                
             </b-col>
         </b-row>
     </b-container>
@@ -112,21 +108,23 @@ export default {
 </script>
 
 <style scoped>
-#footer { margin-top:3rem; border-top:1px solid #363636; }
+#footer { margin-top:3rem; padding-top:3.3rem; border-top:1px solid #363636; }
 #footer #footer_top { padding:0; }
-#footer #footer_top>.row { margin:0 -34px; }
+#footer #footer_top>.row { margin:0; }
 #footer #footer_top .row .col { padding:0; }
-#footer #footer_top>.row>.col { padding:34px; }
-#footer #footer_top .row .col .tit { font-weight:bold; font-size:1.4rem; }
-#footer #footer_top .row .fir div { border:1px solid #EBEBEB; padding:2rem; }
-#footer #footer_top .row .fir div p { text-align:center; margin-bottom:.5rem;}
-#footer #footer_top .row .fir div .tit { margin-top:2rem; }
-#footer #footer_top .row .fir div .tel { font-size:3rem; font-weight:bold; color:#17A2B8; line-height:48px; }
-#footer #footer_top .row .fir div p .ic { text-align:center; border-radius:50%; background:#5B6263; color:#FFF; font-weight:bold; width:25px; height:25px; display:inline-block; }
-#footer #footer_top .row .fir div p .ic:nth-child(2) { margin-left:1rem; }
-#footer #footer_top .row .fir div p.contact { text-align:left; padding-left:2rem; }
+#footer #footer_top .row .col .tit { font-weight:bold; font-size:1.5rem; }
 
+#footer #footer_top .row .fir { border:2px solid #EBEBEB; padding:.5rem; margin-right:3.75rem; }
+#footer #footer_top .row .fir p { text-align:center; margin-bottom:.5rem;}
+#footer #footer_top .row .fir .tit { margin-top:1rem; margin-bottom:.7rem; }
+#footer #footer_top .row .fir .tel { font-size:3rem; font-weight:bold; color:#17A2B8; line-height:48px; }
+#footer #footer_top .row .fir .date { margin-bottom:.9rem; }
+#footer #footer_top .row .fir .contact .ic { text-align:center; border-radius:50%; background:#5B6263; color:#FFF; font-weight:bold; width:24px; height:24px; display:inline-block; }
+#footer #footer_top .row .fir .contact .ic:nth-child(2) { margin-left:1rem; }
+#footer #footer_top .row .fir .contact { text-align:left; padding-left:2rem; }
+#footer #footer_top .row .fir .kakao { margin-bottom:.65rem; }
 
+#footer #footer_top .row .sec { margin-right:3.75rem; }
 #footer #footer_top .row .sec .tit { border-bottom:1px solid #333; padding:15px 0 8px 8px; margin-bottom:1.5rem; }
 #footer #footer_top .row .sec .row { padding:10px 9%; }
 #footer #footer_top .row .sec .row .col:nth-child(1) { flex:0 0 35%; max-width:35%; text-align:center; }
@@ -138,7 +136,7 @@ export default {
 #footer #footer_top .row .thi a:hover { background-color:#17A2B8; }
 #footer #footer_top .row .thi a span:nth-child(2) { float:right; }
 
-#footer #footer_bottom { background-color: #3A3A3A; padding:2rem 0; }
+#footer #footer_bottom { background-color: #3A3A3A; padding:2rem 0; margin-top:3.3rem; }
 #footer #footer_bottom .container { max-width:1120px; }
 #footer #footer_bottom .container,
 #footer #footer_bottom .container .row .col { padding:0; color:#fff; font-size:13px; }
