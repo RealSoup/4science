@@ -218,11 +218,11 @@ label { margin-bottom:0; }
 .p_wrap .frm_st textarea { padding:2px 23px; border-width:0; font-size:.87rem; color:#898989; }
 .p_wrap .cmain .badge { font-size:90%; padding:.35em .4em .19em .4em; }
 
-.p_wrap .cmain .row .col { font-size:.95rem; }
+.p_wrap .cmain .row .col { font-size:.95rem; line-height:23px; }
 .p_wrap .cmain .head { background-color:#EFF0F2; border-top:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; margin-top:1rem; }
 .p_wrap .cmain .head .col { font-weight:600; text-align:center; padding:.65rem 0; }
-.p_wrap .cmain .body { border-bottom:1px solid #CCCCCC; align-items:center; }
-.p_wrap .cmain .body .col { padding:1.05rem 0; text-align:center; }
+.p_wrap .cmain .body { border-bottom:1px solid #CCCCCC; }
+.p_wrap .cmain .body .col { padding:1.05rem 0; line-height:36px; text-align:center; }
 
 
 .card.adform .row { align-items:center; }

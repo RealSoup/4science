@@ -394,7 +394,7 @@ var render = function () {
                 _vm._l(row.estimate_reply, function (er, i) {
                   return [
                     _c("span", { key: "i" + er.er_id }, [
-                      _vm._v("." + _vm._s(er.er_id)),
+                      _vm._v(_vm._s(er.er_id) + "."),
                     ]),
                     _vm._v(" "),
                     i === 0

@@ -38,7 +38,7 @@
         </b-col>
         <b-col class="er_box">
             <template v-for="(er, i) in row.estimate_reply">
-                <span :key="`i${er.er_id}`">.{{er.er_id}}</span>
+                <span :key="`i${er.er_id}`">{{er.er_id}}.</span>
                 <span v-if="i===0" class="btn mint" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" :key="`b${er.er_id}`">견적서</span>
                 <span v-else class="btn orange" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" :key="`b${er.er_id}`">재견적서</span>
                 <span :key="`d${er.er_id}`">{{ er.created_at | formatDate }}</span>

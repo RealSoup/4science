@@ -90,7 +90,10 @@
             </b-col>
         </b-row>
         <List v-if="list.data && list.data.length" :list="list.data" />
-        <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5"></pagination>
+        <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5">
+            <span slot="prev-nav">&lt; Previous</span>
+	        <span slot="next-nav">Next &gt;</span>
+        </pagination>
     </b-container>
 
  

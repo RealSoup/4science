@@ -42,13 +42,21 @@ export default {
             return dirty || validated ? valid : null;
         },
         async update() {
-            const res = await ax.post(`password/reset`, this.frm);
-            if (res && res.status === 200) {          
-                Notify.modal('재설정 되었습니다.', 'success');
-                await this.$store.dispatch('auth/getAuth');
-                this.$store.dispatch('cart/index');
-                this.$router.push({name: 'main'});
+            try {
+                const res = await ax.post(`password/reset`, this.frm);
+                if (res && res.status === 200) {          
+                    Notify.modal('재설정 되었습니다.', 'success');
+                    await this.$store.dispatch('auth/getAuth');
+                    this.$store.dispatch('cart/index');
+                    this.$router.push({name: 'main'});
+                } else {
+                    Notify.modal(res.errors, 'danger');
+                }
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response.data.message);
             }
+            
         },
     },
 } 

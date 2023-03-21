@@ -37,6 +37,7 @@ instance.interceptors.response.use(function (response) {
     store.commit('error/setValidationError', {});
     return response;
 }, function (error) {
+    console.log(error.response);
     if (error.response.status === 401) {
         if (error.response.config.url !== "/api/user") {
             store.dispatch('auth/logout');
@@ -56,6 +57,8 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 422) {
         if ( typeof error.response.data.errors['email'] !== "undefined" && error.response.data.errors['email'][0] === 'These credentials do not match our records.') {
             Notify.modal('로그인 정보를 확인하세요', 'danger');
+        } else if ( typeof error.response.data.errors['password'] !== "undefined") {
+            Notify.modal(error.response.data.errors['password'], 'danger');
         } else {
             store.commit('error/setValidationError', error.response.data.errors);
             for (let i in error.response.data.errors) {

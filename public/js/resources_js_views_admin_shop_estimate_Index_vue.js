@@ -119,6 +119,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -779,11 +782,28 @@ var render = function () {
             ? _c("List", { attrs: { list: _vm.list.data } })
             : _vm._e(),
           _vm._v(" "),
-          _c("pagination", {
-            staticClass: "mt-5",
-            attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
-            on: { "pagination-change-page": _vm.index },
-          }),
+          _c(
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                size: "small",
+                limit: 5,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.index },
+            },
+            [
+              _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+                _vm._v("< Previous"),
+              ]),
+              _vm._v(" "),
+              _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+                _vm._v("Next >"),
+              ]),
+            ]
+          ),
         ],
         1
       ),
