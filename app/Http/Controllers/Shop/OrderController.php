@@ -546,10 +546,7 @@ class OrderController extends Controller {
         if ( auth()->user()->receive_mail == 'Y' ) {
             try { Mail::to($data->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
             } catch(\Swift_TransportException $e){
-                dump("주문자:".$data->od_orderer_email);
-                dump("보내는사람:".cache('biz')['email']);
-                dump($params);
-                if($e->getMessage()) dd($e->getMessage());
+                // if($e->getMessage()) dd($e->getMessage());
             }
         }
         return response()->json($data, 200);
