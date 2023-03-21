@@ -436,9 +436,7 @@ class OrderController extends Controller {
                         'pg_msg'      => $resultMap['resultMsg']]);
 
                     if ((strcmp("0000", $resultMap["resultCode"]) == 0) && (strcmp($secureSignature, $resultMap["authSignature"]) == 0) ){ // 결제 성공시
-                        $od = $this->order->find(($req->merchantData));
-                        $od->od_step = '20';
-                        $od->save();
+                        DB::table('shop_order')->where('od_id', $req->merchantData)->update(['od_step'=> '20']);
                         return redirect("/shop/order/done/{$req->merchantData}");
                     } else {
                         $params['msg'] = "거래 실패<br />";
