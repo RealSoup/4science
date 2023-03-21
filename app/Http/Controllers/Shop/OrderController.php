@@ -112,14 +112,12 @@ class OrderController extends Controller {
             $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
             if(preg_match($mobile_agent, $_SERVER['HTTP_USER_AGENT'])) $sale_env = "M"; // preg_match() 함수를 이용해 모바일 기기로 접속하였는지 확인
 
-            $created_id = auth()->check() ? auth()->user()->id : 0;
-
             $od_id = $this->order->insertGetId([
                 'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
-                'od_step'          => $req->od_pay_method == 'B'       ? '10'                   : '0',
+                'od_step'          => $req->od_pay_method == 'C'       ? '0'                    : '10',
                 'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
                 'od_dlvy_price'    => $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0,
@@ -138,7 +136,7 @@ class OrderController extends Controller {
                 'od_pay_method'    => $req->filled('od_pay_method')    ? $req->od_pay_method    : 'C',
                 'od_sale_env'      => $sale_env,
                 'ip'               => $req->ip(),
-                'created_id'       => $created_id
+                'created_id'       => (auth()->check() ? auth()->user()->id : 0)
             ], 'od_id');
 
             // if ($req->od_type == 'buy_estimate') {
@@ -520,6 +518,7 @@ class OrderController extends Controller {
     
     public function done($od_id){
         $data = $this->order->with('orderExtraInfo')->find($od_id);
+        // dd($od_id);
         $bank = '';
         $account = '';
         if ($data->od_pay_method == "B" ) {

@@ -788,20 +788,26 @@ var render = function () {
               staticClass: "mt-5",
               attrs: {
                 data: _vm.list,
-                size: "small",
                 limit: 5,
+                showDisabled: true,
                 align: "center",
               },
               on: { "pagination-change-page": _vm.index },
             },
             [
-              _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
-                _vm._v("< Previous"),
-              ]),
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
+                1
+              ),
               _vm._v(" "),
-              _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
-                _vm._v("Next >"),
-              ]),
+              _c(
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
+                1
+              ),
             ]
           ),
         ],

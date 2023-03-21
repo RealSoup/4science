@@ -16,7 +16,7 @@
     </b-row>
     <b-row class="body" v-for="row in list" :key="row.eq_id">
         <b-col>{{row.eq_id}}.</b-col>
-        <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`, 1700, 900)">
+        <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`, 1700, 900)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <SubString v-else-if="row.eq_type == 'REQ'" v-model="row.eq_content" :width="900" />
 
@@ -67,6 +67,7 @@ export default {
 .row .col:nth-child(7) { flex:0 0 20%; max-width:20%; }
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; }
+.eq_tit .badge { width:26px; height:26px; border-radius:50%; font-weight:900; }
 .er_box { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}
 .er_box span { text-align:center; }
 .er_box span:nth-child(3n+1) { flex:0 0 30%; max-width:30%; }

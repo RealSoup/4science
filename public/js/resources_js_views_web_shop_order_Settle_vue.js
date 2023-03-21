@@ -565,7 +565,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _this.order.od_id = pay.data.od_id;
-                if (_this.inicis.sale_env == 'P1') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'P') {
+                if (_this.inicis.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'M') {
                   form = document.createElement('form'); // 폼객체 생성
 
                   objs01 = document.createElement('input');

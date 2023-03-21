@@ -483,9 +483,9 @@ export default {
 
                     if (this.order.od_pay_method == 'C') {
                         this.order.od_id = pay.data.od_id;
-                        if(this.inicis.sale_env == 'P1') 
+                        if(this.inicis.sale_env == 'P') 
                             INIStdPay.pay('SendPayForm');
-                        else if(this.inicis.sale_env == 'P') {
+                        else if(this.inicis.sale_env == 'M') {
                             var form = document.createElement('form'); // 폼객체 생성
                             var objs01 = document.createElement('input'); 
                             var objs02 = document.createElement('input'); 

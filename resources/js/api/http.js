@@ -37,7 +37,6 @@ instance.interceptors.response.use(function (response) {
     store.commit('error/setValidationError', {});
     return response;
 }, function (error) {
-    console.log(error.response);
     if (error.response.status === 401) {
         if (error.response.config.url !== "/api/user") {
             store.dispatch('auth/logout');

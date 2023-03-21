@@ -94,6 +94,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
         Route::prefix('admin')->group(function () {
+            Route::Get('/', 'Admin\MainController@index');
             Route::prefix('site')->group(function () {
                 Route::GET('/', 'Admin\SiteController@index');
                 Route::PATCH('/', 'Admin\SiteController@update');

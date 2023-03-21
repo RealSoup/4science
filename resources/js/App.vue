@@ -224,6 +224,13 @@ label { margin-bottom:0; }
 .p_wrap .cmain .body { border-bottom:1px solid #CCCCCC; }
 .p_wrap .cmain .body .col { padding:1.05rem 0; line-height:36px; text-align:center; }
 
+.p_wrap .page-link { min-width:40px; text-align:center; margin-left:0; border-color:#fff; }
+.p_wrap .page-item.active .page-link { background-color:#B2E0FA; border-color:#B2E0FA; }
+.p_wrap .pagination-prev-nav { margin-right:15px; }
+.p_wrap .pagination-next-nav { margin-left:15px; }
+.p_wrap .pagination-prev-nav .page-link,
+.p_wrap .pagination-next-nav .page-link { border-color:#dee2e6; }
+
 
 .card.adform .row { align-items:center; }
 .card.adform .row > div:not(.tit) { padding:8px 5px; }
