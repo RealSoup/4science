@@ -120,45 +120,41 @@
             <div class="tit">견적 상품</div>
             <b-container v-for="(pa, pa_i) in frm.collect.lists" :key="`pa_${pa_i}`">
                 <h5>
-                    <template v-if="pa.list[0].purchase_at">{{pa.list[0].purchase_at.pa_name}} <b>직배송 상품</b></template>
+                    <template v-if="pa_i > 0">{{pa[0].pa_name}} <b>직배송 상품</b></template>
                     <template v-else>4SCIENCE</template>
                 </h5>
 
-                <b-row v-for="(gd, gd_idx) in pa.list" :key="`gd_${gd_idx}`">
-                    <b-col>                        
-                        <b-row v-for="em in gd.estimate_model" :key="em.em_id" class="gd_list">
-                            <b-col>
-                                <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.em_gd_id }}">
-                                    <b-icon-link45deg />
-                                </b-button>
-                                <b class="gd_name">{{em.em_name}}</b>
-                                <b class="divider">/</b>
-                                {{em.em_code}}
-                                <b class="divider">/</b>
-                                {{em.em_catno}}
-                                <b class="divider">/</b>
-                                {{em.em_maker}}
-                                <b class="divider">/</b>
-                                {{em.em_unit}}
-                            </b-col>
-                            <b-col>{{em.em_spec}}</b-col>
-                            <b-col tag="i">
-                                {{em.em_price | comma}} 원 <font-awesome-icon icon="times" />
-                                {{em.em_ea | comma}} 개 <font-awesome-icon icon="equals" />
-                                <b class="multi">{{em.em_price*em.em_ea | comma}} 원</b>
-                            </b-col>
-                            <b-col cols="12" v-if="em.estimate_option.length" class="opc">
-                                <b-row v-for="option in em.estimate_option" :key="option.eo_id">
-                                    <b-col offset="6">{{option.eo_tit}}: {{option.eo_name}}</b-col>
-                                    <b-col tag="i">
-                                        {{option.eo_price | comma}} 원 <font-awesome-icon icon="times" />
-                                        {{option.eo_ea | comma}} 개 <font-awesome-icon icon="equals" />
-                                        <b class="multi">{{option.eo_price*option.eo_ea | comma}} 원</b>
-                                    </b-col>
-                                </b-row>
-                            </b-col>
-                        </b-row>
-                    </b-col>
+                <b-row v-for="em in pa" :key="em.em_id">
+                    <template v-if="em.type == 'model'">
+                        <b-col>
+                            <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.gd_id }}">
+                                <b-icon-link45deg />
+                            </b-button>
+                            <b class="gd_name">{{em.gm_name}}</b>
+                            <b class="divider">/</b>
+                            {{em.gm_code}}
+                            <b class="divider">/</b>
+                            {{em.gm_catno}}
+                            <b class="divider">/</b>
+                            {{em.mk_name}}
+                            <b class="divider">/</b>
+                            {{em.gm_unit}}
+                        </b-col>
+                        <b-col>{{em.gm_spec}}</b-col>
+                        <b-col tag="i">
+                            {{em.price | comma}} 원 <font-awesome-icon icon="times" />
+                            {{em.ea | comma}} 개 <font-awesome-icon icon="equals" />
+                            <b class="multi">{{em.price*em.ea | comma}} 원</b>
+                        </b-col>
+                    </template>
+                    <template v-else-if="em.type == 'option'">
+                        <b-col offset="6">{{em.go_name}}: {{em.goc_name}}</b-col>
+                        <b-col tag="i">
+                            {{em.price | comma}} 원 <font-awesome-icon icon="times" />
+                            {{em.ea | comma}} 개 <font-awesome-icon icon="equals" />
+                            <b class="multi">{{em.price*em.ea | comma}} 원</b>
+                        </b-col>
+                    </template>
                 </b-row>
             </b-container>
         </b-card>

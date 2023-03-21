@@ -543,9 +543,15 @@ class OrderController extends Controller {
         $params['holder'] = cache('bank')['owner'];
         $params['price'] = number_format($data->od_all_price);
         $params['addr'] = "[$data->od_zip] $data->od_addr1 $data->od_addr2 $data->od_memo";
-        if ( auth()->user()->receive_mail == 'Y' )
-            Mail::to($data->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
-
+        if ( auth()->user()->receive_mail == 'Y' ) {
+            try { Mail::to($data->od_orderer_email)->queue(new OrderEmail(cache('biz')['email'], $params['subject'], $params));
+            } catch(\Swift_TransportException $e){
+                dump("주문자:".$data->od_orderer_email);
+                dump("보내는사람:".cache('biz')['email']);
+                dump($params);
+                if($e->getMessage()) dd($e->getMessage());
+            }
+        }
         return response()->json($data, 200);
     }
 

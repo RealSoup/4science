@@ -105,7 +105,7 @@ class Goods extends Model {
                         $d_arrange[$item['gd_id']]['option'][$item['goc_id']] = [ 'goc_id' => $item['goc_id'], 'ea' => $item['ea'] ];
                 }
             break;
-            case 'buy_estimate':    //  견적서에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
+            case 'buy_estimate':    //  견적서에서 구매 눌렀을때 ( or 임의주문 )구매페이지에서 쓰기위한 데이터 편집
                 foreach ($some['goods'] as $v) {
                     // if (!array_key_exists($v['gd_id'], $d_arrange))
                     //     $d_arrange[$v['gd_id']] = collect(['model'=>collect(), 'option'=>collect()]);

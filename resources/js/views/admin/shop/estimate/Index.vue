@@ -14,7 +14,7 @@
         <b-row>
             <b-col class="label">요청/임의</b-col>
             <b-col class="type01">
-                <b-form-select size="sm" v-model="sch_frm.eq_type">
+                <b-form-select v-model="sch_frm.eq_type">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option value="REQ">요청견적</b-form-select-option>
                     <b-form-select-option value="TEMP">임의견적</b-form-select-option>
@@ -23,7 +23,7 @@
 
             <b-col class="label">진행현황</b-col>
             <b-col class="type01">
-                <b-form-select size="sm" v-model="sch_frm.eq_step">
+                <b-form-select v-model="sch_frm.eq_step">
                     <b-form-select-option value="">처리단계</b-form-select-option>
                     <b-form-select-option value="DONOT">미처리</b-form-select-option>
                     <b-form-select-option value="DOING">처리중</b-form-select-option>
@@ -42,23 +42,23 @@
         <b-row>
             <b-col class="label">담당자</b-col>
             <b-col class="type01">
-                <b-form-select size="sm" v-model="sch_frm.eq_mng">
+                <b-form-select v-model="sch_frm.eq_mng">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(m, k) in mng" :value="m.id" :key="k">{{m.name}}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">팀검색</b-col>
             <b-col class="type01">
-                <b-form-select size="sm" v-model="sch_frm.mng_group">
+                <b-form-select v-model="sch_frm.mng_group">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(v, key) in mng_info.group" :value="key" :key="key">{{v}}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">검색</b-col>
             <b-col class="type05">
-                <b-input-group size="sm">
+                <b-input-group>
                     <b-input-group-prepend>
-                        <b-form-select v-model="sch_frm.keyword_type" size="sm">
+                        <b-form-select v-model="sch_frm.keyword_type">
                             <b-form-select-option value="eq_name">요청자명</b-form-select-option>
                             <b-form-select-option value="eq_department">소속</b-form-select-option>
                             <b-form-select-option value="eq_tel">전화번호</b-form-select-option>
@@ -72,7 +72,7 @@
                         </b-form-select>
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="sch_frm.keyword" placeholder="Please enter a keyword" @keyup.enter="index" />
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index" />
 
                     <b-input-group-append>
                         <b-button @click="index"><b-icon-search /></b-button>
@@ -80,27 +80,20 @@
                 </b-input-group>
             </b-col>
         </b-row>
-    </b-container>    
-
-
-    <b-card class="shadow em_list">
-        <b-container fluid>
-
-            <b-row>
-                <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
-                <b-col sm="12" md="6" class="text-right">
-                    <b-button @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)" class="white">임의견적</b-button>
-                </b-col>
-            </b-row>
-
-            <hr />
-
-            <List v-if="list.data && list.data.length" :list="list.data" />            
-        
-        </b-container>
-
+    </b-container>
+    
+    <b-container class="cmain">
+        <b-row>
+            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+            <b-col sm="12" md="6" class="text-right">
+                <b-button @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)" class="white">임의견적</b-button>
+            </b-col>
+        </b-row>
+        <List v-if="list.data && list.data.length" :list="list.data" />
         <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5"></pagination>
-    </b-card>
+    </b-container>
+
+ 
 </div>
 </template>
 

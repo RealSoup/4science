@@ -569,7 +569,7 @@ var render = function () {
                               _c(
                                 "b-form-select-option",
                                 { attrs: { value: "DONE" } },
-                                [_vm._v("처리완료")]
+                                [_vm._v("완료")]
                               ),
                               _vm._v(" "),
                               _c(

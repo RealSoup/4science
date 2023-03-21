@@ -119,13 +119,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -411,7 +404,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.eq_type,
                         callback: function ($$v) {
@@ -446,7 +438,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.eq_step,
                         callback: function ($$v) {
@@ -536,7 +527,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.eq_mng,
                         callback: function ($$v) {
@@ -571,7 +561,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.mng_group,
                         callback: function ($$v) {
@@ -605,7 +594,6 @@ var render = function () {
                 [
                   _c(
                     "b-input-group",
-                    { attrs: { size: "sm" } },
                     [
                       _c(
                         "b-input-group-prepend",
@@ -613,7 +601,6 @@ var render = function () {
                           _c(
                             "b-form-select",
                             {
-                              attrs: { size: "sm" },
                               model: {
                                 value: _vm.sch_frm.keyword_type,
                                 callback: function ($$v) {
@@ -690,7 +677,7 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("b-form-input", {
-                        attrs: { placeholder: "Please enter a keyword" },
+                        attrs: { placeholder: "검색어를 입력하세요" },
                         on: {
                           keyup: function ($event) {
                             if (
@@ -743,55 +730,54 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "shadow em_list" },
+        "b-container",
+        { staticClass: "cmain" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "b-row",
             [
               _c(
-                "b-row",
+                "b-col",
+                { attrs: { sm: "12", md: "6" } },
                 [
-                  _c("b-col", { attrs: { sm: "12", md: "6" } }, [
-                    _vm._v("total : " + _vm._s(this.list.total)),
+                  _vm._v("Total : "),
+                  _c("b-badge", { attrs: { variant: "info" } }, [
+                    _vm._v(_vm._s(this.list.total)),
                   ]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "white",
-                          on: {
-                            click: function ($event) {
-                              return _vm.openWinPop(
-                                "/admin/shop/estimate/create",
-                                1700,
-                                900
-                              )
-                            },
-                          },
-                        },
-                        [_vm._v("임의견적")]
-                      ),
-                    ],
-                    1
-                  ),
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _vm.list.data && _vm.list.data.length
-                ? _c("List", { attrs: { list: _vm.list.data } })
-                : _vm._e(),
+              _c(
+                "b-col",
+                { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "white",
+                      on: {
+                        click: function ($event) {
+                          return _vm.openWinPop(
+                            "/admin/shop/estimate/create",
+                            1700,
+                            900
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v("임의견적")]
+                  ),
+                ],
+                1
+              ),
             ],
             1
           ),
+          _vm._v(" "),
+          _vm.list.data && _vm.list.data.length
+            ? _c("List", { attrs: { list: _vm.list.data } })
+            : _vm._e(),
           _vm._v(" "),
           _c("pagination", {
             staticClass: "mt-5",

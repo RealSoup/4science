@@ -123,12 +123,19 @@ class EstimateController extends Controller {
     public function show(Request $req, int $id) {
         if ($req->filled('type') && $req->type=='reply') {
             $data = $this->estimateReply->with('estimateReq')->with('estimateModel')->with('user')->find($id);
-            foreach ($data->estimateModel as $k => $em)
+            $coll = array();
+            foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
-            $data->collect = $this->estimateReply->estimateModelPurchaseCollection($data->estimateModel);
+                $coll['goods'][] = [ 'gd_id' => $em->em_gd_id, 'em_id' => $em->em_id ];
+                if ($em->estimateOption()->exists())
+                    foreach ($em->estimateOption as $eo)
+                        $coll['goods'][] = [ 'gd_id' => $em->em_gd_id, 'eo_id' => $eo->eo_id ];
+            }
+            $gd = new Goods;
+            $data->collect = $gd->getGoodsDataCollection($coll, 'buy_estimate');
         } else {
             $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->with('estimateCustom')->find($id);
-            foreach ($data->estimateModel as $k => $em) {
+            foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
                 if($em->em_name==''){
                     $gm=GoodsModel::find($em->em_gm_id);
@@ -141,9 +148,11 @@ class EstimateController extends Controller {
                     $em->em_spec  = $gm->gm_spec;
                 }
             }
+            if (intval($data->eq_1depth)>0)
+                $data['made_cate'] = EstimateReq::$option['custom_made_category'];
         }
         $data->fileInfo;
-        $data['made_cate'] = EstimateReq::$option['custom_made_category'];
+        
         // foreach ($data['con']->estimateModel as $em) $em->img_src = $this->goods->find($em->em_gd_id)->gdImgSrc(true);
         return response()->json($data);
     }
@@ -212,11 +221,13 @@ class EstimateController extends Controller {
         $eq_id = $req->filled('eq_id') ? $req->eq_id : 0;
         if ($eq_id) {
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
+            $eq_impl['eq_step'] = 'DONE';
             DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update($eq_impl);
         } else {
             $eq_impl['created_id'] = auth()->check() ? auth()->user()->id : 0;
             $eq_impl['eq_title'] = '<b>[ 임의견적 ]</b> ';
             $eq_id = DB::table('shop_estimate_req')->insertGetId($eq_impl, 'eq_id');
+            DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update(['eq_step' => 'DONE']);
         }
 
         $er_impl = $this->estimateReply_paramImplant($req);

@@ -214,7 +214,7 @@
                     </b-col>
                 </b-row>
                 <hr />
-                <b-row>
+                <b-row v-if="od.order_extra_info">
                     <b-col>
                         <b-badge>결제수단</b-badge>
                         <span v-if="od.od_pay_method == 'C'">

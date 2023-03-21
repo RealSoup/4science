@@ -246,7 +246,7 @@ var render = function () {
                     },
                     [
                       _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                      _vm._v(" 저장"),
+                      _vm._v(" 임시저장"),
                     ],
                     1
                   ),
@@ -261,7 +261,7 @@ var render = function () {
                         },
                       },
                     },
-                    [_c("b-icon-mailbox"), _vm._v(" 발송")],
+                    [_c("b-icon-mailbox"), _vm._v(" 완료/발송")],
                     1
                   ),
                 ],

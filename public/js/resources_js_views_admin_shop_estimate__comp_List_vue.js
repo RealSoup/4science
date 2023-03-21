@@ -61,16 +61,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
@@ -99,7 +89,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] { font-size:.9rem;\n}\n.row .col>span[data-v-3a911428]:nth-of-type(2) { float:right;\n}\n.row .col span .main[data-v-3a911428] { margin:0 10px;\n}\n.row .col span ul li[data-v-3a911428] { margin-bottom:0.3rem; text-align:right;\n}\n.row .col span ul li .btn[data-v-3a911428] { padding:0.2rem 0.4rem; font-size: 0.7rem;\n}\n.head[data-v-3a911428] { border-bottom:2px solid #000;\n}\n.head .col[data-v-3a911428] { font-weight:bold; background:#666; color:#fff;\n}\n.row[data-v-3a911428]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-3a911428]:hover { background: #d8f2fd94;\n}\n.row .col[data-v-3a911428] { padding-top:15px; padding-bottom:15px;\n}\n.row .col .badge[data-v-3a911428] { vertical-align: text-bottom;\n}\n.body .col[data-v-3a911428]:nth-child(1) { cursor:pointer;\n}\n.body .col[data-v-3a911428]:nth-child(2) { background-color:#7fffd454;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 15%; max-width:15%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 23%; max-width:23%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] {}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-3a911428]:nth-child(2) {\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 20%; max-width:20%;\n}\n.row .col:nth-child(5) .badge[data-v-3a911428] { width:3.8rem; padding:.4rem 0;\n}\n.body .col[data-v-3a911428]:nth-child(2) { text-align:left; cursor:pointer;\n}\n.er_box[data-v-3a911428] { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}\n.er_box span[data-v-3a911428] { text-align:center;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 30%; max-width:30%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 40%; max-width:40%;\n}\n.er_box span.btn[data-v-3a911428] { background-color:#fff; border-width:3px; padding:.18rem 0;\n}\n.er_box span.mint[data-v-3a911428] { color:#00A1CB;\n}\n.er_box span.orange[data-v-3a911428] { color:#F18D04; margin-top:.25rem;\n}\r\n \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -240,16 +230,24 @@ var render = function () {
         "b-row",
         { staticClass: "head" },
         [
-          _c("b-col", [
-            _c("span", [_vm._v("요청번호/요청내용")]),
-            _c("span", [_vm._v("요청자[요청일]")]),
-          ]),
+          _c("b-col", [_vm._v("요청번호")]),
           _vm._v(" "),
-          _c("b-col", [_c("span", [_vm._v("진행현황")])]),
+          _c("b-col", [_vm._v("요청내용")]),
           _vm._v(" "),
-          _c("b-col", [
-            _c("span", [_vm._v("담당자")]),
-            _c("span", [_vm._v("응답일/Ctrl/응답번호")]),
+          _c("b-col", [_vm._v("요청자")]),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("요청일")]),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("진행현황")]),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("담당자")]),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "er_box" }, [
+            _c("span", [_vm._v("견적서번호")]),
+            _vm._v(" "),
+            _c("span", [_vm._v("견적서")]),
+            _vm._v(" "),
+            _c("span", [_vm._v("작성일")]),
           ]),
         ],
         1
@@ -260,10 +258,11 @@ var render = function () {
           "b-row",
           { key: row.eq_id, staticClass: "body" },
           [
+            _c("b-col", [_vm._v(_vm._s(row.eq_id) + ".")]),
+            _vm._v(" "),
             _c(
-              "b-link",
+              "b-col",
               {
-                staticClass: "col",
                 on: {
                   click: function ($event) {
                     return _vm.openWinPop(
@@ -275,236 +274,173 @@ var render = function () {
                 },
               },
               [
-                _c(
-                  "span",
-                  [
-                    _vm._v(
-                      "\r\n                " +
-                        _vm._s(row.eq_id) +
-                        ".\r\n                "
-                    ),
-                    row.eq_title
-                      ? _c("b", {
-                          domProps: { innerHTML: _vm._s(row.eq_title) },
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    row.eq_type == "REQ"
-                      ? [
-                          !row.eq_title
-                            ? _c("SubString", {
-                                attrs: { width: 900 },
-                                model: {
-                                  value: row.eq_content,
-                                  callback: function ($$v) {
-                                    _vm.$set(row, "eq_content", $$v)
-                                  },
-                                  expression: "row.eq_content",
-                                },
-                              })
-                            : _vm._e(),
-                        ]
-                      : row.eq_type == "CUS"
-                      ? [
-                          _c(
-                            "b-badge",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
-                              attrs: { variant: "primary", title: "주문제작" },
-                            },
-                            [_vm._v("주")]
-                          ),
-                        ]
-                      : _vm._e(),
-                    _vm._v(" "),
-                    row.eq_type == "TEMP"
-                      ? _c(
-                          "b-badge",
-                          {
-                            directives: [
-                              {
-                                name: "b-tooltip",
-                                rawName: "v-b-tooltip.hover",
-                                modifiers: { hover: true },
-                              },
-                            ],
-                            attrs: { variant: "warning", title: "임의견적" },
-                          },
-                          [_vm._v("임")]
-                        )
-                      : row.eq_type == "REREQ"
-                      ? _c(
-                          "b-badge",
-                          {
-                            directives: [
-                              {
-                                name: "b-tooltip",
-                                rawName: "v-b-tooltip.hover",
-                                modifiers: { hover: true },
-                              },
-                            ],
-                            attrs: { variant: "danger", title: "재견적요청" },
-                          },
-                          [_vm._v("재")]
-                        )
-                      : _vm._e(),
-                  ],
-                  2
-                ),
+                row.eq_title
+                  ? _c("b", { domProps: { innerHTML: _vm._s(row.eq_title) } })
+                  : row.eq_type == "REQ"
+                  ? _c("SubString", {
+                      attrs: { width: 900 },
+                      model: {
+                        value: row.eq_content,
+                        callback: function ($$v) {
+                          _vm.$set(row, "eq_content", $$v)
+                        },
+                        expression: "row.eq_content",
+                      },
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("span", [
-                  _vm._v(
-                    _vm._s(row.eq_name) +
-                      " [ " +
-                      _vm._s(_vm._f("formatDate")(row.created_at)) +
-                      " ]"
-                  ),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              [
-                row.eq_step === "DONOT"
-                  ? _c("b-badge", { attrs: { variant: "warning" } }, [
-                      _vm._v("미처리"),
-                    ])
-                  : row.eq_step === "DOING"
-                  ? _c("b-badge", { attrs: { variant: "primary" } }, [
-                      _vm._v("처리중"),
-                    ])
-                  : row.eq_step === "DONE"
-                  ? _c("b-badge", { attrs: { variant: "success" } }, [
-                      _vm._v("완료"),
-                    ])
-                  : row.eq_step === "CANCEL"
-                  ? _c("b-badge", { attrs: { variant: "danger" } }, [
-                      _vm._v("취소"),
-                    ])
+                row.eq_type == "TEMP"
+                  ? _c(
+                      "b-badge",
+                      {
+                        directives: [
+                          {
+                            name: "b-tooltip",
+                            rawName: "v-b-tooltip.hover",
+                            modifiers: { hover: true },
+                          },
+                        ],
+                        staticClass: "yellow",
+                        attrs: { title: "임의견적" },
+                      },
+                      [_vm._v("임")]
+                    )
+                  : row.eq_type == "REREQ"
+                  ? _c(
+                      "b-badge",
+                      {
+                        directives: [
+                          {
+                            name: "b-tooltip",
+                            rawName: "v-b-tooltip.hover",
+                            modifiers: { hover: true },
+                          },
+                        ],
+                        staticClass: "plum",
+                        attrs: { title: "재견적요청" },
+                      },
+                      [_vm._v("재")]
+                    )
+                  : row.eq_type == "CUS"
+                  ? _c(
+                      "b-badge",
+                      {
+                        directives: [
+                          {
+                            name: "b-tooltip",
+                            rawName: "v-b-tooltip.hover",
+                            modifiers: { hover: true },
+                          },
+                        ],
+                        staticClass: "mint",
+                        attrs: { title: "주문제작" },
+                      },
+                      [_vm._v("주")]
+                    )
                   : _vm._e(),
               ],
               1
             ),
             _vm._v(" "),
-            _c("b-col", [
-              row.eq_mng_nm
-                ? _c("span", [_vm._v(_vm._s(row.eq_mng_nm))])
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "span",
-                [
-                  row.estimate_reply.length < 1
-                    ? _c(
-                        "b-button",
-                        {
-                          attrs: {
-                            size: "sm",
-                            variant: "light",
-                            target: "_blank",
-                          },
-                          on: {
-                            click: function ($event) {
-                              return _vm.openWinPop(
-                                "/admin/shop/estimate/create?eq_id=" +
-                                  row.eq_id,
-                                1700,
-                                900
-                              )
-                            },
+            _c("b-col", [_vm._v(_vm._s(row.eq_name))]),
+            _vm._v(" "),
+            _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                row.eq_step === "DONOT"
+                  ? _c("b-badge", { staticClass: "plum" }, [_vm._v("미처리")])
+                  : row.eq_step === "DOING"
+                  ? _c("b-badge", { staticClass: "mint" }, [_vm._v("처리중")])
+                  : row.eq_step === "DONE"
+                  ? _c("b-badge", { staticClass: "gray" }, [_vm._v("완료")])
+                  : row.eq_step === "CANCEL"
+                  ? _c("b-badge", { staticClass: "yellow" }, [_vm._v("취소")])
+                  : _vm._e(),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              [
+                row.eq_mng_nm
+                  ? _c("span", [_vm._v(_vm._s(row.eq_mng_nm))])
+                  : _c(
+                      "b-button",
+                      {
+                        staticClass: "white",
+                        on: {
+                          click: function ($event) {
+                            return _vm.openWinPop(
+                              "/admin/shop/estimate/create?eq_id=" + row.eq_id,
+                              1700,
+                              900
+                            )
                           },
                         },
-                        [
-                          _c("b-icon-pencil-square"),
-                          _vm._v(" 견적서 작성\r\n                "),
-                        ],
-                        1
-                      )
-                    : _c(
-                        "ul",
-                        { staticClass: "ctrl_box" },
-                        _vm._l(row.estimate_reply, function (er, i) {
-                          return _c(
-                            "li",
-                            { key: i },
-                            [
-                              _vm._v(
-                                "\r\n                        [ " +
-                                  _vm._s(_vm._f("formatDate")(er.created_at)) +
-                                  " ]\r\n                        "
-                              ),
-                              i === 0
-                                ? _c(
-                                    "b-button",
-                                    {
-                                      staticClass: "main",
-                                      attrs: {
-                                        size: "sm",
-                                        variant: "success",
-                                        target: "_blank",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.openWinPop(
-                                            "/admin/shop/estimate/reply/" +
-                                              er.er_id,
-                                            1700,
-                                            900
-                                          )
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon-clipboard-data"),
-                                      _vm._v(" 견적서"),
-                                    ],
-                                    1
-                                  )
-                                : _c(
-                                    "b-button",
-                                    {
-                                      staticClass: "main",
-                                      attrs: {
-                                        size: "sm",
-                                        variant: "warning",
-                                        target: "_blank",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.openWinPop(
-                                            "/admin/shop/estimate/reply/" +
-                                              er.er_id,
-                                            1700,
-                                            900
-                                          )
-                                        },
-                                      },
-                                    },
-                                    [_c("b-icon-back"), _vm._v(" 재견적서")],
-                                    1
-                                  ),
-                              _vm._v(
-                                "\r\n                        ." +
-                                  _vm._s(er.er_id) +
-                                  "\r\n                    "
-                              ),
-                            ],
-                            1
-                          )
-                        }),
-                        0
-                      ),
-                ],
-                1
-              ),
-            ]),
+                      },
+                      [_vm._v("견적서 작성")]
+                    ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              { staticClass: "er_box" },
+              [
+                _vm._l(row.estimate_reply, function (er, i) {
+                  return [
+                    _c("span", { key: "i" + er.er_id }, [
+                      _vm._v("." + _vm._s(er.er_id)),
+                    ]),
+                    _vm._v(" "),
+                    i === 0
+                      ? _c(
+                          "span",
+                          {
+                            key: "b" + er.er_id,
+                            staticClass: "btn mint",
+                            on: {
+                              click: function ($event) {
+                                return _vm.openWinPop(
+                                  "/admin/shop/estimate/reply/" + er.er_id,
+                                  1700,
+                                  900
+                                )
+                              },
+                            },
+                          },
+                          [_vm._v("견적서")]
+                        )
+                      : _c(
+                          "span",
+                          {
+                            key: "b" + er.er_id,
+                            staticClass: "btn orange",
+                            on: {
+                              click: function ($event) {
+                                return _vm.openWinPop(
+                                  "/admin/shop/estimate/reply/" + er.er_id,
+                                  1700,
+                                  900
+                                )
+                              },
+                            },
+                          },
+                          [_vm._v("재견적서")]
+                        ),
+                    _vm._v(" "),
+                    _c("span", { key: "d" + er.er_id }, [
+                      _vm._v(_vm._s(_vm._f("formatDate")(er.created_at))),
+                    ]),
+                  ]
+                }),
+              ],
+              2
+            ),
           ],
           1
         )

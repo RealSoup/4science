@@ -2327,248 +2327,265 @@ var render = function () {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
+                  _vm.od.order_extra_info
+                    ? _c(
+                        "b-row",
                         [
-                          _c("b-badge", [_vm._v("결제수단")]),
-                          _vm._v(" "),
-                          _vm.od.od_pay_method == "C"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("카드")]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "B"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("계좌이체")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.od.order_extra_info.oex_bank == "K"
-                                    ? _c(
-                                        "b-badge",
-                                        { attrs: { variant: "light" } },
-                                        [_vm._v("국민은행")]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.od.order_extra_info.oex_bank == "W"
-                                    ? _c(
-                                        "b-badge",
-                                        { attrs: { variant: "light" } },
-                                        [_vm._v("우리은행")]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_depositor
-                                        )
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.payPlanDisplay) + " 결제"
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "P"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("PSYS")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_depositor
-                                        )
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.payPlanDisplay) + " 결제"
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "R"
-                            ? _c(
-                                "span",
-                                [
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v("원격결제")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.od.order_extra_info.oex_mng)
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm.od.order_extra_info.oex_num)
-                                      ),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [_vm._v(_vm._s(_vm.payPlanDisplay))]
-                                  ),
-                                ],
-                                1
-                              )
-                            : _vm.od.od_pay_method == "E"
-                            ? _c("span", [_vm._v("에스크로")])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("b-badge", [_vm._v("구매환경")]),
-                          _vm._v(" "),
-                          _vm.od.od_sale_env == "P"
-                            ? _c("span", [_vm._v("웹")])
-                            : _vm.od.od_sale_env == "M"
-                            ? _c("span", [_vm._v("모바일")])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("b-badge", [_vm._v("요청서류")]),
-                          _vm._v(" "),
                           _c(
-                            "span",
+                            "b-col",
                             [
-                              !_vm.od.order_extra_info
-                                ? [
-                                    _c(
-                                      "b-badge",
-                                      { attrs: { variant: "warning" } },
-                                      [_vm._v("없음")]
-                                    ),
-                                  ]
-                                : [
-                                    _vm.od.order_extra_info.oex_req_est == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("견적서")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_tran == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("거래명세서")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_biz == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("사업자 등록증 사본")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_bank == "Y"
-                                      ? _c(
-                                          "b-badge",
-                                          { attrs: { variant: "light" } },
-                                          [_vm._v("통장사본")]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.od.order_extra_info.oex_req_est ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_tran ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_biz ==
-                                      "N" &&
-                                    _vm.od.order_extra_info.oex_req_bank == "N"
-                                      ? _c(
+                              _c("b-badge", [_vm._v("결제수단")]),
+                              _vm._v(" "),
+                              _vm.od.od_pay_method == "C"
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v("카드")]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                : _vm.od.od_pay_method == "B"
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v("계좌이체")]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.od.order_extra_info.oex_bank == "K"
+                                        ? _c(
+                                            "b-badge",
+                                            { attrs: { variant: "light" } },
+                                            [_vm._v("국민은행")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.od.order_extra_info.oex_bank == "W"
+                                        ? _c(
+                                            "b-badge",
+                                            { attrs: { variant: "light" } },
+                                            [_vm._v("우리은행")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.od.order_extra_info
+                                                .oex_depositor
+                                            )
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.payPlanDisplay) + " 결제"
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                : _vm.od.od_pay_method == "P"
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v("PSYS")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.od.order_extra_info
+                                                .oex_depositor
+                                            )
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.payPlanDisplay) + " 결제"
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                : _vm.od.od_pay_method == "R"
+                                ? _c(
+                                    "span",
+                                    [
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v("원격결제")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.od.order_extra_info.oex_mng
+                                            )
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.od.order_extra_info.oex_num
+                                            )
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-badge",
+                                        { attrs: { variant: "light" } },
+                                        [_vm._v(_vm._s(_vm.payPlanDisplay))]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                : _vm.od.od_pay_method == "E"
+                                ? _c("span", [_vm._v("에스크로")])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("b-badge", [_vm._v("구매환경")]),
+                              _vm._v(" "),
+                              _vm.od.od_sale_env == "P"
+                                ? _c("span", [_vm._v("웹")])
+                                : _vm.od.od_sale_env == "M"
+                                ? _c("span", [_vm._v("모바일")])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("b-badge", [_vm._v("요청서류")]),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                [
+                                  !_vm.od.order_extra_info
+                                    ? [
+                                        _c(
                                           "b-badge",
                                           { attrs: { variant: "warning" } },
                                           [_vm._v("없음")]
-                                        )
-                                      : _vm._e(),
-                                  ],
-                              _vm._v(" "),
-                              _c(
-                                "b-alert",
-                                {
-                                  staticClass: "mt-3",
-                                  attrs: { show: "", variant: "success" },
-                                },
-                                [
-                                  _c("h4", { staticClass: "alert-heading" }, [
-                                    _vm._v("첨부서류 메모"),
-                                  ]),
+                                        ),
+                                      ]
+                                    : [
+                                        _vm.od.order_extra_info.oex_req_est ==
+                                        "Y"
+                                          ? _c(
+                                              "b-badge",
+                                              { attrs: { variant: "light" } },
+                                              [_vm._v("견적서")]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.od.order_extra_info.oex_req_tran ==
+                                        "Y"
+                                          ? _c(
+                                              "b-badge",
+                                              { attrs: { variant: "light" } },
+                                              [_vm._v("거래명세서")]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.od.order_extra_info.oex_req_biz ==
+                                        "Y"
+                                          ? _c(
+                                              "b-badge",
+                                              { attrs: { variant: "light" } },
+                                              [_vm._v("사업자 등록증 사본")]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.od.order_extra_info.oex_req_bank ==
+                                        "Y"
+                                          ? _c(
+                                              "b-badge",
+                                              { attrs: { variant: "light" } },
+                                              [_vm._v("통장사본")]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.od.order_extra_info.oex_req_est ==
+                                          "N" &&
+                                        _vm.od.order_extra_info.oex_req_tran ==
+                                          "N" &&
+                                        _vm.od.order_extra_info.oex_req_biz ==
+                                          "N" &&
+                                        _vm.od.order_extra_info.oex_req_bank ==
+                                          "N"
+                                          ? _c(
+                                              "b-badge",
+                                              { attrs: { variant: "warning" } },
+                                              [_vm._v("없음")]
+                                            )
+                                          : _vm._e(),
+                                      ],
                                   _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.od.order_extra_info.oex_memo)
-                                    ),
-                                  ]),
-                                ]
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "mt-3",
+                                      attrs: { show: "", variant: "success" },
+                                    },
+                                    [
+                                      _c(
+                                        "h4",
+                                        { staticClass: "alert-heading" },
+                                        [_vm._v("첨부서류 메모")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("p", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.od.order_extra_info.oex_memo
+                                          )
+                                        ),
+                                      ]),
+                                    ]
+                                  ),
+                                ],
+                                2
                               ),
                             ],
-                            2
+                            1
                           ),
                         ],
                         1
-                      ),
-                    ],
-                    1
-                  ),
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),

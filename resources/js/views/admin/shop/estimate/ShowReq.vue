@@ -15,7 +15,7 @@
                         <b-form-select v-model="frm.eq_step">
                             <b-form-select-option value="DONOT">미처리</b-form-select-option>
                             <b-form-select-option value="DOING">처리중</b-form-select-option>
-                            <b-form-select-option value="DONE">처리완료</b-form-select-option>
+                            <b-form-select-option value="DONE">완료</b-form-select-option>
                             <b-form-select-option value="CANCEL">취소</b-form-select-option>
                         </b-form-select>
                         <b-input-group-append>

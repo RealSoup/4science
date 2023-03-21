@@ -51,7 +51,7 @@ class EstimateController extends Controller {
             if ($item_cnt > 1)
                 $eq_title .= '외 ['.($item_cnt - 1).']';
         } else {
-            if ($req->filled('made_name'))   $eq_title = "<b>[주문제작-{$req->made_name}]</b> ";
+            if ($req->filled('made_name'))   $eq_title = "<b>[ 주문제작-{$req->made_name} ]</b> ";
             else if ($req->filled('eq_1depth'))      $eq_title = "<b>[{$req->eq_1depth}]</b> ";
 
             if (mb_strlen($req->eq_content, "UTF-8")>70) $eq_title .= iconv_substr($req->eq_content, 0, 70, "UTF-8")."...";

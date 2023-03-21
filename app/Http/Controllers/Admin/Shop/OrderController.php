@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveMakerRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods};
+use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods, OrderPurchaseAt};
 use App\Models\{User, UserMng, FileNote};
 use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
@@ -136,24 +136,24 @@ class OrderController extends Controller {
     }
 	
 	public function store (Request $req) {
-		// dd(collect($req->estimate_model)->groupBy('em_gd_id'));
 		$eq_title = $req->estimate_model[0]['em_name'].'외 ['.(count($req->estimate_model) - 1).']';
 		$od_id = $this->order->insertGetId([
-			'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
+			'od_no'            => app('App\Http\Controllers\Shop\OrderController')->getNew_od_no(),
 			'od_name'          => $eq_title,
 			'od_type'          => 'buy_temp',
+			'od_er_id'      	=> $req->filled('er_id')		? $req->er_id   : 0,
 			'od_step'          => '10',
-			'od_gd_price'      => $req->filled('er_gd_price')		? $req->er_gd_price   : 0,
-			'od_surtax'        => $req->filled('er_surtax')            ? $req->er_surtax          : 0,
-			'od_dlvy_price'    => $req->filled('er_dlvy_price')            ? $req->er_dlvy_price    : 0,
-			'od_air_price'     => $req->filled('er_air_price') ? $req->er_air_price     : 0,
-			'od_all_price'     => $req->filled('er_all_price') ? $req->er_all_price           : 0,
-			'od_orderer'       => $req->filled('estimate_req')       ? $req->estimate_req['eq_name']       : '',
-			'od_orderer_hp'    => $req->filled('estimate_req')    ? $req->estimate_req['eq_hp']    : '',
-			'od_orderer_email' => $req->filled('estimate_req') ? $req->estimate_req['eq_email'] : '',
-			'od_receiver'      => $req->filled('estimate_req')       ? $req->estimate_req['eq_name']       : '',
-			'od_receiver_hp'   => $req->filled('estimate_req')    ? $req->estimate_req['eq_hp']    : '',
-			'od_zip'           => $req->filled('od_zip')           ? $req->od_zip           : '',
+			'od_gd_price'      => $req->filled('er_gd_price')	? $req->er_gd_price   : 0,
+			'od_surtax'        => $req->filled('er_surtax')		? $req->er_surtax     : 0,
+			'od_dlvy_price'    => $req->filled('er_dlvy_price')	? $req->er_dlvy_price    : 0,
+			'od_air_price'     => $req->filled('er_air_price') 	? $req->er_air_price     : 0,
+			'od_all_price'     => $req->filled('er_all_price') 	? $req->er_all_price           : 0,
+			'od_orderer'       => $req->filled('estimate_req')	? $req->estimate_req['eq_name']       : '',
+			'od_orderer_hp'    => $req->filled('estimate_req')	? $req->estimate_req['eq_hp']    : '',
+			'od_orderer_email' => $req->filled('estimate_req') 	? $req->estimate_req['eq_email'] : '',
+			'od_receiver'      => $req->filled('estimate_req')	? $req->estimate_req['eq_name']       : '',
+			'od_receiver_hp'   => $req->filled('estimate_req')	? $req->estimate_req['eq_hp']    : '',
+			'od_zip'           => $req->filled('od_zip')	? $req->od_zip           : '',
 			'od_addr1'         => '',
 			'od_addr2'         => '',
 			'od_memo'          => '',
@@ -162,42 +162,91 @@ class OrderController extends Controller {
 			'ip'               => NULL,
 			'created_id'       => auth()->user()->id
 		], 'od_id');
+		foreach ($req->collect['lists'] as $pa_id => $pa) {
+			$insert_tmp = array();
+			foreach ($pa as $k => $item) {
+				if ( $k == 0 ) {
+					$odpa_id = OrderPurchaseAt::insertGetId([   'odpa_od_id'   => $od_id,
+																'odpa_pa_id'   => $pa_id,
+																'odpa_pa_type' => $item['pa_type'],
+																'odpa_pa_name' => isset($item['pa_name']) ? $item['pa_name'] : '',
+																'odpa_dlvy_p'  => isset($item['pa_dlvy_p']) ? $item['pa_dlvy_p'] : 0 ], 'odpa_id');
+				}				
 
-		foreach (collect($req->estimate_model)->groupBy('em_gd_id') as $gd_id => $gd) {
-			$odg_id = 0;
-			foreach ($gd as $seq => $em) {
-				if ($seq == 0) {
-					$odg_id = OrderGoods::insertGetId([
-						'odg_od_id'     => $od_id,
-						'odg_gd_id'     => $gd_id,
-						'odg_gd_name'   => $em['em_name'],
-					], 'odg_id');
+				if ($item['type'] == 'model') {
+					$insert_tmp[] = array(
+						'odm_od_id'    => $od_id,
+						'odm_odpa_id'  => $odpa_id,
+						'odm_type'     => 'MODEL',
+						'odm_gd_id'    => $item['gd_id'],
+						'odm_gm_id'    => $item['gm_id'],
+						'odm_gm_catno' => $item['gm_catno'],
+						'odm_gd_name'  => $item['gd_name'],
+						'odm_gm_name'  => $item['gm_name'],
+						'odm_gm_code'  => $item['gm_code'],
+						'odm_gm_spec'  => $item['gm_spec'],
+						'odm_gm_unit'  => $item['gm_unit'],
+						'odm_mk_name'  => $item['mk_name'],
+						'odm_ea'       => $item['ea'],
+						'odm_price'    => $item['price'],
+					);
+				} else if ($item['type'] == 'option') {
+					$insert_tmp[] = array(
+						'odm_od_id'    => $od_id,
+						'odm_odpa_id'  => $odpa_id,
+						'odm_type'     => 'OPTION',
+						'odm_gd_id'    => $item['gd_id'],
+						'odm_gm_id'    => $item['goc_id'],
+						'odm_gm_catno' => '',
+						'odm_gd_name'  => '',
+						'odm_gm_name'  => $item['go_name'],
+						'odm_gm_code'  => '',
+						'odm_gm_spec'  => $item['goc_name'],
+						'odm_gm_unit'  => '',
+						'odm_mk_name'  => '',
+						'odm_ea'       => $item['ea'],
+						'odm_price'    => $item['price'],
+					);
 				}
-				OrderModel::insert([
-					'odm_od_id'     => $od_id,
-					'odm_odg_id'    => $odg_id,
-					'odm_gm_id'     => $em['em_gm_id'],
-					'odm_gm_catno'  => $em['em_catno'],
-					'odm_gm_name'   => $em['em_name'],
-					'odm_gm_code'   => $em['em_code'],
-					'odm_gm_spec'   => $em['em_spec'],
-					'odm_gm_unit'   => $em['em_unit'],
-					'odm_ea'        => $em['em_ea'],
-					'odm_price'     => $em['em_price']
-				]);
-
-				foreach ($em['estimate_option'] as $eo) {
-					OrderOption::insert([
-						'odo_od_id'     => $od_id,
-						'odo_odg_id'    => $odg_id,
-						'odo_opc_id'    => $eo['eo_opc_id'],
-						'odo_opc_name'  => $eo['eo_tit']." ".$eo['eo_name'],
-						'odo_ea'        => $eo['eo_ea'],
-						'odo_price'     => $eo['eo_price']
-					]);
-				}
-			}
+			}                    
+			DB::table('shop_order_model')->insert($insert_tmp);
 		}
+		// foreach (collect($req->estimate_model)->groupBy('em_gd_id') as $gd_id => $gd) {
+		// 	$odg_id = 0;
+		// 	foreach ($gd as $seq => $em) {
+		// 		if ($seq == 0) {
+		// 			$odpa_id = OrderPurchaseAt::insertGetId([   'odpa_od_id'   => $od_id,
+		// 														'odpa_pa_id'   => $pa_id,
+		// 														'odpa_pa_type' => $item['pa_type'],
+		// 														'odpa_pa_name' => isset($item['pa_name']) ? $item['pa_name'] : '',
+		// 														'odpa_dlvy_p'  => isset($item['pa_dlvy_p']) ? $item['pa_dlvy_p'] : 0 ], 'odpa_id');
+		// 		}
+				
+		// 		OrderModel::insert([
+		// 			'odm_od_id'     => $od_id,
+		// 			'odm_odg_id'    => $odg_id,
+		// 			'odm_gm_id'     => $em['em_gm_id'],
+		// 			'odm_gm_catno'  => $em['em_catno'],
+		// 			'odm_gm_name'   => $em['em_name'],
+		// 			'odm_gm_code'   => $em['em_code'],
+		// 			'odm_gm_spec'   => $em['em_spec'],
+		// 			'odm_gm_unit'   => $em['em_unit'],
+		// 			'odm_ea'        => $em['em_ea'],
+		// 			'odm_price'     => $em['em_price']
+		// 		]);
+
+		// 		foreach ($em['estimate_option'] as $eo) {
+		// 			OrderOption::insert([
+		// 				'odo_od_id'     => $od_id,
+		// 				'odo_odg_id'    => $odg_id,
+		// 				'odo_opc_id'    => $eo['eo_opc_id'],
+		// 				'odo_opc_name'  => $eo['eo_tit']." ".$eo['eo_name'],
+		// 				'odo_ea'        => $eo['eo_ea'],
+		// 				'odo_price'     => $eo['eo_price']
+		// 			]);
+		// 		}
+		// 	}
+		// }
 	}
 
 	public function edit($od_id) {

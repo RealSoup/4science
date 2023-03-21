@@ -50,11 +50,11 @@ class SocialController extends Controller {
         try {
             $config = $this->getConfig($provider);
             $userFromSocial = Socialite::with($provider)->setConfig($config)->user();
-            $userFromSocial->id=813770733;
+            // dd($userFromSocial);
+            // $userFromSocial->id=813770733;
             // dd($userFromSocial);
         } catch (InvalidStateException $e) {
             // return alert('잘못된 접근입니다.');
-            dd($e);
             return response()->json('잘못된 접근입니다.', 500);
         } catch (ClientException $e) {
             // return alert('Bad client credentials');

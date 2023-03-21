@@ -195,10 +195,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1459,11 +1455,9 @@ var render = function () {
                     _c(
                       "h5",
                       [
-                        pa.list[0].purchase_at
+                        pa_i > 0
                           ? [
-                              _vm._v(
-                                _vm._s(pa.list[0].purchase_at.pa_name) + " "
-                              ),
+                              _vm._v(_vm._s(pa[0].pa_name) + " "),
                               _c("b", [_vm._v("직배송 상품")]),
                             ]
                           : [_vm._v("4SCIENCE")],
@@ -1471,201 +1465,151 @@ var render = function () {
                       2
                     ),
                     _vm._v(" "),
-                    _vm._l(pa.list, function (gd, gd_idx) {
+                    _vm._l(pa, function (em) {
                       return _c(
                         "b-row",
-                        { key: "gd_" + gd_idx },
+                        { key: em.em_id },
                         [
-                          _c(
-                            "b-col",
-                            _vm._l(gd.estimate_model, function (em) {
-                              return _c(
-                                "b-row",
-                                { key: em.em_id, staticClass: "gd_list" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c(
-                                        "b-button",
-                                        {
-                                          attrs: {
-                                            variant: "outline-primary",
-                                            size: "sm",
-                                            to: {
-                                              name: "adm_goods_edit",
-                                              params: { gd_id: em.em_gd_id },
-                                            },
+                          em.type == "model"
+                            ? [
+                                _c(
+                                  "b-col",
+                                  [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          variant: "outline-primary",
+                                          size: "sm",
+                                          to: {
+                                            name: "adm_goods_edit",
+                                            params: { gd_id: em.gd_id },
                                           },
                                         },
-                                        [_c("b-icon-link45deg")],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("b", { staticClass: "gd_name" }, [
-                                        _vm._v(_vm._s(em.em_name)),
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("b", { staticClass: "divider" }, [
-                                        _vm._v("/"),
-                                      ]),
+                                      },
+                                      [_c("b-icon-link45deg")],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b", { staticClass: "gd_name" }, [
+                                      _vm._v(_vm._s(em.gm_name)),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(em.gm_code) +
+                                        "\n                        "
+                                    ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(em.gm_catno) +
+                                        "\n                        "
+                                    ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(em.mk_name) +
+                                        "\n                        "
+                                    ),
+                                    _c("b", { staticClass: "divider" }, [
+                                      _vm._v("/"),
+                                    ]),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(em.gm_unit) +
+                                        "\n                    "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(em.gm_spec))]),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { attrs: { tag: "i" } },
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(_vm._f("comma")(em.price)) +
+                                        " 원 "
+                                    ),
+                                    _c("font-awesome-icon", {
+                                      attrs: { icon: "times" },
+                                    }),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(_vm._f("comma")(em.ea)) +
+                                        " 개 "
+                                    ),
+                                    _c("font-awesome-icon", {
+                                      attrs: { icon: "equals" },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("b", { staticClass: "multi" }, [
                                       _vm._v(
-                                        "\n                            " +
-                                          _vm._s(em.em_code) +
-                                          "\n                            "
+                                        _vm._s(
+                                          _vm._f("comma")(em.price * em.ea)
+                                        ) + " 원"
                                       ),
-                                      _c("b", { staticClass: "divider" }, [
-                                        _vm._v("/"),
-                                      ]),
-                                      _vm._v(
-                                        "\n                            " +
-                                          _vm._s(em.em_catno) +
-                                          "\n                            "
-                                      ),
-                                      _c("b", { staticClass: "divider" }, [
-                                        _vm._v("/"),
-                                      ]),
-                                      _vm._v(
-                                        "\n                            " +
-                                          _vm._s(em.em_maker) +
-                                          "\n                            "
-                                      ),
-                                      _c("b", { staticClass: "divider" }, [
-                                        _vm._v("/"),
-                                      ]),
-                                      _vm._v(
-                                        "\n                            " +
-                                          _vm._s(em.em_unit) +
-                                          "\n                        "
-                                      ),
-                                    ],
-                                    1
+                                    ]),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            : em.type == "option"
+                            ? [
+                                _c("b-col", { attrs: { offset: "6" } }, [
+                                  _vm._v(
+                                    _vm._s(em.go_name) +
+                                      ": " +
+                                      _vm._s(em.goc_name)
                                   ),
-                                  _vm._v(" "),
-                                  _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-col",
-                                    { attrs: { tag: "i" } },
-                                    [
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { attrs: { tag: "i" } },
+                                  [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(_vm._f("comma")(em.price)) +
+                                        " 원 "
+                                    ),
+                                    _c("font-awesome-icon", {
+                                      attrs: { icon: "times" },
+                                    }),
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(_vm._f("comma")(em.ea)) +
+                                        " 개 "
+                                    ),
+                                    _c("font-awesome-icon", {
+                                      attrs: { icon: "equals" },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("b", { staticClass: "multi" }, [
                                       _vm._v(
-                                        "\n                            " +
-                                          _vm._s(_vm._f("comma")(em.em_price)) +
-                                          " 원 "
+                                        _vm._s(
+                                          _vm._f("comma")(em.price * em.ea)
+                                        ) + " 원"
                                       ),
-                                      _c("font-awesome-icon", {
-                                        attrs: { icon: "times" },
-                                      }),
-                                      _vm._v(
-                                        "\n                            " +
-                                          _vm._s(_vm._f("comma")(em.em_ea)) +
-                                          " 개 "
-                                      ),
-                                      _c("font-awesome-icon", {
-                                        attrs: { icon: "equals" },
-                                      }),
-                                      _vm._v(" "),
-                                      _c("b", { staticClass: "multi" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("comma")(
-                                              em.em_price * em.em_ea
-                                            )
-                                          ) + " 원"
-                                        ),
-                                      ]),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  em.estimate_option.length
-                                    ? _c(
-                                        "b-col",
-                                        {
-                                          staticClass: "opc",
-                                          attrs: { cols: "12" },
-                                        },
-                                        _vm._l(
-                                          em.estimate_option,
-                                          function (option) {
-                                            return _c(
-                                              "b-row",
-                                              { key: option.eo_id },
-                                              [
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { offset: "6" } },
-                                                  [
-                                                    _vm._v(
-                                                      _vm._s(option.eo_tit) +
-                                                        ": " +
-                                                        _vm._s(option.eo_name)
-                                                    ),
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { tag: "i" } },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                                    " +
-                                                        _vm._s(
-                                                          _vm._f("comma")(
-                                                            option.eo_price
-                                                          )
-                                                        ) +
-                                                        " 원 "
-                                                    ),
-                                                    _c("font-awesome-icon", {
-                                                      attrs: { icon: "times" },
-                                                    }),
-                                                    _vm._v(
-                                                      "\n                                    " +
-                                                        _vm._s(
-                                                          _vm._f("comma")(
-                                                            option.eo_ea
-                                                          )
-                                                        ) +
-                                                        " 개 "
-                                                    ),
-                                                    _c("font-awesome-icon", {
-                                                      attrs: { icon: "equals" },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "b",
-                                                      { staticClass: "multi" },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            _vm._f("comma")(
-                                                              option.eo_price *
-                                                                option.eo_ea
-                                                            )
-                                                          ) + " 원"
-                                                        ),
-                                                      ]
-                                                    ),
-                                                  ],
-                                                  1
-                                                ),
-                                              ],
-                                              1
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    : _vm._e(),
-                                ],
-                                1
-                              )
-                            }),
-                            1
-                          ),
+                                    ]),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            : _vm._e(),
                         ],
-                        1
+                        2
                       )
                     }),
                   ],
