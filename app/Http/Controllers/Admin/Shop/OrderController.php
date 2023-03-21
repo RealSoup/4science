@@ -136,7 +136,9 @@ class OrderController extends Controller {
     }
 	
 	public function store (Request $req) {
-		$eq_title = $req->estimate_model[0]['em_name'].'외 ['.(count($req->estimate_model) - 1).']';
+		$eq_title = $req->estimate_model[0]['em_name'];
+		if (count($req->estimate_model) > 1)
+            $eq_title .= '외 ['.(count($req->estimate_model) - 1).']';
 		$od_id = $this->order->insertGetId([
 			'od_no'            => app('App\Http\Controllers\Shop\OrderController')->getNew_od_no(),
 			'od_name'          => $eq_title,
