@@ -195,19 +195,19 @@ label { margin-bottom:0; }
 .p_wrap .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
 
 
-.p_wrap .search { border:1px solid #B7B7B7; border-radius:1rem; margin-bottom:1.8rem; overflow:hidden; }
-.p_wrap .search .row .col { padding:10px; }
-.p_wrap .search .row:not(:last-child) { border-bottom:1px solid #B7B7B7; }
-.p_wrap .search .label { background-color:#EFF0F2; text-align:center; font-size:.95rem; flex:0 0 8%; max-width:8%; display:flex; justify-content:center; align-items:center; }
-.p_wrap .search .row .label + .type01 { flex: 0 0 14%; max-width:14%; }
-.p_wrap .search .row .label + .type02 { flex: 0 0 18%; max-width:18%; }
-.p_wrap .search .row .label + .type03 { flex: 0 0 26.333333%; max-width:26.333333%; }
-.p_wrap .search .row .label + .type04 { flex: 0 0 34.666667%; max-width:34.666667%; }
-.p_wrap .search .row .label + .type05 { flex: 0 0 43%; max-width:43%; }
-.p_wrap .search .row .label + .type06 { flex: 0 0 59.666667%; max-width:59.666667%; }
-.p_wrap .search .row .label + .period { display:flex; align-items:center; justify-content:space-between; }
-.p_wrap .search .row .label + .period b { font-size:20px; }
-.p_wrap .search .row .label + .period input { width: calc(50% - 10px); }
+.p_wrap .frm_sch { border:1px solid #B7B7B7; border-radius:1rem; margin-bottom:1.8rem; overflow:hidden; }
+.p_wrap .frm_sch .row .col { padding:10px; }
+.p_wrap .frm_sch .row:not(:last-child) { border-bottom:1px solid #B7B7B7; }
+.p_wrap .frm_sch .label { background-color:#EFF0F2; text-align:center; font-size:.95rem; flex:0 0 8%; max-width:8%; display:flex; justify-content:center; align-items:center; }
+.p_wrap .frm_sch .row .label + .type01 { flex: 0 0 14%; max-width:14%; }
+.p_wrap .frm_sch .row .label + .type02 { flex: 0 0 18%; max-width:18%; }
+.p_wrap .frm_sch .row .label + .type03 { flex: 0 0 26.333333%; max-width:26.333333%; }
+.p_wrap .frm_sch .row .label + .type04 { flex: 0 0 34.666667%; max-width:34.666667%; }
+.p_wrap .frm_sch .row .label + .type05 { flex: 0 0 43%; max-width:43%; }
+.p_wrap .frm_sch .row .label + .type06 { flex: 0 0 59.666667%; max-width:59.666667%; }
+.p_wrap .frm_sch .row .label + .period { display:flex; align-items:center; justify-content:space-between; }
+.p_wrap .frm_sch .row .label + .period b { font-size:20px; }
+.p_wrap .frm_sch .row .label + .period input { width: calc(50% - 10px); }
 
 .p_wrap .cmain { border:5px solid #EBEBEB; border-radius:1.2rem; padding:1rem 1.3rem; width:100%; }
 @media (min-width: 1700px) { .p_wrap .cmain { max-width:none; } }

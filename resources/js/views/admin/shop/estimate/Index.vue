@@ -1,7 +1,7 @@
 <template>
 <div id="adm_estimate_show" class="p_wrap">
     <h3 class="p_tit">견적 목록</h3>
-    <b-container class="search">
+    <b-container class="frm_sch">
         <SchDate v-model="sch_frm">
             <b-col slot="prev" class="label">기간</b-col>
             <b-col slot="prev" :style="{ flex:'0 0 8%', maxWidth:'8%' }">

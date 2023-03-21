@@ -331,7 +331,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-container",
-        { staticClass: "search" },
+        { staticClass: "frm_sch" },
         [
           _c(
             "SchDate",
