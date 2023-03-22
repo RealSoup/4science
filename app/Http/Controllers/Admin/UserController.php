@@ -60,7 +60,7 @@ class UserController extends Controller {
             'hp' => $req->filled('hp') ? $req->hp : '',
             'tel' => $req->filled('tel') ? $req->tel : '',
             'fax' => $req->filled('fax') ? $req->fax : '',
-            'level' => $req->filled('level') ? $req->level : 0,
+            'level' => $req->filled('level') ? $req->level : 1,
             'group' => $req->filled('group') ? $req->group : '일반',
             'birth' => $req->filled('birth') ? $req->birth : '',
             'job' => $req->filled('job') ? $req->job : '',

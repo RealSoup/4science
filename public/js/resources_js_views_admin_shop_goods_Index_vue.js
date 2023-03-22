@@ -113,9 +113,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -161,57 +158,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
     },
     index: function index() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
+        var p, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                p = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 0;
+                _context.prev = 1;
+                _this.sch_frm.page = p;
 
                 if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                  _context.next = 4;
+                  _context.next = 6;
                   break;
                 }
 
                 Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                 return _context.abrupt("return", false);
 
-              case 4:
-                _context.next = 6;
+              case 6:
+                _context.next = 8;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/goods", {
                   params: _this.sch_frm
                 });
 
-              case 6:
+              case 8:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.list = res.data.list; // this.categorys = res.data.categorys;
                 }
 
-                _context.next = 14;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](0);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](1);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 14:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[1, 12]]);
       }))();
-    },
-    setPage: function setPage(page) {
-      this.sch_frm.page = page;
-      this.index();
     }
   },
   mounted: function mounted() {
@@ -264,7 +260,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.gd_list .list[data-v-590d599f]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.gd_list .body[data-v-590d599f]:hover { background: #d8f2fd94;\n}\n.gd_list .list>div[data-v-590d599f]:nth-of-type(2) { flex:0 0 30%; max-width:30%;\n}\n.gd_list .list>div[data-v-590d599f]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.gd_list .list>div[data-v-590d599f]{ padding-top:15px; padding-bottom:15px;\n}\n.gd_list .body>div[data-v-590d599f] { cursor:pointer;\n}\n.gd_list .body>div[data-v-590d599f]:nth-of-type(2) { background-color:#7fffd454;\n}\n.gd_list .head>div[data-v-590d599f] { font-weight:bold; background:#666; color:#fff;\n}\n.gd_list .row>div[data-v-590d599f] { font-size:.9rem;\n}\n.gd_list .row>div:nth-of-type(1) span b[data-v-590d599f] { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px;\n}\n.gd_list .row>div>span ul[data-v-590d599f] { display:inline-block;\n}\n.gd_list .row>div>span[data-v-590d599f]:nth-of-type(2) { float:right;\n}\n.gd_list .row>div img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-590d599f] { color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .ctrl .btn[data-v-590d599f] { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(3) { flex:0 0 8%; max-width:8%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(4) { justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(6) { flex:0 0 7.5%; max-width:7.5%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(7) { flex:0 0 7%; max-width:7%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(8) { flex:0 0 11%; max-width:11%;\n}\n.cmain .list .col[data-v-590d599f] { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-590d599f]:last-child,\r\n.cmain .list .col[data-v-590d599f]:nth-child(3) { border-width:0;\n}\n.cmain .list .col:nth-child(3) img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n.cmain .body .col[data-v-590d599f] { padding:.65rem; display:flex; justify-content:center; align-items:center;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(2) { padding:0;\n}\n.cmain .body .col:nth-child(2) div[data-v-590d599f] { text-align:left; margin-left:4%;\n}\n.cmain .body .col:nth-child(2) div p[data-v-590d599f] { margin:0; line-height:1.5; font-size:.9rem;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(4) { text-align:left;\n}\n.cmain .body.disable[data-v-590d599f] { background-color:#E1E1E1;\n}\n.cmain .body.disable .col[data-v-590d599f] { color:#9C9C9C;\n}\r\n/*\r\n.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }\r\n.gd_list .body:hover { background: #d8f2fd94; }\r\n\r\n.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }\r\n.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }\r\n.gd_list .body>div { cursor:pointer; }\r\n.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }\r\n.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }\r\n\r\n.gd_list .row>div { font-size:.9rem; }\r\n.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }\r\n.gd_list .row>div>span ul { display:inline-block; }\r\n.gd_list .row>div>span:nth-of-type(2) { float:right; }\r\n.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }\r\n*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -405,8 +401,8 @@ var render = function () {
       _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 목록")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "search adform" },
+        "b-container",
+        { staticClass: "frm_sch" },
         [
           _c(
             "SchDate",
@@ -446,12 +442,11 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type02" },
+                { staticClass: "type01" },
                 [
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.gd_mk_id,
                         callback: function ($$v) {
@@ -481,12 +476,11 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type02" },
+                { staticClass: "type01" },
                 [
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.gd_enable,
                         callback: function ($$v) {
@@ -516,11 +510,9 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type05" },
                 [
                   _c(
                     "b-input-group",
-                    { attrs: { size: "sm" } },
                     [
                       _c(
                         "b-input-group-prepend",
@@ -529,7 +521,6 @@ var render = function () {
                             "b-form-select",
                             {
                               staticClass: "custom-select",
-                              attrs: { size: "sm" },
                               model: {
                                 value: _vm.sch_frm.mode,
                                 callback: function ($$v) {
@@ -629,28 +620,39 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "gd_list" },
+        "b-container",
+        { staticClass: "cmain" },
         [
           _c(
             "b-row",
             [
-              _c("b-col", { attrs: { sm: "12", md: "6" } }, [
-                _vm._v("total : " + _vm._s(this.list.total)),
-              ]),
+              _c(
+                "b-col",
+                { attrs: { sm: "12", md: "6" } },
+                [
+                  _vm._v("Total : "),
+                  _c("b-badge", { attrs: { variant: "info" } }, [
+                    _vm._v(_vm._s(this.list.total)),
+                  ]),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
+                {
+                  staticClass: "text-right ctrl",
+                  attrs: { sm: "12", md: "6" },
+                },
                 [
+                  _vm._v(
+                    "\r\n                상품정보를 클릭하면 수정이 가능합니다.\r\n                "
+                  ),
                   _c(
                     "b-button",
                     {
-                      attrs: {
-                        to: { name: "adm_goods_create" },
-                        variant: "info",
-                        size: "sm",
-                      },
+                      staticClass: "blue",
+                      attrs: { to: { name: "adm_goods_create" } },
                     },
                     [_c("b-icon-plus-lg"), _vm._v(" 추가")],
                     1
@@ -662,108 +664,114 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
           _c(
             "b-row",
             { staticClass: "list head" },
             [
-              _c("b-col", [
-                _c("span", [_vm._v("번호. 상품명")]),
-                _c("span", [_vm._v("이미지")]),
-              ]),
+              _c("b-col", [_vm._v("번호")]),
               _vm._v(" "),
-              _c("b-col", [
-                _c("span", [_vm._v("카테고리")]),
-                _c("span", [_vm._v("제조사")]),
-              ]),
+              _c("b-col", [_vm._v("카테고리")]),
               _vm._v(" "),
-              _c("b-col", [
-                _c("span", [_vm._v("생성자")]),
-                _c("span", [_vm._v("생성일")]),
-              ]),
+              _c("b-col", [_vm._v("이미지")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("상품명")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("제조사")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("담당자")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("노출")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("최종수정일")]),
             ],
             1
           ),
           _vm._v(" "),
           _vm._l(_vm.list.data, function (row) {
             return _c(
-              "b-link",
+              "b-row",
               {
                 key: row.mk_id,
-                staticClass: "row list body",
-                attrs: {
-                  "router-tag": "div",
-                  to: { name: "adm_goods_edit", params: { gd_id: row.gd_id } },
-                },
+                staticClass: "list body",
+                class: { disable: row.gd_enable == "N" },
               },
               [
+                _c("b-col", [_c("span", [_vm._v(_vm._s(row.gd_id))])]),
+                _vm._v(" "),
                 _c("b-col", [
-                  _c("span", [
-                    _vm._v(_vm._s(row.gd_id) + ". "),
-                    _c("b", [_vm._v(_vm._s(row.gd_name))]),
+                  _c("div", [
+                    row.goods_category_first.gc_ca01_name
+                      ? _c("p", [
+                          _vm._v(_vm._s(row.goods_category_first.gc_ca01_name)),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.goods_category_first.gc_ca02_name
+                      ? _c("p", [
+                          _vm._v(_vm._s(row.goods_category_first.gc_ca02_name)),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.goods_category_first.gc_ca03_name
+                      ? _c("p", [
+                          _vm._v(_vm._s(row.goods_category_first.gc_ca03_name)),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.goods_category_first.gc_ca04_name
+                      ? _c("p", [
+                          _vm._v(_vm._s(row.goods_category_first.gc_ca04_name)),
+                        ])
+                      : _vm._e(),
                   ]),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("b-img", {
-                        attrs: { src: row.image_src_thumb[0], rounded: "" },
-                      }),
-                    ],
-                    1
-                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-link",
+                  {
+                    staticClass: "col",
+                    attrs: {
+                      to: {
+                        name: "adm_goods_edit",
+                        params: { gd_id: row.gd_id },
+                      },
+                    },
+                  },
+                  [
+                    _c("b-img", {
+                      attrs: { src: row.image_src_thumb[0], rounded: "" },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-link",
+                  {
+                    staticClass: "col",
+                    attrs: {
+                      to: {
+                        name: "adm_goods_edit",
+                        params: { gd_id: row.gd_id },
+                      },
+                    },
+                  },
+                  [_c("span", [_vm._v(_vm._s(row.gd_name))])]
+                ),
+                _vm._v(" "),
+                _c("b-col", [_c("span", [_vm._v(_vm._s(row.maker.mk_name))])]),
+                _vm._v(" "),
+                _c("b-col", [row.user ? _c("span") : _vm._e()]),
+                _vm._v(" "),
+                _c("b-col", [
+                  row.gd_enable == "Y"
+                    ? _c("span", [_vm._v("노출")])
+                    : _c("span", [_vm._v("미노출")]),
                 ]),
                 _vm._v(" "),
                 _c("b-col", [
                   _c("span", [
-                    _c("ul", [
-                      row.goods_category_first.gc_ca01_name
-                        ? _c("li", [
-                            _vm._v(
-                              _vm._s(row.goods_category_first.gc_ca01_name)
-                            ),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      row.goods_category_first.gc_ca02_name
-                        ? _c("li", [
-                            _vm._v(
-                              _vm._s(row.goods_category_first.gc_ca02_name)
-                            ),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      row.goods_category_first.gc_ca03_name
-                        ? _c("li", [
-                            _vm._v(
-                              _vm._s(row.goods_category_first.gc_ca03_name)
-                            ),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      row.goods_category_first.gc_ca04_name
-                        ? _c("li", [
-                            _vm._v(
-                              _vm._s(row.goods_category_first.gc_ca04_name)
-                            ),
-                          ])
-                        : _vm._e(),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(row.maker.mk_name))]),
-                ]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _c(
-                    "span",
-                    [row.user ? [_vm._v(_vm._s(row.user.name))] : _vm._e()],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("formatDate")(row.created_at))),
+                    _vm._v(_vm._s(_vm._f("formatDate")(row.updated_at))),
                   ]),
                 ]),
               ],
@@ -771,11 +779,34 @@ var render = function () {
             )
           }),
           _vm._v(" "),
-          _c("pagination", {
-            staticClass: "mt-5",
-            attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
-            on: { "pagination-change-page": _vm.setPage },
-          }),
+          _c(
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                limit: 5,
+                showDisabled: true,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.index },
+            },
+            [
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
+                1
+              ),
+            ]
+          ),
         ],
         2
       ),

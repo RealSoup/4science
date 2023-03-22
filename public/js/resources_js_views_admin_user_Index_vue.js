@@ -107,6 +107,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserIndex',
@@ -133,35 +142,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.index();
   },
   methods: {
+    routerPush: function routerPush() {
+      this.$router.push({
+        name: 'adm_user',
+        query: this.sch_frm
+      })["catch"](function () {});
+    },
+    pageSet: function pageSet(p) {
+      this.sch_frm.page = p;
+      this.routerPush();
+    },
     index: function index() {
-      var _arguments = arguments,
-          _this = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var p, res;
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                p = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 0;
-                _context.prev = 1;
-                _this.sch_frm.page = p;
+                _context.prev = 0;
 
                 if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                  _context.next = 6;
+                  _context.next = 4;
                   break;
                 }
 
                 Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                 return _context.abrupt("return", false);
 
-              case 6:
-                _context.next = 8;
+              case 4:
+                _context.next = 6;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/user", {
                   params: _this.sch_frm
                 });
 
-              case 8:
+              case 6:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -169,23 +185,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.option = res.data.option;
                 }
 
-                _context.next = 16;
+                _context.next = 14;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 16:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 12]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     }
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.sch_frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+    this.sch_frm, // 수정하려는 객체
+    to.query);
+    this.index();
+    next();
   }
 });
 
@@ -207,7 +230,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card.data .list .row[data-v-031b2e2d] { padding:10px 0; align-items:center;\n}\n.card.data .list .body[data-v-031b2e2d]:hover { background:lightcyan; cursor:pointer;\n}\n.card.data .list .row[data-v-031b2e2d]:not(:last-of-type) { border-bottom:1px solid #ddd;\n}\n.card.data .list .head .col[data-v-031b2e2d] { font-weight:bold;\n}\n.card.data .list .row .col[data-v-031b2e2d] { text-align:center; padding:0 5px;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 11%; max-width:11%;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.card.data .list .cell .col[data-v-031b2e2d]:nth-child(5) { flex:0 0 9%; max-width:9%;\n}\n.card.data .list .row .col span[data-v-031b2e2d] { margin-right:1rem;\n}\n.card.data .list .row .col span svg[data-v-031b2e2d] { margin-right:0.5rem;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-031b2e2d] { text-align:right; color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .col .normal[data-v-031b2e2d] { background-color:#17A2B9;\n}\n.cmain .row .col .bronz[data-v-031b2e2d] { background-color:#F16621;\n}\n.cmain .row .col .silver[data-v-031b2e2d] { background-color:#ACACAC;\n}\n.cmain .row .col .gold[data-v-031b2e2d] { background-color:#FBC660;\n}\n.cmain .row .col .dealer[data-v-031b2e2d] { background-color:#9B1AB2;\n}\n.cmain .row .col .admin[data-v-031b2e2d] { background-color:#0173BA;\n}\n.cmain .row .col .super[data-v-031b2e2d] { background-color:#ED1C22;\n}\n.cmain .body[data-v-031b2e2d] { align-items:center;\n}\n.cmain .list .col[data-v-031b2e2d] { line-height:1.5;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 6%; max-width:6%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) { flex:0 0 18%; max-width:18%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) {\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(6) { flex:0 0 15%; max-width:15%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(7) { flex:0 0 11%; max-width:11%;\n}\n.cmain .body .col[data-v-031b2e2d] { padding: 0.7rem 0;\n}\n.cmain .body .col:nth-child(5) span[data-v-031b2e2d] { min-width:150px; display:inline-block; text-align:left;\n}\n.cmain .body .col:nth-child(5) span[data-v-031b2e2d]:first-child { margin-right:2rem;\n}\n.cmain .body .col:nth-child(5) span svg[data-v-031b2e2d] { margin-right:.6rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -348,8 +371,8 @@ var render = function () {
       _c("h3", { staticClass: "p_tit" }, [_vm._v("회원 목록")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "search adform" },
+        "b-container",
+        { staticClass: "frm_sch" },
         [
           _c(
             "SchDate",
@@ -384,7 +407,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.group,
                         callback: function ($$v) {
@@ -419,7 +441,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.level,
                         callback: function ($$v) {
@@ -449,11 +470,9 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type06" },
                 [
                   _c(
                     "b-input-group",
-                    { attrs: { size: "sm" } },
                     [
                       _c(
                         "b-input-group-prepend",
@@ -461,7 +480,6 @@ var render = function () {
                           _c(
                             "b-form-select",
                             {
-                              attrs: { size: "sm" },
                               model: {
                                 value: _vm.sch_frm.keyword_type,
                                 callback: function ($$v) {
@@ -535,7 +553,7 @@ var render = function () {
                             ) {
                               return null
                             }
-                            return _vm.index.apply(null, arguments)
+                            return _vm.routerPush.apply(null, arguments)
                           },
                         },
                         model: {
@@ -552,7 +570,7 @@ var render = function () {
                         [
                           _c(
                             "b-button",
-                            { on: { click: _vm.index } },
+                            { on: { click: _vm.routerPush } },
                             [_c("b-icon-search")],
                             1
                           ),
@@ -573,144 +591,216 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "data" },
+        "b-container",
+        { staticClass: "cmain" },
         [
           _c(
-            "b-container",
-            { staticClass: "list" },
+            "b-row",
             [
               _c(
-                "b-row",
+                "b-col",
+                { attrs: { sm: "12", md: "6" } },
                 [
+                  _vm._v("Total : "),
+                  _c("b-badge", { attrs: { variant: "info" } }, [
+                    _vm._v(_vm._s(_vm._f("comma")(this.list.total))),
+                  ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "ctrl", attrs: { sm: "12", md: "6" } },
+                [_vm._v("회원정보를 클릭하면 수정이 가능합니다.")]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "head list" },
+            [
+              _c("b-col", [_vm._v("번호/등급")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이름")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("성별")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("E-mail")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("연락처")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("직장/학교")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("가입일")]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.list.data, function (us) {
+            return _c(
+              "b-row",
+              { key: us.id, staticClass: "body list" },
+              [
+                _c(
+                  "b-col",
+                  [
+                    _vm._v("\r\n                " + _vm._s(us.id) + ". "),
+                    _c("br"),
+                    _vm._v(" "),
+                    us.level == 1
+                      ? _c("b-badge", { staticClass: "normal" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 2
+                      ? _c("b-badge", { staticClass: "bronz" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 3
+                      ? _c("b-badge", { staticClass: "silver" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 4
+                      ? _c("b-badge", { staticClass: "gold" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 11
+                      ? _c("b-badge", { staticClass: "dealer" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 20
+                      ? _c("b-badge", { staticClass: "admin" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    us.level == 29
+                      ? _c("b-badge", { staticClass: "super" }, [
+                          _vm._v(_vm._s(_vm.option.grade[us.level])),
+                        ])
+                      : _vm._e(),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "adm_user_edit", params: { id: us.id } },
+                        },
+                      },
+                      [_vm._v(_vm._s(us.name))]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [
+                  us.sex == "male"
+                    ? _c("span", [_vm._v("남")])
+                    : us.sex == "female"
+                    ? _c("span", [_vm._v("여")])
+                    : _vm._e(),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          to: { name: "adm_user_edit", params: { id: us.id } },
+                        },
+                      },
+                      [_vm._v(_vm._s(us.email))]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [
                   _c(
-                    "b-col",
-                    { attrs: { sm: "12", md: "6" } },
+                    "span",
                     [
-                      _vm._v("Total : "),
-                      _c("b-badge", { attrs: { variant: "info" } }, [
-                        _vm._v(_vm._s(_vm._f("comma")(this.list.total))),
-                      ]),
+                      us.hp
+                        ? _c("font-awesome-icon", {
+                            attrs: { icon: "mobile-alt" },
+                          })
+                        : _vm._e(),
+                      _vm._v(_vm._s(us.hp)),
                     ],
                     1
                   ),
-                ],
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    [
+                      us.tel
+                        ? _c("font-awesome-icon", { attrs: { icon: "phone" } })
+                        : _vm._e(),
+                      _vm._v(_vm._s(us.tel)),
+                    ],
+                    1
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("b-col", [_vm._v(_vm._s(us.office))]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _vm._v(_vm._s(_vm._f("formatDate")(us.created_at))),
+                ]),
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                limit: 5,
+                showDisabled: true,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.pageSet },
+            },
+            [
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
                 1
               ),
               _vm._v(" "),
               _c(
-                "b-row",
-                { staticClass: "head cell" },
-                [
-                  _c("b-col", [_vm._v("등급")]),
-                  _vm._v(" "),
-                  _c("b-col", [_vm._v("이름")]),
-                  _vm._v(" "),
-                  _c("b-col", [_vm._v("E-mail")]),
-                  _vm._v(" "),
-                  _c("b-col", [_vm._v("연락처")]),
-                  _vm._v(" "),
-                  _c("b-col", [_vm._v("가입일")]),
-                ],
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
                 1
               ),
-              _vm._v(" "),
-              _vm._l(_vm.list.data, function (us, i) {
-                return _c(
-                  "b-link",
-                  {
-                    key: i,
-                    staticClass: "row body cell",
-                    attrs: {
-                      to: { name: "adm_user_edit", params: { id: us.id } },
-                    },
-                  },
-                  [
-                    _c(
-                      "b-col",
-                      [
-                        _vm._v(
-                          "\r\n                    " +
-                            _vm._s(us.id) +
-                            ". lv " +
-                            _vm._s(us.level) +
-                            " "
-                        ),
-                        _c("b-badge", [
-                          _vm._v(_vm._s(_vm.option.grade[us.level])),
-                        ]),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", [_vm._v(_vm._s(us.name))]),
-                    _vm._v(" "),
-                    _c("b-col", [_vm._v(_vm._s(us.email))]),
-                    _vm._v(" "),
-                    _c("b-col", [
-                      _c(
-                        "span",
-                        [
-                          us.hp
-                            ? _c("font-awesome-icon", {
-                                attrs: { icon: "mobile-alt" },
-                              })
-                            : _vm._e(),
-                          _vm._v(_vm._s(us.hp)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          us.tel
-                            ? _c("font-awesome-icon", {
-                                attrs: { icon: "phone" },
-                              })
-                            : _vm._e(),
-                          _vm._v(_vm._s(us.tel)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          us.eq_fax
-                            ? _c("font-awesome-icon", {
-                                attrs: { icon: "fax" },
-                              })
-                            : _vm._e(),
-                          _vm._v(_vm._s(us.eq_fax)),
-                        ],
-                        1
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("b-col", [
-                      _vm._v(_vm._s(_vm._f("formatDate")(us.created_at))),
-                    ]),
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _c("pagination", {
-                staticClass: "mt-5",
-                attrs: {
-                  data: _vm.list,
-                  size: "small",
-                  limit: 5,
-                  align: "center",
-                },
-                on: { "pagination-change-page": _vm.index },
-              }),
-            ],
-            2
+            ]
           ),
         ],
-        1
+        2
       ),
     ],
     1

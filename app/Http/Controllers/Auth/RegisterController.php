@@ -53,7 +53,7 @@ class RegisterController extends Controller {
                 'join_route'     => $req->filled('join_route')   ? $req->join_route   : NULL,
                 'receive_sms'    => $req->filled('receive_sms')  ? $req->receive_sms  : 'Y',
                 'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
-                'level'          => $req->filled('level')        ? $req->level        : 0,
+                'level'          => $req->filled('level')        ? $req->level        : 1,
                 'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL];
         $rst = User::create($u);
         if ( $req->filled('level') )

@@ -2,31 +2,31 @@
 <b-container class="p_wrap">
     <h3 class="p_tit">상품 목록</h3>
 
-    <b-card class="search adform">
+    <b-container class="frm_sch">
         <SchDate v-model="sch_frm"><b-col slot="prev" class="label">등록일</b-col></SchDate>
         <Categorys v-model="sch_frm" />
         <b-row>
             <b-col class="label">제조사</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="sch_frm.gd_mk_id" size="sm">
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.gd_mk_id">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="opt in makers" :value="opt.mk_id" :key="opt.mk_id">{{ opt.mk_name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
 
             <b-col class="label">활성</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="sch_frm.gd_enable" size="sm">
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.gd_enable">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="opt in gd_enable" :value="opt.value" :key="opt.value">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             
             <b-col class="label">검색</b-col>
-            <b-col class="type05">
-                <b-input-group size="sm">
+            <b-col>
+                <b-input-group>
                     <b-input-group-prepend>
-                        <b-form-select class="custom-select" v-model="sch_frm.mode" size="sm">
+                        <b-form-select class="custom-select" v-model="sch_frm.mode">
                             <b-form-select-option value="gd_name">상품명</b-form-select-option>
                             <b-form-select-option value="gm_name">제품명</b-form-select-option>
                             <b-form-select-option value="gm_code">모델명</b-form-select-option>
@@ -43,54 +43,51 @@
                 </b-input-group>
             </b-col>
         </b-row>
-    </b-card>
+    </b-container>
 
-    <b-card class="gd_list">
+    <b-container class="cmain">
         <b-row>
-            <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
-            <b-col sm="12" md="6" class="text-right">
-                <b-button :to="{name: 'adm_goods_create'}" variant="info" size="sm"><b-icon-plus-lg /> 추가</b-button>
+            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+            <b-col sm="12" md="6" class="text-right ctrl">
+                상품정보를 클릭하면 수정이 가능합니다.
+                <b-button :to="{name: 'adm_goods_create'}" class="blue"><b-icon-plus-lg /> 추가</b-button>
             </b-col>
         </b-row>
-        <hr>
 
         <b-row class="list head">
-            <b-col><span>번호. 상품명</span><span>이미지</span></b-col>                
-            <b-col><span>카테고리</span><span>제조사</span></b-col>
-            <b-col><span>생성자</span><span>생성일</span></b-col>
+            <b-col>번호</b-col>
+            <b-col>카테고리</b-col>
+            <b-col>이미지</b-col>
+            <b-col>상품명</b-col>
+            <b-col>제조사</b-col>
+            <b-col>담당자</b-col>
+            <b-col>노출</b-col>
+            <b-col>최종수정일</b-col>
         </b-row>
         
-        <b-link class="row list body" router-tag="div"
-            v-for="row in list.data" :key="row.mk_id"
-            :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}"
-        >
+        <b-row class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
+            <b-col><span>{{row.gd_id}}</span></b-col>
             <b-col>
-                <span>{{row.gd_id}}. <b>{{row.gd_name}}</b></span>
-                <span>
-                    <b-img :src="row.image_src_thumb[0]" rounded />
-                </span>
+                <div>
+                    <p v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</p>
+                    <p v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</p>
+                    <p v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</p>
+                    <p v-if="row.goods_category_first.gc_ca04_name">{{row.goods_category_first.gc_ca04_name}}</p>
+                </div>
             </b-col>
+            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.image_src_thumb[0]" rounded /></b-link>
+            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><span>{{row.gd_name}}</span></b-link>
+            <b-col><span>{{row.maker.mk_name}}</span></b-col>
+            <b-col><span v-if="row.user"></span></b-col>
+            <b-col><span v-if="row.gd_enable=='Y'">노출</span><span v-else>미노출</span></b-col>
+            <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
+        </b-row>
 
-            <b-col>
-                <span>
-                    <ul>
-                        <li v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</li>
-                        <li v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</li>
-                        <li v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</li>
-                        <li v-if="row.goods_category_first.gc_ca04_name">{{row.goods_category_first.gc_ca04_name}}</li>
-                    </ul>
-                </span>
-                <span>{{row.maker.mk_name}}</span>
-            </b-col>
-
-            <b-col>
-                <span><template v-if="row.user">{{row.user.name}}</template></span>
-                <span>{{ row.created_at | formatDate }}</span>
-            </b-col>
-        </b-link>
-
-        <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
-    </b-card>
+        <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+            <span slot="prev-nav"><b-icon-chevron-left /></span>
+	        <span slot="next-nav"><b-icon-chevron-right /></span>
+        </pagination>
+    </b-container>
 </b-container>
 </template>
 
@@ -128,8 +125,9 @@ export default {
         numCalc(i) {
             return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
         },
-        async index() {
+        async index(p=0) {
             try {
+                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
@@ -144,10 +142,6 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        setPage(page) {
-            this.sch_frm.page = page;
-            this.index();
-        },
 
     },
     async mounted() {
@@ -160,7 +154,30 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
+.cmain .row .ctrl .btn { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem; }
+.cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; }
+.cmain .list .col:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start; }
+.cmain .list .col:nth-child(3) { flex:0 0 8%; max-width:8%; }
+.cmain .list .col:nth-child(4) { justify-content:flex-start; }
+.cmain .list .col:nth-child(5) { flex:0 0 10%; max-width:10%; }
+.cmain .list .col:nth-child(6) { flex:0 0 7.5%; max-width:7.5%; }
+.cmain .list .col:nth-child(7) { flex:0 0 7%; max-width:7%; }
+.cmain .list .col:nth-child(8) { flex:0 0 11%; max-width:11%; }
 
+.cmain .list .col { border-right:1px solid #CCCCCC; }
+.cmain .list .col:last-child,
+.cmain .list .col:nth-child(3) { border-width:0; }
+.cmain .list .col:nth-child(3) img { max-width:80px; width:100%; height:80px; object-fit:cover; }
+
+.cmain .body .col { padding:.65rem; display:flex; justify-content:center; align-items:center; } 
+.cmain .body .col:nth-child(2) { padding:0; }
+.cmain .body .col:nth-child(2) div { text-align:left; margin-left:4%; }
+.cmain .body .col:nth-child(2) div p { margin:0; line-height:1.5; font-size:.9rem; }
+.cmain .body .col:nth-child(4) { text-align:left; }
+.cmain .body.disable { background-color:#E1E1E1; }
+.cmain .body.disable .col { color:#9C9C9C; }
+/*
 .gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }
 .gd_list .body:hover { background: #d8f2fd94; }
 
@@ -176,4 +193,5 @@ export default {
 .gd_list .row>div>span ul { display:inline-block; }
 .gd_list .row>div>span:nth-of-type(2) { float:right; }
 .gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }
+*/
 </style>
