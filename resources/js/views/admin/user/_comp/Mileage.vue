@@ -8,7 +8,7 @@
         <b-row v-for="(ml, i) in list.data" :key="i" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
             <b-col col sm="12" md="6" lg="1">{{ml.ml_id}}</b-col>
             <b-col col sm="12" md="6" lg="7">
-                <div v-if="ml.ml_tbl == 'voucher'">
+                <div v-if="ml.ml_tbl == 'voucher' && !isEmpty(ml.refine_content)">
                     <b-icon-gift-fill /> {{config.voucher[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 <br />
                     <font-awesome-icon icon="user" /> {{ml.refine_content[2]}} <br />
                     <font-awesome-icon icon="mobile-alt" /> {{ml.refine_content[3]}}
@@ -27,7 +27,10 @@
             </b-col>
             <b-col col sm="12" md="6" lg="2">{{ml.created_at | formatDate}}</b-col>
         </b-row>
-        <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5"></pagination>
+        <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
+            <span slot="prev-nav"><b-icon-chevron-left /></span>
+	        <span slot="next-nav"><b-icon-chevron-right /></span>
+        </pagination>
     </b-container>
 </template>
 

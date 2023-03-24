@@ -15,6 +15,7 @@
                 <b-navbar-nav class="menu_user" v-else>
                     <b-nav-item @click="isModalViewed=true">로그인</b-nav-item>
                     <b-nav-item :to="{name: 'auth_intro'}">회원가입</b-nav-item>
+                    <b-nav-item @click="logout">로그아웃</b-nav-item>
                 </b-navbar-nav>
 
                 <b-collapse id="nav-collapse" is-nav>

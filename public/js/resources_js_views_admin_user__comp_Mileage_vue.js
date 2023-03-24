@@ -53,6 +53,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
@@ -354,7 +357,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "7" } }, [
-              ml.ml_tbl == "voucher"
+              ml.ml_tbl == "voucher" && !_vm.isEmpty(ml.refine_content)
                 ? _c(
                     "div",
                     [
@@ -378,7 +381,9 @@ var render = function () {
                         attrs: { icon: "mobile-alt" },
                       }),
                       _vm._v(
-                        " " + _vm._s(ml.refine_content[3]) + "\n            "
+                        " " +
+                          _vm._s(ml.refine_content[3]) +
+                          "\n                "
                       ),
                     ],
                     1
@@ -387,9 +392,9 @@ var render = function () {
                     "div",
                     [
                       _vm._v(
-                        "\n                " +
+                        "\n                    " +
                           _vm._s(ml.ml_content) +
-                          "\n                "
+                          "\n                    "
                       ),
                       ml.ml_type == "SP"
                         ? _c(
@@ -460,11 +465,34 @@ var render = function () {
         )
       }),
       _vm._v(" "),
-      _c("pagination", {
-        staticClass: "mt-5",
-        attrs: { data: _vm.list, align: "center" },
-        on: { "pagination-change-page": _vm.setPage },
-      }),
+      _c(
+        "pagination",
+        {
+          staticClass: "mt-5",
+          attrs: {
+            data: _vm.list,
+            limit: 5,
+            showDisabled: true,
+            align: "center",
+          },
+          on: { "pagination-change-page": _vm.setPage },
+        },
+        [
+          _c(
+            "span",
+            { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+            [_c("b-icon-chevron-left")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            { attrs: { slot: "next-nav" }, slot: "next-nav" },
+            [_c("b-icon-chevron-right")],
+            1
+          ),
+        ]
+      ),
     ],
     2
   )

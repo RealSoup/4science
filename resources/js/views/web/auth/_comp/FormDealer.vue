@@ -99,7 +99,7 @@
         <b-row>
             <b-col class="label_st">등록증 사본 업로드<b class="need" /></b-col>
             <b-col>
-                <file-upload ref="fileupload" v-model="value.ub_file" :fi_group="'userBiz'" :fi_kind="'license'" :height="100" />
+                <file-upload ref="fileupload" v-model="value.file_info" :fi_group="'userBiz'" :fi_kind="'license'" :height="100" />
                 <Validation :error="$store.state.error.validations.ub_file" />
             </b-col>
         </b-row>
@@ -143,6 +143,9 @@ export default {
 </script>
 
 <style scoped>
+.form_box .col .frm_vali_st .row .col input, 
+.form_box .col .frm_vali_st .row .col select, 
+.form_box .col .frm_vali_st .row .col textarea { padding: 2px 14px; }
 .extra .frm_vali_st .row .col.label_st { flex-basis:160px; max-width:160px; } 
 .extra .frm_vali_st .row .col.ub_num { display:flex; flex-wrap:wrap; justify-content:space-between; }
 .extra .frm_vali_st .row .col.ub_num span:nth-of-type(1) { position:relative; flex:0 0 25%; max-width:25%; }

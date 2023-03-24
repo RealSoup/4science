@@ -127,7 +127,7 @@
                 <b-row v-for="em in pa" :key="em.em_id">
                     <template v-if="em.type == 'model'">
                         <b-col>
-                            <b-button variant="outline-primary" size="sm" :to="{name: 'adm_goods_edit', params: { gd_id:em.gd_id }}">
+                            <b-button variant="outline-primary" @click="openWinPop(`/admin/shop/goods/${em.gd_id}/edit`, 1700, 900)">
                                 <b-icon-link45deg />
                             </b-button>
                             <b class="gd_name">{{em.gm_name}}</b>

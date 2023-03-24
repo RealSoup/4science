@@ -41,7 +41,6 @@ export default {
             context.commit('setIsLoggedin', false);
             context.commit('setUser', null);
             context.commit('setToken', null);
-            console.log(router.name);
             router.push({ name: 'main' });
         },
         async getAuth({commit}){

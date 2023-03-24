@@ -52,16 +52,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      frm: Object.assign({}, {
-        ub_file: [],
-        check: {
-          inexus: 'Y',
-          personal: 'Y',
-          marketing: 'N',
-          receive_mail: 'N',
-          receive_sms: 'N'
-        }
-      }, this.$store.state.auth.user)
+      frm: {}
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
@@ -78,38 +69,100 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _this.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                _this.frm, // 수정하려는 객체
-                {
-                  _method: 'PATCH',
-                  hp: "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03)
-                } // 삽입하려는 내용
-                );
-                _context.next = 4;
+                _this.frm._method = 'PATCH';
+                _this.frm.hp = "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03);
+
+                if (_this.frm.level == 11) {
+                  _this.frm.ub_num = "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03);
+                  _this.frm.file_info.length = _this.frm.file_info.length;
+                }
+
+                _context.next = 6;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/user", _this.frm);
 
-              case 4:
+              case 6:
                 res = _context.sent;
-                if (res && res.status === 200) Notify.toast('success', "회원정보 수정 완료");
-                _context.next = 12;
+
+                if (!(res && res.status === 201)) {
+                  _context.next = 12;
+                  break;
+                }
+
+                if (!(_this.frm.level == 11)) {
+                  _context.next = 11;
+                  break;
+                }
+
+                _context.next = 11;
+                return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(res.data);
+
+              case 11:
+                Notify.toast('success', "회원정보 수정 완료");
+
+              case 12:
+                _context.next = 18;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 12:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 14]]);
       }))();
     }
   },
-  mounted: function mounted() {// this.frm = this.user;
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              console.log();
+              _context2.next = 4;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/user/".concat(Auth.user().id, "/edit"));
+
+            case 4:
+              res = _context2.sent;
+
+              if (res && res.status === 200) {
+                _this2.frm = Object.assign({}, {
+                  check: {
+                    inexus: 'Y',
+                    personal: 'Y',
+                    marketing: 'N',
+                    receive_mail: 'N',
+                    receive_sms: 'N'
+                  }
+                }, _this2.$store.state.auth.user, res.data);
+              }
+
+              _context2.next = 12;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              Notify.consolePrint(_context2.t0);
+              Notify.toast('warning', _context2.t0.responsee);
+
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 8]]);
+    }))();
   }
 });
 
@@ -272,6 +325,7 @@ var render = function () {
       _c("h3", [_vm._v("회원정보 수정")]),
       _vm._v(" "),
       _c("FormComp", {
+        ref: "form_comp",
         model: {
           value: _vm.frm,
           callback: function ($$v) {

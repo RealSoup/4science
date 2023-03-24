@@ -51,8 +51,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {
-        //    sex:'male',
-        ub_file: [],
         check: {
           inexus: 'Y',
           personal: 'Y',
@@ -61,7 +59,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           receive_sms: 'N'
         },
         email: this.$route.query.email ? this.$route.query.email : '',
-        name: this.$route.query.name ? this.$route.query.name : ''
+        name: this.$route.query.name ? this.$route.query.name : '',
+        file_info: []
       },
       active_mode: 'inter_lock'
     };
@@ -78,7 +77,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var frmDt, url, reg;
+        var url, reg;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -105,128 +104,93 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 9:
-                frmDt = new FormData(); // let ub_file = document.getElementById("ub_file");
-
-                if (!isEmpty(_this.frm.name)) frmDt.append("name", _this.frm.name);
-                if (!isEmpty(_this.frm.sex)) frmDt.append("sex", _this.frm.sex);
-                if (!isEmpty(_this.frm.email)) frmDt.append("email", _this.frm.email);
-                if (!isEmpty(_this.frm.receive_mail)) frmDt.append("receive_mail", _this.frm.receive_mail);
-                if (!isEmpty(_this.frm.password)) frmDt.append("password", _this.frm.password);
-                if (!isEmpty(_this.frm.password_confirmation)) frmDt.append("password_confirmation", _this.frm.password_confirmation);
-                if (!isEmpty(_this.frm.birth)) frmDt.append("birth", _this.frm.birth);
-                if (!isEmpty(_this.frm.hp01)) frmDt.append("hp", "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03));
-                if (!isEmpty(_this.frm.receive_sms)) frmDt.append("receive_sms", _this.frm.receive_sms);
-                if (!isEmpty(_this.frm.tel)) frmDt.append("tel", _this.frm.tel);
-                if (!isEmpty(_this.frm.fax)) frmDt.append("fax", _this.frm.fax);
-                if (!isEmpty(_this.frm.job)) frmDt.append("job", _this.frm.job);
-                if (!isEmpty(_this.frm.office)) frmDt.append("office", _this.frm.office);
-                if (!isEmpty(_this.frm.department)) frmDt.append("department", _this.frm.department);
-                if (!isEmpty(_this.frm.grade)) frmDt.append("grade", _this.frm.grade);
-                if (!isEmpty(_this.frm.tutor)) frmDt.append("tutor", _this.frm.tutor);
-                if (!isEmpty(_this.frm.offer)) frmDt.append("offer", _this.frm.offer);
-                if (!isEmpty(_this.frm.offer_lab)) frmDt.append("offer_lab", _this.frm.offer_lab);
-                if (!isEmpty(_this.frm.interest)) frmDt.append("interest", _this.frm.interest);
-                if (!isEmpty(_this.frm.interest_etc)) frmDt.append("interest_etc", _this.frm.interest_etc);
-                if (!isEmpty(_this.frm.join_route)) frmDt.append("join_route", _this.frm.join_route);
-                if (!isEmpty(_this.$route.query.provider)) frmDt.append("provider", _this.$route.query.provider);
-                if (!isEmpty(_this.$route.query.social_id)) frmDt.append("social_id", _this.$route.query.social_id);
-                if (!isEmpty(_this.$route.query.social_token)) frmDt.append("social_token", _this.$route.query.social_token);
-
-                if (_this.$route.params.code == 'dealer') {
-                  if (!isEmpty(_this.frm.level)) frmDt.append("level", _this.frm.level);
-                  if (!isEmpty(_this.frm.ub_num01)) frmDt.append("ub_num", "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03));
-                  if (!isEmpty(_this.frm.ub_file.length)) frmDt.append("ub_file", _this.frm.ub_file.length);
-                  if (!isEmpty(_this.frm.ub_corp_name)) frmDt.append("ub_corp_name", _this.frm.ub_corp_name);
-                  if (!isEmpty(_this.frm.ub_name)) frmDt.append("ub_name", _this.frm.ub_name);
-                  if (!isEmpty(_this.frm.ub_tel)) frmDt.append("ub_tel", _this.frm.ub_tel);
-                  if (!isEmpty(_this.frm.ub_zip)) frmDt.append("ub_zip", _this.frm.ub_zip);
-                  if (!isEmpty(_this.frm.ub_addr1)) frmDt.append("ub_addr1", _this.frm.ub_addr1);
-                  if (!isEmpty(_this.frm.ub_addr2)) frmDt.append("ub_addr2", _this.frm.ub_addr2);
-                  if (!isEmpty(_this.frm.ub_type)) frmDt.append("ub_type", _this.frm.ub_type);
-                  if (!isEmpty(_this.frm.ub_cond)) frmDt.append("ub_cond", _this.frm.ub_cond);
-                }
-
                 url = "/register";
                 if (_this.$route.params.code == 'sync') url = "/social/connectExistAccount";
-                _context.next = 39;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("".concat(url), frmDt);
+                _this.frm.hp = "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03);
 
-              case 39:
+                if (_this.frm.level == 11) {
+                  _this.frm.ub_num = "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03);
+                  _this.frm.file_info.length = _this.frm.file_info.length;
+                }
+
+                _context.next = 15;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("".concat(url), _this.frm);
+
+              case 15:
                 reg = _context.sent;
 
                 if (!(reg && reg.status === 201)) {
-                  _context.next = 61;
+                  _context.next = 36;
                   break;
                 }
 
-                if (!(_this.frm.level == 10)) {
-                  _context.next = 44;
+                if (!(_this.frm.level == 11)) {
+                  _context.next = 20;
                   break;
                 }
 
-                _context.next = 44;
+                _context.next = 20;
                 return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
 
-              case 44:
+              case 20:
                 if (isEmpty(_this.$route.query.provider)) {
-                  _context.next = 51;
+                  _context.next = 27;
                   break;
                 }
 
                 Notify.modal('가입 완료', 'success');
-                _context.next = 48;
+                _context.next = 24;
                 return _this.$store.dispatch('auth/getAuth');
 
-              case 48:
+              case 24:
                 _this.$router.push({
                   name: 'main'
                 });
 
-                _context.next = 61;
+                _context.next = 36;
                 break;
 
-              case 51:
+              case 27:
                 if (!(_this.$route.params.code == 'sync')) {
-                  _context.next = 60;
+                  _context.next = 35;
                   break;
                 }
 
-                console.log(reg);
                 Notify.modal('연동 되었습니다.', 'success');
-                _context.next = 56;
+                _context.next = 31;
                 return _this.$store.dispatch('auth/getAuth');
 
-              case 56:
+              case 31:
                 _this.$store.dispatch('cart/index');
 
                 _this.$router.push({
                   name: 'main'
                 });
 
-                _context.next = 61;
+                _context.next = 36;
                 break;
 
-              case 60:
+              case 35:
                 _this.$router.push({
                   name: 'email_verify'
                 });
 
-              case 61:
-                _context.next = 67;
+              case 36:
+                _context.next = 42;
                 break;
 
-              case 63:
-                _context.prev = 63;
+              case 38:
+                _context.prev = 38;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 67:
+              case 42:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 63]]);
+        }, _callee, null, [[0, 38]]);
       }))();
     }
   },
@@ -238,7 +202,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     next();
   },
   mounted: function mounted() {
-    if (this.$route.params.code == 'dealer') this.frm.level = 10;
+    if (this.$route.params.code == 'dealer') this.frm.level = 11;
     if (this.$route.query.msg_type == 'duplicate') Notify.modal('이미 가입된 이메일입니다. 로그인하여 연동하세요.', 'warning');
   }
 });

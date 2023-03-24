@@ -136,6 +136,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopEstimateShowReq',
@@ -321,6 +324,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[4, 14]]);
       }))();
+    },
+    print: function print() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.$htmlToPaper('adm_estimate_show', {
+                  styles: ['https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', '/css/fontawesome_svg.css', '/css/adm_shop_estimate_req.css']
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -342,11 +366,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_estimate_req_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! -!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../public/css/adm_shop_estimate_req.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_estimate_req.css");
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_estimate_req_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_estimate_req.css":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_estimate_req.css ***!
+  \************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .gd_box .gd_list[data-v-5bfe11e4]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-5bfe11e4] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-5bfe11e4] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-5bfe11e4] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc .row div[data-v-5bfe11e4] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-5bfe11e4] { border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-5bfe11e4]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\r\n\r\n/*#adm_estimate_show .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\n#adm_estimate_show .card .eq_info .col div[data-v-5bfe11e4] { margin:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span[data-v-5bfe11e4] { margin-right:1rem;\n}\n#adm_estimate_show .card .eq_info .col div span svg[data-v-5bfe11e4] { margin-right:0.5rem;\n}\n#adm_estimate_show .card .eq_info .col div .content[data-v-5bfe11e4] { white-space:pre;\n}\n#adm_estimate_show .gd_box .gd_list .em_name[data-v-5bfe11e4] { font-size:1rem;\n}\n#adm_estimate_show .gd_box .gd_list .em_name i[data-v-5bfe11e4] { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1;\n}\n#adm_estimate_show .gd_box .gd_list .em_name .btn[data-v-5bfe11e4] { margin-left:1rem; padding:.1rem .36rem;\n}\n#adm_estimate_show .gd_box .gd_list .gd_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div[data-v-5bfe11e4] { color:#999; font-size:0.8rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div span[data-v-5bfe11e4] { display:inline-block; min-width:10rem; text-align:left;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i[data-v-5bfe11e4] { display:inline-block; min-width:5rem;\n}\n#adm_estimate_show .gd_box .op_list .op_info div i b[data-v-5bfe11e4] { display:inline-block; min-width:1.4rem;\n}\n#adm_estimate_show .gd_box .gd_list > div[data-v-5bfe11e4]:nth-child(3) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".print_area .gd_box .gd_list:not(:last-of-type) { border-bottom:1px solid #eee; }\r\n.print_area .gd_box .gd_list .col { padding-top:10px; padding-bottom:10px; }\r\n.print_area .gd_box .gd_list .col .btn { margin-right:10px; }\r\n.print_area .gd_box .gd_list .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }\r\n.print_area .gd_box .gd_list i { text-align:right; }\r\n.print_area .gd_box .gd_list>.col:nth-child(2),\r\n.print_area .gd_box .gd_list .opc .row div { background-color:#7fffd454; } \r\n.print_area .gd_box .gd_list .opc { border-top:1px solid #eee; }\r\n\r\n.print_area .gd_box .gd_list .col:nth-child(2),\r\n.print_area .gd_box .gd_list .col:nth-child(3) { flex:0 0 25%; max-width:25%; }\r\n\r\n/*.print_area .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\r\n.print_area .card .eq_info .col div { margin:1rem; }\r\n.print_area .card .eq_info .col div span { margin-right:1rem; }\r\n.print_area .card .eq_info .col div span svg { margin-right:0.5rem; }\r\n.print_area .card .eq_info .col div .content { white-space:pre; }\r\n\r\n\r\n\r\n.print_area .gd_box .gd_list .em_name { font-size:1rem; }\r\n.print_area .gd_box .gd_list .em_name i { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1; }\r\n.print_area .gd_box .gd_list .em_name .btn { margin-left:1rem; padding:.1rem .36rem; }\r\n.print_area .gd_box .gd_list .gd_info div { color:#999; font-size:0.8rem; }\r\n.print_area .gd_box .op_list .op_info div { color:#999; font-size:0.8rem; }\r\n.print_area .gd_box .op_list .op_info div span { display:inline-block; min-width:10rem; text-align:left; }\r\n.print_area .gd_box .op_list .op_info div i { display:inline-block; min-width:5rem; }\r\n.print_area .gd_box .op_list .op_info div i b { display:inline-block; min-width:1.4rem; }\r\n.print_area .gd_box .gd_list > div:nth-child(3) { text-align:right; }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -484,406 +534,21 @@ var render = function () {
     "div",
     { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
-      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
-      _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "ctrl", attrs: { "no-body": "" } },
+        "div",
+        { staticClass: "print_area" },
         [
+          _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
+          _vm._v(" "),
           _c(
-            "b-container",
-            [
-              _c(
-                "b-row",
-                [
-                  _c(
-                    "b-col",
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "danger", size: "sm" },
-                          on: { click: _vm.destroy },
-                        },
-                        [
-                          _c("b-icon", { attrs: { icon: "trash-fill" } }),
-                          _vm._v(" 삭제"),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "text-right" },
-                    [
-                      _c(
-                        "b-input-group",
-                        { attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "b-input-group-prepend",
-                            { staticClass: "bg-light btn_group" },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { to: { name: "adm_estimate_index" } },
-                                },
-                                [
-                                  _c("b-icon", { attrs: { icon: "list-ul" } }),
-                                  _vm._v(" 목록"),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-select",
-                            {
-                              model: {
-                                value: _vm.frm.eq_step,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "eq_step", $$v)
-                                },
-                                expression: "frm.eq_step",
-                              },
-                            },
-                            [
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DONOT" } },
-                                [_vm._v("미처리")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DOING" } },
-                                [_vm._v("처리중")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "DONE" } },
-                                [_vm._v("완료")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "CANCEL" } },
-                                [_vm._v("취소")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "warning" },
-                                  on: { click: _vm.update },
-                                },
-                                [
-                                  _c("b-icon", { attrs: { icon: "tools" } }),
-                                  _vm._v(" 진행현황 수정"),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _vm.frm.estimate_reply &&
-                              _vm.frm.estimate_reply.length > 0
-                                ? _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        variant: "success",
-                                        to: {
-                                          name: "adm_estimate_show_reply",
-                                          params: {
-                                            er_id:
-                                              _vm.frm.estimate_reply[
-                                                _vm.frm.estimate_reply.length -
-                                                  1
-                                              ].er_id,
-                                          },
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon-newspaper"),
-                                      _vm._v(
-                                        " 견적서 확인\r\n                            "
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                : _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        variant: "light",
-                                        to: {
-                                          name: "adm_estimate_create",
-                                          query: { eq_id: _vm.frm.eq_id },
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon-pencil-square"),
-                                      _vm._v(
-                                        " 견적서 작성\r\n                            "
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        [
-          _c(
-            "b-container",
-            [
-              _c(
-                "b-row",
-                { staticClass: "eq_info" },
-                [
-                  _c("b-col", [
-                    _c("div", [
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "tags" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_id)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "clock" } }),
-                          _vm._v(
-                            _vm._s(_vm._f("formatDate")(_vm.frm.created_at))
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("b-icon-bar-chart-steps"),
-                          _vm._v(" "),
-                          _vm.frm.eq_step === "DONOT"
-                            ? [_vm._v("미처리")]
-                            : _vm.frm.eq_step === "DOING"
-                            ? [_vm._v("처리중")]
-                            : _vm.frm.eq_step === "DONE"
-                            ? [_vm._v("완료")]
-                            : _vm.frm.eq_step === "CANCEL"
-                            ? [_vm._v("취소")]
-                            : _vm._e(),
-                        ],
-                        2
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_name)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "users" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_department)),
-                        ],
-                        1
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_tel)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "mobile-alt" },
-                          }),
-                          _vm._v(_vm._s(_vm.frm.eq_hp)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "fax" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_fax)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "at" } }),
-                          _vm._v(_vm._s(_vm.frm.eq_email)),
-                        ],
-                        1
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    Number(_vm.frm.eq_1depth)
-                      ? _c(
-                          "div",
-                          [
-                            _c("h5", [
-                              _vm._v(
-                                "주문제작 정보: " +
-                                  _vm._s(_vm.frm.made_cate[_vm.frm.eq_1depth])
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c(_vm.choiceSubType, {
-                              ref: "custom_sub",
-                              tag: "component",
-                              model: {
-                                value: _vm.frm.estimate_custom,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "estimate_custom", $$v)
-                                },
-                                expression: "frm.estimate_custom",
-                              },
-                            }),
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.frm.eq_content
-                      ? _c("div", [
-                          _c(
-                            "span",
-                            { staticClass: "content" },
-                            [
-                              _c("font-awesome-icon", {
-                                attrs: { icon: "comment-dots" },
-                              }),
-                              _vm._v(_vm._s(_vm.frm.eq_content)),
-                            ],
-                            1
-                          ),
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.frm.file_info.length
-                      ? _c("div", [
-                          _c(
-                            "span",
-                            [
-                              _c("b-icon", {
-                                attrs: { icon: "file-earmark-arrow-down-fill" },
-                              }),
-                              _vm._v(" "),
-                              _vm._l(_vm.frm.file_info, function (file, i) {
-                                return [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      key: i,
-                                      staticClass: "mr-2",
-                                      attrs: {
-                                        size: "sm",
-                                        variant: "outline-info",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.fileDown(
-                                            file.down_path,
-                                            file.fi_original
-                                          )
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\r\n                                    " +
-                                          _vm._s(file.fi_original) +
-                                          "\r\n                                "
-                                      ),
-                                    ]
-                                  ),
-                                ]
-                              }),
-                            ],
-                            2
-                          ),
-                        ])
-                      : _vm._e(),
-                  ]),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm.frm.estimate_model && _vm.frm.estimate_model.length
-        ? _c(
             "b-card",
-            { staticClass: "gd_box" },
+            { staticClass: "ctrl", attrs: { "no-body": "" } },
             [
-              _c("div", { staticClass: "tit" }, [_vm._v("견적요청 상품")]),
-              _vm._v(" "),
               _c(
                 "b-container",
-                _vm._l(_vm.frm.estimate_model, function (em) {
-                  return _c(
+                [
+                  _c(
                     "b-row",
-                    { key: em.em_id, staticClass: "gd_list" },
                     [
                       _c(
                         "b-col",
@@ -891,108 +556,543 @@ var render = function () {
                           _c(
                             "b-button",
                             {
-                              attrs: { variant: "outline-primary", size: "sm" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.openWinPop(
-                                    "/admin/shop/goods/" +
-                                      em.em_gd_id +
-                                      "/edit",
-                                    1700,
-                                    900
-                                  )
-                                },
-                              },
+                              attrs: { variant: "danger", size: "sm" },
+                              on: { click: _vm.destroy },
                             },
-                            [_c("b-icon-link45deg")],
+                            [
+                              _c("b-icon", { attrs: { icon: "trash-fill" } }),
+                              _vm._v(" 삭제"),
+                            ],
                             1
-                          ),
-                          _vm._v(" "),
-                          _c("b", { staticClass: "gd_name" }, [
-                            _vm._v(_vm._s(em.em_name)),
-                          ]),
-                          _vm._v(" "),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(em.em_code) +
-                              "\r\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(em.em_catno) +
-                              "\r\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(em.em_maker) +
-                              "\r\n                    "
-                          ),
-                          _c("b", { staticClass: "divider" }, [_vm._v("/")]),
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(em.em_unit) +
-                              "\r\n                "
                           ),
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
-                      _vm._v(" "),
-                      _c("b-col", { attrs: { tag: "i" } }, [
-                        _vm._v("수량 : "),
-                        _c("b", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
-                        _vm._v(" 개"),
-                      ]),
-                      _vm._v(" "),
-                      em.estimate_option.length
-                        ? _c(
-                            "b-col",
-                            { staticClass: "opc", attrs: { cols: "12" } },
-                            _vm._l(em.estimate_option, function (option) {
-                              return _c(
-                                "b-row",
-                                { key: option.eo_id },
+                      _c(
+                        "b-col",
+                        { staticClass: "text-right" },
+                        [
+                          _c(
+                            "b-input-group",
+                            { attrs: { size: "sm" } },
+                            [
+                              _c(
+                                "b-input-group-prepend",
+                                { staticClass: "bg-light btn_group" },
                                 [
-                                  _c("b-col", { attrs: { offset: "6" } }, [
-                                    _vm._v(
-                                      _vm._s(option.eo_tit) +
-                                        ": " +
-                                        _vm._s(option.eo_name)
-                                    ),
-                                  ]),
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        to: { name: "adm_estimate_index" },
+                                        variant: "light",
+                                      },
+                                    },
+                                    [
+                                      _c("b-icon", {
+                                        attrs: { icon: "list-ul" },
+                                      }),
+                                      _vm._v(" 목록"),
+                                    ],
+                                    1
+                                  ),
                                   _vm._v(" "),
-                                  _c("b-col", { attrs: { tag: "i" } }, [
-                                    _vm._v("수량 : "),
-                                    _c("b", [
-                                      _vm._v(
-                                        _vm._s(_vm._f("comma")(option.eo_ea))
-                                      ),
-                                    ]),
-                                    _vm._v(" 개"),
+                                  _c("b-button", { on: { click: _vm.print } }, [
+                                    _vm._v(" 인쇄"),
                                   ]),
                                 ],
                                 1
-                              )
-                            }),
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.frm.eq_step,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.frm, "eq_step", $$v)
+                                    },
+                                    expression: "frm.eq_step",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "DONOT" } },
+                                    [_vm._v("미처리")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "DOING" } },
+                                    [_vm._v("처리중")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "DONE" } },
+                                    [_vm._v("완료")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "CANCEL" } },
+                                    [_vm._v("취소")]
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-input-group-append",
+                                [
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: { variant: "warning" },
+                                      on: { click: _vm.update },
+                                    },
+                                    [
+                                      _c("b-icon", {
+                                        attrs: { icon: "tools" },
+                                      }),
+                                      _vm._v(" 진행현황 수정"),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.frm.estimate_reply &&
+                                  _vm.frm.estimate_reply.length > 0
+                                    ? _c(
+                                        "b-button",
+                                        {
+                                          attrs: {
+                                            variant: "success",
+                                            to: {
+                                              name: "adm_estimate_show_reply",
+                                              params: {
+                                                er_id:
+                                                  _vm.frm.estimate_reply[
+                                                    _vm.frm.estimate_reply
+                                                      .length - 1
+                                                  ].er_id,
+                                              },
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("b-icon-newspaper"),
+                                          _vm._v(
+                                            " 견적서 확인\r\n                                "
+                                          ),
+                                        ],
+                                        1
+                                      )
+                                    : _c(
+                                        "b-button",
+                                        {
+                                          attrs: {
+                                            variant: "light",
+                                            to: {
+                                              name: "adm_estimate_create",
+                                              query: { eq_id: _vm.frm.eq_id },
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("b-icon-pencil-square"),
+                                          _vm._v(
+                                            " 견적서 작성\r\n                                "
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                ],
+                                1
+                              ),
+                            ],
                             1
-                          )
-                        : _vm._e(),
+                          ),
+                        ],
+                        1
+                      ),
                     ],
                     1
-                  )
-                }),
+                  ),
+                ],
                 1
               ),
             ],
             1
-          )
-        : _vm._e(),
-    ],
-    1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-card",
+            [
+              _c(
+                "b-container",
+                [
+                  _c(
+                    "b-row",
+                    { staticClass: "eq_info" },
+                    [
+                      _c("b-col", [
+                        _c("div", [
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "tags" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_id)),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "clock" },
+                              }),
+                              _vm._v(
+                                _vm._s(_vm._f("formatDate")(_vm.frm.created_at))
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-icon-bar-chart-steps"),
+                              _vm._v(" "),
+                              _vm.frm.eq_step === "DONOT"
+                                ? [_vm._v("미처리")]
+                                : _vm.frm.eq_step === "DOING"
+                                ? [_vm._v("처리중")]
+                                : _vm.frm.eq_step === "DONE"
+                                ? [_vm._v("완료")]
+                                : _vm.frm.eq_step === "CANCEL"
+                                ? [_vm._v("취소")]
+                                : _vm._e(),
+                            ],
+                            2
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "user" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_name)),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "users" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_department)),
+                            ],
+                            1
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "phone" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_tel)),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "mobile-alt" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_hp)),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "fax" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_fax)),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "at" },
+                              }),
+                              _vm._v(_vm._s(_vm.frm.eq_email)),
+                            ],
+                            1
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        Number(_vm.frm.eq_1depth)
+                          ? _c(
+                              "div",
+                              [
+                                _c("h5", [
+                                  _vm._v(
+                                    "주문제작 정보: " +
+                                      _vm._s(
+                                        _vm.frm.made_cate[_vm.frm.eq_1depth]
+                                      )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c(_vm.choiceSubType, {
+                                  ref: "custom_sub",
+                                  tag: "component",
+                                  model: {
+                                    value: _vm.frm.estimate_custom,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.frm, "estimate_custom", $$v)
+                                    },
+                                    expression: "frm.estimate_custom",
+                                  },
+                                }),
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.frm.eq_content
+                          ? _c("div", [
+                              _c(
+                                "span",
+                                { staticClass: "content" },
+                                [
+                                  _c("font-awesome-icon", {
+                                    attrs: { icon: "comment-dots" },
+                                  }),
+                                  _vm._v(_vm._s(_vm.frm.eq_content)),
+                                ],
+                                1
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.frm.file_info.length
+                          ? _c("div", [
+                              _c(
+                                "span",
+                                [
+                                  _c("b-icon", {
+                                    attrs: {
+                                      icon: "file-earmark-arrow-down-fill",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.frm.file_info, function (file, i) {
+                                    return [
+                                      _c(
+                                        "b-button",
+                                        {
+                                          key: i,
+                                          staticClass: "mr-2",
+                                          attrs: {
+                                            size: "sm",
+                                            variant: "outline-info",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.fileDown(
+                                                file.down_path,
+                                                file.fi_original
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\r\n                                        " +
+                                              _vm._s(file.fi_original) +
+                                              "\r\n                                    "
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  }),
+                                ],
+                                2
+                              ),
+                            ])
+                          : _vm._e(),
+                      ]),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.frm.estimate_model && _vm.frm.estimate_model.length
+            ? _c(
+                "b-card",
+                { staticClass: "gd_box" },
+                [
+                  _c("div", { staticClass: "tit" }, [_vm._v("견적요청 상품")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-container",
+                    _vm._l(_vm.frm.estimate_model, function (em) {
+                      return _c(
+                        "b-row",
+                        { key: em.em_id, staticClass: "gd_list" },
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: {
+                                    variant: "outline-primary",
+                                    size: "sm",
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.openWinPop(
+                                        "/admin/shop/goods/" +
+                                          em.em_gd_id +
+                                          "/edit",
+                                        1700,
+                                        900
+                                      )
+                                    },
+                                  },
+                                },
+                                [_c("b-icon-link45deg")],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("b", { staticClass: "gd_name" }, [
+                                _vm._v(_vm._s(em.em_name)),
+                              ]),
+                              _vm._v(" "),
+                              _c("b", { staticClass: "divider" }, [
+                                _vm._v("/"),
+                              ]),
+                              _vm._v(
+                                "\r\n                        " +
+                                  _vm._s(em.em_code) +
+                                  "\r\n                        "
+                              ),
+                              _c("b", { staticClass: "divider" }, [
+                                _vm._v("/"),
+                              ]),
+                              _vm._v(
+                                "\r\n                        " +
+                                  _vm._s(em.em_catno) +
+                                  "\r\n                        "
+                              ),
+                              _c("b", { staticClass: "divider" }, [
+                                _vm._v("/"),
+                              ]),
+                              _vm._v(
+                                "\r\n                        " +
+                                  _vm._s(em.em_maker) +
+                                  "\r\n                        "
+                              ),
+                              _c("b", { staticClass: "divider" }, [
+                                _vm._v("/"),
+                              ]),
+                              _vm._v(
+                                "\r\n                        " +
+                                  _vm._s(em.em_unit) +
+                                  "\r\n                    "
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-col", [_vm._v(_vm._s(em.em_spec))]),
+                          _vm._v(" "),
+                          _c("b-col", { attrs: { tag: "i" } }, [
+                            _vm._v("수량 : "),
+                            _c("b", [
+                              _vm._v(_vm._s(_vm._f("comma")(em.em_ea))),
+                            ]),
+                            _vm._v(" 개"),
+                          ]),
+                          _vm._v(" "),
+                          em.estimate_option.length
+                            ? _c(
+                                "b-col",
+                                { staticClass: "opc", attrs: { cols: "12" } },
+                                _vm._l(em.estimate_option, function (option) {
+                                  return _c(
+                                    "b-row",
+                                    { key: option.eo_id },
+                                    [
+                                      _c("b-col", { attrs: { offset: "6" } }, [
+                                        _vm._v(
+                                          _vm._s(option.eo_tit) +
+                                            ": " +
+                                            _vm._s(option.eo_name)
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-col", { attrs: { tag: "i" } }, [
+                                        _vm._v("수량 : "),
+                                        _c("b", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("comma")(option.eo_ea)
+                                            )
+                                          ),
+                                        ]),
+                                        _vm._v(" 개"),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                }),
+                                1
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      )
+                    }),
+                    1
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+        ],
+        1
+      ),
+    ]
   )
 }
 var staticRenderFns = []

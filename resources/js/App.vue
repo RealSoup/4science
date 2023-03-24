@@ -126,6 +126,7 @@ label { margin-bottom:0; }
 
 .w_fence { padding-top:3rem; margin-bottom:2rem; }
 .w_fence h3 { margin-bottom:2rem; font-size:1.8rem; font-weight:bold; }
+.w_fence h3.underbar { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px; }
 .w_fence h4 { font-size:1.3rem; font-weight:bold; padding:0 0 0.7rem 1.6rem; border-bottom:3px solid #000; margin-bottom:2.3rem; }
 
 

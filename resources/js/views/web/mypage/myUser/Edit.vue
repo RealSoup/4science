@@ -2,7 +2,7 @@
 <b-container class="w_fence">
     <h3>회원정보 수정</h3>
 
-    <FormComp v-model="frm" />
+    <FormComp ref="form_comp" v-model="frm" />
 
     <b-row>
         <b-col class="btn_box">
@@ -23,20 +23,7 @@ export default {
     },
     data() {
         return {
-            frm:Object.assign( 
-                {}, 
-                {
-                    ub_file:[],
-                    check:{
-                        inexus:'Y',
-                        personal:'Y',
-                        marketing:'N',
-                        receive_mail:'N',
-                        receive_sms:'N',
-                    },
-                },
-                this.$store.state.auth.user 
-            ),
+            frm:{},
         }
     },
     computed: {
@@ -49,17 +36,18 @@ export default {
             // const isValid = await this.$refs.observer.validate();
             // if (isValid) {
                 try {
-                    this.frm = Object.assign(
-                        {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                        this.frm, // 수정하려는 객체
-                        {
-                            _method : 'PATCH',
-                            hp: `${this.frm.hp01}-${this.frm.hp02}-${this.frm.hp03}`,
-                        } // 삽입하려는 내용
-                    );
+                    this.frm._method = 'PATCH';
+                    this.frm.hp = `${this.frm.hp01}-${this.frm.hp02}-${this.frm.hp03}`;
+                    if ( this.frm.level == 11 ) {
+                        this.frm.ub_num = `${this.frm.ub_num01}-${this.frm.ub_num02}-${this.frm.ub_num03}`;
+                        this.frm.file_info.length = this.frm.file_info.length;
+                    }
                     const res = await ax.post(`/api/user`, this.frm);
-                    if (res && res.status === 200)
-                         Notify.toast('success', "회원정보 수정 완료");
+                    if (res && res.status === 201) {
+                        if ( this.frm.level == 11 )
+                            await this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(res.data);
+                        Notify.toast('success', "회원정보 수정 완료");
+                    }
                 } catch (e) {
                     Notify.consolePrint(e);
                     Notify.toast('warning', e.response.data.message);
@@ -68,8 +56,30 @@ export default {
         },
         
     },
-    mounted() {
-        // this.frm = this.user;
+    async mounted() {
+        try {
+            console.log();
+            const res = await ax.get(`/api/user/${Auth.user().id}/edit`);
+            if (res && res.status === 200) {
+                this.frm = Object.assign( 
+                    {}, 
+                    {
+                        check:{
+                            inexus:'Y',
+                            personal:'Y',
+                            marketing:'N',
+                            receive_mail:'N',
+                            receive_sms:'N',
+                        },
+                    },
+                    this.$store.state.auth.user,
+                    res.data,
+                );
+            }
+        } catch (e) {
+            Notify.consolePrint(e);
+            Notify.toast('warning', e.responsee);
+        }
     },
 };
 </script>

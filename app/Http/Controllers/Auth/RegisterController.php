@@ -26,10 +26,11 @@ class RegisterController extends Controller {
     } 
 
     public function register(Request $req) {
-        $this->validator($req)->validate();
+        $r_m = User::validate_rule_msg($req->filled('level')??false);
+        Validator::make($req->all(), $r_m['rule'], $r_m['message'])->validate();
         event(new Registered($user = $this->userStore($req)));
-        $this->guard()->login($user);  
-        return $req->wantsJson() ? new JsonResponse($user->id, 201) : redirect($this->redirectPath());
+        $this->guard()->login($user);
+        return $req->wantsJson() ? new JsonResponse($user->ub_id, 201) : redirect($this->redirectPath());
     }
 
     protected function userStore($req) {
@@ -57,7 +58,7 @@ class RegisterController extends Controller {
                 'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL];
         $rst = User::create($u);
         if ( $req->filled('level') )
-            DB::table('user_biz')->insert( [
+            $rst->ub_id = DB::table('user_biz')->insertGetId( [
                 'ub_papa_id' => $rst->id,
                 'ub_num'   => $req->ub_num,
                 'ub_name'  => $req->ub_name,
@@ -76,65 +77,6 @@ class RegisterController extends Controller {
         //     DB::table('filse_info')->where('fi_id', $fi_id)->update(['fi_key' => 1]);             
         // }
         return $rst;
-    }
-
-    protected function validator($req) {
-        $rule = [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/'],
-            // 'sex' => ['required'],
-            'hp' => ['required', 'regex:/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/'],
-            'birth' => ['required', 'regex:/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'],
-        ];
-        $message = [
-            'name.required' => '이름을 입력하세요.',
-            'name.string' => '이름은 문자만 입력하세요.',
-            'email.required' => '이메일을 입력하세요.',
-            'email.unique' => '이미 가입된 이메일입니다.',
-            'email.email' => '이메일 형식에 맞게 입력하세요.',
-            'email.string' => '이메일은 문자열만 입력하세요.',
-            'password.regex' => '숫자, 문자 1개 이상. 6 ~ 20자 조합. 가능한 특수문자 ~!@#$%^&*()+|=',
-            'password.required' => '비밀번호를 입력하세요.',
-            'password.confirmed' => '비밀번호와 비밀번호 확인이 서로 다릅니다.',
-            'sex.required' => '성별을 선택하세요.',
-            'hp.required' => '휴대전화 번호를 입력하세요.',
-            'hp.regex' => '휴대전화 번호 입력형식은 01x-xxx(x)-xxxx 입니다.',
-            'birth.required' => '생년월일을 입력하세요',
-            'birth.regex' => '생년월일 입력형식은 xxxx-xx-xx 입니다.',
-        ];
-
-        if ( $req->filled('level') ) {
-            $rule['ub_num'] = ['required', 'regex:/^(\d{3,3})+[-]+(\d{2,2})+[-]+(\d{5,5})/'];
-            $rule['ub_corp_name'] = ['required'];
-            $rule['ub_file'] = ['required'];
-            $rule['ub_name'] = ['required', 'string'];
-            $rule['ub_tel'] = ['required'];
-            $rule['ub_zip'] = ['required', 'integer'];
-            $rule['ub_addr1'] = ['required', 'string'];
-            $rule['ub_addr2'] = ['required', 'string'];
-            $rule['ub_type'] = ['required', 'string'];
-            $rule['ub_cond'] = ['required', 'string'];
-
-            $message['ub_num.required'] = ['사업자 등록번호를 입력하세요.'];
-            $message['ub_num.regex'] = ['사업자 등록번호를 형식에 맞게 입력하세요.'];
-            $message['ub_corp_name.required'] = ['법인(상호)명을 입력하세요.'];
-            $message['ub_file.required'] = ['사업자 등록증을 첨부해 주세요'];
-            $message['ub_name.required'] = ['대표자명을 입력하세요.'];
-            $message['ub_name.string'] = ['대표자명은 문자열만 입력 할 수 있습니다.'];
-            $message['ub_tel.required'] = ['대표 전화번호를 입력하세요.'];
-            $message['ub_zip.required'] = ['우편번호를 검색하세요.'];
-            $message['ub_zip.integer'] = ['우편번호는 숫자만 입력하세요.'];
-            $message['ub_addr1.required'] = ['주소를 검색해 주세요.'];
-            $message['ub_addr1.string'] = ['주소는 문자열만 입력 할 수 있습니다.'];
-            $message['ub_addr2.required'] = ['상세주소를 입력하세요.'];
-            $message['ub_addr2.string'] = ['상세주소는 문자열만 입력 할 수 있습니다.'];
-            $message['ub_type.required'] = ['업종을 입력하세요.'];
-            $message['ub_type.string'] = ['업종은 문자열만 입력 할 수 있습니다.'];
-            $message['ub_cond.required'] = ['업태를 입력하세요.'];
-            $message['ub_cond.string'] = ['업태는 문자열만 입력 할 수 있습니다.'];
-        }
-        return Validator::make($req->all(), $rule, $message);
     }
 
     public function create (Request $req) {

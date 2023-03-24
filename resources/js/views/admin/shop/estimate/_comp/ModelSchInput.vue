@@ -5,6 +5,7 @@
         @keyup.enter="getModelList"
         v-b-tooltip.hover title="입력 후 엔터 or 버튼"
         ref="sch_field"
+        :id="id"
     />
 
     <b-button @click="getModelList" size="sm" class="overlap"><b-icon-search /></b-button>

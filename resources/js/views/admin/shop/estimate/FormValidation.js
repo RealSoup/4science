@@ -32,27 +32,22 @@ const validationCheckerGoods = (frm) => {
         let fm = frm[key];
         if (isEmpty(fm.em_name)) {
             Notify.toast('danger', "제품명을 입력하세요.");
-            document.getElementById('estimate_model.'+key+'.em_name').focus();
+            document.getElementById('estimate_model'+key+'em_name').focus();
             return false;
         }
         if (isEmpty(fm.em_code)) {
             Notify.toast('danger', "모델명을 입력하세요.");
-            document.getElementById('estimate_model.'+key+'.em_code').focus();
+            document.getElementById('estimate_model'+key+'em_code').focus();
             return false;
         }
         if (isEmpty(fm.em_ea)) {
             Notify.toast('danger', "수량을 입력하세요.");
-            document.getElementById('estimate_model.'+key+'.em_ea').focus();
-            return false;
-        }
-        if (isEmpty(fm.em_dlvy_at)) {
-            Notify.toast('danger', "납품기일을 입력하세요.");
-            document.getElementById('estimate_model.'+key+'.em_dlvy_at').focus();
+            document.getElementById('estimate_model'+key+'em_ea').focus();
             return false;
         }
         if (isEmpty(fm.em_spec)) {
             Notify.toast('danger', "제품정보를 입력하세요.");
-            document.getElementById('estimate_model.'+key+'.em_spec').focus();
+            document.getElementById('estimate_model'+key+'em_spec').focus();
             return false;
         }
     }

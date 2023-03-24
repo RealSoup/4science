@@ -120,7 +120,7 @@ class OrderController extends Controller {
 			$data['list']->appends($input)->links();
 		}
 
-		foreach ($data['list']->items() as $od) {
+		foreach ($data['list'] as $od) {
 			if($od->od_name == ''){
 				$tmp = $od->orderModel;
 				$od->od_name = $tmp[0]->odm_gd_name;

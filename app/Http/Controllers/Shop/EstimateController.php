@@ -80,7 +80,6 @@ class EstimateController extends Controller {
                         if ($item['type'] == 'model') {
                             $em_id = EstimateModel::insertGetId([
                                 'em_type'       => 'estimateReq',
-                                'em_model_type' => 'MODEL',
                                 'em_papa_id'    => $eq_id,
                                 'em_gd_id'      => $item['gd_id'],
                                 'em_gm_id'      => $item['gm_id'],

@@ -196,7 +196,6 @@ class EstimateController extends Controller {
     }
     public function emptyEm() {
         return [
-            'em_model_type'     => 'MODEL',
             'em_gd_id'          => '',
             'em_gm_id'          => '',
             'em_name'           => '',

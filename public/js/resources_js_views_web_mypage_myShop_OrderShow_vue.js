@@ -630,7 +630,8 @@ var render = function () {
                                       _vm._v(" "),
                                       _c("br"),
                                       _vm._v(" "),
-                                      !!odm.order_dlvy_info.oddi_arrival_date &&
+                                      !!odm.order_dlvy_info
+                                        .oddi_dlvy_created_at &&
                                       !odm.order_dlvy_info.oddi_receive_date
                                         ? _c(
                                             "b-button",

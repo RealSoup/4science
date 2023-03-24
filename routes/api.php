@@ -10,10 +10,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Route::get('/user', function (Request $request) { return [ 'user' => $request->user(), 'token' => csrf_token() ]; });
     Route::middleware(['verified'])->group(function () {
         Route::prefix('user')->group(function () {
-            Route::GET('/', 'Auth\UserController@auth');
-            Route::PATCH('/', 'Auth\UserController@update');
+            Route::GET('/',             'Auth\UserController@auth');
+            Route::GET('/{id}/edit',    'Auth\UserController@edit');
+            Route::PATCH('/',           'Auth\UserController@update');
+            Route::DELETE('/',          'Auth\UserController@destroy');
             Route::GET('getEmailDomain', 'UserAddrController@getEmailDomain');
-            Route::RESOURCE('addr', 'UserAddrController');
+            Route::RESOURCE('addr',     'UserAddrController');
         });
 
         Route::GET('mypage/print/{code}', 'MyPageController@print');

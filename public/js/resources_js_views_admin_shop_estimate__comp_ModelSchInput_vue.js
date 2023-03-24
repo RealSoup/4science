@@ -40,6 +40,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value', 'type', 'id', 'em'],
@@ -292,7 +293,11 @@ var render = function () {
           },
         ],
         ref: "sch_field",
-        attrs: { autocomplete: "off", title: "입력 후 엔터 or 버튼" },
+        attrs: {
+          autocomplete: "off",
+          title: "입력 후 엔터 or 버튼",
+          id: _vm.id,
+        },
         on: {
           keyup: function ($event) {
             if (

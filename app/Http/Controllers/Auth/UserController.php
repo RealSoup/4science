@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use App\Models\{User, UserBiz, FileInfo};
+use App\Traits\FileControl;
 
 class UserController extends Controller {
+    use FileControl;    //  trait
 
     public function emailCheck($email) {
         return response()->json(DB::table('users')->where('email', $email)->count(), 200);
@@ -25,28 +27,16 @@ class UserController extends Controller {
         return response()->json([ 'user' => $u, 'token' => csrf_token() ], 200);
     }
 
-
+    public function edit() { 
+        $rst = auth()->user()->userBiz;
+        $rst->fileInfo;
+        return $rst; 
+    }
 
     public function update(Request $req) {
-        Validator::make($req->all(), [
-            'email'                     => 'required|email',
-            'name'                      => 'required',
-            'sex'                       => 'required',
-            'password'                  => 'required',
-            'password_confirmation'     => 'required',
-            'birth'                     => 'required',
-            'hp'                        => 'required',
-        ], [
-            'email.required'                    => '이메일을 입력해주세요',
-            'email.email'                       => '이메일이 형식에 맞지 않습니다',
-            'name.required'                     => '이름을 입력해주세요',
-            'sex.required'                      => '성별을 선택주세요',
-            'password.required'                 => '비밀번호를 입력해주세요',
-            'password_confirmation.required'    => '비밀번호 확인을 입력해주세요',
-            'birth.required'                    => '생년월일을 입력해주세요',
-            'hp.required'                       => '휴대전화 번호를 입력해주세요',
-        ])->validate();
-
+        $r_m = User::validate_rule_msg($req->filled('level')??false);
+        unset($r_m['rule']['email']);
+        Validator::make($req->all(), $r_m['rule'], $r_m['message'])->validate();
         $user = auth()->user();        
         $user->name         = $req->name;
         $user->sex          = $req->sex;
@@ -69,6 +59,84 @@ class UserController extends Controller {
         $user->join_route   = $req->join_route;
         if ( $req->filled('password') ) $user->password = bcrypt($req->password);
         $user->save();
-        return response()->json("success", 200);
+        
+        $id = $user->id;
+        if ( $req->filled('level') && $req->level > 10) {
+            $ub = UserBiz::updateOrCreate(
+                [   'ub_papa_id' => $user->id],
+                [   'ub_num'   => $req->ub_num,
+                    'ub_name'  => $req->ub_name,
+                    'ub_corp_name' => $req->ub_corp_name,
+                    'ub_tel'   => $req->ub_tel,
+                    'ub_zip'   => $req->ub_zip,
+                    'ub_addr1' => $req->ub_addr1,
+                    'ub_addr2' => $req->ub_addr2,
+                    'ub_type'  => $req->ub_type,
+                    'ub_cond'  => $req->ub_cond ]
+            );
+            $id = $ub->ub_id;
+        }
+        return response()->json($id, 201);
+    }
+
+    public function destroy(Request $req) {
+        DB::table('user_withdraw')->insert([ 'val' => $req->withdraw ]);
+        $id = auth()->user()->id;        
+        DB::table('user_addr')->where('ua_key', $id)->delete();
+        foreach (DB::table('user_biz')->where('ub_papa_id', $id)->get() as $ub)
+            foreach (FileInfo::where('fi_key', $ub->ub_id)->where('fi_group', 'userBiz')->get() as $fi)
+                $this->deleteFiles($fi->fi_id, null, $fi);
+        DB::table('user_biz')->where('ub_papa_id', $id)->delete();
+        // DB::table('user_mileage')->where('ml_uid', $id)->delete();
+        DB::table('user_mng')->where('um_user_id', $id)->delete();
+        DB::table('user_mng_config')->where('umc_user_id', $id)->delete();
+        DB::table('user_social')->where('user_id', $id)->delete();
+        DB::table('shop_wish')->where('created_id', $id)->delete();
+        
+        foreach (DB::table('shop_cart')->where('created_id', $id)->get() as $ct) {
+            DB::table('shop_cart_model')->where('cm_ct_id', $ct->ct_id)->delete();
+            DB::table('shop_cart_option')->where('co_ct_id', $ct->ct_id)->delete();            
+        }
+        $rst = User::destroy($id);
+        if ($rst) return response()->json(["message"=>'success'], 200);
+        else      return response()->json(["msg"=>"Fail"], 500);
+
+        // foreach (DB::table('la_shop_order')->where('created_id', $id)->get() as $od) {
+        //     DB::table('la_shop_order_extra_info')->where('oex_od_id', $od->od_id)->delete();
+        //     $odm = DB::table('la_shop_order_model')->where('odm_od_id', $od->od_id)->get();
+        //     DB::table('la_shop_order_dlvy_info')->where('oddi_odm_id', $odm->odm_id)->delete();            
+        //     DB::table('la_shop_order_model')->where('odm_od_id', $od->od_id)->delete();
+        //     DB::table('la_shop_order_option')->where('odo_od_id', $od->od_id)->delete();
+        //     DB::table('la_shop_order_pg')->where('pg_od_id', $od->od_id)->delete();
+        //     DB::table('la_shop_order_purchase_at')->where('odpa_od_id', $od->od_id)->delete();
+        //     DB::table('la_shop_order_option')->where('odo_od_id', $od->od_id)->delete();
+        // }
+
+        // foreach (DB::table('la_shop_estimate_req')->where('created_id', $id)->get() as $eq) {
+        //     foreach (DB::table('la_shop_estimate_reply')->where('er_eq_id', $eq->eq_id)->get() as $er) {
+        //         foreach ( DB::table('la_shop_estimate_model')->where('em_papa_id', $er->er_id)->where('em_type', 'estimateReply')->get() as $erm)
+        //             DB::table('la_shop_estimate_option')->where('eo_em_id', $erm->em_id)->delete();    
+        //         DB::table('la_shop_estimate_model')->where('em_papa_id', $er->er_id)->where('em_type', 'estimateReply')->delete();
+        //         $fi = DB::table('la_file_info')->where('fi_key', $er->er_id)->where('fi_group', 'estimateReply')->get();
+        //         $this->deleteFiles($fi->fi_id, null, $fi);
+        //     }
+        //     DB::table('la_shop_estimate_reply')->where('er_eq_id', $eq->eq_id)->delete();
+            
+        //     foreach ( DB::table('la_shop_estimate_model')->where('em_papa_id', $eq->eq_id)->where('em_type', 'estimateReq')->get() as $eqm)
+        //         DB::table('la_shop_estimate_option')->where('eo_em_id', $eqm->em_id)->delete();
+        //     DB::table('la_shop_estimate_model')->where('em_papa_id', $eq->eq_id)->where('em_type', 'estimateReq')->delete();
+        //     DB::table('la_shop_estimate_custom')->where('ec_eq_id', $eq->eq_id)->delete();            
+        //     $fi = DB::table('la_file_info')->where('fi_key', $eq->eq_id)->where('fi_group', 'estimateReq')->get();
+        //     $this->deleteFiles($fi->fi_id, null, $fi);
+        // }
+        // DB::table('la_shop_estimate_req')->where('created_id', $id)->delete();
+
+        // foreach (DB::table('la_eng_reform')->where('created_id', $id)->get() as $er) {
+        //     $fi = DB::table('la_file_info')->where('fi_key', $er->er_id)->where('fi_group', 'engReform')->get();
+        //     $this->deleteFiles($fi->fi_id, null, $fi);
+        // }
+        
+        
+        
     }
 }

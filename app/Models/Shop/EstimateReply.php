@@ -19,7 +19,7 @@ class EstimateReply extends Model {
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
-    public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id")->orderBy('em_model_type'); }
+    public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
     public function estimateReq() {     return $this->belongsTo(EstimateReq::class,      'er_eq_id'); }
     public function user() {            return $this->belongsTo(User::class, 'created_id'); }
     public function fileInfo() {    return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }

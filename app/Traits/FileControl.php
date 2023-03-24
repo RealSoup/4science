@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use File;
 use Response;
 use Storage;
+use App\Models\{FileInfo, FileGoods};
 
 trait FileControl {
             // $this->file_upload($f, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb);
@@ -39,11 +40,14 @@ trait FileControl {
         }
     }
     
-    public function deleteFiles($fi_id, $type=null) {
-        switch ($type) {
-            case 'goods':   $fi = FileGoods::findOrFail($fi_id);    break;
-            default:        $fi = FileInfo::findOrFail($fi_id);     break;
+    public function deleteFiles($fi_id, $type=null, $fi=null) {
+        if (!$fi) {
+            switch ($type) {
+                case 'goods':   $fi = FileGoods::findOrFail($fi_id);    break;
+                default:        $fi = FileInfo::findOrFail($fi_id);     break;
+            }
         }
+        
         $path = "api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}";
         if(Storage::disk('s3')->exists("{$path}/{$fi->fi_new}"))        Storage::disk('s3')->delete("{$path}/{$fi->fi_new}");
         if(Storage::disk('s3')->exists("{$path}/thumb/{$fi->fi_new}"))  Storage::disk('s3')->delete("{$path}/thumb/{$fi->fi_new}");

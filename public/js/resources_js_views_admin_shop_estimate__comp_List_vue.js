@@ -279,7 +279,7 @@ var render = function () {
                   ? _c("b", { domProps: { innerHTML: _vm._s(row.eq_title) } })
                   : row.eq_type == "REQ"
                   ? _c("SubString", {
-                      attrs: { width: 900 },
+                      attrs: { width: 650 },
                       model: {
                         value: row.eq_content,
                         callback: function ($$v) {

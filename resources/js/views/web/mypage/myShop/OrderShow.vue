@@ -59,7 +59,7 @@
                             <b-badge v-else variant="primary">준비중</b-badge>
                             <br />
                             <b-button 
-                                v-if="!!odm.order_dlvy_info.oddi_arrival_date && !odm.order_dlvy_info.oddi_receive_date" variant="dark"
+                                v-if="!!odm.order_dlvy_info.oddi_dlvy_created_at && !odm.order_dlvy_info.oddi_receive_date" variant="dark"
                                 @click="receiptConfirm(odm)"
                             >
                                 수취확인

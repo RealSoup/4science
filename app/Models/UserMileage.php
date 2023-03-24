@@ -31,7 +31,7 @@ class UserMileage extends Model {
 
     public function getRefineContentAttribute() {
         $arr_con = null;
-        if ( $this->ml_tbl == 'voucher' ) $arr_con = explode('||', $this->ml_content); 
+        if ( $this->ml_tbl == 'voucher' && strpos($this->ml_content, '||') !== false ) $arr_con = explode('||', $this->ml_content); 
         return $arr_con; 
     }
     public function getExpirationAttribute() { 

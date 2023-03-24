@@ -1,11 +1,11 @@
 <template>
     <b-container>
         <b-row @dragover="onDragover" @drop="onDrop" @click="onClick">
-            <b-col class="intro" col-12 :class="{ hide: value.length }" :style="{ minHeight:(height-30) + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
+            <b-col class="intro" cols="12" :class="{ hide: value.length }" :style="{ minHeight:(height-30) + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
             <input type="file" ref="fileInput" @change="onFileChange" multiple />
             
             <draggable :list="value" handle=".handle" class="col-12 imgList" @change="seqUpdate=true">
-                <b-col cols="12" sm="6" md="3" lg="2" v-for="(file, i) in value" :key="i">
+                <b-col cols="6" lg="2" v-for="(file, i) in value" :key="i">
                     <div class="ribbon ribbon-top-left" v-if="i == 0 && fi_group=='goods' && fi_kind=='goods'"><span><b-icon-star-fill /></span></div>
                     <b-button v-if="fi_group=='goods' && fi_kind=='goods'" class="handle"><b-icon-arrows-move /></b-button>
                     <b-button class="btn_del" size="sm" variant="danger" @click="handleRemove(i, $event)"><b-icon-x-square /></b-button>
@@ -38,11 +38,11 @@ export default {
                 if(files[i].type.match(/image/i))
                     src = await this.readFiles(files[i]);
                 else if(files[i].type=='application/pdf')
-                    src = "/img/common/file_icon_pdf.png";
+                    src = this.s3url+"common/file_icon_pdf.png";
                 else if(files[i].type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                    src = "/img/common/file_icon_excel.png";
+                    src = this.s3url+"common/file_icon_excel.png";
                 else
-                    src = "/img/common/file_icon_default.png";
+                    src = this.s3url+"common/file_icon_default.png";
                     
                 files[i].path_thumb = src;
                 files[i].fi_original = files[i].name;
@@ -135,4 +135,7 @@ export default {
 .container .row .imgList>div .ribbon-top-left::before { top: 0; right: 0; }
 .container .row .imgList>div .ribbon-top-left::after { bottom: 0; left: 0; }
 .container .row .imgList>div .ribbon-top-left span { right:-25px; top:18px; transform: rotate(-45deg); }
+
+
+@media (min-width: 992px){ .col-lg-2 { flex:0 0 200px; max-width:200px; }}
 </style>
