@@ -48,31 +48,33 @@ class EstimateController extends Controller {
 		$eq = $eq->select("shop_estimate_req.*",
 							DB::raw("(SELECT name FROM la_users
 							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),);
-        if ($req->filled('startDate')) {
-            if ($req->date_type == 'reque')
-                $eq = $eq->StartDate($req->startDate.' 00:00:00');
-            else
-                $eq = $eq->EqId($er->StartDate($req->startDate.' 00:00:00')->pluck('er_eq_id'));
+        if ($req->date_type == 'reque') {
+                $eq->when($req->startDate, fn ($q, $v) => $q->StartDate($v.' 00:00:00'));
+                $eq->when($req->endDate, fn ($q, $v) => $q->EndDate($v.' 23:59:59'));
+        } else {
+            $eq->whereIn('eq_id', function($q) use($req) {
+                $q->select('er_eq_id')
+                ->from('shop_estimate_reply')
+                ->when($req->startDate, function ($q, $v) { return $q->where('created_at', '>=', $v.' 00:00:00'); })
+                ->when($req->endDate, function ($q, $v) {   return $q->where('created_at', '<=', $v.' 23:59:59'); });
+            });               
+        }                         
+        if ($req->filled('startPrice') || $req->filled('endPrice')) {
+            $eq->whereIn('eq_id', function($query) use($req) {
+                $query->select('er_eq_id')
+                ->from('shop_estimate_reply')
+                ->when($req->startPrice, function ($q, $v) { return $q->where('er_all_price', '>=', preg_replace('/\D/', '', $v)); })
+                ->when($req->endPrice, function ($q, $v) { return $q->where('er_all_price', '<=', preg_replace('/\D/', '', $v)); });
+            });
         }
-        if ($req->filled('endDate')) {
-            if ($req->date_type == 'reque')
-                $eq = $eq->EndDate($req->endDate.' 23:59:59');
-            else
-                $eq = $eq->EqId($er->EndDate($req->endDate.' 00:00:00')->pluck('er_eq_id'));
-        }
-        if ($req->filled('startPrice')) {
-            $er = $er->StartPrice(preg_replace('/\D/', '', $req->startPrice))->pluck('er_eq_id');
-            $eq->EqId( $er );
-        }
-        if ($req->filled('endPrice')) {
-            $er = $er->EndPrice(preg_replace('/\D/', '', $req->endPrice))->pluck('er_eq_id');
-            $eq->EqId( $er );
-        }
-        if ($req->filled('eq_type')) $eq = $eq->EqType($req->eq_type);
-        if ($req->filled('eq_step')) $eq = $eq->EqStep($req->eq_step);
-        if ($req->filled('eq_mng')) $eq = $eq->EqMng($req->eq_mng);
-        if ($req->filled('mng_group')) $eq = $eq->CreatedId($this->userMng->group($req->mng_group)->pluck('um_user_id'));
-        if ($req->filled('writer')) $eq = $eq->CreatedId($req->writer);
+
+        $eq->when($req->eq_type, fn ($q, $v) => $q->EqType($v));
+        $eq->when($req->eq_step, fn ($q, $v) => $q->EqStep($v));
+        $eq->when($req->eq_mng,  fn ($q, $v) => $q->EqMng($v));
+        $eq->when($req->writer,  fn ($q, $v) => $q->CreatedId($v));
+
+        $mng = $this->userMng;
+        $eq->when($req->mng_group, function ($q, $v) use($mng) { return $q->CreatedId('role_id', $mng->group($v)->pluck('um_user_id')); });
 
         if ($req->filled('keyword')){
             switch ($req->keyword_type) {

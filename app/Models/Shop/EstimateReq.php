@@ -69,5 +69,9 @@ class EstimateReq extends Model {
     public function scopeCreatedId($query, $id) { return $query->where('shop_estimate_req.created_id', $id); }
     public function scopeCreatedIdArr($query, $id_arr) { return $query->whereIn('shop_estimate_req.created_id', $id_arr); }
 
+    public function scopeErStartDate( $q, $v) { return $q->where('shop_estimate_reply.created_at', '>=', $v); }
+    public function scopeErEndDate(   $q, $v) { return $q->where('shop_estimate_reply.created_at', '<=', $v); }
+    public function scopeErStartPrice($q, $v) { return $q->where('er_all_price', '>=', $v); }
+    public function scopeErEndPrice(  $q, $v) { return $q->where('er_all_price', '<=', $v); }
 
 }

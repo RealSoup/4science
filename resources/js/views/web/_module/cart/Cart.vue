@@ -1,36 +1,30 @@
-<template lang="html">
-    <div id="Cart"
-        @mouseenter="mouseHover = true"
-        @mouseleave="mouseHover = false"
-        :class="[{fixed_header:isScrollPass}, {hideCart:!mouseHover}]"
-    >
-        <b-link :to="{name:'cart_index'}"><b-img :src="s3url+'common/basket.png'" /></b-link>
-        
-        <div class="list_box">
-            <ul>
-            <template v-for="(item, i) in cartList">
-                <CartModel v-if="item.type=='model'" v-model="cartList[i]" @outCart="outCart(i)" />
-                <!--  -->
-
-                <CartOption v-else-if="item.type=='option'" v-model="cartList[i]" @outCart="outCart(i)" />
-                <!-- @outCart="outCart('option', i, k)" -->
-
-                <!-- <b-row v-if="i != Object.keys(cartList).length-1" :key="'gd_'+gd.gd_id" tag="li" class="hr"></b-row> -->
-            </template>
-            </ul>
-        </div>
-        
-
-        <div class="footer" v-if="mouseHover">
-            <div>총 <b v-if="cartList">{{cntItem}}</b>개의 상품</div>
-            <div><span>결제 예정 금액</span> <b>{{totalPrice | comma}}</b></div>
-            
-            <b-button-group>
-                <b-button @click="action('settle')">바로 구매</b-button>
-                <b-button @click="action('estimate')">견적 요청</b-button>
-            </b-button-group>
-        </div>
+<template>
+<div id="Cart"
+    @mouseenter="mouseHover = true"
+    @mouseleave="mouseHover = false"
+    :class="[{fixed_header:isScrollPass}, {hideCart:(!mouseHover || cntItem == 0)}]"
+>
+    <b-link :to="{name:'cart_index'}"><b-img :src="s3url+'common/basket.png'" /></b-link>
+    
+    <div class="list_box">
+        <ul>
+        <template v-for="(item, i) in cartList">
+            <CartModel v-if="item.type=='model'" v-model="cartList[i]" @outCart="outCart(i)" :key="i" />
+            <CartOption v-else-if="item.type=='option'" v-model="cartList[i]" @outCart="outCart(i)" :key="i" />
+        </template>
+        </ul>
     </div>
+
+    <div class="footer" v-if="mouseHover">
+        <div>총 <b v-if="cartList">{{cntItem}}</b>개의 상품</div>
+        <div><span>결제 예정 금액</span> <b>{{totalPrice | comma}}</b></div>
+        
+        <b-button-group>
+            <b-button @click="action('settle')">바로 구매</b-button>
+            <b-button @click="action('estimate')">견적 요청</b-button>
+        </b-button-group>
+    </div>
+</div>
 </template>
 
 <script>
@@ -138,19 +132,19 @@ export default {
 <style lang="css" scoped>
 
 #Cart { 
-    position:absolute; top:173px; right:0; z-index:16; background:#FFF;
+    position:absolute; top:19px; right:0; z-index:16; background:#FFF;
     border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;
     border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);
     height:100%;
     max-height:680px;
     transition:all 0.4s;
 }
-#Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-70px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; }
-#Cart>a:before { content:""; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:67px; height:76px; }
-#Cart>a img { margin:10px; position:relative; }
+#Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-60px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; padding-right:5px; }
+#Cart>a:before { content:""; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:60px; height:62px; }
+#Cart>a img { margin:8px 5px; position:relative; width:67%; }
 
-#Cart .list_box  { overflow:hidden; height:100%; max-height:520px; }
-#Cart .list_box ul { overflow-y:auto; height:100%; }
+#Cart .list_box { overflow:hidden; height:100%; max-height:520px; }
+#Cart .list_box ul { overflow-y:auto; width:254px; height:100%; transition:all 0.4s;}
 #Cart .list_box ul >>> li { margin:0; padding:10px 15px; }
 #Cart .list_box ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
 #Cart .list_box ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
@@ -158,7 +152,7 @@ export default {
 #Cart .list_box ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
 #Cart .list_box ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
 #Cart .list_box ul >>> li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1; }
-#Cart .list_box ul >>> li>div a img { transition:all 0.4s; width:100px; height:100px; object-fit:cover; }
+#Cart .list_box ul >>> li>div a img { transition:all 0.4s; width:80px; height:80px; object-fit:cover; }
 #Cart .list_box ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
 
 #Cart .list_box ul >>> li.gd_option { flex-direction:column; }
@@ -177,8 +171,11 @@ export default {
 
 #Cart.fixed_header { position:fixed; top:85px; }
 #Cart.hideCart { height:auto; }
+#Cart.hideCart ul { width:64px; }
+#Cart.hideCart ul>>>li { padding:3px 7px; }
+#Cart.hideCart ul>>>li:not(:first-child) {display:none; }
 #Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important; }
-#Cart.hideCart ul>>>li>div a img { border-radius: 50%; width: 62px; height: 62px; }
+#Cart.hideCart ul>>>li>div a img { border-radius:50%; width:50px; height:50px; }
 
 
 </style>

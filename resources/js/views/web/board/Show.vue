@@ -39,10 +39,10 @@
         <div class="col-6">
             <router-link :to="{name: `${getLink}bo_index`, params: { bo_cd:bo_cd }}" class="btn btn-sm btn-light">목록</router-link>
         </div>
-        <div class="col-6 text-right" v-if="$parent.isMine(board.created_id)">
+        <!-- <div class="col-6 text-right" v-if="$parent.isMine(board.created_id)">
             <router-link :to="{name: 'bo_edit', params: { bo_cd:bo_cd, bo_id:bo_id }}" class="btn btn-sm btn-warning">수정</router-link>
             <b-button variant="danger" size="sm" @click="destroy">삭제</b-button>
-        </div>
+        </div> -->
     </div>
 
     <Comment v-if="board.config.is_comment" :bo_cd='bo_cd' :bo_id='bo_id' />

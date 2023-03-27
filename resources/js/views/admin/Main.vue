@@ -85,13 +85,7 @@ import ax from '@/api/http';
 export default {
     name: 'admMain',
 
-    data() {
-        return {
-            con:{
-                order:{}
-            }
-        };
-    },
+    data() { return { con:{ order:{ 10:0, 11:0, 12:0, 20:0, 30:0, 40:0, 50:0, 60:0, } } }; },
     computed: {
         order_7() { return Object.values(this.con.order).reduce((acc, el) => acc + el , 0); },
         estimate_7() { return Object.values(this.con.order).reduce((acc, el) => acc + el , 0); },
@@ -106,10 +100,6 @@ export default {
             Notify.consolePrint(e);
             Notify.toast('warning', e.response.data.message);
         }
-    },
-
-    methods: {
-
     },
 };
 </script>

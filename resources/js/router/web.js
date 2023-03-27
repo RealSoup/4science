@@ -151,7 +151,7 @@ export default [
     {   path: '/board',
         name: 'bo_intro',
         component:() => import('@/views/web/board/Intro'),
-        beforeEnter: isLoggedin(),
+        // beforeEnter: isLoggedin(),
     }, {   
         path: '/board',
         component:() => import('@/views/web/board/Layout'),
@@ -167,13 +167,14 @@ export default [
                 path: ':bo_cd/create',
                 name: 'bo_create',
                 component:() => import('@/views/web/board/Create'),
+                beforeEnter: isLoggedin(),
             }, {
                 path: ':bo_cd/edit/:bo_id',
                 name: 'bo_edit',
                 component:() => import('@/views/web/board/Edit'),
+                beforeEnter: isLoggedin(),
             },
         ],
-        beforeEnter: isLoggedin(),
         // beforeEnter: function(to, from, next) {
         //     if (to.path === '/board' || to.path === '/board/')    return next('/board/summary');
         //     else                                                  return next();
@@ -185,12 +186,12 @@ export default [
     {   path: '/shop/goods',
         name: 'goods_index',
         component:() => import('@/views/web/shop/goods/Index'),
-        beforeEnter: isLoggedin(),
+        // beforeEnter: isLoggedin(),
     },{
         path: '/shop/goods/:gd_id',
         name: 'goods_show',
         component:() => import('@/views/web/shop/goods/Show'),
-        beforeEnter: isLoggedin(),
+        // beforeEnter: isLoggedin(),
     },
 
 //      주문

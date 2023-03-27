@@ -965,38 +965,6 @@ var render = function () {
           ],
           1
         ),
-        _vm._v(" "),
-        _vm.$parent.isMine(_vm.board.created_id)
-          ? _c(
-              "div",
-              { staticClass: "col-6 text-right" },
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-sm btn-warning",
-                    attrs: {
-                      to: {
-                        name: "bo_edit",
-                        params: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id },
-                      },
-                    },
-                  },
-                  [_vm._v("수정")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "danger", size: "sm" },
-                    on: { click: _vm.destroy },
-                  },
-                  [_vm._v("삭제")]
-                ),
-              ],
-              1
-            )
-          : _vm._e(),
       ]),
       _vm._v(" "),
       _vm.board.config.is_comment

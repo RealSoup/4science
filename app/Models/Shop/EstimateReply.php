@@ -28,11 +28,11 @@ class EstimateReply extends Model {
         if (count($id_arr) == 0) $id_arr = [0];
         return $query->whereIn('er_id', $id_arr);
     }
-    public function scopeErEqId($query, $id) { return $query->where('er_eq_id', $id); }
-    public function scopeStartDate($query, $date) { return $query->where('shop_estimate_reply.created_at', '>=', $date); }
-    public function scopeEndDate($query, $date) { return $query->where('shop_estimate_reply.created_at', '<=', $date); }
-    public function scopeStartPrice($query, $price) { return $query->where('er_all_price', '>=', $price); }
-    public function scopeEndPrice($query, $price) { return $query->where('er_all_price', '<=', $price); }
+    public function scopeErEqId(    $q, $v) { return $q->where('er_eq_id', $v); }
+    public function scopeStartDate( $q, $v) { return $q->where('shop_estimate_reply.created_at', '>=', $v); }
+    public function scopeEndDate(   $q, $v) { return $q->where('shop_estimate_reply.created_at', '<=', $v); }
+    public function scopeStartPrice($q, $v) { return $q->where('er_all_price', '>=', $v); }
+    public function scopeEndPrice(  $q, $v) { return $q->where('er_all_price', '<=', $v); }
 
 
 

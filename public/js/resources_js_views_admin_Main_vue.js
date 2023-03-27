@@ -108,7 +108,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       con: {
-        order: {}
+        order: {
+          10: 0,
+          11: 0,
+          12: 0,
+          20: 0,
+          30: 0,
+          40: 0,
+          50: 0,
+          60: 0
+        }
       }
     };
   },
@@ -160,8 +169,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee, null, [[0, 7]]);
     }))();
-  },
-  methods: {}
+  }
 });
 
 /***/ }),

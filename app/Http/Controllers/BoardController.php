@@ -91,6 +91,8 @@ class BoardController extends Controller {
     }
 
     public function show(Request $req, $bo_cd, $bo_id) {
+        if ( $bo_cd!=='notice' ) abort(500, '로그인하세요.');
+
         // dd($this->authorize('show', $this->board));
         $bo = $this->board->find($bo_id);
         event(new BoardView($req, $bo));

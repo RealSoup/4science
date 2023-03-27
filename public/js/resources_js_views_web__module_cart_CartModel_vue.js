@@ -222,16 +222,6 @@ var render = function () {
           }),
           _vm._v(" "),
           _c(
-            "b-badge",
-            {
-              staticClass: "btn_x hide",
-              attrs: { pill: "", variant: "danger" },
-              on: { click: _vm.outCart },
-            },
-            [_vm._v("X")]
-          ),
-          _vm._v(" "),
-          _c(
             "router-link",
             {
               attrs: {

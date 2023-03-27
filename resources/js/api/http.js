@@ -68,7 +68,7 @@ instance.interceptors.response.use(function (response) {
         return false;
     } else if (error.response.status === 500) {
         // store.commit('error/setAuthorizationError', error.response.data.message);
-        Notify.modal(error.response.data.msg, 'danger');
+        Notify.modal(error.response.data.message, 'danger');
         // router.go(-1);
         return false;
     }
