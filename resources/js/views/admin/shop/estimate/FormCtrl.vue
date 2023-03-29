@@ -7,7 +7,7 @@
             </b-col>
             <b-col>
                 <b-button size="sm" variant="info" @click="preview"><b-icon-search /> 미리보기</b-button>
-                    <b-button size="sm" variant="success" @click="save('store')"><font-awesome-icon icon="save" /> 임시저장</b-button>
+                <b-button size="sm" variant="success" @click="save('store')"><font-awesome-icon icon="save" /> 임시저장</b-button>
                 <b-button size="sm" variant="primary" @click="save('send')"><b-icon-mailbox /> 완료/발송</b-button>
             </b-col>
         </b-row>

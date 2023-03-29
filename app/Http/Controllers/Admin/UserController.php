@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{User, UserMng};
+use Cache;
 use DB;
 
 class UserController extends Controller {
@@ -75,15 +76,17 @@ class UserController extends Controller {
             'join_route' => $req->filled('join_route') ? $req->join_route : '',
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',
             'receive_mail' => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
+            'mng' => $req->filled('mng') ? $req->mng : 0,
         ]);
         
-        if ( $req->level > 10 ) {
+        if ( $req->level > 20 ) {
             DB::table('user_mng')->updateOrInsert(
             [   'um_user_id' => $id ],
             [   'um_status'         => array_key_exists('um_status', $req->user_mng) ? $req->user_mng['um_status'] : 'Y',
                 'um_position'       => array_key_exists('um_position', $req->user_mng) ? $req->user_mng['um_position'] : 1,
                 'um_group'          => array_key_exists('um_group', $req->user_mng) ? $req->user_mng['um_group'] : 'etc',
                 'um_responsibility' => array_key_exists('um_responsibility', $req->user_mng) ? $req->user_mng['um_responsibility'] : NULL, ]);
+            Cache::forget("UserMng");
         }
         return response()->json("success", 200);
     }

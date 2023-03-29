@@ -40,6 +40,8 @@ class UserMng extends Model {
             'etc' => '기타',
         ],
     ];
+    // 디폴트로 임시저장한 주문건은 제외
+    public function scopeDefault($q) { return $q->where('um_status', 'Y'); }
     public function getPosNameAttribute() { return $this->mngInfo['position'][$this->um_position??0]; }
     public function scopeGroup($query, $group) { return $query->where('um_group', $group); }
 

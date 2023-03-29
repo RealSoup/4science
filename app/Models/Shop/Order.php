@@ -13,16 +13,16 @@ class Order extends Model {
     
     protected $orderConfig = [
         'step' => [
-            0 => [ 'receiveable' => false, 'class' => '',   'name' => '임시저장'],
-            10 => [ 'receiveable' => false, 'class' => 'primary',   'name' => '주문접수'],
-            11 => [ 'receiveable' => false, 'class' => 'warning',   'name' => '입금확인요청'],
-            12 => [ 'receiveable' => false, 'class' => 'warning',   'name' => '입금확인중'],
-            20 => [ 'receiveable' => false, 'class' => 'success',   'name' => '입금완료'],
-            30 => [ 'receiveable' => false, 'class' => 'info',      'name' => '제품준비중'],
-            40 => [ 'receiveable' => true,  'class' => 'info',      'name' => '배송중'],
-            50 => [ 'receiveable' => true,  'class' => 'secondary', 'name' => '배송완료'],
-            60 => [ 'receiveable' => false, 'class' => 'danger',    'name' => '주문취소'],
-            61 => [ 'receiveable' => false, 'class' => 'danger',    'name' => '결제실패'],
+            // 0 => [ 'receiveable' => false, 'class' => '',   'name' => '임시저장'],
+            10 => [ 'receiveable' => false, 'class' => 'plum',    'name' => '주문접수',     'sm_name' => '접수' ],
+            11 => [ 'receiveable' => false, 'class' => 'white',   'name' => '입금확인요청', 'sm_name' => '확요' ],
+            12 => [ 'receiveable' => false, 'class' => 'white',   'name' => '입금확인중',   'sm_name' => '확중' ],
+            20 => [ 'receiveable' => false, 'class' => 'green',   'name' => '입금완료',     'sm_name' => '입완' ],
+            30 => [ 'receiveable' => false, 'class' => 'mint',    'name' => '제품준비중',   'sm_name' => '준중' ],
+            40 => [ 'receiveable' => true,  'class' => 'd_blue',  'name' => '배송중',       'sm_name' => '배중' ],
+            50 => [ 'receiveable' => true,  'class' => 'gray',    'name' => '배송완료',     'sm_name' => '배완' ],
+            60 => [ 'receiveable' => false, 'class' => 'black',   'name' => '주문취소',     'sm_name' => '취소' ],
+            61 => [ 'receiveable' => false, 'class' => 'orange',  'name' => '결제실패',     'sm_name' => '실패' ],
         ],
         'type' => [
             'buy_inst'      => '바로주문',
@@ -56,7 +56,8 @@ class Order extends Model {
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 
     // 디폴트로 임시저장한 주문건은 제외
-    public function newQuery($excludeDeleted = true) { return parent::newQuery($excludeDeleted)->where('od_step', '!=', '0'); }
+    // public function newQuery($excludeDeleted = true) { return parent::newQuery($excludeDeleted)->where('od_step', '!=', '0'); }
+    public function newQuery() { return parent::newQuery()->where('od_step', '!=', '0'); }
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
     public function getOrderConfig() { return $this->orderConfig; }

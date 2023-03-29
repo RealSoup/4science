@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\{StoreEstimateReq, StoreEstimateReply};
-use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, Goods, GoodsModel, Category};
+use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, Goods, GoodsModel, Category};
 use App\Models\{User, UserMng, FileInfo};
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,23 +23,23 @@ class EstimateController extends Controller {
     protected $estimateReq;
     protected $estimateReply;
     protected $estimateModel;
+    protected $estimateOption;
     protected $user;
     protected $userMng;
-    public function __construct(EstimateReq $eq, EstimateReply $er, EstimateModel $em, User $user, UserMng $um, PDF $pdf) {
+    public function __construct(EstimateReq $eq, EstimateReply $er, EstimateModel $em, EstimateOption $eo, User $user, UserMng $um, PDF $pdf) {
         $this->estimateReq = $eq;
         $this->estimateReply = $er;
         $this->user = $user;
         $this->userMng = $um;
         $this->estimateModel = $em;
+        $this->estimateOption = $eo;
         $option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
         if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
         $this->pdf = PDF::setOptions($option);
     }
     public function index(Request $req) {
 
-        $data['mng'] = $this->user::whereHas('UserMng', function ($query) {
-            $query->where('um_status', 'Y');
-        })->get();
+        $data['mng'] = $this->user::whereHas('UserMng', function ($q) { $q->where('um_status', 'Y'); })->get();
         $data['mng_info'] = $this->userMng->getMngInfo();
 
         $eq = $this->estimateReq;
@@ -124,7 +124,7 @@ class EstimateController extends Controller {
 
     public function show(Request $req, int $id) {
         if ($req->filled('type') && $req->type=='reply') {
-            $data = $this->estimateReply->with('estimateReq')->with('estimateModel')->with('user')->find($id);
+            $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($id);
             $coll = array();
             foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
@@ -136,7 +136,7 @@ class EstimateController extends Controller {
             $gd = new Goods;
             $data->collect = $gd->getGoodsDataCollection($coll, 'buy_estimate');
         } else {
-            $data = $this->estimateReq->with('estimateReply')->with('estimateModel')->with('estimateCustom')->find($id);
+            $data = $this->estimateReq->with('fileInfo')->with('estimateReply')->with('estimateModel')->with('estimateCustom')->find($id);
             foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
                 if($em->em_name==''){
@@ -152,29 +152,24 @@ class EstimateController extends Controller {
             }
             if (intval($data->eq_1depth)>0)
                 $data['made_cate'] = EstimateReq::$option['custom_made_category'];
-        }
-        $data->fileInfo;
-        
+        }        
         // foreach ($data['con']->estimateModel as $em) $em->img_src = $this->goods->find($em->em_gd_id)->gdImgSrc(true);
         return response()->json($data);
     }
 
     public function create(Request $req) {
-        if ($req->filled('eq_id')) {
-            $data = $this->estimateReq->find($req->eq_id);
-            // $data['data']->estimateReply;
+        if ($req->filled('er_id')) {
+            $data = $this->estimateReply->with('estimateReq')->with('fileInfo')->find($req->er_id);
             if ($data->estimateModel()->exists()) {
                 foreach ($data->estimateModel as $em) {
                     $em->goods->purchaseAt;
                     $em->bundleDc;
                     $em->estimateOption;
                 }
-            } else {
-                $data['estimate_model'] = [$this->emptyEm()];
             }
-        } else {
-            $data['estimate_model'] = [$this->emptyEm()];
         }
+        $data['estimate_req'] = new class{};
+        $data['estimate_model'] = [$this->emptyEm()];
         $data['empty_goods'] = new Goods;
         $data['empty_em'] = $this->emptyEm();
         $data['er_effective_at'] = date("Y-m-d", strtotime("+2 week"));
@@ -217,7 +212,7 @@ class EstimateController extends Controller {
     }
 
     public function store(StoreEstimateReply $req) {
-        $eq_impl = $this->estimateReq_paramImplant($req->toArray());
+        $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
         $eq_impl['ip'] = $req->ip();
         $eq_id = $req->filled('eq_id') ? $req->eq_id : 0;
         if ($eq_id) {
@@ -288,14 +283,14 @@ class EstimateController extends Controller {
 
             $er_impl = $this->estimateReply_paramImplant($req);
             $er_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
-            $er_rst = DB::table('shop_estimate_reply')->where('er_id', $er_id)->update($er_impl);
+            DB::table('shop_estimate_reply')->where('er_id', $er_id)->update($er_impl);
 
             //  삭제된걸 파악하기 위해 해당 모델 검색
             $provEstimateModel = $this->estimateModel->select("em_id")->Type('estimateReply')->PapaId($er_id)->pluck('em_id');
             foreach ($req->estimate_model as $key => $em) {
                 $em_impl = $this->estimateModel_paramImplant($em, $er_id);
-                $em_id = $em['em_id'] ?? 0;
-                $udt_em = $this->estimateModel->updateOrCreate(['em_id' => $em_id], $em_impl);
+                $udt_em = $this->estimateModel->updateOrCreate(['em_id' => ($em['em_id'] ?? 0)], $em_impl);
+                $em_id = $udt_em->em_id;
                 $provEstimateModel->forget($provEstimateModel->search($em_id));
 
                 $provEstimateOption = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
@@ -318,14 +313,14 @@ class EstimateController extends Controller {
             }
 
             //  파일 첨부시 자동으로 등록된 file_info 테이블에 상품번호 등록
-            if ($req->filled('file_info')) {
-                foreach ($req->file_info as $info) {
-                    if(!isset($info['fi_key']) && $finfo = FileInfo::find($info['fi_id'])) {
-                        $finfo->fi_key = $er_id;
-                        $finfo->save();
-                    }
-                }
-            }
+            // if ($req->filled('file_info')) {
+            //     foreach ($req->file_info as $info) {
+            //         if(!isset($info['fi_key']) && $finfo = FileInfo::find($info['fi_id'])) {
+            //             $finfo->fi_key = $er_id;
+            //             $finfo->save();
+            //         }
+            //     }
+            // }
 
             if ($req->er_step == 1) { //  견적서 메일 발송
                 $to_name = $req->estimate_req['eq_name'];
@@ -353,9 +348,7 @@ class EstimateController extends Controller {
                 ];
                 $this->estimateMailSend($to_email, $to_name, $params, $er_id);
             }
-
-            if($er_rst) return response()->json('success', 200);
-            else return response()->json(["msg"=>"Fail"], 500);
+            return response()->json($er_id, 200);
         }
     }
 

@@ -79,6 +79,9 @@ __webpack_require__.r(__webpack_exports__);
       if (type != 'all') sdt = dt.format("yyyy-MM-dd");
       this.value.startDate = sdt;
       this.value.endDate = edt;
+    },
+    format_date: function format_date(e) {
+      return this.formatDate(e);
     }
   }
 });
@@ -251,7 +254,7 @@ var render = function () {
                 attrs: {
                   placeholder: "YYYY-MM-DD",
                   autocomplete: "off",
-                  formatter: _vm.formatDate,
+                  formatter: _vm.format_date,
                 },
                 model: {
                   value: _vm.value.startDate,
@@ -291,7 +294,7 @@ var render = function () {
                 attrs: {
                   placeholder: "YYYY-MM-DD",
                   autocomplete: "off",
-                  formatter: _vm.formatDate,
+                  formatter: _vm.format_date,
                 },
                 model: {
                   value: _vm.value.endDate,

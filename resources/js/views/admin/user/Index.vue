@@ -4,10 +4,10 @@
 
     <b-container class="frm_sch">
         <SchDate v-model="sch_frm">
-            <b-col slot="prev" class="label">가입일</b-col>
+            <b-col slot="prev" class="label top_left">가입일</b-col>
         </SchDate>
         <b-row>
-            <b-col class="label">유형</b-col>
+            <b-col class="label bottom_left">유형</b-col>
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.group">
                     <b-form-select-option value=""></b-form-select-option>

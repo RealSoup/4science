@@ -29,7 +29,7 @@ class UserController extends Controller {
 
     public function edit() { 
         $rst = auth()->user()->userBiz;
-        $rst->fileInfo;
+        if($rst) $rst->fileInfo;
         return $rst; 
     }
 

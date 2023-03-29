@@ -14,10 +14,12 @@ use DB;
 class CategoryController extends Controller {
 	protected $category;
 	protected $params;
-	public function __construct(Category $category, Request $req) {
-        $this->category = $category;
-    }
-
+	public function __construct(Category $category, Request $req) { $this->category = $category; }
+	/*
+		카테고리를 캐쉬화 하는 함수는 
+		App\Http\Controllers\Shop\CategoryController\indexAll()
+		여기 있다.
+	*/
 	// public function indexInit(Request $req) {
 	// 	$this->params['ca_id'] = array();	//	View에서 Loop 돌릴때 선택된 카테고리 배열이 필요하다.
 	// 	$this->params['ca_id'][] = $this->params['ca_id01'] = $req->ca_id01 ?? NULL;

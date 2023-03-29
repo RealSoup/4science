@@ -1,87 +1,82 @@
 <template>
 <div id="order_list">
     <b-row class="head">
-        <b-col lg="3" md="3"><span>번호 / 주문번호</span><span>처리상태</span></b-col>
-        <b-col lg="6" md="3"><span>주문상품</span><span>주문유형 / 결제방식 / 금액</span></b-col>                
-        <b-col lg="3" md="3"><span>주문자 / 담당자</span><span>주문일</span></b-col>
+        <b-col class="d-none d-lg-block">글번호</b-col>
+        <b-col class="d-none d-lg-block">주문번호</b-col>
+        <b-col>주문상품</b-col>
+        <b-col>주문자</b-col>
+        <b-col class="d-none d-lg-block">주문유형</b-col>
+        <b-col>주문일</b-col>
+        <b-col class="d-none d-lg-block">결제수단</b-col>
+        <b-col>결제금액</b-col>
+        <b-col><span class="d-none d-lg-block">진행</span>현황</b-col>
+        <b-col class="d-none d-lg-block">담당자</b-col>
     </b-row>
-    <b-link class="row body" 
-        v-for="row in list" :key="row.mk_id"
-        :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}"
-    >
-        <b-col lg="3" md="3" class="d-none d-lg-block">
+    <b-row class="body" :class="{cancel:row.od_step==60}" v-for="row in list" :key="row.mk_id">
+        <b-col class="d-none d-lg-block">{{row.od_id}}.</b-col>
+        <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
+        <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
+        <b-col class="orderer">
+            <b-badge v-if="row.user && row.user.is_dealer" class="d_blue d-none d-lg-inline-block">딜</b-badge>
             <span>
-                {{row.od_id}}. <div class="type_icon"><b-icon-tags-fill />{{row.od_no}}</div>
-            </span>
+                {{row.od_orderer}}
+                <br class="d-none d-lg-block" />
+                <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng[row.user.mng].name}}</b-badge>
+            </span> 
+        </b-col>
+        <b-col class="type d-none d-lg-block">
+            <b-badge v-if="row.od_sale_env=='A'" class="orange">앱</b-badge>
             <span>
-                <template v-for="(v, k) in config.step">
-                    <b-badge :key="k" v-if="k==row.od_step" :variant="v.class">{{v.name}}</b-badge>
-                </template>
+                {{config.type[row.od_type]}}
+                <br />
+                <b-badge v-if="row.er_mng_id" class="mint">{{mng[row.er_mng_id].name}}</b-badge>
             </span>
         </b-col>
-
-        <b-col lg="6" md="4">
-            <span>
-                [ {{row.od_name}} ]
-            </span>
-            <span>
-                <template v-for="(c, k) in config.type">
-                    <b-badge v-b-tooltip.hover title="바로주문" variant="primary" v-if="k==row.od_type && k=='buy_inst'" :key="k">{{c.charAt(0)}}</b-badge>
-                    <b-badge v-b-tooltip.hover title="장바구니주문" variant="info" v-else-if="k==row.od_type && k=='buy_cart'" :key="k">{{c.charAt(0)}}</b-badge>
-                    <b-badge v-b-tooltip.hover title="견적주문" variant="success" v-else-if="k==row.od_type && k=='buy_estimate'" :key="k">{{c.charAt(0)}}</b-badge>
-                    <b-badge v-b-tooltip.hover title="임시주문" variant="warning" v-else-if="k==row.od_type && k=='buy_temp'" :key="k">{{c.charAt(0)}}</b-badge>
-                </template>
-                <template v-for="(c, k) in config.pay_method">
-                    <b-badge v-if="k==row.od_pay_method && k == 'C'" :key="k" variant="secondary">{{c}}</b-badge>
-                    <b-badge v-else-if="k==row.od_pay_method && k == 'B'" :key="k" variant="light">{{c}} ({{row.order_extra_info.oex_bank}})</b-badge>
-                    <b-badge v-else-if="k==row.od_pay_method && k == 'P'" :key="k" variant="secondary">{{c}}</b-badge>
-                    <b-badge v-else-if="k==row.od_pay_method && k == 'E'" :key="k" variant="light">{{c}}</b-badge>
-                </template>
-                {{ row.od_all_price | comma }} 원
-            </span>
+        <b-col>{{ row.created_at | formatDate }}</b-col>
+        <b-col class="d-none d-lg-block">{{config.pay_method[row.od_pay_method]}}</b-col>
+        <b-col>{{ row.od_all_price | comma }}</b-col>
+        <b-col class="step">
+            <span :class="config.step[row.od_step].class" class="d-none d-lg-inline-block">{{config.step[row.od_step].name}}</span>
+            <span :class="config.step[row.od_step].class" class="d-lg-none d-inline-block">{{config.step[row.od_step].sm_name}}</span>
         </b-col>
-        <b-col lg="3" md="3">
-            <span>[ {{row.od_orderer}} ] - {{row.od_mng_nm}}</span>
-            <span>{{ row.created_at | formatDate }}</span>
-        </b-col>
-    </b-link>
+        <b-col class="d-none d-lg-block"><span v-if="row.od_mng">{{mng[row.od_mng].name}}</span></b-col>
+    </b-row>
 </div>
 </template>
 
 <script>
 export default {
     name: 'AdmOrderIndexList',
-    props:['list', 'config'],
-    data() {
-        return {
-            
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
+    props:['list', 'config', 'mng'],
 };
 </script>
 
 <style lang="css" scoped>
-#order_list .row:first-of-type { border-bottom:2px solid #000; }
-#order_list .row:not(:last-of-type) { border-bottom:1px solid #333; }
-#order_list .body:hover { background: #20613744; }
-#order_list .row>div{ padding-top:15px; padding-bottom:15px; }
-#order_list .body>div:nth-of-type(2) { background-color:#20613717; }
-#order_list .head>div { font-weight:bold; background:#206137f0; color:#fff; }
-#order_list .row>div>span:nth-of-type(2) { float:right; }
-#order_list .row>div .type_icon { display:inline-block; margin-left:5px; }
-/* 
-#order_list .row .col:nth-of-type(1) { flex: 0 0 205px; max-width:205px; }
-#order_list .row .col .type_icon { display:inline-block; margin-left:5px; }
-#order_list .row .col .type_icon svg { margin-right:5px; }
-.row .col:nth-of-type(3) { text-align:center; }
-.row .col:nth-of-type(4) { text-align:right; }
- */
+#order_list .row .col { font-weight:600; }
+#order_list .row .col:nth-child(1) { flex:0 0 6%; max-width:6%; }
+#order_list .row .col:nth-child(2) { flex:0 0 8%; max-width:8%; }
+#order_list .row .col:nth-child(3) {  }
+#order_list .row .col:nth-child(4) { flex:0 0 7%; max-width:7%; }
+#order_list .row .col:nth-child(5) { flex:0 0 7%; max-width:7%; }
+#order_list .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC; }
+#order_list .row .col:nth-child(7) { flex:0 0 8%; max-width:8%; }
+#order_list .row .col:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC; }
+#order_list .row .col:nth-child(9) { flex:0 0 7%; max-width:7%; }
+#order_list .row .col:nth-child(10) { flex:0 0 5%; max-width:5%; }
+#order_list .body .col:nth-child(3) { text-align:left; }
+#order_list .body:hover { background:#B2E0FA; }
+#order_list .cancel { background:#D7D7D7; }
+#order_list .cancel .col { color:#9F9F9F; }
+#order_list .body .step span { width:90px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:.3rem; border-width:1px; border-style:solid; }
+#order_list .body .type,
+#order_list .body .orderer { line-height:1.5rem; }
+#order_list .body .type span .badge,
+#order_list .body .orderer span .badge { width:70px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:0; }
+#order_list .body .col .badge { border-radius:50%; padding:.4rem; }
+@media (max-width: 991px){
+    #order_list .row .col { font-size:.75rem; line-height:1.4; padding:0.4rem;}
+    #order_list .row .col:nth-child(8) { flex:0 0 13%; max-width:13%; }
+    #order_list .body .col:nth-child(8) { text-align:right; padding-right:3px; }
+    #order_list .body .step span { width:30px; font-size:.75rem; margin:auto; padding:0 }
+}
 </style>

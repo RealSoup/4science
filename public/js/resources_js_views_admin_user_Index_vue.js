@@ -388,7 +388,11 @@ var render = function () {
             [
               _c(
                 "b-col",
-                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                {
+                  staticClass: "label top_left",
+                  attrs: { slot: "prev" },
+                  slot: "prev",
+                },
                 [_vm._v("가입일")]
               ),
             ],
@@ -398,7 +402,9 @@ var render = function () {
           _c(
             "b-row",
             [
-              _c("b-col", { staticClass: "label" }, [_vm._v("유형")]),
+              _c("b-col", { staticClass: "label bottom_left" }, [
+                _vm._v("유형"),
+              ]),
               _vm._v(" "),
               _c(
                 "b-col",

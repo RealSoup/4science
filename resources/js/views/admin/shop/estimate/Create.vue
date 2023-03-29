@@ -1,18 +1,11 @@
 <template lang="html">
     <b-container id="adm_estimate_create" class="p_wrap">
-
         <h3>견적서 작성</h3>
-
         <FormCtrl @save="store" />
-
         <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
-
-        <FormUser v-model="frm" />
-
+        <FormUser v-model="frm.estimate_req" />
         <FormGoods ref="form_goods" v-model="frm.estimate_model" v-if="frm.estimate_model.length" :frm="frm" @hook:mounted="" />
-
         <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
-
     </b-container>
 </template>
 
@@ -36,6 +29,15 @@ export default {
         return {
             isLoadingModalViewed:false,
             frm:{
+                estimate_req: {
+                    eq_name:'',
+                    eq_email:'',
+                    eq_department:'',
+                    eq_hp:'',
+                    eq_tel:'',
+                    eq_fax:'',
+                    eq_content:'',
+                },
                 estimate_model: [],
                 file_info: [],
             },
@@ -44,7 +46,7 @@ export default {
     methods: {
         async create() {
             try {
-                const res = await ax.get(`/api/admin/shop/estimate/create`, {params:{eq_id:this.$route.query.eq_id}});
+                const res = await ax.get(`/api/admin/shop/estimate/create`, {params:{er_id:this.$route.query.er_id}});
                 if (res && res.status === 200) {
                     this.frm = res.data;
                 }
@@ -55,11 +57,11 @@ export default {
         },
 
         async store(type){
-            if (!validationCheckerUser(this.frm))                   return false;
+            if (!validationCheckerUser(this.frm.estimate_req))                   return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
             if (!validationCheckerExtra(this.frm))                  return false;
             try {
-                this.calculator();
+                this.$refs.form_goods.calculator();
                 switch (type) {
                     case 'store': this.frm.er_step = 0; break;
                     case 'send': this.frm.er_step = 1; break;
@@ -79,40 +81,7 @@ export default {
         all_dc_apply() {
             this.$refs.form_goods.setDcLate();
         },
-        calculator() {
-            let collect = {};
-            let pa_id = 0;
-            let dlvy = 0;
-            let air = 0;
-            for (var em of this.frm.estimate_model) {
-                if (em.goods&&em.goods.purchase_at)
-                    pa_id = em.goods.gd_pa_id;
-                if (!collect.hasOwnProperty(pa_id)) {
-                    if (pa_id>0 && em.goods.purchase_at.pa_type == "AIR")
-                        collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
-                    else
-                        collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
-                }
-                collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
-                for (var eo of em.estimate_option)
-                    collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
-            }
         
-            this.frm.er_gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
-            this.frm.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
-            this.frm.er_surtax = this.frm.er_gd_price*0.1;
-            for (var key in collect) {
-                if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
-                    dlvy += Number(collect[key].dlvy);
-                }
-            }
-            this.frm.er_dlvy_price = dlvy;
-            if (this.frm.er_no_dlvy_fee == 'Y') {
-                this.frm.er_dlvy_price  = 0;
-                this.frm.er_air_price   = 0;
-            }
-            this.frm.er_all_price = this.frm.er_gd_price+this.frm.er_surtax+this.frm.er_dlvy_price+this.frm.er_air_price;
-        },
     },
     mounted() {
         this.create();

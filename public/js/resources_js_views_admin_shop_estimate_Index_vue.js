@@ -208,6 +208,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[1, 12]]);
       }))();
+    },
+    price_comma: function price_comma(e) {
+      return this.priceComma(e);
     }
   },
   mounted: function mounted() {
@@ -350,7 +353,11 @@ var render = function () {
             [
               _c(
                 "b-col",
-                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                {
+                  staticClass: "label top_left",
+                  attrs: { slot: "prev" },
+                  slot: "prev",
+                },
                 [_vm._v("기간")]
               ),
               _vm._v(" "),
@@ -489,7 +496,24 @@ var render = function () {
                 { staticClass: "type03 period" },
                 [
                   _c("b-form-input", {
-                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    attrs: { formatter: _vm.price_comma, size: "sm" },
+                    on: {
+                      keyup: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.index.apply(null, arguments)
+                      },
+                    },
                     model: {
                       value: _vm.sch_frm.startPrice,
                       callback: function ($$v) {
@@ -502,7 +526,24 @@ var render = function () {
                   _c("b", [_vm._v("~")]),
                   _vm._v(" "),
                   _c("b-form-input", {
-                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    attrs: { formatter: _vm.price_comma, size: "sm" },
+                    on: {
+                      keyup: function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.index.apply(null, arguments)
+                      },
+                    },
                     model: {
                       value: _vm.sch_frm.endPrice,
                       callback: function ($$v) {
@@ -521,7 +562,9 @@ var render = function () {
           _c(
             "b-row",
             [
-              _c("b-col", { staticClass: "label" }, [_vm._v("담당자")]),
+              _c("b-col", { staticClass: "label bottom_left" }, [
+                _vm._v("담당자"),
+              ]),
               _vm._v(" "),
               _c(
                 "b-col",

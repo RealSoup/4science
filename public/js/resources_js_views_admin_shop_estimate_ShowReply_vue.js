@@ -887,7 +887,7 @@ var render = function () {
                                 variant: "success",
                                 to: {
                                   name: "adm_estimate_create",
-                                  query: { eq_id: _vm.frm.estimate_req.eq_id },
+                                  query: { er_id: _vm.$route.params.er_id },
                                 },
                               },
                             },
@@ -1042,14 +1042,16 @@ var render = function () {
                         ? _c(
                             "b-button",
                             {
-                              attrs: {
-                                variant: "outline-primary",
-                                size: "xm",
-                                to: {
-                                  name: "adm_user_edit",
-                                  params: {
-                                    id: _vm.frm.estimate_req.created_id,
-                                  },
+                              attrs: { variant: "outline-primary", size: "xm" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.openWinPop(
+                                    "/admin/user/" +
+                                      _vm.frm.estimate_req.created_id +
+                                      "/edit",
+                                    1700,
+                                    900
+                                  )
                                 },
                               },
                             },
@@ -1411,7 +1413,7 @@ var render = function () {
                                   on: {
                                     click: function ($event) {
                                       return _vm.fileDown(
-                                        file.path,
+                                        file.down_path,
                                         file.fi_original
                                       )
                                     },

@@ -198,7 +198,7 @@ export default {
                 Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
-            this.$router.push({name: 'order_settle', params: { od_goods: rst, od_type: 'buy_estimate' }});
+            this.$router.push({name: 'order_settle', params: { od_goods: rst, od_type: 'buy_estimate', od_er_id:this.$route.params.er_id }});
         },
 
         async reEstimate(){

@@ -34,13 +34,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -69,7 +62,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: false,
       saveType: '',
-      frm: {}
+      frm: {
+        file_info: []
+      }
     };
   },
   methods: {
@@ -116,23 +111,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     update: function update(type) {
-      this.saveType = type;
-      if (!(0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerUser)(this.frm.estimate_req)) return false;
-      if (!(0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerGoods)(this.frm.estimate_model)) return false;
-      if (!(0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerExtra)(this.frm)) return false; // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
-      // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
-
-      var acceptedFilesCount = this.$refs.form_extra.$refs.add_file.acceptedFilesCount().length;
-
-      if (acceptedFilesCount > 0) {
-        this.isLoadingModalViewed = true;
-        this.$refs.form_extra.$refs.add_file.fileUpLoad(); // 파일 업로드 실행하고
-        // dropzone 업로드완료 이벤트에서 formSubmit() 호출
-      } else {
-        this.formSubmit();
-      }
-    },
-    formSubmit: function formSubmit() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -141,65 +119,98 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.t0 = _this2.saveType;
-                _context2.next = _context2.t0 === 'store' ? 3 : _context2.t0 === 'send' ? 5 : 7;
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerUser)(_this2.frm.estimate_req)) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return", false);
+
+              case 2:
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerGoods)(_this2.frm.estimate_model)) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                return _context2.abrupt("return", false);
+
+              case 4:
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerExtra)(_this2.frm)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                return _context2.abrupt("return", false);
+
+              case 6:
+                _context2.prev = 6;
+
+                _this2.$refs.form_goods.calculator();
+
+                _context2.t0 = type;
+                _context2.next = _context2.t0 === 'store' ? 11 : _context2.t0 === 'send' ? 13 : 15;
                 break;
 
-              case 3:
+              case 11:
                 _this2.frm.er_step = 0;
-                return _context2.abrupt("break", 7);
+                return _context2.abrupt("break", 15);
 
-              case 5:
+              case 13:
                 _this2.frm.er_step = 1;
-                return _context2.abrupt("break", 7);
+                return _context2.abrupt("break", 15);
 
-              case 7:
-                _context2.prev = 7;
+              case 15:
+                _this2.isLoadingModalViewed = true;
                 _this2.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 _this2.frm, // 수정하려는 객체
                 {
                   _method: 'PATCH'
                 } // 삽입하려는 내용
                 );
-                _context2.next = 11;
+                _context2.next = 19;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/".concat(_this2.$route.params.er_id), _this2.frm);
 
-              case 11:
+              case 19:
                 res = _context2.sent;
 
-                if (res && res.status === 200) {
-                  _this2.isLoadingModalViewed = false;
-
-                  _this2.$router.push({
-                    name: 'adm_estimate_show_reply',
-                    params: {
-                      er_id: _this2.$route.params.er_id
-                    }
-                  });
+                if (!(res && res.status === 200)) {
+                  _context2.next = 25;
+                  break;
                 }
 
-                _context2.next = 19;
+                _context2.next = 23;
+                return _this2.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
+
+              case 23:
+                _this2.isLoadingModalViewed = false;
+
+                _this2.$router.push({
+                  name: 'adm_estimate_show_reply',
+                  params: {
+                    er_id: _this2.$route.params.er_id
+                  }
+                });
+
+              case 25:
+                _context2.next = 31;
                 break;
 
-              case 15:
-                _context2.prev = 15;
-                _context2.t1 = _context2["catch"](7);
+              case 27:
+                _context2.prev = 27;
+                _context2.t1 = _context2["catch"](6);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
-              case 19:
+              case 31:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[7, 15]]);
+        }, _callee2, null, [[6, 27]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {
       this.$refs.form_goods.setDcLate();
-    },
-    calculator: function calculator() {
-      this.$refs.form_goods.calculator();
     }
   },
   created: function created() {
@@ -450,6 +461,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    calculator: function calculator() {
+      var collect = {};
+      var pa_id = 0;
+      var dlvy = 0;
+
+      var _iterator2 = _createForOfIteratorHelper(this.value),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var em = _step2.value;
+          if (em.goods && em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
+
+          if (!collect.hasOwnProperty(pa_id)) {
+            if (pa_id > 0 && em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
+              'goods': 0,
+              'dlvy': 0,
+              'air': Number(em.goods.purchase_at.pa_price_add_vat)
+            };else collect[pa_id] = {
+              'goods': 0,
+              'dlvy': Number(em.goods.dlvy_fee_add_vat),
+              'free_dlvy_max': Number(em.goods.free_dlvy_max),
+              'air': 0
+            };
+          }
+
+          collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
+
+          var _iterator3 = _createForOfIteratorHelper(em.estimate_option),
+              _step3;
+
+          try {
+            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var eo = _step3.value;
+              collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
+            }
+          } catch (err) {
+            _iterator3.e(err);
+          } finally {
+            _iterator3.f();
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      this.frm.er_gd_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.goods;
+      }, 0);
+      this.frm.er_air_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.air;
+      }, 0);
+      this.frm.er_surtax = this.frm.er_gd_price * 0.1;
+
+      for (var key in collect) {
+        if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
+          dlvy += Number(collect[key].dlvy);
+        }
+      }
+
+      this.frm.er_dlvy_price = dlvy;
+
+      if (this.frm.er_no_dlvy_fee == 'Y') {
+        this.frm.er_dlvy_price = 0;
+        this.frm.er_air_price = 0;
+      }
+
+      this.frm.er_all_price = this.frm.er_gd_price + this.frm.er_surtax + this.frm.er_dlvy_price + this.frm.er_air_price;
     }
   }
 });
@@ -500,12 +582,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selOpt: {}
     };
   },
-  watch: {
-    value: function value(newVal, oldVal) {
-      // watch it
-      this.$emit('calculator');
-    }
-  },
+  // watch: {
+  //     value: function(newVal, oldVal) { // watch it
+  //         this.$emit('calculator');
+  //     },
+  // },
   methods: {
     getOption: function getOption(id) {
       var _this = this;
@@ -603,7 +684,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         {
           eo_em_id: this.em_id,
           eo_gd_id: this.gd_id,
-          eo_opc_id: this.goods_option_child[i].goc_id,
+          eo_goc_id: this.goods_option_child[i].goc_id,
           eo_tit: this.selOpt.go_name,
           eo_name: this.goods_option_child[i].goc_name,
           eo_ea: 1,
@@ -1017,7 +1098,7 @@ var render = function () {
     [
       _c("h1", [_vm._v("견적서 수정")]),
       _vm._v(" "),
-      _c("FormCtrl", { on: { save: _vm.store } }),
+      _c("FormCtrl", { on: { save: _vm.update } }),
       _vm._v(" "),
       _c("FormSetting", {
         on: { all_dc_update: _vm.all_dc_apply },
@@ -1057,7 +1138,6 @@ var render = function () {
       _c("FormExtra", {
         ref: "form_extra",
         attrs: { isLoadingModalViewed: _vm.isLoadingModalViewed },
-        on: { formSubmit: _vm.formSubmit },
         model: {
           value: _vm.frm,
           callback: function ($$v) {

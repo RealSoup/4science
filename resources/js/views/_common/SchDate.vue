@@ -3,14 +3,14 @@
     <slot name="prev"></slot>
     <b-col class="period">
         <b-input-group>
-            <b-form-input v-model="value.startDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate"></b-form-input>
+            <b-form-input v-model="value.startDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
             <b-input-group-append>
                 <b-form-datepicker v-model="value.startDate" button-only right></b-form-datepicker>
             </b-input-group-append>
         </b-input-group>
         <b>~</b>
         <b-input-group>
-            <b-form-input v-model="value.endDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate"></b-form-input>
+            <b-form-input v-model="value.endDate" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
             <b-input-group-append>
                 <b-form-datepicker v-model="value.endDate" button-only right></b-form-datepicker>
             </b-input-group-append>
@@ -51,6 +51,7 @@ export default {
             this.value.startDate = sdt;
             this.value.endDate = edt;
         },
+        format_date(e) { return this.formatDate(e); },
     },
 }
 </script>

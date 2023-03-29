@@ -95,7 +95,7 @@ class OrderController extends Controller {
             }
         }
         if ($params['md_cnt'] > 1)
-            $params['od_name'] .= '외 '.($params['md_cnt']-1).'개';
+            $params['od_name'] .= '외 ['.($params['md_cnt']-1).']';
 
         $params['config'] = $this->order->getOrderConfig();        
         $params['config']['email_domain'] = auth()->user()::$option['email_domain'];

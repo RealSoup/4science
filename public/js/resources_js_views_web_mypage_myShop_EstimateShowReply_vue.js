@@ -282,7 +282,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'order_settle',
         params: {
           od_goods: rst,
-          od_type: 'buy_estimate'
+          od_type: 'buy_estimate',
+          od_er_id: this.$route.params.er_id
         }
       });
     },

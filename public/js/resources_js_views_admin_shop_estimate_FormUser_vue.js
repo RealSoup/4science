@@ -330,12 +330,13 @@ var render = function () {
                   _vm._v(" "),
                   _c("b-col", { staticClass: "label" }, [_vm._v("요청내용")]),
                   _vm._v(" "),
-                  _c("b-col", {
-                    staticClass: "type11",
-                    domProps: {
-                      innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
-                    },
-                  }),
+                  _c("b-col", { staticClass: "type11" }, [
+                    _c("div", {
+                      domProps: {
+                        innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
+                      },
+                    }),
+                  ]),
                 ],
                 1
               )

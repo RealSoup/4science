@@ -1,58 +1,75 @@
 <template>
-<div id="adm_shop_order_edit" class="p_wrap order_edit">
-    <h3 class="p_tit">주문 상세</h3>
+<div class="p_wrap">
+    <h3 class="p_tit row">
+        <b-col>주문 상세</b-col>
+        <b-col><b-button :to="{name: 'adm_order_index'}" class="white" size="sm">목록으로 돌아가기</b-button></b-col>
+    </h3>
     
-    <div class="actionArea">
-        <b-input-group size="sm">
-            <b-input-group-prepend class="bg-light btn_group">
-                <b-button @click="writeDlvyInfo('bundle')">배송정보</b-button>
-                <b-button :to="{name: 'adm_order_index'}" variant="outline-secondary">목록</b-button>
-                <b-dropdown size="sm" text="파일 출력" variant="warning">
-                    <template v-if="od.od_mng">
-                        <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="info" @click="isModalViewed = !isModalViewed, modalType = 'sendTransaction'">거래명세서 발송 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                    </template>
-                    <b-dropdown-item-button v-else disabled>담당장 등록 후 사용 가능</b-dropdown-item-button>
-                </b-dropdown>
-                <b-button v-if="od.od_has_ledger == 'N'" variant="info" @click="ledger"><b-icon-journal-bookmark-fill /> 영업장부</b-button>
-                <b-button variant="dark" @click="print">인쇄</b-button>
-                <b-button v-if="od.od_mng < 1" @click="update('od_mng')">담당</b-button>
-                <b-button v-else>{{od.mng.name}}</b-button>
-            </b-input-group-prepend>
-
-            <b-form-select v-model="od.od_step">
-                <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
-                <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
-            </b-form-select>
-
-            <b-input-group-append><b-button @click="update('od_step')">변경</b-button></b-input-group-append>
-        </b-input-group>
-    </div>
-    <div id="print_area" class="order_edit">
-        <b-card no-body class="head">
-            <div>
-                <b-badge>{{ od.od_id }}.</b-badge>
-                <span><font-awesome-icon icon="tags" />{{ od.od_no }}</span>
-                <span><b-icon-calendar2-date-fill />{{ od.created_at | formatDate }}</span>
-                <span>
-                    <b-link :to="{name: 'adm_user_edit', params: { id:od.created_id }}">
-                        <font-awesome-icon icon="user" />{{ od.od_orderer }}
-                    </b-link>
-                </span>
-                <span><font-awesome-icon icon="phone" />{{ od.od_orderer_hp }}</span>
-                <span><font-awesome-icon icon="at" />{{ od.od_orderer_email }}</span>
-            </div>
-        </b-card>
-
-        <b-card class="goods">
-            <div class="tit">
+    <b-container fluid class="top">
+        <b-row>
+            <b-col>No.</b-col>
+            <b-col>주문번호</b-col>
+            <b-col>주문날짜</b-col>
+            <b-col>주문자</b-col>
+            <b-col>연락처</b-col>
+            <b-col>이메일</b-col>
+            <b-col>담당</b-col>
+            <b-col>영업장부</b-col>
+            <b-col>주문서</b-col>
+            <b-col>문서받기</b-col>
+            <b-col>처리상태</b-col>
+        </b-row>
+        <b-row>
+            <b-col>{{ od.od_id }}.</b-col>
+            <b-col>{{ od.od_no }}</b-col>
+            <b-col>{{ od.created_at | formatDate_YYYY_MM_DD }}</b-col>
+            <b-link :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
+                {{ od.od_orderer }}
+            </b-link>
+            <b-col>{{ od.od_orderer_hp }}</b-col>
+            <b-col>{{ od.od_orderer_email }}</b-col>
+            <b-col>
+                <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="white">담당</b-button>
+                <template v-else>{{od.mng.name}}</template>
+            </b-col>
+            <b-col>
+                <b-button v-if="od.od_has_ledger == 'N'" class="white" @click="ledger">등록</b-button>
+                <template v-else>등록됨</template>
+            </b-col>
+            <b-col>
+                <b-button class="white" @click="print">인쇄</b-button>
+            </b-col>
+            <b-col>
+                <b-input-group v-if="od.od_mng">
+                    <b-form-select class="custom-select" v-model="document_type">
+                        <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
+                        <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
+                        <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
+                        <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
+                        <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
+                    </b-form-select>
+                    <b-input-group-append><b-button @click="document_action" class="b_gray">받기</b-button></b-input-group-append>
+                </b-input-group>
+                <template v-else>담당 등록 후...</template>
+            </b-col>
+            <b-col>
+                <b-input-group>
+                    <b-form-select v-model="od.od_step">
+                        <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
+                        <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                    </b-form-select>
+                    <b-input-group-append><b-button @click="update('od_step')" class="b_gray">변경</b-button></b-input-group-append>
+                </b-input-group>
+            </b-col>
+        </b-row>
+    </b-container>
+    
+    <div id="print_area">    
+        <div class="goods box">
+            <h5>
                 주문 상품
-                <b-button @click="update('odm_ea')">주문 상품 정보 수정</b-button>
-            </div>
+                <b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button>
+            </h5>
             <b-container v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
                 <h5>
                     <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
@@ -71,9 +88,9 @@
                                     @change="changeSon(pa)" 
                                 />
                             </b-col>
-                            <b-link class="col gd_img" v-if="odm.odm_type=='MODEL' && odm.odm_gd_id>0" :to="{name: 'adm_goods_edit', params: { gd_id:odm.odm_gd_id }}">
+                            <b-col class="gd_img" v-if="odm.odm_type=='MODEL' && odm.odm_gd_id>0" @click="openWinPop(`/admin/shop/goods/${odm.odm_gd_id}/edit`, 1700, 900)">
                                 <img :src="odm.img_src" />
-                            </b-link>
+                            </b-col>
                             <b-col class="gd_img" v-else-if="odm.odm_type=='MODEL'"><img :src="odm.img_src" /></b-col>
                             
                             <b-col v-if="odm.odm_type=='MODEL'" class="gd_info">
@@ -140,8 +157,10 @@
                         </b-row>
                     </b-col>
                 </b-row>
+                <b-button @click="writeDlvyInfo('bundle')">배송정보</b-button>
+
             </b-container>
-        </b-card>
+        </div>
 
         <b-card class="price">
             <div class="tit">총 금액</div>
@@ -339,13 +358,14 @@
                 </b-container>
             </b-card>
 
-            <b-card v-else-if="modalType == 'sendTransaction'" class="adform layerModal">
-                <b-container>
+            <template v-else-if="modalType == 'sendTransaction'">
+                <template slot="header">거래명세서 PDF 발송</template>
+                <b-container class="adform layerModal">
                     <b-row>
                         <b-col class="label">공급 날짜</b-col>
                         <b-col>
                             <b-input-group size="sm">
-                                <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate"></b-form-input>
+                                <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
                                 <b-input-group-append>
                                     <b-form-datepicker size="sm" v-model="od.trans_date" button-only right></b-form-datepicker>
                                 </b-input-group-append>
@@ -358,14 +378,14 @@
                     </b-row>
                     <b-row>
                         <b-col class="label">받을 Email</b-col>
-                        <b-col><b-form-input v-model="od.trans_email" @keyup.enter="isModalViewed = false" /></b-col>
+                        <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
                     </b-row>
                     
                     <b-row>
                         <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
                     </b-row>
                 </b-container>
-            </b-card>
+            </template>
 
             <b-card v-else-if="modalType == 'dlvyInfo'" class="adform layerModal">
                 <b-container>
@@ -401,8 +421,8 @@ export default {
     name: 'edit',
     components: {
         VueDaumPostcode,
-        'Modal': () => import('@/views/_common/Modal.vue'),
-        'EaInput': () =>        import('./_comp/EaInput.vue'),
+        'Modal': () =>      import('@/views/_common/Modal.vue'),
+        'EaInput': () =>    import('./_comp/EaInput.vue'),
     },
     data() {
         return {
@@ -422,6 +442,7 @@ export default {
                 company: '한진택배',
                 number: ''
             },
+            document_type: '',
         };
     },
     computed: {
@@ -525,6 +546,17 @@ export default {
                 Notify.consolePrint(e);
             }
         },
+
+        document_action () {
+            switch (this.document_type) {
+                case 'est_e'      : this.estimateExcel(); break;  
+                case 'est_p'      : this.estimatePdf(); break;  
+                case 'tra_e'      : this.transactionExcel(); break;  
+                case 'tra_p'      : this.transactionPdf(); break;  
+                case 'send_tra_p' : this.isModalViewed = !this.isModalViewed; this.modalType = 'sendTransaction'; break;      
+                default: break;
+            }
+        },
         async print () {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
@@ -564,7 +596,13 @@ export default {
             try {
                 this.mngChk();
                 const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
+                if (res && res.status === 200) {
+                    if ( query ) Notify.toast('success', '발송 완료');
+                    else {
+                        this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
+                        Notify.toast('success', '다운 완료');
+                    }
+                } else Notify.toast('warning', '실패');
             } catch (e) {
                 Notify.consolePrint(e);
             }
@@ -696,7 +734,8 @@ export default {
         },
         getHref (com, num) {
             return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
-        }
+        },
+        format_date(e) { return this.formatDate(e); },
 
     },
     mounted() {
@@ -707,24 +746,54 @@ export default {
 
 <style lang="css">
 @import '/css/adm_shop_order_edit.css';
-.card .tit button { display:block; float:right; }
 
-.card .container { max-width:100%; }
-.card .container .row .col .long_type { white-space: pre-wrap; word-wrap: break-word; text-align:left; margin-top:5px; }
-.card .container .row .col .cube_box { display:inline-block; }
-.card .container .row .col .cube_box, 
-.card .container .row .col .cube_box * { box-sizing: border-box; }
-.card .container .row .col .cube_box { /*perspective:400px;*/ margin:auto; }
-.card .container .row .col .cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }
-.card .container .row .col .cube_box .cube .piece { position:absolute; }
-.card .container .row .col .cube_box,
-.card .container .row .col .cube_box .cube,
-.card .container .row .col .cube_box .cube .piece { width:100%; max-width:40px; height:20px; }
-.card .container .row .col .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(20px); line-height:2; }
-.card .container .row .col .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(20px); display:block; }
-.card .container .row .col .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
-.card .container .row .col .cube.show_right,
-.card .container .row .col .cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
+.p_wrap .row .col { padding:0 }
+.p_wrap .p_tit .col:last-child { text-align:right; }
+.p_wrap .p_tit .col:last-child .btn { border-color:#000; font-weight:600; }
+.p_wrap #print_area .box { border:5px solid #EBEBEB; padding:2rem; }
+
+/*  =====================================================================  */
+
+.p_wrap .top {  }
+.p_wrap .top .row:first-child { background-color:#4EB8C8; color:#FFF; border-radius:.4rem .4rem 0 0; font-size:.95rem; }
+.p_wrap .top .row:first-child .col { padding:.6rem 0 .25rem 0; }
+.p_wrap .top .row:last-child { border:1px solid #4EB8C8; border-radius:0 0 .4rem .4rem; }
+.p_wrap .top .row:last-child .col { padding:.3rem .75rem; line-height:2rem; }
+.p_wrap .top .row:last-child .col .btn { border-color:#8A8A8A; padding:.2rem .75rem; }
+.p_wrap .top .row:last-child .col .custom-select { height: calc(1.95rem + 2px); padding: 0.23rem 1.75rem 0.23rem 0.75rem; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center; }
+.p_wrap .top .row:first-child .col:nth-child(6) { border-right:1px solid #FFF;  }
+.p_wrap .top .row:last-child .col:nth-child(6) { border-right:1px solid #4EB8C8;  }
+.p_wrap .top .row .col { text-align:center; }
+.p_wrap .top .row .col:nth-child(1) { flex:0 0 6%; max-width:6%; }
+.p_wrap .top .row .col:nth-child(2) { flex:0 0 8%; max-width:8%; }
+.p_wrap .top .row .col:nth-child(3) { flex:0 0 9%; max-width:9%; }
+.p_wrap .top .row .col:nth-child(4) { flex:0 0 7%; max-width:7%; }
+.p_wrap .top .row .col:nth-child(5) { flex:0 0 9%; max-width:9%; }
+.p_wrap .top .row .col:nth-child(6) { flex:0 0 10%; max-width:10%; }
+.p_wrap .top .row .col:nth-child(7) { flex:0 0 7%; max-width:7%; }
+.p_wrap .top .row .col:nth-child(8) { flex:0 0 8%; max-width:8%; }
+.p_wrap .top .row .col:nth-child(9) { flex:0 0 8%; max-width:8%; }
+
+
+
+.tit button { display:block; float:right; }
+
+.container { max-width:100%; }
+.container .row .col .long_type { white-space: pre-wrap; word-wrap: break-word; text-align:left; margin-top:5px; }
+.container .row .col .cube_box { display:inline-block; }
+.container .row .col .cube_box, 
+.container .row .col .cube_box * { box-sizing: border-box; }
+.container .row .col .cube_box { /*perspective:400px;*/ margin:auto; }
+.container .row .col .cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }
+.container .row .col .cube_box .cube .piece { position:absolute; }
+.container .row .col .cube_box,
+.container .row .col .cube_box .cube,
+.container .row .col .cube_box .cube .piece { width:100%; max-width:40px; height:20px; }
+.container .row .col .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(20px); line-height:2; }
+.container .row .col .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(20px); display:block; }
+.container .row .col .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
+.container .row .col .cube.show_right,
+.container .row .col .cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
 
 .goods .container h5 .myCheck { display:inline; }
 .goods .container .myCheck { min-height:2rem; padding-left:1.7rem; min-width:2.1rem; display:inline; }
@@ -734,19 +803,18 @@ export default {
 .goods .container .row .col .row .chk { display:flex; }
 
 
-.card .row .col .form_icon svg { cursor:pointer; }
+.row .col .form_icon svg { cursor:pointer; }
+.receiver .container .row .col span:nth-child(1) .cube_box,
+.receiver .container .row .col span:nth-child(1) .cube_box .cube,
+.receiver .container .row .col span:nth-child(1) .cube_box .cube .piece { max-width:150px; }
+.receiver .container .row .col span:nth-child(2) .cube_box,
+.receiver .container .row .col span:nth-child(2) .cube_box .cube,
+.receiver .container .row .col span:nth-child(2) .cube_box .cube .piece { max-width:150px; }
+.receiver .container .row .col span:nth-child(3) .cube_box,
+.receiver .container .row .col span:nth-child(3) .cube_box .cube,
+.receiver .container .row .col span:nth-child(3) .cube_box .cube .piece { max-width:500px; }
 
-.card.receiver .container .row .col span:nth-child(1) .cube_box,
-.card.receiver .container .row .col span:nth-child(1) .cube_box .cube,
-.card.receiver .container .row .col span:nth-child(1) .cube_box .cube .piece { max-width:150px; }
-.card.receiver .container .row .col span:nth-child(2) .cube_box,
-.card.receiver .container .row .col span:nth-child(2) .cube_box .cube,
-.card.receiver .container .row .col span:nth-child(2) .cube_box .cube .piece { max-width:150px; }
-.card.receiver .container .row .col span:nth-child(3) .cube_box,
-.card.receiver .container .row .col span:nth-child(3) .cube_box .cube,
-.card.receiver .container .row .col span:nth-child(3) .cube_box .cube .piece { max-width:500px; }
 
-.card.layerModal .row .label { flex: 0 0 18%; max-width: 18%; }
-.card.layerModal .row .ctrl { text-align:right; }
+.layerModal .row .ctrl { text-align:right; }
 
 </style>

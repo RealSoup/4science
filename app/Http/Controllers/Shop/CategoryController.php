@@ -8,9 +8,9 @@ use App\Http\Requests\SaveCategory;
 use App\Models\Shop\Category;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\SaveCategoryRequest;
-use Illuminate\Support\Facades\Cache;
 use Session;
 use DB;
+use Cache;
 
 class CategoryController extends Controller {
 	protected $category;

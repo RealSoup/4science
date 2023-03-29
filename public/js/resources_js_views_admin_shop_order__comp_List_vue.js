@@ -57,18 +57,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmOrderIndexList',
-  props: ['list', 'config'],
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
-  methods: {}
+  props: ['list', 'config', 'mng']
 });
 
 /***/ }),
@@ -89,7 +80,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row[data-v-ef34b7ac]:first-of-type { border-bottom:2px solid #000;\n}\n#order_list .row[data-v-ef34b7ac]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background: #20613744;\n}\n#order_list .row>div[data-v-ef34b7ac]{ padding-top:15px; padding-bottom:15px;\n}\n#order_list .body>div[data-v-ef34b7ac]:nth-of-type(2) { background-color:#20613717;\n}\n#order_list .head>div[data-v-ef34b7ac] { font-weight:bold; background:#206137f0; color:#fff;\n}\n#order_list .row>div>span[data-v-ef34b7ac]:nth-of-type(2) { float:right;\n}\n#order_list .row>div .type_icon[data-v-ef34b7ac] { display:inline-block; margin-left:5px;\n}\r\n/* \r\n#order_list .row .col:nth-of-type(1) { flex: 0 0 205px; max-width:205px; }\r\n#order_list .row .col .type_icon { display:inline-block; margin-left:5px; }\r\n#order_list .row .col .type_icon svg { margin-right:5px; }\r\n.row .col:nth-of-type(3) { text-align:center; }\r\n.row .col:nth-of-type(4) { text-align:right; }\r\n */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row .col[data-v-ef34b7ac] { font-weight:600;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 8%; max-width:8%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(3) {\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n#order_list .cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n#order_list .cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:90px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:.3rem; border-width:1px; border-style:solid;\n}\n#order_list .body .type[data-v-ef34b7ac],\r\n#order_list .body .orderer[data-v-ef34b7ac] { line-height:1.5rem;\n}\n#order_list .body .type span .badge[data-v-ef34b7ac],\r\n#order_list .body .orderer span .badge[data-v-ef34b7ac] { width:70px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:0;\n}\n#order_list .body .col .badge[data-v-ef34b7ac] { border-radius:50%; padding:.4rem;\n}\n@media (max-width: 991px){\n#order_list .row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -231,210 +222,164 @@ var render = function () {
         "b-row",
         { staticClass: "head" },
         [
-          _c("b-col", { attrs: { lg: "3", md: "3" } }, [
-            _c("span", [_vm._v("번호 / 주문번호")]),
-            _c("span", [_vm._v("처리상태")]),
+          _c("b-col", { staticClass: "d-none d-lg-block" }, [_vm._v("글번호")]),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "d-none d-lg-block" }, [
+            _vm._v("주문번호"),
           ]),
           _vm._v(" "),
-          _c("b-col", { attrs: { lg: "6", md: "3" } }, [
-            _c("span", [_vm._v("주문상품")]),
-            _c("span", [_vm._v("주문유형 / 결제방식 / 금액")]),
+          _c("b-col", [_vm._v("주문상품")]),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("주문자")]),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "d-none d-lg-block" }, [
+            _vm._v("주문유형"),
           ]),
           _vm._v(" "),
-          _c("b-col", { attrs: { lg: "3", md: "3" } }, [
-            _c("span", [_vm._v("주문자 / 담당자")]),
-            _c("span", [_vm._v("주문일")]),
+          _c("b-col", [_vm._v("주문일")]),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "d-none d-lg-block" }, [
+            _vm._v("결제수단"),
           ]),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("결제금액")]),
+          _vm._v(" "),
+          _c("b-col", [
+            _c("span", { staticClass: "d-none d-lg-block" }, [_vm._v("진행")]),
+            _vm._v("현황"),
+          ]),
+          _vm._v(" "),
+          _c("b-col", { staticClass: "d-none d-lg-block" }, [_vm._v("담당자")]),
         ],
         1
       ),
       _vm._v(" "),
       _vm._l(_vm.list, function (row) {
         return _c(
-          "b-link",
+          "b-row",
           {
             key: row.mk_id,
-            staticClass: "row body",
-            attrs: {
-              to: { name: "adm_order_edit", params: { od_id: row.od_id } },
-            },
+            staticClass: "body",
+            class: { cancel: row.od_step == 60 },
           },
           [
+            _c("b-col", { staticClass: "d-none d-lg-block" }, [
+              _vm._v(_vm._s(row.od_id) + "."),
+            ]),
+            _vm._v(" "),
+            _c("b-col", { staticClass: "d-none d-lg-block" }, [
+              _vm._v(_vm._s(row.od_no)),
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-link",
+              {
+                staticClass: "col",
+                attrs: {
+                  to: { name: "adm_order_edit", params: { od_id: row.od_id } },
+                },
+              },
+              [_vm._v(_vm._s(row.od_name))]
+            ),
+            _vm._v(" "),
             _c(
               "b-col",
-              { staticClass: "d-none d-lg-block", attrs: { lg: "3", md: "3" } },
+              { staticClass: "orderer" },
               [
-                _c("span", [
-                  _vm._v("\r\n                " + _vm._s(row.od_id) + ". "),
-                  _c(
-                    "div",
-                    { staticClass: "type_icon" },
-                    [_c("b-icon-tags-fill"), _vm._v(_vm._s(row.od_no))],
-                    1
-                  ),
-                ]),
+                row.user && row.user.is_dealer
+                  ? _c(
+                      "b-badge",
+                      { staticClass: "d_blue d-none d-lg-inline-block" },
+                      [_vm._v("딜")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "span",
                   [
-                    _vm._l(_vm.config.step, function (v, k) {
-                      return [
-                        k == row.od_step
-                          ? _c(
-                              "b-badge",
-                              { key: k, attrs: { variant: v.class } },
-                              [_vm._v(_vm._s(v.name))]
-                            )
-                          : _vm._e(),
-                      ]
-                    }),
+                    _vm._v(
+                      "\r\n                " +
+                        _vm._s(row.od_orderer) +
+                        "\r\n                "
+                    ),
+                    _c("br", { staticClass: "d-none d-lg-block" }),
+                    _vm._v(" "),
+                    row.user && row.user.mng
+                      ? _c(
+                          "b-badge",
+                          { staticClass: "orange d-none d-lg-inline-block" },
+                          [_vm._v(_vm._s(_vm.mng[row.user.mng].name))]
+                        )
+                      : _vm._e(),
                   ],
-                  2
+                  1
                 ),
-              ]
+              ],
+              1
             ),
             _vm._v(" "),
-            _c("b-col", { attrs: { lg: "6", md: "4" } }, [
-              _c("span", [
-                _vm._v(
-                  "\r\n                [ " +
-                    _vm._s(row.od_name) +
-                    " ]\r\n            "
+            _c(
+              "b-col",
+              { staticClass: "type d-none d-lg-block" },
+              [
+                row.od_sale_env == "A"
+                  ? _c("b-badge", { staticClass: "orange" }, [_vm._v("앱")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  [
+                    _vm._v(
+                      "\r\n                " +
+                        _vm._s(_vm.config.type[row.od_type]) +
+                        "\r\n                "
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    row.er_mng_id
+                      ? _c("b-badge", { staticClass: "mint" }, [
+                          _vm._v(_vm._s(_vm.mng[row.er_mng_id].name)),
+                        ])
+                      : _vm._e(),
+                  ],
+                  1
                 ),
-              ]),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]),
+            _vm._v(" "),
+            _c("b-col", { staticClass: "d-none d-lg-block" }, [
+              _vm._v(_vm._s(_vm.config.pay_method[row.od_pay_method])),
+            ]),
+            _vm._v(" "),
+            _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(row.od_all_price)))]),
+            _vm._v(" "),
+            _c("b-col", { staticClass: "step" }, [
+              _c(
+                "span",
+                {
+                  staticClass: "d-none d-lg-inline-block",
+                  class: _vm.config.step[row.od_step].class,
+                },
+                [_vm._v(_vm._s(_vm.config.step[row.od_step].name))]
+              ),
               _vm._v(" "),
               _c(
                 "span",
-                [
-                  _vm._l(_vm.config.type, function (c, k) {
-                    return [
-                      k == row.od_type && k == "buy_inst"
-                        ? _c(
-                            "b-badge",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
-                              key: k,
-                              attrs: { title: "바로주문", variant: "primary" },
-                            },
-                            [_vm._v(_vm._s(c.charAt(0)))]
-                          )
-                        : k == row.od_type && k == "buy_cart"
-                        ? _c(
-                            "b-badge",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
-                              key: k,
-                              attrs: { title: "장바구니주문", variant: "info" },
-                            },
-                            [_vm._v(_vm._s(c.charAt(0)))]
-                          )
-                        : k == row.od_type && k == "buy_estimate"
-                        ? _c(
-                            "b-badge",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
-                              key: k,
-                              attrs: { title: "견적주문", variant: "success" },
-                            },
-                            [_vm._v(_vm._s(c.charAt(0)))]
-                          )
-                        : k == row.od_type && k == "buy_temp"
-                        ? _c(
-                            "b-badge",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true },
-                                },
-                              ],
-                              key: k,
-                              attrs: { title: "임시주문", variant: "warning" },
-                            },
-                            [_vm._v(_vm._s(c.charAt(0)))]
-                          )
-                        : _vm._e(),
-                    ]
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.config.pay_method, function (c, k) {
-                    return [
-                      k == row.od_pay_method && k == "C"
-                        ? _c(
-                            "b-badge",
-                            { key: k, attrs: { variant: "secondary" } },
-                            [_vm._v(_vm._s(c))]
-                          )
-                        : k == row.od_pay_method && k == "B"
-                        ? _c(
-                            "b-badge",
-                            { key: k, attrs: { variant: "light" } },
-                            [
-                              _vm._v(
-                                _vm._s(c) +
-                                  " (" +
-                                  _vm._s(row.order_extra_info.oex_bank) +
-                                  ")"
-                              ),
-                            ]
-                          )
-                        : k == row.od_pay_method && k == "P"
-                        ? _c(
-                            "b-badge",
-                            { key: k, attrs: { variant: "secondary" } },
-                            [_vm._v(_vm._s(c))]
-                          )
-                        : k == row.od_pay_method && k == "E"
-                        ? _c(
-                            "b-badge",
-                            { key: k, attrs: { variant: "light" } },
-                            [_vm._v(_vm._s(c))]
-                          )
-                        : _vm._e(),
-                    ]
-                  }),
-                  _vm._v(
-                    "\r\n                " +
-                      _vm._s(_vm._f("comma")(row.od_all_price)) +
-                      " 원\r\n            "
-                  ),
-                ],
-                2
+                {
+                  staticClass: "d-lg-none d-inline-block",
+                  class: _vm.config.step[row.od_step].class,
+                },
+                [_vm._v(_vm._s(_vm.config.step[row.od_step].sm_name))]
               ),
             ]),
             _vm._v(" "),
-            _c("b-col", { attrs: { lg: "3", md: "3" } }, [
-              _c("span", [
-                _vm._v(
-                  "[ " +
-                    _vm._s(row.od_orderer) +
-                    " ] - " +
-                    _vm._s(row.od_mng_nm)
-                ),
-              ]),
-              _vm._v(" "),
-              _c("span", [
-                _vm._v(_vm._s(_vm._f("formatDate")(row.created_at))),
-              ]),
+            _c("b-col", { staticClass: "d-none d-lg-block" }, [
+              row.od_mng
+                ? _c("span", [_vm._v(_vm._s(_vm.mng[row.od_mng].name))])
+                : _vm._e(),
             ]),
           ],
           1

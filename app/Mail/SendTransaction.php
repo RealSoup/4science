@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TransactionSend extends Mailable {
+class SendTransaction extends Mailable {
     use Queueable, SerializesModels;
 
     public $email;
@@ -25,8 +25,8 @@ class TransactionSend extends Mailable {
     public function build() {
         return $this->from($this->email, '4science')
             ->subject($this->subject)
-            ->view("admin.order.email.emailForm")
-            // ->with($this->params)
+            ->view("admin.order.email.sendTransaction")
+            ->with($this->params)
             ->attach($this->file, [ 'as' => 'Transaction.pdf', 'mime' => 'application/pdf' ]);
     }
 }

@@ -24,11 +24,11 @@ export default {
             selOpt:{}
         }
     },
-    watch: {
-        value: function(newVal, oldVal) { // watch it
-            this.$emit('calculator');
-        },
-    },
+    // watch: {
+    //     value: function(newVal, oldVal) { // watch it
+    //         this.$emit('calculator');
+    //     },
+    // },
     methods: {
         async getOption(id){
             if (!id)
@@ -67,7 +67,7 @@ export default {
                     {
                         eo_em_id : this.em_id,
                         eo_gd_id : this.gd_id,
-                        eo_opc_id : this.goods_option_child[i].goc_id,
+                        eo_goc_id : this.goods_option_child[i].goc_id,
                         eo_tit : this.selOpt.go_name,
                         eo_name : this.goods_option_child[i].goc_name,
                         eo_ea : 1,

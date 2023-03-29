@@ -3,10 +3,10 @@
     <h3 class="p_tit">상품 목록</h3>
 
     <b-container class="frm_sch">
-        <SchDate v-model="sch_frm"><b-col slot="prev" class="label">등록일</b-col></SchDate>
+        <SchDate v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></SchDate>
         <Categorys v-model="sch_frm" />
         <b-row>
-            <b-col class="label">제조사</b-col>
+            <b-col class="label bottom_left">제조사</b-col>
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.gd_mk_id">
                     <b-form-select-option value=""></b-form-select-option>

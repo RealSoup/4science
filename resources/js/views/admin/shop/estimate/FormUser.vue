@@ -38,7 +38,7 @@
         <b-row v-if="value.eq_content">
             <hr />
             <b-col class="label">요청내용</b-col>
-            <b-col class="type11" v-html="nl2br(value.eq_content)"></b-col>
+            <b-col class="type11"><div v-html="nl2br(value.eq_content)" /></b-col>
         </b-row>
     </b-container>
 </b-card>

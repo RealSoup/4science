@@ -22,7 +22,7 @@
                             <b-button variant="dark" @click="passOrder"><b-icon-box-arrow-up-right /> 임의주문</b-button> 
                             <!-- <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 영업장부</b-button> -->
                             <b-button variant="primary" @click="reSend"><b-icon-mailbox /> 재발송</b-button>
-                            <b-button variant="success" :to="{name: 'adm_estimate_create', query: { eq_id:frm.estimate_req.eq_id }}"><b-icon-pencil-square /> 재작성</b-button>
+                            <b-button variant="success" :to="{name: 'adm_estimate_create', query: { er_id:$route.params.er_id }}"><b-icon-pencil-square /> 재작성</b-button>
                             <b-button variant="warning" :to="{name: 'adm_estimate_edit', params: { er_id:$route.params.er_id }}"><b-icon-tools /> 수정</b-button>
                             <b-button variant="danger" @click="destroy"><b-icon-trash-fill /> 삭제</b-button>
                         </b-button-group>
@@ -51,7 +51,7 @@
                         <span v-b-tooltip.hover title="요청자">
                             <font-awesome-icon icon="user" />
                             {{ frm.estimate_req.eq_name }}
-                            <b-button v-if="frm.estimate_req.created_id" variant="outline-primary" size="xm" :to="{name: 'adm_user_edit', params: { id:frm.estimate_req.created_id }}">
+                            <b-button v-if="frm.estimate_req.created_id" variant="outline-primary" size="xm" @click="openWinPop(`/admin/user/${frm.estimate_req.created_id}/edit`, 1700, 900)">
                                 <b-icon-link45deg />
                             </b-button>
                         </span>
@@ -104,7 +104,7 @@
                         <span>
                             <b-icon icon="file-earmark-arrow-down-fill"></b-icon>
                             <template v-for="(file, i) in frm.file_info">
-                                <b-button size="sm" variant="outline-info" class="mr-2" @click="fileDown(file.path, file.fi_original)" :key="i">
+                                <b-button size="sm" variant="outline-info" class="mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
                                     {{file.fi_original}}
                                 </b-button>
                             </template>

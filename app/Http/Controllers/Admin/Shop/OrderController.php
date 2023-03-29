@@ -11,17 +11,15 @@ use App\Models\{User, UserMng, FileNote};
 use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport};
+use App\Mail\SendTransaction;
 use Mail;
 use DateTime;
 use Session;
 use DB;
-
-use App\Exports\InvoicesExport;
-use App\Exports\OrderEstimateExport;
-use App\Exports\OrderTransactionExport;
-use Maatwebsite\Excel\Facades\Excel;
+use Cache;
 use PDF;
-use App\Mail\TransactionSend;
 
 class OrderController extends Controller {
 	// use InicisUtil;    //  trait
@@ -58,15 +56,12 @@ class OrderController extends Controller {
 		$um = new UserMng;
 		$data['mng_info'] = $um->getMngInfo();
 		$data['order_config'] = $this->order->getOrderConfig();
-		$data['mng'] = $this->user::has('UserMng')->get();
-		foreach ($data['mng'] as $u)
-			$u->userMng;
-
-
-		//if ($request->filled('mk_name'))   $makers = $makers->Sch_Mk_name($request->mk_name);
-		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->select("shop_order.*",
-										DB::raw("(SELECT name FROM la_users
-										WHERE la_users.id = la_shop_order.od_mng) as od_mng_nm"),);
+		$data['mng'] = Cache::get('UserMng');
+		
+		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->with('user')
+							->select("shop_order.*",
+								DB::raw("(SELECT created_id FROM la_shop_estimate_reply WHERE er_id = la_shop_order.od_er_id) as er_mng_id"),
+							);
 					// ->join('users', 'users.id', '=', 'shop_order.created_id');
 
 		if (isset($data['startDate']))  	$orders = $orders->StartDate($req->startDate);
@@ -286,13 +281,13 @@ class OrderController extends Controller {
 	public function exportTransactionPdf(Request $req) {
 		if ($req->filled('trans_date')) {
 			$subject = '거래명세서 메일입니다.';
-			$content = '이용해주셔서 감사합니다.';
+			$params['name'] = $req->filled('od_orderer') ? $req->od_orderer : auth()->user()->name;
 			$to_email = [$req->trans_email, $req->trans_mng_email];
 			$pdf = PDF::loadView('admin.order.pdf.order_transaction', $req->all());
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
-			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());			
-			return Mail::to($to_email)->queue(new TransactionSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
+			return Mail::to($to_email)->queue(new SendTransaction(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
 		} else {
 			return PDF::loadView('admin.order.pdf.order_transaction', $req->all())
 				// ->download('order.pdf');

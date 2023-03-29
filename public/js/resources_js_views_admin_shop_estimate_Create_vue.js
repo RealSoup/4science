@@ -16,25 +16,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
 /* harmony import */ var _FormGoods_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormGoods.vue */ "./resources/js/views/admin/shop/estimate/FormGoods.vue");
 /* harmony import */ var _FormValidation_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormValidation.js */ "./resources/js/views/admin/shop/estimate/FormValidation.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -73,6 +60,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: false,
       frm: {
+        estimate_req: {
+          eq_name: '',
+          eq_email: '',
+          eq_department: '',
+          eq_hp: '',
+          eq_tel: '',
+          eq_fax: '',
+          eq_content: ''
+        },
         estimate_model: [],
         file_info: []
       }
@@ -92,7 +88,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/create", {
                   params: {
-                    eq_id: _this.$route.query.eq_id
+                    er_id: _this.$route.query.er_id
                   }
                 });
 
@@ -129,7 +125,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_3__.validationCheckerUser)(_this2.frm)) {
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_3__.validationCheckerUser)(_this2.frm.estimate_req)) {
                   _context2.next = 2;
                   break;
                 }
@@ -155,7 +151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 _context2.prev = 6;
 
-                _this2.calculator();
+                _this2.$refs.form_goods.calculator();
 
                 _context2.t0 = type;
                 _context2.next = _context2.t0 === 'store' ? 11 : _context2.t0 === 'send' ? 13 : 15;
@@ -215,78 +211,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     all_dc_apply: function all_dc_apply() {
       this.$refs.form_goods.setDcLate();
-    },
-    calculator: function calculator() {
-      var collect = {};
-      var pa_id = 0;
-      var dlvy = 0;
-      var air = 0;
-
-      var _iterator = _createForOfIteratorHelper(this.frm.estimate_model),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var em = _step.value;
-          if (em.goods && em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
-
-          if (!collect.hasOwnProperty(pa_id)) {
-            if (pa_id > 0 && em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
-              'goods': 0,
-              'dlvy': 0,
-              'air': Number(em.goods.purchase_at.pa_price_add_vat)
-            };else collect[pa_id] = {
-              'goods': 0,
-              'dlvy': Number(em.goods.dlvy_fee_add_vat),
-              'free_dlvy_max': Number(em.goods.free_dlvy_max),
-              'air': 0
-            };
-          }
-
-          collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
-
-          var _iterator2 = _createForOfIteratorHelper(em.estimate_option),
-              _step2;
-
-          try {
-            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-              var eo = _step2.value;
-              collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
-            }
-          } catch (err) {
-            _iterator2.e(err);
-          } finally {
-            _iterator2.f();
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      this.frm.er_gd_price = Object.values(collect).reduce(function (acc, el) {
-        return acc + el.goods;
-      }, 0);
-      this.frm.er_air_price = Object.values(collect).reduce(function (acc, el) {
-        return acc + el.air;
-      }, 0);
-      this.frm.er_surtax = this.frm.er_gd_price * 0.1;
-
-      for (var key in collect) {
-        if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
-          dlvy += Number(collect[key].dlvy);
-        }
-      }
-
-      this.frm.er_dlvy_price = dlvy;
-
-      if (this.frm.er_no_dlvy_fee == 'Y') {
-        this.frm.er_dlvy_price = 0;
-        this.frm.er_air_price = 0;
-      }
-
-      this.frm.er_all_price = this.frm.er_gd_price + this.frm.er_surtax + this.frm.er_dlvy_price + this.frm.er_air_price;
     }
   },
   mounted: function mounted() {
@@ -537,6 +461,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    calculator: function calculator() {
+      var collect = {};
+      var pa_id = 0;
+      var dlvy = 0;
+
+      var _iterator2 = _createForOfIteratorHelper(this.value),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var em = _step2.value;
+          if (em.goods && em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
+
+          if (!collect.hasOwnProperty(pa_id)) {
+            if (pa_id > 0 && em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
+              'goods': 0,
+              'dlvy': 0,
+              'air': Number(em.goods.purchase_at.pa_price_add_vat)
+            };else collect[pa_id] = {
+              'goods': 0,
+              'dlvy': Number(em.goods.dlvy_fee_add_vat),
+              'free_dlvy_max': Number(em.goods.free_dlvy_max),
+              'air': 0
+            };
+          }
+
+          collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
+
+          var _iterator3 = _createForOfIteratorHelper(em.estimate_option),
+              _step3;
+
+          try {
+            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var eo = _step3.value;
+              collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
+            }
+          } catch (err) {
+            _iterator3.e(err);
+          } finally {
+            _iterator3.f();
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      this.frm.er_gd_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.goods;
+      }, 0);
+      this.frm.er_air_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.air;
+      }, 0);
+      this.frm.er_surtax = this.frm.er_gd_price * 0.1;
+
+      for (var key in collect) {
+        if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
+          dlvy += Number(collect[key].dlvy);
+        }
+      }
+
+      this.frm.er_dlvy_price = dlvy;
+
+      if (this.frm.er_no_dlvy_fee == 'Y') {
+        this.frm.er_dlvy_price = 0;
+        this.frm.er_air_price = 0;
+      }
+
+      this.frm.er_all_price = this.frm.er_gd_price + this.frm.er_surtax + this.frm.er_dlvy_price + this.frm.er_air_price;
     }
   }
 });
@@ -587,12 +582,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selOpt: {}
     };
   },
-  watch: {
-    value: function value(newVal, oldVal) {
-      // watch it
-      this.$emit('calculator');
-    }
-  },
+  // watch: {
+  //     value: function(newVal, oldVal) { // watch it
+  //         this.$emit('calculator');
+  //     },
+  // },
   methods: {
     getOption: function getOption(id) {
       var _this = this;
@@ -690,7 +684,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         {
           eo_em_id: this.em_id,
           eo_gd_id: this.gd_id,
-          eo_opc_id: this.goods_option_child[i].goc_id,
+          eo_goc_id: this.goods_option_child[i].goc_id,
           eo_tit: this.selOpt.go_name,
           eo_name: this.goods_option_child[i].goc_name,
           eo_ea: 1,
@@ -1185,11 +1179,11 @@ var render = function () {
       _vm._v(" "),
       _c("FormUser", {
         model: {
-          value: _vm.frm,
+          value: _vm.frm.estimate_req,
           callback: function ($$v) {
-            _vm.frm = $$v
+            _vm.$set(_vm.frm, "estimate_req", $$v)
           },
-          expression: "frm",
+          expression: "frm.estimate_req",
         },
       }),
       _vm._v(" "),

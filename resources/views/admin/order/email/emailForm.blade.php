@@ -14,7 +14,7 @@
             <div style="background: #eee; padding: 20px; margin: 20px 0; border-radius: 4px;">
 
                 <h3>구매정보</h3>
-                <p>주문번호 : {{$od_no}}</p>
+                <p>주문번호 : {{$od_no??''}}</p>
                 <p>주문자 : {{$od_orderer}}</p>
                 <p>연락처 : {{$od_orderer_hp}}</p>
                 <br /><br />

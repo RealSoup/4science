@@ -1,18 +1,11 @@
 <template lang="html">
     <b-container id="adm_estimate_edit" class="p_wrap">
-
         <h1>견적서 수정</h1>
-
-        <FormCtrl @save="store" />
-
+        <FormCtrl @save="update" />
         <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
-
         <FormUser v-if="frm.estimate_req" v-model="frm.estimate_req" />
-
         <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" />
-
-        <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" @formSubmit="formSubmit" />
-
+        <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
     </b-container>
 </template>
 
@@ -38,7 +31,9 @@ export default {
         return {
             isLoadingModalViewed:false,
             saveType:'',
-            frm:{ },
+            frm:{
+                file_info: [],
+            },
         }
     },
     methods: {
@@ -51,7 +46,7 @@ export default {
                     //     this.frm, // 수정하려는 객체
                     //     res.data.req,
                     // );
-                    this.frm = res.data
+                    this.frm = res.data;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -59,29 +54,19 @@ export default {
             }
         },
 
-        update(type){
-            this.saveType = type;
+        async update(type) {
             if (!validationCheckerUser(this.frm.estimate_req))      return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
             if (!validationCheckerExtra(this.frm))                  return false;
             // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
             // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
-            let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.acceptedFilesCount().length;
-            if (acceptedFilesCount > 0) {
-                this.isLoadingModalViewed=true;
-                this.$refs.form_extra.$refs.add_file.fileUpLoad();
-                // 파일 업로드 실행하고
-                // dropzone 업로드완료 이벤트에서 formSubmit() 호출
-            } else {
-                this.formSubmit();
-            }
-        },
-        async formSubmit(){
-            switch (this.saveType) {
-                case 'store': this.frm.er_step = 0; break;
-                case 'send': this.frm.er_step = 1; break;
-            }
             try {
+                this.$refs.form_goods.calculator();
+                switch (type) {
+                    case 'store': this.frm.er_step = 0; break;
+                    case 'send': this.frm.er_step = 1; break;
+                }
+                this.isLoadingModalViewed=true;
                 this.frm = Object.assign(
                     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                     this.frm, // 수정하려는 객체
@@ -89,6 +74,7 @@ export default {
                 );
                 const res = await ax.post(`/api/admin/shop/estimate/${this.$route.params.er_id}`, this.frm);
                 if (res && res.status === 200) {
+                    await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
                     this.isLoadingModalViewed=false;
                     this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:this.$route.params.er_id } })
                 }
@@ -99,9 +85,6 @@ export default {
         },
         all_dc_apply() {
             this.$refs.form_goods.setDcLate();
-        },
-        calculator() {
-            this.$refs.form_goods.calculator();
         },
     },
     created() {

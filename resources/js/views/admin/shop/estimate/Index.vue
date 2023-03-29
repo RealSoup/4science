@@ -3,7 +3,7 @@
     <h3 class="p_tit">견적 목록</h3>
     <b-container class="frm_sch">
         <SchDate v-model="sch_frm">
-            <b-col slot="prev" class="label">기간</b-col>
+            <b-col slot="prev" class="label top_left">기간</b-col>
             <b-col slot="prev" :style="{ flex:'0 0 8%', maxWidth:'8%' }">
                 <b-form-select v-model="sch_frm.date_type">
                     <b-form-select-option value="reque">요청일</b-form-select-option>
@@ -33,14 +33,14 @@
             </b-col>
             <b-col class="label">견적금액</b-col>
             <b-col class="type03 period">
-                <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" size="sm" />
+                <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="index" />
                 <b>~</b>
-                <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" size="sm" />
+                <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="index" />
             </b-col>
         </b-row>
 
         <b-row>
-            <b-col class="label">담당자</b-col>
+            <b-col class="label bottom_left">담당자</b-col>
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.eq_mng">
                     <b-form-select-option value=""></b-form-select-option>
@@ -148,6 +148,7 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
+        price_comma(e) { return this.priceComma(e); },
     },
     mounted() {
         this.index();

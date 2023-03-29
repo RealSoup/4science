@@ -111,11 +111,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -311,14 +306,14 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-container",
+    "div",
     { staticClass: "p_wrap" },
     [
       _c("h3", { staticClass: "p_tit" }, [_vm._v("주문 목록")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "search adform" },
+        "b-container",
+        { staticClass: "frm_sch" },
         [
           _c(
             "SchDate",
@@ -334,7 +329,11 @@ var render = function () {
             [
               _c(
                 "b-col",
-                { staticClass: "label", attrs: { slot: "prev" }, slot: "prev" },
+                {
+                  staticClass: "label top_left",
+                  attrs: { slot: "prev" },
+                  slot: "prev",
+                },
                 [_vm._v("주문일")]
               ),
             ],
@@ -353,7 +352,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.od_type,
                         callback: function ($$v) {
@@ -388,7 +386,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.od_pay_method,
                         callback: function ($$v) {
@@ -423,7 +420,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.od_step,
                         callback: function ($$v) {
@@ -456,7 +452,7 @@ var render = function () {
                 { staticClass: "type03 period" },
                 [
                   _c("b-form-input", {
-                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    attrs: { formatter: _vm.priceComma },
                     model: {
                       value: _vm.sch_frm.startPrice,
                       callback: function ($$v) {
@@ -469,7 +465,7 @@ var render = function () {
                   _c("b", [_vm._v("~")]),
                   _vm._v(" "),
                   _c("b-form-input", {
-                    attrs: { formatter: _vm.priceComma, size: "sm" },
+                    attrs: { formatter: _vm.priceComma },
                     model: {
                       value: _vm.sch_frm.endPrice,
                       callback: function ($$v) {
@@ -481,8 +477,16 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label" }, [_vm._v("담당자")]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", { staticClass: "label bottom_left" }, [
+                _vm._v("담당자"),
+              ]),
               _vm._v(" "),
               _c(
                 "b-col",
@@ -491,7 +495,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.od_mng,
                         callback: function ($$v) {
@@ -526,7 +529,6 @@ var render = function () {
                   _c(
                     "b-form-select",
                     {
-                      attrs: { size: "sm" },
                       model: {
                         value: _vm.sch_frm.um_group,
                         callback: function ($$v) {
@@ -552,19 +554,13 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "label", attrs: { "offset-lg": "4" } },
-                [_vm._v("검색")]
-              ),
+              _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type05" },
                 [
                   _c(
                     "b-input-group",
-                    { attrs: { size: "sm" } },
                     [
                       _c(
                         "b-input-group-prepend",
@@ -573,7 +569,6 @@ var render = function () {
                             "b-form-select",
                             {
                               staticClass: "custom-select",
-                              attrs: { size: "sm" },
                               model: {
                                 value: _vm.sch_frm.mode,
                                 callback: function ($$v) {
@@ -709,45 +704,65 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "od_list" },
+        "b-container",
+        { staticClass: "cmain" },
         [
           _c(
-            "b-container",
+            "b-row",
             [
               _c(
-                "b-row",
+                "b-col",
+                { attrs: { sm: "12", md: "6" } },
                 [
-                  _c("b-col", { attrs: { sm: "12", md: "6" } }, [
-                    _vm._v("total : " + _vm._s(this.list.total)),
+                  _vm._v("Total : "),
+                  _c("b-badge", { attrs: { variant: "info" } }, [
+                    _vm._v(_vm._s(this.list.total)),
                   ]),
-                  _vm._v(" "),
-                  _c("b-col", {
-                    staticClass: "text-right",
-                    attrs: { sm: "12", md: "6" },
-                  }),
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _vm.list.data && _vm.list.data.length
-                ? _c("List", {
-                    attrs: { list: _vm.list.data, config: _vm.order_config },
-                  })
-                : _c("b-alert", { attrs: { variant: "danger", show: "" } }, [
-                    _vm._v("No Item"),
-                  ]),
             ],
             1
           ),
           _vm._v(" "),
-          _c("pagination", {
-            staticClass: "mt-5",
-            attrs: { data: _vm.list, limit: 5, align: "center" },
-            on: { "pagination-change-page": _vm.index },
-          }),
+          _vm.list.data && _vm.list.data.length
+            ? _c("List", {
+                attrs: {
+                  list: _vm.list.data,
+                  config: _vm.order_config,
+                  mng: _vm.mng,
+                },
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                limit: 5,
+                showDisabled: true,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.index },
+            },
+            [
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
+                1
+              ),
+            ]
+          ),
         ],
         1
       ),

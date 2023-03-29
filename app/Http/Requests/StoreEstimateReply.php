@@ -5,17 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEstimateReply extends FormRequest {
-    public function authorize() {
-        return true;
-    }
+    public function authorize() { return true; }
 
     public function rules() {
         return [
-            'eq_name'       => 'required',
-            'eq_department' => 'required',
-            'eq_email'      => 'required|email',
-            'eq_hp'         => 'required',
-            'eq_hp'         => 'required',
+            'estimate_req.eq_name'       => 'required',
+            'estimate_req.eq_department' => 'required',
+            'estimate_req.eq_email'      => 'required|email',
+            'estimate_req.eq_hp'         => 'required',
 
             'estimate_model'            => 'required|array|min:1',
             'estimate_model*em_name'  => 'required',
@@ -24,15 +21,12 @@ class StoreEstimateReply extends FormRequest {
             'estimate_model*em_price'  => 'required',
             'estimate_model*em_spec'  => 'required',
 
-
-
             'er_dlvy_at' => 'required',
             'er_effective_at' => 'required',
         ];
     }
 
-    // 에러 메세지
-    public function messages() {
+    public function messages() {    // 에러 메세지
         return [
             'eq_name.required'       => '요청자 이름을 입력해 주세요.',
             'eq_department.required' => '요청자 소속을 입력해 주세요.',

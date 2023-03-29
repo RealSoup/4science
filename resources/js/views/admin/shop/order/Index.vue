@@ -1,57 +1,59 @@
 <template>
-<b-container class="p_wrap">
+<div class="p_wrap">
     <h3 class="p_tit">주문 목록</h3>
 
-    <b-card class="search adform">
-        <SchDate v-model="sch_frm"><b-col slot="prev" class="label">주문일</b-col></SchDate>
+    <b-container class="frm_sch">
+        <SchDate v-model="sch_frm"><b-col slot="prev" class="label top_left">주문일</b-col></SchDate>
         <b-row>
             <b-col class="label">주문유형</b-col>
             <b-col class="type01">
-                <b-form-select v-model="sch_frm.od_type" size="sm">
+                <b-form-select v-model="sch_frm.od_type">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(val, key) in order_config.type" :key="key" :value="key">{{ val }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">결제수단</b-col>
             <b-col class="type01">
-                <b-form-select v-model="sch_frm.od_pay_method" size="sm">
+                <b-form-select v-model="sch_frm.od_pay_method">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(val, key) in order_config.pay_method" :key="key" :value="key">{{ val }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">처리상태</b-col>
             <b-col class="type01">
-                <b-form-select v-model="sch_frm.od_step" size="sm">
+                <b-form-select v-model="sch_frm.od_step">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(val, key) in order_config.step" :key="key" :value="key">{{ val.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">주문액</b-col>
             <b-col class="type03 period">
-                <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" size="sm" />
+                <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" />
                 <b>~</b>
-                <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" size="sm" />
+                <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" />
             </b-col>
-            <b-col class="label">담당자</b-col>
+        </b-row>
+        <b-row>
+            <b-col class="label bottom_left">담당자</b-col>
             <b-col class="type01">
-                <b-form-select v-model="sch_frm.od_mng" size="sm">
+                <b-form-select v-model="sch_frm.od_mng">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="opt in mng" :key="opt.id" :value="opt.id">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">담당팀</b-col>
             <b-col class="type01">
-                <b-form-select v-model="sch_frm.um_group" size="sm">
+                <b-form-select v-model="sch_frm.um_group">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</b-form-select-option>
                 </b-form-select>
             </b-col>
 
-            <b-col class="label" offset-lg="4">검색</b-col>
-            <b-col class="type05">
-                <b-input-group size="sm">
+            <b-col class="label">검색</b-col>
+            <b-col>
+                <b-input-group>
                     <b-input-group-prepend>
-                        <b-form-select class="custom-select" v-model="sch_frm.mode" size="sm">
+                        <b-form-select class="custom-select" v-model="sch_frm.mode">
                             <b-form-select-option value="od_orderer">주문자</b-form-select-option>
                             <b-form-select-option value="orderer_email">주문자이메일</b-form-select-option>
                             <b-form-select-option value="orderer_hp">주문자휴대폰</b-form-select-option>
@@ -70,28 +72,21 @@
                 </b-input-group>
             </b-col>
         </b-row>
-    </b-card>
+    </b-container>
 
-    <b-card class="od_list">
-        <b-container>
-            <b-row>
-                <b-col sm="12" md="6">total : {{this.list.total}}</b-col>
-                <b-col sm="12" md="6" class="text-right">
-                    <!-- <router-link :to="{name: 'adm_goods_create'}">
-                        <b-button variant="outline-primary" size="sm">Create</b-button>
-                    </router-link> -->
-                </b-col>
-            </b-row>
-            <hr>
-
-            <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" />
-            
-            <b-alert v-else variant="danger" show>No Item</b-alert>
-        </b-container>
-
-        <pagination :data="list" @pagination-change-page="index" :limit="5" align="center" class="mt-5"></pagination>
-    </b-card>
-</b-container>
+   
+    <b-container class="cmain">
+        <b-row>
+            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+        </b-row>
+        <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng="mng" />
+        
+        <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+            <span slot="prev-nav"><b-icon-chevron-left /></span>
+	        <span slot="next-nav"><b-icon-chevron-right /></span>
+        </pagination>
+    </b-container>   
+</div>
 </template>
 
 <script>

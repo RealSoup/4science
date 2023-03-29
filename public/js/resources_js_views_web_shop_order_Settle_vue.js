@@ -405,6 +405,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         price: {},
         od_no: "",
         od_name: "",
+        od_er_id: this.$route.params.od_er_id,
         od_type: this.$route.params.od_type,
         od_pay_method: '',
         od_orderer: '',

@@ -121,7 +121,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>견적담당자</th> <td>{{ $mng['name'] }}</td>
         </tr>
         <tr class="line01">
-            <th>전화번호</th> <td>{{ $od_orderer_tel }}</td>
+            <th>전화번호</th> <td>{{ $od_orderer_tel??'' }}</td>
             <th>전화번호</th> <td>{{ $mng['tel'] }}</td>
         </tr>
         <tr class="line01">
@@ -133,7 +133,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>팩스주소</th> <td>{{ $mng['fax'] }}</td>
         </tr>
         <tr class="line03">
-            <th>팩스주소</th> <td colspan="3">{{ $od_orderer_fax }}</td>
+            <th>팩스주소</th> <td colspan="3">{{ $od_orderer_fax??'' }}</td>
         </tr>
     </table>
 

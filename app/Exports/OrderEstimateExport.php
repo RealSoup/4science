@@ -53,10 +53,10 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $data[] = ['수신', '', '', $od['od_department'], '', '', '유효기간', '', '', '견적일로부터 2주 까지'];
         $data[] = [''];
         $data[] = ['견적요청인', '', '', $od['od_orderer'], '', '', '견적담당자', '', '', $od['mng']['name']];
-        $data[] = ['전화번호', '', '', $od['od_orderer_tel'], '', '', '전화번호', '', '', $od['mng']['tel']];
+        $data[] = ['전화번호', '', '', ($od['od_orderer_tel']??''), '', '', '전화번호', '', '', $od['mng']['tel']];
         $data[] = ['휴대폰번호', '', '', $od['od_orderer_hp'], '', '', '이메일주소', '', '', $od['mng']['email']];
         $data[] = ['이메일주소', '', '', $od['od_orderer_email'], '', '', '펙스번호', '', '', $od['mng']['fax']];
-        $data[] = ['펙스번호', '', '', $od['od_orderer_fax']];
+        $data[] = ['펙스번호', '', '', ($od['od_orderer_fax']??'')];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
 
@@ -505,14 +505,14 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $drawing = new Drawing();
         // $drawing->setName('Logo');
         // $drawing->setDescription('This is my logo');
-        $drawing->setPath(public_path('/img/common/estimate_logo.png'));
+        $drawing->setPath(public_path('img\estimate_logo.png'));
         $drawing->setHeight(42);
         $drawing->setCoordinates('C4');
 
         $drawing2 = new Drawing();
         // $drawing2->setName('Other image');
         // $drawing2->setDescription('This is a second image');
-        $drawing2->setPath(public_path('/img/common/addr_estimate200921.gif'));
+        $drawing2->setPath(public_path('img\addr_estimate200921.gif'));
         $drawing2->setHeight(80);
         $drawing2->setCoordinates('G3');
 

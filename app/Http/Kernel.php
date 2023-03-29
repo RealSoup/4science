@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
             // 설정 등록
-            \App\Http\Middleware\InfoRegister::class,
+            \App\Http\Middleware\CacheMaker::class,
         ],
 
         'api' => [
