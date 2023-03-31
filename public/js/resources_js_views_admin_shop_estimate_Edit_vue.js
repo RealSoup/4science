@@ -510,13 +510,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _iterator2.f();
       }
 
-      this.frm.er_gd_price = Object.values(collect).reduce(function (acc, el) {
+      this.frm.estimate_reply.er_gd_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.goods;
       }, 0);
-      this.frm.er_air_price = Object.values(collect).reduce(function (acc, el) {
+      this.frm.estimate_reply.er_air_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.air;
       }, 0);
-      this.frm.er_surtax = this.frm.er_gd_price * 0.1;
+      this.frm.estimate_reply.er_surtax = this.frm.estimate_reply.er_gd_price * 0.1;
 
       for (var key in collect) {
         if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
@@ -524,14 +524,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
 
-      this.frm.er_dlvy_price = dlvy;
+      this.frm.estimate_reply.er_dlvy_price = dlvy;
 
-      if (this.frm.er_no_dlvy_fee == 'Y') {
-        this.frm.er_dlvy_price = 0;
-        this.frm.er_air_price = 0;
+      if (this.frm.estimate_reply.er_no_dlvy_fee == 'Y') {
+        this.frm.estimate_reply.er_dlvy_price = 0;
+        this.frm.estimate_reply.er_air_price = 0;
       }
 
-      this.frm.er_all_price = this.frm.er_gd_price + this.frm.er_surtax + this.frm.er_dlvy_price + this.frm.er_air_price;
+      this.frm.estimate_reply.er_all_price = this.frm.estimate_reply.er_gd_price + this.frm.estimate_reply.er_surtax + this.frm.estimate_reply.er_dlvy_price + this.frm.estimate_reply.er_air_price;
     }
   }
 });

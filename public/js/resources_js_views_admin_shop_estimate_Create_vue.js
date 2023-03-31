@@ -60,17 +60,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: false,
       frm: {
-        estimate_req: {
-          eq_name: '',
-          eq_email: '',
-          eq_department: '',
-          eq_hp: '',
-          eq_tel: '',
-          eq_fax: '',
-          eq_content: ''
-        },
-        estimate_model: [],
-        file_info: []
+        estimate_reply: {}
       }
     };
   },
@@ -88,6 +78,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/create", {
                   params: {
+                    eq_id: _this.$route.query.eq_id,
                     er_id: _this.$route.query.er_id
                   }
                 });
@@ -141,7 +132,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 4:
-                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_3__.validationCheckerExtra)(_this2.frm)) {
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_3__.validationCheckerExtra)(_this2.frm.estimate_reply)) {
                   _context2.next = 6;
                   break;
                 }
@@ -158,11 +149,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
 
               case 11:
-                _this2.frm.er_step = 0;
+                _this2.frm.estimate_reply.er_step = 0;
                 return _context2.abrupt("break", 15);
 
               case 13:
-                _this2.frm.er_step = 1;
+                _this2.frm.estimate_reply.er_step = 1;
                 return _context2.abrupt("break", 15);
 
               case 15:
@@ -510,13 +501,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _iterator2.f();
       }
 
-      this.frm.er_gd_price = Object.values(collect).reduce(function (acc, el) {
+      this.frm.estimate_reply.er_gd_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.goods;
       }, 0);
-      this.frm.er_air_price = Object.values(collect).reduce(function (acc, el) {
+      this.frm.estimate_reply.er_air_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.air;
       }, 0);
-      this.frm.er_surtax = this.frm.er_gd_price * 0.1;
+      this.frm.estimate_reply.er_surtax = this.frm.estimate_reply.er_gd_price * 0.1;
 
       for (var key in collect) {
         if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
@@ -524,14 +515,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
 
-      this.frm.er_dlvy_price = dlvy;
+      this.frm.estimate_reply.er_dlvy_price = dlvy;
 
-      if (this.frm.er_no_dlvy_fee == 'Y') {
-        this.frm.er_dlvy_price = 0;
-        this.frm.er_air_price = 0;
+      if (this.frm.estimate_reply.er_no_dlvy_fee == 'Y') {
+        this.frm.estimate_reply.er_dlvy_price = 0;
+        this.frm.estimate_reply.er_air_price = 0;
       }
 
-      this.frm.er_all_price = this.frm.er_gd_price + this.frm.er_surtax + this.frm.er_dlvy_price + this.frm.er_air_price;
+      this.frm.estimate_reply.er_all_price = this.frm.estimate_reply.er_gd_price + this.frm.estimate_reply.er_surtax + this.frm.estimate_reply.er_dlvy_price + this.frm.estimate_reply.er_air_price;
     }
   }
 });
@@ -1169,11 +1160,11 @@ var render = function () {
       _c("FormSetting", {
         on: { all_dc_update: _vm.all_dc_apply },
         model: {
-          value: _vm.frm,
+          value: _vm.frm.estimate_reply,
           callback: function ($$v) {
-            _vm.frm = $$v
+            _vm.$set(_vm.frm, "estimate_reply", $$v)
           },
-          expression: "frm",
+          expression: "frm.estimate_reply",
         },
       }),
       _vm._v(" "),
@@ -1187,30 +1178,28 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _vm.frm.estimate_model.length
-        ? _c("FormGoods", {
-            ref: "form_goods",
-            attrs: { frm: _vm.frm },
-            on: { "hook:mounted": function ($event) {} },
-            model: {
-              value: _vm.frm.estimate_model,
-              callback: function ($$v) {
-                _vm.$set(_vm.frm, "estimate_model", $$v)
-              },
-              expression: "frm.estimate_model",
-            },
-          })
-        : _vm._e(),
+      _c("FormGoods", {
+        ref: "form_goods",
+        attrs: { frm: _vm.frm },
+        on: { "hook:mounted": function ($event) {} },
+        model: {
+          value: _vm.frm.estimate_model,
+          callback: function ($$v) {
+            _vm.$set(_vm.frm, "estimate_model", $$v)
+          },
+          expression: "frm.estimate_model",
+        },
+      }),
       _vm._v(" "),
       _c("FormExtra", {
         ref: "form_extra",
         attrs: { isLoadingModalViewed: _vm.isLoadingModalViewed },
         model: {
-          value: _vm.frm,
+          value: _vm.frm.estimate_reply,
           callback: function ($$v) {
-            _vm.frm = $$v
+            _vm.$set(_vm.frm, "estimate_reply", $$v)
           },
-          expression: "frm",
+          expression: "frm.estimate_reply",
         },
       }),
     ],

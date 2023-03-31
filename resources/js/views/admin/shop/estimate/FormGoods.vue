@@ -172,20 +172,20 @@ export default {
                     collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
             }
         
-            this.frm.er_gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
-            this.frm.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
-            this.frm.er_surtax = this.frm.er_gd_price*0.1;
+            this.frm.estimate_reply.er_gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
+            this.frm.estimate_reply.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
+            this.frm.estimate_reply.er_surtax = this.frm.estimate_reply.er_gd_price*0.1;
             for (var key in collect) {
                 if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
                     dlvy += Number(collect[key].dlvy);
                 }
             }
-            this.frm.er_dlvy_price = dlvy;
-            if (this.frm.er_no_dlvy_fee == 'Y') {
-                this.frm.er_dlvy_price  = 0;
-                this.frm.er_air_price   = 0;
+            this.frm.estimate_reply.er_dlvy_price = dlvy;
+            if (this.frm.estimate_reply.er_no_dlvy_fee == 'Y') {
+                this.frm.estimate_reply.er_dlvy_price  = 0;
+                this.frm.estimate_reply.er_air_price   = 0;
             }
-            this.frm.er_all_price = this.frm.er_gd_price+this.frm.er_surtax+this.frm.er_dlvy_price+this.frm.er_air_price;
+            this.frm.estimate_reply.er_all_price = this.frm.estimate_reply.er_gd_price+this.frm.estimate_reply.er_surtax+this.frm.estimate_reply.er_dlvy_price+this.frm.estimate_reply.er_air_price;
         },
     },
 }

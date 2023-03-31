@@ -135,6 +135,7 @@ label { margin-bottom:0; }
 
 .frm_st {  }
 .frm_st .row { margin-bottom:1.1rem; }
+.frm_st .row .col { padding-left:0; padding-right:0; }
 .frm_st .row .col.label_st { flex-basis:140px; max-width:140px; font-weight:bold; padding-top:6px; } 
 .frm_st .row .col .need { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px; }
 .frm_st .row .col small { font-size:60%; }

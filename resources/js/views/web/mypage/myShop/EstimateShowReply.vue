@@ -1,116 +1,112 @@
 <template>
 <b-container class="w_fence">
-    <h3>견적서 조회</h3>
+    <h3>견적서 조회 <b>Q-{{reply.er_id}}</b></h3>
     <ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
         <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
             Loading ......
         </LoadingModal>
         <div v-else>
-            <b-card class="shadow sticky-top my-4" body-class="p-2">
-                <b-row class="sticky-top">
-                    <b-col><b-button variant="light">목록</b-button></b-col>
-                    <b-col class="text-right">
-                        <b-button-group>
-                            <b-button variant="dark" @click="print">견적서 출력</b-button>
-                            <b-button variant="warning" @click="reEstimate">선택상품 재견적 요청</b-button>
-                            <b-button variant="success" @click="settle">선택상품 주문하기</b-button>
-                        </b-button-group>
-                    </b-col>
-                </b-row>
-            </b-card>
-
-            <b-container class="detail">
+            <b-container class="top">
                 <b-row>
                     <b-col>
-                        <b-row>
-                            <b-col cols="2">견적번호 :</b-col>
-                            <b-col>{{reply.er_id}}</b-col>
-                            <b-col cols="2">견적일자 :</b-col>
-                            <b-col>{{reply.created_at | formatDate_YYYY_MM_DD}}</b-col>
-                            <b-col cols="2">납품기일 :</b-col>
-                            <b-col>{{reply.er_dlvy_at}}</b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col cols="2">유효기간 :</b-col>
-                            <b-col>{{reply.er_effective_at}}</b-col>
-                            <b-col cols="2">담당자 / 문의 :</b-col>
-                            <b-col>
-                                {{reply.user.name}}<br />
-                                {{reply.user.tel}}<br />
-                                {{reply.user.email}}
-                            </b-col>
-                        </b-row>
+                        <span>견적일자</span>
+                        <b>{{reply.created_at | formatDate_YYYY_MM_DD}}</b>
+                    </b-col>
+                    <b-col>
+                        <span>유효기간</span>
+                        <b>{{reply.er_effective_at | formatDate_YYYY_MM_DD}}</b>
+                    </b-col>
+                    <b-col>
+                        <span>납품기일</span>
+                        <b>{{reply.er_dlvy_at | formatDate_YYYY_MM_DD}}</b>
+                    </b-col>
+                    <b-col>
+                        <span>담당자/문의</span>
+                        {{reply.user.name}}&nbsp;&nbsp;
+                        {{reply.user.tel}}&nbsp;&nbsp;
+                        {{reply.user.email}}
                     </b-col>
                 </b-row>
             </b-container>
 
             <b-container class="goods">
-                <b-row v-for="(em, i) in reply.estimate_model" :key="em.em_id">
-                    <b-col cols="2">
-                        <div class="custom-control custom-checkbox image-checkbox">
-                            <input type="checkbox" class="custom-control-input" :id="'ck'+em.em_id" v-model="em.em_check_opt" true-value="Y" false-value="N" @change="calculator" />
-                            <label class="custom-control-label" :for="'ck'+em.em_id">
-                                <img :src="em.goods.image_src_thumb[0]" class="img-fluid" />
-                            </label>
-                        </div>
+                <b-row>
+                    <b-col><b-form-checkbox class="myCheck" v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk" /></b-col>
+                    <b-col></b-col>
+                    <b-col>상품명 / 모델명</b-col>
+                    <b-col>판매가격</b-col>
+                    <b-col>수량</b-col>
+                    <b-col>합계</b-col>
+                </b-row>
+                <b-row v-for="em in reply.estimate_model" :key="em.em_id">
+                    <b-col>
+                        <b-form-checkbox class="myCheck" v-model="em.em_check_opt" value="Y" unchecked-value="N" @change="chkChange" />
                     </b-col>
                     <b-col>
-                        <b-link v-if="!!em.em_gd_id" variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
-                            {{em.em_name}}
-                            <P class="bg-light">
-                                {{em.em_catno}} /
-                                {{em.em_code}} /
-                                {{em.em_spec}} /
-                                {{em.em_unit}} /
-                            </P>
+                        <b-link v-if="!!em.em_gd_id" :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
+                            <img :src="em.goods.image_src_thumb[0]" class="img-fluid" />
+                        </b-link>
+                        <img v-else :src="em.goods.image_src_thumb[0]" class="img-fluid" />
+                    </b-col>
+                    <b-col>
+                        <b-link v-if="!!em.em_gd_id" :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
+                            <b>{{em.em_name}}</b>
+                            <p>
+                                모델명: {{em.em_code}} / Cat.No.: {{em.em_catno}}<br />
+                                사양: {{em.em_spec}}<br />
+                                판매단위: {{em.em_unit}}
+                            </p>
                         </b-link>
                         <div v-else>
                             {{em.em_name}}
-                            <P class="bg-light"> {{em.em_catno}} / {{em.em_code}} / {{em.em_spec}} / {{em.em_unit}} / </P>
+                            <p>
+                                모델명: {{em.em_code}} / Cat.No.: {{em.em_catno}}<br />
+                                사양: {{em.em_spec}}<br />
+                                판매단위: {{em.em_unit}}
+                            </p>
                         </div>
                     </b-col>
+                    <b-col>{{em.em_price | rrp | comma | won}}</b-col>
+                    <b-col>{{em.em_ea}}</b-col>
+                    <b-col>{{em.em_price*em.em_ea | rrp | comma | won}}</b-col>
+                    <template v-if="em.estimate_option.length">
+                        <b-col cols="12" v-for="eo in em.estimate_option" :key="eo.eo_id">
+                            <b-col></b-col>
+                            <b-col>추가 옵션</b-col>
+                            <b-col>{{eo.eo_tit}}:{{eo.eo_name}}</b-col>
+                            <b-col>{{eo.eo_price | rrp | comma | won}}</b-col>
+                            <b-col>{{eo.eo_ea}}</b-col>
+                            <b-col>{{eo.eo_price*eo.eo_ea | rrp | comma | won}}</b-col>
+                        </b-col>
+                    </template>
+                </b-row>
+            </b-container>
+
+            <b-container class="sum_up">
+                <b-row class="total">
+                    <b-col>상품금액</b-col>
+                    <b-col><b>{{(reply.er_gd_price+reply.er_surtax) | comma | won}}</b></b-col>
+                    <b-col>배송료</b-col>
+                    <b-col><b>{{reply.er_dlvy_price | comma | won}}</b></b-col>
+                    <b-col>결제 예정 금액</b-col>
+                    <b-col><b>{{reply.er_all_price | comma | won}}</b></b-col>
+                </b-row>
+                <b-row class="total_sub">
                     <b-col>
-                        {{em.em_price | rrp}} 원
-                        <font-awesome-icon icon="times" />
-                        {{ em.em_ea }} 개
-                        <font-awesome-icon icon="equals" />
-                        <b class="md_multi">{{em.em_price*em.em_ea | rrp}} 원</b>
+                        <div><b-col>상품가</b-col><b-col>{{reply.er_gd_price | comma | won}}</b-col></div>
+                        <div><b-col>부가세</b-col><b-col>{{reply.er_surtax | comma | won}}</b-col></div>
                     </b-col>
-                    <b-col v-if="em.estimate_option.length" cols="12" class="row m-3 p-0">
-                        <b-col offset="5" cols="1" class="text-right">
-                            <b-badge variant="warning" class="float-left clear-both">옵션</b-badge>
-                        </b-col>
-                        <b-col>
-                            <b-row v-for="(option, i) in em.estimate_option" :key="option.eo_id" class="text-right">
-                                <b-col>
-                                    <label>
-                                        <input type="checkbox" v-model="option.eo_check_opt" true-value="Y" false-value="N" @change="calculator" />
-                                        <span>{{option.eo_tit}}: <b>{{option.eo_name}}</b></span>
-                                        <i>수량: <b>{{option.eo_ea}}</b> 개</i>
-                                    </label>
-                                </b-col>
-                                <b-col>
-                                    {{option.eo_price | rrp}} 원
-                                    <font-awesome-icon icon="times" />
-                                    {{ option.eo_ea }} 개
-                                    <font-awesome-icon icon="equals" />
-                                    <b class="md_multi">{{option.eo_price*option.eo_ea | rrp}} 원</b>
-                                </b-col>
-                            </b-row>
-                        </b-col>
+                    <b-col>
+                        <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col></div>
+                        <div><b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col></div>
+                    </b-col>
+                    <b-col>
+                        <div><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col></div>
                     </b-col>
                 </b-row>
             </b-container>
 
-            <b-container class="price">
-                <b-row>
-                    <b-col cols="12">총합 : <b>{{gd_price | comma}} 원</b></b-col>
-                    <b-col cols="12">부가세 : <b>{{surtax | comma}} 원</b></b-col>
-                    <b-col cols="12">배송료 : <b>{{dlvy_price | comma}} 원</b></b-col>
-                    <b-col cols="12" v-if="air_price">항공운임료: <b>{{air_price | comma}} 원</b></b-col>
-                    <b-col cols="12">최종 결제 금액 : <b>{{all_price | comma}} 원</b></b-col>
-                </b-row>
-            </b-container>
+   
             <b-container>
                 <b-row>
                     <b-col cols="2">추가정보 :</b-col>
@@ -147,7 +143,7 @@ import ax from '@/api/http';
 import { Validator } from 'vee-validate';
 
 export default {
-    name: "MyOrder",
+    name: "mypageEstimateReplyShow",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
     },
@@ -161,6 +157,19 @@ export default {
             air_price: 0,
             all_price: 0,
         }
+    },
+    computed: {
+        dlvy_4s () {
+            return this.reply.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
+        },
+        dlvy_other () {
+            return Object.values(this.od.order_purchase_at).reduce((acc, el) => {
+                return acc + (el.odpa_pa_name != '' ? el.odpa_dlvy_p_add_vat : 0)
+            }, 0);
+        },
+        sum_mileage () {
+            return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
+        },
     },
     methods:{
         async show(){
@@ -239,6 +248,29 @@ export default {
         getValidationState({ dirty, validated, valid = null }) {
             return dirty || validated ? valid : null;
         },
+
+        chkChange () {
+            let chkCnt = this.ledger.data.filter(el => el.chk_cplt==true).length;
+            if (chkCnt === 0) {
+                this.indeterminate = false;
+                this.allSelected = false;
+            } else if (chkCnt === this.ledger.data.length) {
+                this.indeterminate = false;
+                this.allSelected = true;
+            } else {
+                this.indeterminate = true;
+                this.allSelected = false;
+            }
+
+            this.calculator();
+        },
+
+        toggle_all_chk(checked) {
+            this.ledger.data.forEach(el => {
+                el.chk_cplt = checked ? true : false;
+            });
+            this.indeterminate = false;
+        },
     },
     mounted() {
         this.show();
@@ -248,6 +280,37 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.sum_up { border-top:3px solid #4F637B; }
+.sum_up .total { border-bottom:1px solid #D6D6D6; }
+.sum_up .total .col { color:#000; font-weight:bold; padding:1rem .5rem; }
+.sum_up .total .col b { font-size:1.4rem; }
+
+.sum_up .total .col:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center; }
+.sum_up .total .col:nth-of-type(even) { padding-right:2rem; text-align:right; }
+
+.sum_up .total .col:nth-of-type(1) {  }
+.sum_up .total .col:nth-of-type(2) {  border-right:1px solid #D6D6D6; }
+.sum_up .total .col:nth-of-type(4):after,
+.sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
+.sum_up .total .col:nth-of-type(2):after { content:"+"; }
+.sum_up .total .col:nth-of-type(3) {  }
+.sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
+.sum_up .total .col:nth-of-type(4):after { content:"="; }
+.sum_up .total .col:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%; }
+.sum_up .total .col:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%; }
+.sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
+.sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
+.sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
+.sum_up .total_sub>.col:nth-of-type(3) { flex-basis:39%; max-width:39%; }
+.sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
+.sum_up .total_sub .col>div:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem; }
+.sum_up .total_sub .col>div:nth-of-type(2) { padding:0 1rem 2.5rem 1rem; }
+.sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
+.sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+
+
+
+
 
 .estimate_show .goods>.row { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;  }
 .estimate_show .goods>.row>div img { width:100px; height:100px; object-fit:cover; }

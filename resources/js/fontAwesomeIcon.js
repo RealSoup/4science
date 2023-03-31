@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
     faTags, faSortNumericDownAlt, faClock, faUser, faPhone, faAt, faMapMarkedAlt, faInfo, faTimes, faEquals,
     faMobileAlt, faStream, faHandPointUp, faFax, faUsers, faCommentDots, faTools, faSave, faBomb, faDollyFlatbed,
-    faSearch,
+    faSearch, faCopy
 } from "@fortawesome/free-solid-svg-icons";
 // import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
@@ -17,10 +17,10 @@ import {
 library.add(
     faTags, faSortNumericDownAlt, faClock, faUser, faPhone, faAt, faMapMarkedAlt, faInfo, faTimes, faEquals,
     faMobileAlt, faStream, faHandPointUp, faFax, faUsers, faCommentDots, faTools, faSave, faBomb, faDollyFlatbed,
-    faSearch,
+    faSearch, faCopy
 );
 // library.add(faTrashAlt);
 
 // fontawesome아이콘을 Vue탬플릿에 사용할 수 있게 등록해 줍니다.
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;

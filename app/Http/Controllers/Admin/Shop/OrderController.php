@@ -251,7 +251,7 @@ class OrderController extends Controller {
 		// $params['site_code'] = config('const.dlvy.siteCode');
 		// $params['dlvy_com_code'] = config('const.dlvy.dlvyComCode');
 		// $params['refund_bank_code'] = config('const.iamport.bank_code');
-		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('mng')->find($od_id);
+		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('orderPg')->with('mng')->find($od_id);
 		if ($data->mng)
 			$data->mng->userMng;
 		foreach ($data->orderPurchaseAt as $opa) {
@@ -311,7 +311,7 @@ class OrderController extends Controller {
 						if ($gapEa) {
 							$odModel->odm_ea = $odm['odm_ea'];
 							$odModel->save();
-							if (DB::table('mileage')->where([['ml_tbl', 'shop_order_model'], ['ml_key', $odm['odm_id']]])->exists()) {
+							if (DB::table('user_mileage')->where([['ml_tbl', 'shop_order_model'], ['ml_key', $odm['odm_id']]])->exists()) {
 								$m = new \App\Models\Mileage;
 								$gapMileage = $m->mileage_calculation($odm['odm_price'], $gapEa, auth()->user()->level);
 								event(new Mileage("insert", $req->created_id, 'shop_order_model', $odm['odm_id'], 'SV', '수량 변경', -$gapMileage));

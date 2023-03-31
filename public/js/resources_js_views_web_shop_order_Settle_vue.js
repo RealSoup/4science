@@ -505,7 +505,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 35;
+                  _context.next = 36;
                   break;
                 }
 
@@ -542,26 +542,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 35;
+                  _context.next = 36;
                   break;
                 }
 
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 28;
+                  _context.next = 29;
                   break;
                 }
 
                 frm = new FormData();
                 frm.append('fi_group', 'order');
                 frm.append('fi_key', pay.data.od_id);
+                frm.append('fi_kind', 'biz');
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 28;
+                _context.next = 29;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 28:
+              case 29:
                 if (!(_this.order.od_pay_method == 'C')) {
-                  _context.next = 33;
+                  _context.next = 34;
                   break;
                 }
 
@@ -612,11 +613,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   document.body.appendChild(form);
                   form.submit();
                 }
-                _context.next = 35;
+                _context.next = 36;
                 break;
 
-              case 33:
-                _context.next = 35;
+              case 34:
+                _context.next = 36;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -624,7 +625,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 35:
+              case 36:
               case "end":
                 return _context.stop();
             }
@@ -2690,7 +2691,7 @@ var render = function () {
                         _vm.order.od_pay_method == "B" ||
                         _vm.order.od_pay_method == "E"
                           ? _c("div", { staticClass: "tax_paper" }, [
-                              _c("h6", [_vm._v("지출 증빙")]),
+                              _c("h6", [_vm._v("지출 증빙 서류")]),
                               _vm._v(" "),
                               _c(
                                 "div",

@@ -78,6 +78,10 @@
     <b-container class="cmain">
         <b-row>
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+            <b-col sm="12" md="6" class="text-right">
+                <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
+                <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
+            </b-col>
         </b-row>
         <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng="mng" />
         

@@ -887,7 +887,10 @@ var render = function () {
                                 variant: "success",
                                 to: {
                                   name: "adm_estimate_create",
-                                  query: { er_id: _vm.$route.params.er_id },
+                                  query: {
+                                    eq_id: _vm.frm.estimate_req.eq_id,
+                                    er_id: _vm.$route.params.er_id,
+                                  },
                                 },
                               },
                             },

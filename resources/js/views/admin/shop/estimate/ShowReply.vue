@@ -22,7 +22,7 @@
                             <b-button variant="dark" @click="passOrder"><b-icon-box-arrow-up-right /> 임의주문</b-button> 
                             <!-- <b-button variant="info" @click="onlineBooks"><b-icon-journal-bookmark-fill /> 영업장부</b-button> -->
                             <b-button variant="primary" @click="reSend"><b-icon-mailbox /> 재발송</b-button>
-                            <b-button variant="success" :to="{name: 'adm_estimate_create', query: { er_id:$route.params.er_id }}"><b-icon-pencil-square /> 재작성</b-button>
+                            <b-button variant="success" :to="{name: 'adm_estimate_create', query: { eq_id:frm.estimate_req.eq_id, er_id:$route.params.er_id }}"><b-icon-pencil-square /> 재작성</b-button>
                             <b-button variant="warning" :to="{name: 'adm_estimate_edit', params: { er_id:$route.params.er_id }}"><b-icon-tools /> 수정</b-button>
                             <b-button variant="danger" @click="destroy"><b-icon-trash-fill /> 삭제</b-button>
                         </b-button-group>

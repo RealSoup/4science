@@ -158,24 +158,33 @@ class EstimateController extends Controller {
     }
 
     public function create(Request $req) {
-        if ($req->filled('er_id')) {
-            $data = $this->estimateReply->with('estimateReq')->with('fileInfo')->find($req->er_id);
-            if ($data->estimateModel()->exists()) {
-                foreach ($data->estimateModel as $em) {
-                    $em->goods->purchaseAt;
-                    $em->bundleDc;
-                    $em->estimateOption;
-                }
+        if ($req->filled('eq_id')) {
+            $data['estimate_req'] = $this->estimateReq->find($req->eq_id);
+            
+            if ($req->filled('er_id')) {
+                $data['estimate_reply'] = $this->estimateReply->with('fileInfo')->find($req->er_id);
+                $data['estimate_model'] = $data['estimate_reply']->estimateModel;                
+            } else {
+                if ($data['estimate_req']->estimateModel()->exists())
+                    $data['estimate_model'] = $data['estimate_req']->estimateModel;
             }
+            foreach ($data['estimate_model'] as $em) {
+                $em->goods->purchaseAt;
+                $em->bundleDc;
+                $em->estimateOption;
+            }
+        } else {
+            $data['estimate_req'] = new class{};
+            $data['estimate_model'] = [$this->emptyEm()];
         }
-        $data['estimate_req'] = new class{};
-        $data['estimate_model'] = [$this->emptyEm()];
-        $data['empty_goods'] = new Goods;
+        if (!$req->filled('eq_id') || !$req->filled('er_id')) {
+            $data['estimate_reply']['file_info'] = [];
+            
+        }
+        // $data['empty_goods'] = new Goods;
         $data['empty_em'] = $this->emptyEm();
-        $data['er_effective_at'] = date("Y-m-d", strtotime("+2 week"));
-        $data['file_info'] = [];
-        // $data['er_effective_at'] = date("Y-m-d", strtotime("+1 week"));
-        // foreach ($data['con']->estimateModel as $em) $em->img_src = $this->goods->find($em->em_gd_id)->gdImgSrc(true);
+        $data['estimate_reply']['er_effective_at'] = date("Y-m-d", strtotime("+2 week"));
+        // $data['file_info'] = [];
         return response()->json($data);
     }
 
@@ -214,7 +223,7 @@ class EstimateController extends Controller {
     public function store(StoreEstimateReply $req) {
         $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
         $eq_impl['ip'] = $req->ip();
-        $eq_id = $req->filled('eq_id') ? $req->eq_id : 0;
+        $eq_id = array_key_exists('eq_id', $req->estimate_req) ? $req->estimate_req['eq_id'] : 0;
         if ($eq_id) {
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
             $eq_impl['eq_step'] = 'DONE';
@@ -226,7 +235,8 @@ class EstimateController extends Controller {
             DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update(['eq_step' => 'DONE']);
         }
 
-        $er_impl = $this->estimateReply_paramImplant($req);
+        $er_impl = $this->estimateReply_paramImplant($req->estimate_reply);
+        $er_impl['ip'] = $req->ip();
         $er_impl['created_id'] = auth()->check() ? auth()->user()->id : 0;
         $er_impl['er_eq_id'] = $eq_id;
         $er_id = DB::table('shop_estimate_reply')->insertGetId($er_impl, 'eq_id');
@@ -241,27 +251,28 @@ class EstimateController extends Controller {
             }
         }
 
-        if ($req->er_step == 1) { //  견적서 메일 발송
-            $to_email = $req->eq_email;
-            $to_name = $req->eq_name;
+        if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
+            $to_email = $req->estimate_req['eq_email'];
+            $to_name = $req->estimate_req['eq_name'];
+            $p_er = $req->estimate_reply;
             $params = [
-                'eq_name'         => $req->eq_name,
+                'eq_name'         => $req->estimate_req['eq_name'],
                 'er_id'           => $er_id,
                 'eq_id'           => $eq_id,
                 'estimated_date'  => \Carbon\Carbon::now(),
-                'er_dlvy_at'      => $req->er_dlvy_at,
-                'er_effective_at' => $req->er_effective_at,
+                'er_dlvy_at'      => array_key_exists('er_dlvy_at',      $p_er) && $p_er['er_dlvy_at']      ?  $p_er['er_dlvy_at'] : '',
+                'er_effective_at' => array_key_exists('er_effective_at', $p_er) && $p_er['er_effective_at'] ?  $p_er['er_effective_at'] : '',
                 'eq_mng_nm'       => auth()->user()->name,
                 'er_mng_tel'      => auth()->user()->tel,
                 'er_mng_email'    => auth()->user()->email,
                 'estimate_model'  => $req->estimate_model,
-                'er_content'      => $req->er_content,
-                'er_gd_price'     => $req->er_gd_price,
-                'er_surtax'       => $req->er_surtax,
-                'er_dlvy_price'   => $req->er_dlvy_price,
-                'er_air_price'    => $req->er_air_price,
-                'er_all_price'    => $req->er_all_price,
-                'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
+                'er_content'      => array_key_exists('er_content',      $p_er) && $p_er['er_content']      ?  $p_er['er_content'] : '',
+                'er_gd_price'     => array_key_exists('er_gd_price',     $p_er) && $p_er['er_gd_price']     ?  $p_er['er_gd_price'] : 0,
+                'er_surtax'       => array_key_exists('er_surtax',       $p_er) && $p_er['er_surtax']       ?  $p_er['er_surtax']       : 0,
+                'er_dlvy_price'   => array_key_exists('er_dlvy_price',   $p_er) && $p_er['er_dlvy_price']   ?  $p_er['er_dlvy_price'] : 0,
+                'er_air_price'    => array_key_exists('er_air_price',    $p_er) && $p_er['er_air_price']    ?  $p_er['er_air_price'] : 0,
+                'er_all_price'    => array_key_exists('er_all_price',    $p_er) && $p_er['er_all_price']    ?  $p_er['er_all_price'] : 0,
+                'er_no_dlvy_fee'  => array_key_exists('er_no_dlvy_fee',  $p_er) && $p_er['er_no_dlvy_fee']  ? $p_er['er_no_dlvy_fee']  : 'N',
                 'redirect_url'    => 'dddd',
                 'domain'          => cache('site')['domain'],
             ];
@@ -400,17 +411,16 @@ class EstimateController extends Controller {
                     'eq_mng'        => auth()->check() ? auth()->user()->id : 0, ];
     }
     public function estimateReply_paramImplant($req){
-        return [    'er_step'            => $req->filled('er_step')            ? $req->er_step            : 0,
-                    'er_content'         => $req->filled('er_content')         ? $req->er_content         : '',
-                    'er_dlvy_at'         => $req->filled('er_dlvy_at')         ? $req->er_dlvy_at         : '',
-                    'er_effective_at'    => $req->filled('er_effective_at')    ? $req->er_effective_at    : '',
-                    'er_gd_price'        => $req->filled('er_gd_price')        ? $req->er_gd_price        : 0,
-                    'er_surtax'          => $req->filled('er_surtax')          ? $req->er_surtax          : 0,
-                    'er_dlvy_price'      => $req->filled('er_dlvy_price')      ? $req->er_dlvy_price      : 0,
-                    'er_air_price'       => $req->filled('er_air_price')       ? $req->er_air_price       : 0,
-                    'er_all_price'       => $req->filled('er_all_price')       ? $req->er_all_price       : 0,
-                    'er_no_dlvy_fee'     => $req->filled('er_no_dlvy_fee')     ? $req->er_no_dlvy_fee     : 'N',
-                    'ip'                 => $req->ip(), ];
+        return [    'er_step'            => array_key_exists('er_step',         $req) && $req['er_step']         ? $req['er_step']         : 0,
+                    'er_content'         => array_key_exists('er_content',      $req) && $req['er_content']      ? $req['er_content']      : '',
+                    'er_dlvy_at'         => array_key_exists('er_dlvy_at',      $req) && $req['er_dlvy_at']      ? $req['er_dlvy_at']      : '',
+                    'er_effective_at'    => array_key_exists('er_effective_at', $req) && $req['er_effective_at'] ? $req['er_effective_at'] : '',
+                    'er_gd_price'        => array_key_exists('er_gd_price',     $req) && $req['er_gd_price']     ? $req['er_gd_price']     : 0,
+                    'er_surtax'          => array_key_exists('er_surtax',       $req) && $req['er_surtax']       ? $req['er_surtax']       : 0,
+                    'er_dlvy_price'      => array_key_exists('er_dlvy_price',   $req) && $req['er_dlvy_price']   ? $req['er_dlvy_price']   : 0,
+                    'er_air_price'       => array_key_exists('er_air_price',    $req) && $req['er_air_price']    ? $req['er_air_price']    : 0,
+                    'er_all_price'       => array_key_exists('er_all_price',    $req) && $req['er_all_price']    ? $req['er_all_price']    : 0,
+                    'er_no_dlvy_fee'     => array_key_exists('er_no_dlvy_fee',  $req) && $req['er_no_dlvy_fee']  ? $req['er_no_dlvy_fee']  : 'N',];
     }
     public function estimateModel_paramImplant($em, $er_id){
         return [    'em_type'       => 'estimateReply',

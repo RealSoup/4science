@@ -2,10 +2,10 @@
     <b-container id="adm_estimate_create" class="p_wrap">
         <h3>견적서 작성</h3>
         <FormCtrl @save="store" />
-        <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
+        <FormSetting v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" />
         <FormUser v-model="frm.estimate_req" />
-        <FormGoods ref="form_goods" v-model="frm.estimate_model" v-if="frm.estimate_model.length" :frm="frm" @hook:mounted="" />
-        <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
+        <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:mounted="" />
+        <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
     </b-container>
 </template>
 
@@ -27,26 +27,19 @@ export default {
     },
     data() {
         return {
-            isLoadingModalViewed:false,
-            frm:{
-                estimate_req: {
-                    eq_name:'',
-                    eq_email:'',
-                    eq_department:'',
-                    eq_hp:'',
-                    eq_tel:'',
-                    eq_fax:'',
-                    eq_content:'',
-                },
-                estimate_model: [],
-                file_info: [],
+            isLoadingModalViewed: false,
+            frm: {
+                estimate_reply:{},
             },
         }
     },
     methods: {
         async create() {
             try {
-                const res = await ax.get(`/api/admin/shop/estimate/create`, {params:{er_id:this.$route.query.er_id}});
+                const res = await ax.get(`/api/admin/shop/estimate/create`, {params:{
+                        eq_id:this.$route.query.eq_id,
+                        er_id:this.$route.query.er_id
+                    }});
                 if (res && res.status === 200) {
                     this.frm = res.data;
                 }
@@ -57,14 +50,14 @@ export default {
         },
 
         async store(type){
-            if (!validationCheckerUser(this.frm.estimate_req))                   return false;
+            if (!validationCheckerUser(this.frm.estimate_req))      return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
-            if (!validationCheckerExtra(this.frm))                  return false;
+            if (!validationCheckerExtra(this.frm.estimate_reply))   return false;
             try {
                 this.$refs.form_goods.calculator();
                 switch (type) {
-                    case 'store': this.frm.er_step = 0; break;
-                    case 'send': this.frm.er_step = 1; break;
+                    case 'store': this.frm.estimate_reply.er_step = 0; break;
+                    case 'send': this.frm.estimate_reply.er_step = 1; break;
                 }
                 this.isLoadingModalViewed=true;
                 const res = await ax.post(`/api/admin/shop/estimate`, this.frm);

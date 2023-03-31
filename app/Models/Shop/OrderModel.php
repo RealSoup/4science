@@ -9,11 +9,12 @@ class OrderModel extends Model {
     protected $table = 'shop_order_model';
     protected $primaryKey = 'odm_id';
     public $timestamps = false;
-    protected $appends = ['dlvy_chk', 'img_src', 'odm_price_add_vat', 'b2b_chk', 'req_order'];
+    protected $appends = ['dlvy_chk', 'dlvy_all_in', 'img_src', 'odm_price_add_vat', 'b2b_chk', 'req_order'];
 
     public function getB2bChkAttribute() { return false; }
     public function getReqOrderAttribute() { return ''; }
     public function getDlvyChkAttribute() { return 'N'; }    //  관리자 주문 상세페이지 일괄 배송정보 등록시 사용
+    public function getDlvyAllInAttribute() { return FALSE; }   //  관리자 주문 상세페이지 배송비 몰방 등록시 사용
     public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
     public function getOdmPriceAddVatAttribute() { return intval($this->odm_price*1.1); }
 

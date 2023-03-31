@@ -69,7 +69,7 @@ class Order extends Model {
     public function orderModel() { return $this->hasMany(OrderModel::class, "odm_od_id"); }
     public function orderExtraInfo() { return $this->hasOne(OrderExtraInfo::class, 'oex_od_id', 'od_id'); }
     public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
-    public function pg() { return $this->hasOne(Pg::class, 'pg_od_no', 'od_no'); }
+    public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id'); }
 
     public function scopeStartDate($q, $d)          { return $q->whereDate('shop_order.created_at', '>=', $d); }
     public function scopeEndDate($q, $d)            { return $q->whereDate('shop_order.created_at', '<=', $d); }

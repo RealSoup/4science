@@ -111,6 +111,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -718,6 +722,24 @@ var render = function () {
                   _c("b-badge", { attrs: { variant: "info" } }, [
                     _vm._v(_vm._s(this.list.total)),
                   ]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "text-right", attrs: { sm: "12", md: "6" } },
+                [
+                  _c(
+                    "b-badge",
+                    { staticClass: "yellow", attrs: { pill: "" } },
+                    [_vm._v(" ")]
+                  ),
+                  _vm._v(" 미수회원\r\n                "),
+                  _c("b-badge", { staticClass: "gray", attrs: { pill: "" } }, [
+                    _vm._v(" "),
+                  ]),
+                  _vm._v(" 취소주문\r\n            "),
                 ],
                 1
               ),

@@ -156,6 +156,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     focusNext: function focusNext(e, max, next) {
       this.$focusNext(e, max, next);
+    },
+    frm_formatHp: function frm_formatHp(v) {
+      return this.formatHp(v);
+    },
+    frm_formatBiz: function frm_formatBiz(v) {
+      return this.formatBiz(v);
     }
   }
 });
@@ -416,7 +422,11 @@ var render = function () {
                               _vm._v(" "),
                               _c("b-form-input", {
                                 ref: "oex_biz_num",
-                                attrs: { id: "oex_biz_num", size: "sm" },
+                                attrs: {
+                                  id: "oex_biz_num",
+                                  size: "sm",
+                                  formatter: _vm.frm_formatBiz,
+                                },
                                 model: {
                                   value: _vm.value.oex_biz_num,
                                   callback: function ($$v) {
@@ -601,7 +611,11 @@ var render = function () {
                               _vm._v(" "),
                               _c("b-form-input", {
                                 ref: "oex_num_tel",
-                                attrs: { id: "oex_num_tel", size: "sm" },
+                                attrs: {
+                                  id: "oex_num_tel",
+                                  size: "sm",
+                                  formatter: _vm.frm_formatHp,
+                                },
                                 model: {
                                   value: _vm.value.oex_num_tel,
                                   callback: function ($$v) {

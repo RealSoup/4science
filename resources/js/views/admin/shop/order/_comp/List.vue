@@ -12,7 +12,7 @@
         <b-col><span class="d-none d-lg-block">진행</span>현황</b-col>
         <b-col class="d-none d-lg-block">담당자</b-col>
     </b-row>
-    <b-row class="body" :class="{cancel:row.od_step==60}" v-for="row in list" :key="row.mk_id">
+    <b-row class="body" :class="{cancel:row.od_step==60, don_t:(row.user && row.user.group==3)}" v-for="row in list" :key="row.mk_id">
         <b-col class="d-none d-lg-block">{{row.od_id}}.</b-col>
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
         <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
@@ -67,6 +67,8 @@ export default {
 #order_list .body:hover { background:#B2E0FA; }
 #order_list .cancel { background:#D7D7D7; }
 #order_list .cancel .col { color:#9F9F9F; }
+#order_list .don_t { background:#FECE02; }
+
 #order_list .body .step span { width:90px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:.3rem; border-width:1px; border-style:solid; }
 #order_list .body .type,
 #order_list .body .orderer { line-height:1.5rem; }

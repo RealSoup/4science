@@ -4363,14 +4363,8 @@ var render = function () {
                     "b-col",
                     { staticClass: "awesome_p" },
                     [
-                      _c("input", {
+                      _c("b-form-input", {
                         directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.value.er_dlvy_at,
-                            expression: "value.er_dlvy_at",
-                          },
                           {
                             name: "b-tooltip",
                             rawName: "v-b-tooltip.hover",
@@ -4378,23 +4372,15 @@ var render = function () {
                           },
                         ],
                         attrs: {
-                          type: "text",
                           id: "er_dlvy_at",
-                          required: "",
                           title: "입력예: 2주이내, 1개월 이내",
                         },
-                        domProps: { value: _vm.value.er_dlvy_at },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.value,
-                              "er_dlvy_at",
-                              $event.target.value
-                            )
+                        model: {
+                          value: _vm.value.er_dlvy_at,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "er_dlvy_at", $$v)
                           },
+                          expression: "value.er_dlvy_at",
                         },
                       }),
                       _vm._v(" "),
@@ -4540,7 +4526,7 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                    첨부파일 전송중 ......\n                "
+                            "\r\n                    첨부파일 전송중 ......\r\n                "
                           ),
                         ]
                       )

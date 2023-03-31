@@ -21,8 +21,8 @@ class StoreEstimateReply extends FormRequest {
             'estimate_model*em_price'  => 'required',
             'estimate_model*em_spec'  => 'required',
 
-            'er_dlvy_at' => 'required',
-            'er_effective_at' => 'required',
+            'estimate_reply.er_dlvy_at' => 'required',
+            'estimate_reply.er_effective_at' => 'required',
         ];
     }
 

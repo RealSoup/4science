@@ -340,7 +340,7 @@ class OrderController extends Controller {
     }
 
     public function show($od_id) {
-        $data = $this->order->with('OrderPurchaseAt')->find($od_id);
+        $data = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->find($od_id);
 
         foreach ($data->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm)
@@ -432,6 +432,7 @@ class OrderController extends Controller {
                         'pg_pay_type' => $resultMap['payMethod'],
                         'pg_price'    => $resultMap['CARD_ApplPrice'],
                         'pg_card_com' => OrderPg::$option['cardComNm'][$resultMap['CARD_Code']],
+                        'pg_buyer_nm' => $resultMap['buyerName'],
                         'pg_code'     => $resultMap['resultCode'],
                         'pg_msg'      => $resultMap['resultMsg']]);
 
@@ -501,6 +502,7 @@ class OrderController extends Controller {
                     'pg_pay_type' => $result['P_TYPE'],
                     'pg_price'    => $result['P_AMT'],
                     'pg_card_com' => OrderPg::$option['cardComNm'][$result['P_FN_CD1']],
+                    'pg_buyer_nm' => $resultMap['P_UNAME'],
                     'pg_code'     => $result['P_STATUS'],
                     'pg_msg'      => $result['P_RMESG1']]);
                 

@@ -254,7 +254,7 @@
                     
                     <transition name="slideUpDown">
                         <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
-                            <h6>지출 증빙</h6>
+                            <h6>지출 증빙 서류</h6>
                             <div>
                                 <b-form-radio v-model="order.extra.oex_type" value="IV" @click.native="tax_invoice()">세금계산서</b-form-radio>
                                 <b-form-radio v-model="order.extra.oex_type" value="HP" @click.native="tax_invoice()">현금영수증</b-form-radio>
@@ -478,6 +478,7 @@ export default {
                         let frm = new FormData();
                         frm.append('fi_group', 'order');
                         frm.append('fi_key', pay.data.od_id);
+                        frm.append('fi_kind', 'biz');
                         frm.append('fi_room', new Date().getFullYear());
                         frm.append("file[]", this.order.extra.oex_file);
                         await ax.post('/api/upload', frm);

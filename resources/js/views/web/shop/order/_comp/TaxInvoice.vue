@@ -22,7 +22,7 @@
                 </b-row>
                 <b-row>
                     <label for="oex_biz_num">등록번호</label>
-                    <b-form-input v-model="value.oex_biz_num" ref="oex_biz_num" id="oex_biz_num" size="sm" />
+                    <b-form-input v-model="value.oex_biz_num" ref="oex_biz_num" id="oex_biz_num" size="sm" :formatter="frm_formatBiz" />
                 </b-row>
                 <b-row>
                     <label for="oex_biz_type">업태/종목</label>
@@ -57,7 +57,7 @@
                 </b-row>
                 <b-row>
                     <label for="oex_num_tel">연락처</label>
-                    <b-form-input v-model="value.oex_num_tel" ref="oex_num_tel" id="oex_num_tel" size="sm" />
+                    <b-form-input v-model="value.oex_num_tel" ref="oex_num_tel" id="oex_num_tel" size="sm" :formatter="frm_formatHp" />
                 </b-row>            
             </b-container>
         </transition>
@@ -130,6 +130,9 @@ export default {
         maxlength_6(e){ return String(e).substring(0, 6); },
         maxlength_7(e){ return String(e).substring(0, 7); },
         focusNext(e, max, next) { this.$focusNext(e, max, next); },
+        frm_formatHp(v)   { return this.formatHp(v); },
+        frm_formatBiz(v)   { return this.formatBiz(v); },
+        
     }
 
 
