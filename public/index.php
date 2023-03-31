@@ -4,6 +4,8 @@ if($_SERVER["REMOTE_ADDR"] == '125.132.234.16')
     echo "<div style='text-align:center;'><img src='https://fourscience.s3.ap-northeast-2.amazonaws.com/common/no_access.jpg' width='80%' /></div>";
 else
     echo 123;
+
+    var_dump($_SERVER["REMOTE_ADDR"]);
 return false;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
