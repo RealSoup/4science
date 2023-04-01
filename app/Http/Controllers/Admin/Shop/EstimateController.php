@@ -387,16 +387,16 @@ class EstimateController extends Controller {
             'redirect_url'    => 'dddd',
             'domain'          => cache('site')['domain'],
         ];
-        $this->estimateMailSend($to_email, $to_name, $params, $er_id);
+        return $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }
 
     public function estimateMailSend($to_email, $to_name, $content, $er_id) {
-        // $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
-        // $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id)]);
-        // // $pdf->setOptions(['dpi' => 96 ]);
-        // $filename = uniqid();
-        // Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-        // return Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+        $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
+        $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id)]);
+        // $pdf->setOptions(['dpi' => 96 ]);
+        $filename = uniqid();
+        Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
+        return Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
     }
 
     public function estimateReq_paramImplant($req){
