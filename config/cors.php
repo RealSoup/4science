@@ -24,7 +24,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // 'allowed_origins' => ['*'],
+    'allowed_origins' => ['4science.net', '*.4science.net'],
 
     'allowed_origins_patterns' => ['*'],
 
