@@ -17,17 +17,16 @@ return [
 
     'paths' => [
         'api/*',
-        'api',
+        '*',
         '/login',
         '/logout',
         '/sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => ['*'],
-    'allowed_origins' => ['4science.net', '*.4science.net'],
+    'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => ['*'],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
