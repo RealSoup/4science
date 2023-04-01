@@ -106,7 +106,7 @@ $goods_p = 0;
     @foreach ($opa['order_model'] as $odm)
         <tr class="line01">
             @if ($odm['odm_type'] == 'MODEL')
-                @if ( $opa['dlvy_all_in'] && $loop->first)
+                @if ( $odm['dlvy_all_in'] )
                     @php
 
                     //  부동소수점 오류 해결을 위한 식
