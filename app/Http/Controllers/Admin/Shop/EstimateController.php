@@ -397,10 +397,10 @@ class EstimateController extends Controller {
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
         try {
-            return Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+            Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch (Exception $e) {
             // type : text=0, html=1, text+html=2
-            mailer(
+            return mailer(
                 cache('site')['site'], 
                 cache('biz')['email'], $to_email, $subject, $content, $type=2, 
                 public_path('storage/estimatePdf/'.$filename.'.pdf')
