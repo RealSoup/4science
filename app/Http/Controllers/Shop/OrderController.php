@@ -31,11 +31,14 @@ class OrderController extends Controller {
     protected $orderExtraInfo;
     public function __construct(Order $od, OrderExtraInfo $oex, Goods $gd) {
         // $this->signKey       = 'V2NwNzNyODZjK1FkUWJmeVZrNWM4QT09';
-        $this->signKey       = "SU5JTElURV9UUklQTEVERVNfS0VZU1RS";
+        // $this->signKey       = "SU5JTElURV9UUklQTEVERVNfS0VZU1RS";
         // $this->apiKey        = '';
-        $this->apiKey        = "ItEQKi3rY7uvDS8l";
+        // $this->apiKey        = "ItEQKi3rY7uvDS8l";
         // $this->mid           = "4science00";
-        $this->mid           = "INIpayTest";
+        // $this->mid           = "INIpayTest";
+        $this->signKey = env('INICIS_APIKEY');
+        $this->apiKey  = env('INICIS_SIGNKEY');
+        $this->mid     = env('INICIS_MID');
         $this->c_nm_guest_id = config('const.cookie_nm.guest_id');
         $this->order         = $od;
         $this->goods = $gd;
