@@ -343,6 +343,7 @@ class EstimateController extends Controller {
         try {
             Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch (Exception $e) {
+            dump($e);
             $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
             mailer(
                 cache('site')['site'], 
