@@ -121,8 +121,8 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
         }
 
         $mail = new PHPMailer\PHPMailer\PHPMailer(TRUE); // defaults to using php "mail()"  
-        $mail->CharSet = 'utf-8';
-		$mail->Encoding = 'base64';
+        // $mail->CharSet = 'utf-8';
+		// $mail->Encoding = 'base64';
 		$mail->IsSMTP();
 		$mail->SMTPAuth = true;              // SMTP 인증을 사용함
 		$mail->Host = "smtps.hiworks.com";    // email 보낼때 사용할 서버를 지정
