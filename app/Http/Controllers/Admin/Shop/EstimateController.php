@@ -342,7 +342,7 @@ class EstimateController extends Controller {
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
         // try {
             dump(cache('biz')['email']);
-            dd(Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf'))));
+            dd(Mail::to($to_email)->queue(new EstimateSend('admin@4science.net', $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf'))));
         // } catch (Exception $e) {
         //     $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
         //     return mailer(
