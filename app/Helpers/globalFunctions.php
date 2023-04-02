@@ -125,9 +125,9 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
 		$mail->Encoding = 'base64';
 		$mail->IsSMTP();
 		$mail->SMTPAuth = true;              // SMTP 인증을 사용함
-		$mail->Host = "mail.4science.net";    // email 보낼때 사용할 서버를 지정
-		$mail->Port = 587;                        // email 보낼때 사용할 포트를 지정
-		$mail->SMTPSecure = "tls";        // SSL을 사용함
+		$mail->Host = "smtps.hiworks.com";    // email 보낼때 사용할 서버를 지정
+		$mail->Port = 465;                        // email 보낼때 사용할 포트를 지정
+		$mail->SMTPSecure = "ssl";        // SSL을 사용함
 		$mail->Username   = "admin@4science.net";    // Gmail 계정
 		// $mail->Password   = "4admin1234";            // 패스워드
         $mail->Password   = "4science!@";            // 패스워드   
@@ -154,9 +154,9 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             }
         }
 
-        if( !$mail->send() ) {
-            return $mail->ErrorInfo;
-        } else return 1;
-        // return $mail->send();
+        // if( !$mail->send() ) {
+        //     return $mail->ErrorInfo;
+        // } else return 1;
+        return $mail->send();
     }
 }
