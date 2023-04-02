@@ -341,6 +341,7 @@ class EstimateController extends Controller {
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
         // try {
+            dump(cache('biz')['email']);
             dd(Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf'))));
         // } catch (Exception $e) {
         //     $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
