@@ -120,7 +120,7 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             $content = nl2br($content);
         }
 
-        $mail = new PHPMailer\PHPMailer\PHPMailer(); // defaults to using php "mail()"  
+        $mail = new PHPMailer\PHPMailer\PHPMailer(TRUE); // defaults to using php "mail()"  
         $mail->CharSet = 'utf-8';
 		$mail->Encoding = 'base64';
 		$mail->IsSMTP();
