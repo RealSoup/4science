@@ -340,16 +340,16 @@ class EstimateController extends Controller {
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-        // try {
+        try {
             dd(Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf'))));
-        // } catch (Exception $e) {
-        //     $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
-        //     return mailer(
-        //         cache('site')['site'], 
-        //         cache('biz')['email'], $to_email, $subject, $content, 1, 
-        //         [['path'=>public_path('storage/estimatePdf/'.$filename.'.pdf'), 'name'=>$filename.'.pdf']]
-        //     );
-        // }
+        } catch (Exception $e) {
+            $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
+            return mailer(
+                cache('site')['site'], 
+                cache('biz')['email'], $to_email, $subject, $content, 1, 
+                [['path'=>public_path('storage/estimatePdf/'.$filename.'.pdf'), 'name'=>$filename.'.pdf']]
+            );
+        }
         
     }
     public function mailParam_paramImplant($er, $model, $eq_id, $er_id, $eq_name){
