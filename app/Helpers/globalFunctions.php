@@ -120,7 +120,7 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             $content = nl2br($content);
         }
 
-        $mail = new PHPMailer\PHPMailer\PHPMailer(TRUE); // defaults to using php "mail()"  
+        $mail = new PHPMailer\PHPMailer\PHPMailer(); // defaults to using php "mail()"  
         $mail->CharSet = 'utf-8';
 		$mail->Encoding = 'base64';
 		$mail->IsSMTP();
@@ -134,7 +134,7 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
 
 
         $mail->SetFrom('admin@4science.net', 'INEXUS'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
-        $mail->CharSet = 'UTF-8';
+        // $mail->CharSet = 'UTF-8';
         $mail->From = $fmail;
         $mail->FromName = $fname;
         $mail->Subject = $subject;
