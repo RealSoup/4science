@@ -331,7 +331,7 @@ class EstimateController extends Controller {
         $to_name = $req->estimate_req['eq_name'];
         $to_email = $req->estimate_req['eq_email'];
         $params = $this->mailParam_paramImplant($req, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req['eq_name']);
-        $this->estimateMailSend($to_email, $to_name, $params, $er_id);
+        return $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }
 
     public function estimateMailSend($to_email, $to_name, $params, $er_id) {
@@ -343,9 +343,8 @@ class EstimateController extends Controller {
         try {
             Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch (Exception $e) {
-            dump($e);
             $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
-            mailer(
+            return mailer(
                 cache('site')['site'], 
                 cache('biz')['email'], $to_email, $subject, $content, 1, 
                 [['path'=>public_path('storage/estimatePdf/'.$filename.'.pdf'), 'name'=>$filename.'.pdf']]
