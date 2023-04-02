@@ -120,12 +120,15 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             $content = nl2br($content);
         }
 
-        $mail = new PHPMailer\PHPMailer\PHPMailer(); // defaults to using php "mail()"
-        if (config('mail.driver') == 'smtp') {
-            $mail->IsSMTP(); // telling the class to use SMTP
-            $mail->Host = config('mail.host'); // SMTP server
-            $mail->Port = config('mail.port');
-        }
+        $mail = new PHPMailer\PHPMailer\PHPMailer(); // defaults to using php "mail()"  
+        $mail->SMTPDebug = 0;
+        $mail->isSMTP();
+        $mail->Host = config('mail.mailers.smtp.host');             //  smtp host
+        $mail->SMTPAuth = true;
+        $mail->Username = config('mail.mailers.smtp.username');   //  sender username
+        $mail->Password = config('mail.mailers.smtp.password');       // sender password
+        $mail->SMTPSecure = config('mail.mailers.smtp.encryption');                  // encryption - ssl/tls
+        $mail->Port = config('mail.mailers.smtp.port');        
 
         $mail->CharSet = 'UTF-8';
         $mail->From = $fmail;
@@ -147,6 +150,9 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             }
         }
 
-        return $mail->send();
+        if( !$mail->send() ) {
+            return $mail->ErrorInfo;
+        } else return 1;
+        // return $mail->send();
     }
 }

@@ -344,11 +344,11 @@ class EstimateController extends Controller {
             Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch (Exception $e) {
             $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
-            return mailer(
+            dd(mailer(
                 cache('site')['site'], 
                 cache('biz')['email'], $to_email, $subject, $content, 1, 
                 [['path'=>public_path('storage/estimatePdf/'.$filename.'.pdf'), 'name'=>$filename.'.pdf']]
-            );
+            ));
         }
         
     }
