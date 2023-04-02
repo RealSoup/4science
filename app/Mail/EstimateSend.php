@@ -23,7 +23,7 @@ class EstimateSend extends Mailable {
     }
 
     public function build() {
-        return $this->from($this->email, '4science')
+        return $this->from($this->email, '4SCIENCE')
             ->subject($this->subject)
             ->view("admin.estimate.email.estimateSend")
             ->with($this->params)
