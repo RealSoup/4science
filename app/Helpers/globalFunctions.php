@@ -125,14 +125,16 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
 		$mail->Encoding = 'base64';
 		$mail->IsSMTP();
 		$mail->SMTPAuth = true;              // SMTP 인증을 사용함
-		$mail->Host = config('mail.mailers.smtp.host');    // email 보낼때 사용할 서버를 지정
-		$mail->Port = config('mail.mailers.smtp.port');                        // email 보낼때 사용할 포트를 지정
+		$mail->Host = "smtps.hiworks.com";    // email 보낼때 사용할 서버를 지정
+		$mail->Port = 465;                        // email 보낼때 사용할 포트를 지정
 		$mail->SMTPSecure = "ssl";        // SSL을 사용함
-		$mail->Username   = config('mail.mailers.smtp.username');    // Gmail 계정
+		$mail->Username   = "admin@4science.net";    // Gmail 계정
 		// $mail->Password   = "4admin1234";            // 패스워드
-        $mail->Password   = config('mail.mailers.smtp.password');            // 패스워드
+        $mail->Password   = "4science!@";            // 패스워드   
+
 
         $mail->SetFrom('admin@4science.net', 'INEXUS'); // 보내는 사람 email 주소와 표시될 이름 (표시될 이름은 생략가능)
+        $mail->CharSet = 'UTF-8';
         $mail->From = $fmail;
         $mail->FromName = $fname;
         $mail->Subject = $subject;
