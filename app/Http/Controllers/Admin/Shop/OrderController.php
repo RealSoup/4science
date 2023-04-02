@@ -287,7 +287,7 @@ class OrderController extends Controller {
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
 			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-			return Mail::to($to_email)->queue(new SendTransaction(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+			return Mail::to($to_email)->queue(new SendTransaction(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
 		} else {
 			return PDF::loadView('admin.order.pdf.order_transaction', $req->all())
 				// ->download('order.pdf');

@@ -340,9 +340,9 @@ class EstimateController extends Controller {
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
+        Mail::to($to_email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         // try {
-            dump(cache('biz')['email']);
-            dd(Mail::to($to_email)->queue(new EstimateSend('admin@4science.net', $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf'))));
+        //     Mail::to($to_email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         // } catch (Exception $e) {
         //     $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
         //     return mailer(
