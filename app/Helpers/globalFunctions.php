@@ -120,13 +120,13 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
             $content = nl2br($content);
         }
 
-        $mail = new PHPMailer\PHPMailer\PHPMailer(TRUE); // defaults to using php "mail()"  
+        $mail = new PHPMailer\PHPMailer\PHPMailer(); // defaults to using php "mail()"  
         // $mail->CharSet = 'utf-8';
 		// $mail->Encoding = 'base64';
 		$mail->IsSMTP();
 		$mail->SMTPAuth = true;              // SMTP 인증을 사용함
-		$mail->Host = "smtps.hiworks.com";    // email 보낼때 사용할 서버를 지정
-		$mail->Port = 465;                        // email 보낼때 사용할 포트를 지정
+		$mail->Host = "mail.4science.net";    // email 보낼때 사용할 서버를 지정
+		$mail->Port = 587;                        // email 보낼때 사용할 포트를 지정
 		$mail->SMTPSecure = "ssl";        // SSL을 사용함
 		$mail->Username   = "admin@4science.net";    // Gmail 계정
 		// $mail->Password   = "4admin1234";            // 패스워드
