@@ -127,7 +127,7 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
         $mail->SMTPAuth = true;
         $mail->Username = config('mail.mailers.smtp.username');   //  sender username
         $mail->Password = config('mail.mailers.smtp.password');       // sender password
-        $mail->SMTPSecure = config('mail.mailers.smtp.encryption');                  // encryption - ssl/tls
+        // $mail->SMTPSecure = config('mail.mailers.smtp.encryption');                  // encryption - ssl/tls
         $mail->Port = config('mail.mailers.smtp.port');        
 
         $mail->CharSet = 'UTF-8';
