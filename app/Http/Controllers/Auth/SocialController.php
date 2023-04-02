@@ -50,7 +50,7 @@ class SocialController extends Controller {
         try {
             $config = $this->getConfig($provider);
             $userFromSocial = Socialite::with($provider)->setConfig($config)->user();
-            dd($userFromSocial);
+            // dd($userFromSocial);
             // $userFromSocial->id=813770733;
             // dd($userFromSocial);
         } catch (InvalidStateException $e) {
