@@ -61,9 +61,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       isLoadingModalViewed: false,
-      saveType: '',
+      // saveType:'',
       frm: {
-        file_info: []
+        estimate_req: {},
+        estimate_reply: {
+          file_info: []
+        }
       }
     };
   },
@@ -135,7 +138,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 4:
-                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerExtra)(_this2.frm)) {
+                if ((0,_FormValidation_js__WEBPACK_IMPORTED_MODULE_4__.validationCheckerExtra)(_this2.frm.estimate_reply)) {
                   _context2.next = 6;
                   break;
                 }
@@ -152,11 +155,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
 
               case 11:
-                _this2.frm.er_step = 0;
+                _this2.frm.estimate_reply.er_step = 0;
                 return _context2.abrupt("break", 15);
 
               case 13:
-                _this2.frm.er_step = 1;
+                _this2.frm.estimate_reply.er_step = 1;
                 return _context2.abrupt("break", 15);
 
               case 15:
@@ -1103,29 +1106,28 @@ var render = function () {
       _c("FormSetting", {
         on: { all_dc_update: _vm.all_dc_apply },
         model: {
-          value: _vm.frm,
+          value: _vm.frm.estimate_reply,
           callback: function ($$v) {
-            _vm.frm = $$v
+            _vm.$set(_vm.frm, "estimate_reply", $$v)
           },
-          expression: "frm",
+          expression: "frm.estimate_reply",
         },
       }),
       _vm._v(" "),
-      _vm.frm.estimate_req
-        ? _c("FormUser", {
-            model: {
-              value: _vm.frm.estimate_req,
-              callback: function ($$v) {
-                _vm.$set(_vm.frm, "estimate_req", $$v)
-              },
-              expression: "frm.estimate_req",
-            },
-          })
-        : _vm._e(),
+      _c("FormUser", {
+        model: {
+          value: _vm.frm.estimate_req,
+          callback: function ($$v) {
+            _vm.$set(_vm.frm, "estimate_req", $$v)
+          },
+          expression: "frm.estimate_req",
+        },
+      }),
       _vm._v(" "),
       _c("FormGoods", {
         ref: "form_goods",
         attrs: { frm: _vm.frm },
+        on: { "hook:created": function ($event) {} },
         model: {
           value: _vm.frm.estimate_model,
           callback: function ($$v) {
@@ -1139,11 +1141,11 @@ var render = function () {
         ref: "form_extra",
         attrs: { isLoadingModalViewed: _vm.isLoadingModalViewed },
         model: {
-          value: _vm.frm,
+          value: _vm.frm.estimate_reply,
           callback: function ($$v) {
-            _vm.frm = $$v
+            _vm.$set(_vm.frm, "estimate_reply", $$v)
           },
-          expression: "frm",
+          expression: "frm.estimate_reply",
         },
       }),
     ],

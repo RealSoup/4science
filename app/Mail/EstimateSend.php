@@ -25,7 +25,7 @@ class EstimateSend extends Mailable {
     public function build() {
         return $this->from($this->email, '4science')
             ->subject($this->subject)
-            ->view("admin.estimate.email.emailForm")
+            ->view("admin.estimate.email.estimateSend")
             ->with($this->params)
             ->attach($this->file, [ 'as' => 'Estimate.pdf', 'mime' => 'application/pdf' ]);
     }

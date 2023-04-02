@@ -2,10 +2,10 @@
     <b-container id="adm_estimate_edit" class="p_wrap">
         <h1>견적서 수정</h1>
         <FormCtrl @save="update" />
-        <FormSetting v-model="frm" @all_dc_update="all_dc_apply" />
-        <FormUser v-if="frm.estimate_req" v-model="frm.estimate_req" />
-        <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" />
-        <FormExtra ref="form_extra" v-model="frm" :isLoadingModalViewed="isLoadingModalViewed" />
+        <FormSetting v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" />
+        <FormUser v-model="frm.estimate_req" />
+        <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
+        <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
     </b-container>
 </template>
 
@@ -30,9 +30,10 @@ export default {
     data() {
         return {
             isLoadingModalViewed:false,
-            saveType:'',
+            // saveType:'',
             frm:{
-                file_info: [],
+                estimate_req: {},
+                estimate_reply: { file_info:[], },
             },
         }
     },
@@ -57,14 +58,14 @@ export default {
         async update(type) {
             if (!validationCheckerUser(this.frm.estimate_req))      return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
-            if (!validationCheckerExtra(this.frm))                  return false;
+            if (!validationCheckerExtra(this.frm.estimate_reply))                  return false;
             // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
             // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
             try {
                 this.$refs.form_goods.calculator();
                 switch (type) {
-                    case 'store': this.frm.er_step = 0; break;
-                    case 'send': this.frm.er_step = 1; break;
+                    case 'store': this.frm.estimate_reply.er_step = 0; break;
+                    case 'send': this.frm.estimate_reply.er_step = 1; break;
                 }
                 this.isLoadingModalViewed=true;
                 this.frm = Object.assign(

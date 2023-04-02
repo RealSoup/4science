@@ -15,6 +15,7 @@ use App\Exports\EstimateTransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
+use Exception;
 
 use Mail;
 use App\Mail\EstimateSend;
@@ -163,7 +164,7 @@ class EstimateController extends Controller {
             
             if ($req->filled('er_id')) {
                 $data['estimate_reply'] = $this->estimateReply->with('fileInfo')->find($req->er_id);
-                $data['estimate_model'] = $data['estimate_reply']->estimateModel;                
+                $data['estimate_model'] = $data['estimate_reply']->estimateModel;
             } else {
                 if ($data['estimate_req']->estimateModel()->exists())
                     $data['estimate_model'] = $data['estimate_req']->estimateModel;
@@ -189,15 +190,17 @@ class EstimateController extends Controller {
     }
 
     public function edit($er_id) {
-        $data = $this->estimateReply->with('estimateReq')->with('fileInfo')->find($er_id);
-        foreach ($data->estimateModel as $em) {
-            if ($em->goods)
-                $em->goods->purchaseAt;
+        $data['estimate_reply'] = $this->estimateReply->with('fileInfo')->find($er_id);
+        $data['estimate_req'] = $this->estimateReq->find($data['estimate_reply']->er_eq_id);
+        $data['estimate_model'] = $data['estimate_reply']->estimateModel;
+        foreach ($data['estimate_model'] as $em) {
+            $em->goods->purchaseAt;
             $em->bundleDc;
             $em->estimateOption;
         }
+
         $data['empty_em'] = $this->emptyEm();
-        $data['er_effective_at'] = date("Y-m-d", strtotime("+1 week"));
+        $data['estimate_reply']['er_effective_at'] = date("Y-m-d", strtotime("+2 week"));
         return response()->json($data);
     }
     public function emptyEm() {
@@ -254,28 +257,9 @@ class EstimateController extends Controller {
         if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
             $to_email = $req->estimate_req['eq_email'];
             $to_name = $req->estimate_req['eq_name'];
-            $p_er = $req->estimate_reply;
-            $params = [
-                'eq_name'         => $req->estimate_req['eq_name'],
-                'er_id'           => $er_id,
-                'eq_id'           => $eq_id,
-                'estimated_date'  => \Carbon\Carbon::now(),
-                'er_dlvy_at'      => array_key_exists('er_dlvy_at',      $p_er) && $p_er['er_dlvy_at']      ?  $p_er['er_dlvy_at'] : '',
-                'er_effective_at' => array_key_exists('er_effective_at', $p_er) && $p_er['er_effective_at'] ?  $p_er['er_effective_at'] : '',
-                'eq_mng_nm'       => auth()->user()->name,
-                'er_mng_tel'      => auth()->user()->tel,
-                'er_mng_email'    => auth()->user()->email,
-                'estimate_model'  => $req->estimate_model,
-                'er_content'      => array_key_exists('er_content',      $p_er) && $p_er['er_content']      ?  $p_er['er_content'] : '',
-                'er_gd_price'     => array_key_exists('er_gd_price',     $p_er) && $p_er['er_gd_price']     ?  $p_er['er_gd_price'] : 0,
-                'er_surtax'       => array_key_exists('er_surtax',       $p_er) && $p_er['er_surtax']       ?  $p_er['er_surtax']       : 0,
-                'er_dlvy_price'   => array_key_exists('er_dlvy_price',   $p_er) && $p_er['er_dlvy_price']   ?  $p_er['er_dlvy_price'] : 0,
-                'er_air_price'    => array_key_exists('er_air_price',    $p_er) && $p_er['er_air_price']    ?  $p_er['er_air_price'] : 0,
-                'er_all_price'    => array_key_exists('er_all_price',    $p_er) && $p_er['er_all_price']    ?  $p_er['er_all_price'] : 0,
-                'er_no_dlvy_fee'  => array_key_exists('er_no_dlvy_fee',  $p_er) && $p_er['er_no_dlvy_fee']  ? $p_er['er_no_dlvy_fee']  : 'N',
-                'redirect_url'    => 'dddd',
-                'domain'          => cache('site')['domain'],
-            ];
+            $params = $this->mailParam_paramImplant($req, $eq_id, $er_id);
+            $params = $this->mailParam_paramImplant($req, $req->estimate_model, $eq_id, $er_id, $req->estimate_req['eq_name']);
+            
             $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
 
@@ -290,9 +274,9 @@ class EstimateController extends Controller {
             $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
             $eq_impl['ip'] = $req->ip();
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
-            DB::table('shop_estimate_req')->where('eq_id', $req->er_eq_id)->update($eq_impl);
+            DB::table('shop_estimate_req')->where('eq_id', $req->estimate_req['eq_id'])->update($eq_impl);
 
-            $er_impl = $this->estimateReply_paramImplant($req);
+            $er_impl = $this->estimateReply_paramImplant($req->estimate_reply);
             $er_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
             DB::table('shop_estimate_reply')->where('er_id', $er_id)->update($er_impl);
 
@@ -333,30 +317,10 @@ class EstimateController extends Controller {
             //     }
             // }
 
-            if ($req->er_step == 1) { //  견적서 메일 발송
+            if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
                 $to_name = $req->estimate_req['eq_name'];
                 $to_email = $req->estimate_req['eq_email'];
-                $params = [
-                    'eq_name'         => $req->estimate_req['eq_name'],
-                    'er_id'           => $er_id,
-                    'eq_id'           => $req->er_eq_id,
-                    'estimated_date'  => \Carbon\Carbon::now(),
-                    'er_dlvy_at'      => $req->er_dlvy_at,
-                    'er_effective_at' => $req->er_effective_at,
-                    'eq_mng_nm'       => auth()->user()->name,
-                    'er_mng_tel'      => auth()->user()->tel,
-                    'er_mng_email'    => auth()->user()->email,
-                    'estimate_model'  => $req->estimate_model,
-                    'er_content'      => $req->er_content,
-                    'er_gd_price'     => $req->er_gd_price,
-                    'er_surtax'       => $req->er_surtax,
-                    'er_dlvy_price'   => $req->er_dlvy_price,
-                    'er_air_price'    => $req->er_air_price,
-                    'er_all_price'    => $req->er_all_price,
-                    'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
-                    'redirect_url'    => 'dddd',
-                    'domain'          => cache('site')['domain'],
-                ];
+                $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req['eq_name']);
                 $this->estimateMailSend($to_email, $to_name, $params, $er_id);
             }
             return response()->json($er_id, 200);
@@ -366,49 +330,50 @@ class EstimateController extends Controller {
     public function reSend(Request $req, $er_id) {
         $to_name = $req->estimate_req['eq_name'];
         $to_email = $req->estimate_req['eq_email'];
-        $params = [
-            'eq_name'         => $req->estimate_req['eq_name'],
-            'er_id'           => $er_id,
-            'eq_id'           => $req->er_eq_id,
-            'estimated_date'  => \Carbon\Carbon::now(),
-            'er_dlvy_at'      => $req->er_dlvy_at,
-            'er_effective_at' => $req->er_effective_at,
-            'eq_mng_nm'       => auth()->user()->name,
-            'er_mng_tel'      => auth()->user()->tel,
-            'er_mng_email'    => auth()->user()->email,
-            'estimate_model'  => $req->estimate_model,
-            'er_content'      => $req->er_content,
-            'er_gd_price'     => $req->er_gd_price,
-            'er_surtax'       => $req->er_surtax,
-            'er_dlvy_price'   => $req->er_dlvy_price,
-            'er_air_price'    => $req->er_air_price,
-            'er_all_price'    => $req->er_all_price,
-            'er_no_dlvy_fee'  => $req->er_no_dlvy_fee,
-            'redirect_url'    => 'dddd',
-            'domain'          => cache('site')['domain'],
-        ];
+        $params = $this->mailParam_paramImplant($req, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req['eq_name']);
         return $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }
 
-    public function estimateMailSend($to_email, $to_name, $content, $er_id) {
+    public function estimateMailSend($to_email, $to_name, $params, $er_id) {
         $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
         $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id)]);
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
         try {
-            Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $content, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+            Mail::to($to_email)->queue(new EstimateSend(cache('biz')['email'], $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch (Exception $e) {
-            // type : text=0, html=1, text+html=2
+            $content = \View::make('admin.estimate.email.estimateSend', $params)->render();
             return mailer(
                 cache('site')['site'], 
-                cache('biz')['email'], $to_email, $subject, $content, $type=2, 
-                public_path('storage/estimatePdf/'.$filename.'.pdf')
+                cache('biz')['email'], $to_email, $subject, $content, 1, 
+                [['path'=>public_path('storage/estimatePdf/'.$filename.'.pdf'), 'name'=>$filename.'.pdf']]
             );
         }
         
     }
-
+    public function mailParam_paramImplant($er, $model, $eq_id, $er_id, $eq_name){
+        return [    'eq_name'         => $eq_name,
+                    'er_id'           => $er_id,
+                    'eq_id'           => $eq_id,
+                    'estimated_date'  => \Carbon\Carbon::now(),
+                    'eq_mng_nm'       => auth()->user()->name,
+                    'er_mng_tel'      => auth()->user()->tel,
+                    'er_mng_email'    => auth()->user()->email,
+                    'estimate_model'  => $model,
+                    'er_effective_at' => isset($er['er_effective_at']) && $er['er_effective_at'] ? $er['er_effective_at'] : '',
+                    'er_dlvy_at'      => isset($er['er_dlvy_at']) && $er['er_dlvy_at']           ? $er['er_dlvy_at']      : '',
+                    'er_content'      => isset($er['er_content']) && $er['er_content']           ? $er['er_content']      : '',
+                    'er_gd_price'     => isset($er['er_gd_price']) && $er['er_gd_price']         ? $er['er_gd_price']     : 0,
+                    'er_surtax'       => isset($er['er_surtax']) && $er['er_surtax']             ? $er['er_surtax']       : 0,
+                    'er_dlvy_price'   => isset($er['er_dlvy_price']) && $er['er_dlvy_price']     ? $er['er_dlvy_price']   : 0,
+                    'er_air_price'    => isset($er['er_air_price']) && $er['er_air_price']       ? $er['er_air_price']    : 0,
+                    'er_all_price'    => isset($er['er_all_price']) && $er['er_all_price']       ? $er['er_all_price']    : 0,
+                    'er_no_dlvy_fee'  => isset($er['er_no_dlvy_fee']) && $er['er_no_dlvy_fee']   ? $er['er_no_dlvy_fee']  : 'N',
+                    'redirect_url'    => config('app.url')."/mypage/estimate/reply/${er_id}",
+                    'domain'          => config('app.url'), 
+        ];
+    }
     public function estimateReq_paramImplant($req){
         return [    'eq_type'       => array_key_exists('eq_type', $req) && $req['eq_type']             ? $req['eq_type']       : 'TEMP',
                     'eq_name'       => array_key_exists('eq_name', $req) && $req['eq_name']             ? $req['eq_name']       : '',
