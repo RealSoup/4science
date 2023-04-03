@@ -172,45 +172,6 @@ export default {
             return p;
         };
 
-        window.priceCalculator = function (esti){
-            let collect = {};
-            let rst = { 'gd_price':0, 'air_price':0, 'surtax':0, 'dlvy_price':0, 'all_price':0 };
-            for (var em of esti) {
-                let pa_id = 0;
-                if (em.em_check_opt == 'Y') {
-                    if (!!em.goods&&!!em.goods.purchase_at)
-                    pa_id = em.goods.gd_pa_id;
-                    if (!collect.hasOwnProperty(pa_id)) {
-                        if (pa_id>0 && em.goods.purchase_at.pa_type == "AIR")
-                        collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
-                        else
-                        collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
-                    }
-                    collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
-                }
-                for (var eo of em.estimate_option) {
-                    if (eo.eo_check_opt == 'Y')
-                        collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
-                }
-            }
-
-            rst.gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
-            rst.air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
-            rst.surtax = rst.gd_price*0.1;
-            for (var key in collect) {
-                if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
-                    rst.dlvy_price += Number(collect[key].dlvy);
-                }
-            }
-            rst.all_price = rst.gd_price+rst.surtax+rst.dlvy_price+rst.air_price;
-
-            return rst;
-        };
-        
-
-
-
-
         Vue.directive("click-outside", {
           bind(el, binding, vnode) {
             el.clickOutsideEvent = (event) => {

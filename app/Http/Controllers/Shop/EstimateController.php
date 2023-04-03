@@ -205,9 +205,7 @@ class EstimateController extends Controller {
 
 
     public function replyShow(EstimateReply $er, $er_id) {
-        $er = $er->find($er_id);
-        $er->user;
-        $er->estimateReq;
+        $er = $er->with('estimateReq')->with('user')->with('fileInfo')->find($er_id);
         foreach ($er->estimateModel as $v) {
             if ($v->goods)
                 $v->goods->purchaseAt;

@@ -16,7 +16,7 @@ class EstimateModel extends Model {
 
     public function getEmCheckOptAttribute() { return 'Y'; }
     public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
-    public function getGainMileageAttribute() { return $this->em_price * auth()->check() ? auth()->user()->my_mileage_rate : 0 / 100; }
+    public function getGainMileageAttribute() { return round($this->em_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
     
     public function estimateAble() { return $this->morphTo(); }
     public function estimateOption() {  return $this->hasMany(EstimateOption::class, "eo_em_id"); }

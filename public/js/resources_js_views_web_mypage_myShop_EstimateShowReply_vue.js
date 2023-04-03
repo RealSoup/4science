@@ -14,28 +14,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -181,68 +171,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       reply: {},
       gd_price: 0,
       surtax: 0,
-      dlvy_price: 0,
+      dlvy_4s: 0,
+      dlvy_other: 0,
       air_price: 0,
-      all_price: 0
+      all_price: 0,
+      sum_mileage: 0,
+      indeterminate: false,
+      all_chk: false
     };
   },
-  computed: {
-    dlvy_4s: function dlvy_4s() {
-      return this.reply.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
-    },
-    dlvy_other: function dlvy_other() {
-      return Object.values(this.od.order_purchase_at).reduce(function (acc, el) {
-        return acc + (el.odpa_pa_name != '' ? el.odpa_dlvy_p_add_vat : 0);
-      }, 0);
-    },
-    sum_mileage: function sum_mileage() {
-      return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
-    }
-  },
+  computed: {},
   methods: {
-    show: function show() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/estimate/reply/".concat(_this.$route.params.er_id));
-
-              case 3:
-                res = _context.sent;
-
-                if (res && res.status === 200) {
-                  _this.reply = res.data;
-                  _this.gd_price = res.data.er_gd_price;
-                  _this.surtax = res.data.er_surtax;
-                  _this.dlvy_price = res.data.er_dlvy_price;
-                  _this.air_price = res.data.er_air_price;
-                  _this.all_price = res.data.er_all_price;
-                  _this.isLoadingModalViewed = false;
-                }
-
-                _context.next = 11;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                Notify.consolePrint(_context.t0);
-                Notify.toast('warning', _context.t0.response.data.message);
-
-              case 11:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 7]]);
-      }))();
-    },
     settle: function settle() {
       var rst = [];
 
@@ -297,31 +236,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     reEstimate: function reEstimate() {
-      var _this2 = this;
+      var _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var isValid, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
-                return _this2.$refs.observer.validate();
+                _context.next = 2;
+                return _this.$refs.observer.validate();
 
               case 2:
-                isValid = _context2.sent;
+                isValid = _context.sent;
 
                 if (!isValid) {
-                  _context2.next = 17;
+                  _context.next = 17;
                   break;
                 }
 
-                _context2.prev = 4;
-                _context2.next = 7;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/estimate/reEstimate", _this2.reply);
+                _context.prev = 4;
+                _context.next = 7;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/estimate/reEstimate", _this.reply);
 
               case 7:
-                res = _context2.sent;
+                res = _context.sent;
 
                 if (res && res.status === 200) {
                   console.log(res);
@@ -330,17 +269,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   Notify.toast('warning', res);
                 }
 
-                _context2.next = 15;
+                _context.next = 15;
                 break;
 
               case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](4);
-                Notify.consolePrint(_context2.t0);
-                Notify.toast('warning', _context2.t0.responsee);
+                _context.prev = 11;
+                _context.t0 = _context["catch"](4);
+                Notify.consolePrint(_context.t0);
+                Notify.toast('warning', _context.t0.responsee);
 
               case 15:
-                _context2.next = 18;
+                _context.next = 18;
                 break;
 
               case 17:
@@ -348,10 +287,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 18:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, null, [[4, 11]]);
+        }, _callee, null, [[4, 11]]);
       }))();
     },
     print: function print() {
@@ -361,12 +300,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       window.open(url, name, option);
     },
     calculator: function calculator() {
-      var p = priceCalculator(this.reply.estimate_model);
-      this.gd_price = p.gd_price;
-      this.surtax = p.surtax;
-      this.dlvy_price = p.dlvy_price;
-      this.air_price = p.air_price;
-      this.all_price = p.all_price;
+      var collect = {};
+      var sum_mileage = 0;
+      var dlvy_other = 0;
+
+      var _iterator3 = _createForOfIteratorHelper(this.reply.estimate_model),
+          _step3;
+
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var em = _step3.value;
+          var pa_id = 0;
+
+          if (em.em_check_opt == 'Y') {
+            if (!!em.goods && !!em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
+
+            if (!collect.hasOwnProperty(pa_id)) {
+              if (pa_id > 0 && em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
+                'goods': 0,
+                'dlvy': 0,
+                'air': Number(em.goods.purchase_at.pa_price_add_vat)
+              };else collect[pa_id] = {
+                'goods': 0,
+                'dlvy': Number(em.goods.dlvy_fee_add_vat),
+                'free_dlvy_max': Number(em.goods.free_dlvy_max),
+                'air': 0
+              };
+            }
+
+            collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
+            sum_mileage += em.gain_mileage;
+          }
+
+          var _iterator4 = _createForOfIteratorHelper(em.estimate_option),
+              _step4;
+
+          try {
+            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+              var eo = _step4.value;
+
+              if (eo.eo_check_opt == 'Y') {
+                collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
+                sum_mileage += eo.gain_mileage;
+              }
+            }
+          } catch (err) {
+            _iterator4.e(err);
+          } finally {
+            _iterator4.f();
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+
+      this.gd_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.goods;
+      }, 0);
+      this.air_price = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.air;
+      }, 0);
+      this.surtax = this.gd_price * 0.1;
+
+      for (var key in collect) {
+        if (key == 0) {
+          if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) this.dlvy_4s = Number(collect[key].dlvy);
+        } else {
+          if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) dlvy_other += Number(collect[key].dlvy);
+        }
+      }
+
+      this.dlvy_other = dlvy_other;
+      this.sum_mileage = sum_mileage;
+      this.all_price = this.gd_price + this.surtax + this.dlvy_4s + this.air_price + dlvy_other;
     },
     getValidationState: function getValidationState(_ref) {
       var dirty = _ref.dirty,
@@ -376,8 +384,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return dirty || validated ? valid : null;
     },
     chkChange: function chkChange() {
-      var chkCnt = this.ledger.data.filter(function (el) {
-        return el.chk_cplt == true;
+      var chkCnt = this.reply.estimate_model.filter(function (el) {
+        return el.em_check_opt == true;
       }).length;
 
       if (chkCnt === 0) {
@@ -401,7 +409,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.show();
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/estimate/reply/".concat(_this2.$route.params.er_id));
+
+            case 2:
+              res = _context2.sent;
+
+              if (res && res.status === 200) {
+                _this2.reply = res.data;
+                _this2.isLoadingModalViewed = false;
+
+                _this2.calculator();
+              }
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -423,7 +458,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sum_up[data-v-76fdf33c] { border-top:3px solid #4F637B;\n}\n.sum_up .total[data-v-76fdf33c] { border-bottom:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-76fdf33c] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.sum_up .total .col b[data-v-76fdf33c] { font-size:1.4rem;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(1) {\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after,\r\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(2):after { content:\"+\";\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(3) {\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { content:\"=\";\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total_sub[data-v-76fdf33c] { background:#F2F3F5; border-bottom-width:0;\n}\n.sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:39%; max-width:39%;\n}\n.sum_up .total_sub .col>div[data-v-76fdf33c] { display:flex; flex-wrap:wrap;\n}\n.sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(2) { padding:0 1rem 2.5rem 1rem;\n}\n.sum_up .total_sub .col>div .col[data-v-76fdf33c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.sum_up .total_sub .col>div .col[data-v-76fdf33c]:nth-of-type(2) { text-align:right;\n}\n.estimate_show .goods>.row[data-v-76fdf33c] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.estimate_show .goods>.row>div img[data-v-76fdf33c] { width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n.estimate_show .goods>.row>div:nth-child(2) .btn[data-v-76fdf33c] { text-align:left;\n}\n.estimate_show .goods>.row>div[data-v-76fdf33c]:nth-child(3) { text-align:right;\n}\n.estimate_show .goods>.row>div:nth-child(3) .md_multi[data-v-76fdf33c] { display:inline-block; min-width:120px;\n}\n.estimate_show .price .row div[data-v-76fdf33c] { text-align:right;\n}\n.estimate_show .price .row div b[data-v-76fdf33c] { display:inline-block; min-width:200px;\n}\n.estimate_show .container[data-v-76fdf33c] { margin-bottom:2rem;\n}\n.custom-control.image-checkbox[data-v-76fdf33c] { position: relative; padding-left: 0;\n}\n.custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label[data-v-76fdf33c]:after,\r\n.custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label[data-v-76fdf33c]:before { opacity: 1;\n}\n.custom-control-input:checked~.custom-control-label[data-v-76fdf33c]::before { color: #fff; border-color: #007bff; background-color: #007bff;\n}\n.custom-control.image-checkbox label[data-v-76fdf33c]:after,\r\n.custom-control.image-checkbox label[data-v-76fdf33c]:before { transition: opacity .3s ease; opacity: 0; left: 0.25rem;\n}\n.custom-control.image-checkbox label[data-v-76fdf33c]:focus,\r\n.custom-control.image-checkbox label[data-v-76fdf33c]:hover { opacity: .8;\n}\n.custom-control.image-checkbox label img[data-v-76fdf33c] { border-radius: 2.5px;\n}\n.custom-control-label[data-v-76fdf33c]::before { width:1.5rem; height:1.5rem;\n}\n.custom-control-label[data-v-76fdf33c]::after { width:1.5rem; height:1.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-76fdf33c] { padding-right:0; padding-left:0;\n}\n.w_fence .container[data-v-76fdf33c],\r\n.w_fence .container .row[data-v-76fdf33c], \r\n.w_fence .container .row .col[data-v-76fdf33c] { margin:0; padding:0;\n}\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\nh6[data-v-76fdf33c] { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem;\n}\n.w_fence .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.w_fence .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.w_fence .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.w_fence .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .goods[data-v-76fdf33c] { padding-bottom:.5rem;\n}\n.w_fence .goods .row .col[data-v-76fdf33c] { text-align:center; padding-top:.4rem; padding-bottom:.4rem;\n}\n.w_fence .goods .row .col.align[data-v-76fdf33c] { display:flex; align-items:center; justify-content:center;\n}\n.w_fence .goods .row[data-v-76fdf33c]:first-child { border-top:1px solid #ACACAC; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.w_fence .goods .row:first-child .col[data-v-76fdf33c] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem;\n}\n.w_fence .goods .row:not(:first-child) .col[data-v-76fdf33c],\r\n.w_fence .goods .row:not(:first-child) .col p[data-v-76fdf33c] { color:#AEAEAE; font-size:.85rem;\n}\n.w_fence .goods .row .col b[data-v-76fdf33c] { color:#000; font-size:.95rem;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(3) {  display:flex; align-items:center; text-align:left; padding-left:3%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(6) { flex:0 0 10%; max-width:10%; font-weight:900; color:#000;\n}\n.w_fence .goods .row .col img[data-v-76fdf33c] { width:100%;\n}\n.w_fence .goods .row .col p[data-v-76fdf33c] { margin:0;\n}\n.w_fence .goods .row .col[data-v-76fdf33c] .myCheck .custom-control-label::before, \r\n.w_fence .goods .row .col[data-v-76fdf33c] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.w_fence .sum_up[data-v-76fdf33c] { border-top:3px solid #4F637B;\n}\n.w_fence .sum_up .total[data-v-76fdf33c] { border-bottom:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.w_fence .sum_up .total .col b[data-v-76fdf33c] { font-size:1.4rem;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(1) {\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2):after,\r\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2):after { content:\"+\";\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(3) {\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { content:\"=\";\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%;\n}\n.w_fence .sum_up .total_sub[data-v-76fdf33c] { background:#F2F3F5; border-bottom-width:0;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:39%; max-width:39%;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c] { display:flex; flex-wrap:wrap;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(2) { padding:0 1rem 1.5rem 1rem;\n}\n.w_fence .sum_up .total_sub .col>div .col[data-v-76fdf33c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.w_fence .sum_up .total_sub .col>div .col[data-v-76fdf33c]:nth-of-type(2) { text-align:right;\n}\n.w_fence .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.w_fence .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.w_fence .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.w_fence .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem;}\n.w_fence .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -561,10 +596,7 @@ var render = function () {
     "b-container",
     { staticClass: "w_fence" },
     [
-      _c("h3", [
-        _vm._v("견적서 조회 "),
-        _c("b", [_vm._v("Q-" + _vm._s(_vm.reply.er_id))]),
-      ]),
+      _c("h3", [_vm._v("견적서 "), _c("b", [_vm._v(_vm._s(_vm.reply.er_id))])]),
       _vm._v(" "),
       _c("ValidationObserver", {
         ref: "observer",
@@ -644,13 +676,12 @@ var render = function () {
                                 _c("b-col", [
                                   _c("span", [_vm._v("담당자/문의")]),
                                   _vm._v(
-                                    "\r\n                        " +
+                                    " " +
                                       _vm._s(_vm.reply.user.name) +
-                                      "  \r\n                        " +
+                                      "   " +
                                       _vm._s(_vm.reply.user.tel) +
-                                      "  \r\n                        " +
-                                      _vm._s(_vm.reply.user.email) +
-                                      "\r\n                    "
+                                      "   " +
+                                      _vm._s(_vm.reply.user.email)
                                   ),
                                 ]),
                               ],
@@ -659,6 +690,8 @@ var render = function () {
                           ],
                           1
                         ),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("상품정보")]),
                         _vm._v(" "),
                         _c(
                           "b-container",
@@ -708,6 +741,7 @@ var render = function () {
                                 [
                                   _c(
                                     "b-col",
+                                    { staticClass: "align" },
                                     [
                                       _c("b-form-checkbox", {
                                         staticClass: "myCheck",
@@ -836,7 +870,7 @@ var render = function () {
                                     1
                                   ),
                                   _vm._v(" "),
-                                  _c("b-col", [
+                                  _c("b-col", { staticClass: "align" }, [
                                     _vm._v(
                                       _vm._s(
                                         _vm._f("won")(
@@ -848,9 +882,11 @@ var render = function () {
                                     ),
                                   ]),
                                   _vm._v(" "),
-                                  _c("b-col", [_vm._v(_vm._s(em.em_ea))]),
+                                  _c("b-col", { staticClass: "align" }, [
+                                    _vm._v(_vm._s(em.em_ea)),
+                                  ]),
                                   _vm._v(" "),
-                                  _c("b-col", [
+                                  _c("b-col", { staticClass: "align" }, [
                                     _vm._v(
                                       _vm._s(
                                         _vm._f("won")(
@@ -935,7 +971,7 @@ var render = function () {
                               "b-row",
                               { staticClass: "total" },
                               [
-                                _c("b-col", [_vm._v("상품금액")]),
+                                _c("b-col", [_vm._v("견적가")]),
                                 _vm._v(" "),
                                 _c("b-col", [
                                   _c("b", [
@@ -943,8 +979,7 @@ var render = function () {
                                       _vm._s(
                                         _vm._f("won")(
                                           _vm._f("comma")(
-                                            _vm.reply.er_gd_price +
-                                              _vm.reply.er_surtax
+                                            _vm.gd_price + _vm.surtax
                                           )
                                         )
                                       )
@@ -960,7 +995,9 @@ var render = function () {
                                       _vm._s(
                                         _vm._f("won")(
                                           _vm._f("comma")(
-                                            _vm.reply.er_dlvy_price
+                                            _vm.dlvy_4s +
+                                              _vm.dlvy_other +
+                                              _vm.air_price
                                           )
                                         )
                                       )
@@ -975,9 +1012,7 @@ var render = function () {
                                     _vm._v(
                                       _vm._s(
                                         _vm._f("won")(
-                                          _vm._f("comma")(
-                                            _vm.reply.er_all_price
-                                          )
+                                          _vm._f("comma")(_vm.all_price)
                                         )
                                       )
                                     ),
@@ -1000,9 +1035,7 @@ var render = function () {
                                         _vm._v(
                                           _vm._s(
                                             _vm._f("won")(
-                                              _vm._f("comma")(
-                                                _vm.reply.er_gd_price
-                                              )
+                                              _vm._f("comma")(_vm.gd_price)
                                             )
                                           )
                                         ),
@@ -1019,9 +1052,7 @@ var render = function () {
                                         _vm._v(
                                           _vm._s(
                                             _vm._f("won")(
-                                              _vm._f("comma")(
-                                                _vm.reply.er_surtax
-                                              )
+                                              _vm._f("comma")(_vm.surtax)
                                             )
                                           )
                                         ),
@@ -1052,7 +1083,9 @@ var render = function () {
                                       _c("b-col", [
                                         _vm._v(
                                           _vm._s(
-                                            _vm._f("comma")(_vm.dlvy_other)
+                                            _vm._f("comma")(
+                                              _vm.dlvy_other + _vm.air_price
+                                            )
                                           )
                                         ),
                                       ]),
@@ -1088,35 +1121,68 @@ var render = function () {
                         _vm._v(" "),
                         _c(
                           "b-container",
+                          { staticClass: "extra" },
                           [
                             _c(
                               "b-row",
                               [
-                                _c("b-col", { attrs: { cols: "2" } }, [
-                                  _vm._v("추가정보 :"),
+                                _c("b-col", [
+                                  _c("h6", [_vm._v("추가정보")]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    _vm._l(_vm.reply.file_info, function (fi) {
+                                      return _c(
+                                        "b-button",
+                                        {
+                                          key: fi.fi_id,
+                                          staticClass: "white mr-2",
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.fileDown(
+                                                fi.down_path,
+                                                fi.fi_original
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("b-icon", {
+                                            attrs: {
+                                              icon: "file-earmark-arrow-down-fill",
+                                            },
+                                          }),
+                                          _vm._v(
+                                            " " +
+                                              _vm._s(fi.fi_original) +
+                                              "\r\n                            "
+                                          ),
+                                        ],
+                                        1
+                                      )
+                                    }),
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("hr"),
+                                  _vm._v(" "),
+                                  _c("div", {
+                                    staticClass: "desc",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.nl2br(_vm.reply.er_content)
+                                      ),
+                                    },
+                                  }),
                                 ]),
                                 _vm._v(" "),
-                                _c("b-col", {
-                                  domProps: {
-                                    innerHTML: _vm._s(_vm.reply.er_content),
-                                  },
-                                }),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-container",
-                          [
-                            _c(
-                              "b-row",
-                              [
                                 _c(
                                   "b-col",
                                   [
+                                    _c("h6", [
+                                      _c("b", [_vm._v("재견적 요청")]),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("validation-provider", {
                                       attrs: {
                                         name: "견적 요청 내용",
@@ -1131,7 +1197,6 @@ var render = function () {
                                                 "b-form-group",
                                                 {
                                                   attrs: {
-                                                    label: "재견적 요청 내용",
                                                     "label-for": "eq_content",
                                                     "label-class": "required",
                                                   },
@@ -1142,7 +1207,7 @@ var render = function () {
                                                       id: "eq_content",
                                                       placeholder:
                                                         "재견적 요청 내용...",
-                                                      rows: "3",
+                                                      rows: "6",
                                                       state:
                                                         _vm.getValidationState(
                                                           validationContext
@@ -1187,6 +1252,40 @@ var render = function () {
                                 ),
                               ],
                               1
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "btn_box" },
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                staticClass: "black lg",
+                                on: { click: _vm.print },
+                              },
+                              [_vm._v("견적서 출력")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-button",
+                              {
+                                staticClass: "gray lg",
+                                on: { click: _vm.reEstimate },
+                              },
+                              [_vm._v("선택상품 재견적 요청")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-button",
+                              {
+                                staticClass: "blue lg",
+                                on: { click: _vm.settle },
+                              },
+                              [_vm._v("선택상품 주문하기")]
                             ),
                           ],
                           1

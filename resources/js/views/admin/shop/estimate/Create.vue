@@ -29,7 +29,8 @@ export default {
         return {
             isLoadingModalViewed: false,
             frm: {
-                estimate_reply:{},
+                estimate_req:{},
+                estimate_reply:{ file_info:[], },
             },
         }
     },

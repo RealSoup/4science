@@ -315,7 +315,7 @@ export default {
 
 .sum_up .total .col:nth-of-type(1) {  }
 .sum_up .total .col:nth-of-type(2) {  border-right:1px solid #D6D6D6; }
-.sum_up .total .col:nth-of-type(4):after,
+.sum_up .total .col:nth-of-type(2):after,
 .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
 .sum_up .total .col:nth-of-type(2):after { content:"+"; }
 .sum_up .total .col:nth-of-type(3) {  }

@@ -14,7 +14,7 @@ class EstimateOption extends Model {
     protected $guarded = [];
 
     public function getEoCheckOptAttribute() { return 'Y'; }
-    public function getGainMileageAttribute() { return $this->eo_price * auth()->check() ? auth()->user()->my_mileage_rate : 0 / 100; }
+    public function getGainMileageAttribute() { return round($this->eo_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
 
     public function scopeEmId($query, $id) { return $query->where('eo_em_id', $id); }
 }

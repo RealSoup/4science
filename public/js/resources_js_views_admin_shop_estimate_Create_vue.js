@@ -60,7 +60,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: false,
       frm: {
-        estimate_reply: {}
+        estimate_req: {},
+        estimate_reply: {
+          file_info: []
+        }
       }
     };
   },

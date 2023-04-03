@@ -257,9 +257,7 @@ class EstimateController extends Controller {
         if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
             $to_email = $req->estimate_req['eq_email'];
             $to_name = $req->estimate_req['eq_name'];
-            $params = $this->mailParam_paramImplant($req, $eq_id, $er_id);
-            $params = $this->mailParam_paramImplant($req, $req->estimate_model, $eq_id, $er_id, $req->estimate_req['eq_name']);
-            
+            $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $eq_id, $er_id, $req->estimate_req['eq_name']);
             $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
 
