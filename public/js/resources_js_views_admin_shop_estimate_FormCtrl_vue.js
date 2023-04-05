@@ -28,16 +28,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['clickable'],
   methods: {
     save: function save(type) {
       this.$emit('save', type);
-    },
-    preview: function preview() {
-      var url = "/api/admin/shop/estimate/showEstimate/".concat(this.$route.params.er_id);
-      var name = "견적서 미리보기";
-      var option = "width = 900, height = 900, top = 10, left = 10, location = no";
-      window.open(url, name, option);
     }
   }
 });
@@ -228,44 +227,58 @@ var render = function () {
                     "b-button",
                     {
                       attrs: { size: "sm", variant: "info" },
-                      on: { click: _vm.preview },
+                      on: {
+                        click: function ($event) {
+                          return _vm.save("preview")
+                        },
+                      },
                     },
                     [_c("b-icon-search"), _vm._v(" 미리보기")],
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { size: "sm", variant: "success" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.save("store")
-                        },
-                      },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                      _vm._v(" 임시저장"),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { size: "sm", variant: "primary" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.save("send")
-                        },
-                      },
-                    },
-                    [_c("b-icon-mailbox"), _vm._v(" 완료/발송")],
-                    1
-                  ),
+                  _vm.clickable
+                    ? [
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { size: "sm", variant: "success" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.save("store")
+                              },
+                            },
+                          },
+                          [
+                            _c("font-awesome-icon", {
+                              attrs: { icon: "save" },
+                            }),
+                            _vm._v(" 임시저장"),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { size: "sm", variant: "primary" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.save("send")
+                              },
+                            },
+                          },
+                          [_c("b-icon-mailbox"), _vm._v(" 완료/발송")],
+                          1
+                        ),
+                      ]
+                    : _c(
+                        "b-button",
+                        { staticClass: "gray", attrs: { size: "sm" } },
+                        [_vm._v("저장 중~!")]
+                      ),
                 ],
-                1
+                2
               ),
             ],
             1

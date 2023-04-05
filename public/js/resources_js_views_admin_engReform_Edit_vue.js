@@ -4837,12 +4837,12 @@ var render = function () {
                   _c(
                     "b-col",
                     _vm._l(_vm.frm.file_info, function (f) {
-                      return f.fi_kind == "work"
-                        ? _c(
-                            "div",
-                            { key: f.fi_id },
-                            [
-                              _c(
+                      return _c(
+                        "div",
+                        { key: f.fi_id },
+                        [
+                          f.fi_kind == "work"
+                            ? _c(
                                 "b-button",
                                 {
                                   attrs: {
@@ -4857,11 +4857,11 @@ var render = function () {
                                   },
                                 },
                                 [_vm._v(_vm._s(f.fi_original))]
-                              ),
-                            ],
-                            1
-                          )
-                        : _vm._e()
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      )
                     }),
                     0
                   ),
@@ -4873,12 +4873,12 @@ var render = function () {
                   _c(
                     "b-col",
                     _vm._l(_vm.frm.file_info, function (f) {
-                      return f.fi_kind == "ref"
-                        ? _c(
-                            "div",
-                            { key: f.fi_id },
-                            [
-                              _c(
+                      return _c(
+                        "div",
+                        { key: f.fi_id },
+                        [
+                          f.fi_kind == "ref"
+                            ? _c(
                                 "b-button",
                                 {
                                   attrs: {
@@ -4893,11 +4893,11 @@ var render = function () {
                                   },
                                 },
                                 [_vm._v(_vm._s(f.fi_original))]
-                              ),
-                            ],
-                            1
-                          )
-                        : _vm._e()
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      )
                     }),
                     0
                   ),
@@ -4917,7 +4917,11 @@ var render = function () {
                     [
                       _c("file-upload", {
                         ref: "fileupload",
-                        attrs: { fi_group: "engReform", fi_kind: "cplt" },
+                        attrs: {
+                          fi_group: "engReform",
+                          fi_kind: "cplt",
+                          height: 150,
+                        },
                         model: {
                           value: _vm.frm.file_info_cplt,
                           callback: function ($$v) {

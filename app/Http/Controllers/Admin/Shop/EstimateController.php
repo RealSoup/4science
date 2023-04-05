@@ -227,15 +227,17 @@ class EstimateController extends Controller {
         $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
         $eq_impl['ip'] = $req->ip();
         $eq_id = array_key_exists('eq_id', $req->estimate_req) ? $req->estimate_req['eq_id'] : 0;
+
+        $eq_impl['eq_step'] = 'DONE';
+        if ( $req->estimate_reply['er_step'] == 0 ) $eq_impl['eq_step'] = 'DOING';
+  
         if ($eq_id) {
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
-            $eq_impl['eq_step'] = 'DONE';
             DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update($eq_impl);
         } else {
             $eq_impl['created_id'] = auth()->check() ? auth()->user()->id : 0;
             $eq_impl['eq_title'] = '<b>[ 임의견적 ]</b> ';
             $eq_id = DB::table('shop_estimate_req')->insertGetId($eq_impl, 'eq_id');
-            DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update(['eq_step' => 'DONE']);
         }
 
         $er_impl = $this->estimateReply_paramImplant($req->estimate_reply);
@@ -268,10 +270,12 @@ class EstimateController extends Controller {
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
             if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step]))
                 return response()->json('success', 200);
-        } else {
+        } else {                
             $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
             $eq_impl['ip'] = $req->ip();
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
+            $eq_impl['eq_step'] = 'DONE';
+            if ( $req->estimate_reply['er_step'] == 0 ) $eq_impl['eq_step'] = 'DOING';
             DB::table('shop_estimate_req')->where('eq_id', $req->estimate_req['eq_id'])->update($eq_impl);
 
             $er_impl = $this->estimateReply_paramImplant($req->estimate_reply);

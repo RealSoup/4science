@@ -46,7 +46,7 @@
                     <th width="20%" style="padding:13px 0; background-color:#f8f8f8; border-bottom:1px solid #d5d5d5;">견적일자</th>
                     <td style="padding:13px 10px; border-bottom:1px solid #d5d5d5;">{{$estimated_date}}</td>
                     <th width="20%" style="padding:13px 0; background-color:#f8f8f8; border-bottom:1px solid #d5d5d5;">납품기일</th>
-                    <td style="padding:13px 10px; border-bottom:1px solid #d5d5d5;">{{$er_dlvy_at}}</td>
+                    <td style="padding:13px 10px; border-bottom:1px solid #d5d5d5;">납기 {{$er_dlvy_at}} 이내</td>
                 </tr>
                 <tr>
                     <th width="20%" style="padding:13px 0; background-color:#f8f8f8; border-bottom:1px solid #d5d5d5;">유효기간</th>

@@ -114,7 +114,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
     <table class="profile">
         <tr class="line01 line02">
             <th>견적번호</th> <td width="33%">{{ $er->er_id }}</td>
-            <th>납품기일</th> <td>{{ $er->er_dlvy_at }}</td>
+            <th>납품기일</th> <td>납기 {{ $er->er_dlvy_at }} 이내</td>
         </tr>
         <tr class="line01">
             <th>견적일자</th> <td>{{ date('Y-m-d', strtotime($er->created_at)) }}</td>

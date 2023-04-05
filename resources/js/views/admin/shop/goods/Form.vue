@@ -73,10 +73,7 @@
             <b-row>
                 <b-col class="label">제조사</b-col>
                 <b-col class="type03">
-                    <select class="custom-select" id="gd_mk_id" v-model="value.gd_mk_id">
-                        <option value=""></option>
-                        <option v-for="opt in makers" :value="opt.mk_id" :key="opt.mk_id">{{ opt.mk_name }}</option>
-                    </select>
+                    <MakerInput v-model="value.gd_mk_name" :frm="value" />
                     <Validation :error="$store.state.error.validations.gd_mk_id" />
                 </b-col>
                 <b-col class="label short">매입처 직배송</b-col>
@@ -287,11 +284,12 @@ export default {
         draggable,
         Multiselect,
         FileUpload,
-        'Validation': () => import('@/views/_common/Validation.vue'),
-        'Categorys': () => import('./_comp/Categorys.vue'),
+        'Validation': () => import('@/views/_common/Validation'),
+        'Categorys': () => import('./_comp/Categorys'),
         Ckeditor,
+        'MakerInput': () => import('./_comp/MakerInput'),
     },
-    props: ['value', 'hashs', 'makers', 'purchaseAt'],
+    props: ['value', 'hashs', 'purchaseAt'],
 
     computed: {
         gd_enable_text() {

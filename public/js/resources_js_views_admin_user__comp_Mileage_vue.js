@@ -56,6 +56,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
@@ -145,6 +149,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    numCalc: function numCalc(i) {
+      return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
     }
   },
   mounted: function mounted() {
@@ -193,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.col[data-v-4ea7ee84]:nth-of-type(3) { text-align:right;\n}\n.col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.top[data-v-4ea7ee84] { text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(1) { flex:0 0 10%; max-width:10%;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(3) { flex:0 0 10%; max-width:10%; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(4) { flex:0 0 12%; max-width:12%;\n}\n.list .col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -328,173 +335,185 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-container",
+    "div",
     { staticClass: "p_wrap" },
     [
       _c(
-        "b-row",
+        "b-container",
+        { staticClass: "cmain" },
         [
-          _c("b-col", [
-            _c("h3", [
-              _vm._v("가용 마일리지: "),
-              _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)))]),
-            ]),
+          _c("div", { staticClass: "top" }, [
+            _vm._v("가용 마일리지: "),
+            _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)))]),
           ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.list.data, function (ml, i) {
-        return _c(
-          "b-row",
-          {
-            key: i,
-            class: { "bg-danger": ml.expiration || ml.ml_type == "SP" },
-          },
-          [
-            _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "1" } }, [
-              _vm._v(_vm._s(ml.ml_id)),
-            ]),
-            _vm._v(" "),
-            _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "7" } }, [
-              ml.ml_tbl == "voucher" && !_vm.isEmpty(ml.refine_content)
-                ? _c(
-                    "div",
-                    [
-                      _c("b-icon-gift-fill"),
-                      _vm._v(
-                        " " +
-                          _vm._s(
-                            _vm.config.voucher[ml.refine_content[0]].name
-                          ) +
-                          " : " +
-                          _vm._s(ml.refine_content[1]) +
-                          " 장 "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                      _vm._v(" " + _vm._s(ml.refine_content[2]) + " "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "mobile-alt" },
-                      }),
-                      _vm._v(
-                        " " +
-                          _vm._s(ml.refine_content[3]) +
-                          "\n                "
-                      ),
-                    ],
-                    1
-                  )
-                : _c(
-                    "div",
-                    [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(ml.ml_content) +
-                          "\n                    "
-                      ),
-                      ml.ml_type == "SP"
-                        ? _c(
-                            "b-badge",
-                            {
-                              staticClass: "ml-3",
-                              attrs: { variant: "warning" },
-                            },
-                            [_vm._v("상품권 구매")]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      ml.expiration
-                        ? _c(
-                            "b-badge",
-                            {
-                              staticClass: "ml-3",
-                              attrs: { variant: "warning" },
-                            },
-                            [_vm._v("만료")]
-                          )
-                        : _vm._e(),
-                    ],
-                    1
-                  ),
-            ]),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { attrs: { col: "", sm: "12", md: "6", lg: "2" } },
-              [
-                ml.ml_tbl == "voucher"
-                  ? _c(
-                      "b-form-select",
-                      {
-                        on: {
-                          change: function ($event) {
-                            return _vm.setVoucher($event, ml.ml_id)
-                          },
-                        },
-                        model: {
-                          value: ml.ml_type,
-                          callback: function ($$v) {
-                            _vm.$set(ml, "ml_type", $$v)
-                          },
-                          expression: "ml.ml_type",
-                        },
-                      },
-                      _vm._l(_vm.config.v_option, function (o, k) {
-                        return _c(
-                          "b-form-select-option",
-                          { key: k, attrs: { value: k } },
-                          [_vm._v(_vm._s(o))]
-                        )
-                      }),
-                      1
-                    )
-                  : [_vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)))],
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("b-col", { attrs: { col: "", sm: "12", md: "6", lg: "2" } }, [
-              _vm._v(_vm._s(_vm._f("formatDate")(ml.created_at))),
-            ]),
-          ],
-          1
-        )
-      }),
-      _vm._v(" "),
-      _c(
-        "pagination",
-        {
-          staticClass: "mt-5",
-          attrs: {
-            data: _vm.list,
-            limit: 5,
-            showDisabled: true,
-            align: "center",
-          },
-          on: { "pagination-change-page": _vm.setPage },
-        },
-        [
+          _vm._v(" "),
           _c(
-            "span",
-            { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-            [_c("b-icon-chevron-left")],
+            "b-row",
+            { staticClass: "head list" },
+            [
+              _c("b-col", [_vm._v("번호")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("내용")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("마일리지")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("날짜")]),
+            ],
             1
           ),
           _vm._v(" "),
+          _vm._l(_vm.list.data, function (ml, i) {
+            return _c(
+              "b-row",
+              {
+                key: i,
+                staticClass: "body list",
+                class: { "bg-danger": ml.expiration || ml.ml_type == "SP" },
+              },
+              [
+                _c("b-col", [_vm._v(_vm._s(_vm.numCalc(i)))]),
+                _vm._v(" "),
+                _c("b-col", [
+                  ml.ml_tbl == "voucher" && !_vm.isEmpty(ml.refine_content)
+                    ? _c(
+                        "div",
+                        [
+                          _c("b-icon-gift-fill"),
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm.config.voucher[ml.refine_content[0]].name
+                              ) +
+                              " : " +
+                              _vm._s(ml.refine_content[1]) +
+                              " 장 "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
+                          _vm._v(" " + _vm._s(ml.refine_content[2]) + " "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("font-awesome-icon", {
+                            attrs: { icon: "mobile-alt" },
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(ml.refine_content[3]) +
+                              "\r\n                "
+                          ),
+                        ],
+                        1
+                      )
+                    : _c(
+                        "div",
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(ml.ml_content) +
+                              "\r\n                    "
+                          ),
+                          ml.ml_type == "SP"
+                            ? _c(
+                                "b-badge",
+                                {
+                                  staticClass: "ml-3",
+                                  attrs: { variant: "warning" },
+                                },
+                                [_vm._v("상품권 구매")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          ml.expiration
+                            ? _c(
+                                "b-badge",
+                                {
+                                  staticClass: "ml-3",
+                                  attrs: { variant: "warning" },
+                                },
+                                [_vm._v("만료")]
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    ml.ml_tbl == "voucher"
+                      ? _c(
+                          "b-form-select",
+                          {
+                            on: {
+                              change: function ($event) {
+                                return _vm.setVoucher($event, ml.ml_id)
+                              },
+                            },
+                            model: {
+                              value: ml.ml_type,
+                              callback: function ($$v) {
+                                _vm.$set(ml, "ml_type", $$v)
+                              },
+                              expression: "ml.ml_type",
+                            },
+                          },
+                          _vm._l(_vm.config.v_option, function (o, k) {
+                            return _c(
+                              "b-form-select-option",
+                              { key: k, attrs: { value: k } },
+                              [_vm._v(_vm._s(o))]
+                            )
+                          }),
+                          1
+                        )
+                      : [_vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)))],
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("b-col", [
+                  _vm._v(_vm._s(_vm._f("formatDate")(ml.created_at))),
+                ]),
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
           _c(
-            "span",
-            { attrs: { slot: "next-nav" }, slot: "next-nav" },
-            [_c("b-icon-chevron-right")],
-            1
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                limit: 5,
+                showDisabled: true,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.setPage },
+            },
+            [
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
+                1
+              ),
+            ]
           ),
-        ]
+        ],
+        2
       ),
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []

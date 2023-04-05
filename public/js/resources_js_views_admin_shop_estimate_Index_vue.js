@@ -122,15 +122,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'SchDate': function SchDate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate */ "./resources/js/views/_common/SchDate.vue"));
     },
     'List': function List() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List.vue */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
+    },
+    'PopUp': function PopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/PopUp */ "./resources/js/views/_common/PopUp.vue"));
     }
   },
   data: function data() {
@@ -155,35 +160,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    routerPush: function routerPush() {
+      this.$router.push({
+        name: 'adm_estimate_index',
+        query: this.sch_frm
+      })["catch"](function () {});
+    },
+    pageSet: function pageSet(p) {
+      this.sch_frm.page = p;
+      this.routerPush();
+    },
     index: function index() {
-      var _arguments = arguments,
-          _this = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var p, res;
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                p = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 0;
-                _context.prev = 1;
-                _this.sch_frm.page = p;
+                _context.prev = 0;
 
                 if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                  _context.next = 6;
+                  _context.next = 4;
                   break;
                 }
 
                 Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                 return _context.abrupt("return", false);
 
-              case 6:
-                _context.next = 8;
+              case 4:
+                _context.next = 6;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate", {
                   params: _this.sch_frm
                 });
 
-              case 8:
+              case 6:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -192,54 +204,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.mng_info = res.data.mng_info;
                 }
 
-                _context.next = 16;
+                _context.next = 14;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 16:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 12]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     price_comma: function price_comma(e) {
       return this.priceComma(e);
+    },
+    ////////////////////////////////
+    evtCloseWinPopup: function evtCloseWinPopup() {
+      console.log("evtCloseWinPopup () ========  ");
+    },
+    openWinPop: function openWinPop(url) {
+      this.$refs.winPopup.openWinPop(url, 1700, 900);
+    },
+    onRecvWinPop: function onRecvWinPop(recvObj) {
+      console.log("onRecvWinPop  ---------");
+      if (recvObj == 'reread') this.index();
+    },
+    sendToChild: function sendToChild() {
+      this.$refs.winPopup.sendEvtToChild({
+        msg: 'abcde'
+      });
     }
   },
   mounted: function mounted() {
     this.index();
   },
-  filters: {
-    eqStep: function eqStep(str) {
-      var rst = '';
-
-      switch (str) {
-        case 'DONOT':
-          rst = '미처리';
-          break;
-
-        case 'DOING':
-          rst = '처리중';
-          break;
-
-        case 'DONE':
-          rst = '완료';
-          break;
-
-        case 'CANCEL':
-          rst = '취소';
-          break;
-      }
-
-      return rst;
-    }
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.sch_frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+    this.sch_frm, // 수정하려는 객체
+    to.query);
+    this.index();
+    next();
   }
 });
 
@@ -511,7 +521,7 @@ var render = function () {
                         ) {
                           return null
                         }
-                        return _vm.index.apply(null, arguments)
+                        return _vm.routerPush.apply(null, arguments)
                       },
                     },
                     model: {
@@ -541,7 +551,7 @@ var render = function () {
                         ) {
                           return null
                         }
-                        return _vm.index.apply(null, arguments)
+                        return _vm.routerPush.apply(null, arguments)
                       },
                     },
                     model: {
@@ -738,7 +748,7 @@ var render = function () {
                             ) {
                               return null
                             }
-                            return _vm.index.apply(null, arguments)
+                            return _vm.routerPush.apply(null, arguments)
                           },
                         },
                         model: {
@@ -755,7 +765,7 @@ var render = function () {
                         [
                           _c(
                             "b-button",
-                            { on: { click: _vm.index } },
+                            { on: { click: _vm.routerPush } },
                             [_c("b-icon-search")],
                             1
                           ),
@@ -804,11 +814,7 @@ var render = function () {
                       staticClass: "white",
                       on: {
                         click: function ($event) {
-                          return _vm.openWinPop(
-                            "/admin/shop/estimate/create",
-                            1700,
-                            900
-                          )
+                          return _vm.openWinPop("/admin/shop/estimate/create")
                         },
                       },
                     },
@@ -822,7 +828,10 @@ var render = function () {
           ),
           _vm._v(" "),
           _vm.list.data && _vm.list.data.length
-            ? _c("List", { attrs: { list: _vm.list.data } })
+            ? _c("List", {
+                attrs: { list: _vm.list.data },
+                on: { openWinPop: _vm.openWinPop },
+              })
             : _vm._e(),
           _vm._v(" "),
           _c(
@@ -835,7 +844,7 @@ var render = function () {
                 showDisabled: true,
                 align: "center",
               },
-              on: { "pagination-change-page": _vm.index },
+              on: { "pagination-change-page": _vm.pageSet },
             },
             [
               _c(
@@ -856,6 +865,18 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("PopUp", {
+        ref: "winPopup",
+        on: {
+          onClose: function (val) {
+            return _vm.evtCloseWinPopup(val)
+          },
+          onRecvEvtFromWinPop: function (val) {
+            return _vm.onRecvWinPop(val)
+          },
+        },
+      }),
     ],
     1
   )

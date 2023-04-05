@@ -16,7 +16,7 @@
     </b-row>
     <b-row class="body" v-for="row in list" :key="row.eq_id">
         <b-col>{{row.eq_id}}.</b-col>
-        <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`, 1700, 900)" class="eq_tit">
+        <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <SubString v-else-if="row.eq_type == 'REQ'" v-model="row.eq_content" :width="650" />
 
@@ -27,20 +27,25 @@
         <b-col>{{row.eq_name}}</b-col>
         <b-col>{{ row.created_at | formatDate }}</b-col>
         <b-col>
-            <b-badge class="plum" v-if="row.eq_step === 'DONOT'" >미처리</b-badge>
-            <b-badge class="mint" v-else-if="row.eq_step === 'DOING'">처리중</b-badge>
-            <b-badge class="gray" v-else-if="row.eq_step === 'DONE'">완료</b-badge>
-            <b-badge class="yellow" v-else-if="row.eq_step === 'CANCEL'">취소</b-badge>
+            <b-badge class="plum" v-if="row.eq_step === 'DONOT'" >{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="mint" v-else-if="row.eq_step === 'DOING'">{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="gray" v-else-if="row.eq_step === 'DONE'">{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="yellow" v-else-if="row.eq_step === 'CANCEL'">{{row.eq_step | eqStep}}</b-badge>
         </b-col>
         <b-col>
             <span v-if="row.eq_mng_nm">{{row.eq_mng_nm}}</span>
-            <b-button class="white" v-else @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`, 1700, 900)">견적서 작성</b-button>
+            <b-button class="white" v-if="row.estimate_reply.length == 0" @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`)">견적서 작성</b-button>
         </b-col>
         <b-col class="er_box">
             <template v-for="(er, i) in row.estimate_reply">
                 <span :key="`i${er.er_id}`">{{er.er_id}}.</span>
-                <span v-if="i===0" class="btn mint" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" :key="`b${er.er_id}`">견적서</span>
-                <span v-else class="btn orange" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`, 1700, 900)" :key="`b${er.er_id}`">재견적서</span>
+                <template v-if="er.er_step == 0">
+                    <span class="btn gray" :class="{not_fir:i!==0}" @click="openWinPop(`/admin/shop/estimate/${er.er_id}/edit`)" :key="`b${er.er_id}`">임시저장</span>
+                </template>
+                <template v-else>
+                    <span v-if="i===0" class="btn mint" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">견적서</span>
+                    <span v-else class="btn orange not_fir" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
+                </template>
                 <span :key="`d${er.er_id}`">{{ er.created_at | formatDate }}</span>
             </template>
         </b-col>
@@ -53,6 +58,25 @@ export default {
     name: 'AdmEstimateIndexList',
     components: { 'SubString': () => import('@/views/_common/SubString.vue'), },
     props:['list'],
+    filters: {
+        eqStep: function (str) {
+            var rst = '';
+            switch (str) {
+                case 'DONOT':  rst = '미처리'; break;
+                case 'DOING':  rst = '처리중'; break;
+                case 'DONE':   rst = '완료'; break;
+                case 'CANCEL': rst = '취소'; break;
+            }
+            return rst;
+        }
+    },
+    methods: {
+        openWinPop(url){
+            this.$emit( 'openWinPop', url );
+        },
+    },
+    
+            
 };
 </script>
 
@@ -75,6 +99,7 @@ export default {
 .er_box span:nth-child(3n+3) { flex:0 0 40%; max-width:40%; }
 .er_box span.btn { background-color:#fff; border-width:3px; padding:.18rem 0; }
 .er_box span.mint { color:#00A1CB; }
-.er_box span.orange { color:#F18D04; margin-top:.25rem; }
- 
+.er_box span.orange { color:#F18D04; }
+.er_box span.gray { background-color:#aaa; color:#fff; }
+.er_box span.not_fir { margin-top:.25rem; }
 </style>

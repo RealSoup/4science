@@ -38,7 +38,7 @@
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.od_mng">
                     <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="opt in mng" :key="opt.id" :value="opt.id">{{ opt.name }}</b-form-select-option>
+                    <b-form-select-option v-for="opt in mng_on" :key="opt.id" :value="opt.id">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">담당팀</b-col>
@@ -67,8 +67,8 @@
                             <b-form-select-option value="catno">Cat.No</b-form-select-option>
                         </b-form-select>
                     </b-input-group-prepend>
-                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index"></b-form-input>
-                    <b-input-group-append><b-button @click="index"><b-icon-search /></b-button></b-input-group-append>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush"></b-form-input>
+                    <b-input-group-append><b-button @click="routerPush"><b-icon-search /></b-button></b-input-group-append>
                 </b-input-group>
             </b-col>
         </b-row>
@@ -83,9 +83,9 @@
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng="mng" />
+        <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off" />
         
-        <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -119,7 +119,8 @@ export default {
                 keyword:'',
                 page:0
             },
-            mng:{},
+            mng_on:{},
+            mng_off:{},
             mng_info: {},
             order_config: {},
             gd_enable: { 0:{value:'Y', name:'활성'}, 1:{value:'N', name:'비활성'} },
@@ -127,12 +128,9 @@ export default {
         }
     },
     methods: {
-        numCalc(i) {
-            return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
-        },
-        async index(p=0) {
+        
+        async index() {
             try {
-                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
@@ -140,7 +138,8 @@ export default {
                 const res = await ax.get(`/api/admin/shop/order`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
-                    this.mng = res.data.mng;
+                    this.mng_on = res.data.mng_on;
+                    this.mng_off = res.data.mng_off;
                     this.mng_info = res.data.mng_info;
                     this.order_config = res.data.order_config;
                 }
@@ -149,10 +148,22 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        
+        routerPush(){
+            this.$router.push({name: 'adm_order_index', query: this.sch_frm }).catch(()=>{});
+        },
+        pageSet(p){
+            this.sch_frm.page = p;
+            this.routerPush();
+        },
     },
     mounted() {
+        this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
         this.index();
+    },
+    beforeRouteUpdate (to, from, next) {
+        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
+        this.index();
+        next();
     },
 }
 </script>

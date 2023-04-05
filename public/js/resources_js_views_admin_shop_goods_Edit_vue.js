@@ -393,7 +393,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       hashs: [],
-      makers: [],
       purchaseAt: [],
       frm: {
         file_goods_goods: [],
@@ -422,7 +421,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (res && res.status === 200) {
                   _this.frm = res.data.goods;
                   _this.hashs = res.data.hashs;
-                  _this.makers = res.data.makers;
                   _this.purchaseAt = res.data.purchaseAt;
                 }
 
@@ -477,9 +475,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.$refs.form.$refs.fileupload2.fileProcessor(res.data);
 
               case 9:
-                _this2.$router.push({
-                  name: 'adm_goods_index'
-                });
+                Notify.toast('success', '수정 완료'); // this.$router.push({ name: 'adm_goods_index' })
 
               case 10:
               case "end":
@@ -867,9 +863,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
@@ -882,14 +875,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_3___default()),
     FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     'Validation': function Validation() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation */ "./resources/js/views/_common/Validation.vue"));
     },
     'Categorys': function Categorys() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
     },
-    Ckeditor: _views_common_ckeditor5_Ckeditor_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    Ckeditor: _views_common_ckeditor5_Ckeditor_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    'MakerInput': function MakerInput() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_MakerInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MakerInput */ "./resources/js/views/admin/shop/goods/_comp/MakerInput.vue"));
+    }
   },
-  props: ['value', 'hashs', 'makers', 'purchaseAt'],
+  props: ['value', 'hashs', 'purchaseAt'],
   computed: {
     gd_enable_text: function gd_enable_text() {
       return this.value.gd_enable == 'Y' ? "활성" : "비활성";
@@ -1264,7 +1260,7 @@ var UploadAdapter = /*#__PURE__*/function () {
       // Prepare the form data.
       var data = new FormData();
       data.append('fi_group', 'goods');
-      data.append('fi_room', "Y" + new Date().getFullYear());
+      data.append('fi_room', new Date().getFullYear());
       data.append('fi_kind', 'desc');
       data.append('file', file); // Send the request.
 
@@ -5800,6 +5796,7 @@ var render = function () {
                                   name: "goods_show",
                                   params: { gd_id: _vm.$route.params.gd_id },
                                 },
+                                target: "_blank",
                               },
                             },
                             [_vm._v("판매 화면")]
@@ -5831,11 +5828,7 @@ var render = function () {
       _vm._v(" "),
       _c("Form", {
         ref: "form",
-        attrs: {
-          hashs: _vm.hashs,
-          makers: _vm.makers,
-          purchaseAt: _vm.purchaseAt,
-        },
+        attrs: { hashs: _vm.hashs, purchaseAt: _vm.purchaseAt },
         model: {
           value: _vm.frm,
           callback: function ($$v) {
@@ -6327,55 +6320,16 @@ var render = function () {
                     "b-col",
                     { staticClass: "type03" },
                     [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.value.gd_mk_id,
-                              expression: "value.gd_mk_id",
-                            },
-                          ],
-                          staticClass: "custom-select",
-                          attrs: { id: "gd_mk_id" },
-                          on: {
-                            change: function ($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function (o) {
-                                  return o.selected
-                                })
-                                .map(function (o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.value,
-                                "gd_mk_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
+                      _c("MakerInput", {
+                        attrs: { frm: _vm.value },
+                        model: {
+                          value: _vm.value.gd_mk_name,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "gd_mk_name", $$v)
                           },
+                          expression: "value.gd_mk_name",
                         },
-                        [
-                          _c("option", { attrs: { value: "" } }),
-                          _vm._v(" "),
-                          _vm._l(_vm.makers, function (opt) {
-                            return _c(
-                              "option",
-                              {
-                                key: opt.mk_id,
-                                domProps: { value: opt.mk_id },
-                              },
-                              [_vm._v(_vm._s(opt.mk_name))]
-                            )
-                          }),
-                        ],
-                        2
-                      ),
+                      }),
                       _vm._v(" "),
                       _c("Validation", {
                         attrs: {

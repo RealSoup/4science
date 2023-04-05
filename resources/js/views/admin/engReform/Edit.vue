@@ -47,8 +47,8 @@
                     <b>작업 문서 파일:</b>
                 </b-col>                
                 <b-col>
-                    <div v-for="f in frm.file_info" :key="f.fi_id" v-if="f.fi_kind=='work'">
-                        <b-button size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
+                    <div v-for="f in frm.file_info" :key="f.fi_id">
+                        <b-button v-if="f.fi_kind == 'work'" size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
                     </div>
                 </b-col>
 
@@ -56,8 +56,8 @@
                     <b>참고 문서 파일:</b>
                 </b-col>                
                 <b-col>
-                    <div v-for="f in frm.file_info" :key="f.fi_id" v-if="f.fi_kind=='ref'">
-                        <b-button size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
+                    <div v-for="f in frm.file_info" :key="f.fi_id">
+                        <b-button v-if="f.fi_kind == 'ref'" size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
                     </div>
                 </b-col>
             </b-row>
@@ -67,7 +67,7 @@
                     <b>교정자료 업로드:</b>
                 </b-col>                
                 <b-col>
-                    <file-upload ref="fileupload" v-model="frm.file_info_cplt" :fi_group="'engReform'" :fi_kind="'cplt'" />
+                    <file-upload ref="fileupload" v-model="frm.file_info_cplt" :fi_group="'engReform'" :fi_kind="'cplt'" :height="150" />
                     <transition name="fade">
                         <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">
                             첨부파일 전송중 ......

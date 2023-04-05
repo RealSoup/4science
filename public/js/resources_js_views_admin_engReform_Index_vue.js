@@ -105,6 +105,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -598,7 +601,14 @@ var render = function () {
                         _c(
                           "b-button",
                           {
-                            attrs: { to: "/foo", variant: "info", size: "sm" },
+                            attrs: {
+                              to: {
+                                name: "adm_user_edit",
+                                params: { id: er.user.id },
+                              },
+                              variant: "light",
+                              size: "sm",
+                            },
                           },
                           [
                             _vm._v(
@@ -620,12 +630,13 @@ var render = function () {
                         _c(
                           "b-button",
                           {
+                            staticClass: "text-left",
                             attrs: {
                               to: {
                                 name: "adm_eng_reform_edit",
                                 params: { er_id: er.er_id },
                               },
-                              variant: "outline-primary",
+                              variant: "light",
                               block: "",
                             },
                           },
@@ -656,11 +667,11 @@ var render = function () {
                               _vm._v("일반"),
                             ])
                           : er.er_type == 2
-                          ? _c("b-badge", { attrs: { variant: "" } }, [
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
                               _vm._v("프리미엄"),
                             ])
                           : er.er_type == 3
-                          ? _c("b-badge", { attrs: { variant: "dark" } }, [
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
                               _vm._v("프리미엄 플러스"),
                             ])
                           : _vm._e(),
@@ -673,8 +684,12 @@ var render = function () {
                     _c(
                       "b-col",
                       [
-                        _c("b-badge", [_vm._v(_vm._s(er.er_tel))]),
-                        _c("b-badge", [_vm._v(_vm._s(er.er_hp))]),
+                        _c("b-badge", { attrs: { variant: "light" } }, [
+                          _vm._v(_vm._s(er.er_tel)),
+                        ]),
+                        _c("b-badge", { attrs: { variant: "light" } }, [
+                          _vm._v(_vm._s(er.er_hp)),
+                        ]),
                       ],
                       1
                     ),
@@ -691,17 +706,19 @@ var render = function () {
                       "b-col",
                       [
                         er.er_step == "ING"
-                          ? _c("b-badge", [_vm._v("처리중")])
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
+                              _vm._v("처리중"),
+                            ])
                           : er.er_step == "CPLT"
-                          ? _c("b-badge", { attrs: { variant: "success" } }, [
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
                               _vm._v("처리완료"),
                             ])
                           : er.er_step == "NOT"
-                          ? _c("b-badge", { attrs: { variant: "warning" } }, [
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
                               _vm._v("미처리"),
                             ])
                           : er.er_step == "CXL"
-                          ? _c("b-badge", { attrs: { variant: "danger" } }, [
+                          ? _c("b-badge", { attrs: { variant: "light" } }, [
                               _vm._v("취소"),
                             ])
                           : _vm._e(),
@@ -716,11 +733,34 @@ var render = function () {
             2
           ),
           _vm._v(" "),
-          _c("pagination", {
-            staticClass: "mt-5",
-            attrs: { data: _vm.list, align: "center" },
-            on: { "pagination-change-page": _vm.setPage },
-          }),
+          _c(
+            "pagination",
+            {
+              staticClass: "mt-5",
+              attrs: {
+                data: _vm.list,
+                limit: 5,
+                showDisabled: true,
+                align: "center",
+              },
+              on: { "pagination-change-page": _vm.setPage },
+            },
+            [
+              _c(
+                "span",
+                { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                [_c("b-icon-chevron-left")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                [_c("b-icon-chevron-right")],
+                1
+              ),
+            ]
+          ),
         ],
         1
       ),

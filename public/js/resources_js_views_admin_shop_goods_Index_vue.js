@@ -113,6 +113,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -131,6 +139,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         endDate: '',
         gd_mk_id: '',
         gd_enable: '',
+        deleted_at: '',
         ca01: 0,
         ca02: 0,
         ca03: 0,
@@ -149,6 +158,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         1: {
           value: 'N',
           name: '비활성'
+        }
+      },
+      deleted_at: {
+        0: {
+          value: 'Y',
+          name: '삭제'
+        },
+        1: {
+          value: 'N',
+          name: '존재'
         }
       }
     };
@@ -512,6 +531,40 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("삭제")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.sch_frm.deleted_at,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "deleted_at", $$v)
+                        },
+                        expression: "sch_frm.deleted_at",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.deleted_at, function (opt) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: opt.value, attrs: { value: opt.value } },
+                          [_vm._v(_vm._s(opt.name))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
               _vm._v(" "),
               _c(
@@ -686,7 +739,7 @@ var render = function () {
               _vm._v(" "),
               _c("b-col", [_vm._v("담당자")]),
               _vm._v(" "),
-              _c("b-col", [_vm._v("노출")]),
+              _c("b-col", [_vm._v("활성")]),
               _vm._v(" "),
               _c("b-col", [_vm._v("최종수정일")]),
             ],
@@ -771,8 +824,8 @@ var render = function () {
                 _vm._v(" "),
                 _c("b-col", [
                   row.gd_enable == "Y"
-                    ? _c("span", [_vm._v("노출")])
-                    : _c("span", [_vm._v("미노출")]),
+                    ? _c("span", [_vm._v("활성")])
+                    : _c("span", [_vm._v("비활성")]),
                 ]),
                 _vm._v(" "),
                 _c("b-col", [

@@ -90,7 +90,7 @@
                 <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
                     <b-col>
                         <b-button variant="outline-primary" size="sm" @click="openWinPop(`/admin/shop/goods/${em.em_gd_id}/edit`, 1700, 900)" >
-                            <b-icon-link45deg />
+                            <img :src="em.img_src" />
                         </b-button>
                         <b class="gd_name">{{em.em_name}}</b>
                         <b class="divider">/</b>
@@ -212,5 +212,6 @@ export default {
 <style lang="css" scoped>
 
 @import '/css/adm_shop_estimate_req.css';
-
+.gd_list .col .btn { max-width: 120px; }
+.gd_list .col .btn img { width:100%; height:120px; object-fit:cover; }
 </style>

@@ -55,6 +55,16 @@ class CommonController extends Controller {
         return response()->json("success", 200);
     }
 
+    public function uploadSimple(Request $req) {
+        $file = $req->file;
+        if($file) {
+            $this->file_upload($file, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
+            $url = Storage::disk('s3')->url("api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}");
+            return response()->json($url, 200);
+        }
+           
+    }
+
     
 
 

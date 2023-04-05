@@ -372,7 +372,7 @@ var render = function () {
                                         on: {
                                           click: function ($event) {
                                             return _vm.fileDown(
-                                              fi.path,
+                                              fi.down_path,
                                               fi.fi_original
                                             )
                                           },

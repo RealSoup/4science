@@ -5,10 +5,14 @@
             <b-col>
                 <router-link :to="{name: 'adm_estimate_index'}" class="btn btn-sm btn-light"><b-icon-list /> 목록</router-link>
             </b-col>
-            <b-col>
-                <b-button size="sm" variant="info" @click="preview"><b-icon-search /> 미리보기</b-button>
-                <b-button size="sm" variant="success" @click="save('store')"><font-awesome-icon icon="save" /> 임시저장</b-button>
-                <b-button size="sm" variant="primary" @click="save('send')"><b-icon-mailbox /> 완료/발송</b-button>
+            <b-col >
+                <b-button size="sm" variant="info" @click="save('preview')"><b-icon-search /> 미리보기</b-button>
+                <template v-if="clickable">
+                    <b-button size="sm" variant="success" @click="save('store')"><font-awesome-icon icon="save" /> 임시저장</b-button>
+                    <b-button size="sm" variant="primary" @click="save('send')"><b-icon-mailbox /> 완료/발송</b-button>
+                </template>
+                
+                <b-button v-else size="sm" class="gray">저장 중~!</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -17,15 +21,10 @@
 
 <script>
 export default {
+    props: ['clickable'],
     methods: {
         save(type) {
             this.$emit('save', type);
-        },
-        preview () {
-            var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}`;
-            var name = "견적서 미리보기";
-            var option = "width = 900, height = 900, top = 10, left = 10, location = no"
-            window.open(url, name, option);
         },
     },
 }

@@ -195,6 +195,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1541,6 +1542,8 @@ var render = function () {
                                 ),
                                 _vm._v(" "),
                                 _c("b-col", [_vm._v(_vm._s(em.gm_spec))]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v(_vm._s(em.dlvy_at))]),
                                 _vm._v(" "),
                                 _c(
                                   "b-col",

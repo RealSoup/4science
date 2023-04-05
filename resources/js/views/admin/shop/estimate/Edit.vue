@@ -1,7 +1,7 @@
 <template lang="html">
     <b-container id="adm_estimate_edit" class="p_wrap">
         <h1>견적서 수정</h1>
-        <FormCtrl @save="update" />
+        <FormCtrl @save="update" :clickable="clickable" />
         <FormSetting v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" />
         <FormUser v-model="frm.estimate_req" />
         <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
@@ -30,6 +30,7 @@ export default {
     data() {
         return {
             isLoadingModalViewed:false,
+            clickable : true,
             // saveType:'',
             frm:{
                 estimate_req: {},
@@ -58,7 +59,8 @@ export default {
         async update(type) {
             if (!validationCheckerUser(this.frm.estimate_req))      return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
-            if (!validationCheckerExtra(this.frm.estimate_reply))                  return false;
+            if (!validationCheckerExtra(this.frm.estimate_reply))   return false;
+            this.clickable = false;
             // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
             // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
             try {
@@ -77,7 +79,16 @@ export default {
                 if (res && res.status === 200) {
                     await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
                     this.isLoadingModalViewed=false;
-                    this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:this.$route.params.er_id } })
+                    window.opener.postMessage( 'reread' );
+                    if(type == 'preview') {
+                        var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}`;
+                        var name = "견적서 미리보기";
+                        var option = "width = 900, height = 900, top = 10, left = 10, location = no"
+                        window.open(url, name, option);
+                        // self.close();
+                    } else 
+                        this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:this.$route.params.er_id } })
+                    
                 }
             } catch (e) {
                 Notify.consolePrint(e);

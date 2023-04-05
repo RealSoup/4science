@@ -22,9 +22,13 @@ class CacheMaker {
             if(!Cache::has($v->key))
                 Cache::forever($v->key, json_decode($v->var, true));    //  배열 형태로 들어감
         }
-        if(!Cache::has('UserMng')) {
+        if(!Cache::has('UserMngOn')) {
             $u = User::whereHas('UserMng', function ($q) { $q->where('um_status', 'Y'); })->get()->keyBy('id');            
-            Cache::forever('UserMng', json_decode($u, true));  //  배열 형태로 들어감
+            Cache::forever('UserMngOn', json_decode($u, true));  //  배열 형태로 들어감
+        }
+        if(!Cache::has('UserMngOff')) {
+            $u = User::whereHas('UserMng')->get()->keyBy('id');      
+            Cache::forever('UserMngOff', json_decode($u, true));  //  배열 형태로 들어감
         }
         
         return $next($request);

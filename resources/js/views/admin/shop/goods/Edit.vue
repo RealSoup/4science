@@ -8,7 +8,7 @@
                 <b-col cols="12" sm="6" class="text-right">
                     <b-button-group size="sm">
                         <b-button size="sm" variant="light" :to="{name: 'adm_goods_index'}">목록</b-button>
-                        <b-button size="sm" variant="info" :to="{name: 'goods_show', params:{gd_id:$route.params.gd_id}}">판매 화면</b-button>
+                        <b-button size="sm" variant="info" :to="{name: 'goods_show', params:{gd_id:$route.params.gd_id}}" target="_blank">판매 화면</b-button>
                         <b-button size="sm" variant="primary" @click="update">수정 완료</b-button>
                     </b-button-group>
                 </b-col>
@@ -16,7 +16,7 @@
         </b-container>
     </b-card>
 
-    <Form ref="form" v-model="frm" :hashs="hashs" :makers="makers" :purchaseAt="purchaseAt" />
+    <Form ref="form" v-model="frm" :hashs="hashs" :purchaseAt="purchaseAt" />
 </b-container>
 </template>
 
@@ -35,7 +35,6 @@ export default {
     data() {
         return {
             hashs: [],
-            makers: [],
             purchaseAt: [],
             frm: {
                 file_goods_goods:[],
@@ -53,7 +52,6 @@ export default {
                 if (res && res.status === 200) {
                     this.frm = res.data.goods;
                     this.hashs = res.data.hashs;
-                    this.makers = res.data.makers;
                     this.purchaseAt = res.data.purchaseAt;
                 }
             } catch (e) {
@@ -72,7 +70,8 @@ export default {
             if (res && res.status === 200) {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
-                this.$router.push({ name: 'adm_goods_index' })
+                Notify.toast('success', '수정 완료')
+                // this.$router.push({ name: 'adm_goods_index' })
             }
         },
         async destroy(){

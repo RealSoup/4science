@@ -69,7 +69,8 @@ class GoodsController extends Controller {
         ->when($req->startDate,  fn ($q, $v) => $q->StartDate($v))
         ->when($req->endDate,    fn ($q, $v) => $q->EndDate($v))
         ->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v))
-        ->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v));
+        ->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v))
+        ->when($req->deleted_at, function ($q, $v) { if ($v == 'Y') return $q->onlyTrashed(); });
 
         if ($req->keyword){
             $gm = $this->goods_model;
@@ -133,13 +134,13 @@ class GoodsController extends Controller {
     }
 
     public function edit(HashJoin $hj, $gd_id) {
-        $data['goods'] = $this->goods->with('goodsModel')->with('goodsOption')->find($gd_id);
-        $data['goods']->goodsCategory; 
+        $data['goods'] = $this->goods->select("shop_goods.*",
+							DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_goods.gd_mk_id = mk_id) as gd_mk_name"),)
+                        ->with('goodsModel')->with('goodsOption')->with('goodsCategory')->find($gd_id);
         foreach($data['goods']->goodsModel as $md) $md->bundleDc;
         foreach($data['goods']->goodsOption as $go) $go->goodsOptionChild;
         $data['goods']->fileGoodsGoods;
         $data['goods']->fileGoodsAdd;
-        $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get();    //  제조사
         $data['purchaseAt'] = PurchaseAt::orderBy('pa_name')->get(); //  매입처 직배송
         $data['hashs'] = Hash::orderBy('hs_tag')->get(); //  키워드 연결
         $data['goods']->hash_join = $hj->joinHash()->GdId($gd_id)->get();

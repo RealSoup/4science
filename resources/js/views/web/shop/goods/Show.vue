@@ -151,8 +151,11 @@
                 </scrollactive>
 
                 <b-row id="goods_desc">
-                    <b-col v-html="content.gd_desc"></b-col>
+                    <b-col cols="12"><div v-html="content.gd_desc" /></b-col>
+                    <b-col cols="12" v-if="content.gd_video"><div v-html="content.gd_video" /></b-col>
                 </b-row>
+
+                
 
                 <div class="desc_pdf">
                     <br /> <hr /> <br />

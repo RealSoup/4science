@@ -56,7 +56,8 @@ class OrderController extends Controller {
 		$um = new UserMng;
 		$data['mng_info'] = $um->getMngInfo();
 		$data['order_config'] = $this->order->getOrderConfig();
-		$data['mng'] = Cache::get('UserMng');
+		$data['mng_on'] = Cache::get('UserMngOn');
+		$data['mng_off'] = Cache::get('UserMngOff');
 		
 		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->with('user')
 							->select("shop_order.*",

@@ -241,6 +241,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       order: [],
       order_config: {},
+      mng_off: [],
       estimate: []
     };
   },
@@ -273,6 +274,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (od && od.status === 200) {
                 _this.order = od.data.list;
                 _this.order_config = od.data.order_config;
+                _this.mng_off = od.data.mng_off;
               }
 
               _context.next = 10;
@@ -1357,7 +1359,12 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("Order", {
-                attrs: { list: _vm.order, config: _vm.order_config },
+                staticClass: "cmain",
+                attrs: {
+                  list: _vm.order,
+                  config: _vm.order_config,
+                  mng_off: _vm.mng_off,
+                },
               }),
             ],
             1
@@ -1382,7 +1389,10 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c("Estimate", { attrs: { list: _vm.estimate } }),
+              _c("Estimate", {
+                staticClass: "cmain",
+                attrs: { list: _vm.estimate },
+              }),
             ],
             1
           ),
@@ -1406,9 +1416,7 @@ var render = function () {
                   },
                 },
                 [
-                  _c("template", { staticClass: "tit", slot: "header" }, [
-                    _vm._v("마일리지 목록"),
-                  ]),
+                  _c("template", { slot: "header" }, [_vm._v("마일리지 목록")]),
                   _vm._v(" "),
                   _c("Mileage"),
                 ],

@@ -21,6 +21,14 @@
                     <b-form-select-option v-for="opt in gd_enable" :value="opt.value" :key="opt.value">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
+
+            <b-col class="label">삭제</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.deleted_at">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="opt in deleted_at" :value="opt.value" :key="opt.value">{{ opt.name }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
             
             <b-col class="label">검색</b-col>
             <b-col>
@@ -61,7 +69,7 @@
             <b-col>상품명</b-col>
             <b-col>제조사</b-col>
             <b-col>담당자</b-col>
-            <b-col>노출</b-col>
+            <b-col>활성</b-col>
             <b-col>최종수정일</b-col>
         </b-row>
         
@@ -79,7 +87,7 @@
             <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><span>{{row.gd_name}}</span></b-link>
             <b-col><span>{{row.maker.mk_name}}</span></b-col>
             <b-col><span v-if="row.user"></span></b-col>
-            <b-col><span v-if="row.gd_enable=='Y'">노출</span><span v-else>미노출</span></b-col>
+            <b-col><span v-if="row.gd_enable=='Y'">활성</span><span v-else>비활성</span></b-col>
             <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
         </b-row>
 
@@ -107,6 +115,7 @@ export default {
                 endDate:'',
                 gd_mk_id:'',
                 gd_enable:'',
+                deleted_at:'',
                 ca01:0,
                 ca02:0,
                 ca03:0,
@@ -118,6 +127,7 @@ export default {
             // categorys: {},
             makers: {},
             gd_enable: { 0:{value:'Y', name:'활성'}, 1:{value:'N', name:'비활성'} },
+            deleted_at: { 0:{value:'Y', name:'삭제'}, 1:{value:'N', name:'존재'} },
 
         }
     },

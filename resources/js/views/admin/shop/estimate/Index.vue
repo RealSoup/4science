@@ -33,9 +33,9 @@
             </b-col>
             <b-col class="label">견적금액</b-col>
             <b-col class="type03 period">
-                <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="index" />
+                <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
                 <b>~</b>
-                <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="index" />
+                <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
             </b-col>
         </b-row>
 
@@ -72,10 +72,10 @@
                         </b-form-select>
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index" />
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush" />
 
                     <b-input-group-append>
-                        <b-button @click="index"><b-icon-search /></b-button>
+                        <b-button @click="routerPush"><b-icon-search /></b-button>
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -86,17 +86,19 @@
         <b-row>
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col sm="12" md="6" class="text-right">
-                <b-button @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)" class="white">임의견적</b-button>
+                <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" />
-        <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <List v-if="list.data && list.data.length" :list="list.data" @openWinPop="openWinPop" />
+        <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
     </b-container>
 
- 
+    <PopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <!-- <button type="button" @click="openWinPop">윈 팝업 띄우기</button>
+    <button type="button" @click="sendToChild">윈 팝업으로 전송</button> -->
 </div>
 </template>
 
@@ -105,8 +107,9 @@ import ax from '@/api/http';
 import { mapState } from 'vuex';
 export default {
     components: {
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
-        'List': () => import('./_comp/List.vue'),
+        'SchDate': () => import('@/views/_common/SchDate'),
+        'List': () => import('./_comp/List'),
+        'PopUp': () => import('@/views/_common/PopUp'),
     },
     data() {
         return {
@@ -130,9 +133,15 @@ export default {
         }
     },
     methods: {
-        async index(p=0) {
+        routerPush(){
+            this.$router.push({name: 'adm_estimate_index', query: this.sch_frm }).catch(()=>{});
+        },
+        pageSet(p){
+            this.sch_frm.page = p;
+            this.routerPush();
+        },
+        async index() {
             try {
-                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
@@ -149,24 +158,41 @@ export default {
             }
         },
         price_comma(e) { return this.priceComma(e); },
+
+        
+
+
+
+
+        ////////////////////////////////
+        evtCloseWinPopup( ){
+            console.log( "evtCloseWinPopup () ========  ");
+        },
+        
+        openWinPop(url){
+            this.$refs.winPopup.openWinPop( url, 1700, 900 );
+        }, 
+        
+        onRecvWinPop( recvObj ){
+            console.log( "onRecvWinPop  ---------" );
+            if(recvObj == 'reread') this.index();
+        },
+
+        sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
     },
+
     mounted() {
         this.index();
     },
-
-
-    filters: {
-        eqStep: function (str) {
-            var rst = '';
-            switch (str) {
-                case 'DONOT':  rst = '미처리'; break;
-                case 'DOING':  rst = '처리중'; break;
-                case 'DONE':   rst = '완료'; break;
-                case 'CANCEL': rst = '취소'; break;
-            }
-            return rst;
-        }
-    }
+    beforeRouteUpdate (to, from, next) {
+        this.sch_frm = Object.assign(
+            {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+            this.sch_frm, // 수정하려는 객체
+            to.query
+        );
+        this.index();
+        next();
+    },
 }
 </script>
 

@@ -57,9 +57,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmOrderIndexList',
-  props: ['list', 'config', 'mng']
+  props: ['list', 'config', 'mng_off']
 });
 
 /***/ }),
@@ -80,7 +88,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row .col[data-v-ef34b7ac] { font-weight:600;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 8%; max-width:8%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(3) {\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n#order_list .cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n#order_list .cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n#order_list .don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:90px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:.3rem; border-width:1px; border-style:solid;\n}\n#order_list .body .type[data-v-ef34b7ac],\r\n#order_list .body .orderer[data-v-ef34b7ac] { line-height:1.5rem;\n}\n#order_list .body .type span .badge[data-v-ef34b7ac],\r\n#order_list .body .orderer span .badge[data-v-ef34b7ac] { width:70px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:0;\n}\n#order_list .body .col .badge[data-v-ef34b7ac] { border-radius:50%; padding:.4rem;\n}\n@media (max-width: 991px){\n#order_list .row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#order_list .row .col[data-v-ef34b7ac] { font-weight:600;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(3) {\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n#order_list .body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n#order_list .cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n#order_list .cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n#order_list .don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:90px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:.3rem; border-width:1px; border-style:solid;\n}\n#order_list .body .type[data-v-ef34b7ac],\r\n#order_list .body .orderer[data-v-ef34b7ac] { line-height:1.5rem;\n}\n#order_list .body .type span .badge[data-v-ef34b7ac],\r\n#order_list .body .orderer span .badge[data-v-ef34b7ac] { width:70px; display:inline-block; font-size:.9rem; padding:.25rem 0; line-height:1rem; border-radius:0;\n}\n#order_list .body .col .badge[data-v-ef34b7ac] { border-radius:50%; padding:.4rem;\n}\n@media (max-width: 991px){\n#order_list .row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n#order_list .row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n#order_list .body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n#order_list .body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -245,7 +253,9 @@ var render = function () {
           _c("b-col", [_vm._v("결제금액")]),
           _vm._v(" "),
           _c("b-col", [
-            _c("span", { staticClass: "d-none d-lg-block" }, [_vm._v("진행")]),
+            _c("span", { staticClass: "d-none d-lg-inline-block" }, [
+              _vm._v("진행"),
+            ]),
             _vm._v("현황"),
           ]),
           _vm._v(" "),
@@ -311,7 +321,7 @@ var render = function () {
                       ? _c(
                           "b-badge",
                           { staticClass: "orange d-none d-lg-inline-block" },
-                          [_vm._v(_vm._s(_vm.mng[row.user.mng].name))]
+                          [_vm._v(_vm._s(_vm.mng_off[row.user.mng].name))]
                         )
                       : _vm._e(),
                   ],
@@ -340,9 +350,20 @@ var render = function () {
                     _c("br"),
                     _vm._v(" "),
                     row.er_mng_id
-                      ? _c("b-badge", { staticClass: "mint" }, [
-                          _vm._v(_vm._s(_vm.mng[row.er_mng_id].name)),
-                        ])
+                      ? _c(
+                          "b-badge",
+                          { staticClass: "mint" },
+                          [
+                            _vm.mng_off[row.er_mng_id]
+                              ? [
+                                  _vm._v(
+                                    _vm._s(_vm.mng_off[row.er_mng_id].name)
+                                  ),
+                                ]
+                              : [_vm._v(_vm._s(row.er_mng_id))],
+                          ],
+                          2
+                        )
                       : _vm._e(),
                   ],
                   1
@@ -381,7 +402,15 @@ var render = function () {
             _vm._v(" "),
             _c("b-col", { staticClass: "d-none d-lg-block" }, [
               row.od_mng
-                ? _c("span", [_vm._v(_vm._s(_vm.mng[row.od_mng].name))])
+                ? _c(
+                    "span",
+                    [
+                      _vm.mng_off[row.od_mng]
+                        ? [_vm._v(_vm._s(_vm.mng_off[row.od_mng].name))]
+                        : [_vm._v(_vm._s(row.od_mng))],
+                    ],
+                    2
+                  )
                 : _vm._e(),
             ]),
           ],

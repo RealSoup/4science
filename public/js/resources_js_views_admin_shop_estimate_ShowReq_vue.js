@@ -373,7 +373,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_estimate_req_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.gd_list .col .btn[data-v-5bfe11e4] { max-width: 120px;\n}\n.gd_list .col .btn img[data-v-5bfe11e4] { width:100%; height:120px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -990,8 +990,7 @@ var render = function () {
                                     },
                                   },
                                 },
-                                [_c("b-icon-link45deg")],
-                                1
+                                [_c("img", { attrs: { src: em.img_src } })]
                               ),
                               _vm._v(" "),
                               _c("b", { staticClass: "gd_name" }, [

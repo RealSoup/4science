@@ -13,7 +13,7 @@ class EngReformController extends Controller {
     }
 
     public function index(Request $req) {
-        $eng = EngReform::whereHas('FileInfo')->where("created_id", auth()->user()->id)->latest()->paginate(10);
+        $eng = EngReform::with('fileInfo')->where("created_id", auth()->user()->id)->latest()->paginate(10);
         return response()->json($eng, 200);
     }
 

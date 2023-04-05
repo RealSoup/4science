@@ -75,7 +75,7 @@ export default class UploadAdapter {
         // Prepare the form data.
         const data = new FormData();
         data.append( 'fi_group', 'goods' );
-        data.append( 'fi_room', "Y"+(new Date().getFullYear()) );
+        data.append( 'fi_room', new Date().getFullYear() );
         data.append( 'fi_kind', 'desc' );
         data.append( 'file', file );
 

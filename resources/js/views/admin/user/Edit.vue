@@ -173,20 +173,20 @@
         <b-card>
             <b-container>
                 <b-row><b-col class="tit">최근 주문 내역</b-col></b-row>
-                <Order :list="order" :config="order_config" />
+                <Order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
             </b-container>
         </b-card>
 
         <b-card>
             <b-container>
                 <b-row><b-col class="tit">최근 견적 내역</b-col></b-row>
-                <Estimate :list="estimate" />
+                <Estimate :list="estimate" class="cmain" />
             </b-container>
         </b-card>
 
         <transition name="modal">
             <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
-                <template slot="header" class="tit">마일리지 목록</template>
+                <template slot="header">마일리지 목록</template>
                 <Mileage />
             </Modal>
         </transition>
@@ -214,6 +214,8 @@ export default {
             },
             order: [],
             order_config: {},
+            mng_off:[],
+            
             estimate: [],
         };
     },
@@ -227,6 +229,7 @@ export default {
         if (od && od.status === 200) {
             this.order = od.data.list;
             this.order_config = od.data.order_config;
+            this.mng_off = od.data.mng_off;
         }
         
         const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.$route.params.id, limit:10}});

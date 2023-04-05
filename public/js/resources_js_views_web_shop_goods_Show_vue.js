@@ -241,6 +241,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
  // import { Splide, SplideSlide } from '@splidejs/vue-splide';
 // import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
@@ -1631,9 +1634,19 @@ var render = function () {
                 "b-row",
                 { attrs: { id: "goods_desc" } },
                 [
-                  _c("b-col", {
-                    domProps: { innerHTML: _vm._s(_vm.content.gd_desc) },
-                  }),
+                  _c("b-col", { attrs: { cols: "12" } }, [
+                    _c("div", {
+                      domProps: { innerHTML: _vm._s(_vm.content.gd_desc) },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _vm.content.gd_video
+                    ? _c("b-col", { attrs: { cols: "12" } }, [
+                        _c("div", {
+                          domProps: { innerHTML: _vm._s(_vm.content.gd_video) },
+                        }),
+                      ])
+                    : _vm._e(),
                 ],
                 1
               ),

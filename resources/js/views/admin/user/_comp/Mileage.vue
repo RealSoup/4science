@@ -1,13 +1,16 @@
 <template>
-    <b-container class="p_wrap">
-        <b-row>
-            <b-col>
-                <h3>가용 마일리지: <b>{{enableMileage | comma}}</b></h3>
-            </b-col> 
+<div class="p_wrap">
+    <b-container class="cmain">
+        <div class="top">가용 마일리지: <b>{{enableMileage | comma}}</b></div>
+        <b-row class="head list">
+            <b-col>번호</b-col>
+            <b-col>내용</b-col>
+            <b-col>마일리지</b-col>
+            <b-col>날짜</b-col>
         </b-row>
-        <b-row v-for="(ml, i) in list.data" :key="i" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
-            <b-col col sm="12" md="6" lg="1">{{ml.ml_id}}</b-col>
-            <b-col col sm="12" md="6" lg="7">
+        <b-row class="body list" v-for="(ml, i) in list.data" :key="i" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
+            <b-col>{{numCalc(i)}}</b-col>
+            <b-col>
                 <div v-if="ml.ml_tbl == 'voucher' && !isEmpty(ml.refine_content)">
                     <b-icon-gift-fill /> {{config.voucher[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 <br />
                     <font-awesome-icon icon="user" /> {{ml.refine_content[2]}} <br />
@@ -19,19 +22,20 @@
                     <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
                 </div>
             </b-col>
-            <b-col col sm="12" md="6" lg="2">
+            <b-col>
                 <b-form-select v-if="ml.ml_tbl == 'voucher'" v-model="ml.ml_type" @change="setVoucher($event, ml.ml_id)" >
                     <b-form-select-option v-for="(o, k) in config.v_option" :value="k" :key="k">{{o}}</b-form-select-option>
                 </b-form-select>
                 <template v-else>{{ml.ml_enable_m | comma}}</template>
             </b-col>
-            <b-col col sm="12" md="6" lg="2">{{ml.created_at | formatDate}}</b-col>
+            <b-col>{{ml.created_at | formatDate}}</b-col>
         </b-row>
         <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
-	        <span slot="next-nav"><b-icon-chevron-right /></span>
+            <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
     </b-container>
+</div>
 </template>
 
 <script>
@@ -77,7 +81,11 @@ export default {
                 if (res && res.status === 200)
                     Notify.toast('success', '변경 완료')
             }
-        }
+        },
+
+        numCalc(i) {
+            return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
+        },
     },
     
     async mounted() {
@@ -90,7 +98,10 @@ export default {
 </script>
 <style lang="css" scoped>
 .col { padding:10px 5px; }
-.col:nth-of-type(2) { text-align:left; }
-.col:nth-of-type(3) { text-align:right; }
-.col svg { margin-right:0.5rem; }
+.top { text-align:right; }
+.list .col:nth-of-type(1) { flex:0 0 10%; max-width:10%; }
+.list .col:nth-of-type(2) { text-align:left; }
+.list .col:nth-of-type(3) { flex:0 0 10%; max-width:10%; text-align:right; }
+.list .col:nth-of-type(4) { flex:0 0 12%; max-width:12%; }
+.list .col svg { margin-right:0.5rem; }
 </style>

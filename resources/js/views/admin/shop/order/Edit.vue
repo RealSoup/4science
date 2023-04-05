@@ -23,7 +23,7 @@
             <b-col>{{ od.od_id }}.</b-col>
             <b-col>{{ od.od_no }}</b-col>
             <b-col>{{ od.created_at | formatDate_YYYY_MM_DD }}</b-col>
-            <b-link :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
+            <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
                 {{ od.od_orderer }}
             </b-link>
             <b-col>{{ od.od_orderer_hp }}</b-col>
@@ -830,7 +830,7 @@ export default {
 .p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
 .p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }
     
-.p_wrap #print_area .box .container .goods .gd_con .row .col img { width:100%; }
+.p_wrap #print_area .box .container .goods .gd_con .row .col img { width:100%; cursor:pointer; }
 .p_wrap #print_area .box .container .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
 .p_wrap #print_area .box .container .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 .p_wrap #print_area .box .container .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }

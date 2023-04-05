@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     public static $option = [
         'group' => [    '1' => '일반',
-                        '2' => '특수',
+                        '2' => '특별',
                         '3' => '미수',
                         '4' => '후불', ],
         'grade' => [    '1' => '신입',

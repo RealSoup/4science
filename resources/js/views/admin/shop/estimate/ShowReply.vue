@@ -141,6 +141,7 @@
                             {{em.gm_unit}}
                         </b-col>
                         <b-col>{{em.gm_spec}}</b-col>
+                        <b-col>{{em.dlvy_at}}</b-col>
                         <b-col tag="i">
                             {{em.price | comma}} 원 <font-awesome-icon icon="times" />
                             {{em.ea | comma}} 개 <font-awesome-icon icon="equals" />

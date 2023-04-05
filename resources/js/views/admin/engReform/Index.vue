@@ -51,34 +51,37 @@
                 <b-row v-for="(er, idx) in list.data" :key="er.er_id" class="data">
                     <b-col>{{er.er_id}}</b-col>
                     <b-col>
-                        <b-button to="/foo" variant="info" size="sm">
+                        <b-button :to="{name: 'adm_user_edit', params: { id:er.user.id}}" variant="light" size="sm">
                              {{er.er_name}} <b-icon-link45deg />
                         </b-button>
                     </b-col>
                     <b-col>
-                        <b-button :to="{name: 'adm_eng_reform_edit', params: { er_id:er.er_id }}" variant="outline-primary" block>
+                        <b-button :to="{name: 'adm_eng_reform_edit', params: { er_id:er.er_id }}" variant="light" block class="text-left">
                             영문교정 (<small>신청일 : {{er.created_at | formatDate_YYYY_MM_DD}}</small>)
                         </b-button>
                     </b-col>
                     <b-col>
                         <b-badge v-if="er.er_type == 1" variant="light">일반</b-badge>
-                        <b-badge v-else-if="er.er_type == 2" variant="">프리미엄</b-badge>
-                        <b-badge v-else-if="er.er_type == 3" variant="dark">프리미엄 플러스</b-badge>
+                        <b-badge v-else-if="er.er_type == 2" variant="light">프리미엄</b-badge>
+                        <b-badge v-else-if="er.er_type == 3" variant="light">프리미엄 플러스</b-badge>
                     </b-col>
                     <b-col>{{er.er_depart}}</b-col>
-                    <b-col><b-badge>{{er.er_tel}}</b-badge><b-badge>{{er.er_hp}}</b-badge></b-col>
+                    <b-col><b-badge variant="light">{{er.er_tel}}</b-badge><b-badge variant="light">{{er.er_hp}}</b-badge></b-col>
                     <b-col>{{er.er_email}}</b-col>
                     <b-col>{{er.er_dlvy_at | formatDate_YY_MM_DD}}</b-col>
                     <b-col>
-                        <b-badge v-if="er.er_step == 'ING'">처리중</b-badge>
-                        <b-badge v-else-if="er.er_step == 'CPLT'" variant="success">처리완료</b-badge>
-                        <b-badge v-else-if="er.er_step == 'NOT'" variant="warning">미처리</b-badge>
-                        <b-badge v-else-if="er.er_step == 'CXL'" variant="danger">취소</b-badge>
+                        <b-badge v-if="er.er_step == 'ING'" variant="light">처리중</b-badge>
+                        <b-badge v-else-if="er.er_step == 'CPLT'" variant="light">처리완료</b-badge>
+                        <b-badge v-else-if="er.er_step == 'NOT'" variant="light">미처리</b-badge>
+                        <b-badge v-else-if="er.er_step == 'CXL'" variant="light">취소</b-badge>
                     </b-col>
                 </b-row>
             </b-container>
 
-            <pagination :data="list" @pagination-change-page="setPage" align="center" class="mt-5"></pagination>
+            <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
+                <span slot="prev-nav"><b-icon-chevron-left /></span>
+                <span slot="next-nav"><b-icon-chevron-right /></span>
+            </pagination>
         </b-card>
     </div>
 </template>

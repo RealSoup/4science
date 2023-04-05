@@ -30,7 +30,7 @@
                 <b-col>
                     <b-dropdown text="교정파일 받기" v-if="er.er_step == 'CPLT'" variant="info" size="sm">
                         <template v-for="fi in er.file_info">
-                            <b-dropdown-item :key="fi.fi_id" v-if="fi.fi_kind == 'cplt'" @click="fileDown(fi.path, fi.fi_original)">
+                            <b-dropdown-item :key="fi.fi_id" v-if="fi.fi_kind == 'cplt'" @click="fileDown(fi.down_path, fi.fi_original)">
                                 {{fi.fi_original}}
                             </b-dropdown-item>
                         </template>

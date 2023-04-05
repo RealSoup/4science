@@ -33,6 +33,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -59,12 +60,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       isLoadingModalViewed: false,
+      clickable: true,
       frm: {
         estimate_req: {},
         estimate_reply: {
           file_info: []
         }
-      }
+      },
+      param1: null,
+      param2: null
     };
   },
   methods: {
@@ -114,7 +118,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var res;
+        var res, url, name, option;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -144,71 +148,126 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context2.prev = 6;
+                _this2.clickable = false;
 
                 _this2.$refs.form_goods.calculator();
 
                 _context2.t0 = type;
-                _context2.next = _context2.t0 === 'store' ? 11 : _context2.t0 === 'send' ? 13 : 15;
+                _context2.next = _context2.t0 === 'preview' ? 12 : _context2.t0 === 'store' ? 12 : _context2.t0 === 'send' ? 14 : 16;
                 break;
 
-              case 11:
+              case 12:
                 _this2.frm.estimate_reply.er_step = 0;
-                return _context2.abrupt("break", 15);
+                return _context2.abrupt("break", 16);
 
-              case 13:
+              case 14:
                 _this2.frm.estimate_reply.er_step = 1;
-                return _context2.abrupt("break", 15);
+                return _context2.abrupt("break", 16);
 
-              case 15:
+              case 16:
                 _this2.isLoadingModalViewed = true;
-                _context2.next = 18;
+                _context2.next = 19;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate", _this2.frm);
 
-              case 18:
+              case 19:
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 24;
+                  _context2.next = 26;
                   break;
                 }
 
-                _context2.next = 22;
+                _context2.next = 23;
                 return _this2.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
 
-              case 22:
+              case 23:
                 _this2.isLoadingModalViewed = false;
+                window.opener.postMessage('reread');
 
-                _this2.$router.push({
+                if (type == 'preview') {
+                  url = "/api/admin/shop/estimate/showEstimate/".concat(res.data);
+                  name = "견적서 미리보기";
+                  option = "width = 900, height = 900, top = 10, left = 10, location = no";
+                  window.open(url, name, option); // self.close();
+                } else _this2.$router.push({
                   name: 'adm_estimate_show_reply',
                   params: {
                     er_id: res.data
                   }
                 });
 
-              case 24:
-                _context2.next = 30;
+              case 26:
+                _context2.next = 32;
                 break;
 
-              case 26:
-                _context2.prev = 26;
+              case 28:
+                _context2.prev = 28;
                 _context2.t1 = _context2["catch"](6);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
-              case 30:
+              case 32:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[6, 26]]);
+        }, _callee2, null, [[6, 28]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {
       this.$refs.form_goods.setDcLate();
+    },
+    ////////////////////////////////////////////
+    sendMsgToParent: function sendMsgToParent() {
+      this.sendToOpener({
+        evt: 'message',
+        message: 'hello'
+      });
+    },
+    // 부모로 이벤트 보내기
+    sendToOpener: function sendToOpener(sendObj) {
+      if (opener == null) return;
+      var sendStr = JSON.stringify(sendObj); // 부모 창에 Message를 보냄
+
+      window.opener.postMessage(sendStr, '*');
+    },
+    // 부모로 부터 이벤트 받기 
+    // 이 함수는 WinPop.vue 의 calledFromOpener를 통해서 받게 된다  
+    calledFromOpener: function calledFromOpener(evt) {
+      console.log("receiveFromOpener  ------");
+      this.message = evt.msg;
     }
   },
   mounted: function mounted() {
     this.create();
+    var self = this;
+
+    if (opener) {
+      console.log("opener is valid!!!"); // opener에 g_winPopup 변수로 this를 넣어줌에 따라 WinPop.vue에서 이 소스의 객체를 직접 접근할 수 있게 된다 
+      // WinPop.vue에서 g_winPopup 변수 활용을 확인할것 
+
+      opener.g_winPopup = this;
+    }
+
+    var query = window.location.search;
+
+    if (query == null || query == "") {
+      var nativeUrl = window.location.href;
+      nativeUrl = nativeUrl.replace('/#', '');
+      var url = new URL(nativeUrl);
+      var urlParams = url.searchParams;
+      this.param1 = urlParams.get('param1');
+      this.param2 = urlParams.get('param2');
+    } else {
+      var param = new URLSearchParams(query);
+
+      if (param != null) {
+        this.param1 = param.get('param1');
+        this.param2 = param.get('param2');
+      } else {
+        alert("cannot get query!!");
+      }
+    }
   }
 });
 
@@ -1158,7 +1217,10 @@ var render = function () {
     [
       _c("h3", [_vm._v("견적서 작성")]),
       _vm._v(" "),
-      _c("FormCtrl", { on: { save: _vm.store } }),
+      _c("FormCtrl", {
+        attrs: { clickable: _vm.clickable },
+        on: { save: _vm.store },
+      }),
       _vm._v(" "),
       _c("FormSetting", {
         on: { all_dc_update: _vm.all_dc_apply },

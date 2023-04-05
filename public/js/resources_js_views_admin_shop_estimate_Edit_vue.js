@@ -61,6 +61,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       isLoadingModalViewed: false,
+      clickable: true,
       // saveType:'',
       frm: {
         estimate_req: {},
@@ -117,7 +118,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var res;
+        var res, url, name, option;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -146,23 +147,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 6:
-                _context2.prev = 6;
+                _this2.clickable = false; // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
+                // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
+
+                _context2.prev = 7;
 
                 _this2.$refs.form_goods.calculator();
 
                 _context2.t0 = type;
-                _context2.next = _context2.t0 === 'store' ? 11 : _context2.t0 === 'send' ? 13 : 15;
+                _context2.next = _context2.t0 === 'store' ? 12 : _context2.t0 === 'send' ? 14 : 16;
                 break;
 
-              case 11:
+              case 12:
                 _this2.frm.estimate_reply.er_step = 0;
-                return _context2.abrupt("break", 15);
+                return _context2.abrupt("break", 16);
 
-              case 13:
+              case 14:
                 _this2.frm.estimate_reply.er_step = 1;
-                return _context2.abrupt("break", 15);
+                return _context2.abrupt("break", 16);
 
-              case 15:
+              case 16:
                 _this2.isLoadingModalViewed = true;
                 _this2.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 _this2.frm, // 수정하려는 객체
@@ -170,46 +174,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _method: 'PATCH'
                 } // 삽입하려는 내용
                 );
-                _context2.next = 19;
+                _context2.next = 20;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/".concat(_this2.$route.params.er_id), _this2.frm);
 
-              case 19:
+              case 20:
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 25;
+                  _context2.next = 27;
                   break;
                 }
 
-                _context2.next = 23;
+                _context2.next = 24;
                 return _this2.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
 
-              case 23:
+              case 24:
                 _this2.isLoadingModalViewed = false;
+                window.opener.postMessage('reread');
 
-                _this2.$router.push({
+                if (type == 'preview') {
+                  url = "/api/admin/shop/estimate/showEstimate/".concat(_this2.$route.params.er_id);
+                  name = "견적서 미리보기";
+                  option = "width = 900, height = 900, top = 10, left = 10, location = no";
+                  window.open(url, name, option); // self.close();
+                } else _this2.$router.push({
                   name: 'adm_estimate_show_reply',
                   params: {
                     er_id: _this2.$route.params.er_id
                   }
                 });
 
-              case 25:
-                _context2.next = 31;
+              case 27:
+                _context2.next = 33;
                 break;
 
-              case 27:
-                _context2.prev = 27;
-                _context2.t1 = _context2["catch"](6);
+              case 29:
+                _context2.prev = 29;
+                _context2.t1 = _context2["catch"](7);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
-              case 31:
+              case 33:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[6, 27]]);
+        }, _callee2, null, [[7, 29]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {
@@ -1101,7 +1111,10 @@ var render = function () {
     [
       _c("h1", [_vm._v("견적서 수정")]),
       _vm._v(" "),
-      _c("FormCtrl", { on: { save: _vm.update } }),
+      _c("FormCtrl", {
+        attrs: { clickable: _vm.clickable },
+        on: { save: _vm.update },
+      }),
       _vm._v(" "),
       _c("FormSetting", {
         on: { all_dc_update: _vm.all_dc_apply },
