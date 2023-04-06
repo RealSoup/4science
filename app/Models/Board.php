@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use App\Models\Shop\{Goods};
+use DateTimeInterface;
 
 class Board extends Model {
     use HasFactory;
@@ -32,7 +33,8 @@ class Board extends Model {
         'cancel'    => [ 'bo_cd'=> 'cancel',     'name'=> '취소/교환','wlv'=>1, 'is_comment'=>false, 'is_addFile'=>false, 'is_qna'=>true ],
         'requestAsk'=>'',
     ];   
-
+    //  이거 안하면 디비랑 다른(UTC) 시간을 내보낸다.
+    protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
     public function setCode($bo_cd) {
         $this->table = 'board_'. $bo_cd;
         self::$code = $bo_cd;
@@ -50,9 +52,10 @@ class Board extends Model {
     public function fileInfo_bo() { return $this->fileInfo()->where("fi_kind", self::$code); }
     public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'bo_gd_id')->withDefault(); }
 
-    public function scopeSubject($query, $v) { return $query->where('bo_subject', 'LIKE', "%{$v}%"); }
-    public function scopeContent($query, $v) { return $query->where('bo_content', 'LIKE', "%{$v}%"); }
-    public function scopeWriter($query, $v) { return $query->where('bo_writer', 'LIKE', "%{$v}%"); }
+    public function scopeSubject($q, $v) { return $q->where('bo_subject', 'LIKE', "%{$v}%"); }
+    public function scopeContent($q, $v) { return $q->where('bo_content', 'LIKE', "%{$v}%"); }
+    public function scopeWriter($q, $v) { return $q->where('bo_writer', 'LIKE', "%{$v}%"); }
+    public function scopeMine($q) { return $q->where('created_id', auth()->user()->id); }
 
 
 

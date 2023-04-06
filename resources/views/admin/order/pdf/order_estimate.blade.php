@@ -83,7 +83,27 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 .bottom tr:nth-child(1) td { background-color:#F8F8F8; border-top:1px solid #4E4E4E; }
 .bottom tr:nth-child(2) td { background-color:#888888; color:#fff; }
 .bottom tr:nth-child(2) td a { color:#fff; text-decoration:none; }
+
+
+
+@media print and (color) {
+   * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+}
+
 </style>
+
+@if ( isset($type))
+<style>* { font-size:12px; }</style>
+    @if ( $type == 'print')
+        <script>window.print();</script>
+    @endif
+@endif
+
+
+
 </head>
 <body>
     <table>
@@ -153,7 +173,7 @@ $goods_p = 0;
 @foreach ($order_purchase_at as $opa)
     @foreach ($opa['order_model'] as $odm)
         @if ($odm['odm_type'] == 'MODEL')
-            @if ( $opa['dlvy_all_in'] && $loop->first)
+            @if ( $odm['dlvy_all_in'] && $loop->first)
                 @php
 
                 //  부동소수점 오류 해결을 위한 식
@@ -228,7 +248,7 @@ $goods_p = 0;
 
     <table class="request">
         <tr><td colspan="2">▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)</td></tr>
-        <tr class="line01"><th>발주일</th><td>&nbsp;</td></tr>
+        <tr class="line01"><th width="35%">발주일</th><td>&nbsp;</td></tr>
         <tr class="line01"><th>수령인성명</th><td>&nbsp;</td></tr>
         <tr class="line01"><th>전화번호</th><td>&nbsp;</td></tr>
         <tr class="line01"><th>핸드폰번호</th><td>&nbsp;</td></tr>

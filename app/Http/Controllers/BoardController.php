@@ -35,8 +35,6 @@ class BoardController extends Controller {
 
         if ($req->filled('sch_txt')) {
             $sch_txt = trim($req->sch_txt);
-            
-
             if ( $req->filled('mode') ) {
                 $subject = $content = $writer = null;
                 if ( $req->mode == 'subject' ) $subject = $sch_txt;
@@ -52,7 +50,13 @@ class BoardController extends Controller {
                             ->orWhere('bo_writer', 'like', "%".$sch_txt."%");
                     });
             }
-        }        
+        }
+
+        if ( $bo_cd == 'inquiry' || $bo_cd == 'as' || $bo_cd == 'cancel' )
+            $bo->Mine();
+        if ($req->filled('root') && $req->root == 'mypage') 
+            $bo->Mine();
+            
         
         $bo = $bo->paginate($req->filled('limit') ? $req->limit : 10);
         $bo->appends($req->all())->links();
@@ -91,7 +95,9 @@ class BoardController extends Controller {
     }
 
     public function show(Request $req, $bo_cd, $bo_id) {
-        if ( $bo_cd!=='notice' ) abort(500, '로그인하세요.');
+        if (!auth()->check()) {
+            if ( $bo_cd!=='notice' ) abort(500, '로그인하세요.');
+        }
 
         // dd($this->authorize('show', $this->board));
         $bo = $this->board->find($bo_id);
@@ -99,8 +105,8 @@ class BoardController extends Controller {
         
         $bo->img_file = collect();
         $bo->add_file = collect();
-        if ( $bo_cd == 'gd_inquiry' ) {
-            $bo->goods;
+        if (  $bo_cd == 'inquiry' || $bo_cd == 'as' || $bo_cd == 'cancel' || $bo_cd == 'gd_inquiry' ) {
+            if ( $bo_cd == 'gd_inquiry' ) $bo->goods;
             $bo->answer=$this->board->where('bo_seq', $bo->bo_seq)->where('bo_seq_cd', 'A')->first();            
         }
         foreach ($bo->fileInfo_bo as $fi) {

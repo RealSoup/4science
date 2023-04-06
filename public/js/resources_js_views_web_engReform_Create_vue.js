@@ -620,35 +620,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
-                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
-                _this.isLoadingModalViewed = true;
-                _context.next = 5;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
-
-              case 5:
-                res = _context.sent;
-
-                if (!(res && res.status === 200)) {
-                  _context.next = 13;
+                if (!isEmpty(_this.frm.er_dlvy_at)) {
+                  _context.next = 4;
                   break;
                 }
 
-                _context.next = 9;
+                Notify.toast('danger', "납기일을 입력하세요.");
+                document.getElementById('er_dlvy_at').focus();
+                return _context.abrupt("return", false);
+
+              case 4:
+                if (!(isEmpty(_this.frm.er_format_url) && _this.frm.er_format == 'FM')) {
+                  _context.next = 8;
+                  break;
+                }
+
+                Notify.toast('danger', "저널 URL을 입력하세요.");
+                document.getElementById('er_format_url').focus();
+                return _context.abrupt("return", false);
+
+              case 8:
+                if (!isEmpty(_this.frm.er_use)) {
+                  _context.next = 12;
+                  break;
+                }
+
+                Notify.toast('danger', "문서 용도를 선택하세요.");
+                document.getElementById('er_use').focus();
+                return _context.abrupt("return", false);
+
+              case 12:
+                if (!isEmpty(_this.frm.er_branch)) {
+                  _context.next = 16;
+                  break;
+                }
+
+                Notify.toast('danger', "학문 분야를 선택하세요.");
+                document.getElementById('er_branch').focus();
+                return _context.abrupt("return", false);
+
+              case 16:
+                if (!isEmpty(_this.frm.er_editor)) {
+                  _context.next = 20;
+                  break;
+                }
+
+                Notify.toast('danger', "에디터를 선택하세요.");
+                document.getElementById('er_editor').focus();
+                return _context.abrupt("return", false);
+
+              case 20:
+                if (!isEmpty(_this.frm.er_eng_style)) {
+                  _context.next = 24;
+                  break;
+                }
+
+                Notify.toast('danger', "언어 스타일을 선택하세요.");
+                document.getElementById('er_eng_style').focus();
+                return _context.abrupt("return", false);
+
+              case 24:
+                if (!isEmpty(_this.frm.file_info_work)) {
+                  _context.next = 28;
+                  break;
+                }
+
+                Notify.toast('danger', "작업문서를 업로드하세요");
+                document.getElementById('er_eng_style').focus();
+                return _context.abrupt("return", false);
+
+              case 28:
+                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
+                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
+                _this.isLoadingModalViewed = true;
+                _context.next = 33;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
+
+              case 33:
+                res = _context.sent;
+
+                if (!(res && res.status === 200)) {
+                  _context.next = 41;
+                  break;
+                }
+
+                _context.next = 37;
                 return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
 
-              case 9:
-                _context.next = 11;
+              case 37:
+                _context.next = 39;
                 return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
 
-              case 11:
+              case 39:
                 _this.isLoadingModalViewed = false;
 
                 _this.$router.push({
                   name: 'my_eng_reform_index'
                 });
 
-              case 13:
+              case 41:
               case "end":
                 return _context.stop();
             }
@@ -7384,7 +7454,10 @@ var render = function () {
                               ),
                               _vm._v(" "),
                               _c("b-form-input", {
-                                attrs: { placeholder: "저널 URL을 입력하세요" },
+                                attrs: {
+                                  id: "er_format_url",
+                                  placeholder: "저널 URL을 입력하세요",
+                                },
                                 model: {
                                   value: _vm.frm.er_format_url,
                                   callback: function ($$v) {
@@ -7576,7 +7649,7 @@ var render = function () {
                     "b-row",
                     [
                       _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("문체스타일"),
+                        _vm._v("언어스타일"),
                         _c("b", { staticClass: "need" }),
                       ]),
                       _vm._v(" "),
@@ -7640,6 +7713,7 @@ var render = function () {
                           _c("file-upload", {
                             ref: "fileupload1",
                             attrs: {
+                              id: "file_info_work",
                               fi_group: "engReform",
                               fi_kind: "work",
                               height: 100,

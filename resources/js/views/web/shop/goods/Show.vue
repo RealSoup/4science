@@ -1,10 +1,10 @@
 <template>
     <b-container id="goods_show">
-        <!-- <Location :categorys="categorys" 
+        <Location :categorys="categorys" 
             :p_ca01="content.goods_category_first.gc_ca01" 
             :p_ca02="content.goods_category_first.gc_ca02" 
             :p_ca03="content.goods_category_first.gc_ca03" 
-            :p_ca04="content.goods_category_first.gc_ca04"  /> -->
+            :p_ca04="content.goods_category_first.gc_ca04"  />
         <b-row class="atrium" :class="{fixed:isScrollPass, fixed_rise:is_bottom}">
             <b-col class="rack"></b-col>
             <b-col class="conLeft" :style="{top:top_y+'px'}">
@@ -133,7 +133,7 @@
 
                 <div class="pick_info">
                     <div v-if="content.goods_model" class="total">
-                        상품 갯수 <b class="cnt">{{pick_cnt}} 개</b> 합계 <b class="price">{{total | comma}} 원</b>
+                        선택한 모델 <b class="cnt">{{pick_cnt}} 개</b> 합계 <b class="price">{{total | comma}} 원</b>
                     </div>
                     <b-button-group>
                         <b-button @click="action('pay')">바로구매</b-button>
@@ -238,7 +238,7 @@ export default {
         }
     },
     components: {
-        // 'Location': () => import('./_comp/Location.vue'),
+        'Location': () => import('./_comp/Location.vue'),
         // Splide, SplideSlide,
         VueNumericInput,
         'BoReview': () => import('./_comp/BoReview.vue'),
@@ -252,7 +252,7 @@ export default {
             footer_h: 560,
             interval: null,
             is_bottom: false,
-            // categorys: {},
+            categorys: {},
             content:{
                 maker:{},   /// 릴레이션 로딩시간으로 인해 초기에 값이 없다는 에러를 대처하기 위해 초기값 세팅
                 image_src:{},
@@ -317,7 +317,7 @@ export default {
             const res = await ax.get(`/api/shop/goods/${this.$route.params.gd_id}`);
             if (res && res.status === 200) {
                 this.content = res.data.goods;
-                // this.categorys = res.data.categorys;
+                this.categorys = res.data.categorys;
             }
         },
         async action(type) {            
@@ -428,10 +428,10 @@ export default {
         },
 
         create () {
-            if(!Auth.check()) {
-                this.$bvModal.show('login-modal');
-                return false;
-            }
+            // if(!Auth.check()) {
+            //     this.$bvModal.show('login-modal');
+            //     return false;
+            // }
             this.$refs.gd_inquiry.create();
         },
 
@@ -469,6 +469,8 @@ export default {
 .atrium.fixed .conLeft { position:fixed; z-index:2; }
 .atrium.fixed .rack { flex-basis:500px; max-width:500px; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:cover; }
+.conLeft .carousel >>> .carousel-control-prev:hover,
+.conLeft .carousel >>> .carousel-control-next:hover { background-color:#CCC; }
 /*.conLeft ul li:after { content:"&nbsp;"; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
 .conLeft ul li div { float:left; font-size:1.5rem; }*/
 .conLeft ul { margin:1rem 0 0 1rem; padding:1rem 0 0 1rem; border-top:1px solid #D7D7D7; }

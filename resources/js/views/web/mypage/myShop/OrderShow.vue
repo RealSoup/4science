@@ -6,7 +6,7 @@
     </LoadingModal>
     <div v-else>
         <h5>
-            <b>{{od.created_at}}</b> &nbsp; 주문번호 {{od.od_id}} &nbsp;
+            <b>{{od.created_at}}</b> &nbsp; 주문번호 {{od.od_no}} &nbsp;
             <OrderStep v-model="od.od_step" :order_config="od.order_config" />
         </h5>
 
@@ -31,9 +31,9 @@
                         <b-col class="align">
                             <div v-if="odm.odm_type=='MODEL'">
                                 <b-link v-if="odm.odm_gd_id" :to="{name: 'goods_show', params:{gd_id:odm.odm_gd_id} }">
-                                    <img :src="odm.img_src" />
+                                    <img :src="odm.img_thumb_src" />
                                 </b-link>
-                                <img :src="odm.img_src" v-else />
+                                <img :src="odm.img_thumb_src" v-else />
                             </div>
                             <b v-else>추가 옵션</b>
                         </b-col>
@@ -65,10 +65,12 @@
                                 >배송조회</b-button>
                                 <b-badge v-else variant="primary">준비중</b-badge>
                                 <br />
-                                <b-button 
-                                    v-if="!!odm.order_dlvy_info.oddi_dlvy_created_at && !odm.order_dlvy_info.oddi_receive_date" variant="dark"
-                                    @click="receiptConfirm(odm)"
-                                >수취확인</b-button>
+                                <template v-if="!odm.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
+                                    <!-- 송장번호 입력날짜가 없지 않거나, 배송완료 날짜가 없지 않다면 -->
+                                    <b-button v-if="!!odm.order_dlvy_info.oddi_dlvy_created_at || !!odm.order_dlvy_info.oddi_arrival_date" class="teal xm"  @click="receiptConfirm(odm)">
+                                        수취확인
+                                    </b-button>
+                                </template>
                             </template>
                         </b-col>
                     </b-row>
@@ -100,49 +102,23 @@
                     <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col></div>
                     <div><b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col></div>
                 </b-col>
-                <b-col>
-                    <div><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col></div>
-                </b-col>
+                <b-col><div><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col></div></b-col>
             </b-row>
         </b-container>
 
         <b-container class="extra_info frm_st">
             <b-row>
                 <b-col>
-                    <b-row>
-                        <b-col class="label_st">주문자명</b-col>
-                        <b-col>{{od.od_name}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">연락처</b-col>
-                        <b-col>{{od.od_orderer_hp}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">이메일</b-col>
-                        <b-col>{{od.od_orderer_email}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">소속</b-col>
-                        <b-col>{{od.od_department}}</b-col>
-                    </b-row>
+                    <b-row><b-col class="label_st">주문자명</b-col><b-col>{{od.od_name}}</b-col></b-row>
+                    <b-row><b-col class="label_st">연락처</b-col><b-col>{{od.od_orderer_hp}}</b-col></b-row>
+                    <b-row><b-col class="label_st">이메일</b-col><b-col>{{od.od_orderer_email}}</b-col></b-row>
+                    <b-row><b-col class="label_st">소속</b-col><b-col>{{od.od_department}}</b-col></b-row>
                 </b-col>
                 <b-col>
-                    <b-row>
-                        <b-col class="label_st">수령인</b-col>
-                        <b-col>{{od.od_receiver}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">연락처</b-col>
-                        <b-col>{{od.od_receiver_hp}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">주소</b-col>
-                        <b-col>{{od.od_addr1}} {{od.od_addr2}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label_st">배송시<br/>요구사항</b-col>
-                        <b-col>{{od.od_memo}}</b-col>
-                    </b-row>
+                    <b-row><b-col class="label_st">수령인</b-col><b-col>{{od.od_receiver}}</b-col></b-row>
+                    <b-row><b-col class="label_st">연락처</b-col><b-col>{{od.od_receiver_hp}}</b-col></b-row>
+                    <b-row><b-col class="label_st">주소</b-col><b-col>{{od.od_addr1}} {{od.od_addr2}}</b-col></b-row>
+                    <b-row><b-col class="label_st">배송시<br/>요구사항</b-col><b-col>{{od.od_memo}}</b-col></b-row>
                 </b-col>
                 <b-col>
                     <b-row>
@@ -176,13 +152,17 @@
                     </b-row>
                     <b-row>
                         <b-col class="label_st">요청서류</b-col>
-                        <b-col>
-                            {{reqDocumentDisplay}}
-                        </b-col>
+                        <b-col>{{reqDocumentDisplay}}</b-col>
                     </b-row>
                 </b-col>
             </b-row>
         </b-container>
+        
+        <div class="btn_box" v-if="od.order_config.step[od.od_step].receiveable">
+            <b-button class="black lg" @click="print">견적서 출력</b-button>
+            <b-button class="gray lg" @click="downEstimateExcel">견적서 EXCEL 다운</b-button>
+            <b-button class="blue lg" @click="downTransactionExcel">거래명세서 EXCEL 다운</b-button>
+        </div>
     </div>
     
     <transition name="modal">
@@ -196,7 +176,7 @@
 <script>
 import ax from '@/api/http';
 import { mapGetters } from 'vuex'
-
+var dt = new Date();
 export default {
     name: "MyOrder",
     components: {
@@ -263,7 +243,30 @@ export default {
         },
         getHref (com, num) {
             return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
-        }
+        },
+        
+        print () {
+            var url = `/api/shop/order/printEstimate/${this.$route.params.od_id}`;
+            var name = "견적서 인쇄";
+            var option = "width = 900, height = 900, top = 10, left = 10, location = no"
+            window.open(url, name, option);
+        },
+        async downEstimateExcel(){
+            const res = await ax.get(`/api/shop/order/downEstimateExcel/${this.$route.params.od_id}`, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
+        },
+        async downTransactionExcel(){
+            const res = await ax.get(`/api/shop/order/downTransactionExcel/${this.$route.params.od_id}`, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
+        },
+        orderDocumentDown(res, fileNm){
+            let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+            let fileLink = document.createElement('a');
+            fileLink.href = fileUrl;
+            fileLink.setAttribute('download', fileNm);
+            document.body.appendChild(fileLink);
+            fileLink.click();
+        },
     },
     async mounted() {
         const res = await ax.get(`/api/shop/order/${this.$route.params.od_id}`);
@@ -279,7 +282,7 @@ export default {
 <style lang="css" scoped>
 .w_fence { max-width:100%; padding-left:0; padding-right:0; }
 .goods { border-top:3px solid #4F637B; }
-.goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
+.goods .pa_tit { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
 .goods .gd_con .row.option { background-color:#F4F1EC; }
 .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }
 .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }
@@ -291,10 +294,10 @@ export default {
 .goods .gd_con .row .col:nth-child(1) { flex:0 0 7%; max-width:7%; }
 .goods .gd_con .row .col:nth-child(2) { border-right:1px solid #D7D7D7; }
 .goods .gd_con .row .col:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(4) { flex:0 0 9.6%; max-width:9.6%; border-right:1px solid #D7D7D7; }
+.goods .gd_con .row .col:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }
 .goods .gd_con .row .col:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7; }
 .goods .gd_con .row .col:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7; }
-.goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; }
+.goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap; }
 .goods .gd_con .row .col img { width:100%; }
 .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
 .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
@@ -322,11 +325,11 @@ export default {
 .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
 .sum_up .total .col:nth-of-type(4):after { content:"="; }
 .sum_up .total .col:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%; }
-.sum_up .total .col:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%; }
+.sum_up .total .col:nth-of-type(6) { flex-basis:21.05%; max-width:21.05%; }
 .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
 .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
 .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.sum_up .total_sub>.col:nth-of-type(3) { flex-basis:39%; max-width:39%; }
+.sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40.5%; max-width:40.5%; }
 .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
 .sum_up .total_sub .col>div:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem; }
 .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 1rem 2.5rem 1rem; }

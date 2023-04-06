@@ -655,10 +655,10 @@ var render = function () {
                             _c(
                               "li",
                               {
-                                class: { active: _vm.frm.sort == "" },
+                                class: { active: _vm.frm.sort == "hot" },
                                 on: {
                                   click: function ($event) {
-                                    return _vm.sort()
+                                    return _vm.sort("hot")
                                   },
                                 },
                               },

@@ -288,7 +288,9 @@ var render = function () {
                                   },
                                 },
                                 [
-                                  _c("img", { attrs: { src: em.img_src } }),
+                                  _c("img", {
+                                    attrs: { src: em.img_thumb_src },
+                                  }),
                                   _vm._v(" "),
                                   _c("div", [_vm._v(_vm._s(em.em_name))]),
                                 ]

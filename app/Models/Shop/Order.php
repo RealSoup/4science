@@ -22,7 +22,7 @@ class Order extends Model {
             40 => [ 'receiveable' => true,  'class' => 'd_blue',  'name' => '배송중',       'sm_name' => '배중' ],
             50 => [ 'receiveable' => true,  'class' => 'gray',    'name' => '배송완료',     'sm_name' => '배완' ],
             60 => [ 'receiveable' => false, 'class' => 'black',   'name' => '주문취소',     'sm_name' => '취소' ],
-            61 => [ 'receiveable' => false, 'class' => 'orange',  'name' => '결제실패',     'sm_name' => '실패' ],
+            61 => [ 'receiveable' => false, 'class' => 'black',   'name' => '결제실패',     'sm_name' => '실패' ],
         ],
         'type' => [
             'buy_inst'      => '바로주문',

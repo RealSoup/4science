@@ -1,163 +1,162 @@
 <template>
-<div class="p_wrap">
-    <h3 class="p_tit row">
-        <b-col>주문 상세</b-col>
-        <b-col><b-button :to="{name: 'adm_order_index'}" class="white" size="sm">목록으로 돌아가기</b-button></b-col>
-    </h3>
-    
-    <b-container fluid class="top">
-        <b-row>
-            <b-col>No.</b-col>
-            <b-col>주문번호</b-col>
-            <b-col>주문날짜</b-col>
-            <b-col>주문자</b-col>
-            <b-col>연락처</b-col>
-            <b-col>이메일</b-col>
-            <b-col>담당</b-col>
-            <b-col>영업장부</b-col>
-            <b-col>주문서</b-col>
-            <b-col>문서받기</b-col>
-            <b-col>처리상태</b-col>
+<div id="print_area">
+    <div class="p_wrap">
+        <b-row class="row h3">
+            <b-col tag="h3">주문 상세</b-col>
+            <b-col class="print_hide"><b-button :to="{name: 'adm_order_index'}" class="white" size="sm">목록으로 돌아가기</b-button></b-col>
         </b-row>
-        <b-row>
-            <b-col>{{ od.od_id }}.</b-col>
-            <b-col>{{ od.od_no }}</b-col>
-            <b-col>{{ od.created_at | formatDate_YYYY_MM_DD }}</b-col>
-            <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
-                {{ od.od_orderer }}
-            </b-link>
-            <b-col>{{ od.od_orderer_hp }}</b-col>
-            <b-col>{{ od.od_orderer_email }}</b-col>
-            <b-col>
-                <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="white">담당</b-button>
-                <template v-else>{{od.mng.name}}</template>
-            </b-col>
-            <b-col>
-                <b-button v-if="od.od_has_ledger == 'N'" class="white" @click="ledger">등록</b-button>
-                <template v-else>등록됨</template>
-            </b-col>
-            <b-col>
-                <b-button class="white" @click="print">인쇄</b-button>
-            </b-col>
-            <b-col>
-                <b-input-group v-if="od.od_mng">
-                    <b-form-select class="custom-select" v-model="document_type">
-                        <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
-                        <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
-                        <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
-                        <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
-                        <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
-                    </b-form-select>
-                    <b-input-group-append><b-button @click="document_action" class="b_gray">받기</b-button></b-input-group-append>
-                </b-input-group>
-                <template v-else>담당 등록 후...</template>
-            </b-col>
-            <b-col>
-                <b-input-group>
-                    <b-form-select v-model="od.od_step">
-                        <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
-                        <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
-                    </b-form-select>
-                    <b-input-group-append><b-button @click="update('od_step')" class="b_gray">변경</b-button></b-input-group-append>
-                </b-input-group>
-            </b-col>
-        </b-row>
-    </b-container>
-    
-    <div id="print_area">    
+        
+        <b-container class="top">
+            <b-row>
+                <b-col>No.</b-col>
+                <b-col>주문번호</b-col>
+                <b-col>주문날짜</b-col>
+                <b-col>주문자</b-col>
+                <b-col>연락처</b-col>
+                <b-col>이메일</b-col>
+                <b-col>담당</b-col>
+                <b-col class="print_hide">영업장부</b-col>
+                <b-col class="print_hide">주문서</b-col>
+                <b-col class="print_hide">문서받기</b-col>
+                <b-col class="print_hide">처리상태</b-col>
+            </b-row>
+            <b-row>
+                <b-col>{{ od.od_id }}.</b-col>
+                <b-col>{{ od.od_no }}</b-col>
+                <b-col>{{ od.created_at | formatDate_YYYY_MM_DD }}</b-col>
+                <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
+                    {{ od.od_orderer }}
+                </b-link>
+                <b-col>{{ od.od_orderer_hp }}</b-col>
+                <b-col>{{ od.od_orderer_email }}</b-col>
+                <b-col>
+                    <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="white">담당</b-button>
+                    <template v-else>{{od.mng.name}}</template>
+                </b-col>
+                <b-col class="print_hide">
+                    <b-button v-if="od.od_has_ledger == 'N'" class="white" @click="ledger">등록</b-button>
+                    <template v-else>등록됨</template>
+                </b-col>
+                <b-col class="print_hide">
+                    <b-button class="white" @click="print">인쇄</b-button>
+                </b-col>
+                <b-col class="print_hide">
+                    <b-input-group v-if="od.od_mng">
+                        <b-form-select class="custom-select" v-model="document_type">
+                            <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
+                            <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
+                            <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
+                            <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
+                            <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
+                        </b-form-select>
+                        <b-input-group-append><b-button @click="document_action" class="b_gray">받기</b-button></b-input-group-append>
+                    </b-input-group>
+                    <template v-else>담당 등록 후...</template>
+                </b-col>
+                <b-col class="print_hide">
+                    <b-input-group>
+                        <b-form-select v-model="od.od_step">
+                            <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                        </b-form-select>
+                        <b-input-group-append><b-button @click="update('od_step')" class="b_gray">변경</b-button></b-input-group-append>
+                    </b-input-group>
+                </b-col>
+            </b-row>
+        </b-container>
+        
         <div class="box">
             <b-row tag="h5">
                 <b-col tag="b">주문 상품</b-col>
-                <b-col class="text-right"><b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button></b-col>
+                <b-col class="text-right print_hide"><b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button></b-col>
             </b-row>
             
-            <b-container>
-                <b-row class="goods" v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
-                    <b-col class="pa_tit">
-                        <b v-if="pa.odpa_pa_id">업체<br />직배송</b>
-                        <b v-else>포사이언스<br />배송</b>
-                    </b-col>
-                    
-                    <b-col class="gd_con">
-                        <b-row>
-                            <b-col>
-                                <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
-                            </b-col>
-                            <b-col></b-col>
-                            <b-col>주문 상품</b-col>
-                            <b-col>제조사</b-col>
-                            <b-col>판매가</b-col>
-                            <b-col>수량</b-col>
-                            <b-col>금액</b-col>
-                            <b-col></b-col>
-                        </b-row>
-                        <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
-                            <b-col class="align">
-                                <b-form-checkbox class="myCheck" v-if="odm.odm_type=='MODEL'" value="Y" unchecked-value="N" v-model="odm.dlvy_chk" @change="changeSon(pa)" />
-                            </b-col>
-                            <b-col class="align">
-                                <div v-if="odm.odm_type=='MODEL'">
-                                    <img :src="odm.img_src" v-if="odm.odm_gd_id>0" @click="openWinPop(`/admin/shop/goods/${odm.odm_gd_id}/edit`, 1700, 900)" />
-                                    <img :src="odm.img_src" v-else />
+            <div class="top_border" />
+            <b-row class="goods" v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
+                <b-col class="pa_tit print_hide_flex">
+                    <b v-if="pa.odpa_pa_id">업체<br />직배송</b>
+                    <b v-else>포사이언스<br />배송</b>
+                </b-col>
+                
+                <b-col class="gd_con">
+                    <b-row>
+                        <b-col class="print_hide">
+                            <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
+                        </b-col>
+                        <b-col></b-col>
+                        <b-col>주문 상품</b-col>
+                        <b-col>제조사</b-col>
+                        <b-col>판매가</b-col>
+                        <b-col>수량</b-col>
+                        <b-col>금액</b-col>
+                        <b-col class="print_hide"></b-col>
+                    </b-row>
+                    <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
+                        <b-col class="align print_hide">
+                            <b-form-checkbox class="myCheck" v-if="odm.odm_type=='MODEL'" value="Y" unchecked-value="N" v-model="odm.dlvy_chk" @change="changeSon(pa)" />
+                        </b-col>
+                        <b-col class="align">
+                            <div v-if="odm.odm_type=='MODEL'">
+                                <img :src="odm.img_thumb_src" v-if="odm.odm_gd_id>0" @click="openWinPop(`/admin/shop/goods/${odm.odm_gd_id}/edit`, 1700, 900)" />
+                                <img :src="odm.img_thumb_src" v-else />
+                            </div>
+                            <b v-else>추가 옵션</b>
+                        </b-col>
+                        <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
+                            <template v-if="odm.odm_type=='MODEL'">
+                                <b>{{odm.odm_gd_name}}</b>
+                                <p>
+                                    제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
+                                    모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
+                                    사양: {{odm.odm_gm_spec}}
+                                </p>
+                            </template>
+                            <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
+                        </b-col>
+                        <b-col class="align">{{odm.odm_mk_name}}</b-col>
+                        <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
+                        <b-col class="align">
+                            <div class="cube_box">
+                                <div class="cube" :class="{show_right: odm.show_right}">
+                                    <div class="piece front">{{odm.odm_ea | comma}}</div>
+                                    <div class="piece right"><EaInput v-model="pa.order_model[odm_i]" /></div>
                                 </div>
-                                <b v-else>추가 옵션</b>
-                            </b-col>
-                            <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
-                                <template v-if="odm.odm_type=='MODEL'">
-                                    <b>{{odm.odm_gd_name}}</b>
-                                    <p>
-                                        제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
-                                        모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
-                                        사양: {{odm.odm_gm_spec}}
-                                    </p>
-                                </template>
-                                <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
-                            </b-col>
-                            <b-col class="align">{{odm.odm_mk_name}}</b-col>
-                            <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
-                            <b-col class="align">
-                                <div class="cube_box">
-                                    <div class="cube" :class="{show_right: odm.show_right}">
-                                        <div class="piece front">{{odm.odm_ea | comma}}</div>
-                                        <div class="piece right"><EaInput v-model="pa.order_model[odm_i]" /></div>
-                                    </div>
-                                </div>
-                            </b-col>
-                            <b-col class="align">
-                                <b class="sum">
-                                    {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
-                                    <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button>
-                                        배송비 포함
-                                    </b-form-checkbox>
-                                </b>
-                            </b-col>
-                            <b-col class="align">
-                                <template v-if="odm.odm_type=='MODEL'">                                    
-                                    <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" class="gray">수취완료</b-badge>
-                                    <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" class="green">배송완료</b-badge>
-                                    <b-button v-else-if="odm.order_dlvy_info.oddi_dlvy_num" class="teal" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)">
-                                        배송추적
-                                    </b-button>
-                                    <b-button v-else class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
-                                </template>
-                            </b-col>
-                        </b-row>
-                    </b-col>
-                    <b-col class="dlvy_fare">
-                        <div>
-                            <p v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</p>
-                            <p v-else>배송비</p>
-                            {{pa.odpa_dlvy_p_add_vat | comma | won}}
-                        </div>
-                    </b-col>
-                </b-row>
+                            </div>
+                        </b-col>
+                        <b-col class="align">
+                            <b class="sum">
+                                {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
+                                <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button class="print_hide">
+                                    배송비 포함
+                                </b-form-checkbox>
+                            </b>
+                        </b-col>
+                        <b-col class="align print_hide_flex" :style="{flexWrap:'wrap'}">
+                            <template v-if="odm.odm_type=='MODEL'">                                    
+                                <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" class="gray">수취완료</b-badge>
+                                <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" class="green">배송완료</b-badge>
+                                <b-button v-else-if="odm.order_dlvy_info.oddi_dlvy_num" class="teal" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)">배송추적</b-button>
+                                <br />
+                                <b-button class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
+                            </template>
+                        </b-col>
+                    </b-row>
+                </b-col>
+                <b-col class="dlvy_fare print_hide_flex">
+                    <div>
+                        <p v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</p>
+                        <p v-else>배송비</p>
+                        {{pa.odpa_dlvy_p_add_vat | comma | won}}
+                    </div>
+                </b-col>
+            </b-row>
 
-                <b-row class="action">
-                    <b-col>선택한 상품의 <b-button @click="writeDlvyInfo('bundle')" class="teal ml-2">배송정보 일괄 등록</b-button></b-col>
-                </b-row>
-            </b-container>
-
-            <b-container class="sum_up">
+            <b-row class="action print_hide">
+                <b-col>선택한 상품의 <b-button @click="writeDlvyInfo('bundle')" class="teal ml-2">배송정보 일괄 등록</b-button></b-col>
+            </b-row>
+          
+            <div class="top_border" />
+            <div class="sum_up">
                 <b-row class="total">
                     <b-col>상품금액</b-col>
                     <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
@@ -189,7 +188,7 @@
                         </div>
                     </b-col>
                 </b-row>
-            </b-container>
+            </div>
         </div>
 
         <div class="box extra_info">
@@ -229,7 +228,7 @@
                         <span v-else-if="od.od_pay_method=='P'">PSYS</span>
                         <span v-else-if="od.od_pay_method=='R'">원격결제</span>
 
-                        <b-button v-if="od.order_pg" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal">매출전표</b-button>
+                        <b-button v-if="od.order_pg" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
                     </td>
                     <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
                 </tr>
@@ -239,12 +238,12 @@
                 </tr>
             </table>
             
-            <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal">배송정보 수정</b-button></b-col></b-row>
+            <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
             <table class="tbl_st address">
                 <tr>
                     <th>수취인</th>
                     <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 이름 복사'" @click="copyToClipboard(od.od_receiver)" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 이름 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
                         <div class="cube_box receiver">
                             <div class="cube" :class="{show_right: focusInfo.od_receiver}">
                                 <div class="piece front">{{ od.od_receiver }}</div>
@@ -256,7 +255,7 @@
                     </td>
                     <th>전화번호</th>
                     <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block" />
                         <div class="cube_box receiver_hp">
                             <div class="cube" :class="{show_right: focusInfo.od_receiver_hp}">
                                 <div class="piece front">{{ od.od_receiver_hp }}</div>
@@ -270,7 +269,7 @@
                 <tr>
                     <th>배송주소</th>
                     <td colspan="3">
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 주소 복사'" @click="copyToClipboard(od.od_addr1)" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
                         <div class="cube_box receiver_addr">
                             <div class="cube">
                                 <div class="piece front">{{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}</div>
@@ -298,8 +297,8 @@
                         <tr v-if="od.file_info">
                             <th>사업자등록증</th>
                             <td>
-                                <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'">사업자 등록증 보기</b-button>
-                                <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)">사업자 등록증 다운로드</b-button>
+                                <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">사업자 등록증 보기</b-button>
+                                <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">사업자 등록증 다운로드</b-button>
                             </td>
                         </tr>
                         <template v-else>
@@ -346,94 +345,94 @@
                 </template>
             </table>
         </div>
+
+        <transition name="modal">
+            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="600">
+                <template v-if="modalType == 'blView'">
+                    <template slot="header">사업자 등록증 보기</template>
+                    <img :src="od.file_info.path" @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" style="max-width: 100%; height: auto;"/>
+                </template>
+
+                <template v-else-if="modalType == 'postCode'">
+                    <template slot="header">우편번호 검색</template>
+                    <VueDaumPostcode class="shadow mt-3" @complete="onPostcodeSlt" :animation="true" />
+                </template>
+
+                <template v-else-if="modalType == 'postDetail'">
+                    <template slot="header">배송지 변경</template>
+                    <b-container class="adform layerModal">
+                        <b-row>
+                            <b-col class="label">우편번호</b-col>
+                            <b-col>{{od.od_zip}}</b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">주소</b-col>
+                            <b-col>{{od.od_addr1}}</b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">상세 주소</b-col>
+                            <b-col><b-form-input v-model="od.od_addr2" @keyup.enter="isModalViewed = false" /></b-col>
+                        </b-row>
+                        
+                        <b-row>
+                            <b-col class="ctrl"><b-button @click="isModalViewed = false">완료</b-button></b-col>
+                        </b-row>
+                    </b-container>
+                </template>
+
+                <template v-else-if="modalType == 'sendTransaction'">
+                    <template slot="header">거래명세서 PDF 발송</template>
+                    <b-container class="adform layerModal">
+                        <b-row>
+                            <b-col class="label">공급 날짜</b-col>
+                            <b-col>
+                                <b-input-group size="sm">
+                                    <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
+                                    <b-input-group-append>
+                                        <b-form-datepicker size="sm" v-model="od.trans_date" button-only right></b-form-datepicker>
+                                    </b-input-group-append>
+                                </b-input-group>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">공급 받는자</b-col>
+                            <b-col><b-form-input v-model="od.trans_receive" /></b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">받을 Email</b-col>
+                            <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
+                        </b-row>
+                        
+                        <b-row>
+                            <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
+                        </b-row>
+                    </b-container>
+                </template>
+
+                <template v-else-if="modalType == 'dlvyInfo'">
+                    <template slot="header">배송 정보 등록</template>
+                    <b-container class="adform layerModal">
+                        <b-row>
+                            <b-col class="label">운송사</b-col>
+                            <b-col>
+                                <b-form-select v-model="dlvy_info.company" size="sm">
+                                    <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
+                                </b-form-select>
+                            </b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col class="label">송장번호</b-col>
+                            <b-col><b-form-input v-model="dlvy_info.number" /></b-col>
+                        </b-row>
+                        <b-row>
+                            <b-col><b-button variant="success" @click="update('arrival')">배송완료</b-button></b-col>
+                            <b-col class="ctrl"><b-button @click="update('dlvy')">등록</b-button></b-col>
+                        </b-row>
+                    </b-container>
+                </template>
+            </Modal>
+        </transition>
     </div>
-
-    <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="600">
-            <template v-if="modalType == 'blView'">
-                <template slot="header">사업자 등록증 보기</template>
-                <img :src="od.file_info.path" @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" style="max-width: 100%; height: auto;"/>
-            </template>
-
-            <template v-else-if="modalType == 'postCode'">
-                <template slot="header">우편번호 검색</template>
-                <VueDaumPostcode class="shadow mt-3" @complete="onPostcodeSlt" :animation="true" />
-            </template>
-
-            <template v-else-if="modalType == 'postDetail'">
-                <template slot="header">배송지 변경</template>
-                <b-container class="adform layerModal">
-                    <b-row>
-                        <b-col class="label">우편번호</b-col>
-                        <b-col>{{od.od_zip}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label">주소</b-col>
-                        <b-col>{{od.od_addr1}}</b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label">상세 주소</b-col>
-                        <b-col><b-form-input v-model="od.od_addr2" @keyup.enter="isModalViewed = false" /></b-col>
-                    </b-row>
-                    
-                    <b-row>
-                        <b-col class="ctrl"><b-button @click="isModalViewed = false">완료</b-button></b-col>
-                    </b-row>
-                </b-container>
-            </template>
-
-            <template v-else-if="modalType == 'sendTransaction'">
-                <template slot="header">거래명세서 PDF 발송</template>
-                <b-container class="adform layerModal">
-                    <b-row>
-                        <b-col class="label">공급 날짜</b-col>
-                        <b-col>
-                            <b-input-group size="sm">
-                                <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
-                                <b-input-group-append>
-                                    <b-form-datepicker size="sm" v-model="od.trans_date" button-only right></b-form-datepicker>
-                                </b-input-group-append>
-                            </b-input-group>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label">공급 받는자</b-col>
-                        <b-col><b-form-input v-model="od.trans_receive" /></b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label">받을 Email</b-col>
-                        <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
-                    </b-row>
-                    
-                    <b-row>
-                        <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
-                    </b-row>
-                </b-container>
-            </template>
-
-            <template v-else-if="modalType == 'dlvyInfo'">
-                <template slot="header">배송 정보 등록</template>
-                <b-container class="adform layerModal">
-                    <b-row>
-                        <b-col class="label">운송사</b-col>
-                        <b-col>
-                            <b-form-select v-model="dlvy_info.company" size="sm">
-                                <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
-                            </b-form-select>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col class="label">송장번호</b-col>
-                        <b-col><b-form-input v-model="dlvy_info.number" /></b-col>
-                    </b-row>
-                    <b-row>
-                        <b-col><b-button variant="success" @click="update('arrival')">배송완료</b-button></b-col>
-                        <b-col class="ctrl"><b-button @click="update('dlvy')">등록</b-button></b-col>
-                    </b-row>
-                </b-container>
-            </template>
-        </Modal>
-    </transition>
 </div>
 </template>
 
@@ -775,29 +774,11 @@ export default {
 
 <style lang="css" scoped>
 @import '/css/adm_shop_order_edit.css';
-.p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
-.p_wrap h5 b { position:relative; bottom:-2px; }
-.p_wrap .container { max-width:100%; }
-.p_wrap .container,
-.p_wrap .row .col { padding:0; }
-.p_wrap .adform .row > div:not(.tit) { padding: 8px 5px; }
-.p_wrap .row,
-.p_wrap .row .col p  { margin:0; }
-.p_wrap .p_tit .col:last-child { text-align:right; }
-.p_wrap .p_tit .col:last-child .btn { border-color:#000; font-weight:600; }
+.p_wrap .print_hide { display:block !important; }
+.p_wrap .print_hide_flex { display:flex !important; }
+.p_wrap .print_hide_inline_block { display:inline-block !important; }
 
-.p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }
-
-.p_wrap .top {  }
-.p_wrap .top .row:first-child { background-color:#4EB8C8; color:#FFF; border-radius:.4rem .4rem 0 0; font-size:.95rem; }
-.p_wrap .top .row:first-child .col { padding:.6rem 0 .25rem 0; }
-.p_wrap .top .row:last-child { border:1px solid #4EB8C8; border-radius:0 0 .4rem .4rem; }
-.p_wrap .top .row:last-child .col { padding:.3rem .75rem; line-height:2rem; }
-.p_wrap .top .row:last-child .col .btn { border-color:#8A8A8A; padding:.2rem .75rem; }
-.p_wrap .top .row:last-child .col .custom-select { height: calc(1.95rem + 2px); padding: 0.23rem 1.75rem 0.23rem 0.75rem; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center; }
-.p_wrap .top .row:first-child .col:nth-child(6) { border-right:1px solid #FFF;  }
-.p_wrap .top .row:last-child .col:nth-child(6) { border-right:1px solid #4EB8C8;  }
-.p_wrap .top .row .col { text-align:center; }
+.p_wrap .top .row:first-child { border-width:0px; }
 .p_wrap .top .row .col:nth-child(1) { flex:0 0 6%; max-width:6%; }
 .p_wrap .top .row .col:nth-child(2) { flex:0 0 8%; max-width:8%; }
 .p_wrap .top .row .col:nth-child(3) { flex:0 0 9%; max-width:9%; }
@@ -807,94 +788,5 @@ export default {
 .p_wrap .top .row .col:nth-child(7) { flex:0 0 7%; max-width:7%; }
 .p_wrap .top .row .col:nth-child(8) { flex:0 0 8%; max-width:8%; }
 .p_wrap .top .row .col:nth-child(9) { flex:0 0 8%; max-width:8%; }
-
-
-.p_wrap #print_area .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
-.p_wrap #print_area .box > .container { border-top:3px solid #4F637B; }
-.p_wrap #print_area .box .container .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
-.p_wrap #print_area .box .container .goods .gd_con .row.option { background-color:#F4F1EC; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }
-.p_wrap #print_area .box .container .goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }
-.p_wrap #print_area .box .container .goods .gd_con .row:not(:first-child) .col { color:#AEAEAE; }
-.p_wrap #print_area .box .container .goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col b { color:#000; font-size:.95rem; }
-
-.p_wrap #print_area .box .container .goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(1) { flex:0 0 4.5%; max-width:4.5%; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(5) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }
-    
-.p_wrap #print_area .box .container .goods .gd_con .row .col img { width:100%; cursor:pointer; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
-.p_wrap #print_area .box .container .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
-.p_wrap #print_area .box .container .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
-.p_wrap #print_area .box .container .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }
-
-.p_wrap #print_area .box .container .action { padding:1.5rem 3rem; font-weight:600; }
-
-.p_wrap #print_area .box .container.sum_up .total { border-bottom:1px solid #D6D6D6; }
-.p_wrap #print_area .box .container.sum_up .total .col { color:#000; font-weight:bold; padding:1rem 3rem; }
-.p_wrap #print_area .box .container.sum_up .total .col b { font-size:1.4rem; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(1) { display:flex; align-items:center; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"+"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(3) { display:flex; align-items:center; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"="; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%; }
-.p_wrap #print_area .box .container.sum_up .total .col:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%; }
-.p_wrap #print_area .box .container.sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
-.p_wrap #print_area .box .container.sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.p_wrap #print_area .box .container.sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.p_wrap #print_area .box .container.sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
-.p_wrap #print_area .box .container.sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
-.p_wrap #print_area .box .container.sum_up .total_sub .col>div:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem; }
-.p_wrap #print_area .box .container.sum_up .total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
-.p_wrap #print_area .box .container.sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.p_wrap #print_area .box .container.sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
-
-.p_wrap #print_area .extra_info table { width:100%; border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }
-.p_wrap #print_area .extra_info table tr th { background-color:#F2F3F5; width:13%; text-align:center; padding:.55rem 0.3rem; font-size:.95rem; }
-.p_wrap #print_area .extra_info table tr td { padding-left:2rem; }
-.p_wrap #print_area .extra_info table tr th,
-.p_wrap #print_area .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
-.p_wrap #print_area .extra_info table tr:last-child td { border-right-width:0; }
-.p_wrap #print_area .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }
-.cube_box { display:inline-block; vertical-align:middle; }
-.cube_box, 
-.cube_box * { box-sizing: border-box; }
-.cube_box { /*perspective:400px;*/ margin:auto; }
-.cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }
-.cube_box .cube .piece { position:absolute; }
-.cube_box,
-.cube_box .cube,
-.cube_box .cube .piece { width:100%; max-width:40px; height:30px; }
-.cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }
-.cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(20px); display:block; }
-.cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
-.cube_box .cube.show_right,
-.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
-
-table tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }
-.cube_box.receiver,
-.cube_box.receiver .cube,
-.cube_box.receiver .cube .piece { max-width:150px; }
-.cube_box.receiver_hp,
-.cube_box.receiver_hp .cube,
-.cube_box.receiver_hp .cube .piece { max-width:250px; }
-.cube_box.receiver_addr,
-.cube_box.receiver_addr .cube,
-.cube_box.receiver_addr .cube .piece { max-width:500px; }
-
-.layerModal .row .ctrl { text-align:right; }
+.p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
 </style>

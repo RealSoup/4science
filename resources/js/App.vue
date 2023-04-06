@@ -97,22 +97,22 @@ a, a:hover { color:#333; text-decoration:none; }
 .no_item { border:1px solid #CCC; text-align:center; }
 .btn_box { margin-top:3rem; text-align:center; }
 .btn.btn_right { text-align:right; }
-
+.btn.xm { padding:.2rem .3rem; font-size:.75rem !important; line-height:1.3; border-radius:.2rem; }
 .btn.lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
 .btn.xl { width:440px; font-weight:900; padding:25px 0px; font-size:1.2rem; border-radius:8px; }
-
-.white { background-color:#FFF; border-color:#CCCCCC; color:#000; }
-.gray { background-color:#B7B7B7; border-color:#B7B7B7; color:#FFF; }
-.b_gray { background-color:#4E6479; border-color:#4E6479; color:#FFF; }
-.blue { background-color:#0094EA; border-color:#0094EA; color:#FFF; }
-.mint { background-color:#00A1CB; border-color:#00A1CB; color:#FFF; }
-.d_blue { background-color:#0E4D9C; border-color:#0E4D9C; color:#FFF; }
-.green { background-color:#51B948; border-color:#51B948; color:#FFF; }
-.plum { background-color:#D70060; border-color:#D70060; color:#FFF; }
-.yellow { background-color:#FECE02; border-color:#FECE02; color:#fff; }
-.orange { background-color:#F18D04; border-color:#F18D04; color:#fff; }
-.black { background-color:#000; border-color:#000; color:#FFF; }
-.teal { background-color:#015B7E; border-color:#015B7E; color:#FFF; }
+    
+.white { background-color:#FFF; border-color:#CCCCCC; color:#000 !important; }
+.gray { background-color:#B7B7B7; border-color:#B7B7B7; color:#FFF !important; }
+.b_gray { background-color:#4E6479; border-color:#4E6479; color:#FFF !important; }
+.blue { background-color:#0094EA; border-color:#0094EA; color:#FFF !important; }
+.mint { background-color:#00A1CB; border-color:#00A1CB; color:#FFF !important; }
+.d_blue { background-color:#0E4D9C; border-color:#0E4D9C; color:#FFF !important; }
+.green { background-color:#51B948; border-color:#51B948; color:#FFF !important; }
+.plum { background-color:#D70060; border-color:#D70060; color:#FFF !important; }
+.yellow { background-color:#FECE02; border-color:#FECE02; color:#fff !important; }
+.orange { background-color:#F18D04; border-color:#F18D04; color:#fff !important; }
+.black { background-color:#000; border-color:#000; color:#FFF !important; }
+.teal { background-color:#015B7E; border-color:#015B7E; color:#FFF !important; }
 .btn.wd_33p { font-weight:bold; padding:25px; width:33%; border-radius:9px; font-size:1.2rem; }
 .btn.wd_100p { font-weight:bold; padding:25px; width:100%; border-radius:9px; font-size:1.2rem; }
 input::placeholder, textarea::placeholder { color:#CCC !important; }

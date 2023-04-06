@@ -51,6 +51,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyOrderReceiptConfirm',
@@ -130,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.rs_modal .rs_modal-card[data-v-7c13a4fc] { max-width:600px;\n}\n#ReceiptConfirm[data-v-7c13a4fc] { border: 10px solid #4D4D4D;\n}\n#ReceiptConfirm .head[data-v-7c13a4fc] {  min-height:250px; position:relative;\n}\n#ReceiptConfirm .head img[data-v-7c13a4fc] { width:150px; height:150px; -o-object-fit:cover; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);\n}\n#ReceiptConfirm .gd_name[data-v-7c13a4fc] { text-align:center; font-weight:bold;\n}\n#ReceiptConfirm .body[data-v-7c13a4fc] { background:#C1B5A8; padding:20px;\n}\n#ReceiptConfirm .body p[data-v-7c13a4fc] { text-align:center; font-weight:bold; font-size:1.3rem; color:#fff;\n}\n#ReceiptConfirm .body > div[data-v-7c13a4fc] { margin-bottom:10px;\n}\n#ReceiptConfirm .body .radio_ctrl[data-v-7c13a4fc] { background:#fff; border-radius:5px; padding:3px 12px;\n}\n#ReceiptConfirm .body .radio_ctrl span[data-v-7c13a4fc] { margin-right:20px; color:#AAA;\n}\n#ReceiptConfirm .body .ctrl[data-v-7c13a4fc] { text-align:center;\n}\n#ReceiptConfirm .body .ctrl img[data-v-7c13a4fc] { cursor:pointer;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.rs_modal .rs_modal-card main[data-v-7c13a4fc] { padding:0 !important;\n}\n.p_wrap .container[data-v-7c13a4fc],\r\n.p_wrap .frm_st .row[data-v-7c13a4fc],\r\n.p_wrap .frm_st .row .col[data-v-7c13a4fc] { padding:0; margin:0;\n}\n.p_wrap .img[data-v-7c13a4fc] { text-align:center;\n}\n.p_wrap .img img[data-v-7c13a4fc] { width:180px; height:180px; -o-object-fit:cover; object-fit:cover;\n}\n.p_wrap .row .col[data-v-7c13a4fc] { text-align:center; font-size:.9rem;\n}\n.p_wrap .row .col.gd_name[data-v-7c13a4fc] { margin:.7rem 0 1.5rem;}\n.p_wrap .row .col.body[data-v-7c13a4fc] { background-color:#4EB8C8; padding:1.5rem;\n}\n.p_wrap .row .col.body .question[data-v-7c13a4fc] { color:#FFF; font-size:1.2rem; margin-bottom: 0.4rem;\n}\n.p_wrap .frm_st .row .col .row[data-v-7c13a4fc] { margin:.3rem 0;\n}\n.p_wrap .frm_st .row .col .row .col.label_st[data-v-7c13a4fc] { color:#7D7D7D; flex-basis:90px; max-width:90px; border-radius:.5rem 0 0 .5rem; background:#fff; margin-right:4px; display:flex; align-items:center; justify-content:center;\n}\n.p_wrap .frm_st .row .col .row .col.label_st + div[data-v-7c13a4fc] { background:#fff; border-radius:0 .5rem .5rem 0; min-height:32px;\n}\n.p_wrap .frm_st .row .col .row .col.radio_ctrl[data-v-7c13a4fc] { display:flex; justify-content:space-around; align-items:center;\n}\n.p_wrap .row .col.body .btn_box[data-v-7c13a4fc] { margin:1rem;\n}\n.p_wrap .row .col.body .btn_box .btn[data-v-7c13a4fc] { border: 1px solid #fff; width: 120px;\n}\n.p_wrap .frm_st input[data-v-7c13a4fc],\r\n.p_wrap .frm_st select[data-v-7c13a4fc],\r\n.p_wrap .frm_st textarea[data-v-7c13a4fc] { border-radius:0 .5rem .5rem 0; background:inherit;\n}\r\n        \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -264,136 +271,198 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "ReceiptConfirm" } }, [
-    _c(
-      "div",
-      { staticClass: "head" },
-      [_c("b-img", { attrs: { src: _vm.item.img_src } })],
-      1
-    ),
-    _vm._v(" "),
-    _c("p", { staticClass: "gd_name" }, [_vm._v(_vm._s(_vm.item.odm_gd_name))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "body" }, [
-      _c("p", [_vm._v("제품을 잘 받으셨나요?")]),
-      _vm._v(" "),
+  return _c(
+    "div",
+    { staticClass: "p_wrap" },
+    [
       _c(
-        "div",
-        { staticClass: "radio_ctrl" },
+        "b-container",
+        { staticClass: "frm_st " },
         [
-          _c("span", [_vm._v("총평")]),
-          _vm._v(" "),
           _c(
-            "b-form-radio",
-            {
-              attrs: { inline: "", value: "100" },
-              model: {
-                value: _vm.boFrm.bo_good,
-                callback: function ($$v) {
-                  _vm.$set(_vm.boFrm, "bo_good", $$v)
-                },
-                expression: "boFrm.bo_good",
-              },
-            },
-            [_vm._v("만족")]
+            "b-row",
+            [
+              _c(
+                "b-col",
+                { staticClass: "img" },
+                [_c("b-img", { attrs: { src: _vm.item.img_src } })],
+                1
+              ),
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
-            "b-form-radio",
-            {
-              attrs: { inline: "", value: "50" },
-              model: {
-                value: _vm.boFrm.bo_good,
-                callback: function ($$v) {
-                  _vm.$set(_vm.boFrm, "bo_good", $$v)
-                },
-                expression: "boFrm.bo_good",
-              },
-            },
-            [_vm._v("보통")]
+            "b-row",
+            [
+              _c("b-col", { staticClass: "gd_name" }, [
+                _vm._v(_vm._s(_vm.item.odm_gd_name)),
+              ]),
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
-            "b-form-radio",
-            {
-              attrs: { inline: "", value: "10" },
-              model: {
-                value: _vm.boFrm.bo_good,
-                callback: function ($$v) {
-                  _vm.$set(_vm.boFrm, "bo_good", $$v)
-                },
-                expression: "boFrm.bo_good",
-              },
-            },
-            [_vm._v("불만족")]
+            "b-row",
+            [
+              _c(
+                "b-col",
+                { staticClass: "body" },
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "question" }, [
+                        _vm._v("제품을 잘 받으셨나요?"),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("총평"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "radio_ctrl" },
+                        [
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { inline: "", value: "100" },
+                              model: {
+                                value: _vm.boFrm.bo_good,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.boFrm, "bo_good", $$v)
+                                },
+                                expression: "boFrm.bo_good",
+                              },
+                            },
+                            [_vm._v("만족")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { inline: "", value: "50" },
+                              model: {
+                                value: _vm.boFrm.bo_good,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.boFrm, "bo_good", $$v)
+                                },
+                                expression: "boFrm.bo_good",
+                              },
+                            },
+                            [_vm._v("보통")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-radio",
+                            {
+                              attrs: { inline: "", value: "10" },
+                              model: {
+                                value: _vm.boFrm.bo_good,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.boFrm, "bo_good", $$v)
+                                },
+                                expression: "boFrm.bo_good",
+                              },
+                            },
+                            [_vm._v("불만족")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("제목"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            attrs: { id: "bo_subject", required: "" },
+                            model: {
+                              value: _vm.boFrm.bo_subject,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.boFrm, "bo_subject", $$v)
+                              },
+                              expression: "boFrm.bo_subject",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("구매평"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "'bo_content",
+                              rows: "5",
+                              placeholder: "내용을 입력하세요",
+                            },
+                            model: {
+                              value: _vm.boFrm.bo_content,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.boFrm, "bo_content", $$v)
+                              },
+                              expression: "boFrm.bo_content",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "btn_box" },
+                    [
+                      _c(
+                        "b-button",
+                        { staticClass: "gray lg", on: { click: _vm.store } },
+                        [_vm._v("완료")]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
           ),
         ],
         1
       ),
-      _vm._v(" "),
-      _c("div", { staticClass: "awesome_p" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.boFrm.bo_subject,
-              expression: "boFrm.bo_subject",
-            },
-          ],
-          attrs: { id: "bo_subject", required: "" },
-          domProps: { value: _vm.boFrm.bo_subject },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.boFrm, "bo_subject", $event.target.value)
-            },
-          },
-        }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "bo_subject" } }, [_vm._v("제목")]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "awesome_p" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.boFrm.bo_content,
-              expression: "boFrm.bo_content",
-            },
-          ],
-          attrs: { id: "'bo_content", rows: "5", required: "" },
-          domProps: { value: _vm.boFrm.bo_content },
-          on: {
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.boFrm, "bo_content", $event.target.value)
-            },
-          },
-        }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "bo_content" } }, [_vm._v("구매평")]),
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "ctrl" },
-        [
-          _c("b-img", {
-            attrs: { src: "/img/mypage/order/confirm_btn.png" },
-            on: { click: _vm.store },
-          }),
-        ],
-        1
-      ),
-    ]),
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

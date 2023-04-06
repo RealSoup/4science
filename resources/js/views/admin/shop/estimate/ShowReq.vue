@@ -90,7 +90,7 @@
                 <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
                     <b-col>
                         <b-button variant="outline-primary" size="sm" @click="openWinPop(`/admin/shop/goods/${em.em_gd_id}/edit`, 1700, 900)" >
-                            <img :src="em.img_src" />
+                            <img :src="em.img_thumb_src" />
                         </b-button>
                         <b class="gd_name">{{em.em_name}}</b>
                         <b class="divider">/</b>

@@ -56,14 +56,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyEngReformIndex',
@@ -278,8 +270,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "w_fence" },
     [
-      _vm._m(0),
+      _c("h3", [_vm._v("영문 교정")]),
       _vm._v(" "),
       _c(
         "b-container",
@@ -380,9 +373,9 @@ var render = function () {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                            " +
+                                          "\r\n                            " +
                                             _vm._s(fi.fi_original) +
-                                            "\n                        "
+                                            "\r\n                        "
                                         ),
                                       ]
                                     )
@@ -412,28 +405,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pTitle" }, [
-      _c("span", [_c("i", [_vm._v("영")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("문")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break d-md-block d-none" }),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("교")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("정")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break" }),
-      _vm._v(" "),
-      _c("span", [_c("i")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

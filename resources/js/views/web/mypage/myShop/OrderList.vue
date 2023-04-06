@@ -16,14 +16,14 @@
         <b-col class="product">
             <template v-for="(odm, i) in od.order_model">
                 <b-link v-if="i < 5" :to="{name:'goods_show', params:{gd_id:odm.odm_gd_id}}" :key="i">
-                    <img :src="odm.img_src" />
+                    <img :src="odm.img_thumb_src" />
                     <div>{{odm.odm_gm_name}}</div>
                 </b-link>
                 <span v-if="i == 5" :key="i" class="over_flow"><b>외 {{od.order_model.length-5}}</b></span>
             </template>
         </b-col>
         <b-col class="price">{{od.od_all_price | comma}} 원</b-col>
-        <b-col class="step"><!-- <OrderStep v-model="od.od_step" :order_config="order_config" /> -->{{order_config.step[od.od_step].name}}</b-col>
+        <b-col class="step"><OrderStep v-model="od.od_step" :order_config="order_config" /></b-col>
     </b-row>
 </b-container>
 </template>

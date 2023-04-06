@@ -54,6 +54,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+/*
 #categorys ul ul { position:absolute; width:15rem; padding:0.5rem; background-color:#FFF; border:2px solid #000; z-index:10; }
 #categorys>ul>li>ul:before { content:''; position:absolute; top:-32px; left:20px; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/cate/semo.png') no-repeat center; width:31px; height:34px; }
 
@@ -62,6 +63,7 @@ export default {
 #categorys ul ul li a { display:block; font-size:14px; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}
 #categorys ul ul li:not(.depth01_tit):hover>a { padding:10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: "Malgun Gothic", serif; }
 #categorys ul ul ul { top:0; left:13.5rem; }
+*/
 /* #categorys>ul { top:20px; left:0; }
 #categorys ul { position:absolute; top:0px; right:0; width:15rem; padding:0.5rem;
     background-color:#FFF; border-radius:10px; border:0px solid #e5e5e5; z-index:10;

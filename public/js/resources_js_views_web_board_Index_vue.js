@@ -122,13 +122,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
                 _this.frm.page = page;
-                _context.prev = 2;
-                _context.next = 5;
+                if (_this.$route.name == 'my_bo_index') _this.frm.root = 'mypage';
+                _context.prev = 3;
+                _context.next = 6;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/board/".concat(_this.bo_cd), {
                   params: _this.frm
                 });
 
-              case 5:
+              case 6:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -136,21 +137,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.config = res.data.config;
                 }
 
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](2);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 9]]);
+        }, _callee, null, [[3, 10]]);
       }))();
     }
   },
@@ -404,7 +405,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("col", { attrs: { width: "" } }),
                 _vm._v(" "),
-                _vm.bo_cd == "gd_inquiry"
+                _vm.config.is_qna
                   ? _c("col", { attrs: { width: "10%" } })
                   : _vm._e(),
                 _vm._v(" "),
@@ -421,7 +422,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("제목")]),
                   _vm._v(" "),
-                  _vm.bo_cd == "gd_inquiry"
+                  _vm.config.is_qna
                     ? _c("th", { attrs: { scope: "col" } }, [_vm._v("상태")])
                     : _vm._e(),
                   _vm._v(" "),
@@ -458,7 +459,7 @@ var render = function () {
                       1
                     ),
                     _vm._v(" "),
-                    _vm.bo_cd == "gd_inquiry"
+                    _vm.config.is_qna
                       ? _c("td", [
                           bo.answer
                             ? _c("span", { class: { active: bo.answer } }, [

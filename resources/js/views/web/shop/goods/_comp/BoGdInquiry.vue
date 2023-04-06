@@ -30,6 +30,7 @@
     
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+            <strong slot="header">상품 문의</strong>
             <BoCreate v-model="bo" @store="store" />
         </Modal>
     </transition>

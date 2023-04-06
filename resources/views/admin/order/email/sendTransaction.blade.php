@@ -12,7 +12,7 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td align="center">
                 <table style="width: 427.5pt; background: white; box-sizing: border-box; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 570px; border-radius:20px; box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015); padding:24.0pt 24.0pt 24.0pt 24.0pt;" align="center">
                     <tr>
                         <td>

@@ -39,7 +39,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::prefix('order')->group(function () {
                 Route::GET('bought', 'Shop\OrderController@bought');
                 Route::GET('cnt_od_step', 'Shop\OrderController@cnt_od_step');
+                Route::GET('printEstimate/{od_id}', 'Shop\OrderController@printEstimate');
+                Route::GET('downEstimateExcel/{od_id}', 'Shop\OrderController@downEstimateExcel');
+                Route::GET('downTransactionExcel/{od_id}', 'Shop\OrderController@downTransactionExcel');
             });
+
             Route::RESOURCE('order', 'Shop\OrderController')->only([ 'index', 'update' ]);
             Route::RESOURCE('wish', 'Shop\WishController')->only([ 'index', 'store', 'destroy' ]);
 

@@ -277,42 +277,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4710,308 +4674,7 @@ var render = function () {
                 _vm._v(
                   "0" +
                     _vm._s(Object.keys(_vm.frm.lists).length ? 2 : 1) +
-                    ". 회원 정보"
-                ),
-              ]),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "frm_st" },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("주문자명"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-input", {
-                            attrs: { id: "eq_name" },
-                            model: {
-                              value: _vm.frm.eq_name,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "eq_name", $$v)
-                              },
-                              expression: "frm.eq_name",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.eq_name,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("연락처"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "hp" },
-                        [
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "eq_hp01",
-                                attrs: {
-                                  formatter: _vm.maxlength_3,
-                                  id: "eq_hp",
-                                },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext($event, 3, "eq_hp02")
-                                  },
-                                },
-                                model: {
-                                  value: _vm.frm.eq_hp01,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "eq_hp01", $$v)
-                                  },
-                                  expression: "frm.eq_hp01",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "eq_hp02",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext($event, 4, "eq_hp03")
-                                  },
-                                },
-                                model: {
-                                  value: _vm.frm.eq_hp02,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "eq_hp02", $$v)
-                                  },
-                                  expression: "frm.eq_hp02",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "eq_hp03",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                model: {
-                                  value: _vm.frm.eq_hp03,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "eq_hp03", $$v)
-                                  },
-                                  expression: "frm.eq_hp03",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error: this.$store.state.error.validations.eq_hp,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("이메일"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "email" },
-                        [
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                attrs: { id: "eq_email" },
-                                model: {
-                                  value: _vm.frm.eq_email01,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "eq_email01", $$v)
-                                  },
-                                  expression: "frm.eq_email01",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                model: {
-                                  value: _vm.frm.eq_email02,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "eq_email02", $$v)
-                                  },
-                                  expression: "frm.eq_email02",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c(
-                                "b-form-select",
-                                {
-                                  on: { change: _vm.email_domain_slt },
-                                  model: {
-                                    value: _vm.email_domain_slt_idx,
-                                    callback: function ($$v) {
-                                      _vm.email_domain_slt_idx = $$v
-                                    },
-                                    expression: "email_domain_slt_idx",
-                                  },
-                                },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "0" } },
-                                    [_vm._v("직접입력")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.email_domain, function (dm, i) {
-                                    return _c(
-                                      "b-form-select-option",
-                                      { key: i, attrs: { value: i } },
-                                      [_vm._v(_vm._s(dm))]
-                                    )
-                                  }),
-                                ],
-                                2
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.eq_email,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("소속"),
-                        _c("small", [_c("i", [_vm._v("직장/학교/연구실")])]),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-input", {
-                            model: {
-                              value: _vm.frm.eq_department,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "eq_department", $$v)
-                              },
-                              expression: "frm.eq_department",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("첨부파일"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("file-upload", {
-                            ref: "fileupload",
-                            attrs: {
-                              fi_group: "estimateReq",
-                              fi_kind: "add",
-                              height: 100,
-                            },
-                            model: {
-                              value: _vm.files,
-                              callback: function ($$v) {
-                                _vm.files = $$v
-                              },
-                              expression: "files",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "inquiry" },
-            [
-              _c("h4", [
-                _vm._v(
-                  "0" +
-                    _vm._s(Object.keys(_vm.frm.lists).length ? 3 : 2) +
-                    ". 문의사항"
+                    ". 요청사항"
                 ),
               ]),
               _vm._v(" "),
@@ -5111,6 +4774,60 @@ var render = function () {
                   1
                 ),
               ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "inquiry" },
+            [
+              _c("h4", [
+                _vm._v(
+                  "0" +
+                    _vm._s(Object.keys(_vm.frm.lists).length ? 3 : 2) +
+                    ". 첨부파일"
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-container",
+                { staticClass: "frm_st" },
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("첨부파일"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("file-upload", {
+                            ref: "fileupload",
+                            attrs: {
+                              fi_group: "estimateReq",
+                              fi_kind: "add",
+                              height: 200,
+                            },
+                            model: {
+                              value: _vm.files,
+                              callback: function ($$v) {
+                                _vm.files = $$v
+                              },
+                              expression: "files",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
             ],
             1
           ),

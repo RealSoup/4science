@@ -23,18 +23,5 @@ class CategoryController extends Controller {
 		$this->params['categorys'] = $this->category->getCate($ca_id);
 		return response()->json($this->params);
     }
-	public function indexAll(Request $req) {
-		if (!Cache::has('categoryAll'))
-			Cache::put('categoryAll', $this->cateTree());
-		return response()->json(Cache::get('categoryAll'));
-    }
-	public function cateTree(int $ca_id=0, int $depth=1) {
-		$ca = $this->category->select('ca_id', 'ca_papa', 'ca_name', 'ca_seq')->ca_papa($ca_id)->oldest('ca_seq')->get()->toArray();
-		if ($depth < 4) {
-			foreach ($ca as $key => $val)
-				$ca[$key]['sub'] = $this->cateTree($val['ca_id'], $depth+1);
-		}
-		return $ca;
-    }
-
+	public function indexAll(Request $req) { return response()->json(Cache::get('categoryAll')); }
 }

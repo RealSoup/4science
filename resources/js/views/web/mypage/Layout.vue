@@ -61,7 +61,7 @@
                                 <b-link :to="{name:'my_bo_index', params: { bo_cd:'inquiry' }}">1:1 문의</b-link>
                                 <b-link :to="{name:'my_bo_index', params: { bo_cd:'as' }}">A/S 신청</b-link>
                                 <b-link :to="{name:'my_bo_index', params: { bo_cd:'cancel' }}">취소/교환</b-link>
-                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'goods' }}">상품문의</b-link>
+                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-link>
                                 <b-link :to="{name:'my_eng_reform_index'}">영문교정</b-link>
                             </b-collapse>
                         </li>

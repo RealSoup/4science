@@ -1,32 +1,39 @@
 <template>
-    <div id="ReceiptConfirm">
-        <div class="head">
-            <b-img :src="item.img_src" />
-            
-        </div>
-        <p class="gd_name">{{item.odm_gd_name}}</p>
-        <div class="body">
-            <p>제품을 잘 받으셨나요?</p>
-            <div class="radio_ctrl">
-                <span>총평</span>
-                <b-form-radio v-model="boFrm.bo_good" inline value="100">만족</b-form-radio>
-                <b-form-radio v-model="boFrm.bo_good" inline value="50">보통</b-form-radio>
-                <b-form-radio v-model="boFrm.bo_good" inline value="10">불만족</b-form-radio>
-            </div>
-            <div class="awesome_p">
-                <input id="bo_subject" v-model="boFrm.bo_subject" required />
-                <label for="bo_subject">제목</label>
-            </div>
-            
-            <div class="awesome_p">
-                <textarea id="'bo_content" v-model="boFrm.bo_content" rows="5" required></textarea>
-                <label for="bo_content">구매평</label>
-            </div>
-            <div class="ctrl">
-                <b-img src="/img/mypage/order/confirm_btn.png" @click="store" />
-            </div>
-        </div>
-    </div>
+<div class="p_wrap">
+    <b-container class="frm_st ">
+        <b-row><b-col class="img"><b-img :src="item.img_src" /></b-col></b-row>
+        <b-row><b-col class="gd_name">{{item.odm_gd_name}}</b-col></b-row>
+        <b-row>
+            <b-col class="body">
+                <b-row><b-col class="question">제품을 잘 받으셨나요?</b-col></b-row>
+                <b-row>
+                    <b-col class="label_st">총평</b-col>
+                    <b-col class="radio_ctrl">
+                        <b-form-radio v-model="boFrm.bo_good" inline value="100">만족</b-form-radio>
+                        <b-form-radio v-model="boFrm.bo_good" inline value="50">보통</b-form-radio>
+                        <b-form-radio v-model="boFrm.bo_good" inline value="10">불만족</b-form-radio>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col class="label_st">제목</b-col>
+                    <b-col>
+                        <b-form-input id="bo_subject" v-model="boFrm.bo_subject" required />
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col class="label_st">구매평</b-col>
+                    <b-col>
+                        <b-form-textarea id="'bo_content" v-model="boFrm.bo_content" rows="5" placeholder="내용을 입력하세요" />
+                    </b-col>
+                </b-row>
+                
+                <div class="btn_box">
+                    <b-button class="gray lg" @click="store">완료</b-button>
+                </div>
+            </b-col>
+        </b-row>
+    </b-container>
+</div>
 </template>
 
 <script>
@@ -70,16 +77,26 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.rs_modal .rs_modal-card { max-width:600px; }
-#ReceiptConfirm { border: 10px solid #4D4D4D; }
-#ReceiptConfirm .head {  min-height:250px; position:relative; }
-#ReceiptConfirm .head img { width:150px; height:150px; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); }
-#ReceiptConfirm .gd_name { text-align:center; font-weight:bold; }
-#ReceiptConfirm .body { background:#C1B5A8; padding:20px; }
-#ReceiptConfirm .body p { text-align:center; font-weight:bold; font-size:1.3rem; color:#fff; }
-#ReceiptConfirm .body > div { margin-bottom:10px; }
-#ReceiptConfirm .body .radio_ctrl { background:#fff; border-radius:5px; padding:3px 12px; }
-#ReceiptConfirm .body .radio_ctrl span { margin-right:20px; color:#AAA; }
-#ReceiptConfirm .body .ctrl { text-align:center; }
-#ReceiptConfirm .body .ctrl img { cursor:pointer; }
+.rs_modal .rs_modal-card main { padding:0 !important; }
+
+.p_wrap .container,
+.p_wrap .frm_st .row,
+.p_wrap .frm_st .row .col { padding:0; margin:0; }
+.p_wrap .img { text-align:center; }
+.p_wrap .img img { width:180px; height:180px; object-fit:cover; }
+.p_wrap .row .col { text-align:center; font-size:.9rem; }
+.p_wrap .row .col.gd_name { margin:.7rem 0 1.5rem;}
+.p_wrap .row .col.body { background-color:#4EB8C8; padding:1.5rem; }
+.p_wrap .row .col.body .question { color:#FFF; font-size:1.2rem; margin-bottom: 0.4rem; }
+.p_wrap .frm_st .row .col .row { margin:.3rem 0; }
+.p_wrap .frm_st .row .col .row .col.label_st { color:#7D7D7D; flex-basis:90px; max-width:90px; border-radius:.5rem 0 0 .5rem; background:#fff; margin-right:4px; display:flex; align-items:center; justify-content:center; }
+.p_wrap .frm_st .row .col .row .col.label_st + div { background:#fff; border-radius:0 .5rem .5rem 0; min-height:32px; }
+.p_wrap .frm_st .row .col .row .col.radio_ctrl { display:flex; justify-content:space-around; align-items:center; }
+.p_wrap .row .col.body .btn_box { margin:1rem; }
+.p_wrap .row .col.body .btn_box .btn { border: 1px solid #fff; width: 120px; }
+.p_wrap .frm_st input,
+.p_wrap .frm_st select,
+.p_wrap .frm_st textarea { border-radius:0 .5rem .5rem 0; background:inherit; }
+        
 </style>
+

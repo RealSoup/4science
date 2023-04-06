@@ -9,7 +9,7 @@
 
         <transition-group class="container bought" tag="div" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
             <b-row v-for="m in computedModel" :key="m.odm_id" class="data">
-                <b-col md="2"><img :src="m.img_src" class="rounded-circle" /></b-col>
+                <b-col md="2"><img :src="m.img_thumb_src" class="rounded-circle" /></b-col>
                 <b-col>
                     <b-link variant="outline-secondary" block :to="{name: 'goods_show', params:{gd_id:m.odm_gd_id} }">
                         <p><b>{{m.odm_gm_name}}</b></p>

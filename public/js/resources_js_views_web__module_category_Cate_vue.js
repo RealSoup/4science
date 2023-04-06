@@ -50,15 +50,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ModuleCategory',
   components: {
     'CateSub': function CateSub() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_category_CateSub_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CateSub.vue */ "./resources/js/views/web/_module/category/CateSub.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_category_CateSub_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CateSub */ "./resources/js/views/web/_module/category/CateSub.vue"));
+    },
+    'CateSubAll': function CateSubAll() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_category_CateSubAll_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CateSubAll */ "./resources/js/views/web/_module/category/CateSubAll.vue"));
     }
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category'])),
+  data: function data() {
+    return {
+      all_show: false
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category', 'category_all'])),
   methods: {
     check_query: function check_query(ca01) {
       return this.$route.query.ca01 == ca01 ? true : false;
@@ -84,7 +110,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys[data-v-5bfe9972] { background:#626C75; z-index:16; position:relative;\n}\n#categorys .depth01[data-v-5bfe9972] { display:flex;\n}\n#categorys .depth01 > li[data-v-5bfe9972] { width:4.761904%;\n}\n#categorys .depth01 > li .ca01[data-v-5bfe9972] { display:flex; align-items:center; flex-direction:column; padding:10.5px 5px; overflow:hidden; cursor:pointer;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding-left:0;\n}\n#categorys .depth01 > li:last-of-type .ca01[data-v-5bfe9972] { padding-right:0;\n}\n#categorys .depth01 > li .ca01 img[data-v-5bfe9972] { margin-bottom:2px;\n}\n#categorys .depth01 > li .ca01 span[data-v-5bfe9972] { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap;\n}\n#categorys .depth01 > li.active .ca01 span[data-v-5bfe9972],\r\n#categorys .depth01 > li:hover .ca01 span[data-v-5bfe9972] { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px;\n}\r\n\r\n\r\n\r\n/* #categorys { z-index:1050; background-color:#616C74; }\r\n#categorys ul { display:flex; }\r\n#categorys ul li { flex: 1 1 auto; }\r\n#categorys ul li img { display:block; margin:auto; }\r\n#categorys ul li a { display:block; text-align:center; color:#FFF; font-size:.7rem; letter-spacing:-1px; } */\r\n/*#categorys ul { background-color:#FFF; position:absolute; top:0; left:0; width:15rem; height:15rem; }*/\r\n\r\n/* Modal */\r\n/*.rs_modal,\r\n.overlay { width: 100%; height: 100%; position: fixed; left: 0; top: 0; }\r\n.rs_modal { z-index:1050; }\r\n.rs_modal .overlay { opacity: 0.5; background-color: black; }\r\n.rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys[data-v-5bfe9972] { background:#626C75; z-index:16; position:relative;\n}\n#categorys .depth01[data-v-5bfe9972] { display:flex;\n}\n#categorys .depth01 > li[data-v-5bfe9972] { width:4.761904%;\n}\n#categorys .depth01 > li .ca01[data-v-5bfe9972] { display:flex; align-items:center; flex-direction:column; padding:8px 5px; overflow:hidden; cursor:pointer;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding-left:0;\n}\n#categorys .depth01 > li:last-of-type .ca01[data-v-5bfe9972] { padding-right:0;\n}\n#categorys .depth01 > li .ca01 img[data-v-5bfe9972] { width:80%;\n}\n#categorys .depth01 > li .ca01 span[data-v-5bfe9972] { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap;\n}\n#categorys .depth01 > li.active .ca01 span[data-v-5bfe9972],\r\n#categorys .depth01 > li:hover .ca01 span[data-v-5bfe9972] { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px;\n}\n#categorys ul[data-v-5bfe9972] ul { position:absolute; width:15rem; padding:0.5rem; background-color:#FFF; border:2px solid #000; z-index:10;\n}\n#categorys>ul>li>ul[data-v-5bfe9972]:before { content:''; position:absolute; top:-32px; left:20px; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/cate/semo.png') no-repeat center; width:31px; height:34px;\n}\n#categorys ul[data-v-5bfe9972] ul li { position: relative;\n}\n#categorys ul[data-v-5bfe9972] ul li a { display:block; font-size:14px; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\n#categorys ul[data-v-5bfe9972] ul li:not(.depth01_tit):hover>a { padding:10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif;\n}\n#categorys ul[data-v-5bfe9972] ul ul { top:0; left:13.5rem;\n}\r\n\r\n/* #categorys { z-index:1050; background-color:#616C74; }\r\n#categorys ul { display:flex; }\r\n#categorys ul li { flex: 1 1 auto; }\r\n#categorys ul li img { display:block; margin:auto; }\r\n#categorys ul li a { display:block; text-align:center; color:#FFF; font-size:.7rem; letter-spacing:-1px; } */\r\n/*#categorys ul { background-color:#FFF; position:absolute; top:0; left:0; width:15rem; height:15rem; }*/\r\n\r\n/* Modal */\r\n/*.rs_modal,\r\n.overlay { width: 100%; height: 100%; position: fixed; left: 0; top: 0; }\r\n.rs_modal { z-index:1050; }\r\n.rs_modal .overlay { opacity: 0.5; background-color: black; }\r\n.rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -223,6 +249,78 @@ var render = function () {
       "ul",
       { staticClass: "depth01 layout" },
       [
+        _c(
+          "li",
+          {
+            on: {
+              click: function ($event) {
+                _vm.all_show = true
+              },
+              mouseleave: function ($event) {
+                _vm.all_show = false
+              },
+            },
+          },
+          [
+            _c("span", { staticClass: "ca01" }, [
+              _vm.all_show
+                ? _c("img", {
+                    attrs: { src: _vm.s3url + "common/cate/all_.png" },
+                  })
+                : _c("img", {
+                    attrs: { src: _vm.s3url + "common/cate/all.png" },
+                  }),
+            ]),
+            _vm._v(" "),
+            _vm.all_show
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.category_all, function (ca) {
+                    return _c(
+                      "li",
+                      {
+                        key: "all" + ca.ca_id,
+                        on: {
+                          mouseenter: function ($event) {
+                            ca.sub_show = true
+                          },
+                          mouseleave: function ($event) {
+                            ca.sub_show = false
+                          },
+                        },
+                      },
+                      [
+                        _c(
+                          "b-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "goods_index",
+                                query: { ca01: ca.ca_id },
+                              },
+                            },
+                          },
+                          [_vm._v(_vm._s(ca.ca_name))]
+                        ),
+                        _vm._v(" "),
+                        _c("CateSub", {
+                          attrs: {
+                            sub_show: ca.sub_show && ca.sub.length,
+                            depth: 1,
+                            cate: ca.sub,
+                            paramLink: "/" + ca.ca_id,
+                          },
+                        }),
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
+              : _vm._e(),
+          ]
+        ),
+        _vm._v(" "),
         _vm._l(_vm.category, function (ca) {
           return _c(
             "li",

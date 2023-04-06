@@ -67,7 +67,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 if ($odm['odm_type'] == 'MODEL') {
                     $seq++;
                     $this->odm_map[] = 'm';
-                    if ( $opa['dlvy_all_in'] && $k == 0) {
+                    if ( $odm['dlvy_all_in'] ) {
                         //  부동소수점 오류 해결을 위한 식
                         $odm['odm_price'] += bcdiv($od['od_dlvy_price']/$odm['odm_ea'], 1.1);
                         $this->od['od_dlvy_price']  = 0;

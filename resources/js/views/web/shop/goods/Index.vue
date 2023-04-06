@@ -74,7 +74,7 @@
                 <b-row class="list">
                     <b-col class="sort">
                         <ul>
-                            <li :class="{active : frm.sort == ''}" @click="sort()">인기상품순</li>
+                            <li :class="{active : frm.sort == 'hot'}" @click="sort('hot')">인기상품순</li>
                             <li :class="{active : frm.sort == 'new'}" @click="sort('new')">신상품순</li>
                             <li :class="{active : frm.sort == 'lowPri'}" @click="sort('lowPri')">낮은가격순</li>
                             <li :class="{active : frm.sort == 'highPri'}" @click="sort('highPri')">높은가격순</li>

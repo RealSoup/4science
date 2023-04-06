@@ -129,6 +129,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TaxInvoice',
   props: ['value'],
@@ -322,11 +328,26 @@ var render = function () {
     "div",
     { staticClass: "tax_iv" },
     [
-      _vm.value.oex_type == "IV" || _vm.value.oex_type == "IVNO"
+      _vm.value.oex_type_fir == "TX"
         ? _c(
             "div",
             [
               _c("h6", [_vm._v("세금계산서 발급 정보 등록")]),
+              _vm._v(" "),
+              _c(
+                "b-form-radio",
+                {
+                  attrs: { value: "IV" },
+                  model: {
+                    value: _vm.value.oex_type,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.value, "oex_type", $$v)
+                    },
+                    expression: "value.oex_type",
+                  },
+                },
+                [_vm._v("사업자 정보 입력")]
+              ),
               _vm._v(" "),
               _c(
                 "b-form-checkbox",
@@ -652,14 +673,11 @@ var render = function () {
             ],
             1
           )
-        : _vm.value.oex_type == "IN" ||
-          _vm.value.oex_type == "HP" ||
-          _vm.value.oex_type == "CN" ||
-          _vm.value.oex_type == "BN"
+        : _vm.value.oex_type_fir == "CA"
         ? _c(
             "div",
             [
-              _c("h6", [_vm._v("현금영수증 발급 정보 등록")]),
+              _c("h6", [_vm._v("소득공제용(일반개인용)")]),
               _vm._v(" "),
               _c(
                 "b-form-radio",
@@ -973,6 +991,8 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c("h6", [_vm._v("지출증빙용(사업자용)")]),
+              _vm._v(" "),
               _c(
                 "b-form-radio",
                 {
@@ -1058,12 +1078,43 @@ var render = function () {
                                   size: "sm",
                                   formatter: _vm.maxlength_5,
                                 },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext(
+                                      $event,
+                                      5,
+                                      "oex_biz_name"
+                                    )
+                                  },
+                                },
                                 model: {
                                   value: _vm.value.oex_num_bn3,
                                   callback: function ($$v) {
                                     _vm.$set(_vm.value, "oex_num_bn3", $$v)
                                   },
                                   expression: "value.oex_num_bn3",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-row",
+                            [
+                              _c("b-form-input", {
+                                ref: "oex_biz_name",
+                                attrs: {
+                                  id: "oex_biz_name",
+                                  size: "sm",
+                                  placeholder: "업체명 입력",
+                                },
+                                model: {
+                                  value: _vm.value.oex_biz_name,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.value, "oex_biz_name", $$v)
+                                  },
+                                  expression: "value.oex_biz_name",
                                 },
                               }),
                             ],
@@ -1082,7 +1133,7 @@ var render = function () {
         : _vm._e(),
       _vm._v(" "),
       _c("b-button", { attrs: { size: "lg" }, on: { click: _vm.close } }, [
-        _vm._v("저 장"),
+        _vm._v("확 인"),
       ]),
     ],
     1

@@ -12,12 +12,13 @@ class MileageSubscriber {
 
     public function Mileage($event) {
         if ($event->mode == 'insert') {
-            DB::table('mileage')->insert( [
+            DB::table('user_mileage')->insert( [
                 'ml_uid'        => $event->uid,
                 'ml_tbl'        => $event->tbl,
                 'ml_key'        => $event->key,
                 'ml_type'       => $event->type,
                 'ml_content'    => $event->content,
+                'ml_mileage'    => $event->mileage,
                 'ml_enable_m'   => $event->mileage,
                 'created_id' => auth()->user()->id
             ] );

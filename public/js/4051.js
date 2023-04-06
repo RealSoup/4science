@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[4051],{34051:(t,e,n)=>{n.r(e),n.d(e,{default:()=>u});const s={components:{List:function(){return n.e(488).then(n.bind(n,70488))}}};const u=(0,n(51900).Z)(s,(function(){var t=this,e=t.$createElement;return(t._self._c||e)("List",{attrs:{papa_bo_cd:t.$route.params.bo_cd}})}),[],!1,null,null,null).exports}}]);

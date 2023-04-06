@@ -172,10 +172,10 @@
                         <div v-for="(v, k) in config.pay_method" :key="k">
                             <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
                             <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='R'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
+                            <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                            <span v-else-if="k=='R'">원격지 카드 결제<b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
+                            <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
                         </div> 
                     </div>
 
@@ -247,6 +247,11 @@
                                     <b-form-input v-model="order.extra.oex_num_tel3" ref="oex_num_tel3" :formatter="maxlength_4" size="sm" />
                                 </b-col>
                             </b-row>
+                            <b-row class="pay_r_tel">
+                                <b-col cols="3">이메일</b-col>
+                                <b-col><b-form-input v-model="order.extra.oex_email" ref="oex_email" id="oex_email" size="sm" /></b-col>
+                            </b-row>
+                    
                         </div>
                     </transition>
 
@@ -256,9 +261,9 @@
                         <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
                             <h6>지출 증빙 서류</h6>
                             <div>
-                                <b-form-radio v-model="order.extra.oex_type" value="IV" @click.native="tax_invoice()">세금계산서</b-form-radio>
-                                <b-form-radio v-model="order.extra.oex_type" value="HP" @click.native="tax_invoice()">현금영수증</b-form-radio>
-                                <b-form-radio v-model="order.extra.oex_type" value="NO">미발급</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type_fir" value="TX" @click.native="tax_invoice()">세금계산서</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type_fir" value="CA" @click.native="tax_invoice()">현금영수증</b-form-radio>
+                                <b-form-radio v-model="order.extra.oex_type_fir" value="NO">미발급</b-form-radio>
                             </div>
                         </div>
                     </transition>
@@ -351,7 +356,29 @@ export default {
     watch: {
         'order.od_pay_method': {
             handler(n, o) {
-                this.order.extra.oex_type = 'NO';
+                if (n == 'R') {
+                    var tel = this.$store.state.auth.user.hp.split('-');
+                    this.order.extra.oex_mng = this.$store.state.auth.user.name;
+                    this.order.extra.oex_num_tel1 =tel[0];
+                    this.order.extra.oex_num_tel2 =tel[1];
+                    this.order.extra.oex_num_tel3 =tel[2];
+                    this.order.extra.oex_email = this.$store.state.auth.user.email;
+                } else {
+                    this.order.extra.oex_mng = '';
+                    this.order.extra.oex_num_tel1 = '';
+                    this.order.extra.oex_num_tel2 = '';
+                    this.order.extra.oex_num_tel3 = '';
+                    this.order.extra.oex_email = '';
+                }
+                this.order.extra.oex_type = 'NO'; 
+            },
+            deep: true
+        },
+        'order.extra.oex_type_fir': {
+            handler(n, o) {
+                if (n == 'TX')      this.order.extra.oex_type = 'IV';
+                else if (n == 'CA') this.order.extra.oex_type = 'HP';
+                else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
             deep: true
         },
@@ -405,7 +432,8 @@ export default {
                     oex_pay_plan: 'soon',
                     oex_pay_plan_etc: '',
                     oex_bank: 'K',
-                    oex_type: 'NO',
+                    oex_type_fir: 'NO',
+                    oex_type: '',
                     
                     oex_req_est: 'N',
                     oex_req_tran: 'N',
@@ -621,20 +649,20 @@ export default {
                 case 'B':
                     if (isEmpty(frm.extra.oex_depositor)) { Notify.toast('danger', "입금자명을 입력해주세요"); this.$refs.oex_depositor.focus(); return false; }
                 case 'E':
-                    if ( frm.extra.oex_type == 'IV' ) {
+                    if ( frm.extra.oex_type == 'IV' ) {                        
                         if ( frm.extra.oex_hasBizLicense ) {
-                            if (isEmpty(frm.extra.oex_file)) { Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요"); this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_file)) { Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus(); return false; }
                         } else {
-                            if (isEmpty(frm.extra.oex_biz_name)) { Notify.toast('danger', "법인명을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_name.focus(); return false; }
-                            if (isEmpty(frm.extra.oex_biz_num)) { Notify.toast('danger', "사업자 등록번호를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_num.focus(); return false; }
-                            if (isEmpty(frm.extra.oex_biz_type)) { Notify.toast('danger', "업태를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_type.focus(); return false; }
-                            if (isEmpty(frm.extra.oex_biz_item)) { Notify.toast('danger', "종목를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_biz_item.focus(); return false; }
-                            if (isEmpty(frm.extra.oex_ceo)) { Notify.toast('danger', "대표자명을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_ceo.focus(); return false; }
-                            if (isEmpty(frm.extra.oex_addr)) { Notify.toast('danger', "사업장 소재지를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_addr.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_name)) { Notify.toast('danger', "법인명을 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_biz_name.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_num)) { Notify.toast('danger', "사업자 등록번호를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_biz_num.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_type)) { Notify.toast('danger', "업태를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_biz_type.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_biz_item)) { Notify.toast('danger', "종목를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_biz_item.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_ceo)) { Notify.toast('danger', "대표자명을 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_ceo.focus(); return false; }
+                            if (isEmpty(frm.extra.oex_addr)) { Notify.toast('danger', "사업장 소재지를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_addr.focus(); return false; }
                         }
-                        if (isEmpty(frm.extra.oex_mng)) { Notify.toast('danger', "담장자를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_mng.focus(); return false; }
-                        if (isEmpty(frm.extra.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요"); this.$refs.tax_invoice.$refs.oex_email.focus(); return false; }
-                        if (isEmpty(frm.extra.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요"); this.$refs.tax_invoice.$refs.oex_num_tel.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_mng)) { Notify.toast('danger', "담장자를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_mng.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_email.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_num_tel.focus(); return false; }
                     }
                 break;
             
@@ -699,6 +727,10 @@ export default {
                 this.set_orderer();
                 this.addr_choose(this.addr[0]);
             }
+            /*  견적가 에러는 
+                \resources\js\api\http.js
+                이쪽에서 발사한다.
+            */
         } catch (e) {
             Notify.consolePrint(e);
             Notify.toast('warning', e.responsee);

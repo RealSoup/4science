@@ -202,28 +202,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
+var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyOrder",
   components: {
@@ -291,34 +272,102 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     getHref: function getHref(com, num) {
       return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+    },
+    print: function print() {
+      var url = "/api/shop/order/printEstimate/".concat(this.$route.params.od_id);
+      var name = "견적서 인쇄";
+      var option = "width = 900, height = 900, top = 10, left = 10, location = no";
+      window.open(url, name, option);
+    },
+    downEstimateExcel: function downEstimateExcel() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/downEstimateExcel/".concat(_this.$route.params.od_id), {
+                  responseType: 'blob'
+                });
+
+              case 2:
+                res = _context.sent;
+
+                _this.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.xlsx');
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    downTransactionExcel: function downTransactionExcel() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/downTransactionExcel/".concat(_this2.$route.params.od_id), {
+                  responseType: 'blob'
+                });
+
+              case 2:
+                res = _context2.sent;
+
+                _this2.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.xlsx');
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    orderDocumentDown: function orderDocumentDown(res, fileNm) {
+      var fileUrl = window.URL.createObjectURL(new Blob([res.data]));
+      var fileLink = document.createElement('a');
+      fileLink.href = fileUrl;
+      fileLink.setAttribute('download', fileNm);
+      document.body.appendChild(fileLink);
+      fileLink.click();
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/".concat(_this.$route.params.od_id));
+              _context3.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/".concat(_this3.$route.params.od_id));
 
             case 2:
-              res = _context.sent;
+              res = _context3.sent;
 
               if (res && res.status === 200) {
-                _this.od = res.data;
-                _this.isLoadingModalViewed = false;
+                _this3.od = res.data;
+                _this3.isLoadingModalViewed = false;
               }
 
             case 4:
             case "end":
-              return _context.stop();
+              return _context3.stop();
           }
         }
-      }, _callee);
+      }, _callee3);
     }))();
   }
 });
@@ -341,7 +390,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding-left:0; padding-right:0;\n}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.goods .pa_tit[data-v-6f27c228] { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center;\n}\n.goods .gd_con .row.option[data-v-6f27c228] { background-color:#F4F1EC;\n}\n.goods .gd_con .row .col[data-v-6f27c228] { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem;\n}\n.goods .gd_con .row .col.align[data-v-6f27c228] { display:flex; align-items:center; justify-content:center;\n}\n.goods .gd_con .row:not(:first-child) .end[data-v-6f27c228] { justify-content:flex-end;\n}\n.goods .gd_con .row:not(:first-child) .col[data-v-6f27c228] { color:#AEAEAE;\n}\n.goods .gd_con .row:not(:first-child) .col .btn[data-v-6f27c228] { color:#AEAEAE; font-size:.9rem;\n}\n.goods .gd_con .row .col b[data-v-6f27c228] { color:#000; font-size:.95rem;\n}\n.goods .gd_con .row:first-child .col[data-v-6f27c228] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(2) { border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(4) { flex:0 0 9.6%; max-width:9.6%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(7) { flex:0 0 9%; max-width:9%;\n}\n.goods .gd_con .row .col img[data-v-6f27c228] { width:100%;\n}\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::before, \r\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] { text-align:right; width:100%; line-height:2;\n}\n.goods .gd_con .row .col.desc.option[data-v-6f27c228] { display:flex; align-items:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle { display:block !important; text-align:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.goods .dlvy_fare[data-v-6f27c228] { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE;\n}\n.sum_up[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.sum_up .total[data-v-6f27c228] { border-bottom:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.sum_up .total .col b[data-v-6f27c228] { font-size:1.4rem;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(1) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after,\r\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after { content:\"+\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(3) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { content:\"=\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total_sub[data-v-6f27c228] { background:#F2F3F5; border-bottom-width:0;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(3) { flex-basis:39%; max-width:39%;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228] { display:flex; flex-wrap:wrap;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(2) { padding:0 1rem 2.5rem 1rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228]:nth-of-type(2) { text-align:right;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:100px; max-width:100px; padding-top:0;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:24%; max-width:24%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding-left:0; padding-right:0;\n}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.goods .pa_tit[data-v-6f27c228] { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center;\n}\n.goods .gd_con .row.option[data-v-6f27c228] { background-color:#F4F1EC;\n}\n.goods .gd_con .row .col[data-v-6f27c228] { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem;\n}\n.goods .gd_con .row .col.align[data-v-6f27c228] { display:flex; align-items:center; justify-content:center;\n}\n.goods .gd_con .row:not(:first-child) .end[data-v-6f27c228] { justify-content:flex-end;\n}\n.goods .gd_con .row:not(:first-child) .col[data-v-6f27c228] { color:#AEAEAE;\n}\n.goods .gd_con .row:not(:first-child) .col .btn[data-v-6f27c228] { color:#AEAEAE; font-size:.9rem;\n}\n.goods .gd_con .row .col b[data-v-6f27c228] { color:#000; font-size:.95rem;\n}\n.goods .gd_con .row:first-child .col[data-v-6f27c228] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(2) { border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap;\n}\n.goods .gd_con .row .col img[data-v-6f27c228] { width:100%;\n}\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::before, \r\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] { text-align:right; width:100%; line-height:2;\n}\n.goods .gd_con .row .col.desc.option[data-v-6f27c228] { display:flex; align-items:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle { display:block !important; text-align:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.goods .dlvy_fare[data-v-6f27c228] { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE;\n}\n.sum_up[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.sum_up .total[data-v-6f27c228] { border-bottom:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.sum_up .total .col b[data-v-6f27c228] { font-size:1.4rem;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(1) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after,\r\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after { content:\"+\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(3) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { content:\"=\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(6) { flex-basis:21.05%; max-width:21.05%;\n}\n.sum_up .total_sub[data-v-6f27c228] { background:#F2F3F5; border-bottom-width:0;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(3) { flex-basis:40.5%; max-width:40.5%;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228] { display:flex; flex-wrap:wrap;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(2) { padding:0 1rem 2.5rem 1rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228]:nth-of-type(2) { text-align:right;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:100px; max-width:100px; padding-top:0;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:24%; max-width:24%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -502,7 +551,7 @@ var render = function () {
                 [
                   _c("b", [_vm._v(_vm._s(_vm.od.created_at))]),
                   _vm._v(
-                    "   주문번호 " + _vm._s(_vm.od.od_id) + "  \r\n            "
+                    "   주문번호 " + _vm._s(_vm.od.od_no) + "  \r\n            "
                   ),
                   _c("OrderStep", {
                     attrs: { order_config: _vm.od.order_config },
@@ -595,12 +644,16 @@ var render = function () {
                                                 },
                                                 [
                                                   _c("img", {
-                                                    attrs: { src: odm.img_src },
+                                                    attrs: {
+                                                      src: odm.img_thumb_src,
+                                                    },
                                                   }),
                                                 ]
                                               )
                                             : _c("img", {
-                                                attrs: { src: odm.img_src },
+                                                attrs: {
+                                                  src: odm.img_thumb_src,
+                                                },
                                               }),
                                         ],
                                         1
@@ -737,23 +790,34 @@ var render = function () {
                                           _vm._v(" "),
                                           _c("br"),
                                           _vm._v(" "),
-                                          !!odm.order_dlvy_info
-                                            .oddi_dlvy_created_at &&
                                           !odm.order_dlvy_info.oddi_receive_date
-                                            ? _c(
-                                                "b-button",
-                                                {
-                                                  attrs: { variant: "dark" },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      return _vm.receiptConfirm(
-                                                        odm
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("수취확인")]
-                                              )
+                                            ? [
+                                                !!odm.order_dlvy_info
+                                                  .oddi_dlvy_created_at ||
+                                                !!odm.order_dlvy_info
+                                                  .oddi_arrival_date
+                                                  ? _c(
+                                                      "b-button",
+                                                      {
+                                                        staticClass: "teal xm",
+                                                        on: {
+                                                          click: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.receiptConfirm(
+                                                              odm
+                                                            )
+                                                          },
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\r\n                                        수취확인\r\n                                    "
+                                                        ),
+                                                      ]
+                                                    )
+                                                  : _vm._e(),
+                                              ]
                                             : _vm._e(),
                                         ]
                                       : _vm._e(),
@@ -945,7 +1009,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("주문자명"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [_vm._v(_vm._s(_vm.od.od_name))]),
                             ],
                             1
@@ -957,7 +1020,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("연락처"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [
                                 _vm._v(_vm._s(_vm.od.od_orderer_hp)),
                               ]),
@@ -971,7 +1033,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("이메일"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [
                                 _vm._v(_vm._s(_vm.od.od_orderer_email)),
                               ]),
@@ -985,7 +1046,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("소속"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [
                                 _vm._v(_vm._s(_vm.od.od_department)),
                               ]),
@@ -1005,7 +1065,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("수령인"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [_vm._v(_vm._s(_vm.od.od_receiver))]),
                             ],
                             1
@@ -1017,7 +1076,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("연락처"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [
                                 _vm._v(_vm._s(_vm.od.od_receiver_hp)),
                               ]),
@@ -1031,7 +1089,6 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("주소"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [
                                 _vm._v(
                                   _vm._s(_vm.od.od_addr1) +
@@ -1051,7 +1108,6 @@ var render = function () {
                                 _c("br"),
                                 _vm._v("요구사항"),
                               ]),
-                              _vm._v(" "),
                               _c("b-col", [_vm._v(_vm._s(_vm.od.od_memo))]),
                             ],
                             1
@@ -1171,11 +1227,7 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("b-col", [
-                                _vm._v(
-                                  "\r\n                            " +
-                                    _vm._s(_vm.reqDocumentDisplay) +
-                                    "\r\n                        "
-                                ),
+                                _vm._v(_vm._s(_vm.reqDocumentDisplay)),
                               ]),
                             ],
                             1
@@ -1189,6 +1241,39 @@ var render = function () {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _vm.od.order_config.step[_vm.od.od_step].receiveable
+                ? _c(
+                    "div",
+                    { staticClass: "btn_box" },
+                    [
+                      _c(
+                        "b-button",
+                        { staticClass: "black lg", on: { click: _vm.print } },
+                        [_vm._v("견적서 출력")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "gray lg",
+                          on: { click: _vm.downEstimateExcel },
+                        },
+                        [_vm._v("견적서 EXCEL 다운")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "blue lg",
+                          on: { click: _vm.downTransactionExcel },
+                        },
+                        [_vm._v("거래명세서 EXCEL 다운")]
+                      ),
+                    ],
+                    1
+                  )
+                : _vm._e(),
             ],
             1
           ),

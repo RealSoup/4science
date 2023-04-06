@@ -1,8 +1,8 @@
 <template>
 <div class="tax_iv">
-    <div v-if="value.oex_type == 'IV' || value.oex_type == 'IVNO'">
+    <div v-if="value.oex_type_fir == 'TX'">
         <h6>세금계산서 발급 정보 등록</h6>
-        
+        <b-form-radio v-model="value.oex_type" value="IV">사업자 정보 입력</b-form-radio>
         <b-form-checkbox v-model="value.oex_hasBizLicense">사업자등록증 사본 첨부</b-form-checkbox>
 
         <transition name="slideUpDown">
@@ -65,8 +65,8 @@
         <b-form-radio v-model="value.oex_type" value="IVNO">입력 안함</b-form-radio>
     </div>
     
-    <div v-else-if="value.oex_type == 'IN' || value.oex_type == 'HP' || value.oex_type == 'CN' || value.oex_type == 'BN'">
-        <h6>현금영수증 발급 정보 등록</h6>
+    <div v-else-if="value.oex_type_fir == 'CA'">
+        <h6>소득공제용(일반개인용)</h6>
 
         <b-form-radio v-model="value.oex_type" value="HP">핸드폰번호</b-form-radio>
         <transition name="slideUpDown">
@@ -100,6 +100,9 @@
                 </b-row>         
             </b-container>
         </transition>
+    
+
+        <h6>지출증빙용(사업자용)</h6>
 
         <b-form-radio v-model="value.oex_type" value="BN">사업자등록번호</b-form-radio>
         <transition name="slideUpDown">
@@ -107,12 +110,15 @@
                 <b-row>
                     <b-form-input type="number" v-model="value.oex_num_bn1" ref="oex_num_bn1" size="sm" @input.native="focusNext($event, 3, 'oex_num_bn2')" :formatter="maxlength_3" /><b-icon-dash />
                     <b-form-input type="number" v-model="value.oex_num_bn2" ref="oex_num_bn2" size="sm" @input.native="focusNext($event, 2, 'oex_num_bn3')" :formatter="maxlength_2" /><b-icon-dash />
-                    <b-form-input type="number" v-model="value.oex_num_bn3" ref="oex_num_bn3" size="sm" :formatter="maxlength_5" />
-                </b-row>         
+                    <b-form-input type="number" v-model="value.oex_num_bn3" ref="oex_num_bn3" size="sm" @input.native="focusNext($event, 5, 'oex_biz_name')" :formatter="maxlength_5" />
+                </b-row>        
+                <b-row>
+                    <b-form-input v-model="value.oex_biz_name" ref="oex_biz_name" id="oex_biz_name" size="sm" placeholder="업체명 입력" />
+                </b-row>   
             </b-container>
         </transition>
     </div>
-    <b-button size="lg" @click="close">저 장</b-button>
+    <b-button size="lg" @click="close">확 인</b-button>
 </div>
 </template>
 

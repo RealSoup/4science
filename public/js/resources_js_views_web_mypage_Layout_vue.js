@@ -757,7 +757,7 @@ var render = function () {
                                 attrs: {
                                   to: {
                                     name: "my_bo_index",
-                                    params: { bo_cd: "goods" },
+                                    params: { bo_cd: "gd_inquiry" },
                                   },
                                 },
                               },

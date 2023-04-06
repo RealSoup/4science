@@ -12,7 +12,7 @@ export default {
             mk_id:0,
             mode:'',
             keyword:'',
-            sort:'',
+            sort:'hot',
             page:0,
         },
         list: {},

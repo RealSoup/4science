@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Cache;
 use Illuminate\Support\Arr;
 use App\Models\{User, Info};
+use App\Models\Shop\{Category};
 
 class CacheMaker {
     /**
@@ -30,7 +31,10 @@ class CacheMaker {
             $u = User::whereHas('UserMng')->get()->keyBy('id');      
             Cache::forever('UserMngOff', json_decode($u, true));  //  배열 형태로 들어감
         }
-        
+       if(!Cache::has('categoryAll')) {
+            $ca = new Category;    
+            Cache::forever('categoryAll', json_decode($ca->cateTree(), true));  //  배열 형태로 들어감
+        }
         return $next($request);
         // \Auth::logout();
         // return response()->json(['message' => 'Sever(Exception):로그인이 필요한 서비스입니다.'], 401);

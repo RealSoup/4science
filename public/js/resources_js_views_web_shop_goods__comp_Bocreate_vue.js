@@ -27,17 +27,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ShopGoodsBoCreate',
   components: {
@@ -208,8 +197,6 @@ var render = function () {
   return _c(
     "b-container",
     [
-      _c("b-row", [_c("b-col", [_c("h3", [_vm._v("상품 문의 등록")])])], 1),
-      _vm._v(" "),
       _c(
         "b-row",
         [
@@ -241,6 +228,7 @@ var render = function () {
         [
           _c(
             "b-col",
+            { staticClass: "text-right" },
             [
               _c(
                 "b-button",

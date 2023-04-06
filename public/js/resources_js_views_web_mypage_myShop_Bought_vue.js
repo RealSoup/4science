@@ -349,7 +349,7 @@ var render = function () {
                     _c("b-col", { attrs: { md: "2" } }, [
                       _c("img", {
                         staticClass: "rounded-circle",
-                        attrs: { src: m.img_src },
+                        attrs: { src: m.img_thumb_src },
                       }),
                     ]),
                     _vm._v(" "),

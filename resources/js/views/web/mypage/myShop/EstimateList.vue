@@ -17,7 +17,7 @@
                 <template v-if="eq.estimate_model.length">
                     <template v-for="(em, i) in eq.estimate_model">
                         <b-link v-if="i < 5" :to="{name:'goods_show', params:{gd_id:em.em_gd_id}}" :key="i">
-                            <img :src="em.img_src" />
+                            <img :src="em.img_thumb_src" />
                             <div>{{em.em_name}}</div>
                         </b-link>
                         <span v-if="i == 5" :key="i" class="over_flow"><b>외 {{eq.estimate_model.length-5}}</b></span>

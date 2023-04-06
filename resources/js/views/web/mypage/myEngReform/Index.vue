@@ -1,45 +1,37 @@
 <template>
-    <div>
-        <div class="pTitle">
-            <span><i>영</i></span>
-            <span><i>문</i></span>
-            <div class="break d-md-block d-none"></div>
-            <span><i>교</i></span>
-            <span><i>정</i></span>
-            <div class="break"></div>
-            <span><i></i></span>
-        </div>
-        <b-container class="list">
-            <b-row class="header">
-                <b-col>번호</b-col>
-                <b-col></b-col>
-                <b-col>납기일</b-col>
-                <b-col>진행현황</b-col>
-                <b-col>교정본 받기</b-col>
-            </b-row>
-            <b-row v-for="er in list.data" :key="er.er_id" class="data">
-                <b-col>{{er.er_id}}</b-col>
-                <b-col>영문교정 (<small>신청일 : {{er.created_at | formatDate_YYYY_MM_DD}}</small>)</b-col>
-                <b-col>{{er.er_dlvy_at | formatDate_YYYY_MM_DD}}</b-col>
-                <b-col>
-                    <b-badge v-if="er.er_step == 'ING'">처리중</b-badge>
-                    <b-badge v-else-if="er.er_step == 'CPLT'" variant="success">처리완료</b-badge>
-                    <b-badge v-else-if="er.er_step == 'NOT'" variant="warning">미처리</b-badge>
-                    <b-badge v-else-if="er.er_step == 'CXL'" variant="danger">취소</b-badge>
-                </b-col>
-                <b-col>
-                    <b-dropdown text="교정파일 받기" v-if="er.er_step == 'CPLT'" variant="info" size="sm">
-                        <template v-for="fi in er.file_info">
-                            <b-dropdown-item :key="fi.fi_id" v-if="fi.fi_kind == 'cplt'" @click="fileDown(fi.down_path, fi.fi_original)">
-                                {{fi.fi_original}}
-                            </b-dropdown-item>
-                        </template>
-                    </b-dropdown>
-                </b-col>
-            </b-row>
-            <pagination :data="list" align="center" @pagination-change-page="index"></pagination>
-        </b-container>
-    </div>
+<div class="w_fence">
+    <h3>영문 교정</h3>
+    <b-container class="list">
+        <b-row class="header">
+            <b-col>번호</b-col>
+            <b-col></b-col>
+            <b-col>납기일</b-col>
+            <b-col>진행현황</b-col>
+            <b-col>교정본 받기</b-col>
+        </b-row>
+        <b-row v-for="er in list.data" :key="er.er_id" class="data">
+            <b-col>{{er.er_id}}</b-col>
+            <b-col>영문교정 (<small>신청일 : {{er.created_at | formatDate_YYYY_MM_DD}}</small>)</b-col>
+            <b-col>{{er.er_dlvy_at | formatDate_YYYY_MM_DD}}</b-col>
+            <b-col>
+                <b-badge v-if="er.er_step == 'ING'">처리중</b-badge>
+                <b-badge v-else-if="er.er_step == 'CPLT'" variant="success">처리완료</b-badge>
+                <b-badge v-else-if="er.er_step == 'NOT'" variant="warning">미처리</b-badge>
+                <b-badge v-else-if="er.er_step == 'CXL'" variant="danger">취소</b-badge>
+            </b-col>
+            <b-col>
+                <b-dropdown text="교정파일 받기" v-if="er.er_step == 'CPLT'" variant="info" size="sm">
+                    <template v-for="fi in er.file_info">
+                        <b-dropdown-item :key="fi.fi_id" v-if="fi.fi_kind == 'cplt'" @click="fileDown(fi.down_path, fi.fi_original)">
+                            {{fi.fi_original}}
+                        </b-dropdown-item>
+                    </template>
+                </b-dropdown>
+            </b-col>
+        </b-row>
+        <pagination :data="list" align="center" @pagination-change-page="index"></pagination>
+    </b-container>
+</div>
 </template>
 
 <script>

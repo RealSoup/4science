@@ -349,6 +349,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
  // import { validationChecker } from './_comp/FormValidation.js'
@@ -388,7 +393,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     'order.od_pay_method': {
       handler: function handler(n, o) {
+        if (n == 'R') {
+          var tel = this.$store.state.auth.user.hp.split('-');
+          this.order.extra.oex_mng = this.$store.state.auth.user.name;
+          this.order.extra.oex_num_tel1 = tel[0];
+          this.order.extra.oex_num_tel2 = tel[1];
+          this.order.extra.oex_num_tel3 = tel[2];
+          this.order.extra.oex_email = this.$store.state.auth.user.email;
+        } else {
+          this.order.extra.oex_mng = '';
+          this.order.extra.oex_num_tel1 = '';
+          this.order.extra.oex_num_tel2 = '';
+          this.order.extra.oex_num_tel3 = '';
+          this.order.extra.oex_email = '';
+        }
+
         this.order.extra.oex_type = 'NO';
+      },
+      deep: true
+    },
+    'order.extra.oex_type_fir': {
+      handler: function handler(n, o) {
+        if (n == 'TX') this.order.extra.oex_type = 'IV';else if (n == 'CA') this.order.extra.oex_type = 'HP';else if (n == 'NO') this.order.extra.oex_type = 'NO';
       },
       deep: true
     }
@@ -440,7 +466,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           oex_pay_plan: 'soon',
           oex_pay_plan_etc: '',
           oex_bank: 'K',
-          oex_type: 'NO',
+          oex_type_fir: 'NO',
+          oex_type: '',
           oex_req_est: 'N',
           oex_req_tran: 'N',
           oex_req_biz: 'N',
@@ -751,42 +778,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (frm.extra.oex_hasBizLicense) {
               if (isEmpty(frm.extra.oex_file)) {
                 Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_file.$refs.input.focus();
                 return false;
               }
             } else {
               if (isEmpty(frm.extra.oex_biz_name)) {
                 Notify.toast('danger', "법인명을 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_biz_name.focus();
                 return false;
               }
 
               if (isEmpty(frm.extra.oex_biz_num)) {
                 Notify.toast('danger', "사업자 등록번호를 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_biz_num.focus();
                 return false;
               }
 
               if (isEmpty(frm.extra.oex_biz_type)) {
                 Notify.toast('danger', "업태를 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_biz_type.focus();
                 return false;
               }
 
               if (isEmpty(frm.extra.oex_biz_item)) {
                 Notify.toast('danger', "종목를 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_biz_item.focus();
                 return false;
               }
 
               if (isEmpty(frm.extra.oex_ceo)) {
                 Notify.toast('danger', "대표자명을 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_ceo.focus();
                 return false;
               }
 
               if (isEmpty(frm.extra.oex_addr)) {
                 Notify.toast('danger', "사업장 소재지를 입력해주세요");
+                this.tax_invoice();
                 this.$refs.tax_invoice.$refs.oex_addr.focus();
                 return false;
               }
@@ -794,18 +828,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             if (isEmpty(frm.extra.oex_mng)) {
               Notify.toast('danger', "담장자를 입력해주세요");
+              this.tax_invoice();
               this.$refs.tax_invoice.$refs.oex_mng.focus();
               return false;
             }
 
             if (isEmpty(frm.extra.oex_email)) {
               Notify.toast('danger', "이메일을 입력해주세요");
+              this.tax_invoice();
               this.$refs.tax_invoice.$refs.oex_email.focus();
               return false;
             }
 
             if (isEmpty(frm.extra.oex_num_tel)) {
               Notify.toast('danger', "핸드폰 번호를 입력해주세요");
+              this.tax_invoice();
               this.$refs.tax_invoice.$refs.oex_num_tel.focus();
               return false;
             }
@@ -983,6 +1020,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.addr_choose(_this2.addr[0]);
               }
+              /*  견적가 에러는 
+                  \resources\js\api\http.js
+                  이쪽에서 발사한다.
+              */
+
 
               _context2.next = 36;
               break;
@@ -2146,7 +2188,8 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: _vm.s3url + "order/pay_card.png",
+                                          src:
+                                            _vm.s3url + "order/pay_cache.png",
                                         },
                                       }),
                                     ]),
@@ -2158,19 +2201,20 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: _vm.s3url + "order/pay_card.png",
+                                          src: _vm.s3url + "order/pay_psys.png",
                                         },
                                       }),
                                     ]),
                                   ])
                                 : k == "R"
                                 ? _c("span", [
-                                    _vm._v("이니시스 온라인 신용카드 결제"),
+                                    _vm._v("원격지 카드 결제"),
                                     _c("b", [
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: _vm.s3url + "order/pay_card.png",
+                                          src:
+                                            _vm.s3url + "order/pay_remote.png",
                                         },
                                       }),
                                     ]),
@@ -2182,7 +2226,8 @@ var render = function () {
                                       _vm._v("[자세히]"),
                                       _c("img", {
                                         attrs: {
-                                          src: _vm.s3url + "order/pay_card.png",
+                                          src:
+                                            _vm.s3url + "order/pay_escrow.png",
                                         },
                                       }),
                                     ]),
@@ -2668,6 +2713,42 @@ var render = function () {
                                   ],
                                   1
                                 ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-row",
+                                  { staticClass: "pay_r_tel" },
+                                  [
+                                    _c("b-col", { attrs: { cols: "3" } }, [
+                                      _vm._v("이메일"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      [
+                                        _c("b-form-input", {
+                                          ref: "oex_email",
+                                          attrs: {
+                                            id: "oex_email",
+                                            size: "sm",
+                                          },
+                                          model: {
+                                            value: _vm.order.extra.oex_email,
+                                            callback: function ($$v) {
+                                              _vm.$set(
+                                                _vm.order.extra,
+                                                "oex_email",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "order.extra.oex_email",
+                                          },
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                ),
                               ],
                               1
                             )
@@ -2699,22 +2780,22 @@ var render = function () {
                                   _c(
                                     "b-form-radio",
                                     {
-                                      attrs: { value: "IV" },
+                                      attrs: { value: "TX" },
                                       nativeOn: {
                                         click: function ($event) {
                                           return _vm.tax_invoice()
                                         },
                                       },
                                       model: {
-                                        value: _vm.order.extra.oex_type,
+                                        value: _vm.order.extra.oex_type_fir,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.order.extra,
-                                            "oex_type",
+                                            "oex_type_fir",
                                             $$v
                                           )
                                         },
-                                        expression: "order.extra.oex_type",
+                                        expression: "order.extra.oex_type_fir",
                                       },
                                     },
                                     [_vm._v("세금계산서")]
@@ -2723,22 +2804,22 @@ var render = function () {
                                   _c(
                                     "b-form-radio",
                                     {
-                                      attrs: { value: "HP" },
+                                      attrs: { value: "CA" },
                                       nativeOn: {
                                         click: function ($event) {
                                           return _vm.tax_invoice()
                                         },
                                       },
                                       model: {
-                                        value: _vm.order.extra.oex_type,
+                                        value: _vm.order.extra.oex_type_fir,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.order.extra,
-                                            "oex_type",
+                                            "oex_type_fir",
                                             $$v
                                           )
                                         },
-                                        expression: "order.extra.oex_type",
+                                        expression: "order.extra.oex_type_fir",
                                       },
                                     },
                                     [_vm._v("현금영수증")]
@@ -2749,15 +2830,15 @@ var render = function () {
                                     {
                                       attrs: { value: "NO" },
                                       model: {
-                                        value: _vm.order.extra.oex_type,
+                                        value: _vm.order.extra.oex_type_fir,
                                         callback: function ($$v) {
                                           _vm.$set(
                                             _vm.order.extra,
-                                            "oex_type",
+                                            "oex_type_fir",
                                             $$v
                                           )
                                         },
-                                        expression: "order.extra.oex_type",
+                                        expression: "order.extra.oex_type_fir",
                                       },
                                     },
                                     [_vm._v("미발급")]

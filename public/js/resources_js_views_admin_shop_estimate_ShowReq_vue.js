@@ -990,7 +990,11 @@ var render = function () {
                                     },
                                   },
                                 },
-                                [_c("img", { attrs: { src: em.img_src } })]
+                                [
+                                  _c("img", {
+                                    attrs: { src: em.img_thumb_src },
+                                  }),
+                                ]
                               ),
                               _vm._v(" "),
                               _c("b", { staticClass: "gd_name" }, [

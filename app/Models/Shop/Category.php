@@ -70,4 +70,13 @@ class Category extends Model {
         }
         return $rst;
     }
+
+    public function cateTree(int $ca_id=0, int $depth=1) {
+		$ca = self::select('ca_id', 'ca_papa', 'ca_name', 'ca_seq', 'ca_seq')->ca_papa($ca_id)->oldest('ca_seq')->get()->toArray();
+		if ($depth < 4) {
+			foreach ($ca as $key => $val)
+				$ca[$key]['sub'] = self::cateTree($val['ca_id'], $depth+1);
+		}
+		return $ca;
+    }
 }

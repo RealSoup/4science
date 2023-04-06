@@ -275,7 +275,7 @@ var render = function () {
                             },
                           },
                           [
-                            _c("img", { attrs: { src: odm.img_src } }),
+                            _c("img", { attrs: { src: odm.img_thumb_src } }),
                             _vm._v(" "),
                             _c("div", [_vm._v(_vm._s(odm.odm_gm_name))]),
                           ]
@@ -299,9 +299,23 @@ var render = function () {
               _vm._v(_vm._s(_vm._f("comma")(od.od_all_price)) + " 원"),
             ]),
             _vm._v(" "),
-            _c("b-col", { staticClass: "step" }, [
-              _vm._v(_vm._s(_vm.order_config.step[od.od_step].name)),
-            ]),
+            _c(
+              "b-col",
+              { staticClass: "step" },
+              [
+                _c("OrderStep", {
+                  attrs: { order_config: _vm.order_config },
+                  model: {
+                    value: od.od_step,
+                    callback: function ($$v) {
+                      _vm.$set(od, "od_step", $$v)
+                    },
+                    expression: "od.od_step",
+                  },
+                }),
+              ],
+              1
+            ),
           ],
           1
         )

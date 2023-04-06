@@ -258,7 +258,7 @@
                             <b-input-group-prepend is-text>
                                 <b-form-radio v-model="frm.er_format" button value="FM">Formatting</b-form-radio>
                             </b-input-group-prepend>
-                            <b-form-input v-model="frm.er_format_url" placeholder="저널 URL을 입력하세요"></b-form-input>
+                            <b-form-input v-model="frm.er_format_url" id="er_format_url" placeholder="저널 URL을 입력하세요"></b-form-input>
                         </b-input-group>
                         <Validation :error="this.$store.state.error.validations.er_format" />
                     </b-col>
@@ -295,7 +295,7 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col class="label_st">문체스타일<b class="need" /></b-col>
+                    <b-col class="label_st">언어스타일<b class="need" /></b-col>
                     <b-col>
                         <b-form-select class="len01" v-model="frm.er_eng_style" id="er_eng_style">
                             <b-form-select-option value="AM">American English</b-form-select-option>
@@ -307,7 +307,7 @@
                 <b-row>
                     <b-col class="label_st">작업문서 업로드<b class="need" /></b-col>
                     <b-col>
-                        <file-upload ref="fileupload1" v-model="frm.file_info_work" :fi_group="'engReform'" :fi_kind="'work'" :height="100" />
+                        <file-upload ref="fileupload1" v-model="frm.file_info_work" id="file_info_work" :fi_group="'engReform'" :fi_kind="'work'" :height="100" />
                         <small>최대 업로드 가능 용량 : 200MB</small>
                         <Validation :error="this.$store.state.error.validations.file_info_work" />
                     </b-col>
@@ -378,6 +378,13 @@ export default {
 
     methods: {
         async store() {
+            if (isEmpty(this.frm.er_dlvy_at)) { Notify.toast('danger', "납기일을 입력하세요."); document.getElementById('er_dlvy_at').focus(); return false; }
+            if (isEmpty(this.frm.er_format_url) && this.frm.er_format == 'FM') { Notify.toast('danger', "저널 URL을 입력하세요."); document.getElementById('er_format_url').focus(); return false; }
+            if (isEmpty(this.frm.er_use)) { Notify.toast('danger', "문서 용도를 선택하세요."); document.getElementById('er_use').focus(); return false; }
+            if (isEmpty(this.frm.er_branch)) { Notify.toast('danger', "학문 분야를 선택하세요."); document.getElementById('er_branch').focus(); return false; }
+            if (isEmpty(this.frm.er_editor)) { Notify.toast('danger', "에디터를 선택하세요."); document.getElementById('er_editor').focus(); return false; }
+            if (isEmpty(this.frm.er_eng_style)) { Notify.toast('danger', "언어 스타일을 선택하세요."); document.getElementById('er_eng_style').focus(); return false; }
+            if (isEmpty(this.frm.file_info_work)) { Notify.toast('danger', "작업문서를 업로드하세요"); document.getElementById('er_eng_style').focus(); return false; }
             this.frm.er_hp = `${this.frm.er_hp01}-${this.frm.er_hp02}-${this.frm.er_hp03}`;
             this.frm.er_email = `${this.frm.er_email01}@${this.frm.er_email02}`;
             this.isLoadingModalViewed=true;

@@ -31,20 +31,23 @@ class GoodsController extends Controller {
             if ( !$req->filled('mode') || $req->mode == 'cat_no'  ) {
                 $cat_no  = $req->keyword;
                 $cat_no = explode('-', $cat_no);
-                foreach ($cat_no as $k=>$vv) {
-                    $cat_no[$k] = @intval($vv);
-                    if ( preg_match("/[^0-9]/i", $vv) ) {
-                        $isNum = false; 
-                        break;
+                if (implode( '', $cat_no ) != '') {
+                    foreach ($cat_no as $k=>$vv) {
+                        $cat_no[$k] = @intval($vv);
+                        if ( preg_match("/[^0-9]/i", $vv) ) {
+                            $isNum = false; 
+                            break;
+                        }
                     }
+                } else {
+                    $isNum = false;
                 }
             }
 
             $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
             if ( !$req->filled('mode') ) {
                 $goods = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ftWord)->where('gd_enable', 'Y');
-                $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
-                $model = $model_prev->whereFullText(['gm_name', 'gm_code'], $ftWord)->where('gm_enable', 'Y');
+                $model = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText(['gm_name', 'gm_code'], $ftWord)->where('gm_enable', 'Y');
                 $maker = DB::table('shop_makers')->select('gd_id')->join('shop_goods', 'shop_makers.mk_id', '=', 'shop_goods.gd_mk_id')->where('mk_name', $ftWord);
                 $goods = $goods->union($model)->union($maker);
                 if ($h = Hash::HsTag($ftWord)->first()) {
@@ -52,9 +55,10 @@ class GoodsController extends Controller {
                     $goods = $goods->union($hash);
                 }
                 if ($isNum) {
-                    if (count($cat_no)==2)       $model_prev->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
-                    else if (count($cat_no)==3)  $model_prev->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y');
-                    $goods = $goods->union($model_prev);
+                    $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
+                    if (count($cat_no)==2)       $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1]);
+                    else if (count($cat_no)==3)  $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1])->where('gm_catno03', $cat_no[2]);
+                    $goods = $goods->union($model_prev->where('gm_enable', 'Y'));
                 }
                 $gd->whereIn('gd_id', $goods->pluck('gd_id'));
             } else {
@@ -90,7 +94,7 @@ class GoodsController extends Controller {
                     });
             }
 
-            $grouped = $gd->Enable()->groupBy('gd_id')->get();
+            $grouped = $gd->Enable('Y')->groupBy('gd_id')->get();
             if ( $grouped->count()) {
                 //  검색시 카테고리 상세 검색을 위한
                 //  검생 상품이 속한 카테고리 배열정보
@@ -151,15 +155,17 @@ class GoodsController extends Controller {
         //  결과 내 카테고리 선택 End
 
 
-        $gd->Enable()->groupBy('gd_id');
+      
         // 정렬 설정 Strart
-        $gd = $gd->orderBy('gd_rank')->orderBy('gd_view_cnt');
         switch ($req->sort) {
             case 'hot':     $gd = $gd->orderBy('gd_view_cnt'); break;
             case 'new':     $gd = $gd->latest('gd_id');        break;
             case 'lowPri':  $gd = $gd->oldest('gm_price');     break;
             case 'highPri': $gd = $gd->latest('gm_price');     break;
         }
+        $gd->orderBy('gd_rank');
+        if ($req->sort != 'hot')
+            $gd->orderBy('gd_view_cnt');
         // 정렬 설정 End
         
         // echo_query($gd);
@@ -205,6 +211,12 @@ class GoodsController extends Controller {
         // if ($data['goods']->goodsCategoryFirst->gc_ca01)    $data['categorys'][1] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca01);
         // if ($data['goods']->goodsCategoryFirst->gc_ca02)    $data['categorys'][2] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca02);
         // if ($data['goods']->goodsCategoryFirst->gc_ca03)    $data['categorys'][3] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca03);
+
+        $ca01 = $data['goods']->goodsCategoryFirst->gc_ca01 ? $data['goods']->goodsCategoryFirst->gc_ca01 : 0;
+        $ca02 = $data['goods']->goodsCategoryFirst->gc_ca02 ? $data['goods']->goodsCategoryFirst->gc_ca02 : 0;
+        $ca03 = $data['goods']->goodsCategoryFirst->gc_ca03 ? $data['goods']->goodsCategoryFirst->gc_ca03 : 0;
+
+        $data['categorys'] = Category::getSelectedCate( $ca01, $ca02, $ca03);
         
         return response()->json($data);
     }

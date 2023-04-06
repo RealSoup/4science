@@ -15,6 +15,9 @@ use Exception;
 use Log;
 use Mail;
 use DB;
+use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ {OrderEstimateExport, OrderTransactionExport};
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 use App\Mail\OrderEmail;
@@ -88,6 +91,7 @@ class OrderController extends Controller {
                 if($req->type === 'buy_inst' || $req->type === 'buy_cart') {
                     if(isset($item['gm_enable']) && $item['gm_enable'] == 'N')    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
                     //  견적가(0원) 구매 금지
+                    // if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으시겠습니까?');
                     if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
                 }
 
@@ -97,6 +101,7 @@ class OrderController extends Controller {
                     $params['md_cnt']++;
             }
         }
+        if($params['price']['total']<30000)   abort(500, '3만원 미만의 주문은 하실 수 없습니다.');
         if ($params['md_cnt'] > 1)
             $params['od_name'] .= '외 ['.($params['md_cnt']-1).']';
 
@@ -360,8 +365,8 @@ class OrderController extends Controller {
                 $rst = DB::table('shop_order_dlvy_info')->where('oddi_id', $req->order_dlvy_info['oddi_id'])->update(['oddi_receive_date'=> \Carbon\Carbon::now()]);
 		}
 		if ($rst) {
-            $m = new \App\Models\Mileage;
-            event(new Mileage("insert", 'shop_order_model', $req->odm_id, $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level), '수취 확인', auth()->user()->id));
+            $m = new \App\Models\UserMileage;
+            event(new Mileage("insert", auth()->user()->id, 'shop_order_model', $req->odm_id, 'SV', '수취 확인', $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
             return response()->json(["msg"=>"success"], 200);
         } else
             return response()->json(["msg"=>"Fail"], 500);
@@ -553,6 +558,31 @@ class OrderController extends Controller {
         }
         return response()->json($data, 200);
     }
+
+   
+    public function downEstimateExcel(Request $req, int $od_id) {
+        $data = $this->order->with('OrderPurchaseAt')->with('mng')->find($od_id);
+		foreach ($data->orderPurchaseAt as $opa)
+            $opa->orderModel;
+		return Excel::download(new OrderEstimateExport($data->toArray()), 'order.xlsx');
+	}
+
+    public function downTransactionExcel(Request $req, int $od_id) {
+        $data = $this->order->with('OrderPurchaseAt')->with('mng')->find($od_id);
+        if ($data->mng)
+			$data->mng->userMng;
+		foreach ($data->orderPurchaseAt as $opa)
+            $opa->orderModel;
+		return Excel::download(new OrderTransactionExport($data->toArray()), 'order.xlsx');
+	}
+
+    public function printEstimate(Request $req, int $od_id) {
+        $data = $this->order->with('OrderPurchaseAt')->with('mng')->find($od_id);
+		foreach ($data->orderPurchaseAt as $opa)
+            $opa->orderModel;		
+        $data->type = 'print';        
+        return view('admin.order.pdf.order_estimate', $data);
+	}
 
 
 

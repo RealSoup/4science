@@ -9,7 +9,8 @@
             <li class="dd_style"><span>결제 예정일</span><span>{{pay_plan}}</span></li>
             <li>
                 <b>{{after_10day}}</b>까지 주문 금액이 입금확인이 되지 않으면,
-                <br/> <b>자동주문취소</b> 됨을 알려드립니다.
+                <br/><b>자동주문취소</b> 됨을 알려드립니다.
+                <br/><b class="point">단 대학교, 국가연구기관은 예외</b>
             </li>
         </ul>
         <b-row>
@@ -73,6 +74,7 @@ export default {
 .container ul li:nth-child(1) span:nth-child(2) { font-weight:800; font-size:1.4rem; }
 .container ul li:last-child { line-height: 1.5; font-size: .9rem; }
 .container ul li:last-child b { font-weight:800; }
+.container ul li b.point { color:#1A90D6; }
 .container .row { width:620px; margin:auto; }
 .container .row .col:nth-child(1) { padding-left:0; }
 .container .row .col:nth-child(2) { padding-right:0; }

@@ -18,7 +18,7 @@
                 <colgroup>
                     <col width="10%" />
                     <col width="" />
-                    <col width="10%" v-if="bo_cd=='gd_inquiry'" />
+                    <col width="10%" v-if="config.is_qna" />
                     <col width="15%" />
                     <col width="10%" />
                     <col width="10%" />
@@ -27,7 +27,7 @@
                     <tr>
                         <th scope="col">번호</th>
                         <th scope="col">제목</th>
-                        <th scope="col" v-if="bo_cd=='gd_inquiry'">상태</th>
+                        <th scope="col" v-if="config.is_qna">상태</th>
                         <th scope="col">작성자</th>
                         <th scope="col">조회</th>
                         <th scope="col">등록일</th>
@@ -39,7 +39,7 @@
                         <td>
                             <b-link :to="{name: `${getLink}bo_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">{{bo.bo_subject}}</b-link>
                         </td>
-                        <td v-if="bo_cd=='gd_inquiry'">
+                        <td v-if="config.is_qna">
                             <span v-if="bo.answer" :class="{active:bo.answer}">답변완료</span>
                             <span v-else>답변대기</span>
                         </td>
@@ -92,6 +92,8 @@ export default {
     methods: {
         async index(page=1){
             this.frm.page = page;
+            if (this.$route.name == 'my_bo_index')
+                this.frm.root = 'mypage';
             try {
                 const res = await ax.get(`/api/board/${this.bo_cd}`, { params: this.frm});
                 if (res && res.status === 200) {

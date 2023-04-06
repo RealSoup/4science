@@ -122,14 +122,14 @@ var render = function () {
           _vm.value == 11
             ? [
                 k == 12
-                  ? _c("b-badge", { key: k, attrs: { variant: v.class } }, [
+                  ? _c("b-badge", { key: k, class: v.class }, [
                       _vm._v(_vm._s(v.name)),
                     ])
                   : _vm._e(),
               ]
             : [
                 k == _vm.value
-                  ? _c("b-badge", { key: k, attrs: { variant: v.class } }, [
+                  ? _c("b-badge", { key: k, class: v.class }, [
                       _vm._v(_vm._s(v.name)),
                     ])
                   : _vm._e(),
