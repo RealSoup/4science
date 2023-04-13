@@ -63,8 +63,8 @@
     <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
     
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" >
-            <template slot="header">로그인</template>
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
+            <template slot="header"><div class="modal_login">로그인</div></template>
             <LoginPopUp @close-modal="isModalViewed = false" />
         </Modal>
     </transition>

@@ -108,20 +108,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "MyOrder",
+  name: "MyShopEstimateShow",
   components: {
     'LoadingModal': function LoadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
@@ -199,7 +188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .goods>.row[data-v-bda566d0] { border-bottom:1px solid #DDD; margin-bottom:1rem; padding-bottom:1rem;\n}\n.container .goods>.row>div img[data-v-bda566d0] { width:100px; height:100px; -o-object-fit:cover; object-fit:cover;\n}\n.container .goods>.row>div:nth-child(2) .btn[data-v-bda566d0] { text-align:left;\n}\n.container .goods>.row>div[data-v-bda566d0]:nth-child(3) { text-align:right;\n}\n.container .goods>.row>div:nth-child(3) .md_multi[data-v-bda566d0] { display:inline-block; min-width:120px;\n}\n.container .price .row div[data-v-bda566d0] { text-align:right;\n}\n.container .price .row div b[data-v-bda566d0] { display:inline-block; min-width:200px;\n}\n.container .container[data-v-bda566d0] { margin-bottom:2rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-bda566d0],\r\n.container .row .col[data-v-bda566d0]{ padding-left:0; padding-right:0;\n}\n.container .row[data-v-bda566d0] { margin:0;\n}\nh3[data-v-bda566d0] { font-size:1.5rem; padding-left:.8rem;\n}\nh3 b[data-v-bda566d0] { color:#0094E9; font-size:1.25rem;\n}\n.top[data-v-bda566d0] { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4; font-weight:800;\n}\n.top div[data-v-bda566d0] { float:right;\n}\n.top div .btn[data-v-bda566d0] { line-height:1.1; font-weight:900; margin-left:.5rem; border-color:#000;\n}\n.top div .btn small[data-v-bda566d0] { font-weight:600; font-size:85%;\n}\n.container h6[data-v-bda566d0] { font-size:1.1rem; margin-top:1.8rem; font-weight:600; padding-left:.5rem;\n}\n.container h6 b[data-v-bda566d0] { color:#0094E9;\n}\n.goods .head[data-v-bda566d0] { border-top:1px solid #ACACAC; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.goods .head .col[data-v-bda566d0] { font-weight:900; line-height:1.7; padding:.86rem 0; font-size:.9rem;\n}\n.goods .row .col[data-v-bda566d0] { text-align:center; padding-top:.4rem; padding-bottom:.4rem;\n}\n.goods .row .align[data-v-bda566d0] { display:flex; align-items:center; justify-content:center;\n}\n.goods .row .col[data-v-bda566d0]:nth-child(1) { flex:0 0 143px; max-width:143px; padding-left:3%;\n}\n.goods .row .col[data-v-bda566d0]:nth-child(2) { display:flex; align-items:center; text-align:left; padding-left:3%;\n}\n.goods .row .col[data-v-bda566d0]:nth-child(3) { flex:0 0 13%; max-width:13%;\n}\n.goods .row .col[data-v-bda566d0]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.goods .row .col[data-v-bda566d0]:nth-child(5) { flex:0 0 14%; max-width:14%; font-weight:900; color:#000;\n}\n.goods .body .col[data-v-bda566d0] { color:#959595;\n}\n.goods .body .img a[data-v-bda566d0] { border:1px solid #B0B0B0; min-height:105px;\n}\n.goods .body .img a img[data-v-bda566d0] { width:100%;\n}\n.goods .body .name a[data-v-bda566d0] { color:#959595; font-size:.9rem;\n}\n.goods .body .name a b[data-v-bda566d0] { color:#000; font-size:1rem;\n}\n.goods .body .option[data-v-bda566d0] { flex:0 0 100%; max-width:100%; display:flex;\n}\n.guidance[data-v-bda566d0] { margin-top:2rem; border-top:2px solid #363636; background-color:#F2F3F5; padding:1rem 4rem; font-size:.9rem; color:#888;\n}\n.guidance li[data-v-bda566d0]  { list-style:decimal;\n}\n.guidance li b[data-v-bda566d0] { color:#000;\n}\n.extra .row[data-v-bda566d0] { border-top:2px solid #363636;\n}\n.extra .row .col[data-v-bda566d0] { padding-left:15px; padding-right:15px;\n}\n.extra .row .col .tit[data-v-bda566d0] { font-weight:600; padding:.9rem 0.8rem 0.4rem 1.5rem;\n}\n.extra .row .col .cont[data-v-bda566d0] { border:1px solid #D6D6D6; padding:1rem 1.1rem; min-height: 10rem;\n}\n.extra .row .col .cont li[data-v-bda566d0] { cursor: pointer;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -337,7 +326,10 @@ var render = function () {
     "b-container",
     { staticClass: "w_fence" },
     [
-      _c("h3", [_vm._v("견적서 조회")]),
+      _c("h3", [
+        _vm._v("견적서 조회 "),
+        _c("b", [_vm._v("Q-" + _vm._s(_vm.estimate.eq_id))]),
+      ]),
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
@@ -355,357 +347,309 @@ var render = function () {
         : _c(
             "div",
             [
-              _c(
-                "h5",
-                [
-                  _c("b", [_vm._v(_vm._s(_vm.estimate.created_at))]),
-                  _vm._v(
-                    "  \r\n            견적 요청 번호 " +
-                      _vm._s(_vm.estimate.eq_id) +
-                      "  \r\n            진행상황 "
-                  ),
-                  _c("EstimateStep", {
-                    model: {
-                      value: _vm.estimate.eq_step,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.estimate, "eq_step", $$v)
+              _c("div", { staticClass: "top" }, [
+                _vm.estimate.eq_step == "DONOT" ||
+                _vm.estimate.eq_step == "DOING"
+                  ? _c("span", [_vm._v("담당자가 견적 요청을 확인 중 입니다.")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.estimate.eq_step == "DONE"
+                  ? _c("span", [_vm._v("견적이 완료 되었습니다.")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.estimate.eq_step == "CANCEL"
+                  ? _c("span", [_vm._v("견적 요청이 취소 되었습니다.")])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  _vm._l(_vm.estimate.estimate_reply, function (er, i) {
+                    return _c(
+                      "b-button",
+                      {
+                        key: i,
+                        class: {
+                          mint:
+                            i ==
+                            Object.keys(_vm.estimate.estimate_reply).length - 1,
+                          white:
+                            i !=
+                            Object.keys(_vm.estimate.estimate_reply).length - 1,
+                        },
+                        attrs: {
+                          to: {
+                            name: "my_estimate_show_reply",
+                            params: { er_id: er.er_id },
+                          },
+                        },
                       },
-                      expression: "estimate.eq_step",
-                    },
+                      [
+                        i !== 0 ? [_vm._v("재")] : _vm._e(),
+                        _vm._v("견적서 보기 \r\n                    "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("formatDate_YYYY_MM_DD")(er.created_at)
+                            )
+                          ),
+                        ]),
+                      ],
+                      2
+                    )
                   }),
-                ],
-                1
-              ),
+                  1
+                ),
+              ]),
               _vm._v(" "),
               _c(
                 "b-container",
                 { staticClass: "goods" },
-                _vm._l(_vm.estimate.estimate_model, function (em) {
-                  return _c(
-                    "b-row",
-                    { key: em.em_id },
-                    [
-                      _c("b-col", { attrs: { cols: "2" } }, [
-                        _c("img", {
-                          staticClass: "rounded-circle",
-                          attrs: { src: em.goods.image_src_thumb[0] },
-                        }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-link",
-                            {
-                              attrs: {
-                                variant: "outline-secondary",
-                                block: "",
-                                to: {
-                                  name: "goods_show",
-                                  params: { gd_id: em.em_gd_id },
-                                },
-                              },
-                            },
-                            [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(em.em_name) +
-                                  "\r\n                        "
-                              ),
-                              _c("P", { staticClass: "bg-light" }, [
-                                _vm._v(
-                                  "\r\n                            " +
-                                    _vm._s(em.em_catno) +
-                                    " /\r\n                            " +
-                                    _vm._s(em.em_code) +
-                                    " /\r\n                            " +
-                                    _vm._s(em.em_spec) +
-                                    " /\r\n                            " +
-                                    _vm._s(em.em_unit) +
-                                    " /\r\n                        "
-                                ),
-                              ]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(_vm._f("rrp")(em.em_price)) +
-                              " 원\r\n                    "
-                          ),
-                          _c("font-awesome-icon", { attrs: { icon: "times" } }),
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(em.em_ea) +
-                              " 개\r\n                    "
-                          ),
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "equals" },
-                          }),
-                          _vm._v(" "),
-                          _c("b", { staticClass: "md_multi" }, [
-                            _vm._v(
-                              _vm._s(_vm._f("rrp")(em.em_price * em.em_ea)) +
-                                " 원"
-                            ),
-                          ]),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      em.estimate_option.length
-                        ? _c(
-                            "b-col",
-                            {
-                              staticClass: "row m-3 p-0",
-                              attrs: { cols: "12" },
-                            },
-                            [
-                              _c(
-                                "b-col",
-                                {
-                                  staticClass: "text-right",
-                                  attrs: { offset: "5", cols: "1" },
-                                },
-                                [
-                                  _c(
-                                    "b-badge",
-                                    {
-                                      staticClass: "float-left clear-both",
-                                      attrs: { variant: "warning" },
-                                    },
-                                    [_vm._v("옵션")]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                _vm._l(em.estimate_option, function (option) {
-                                  return _c(
-                                    "b-row",
-                                    {
-                                      key: option.eo_id,
-                                      staticClass: "text-right",
-                                    },
-                                    [
-                                      _c("b-col", [
-                                        _c("span", [
-                                          _vm._v(_vm._s(option.eo_tit) + ": "),
-                                          _c("b", [
-                                            _vm._v(_vm._s(option.eo_name)),
-                                          ]),
-                                        ]),
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        [
-                                          _vm._v(
-                                            "\r\n                                " +
-                                              _vm._s(
-                                                _vm._f("rrp")(option.eo_price)
-                                              ) +
-                                              " 원\r\n                                "
-                                          ),
-                                          _c("font-awesome-icon", {
-                                            attrs: { icon: "times" },
-                                          }),
-                                          _vm._v(
-                                            "\r\n                                " +
-                                              _vm._s(option.eo_ea) +
-                                              " 개\r\n                                "
-                                          ),
-                                          _c("font-awesome-icon", {
-                                            attrs: { icon: "equals" },
-                                          }),
-                                          _vm._v(" "),
-                                          _c("b", { staticClass: "md_multi" }, [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm._f("rrp")(
-                                                  option.eo_price * option.eo_ea
-                                                )
-                                              ) + " 원"
-                                            ),
-                                          ]),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                }),
-                                1
-                              ),
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                    ],
-                    1
-                  )
-                }),
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "detail" },
                 [
+                  _c("h6", [_c("b", [_vm._v("01.")]), _vm._v(" 상품정보")]),
+                  _vm._v(" "),
                   _c(
                     "b-row",
+                    { staticClass: "head" },
                     [
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("요청자 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_name)),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("휴대폰번호 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(_vm.estimate.eq_hp))]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("전화번호 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_tel)),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("팩스번호 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_fax)),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("이메일주소 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_email)),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("학과/소속 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_department)),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { attrs: { cols: "2" } }, [
-                                _vm._v("요청내용 :"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.estimate.eq_content)),
-                              ]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
+                      _c("b-col"),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("상품명/모델명")]),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("판매가격")]),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("수량")]),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("합계")]),
                     ],
                     1
                   ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.estimate.estimate_reply.length
-                ? _c(
-                    "b-alert",
-                    {
-                      staticClass: "estimate_reply",
-                      attrs: { show: "", variant: "success" },
-                    },
-                    [
-                      _c("h4", { staticClass: "alert-heading" }, [
-                        _vm._v("견적서"),
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _vm._l(_vm.estimate.estimate_reply, function (er, i) {
-                        return _c(
-                          "p",
-                          { key: i },
+                  _vm._v(" "),
+                  _vm._l(_vm.estimate.estimate_model, function (em) {
+                    return _c(
+                      "b-row",
+                      { key: em.em_id, staticClass: "body" },
+                      [
+                        _c(
+                          "b-col",
+                          { staticClass: "img" },
                           [
                             _c(
-                              "b-button",
+                              "b-link",
                               {
+                                staticClass: "align",
                                 attrs: {
-                                  variant: "success",
+                                  block: "",
                                   to: {
-                                    name: "my_estimate_show_reply",
-                                    params: { er_id: er.er_id },
+                                    name: "goods_show",
+                                    params: { gd_id: em.em_gd_id },
                                   },
                                 },
                               },
                               [
-                                i !== 0 ? _c("b", [_vm._v("재")]) : _vm._e(),
+                                _c("img", {
+                                  attrs: { src: em.goods.image_src_thumb[0] },
+                                }),
+                              ]
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-col",
+                          { staticClass: "name" },
+                          [
+                            _c(
+                              "b-link",
+                              {
+                                attrs: {
+                                  block: "",
+                                  to: {
+                                    name: "goods_show",
+                                    params: { gd_id: em.em_gd_id },
+                                  },
+                                },
+                              },
+                              [
+                                _c("b", [_vm._v(_vm._s(em.em_name))]),
+                                _vm._v(" "),
+                                _c("br"),
                                 _vm._v(
-                                  "견적서 보기 (" +
-                                    _vm._s(
-                                      _vm._f("formatDate_YY_MM_DD")(
-                                        er.created_at
-                                      )
-                                    ) +
-                                    ")\r\n                "
+                                  "\r\n                        " +
+                                    _vm._s(em.em_code) +
+                                    " / 사양: " +
+                                    _vm._s(em.em_spec) +
+                                    "\r\n                    "
                                 ),
                               ]
                             ),
                           ],
                           1
-                        )
-                      }),
+                        ),
+                        _vm._v(" "),
+                        _c("b-col", { staticClass: "align" }, [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("won")(
+                                _vm._f("price_zero")(_vm._f("rrp")(em.em_price))
+                              )
+                            )
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("b-col", { staticClass: "align" }, [
+                          _vm._v(_vm._s(em.em_ea)),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-col",
+                          { staticClass: "align", attrs: { tab: "b" } },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("won")(
+                                  _vm._f("price_zero")(
+                                    _vm._f("rrp")(em.em_price * em.em_ea)
+                                  )
+                                )
+                              )
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(em.estimate_option, function (op) {
+                          return _c(
+                            "b-col",
+                            { key: op.eo_id, staticClass: "option" },
+                            [
+                              _c("b-col", [_vm._v("추가 옵션")]),
+                              _vm._v(" "),
+                              _c("b-col", [
+                                _c("b", [_vm._v(_vm._s(op.eo_tit) + ":")]),
+                                _vm._v(" " + _vm._s(op.eo_name)),
+                              ]),
+                              _vm._v(" "),
+                              _c("b-col", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("won")(_vm._f("rrp")(op.eo_price))
+                                  )
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("b-col", [_vm._v(_vm._s(op.eo_ea))]),
+                              _vm._v(" "),
+                              _c("b-col", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("won")(
+                                      _vm._f("rrp")(op.eo_price * op.eo_ea)
+                                    )
+                                  )
+                                ),
+                              ]),
+                            ],
+                            1
+                          )
+                        }),
+                      ],
+                      2
+                    )
+                  }),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("ul", { staticClass: "guidance" }, [
+                _c("li", [
+                  _vm._v("요청하신 견적서는 "),
+                  _c("b", [_vm._v("이메일로 발송")]),
+                  _vm._v("됩니다."),
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v("견적서를 받으신 후, "),
+                  _c("b", [_vm._v("견적 유효기간")]),
+                  _vm._v("을 참고하셔서 주문에 불편이 없으시길 바랍니다."),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-container",
+                { staticClass: "extra" },
+                [
+                  _c("h6", [_c("b", [_vm._v("02.")]), _vm._v(" 추가정보")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", [
+                        _c("div", { staticClass: "tit" }, [_vm._v("첨부파일")]),
+                        _vm._v(" "),
+                        _c(
+                          "ul",
+                          { staticClass: "cont" },
+                          _vm._l(_vm.estimate.file_info, function (fi) {
+                            return _c(
+                              "li",
+                              {
+                                key: fi.fi_id,
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.fileDown(
+                                      fi.down_path,
+                                      fi.fi_original
+                                    )
+                                  },
+                                },
+                              },
+                              [
+                                _c("b-icon-paperclip"),
+                                _vm._v(" " + _vm._s(fi.fi_original)),
+                              ],
+                              1
+                            )
+                          }),
+                          0
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c("div", { staticClass: "tit" }, [_vm._v("요청사항")]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass: "cont",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.nl2br(_vm.estimate.eq_content)
+                            ),
+                          },
+                        }),
+                      ]),
                     ],
-                    2
-                  )
-                : _vm._e(),
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "btn_box" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "blue xl",
+                      attrs: { to: { name: "my_estimate" } },
+                    },
+                    [_vm._v("견적요청 목로으로 가기")]
+                  ),
+                ],
+                1
+              ),
             ],
             1
           ),

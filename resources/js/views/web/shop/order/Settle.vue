@@ -284,7 +284,7 @@
     </b-container>
 
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="700" :padding="0">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
             <template slot="header">
                 <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
                 <template v-else>지출 증빙</template>
@@ -292,7 +292,7 @@
             <AddrIndex v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
             <AddrCreate v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
             <AddrEdit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
-            <TaxInvoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" @focusNext="focusNext" @maxlength_3="maxlength_3" @maxlength_4="maxlength_4" />
+            <TaxInvoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" />
         </Modal>
     </transition>
 
@@ -660,7 +660,7 @@ export default {
                             if (isEmpty(frm.extra.oex_ceo)) { Notify.toast('danger', "대표자명을 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_ceo.focus(); return false; }
                             if (isEmpty(frm.extra.oex_addr)) { Notify.toast('danger', "사업장 소재지를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_addr.focus(); return false; }
                         }
-                        if (isEmpty(frm.extra.oex_mng)) { Notify.toast('danger', "담장자를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_mng.focus(); return false; }
+                        if (isEmpty(frm.extra.oex_mng)) { Notify.toast('danger', "담당자를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_mng.focus(); return false; }
                         if (isEmpty(frm.extra.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_email.focus(); return false; }
                         if (isEmpty(frm.extra.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요"); this.tax_invoice(); this.$refs.tax_invoice.$refs.oex_num_tel.focus(); return false; }
                     }
@@ -845,12 +845,12 @@ export default {
 #settle .st_bottom .payment .body .order_paper>div { display:flex; justify-content:space-between; }
 #settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label { color:#616161; font-size:.8rem; cursor:pointer; }
 #settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label::before, 
-#settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label::after { top:.15rem; left:-1.2rem; }
+#settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label::after { top:2px; left:-1.2rem; }
 
 #settle .st_bottom .payment .body .tax_paper>div { display:flex; justify-content:space-between; }
 #settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline; }
 #settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::before, 
-#settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::after { top:.15rem; left:-1.2rem; }
+#settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
 
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
 #settle .inicis_form { width:0; height:0; visibility:hidden; overflow:hidden; }

@@ -1,21 +1,18 @@
-<template lang="html">
-<div>
-    <b-form-input autocomplete="off"
-        v-model="input_val"
-        @keyup.enter="getModelList"
-        v-b-tooltip.hover title="입력 후 엔터 or 버튼"
-        ref="sch_field"
-        :id="id"
-    />
+<template>
+<div class="cell">
+<b-input-group size="sm">
+    <b-form-input autocomplete="off" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼" ref="sch_field" :id="id"
+        v-model="input_val" @keyup.enter="getModelList" />
+    <b-input-group-append><b-button size="sm" @click="getModelList" ><b-icon-search /></b-button></b-input-group-append>
+</b-input-group>
 
-    <b-button @click="getModelList" size="sm" class="overlap"><b-icon-search /></b-button>
-    <ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
-        <li href="#" class="list-group-item" v-for="(md, i) in model" @click="setModel(i)">
-            {{ md.gm_name }}<br />
-            <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
-            <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
-        </li>
-    </ul>
+<ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
+    <li href="#" class="list-group-item" v-for="(md, i) in model" :key="i" @click="setModel(i)">
+        {{ md.gm_name }}<br />
+        <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
+        <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
+    </li>
+</ul>
 </div>
 </template>
 
@@ -24,20 +21,11 @@ import ax from '@/api/http';
 
 export default {
     props:['value', 'type', 'id', 'em'],
-    data() {
-        return {
-            model: [],
-            maker: {},
-        }
-    },
+    data() { return { model: [], maker: {}, } },
     computed: {
         input_val: {
-            get: function() {
-                return this.value;
-            },
-            set: function(v) {
-                this.$emit('input', v);
-            }
+            get: function() { return this.value; },
+            set: function(v) { this.$emit('input', v); }
         }
     },
     methods:{
@@ -90,10 +78,10 @@ export default {
             }
             this.hide();
         },
-        hide(){
-            this.model = [];
-            this.maker = [];
-        }
+        hide(){ this.model = []; this.maker = []; }
     }
 }
 </script>
+<style scoped>
+.cell { width:60%; }
+</style>

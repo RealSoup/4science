@@ -98,8 +98,8 @@ export default {
 .er_box span:nth-child(3n+2) { flex:0 0 24%; max-width:24%; }
 .er_box span:nth-child(3n+3) { flex:0 0 40%; max-width:40%; }
 .er_box span.btn { background-color:#fff; border-width:3px; padding:.18rem 0; }
-.er_box span.mint { color:#00A1CB; }
-.er_box span.orange { color:#F18D04; }
+.er_box span.mint { color:#00A1CB !important; }
+.er_box span.orange { color:#F18D04 !important; }
 .er_box span.gray { background-color:#aaa; color:#fff; }
 .er_box span.not_fir { margin-top:.25rem; }
 </style>

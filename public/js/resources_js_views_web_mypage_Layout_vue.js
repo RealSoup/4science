@@ -113,6 +113,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -232,7 +262,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container h2[data-v-bc72bc98] { margin:2rem 1rem; font-weight:bold;\n}\n#mypage .top[data-v-bc72bc98] { border:1px solid #9EA7B0;\n}\n#mypage .top .col[data-v-bc72bc98] { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative;\n}\n#mypage .top .col p[data-v-bc72bc98] { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold;\n}\n#mypage .top .col b[data-v-bc72bc98] { font-size:1.6rem; color:#186CB4; font-weight:bold; line-height:1;\n}\n#mypage .top .col b small[data-v-bc72bc98] { font-size:1.1rem;\n}\n#mypage .top .col a[data-v-bc72bc98] { color:#FFF; display:block; margin-top:.25rem; font-size:.9rem;\n}\n#mypage .top .col[data-v-bc72bc98]:nth-child(2):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(3):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(4):after { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/divider.png) no-repeat 0px 0px; content:\"\"; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px;\n}\n#mypage .top .name[data-v-bc72bc98] { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0;\n}\n#mypage .top .name b[data-v-bc72bc98] { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold;\n}\n#mypage .top .od_step[data-v-bc72bc98] { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem;\n}\n#mypage .top .od_step p[data-v-bc72bc98] { margin-bottom:.1rem;\n}\n#mypage .top .od_step ul[data-v-bc72bc98] { display:flex;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { text-align:center; font-size:.79rem; flex-grow:1;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { color:#fff; position:relative;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child) { margin-right:2rem;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem;\n}\n#mypage .top .od_step ul li a[data-v-bc72bc98] { position:absolute; top:-14px; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center;\n}\n#mypage .top .od_step ul li img[data-v-bc72bc98] { display:block; margin:0 auto -.05rem auto;\n}\n#mypage .middle .left[data-v-bc72bc98] { flex-basis:200px; max-width:200px; padding:0;\n}\n#mypage .middle .left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n#mypage .middle .left .nav li[data-v-bc72bc98] { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0;\n}\n#mypage .middle .left .nav li h5[data-v-bc72bc98] { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98]:hover { background-color:#00ADBB; color:#fff; font-weight:bold;\n}\n#mypage .middle .left .b-sidebar-outer[data-v-bc72bc98] { z-index:16;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container h2[data-v-bc72bc98] { margin:2rem 1rem; font-weight:bold;\n}\n#mypage .top[data-v-bc72bc98] { border:1px solid #9EA7B0;\n}\n#mypage .top .col[data-v-bc72bc98] { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative;\n}\n#mypage .top .col p[data-v-bc72bc98] { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold;\n}\n#mypage .top .col b[data-v-bc72bc98] { font-size:1.6rem; color:#186CB4; font-weight:bold; line-height:1;\n}\n#mypage .top .col b small[data-v-bc72bc98] { font-size:1.1rem;\n}\n#mypage .top .col a[data-v-bc72bc98] { color:#FFF; display:block; margin-top:.25rem; font-size:.9rem;\n}\n#mypage .top .col[data-v-bc72bc98]:nth-child(2):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(3):after,\r\n#mypage .top .col[data-v-bc72bc98]:nth-child(4):after { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/divider.png) no-repeat 0px 0px; content:\"\"; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px;\n}\n#mypage .top .name[data-v-bc72bc98] { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0;\n}\n#mypage .top .name b[data-v-bc72bc98] { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold;\n}\n#mypage .top .od_step[data-v-bc72bc98] { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem;\n}\n#mypage .top .od_step p[data-v-bc72bc98] { margin-bottom:.1rem;\n}\n#mypage .top .od_step p small[data-v-bc72bc98] { margin-left:.5rem; color:#eee;\n}\n#mypage .top .od_step ul[data-v-bc72bc98] { display:flex;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { text-align:center; font-size:.79rem; flex-grow:1;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98] { color:#fff; position:relative;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child) { margin-right:2rem;\n}\n#mypage .top .od_step ul li[data-v-bc72bc98]:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem;\n}\n#mypage .top .od_step ul li a b[data-v-bc72bc98] { position:absolute; top:0; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center;\n}\n#mypage .top .od_step ul li a img[data-v-bc72bc98] { display:block; margin:0 auto -.05rem auto;\n}\n#mypage .middle .left[data-v-bc72bc98] { flex-basis:200px; max-width:200px; padding:0;\n}\n#mypage .middle .left #menu_btn[data-v-bc72bc98] { margin:1rem;\n}\n#mypage .middle .left .nav li[data-v-bc72bc98] { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0;\n}\n#mypage .middle .left .nav li h5[data-v-bc72bc98] { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98] { display:block; padding:.5rem 1rem;\n}\n#mypage .middle .left .nav li div a[data-v-bc72bc98]:hover { background-color:#00ADBB; color:#fff; font-weight:bold;\n}\n#mypage .middle .left .b-sidebar-outer[data-v-bc72bc98] { z-index:16;\n}\n@media (max-width: 992px) {\r\n    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/\n}\n@media (min-width: 992px) {\n#menu_btn[data-v-bc72bc98] { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] { position:relative; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar-backdrop { display:none;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%;\n}\n.b-sidebar-outer[data-v-bc72bc98] .b-sidebar .b-sidebar-header { display:none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -522,21 +552,35 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("b-col", { staticClass: "od_step" }, [
-            _c("p", [_vm._v("나의 주문 건")]),
+            _c("p", [
+              _vm._v("나의 주문 건"),
+              _c("small", [_vm._v("최근 한달 간 주문량")]),
+            ]),
             _vm._v(" "),
             _c("ul", [
               _c(
                 "li",
                 [
-                  _vm.od_step1019
-                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
-                        _vm._v(_vm._s(_vm.od_step1019)),
-                      ])
-                    : _vm._e(),
-                  _c("img", {
-                    attrs: { src: _vm.s3url + "mypage/step01.png" },
-                  }),
-                  _vm._v("주문접수"),
+                  _c(
+                    "b-link",
+                    {
+                      attrs: {
+                        to: { name: "my_order", query: { od_step: "early" } },
+                      },
+                    },
+                    [
+                      _vm.od_step1019
+                        ? _c("b", [_vm._v(_vm._s(_vm.od_step1019))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: { src: _vm.s3url + "mypage/step01.png" },
+                      }),
+                      _vm._v(
+                        "\n                        주문접수\n                    "
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),
@@ -544,15 +588,26 @@ var render = function () {
               _c(
                 "li",
                 [
-                  _vm.cnt_od_step[20]
-                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
-                        _vm._v(_vm._s(_vm.cnt_od_step[20])),
-                      ])
-                    : _vm._e(),
-                  _c("img", {
-                    attrs: { src: _vm.s3url + "mypage/step02.png" },
-                  }),
-                  _vm._v("결제완료"),
+                  _c(
+                    "b-link",
+                    {
+                      attrs: {
+                        to: { name: "my_order", query: { od_step: "20" } },
+                      },
+                    },
+                    [
+                      _vm.cnt_od_step[20]
+                        ? _c("b", [_vm._v(_vm._s(_vm.cnt_od_step[20]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: { src: _vm.s3url + "mypage/step02.png" },
+                      }),
+                      _vm._v(
+                        "\n                        결제완료\n                    "
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),
@@ -560,15 +615,26 @@ var render = function () {
               _c(
                 "li",
                 [
-                  _vm.cnt_od_step[30]
-                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
-                        _vm._v(_vm._s(_vm.cnt_od_step[30])),
-                      ])
-                    : _vm._e(),
-                  _c("img", {
-                    attrs: { src: _vm.s3url + "mypage/step03.png" },
-                  }),
-                  _vm._v("상품준비중"),
+                  _c(
+                    "b-link",
+                    {
+                      attrs: {
+                        to: { name: "my_order", query: { od_step: "20" } },
+                      },
+                    },
+                    [
+                      _vm.cnt_od_step[30]
+                        ? _c("b", [_vm._v(_vm._s(_vm.cnt_od_step[30]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: { src: _vm.s3url + "mypage/step03.png" },
+                      }),
+                      _vm._v(
+                        "\n                        상품준비중\n                    "
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),
@@ -576,15 +642,26 @@ var render = function () {
               _c(
                 "li",
                 [
-                  _vm.cnt_od_step[40]
-                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
-                        _vm._v(_vm._s(_vm.cnt_od_step[40])),
-                      ])
-                    : _vm._e(),
-                  _c("img", {
-                    attrs: { src: _vm.s3url + "mypage/step04.png" },
-                  }),
-                  _vm._v("배송중"),
+                  _c(
+                    "b-link",
+                    {
+                      attrs: {
+                        to: { name: "my_order", query: { od_step: "40" } },
+                      },
+                    },
+                    [
+                      _vm.cnt_od_step[40]
+                        ? _c("b", [_vm._v(_vm._s(_vm.cnt_od_step[40]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: { src: _vm.s3url + "mypage/step04.png" },
+                      }),
+                      _vm._v(
+                        "\n                        배송중\n                    "
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),
@@ -592,15 +669,26 @@ var render = function () {
               _c(
                 "li",
                 [
-                  _vm.cnt_od_step[50]
-                    ? _c("b-link", { attrs: { to: { name: "my_order" } } }, [
-                        _vm._v(_vm._s(_vm.cnt_od_step[50])),
-                      ])
-                    : _vm._e(),
-                  _c("img", {
-                    attrs: { src: _vm.s3url + "mypage/step05.png" },
-                  }),
-                  _vm._v("배송완료"),
+                  _c(
+                    "b-link",
+                    {
+                      attrs: {
+                        to: { name: "my_order", query: { od_step: "50" } },
+                      },
+                    },
+                    [
+                      _vm.cnt_od_step[50]
+                        ? _c("b", [_vm._v(_vm._s(_vm.cnt_od_step[50]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: { src: _vm.s3url + "mypage/step05.png" },
+                      }),
+                      _vm._v(
+                        "\n                        배송완료\n                    "
+                      ),
+                    ]
+                  ),
                 ],
                 1
               ),

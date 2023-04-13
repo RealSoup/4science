@@ -1,8 +1,7 @@
 <template lang="html">
 <b-container id="adm_estimate_create" class="p_wrap">
     <h3>견적서 작성</h3>
-    <FormCtrl @save="store" :clickable="clickable" />
-    <FormSetting v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" />
+    <FormCtrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable" />
     <FormUser v-model="frm.estimate_req" />
     <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:mounted="" />
     <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
@@ -18,7 +17,6 @@ export default {
     name: 'Create',
     components: {
         'FormCtrl': () =>      import('./FormCtrl.vue'),
-        'FormSetting': () =>   import('./FormSetting.vue'),
         'FormUser': () =>      import('./FormUser.vue'),
         FormGoods,
         'FormExtra': () =>      import('./FormExtra.vue'),

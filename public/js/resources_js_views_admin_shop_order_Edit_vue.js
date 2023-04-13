@@ -1542,7 +1542,7 @@ var render = function () {
                                 _c(
                                   "b-button",
                                   {
-                                    staticClass: "b_gray",
+                                    staticClass: "d_gray",
                                     on: { click: _vm.document_action },
                                   },
                                   [_vm._v("받기")]
@@ -1600,7 +1600,7 @@ var render = function () {
                             _c(
                               "b-button",
                               {
-                                staticClass: "b_gray",
+                                staticClass: "d_gray",
                                 on: {
                                   click: function ($event) {
                                     return _vm.update("od_step")

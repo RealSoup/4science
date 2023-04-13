@@ -98,12 +98,13 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn_box { margin-top:3rem; text-align:center; }
 .btn.btn_right { text-align:right; }
 .btn.xm { padding:.2rem .3rem; font-size:.75rem !important; line-height:1.3; border-radius:.2rem; }
+.btn.sm { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
 .btn.lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
 .btn.xl { width:440px; font-weight:900; padding:25px 0px; font-size:1.2rem; border-radius:8px; }
     
 .white { background-color:#FFF; border-color:#CCCCCC; color:#000 !important; }
 .gray { background-color:#B7B7B7; border-color:#B7B7B7; color:#FFF !important; }
-.b_gray { background-color:#4E6479; border-color:#4E6479; color:#FFF !important; }
+.d_gray { background-color:#4E6479; border-color:#4E6479; color:#FFF !important; }
 .blue { background-color:#0094EA; border-color:#0094EA; color:#FFF !important; }
 .mint { background-color:#00A1CB; border-color:#00A1CB; color:#FFF !important; }
 .d_blue { background-color:#0E4D9C; border-color:#0E4D9C; color:#FFF !important; }
@@ -117,6 +118,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn.wd_100p { font-weight:bold; padding:25px; width:100%; border-radius:9px; font-size:1.2rem; }
 input::placeholder, textarea::placeholder { color:#CCC !important; }
 label { margin-bottom:0; }
+.p_right { float:right; }
 .btn .b-icon.bi, .nav-link .b-icon.bi, .dropdown-toggle .b-icon.bi, .dropdown-item .b-icon.bi, .input-group-text .b-icon.bi { font-size: 100%; }
 
 @media (min-width: 1400px) {
@@ -195,11 +197,10 @@ label { margin-bottom:0; }
 }
 
 .p_wrap h3 { margin:0 0 1rem 3rem; font-weight:bold; }
-.p_wrap h5 { border-left:4px solid #4EB8C8; }
-.p_wrap .card { border-radius:10px; margin-bottom:20px; }
-.p_wrap .card.ctrl { position:sticky; top:0; padding:8px; z-index:3; border:3px solid #138496; }
-.p_wrap .card .tit { border-left:3px solid #17a2b8; font-weight:bold; font-size:20px; padding-left:30px; margin-bottom:20px; }
+.p_wrap h5 { border-left:4px solid #4EB8C8; font-size:1.54rem; font-weight:600; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
+.p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
 
+.p_wrap .ctrl { position:sticky; top:0; padding:8px; z-index:3; background-color:#FFF; border:5px solid #4EB8C8; border-radius:1rem; }
 
 .p_wrap .frm_sch { border:1px solid #B7B7B7; border-radius:1rem; margin-bottom:1.8rem; }
 .p_wrap .frm_sch .row .col { padding:10px; }
@@ -275,8 +276,17 @@ label { margin-bottom:0; }
 /*  없으면 카드결제창 안보임  */
 #inicisModalDiv { opacity:1 !important; }
 
-
-
+.est_frm.container,
+.est_frm .container { padding-right:0; padding-left:0; }
+.est_frm .row { margin-left:0; margin-right:0; }
+.est_frm div.row:first-of-type { border-top:3px solid #4F637B; }
+.est_frm div.row:last-of-type { border-bottom:3px solid #4F637B; }
+.est_frm .row .col{ padding:7px 0; }
+.est_frm .row .col:not(:last-of-type)  { border-right:1px solid #D7D7D7; }
+.est_frm .row:not(:last-of-type) .col  { border-bottom:1px solid #D7D7D7; }
+.est_frm .row .col:nth-child(odd) { flex:0 0 16%; max-width:16%; background-color:#F2F3F5; font-weight:600; display:flex; align-items:center; justify-content:center; }
+.est_frm .row .col:nth-child(even) { padding-left:1.5%; }
+.est_frm .row .col input { width:60%; height:calc(1.5em + 0.5rem + 2px); padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
 
 
 </style>

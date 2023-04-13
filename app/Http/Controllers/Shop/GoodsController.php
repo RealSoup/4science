@@ -33,8 +33,8 @@ class GoodsController extends Controller {
                 $cat_no = explode('-', $cat_no);
                 if (implode( '', $cat_no ) != '') {
                     foreach ($cat_no as $k=>$vv) {
-                        $cat_no[$k] = @intval($vv);
-                        if ( preg_match("/[^0-9]/i", $vv) ) {
+                        // $cat_no[$k] = @intval($vv);
+                        if ( preg_match("/[^0-9]/i", @intval($vv)) ) {
                             $isNum = false; 
                             break;
                         }
@@ -188,6 +188,7 @@ class GoodsController extends Controller {
     public function show(Category $cate, Request $req, $gd_id) {
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
+            ->with('goodsRelate')
             ->find($gd_id);
         
         //  모델의 appends에 초기 값을 세팅 할수 있지만
@@ -204,6 +205,8 @@ class GoodsController extends Controller {
                 $goc->ea = 0;
         }
 
+        foreach ($data['goods']->goodsRelate as $v)
+            $v->goods;
 
         event(new \App\Events\GoodsView($data['goods']));  //  조회수 증가
         // $data['categorys'] = collect();

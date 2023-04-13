@@ -56,7 +56,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'UserInput': function UserInput() {
@@ -156,194 +155,180 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-card",
-    { staticClass: "adform" },
+    "div",
+    { staticClass: "box est_frm" },
     [
+      _c("h5", [_vm._v("견적요청자 정보")]),
+      _vm._v(" "),
       _c(
-        "b-container",
+        "b-row",
         [
-          _c(
-            "b-row",
-            [_c("b-col", { staticClass: "tit" }, [_vm._v("요청자")])],
-            1
-          ),
+          _c("b-col", [_vm._v("요청자")]),
           _vm._v(" "),
           _c(
-            "b-row",
+            "b-col",
             [
-              _c("b-col", { staticClass: "label" }, [_vm._v("이름")]),
+              _c("UserInput", {
+                attrs: { type: "name", frm: _vm.value },
+                model: {
+                  value: _vm.value.eq_name,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_name", $$v)
+                  },
+                  expression: "value.eq_name",
+                },
+              }),
               _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("UserInput", {
-                    attrs: { type: "name", frm: _vm.value },
-                    model: {
-                      value: _vm.value.eq_name,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_name", $$v)
-                      },
-                      expression: "value.eq_name",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("Validation", {
-                    attrs: {
-                      error: _vm.$store.state.error.validations.eq_name,
-                    },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label" }, [_vm._v("이메일")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("UserInput", {
-                    attrs: { type: "email", frm: _vm.value },
-                    model: {
-                      value: _vm.value.eq_email,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_email", $$v)
-                      },
-                      expression: "value.eq_email",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("Validation", {
-                    attrs: {
-                      error: _vm.$store.state.error.validations.eq_email,
-                    },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label" }, [_vm._v("소속")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("UserInput", {
-                    attrs: { type: "department", frm: _vm.value },
-                    model: {
-                      value: _vm.value.eq_department,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_department", $$v)
-                      },
-                      expression: "value.eq_department",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("Validation", {
-                    attrs: {
-                      error: _vm.$store.state.error.validations.eq_department,
-                    },
-                  }),
-                ],
-                1
-              ),
+              _c("Validation", {
+                attrs: { error: _vm.$store.state.error.validations.eq_name },
+              }),
             ],
             1
           ),
           _vm._v(" "),
+          _c("b-col", [_vm._v("소속/부서")]),
+          _vm._v(" "),
           _c(
-            "b-row",
+            "b-col",
             [
-              _c("b-col", { staticClass: "label" }, [_vm._v("휴대폰")]),
+              _c("UserInput", {
+                attrs: { type: "department", frm: _vm.value },
+                model: {
+                  value: _vm.value.eq_department,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_department", $$v)
+                  },
+                  expression: "value.eq_department",
+                },
+              }),
               _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("UserInput", {
-                    attrs: { type: "hp", frm: _vm.value },
-                    model: {
-                      value: _vm.value.eq_hp,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_hp", $$v)
-                      },
-                      expression: "value.eq_hp",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("Validation", {
-                    attrs: { error: _vm.$store.state.error.validations.eq_hp },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label" }, [_vm._v("일반전화")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("b-form-input", {
-                    attrs: { formatter: _vm.formatTel },
-                    model: {
-                      value: _vm.value.eq_tel,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_tel", $$v)
-                      },
-                      expression: "value.eq_tel",
-                    },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label" }, [_vm._v("팩스")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type02" },
-                [
-                  _c("b-form-input", {
-                    attrs: { formatter: _vm.formatTel },
-                    model: {
-                      value: _vm.value.eq_fax,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "eq_fax", $$v)
-                      },
-                      expression: "value.eq_fax",
-                    },
-                  }),
-                ],
-                1
-              ),
+              _c("Validation", {
+                attrs: {
+                  error: _vm.$store.state.error.validations.eq_department,
+                },
+              }),
             ],
             1
           ),
-          _vm._v(" "),
-          _vm.value.eq_content
-            ? _c(
-                "b-row",
-                [
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("요청내용")]),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "type11" }, [
-                    _c("div", {
-                      domProps: {
-                        innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
-                      },
-                    }),
-                  ]),
-                ],
-                1
-              )
-            : _vm._e(),
         ],
         1
       ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [_vm._v("이메일")]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("UserInput", {
+                attrs: { type: "email", frm: _vm.value },
+                model: {
+                  value: _vm.value.eq_email,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_email", $$v)
+                  },
+                  expression: "value.eq_email",
+                },
+              }),
+              _vm._v(" "),
+              _c("Validation", {
+                attrs: { error: _vm.$store.state.error.validations.eq_email },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("휴대폰 번호")]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("UserInput", {
+                attrs: { type: "hp", frm: _vm.value },
+                model: {
+                  value: _vm.value.eq_hp,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_hp", $$v)
+                  },
+                  expression: "value.eq_hp",
+                },
+              }),
+              _vm._v(" "),
+              _c("Validation", {
+                attrs: { error: _vm.$store.state.error.validations.eq_hp },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [_vm._v("일반전화 번호")]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("b-form-input", {
+                attrs: { formatter: _vm.formatTel },
+                model: {
+                  value: _vm.value.eq_tel,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_tel", $$v)
+                  },
+                  expression: "value.eq_tel",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", [_vm._v("팩스번호")]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c("b-form-input", {
+                attrs: { formatter: _vm.formatTel },
+                model: {
+                  value: _vm.value.eq_fax,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "eq_fax", $$v)
+                  },
+                  expression: "value.eq_fax",
+                },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.value.eq_content
+        ? _c(
+            "b-row",
+            [
+              _c("hr"),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("요청내용")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("div", {
+                  domProps: {
+                    innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content)),
+                  },
+                }),
+              ]),
+            ],
+            1
+          )
+        : _vm._e(),
     ],
     1
   )

@@ -1,68 +1,108 @@
 <template>
-<div class="tax_iv">
+
+<ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" class="tax_iv">
     <div v-if="value.oex_type_fir == 'TX'">
         <h6>세금계산서 발급 정보 등록</h6>
         <b-form-radio v-model="value.oex_type" value="IV">사업자 정보 입력</b-form-radio>
-        <b-form-checkbox v-model="value.oex_hasBizLicense">사업자등록증 사본 첨부</b-form-checkbox>
+        
+        <transition name="slideUpDown">
+            <b-container v-if="value.oex_type == 'IV'">
+                <b-form-checkbox v-model="value.oex_hasBizLicense">사업자등록증 사본 첨부</b-form-checkbox>
 
-        <transition name="slideUpDown">
-            <b-container v-if="value.oex_hasBizLicense === true">
-                <b-row>
-                    <label for="biz_file">파일 첨부</label>
-                    <b-form-file id="biz_file" v-model="value.oex_file" ref="oex_file" size="sm" plain />
-                </b-row>            
+                <transition name="slideUpDown">
+                    <b-container v-if="value.oex_hasBizLicense">
+                        <b-row>
+                            <label for="biz_file">파일 첨부</label>
+                            <ValidationProvider name="파일 첨부" rules="required" v-slot="validationContext">
+                                <b-form-file id="biz_file" v-model="value.oex_file" ref="oex_file" size="sm" plain :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                    </b-container>
+                </transition>
+
+                <transition name="slideUpDown">
+                    <b-container v-if="!value.oex_hasBizLicense">
+                        <b-row>
+                            <label for="oex_biz_name">법인명</label>
+                            <ValidationProvider name="법인명" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_biz_name" ref="oex_biz_name" id="oex_biz_name" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_biz_num">등록번호</label>
+                            <ValidationProvider name="등록번호" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_biz_num" ref="oex_biz_num" id="oex_biz_num" size="sm" :formatter="frm_formatBiz" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_biz_type">업태/종목</label>
+                            <ValidationProvider name="업태" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_biz_type" ref="oex_biz_type" id="oex_biz_type" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                            <b>/</b>
+                            <ValidationProvider name="종목" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_biz_item" ref="oex_biz_item" id="oex_biz_item" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_ceo">대표자명</label>
+                            <ValidationProvider name="대표자명" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_ceo" ref="oex_ceo" id="oex_ceo" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_addr">사업장소재지</label>
+                            <ValidationProvider name="사업장소재지" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_addr" ref="oex_addr" id="oex_addr" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_requirement">요구사항</label>
+                            <ValidationProvider name="요구사항" rules="" v-slot="validationContext">
+                                <b-form-textarea v-model="value.oex_requirement" ref="oex_requirement" id="oex_requirement" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                    </b-container>
+                </transition>
+                
+                <transition name="slideUpDown">
+                    <b-container v-if="value.oex_type !== 'IVNO'">
+                        <b-row>
+                            <label for="oex_mng">담당자</label>
+                            <ValidationProvider name="담당자" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_mng" ref="oex_mng" id="oex_mng" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_email">이메일</label>
+                            <ValidationProvider name="이메일" rules="required|email" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_email" ref="oex_email" id="oex_email" size="sm" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>
+                        <b-row>
+                            <label for="oex_num_tel">연락처</label>
+                            <ValidationProvider name="연락처" rules="required" v-slot="validationContext">
+                                <b-form-input v-model="value.oex_num_tel" ref="oex_num_tel" id="oex_num_tel" size="sm" :formatter="frm_formatHp" :state="getValidationState(validationContext)" />
+                                <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                            </ValidationProvider>
+                        </b-row>            
+                    </b-container>
+                </transition>
             </b-container>
-            
         </transition>
-        <transition name="slideUpDown">
-            <b-container v-if="!value.oex_hasBizLicense">
-                <b-row>
-                    <label for="oex_biz_name">법인명</label>
-                    <b-form-input v-model="value.oex_biz_name" ref="oex_biz_name" id="oex_biz_name" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_biz_num">등록번호</label>
-                    <b-form-input v-model="value.oex_biz_num" ref="oex_biz_num" id="oex_biz_num" size="sm" :formatter="frm_formatBiz" />
-                </b-row>
-                <b-row>
-                    <label for="oex_biz_type">업태/종목</label>
-                    <b-form-input v-model="value.oex_biz_type" ref="oex_biz_type" id="oex_biz_type" size="sm" />
-                    <b>/</b>
-                    <b-form-input v-model="value.oex_biz_item" ref="oex_biz_item" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_ceo">대표자명</label>
-                    <b-form-input v-model="value.oex_ceo" ref="oex_ceo" id="oex_ceo" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_addr">사업장소재지</label>
-                    <b-form-input v-model="value.oex_addr" ref="oex_addr" id="oex_addr" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_requirement">요구사항</label>
-                    <b-form-textarea v-model="value.oex_requirement" ref="oex_requirement" id="oex_requirement" size="sm" />
-                </b-row>
-            </b-container>
-        </transition>
-        
-        <transition name="slideUpDown">
-            <b-container v-if="value.oex_hasBizLicense !== 'NOT'">
-                <b-row>
-                    <label for="oex_mng">담당자</label>
-                    <b-form-input v-model="value.oex_mng" ref="oex_mng" id="oex_mng" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_email">이메일</label>
-                    <b-form-input v-model="value.oex_email" ref="oex_email" id="oex_email" size="sm" />
-                </b-row>
-                <b-row>
-                    <label for="oex_num_tel">연락처</label>
-                    <b-form-input v-model="value.oex_num_tel" ref="oex_num_tel" id="oex_num_tel" size="sm" :formatter="frm_formatHp" />
-                </b-row>            
-            </b-container>
-        </transition>
-        
+
         <b-form-radio v-model="value.oex_type" value="IVNO">입력 안함</b-form-radio>
+        <br /><br />
     </div>
     
     <div v-else-if="value.oex_type_fir == 'CA'">
@@ -119,15 +159,37 @@
         </transition>
     </div>
     <b-button size="lg" @click="close">확 인</b-button>
-</div>
+</ValidationObserver>
 </template>
 
 <script>
 export default {
     name: 'TaxInvoice',
     props:['value'],
+
     methods: {
-        close () { this.$emit('close'); },
+        async close () {
+            const isValid = await this.$refs.observer.validate();
+            if (isValid) {
+                if ( this.value.oex_type !== 'IVNO') {
+                    if ( this.value.oex_hasBizLicense ) {
+                        if (isEmpty(this.value.oex_file)) { Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요"); this.$refs.oex_file.$refs.input.focus(); return false; }
+                    } else {
+                        if (isEmpty(this.value.oex_biz_name)) { Notify.toast('danger', "법인명을 입력해주세요");        this.$refs.oex_biz_name.focus(); return false; }
+                        if (isEmpty(this.value.oex_biz_num)) { Notify.toast('danger', "사업자 등록번호를 입력해주세요"); this.$refs.oex_biz_num.focus(); return false; }
+                        if (isEmpty(this.value.oex_biz_type)) { Notify.toast('danger', "업태를 입력해주세요");          this.$refs.oex_biz_type.focus(); return false; }
+                        if (isEmpty(this.value.oex_biz_item)) { Notify.toast('danger', "종목를 입력해주세요");          this.$refs.oex_biz_item.focus(); return false; }
+                        if (isEmpty(this.value.oex_ceo)) { Notify.toast('danger', "대표자명을 입력해주세요");           this.$refs.oex_ceo.focus(); return false; }
+                        if (isEmpty(this.value.oex_addr)) { Notify.toast('danger', "사업장 소재지를 입력해주세요");     this.$refs.oex_addr.focus(); return false; }
+                    }
+                    if (isEmpty(this.value.oex_mng)) { Notify.toast('danger', "담당자를 입력해주세요");                 this.$refs.oex_mng.focus(); return false; }
+                    if (isEmpty(this.value.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요");               this.$refs.oex_email.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요");        this.$refs.oex_num_tel.focus(); return false; }
+                }
+                this.$emit('close'); 
+            }
+        },
+        getValidationState({ dirty, validated, valid = null }) { return dirty || validated ? valid : null; },
         
         maxlength_2(e){ return String(e).substring(0, 2); },
         maxlength_3(e){ return String(e).substring(0, 3); },
@@ -138,26 +200,24 @@ export default {
         focusNext(e, max, next) { this.$focusNext(e, max, next); },
         frm_formatHp(v)   { return this.formatHp(v); },
         frm_formatBiz(v)   { return this.formatBiz(v); },
-        
     }
-
-
 }
 </script>
 
 <style lang="css" scoped>
-
 .tax_iv h6 { margin:1rem; padding:.5rem; border-bottom:1px solid #DEDEDE; font-weight:bold; font-size:.9rem; }
 .tax_iv .custom-control { margin:2rem 0 1rem 4rem; }
 .tax_iv .b-form-file { margin-left:3rem; }
 .tax_iv .container { padding:0 3rem; }
 .tax_iv .container .row  { margin:1rem 0; align-items:center; }
 .tax_iv .container .row label { flex:0 0 30%; max-width:30%; font-weight:bold; font-size:.8rem; }
-.tax_iv .container .row input,
-.tax_iv .container .row textarea { flex-basis: 0; flex-grow: 1; max-width: 100%; }
+.tax_iv .container .row span { flex-basis: 0; flex-grow: 1; max-width: 100%; }
 .tax_iv .container .row b { margin:0 .5rem; }
+.tax_iv>button { background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0; }
 
-
-.tax_iv>button { position:absolute; left:0; bottom:0; background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0; }
-
+.slideUpDown-enter-to,
+.slideUpDown-leave { max-height:400px; }
+.slideUpDown-enter-active  { transition:max-height 0.9s; }
+.slideUpDown-enter,
+.slideUpDown-leave-to { max-height:0; }
 </style>

@@ -91,6 +91,10 @@ Route::POST('/shop/order/payReturn',    'Shop\OrderController@payReturn')->name(
 Route::POST('/shop/order/payRequestMobile',    'Shop\OrderController@payRequestMobile')->name('shop.order.payRequestMobile');
 Route::POST('/shop/order/payReturnMobile',    'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
 
+Route::POST('auth/user/find_email',    'Auth\UserController@find_email');
+
+
+
 
 
 // Route::post('email/resend', function (Request $request) {

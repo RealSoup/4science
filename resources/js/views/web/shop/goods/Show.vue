@@ -142,6 +142,16 @@
                         <b-button @click="action('estimate')">견적요청</b-button>
                     </b-button-group>
                 </div>
+
+                <b-row class="goods_relate">
+                    <b-col class="head"><b>연관<br>상품</b></b-col>
+                    <b-col class="gd_list">
+                        <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id">
+                            <img :src="gr.goods.image_src_thumb[0]" />
+                            <SubString v-model="gr.goods.gd_name" :width="165" />
+                        </b-link>
+                    </b-col>
+                </b-row>
                 
                 <scrollactive class="goods_nav">
                     <a class="scrollactive-item" href="#goods_desc">상품 상세</a>
@@ -243,6 +253,7 @@ export default {
         VueNumericInput,
         'BoReview': () => import('./_comp/BoReview.vue'),
         BoGdInquiry,
+        'SubString': () => import('@/views/_common/SubString.vue'),
     },
     data() {
         return {
@@ -531,6 +542,14 @@ export default {
 .conRight .goods_option .selOpt li .cellCalc .sum_p { min-width:90px; display:inline-block; }
 .conRight .goods_option .selOpt li .cellCalc .delOpt { font-size:.8rem; cursor:pointer; max-width:30px; width:100%; display:inline-block; }
 
+.conRight .goods_relate { width:990px; padding:12px 0; margin-left:0; margin-right:0; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/relate_bg.png') no-repeat center center /contain; }
+.conRight .goods_relate .head { max-width:137px; position:relative; }
+.conRight .goods_relate .head b { color:#FFF; font-weight:600; font-size:1.5rem; line-height: 1.2; position:absolute; top:50%; left:65%; transform:translate(-50%, -50%); width:50px; }
+.conRight .goods_relate .col { padding-left:0px; padding-right:0px; }
+.conRight .goods_relate .gd_list { display:flex; overflow:auto; }
+.conRight .goods_relate .gd_list .col { width:190px; height:215px; margin-left:5px; margin-right:5px; background-color:#fff; }
+.conRight .goods_relate .gd_list .col img { width: 160px; height: 160px; object-fit: cover; }
+.conRight .goods_relate .gd_list .col span { text-align: center; font-size:.9rem; }
 
 .conRight .goods_nav { position:sticky; top:80px; z-index:1; background:#B2BFC5; display:flex; padding-left:3rem; margin-top:2rem; }
 .conRight .goods_nav a { color:#FFF; padding:7px 22px; border-radius:2rem; margin:.7rem; font-weight:bold; }

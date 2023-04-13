@@ -365,11 +365,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -833,7 +828,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card.adform .row .label.long { flex:0 0 15.333334%; max-width:15.333334%;\n}\n#estimate_model .gd_list:not(:last-of-type)  { border-bottom:2px solid #f1f1f1; margin-bottom:2rem; padding-bottom:2rem;\n}\n#estimate_model .flag_tag { width:6rem; height:26px; position: relative; color:#fff; text-align:center; display:inline-block; font-weight:bold; margin-right:13px;\n}\n#estimate_model .flag_tag:after { content:\"\"; position:absolute; left:0; bottom:0; width:0; height:0; border-left:13px solid white; border-top:13px solid transparent; border-bottom:13px solid transparent;\n}\n#estimate_model .flag_tag:before { content:\"\"; position:absolute; right:-13px; bottom:0; width:0; height:0; border-left:13px solid red; border-top:13px solid transparent; border-bottom:13px solid transparent;\n}\n#estimate_model .tag_red { background: red;\n}\n#estimate_model .tag_red:before { border-left-color:red;\n}\n#estimate_model .tag_green { width:8rem; background:green;\n}\n#estimate_model .tag_green:before { border-left-color:green;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.est_frm:not(:first-of-type) { margin-top:4%;\n}\n.est_frm .row .col.em_name_l { position:relative;\n}\n.est_frm .row .col.em_name_l .badge { position:absolute; left:0; padding:.4em .8rem .7rem .8rem; border-radius:0 0 20px 20px; z-index:1; font-size:1.25rem; font-weight:900;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(1) { top:0;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(2) { top:40px; font-size:90%; padding-top:.7rem;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(3) { top:77px; font-size:90%; padding-top:.7rem;}\n.est_frm .row .col.em_name_i input { width:34%; margin-right:.7rem; display:inline-block;\n}\n.est_frm .row .col.em_name_l .badge { vertical-align:top;\n}\n.est_frm .row .col.em_name_l .badge b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s;\n}\n.est_frm .row .col.em_name_l .badge:hover b { max-width:300px; height:14px;\n}\n.est_frm .row .col.em_name_i .btn-group { position:absolute; top:-34px; right:0;\n}\n.est_frm .row .col.em_name_i .btn-group .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s;\n}\n.est_frm .row .col.em_name_i .btn-group .btn:hover b { max-width:300px; height:17px;\n}\n.est_frm .row.option .col p { display:flex; margin:0; line-height:1.9;\n}\n.est_frm .row.option .col p b { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%;\n}\n.est_frm .row.option .col p span { flex:0 0 19.5%; max-width:19.5%; text-align:center;\n}\n.est_frm .row.option .col p label { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600;\n}\n.est_frm .row.option .col p label:last-of-type { flex:0 0 12%; max-width:12%;\n}\n.est_frm .row.option .col p input { flex:0 0 6%; max-width:6%; text-align:right;\n}\n.est_frm .row.option .col p input:last-of-type { flex:0 0 12%; max-width:12%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -957,7 +952,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html& */ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html&");
+/* harmony import */ var _GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GoodsOptionAdd.vue?vue&type=template&id=369f9f04& */ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&");
 /* harmony import */ var _GoodsOptionAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GoodsOptionAdd.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -969,8 +964,8 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _GoodsOptionAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__.render,
-  _GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__.render,
+  _GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -1074,18 +1069,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html& ***!
-  \******************************************************************************************************************/
+/***/ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04& ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04_lang_html___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GoodsOptionAdd_vue_vue_type_template_id_369f9f04___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GoodsOptionAdd.vue?vue&type=template&id=369f9f04& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&");
 
 
 /***/ }),
@@ -1188,107 +1183,119 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-card",
-    { staticClass: "adform", attrs: { id: "estimate_model" } },
+    "div",
+    { staticClass: "box" },
     [
-      _c(
-        "b-container",
-        [
-          _c(
-            "b-row",
-            [_c("b-col", { staticClass: "tit" }, [_vm._v("견적 상품")])],
-            1
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.value, function (em, idx) {
-            return _c(
-              "b-container",
-              { key: idx, staticClass: "gd_list" },
+      _c("h5", [_vm._v("견적상품 등록")]),
+      _vm._v(" "),
+      _vm._l(_vm.value, function (em, idx) {
+        return _c(
+          "b-container",
+          { key: idx, staticClass: "est_frm" },
+          [
+            _c(
+              "b-row",
               [
                 _c(
-                  "b-row",
-                  { staticClass: "mb-2" },
+                  "b-col",
+                  { staticClass: "em_name_l" },
                   [
-                    _c(
-                      "b-col",
-                      [
-                        _c("font-awesome-icon", {
-                          staticClass: "mr-2",
-                          attrs: { icon: "tags" },
-                        }),
-                        _vm._v(
-                          " " + _vm._s(idx + 1) + ".\r\n                    "
-                        ),
-                        em.bundle_dc && em.bundle_dc.length
-                          ? _c("div", { staticClass: "flag_tag tag_red" }, [
-                              _vm._v("묶음 할인"),
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        em.goods && em.goods.purchase_at
-                          ? _c("div", { staticClass: "flag_tag tag_green" }, [
-                              _vm._v("매입처 상품"),
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "b-button",
-                          {
-                            attrs: { size: "sm" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.openOption(idx, em.em_gd_id)
-                              },
-                            },
-                          },
-                          [_c("b-icon-search"), _vm._v(" 옵션")],
-                          1
-                        ),
-                      ],
-                      1
-                    ),
+                    _c("b-badge", { staticClass: "no d_gray" }, [
+                      _vm._v(_vm._s(idx + 1)),
+                    ]),
+                    _vm._v(" "),
+                    em.bundle_dc && em.bundle_dc.length
+                      ? _c("b-badge", { staticClass: "bundle plum" }, [
+                          _vm._v("묶"),
+                          _c("b", [_vm._v("음할인")]),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    em.goods && em.goods.purchase_at
+                      ? _c("b-badge", { staticClass: "manufacturer orange" }, [
+                          _vm._v("매"),
+                          _c("b", [_vm._v("입처 배송")]),
+                        ])
+                      : _vm._e(),
+                    _vm._v("\r\n                제품명\r\n            "),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  { staticClass: "em_name_i" },
+                  [
+                    _c("b-form-input", {
+                      attrs: { id: "estimate_model" + idx + "em_name" },
+                      model: {
+                        value: em.em_name,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_name", $$v)
+                        },
+                        expression: "em.em_name",
+                      },
+                    }),
                     _vm._v(" "),
                     _c(
-                      "b-col",
-                      { staticClass: "text-right" },
+                      "b-button",
+                      {
+                        staticClass: "d_gray sm",
+                        on: {
+                          click: function ($event) {
+                            return _vm.openOption(idx, em.em_gd_id)
+                          },
+                        },
+                      },
+                      [_vm._v("옵션")]
+                    ),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_name"
+                          ],
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "b-button-group",
                       [
                         _c(
                           "b-button",
                           {
-                            staticClass: "em_reset",
-                            attrs: { variant: "warning", size: "sm" },
+                            staticClass: "orange sm",
                             on: {
                               click: function ($event) {
                                 return _vm.emReset(idx)
                               },
                             },
                           },
-                          [_vm._v("초기화")]
+                          [
+                            _c("b-icon-app"),
+                            _vm._v(" "),
+                            _c("b", [_vm._v("초기화")]),
+                          ],
+                          1
                         ),
                         _vm._v(" "),
                         idx != 0
                           ? _c(
                               "b-button",
                               {
-                                directives: [
-                                  {
-                                    name: "b-tooltip",
-                                    rawName: "v-b-tooltip.hover",
-                                    modifiers: { hover: true },
-                                  },
-                                ],
-                                attrs: {
-                                  variant: "danger",
-                                  size: "sm",
-                                  title: "삭제",
-                                },
+                                staticClass: "plum sm",
                                 on: {
                                   click: function ($event) {
                                     return _vm.emDel(idx)
                                   },
                                 },
                               },
-                              [_c("b-icon-x-lg")],
+                              [
+                                _c("b-icon-x-lg"),
+                                _vm._v(" "),
+                                _c("b", [_vm._v("삭제")]),
+                              ],
                               1
                             )
                           : _vm._e(),
@@ -1298,441 +1305,395 @@ var render = function () {
                   ],
                   1
                 ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [_vm._v("CAT.No")]),
                 _vm._v(" "),
                 _c(
-                  "b-row",
+                  "b-col",
                   [
-                    _c("b-col", { staticClass: "label" }, [_vm._v("제품명")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type02" },
-                      [
-                        _c("b-form-input", {
-                          attrs: { id: "estimate_model" + idx + "em_name" },
-                          model: {
-                            value: em.em_name,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_name", $$v)
-                            },
-                            expression: "em.em_name",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_name"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("CAT.No")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type02" },
-                      [
-                        _c("ModelSchInput", {
-                          attrs: {
-                            type: "em_catno",
-                            id: "em_catno" + idx,
-                            em: em,
-                          },
-                          model: {
-                            value: em.em_catno,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_catno", $$v)
-                            },
-                            expression: "em.em_catno",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("모델명")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type02" },
-                      [
-                        _c("ModelSchInput", {
-                          attrs: {
-                            type: "em_code",
-                            id: "estimate_model" + idx + "em_code",
-                            em: em,
-                          },
-                          model: {
-                            value: em.em_code,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_code", $$v)
-                            },
-                            expression: "em.em_code",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_code"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("판매단위")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type02" },
-                      [
-                        _c("b-form-input", {
-                          model: {
-                            value: em.em_unit,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_unit", $$v)
-                            },
-                            expression: "em.em_unit",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-row",
-                  { staticClass: "mb-3" },
-                  [
-                    _c("b-col", { staticClass: "label" }, [_vm._v("제조사")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type02" },
-                      [
-                        _c("b-form-input", {
-                          model: {
-                            value: em.em_maker,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_maker", $$v)
-                            },
-                            expression: "em.em_maker",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("수량")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type01" },
-                      [
-                        _c("EaInput", {
-                          attrs: {
-                            id: "estimate_model" + idx + "em_ea",
-                            em: em,
-                          },
-                          model: {
-                            value: em.em_ea,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_ea", $$v)
-                            },
-                            expression: "em.em_ea",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_ea"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label long" }, [
-                      _vm._v(
-                        "판매단가(" +
-                          _vm._s(_vm._f("comma")(em.em_cost_price)) +
-                          ")"
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type01" },
-                      [
-                        _c("PriceInput", {
-                          attrs: { id: "estimate_model" + idx + "em_price" },
-                          model: {
-                            value: em.em_price,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_price", $$v)
-                            },
-                            expression: "em.em_price",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_price"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("할인율")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type01" },
-                      [
-                        _c("DcLateInput", {
-                          attrs: { id: "em_dc_rate" + idx, em: em },
-                          model: {
-                            value: em.em_dc_rate,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_dc_rate", $$v)
-                            },
-                            expression: "em.em_dc_rate",
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("b-col", { staticClass: "label" }, [_vm._v("납품기일")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type01" },
-                      [
-                        _c("b-form-input", {
-                          attrs: { id: "estimate_model" + idx + "em_dlvy_at" },
-                          model: {
-                            value: em.em_dlvy_at,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_dlvy_at", $$v)
-                            },
-                            expression: "em.em_dlvy_at",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_dlvy_at"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-row",
-                  [
-                    _c("b-col", { staticClass: "label" }, [_vm._v("제품정보")]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { staticClass: "type11" },
-                      [
-                        _c("b-form-textarea", {
-                          attrs: {
-                            id: "estimate_model" + idx + "em_spec",
-                            rows: "3",
-                          },
-                          model: {
-                            value: em.em_spec,
-                            callback: function ($$v) {
-                              _vm.$set(em, "em_spec", $$v)
-                            },
-                            expression: "em.em_spec",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("Validation", {
-                          attrs: {
-                            error:
-                              _vm.$store.state.error.validations[
-                                "estimate_model" + idx + "em_spec"
-                              ],
-                          },
-                        }),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("GoodsOptionAdd", {
-                  ref: "goods_option_add",
-                  refInFor: true,
-                  attrs: { em_id: em.em_id, gd_id: em.em_gd_id },
-                  model: {
-                    value: em.estimate_option,
-                    callback: function ($$v) {
-                      _vm.$set(em, "estimate_option", $$v)
-                    },
-                    expression: "em.estimate_option",
-                  },
-                }),
-                _vm._v(" "),
-                em.estimate_option.length
-                  ? _vm._l(em.estimate_option, function (eo, oi) {
-                      return _c(
-                        "b-row",
-                        {
-                          key: "op" + idx + "_" + oi,
-                          staticClass: "op_list mt-3",
-                          attrs: { "align-h": "end" },
+                    _c("ModelSchInput", {
+                      attrs: { type: "em_catno", id: "em_catno" + idx, em: em },
+                      model: {
+                        value: em.em_catno,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_catno", $$v)
                         },
-                        [
-                          _c(
-                            "b-col",
-                            { attrs: { cols: "2" } },
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "danger", size: "xm" },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.delOption(idx, oi)
-                                    },
-                                  },
-                                },
-                                [_vm._v("X")]
-                              ),
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(eo.eo_tit) +
-                                  ": " +
-                                  _vm._s(eo.eo_name) +
-                                  "\r\n                    "
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            { staticClass: "awesome_p", attrs: { cols: "2" } },
-                            [
-                              _c("EaInput", {
-                                attrs: { id: "eo_ea" + idx + "_" + oi },
-                                model: {
-                                  value: eo.eo_ea,
-                                  callback: function ($$v) {
-                                    _vm.$set(eo, "eo_ea", $$v)
-                                  },
-                                  expression: "eo.eo_ea",
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "label",
-                                { attrs: { for: "eo_ea" + idx + "_" + oi } },
-                                [_vm._v("수량")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { cols: "2" } }, [
+                        expression: "em.em_catno",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [_vm._v("모델명")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("ModelSchInput", {
+                      attrs: {
+                        type: "em_code",
+                        id: "estimate_model" + idx + "em_code",
+                        em: em,
+                      },
+                      model: {
+                        value: em.em_code,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_code", $$v)
+                        },
+                        expression: "em.em_code",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_code"
+                          ],
+                      },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [_vm._v("판매단위")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("b-form-input", {
+                      model: {
+                        value: em.em_unit,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_unit", $$v)
+                        },
+                        expression: "em.em_unit",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [_vm._v("제조사")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("b-form-input", {
+                      model: {
+                        value: em.em_maker,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_maker", $$v)
+                        },
+                        expression: "em.em_maker",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [_vm._v("수량")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("EaInput", {
+                      attrs: { id: "estimate_model" + idx + "em_ea", em: em },
+                      model: {
+                        value: em.em_ea,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_ea", $$v)
+                        },
+                        expression: "em.em_ea",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_ea"
+                          ],
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [
+                  _vm._v(
+                    "판매단가(" +
+                      _vm._s(_vm._f("comma")(em.em_cost_price)) +
+                      ")"
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("PriceInput", {
+                      attrs: {
+                        id: "estimate_model" + idx + "em_price",
+                        em: em,
+                      },
+                      model: {
+                        value: em.em_price,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_price", $$v)
+                        },
+                        expression: "em.em_price",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_price"
+                          ],
+                      },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [_vm._v("납품기일")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("b-form-input", {
+                      attrs: { id: "estimate_model" + idx + "em_dlvy_at" },
+                      model: {
+                        value: em.em_dlvy_at,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_dlvy_at", $$v)
+                        },
+                        expression: "em.em_dlvy_at",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_dlvy_at"
+                          ],
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-col", [_vm._v("할인율")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("DcLateInput", {
+                      staticClass: "text-right",
+                      attrs: { id: "em_dc_rate" + idx, em: em },
+                      model: {
+                        value: em.em_dc_rate,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_dc_rate", $$v)
+                        },
+                        expression: "em.em_dc_rate",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [_vm._v("제품정보")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  [
+                    _c("b-form-textarea", {
+                      attrs: {
+                        id: "estimate_model" + idx + "em_spec",
+                        rows: "3",
+                      },
+                      model: {
+                        value: em.em_spec,
+                        callback: function ($$v) {
+                          _vm.$set(em, "em_spec", $$v)
+                        },
+                        expression: "em.em_spec",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("Validation", {
+                      attrs: {
+                        error:
+                          _vm.$store.state.error.validations[
+                            "estimate_model" + idx + "em_spec"
+                          ],
+                      },
+                    }),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("GoodsOptionAdd", {
+              ref: "goods_option_add",
+              refInFor: true,
+              attrs: { em_id: em.em_id, gd_id: em.em_gd_id },
+              model: {
+                value: em.estimate_option,
+                callback: function ($$v) {
+                  _vm.$set(em, "estimate_option", $$v)
+                },
+                expression: "em.estimate_option",
+              },
+            }),
+            _vm._v(" "),
+            em.estimate_option.length
+              ? _c(
+                  "b-row",
+                  { staticClass: "option" },
+                  [
+                    _c("b-col", [_vm._v("옵션")]),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      _vm._l(em.estimate_option, function (eo, oi) {
+                        return _c(
+                          "p",
+                          { key: "op" + idx + "_" + oi },
+                          [
                             _c(
-                              "div",
-                              { staticClass: "awesome_p" },
+                              "b",
                               [
-                                _c("PriceInput", {
-                                  attrs: { id: "eo_price" + idx + "_" + oi },
-                                  model: {
-                                    value: eo.eo_price,
-                                    callback: function ($$v) {
-                                      _vm.$set(eo, "eo_price", $$v)
-                                    },
-                                    expression: "eo.eo_price",
-                                  },
-                                }),
-                                _vm._v(" "),
                                 _c(
-                                  "label",
+                                  "b-button",
                                   {
-                                    attrs: { for: "eo_price" + idx + "_" + oi },
+                                    staticClass: "plum xm ml-2",
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.delOption(idx, oi)
+                                      },
+                                    },
                                   },
-                                  [_vm._v("판매단가")]
+                                  [_vm._v("X")]
                                 ),
                               ],
                               1
                             ),
-                          ]),
-                        ],
-                        1
-                      )
-                    })
-                  : _vm._e(),
-              ],
-              2
-            )
-          }),
-          _vm._v(" "),
-          _c("Validation", {
-            attrs: { error: _vm.$store.state.error.validations.estimate_model },
-          }),
-          _vm._v(" "),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(eo.eo_tit) + ": " + _vm._s(eo.eo_name)
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              { attrs: { for: "eo_ea" + idx + "_" + oi } },
+                              [_vm._v("수량")]
+                            ),
+                            _vm._v(" "),
+                            _c("EaInput", {
+                              attrs: { id: "eo_ea" + idx + "_" + oi },
+                              model: {
+                                value: eo.eo_ea,
+                                callback: function ($$v) {
+                                  _vm.$set(eo, "eo_ea", $$v)
+                                },
+                                expression: "eo.eo_ea",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              { attrs: { for: "eo_price" + idx + "_" + oi } },
+                              [_vm._v("판매단가")]
+                            ),
+                            _vm._v(" "),
+                            _c("PriceInput", {
+                              attrs: { id: "eo_price" + idx + "_" + oi },
+                              model: {
+                                value: eo.eo_price,
+                                callback: function ($$v) {
+                                  _vm.$set(eo, "eo_price", $$v)
+                                },
+                                expression: "eo.eo_price",
+                              },
+                            }),
+                          ],
+                          1
+                        )
+                      }),
+                      0
+                    ),
+                  ],
+                  1
+                )
+              : _vm._e(),
+          ],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _c("Validation", {
+        attrs: { error: _vm.$store.state.error.validations.estimate_model },
+      }),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
           _c(
-            "b-row",
-            { staticClass: "m-0" },
+            "b-col",
+            { staticClass: "mt-4 text-right" },
             [
               _c(
-                "b-col",
-                { staticClass: "text-right" },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "outline-primary", size: "sm" },
-                      on: { click: _vm.emAdd },
-                    },
-                    [_c("b-icon-plus-square-fill"), _vm._v(" 추가")],
-                    1
-                  ),
-                ],
-                1
+                "b-button",
+                { staticClass: "mint", on: { click: _vm.emAdd } },
+                [_vm._v("제품 추가")]
               ),
             ],
             1
           ),
         ],
-        2
+        1
       ),
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -1742,10 +1703,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html&":
-/*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&lang=html& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04&":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue?vue&type=template&id=369f9f04& ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1759,7 +1720,6 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-row",
-    { staticClass: "mt-3" },
     [
       _c("b-col", { attrs: { cols: "4", offset: "2" } }, [
         _vm.goods_option.length
@@ -1780,6 +1740,7 @@ var render = function () {
                 return _c(
                   "li",
                   {
+                    key: i,
                     staticClass: "list-group-item",
                     on: {
                       click: function ($event) {
@@ -1814,6 +1775,7 @@ var render = function () {
                 return _c(
                   "li",
                   {
+                    key: i,
                     staticClass: "list-group-item",
                     on: {
                       click: function ($event) {

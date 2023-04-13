@@ -139,4 +139,19 @@ class UserController extends Controller {
         
         
     }
+
+    public function find_email(Request $req) {
+        if ( $req->filled('id') ) {
+            // echo_query(User::where('p_id', $req->id));
+            $u = User::where('p_id', $req->id)->first();
+            if($u) {
+                $e_id = strstr($u->email, '@', true);
+                $rst = substr($e_id, 0, -3).'***';
+                $rst .= strstr($u->email, '@');
+                return response()->json($rst, 200);
+            } else
+                abort(500, '존재하지 않는 아이디입니다.');
+        } else 
+            abort(500, '아이디를 입력하세요.');
+    }
 }

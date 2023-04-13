@@ -189,7 +189,7 @@ class EstimateController extends Controller {
     }
 
     public function show(EstimateReq $eq, $eq_id) {
-        $eq = $eq->find($eq_id);
+        $eq = $eq->with('fileInfo')->find($eq_id);
         foreach ($eq->estimateModel as $v) {
             $v->goods;
             $v->estimateOption;

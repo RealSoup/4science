@@ -26,6 +26,7 @@
             <b-button @click="setDate('all')">전체</b-button>
         </b-button-group>
     </b-col>
+    <slot name="after"></slot>
 </b-row>
 </template>
 

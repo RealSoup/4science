@@ -58,7 +58,7 @@
                     <b-col class="align">{{em.em_ea}}</b-col>
                     <b-col class="align">{{em.em_price*em.em_ea | rrp | comma | won}}</b-col>
                     <template v-if="em.estimate_option.length">
-                        <b-col cols="12" v-for="eo in em.estimate_option" :key="eo.eo_id">
+                        <b-col class="option" v-for="eo in em.estimate_option" :key="eo.eo_id">
                             <b-col></b-col>
                             <b-col>추가 옵션</b-col>
                             <b-col>{{eo.eo_tit}}:{{eo.eo_name}}</b-col>
@@ -319,7 +319,7 @@ h6 { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem; }
 .w_fence .goods .row .col p { margin:0; }
 .w_fence .goods .row .col >>> .myCheck .custom-control-label::before, 
 .w_fence .goods .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
-
+.w_fence .goods .row .option { flex:0 0 100%; max-width:100%; display:flex; }
 
 .w_fence .sum_up { border-top:3px solid #4F637B; }
 .w_fence .sum_up .total { border-bottom:1px solid #D6D6D6; }

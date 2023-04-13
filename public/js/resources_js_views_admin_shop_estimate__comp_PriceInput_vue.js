@@ -11,19 +11,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fast-copy */ "./node_modules/fast-copy/dist/fast-copy.js");
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(fast_copy__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['value', 'id'],
+  props: ['value', 'id', 'em'],
   computed: {
     displayValue: {
       get: function get() {
         return this.priceComma(this.value.toString());
       },
       set: function set(v) {
-        this.$emit('input', v.replace(/[^0-9]/g, '').toString());
+        v = v.replace(/[^0-9]/g, '').toString();
+        this.em.em_cost_price = fast_copy__WEBPACK_IMPORTED_MODULE_0___default()(v);
+        this.$emit('input', v);
       }
     }
   }

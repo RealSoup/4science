@@ -31,13 +31,43 @@
                 <b-link :to="{name:'my_wish'}"><b>{{cnt_wish}} <small>개</small></b></b-link>
             </b-col>
             <b-col class="od_step">
-                <p>나의 주문 건</p>
+                <p>나의 주문 건<small>최근 한달 간 주문량</small></p>
                 <ul>
-                    <li><b-link :to="{name:'my_order'}" v-if="od_step1019">{{od_step1019}}</b-link><img :src="`${s3url}mypage/step01.png`" />주문접수</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b-link><img :src="`${s3url}mypage/step02.png`" />결제완료</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b-link><img :src="`${s3url}mypage/step03.png`" />상품준비중</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b-link><img :src="`${s3url}mypage/step04.png`" />배송중</li>
-                    <li><b-link :to="{name:'my_order'}" v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b-link><img :src="`${s3url}mypage/step05.png`" />배송완료</li>
+                    <li>
+                        <b-link :to="{name:'my_order', query: { od_step:'early' }}">
+                            <b v-if="od_step1019">{{od_step1019}}</b>
+                            <img :src="`${s3url}mypage/step01.png`" />
+                            주문접수
+                        </b-link>
+                    </li>
+                    <li>
+                        <b-link :to="{name:'my_order', query: { od_step:'20' }}">
+                            <b v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b>
+                            <img :src="`${s3url}mypage/step02.png`" />
+                            결제완료
+                        </b-link>
+                    </li>
+                    <li>
+                        <b-link :to="{name:'my_order', query: { od_step:'20' }}">
+                            <b v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b>
+                            <img :src="`${s3url}mypage/step03.png`" />
+                            상품준비중
+                        </b-link>
+                    </li>
+                    <li>
+                        <b-link :to="{name:'my_order', query: { od_step:'40' }}">
+                            <b v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b>
+                            <img :src="`${s3url}mypage/step04.png`" />
+                            배송중
+                        </b-link>
+                    </li>
+                    <li>
+                        <b-link :to="{name:'my_order', query: { od_step:'50' }}">
+                            <b v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b>
+                            <img :src="`${s3url}mypage/step05.png`" />
+                            배송완료
+                        </b-link>
+                    </li>
                 </ul>
             </b-col>
         </b-row>
@@ -151,13 +181,14 @@ export default {
 
 #mypage .top .od_step { flex-basis:650px; max-width:650px; align-items:center; padding-right:2rem; }
 #mypage .top .od_step p { margin-bottom:.1rem; }
+#mypage .top .od_step p small { margin-left:.5rem; color:#eee; }
 #mypage .top .od_step ul { display:flex; }
 #mypage .top .od_step ul li { text-align:center; font-size:.79rem; flex-grow:1; }
 #mypage .top .od_step ul li { color:#fff; position:relative; }
 #mypage .top .od_step ul li:not(:last-child) { margin-right:2rem; }
 #mypage .top .od_step ul li:not(:last-child):after { content:'>'; color:#fff; position:absolute; right:-23px; top:10px; font-size:1.6rem; }
-#mypage .top .od_step ul li a { position:absolute; top:-14px; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center; }
-#mypage .top .od_step ul li img { display:block; margin:0 auto -.05rem auto; }
+#mypage .top .od_step ul li a b { position:absolute; top:0; right:0; background:#F5951A; color:#fff; border-radius:50%; width:27px; height:27px; font-size: 1.2rem; display:flex; justify-content:center; align-items:center; }
+#mypage .top .od_step ul li a img { display:block; margin:0 auto -.05rem auto; }
 
 #mypage .middle .left { flex-basis:200px; max-width:200px; padding:0; }
 #mypage .middle .left #menu_btn { margin:1rem; }

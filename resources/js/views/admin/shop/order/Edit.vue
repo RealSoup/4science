@@ -49,7 +49,7 @@
                             <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
                             <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
                         </b-form-select>
-                        <b-input-group-append><b-button @click="document_action" class="b_gray">받기</b-button></b-input-group-append>
+                        <b-input-group-append><b-button @click="document_action" class="d_gray">받기</b-button></b-input-group-append>
                     </b-input-group>
                     <template v-else>담당 등록 후...</template>
                 </b-col>
@@ -59,7 +59,7 @@
                             <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
                             <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
                         </b-form-select>
-                        <b-input-group-append><b-button @click="update('od_step')" class="b_gray">변경</b-button></b-input-group-append>
+                        <b-input-group-append><b-button @click="update('od_step')" class="d_gray">변경</b-button></b-input-group-append>
                     </b-input-group>
                 </b-col>
             </b-row>

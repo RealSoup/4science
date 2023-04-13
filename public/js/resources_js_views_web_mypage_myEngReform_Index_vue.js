@@ -56,6 +56,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyEngReformIndex',
@@ -111,6 +119,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     }
   },
+  filters: {
+    erType: function erType(str) {
+      var rst = '';
+
+      switch (str) {
+        case '1':
+          rst = '일반 교정';
+          break;
+
+        case '2':
+          rst = '프리미엄 교정';
+          break;
+
+        case '3':
+          rst = '프리미엄플러스  교정';
+          break;
+      }
+
+      return rst;
+    }
+  },
   mounted: function mounted() {
     this.index();
   }
@@ -134,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.list .row .col[data-v-8e75f15c] { text-align:center; padding:.3rem 0;\n}\n.list .header .col[data-v-8e75f15c] { font-weight:bold; font-size:1.2rem; background:#444; color:#fff;\n}\n.list .data .col[data-v-8e75f15c] { font-size:1.1rem;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(1) { flex:0 0 10%; max-width:10%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(4) { flex:0 0 15%; max-width:15%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(5) { flex:0 0 15%; max-width:15%;\n}\n.list .row[data-v-8e75f15c]:nth-child(even) { background:#f5f5f5;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-8e75f15c] { font-size:1.5rem;\n}\nh3 small[data-v-8e75f15c] { font-size:55%; font-weight:600;\n}\n.list .head[data-v-8e75f15c] { border-top:2px solid #363636; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.list .head .col[data-v-8e75f15c] { font-weight:900; line-height:1.1; padding:.86rem 0; font-size:.9rem; text-align: center;\n}\n.list .body .col[data-v-8e75f15c] { text-align:center; line-height:3.7; color:#5E5E5E;\n}\n.list .body .align[data-v-8e75f15c] { display:flex; align-items:center; justify-content:center;\n}\n.list .row[data-v-8e75f15c] { border-bottom:1px solid #ACACAC;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(1) { flex:0 0 10%; max-width:10%; padding-left:1%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(2) { flex:0 0 13%; max-width:13%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(3) {\n}\n.list .row .col[data-v-8e75f15c]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(5) { flex:0 0 14%; max-width:14%;\n}\n.list .row .col[data-v-8e75f15c]:nth-child(6) { flex:0 0 14%; max-width:14%;\n}\n.list .body .col b[data-v-8e75f15c] { color:#0094E9;\n}\n.list .body .badge[data-v-8e75f15c] { width:64px;\n}\n.list .body .badge.white[data-v-8e75f15c] { border:1px solid #898989;\n}\n.list .body .col .dropdown[data-v-8e75f15c] { line-height:1.5;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -272,7 +301,7 @@ var render = function () {
     "div",
     { staticClass: "w_fence" },
     [
-      _c("h3", [_vm._v("영문 교정")]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "b-container",
@@ -280,17 +309,19 @@ var render = function () {
         [
           _c(
             "b-row",
-            { staticClass: "header" },
+            { staticClass: "head" },
             [
               _c("b-col", [_vm._v("번호")]),
               _vm._v(" "),
-              _c("b-col"),
+              _c("b-col", [_vm._v("등록일")]),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "text-center" }, [_vm._v("제목")]),
               _vm._v(" "),
               _c("b-col", [_vm._v("납기일")]),
               _vm._v(" "),
               _c("b-col", [_vm._v("진행현황")]),
               _vm._v(" "),
-              _c("b-col", [_vm._v("교정본 받기")]),
+              _c("b-col", [_vm._v("교정본 다운로드")]),
             ],
             1
           ),
@@ -298,22 +329,34 @@ var render = function () {
           _vm._l(_vm.list.data, function (er) {
             return _c(
               "b-row",
-              { key: er.er_id, staticClass: "data" },
+              { key: er.er_id, staticClass: "body" },
               [
-                _c("b-col", [_vm._v(_vm._s(er.er_id))]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _vm._v("영문교정 ("),
-                  _c("small", [
-                    _vm._v(
-                      "신청일 : " +
-                        _vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.created_at))
-                    ),
-                  ]),
-                  _vm._v(")"),
+                _c("b-col", { staticClass: "align" }, [
+                  _vm._v(_vm._s(er.er_id)),
                 ]),
                 _vm._v(" "),
-                _c("b-col", [
+                _c("b-col", { staticClass: "align" }, [
+                  _vm._v(
+                    _vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.created_at))
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "text-left" }, [
+                  _vm._v(
+                    "\r\n                " +
+                      _vm._s(er.created_at.substr(0, 4)) +
+                      "년\r\n                " +
+                      _vm._s(er.created_at.substr(5, 2)) +
+                      "월\r\n                " +
+                      _vm._s(er.created_at.substr(8, 2)) +
+                      "일자\r\n                영문교정\r\n                "
+                  ),
+                  _c("b", [
+                    _vm._v("[" + _vm._s(_vm._f("erType")(er.er_type)) + "]"),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "align" }, [
                   _vm._v(
                     _vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.er_dlvy_at))
                   ),
@@ -321,19 +364,22 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "b-col",
+                  { staticClass: "align" },
                   [
                     er.er_step == "ING"
-                      ? _c("b-badge", [_vm._v("처리중")])
+                      ? _c("b-badge", { staticClass: "mint" }, [
+                          _vm._v("처리중"),
+                        ])
                       : er.er_step == "CPLT"
-                      ? _c("b-badge", { attrs: { variant: "success" } }, [
+                      ? _c("b-badge", { staticClass: "gray" }, [
                           _vm._v("처리완료"),
                         ])
                       : er.er_step == "NOT"
-                      ? _c("b-badge", { attrs: { variant: "warning" } }, [
+                      ? _c("b-badge", { staticClass: "white" }, [
                           _vm._v("미처리"),
                         ])
                       : er.er_step == "CXL"
-                      ? _c("b-badge", { attrs: { variant: "danger" } }, [
+                      ? _c("b-badge", { staticClass: "white" }, [
                           _vm._v("취소"),
                         ])
                       : _vm._e(),
@@ -343,6 +389,7 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "b-col",
+                  { staticClass: "align" },
                   [
                     er.er_step == "CPLT"
                       ? _c(
@@ -405,7 +452,17 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _vm._v("영문 교정 "),
+      _c("small", [_vm._v("고객님께서 영문교정을 의뢰하셨던 내역입니다.")]),
+    ])
+  },
+]
 render._withStripped = true
 
 

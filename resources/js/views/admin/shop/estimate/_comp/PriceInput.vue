@@ -3,15 +3,18 @@
 </template>
 
 <script>
+import copy from "fast-copy";
 export default {
-    props:['value', 'id'],
+    props:['value', 'id', 'em'],
     computed: {
         displayValue: {
             get: function() {
                 return this.priceComma(this.value.toString());
             },
             set: function(v) {
-                this.$emit('input', v.replace(/[^0-9]/g, '').toString());
+                v = v.replace(/[^0-9]/g, '').toString();
+                this.em.em_cost_price = copy(v);
+                this.$emit('input', v);
             }
         }
     },

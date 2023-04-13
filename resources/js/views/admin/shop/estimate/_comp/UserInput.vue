@@ -1,16 +1,12 @@
-<template lang="html">
-<div>
-    <b-form-input autocomplete="off"
-        :id="'eq_'+type"
-        v-model="input_val"
-        @keyup.enter="getUserList"
-        v-b-tooltip.hover title="입력 후 엔터 or 버튼"
-        ref="sch_field"
-    />
-
-    <b-button @click="getUserList" size="sm" class="overlap"><b-icon-search /></b-button>
+<template>
+<div class="cell">
+    <b-input-group size="sm">
+        <b-form-input autocomplete="off" :id="'eq_'+type" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"
+            v-model="input_val" @keyup.enter="getUserList" />
+        <b-input-group-append><b-button size="sm" @click="getUserList" ><b-icon-search /></b-button></b-input-group-append>
+    </b-input-group>
     <ul class="list-group autocomplete" v-if="users.length" v-click-outside="hide">
-        <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)">
+        <li class="list-group-item" v-for="(us, i) in users" @click="setUser(i)" :key="i">
             {{ us.name }}<br />
             <p v-if="us.email">{{us.email}}</p>
             <p v-if="us.hp">{{us.hp}}</p>
@@ -25,36 +21,24 @@ import ax from '@/api/http';
 
 export default {
     props:['value', 'type', 'frm'],
-    data() {
-        return {
-            users: [],
-        }
-    },
+    data() { return { users: [], } },
     computed: {
         input_val: {
-            get: function() {
-                return this.value;
-            },
-            set: function(v) {
-                this.$emit('input', v);
-            }
+            get: function() { return this.value; },
+            set: function(v) { this.$emit('input', v); }
         }
     },
     methods:{
         async getUserList() {
             var v = this.$refs.sch_field.value;
             if (this.type == 'name' && v.length < 2) {
-                Notify.toast('warning', '2자 이상 입력시 검색 가능합니다.');
-                return false;
+                Notify.toast('warning', '2자 이상 입력시 검색 가능합니다.'); return false;
             } else if (this.type == 'email' && v.length < 3) {
-                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.');
-                return false;
+                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.'); return false;
             } else if (this.type == 'department' && v.length < 3) {
-                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.');
-                return false;
+                Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.'); return false;
             } else if (this.type == 'hp' && v.length < 4) {
-                Notify.toast('warning', '4자 이상 입력시 검색 가능합니다.');
-                return false;
+                Notify.toast('warning', '4자 이상 입력시 검색 가능합니다.'); return false;
             }
 
             if ( (this.type=='name'         && v.length > 1) ||
@@ -64,25 +48,21 @@ export default {
                 try {
                     const res = await ax.get(`/api/admin/user/list`, {params:{type:this.type, key:v}});
                     if (res && res.status === 200) {
-                        if (res.data.length)
-                            this.users = res.data;
-                        else
-                            this.users = [{name:'정보없음'}]
+                        if (res.data.length)    this.users = res.data;
+                        else                    this.users = [{name:'정보없음'}]
                     }
                 } catch (e) {
                     Notify.consolePrint(e);
                     Notify.toast('warning', e.response.data.message);
                 }
             }
-
-
         },
         setUser(i) {
             if (this.users[i] && this.users[i].name != "정보없음") {
                 this.$set(this.frm, 'created_id'   , this.users[i].id);
                 this.$set(this.frm, 'eq_name'      , this.users[i].name);
                 this.$set(this.frm, 'eq_email'     , this.users[i].email);
-                this.$set(this.frm, 'eq_department', this.users[i].department);
+                this.$set(this.frm, 'eq_department', this.users[i].office+' '+this.users[i].department);
                 this.$set(this.frm, 'eq_hp'        , this.users[i].hp);
                 this.$set(this.frm, 'eq_tel'       , this.users[i].tel);
                 this.$set(this.frm, 'eq_fax'       , this.users[i].fax);
@@ -94,10 +74,11 @@ export default {
             if (this.type=='hp') return this.formatHp(v);
             else return v;
         },
-        hide(){
-            this.users=[];
-        }
+        hide(){ this.users=[]; }
     },
-
 }
 </script>
+
+<style scoped>
+.cell { width:60%; }
+</style>

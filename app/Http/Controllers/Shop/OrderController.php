@@ -327,11 +327,14 @@ class OrderController extends Controller {
     
     public function index(Request $req) {
         $data = array();
-        $od = $this->order;
-
-        if ($req->filled('startDate'))  $od = $od->StartDate($req->startDate);
-        if ($req->filled('endDate'))  	$od = $od->EndDate($req->endDate);
-
+        $od = $this->order
+                ->when($req->startDate, fn ($q, $v) => $q->StartDate($v))
+                ->when($req->endDate,   fn ($q, $v) => $q->EndDate($v))
+                ->when($req->od_step, function ($q, $v) {
+                    if ($v == 'early')  return $q->whereIn('od_step', ['10', '11', '12', '13', '14', '15']);
+                    else                return $q->OdStep($v);
+                });
+        
         $od = $od->SchWriter(auth()->user()->id)->latest();
 
         $od->when(request('type', 'with_gm'), fn ($q) => $q->with('orderModel'));

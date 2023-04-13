@@ -42,6 +42,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   methods: {
@@ -417,6 +418,8 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _vm._t("after"),
     ],
     2
   )

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
     faTags, faSortNumericDownAlt, faClock, faUser, faPhone, faAt, faMapMarkedAlt, faInfo, faTimes, faEquals,
     faMobileAlt, faStream, faHandPointUp, faFax, faUsers, faCommentDots, faTools, faSave, faBomb, faDollyFlatbed,
-    faSearch, faCopy
+    faSearch, faCopy, faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 // import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
@@ -17,7 +17,7 @@ import {
 library.add(
     faTags, faSortNumericDownAlt, faClock, faUser, faPhone, faAt, faMapMarkedAlt, faInfo, faTimes, faEquals,
     faMobileAlt, faStream, faHandPointUp, faFax, faUsers, faCommentDots, faTools, faSave, faBomb, faDollyFlatbed,
-    faSearch, faCopy
+    faSearch, faCopy, faPaperPlane
 );
 // library.add(faTrashAlt);
 

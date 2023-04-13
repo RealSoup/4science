@@ -75,6 +75,7 @@ class Order extends Model {
     public function scopeEndDate($q, $d)            { return $q->whereDate('shop_order.created_at', '<=', $d); }
     public function scopeSchWriter($query, $id) { return $query->where('created_id', $id); }
     public function scopeToday($query) { return $query->whereRaw('created_at > CURDATE()'); }
+    public function scopeOdStep($q, $v) { return $q->where('od_step', $v); }
 
     public function scopeSchOd_addr($query, $sch_text) { return $query->where('od_addr1', 'like', "%$sch_text%"); }
 

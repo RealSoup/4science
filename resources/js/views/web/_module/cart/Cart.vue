@@ -6,7 +6,7 @@
 >
     <b-link :to="{name:'cart_index'}"><b-img :src="s3url+'common/basket.png'" /></b-link>
     
-    <div class="list_box">
+    <div class="list_box" v-if="cntItem">
         <ul>
         <template v-for="(item, i) in cartList">
             <CartModel v-if="item.type=='model'" v-model="cartList[i]" @outCart="outCart(i)" :key="i" />
@@ -135,16 +135,14 @@ export default {
     position:absolute; top:19px; right:0; z-index:16; background:#FFF;
     border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;
     border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);
-    height:100%;
-    max-height:680px;
-    transition:all 0.4s;
+    height:100%; max-height:680px; transition:all 0.3s;
 }
-#Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-60px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; padding-right:5px; }
+#Cart>a { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-60px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C; }
 #Cart>a:before { content:""; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:60px; height:62px; }
 #Cart>a img { margin:8px 5px; position:relative; width:67%; }
 
 #Cart .list_box { overflow:hidden; height:100%; max-height:520px; }
-#Cart .list_box ul { overflow-y:auto; width:254px; height:100%; transition:all 0.4s;}
+#Cart .list_box ul { overflow-y:auto; width:254px; height:100%; transition:all 0.2s;}
 #Cart .list_box ul >>> li { margin:0; padding:10px 15px; }
 #Cart .list_box ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
 #Cart .list_box ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
@@ -152,8 +150,8 @@ export default {
 #Cart .list_box ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
 #Cart .list_box ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
 #Cart .list_box ul >>> li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1; }
-#Cart .list_box ul >>> li>div a img { transition:all 0.4s; width:80px; height:80px; object-fit:cover; }
-#Cart .list_box ul >>> li .hide { transition:all 0.4s; overflow:hidden; }
+#Cart .list_box ul >>> li>div a img { transition:all 0.2s; width:80px; height:80px; object-fit:cover; }
+#Cart .list_box ul >>> li .hide { transition:all 0.2s; overflow:hidden; }
 
 #Cart .list_box ul >>> li.gd_option { flex-direction:column; }
 #Cart .list_box ul >>> li.gd_option>div { flex-basis: auto; }
@@ -170,7 +168,7 @@ export default {
 #Cart .footer .btn-group button:nth-of-type(2) { background:#00A1CB; border-color:#0089AD; }
 
 #Cart.fixed_header { position:fixed; top:85px; }
-#Cart.hideCart { height:auto; }
+#Cart.hideCart { height:auto; border-bottom-left-radius:0; box-shadow:none; }
 #Cart.hideCart ul { width:64px; }
 #Cart.hideCart ul>>>li { padding:3px 7px; }
 #Cart.hideCart ul>>>li:not(:first-child) {display:none; }

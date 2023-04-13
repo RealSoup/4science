@@ -1,16 +1,16 @@
-<template lang="html">
-    <b-row class="mt-3">
-        <b-col cols="4" offset="2">
-            <ul class="list-group autocomplete" v-if="goods_option.length" v-click-outside="hideOption">
-                <li class="list-group-item" v-for="(go, i) in goods_option" @click="setOption(i)">{{ go.go_name }}</li>
-            </ul>
-        </b-col>
-        <b-col cols="4" v-if="goods_option_child.length">
-            <ul class="list-group autocomplete" v-click-outside="hideOptionChild">
-                <li class="list-group-item" v-for="(goc, i) in goods_option_child" @click="setOptionChild(i)">{{ goc.goc_name }}</li>
-            </ul>
-        </b-col>
-    </b-row>
+<template>
+<b-row>
+    <b-col cols="4" offset="2">
+        <ul class="list-group autocomplete" v-if="goods_option.length" v-click-outside="hideOption">
+            <li class="list-group-item" v-for="(go, i) in goods_option" :key="i" @click="setOption(i)">{{ go.go_name }}</li>
+        </ul>
+    </b-col>
+    <b-col cols="4" v-if="goods_option_child.length">
+        <ul class="list-group autocomplete" v-click-outside="hideOptionChild">
+            <li class="list-group-item" v-for="(goc, i) in goods_option_child" :key="i" @click="setOptionChild(i)">{{ goc.goc_name }}</li>
+        </ul>
+    </b-col>
+</b-row>
 </template>
 
 <script>

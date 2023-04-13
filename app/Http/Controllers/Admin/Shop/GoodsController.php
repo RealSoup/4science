@@ -81,12 +81,12 @@ class GoodsController extends Controller {
                 case 'manager':     $gd = $gd->SchWriter(User::Name($req->keyword)->pluck('id')); break;
                 case 'cat_no':      $keyword = explode('-', $req->keyword);
                     if (count($keyword) == 3) {
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', @intval($keyword[0]))
-                                                ->where('gm_catno02', @intval($keyword[1]))
-                                                ->where('gm_catno03', @intval($keyword[2]))->pluck('gm_gd_id'));
+                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
+                                                ->where('gm_catno02', $keyword[1])
+                                                ->where('gm_catno03', $keyword[2])->pluck('gm_gd_id'));
                     } else if (count($keyword) == 2){
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', @intval($keyword[0]))
-                                                ->where('gm_catno02', @intval($keyword[1]))->pluck('gm_gd_id'));
+                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
+                                                ->where('gm_catno02', $keyword[1])->pluck('gm_gd_id'));
                     } 
                     // else if (count($keyword) == 1){
                     //     $gd = $gd->SchGd_id($gm->where('gm_catno01', 'like', $keyword[0].'%')
@@ -424,9 +424,9 @@ class GoodsController extends Controller {
         switch ($req->type) {
             case 'em_catno':
                 $gm_catno = explode('-', $req->key);
-                $gm = $gm   ->where('gm_catno01', @intval($gm_catno[0]))
-                            ->where('gm_catno02', @intval($gm_catno[1]))
-                            ->when(@intval($gm_catno[2]),    fn ($q, $v) => $q->where('gm_catno03', @intval($gm_catno[2])));
+                $gm = $gm   ->where('gm_catno01', $gm_catno[0])
+                            ->where('gm_catno02', $gm_catno[1])
+                            ->when($gm_catno[2],    fn ($q, $v) => $q->where('gm_catno03', $gm_catno[2]));
             break;
             case 'em_code': $gm = $gm->Code($req->key); break;
             default: return response()->json('검색 자료 부족', 500); break;

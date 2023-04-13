@@ -32,8 +32,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['clickable'],
+  props: ['value', 'clickable'],
+  watch: {
+    'value.all_dc': {
+      handler: function handler(n, o) {
+        this.$emit('all_dc_update');
+      }
+    } // 'value.er_no_dlvy_fee': {
+    //     handler(n, o) {
+    //         this.$emit('calculator');
+    //     },
+    // },
+
+  },
   methods: {
     save: function save(type) {
       this.$emit('save', type);
@@ -59,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ctrl .row .col[data-v-270d5b48]:first-child { display:flex; align-items:center;\n}\n.ctrl .row .col label[data-v-270d5b48] { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600;\n}\n.ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 20%; max-width:20%;\n}\n.ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.ctrl .row .col .custom-control[data-v-270d5b48] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.ctrl .row .col .custom-control .point[data-v-270d5b48] { color:#ff0000;\n}\n.ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\r\n    \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -194,94 +211,146 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-card",
-    { staticClass: "ctrl", attrs: { "no-body": "" } },
+    "div",
+    { staticClass: "ctrl" },
     [
       _c(
-        "b-container",
+        "b-row",
+        { attrs: { cols: "1", "cols-md": "2" } },
         [
           _c(
-            "b-row",
-            { attrs: { cols: "1", "cols-md": "2" } },
+            "b-col",
+            [
+              _c("label", { attrs: { for: "all_dc" } }, [_vm._v("일괄할인")]),
+              _vm._v(" "),
+              _c("b-form-input", {
+                attrs: {
+                  id: "all_dc",
+                  type: "number",
+                  min: "0",
+                  max: "99",
+                  placeholder: "00%",
+                  size: "sm",
+                },
+                model: {
+                  value: _vm.value.all_dc,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.value, "all_dc", $$v)
+                  },
+                  expression: "value.all_dc",
+                },
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "er_no_dlvy_fee" } }, [
+                _vm._v("배송료 제외"),
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-form-checkbox",
+                {
+                  attrs: {
+                    id: "er_no_dlvy_fee",
+                    value: "Y",
+                    "unchecked-value": "N",
+                    size: "sm",
+                  },
+                  model: {
+                    value: _vm.value.er_no_dlvy_fee,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.value, "er_no_dlvy_fee", $$v)
+                    },
+                    expression: "value.er_no_dlvy_fee",
+                  },
+                },
+                [
+                  _c("span", { staticClass: "point" }, [
+                    _vm._v("※주의 - 상품가격에 반영되지 않음"),
+                  ]),
+                ]
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
             [
               _c(
-                "b-col",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-sm btn-light",
-                      attrs: { to: { name: "adm_estimate_index" } },
-                    },
-                    [_c("b-icon-list"), _vm._v(" 목록")],
-                    1
-                  ),
-                ],
+                "b-button",
+                {
+                  staticClass: "white",
+                  attrs: { to: { name: "adm_estimate_index" }, size: "sm" },
+                },
+                [_c("b-icon-list"), _vm._v(" 목록으로")],
                 1
               ),
               _vm._v(" "),
               _c(
-                "b-col",
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { size: "sm", variant: "info" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.save("preview")
+                "b-button",
+                {
+                  staticClass: "green",
+                  attrs: { size: "sm" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.save("preview")
+                    },
+                  },
+                },
+                [_c("b-icon-file-earmark-richtext-fill"), _vm._v(" 미리보기")],
+                1
+              ),
+              _vm._v(" "),
+              _vm.clickable
+                ? [
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "gray",
+                        attrs: { size: "sm" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.save("store")
+                          },
                         },
                       },
-                    },
-                    [_c("b-icon-search"), _vm._v(" 미리보기")],
+                      [
+                        _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                        _vm._v(" 임시저장"),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "d_blue",
+                        attrs: { size: "sm" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.save("send")
+                          },
+                        },
+                      },
+                      [
+                        _c("font-awesome-icon", {
+                          attrs: { icon: "paper-plane" },
+                        }),
+                        _vm._v(" 완료/발송"),
+                      ],
+                      1
+                    ),
+                  ]
+                : _c(
+                    "b-button",
+                    { staticClass: "gray", attrs: { size: "sm" } },
+                    [
+                      _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                      _vm._v(" 저장 중~!"),
+                    ],
                     1
                   ),
-                  _vm._v(" "),
-                  _vm.clickable
-                    ? [
-                        _c(
-                          "b-button",
-                          {
-                            attrs: { size: "sm", variant: "success" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.save("store")
-                              },
-                            },
-                          },
-                          [
-                            _c("font-awesome-icon", {
-                              attrs: { icon: "save" },
-                            }),
-                            _vm._v(" 임시저장"),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-button",
-                          {
-                            attrs: { size: "sm", variant: "primary" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.save("send")
-                              },
-                            },
-                          },
-                          [_c("b-icon-mailbox"), _vm._v(" 완료/발송")],
-                          1
-                        ),
-                      ]
-                    : _c(
-                        "b-button",
-                        { staticClass: "gray", attrs: { size: "sm" } },
-                        [_vm._v("저장 중~!")]
-                      ),
-                ],
-                2
-              ),
             ],
-            1
+            2
           ),
         ],
         1
