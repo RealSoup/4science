@@ -81,7 +81,7 @@ class Goods extends Model {
                 $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}");
             $rst[] = $src;
         }
-        if (!$rst){ $rst[] = noimg($thumb); }
+        if (!$rst){ $rst[] = noimg(); }
         return $rst;
     }
 

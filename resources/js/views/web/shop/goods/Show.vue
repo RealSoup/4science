@@ -143,7 +143,7 @@
                     </b-button-group>
                 </div>
 
-                <b-row class="goods_relate">
+                <b-row class="goods_relate" v-if="content.goods_relate.length">
                     <b-col class="head"><b>연관<br>상품</b></b-col>
                     <b-col class="gd_list">
                         <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id">

@@ -12,6 +12,12 @@ class GoodsController extends Controller {
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
     public function index(Request $req) {
+        abort_if((
+            ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
+            ($req->filled('ca02') && Category::where('ca_id', $req->ca02)->doesntExist()) ||
+            ($req->filled('ca03') && Category::where('ca_id', $req->ca03)->doesntExist()) ||
+            ($req->filled('ca04') && Category::where('ca_id', $req->ca04)->doesntExist()) 
+        ), 501, '존재 하지 않는 카테고리 입니다.');
         $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
@@ -186,11 +192,12 @@ class GoodsController extends Controller {
     }
 
     public function show(Category $cate, Request $req, $gd_id) {
+        abort_if($this->goods::where('gd_id', $gd_id)->doesntExist(), 501, '존재 하지 않는 상품입니다.');
+
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
             ->with('goodsRelate')
             ->find($gd_id);
-        
         //  모델의 appends에 초기 값을 세팅 할수 있지만
         //  데이터를 가공하고 나면 
         //  나중에 appends 초기 세팅값이 들어가서

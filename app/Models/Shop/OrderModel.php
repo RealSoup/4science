@@ -36,7 +36,7 @@ class OrderModel extends Model {
             
             $rst[] = $src;
         }
-        if (!$rst){ $rst[] = noimg($thumb); }
+        if (!$rst){ $rst[] = noimg(); }
         return $rst;
     }
 }
