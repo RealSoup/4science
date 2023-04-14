@@ -2,7 +2,7 @@
     <b-row tag="li" class="gd_model">
         <b-col>
             <b-form-checkbox v-model="value.ct_check_opt" value="Y" unchecked-value="N" class="hide" />
-            <!-- <b-badge pill variant="danger" class="btn_x hide" @click="outCart">X</b-badge> -->
+            <b-badge pill variant="danger" class="btn_x hide" @click="outCart">X</b-badge>
             <router-link :to="{ name: 'goods_show', params: {gd_id: value.gd_id} }">
                 <img :src="value.img" />
             </router-link>

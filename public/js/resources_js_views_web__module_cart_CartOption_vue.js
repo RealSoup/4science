@@ -253,6 +253,16 @@ var render = function () {
               expression: "value.ea",
             },
           }),
+          _vm._v(" "),
+          _c(
+            "b-badge",
+            {
+              staticClass: "btn_x",
+              attrs: { pill: "", variant: "danger" },
+              on: { click: _vm.outCart },
+            },
+            [_vm._v("X")]
+          ),
         ],
         1
       ),
