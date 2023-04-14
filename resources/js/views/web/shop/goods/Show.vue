@@ -268,7 +268,8 @@ export default {
                 maker:{},   /// 릴레이션 로딩시간으로 인해 초기에 값이 없다는 에러를 대처하기 위해 초기값 세팅
                 image_src:{},
                 goods_category_first:{},
-                file_goods_add:[]
+                file_goods_add:[],
+                goods_relate:[],
             },
             hadModelEa: false,
             bo_cnt:{
@@ -489,7 +490,7 @@ export default {
 .conLeft ul li div { font-size:.9rem; }
 .conLeft ul li div:nth-child(1) { flex-basis:30%; min-width:100px; font-weight:bold; }
 
-.conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; }
+.conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; max-width:990px; }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
 .conRight .model .row { margin:0; }
 .conRight .model .row:nth-of-type(1) .col { font-weight:bold; padding:.4rem .3rem; font-size:.9rem; }
