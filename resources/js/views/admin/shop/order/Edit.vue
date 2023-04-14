@@ -228,7 +228,7 @@
                         <span v-else-if="od.od_pay_method=='P'">PSYS</span>
                         <span v-else-if="od.od_pay_method=='R'">원격결제</span>
 
-                        <b-button v-if="od.order_pg" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
+                        <b-button v-if="od.order_pg && od.order_pg.pg_id" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
                     </td>
                     <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
                 </tr>
@@ -474,7 +474,7 @@ export default {
     },
     computed: {
         payPlanDisplay() {
-            var plan = this.od.order_extra_info.oex_pay_plan;
+            var plan = this.od.order_extra_info ? this.od.order_extra_info.oex_pay_plan : '';
             var returnMsg = '';
             if (plan == 'soon')         returnMsg = '선 결제';
             else if (plan == 'week1')   returnMsg = '1주이내 결제';
@@ -487,10 +487,12 @@ export default {
         },
         reqDocumentDisplay() {
             let req = new Array();
-            if (this.od.order_extra_info.oex_req_est =='Y') req.push('견적서');
-            if (this.od.order_extra_info.oex_req_tran=='Y') req.push('거래명세서');
-            if (this.od.order_extra_info.oex_req_biz =='Y') req.push('사업자등록증사본');
-            if (this.od.order_extra_info.oex_req_bank=='Y') req.push('통장사본');
+            if ( this.od.order_extra_info ) {
+                if (this.od.order_extra_info.oex_req_est =='Y') req.push('견적서');
+                if (this.od.order_extra_info.oex_req_tran=='Y') req.push('거래명세서');
+                if (this.od.order_extra_info.oex_req_biz =='Y') req.push('사업자등록증사본');
+                if (this.od.order_extra_info.oex_req_bank=='Y') req.push('통장사본');
+            }
             return req.join(', ');
         },
         dlvy_4s () {

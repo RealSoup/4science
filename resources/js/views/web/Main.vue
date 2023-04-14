@@ -76,7 +76,8 @@
             </aside>
 
             <b-container class="con">
-                <b-row v-for="(ca, i) in category" :key="ca.ca_id">
+            <template v-for="(ca, i) in category">
+                <b-row v-if="ca.ca_id != 38" :key="ca.ca_id">
                     <b-col class="tit">                    
                         <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
                             <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
@@ -94,6 +95,7 @@
                         </b-link>
                     </b-col>
                 </b-row>
+            </template>
             </b-container>
         </div>
     </div>

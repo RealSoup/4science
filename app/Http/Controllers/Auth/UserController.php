@@ -141,9 +141,14 @@ class UserController extends Controller {
     }
 
     public function find_email(Request $req) {
-        if ( $req->filled('id') ) {
+        if ( $req->filled('id') || ($req->filled('name') && $req->filled('hp')) ) {
             // echo_query(User::where('p_id', $req->id));
-            $u = User::where('p_id', $req->id)->first();
+            if ( $req->filled('id') ) {
+                $u = User::where('p_id', $req->id)->first();
+            } else {
+                $u = User::where('name', $req->name)->where('hp', $req->hp)->first();
+            }
+            
             if($u) {
                 $e_id = strstr($u->email, '@', true);
                 $rst = substr($e_id, 0, -3).'***';

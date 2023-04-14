@@ -53,6 +53,18 @@ instance.interceptors.response.use(function (response) {
             // .catch((e) => console.log(e));
             .catch(() => true);
         return false;
+    } else if (error.response.status === 419) {
+        if ( error.response.data.message.search('CSRF token mismatch.') !== -1  ) {
+            router.push({name:'main'});
+            // router.go();
+            Notify.modal("로그인 정보가 없습니다.", 'danger');
+            // 
+            // window.location.reload(true);
+        } else {
+            Notify.modal(error.response.data.message, 'danger');
+        }
+        return false;
+        
     } else if (error.response.status === 422) {
         if ( typeof error.response.data.errors['email'] !== "undefined" && error.response.data.errors['email'][0] === 'These credentials do not match our records.') {
             Notify.modal('로그인 정보를 확인하세요', 'danger');

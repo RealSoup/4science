@@ -505,17 +505,21 @@ var dt = new Date();
   },
   computed: {
     payPlanDisplay: function payPlanDisplay() {
-      var plan = this.od.order_extra_info.oex_pay_plan;
+      var plan = this.od.order_extra_info ? this.od.order_extra_info.oex_pay_plan : '';
       var returnMsg = '';
       if (plan == 'soon') returnMsg = '선 결제';else if (plan == 'week1') returnMsg = '1주이내 결제';else if (plan == 'week2') returnMsg = '2주이내 결제';else if (plan == 'month1') returnMsg = '한달이내 결제';else if (plan == 'month2') returnMsg = '2개월이내 결제';else if (plan == 'dlvy') returnMsg = '납품시 결제';else returnMsg = plan;
       return returnMsg;
     },
     reqDocumentDisplay: function reqDocumentDisplay() {
       var req = new Array();
-      if (this.od.order_extra_info.oex_req_est == 'Y') req.push('견적서');
-      if (this.od.order_extra_info.oex_req_tran == 'Y') req.push('거래명세서');
-      if (this.od.order_extra_info.oex_req_biz == 'Y') req.push('사업자등록증사본');
-      if (this.od.order_extra_info.oex_req_bank == 'Y') req.push('통장사본');
+
+      if (this.od.order_extra_info) {
+        if (this.od.order_extra_info.oex_req_est == 'Y') req.push('견적서');
+        if (this.od.order_extra_info.oex_req_tran == 'Y') req.push('거래명세서');
+        if (this.od.order_extra_info.oex_req_biz == 'Y') req.push('사업자등록증사본');
+        if (this.od.order_extra_info.oex_req_bank == 'Y') req.push('통장사본');
+      }
+
       return req.join(', ');
     },
     dlvy_4s: function dlvy_4s() {
@@ -2275,7 +2279,7 @@ var render = function () {
                           ? _c("span", [_vm._v("원격결제")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.od.order_pg
+                        _vm.od.order_pg && _vm.od.order_pg.pg_id
                           ? _c(
                               "b-button",
                               {

@@ -132,6 +132,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -797,83 +799,98 @@ var render = function () {
           _c(
             "b-container",
             { staticClass: "con" },
-            _vm._l(_vm.category, function (ca, i) {
-              return _c(
-                "b-row",
-                { key: ca.ca_id },
-                [
-                  _c(
-                    "b-col",
-                    { staticClass: "tit" },
-                    [
-                      _c(
-                        "b-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "goods_index",
-                              query: { ca01: ca.ca_id },
-                            },
-                          },
-                        },
+            [
+              _vm._l(_vm.category, function (ca, i) {
+                return [
+                  ca.ca_id != 38
+                    ? _c(
+                        "b-row",
+                        { key: ca.ca_id },
                         [
-                          _c("b-img", {
-                            attrs: {
-                              src:
-                                _vm.s3url + "main/cate/bg" + ca.ca_id + ".gif",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("h6", [_vm._v(_vm._s(ca.ca_name))]),
+                          _c(
+                            "b-col",
+                            { staticClass: "tit" },
+                            [
+                              _c(
+                                "b-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "goods_index",
+                                      query: { ca01: ca.ca_id },
+                                    },
+                                  },
+                                },
+                                [
+                                  _c("b-img", {
+                                    attrs: {
+                                      src:
+                                        _vm.s3url +
+                                        "main/cate/bg" +
+                                        ca.ca_id +
+                                        ".gif",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("h6", [_vm._v(_vm._s(ca.ca_name))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    [
+                                      _vm._v("전체보기 "),
+                                      _c("b-icon-chevron-right"),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c(
-                            "span",
-                            [_vm._v("전체보기 "), _c("b-icon-chevron-right")],
+                            "b-col",
+                            { staticClass: "list" },
+                            _vm._l(
+                              _vm.bestByCategory[ca.ca_id],
+                              function (gd, i) {
+                                return _c(
+                                  "b-link",
+                                  {
+                                    key: i,
+                                    staticClass: "col",
+                                    attrs: {
+                                      to: {
+                                        name: "goods_show",
+                                        params: { gd_id: gd.sw_key },
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c("b-img", {
+                                      attrs: {
+                                        fluid: "",
+                                        src: gd.goods.image_src_thumb[0],
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("p", [_vm._v(_vm._s(gd.goods.gd_name))]),
+                                  ],
+                                  1
+                                )
+                              }
+                            ),
                             1
                           ),
                         ],
                         1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "list" },
-                    _vm._l(_vm.bestByCategory[ca.ca_id], function (gd, i) {
-                      return _c(
-                        "b-link",
-                        {
-                          key: i,
-                          staticClass: "col",
-                          attrs: {
-                            to: {
-                              name: "goods_show",
-                              params: { gd_id: gd.sw_key },
-                            },
-                          },
-                        },
-                        [
-                          _c("b-img", {
-                            attrs: {
-                              fluid: "",
-                              src: gd.goods.image_src_thumb[0],
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(gd.goods.gd_name))]),
-                        ],
-                        1
                       )
-                    }),
-                    1
-                  ),
-                ],
-                1
-              )
-            }),
-            1
+                    : _vm._e(),
+                ]
+              }),
+            ],
+            2
           ),
         ],
         1

@@ -67,9 +67,9 @@ class Order extends Model {
     public function mng() { return $this->belongsTo(\App\Models\User::class, 'od_mng'); }
     public function orderPurchaseAt() { return $this->hasMany(OrderPurchaseAt::class, "odpa_od_id"); }//->orderBy('gm_order'); }
     public function orderModel() { return $this->hasMany(OrderModel::class, "odm_od_id"); }
-    public function orderExtraInfo() { return $this->hasOne(OrderExtraInfo::class, 'oex_od_id', 'od_id'); }
+    public function orderExtraInfo() { return $this->hasOne(OrderExtraInfo::class, 'oex_od_id', 'od_id')->withDefault(); }
     public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
-    public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id'); }
+    public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id')->withDefault(); }
 
     public function scopeStartDate($q, $d)          { return $q->whereDate('shop_order.created_at', '>=', $d); }
     public function scopeEndDate($q, $d)            { return $q->whereDate('shop_order.created_at', '<=', $d); }
