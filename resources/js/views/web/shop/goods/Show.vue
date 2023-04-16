@@ -18,41 +18,17 @@
                 </b-carousel>
 
                 <ul>
-                    <li>
-                        <div>제조사</div>
-                        <div>{{content.maker.mk_name}}</div>
-                    </li>
-                    <li>
-                        <div>배송료</div>
-                        <div>{{content.dlvy_fee_add_vat | comma}}원</div>
-                    </li>
-                    <li>
-                        <div>배송정보</div>
-                        <div>10만원 이상 구매시 기본택배 배송료 무료</div>
-                    </li>
-                    <li>
-                        <div>납기일</div>
-                        <div>{{content.gd_dlvy_at}}</div>
-                    </li>
-                    <li>
-                        <div>담당자</div>
-                        <div>{{mngTel}}</div>
-                    </li>
+                    <li><div>제조사</div>  <div>{{content.maker.mk_name}}</div></li>
+                    <li><div>배송료</div>  <div>{{content.dlvy_fee_add_vat | comma}}원</div></li>
+                    <li><div>배송정보</div><div>10만원 이상 구매시 기본택배 배송료 무료</div></li>
+                    <li><div>납기일</div>  <div>{{content.gd_dlvy_at}}</div></li>
+                    <li><div>담당자</div>  <div>{{mngTel}}</div></li>
                 </ul>
 
                 <ul v-if="content.purchase_at">
-                    <li>
-                        <div>직배송업체명</div>
-                        <div>{{content.purchase_at.pa_name}}</div>
-                    </li>
-                    <li>
-                        <div>배송타입</div>
-                        <div>{{content.purchase_at.pa_type}}</div>
-                    </li>
-                    <li>
-                        <div>배송료</div>
-                        <div>{{content.purchase_at.pa_price_add_vat | comma}}원</div>
-                    </li>
+                    <li><div>직배송업체명</div><div>{{content.purchase_at.pa_name}}</div></li>
+                    <li><div>배송타입</div>    <div>{{content.purchase_at.pa_type}}</div></li>
+                    <li><div>배송료</div>      <div>{{content.purchase_at.pa_price_add_vat | comma}}원</div></li>
                 </ul>
 
                 <ul v-if="content.file_goods_add.length">
@@ -61,7 +37,6 @@
                         <div>
                             <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(`api/downloadGoods/${file.fi_id}`, file.fi_original)">{{file.fi_original}}</b-button>
                             <!-- <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown('api/downloadGoods/1760', file.fi_original)">{{file.fi_original}}</b-button> -->
-                            
                         </div>
                     </li>
                 </ul>
@@ -145,12 +120,15 @@
 
                 <b-row class="goods_relate" v-if="content.goods_relate.length">
                     <b-col class="head"><b>연관<br>상품</b></b-col>
+                    <perfect-scrollbar>
                     <b-col class="gd_list">
-                        <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id">
-                            <img :src="gr.goods.image_src_thumb[0]" />
+                        <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id" :to="{name:'goods_show', params:{gd_id:gr.gr_val}}">
+                            <div><img :src="gr.goods.image_src_thumb[0]" /></div>
                             <SubString v-model="gr.goods.gd_name" :width="165" />
                         </b-link>
                     </b-col>
+                    </perfect-scrollbar>
+                    <b-col class="tail"><img :src="`${s3url}goods/goods_relate_arrow.png`" /></b-col>
                 </b-row>
                 
                 <scrollactive class="goods_nav">
@@ -480,7 +458,7 @@ export default {
 .atrium .conLeft { flex-basis:500px; max-width:500px; height:auto; max-height:90vh; overflow:auto; }
 .atrium.fixed .conLeft { position:fixed; z-index:2; }
 .atrium.fixed .rack { flex-basis:500px; max-width:500px; }
-.conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:cover; }
+.conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
 .conLeft .carousel >>> .carousel-control-prev:hover,
 .conLeft .carousel >>> .carousel-control-next:hover { background-color:#CCC; }
 /*.conLeft ul li:after { content:"&nbsp;"; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
@@ -490,7 +468,7 @@ export default {
 .conLeft ul li div { font-size:.9rem; }
 .conLeft ul li div:nth-child(1) { flex-basis:30%; min-width:100px; font-weight:bold; }
 
-.conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; max-width:990px; }
+.conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; flex:0 0 calc(66.666667% - 10px); max-width:calc(66.666667% - 10px); }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
 .conRight .model .row { margin:0; }
 .conRight .model .row:nth-of-type(1) .col { font-weight:bold; padding:.4rem .3rem; font-size:.9rem; }
@@ -543,14 +521,21 @@ export default {
 .conRight .goods_option .selOpt li .cellCalc .sum_p { min-width:90px; display:inline-block; }
 .conRight .goods_option .selOpt li .cellCalc .delOpt { font-size:.8rem; cursor:pointer; max-width:30px; width:100%; display:inline-block; }
 
-.conRight .goods_relate { width:990px; padding:12px 0; margin-left:0; margin-right:0; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/relate_bg.png') no-repeat center center /contain; }
+.conRight .goods_relate { width:990px; padding:12px 0; margin:3rem 0 0; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/relate_bg.png') no-repeat center center /contain; }
 .conRight .goods_relate .head { max-width:137px; position:relative; }
 .conRight .goods_relate .head b { color:#FFF; font-weight:600; font-size:1.5rem; line-height: 1.2; position:absolute; top:50%; left:65%; transform:translate(-50%, -50%); width:50px; }
 .conRight .goods_relate .col { padding-left:0px; padding-right:0px; }
-.conRight .goods_relate .gd_list { display:flex; overflow:auto; }
-.conRight .goods_relate .gd_list .col { width:190px; height:215px; margin-left:5px; margin-right:5px; background-color:#fff; }
-.conRight .goods_relate .gd_list .col img { width: 160px; height: 160px; object-fit: cover; }
-.conRight .goods_relate .gd_list .col span { text-align: center; font-size:.9rem; }
+.conRight .goods_relate .gd_list { display:flex; }
+.conRight .goods_relate .gd_list .col { flex:0 0 21.101992%; max-width:21.101992%; height:215px; margin-left:5px; margin-right:5px; background-color:#fff; text-align:center; }
+.conRight .goods_relate .gd_list .col div { width:160px; height:160px; margin:6px auto; }
+.conRight .goods_relate .gd_list .col div img { width:160px; height:160px; object-fit:contain; }
+.conRight .goods_relate .gd_list .col span { margin-top:.5rem; font-size:.75rem; }
+.conRight .goods_relate .ps { max-width:814px; }
+.conRight .goods_relate .tail { flex:0 0 4.7%; max-width:4.7%; }
+.conRight .goods_relate .tail img { position:absolute; top:48%; left:50%; transform:translate(-50%, -50%); }
+
+/*.conRight .goods_relate .ps >>> .ps__rail-y { background-color:#eee; opacity:.9; z-index:1; cursor:pointer; }
+.conRight .goods_relate .ps >>> .ps__rail-y > .ps__thumb-y { background-color:#438DCC; width:11px; }*/
 
 .conRight .goods_nav { position:sticky; top:80px; z-index:1; background:#B2BFC5; display:flex; padding-left:3rem; margin-top:2rem; }
 .conRight .goods_nav a { color:#FFF; padding:7px 22px; border-radius:2rem; margin:.7rem; font-weight:bold; }

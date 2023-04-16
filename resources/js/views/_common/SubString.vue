@@ -1,5 +1,5 @@
 <template>
-    <span :style="{ width: width+'px' }">{{value.cut(200)}}</span>
+    <span :style="{ maxWidth: width+'px' }">{{value.cut(200)}}</span>
 </template>
 
 <script>

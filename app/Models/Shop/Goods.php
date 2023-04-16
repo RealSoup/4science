@@ -42,7 +42,7 @@ class Goods extends Model {
     // public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
 
 
-    public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id")->Prime(); }
+    public function goodsCategory() {       return $this->hasMany(GoodsCategory::class, "gc_gd_id")->orderBy('gc_prime'); }
     public function goodsCategoryFirst() {  return $this->hasOne(GoodsCategory::class, "gc_gd_id")->Prime(); }
     public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id")->orderBy('gm_catno03'); }
     public function goodsOption() {         return $this->hasMany(GoodsOption::class, "go_gd_id")->orderBy('go_required'); }
@@ -81,7 +81,18 @@ class Goods extends Model {
                 $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}");
             $rst[] = $src;
         }
-        if (!$rst){ $rst[] = noimg(); }
+        $noimg_p = null;
+        if ($this->goodsCategoryFirst) {
+            if ($this->goodsCategoryFirst->gc_ca01 == 28 && $this->goodsCategoryFirst->gc_ca02 == 3614 ) {
+                $rst = NULL;
+                $noimg_p = 'trc.png';
+            } else if ($this->goodsCategoryFirst->gc_ca01 == 40 ) {
+                $noimg_p = 'noimg_merck.png';
+            }
+        }
+        
+            
+        if (!$rst){ $rst[] = noimg($noimg_p); }
         return $rst;
     }
 

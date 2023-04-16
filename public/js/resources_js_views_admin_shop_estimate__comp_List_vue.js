@@ -66,6 +66,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
@@ -310,8 +312,7 @@ var render = function () {
               [
                 row.eq_title
                   ? _c("b", { domProps: { innerHTML: _vm._s(row.eq_title) } })
-                  : row.eq_type == "REQ"
-                  ? _c("SubString", {
+                  : _c("SubString", {
                       attrs: { width: 650 },
                       model: {
                         value: row.eq_content,
@@ -320,8 +321,7 @@ var render = function () {
                         },
                         expression: "row.eq_content",
                       },
-                    })
-                  : _vm._e(),
+                    }),
                 _vm._v(" "),
                 row.eq_type == "TEMP"
                   ? _c(
@@ -404,101 +404,105 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c(
-              "b-col",
-              [
-                row.eq_mng_nm
-                  ? _c("span", [_vm._v(_vm._s(row.eq_mng_nm))])
-                  : _vm._e(),
-                _vm._v(" "),
-                row.estimate_reply.length == 0
-                  ? _c(
-                      "b-button",
-                      {
-                        staticClass: "white",
-                        on: {
-                          click: function ($event) {
-                            return _vm.openWinPop(
-                              "/admin/shop/estimate/create?eq_id=" + row.eq_id
-                            )
-                          },
-                        },
-                      },
-                      [_vm._v("견적서 작성")]
-                    )
-                  : _vm._e(),
-              ],
-              1
-            ),
+            _c("b-col", [
+              row.eq_mng_nm
+                ? _c("span", [_vm._v(_vm._s(row.eq_mng_nm))])
+                : _vm._e(),
+            ]),
             _vm._v(" "),
             _c(
               "b-col",
               { staticClass: "er_box" },
               [
-                _vm._l(row.estimate_reply, function (er, i) {
-                  return [
-                    _c("span", { key: "i" + er.er_id }, [
-                      _vm._v(_vm._s(er.er_id) + "."),
-                    ]),
-                    _vm._v(" "),
-                    er.er_step == 0
-                      ? [
-                          _c(
-                            "span",
-                            {
-                              key: "b" + er.er_id,
-                              staticClass: "btn gray",
-                              class: { not_fir: i !== 0 },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.openWinPop(
-                                    "/admin/shop/estimate/" + er.er_id + "/edit"
-                                  )
-                                },
-                              },
-                            },
-                            [_vm._v("임시저장")]
-                          ),
-                        ]
-                      : [
-                          i === 0
-                            ? _c(
-                                "span",
-                                {
-                                  key: "b" + er.er_id,
-                                  staticClass: "btn mint",
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.openWinPop(
-                                        "/admin/shop/estimate/reply/" + er.er_id
-                                      )
-                                    },
-                                  },
-                                },
-                                [_vm._v("견적서")]
+                row.estimate_reply.length == 0
+                  ? [
+                      _c("span"),
+                      _vm._v(" "),
+                      _c(
+                        "b-link",
+                        {
+                          staticClass: "btn white",
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/shop/estimate/create?eq_id=" + row.eq_id
                               )
-                            : _c(
+                            },
+                          },
+                        },
+                        [_vm._v("견적서 작성")]
+                      ),
+                      _vm._v(" "),
+                      _c("span"),
+                    ]
+                  : _vm._l(row.estimate_reply, function (er, i) {
+                      return [
+                        _c("span", { key: "i" + er.er_id }, [
+                          _vm._v(_vm._s(er.er_id) + "."),
+                        ]),
+                        _vm._v(" "),
+                        er.er_step == 0
+                          ? [
+                              _c(
                                 "span",
                                 {
                                   key: "b" + er.er_id,
-                                  staticClass: "btn orange not_fir",
+                                  staticClass: "btn gray",
+                                  class: { not_fir: i !== 0 },
                                   on: {
                                     click: function ($event) {
                                       return _vm.openWinPop(
-                                        "/admin/shop/estimate/reply/" + er.er_id
+                                        "/admin/shop/estimate/" +
+                                          er.er_id +
+                                          "/edit"
                                       )
                                     },
                                   },
                                 },
-                                [_vm._v("재견적서")]
+                                [_vm._v("임시저장")]
                               ),
-                        ],
-                    _vm._v(" "),
-                    _c("span", { key: "d" + er.er_id }, [
-                      _vm._v(_vm._s(_vm._f("formatDate")(er.created_at))),
-                    ]),
-                  ]
-                }),
+                            ]
+                          : [
+                              i === 0
+                                ? _c(
+                                    "span",
+                                    {
+                                      key: "b" + er.er_id,
+                                      staticClass: "btn mint",
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.openWinPop(
+                                            "/admin/shop/estimate/reply/" +
+                                              er.er_id
+                                          )
+                                        },
+                                      },
+                                    },
+                                    [_vm._v("견적서")]
+                                  )
+                                : _c(
+                                    "span",
+                                    {
+                                      key: "b" + er.er_id,
+                                      staticClass: "btn orange not_fir",
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.openWinPop(
+                                            "/admin/shop/estimate/reply/" +
+                                              er.er_id
+                                          )
+                                        },
+                                      },
+                                    },
+                                    [_vm._v("재견적서")]
+                                  ),
+                            ],
+                        _vm._v(" "),
+                        _c("span", { key: "d" + er.er_id }, [
+                          _vm._v(_vm._s(_vm._f("formatDate")(er.created_at))),
+                        ]),
+                      ]
+                    }),
               ],
               2
             ),

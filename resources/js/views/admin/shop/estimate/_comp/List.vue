@@ -18,7 +18,7 @@
         <b-col>{{row.eq_id}}.</b-col>
         <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title" />
-            <SubString v-else-if="row.eq_type == 'REQ'" v-model="row.eq_content" :width="650" />
+            <SubString v-else v-model="row.eq_content" :width="650" />
 
             <b-badge v-if="row.eq_type == 'TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
             <b-badge v-else-if="row.eq_type == 'REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
@@ -32,12 +32,14 @@
             <b-badge class="gray" v-else-if="row.eq_step === 'DONE'">{{row.eq_step | eqStep}}</b-badge>
             <b-badge class="yellow" v-else-if="row.eq_step === 'CANCEL'">{{row.eq_step | eqStep}}</b-badge>
         </b-col>
-        <b-col>
-            <span v-if="row.eq_mng_nm">{{row.eq_mng_nm}}</span>
-            <b-button class="white" v-if="row.estimate_reply.length == 0" @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`)">견적서 작성</b-button>
-        </b-col>
+        <b-col><span v-if="row.eq_mng_nm">{{row.eq_mng_nm}}</span></b-col>
         <b-col class="er_box">
-            <template v-for="(er, i) in row.estimate_reply">
+            <template v-if="row.estimate_reply.length == 0">
+                <span></span>
+                <b-link class="btn white" @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`)">견적서 작성</b-link>
+                <span></span>
+            </template>
+            <template v-else v-for="(er, i) in row.estimate_reply">
                 <span :key="`i${er.er_id}`">{{er.er_id}}.</span>
                 <template v-if="er.er_step == 0">
                     <span class="btn gray" :class="{not_fir:i!==0}" @click="openWinPop(`/admin/shop/estimate/${er.er_id}/edit`)" :key="`b${er.er_id}`">임시저장</span>

@@ -172,7 +172,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", { style: { width: _vm.width + "px" } }, [
+  return _c("span", { style: { maxWidth: _vm.width + "px" } }, [
     _vm._v(_vm._s(_vm.value.cut(200))),
   ])
 }
