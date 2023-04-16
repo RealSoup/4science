@@ -1,31 +1,24 @@
-<template lang="html">
-    <div class="recent_box"
-        :class="{view_go_top:viewGoTop}"
-        v-if="recentGoods.length"
-        @mouseenter="mouseHover = true"
-        @mouseleave="mouseHover = false">
-        <div class="box_header list_item"><b-icon-clock-history /></div>
-        <div class="cube_box" :class="{allShow:mouseHover}">
-            <div class="cube" :class="cubeClass">
-                <div class="piece" v-for="(side, i) in divideRecentGoods" :key="i" :class="setCubePieceClass(i)">
-                    <router-link :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }" v-for="gd in recentGoods.slice(i * itemsPerRow, (i + 1) * itemsPerRow)" :key="gd.gd_id" class="list_item">
-                        <img :src="gd.image_src_thumb[0]" />
-                    </router-link>
-                </div>
+<template>
+<div class="recent_box"
+    v-if="recentGoods.length"
+    @mouseenter="mouseHover = true"
+    @mouseleave="mouseHover = true">
+    <div class="box_header list_item">최근<br>본 상품</div>
+    <div class="cube_box" :class="{allShow:mouseHover}">
+        <div class="cube" :class="cubeClass">
+            <div class="piece" v-for="(side, i) in divideRecentGoods" :key="i" :class="setCubePieceClass(i)">
+                <router-link :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }" v-for="gd in recentGoods.slice(i * itemsPerRow, (i + 1) * itemsPerRow)" :key="gd.gd_id" class="list_item">
+                    <img :src="gd.image_src_thumb[0]" />
+                </router-link>
             </div>
-            <transition name="flip" enter-active-class="lightSpeedIn" leave-active-class="lightSpeedOut">
-                <div class="ctrlBtn" v-if="mouseHover" style="animation-duration: 0.3s">
-                    <b-button @click="setCubeClass('left')" :disabled="direction_int<1"><b-icon-chevron-compact-left /></b-button>
-                    <b-button @click="setCubeClass('right')" :disabled="(direction_int>1 || direction_int>=(this.divideRecentGoods.length-1))"><b-icon-chevron-compact-right /></b-button>
-                </div>
-            </transition>
         </div>
-        <div class="go_top_box list_item">
-            <transition name="fade">
-                <b-button class="go_top" v-if="viewGoTop" @click="scrollToTop"><b-icon-caret-up /></b-button>
-            </transition>
+        
+        <div class="ctrlBtn" v-if="mouseHover">
+            <b-button @click="setCubeClass('left')" :disabled="direction_int<1"><</b-button>
+            <b-button @click="setCubeClass('right')" :disabled="(direction_int>1 || direction_int>=(this.divideRecentGoods.length-1))">></b-button>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -42,9 +35,8 @@ export default {
     },
     data () {
         return {
-            mouseHover: false,
+            mouseHover: true,
             ck_key: 'RecentGoods',
-            viewGoTop: false,
             itemsPerRow: 5,
             recentGoods: {},
             direction_int: 0,
@@ -61,16 +53,6 @@ export default {
         },
     },
     methods: {
-        scrollToTop(){
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            })
-        },
-        scrollListener: function (e) {
-            this.viewGoTop = window.scrollY > 150;
-        },
         async setRecentGoods() {
             try {
                 let cookies = this.$cookies.get(this.ck_key);
@@ -129,30 +111,23 @@ export default {
         if (this.$route.name == 'goods_show')
             this.updateRecentGoods();
         this.setRecentGoods();
-        window.addEventListener('scroll', this.scrollListener);
     },
-    beforeDestroy: function () {
-        window.removeEventListener('scroll', this.scrollListener)
-    }
 }
 </script>
 
 <style lang="css" scoped>
-.recent_box { position:fixed; bottom:15px; right:130px; transition:all .5s ease; z-index:1; }
-.recent_box .list_item { width:50px; height:50px; margin:5px; border-radius:100%; }
-.recent_box .box_header  { background-color:#000; display:flex; align-items:center; justify-content:center; }
-.recent_box .box_header .b-icon { font-size:3rem; color:#FFF; }
-
-
+.recent_box { position:fixed; top:20%; right:1%; transition:all .5s ease; z-index:1; }
+.recent_box .list_item { width:70px; height:70px; border-radius:100%; }
+.recent_box .box_header  { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center; }
 
 .recent_box .cube_box, .recent_box .cube_box * { box-sizing: border-box; }
-.recent_box .cube_box { width:60px; height:60px; perspective:500px; margin:auto; transition:all .5s ease; }
-.recent_box .cube_box.allShow { height:280px; }
+.recent_box .cube_box { width:70px; margin:auto; transition:all .5s ease; }
+.recent_box .cube_box.allShow { height:430px; }
 .recent_box .cube_box.allShow .cube .piece { height:100%; }
 .recent_box .cube_box .cube { position: relative; transform-style: preserve-3d;
-    width:100%; height:100%;
+    width:100%; height:410px;
     transform: translateZ(-30px); transition: transform .2s; }
-.recent_box .cube_box .cube .piece { position:absolute; background-color:#fff; height:60px; overflow:hidden; transition:all .5s ease; }
+.recent_box .cube_box .cube .piece { position:absolute; height:60px; overflow:hidden; transition:all .5s ease; }
 .recent_box .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(30px); }
 .recent_box .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(30px); }
 
@@ -160,22 +135,12 @@ export default {
 .recent_box .cube.show_right  { transform: translateZ(-30px) rotateY( -90deg); }
 .recent_box .cube.show_back   { transform: translateZ(-30px) rotateY(-180deg); }
 
-.recent_box .cube_box .cube .piece a { overflow:hidden; display:block; }
-.recent_box .cube_box .cube .piece a img { width:100%; height:100%; object-fit: cover; }
+.recent_box .cube_box .cube .piece a { overflow:hidden; display:block; border:5px solid #FFF; margin:10px 0;}
+.recent_box .cube_box .cube .piece a img { width:100%; height:100%; object-fit:contain; }
 
-.recent_box .cube_box .ctrlBtn { position:absolute; top:50%; transform:translateY(-50%); width:100% }
-.recent_box .cube_box .ctrlBtn button { position:absolute; top:-40px; padding:0; font-size:2rem; color:#666; background-color:transparent !important; border:none; }
-.recent_box .cube_box .ctrlBtn button:nth-of-type(1) { left:-20px; }
-.recent_box .cube_box .ctrlBtn button:nth-of-type(2) { right:-20px; }
-.recent_box .cube_box .ctrlBtn button:disabled { cursor: not-allowed; }
-
-.recent_box .go_top_box { margin:0 5px; }
-.recent_box .go_top_box .go_top { width:100%; height:100%; border-radius:100%; font-size:3rem; display:flex; align-items:center; justify-content:center; background-color: #000; }
-.recent_box .go_top_box .go_top .fade-enter-active,
-.recent_box .go_top_box .go_top .fade-leave-active { transition: opacity .5s; }
-.recent_box .go_top_box .go_top .fade-enter,
-.recent_box .go_top_box .go_top .fade-leave-to { opacity: 0; }
-
-.recent_box .go_top_box { height:0; transition:height .7s ease;}
-.recent_box.view_go_top .go_top_box { height:50px; }
+.recent_box .cube_box .ctrlBtn { display:flex; }
+.recent_box .cube_box .ctrlBtn .btn { background-color:#51B948; color:#fff; width:50%; display:inline-block; text-align:center; border-width:0; padding:0; }
+.recent_box .cube_box .ctrlBtn .btn:nth-of-type(1) { border-right:1px solid #FFF; border-radius: 42% 0 0 42%; }
+.recent_box .cube_box .ctrlBtn .btn:nth-of-type(2) { border-radius:0 42% 42% 0; }
+.recent_box .cube_box .ctrlBtn .btn:disabled { cursor:not-allowed !important; }
 </style>

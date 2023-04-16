@@ -29,11 +29,11 @@ class BoardPolicy {
     }
 
     public function update(User $user, Board $board) {
-        return $user->id === $board->created_id ? Response::allow() : Response::deny('수정 '.$this->msg);
+        return ($user->is_admin || $user->id === $board->created_id) ? Response::allow() : Response::deny('수정 '.$this->msg);
     }
 
     public function delete(User $user, Board $board) {
-        return $user->id === $board->created_id ? Response::allow() : Response::deny('삭제 '.$this->msg);
+        return ($user->is_admin || $user->id === $board->created_id) ? Response::allow() : Response::deny('삭제 '.$this->msg);
     }
 
     public function restore(User $user, Board $board) {

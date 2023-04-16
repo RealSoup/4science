@@ -1,24 +1,25 @@
 <template>
     <div>
         <b-carousel controls indicators class="slide_banner">
-            <b-link href="/" class="split_link_box">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'"></b-carousel-slide>
-                <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
-				<a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
+            <b-link to="/board/event/show/31">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
+                    <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
+                    <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
+                </b-carousel-slide>
             </b-link>
-            <b-link href="/shop/goods/255439">
+            <b-link to="/shop/goods/255439">
                 <b-carousel-slide :img-src="s3url+'main/slide/2023/23041605.jpg'"></b-carousel-slide>
             </b-link>
-            <b-link href="/shop/goods/925">
+            <b-link to="/shop/goods/925">
                 <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
             </b-link>
-            <b-link href="/shop/goods?ca01=45">
+            <b-link to="/shop/goods?ca01=45">
                 <b-carousel-slide :img-src="s3url+'main/slide/2023/23041603.jpg'"></b-carousel-slide>
             </b-link>
-            <b-link href="/shop/goods?ca01=22&ca02=634">
+            <b-link to="/shop/goods?ca01=22&ca02=634">
                 <b-carousel-slide :img-src="s3url+'main/slide/2023/23041602.jpg'"></b-carousel-slide>
             </b-link>
-            <b-link href="/shop/listing/today_pick_up/all">
+            <b-link to="/shop/listing/today_pick_up/all">
                 <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
             </b-link>
         </b-carousel>
@@ -257,10 +258,10 @@ export default {
 .slide_banner >>> .carousel-indicators li { background-color:#898989; }
 .slide_banner >>> .carousel-control-prev:hover,
 .slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
-.slide_banner .split_link_box { position:relative; }
-.slide_banner .split_link_box .split_link { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%); }
-.slide_banner .split_link_box a#app01 { left:29%; }
-.slide_banner .split_link_box a#app02 { left:71%;}
+
+.slide_banner .split_link { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%); }
+.slide_banner a#app01 { left:23%; }
+.slide_banner a#app02 { left:77%;}
 
 #best { margin-top:26px; }
 #best>.col { padding:0; }

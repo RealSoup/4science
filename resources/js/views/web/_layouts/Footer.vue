@@ -1,7 +1,7 @@
 <template>
 <footer id="footer">
     <RecentGoods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
-
+    <GoTop /> <!-- 위로 가기 -->
     <b-container id="footer_top" class="layout">
         <b-row>
             <b-col class="fir">
@@ -68,7 +68,7 @@
                 <b-col class="logo"><b-img :src="`${s3url}common/logo/footer_logo.png`" /></b-col>
             </b-row>
         </b-container>
-    </div>        
+    </div>
 </footer>
 </template>
 
@@ -79,7 +79,8 @@ import { mapGetters } from 'vuex'
 export default {
     name:"Footer",
     components: {
-        'RecentGoods': () => import('../_module/RecentGoods.vue'),
+        'RecentGoods': () => import('../_module/RecentGoods'),
+        'GoTop':       () => import('../_module/GoTop'),
     },
     
     data() {

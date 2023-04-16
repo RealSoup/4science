@@ -124,4 +124,9 @@ export default {
 #bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem; }
 #bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0; }
 #bo_show .con .answer .date { margin-top:4rem; }
+
+#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}
+#bo_show .con table tr,
+#bo_show .con table th, 
+#bo_show .con table td {padding:0px;}
 </style>
