@@ -1,13 +1,26 @@
-<template lang="html">
+<template>
     <div>
-        <b-carousel indicators class="slide_banner">
-            <b-link href="/">
-                <b-carousel-slide :img-src="s3url+'main/slide/banner.jpg'"></b-carousel-slide>
+        <b-carousel controls indicators class="slide_banner">
+            <b-link href="/" class="split_link_box">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'"></b-carousel-slide>
+                <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
+				<a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
             </b-link>
-            
-            <b-link href="/">
-                <b-carousel-slide :img-src="s3url+'main/slide/220531.jpg'"></b-carousel-slide>
-            </b-link>           
+            <b-link href="/shop/goods/255439">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041605.jpg'"></b-carousel-slide>
+            </b-link>
+            <b-link href="/shop/goods/925">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
+            </b-link>
+            <b-link href="/shop/goods?ca01=45">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041603.jpg'"></b-carousel-slide>
+            </b-link>
+            <b-link href="/shop/goods?ca01=22&ca02=634">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041602.jpg'"></b-carousel-slide>
+            </b-link>
+            <b-link href="/shop/listing/today_pick_up/all">
+                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
+            </b-link>
         </b-carousel>
 
         <b-row id="best" class="layout">
@@ -76,7 +89,7 @@
             </aside>
 
             <b-container class="con">
-            <template v-for="(ca, i) in category">
+            <template v-for="ca in category">
                 <b-row v-if="ca.ca_id != 38" :key="ca.ca_id">
                     <b-col class="tit">                    
                         <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
@@ -241,6 +254,13 @@ export default {
 
 <style lang="css" scoped>
 .slide_banner { max-width: 1920px; margin: auto; }
+.slide_banner >>> .carousel-indicators li { background-color:#898989; }
+.slide_banner >>> .carousel-control-prev:hover,
+.slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
+.slide_banner .split_link_box { position:relative; }
+.slide_banner .split_link_box .split_link { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%); }
+.slide_banner .split_link_box a#app01 { left:29%; }
+.slide_banner .split_link_box a#app02 { left:71%;}
 
 #best { margin-top:26px; }
 #best>.col { padding:0; }

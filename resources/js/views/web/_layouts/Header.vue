@@ -132,6 +132,10 @@ export default {
             this.$store.dispatch('auth/logout');
         },
         routerPush(){
+            if(this.frm.keyword == '') {
+                Notify.modal('검색어를 입력하세요.', 'warning');
+                return false;
+            }
             this.$store.dispatch('goods/routerPush', 'new');
         },
         onScroll(e) {

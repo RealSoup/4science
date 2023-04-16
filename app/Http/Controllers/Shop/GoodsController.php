@@ -12,6 +12,7 @@ class GoodsController extends Controller {
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
     public function index(Request $req) {
+        abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
             ($req->filled('ca02') && Category::where('ca_id', $req->ca02)->doesntExist()) ||
@@ -34,20 +35,17 @@ class GoodsController extends Controller {
                 ->Enable('Y')->groupBy('gd_id');
 
         if ($req->filled('keyword')){
-            $isNum=true;
-            if ( !$req->filled('mode') || $req->mode == 'cat_no'  ) {
-                $cat_no  = $req->keyword;
-                $cat_no = explode('-', $cat_no);
-                if (implode( '', $cat_no ) != '') {
-                    foreach ($cat_no as $k=>$vv) {
-                        // $cat_no[$k] = @intval($vv);
-                        if ( preg_match("/[^0-9]/i", @intval($vv)) ) {
-                            $isNum = false; 
+            $isCatNo=false;
+            if ( (!$req->filled('mode') || $req->mode == 'cat_no') && strpos($req->keyword, '-') !== false ) {
+                $cat_no = explode('-', $req->keyword);
+                if (implode( '', $cat_no ) != '')  {    //  단순히 하이푼만 입력하면 무한 로딩
+                    $isCatNo = true;
+                    foreach ($cat_no as $k => $v) {
+                        if ( preg_match("/[^0-9]/i", @intval($v)) || ($k==1 && $v=='')) {
+                            $isCatNo = false; 
                             break;
                         }
                     }
-                } else {
-                    $isNum = false;
                 }
             }
 
@@ -61,7 +59,7 @@ class GoodsController extends Controller {
                     $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
                     $goods = $goods->union($hash);
                 }
-                if ($isNum) {
+                if ($isCatNo) {
                     $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
                     if (count($cat_no)==2)       $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1]);
                     else if (count($cat_no)==3)  $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1])->where('gm_catno03', $cat_no[2]);
@@ -80,8 +78,8 @@ class GoodsController extends Controller {
                 $gd->when($gd_name, fn ($q, $v) => $q->whereFullText('gd_name', $v))
                     ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }))
                     ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }))
-                    ->when($cat_no, function ($q, $v) use($isNum) {
-                        if (!$isNum) return;
+                    ->when($cat_no, function ($q, $v) use($isCatNo) {
+                        if (!$isCatNo) return;
                         else         return $q->whereIn('gd_id', function($q) use($v) {
                             if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
                             else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 

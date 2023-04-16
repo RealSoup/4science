@@ -207,6 +207,7 @@ export default {
 
     data() {
         return {
+            id:this.$route.params.id,
             isModalViewed: false,
             frm: {
                 option: [],
@@ -220,36 +221,48 @@ export default {
         };
     },
 
-    async mounted() {
-        const user = await ax.get(`/api/admin/user/${this.$route.params.id}/edit`);
-        if (user && user.status === 200)
-            this.frm = user.data;
-        
-        const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.$route.params.id, limit:10}});
-        if (od && od.status === 200) {
-            this.order = od.data.list;
-            this.order_config = od.data.order_config;
-            this.mng_off = od.data.mng_off;
-        }
-        
-        const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.$route.params.id, limit:10}});
-        if (eq && eq.status === 200) 
-            this.estimate = eq.data.list;
-    },
-
     methods: {
+        async edit() {
+            const user = await ax.get(`/api/admin/user/${this.id}/edit`);
+            if (user && user.status === 200)
+                this.frm = user.data;
+            
+            const od = await ax.get(`/api/admin/shop/order`, { params: {writer:this.id, limit:10}});
+            if (od && od.status === 200) {
+                this.order = od.data.list;
+                this.order_config = od.data.order_config;
+                this.mng_off = od.data.mng_off;
+            }
+            
+            const eq = await ax.get(`/api/admin/shop/estimate`, { params: {writer:this.id, limit:10}});
+            if (eq && eq.status === 200) 
+                this.estimate = eq.data.list;
+        },
+
         async update() {
             this.frm = Object.assign(
                 {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 this.frm, // 수정하려는 객체
                 {_method : 'PATCH'} // 삽입하려는 내용
             );
-            const res = await ax.post(`/api/admin/user/${this.$route.params.id}`, this.frm);
+            const res = await ax.post(`/api/admin/user/${this.id}`, this.frm);
             if (res && res.status === 200) {
                 Notify.toast('success', '수정 완료');
             }
 
         }
+    },
+
+    async mounted() {
+        this.edit();
+        
+    },
+
+    beforeRouteUpdate (to, from, next) {
+        // console.log(to, from);
+        this.id = to.params.id;
+        this.edit();
+        next();
     },
 }
 </script>

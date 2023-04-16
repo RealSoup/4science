@@ -530,7 +530,7 @@ export default {
 .conRight .goods_relate .gd_list .col div { width:160px; height:160px; margin:6px auto; }
 .conRight .goods_relate .gd_list .col div img { width:160px; height:160px; object-fit:contain; }
 .conRight .goods_relate .gd_list .col span { margin-top:.5rem; font-size:.75rem; }
-.conRight .goods_relate .ps { max-width:814px; }
+.conRight .goods_relate .ps { width:814px; }
 .conRight .goods_relate .tail { flex:0 0 4.7%; max-width:4.7%; }
 .conRight .goods_relate .tail img { position:absolute; top:48%; left:50%; transform:translate(-50%, -50%); }
 
