@@ -40,9 +40,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_modules/vue2-animate/dist/vue2-animate.min.css");
@@ -56,10 +53,9 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
   },
   data: function data() {
     return {
-      mouseHover: true,
       ck_key: 'RecentGoods',
       itemsPerRow: 5,
-      recentGoods: {},
+      recentGoods: [],
       direction_int: 0,
       cubeClass: {
         show_front: true,
@@ -71,6 +67,12 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
   computed: {
     divideRecentGoods: function divideRecentGoods() {
       return Array.from(Array(Math.ceil(this.recentGoods.length / this.itemsPerRow)).keys());
+    },
+    cubeHeight: function cubeHeight() {
+      var cnt = this.recentGoods.length > 4 ? 5 : this.recentGoods.length;
+      return {
+        height: cnt * 80 + 'px'
+      };
     }
   },
   methods: {
@@ -222,7 +224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.recent_box[data-v-2847dba6] { position:fixed; top:20%; right:1%; transition:all .5s ease; z-index:1;\n}\n.recent_box .list_item[data-v-2847dba6] { width:70px; height:70px; border-radius:100%;\n}\n.recent_box .box_header[data-v-2847dba6]  { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center;\n}\n.recent_box .cube_box[data-v-2847dba6], .recent_box .cube_box *[data-v-2847dba6] { box-sizing: border-box;\n}\n.recent_box .cube_box[data-v-2847dba6] { width:70px; margin:auto; transition:all .5s ease;\n}\n.recent_box .cube_box.allShow[data-v-2847dba6] { height:430px;\n}\n.recent_box .cube_box.allShow .cube .piece[data-v-2847dba6] { height:100%;\n}\n.recent_box .cube_box .cube[data-v-2847dba6] { position: relative; transform-style: preserve-3d;\r\n    width:100%; height:410px;\r\n    transform: translateZ(-30px); transition: transform .2s;\n}\n.recent_box .cube_box .cube .piece[data-v-2847dba6] { position:absolute; height:60px; overflow:hidden; transition:all .5s ease;\n}\n.recent_box .cube_box .cube .piece.front[data-v-2847dba6]  { transform: rotateY(  0deg) translateZ(30px);\n}\n.recent_box .cube_box .cube .piece.right[data-v-2847dba6]  { transform: rotateY( 90deg) translateZ(30px);\n}\n.recent_box .cube.show_front[data-v-2847dba6]  { transform: translateZ(-30px) rotateY(   0deg);\n}\n.recent_box .cube.show_right[data-v-2847dba6]  { transform: translateZ(-30px) rotateY( -90deg);\n}\n.recent_box .cube.show_back[data-v-2847dba6]   { transform: translateZ(-30px) rotateY(-180deg);\n}\n.recent_box .cube_box .cube .piece a[data-v-2847dba6] { overflow:hidden; display:block; border:5px solid #FFF; margin:10px 0;}\n.recent_box .cube_box .cube .piece a img[data-v-2847dba6] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain;\n}\n.recent_box .cube_box .ctrlBtn[data-v-2847dba6] { display:flex;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6] { background-color:#51B948; color:#fff; width:50%; display:inline-block; text-align:center; border-width:0; padding:0;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:nth-of-type(1) { border-right:1px solid #FFF; border-radius: 42% 0 0 42%;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:nth-of-type(2) { border-radius:0 42% 42% 0;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:disabled { cursor:not-allowed !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.recent_box[data-v-2847dba6] { position:fixed; top:20%; right:1%; transition:all .5s ease; z-index:1;\n}\n.recent_box .list_item[data-v-2847dba6] { width:70px; height:70px; border-radius:100%;\n}\n.recent_box .box_header[data-v-2847dba6] { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center;\n}\n.recent_box .cube_box[data-v-2847dba6], .recent_box .cube_box *[data-v-2847dba6] { box-sizing: border-box;\n}\n.recent_box .cube_box[data-v-2847dba6] { width:70px; height:430px; margin:auto; transition:all .5s ease;\n}\n.recent_box .cube_box .cube[data-v-2847dba6] { position: relative; transform-style: preserve-3d; width:100%; transform: translateZ(-30px); transition: transform .2s;\n}\n.recent_box .cube_box .cube .piece[data-v-2847dba6] { position:absolute; overflow:hidden; transition:all .5s ease;\n}\n.recent_box .cube_box .cube .piece.front[data-v-2847dba6]  { transform: rotateY(  0deg) translateZ(30px);\n}\n.recent_box .cube_box .cube .piece.right[data-v-2847dba6]  { transform: rotateY( 90deg) translateZ(30px);\n}\n.recent_box .cube.show_front[data-v-2847dba6]  { transform: translateZ(-30px) rotateY(   0deg);\n}\n.recent_box .cube.show_right[data-v-2847dba6]  { transform: translateZ(-30px) rotateY( -90deg);\n}\n.recent_box .cube.show_back[data-v-2847dba6]   { transform: translateZ(-30px) rotateY(-180deg);\n}\n.recent_box .cube_box .cube .piece a[data-v-2847dba6] { overflow:hidden; display:block; border:5px solid #FFF; margin-top:10px;\n}\n.recent_box .cube_box .cube .piece a img[data-v-2847dba6] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain;\n}\n.recent_box .cube_box .ctrlBtn[data-v-2847dba6] { display:flex; margin-top:10px;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6] { background-color:#51B948; color:#fff; width:50%; display:inline-block; text-align:center; border-width:0; padding:0;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:nth-of-type(1) { border-right:1px solid #FFF; border-radius: 42% 0 0 42%;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:nth-of-type(2) { border-radius:0 42% 42% 0;\n}\n.recent_box .cube_box .ctrlBtn .btn[data-v-2847dba6]:disabled { cursor:not-allowed !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -386,108 +388,91 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.recentGoods.length
-    ? _c(
-        "div",
-        {
-          staticClass: "recent_box",
-          on: {
-            mouseenter: function ($event) {
-              _vm.mouseHover = true
+    ? _c("div", { staticClass: "recent_box" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "cube_box" }, [
+          _c(
+            "div",
+            {
+              staticClass: "cube",
+              class: _vm.cubeClass,
+              style: _vm.cubeHeight,
             },
-            mouseleave: function ($event) {
-              _vm.mouseHover = true
-            },
-          },
-        },
-        [
-          _vm._m(0),
+            _vm._l(_vm.divideRecentGoods, function (side, i) {
+              return _c(
+                "div",
+                {
+                  key: i,
+                  staticClass: "piece",
+                  class: _vm.setCubePieceClass(i),
+                },
+                _vm._l(
+                  _vm.recentGoods.slice(
+                    i * _vm.itemsPerRow,
+                    (i + 1) * _vm.itemsPerRow
+                  ),
+                  function (gd) {
+                    return _c(
+                      "router-link",
+                      {
+                        key: gd.gd_id,
+                        staticClass: "list_item",
+                        attrs: {
+                          to: {
+                            name: "goods_show",
+                            params: { gd_id: gd.gd_id },
+                          },
+                        },
+                      },
+                      [_c("img", { attrs: { src: gd.image_src_thumb[0] } })]
+                    )
+                  }
+                ),
+                1
+              )
+            }),
+            0
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "cube_box", class: { allShow: _vm.mouseHover } },
+            { staticClass: "ctrlBtn" },
             [
               _c(
-                "div",
-                { staticClass: "cube", class: _vm.cubeClass },
-                _vm._l(_vm.divideRecentGoods, function (side, i) {
-                  return _c(
-                    "div",
-                    {
-                      key: i,
-                      staticClass: "piece",
-                      class: _vm.setCubePieceClass(i),
+                "b-button",
+                {
+                  attrs: { disabled: _vm.direction_int < 1 },
+                  on: {
+                    click: function ($event) {
+                      return _vm.setCubeClass("left")
                     },
-                    _vm._l(
-                      _vm.recentGoods.slice(
-                        i * _vm.itemsPerRow,
-                        (i + 1) * _vm.itemsPerRow
-                      ),
-                      function (gd) {
-                        return _c(
-                          "router-link",
-                          {
-                            key: gd.gd_id,
-                            staticClass: "list_item",
-                            attrs: {
-                              to: {
-                                name: "goods_show",
-                                params: { gd_id: gd.gd_id },
-                              },
-                            },
-                          },
-                          [_c("img", { attrs: { src: gd.image_src_thumb[0] } })]
-                        )
-                      }
-                    ),
-                    1
-                  )
-                }),
-                0
+                  },
+                },
+                [_vm._v("<")]
               ),
               _vm._v(" "),
-              _vm.mouseHover
-                ? _c(
-                    "div",
-                    { staticClass: "ctrlBtn" },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { disabled: _vm.direction_int < 1 },
-                          on: {
-                            click: function ($event) {
-                              return _vm.setCubeClass("left")
-                            },
-                          },
-                        },
-                        [_vm._v("<")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: {
-                            disabled:
-                              _vm.direction_int > 1 ||
-                              _vm.direction_int >=
-                                this.divideRecentGoods.length - 1,
-                          },
-                          on: {
-                            click: function ($event) {
-                              return _vm.setCubeClass("right")
-                            },
-                          },
-                        },
-                        [_vm._v(">")]
-                      ),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-            ]
+              _c(
+                "b-button",
+                {
+                  attrs: {
+                    disabled:
+                      _vm.direction_int > 1 ||
+                      _vm.direction_int >= this.divideRecentGoods.length - 1,
+                  },
+                  on: {
+                    click: function ($event) {
+                      return _vm.setCubeClass("right")
+                    },
+                  },
+                },
+                [_vm._v(">")]
+              ),
+            ],
+            1
           ),
-        ]
-      )
+        ]),
+      ])
     : _vm._e()
 }
 var staticRenderFns = [

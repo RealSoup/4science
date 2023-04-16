@@ -1,11 +1,8 @@
 <template>
-<div class="recent_box"
-    v-if="recentGoods.length"
-    @mouseenter="mouseHover = true"
-    @mouseleave="mouseHover = true">
+<div class="recent_box" v-if="recentGoods.length">
     <div class="box_header list_item">최근<br>본 상품</div>
-    <div class="cube_box" :class="{allShow:mouseHover}">
-        <div class="cube" :class="cubeClass">
+    <div class="cube_box">
+        <div class="cube" :class="cubeClass" :style="cubeHeight">
             <div class="piece" v-for="(side, i) in divideRecentGoods" :key="i" :class="setCubePieceClass(i)">
                 <router-link :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }" v-for="gd in recentGoods.slice(i * itemsPerRow, (i + 1) * itemsPerRow)" :key="gd.gd_id" class="list_item">
                     <img :src="gd.image_src_thumb[0]" />
@@ -13,7 +10,7 @@
             </div>
         </div>
         
-        <div class="ctrlBtn" v-if="mouseHover">
+        <div class="ctrlBtn">
             <b-button @click="setCubeClass('left')" :disabled="direction_int<1"><</b-button>
             <b-button @click="setCubeClass('right')" :disabled="(direction_int>1 || direction_int>=(this.divideRecentGoods.length-1))">></b-button>
         </div>
@@ -35,10 +32,9 @@ export default {
     },
     data () {
         return {
-            mouseHover: true,
             ck_key: 'RecentGoods',
             itemsPerRow: 5,
-            recentGoods: {},
+            recentGoods: [],
             direction_int: 0,
             cubeClass: {
                 show_front: true,
@@ -51,6 +47,10 @@ export default {
         divideRecentGoods () {
             return Array.from(Array(Math.ceil(this.recentGoods.length / this.itemsPerRow)).keys())
         },
+        cubeHeight: function () {
+            let cnt = this.recentGoods.length > 4 ? 5 : this.recentGoods.length;
+            return { height: (cnt*80) + 'px', }
+        }
     },
     methods: {
         async setRecentGoods() {
@@ -118,16 +118,13 @@ export default {
 <style lang="css" scoped>
 .recent_box { position:fixed; top:20%; right:1%; transition:all .5s ease; z-index:1; }
 .recent_box .list_item { width:70px; height:70px; border-radius:100%; }
-.recent_box .box_header  { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center; }
+.recent_box .box_header { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center; }
 
 .recent_box .cube_box, .recent_box .cube_box * { box-sizing: border-box; }
-.recent_box .cube_box { width:70px; margin:auto; transition:all .5s ease; }
-.recent_box .cube_box.allShow { height:430px; }
-.recent_box .cube_box.allShow .cube .piece { height:100%; }
-.recent_box .cube_box .cube { position: relative; transform-style: preserve-3d;
-    width:100%; height:410px;
-    transform: translateZ(-30px); transition: transform .2s; }
-.recent_box .cube_box .cube .piece { position:absolute; height:60px; overflow:hidden; transition:all .5s ease; }
+.recent_box .cube_box { width:70px; height:430px; margin:auto; transition:all .5s ease; }
+
+.recent_box .cube_box .cube { position: relative; transform-style: preserve-3d; width:100%; transform: translateZ(-30px); transition: transform .2s; }
+.recent_box .cube_box .cube .piece { position:absolute; overflow:hidden; transition:all .5s ease; }
 .recent_box .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(30px); }
 .recent_box .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(30px); }
 
@@ -135,10 +132,10 @@ export default {
 .recent_box .cube.show_right  { transform: translateZ(-30px) rotateY( -90deg); }
 .recent_box .cube.show_back   { transform: translateZ(-30px) rotateY(-180deg); }
 
-.recent_box .cube_box .cube .piece a { overflow:hidden; display:block; border:5px solid #FFF; margin:10px 0;}
+.recent_box .cube_box .cube .piece a { overflow:hidden; display:block; border:5px solid #FFF; margin-top:10px; }
 .recent_box .cube_box .cube .piece a img { width:100%; height:100%; object-fit:contain; }
 
-.recent_box .cube_box .ctrlBtn { display:flex; }
+.recent_box .cube_box .ctrlBtn { display:flex; margin-top:10px; }
 .recent_box .cube_box .ctrlBtn .btn { background-color:#51B948; color:#fff; width:50%; display:inline-block; text-align:center; border-width:0; padding:0; }
 .recent_box .cube_box .ctrlBtn .btn:nth-of-type(1) { border-right:1px solid #FFF; border-radius: 42% 0 0 42%; }
 .recent_box .cube_box .ctrlBtn .btn:nth-of-type(2) { border-radius:0 42% 42% 0; }
