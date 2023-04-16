@@ -36,25 +36,20 @@
             <b-row v-if="view_finder">
                 <b-col>
                     <p>기존 아이디로 찾기</p>
-                    <validation-provider name="아이디" :rules="{ required:true, min:3 }" v-slot="validationContext">
-                        <b-form-input v-model="frm.id" :state="getValidationState(validationContext)" @keyup.enter="find_email" />
+                    <span>
+                        <b-form-input v-model="frm.id" @keyup.enter="find_email" />
                         <b @click="find_email"><font-awesome-icon icon="search" /></b>
-                        <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                    </validation-provider>
+                    </span>
                 </b-col>
                 
                 <b-col>
                     <p>이름과 휴대폰번호로 찾기</p>
                     <div>
-                        <validation-provider name="이름" :rules="{ required:true, min:2 }" v-slot="validationContext">
-                            <b-form-input v-model="frm.name" :state="getValidationState(validationContext)" />
-                            <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </validation-provider>
-                        <validation-provider name="휴대폰" :rules="{ required:true }" v-slot="validationContext">
-                            <b-form-input v-model="frm.hp" :state="getValidationState(validationContext)" @keyup.enter="find_email" :formatter="formatHp" />
+                        <span><b-form-input v-model="frm.name" /></span>
+                        <span>
+                            <b-form-input v-model="frm.hp" @keyup.enter="find_email" :formatter="frm_formatHp" />
                             <b @click="find_email"><font-awesome-icon icon="search" /></b>
-                            <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                        </validation-provider>
+                        </span>
                     </div>
                 </b-col>
             </b-row>
@@ -105,7 +100,7 @@ export default {
                 Notify.toast('warning', e.responsee);
             }
         },
-        frm_formatHp(v)   { return this.formatHp(v); },
+        frm_formatHp(v) { return this.formatHp(v); },
     },
     mounted() {
         

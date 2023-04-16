@@ -157,6 +157,6 @@ class UserController extends Controller {
             } else
                 abort(500, '존재하지 않는 아이디입니다.');
         } else 
-            abort(500, '아이디를 입력하세요.');
+            abort(500, '아이디 또는 이름과 휴대폰 번호를 입력하세요.');
     }
 }
