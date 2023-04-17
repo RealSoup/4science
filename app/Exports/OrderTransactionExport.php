@@ -393,7 +393,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             },
             AfterSheet::class    => function(AfterSheet $event) {
                 $drawing2 = new Drawing();
-                $drawing2->setPath(public_path('img\estimate_logo.png'));
+                $drawing2->setPath(public_path('img/estimate_logo.png'));
                 $drawing2->setHeight(43);
                 $drawing2->setCoordinates('C'.(count($this->odm_map)+2+16));
                 $drawing2->setWorksheet($event->sheet->getDelegate());
