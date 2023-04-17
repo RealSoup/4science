@@ -168,8 +168,6 @@ class EstimateController extends Controller {
             } else {
                 if ($data['estimate_req']->estimateModel()->exists())
                     $data['estimate_model'] = $data['estimate_req']->estimateModel;
-                else 
-                    $data['estimate_model'] = [$this->emptyEm()];
             }
             foreach ($data['estimate_model'] as $em) {
                 $em->goods->purchaseAt;
@@ -187,14 +185,12 @@ class EstimateController extends Controller {
                     $em->em_spec  = $gm->gm_spec;
                 }
             }
-        } else {
-            $data['estimate_req'] = new class{};
-            $data['estimate_model'] = [$this->emptyEm()];
-        }
-        if (!$req->filled('eq_id') || !$req->filled('er_id')) {
-            $data['estimate_reply']['file_info'] = [];
-            
-        }
+        } 
+        
+        if (!array_key_exists('estimate_req', $data))         $data['estimate_req'] = new class{};
+        if (!array_key_exists('estimate_model', $data))       $data['estimate_model'] = [$this->emptyEm()];
+        if (!$req->filled('eq_id') || !$req->filled('er_id')) $data['estimate_reply']['file_info'] = [];
+        
         // $data['empty_goods'] = new Goods;
         $data['empty_em'] = $this->emptyEm();
         $data['estimate_reply']['er_effective_at'] = date("Y-m-d", strtotime("+2 week"));
