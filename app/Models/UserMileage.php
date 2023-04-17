@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserMileage extends Model {
+    use SoftDeletes;
     protected $primaryKey = 'ml_id';
     protected $table = 'user_mileage';
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $guarded = [];
     protected $appends = ['refine_content', 'expiration'];
 
