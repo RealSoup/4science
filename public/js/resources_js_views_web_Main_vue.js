@@ -686,12 +686,12 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: { name: "goods_show", params: { gd_id: 1227 } },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec01.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec01.png" },
                           }),
                         ],
                         1
@@ -708,12 +708,15 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: {
+                              name: "goods_show",
+                              params: { gd_id: 46852 },
+                            },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec02.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec02.png" },
                           }),
                         ],
                         1
@@ -730,12 +733,15 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: {
+                              name: "goods_index",
+                              query: { ca01: "28", ca02: "3481", ca03: "3483" },
+                            },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec03.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec03.png" },
                           }),
                         ],
                         1
@@ -758,12 +764,12 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: { name: "goods_show", params: { gd_id: 7919 } },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec04.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec04.png" },
                           }),
                         ],
                         1
@@ -780,12 +786,15 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: {
+                              name: "goods_index",
+                              query: { ca01: "30", ca02: "5042" },
+                            },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec06.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec06.png" },
                           }),
                         ],
                         1
@@ -802,12 +811,15 @@ var render = function () {
                         "b-link",
                         {
                           attrs: {
-                            to: { name: "goods_show", params: { gd_id: 1 } },
+                            to: {
+                              name: "goods_index",
+                              query: { keyword: "goodsgood" },
+                            },
                           },
                         },
                         [
                           _c("b-img", {
-                            attrs: { src: _vm.s3url + "main/rec05.jpg" },
+                            attrs: { src: _vm.s3url + "main/rec05.png" },
                           }),
                         ],
                         1
