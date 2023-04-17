@@ -148,6 +148,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -158,8 +159,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     KinesisContainer: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisContainer,
     KinesisElement: vue_kinesis__WEBPACK_IMPORTED_MODULE_2__.KinesisElement,
     // https://github.com/Aminerman/vue-kinesis
-    vueAccordion: vue_accordion__WEBPACK_IMPORTED_MODULE_3__.vueAccordion // https://github.com/zeratulmdq/vue-accordion
-
+    vueAccordion: vue_accordion__WEBPACK_IMPORTED_MODULE_3__.vueAccordion,
+    // https://github.com/zeratulmdq/vue-accordion
+    'PopUp': function PopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_module/PopUp */ "./resources/js/views/web/_module/PopUp.vue"));
+    }
   },
   data: function data() {
     return {
@@ -500,6 +504,8 @@ var render = function () {
   return _c(
     "div",
     [
+      _c("PopUp"),
+      _vm._v(" "),
       _c(
         "b-carousel",
         {

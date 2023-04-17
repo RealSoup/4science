@@ -79,10 +79,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     thisFocus: function thisFocus() {
-      this.$set(this.value, 'show_right', true);
+      this.$set(this.value, 'show_bottom', true);
     },
     thisBlur: function thisBlur() {
-      this.$set(this.value, 'show_right', false);
+      this.$set(this.value, 'show_bottom', false);
     }
   }
 });

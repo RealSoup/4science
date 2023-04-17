@@ -1,118 +1,119 @@
 <template>
-    <div>
-        <b-carousel controls indicators class="slide_banner">
-            <b-link to="/board/event/show/31">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
-                    <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
-                    <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
-                </b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods/255439">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041605.jpg'"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods/925">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?ca01=45">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041603.jpg'"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/goods?ca01=22&ca02=634">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041602.jpg'"></b-carousel-slide>
-            </b-link>
-            <b-link to="/shop/listing/today_pick_up/all">
-                <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
-            </b-link>
-        </b-carousel>
+<div>
+    <PopUp /> <!-- 팝업 -->
+    <b-carousel controls indicators class="slide_banner">
+        <b-link to="/board/event/show/31">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
+                <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
+                <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
+            </b-carousel-slide>
+        </b-link>
+        <b-link to="/shop/goods/255439">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041605.jpg'"></b-carousel-slide>
+        </b-link>
+        <b-link to="/shop/goods/925">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
+        </b-link>
+        <b-link to="/shop/goods?ca01=45">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041603.jpg'"></b-carousel-slide>
+        </b-link>
+        <b-link to="/shop/goods?ca01=22&ca02=634">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041602.jpg'"></b-carousel-slide>
+        </b-link>
+        <b-link to="/shop/listing/today_pick_up/all">
+            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
+        </b-link>
+    </b-carousel>
 
-        <b-row id="best" class="layout">
-            <b-col>
-                <b-img :src="`${s3url}main/best.gif`" />
-            </b-col>
-            <b-col>
-                <div class="box-row">
-                    <b-link
-                        v-for="(item, i) in bestRemodel"
-                        :key="i"
-                        :to="{ name: 'goods_show', params: {gd_id: item.gd_id} }"
-                    >
-                        <img :src="item.image" />
-                        <div class="box-footer">
-                            <p class="box_ca">{{item.ca01_name}}</p>
-                            <h6 class="box_tit">{{item.gd_name}}</h6>
-                        </div>
-                    </b-link>
-                </div>
-            </b-col>
+    <b-row id="best" class="layout">
+        <b-col>
+            <b-img :src="`${s3url}main/best.gif`" />
+        </b-col>
+        <b-col>
+            <div class="box-row">
+                <b-link
+                    v-for="(item, i) in bestRemodel"
+                    :key="i"
+                    :to="{ name: 'goods_show', params: {gd_id: item.gd_id} }"
+                >
+                    <img :src="item.image" />
+                    <div class="box-footer">
+                        <p class="box_ca">{{item.ca01_name}}</p>
+                        <h6 class="box_tit">{{item.gd_name}}</h6>
+                    </div>
+                </b-link>
+            </div>
+        </b-col>
+    </b-row>
+
+    <div class="recommend">
+        <div class="back"></div>
+        <b-container class="layout">
+            <b-row>
+                <b-col class="tit">포사의 추천 ></b-col>
+            </b-row>
+            <b-row>
+                <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1227}}"><b-img :src="`${s3url}main/rec01.png`" /></b-link></b-col>
+                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:46852}}"><b-img :src="`${s3url}main/rec02.png`" /></b-link></b-col>
+                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'28', ca02:'3481', ca03:'3483'}}"><b-img :src="`${s3url}main/rec03.png`" /></b-link></b-col>
+            </b-row>
+            <b-row>
+                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:7919}}"><b-img :src="`${s3url}main/rec04.png`" /></b-link></b-col>
+                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec06.png`" /></b-link></b-col>
+                <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_index', query: {keyword:'goodsgood'}}"><b-img :src="`${s3url}main/rec05.png`" /></b-link></b-col>
+            </b-row>
+        </b-container>
+    </div>
+
+    <div class="byCate layout">
+        <b-row class="titByCate">
+            <b-col tag="h5">카테고리별 추천</b-col>
         </b-row>
 
-        <div class="recommend">
-            <div class="back"></div>
-            <b-container class="layout">
-                <b-row>
-                    <b-col class="tit">포사의 추천 ></b-col>
-                </b-row>
-                <b-row>
-                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1227}}"><b-img :src="`${s3url}main/rec01.png`" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:46852}}"><b-img :src="`${s3url}main/rec02.png`" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'28', ca02:'3481', ca03:'3483'}}"><b-img :src="`${s3url}main/rec03.png`" /></b-link></b-col>
-                </b-row>
-                <b-row>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:7919}}"><b-img :src="`${s3url}main/rec04.png`" /></b-link></b-col>
-                    <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec06.png`" /></b-link></b-col>
-                    <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_index', query: {keyword:'goodsgood'}}"><b-img :src="`${s3url}main/rec05.png`" /></b-link></b-col>
-                </b-row>
-            </b-container>
-        </div>
+        <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
+            <ul>
+                <li v-for="(ca, i) in category" :key="ca.ca_id"
+                    @mouseenter="ca.hover = !ca.hover"
+                    @mouseleave="ca.hover = !ca.hover"
+                    @click="scrollToCate(i)"
+                    :class="{ 'active': ca.showing }"
+                >
+                    <img :src="ca.hover||ca.showing ? `${s3url}main/cate/${ca.ca_id}_.png` :`${s3url}main/cate/${ca.ca_id}.png`" />
+                    <span v-if="ca.hover">{{ca.ca_name}}</span>
+                </li>
+                
+                <!-- <li>
+                    <button @click="scrollch('+')">up</button>
+                    <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
+                    <button @click="scrollch('-')">dn</button>
+                </li> -->
+            </ul>
+        </aside>
 
-        <div class="byCate layout">
-            <b-row class="titByCate">
-                <b-col tag="h5">카테고리별 추천</b-col>
-            </b-row>
-
-            <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
-                <ul>
-                    <li v-for="(ca, i) in category" :key="ca.ca_id"
-                        @mouseenter="ca.hover = !ca.hover"
-                        @mouseleave="ca.hover = !ca.hover"
-                        @click="scrollToCate(i)"
-                        :class="{ 'active': ca.showing }"
+        <b-container class="con">
+        <template v-for="ca in category">
+            <b-row v-if="ca.ca_id != 38" :key="ca.ca_id">
+                <b-col class="tit">                    
+                    <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
+                        <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
+                        <h6>{{ca.ca_name}}</h6>
+                        <span>전체보기 <b-icon-chevron-right /></span>
+                    </b-link>
+                </b-col>
+                <b-col class="list">
+                    <b-link class="col" 
+                        v-for="(gd, i) in bestByCategory[ca.ca_id]" :key="i"
+                        :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
                     >
-                        <img :src="ca.hover||ca.showing ? `${s3url}main/cate/${ca.ca_id}_.png` :`${s3url}main/cate/${ca.ca_id}.png`" />
-                        <span v-if="ca.hover">{{ca.ca_name}}</span>
-                    </li>
-                    
-                    <!-- <li>
-                        <button @click="scrollch('+')">up</button>
-                        <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
-                        <button @click="scrollch('-')">dn</button>
-                    </li> -->
-                </ul>
-            </aside>
-
-            <b-container class="con">
-            <template v-for="ca in category">
-                <b-row v-if="ca.ca_id != 38" :key="ca.ca_id">
-                    <b-col class="tit">                    
-                        <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
-                            <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
-                            <h6>{{ca.ca_name}}</h6>
-                            <span>전체보기 <b-icon-chevron-right /></span>
-                        </b-link>
-                    </b-col>
-                    <b-col class="list">
-                        <b-link class="col" 
-                            v-for="(gd, i) in bestByCategory[ca.ca_id]" :key="i"
-                            :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
-                        >
-                            <b-img fluid :src="gd.goods.image_src_thumb[0]" />
-                            <p>{{gd.goods.gd_name}}</p>
-                        </b-link>
-                    </b-col>
-                </b-row>
-            </template>
-            </b-container>
-        </div>
+                        <b-img fluid :src="gd.goods.image_src_thumb[0]" />
+                        <p>{{gd.goods.gd_name}}</p>
+                    </b-link>
+                </b-col>
+            </b-row>
+        </template>
+        </b-container>
     </div>
+</div>
 </template>
 
 
@@ -128,6 +129,7 @@ export default {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         vueAccordion, // https://github.com/zeratulmdq/vue-accordion
+        'PopUp': () => import('./_module/PopUp'),
     },
     data() {
         return {

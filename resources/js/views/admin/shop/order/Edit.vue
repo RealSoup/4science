@@ -117,9 +117,9 @@
                         <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
                         <b-col class="align">
                             <div class="cube_box">
-                                <div class="cube" :class="{show_right: odm.show_right}">
+                                <div class="cube" :class="{show_bottom: odm.show_bottom}">
                                     <div class="piece front">{{odm.odm_ea | comma}}</div>
-                                    <div class="piece right"><EaInput v-model="pa.order_model[odm_i]" /></div>
+                                    <div class="piece bottom"><EaInput v-model="pa.order_model[odm_i]" /></div>
                                 </div>
                             </div>
                         </b-col>
@@ -243,11 +243,11 @@
                 <tr>
                     <th>수취인</th>
                     <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 이름 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'수취인 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
                         <div class="cube_box receiver">
-                            <div class="cube" :class="{show_right: focusInfo.od_receiver}">
+                            <div class="cube" :class="{show_bottom: focusInfo.od_receiver}">
                                 <div class="piece front">{{ od.od_receiver }}</div>
-                                <div class="piece right">
+                                <div class="piece bottom">
                                     <b-form-input v-model="od.od_receiver" @focus="focusInfo.od_receiver = true" @blur="focusInfo.od_receiver = false" size="sm" />
                                 </div>
                             </div>
@@ -255,11 +255,11 @@
                     </td>
                     <th>전화번호</th>
                     <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'전화번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block" />
                         <div class="cube_box receiver_hp">
-                            <div class="cube" :class="{show_right: focusInfo.od_receiver_hp}">
+                            <div class="cube" :class="{show_bottom: focusInfo.od_receiver_hp}">
                                 <div class="piece front">{{ od.od_receiver_hp }}</div>
-                                <div class="piece right">
+                                <div class="piece bottom">
                                     <b-form-input v-model="od.od_receiver_hp" @focus="focusInfo.od_receiver_hp = true" @blur="focusInfo.od_receiver_hp = false" size="sm" />
                                 </div>
                             </div>
@@ -269,11 +269,11 @@
                 <tr>
                     <th>배송주소</th>
                     <td colspan="3">
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수령인 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
+                        <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
                         <div class="cube_box receiver_addr">
                             <div class="cube">
                                 <div class="piece front">{{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}</div>
-                                <div class="piece right">
+                                <div class="piece bottom">
                                     <b-button class="teal ml-4" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">주소검색</b-button>
                                 </div>
                             </div>

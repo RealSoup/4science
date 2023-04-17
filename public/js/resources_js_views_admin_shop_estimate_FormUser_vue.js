@@ -55,7 +55,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'UserInput': function UserInput() {
@@ -314,8 +313,6 @@ var render = function () {
         ? _c(
             "b-row",
             [
-              _c("hr"),
-              _vm._v(" "),
               _c("b-col", [_vm._v("요청내용")]),
               _vm._v(" "),
               _c("b-col", [

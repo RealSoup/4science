@@ -35,8 +35,7 @@
             <b-form-input v-model="value.eq_fax" :formatter="formatTel" />
         </b-col>
     </b-row>
-    <b-row v-if="value.eq_content">
-        <hr />
+    <b-row v-if="value.eq_content">        
         <b-col>요청내용</b-col>
         <b-col><div v-html="nl2br(value.eq_content)" /></b-col>
     </b-row>

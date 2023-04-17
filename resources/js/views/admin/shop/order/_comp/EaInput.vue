@@ -30,10 +30,10 @@ export default {
             this.value.odm_price_add_vat = bundleCheck(this.bd, v, this.value.odm_price);
         },
         thisFocus () {
-            this.$set(this.value, 'show_right', true);
+            this.$set(this.value, 'show_bottom', true);
         },
         thisBlur () {
-            this.$set(this.value, 'show_right', false);
+            this.$set(this.value, 'show_bottom', false);
         },
     },
 }

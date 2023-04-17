@@ -102,11 +102,14 @@
 .cube_box,
 .cube_box .cube,
 .cube_box .cube .piece { width:100%; max-width:40px; height:30px; }
-.cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }
-.cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(20px); display:block; }
+.cube_box .cube .piece.front { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }
+/* .cube_box .cube .piece.right { transform: rotateY( 90deg) translateZ(20px); display:block; } */
+.cube_box .cube .piece.bottom { transform: rotateX(-90deg) translateZ(30px); display:block; }
 .cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }
-.cube_box .cube.show_right,
-.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); }
+/* .cube_box .cube.show_right,
+.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); } */
+.cube_box .cube.show_bottom,
+.cube_box .cube:hover{ transform: translateZ(-30px) rotateX(  90deg); }
 
 table tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }
 .cube_box.receiver,
@@ -117,6 +120,6 @@ table tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }
 .cube_box.receiver_hp .cube .piece { max-width:250px; }
 .cube_box.receiver_addr,
 .cube_box.receiver_addr .cube,
-.cube_box.receiver_addr .cube .piece { max-width:500px; }
+.cube_box.receiver_addr .cube .piece { max-width:calc(100% - 20px); }
 
 .layerModal .row .ctrl { text-align:right; }
