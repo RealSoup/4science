@@ -168,6 +168,8 @@ class EstimateController extends Controller {
             } else {
                 if ($data['estimate_req']->estimateModel()->exists())
                     $data['estimate_model'] = $data['estimate_req']->estimateModel;
+                else 
+                    $data['estimate_model'] = [$this->emptyEm()];
             }
             foreach ($data['estimate_model'] as $em) {
                 $em->goods->purchaseAt;
