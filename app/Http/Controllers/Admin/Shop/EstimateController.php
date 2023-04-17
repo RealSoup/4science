@@ -169,20 +169,22 @@ class EstimateController extends Controller {
                 if ($data['estimate_req']->estimateModel()->exists())
                     $data['estimate_model'] = $data['estimate_req']->estimateModel;
             }
-            foreach ($data['estimate_model'] as $em) {
-                $em->goods->purchaseAt;
-                $em->bundleDc;
-                $em->estimateOption;
+            if (array_key_exists('estimate_model', $data)) {
+                foreach ($data['estimate_model'] as $em) {
+                    $em->goods->purchaseAt;
+                    $em->bundleDc;
+                    $em->estimateOption;
 
-                if($em->em_name==''){
-                    $gm=GoodsModel::find($em->em_gm_id);
-                    // $data->estimateModel[$k]->name=$gm->gm_name;
-                    $em->em_name  = $gm->gm_name;
-                    $em->em_code  = $gm->gm_code;
-                    $em->em_catno = $gm->gm_catno;
-                    $em->em_maker = Goods::gdMaker($em->em_gd_id);
-                    $em->em_unit  = $gm->gm_unit;
-                    $em->em_spec  = $gm->gm_spec;
+                    if($em->em_name==''){
+                        $gm=GoodsModel::find($em->em_gm_id);
+                        // $data->estimateModel[$k]->name=$gm->gm_name;
+                        $em->em_name  = $gm->gm_name;
+                        $em->em_code  = $gm->gm_code;
+                        $em->em_catno = $gm->gm_catno;
+                        $em->em_maker = Goods::gdMaker($em->em_gd_id);
+                        $em->em_unit  = $gm->gm_unit;
+                        $em->em_spec  = $gm->gm_spec;
+                    }
                 }
             }
         } 
