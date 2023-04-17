@@ -505,14 +505,14 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $drawing = new Drawing();
         // $drawing->setName('Logo');
         // $drawing->setDescription('This is my logo');
-        $drawing->setPath(public_path('img\estimate_logo.png'));
+        $drawing->setPath(public_path('img/estimate_logo.png'));
         $drawing->setHeight(42);
         $drawing->setCoordinates('C4');
 
         $drawing2 = new Drawing();
         // $drawing2->setName('Other image');
         // $drawing2->setDescription('This is a second image');
-        $drawing2->setPath(public_path('img\addr_estimate200921.gif'));
+        $drawing2->setPath(public_path('img/addr_estimate200921.gif'));
         $drawing2->setHeight(80);
         $drawing2->setCoordinates('G3');
 
