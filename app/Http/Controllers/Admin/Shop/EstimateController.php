@@ -159,6 +159,7 @@ class EstimateController extends Controller {
     }
 
     public function create(Request $req) {
+        $data = [];
         if ($req->filled('eq_id')) {
             $data['estimate_req'] = $this->estimateReq->find($req->eq_id);
             
