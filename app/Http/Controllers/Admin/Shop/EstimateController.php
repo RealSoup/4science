@@ -279,7 +279,7 @@ class EstimateController extends Controller {
 
     public function update(Request $req, $er_id) {
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
-            if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step]))
+            if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step, 'eq_mng' => auth()->user()->id]))
                 return response()->json('success', 200);
         } else {                
             $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);

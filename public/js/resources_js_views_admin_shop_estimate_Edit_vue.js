@@ -1108,7 +1108,14 @@ var render = function () {
       _vm._v(" "),
       _c("FormCtrl", {
         attrs: { clickable: _vm.clickable },
-        on: { save: _vm.update },
+        on: { all_dc_update: _vm.all_dc_apply, save: _vm.update },
+        model: {
+          value: _vm.frm.estimate_reply,
+          callback: function ($$v) {
+            _vm.$set(_vm.frm, "estimate_reply", $$v)
+          },
+          expression: "frm.estimate_reply",
+        },
       }),
       _vm._v(" "),
       _c("FormSetting", {
