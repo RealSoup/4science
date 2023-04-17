@@ -366,7 +366,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
     }
     public function drawings() {
         $drawing = new Drawing();
-        $drawing->setPath(public_path('img\addr_estimate200921.gif'));
+        $drawing->setPath(public_path('img/addr_estimate200921.gif'));
         $drawing->setHeight(80);
         $drawing->setCoordinates('D4');
         return $drawing;
