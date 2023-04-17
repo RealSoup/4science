@@ -11,6 +11,8 @@ use DB;
 class MainController extends Controller {
     public function index(Request $request) {     
         $rst = Array();
+        // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
+        // dd(file_put_contents("xx.json", $json));
         foreach (Cache::get('categoryAll') as $ca) {
             $rst['bestByCate'][$ca['ca_id']] = ShowWindow::with('goods')
             ->where('sw_type', 'ca_best')

@@ -31,7 +31,7 @@ class CacheMaker {
             $u = User::whereHas('UserMng')->get()->keyBy('id');      
             Cache::forever('UserMngOff', json_decode($u, true));  //  배열 형태로 들어감
         }
-       if(!Cache::has('categoryAll')) {
+        if(!Cache::has('categoryAll')) {
             $ca = new Category;    
             Cache::forever('categoryAll', json_decode($ca->cateTree(), true));  //  배열 형태로 들어감
         }
