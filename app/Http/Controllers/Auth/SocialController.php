@@ -124,13 +124,13 @@ class SocialController extends Controller {
     }
 
     public function socialLoginCallback($userFromSocial, $provider) {
-        dd($userFromSocial, $provider);
         // 연결된 소셜 로그인 정보가 있는지 확인
         $userSocial = UserSocial::where([
             'provider' => $provider,
             'social_id' => $userFromSocial->getId(),
         ])->first();
         
+        dd($userFromSocial, $provider, $userSocial);
         // dd($userSocial);
         if(is_null($userSocial)) {
             // 소셜에서 받아온 데이터를 세션에 저장한다.
