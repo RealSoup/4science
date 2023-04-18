@@ -461,6 +461,7 @@ export default {
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
 .conLeft .carousel >>> .carousel-control-prev:hover,
 .conLeft .carousel >>> .carousel-control-next:hover { background-color:#CCC; }
+.conLeft .carousel >>> .carousel-indicators li { background-color:#aaa; }
 /*.conLeft ul li:after { content:"&nbsp;"; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
 .conLeft ul li div { float:left; font-size:1.5rem; }*/
 .conLeft ul { margin:1rem 0 0 1rem; padding:1rem 0 0 1rem; border-top:1px solid #D7D7D7; }

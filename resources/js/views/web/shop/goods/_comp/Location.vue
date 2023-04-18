@@ -70,7 +70,7 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-.location { width:100%; margin-bottom:2rem; }
+.location { width:100%; margin-bottom:2rem; z-index: 16; position: relative; }
 .location>ul>li { float:left; position:relative; }
 @media (max-width: 992px){
     .location { margin-bottom:0; }

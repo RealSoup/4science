@@ -134,8 +134,8 @@ class SocialController extends Controller {
         if(is_null($userSocial)) {
             // 소셜에서 받아온 데이터를 세션에 저장한다.
             // session()->put('userFromSocial', $userFromSocial);
-            $userFromSocial->probider = $provider;
-            session(['userFromSocial' => $userFromSocial]);
+            // $userFromSocial->probider = $provider;
+            // session(['userFromSocial' => $userFromSocial]);
             $existUser = User::where('email', $userFromSocial->email)->first();
             if($existUser)  //중복 이메일이 존재하면
                 return 'duplicate';

@@ -60,6 +60,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         },
         email: this.$route.query.email ? this.$route.query.email : '',
         name: this.$route.query.name ? this.$route.query.name : '',
+        provider: this.$route.query.provider ? this.$route.query.provider : '',
+        social_id: this.$route.query.social_id ? this.$route.query.social_id : '',
+        social_token: this.$route.query.social_token ? this.$route.query.social_token : '',
         file_info: []
       },
       active_mode: 'inter_lock'

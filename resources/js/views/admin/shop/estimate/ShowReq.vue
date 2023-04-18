@@ -5,7 +5,7 @@
         <b-row cols="1" cols-md="2">
             <b-col class="def_info">
                 <span>요청번호</span> <b>{{frm.eq_id}}.</b>
-                <span>요청날짜</span> <b>{{ frm.created_at | formatDate }}</b>
+                <span>요청날짜</span> <b>{{ frm.created_at | formatDate_YY_MM_DD }}</b>
             </b-col>
             <b-col class="btn_area">
                 <b-button :to="{name: 'adm_estimate_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
@@ -35,87 +35,71 @@
             </b-col>
         </b-row>
     </div>
-    <div class="">        
-        
-        <b-card>
-            <b-container>
-                <b-row class="eq_info">
-                    <b-col>
-                        <div>
-                            <span><font-awesome-icon icon="tags" />{{ frm.eq_id }}</span>
-                            <span><font-awesome-icon icon="clock" />{{ frm.created_at | formatDate }}</span>
-                            <span><b-icon-bar-chart-steps />
-                                <template v-if="frm.eq_step === 'DONOT'">미처리</template>
-                                <template v-else-if="frm.eq_step === 'DOING'">처리중</template>
-                                <template v-else-if="frm.eq_step === 'DONE'">완료</template>
-                                <template v-else-if="frm.eq_step === 'CANCEL'">취소</template>
-                            </span>
-                        </div>
 
-                        <div>
-                            <span><font-awesome-icon icon="user" />{{ frm.eq_name }}</span>
-                            <span><font-awesome-icon icon="users" />{{ frm.eq_department }}</span>
-                        </div>
-                        <div>
-                            <span><font-awesome-icon icon="phone" />{{ frm.eq_tel }}</span>
-                            <span><font-awesome-icon icon="mobile-alt" />{{ frm.eq_hp }}</span>
-                            <span><font-awesome-icon icon="fax" />{{ frm.eq_fax }}</span>
-                            <span><font-awesome-icon icon="at" />{{ frm.eq_email }}</span>
-                        </div>
-
-                        <div v-if="Number(frm.eq_1depth)">
-                            <h5>주문제작 정보: {{frm.made_cate[frm.eq_1depth]}}</h5>
-                            <component ref="custom_sub" :is="choiceSubType" v-model="frm.estimate_custom" />
-                        </div>
-                        
-                        <div v-if="frm.eq_content">
-                            <span class="content"><font-awesome-icon icon="comment-dots" />{{ frm.eq_content }}</span>
-                        </div>
-                        <div v-if="frm.file_info.length">
-                            <span>
-                                <b-icon icon="file-earmark-arrow-down-fill"></b-icon>
-                                <template v-for="(file, i) in frm.file_info">
-                                    <b-button size="sm" variant="outline-info" class="mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
-                                        {{file.fi_original}}
-                                    </b-button>
-                                </template>
-                            </span>
-                        </div>
-                    </b-col>
+    <div class="box gd_list" v-if="frm.estimate_model && frm.estimate_model.length">
+        <h5>견적상품 등록</h5>
+        <b-row>
+            <b-col>주문 상품</b-col>
+            <b-col>사양</b-col>
+            <b-col>제조사</b-col>
+            <b-col>판매단위</b-col>
+            <b-col>수량</b-col>
+        </b-row>
+        <b-row v-for="em in frm.estimate_model" :key="em.em_id" >
+            <b-col>
+                <b-link @click="openWinPop(`/admin/shop/goods/${em.em_gd_id}/edit`, 1700, 900)"><img :src="em.img_src" /></b-link>
+                <div>
+                    <b class="gd_name">{{em.em_name}}</b>
+                    모델명: {{em.em_code}}<b class="divider">/</b>
+                    Cat.No: {{em.em_catno}}
+                </div>
+            </b-col>
+            <b-col>{{em.em_spec}}</b-col>
+            <b-col>{{em.em_maker}}</b-col>
+            <b-col>{{em.em_unit}}</b-col>
+            <b-col>{{em.em_ea | comma}}</b-col>
+            <b-col cols="12" v-if="em.estimate_option.length" class="opc">
+                <b-row v-for="option in em.estimate_option" :key="option.eo_id">
+                    <b-col offset="6">{{option.eo_tit}}: {{option.eo_name}}</b-col>
+                    <b-col tag="i">수량 : <b>{{option.eo_ea | comma}}</b> 개</b-col>
                 </b-row>
-            </b-container>
-        </b-card>
-
-        <b-card class="gd_box" v-if="frm.estimate_model && frm.estimate_model.length">
-            <div class="tit">견적요청 상품</div>
-            <b-container>
-                <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="gd_list">
-                    <b-col>
-                        <b-button variant="outline-primary" size="sm" @click="openWinPop(`/admin/shop/goods/${em.em_gd_id}/edit`, 1700, 900)" >
-                            <img :src="em.img_src" />
-                        </b-button>
-                        <b class="gd_name">{{em.em_name}}</b>
-                        <b class="divider">/</b>
-                        {{em.em_code}}
-                        <b class="divider">/</b>
-                        {{em.em_catno}}
-                        <b class="divider">/</b>
-                        {{em.em_maker}}
-                        <b class="divider">/</b>
-                        {{em.em_unit}}
-                    </b-col>
-                    <b-col>{{em.em_spec}}</b-col>
-                    <b-col tag="i">수량 : <b>{{em.em_ea | comma}}</b> 개</b-col>
-                    <b-col cols="12" v-if="em.estimate_option.length" class="opc">
-                        <b-row v-for="option in em.estimate_option" :key="option.eo_id">
-                            <b-col offset="6">{{option.eo_tit}}: {{option.eo_name}}</b-col>
-                            <b-col tag="i">수량 : <b>{{option.eo_ea | comma}}</b> 개</b-col>
-                        </b-row>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </b-card>
+            </b-col>
+        </b-row>
     </div>
+    
+    <div v-if="Number(frm.eq_1depth)">
+        <h5>주문제작 정보: {{frm.made_cate[frm.eq_1depth]}}</h5>
+        <component ref="custom_sub" :is="choiceSubType" v-model="frm.estimate_custom" />
+    </div>
+
+    <div class="box est_frm">
+        <h5>요청자 정보</h5>
+        <b-row>
+            <b-col>요청자</b-col>
+            <b-col>
+                <b-link v-if="frm.created_id" @click="openWinPop(`/admin/user/${frm.created_id}/edit`, 1700, 900)">
+                    {{frm.eq_name}}
+                </b-link>
+            </b-col>
+            <b-col>연락처</b-col><b-col>{{ frm.eq_hp }}{{ frm.eq_tel }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>소속</b-col><b-col>{{frm.office}}  {{ frm.eq_department }}</b-col>
+            <b-col>이메일</b-col><b-col>{{ frm.eq_email }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>문의사항</b-col>
+            <b-col><p v-html="nl2br(frm.eq_content)" /></b-col>
+        </b-row>
+        <b-row>
+            <b-col>첨부파일</b-col>
+            <b-col>
+                <b-button v-for="(file, i) in frm.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                    {{file.fi_original}}
+                </b-button>
+            </b-col>
+        </b-row>
+    </div>  
 </div>
 </template>
 
@@ -215,12 +199,35 @@ export default {
 
 @import '/css/adm_shop_estimate_req.css';
 
-.p_wrap .act_ctrl .def_info { padding-left:3%; line-height:1.9; }
-.p_wrap .act_ctrl .def_info b { font-weight:900; }
+.p_wrap .act_ctrl .def_info { line-height:1.9; }
+.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }
+.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }
 .p_wrap .act_ctrl .btn_area { text-align:right; }
-.p_wrap .act_ctrl .btn_area .select_box { display:inline-block; max-width:200px; }
-.p_wrap .act_ctrl .btn_area>* { margin-left:1.5%; margin-right:1.5%; }
+.p_wrap .act_ctrl .btn_area .select_box { display:inline-block; width:200px; }
+.p_wrap .act_ctrl .btn_area>* { margin-left:1%; margin-right:1%; }
 
+.p_wrap .gd_list .row:first-of-type { border-top: 3px solid #4F637B; font-weight:600; }
+.p_wrap .gd_list .row:last-of-type { border-bottom: 3px solid #4F637B; }
+.p_wrap .gd_list .row .col:nth-child(2),
+.p_wrap .gd_list .row .col:nth-child(3),
+.p_wrap .gd_list .row .col:nth-child(4),
+.p_wrap .gd_list .row .col:nth-child(5) { flex: 0 0 13%; max-width: 13%; }
+.p_wrap .gd_list .row .col { justify-content: center; padding:0.75rem; display:flex; align-items:center; font-size: .95rem; }
+.p_wrap .gd_list .row:not(:last-of-type) .col { border-bottom: 1px solid #D7D7D7; }
+.p_wrap .gd_list .row .col:not(:last-of-type) { border-right: 1px solid #D7D7D7; }
+
+.p_wrap .gd_list .row:not(:first-of-type) .col { color:#949494; }
+
+.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type a { flex: 0 0 145px; max-width: 145px; }
+.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div { text-align:left; padding-left:2rem; flex-basis: 0; flex-grow: 1; max-width: 100%; }
+.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name { display:block; color:#555; }
+.p_wrap .gd_list .row .col a { width:120px; height:120px; padding-left:20px; }
+.p_wrap .gd_list .row .col a img { width:100%; height:100%; object-fit:contain; border:1px solid #8F8F8F; }
+
+
+.est_frm .row .col:nth-child(even) {
+    padding-left: 1.5%;
+}
 
 /*
 .p_wrap .act_ctrl .btn_area .white,
