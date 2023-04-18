@@ -37,9 +37,9 @@ export default {
             // }
         };
 
-        window.Notify.modal = function (msg, type) {
+        window.Notify.modal = function (msg, type, title='Confirmation') {
             vm.$bvModal.msgBoxOk(msg, {
-                title: 'Confirmation',
+                title: title,
                 size: 'sm',
                 buttonSize: 'sm',
                 okVariant: 'secondary',
@@ -86,7 +86,7 @@ export default {
                     footerClass: 'p-0',
                     centered: true,
                     // hideHeaderClose: false,
-                    // title: '안내',
+                    title: '안내',
                     // headerTextVariant: 'light',
                     // headerClass: 'p-1',
                 }, opt[type])

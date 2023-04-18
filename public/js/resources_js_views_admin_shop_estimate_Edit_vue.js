@@ -33,7 +33,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -1109,17 +1108,6 @@ var render = function () {
       _c("FormCtrl", {
         attrs: { clickable: _vm.clickable },
         on: { all_dc_update: _vm.all_dc_apply, save: _vm.update },
-        model: {
-          value: _vm.frm.estimate_reply,
-          callback: function ($$v) {
-            _vm.$set(_vm.frm, "estimate_reply", $$v)
-          },
-          expression: "frm.estimate_reply",
-        },
-      }),
-      _vm._v(" "),
-      _c("FormSetting", {
-        on: { all_dc_update: _vm.all_dc_apply },
         model: {
           value: _vm.frm.estimate_reply,
           callback: function ($$v) {

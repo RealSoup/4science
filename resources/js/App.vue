@@ -110,6 +110,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .d_blue { background-color:#0E4D9C; border-color:#0E4D9C; color:#FFF !important; }
 .green { background-color:#51B948; border-color:#51B948; color:#FFF !important; }
 .plum { background-color:#D70060; border-color:#D70060; color:#FFF !important; }
+.red { background-color:#FF0000; border-color:#FF0000; color:#FFF !important; }
 .yellow { background-color:#FECE02; border-color:#FECE02; color:#fff !important; }
 .orange { background-color:#F18D04; border-color:#F18D04; color:#fff !important; }
 .black { background-color:#000; border-color:#000; color:#FFF !important; }

@@ -96,7 +96,7 @@ class BoardController extends Controller {
 
     public function show(Request $req, $bo_cd, $bo_id) {
         if (!auth()->check()) {
-            if ( $bo_cd!=='notice' ) abort(500, '로그인하세요.');
+            if ( !in_array($bo_cd, ['notice', 'event']) ) abort(500, '로그인하세요.');
         }
 
         // dd($this->authorize('show', $this->board));

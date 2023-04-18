@@ -177,7 +177,7 @@ $no=1;
         </tr>
         <tr class="line02">
             <td></td>
-            <td>{{ $em->em_spec }}</td>
+            <td>@nl2br($em->em_spec)</td>
             <td></td>
             <td></td>
             <td></td>

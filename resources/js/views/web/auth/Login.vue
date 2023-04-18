@@ -94,7 +94,7 @@ export default {
         async find_email() {
             try {
                 let res = await ax.post('auth/user/find_email', this.frm);
-                if (res && res.status === 200) Notify.modal(res.data, 'success');
+                if (res && res.status === 200) Notify.modal(res.data, 'info', '가입되어있는 이메일 주소 입니다.');
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.responsee);

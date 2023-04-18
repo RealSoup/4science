@@ -139,6 +139,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopEstimateShowReq',
@@ -373,7 +375,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_estimate_req_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.gd_list .col .btn[data-v-5bfe11e4] { max-width: 120px;\n}\n.gd_list .col .btn img[data-v-5bfe11e4] { width:100%; height:120px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-5bfe11e4] { padding-left:3%; line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info b[data-v-5bfe11e4] { font-weight:900;\n}\n.p_wrap .act_ctrl .btn_area[data-v-5bfe11e4] { text-align:right;\n}\n.p_wrap .act_ctrl .btn_area .select_box[data-v-5bfe11e4] { display:inline-block; max-width:200px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-5bfe11e4] { margin-left:1.5%; margin-right:1.5%;\n}\r\n\r\n\r\n/*\r\n.p_wrap .act_ctrl .btn_area .white,\r\n.p_wrap .act_ctrl .btn_area .mint,\r\n.p_wrap .act_ctrl .btn_area .blue,\r\n.p_wrap .act_ctrl .btn_area .gray,\r\n.p_wrap .act_ctrl .btn_area .red { flex-basis:0; flex-grow:1; max-width:100%;  }\r\n.p_wrap .act_ctrl .btn_area .input-group  { flex:0 0 24%; max-width:24%; }\r\n.p_wrap .act_ctrl .btn_area .white,\r\n.p_wrap .act_ctrl .btn_area .mint,\r\n.p_wrap .act_ctrl .btn_area .blue,\r\n.p_wrap .act_ctrl .btn_area .gray,\r\n.p_wrap .act_ctrl .btn_area .red,\r\n.p_wrap .act_ctrl .btn_area .input-group { margin-left:1.5%; margin-right:1.5%; }\r\n*/\n.p_wrap .top .row .col[data-v-5bfe11e4]:nth-child(6) { flex: 0 0 24%; max-width: 61%;\n}\n.p_wrap .top .row .col[data-v-5bfe11e4]:nth-child(6) { flex:0 0 10%; max-width:10%;\n}\n.gd_list .col .btn[data-v-5bfe11e4] { max-width: 120px;\n}\n.gd_list .col .btn img[data-v-5bfe11e4] { width:100%; height:120px; -o-object-fit:cover; object-fit:cover;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -396,7 +398,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".print_area .gd_box .gd_list:not(:last-of-type) { border-bottom:1px solid #eee; }\r\n.print_area .gd_box .gd_list .col { padding-top:10px; padding-bottom:10px; }\r\n.print_area .gd_box .gd_list .col .btn { margin-right:10px; }\r\n.print_area .gd_box .gd_list .col .divider { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px; }\r\n.print_area .gd_box .gd_list i { text-align:right; }\r\n.print_area .gd_box .gd_list>.col:nth-child(2),\r\n.print_area .gd_box .gd_list .opc .row div { background-color:#7fffd454; } \r\n.print_area .gd_box .gd_list .opc { border-top:1px solid #eee; }\r\n\r\n.print_area .gd_box .gd_list .col:nth-child(2),\r\n.print_area .gd_box .gd_list .col:nth-child(3) { flex:0 0 25%; max-width:25%; }\r\n\r\n/*.print_area .card .eq_info .col { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; }*/\r\n.print_area .card .eq_info .col div { margin:1rem; }\r\n.print_area .card .eq_info .col div span { margin-right:1rem; }\r\n.print_area .card .eq_info .col div span svg { margin-right:0.5rem; }\r\n.print_area .card .eq_info .col div .content {  }\r\n\r\n\r\n\r\n.print_area .gd_box .gd_list .em_name { font-size:1rem; }\r\n.print_area .gd_box .gd_list .em_name i { font-size:0.7rem;  display:inline-block; background-color:#71B981; color:#fff; border-radius:1rem; padding:0.2rem 0.5rem; line-height:1; }\r\n.print_area .gd_box .gd_list .em_name .btn { margin-left:1rem; padding:.1rem .36rem; }\r\n.print_area .gd_box .gd_list .gd_info div { color:#999; font-size:0.8rem; }\r\n.print_area .gd_box .op_list .op_info div { color:#999; font-size:0.8rem; }\r\n.print_area .gd_box .op_list .op_info div span { display:inline-block; min-width:10rem; text-align:left; }\r\n.print_area .gd_box .op_list .op_info div i { display:inline-block; min-width:5rem; }\r\n.print_area .gd_box .op_list .op_info div i b { display:inline-block; min-width:1.4rem; }\r\n.print_area .gd_box .gd_list > div:nth-child(3) { text-align:right; }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -534,181 +536,147 @@ var render = function () {
     "div",
     { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "print_area" },
+        { staticClass: "act_ctrl" },
         [
-          _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
-          _vm._v(" "),
           _c(
-            "b-card",
-            { staticClass: "ctrl", attrs: { "no-body": "" } },
+            "b-row",
+            { attrs: { cols: "1", "cols-md": "2" } },
             [
+              _c("b-col", { staticClass: "def_info" }, [
+                _c("span", [_vm._v("요청번호")]),
+                _vm._v(" "),
+                _c("b", [_vm._v(_vm._s(_vm.frm.eq_id) + ".")]),
+                _vm._v(" "),
+                _c("span", [_vm._v("요청날짜")]),
+                _vm._v(" "),
+                _c("b", [
+                  _vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.created_at))),
+                ]),
+              ]),
+              _vm._v(" "),
               _c(
-                "b-container",
+                "b-col",
+                { staticClass: "btn_area" },
                 [
                   _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "danger", size: "sm" },
-                              on: { click: _vm.destroy },
+                    "b-button",
+                    {
+                      staticClass: "white sm",
+                      attrs: { to: { name: "adm_estimate_index" } },
+                    },
+                    [_c("b-icon-list"), _vm._v(" 목록으로")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.frm.estimate_reply && _vm.frm.estimate_reply.length > 0
+                    ? _c(
+                        "b-button",
+                        {
+                          staticClass: "mint sm",
+                          attrs: {
+                            to: {
+                              name: "adm_estimate_show_reply",
+                              params: {
+                                er_id:
+                                  _vm.frm.estimate_reply[
+                                    _vm.frm.estimate_reply.length - 1
+                                  ].er_id,
+                              },
                             },
-                            [
-                              _c("b-icon", { attrs: { icon: "trash-fill" } }),
-                              _vm._v(" 삭제"),
-                            ],
-                            1
-                          ),
+                          },
+                        },
+                        [
+                          _c("b-icon-newspaper"),
+                          _vm._v(" 견적서 확인\r\n                "),
+                        ],
+                        1
+                      )
+                    : _c(
+                        "b-button",
+                        {
+                          staticClass: "blue sm",
+                          attrs: {
+                            to: {
+                              name: "adm_estimate_create",
+                              query: { eq_id: _vm.frm.eq_id },
+                            },
+                          },
+                        },
+                        [
+                          _c("b-icon-pencil-square"),
+                          _vm._v(" 견적서 작성\r\n                "),
                         ],
                         1
                       ),
-                      _vm._v(" "),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { staticClass: "d_gray sm", on: { click: _vm.print } },
+                    [_c("b-icon-printer"), _vm._v(" 인쇄")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "select_box" },
+                    [
                       _c(
-                        "b-col",
-                        { staticClass: "text-right" },
+                        "b-input-group",
+                        { attrs: { size: "sm" } },
                         [
                           _c(
-                            "b-input-group",
-                            { attrs: { size: "sm" } },
+                            "b-form-select",
+                            {
+                              model: {
+                                value: _vm.frm.eq_step,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "eq_step", $$v)
+                                },
+                                expression: "frm.eq_step",
+                              },
+                            },
                             [
                               _c(
-                                "b-input-group-prepend",
-                                { staticClass: "bg-light btn_group" },
-                                [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        to: { name: "adm_estimate_index" },
-                                        variant: "light",
-                                      },
-                                    },
-                                    [
-                                      _c("b-icon", {
-                                        attrs: { icon: "list-ul" },
-                                      }),
-                                      _vm._v(" 목록"),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-button", { on: { click: _vm.print } }, [
-                                    _vm._v(" 인쇄"),
-                                  ]),
-                                ],
-                                1
+                                "b-form-select-option",
+                                { attrs: { value: "DONOT" } },
+                                [_vm._v("미처리")]
                               ),
                               _vm._v(" "),
                               _c(
-                                "b-form-select",
+                                "b-form-select-option",
+                                { attrs: { value: "DOING" } },
+                                [_vm._v("처리중")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "DONE" } },
+                                [_vm._v("완료")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "CANCEL" } },
+                                [_vm._v("취소")]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c(
+                                "b-button",
                                 {
-                                  model: {
-                                    value: _vm.frm.eq_step,
-                                    callback: function ($$v) {
-                                      _vm.$set(_vm.frm, "eq_step", $$v)
-                                    },
-                                    expression: "frm.eq_step",
-                                  },
+                                  staticClass: "sm",
+                                  on: { click: _vm.update },
                                 },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "DONOT" } },
-                                    [_vm._v("미처리")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "DOING" } },
-                                    [_vm._v("처리중")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "DONE" } },
-                                    [_vm._v("완료")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "CANCEL" } },
-                                    [_vm._v("취소")]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-input-group-append",
-                                [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: { variant: "warning" },
-                                      on: { click: _vm.update },
-                                    },
-                                    [
-                                      _c("b-icon", {
-                                        attrs: { icon: "tools" },
-                                      }),
-                                      _vm._v(" 진행현황 수정"),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.frm.estimate_reply &&
-                                  _vm.frm.estimate_reply.length > 0
-                                    ? _c(
-                                        "b-button",
-                                        {
-                                          attrs: {
-                                            variant: "success",
-                                            to: {
-                                              name: "adm_estimate_show_reply",
-                                              params: {
-                                                er_id:
-                                                  _vm.frm.estimate_reply[
-                                                    _vm.frm.estimate_reply
-                                                      .length - 1
-                                                  ].er_id,
-                                              },
-                                            },
-                                          },
-                                        },
-                                        [
-                                          _c("b-icon-newspaper"),
-                                          _vm._v(
-                                            " 견적서 확인\r\n                                "
-                                          ),
-                                        ],
-                                        1
-                                      )
-                                    : _c(
-                                        "b-button",
-                                        {
-                                          attrs: {
-                                            variant: "light",
-                                            to: {
-                                              name: "adm_estimate_create",
-                                              query: { eq_id: _vm.frm.eq_id },
-                                            },
-                                          },
-                                        },
-                                        [
-                                          _c("b-icon-pencil-square"),
-                                          _vm._v(
-                                            " 견적서 작성\r\n                                "
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                ],
+                                [_c("b-icon-tools"), _vm._v(" 변경")],
                                 1
                               ),
                             ],
@@ -720,13 +688,30 @@ var render = function () {
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { staticClass: "red sm", on: { click: _vm.destroy } },
+                    [
+                      _c("b-icon", { attrs: { icon: "trash-fill" } }),
+                      _vm._v(" 삭제"),
+                    ],
+                    1
+                  ),
                 ],
                 1
               ),
             ],
             1
           ),
-          _vm._v(" "),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {},
+        [
           _c(
             "b-card",
             [

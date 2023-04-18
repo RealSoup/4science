@@ -68,7 +68,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             $this->row_cnt++;
             $data[] = [$this->row_cnt, $em->em_name, '', '', '', $em->em_unit, '', number_format($em->em_price), '', $em->em_ea, number_format($em->em_price*$em->em_ea)];
             $data[] = ['', $em->em_catno.' / '.$em->em_code];
-            $data[] = ['', $em->em_spec];
+            $data[] = ['', nl2br($em->em_spec)];
             $this->row_height[] = substr_count( $em->em_spec, "\n" );
         }
         $data[] = [''];

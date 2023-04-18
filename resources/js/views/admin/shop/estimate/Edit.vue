@@ -2,7 +2,6 @@
     <b-container id="adm_estimate_edit" class="p_wrap">
         <h1>견적서 수정</h1>
         <FormCtrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="update" :clickable="clickable" />
-        <FormSetting v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" />
         <FormUser v-model="frm.estimate_req" />
         <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
         <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />

@@ -1,39 +1,41 @@
 <template>
 <div id="adm_estimate_show" class="p_wrap">
-    <div class="print_area">
-        <h3 class="p_tit">견적 요청</h3>
-        <b-card no-body class="ctrl">
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <b-button variant="danger" size="sm" @click="destroy"><b-icon icon="trash-fill" /> 삭제</b-button>
-                    </b-col>
-                    <b-col class="text-right">
-                        <b-input-group size="sm">
-                            <b-input-group-prepend class="bg-light btn_group">
-                                <b-button :to="{name: 'adm_estimate_index'}" variant="light"><b-icon icon="list-ul" /> 목록</b-button>
-                                <b-button @click="print"> 인쇄</b-button>
-                            </b-input-group-prepend>
-                            <b-form-select v-model="frm.eq_step">
-                                <b-form-select-option value="DONOT">미처리</b-form-select-option>
-                                <b-form-select-option value="DOING">처리중</b-form-select-option>
-                                <b-form-select-option value="DONE">완료</b-form-select-option>
-                                <b-form-select-option value="CANCEL">취소</b-form-select-option>
-                            </b-form-select>
-                            <b-input-group-append>
-                                <b-button variant="warning" @click="update"><b-icon icon="tools" /> 진행현황 수정</b-button>
-                                <b-button variant="success" :to="{name: 'adm_estimate_show_reply', params: { er_id:frm.estimate_reply[frm.estimate_reply.length-1].er_id }}" v-if="frm.estimate_reply && frm.estimate_reply.length>0">
-                                    <b-icon-newspaper /> 견적서 확인
-                                </b-button>
-                                <b-button variant="light" :to="{name: 'adm_estimate_create', query: { eq_id:frm.eq_id }}" v-else>
-                                    <b-icon-pencil-square /> 견적서 작성
-                                </b-button>
-                            </b-input-group-append>
-                        </b-input-group>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </b-card>
+    <h3 class="p_tit">견적 요청</h3>
+    <div class="act_ctrl">
+        <b-row cols="1" cols-md="2">
+            <b-col class="def_info">
+                <span>요청번호</span> <b>{{frm.eq_id}}.</b>
+                <span>요청날짜</span> <b>{{ frm.created_at | formatDate }}</b>
+            </b-col>
+            <b-col class="btn_area">
+                <b-button :to="{name: 'adm_estimate_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
+                <b-button class="mint sm" :to="{name: 'adm_estimate_show_reply', params: { er_id:frm.estimate_reply[frm.estimate_reply.length-1].er_id }}" v-if="frm.estimate_reply && frm.estimate_reply.length>0">
+                    <b-icon-newspaper /> 견적서 확인
+                </b-button>
+                <b-button class="blue sm" :to="{name: 'adm_estimate_create', query: { eq_id:frm.eq_id }}" v-else>
+                    <b-icon-pencil-square /> 견적서 작성
+                </b-button>
+                <b-button class="d_gray sm" @click="print"><b-icon-printer /> 인쇄</b-button>
+
+                <div class="select_box">
+                    <b-input-group size="sm">
+                        <b-form-select v-model="frm.eq_step">
+                            <b-form-select-option value="DONOT">미처리</b-form-select-option>
+                            <b-form-select-option value="DOING">처리중</b-form-select-option>
+                            <b-form-select-option value="DONE">완료</b-form-select-option>
+                            <b-form-select-option value="CANCEL">취소</b-form-select-option>
+                        </b-form-select>
+                        <b-input-group-append>
+                            <b-button class="sm" @click="update"><b-icon-tools /> 변경</b-button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </div>
+
+                <b-button class="red sm" @click="destroy"><b-icon icon="trash-fill" /> 삭제</b-button>
+            </b-col>
+        </b-row>
+    </div>
+    <div class="">        
         
         <b-card>
             <b-container>
@@ -212,6 +214,30 @@ export default {
 <style lang="css" scoped>
 
 @import '/css/adm_shop_estimate_req.css';
+
+.p_wrap .act_ctrl .def_info { padding-left:3%; line-height:1.9; }
+.p_wrap .act_ctrl .def_info b { font-weight:900; }
+.p_wrap .act_ctrl .btn_area { text-align:right; }
+.p_wrap .act_ctrl .btn_area .select_box { display:inline-block; max-width:200px; }
+.p_wrap .act_ctrl .btn_area>* { margin-left:1.5%; margin-right:1.5%; }
+
+
+/*
+.p_wrap .act_ctrl .btn_area .white,
+.p_wrap .act_ctrl .btn_area .mint,
+.p_wrap .act_ctrl .btn_area .blue,
+.p_wrap .act_ctrl .btn_area .gray,
+.p_wrap .act_ctrl .btn_area .red { flex-basis:0; flex-grow:1; max-width:100%;  }
+.p_wrap .act_ctrl .btn_area .input-group  { flex:0 0 24%; max-width:24%; }
+.p_wrap .act_ctrl .btn_area .white,
+.p_wrap .act_ctrl .btn_area .mint,
+.p_wrap .act_ctrl .btn_area .blue,
+.p_wrap .act_ctrl .btn_area .gray,
+.p_wrap .act_ctrl .btn_area .red,
+.p_wrap .act_ctrl .btn_area .input-group { margin-left:1.5%; margin-right:1.5%; }
+*/
+.p_wrap .top .row .col:nth-child(6) { flex: 0 0 24%; max-width: 61%; }
+.p_wrap .top .row .col:nth-child(6) { flex:0 0 10%; max-width:10%; }
 .gd_list .col .btn { max-width: 120px; }
 .gd_list .col .btn img { width:100%; height:120px; object-fit:cover; }
 </style>
