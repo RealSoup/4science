@@ -1551,7 +1551,7 @@ var render = function () {
                     _c("b-form-textarea", {
                       attrs: {
                         id: "estimate_model" + idx + "em_spec",
-                        rows: "3",
+                        rows: "8",
                       },
                       model: {
                         value: em.em_spec,

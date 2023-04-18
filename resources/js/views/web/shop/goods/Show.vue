@@ -479,7 +479,7 @@ export default {
 .conRight .model .row:not(:last-child) .col { border-bottom-width:0; }
 
 .conRight .model .row .col:nth-of-type(1) { flex-basis:13%; max-width:13%; }
-.conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; }
+.conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; word-break: break-all; }
 .conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; }
 .conRight .model .row .col:nth-of-type(6) { flex-basis:11%; max-width:11%; }
 .conRight .model .row .col:nth-of-type(7) { flex-basis:10%; max-width:10%; }

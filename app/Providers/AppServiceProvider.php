@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Relations\Relation;
 // use Illuminate\Support\Facades\URL;
 
@@ -36,5 +37,9 @@ class AppServiceProvider extends ServiceProvider {
             'userBiz'       => 'App\Models\UserBiz',
             'userBiz'       => 'App\Models\UserBiz',
         ]);
+
+        Blade::directive('nl2br', function ($string) {
+            return "<?php echo nl2br(htmlentities($string)); ?>";
+        });
     }
 }

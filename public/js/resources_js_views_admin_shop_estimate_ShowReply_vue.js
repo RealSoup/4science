@@ -1541,7 +1541,13 @@ var render = function () {
                                   1
                                 ),
                                 _vm._v(" "),
-                                _c("b-col", [_vm._v(_vm._s(em.gm_spec))]),
+                                _c("b-col", [
+                                  _c("p", {
+                                    domProps: {
+                                      innerHTML: _vm._s(_vm.nl2br(em.gm_spec)),
+                                    },
+                                  }),
+                                ]),
                                 _vm._v(" "),
                                 _c("b-col", [_vm._v(_vm._s(em.dlvy_at))]),
                                 _vm._v(" "),

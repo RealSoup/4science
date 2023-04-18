@@ -392,6 +392,7 @@ class OrderController extends Controller {
     }
 
     public function payReturn(Request $req){
+        dd($req->all());
         /*
         크롬의 쿠키 정책의 의해
         결제시 외부 도메인을 타면 쿠키가 삭제되어

@@ -73,7 +73,7 @@
         <b-row>
             <b-col>제품정보</b-col>
             <b-col>
-                <b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="3"></b-form-textarea>
+                <b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8"></b-form-textarea>
                 <Validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
             </b-col>
         </b-row>
