@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_shop_estimate_custom__comp_Sub17_vue"],{
+(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_web_shop_estimate_custom__comp_Sub17_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/estimate/custom/_comp/Sub17.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************************************!*\

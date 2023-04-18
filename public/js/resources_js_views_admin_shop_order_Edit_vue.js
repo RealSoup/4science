@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_admin_shop_order_Edit_vue"],{
+(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_admin_shop_order_Edit_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/order/Edit.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
@@ -28,6 +28,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -1968,13 +1970,15 @@ var render = function () {
                                             { staticClass: "green" },
                                             [_vm._v("배송완료")]
                                           )
-                                        : !_vm.isEmpty(
-                                            odm.order_dlvy_info.oddi_dlvy_num
-                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !_vm.isEmpty(
+                                        odm.order_dlvy_info.oddi_dlvy_num
+                                      )
                                         ? _c(
-                                            "b-button",
+                                            "b-link",
                                             {
-                                              staticClass: "teal",
+                                              staticClass: "teal sm",
                                               attrs: {
                                                 href: _vm.getHref(
                                                   odm.order_dlvy_info
@@ -1984,7 +1988,21 @@ var render = function () {
                                                 ),
                                               },
                                             },
-                                            [_vm._v("배송추적")]
+                                            [
+                                              _vm._v(
+                                                "\r\n                                    " +
+                                                  _vm._s(
+                                                    odm.order_dlvy_info
+                                                      .oddi_dlvy_com
+                                                  ) +
+                                                  ", " +
+                                                  _vm._s(
+                                                    odm.order_dlvy_info
+                                                      .oddi_dlvy_num
+                                                  ) +
+                                                  "\r\n                                "
+                                              ),
+                                            ]
                                           )
                                         : _vm._e(),
                                       _vm._v(" "),

@@ -135,7 +135,9 @@
                             <template v-if="odm.odm_type=='MODEL'">
                                 <b-badge v-if="(!isEmpty(odm.order_dlvy_info.oddi_receive_date) && odm.order_dlvy_info.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
                                 <b-badge v-else-if="(!isEmpty(odm.order_dlvy_info.oddi_arrival_date) && odm.order_dlvy_info.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
-                                <b-button v-else-if="!isEmpty(odm.order_dlvy_info.oddi_dlvy_num)" class="teal" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)">배송추적</b-button>
+                                <b-link v-if="!isEmpty(odm.order_dlvy_info.oddi_dlvy_num)" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)" class="teal sm">
+                                    {{odm.order_dlvy_info.oddi_dlvy_com}}, {{odm.order_dlvy_info.oddi_dlvy_num}}
+                                </b-link>
                                 <br />
                                 <b-button class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
                             </template>

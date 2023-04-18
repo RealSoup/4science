@@ -96,7 +96,7 @@ class OrderController extends Controller {
                 }
 
                 if ($params['od_name'] == '')
-                    $params['od_name'] = $item['gd_name'];
+                    $params['od_name'] = $item['gd_name'] ? $item['gd_name'] : $item['gm_name'];
                 if ( $item['type'] == 'model' )
                     $params['md_cnt']++;
             }
