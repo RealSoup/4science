@@ -39,8 +39,8 @@ class OrderController extends Controller {
         // $this->apiKey        = "ItEQKi3rY7uvDS8l";
         // $this->mid           = "4science00";
         // $this->mid           = "INIpayTest";
-        $this->signKey = env('INICIS_APIKEY');
-        $this->apiKey  = env('INICIS_SIGNKEY');
+        $this->signKey = env('INICIS_SIGNKEY');
+        $this->apiKey  = env('INICIS_APIKEY');
         $this->mid     = env('INICIS_MID');
         $this->c_nm_guest_id = config('const.cookie_nm.guest_id');
         $this->order         = $od;
@@ -299,8 +299,8 @@ class OrderController extends Controller {
 
             $order_goodsInfo = $this->goods->getGoodsDataCollection($req, $req->od_type);
           
-            // if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
-            //     throw new Exception("최종가격이 다릅니다.");
+            if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
+                throw new Exception("최종가격이 다릅니다.");
             // DB::commit();
             return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
         // } catch (Exception $e) {
