@@ -1,7 +1,7 @@
 <template>
 <b-container class="p_wrap">
     <h3 class="p_tit">상품 수정</h3>
-    <b-card no-body class="ctrl">
+    <b-card no-body class="act_ctrl">
         <b-container>
             <b-row>
                 <b-col cols="12" sm="6"><b-button size="sm" variant="danger" @click="destroy">삭제</b-button></b-col>

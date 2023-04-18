@@ -52,13 +52,17 @@
             </template>
         </b-col>
     </b-row>
+    <PopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
 </div>
 </template>
 
 <script>
 export default {
     name: 'AdmEstimateIndexList',
-    components: { 'SubString': () => import('@/views/_common/SubString.vue'), },
+    components: { 
+        'SubString': () => import('@/views/_common/SubString.vue'),
+        'PopUp': () => import('@/views/_common/PopUp'),
+    },
     props:['list'],
     filters: {
         eqStep: function (str) {
@@ -73,9 +77,21 @@ export default {
         }
     },
     methods: {
-        openWinPop(url){
-            this.$emit( 'openWinPop', url );
+        ////////////////////////////////
+        evtCloseWinPopup( ){
+            console.log( "evtCloseWinPopup () ========  ");
         },
+        
+        openWinPop(url){
+            this.$refs.winPopup.openWinPop( url, 1700, 900 );
+        }, 
+        
+        onRecvWinPop( recvObj ){
+            console.log( "onRecvWinPop  ---------" );
+            if(recvObj == 'reread') this.index();
+        },
+
+        sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
     },
     
             

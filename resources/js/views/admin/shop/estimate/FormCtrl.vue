@@ -1,5 +1,5 @@
 <template>
-<div class="ctrl">
+<div class="act_ctrl">
 <b-row cols="1" cols-md="2">
     <b-col>
         <label for="all_dc">일괄할인</label>

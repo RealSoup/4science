@@ -68,11 +68,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
     'SubString': function SubString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
+    },
+    'PopUp': function PopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/PopUp */ "./resources/js/views/_common/PopUp.vue"));
     }
   },
   props: ['list'],
@@ -102,8 +106,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    ////////////////////////////////
+    evtCloseWinPopup: function evtCloseWinPopup() {
+      console.log("evtCloseWinPopup () ========  ");
+    },
     openWinPop: function openWinPop(url) {
-      this.$emit('openWinPop', url);
+      this.$refs.winPopup.openWinPop(url, 1700, 900);
+    },
+    onRecvWinPop: function onRecvWinPop(recvObj) {
+      console.log("onRecvWinPop  ---------");
+      if (recvObj == 'reread') this.index();
+    },
+    sendToChild: function sendToChild() {
+      this.$refs.winPopup.sendEvtToChild({
+        msg: 'abcde'
+      });
     }
   }
 });
@@ -509,6 +526,18 @@ var render = function () {
           ],
           1
         )
+      }),
+      _vm._v(" "),
+      _c("PopUp", {
+        ref: "winPopup",
+        on: {
+          onClose: function (val) {
+            return _vm.evtCloseWinPopup(val)
+          },
+          onRecvEvtFromWinPop: function (val) {
+            return _vm.onRecvWinPop(val)
+          },
+        },
       }),
     ],
     2

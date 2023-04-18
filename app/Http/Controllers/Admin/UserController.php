@@ -71,7 +71,7 @@ class UserController extends Controller {
             'tutor' => $req->filled('tutor') ? $req->tutor : '',
             'offer' => $req->filled('offer') ? $req->offer : '',
             'offer_lab' => $req->filled('offer_lab') ? $req->offer_lab : '',
-            'interest' => $req->filled('interest') ? $req->interest : '',
+            'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
             'interest_etc' => $req->filled('interest_etc') ? $req->interest_etc : '',
             'join_route' => $req->filled('join_route') ? $req->join_route : '',
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',

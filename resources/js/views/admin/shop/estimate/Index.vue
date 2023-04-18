@@ -89,7 +89,7 @@
                 <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" @openWinPop="openWinPop" />
+        <List v-if="list.data && list.data.length" :list="list.data" />
         <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>

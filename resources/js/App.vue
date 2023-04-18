@@ -200,7 +200,7 @@ label { margin-bottom:0; }
 .p_wrap h5 { border-left:4px solid #4EB8C8; font-size:1.54rem; font-weight:600; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
 .p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
 
-.p_wrap .ctrl { position:sticky; top:0; padding:8px; z-index:3; background-color:#FFF; border:5px solid #4EB8C8; border-radius:1rem; }
+.p_wrap .act_ctrl { position:sticky; top:0; padding:8px; z-index:3; background-color:#FFF; border:5px solid #4EB8C8; border-radius:1rem; }
 
 .p_wrap .frm_sch { border:1px solid #B7B7B7; border-radius:1rem; margin-bottom:1.8rem; }
 .p_wrap .frm_sch .row .col { padding:10px; }

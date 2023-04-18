@@ -132,10 +132,10 @@
                             </b>
                         </b-col>
                         <b-col class="align print_hide_flex" :style="{flexWrap:'wrap'}">
-                            <template v-if="odm.odm_type=='MODEL'">                                    
-                                <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" class="gray">수취완료</b-badge>
-                                <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" class="green">배송완료</b-badge>
-                                <b-button v-else-if="odm.order_dlvy_info.oddi_dlvy_num" class="teal" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)">배송추적</b-button>
+                            <template v-if="odm.odm_type=='MODEL'">
+                                <b-badge v-if="(!isEmpty(odm.order_dlvy_info.oddi_receive_date) && odm.order_dlvy_info.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
+                                <b-badge v-else-if="(!isEmpty(odm.order_dlvy_info.oddi_arrival_date) && odm.order_dlvy_info.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
+                                <b-button v-else-if="!isEmpty(odm.order_dlvy_info.oddi_dlvy_num)" class="teal" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)">배송추적</b-button>
                                 <br />
                                 <b-button class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
                             </template>
@@ -267,17 +267,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>배송주소</th>
+                    <th>
+                        배송주소
+                        <b-button class="teal xm" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">검색</b-button>
+                    </th>
                     <td colspan="3">
                         <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
-                        <div class="cube_box receiver_addr">
-                            <div class="cube">
-                                <div class="piece front">{{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}</div>
-                                <div class="piece bottom">
-                                    <b-button class="teal ml-4" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">주소검색</b-button>
-                                </div>
-                            </div>
-                        </div>
+                        {{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}
                     </td>
                 </tr>
                 <tr>
@@ -719,11 +715,10 @@ export default {
             }
         },
         writeDlvyInfo(odm) {
-            if ( odm !== 'bundle' ) {
+            if ( odm !== 'bundle' ) {   //  일괄등록이 아니라면
                 odm.dlvy_chk = 'Y';
-                this.od.order_purchase_at
-                for (let opa of this.od.order_purchase_at) {
-                    opa.dlvy_all_chk = false;
+                for (let opa of this.od.order_purchase_at) {    //  모든 제품을 확인해서 내가 누를 품목이 아니라면 체크 해제
+                    opa.dlvy_all_chk = false;   
                     for (let odm02 of opa.order_model) {
                         if (odm.odm_id !== odm02.odm_id)
                             odm02.dlvy_chk = 'N';

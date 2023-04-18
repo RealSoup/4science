@@ -93,7 +93,7 @@
 .p_wrap .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
 .p_wrap .extra_info table tr:last-child td { border-right-width:0; }
 .p_wrap .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }
-.cube_box { display:inline-block; vertical-align:middle; }
+.cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }
 .cube_box, 
 .cube_box * { box-sizing: border-box; }
 .cube_box { /*perspective:400px;*/ margin:auto; }
@@ -118,8 +118,4 @@ table tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }
 .cube_box.receiver_hp,
 .cube_box.receiver_hp .cube,
 .cube_box.receiver_hp .cube .piece { max-width:250px; }
-.cube_box.receiver_addr,
-.cube_box.receiver_addr .cube,
-.cube_box.receiver_addr .cube .piece { max-width:calc(100% - 20px); }
-
 .layerModal .row .ctrl { text-align:right; }

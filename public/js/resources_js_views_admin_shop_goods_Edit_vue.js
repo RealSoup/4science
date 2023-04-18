@@ -5739,7 +5739,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-card",
-        { staticClass: "ctrl", attrs: { "no-body": "" } },
+        { staticClass: "act_ctrl", attrs: { "no-body": "" } },
         [
           _c(
             "b-container",
