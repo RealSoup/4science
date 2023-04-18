@@ -532,7 +532,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 41;
+                  _context.next = 36;
                   break;
                 }
 
@@ -569,7 +569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 41;
+                  _context.next = 36;
                   break;
                 }
 
@@ -589,26 +589,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 29:
                 if (!(_this.order.od_pay_method == 'C')) {
-                  _context.next = 39;
+                  _context.next = 34;
                   break;
                 }
 
                 _this.order.od_id = pay.data.od_id;
-
-                if (!(_this.inicis.sale_env == 'P')) {
-                  _context.next = 36;
-                  break;
-                }
-
-                _context.next = 34;
-                return INIStdPay.pay('SendPayForm');
-
-              case 34:
-                _context.next = 37;
-                break;
-
-              case 36:
-                if (_this.inicis.sale_env == 'M') {
+                if (_this.inicis.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'M') {
                   form = document.createElement('form'); // 폼객체 생성
 
                   objs01 = document.createElement('input');
@@ -654,13 +640,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   document.body.appendChild(form);
                   form.submit();
                 }
-
-              case 37:
-                _context.next = 41;
+                _context.next = 36;
                 break;
 
-              case 39:
-                _context.next = 41;
+              case 34:
+                _context.next = 36;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -668,7 +652,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 41:
+              case 36:
               case "end":
                 return _context.stop();
             }
