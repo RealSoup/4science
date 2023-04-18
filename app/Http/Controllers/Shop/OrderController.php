@@ -113,8 +113,8 @@ class OrderController extends Controller {
     }
 
     public function pay(Request $req) {
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
             $sale_env = "P";
             $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
@@ -299,17 +299,17 @@ class OrderController extends Controller {
 
             $order_goodsInfo = $this->goods->getGoodsDataCollection($req, $req->od_type);
           
-            if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
-                throw new Exception("최종가격이 다릅니다.");
-            DB::commit();
+            // if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
+            //     throw new Exception("최종가격이 다릅니다.");
+            // DB::commit();
             return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
-        } catch (Exception $e) {
-            Log::debug("구매 트랜젝션 에러");
-            Log::channel('4s_log')->alert($e->getMessage());
-            DB::rollBack();
+        // } catch (Exception $e) {
+        //     Log::debug("구매 트랜젝션 에러");
+        //     Log::channel('4s_log')->alert($e->getMessage());
+        //     DB::rollBack();
         
-            return response()->json("주문 에러", 400);
-        }
+        //     return response()->json("주문 에러", 400);
+        // }
     }
     
     public function saleEnv () {
@@ -392,7 +392,6 @@ class OrderController extends Controller {
     }
 
     public function payReturn(Request $req){
-        dd($req->all());
         /*
         크롬의 쿠키 정책의 의해
         결제시 외부 도메인을 타면 쿠키가 삭제되어
