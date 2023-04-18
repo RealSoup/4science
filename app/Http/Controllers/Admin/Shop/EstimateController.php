@@ -90,19 +90,19 @@ class EstimateController extends Controller {
                     $em = $em   ->TypeReply()
                                 ->where('em_name', 'like', $req->keyword.'%')
                                 ->pluck('em_papa_id');
-                    $eq->EqId( $er->ErId($em)->pluck('er_eq_id') );
+                    $eq->EqId( $er->ErIdArr($em)->pluck('er_eq_id') );
                 break;
 
                 case 'em_code':
                     $em = $em   ->TypeReply()
                                 ->where('em_code', 'like', $req->keyword.'%')
                                 ->pluck('em_papa_id');
-                    $eq->EqId( $er->ErId($em)->pluck('er_eq_id') );
+                    $eq->EqId( $er->ErIdArr($em)->pluck('er_eq_id') );
                 break;
 
                 case 'cat_no':
                     $eq->EqId(
-                        $er->ErId(
+                        $er->ErIdArr(
                             $em->TypeReply()->where('em_catno', 'like', $req->keyword)->pluck('em_papa_id')
                         )->pluck('er_eq_id')
                     );

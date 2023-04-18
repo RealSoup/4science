@@ -50,12 +50,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.ctrl .row .col:first-child { display:flex; align-items:center; }
-.ctrl .row .col label { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600; }
-.ctrl .row .col label:last-of-type { flex:0 0 20%; max-width:20%; }
-.ctrl .row .col #all_dc { flex:0 0 13%; max-width:13%; text-align:right; }
-.ctrl .row .col .custom-control { flex-basis:0; flex-grow:1; max-width:100%; }
-.ctrl .row .col .custom-control .point { color:#ff0000; }
-.ctrl .row .col:last-child { text-align:right; }
+.act_ctrl .row .col:first-child { display:flex; align-items:center; }
+.act_ctrl .row .col label { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600; }
+.act_ctrl .row .col label:last-of-type { flex:0 0 20%; max-width:20%; }
+.act_ctrl .row .col #all_dc { flex:0 0 13%; max-width:13%; text-align:right; }
+.act_ctrl .row .col .custom-control { flex-basis:0; flex-grow:1; max-width:100%; }
+.act_ctrl .row .col .custom-control .point { color:#ff0000; }
+.act_ctrl .row .col:last-child { text-align:right; }
     
 </style>

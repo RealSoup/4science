@@ -268,9 +268,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.card.ctrl .row { align-items:center; }
-.card.ctrl .row .col .type_icon { display:inline-block; margin-right:25px; }
-.card.ctrl .row .col .type_icon svg { margin-right:10px; }
+.card.act_ctrl .row { align-items:center; }
+.card.act_ctrl .row .col .type_icon { display:inline-block; margin-right:25px; }
+.card.act_ctrl .row .col .type_icon svg { margin-right:10px; }
 
 .card .row .checkbox01 >>> .custom-checkbox label { font-size:12px !important; }
 .card .row .checkbox01 >>> .custom-checkbox label b { font-weight:900; }

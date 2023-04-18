@@ -1,4 +1,4 @@
-(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_admin_shop_goods_Edit_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_admin_shop_goods_Edit_vue"],{
 
 /***/ "./node_modules/@ckeditor/ckeditor5-build-classic-realsoup/build/ckeditor.js":
 /*!***********************************************************************************!*\

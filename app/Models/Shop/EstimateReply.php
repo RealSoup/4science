@@ -24,10 +24,8 @@ class EstimateReply extends Model {
     public function user() {            return $this->belongsTo(User::class, 'created_id'); }
     public function fileInfo() {    return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
 
-    public function scopeErId($query, $id_arr) {
-        if (count($id_arr) == 0) $id_arr = [0];
-        return $query->whereIn('er_id', $id_arr);
-    }
+    public function scopeErIdArr(   $q, $v) { return $q->whereIn('er_id', $v); }
+    public function scopeErId(      $q, $v) { return $q->where('er_id', $v); }
     public function scopeErEqId(    $q, $v) { return $q->where('er_eq_id', $v); }
     public function scopeStartDate( $q, $v) { return $q->where('shop_estimate_reply.created_at', '>=', $v); }
     public function scopeEndDate(   $q, $v) { return $q->where('shop_estimate_reply.created_at', '<=', $v); }

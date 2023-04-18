@@ -218,7 +218,7 @@ label { margin-bottom:0; }
 .p_wrap .frm_sch .row .label + .period b { font-size:20px; }
 .p_wrap .frm_sch .row .label + .period input { width: calc(50% - 10px); }
 
-.p_wrap .cmain { border:5px solid #EBEBEB; border-radius:1.2rem; padding:1rem 1.3rem; width:100%; }
+.p_wrap .cmain { border:5px solid #EBEBEB; border-radius:1.2rem; padding:1rem 1.3rem !important; width:100%; }
 @media (min-width: 1700px) { .p_wrap .cmain { max-width:none; } }
 
 .p_wrap .cmain .row { margin:0; }

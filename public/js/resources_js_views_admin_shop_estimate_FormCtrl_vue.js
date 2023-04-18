@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_admin_shop_estimate_FormCtrl_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_admin_shop_estimate_FormCtrl_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormCtrl.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************************************!*\
@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ctrl .row .col[data-v-270d5b48]:first-child { display:flex; align-items:center;\n}\n.ctrl .row .col label[data-v-270d5b48] { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600;\n}\n.ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 20%; max-width:20%;\n}\n.ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.ctrl .row .col .custom-control[data-v-270d5b48] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.ctrl .row .col .custom-control .point[data-v-270d5b48] { color:#ff0000;\n}\n.ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\r\n    \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.act_ctrl .row .col[data-v-270d5b48]:first-child { display:flex; align-items:center;\n}\n.act_ctrl .row .col label[data-v-270d5b48] { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600;\n}\n.act_ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 20%; max-width:20%;\n}\n.act_ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.act_ctrl .row .col .custom-control[data-v-270d5b48] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.act_ctrl .row .col .custom-control .point[data-v-270d5b48] { color:#ff0000;\n}\n.act_ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\r\n    \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

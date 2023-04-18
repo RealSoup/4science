@@ -1,4 +1,4 @@
-(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_web_Main_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_Main_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/Main.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************!*\
@@ -30,6 +30,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -513,6 +516,17 @@ var render = function () {
           attrs: { controls: "", indicators: "" },
         },
         [
+          _c(
+            "b-link",
+            { attrs: { to: "/board/event/show/36" } },
+            [
+              _c("b-carousel-slide", {
+                attrs: { "img-src": _vm.s3url + "main/slide/2023/230418.jpg" },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "b-link",
             { attrs: { to: "/board/event/show/31" } },

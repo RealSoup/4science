@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunkvue_4science"] = self["webpackChunkvue_4science"] || []).push([["resources_js_views_admin_user_Edit_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_admin_user_Edit_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/user/Edit.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
@@ -377,7 +377,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card.ctrl .row[data-v-fbc80902] { align-items:center;\n}\n.card.ctrl .row .col .type_icon[data-v-fbc80902] { display:inline-block; margin-right:25px;\n}\n.card.ctrl .row .col .type_icon svg[data-v-fbc80902] { margin-right:10px;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.card .row .checkbox01[data-v-fbc80902],\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card.act_ctrl .row[data-v-fbc80902] { align-items:center;\n}\n.card.act_ctrl .row .col .type_icon[data-v-fbc80902] { display:inline-block; margin-right:25px;\n}\n.card.act_ctrl .row .col .type_icon svg[data-v-fbc80902] { margin-right:10px;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.card .row .checkbox01[data-v-fbc80902],\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.card .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
