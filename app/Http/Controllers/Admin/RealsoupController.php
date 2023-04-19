@@ -40,7 +40,7 @@ class RealsoupController extends Controller {
                 if($em->em_gd_id>0)
                     $rst_gd = DB::table('shop_goods')->where('gd_id', $em->em_gd_id)->first();
                 
-                if (!$rst_gd->exists()&&$rst_gd->gd_pa_id) $pa_id = $rst_gd->gd_pa_id;
+                if ($rst_gd !== null&&$rst_gd->gd_pa_id) $pa_id = $rst_gd->gd_pa_id;
                 else $pa_id =0;
 
                 if (!array_key_exists($pa_id, $collect)) {
