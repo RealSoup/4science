@@ -223,28 +223,4 @@ export default {
 .p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name { display:block; color:#555; }
 .p_wrap .gd_list .row .col a { width:120px; height:120px; padding-left:20px; }
 .p_wrap .gd_list .row .col a img { width:100%; height:100%; object-fit:contain; border:1px solid #8F8F8F; }
-
-
-.est_frm .row .col:nth-child(even) {
-    padding-left: 1.5%;
-}
-
-/*
-.p_wrap .act_ctrl .btn_area .white,
-.p_wrap .act_ctrl .btn_area .mint,
-.p_wrap .act_ctrl .btn_area .blue,
-.p_wrap .act_ctrl .btn_area .gray,
-.p_wrap .act_ctrl .btn_area .red { flex-basis:0; flex-grow:1; max-width:100%;  }
-.p_wrap .act_ctrl .btn_area .input-group  { flex:0 0 24%; max-width:24%; }
-.p_wrap .act_ctrl .btn_area .white,
-.p_wrap .act_ctrl .btn_area .mint,
-.p_wrap .act_ctrl .btn_area .blue,
-.p_wrap .act_ctrl .btn_area .gray,
-.p_wrap .act_ctrl .btn_area .red,
-.p_wrap .act_ctrl .btn_area .input-group { margin-left:1.5%; margin-right:1.5%; }
-*/
-.p_wrap .top .row .col:nth-child(6) { flex: 0 0 24%; max-width: 61%; }
-.p_wrap .top .row .col:nth-child(6) { flex:0 0 10%; max-width:10%; }
-.gd_list .col .btn { max-width: 120px; }
-.gd_list .col .btn img { width:100%; height:120px; object-fit:cover; }
 </style>

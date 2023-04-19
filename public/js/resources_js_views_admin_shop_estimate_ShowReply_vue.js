@@ -186,16 +186,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -211,6 +201,16 @@ var dt = new Date();
         price: {}
       }
     };
+  },
+  computed: {
+    dlvy_4s: function dlvy_4s() {
+      return this.frm.collect.lists.hasOwnProperty(0) ? this.frm.collect.lists[0][0].pa_dlvy_p_add_vat : 0;
+    },
+    dlvy_other: function dlvy_other() {
+      return Object.values(this.frm.collect.lists).reduce(function (acc, el) {
+        return acc + el[0].pa_name != '' ? el[0].pa_dlvy_p_add_vat : 0;
+      }, 0);
+    }
   },
   methods: {
     show: function show() {
@@ -604,7 +604,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_estimate_show .user_info[data-v-ec9c9aa0] { padding-top:1rem; box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED;\n}\n#adm_estimate_show .user_info .col div[data-v-ec9c9aa0] { margin:1rem;\n}\n#adm_estimate_show .user_info .col div span[data-v-ec9c9aa0] { margin-right:1rem;\n}\n#adm_estimate_show .user_info .col div span>svg[data-v-ec9c9aa0] { margin-right:0.5rem;\n}\n#adm_estimate_show .gd_box .gd_list[data-v-ec9c9aa0]:not(:last-of-type) { border-bottom:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0] { padding-top:10px; padding-bottom:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .btn[data-v-ec9c9aa0] { margin-right:10px;\n}\n#adm_estimate_show .gd_box .gd_list .col .divider[data-v-ec9c9aa0] { font-size:1.6rem; font-weight:bold; color:#b81717; padding:0 5px; position:relative; top:3px; line-height:14px;\n}\n#adm_estimate_show .gd_box .gd_list i[data-v-ec9c9aa0] { text-align:right;\n}\n#adm_estimate_show .gd_box .gd_list .col .multi[data-v-ec9c9aa0] { min-width:6rem; display:inline-block;\n}\n#adm_estimate_show .gd_box .gd_list>.col[data-v-ec9c9aa0]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .opc .row div[data-v-ec9c9aa0] { background-color:#7fffd454;\n}\n#adm_estimate_show .gd_box .gd_list .opc[data-v-ec9c9aa0] { border-top:1px solid #eee;\n}\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0]:nth-child(2),\r\n#adm_estimate_show .gd_box .gd_list .col[data-v-ec9c9aa0]:nth-child(3) { flex:0 0 25%; max-width:25%;\n}\n#adm_estimate_show .price_info .row .col span[data-v-ec9c9aa0] { display:inline-block; min-width:10rem; font-weight:bold; color:#C10000; font-size:1.3rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0] { line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ec9c9aa0] { margin-left: 2rem;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ec9c9aa0] { font-weight:900; margin-left:.5rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { text-align:right;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ec9c9aa0] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .box .top_border[data-v-ec9c9aa0] { border-top:3px solid #4F637B;\n}\n.p_wrap .gd_list .row.head[data-v-ec9c9aa0] { border-top: 3px solid #4F637B; font-weight:600;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(2) { flex: 0 0 12%; max-width: 12%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(3) { flex: 0 0 9%; max-width: 9%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(4) { flex: 0 0 7%; max-width: 7%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(5) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(6) { flex: 0 0 5%; max-width: 5%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(7) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0] { justify-content: center; padding:0.75rem; display:flex; align-items:center; font-size: .95rem;\n}\n.p_wrap .gd_list .row.list:not(:last-of-type) .col[data-v-ec9c9aa0] { border-bottom: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:not(:last-of-type) { border-right: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col[data-v-ec9c9aa0] { color:#949494;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type a[data-v-ec9c9aa0] { flex: 0 0 145px; max-width: 145px;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div[data-v-ec9c9aa0] { text-align:left; padding-left:2rem; flex-basis: 0; flex-grow: 1; max-width: 100%;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name[data-v-ec9c9aa0] { display:block; color:#555;\n}\n.p_wrap .gd_list .row .col a[data-v-ec9c9aa0] { width:120px; height:120px; padding-left:20px;\n}\n.p_wrap .gd_list .row .col a img[data-v-ec9c9aa0] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain; border:1px solid #8F8F8F;\n}\n.p_wrap .sum_up .total[data-v-ec9c9aa0] { border-bottom:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0] { color:#000; font-weight:bold;\n}\n.p_wrap .sum_up .total .col b[data-v-ec9c9aa0] { font-size:1.4rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1rem 0 1rem 2rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(even) { text-align:right; padding:1rem 2rem 1rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after,\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2),\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after { content:\"+\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { content:\"=\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(5) { flex-basis:16%; max-width:16%;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(6) { flex-basis:24%; max-width:24%;\n}\n.p_wrap .sum_up .total_sub[data-v-ec9c9aa0] { background:#F2F3F5; border-bottom-width:0;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0] { display:flex; flex-wrap:wrap;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(1) { padding:1rem 2rem .5rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(2) { padding:0 2rem 1rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0]:nth-of-type(2) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -742,108 +742,150 @@ var render = function () {
     "div",
     { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
-      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 응답")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "ctrl", attrs: { "no-body": "" } },
+        "div",
+        { staticClass: "act_ctrl" },
         [
           _c(
-            "b-container",
+            "b-row",
+            { attrs: { cols: "1", "cols-md": "2" } },
             [
+              _c("b-col", { staticClass: "def_info" }, [
+                _c("span", [_vm._v("견적번호")]),
+                _vm._v(" "),
+                _c("b", [_vm._v(_vm._s(_vm.frm.er_id) + ".")]),
+                _vm._v(" "),
+                _c("span", [_vm._v("견적일자")]),
+                _vm._v(" "),
+                _c("b", [_vm._v(_vm._s(_vm.frm.created_at))]),
+              ]),
+              _vm._v(" "),
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "btn_area" },
                 [
                   _c(
-                    "b-col",
+                    "b-button",
+                    {
+                      staticClass: "white sm",
+                      attrs: { to: { name: "adm_estimate_index" } },
+                    },
+                    [_c("b-icon-list"), _vm._v(" 목록으로")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { staticClass: "black sm", on: { click: _vm.passOrder } },
+                    [_c("b-icon-box-arrow-up-right"), _vm._v(" 임의주문")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { staticClass: "gray sm", on: { click: _vm.reSend } },
+                    [
+                      _c("font-awesome-icon", {
+                        attrs: { icon: "paper-plane" },
+                      }),
+                      _vm._v(" 재발송"),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "d_blue sm",
+                      attrs: {
+                        to: {
+                          name: "adm_estimate_create",
+                          query: {
+                            eq_id: _vm.frm.estimate_req.eq_id,
+                            er_id: _vm.$route.params.er_id,
+                          },
+                        },
+                      },
+                    },
+                    [
+                      _c("b-icon-arrow-clockwise"),
+                      _vm._v(" 재작성\r\n                "),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "blue sm",
+                      attrs: {
+                        to: {
+                          name: "adm_estimate_edit",
+                          params: { er_id: _vm.$route.params.er_id },
+                        },
+                      },
+                    },
+                    [
+                      _c("b-icon-pencil-square"),
+                      _vm._v(" 수정\r\n                "),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-dropdown",
+                    {
+                      attrs: {
+                        size: "sm",
+                        text: "파일 다운",
+                        variant: "outline-dark",
+                      },
+                    },
                     [
                       _c(
-                        "b-button-group",
-                        { attrs: { size: "sm" } },
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "success" },
+                          on: { click: _vm.estimateExcel },
+                        },
+                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("EXCEL")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "warning" },
+                          on: { click: _vm.estimatePdf },
+                        },
+                        [_vm._v("견적서 "), _c("b-badge", [_vm._v("PDF")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-dropdown-divider"),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "success" },
+                          on: { click: _vm.transactionExcel },
+                        },
                         [
-                          _c(
-                            "b-button",
-                            { attrs: { to: { name: "adm_estimate_index" } } },
-                            [_c("b-icon-list-ul"), _vm._v(" 목록")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-dropdown",
-                            {
-                              attrs: {
-                                size: "sm",
-                                text: "파일 출력",
-                                variant: "warning",
-                              },
-                            },
-                            [
-                              _c(
-                                "b-dropdown-item-button",
-                                {
-                                  attrs: { variant: "success" },
-                                  on: { click: _vm.estimateExcel },
-                                },
-                                [
-                                  _vm._v("견적서 "),
-                                  _c("b-badge", [_vm._v("EXCEL")]),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-dropdown-item-button",
-                                {
-                                  attrs: { variant: "warning" },
-                                  on: { click: _vm.estimatePdf },
-                                },
-                                [
-                                  _vm._v("견적서 "),
-                                  _c("b-badge", [_vm._v("PDF")]),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("b-dropdown-divider"),
-                              _vm._v(" "),
-                              _c(
-                                "b-dropdown-item-button",
-                                {
-                                  attrs: { variant: "success" },
-                                  on: { click: _vm.transactionExcel },
-                                },
-                                [
-                                  _vm._v("거래명세서 "),
-                                  _c("b-badge", [_vm._v("EXCEL")]),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-dropdown-item-button",
-                                {
-                                  attrs: { variant: "warning" },
-                                  on: { click: _vm.transactionPdf },
-                                },
-                                [
-                                  _vm._v("거래명세서 "),
-                                  _c("b-badge", [_vm._v("PDF")]),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "dark" },
-                              on: { click: _vm.print },
-                            },
-                            [_vm._v("인쇄")]
-                          ),
+                          _vm._v("거래명세서 "),
+                          _c("b-badge", [_vm._v("EXCEL")]),
                         ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item-button",
+                        {
+                          attrs: { variant: "warning" },
+                          on: { click: _vm.transactionPdf },
+                        },
+                        [_vm._v("거래명세서 "), _c("b-badge", [_vm._v("PDF")])],
                         1
                       ),
                     ],
@@ -851,81 +893,17 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { staticClass: "text-right" },
+                    "b-button",
+                    { staticClass: "sm", on: { click: _vm.print } },
+                    [_vm._v("인쇄")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { staticClass: "red sm", on: { click: _vm.destroy } },
                     [
-                      _c(
-                        "b-button-group",
-                        { attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "dark" },
-                              on: { click: _vm.passOrder },
-                            },
-                            [
-                              _c("b-icon-box-arrow-up-right"),
-                              _vm._v(" 임의주문"),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "primary" },
-                              on: { click: _vm.reSend },
-                            },
-                            [_c("b-icon-mailbox"), _vm._v(" 재발송")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "success",
-                                to: {
-                                  name: "adm_estimate_create",
-                                  query: {
-                                    eq_id: _vm.frm.estimate_req.eq_id,
-                                    er_id: _vm.$route.params.er_id,
-                                  },
-                                },
-                              },
-                            },
-                            [_c("b-icon-pencil-square"), _vm._v(" 재작성")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                variant: "warning",
-                                to: {
-                                  name: "adm_estimate_edit",
-                                  params: { er_id: _vm.$route.params.er_id },
-                                },
-                              },
-                            },
-                            [_c("b-icon-tools"), _vm._v(" 수정")],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "danger" },
-                              on: { click: _vm.destroy },
-                            },
-                            [_c("b-icon-trash-fill"), _vm._v(" 삭제")],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
+                      _c("b-icon", { attrs: { icon: "trash-fill" } }),
+                      _vm._v(" 삭제"),
                     ],
                     1
                   ),
@@ -939,762 +917,501 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c(
-        "b-alert",
-        {
-          staticClass: "container user_info mt-4",
-          attrs: { show: "", variant: "primary" },
-        },
-        [
-          _c("h4", { staticClass: "alert-heading" }, [_vm._v("요청자")]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "요청번호" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "tags" } }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_id)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "요청일" },
-                    },
-                    [
-                      _c("b-icon-calendar-date"),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.created_at)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "요청단계" },
-                    },
-                    [
-                      _c("b-icon-bar-chart-steps"),
-                      _vm._v(" "),
-                      _vm.frm.estimate_req.eq_step === "DONOT"
-                        ? [_vm._v("미처리")]
-                        : _vm.frm.estimate_req.eq_step === "DOING"
-                        ? [_vm._v("처리중")]
-                        : _vm.frm.estimate_req.eq_step === "DONE"
-                        ? [_vm._v("완료")]
-                        : _vm.frm.estimate_req.eq_step === "CANCEL"
-                        ? [_vm._v("취소")]
-                        : _vm._e(),
-                    ],
-                    2
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "요청자" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.frm.estimate_req.eq_name) +
-                          "\n                        "
-                      ),
-                      _vm.frm.estimate_req.created_id
-                        ? _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "outline-primary", size: "xm" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.openWinPop(
-                                    "/admin/user/" +
-                                      _vm.frm.estimate_req.created_id +
-                                      "/edit",
-                                    1700,
-                                    900
-                                  )
-                                },
-                              },
-                            },
-                            [_c("b-icon-link45deg")],
-                            1
-                          )
-                        : _vm._e(),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "요청자 소속" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "users" } }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_department)),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "전화번호" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_tel)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "핸드폰" },
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "mobile-alt" },
-                      }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_hp)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "팩스" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "fax" } }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_fax)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "이메일" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "at" } }),
-                      _vm._v(_vm._s(_vm.frm.estimate_req.eq_email)),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "내용" },
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "comment-dots" },
-                      }),
-                      _vm._v(" "),
-                      _c("p", {
-                        domProps: {
-                          innerHTML: _vm._s(
-                            _vm.nl2br(_vm.frm.estimate_req.eq_content)
-                          ),
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ]),
-              ]),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-alert",
-        {
-          staticClass: "container user_info",
-          attrs: { show: "", variant: "info" },
-        },
-        [
-          _c("h4", { staticClass: "alert-heading" }, [_vm._v("견적 정보")]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "견적번호" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "tags" } }),
-                      _vm._v(_vm._s(_vm.frm.er_id)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "견적일" },
-                    },
-                    [
-                      _c("b-icon-calendar-date"),
-                      _vm._v(_vm._s(_vm.frm.created_at)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "납품기일" },
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "dolly-flatbed" },
-                      }),
-                      _vm._v(_vm._s(_vm.frm.er_dlvy_at)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "견적서 유효기간" },
-                    },
-                    [
-                      _c("b-icon-stopwatch-fill"),
-                      _vm._v(_vm._s(_vm.frm.er_effective_at)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.frm.er_step === 0
-                    ? _c(
-                        "span",
-                        [_c("b-icon-bar-chart-steps"), _vm._v(" 임시저장")],
-                        1
-                      )
-                    : _vm._e(),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "담당자" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                      _vm._v(_vm._s(_vm.frm.user.name)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "전화번호" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                      _vm._v(_vm._s(_vm.frm.user.tel)),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "이메일" },
-                    },
-                    [
-                      _c("font-awesome-icon", { attrs: { icon: "at" } }),
-                      _vm._v(_vm._s(_vm.frm.user.email)),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "b-tooltip",
-                          rawName: "v-b-tooltip.hover",
-                          modifiers: { hover: true },
-                        },
-                      ],
-                      attrs: { title: "내용" },
-                    },
-                    [
-                      _c("font-awesome-icon", {
-                        attrs: { icon: "comment-dots" },
-                      }),
-                      _vm._v(" "),
-                      _c("p", {
-                        domProps: {
-                          innerHTML: _vm._s(_vm.nl2br(_vm.frm.er_content)),
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
-                _vm.frm.file_info && _vm.frm.file_info.length
-                  ? _c("div", [
-                      _c(
-                        "span",
-                        [
-                          _c("b-icon", {
-                            attrs: { icon: "file-earmark-arrow-down-fill" },
-                          }),
-                          _vm._v(" "),
-                          _vm._l(_vm.frm.file_info, function (file, i) {
-                            return [
-                              _c(
-                                "b-button",
-                                {
-                                  key: i,
-                                  staticClass: "mr-2",
-                                  attrs: {
-                                    size: "sm",
-                                    variant: "outline-info",
-                                  },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.fileDown(
-                                        file.down_path,
-                                        file.fi_original
-                                      )
-                                    },
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(file.fi_original) +
-                                      "\n                            "
-                                  ),
-                                ]
-                              ),
-                            ]
-                          }),
-                        ],
-                        2
-                      ),
-                    ])
-                  : _vm._e(),
-              ]),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
       _vm.frm.estimate_model && _vm.frm.estimate_model.length
         ? _c(
-            "b-card",
-            { staticClass: "gd_box" },
+            "div",
+            { staticClass: "box gd_list" },
             [
-              _c("div", { staticClass: "tit" }, [_vm._v("견적 상품")]),
+              _c("h5", [_vm._v("주문상품정보")]),
               _vm._v(" "),
-              _vm._l(_vm.frm.collect.lists, function (pa, pa_i) {
+              _c(
+                "b-row",
+                { staticClass: "list head" },
+                [
+                  _c("b-col", [_vm._v("주문 상품")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("Cat.No/모델명")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("제조사")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("판매단위")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("단가")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("수량")]),
+                  _vm._v(" "),
+                  _c("b-col", [_vm._v("합계")]),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.frm.estimate_model, function (em) {
                 return _c(
-                  "b-container",
-                  { key: "pa_" + pa_i },
+                  "b-row",
+                  { key: em.em_id, staticClass: "list body" },
                   [
                     _c(
-                      "h5",
+                      "b-col",
                       [
-                        pa_i > 0
-                          ? [
-                              _vm._v(_vm._s(pa[0].pa_name) + " "),
-                              _c("b", [_vm._v("직배송 상품")]),
-                            ]
-                          : [_vm._v("4SCIENCE")],
+                        _c(
+                          "b-link",
+                          {
+                            on: {
+                              click: function ($event) {
+                                return _vm.openWinPop(
+                                  "/admin/shop/goods/" + em.gd_id + "/edit",
+                                  1700,
+                                  900
+                                )
+                              },
+                            },
+                          },
+                          [_c("img", { attrs: { src: em.img_src } })]
+                        ),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("b", { staticClass: "gd_name" }, [
+                            _vm._v(_vm._s(em.em_name)),
+                          ]),
+                          _vm._v(" "),
+                          _c("p", {
+                            domProps: {
+                              innerHTML: _vm._s(_vm.nl2br(em.em_spec)),
+                            },
+                          }),
+                          _vm._v(" "),
+                          em.dlvy_at
+                            ? _c("p", [_vm._v("납기 : " + _vm._s(em.dlvy_at))])
+                            : _vm._e(),
+                        ]),
                       ],
-                      2
+                      1
                     ),
                     _vm._v(" "),
-                    _vm._l(pa, function (em) {
-                      return _c(
-                        "b-row",
-                        { key: em.em_id },
-                        [
-                          em.type == "model"
-                            ? [
-                                _c(
-                                  "b-col",
-                                  [
-                                    _c(
-                                      "b-button",
-                                      {
-                                        attrs: { variant: "outline-primary" },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.openWinPop(
-                                              "/admin/shop/goods/" +
-                                                em.gd_id +
-                                                "/edit",
-                                              1700,
-                                              900
-                                            )
-                                          },
-                                        },
-                                      },
-                                      [_c("b-icon-link45deg")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c("b", { staticClass: "gd_name" }, [
-                                      _vm._v(_vm._s(em.gm_name)),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("b", { staticClass: "divider" }, [
-                                      _vm._v("/"),
-                                    ]),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(em.gm_code) +
-                                        "\n                        "
-                                    ),
-                                    _c("b", { staticClass: "divider" }, [
-                                      _vm._v("/"),
-                                    ]),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(em.gm_catno) +
-                                        "\n                        "
-                                    ),
-                                    _c("b", { staticClass: "divider" }, [
-                                      _vm._v("/"),
-                                    ]),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(em.mk_name) +
-                                        "\n                        "
-                                    ),
-                                    _c("b", { staticClass: "divider" }, [
-                                      _vm._v("/"),
-                                    ]),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(em.gm_unit) +
-                                        "\n                    "
-                                    ),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("b-col", [
-                                  _c("p", {
-                                    domProps: {
-                                      innerHTML: _vm._s(_vm.nl2br(em.gm_spec)),
-                                    },
-                                  }),
-                                ]),
-                                _vm._v(" "),
-                                _c("b-col", [_vm._v(_vm._s(em.dlvy_at))]),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { tag: "i" } },
-                                  [
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm._f("comma")(em.price)) +
-                                        " 원 "
-                                    ),
-                                    _c("font-awesome-icon", {
-                                      attrs: { icon: "times" },
-                                    }),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm._f("comma")(em.ea)) +
-                                        " 개 "
-                                    ),
-                                    _c("font-awesome-icon", {
-                                      attrs: { icon: "equals" },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("b", { staticClass: "multi" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("comma")(em.price * em.ea)
-                                        ) + " 원"
-                                      ),
-                                    ]),
-                                  ],
-                                  1
-                                ),
-                              ]
-                            : em.type == "option"
-                            ? [
+                    _c("b-col", [
+                      _vm._v("\r\n                " + _vm._s(em.em_code)),
+                      _c("br"),
+                      _vm._v(
+                        "\r\n                " +
+                          _vm._s(em.em_catno) +
+                          "\r\n            "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", [_vm._v(_vm._s(em.em_maker))]),
+                    _vm._v(" "),
+                    _c("b-col", [_vm._v(_vm._s(em.em_unit))]),
+                    _vm._v(" "),
+                    _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(em.em_price)))]),
+                    _vm._v(" "),
+                    _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _vm._v(_vm._s(_vm._f("comma")(em.em_price * em.em_ea))),
+                    ]),
+                    _vm._v(" "),
+                    em.estimate_option.length
+                      ? _c(
+                          "b-col",
+                          { staticClass: "opc", attrs: { cols: "12" } },
+                          _vm._l(em.estimate_option, function (option) {
+                            return _c(
+                              "b-row",
+                              { key: option.eo_id },
+                              [
                                 _c("b-col", { attrs: { offset: "6" } }, [
                                   _vm._v(
-                                    _vm._s(em.go_name) +
+                                    _vm._s(option.eo_tit) +
                                       ": " +
-                                      _vm._s(em.goc_name)
+                                      _vm._s(option.eo_name)
                                   ),
                                 ]),
                                 _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { tag: "i" } },
-                                  [
+                                _c("b-col", { attrs: { tag: "i" } }, [
+                                  _vm._v("수량 : "),
+                                  _c("b", [
                                     _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm._f("comma")(em.price)) +
-                                        " 원 "
+                                      _vm._s(_vm._f("comma")(option.eo_ea))
                                     ),
-                                    _c("font-awesome-icon", {
-                                      attrs: { icon: "times" },
-                                    }),
-                                    _vm._v(
-                                      "\n                        " +
-                                        _vm._s(_vm._f("comma")(em.ea)) +
-                                        " 개 "
-                                    ),
-                                    _c("font-awesome-icon", {
-                                      attrs: { icon: "equals" },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("b", { staticClass: "multi" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("comma")(em.price * em.ea)
-                                        ) + " 원"
-                                      ),
-                                    ]),
-                                  ],
-                                  1
-                                ),
-                              ]
-                            : _vm._e(),
-                        ],
-                        2
-                      )
-                    }),
+                                  ]),
+                                  _vm._v(" 개"),
+                                ]),
+                              ],
+                              1
+                            )
+                          }),
+                          1
+                        )
+                      : _vm._e(),
                   ],
-                  2
+                  1
                 )
               }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "sum_up" },
+                [
+                  _c("div", { staticClass: "top_border" }),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "total" },
+                    [
+                      _c("b-col", [_vm._v("상품금액")]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("won")(
+                                _vm._f("comma")(
+                                  _vm.frm.er_gd_price + _vm.frm.er_surtax
+                                )
+                              )
+                            )
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("배송료")]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("won")(
+                                _vm._f("comma")(_vm.frm.er_dlvy_price)
+                              )
+                            )
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", [_vm._v("결제 예정 금액")]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("won")(
+                                _vm._f("comma")(_vm.frm.er_all_price)
+                              )
+                            )
+                          ),
+                        ]),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "total_sub" },
+                    [
+                      _c("b-col", [
+                        _c(
+                          "div",
+                          [
+                            _c("b-col", [_vm._v("상품가")]),
+                            _c("b-col", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("won")(
+                                    _vm._f("comma")(_vm.frm.er_gd_price)
+                                  )
+                                )
+                              ),
+                            ]),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("b-col", [_vm._v("부가세")]),
+                            _c("b-col", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("won")(
+                                    _vm._f("comma")(_vm.frm.er_surtax)
+                                  )
+                                )
+                              ),
+                            ]),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c(
+                          "div",
+                          [
+                            _c("b-col", [_vm._v("포사이언스 배송")]),
+                            _c("b-col", [
+                              _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s))),
+                            ]),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("b-col", [_vm._v("업체 배송")]),
+                            _c("b-col", [
+                              _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other))),
+                            ]),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col"),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
             ],
             2
           )
         : _vm._e(),
       _vm._v(" "),
       _c(
-        "b-alert",
-        {
-          staticClass: "container price_info",
-          attrs: { show: "", variant: "dark" },
-        },
+        "div",
+        { staticClass: "box est_frm" },
         [
+          _c("h5", [_vm._v("요청자 정보")]),
+          _vm._v(" "),
           _c(
             "b-row",
             [
-              _c("b-col", { staticClass: "text-right" }, [
-                _c("div", [
-                  _vm._v("합계: "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("comma")(_vm.frm.er_gd_price))),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("부가세: "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("comma")(_vm.frm.er_surtax))),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("배송료: "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("comma")(_vm.frm.er_dlvy_price))),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _vm.frm.er_air_price
-                  ? _c("div", [
-                      _vm._v("항공운임료: "),
-                      _c("span", [
-                        _vm._v(_vm._s(_vm._f("comma")(_vm.frm.er_air_price))),
-                      ]),
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v("최종 결제금액: "),
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("comma")(_vm.frm.er_all_price))),
-                  ]),
-                ]),
+              _c("b-col", [_vm._v("견적요청번호")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_id))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("요청일자")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.created_at))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("요청자")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
+                  _vm.frm.estimate_req.created_id
+                    ? _c(
+                        "b-link",
+                        {
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/user/" +
+                                  _vm.frm.estimate_req.created_id +
+                                  "/edit",
+                                1700,
+                                900
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm.frm.estimate_req.eq_name) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("연락처")]),
+              _c("b-col", [
+                _vm._v(
+                  _vm._s(_vm.frm.estimate_req.eq_hp) +
+                    _vm._s(_vm.frm.estimate_req.eq_tel)
+                ),
               ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("소속")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_department))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이메일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_email))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("문의사항")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", {
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.nl2br(_vm.frm.estimate_req.eq_content)
+                    ),
+                  },
+                }),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("첨부파일")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                _vm._l(_vm.frm.file_info, function (file, i) {
+                  return _c(
+                    "b-button",
+                    {
+                      key: i,
+                      staticClass: "white sm mr-2",
+                      on: {
+                        click: function ($event) {
+                          return _vm.fileDown(file.down_path, file.fi_original)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(file.fi_original) +
+                          "\r\n                "
+                      ),
+                    ]
+                  )
+                }),
+                1
+              ),
             ],
             1
           ),
         ],
         1
       ),
-    ],
-    1
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box est_frm" },
+        [
+          _c("h5", [_vm._v("견적서 정보")]),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("견적번호")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_id))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("견적일자")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.created_at))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("견적유효기간")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_effective_at))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("담당자")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.name))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("전화번호")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.tel))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이메일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.email))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("납품기일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_dlvy_at))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("추가정보")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", {
+                  domProps: {
+                    innerHTML: _vm._s(_vm.nl2br(_vm.frm.er_content)),
+                  },
+                }),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("첨부파일")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                _vm._l(_vm.frm.file_info, function (file, i) {
+                  return _c(
+                    "b-button",
+                    {
+                      key: i,
+                      staticClass: "white sm mr-2",
+                      on: {
+                        click: function ($event) {
+                          return _vm.fileDown(file.down_path, file.fi_original)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(file.fi_original) +
+                          "\r\n                "
+                      ),
+                    ]
+                  )
+                }),
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ]
   )
 }
 var staticRenderFns = []

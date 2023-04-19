@@ -92,7 +92,7 @@ Route::POST('/shop/order/payRequestMobile',    'Shop\OrderController@payRequestM
 Route::POST('/shop/order/payReturnMobile',    'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
 
 Route::POST('auth/user/find_email',    'Auth\UserController@find_email');
-
+Route::get('/admin/realsoup/es_update', 'Admin\RealsoupController@es_update');
 
 
 
