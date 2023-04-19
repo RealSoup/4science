@@ -76,7 +76,7 @@ export default {
                         var name = "견적서 미리보기";
                         var option = "width = 900, height = 900, top = 10, left = 10, location = no"
                         window.open(url, name, option);
-                        // self.close();
+                        self.close();
                     } else 
                         this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:res.data } });                    
                 }

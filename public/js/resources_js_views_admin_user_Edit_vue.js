@@ -1433,7 +1433,7 @@ var render = function () {
             ? _c(
                 "Modal",
                 {
-                  attrs: { max_width: 700 },
+                  attrs: { max_width: 900 },
                   on: {
                     "close-modal": function ($event) {
                       _vm.isModalViewed = false

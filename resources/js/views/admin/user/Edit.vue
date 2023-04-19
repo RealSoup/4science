@@ -185,7 +185,7 @@
         </b-card>
 
         <transition name="modal">
-            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
                 <template slot="header">마일리지 목록</template>
                 <Mileage />
             </Modal>

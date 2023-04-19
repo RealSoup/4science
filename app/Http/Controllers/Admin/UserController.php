@@ -56,6 +56,7 @@ class UserController extends Controller {
 
     public function update(Request $req, $id) {
         DB::table('users')->where('id', $id)->update([
+            'email' => $req->filled('email') ? $req->email : '',
             'name' => $req->filled('name') ? $req->name : '',
             'sex' => $req->filled('sex') ? $req->sex : 'male',
             'hp' => $req->filled('hp') ? $req->hp : '',

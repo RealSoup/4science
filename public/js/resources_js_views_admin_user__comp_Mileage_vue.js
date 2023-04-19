@@ -200,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.top[data-v-4ea7ee84] { text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(1) { flex:0 0 10%; max-width:10%;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(3) { flex:0 0 10%; max-width:10%; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(4) { flex:0 0 12%; max-width:12%;\n}\n.list .col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.top[data-v-4ea7ee84] { text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(1) { flex:0 0 12%; max-width:12%;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(3) { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(4) { flex:0 0 16%; max-width:16%;\n}\n.list .col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -99,9 +99,9 @@ export default {
 <style lang="css" scoped>
 .col { padding:10px 5px; }
 .top { text-align:right; }
-.list .col:nth-of-type(1) { flex:0 0 10%; max-width:10%; }
+.list .col:nth-of-type(1) { flex:0 0 12%; max-width:12%; }
 .list .col:nth-of-type(2) { text-align:left; }
-.list .col:nth-of-type(3) { flex:0 0 10%; max-width:10%; text-align:right; }
-.list .col:nth-of-type(4) { flex:0 0 12%; max-width:12%; }
+.list .col:nth-of-type(3) { flex:0 0 13%; max-width:13%; text-align:right; }
+.list .col:nth-of-type(4) { flex:0 0 16%; max-width:16%; }
 .list .col svg { margin-right:0.5rem; }
 </style>
