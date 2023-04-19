@@ -15,6 +15,7 @@ class EstimateReply extends Model {
     protected $table = 'shop_estimate_reply';
     protected $primaryKey = 'er_id';
     protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
+    protected $guarded = [];
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }

@@ -25,7 +25,7 @@ class RealsoupController extends Controller {
             ->where('updated_at', '<=', '2023-04-17 08:21:59')
             ->where('created_at', '<', '2023-01-01 00:00:00')
             ->where('er_all_price', 0)
-            ->where('er_id', '>', 89323)
+            ->where('er_id', '>', 449266)
             ->get();
         foreach( $rst_er as $er ){
             $rst_em = DB::table('shop_estimate_model')
