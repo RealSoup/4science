@@ -36,7 +36,9 @@ class RealsoupController extends Controller {
             $collect = [];
             $pa_id = $er_dlvy_price = $er_gd_price = $er_air_price = $er_surtax = 0;
             foreach( $rst_em as $em ){
-                $rst_gd = DB::table('shop_goods')->where('gd_id', $em->em_gd_id)->get();
+                $rst_gd = null;
+                if($em->em_gd_id)
+                    $rst_gd = DB::table('shop_goods')->where('gd_id', $em->em_gd_id)->get();
                 
                 if (!$rst_gd->isEmpty()&&$rst_gd->gd_pa_id) $pa_id = $rst_gd->gd_pa_id;
                 else $pa_id =0;
