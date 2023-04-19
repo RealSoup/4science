@@ -140,4 +140,8 @@ export default {
 .recent_box .cube_box .ctrlBtn .btn:nth-of-type(1) { border-right:1px solid #FFF; border-radius: 42% 0 0 42%; }
 .recent_box .cube_box .ctrlBtn .btn:nth-of-type(2) { border-radius:0 42% 42% 0; }
 .recent_box .cube_box .ctrlBtn .btn:disabled { cursor:not-allowed !important; }
+
+@media (max-width: 992px){
+    .recent_box { display:none; }
+}
 </style>

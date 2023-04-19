@@ -4,64 +4,51 @@
     <div id="afterimage"></div>
     <div id="real">
         <div class="layout">
-            <b-navbar toggleable="lg">
-                <b-navbar-brand :to="{name: 'main'}"><img :src="s3url+'common/logo/logo.png'" /></b-navbar-brand>
-                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-                
-                <b-navbar-nav class="menu_user" v-if="isLoggedin">
-                    <b-nav-item :to="{name: 'mypage'}">마이페이지</b-nav-item>
-                    <b-nav-item @click="logout">로그아웃</b-nav-item>
-                </b-navbar-nav>
-                <b-navbar-nav class="menu_user" v-else>
-                    <b-nav-item @click="isModalViewed=true">로그인</b-nav-item>
-                    <b-nav-item :to="{name: 'auth_intro'}">회원가입</b-nav-item>
-                </b-navbar-nav>
+            <b-link :to="{name: 'main'}" class="logo"></b-link>
 
-                <b-collapse id="nav-collapse" is-nav>
-                    <b-navbar-nav class="mr-auto nav_menu">
-                        <b-nav-item to="/shop/listing/today_pick_up/all">당일출고</b-nav-item>
-                        <b-nav-item :to="{name: 'estimate_create'}">견적요청</b-nav-item>
-                        <b-nav-item :to="{name: 'engReform_create'}">영문교정</b-nav-item>
-                        <b-nav-item :to="{name: 'outlet'}">전문관</b-nav-item>
-                        <b-nav-item :to="{name: 'cscenter'}">고객센터</b-nav-item>
-                        <b-nav-item :to="{name: 'bo_intro'}">커뮤니티</b-nav-item>
-                    </b-navbar-nav>
+            <div v-if="isLoggedin" class="top_menu">
+                <b-link :to="{name: 'mypage'}">마이페이지</b-link>
+                <b-link @click="logout">로그아웃</b-link>
+            </div>
+            <div v-else class="top_menu">
+                <b-link @click="isModalViewed=true">로그인</b-link>
+                <b-link :to="{name: 'auth_intro'}">회원가입</b-link>
+            </div>
 
-                    <!-- Right aligned nav items -->
-                    <b-navbar-nav class="ml-auto head_sch_box">
-                        <b-nav-form class="head_sch" @submit.prevent="routerPush">
-                            <select class="custom-select" v-model="frm.mode">
-                                <option value="">전체</option>
-                                <option value="gd_name">상품명</option>
-                                <option value="gm_name">제품명</option>
-                                <option value="gm_code">모델명</option>
-                                <option value="cat_no">Cat.No</option>
-                                <option value="maker">제조사</option>
-                            </select>
-                            <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
-                            <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
-                        </b-nav-form>
-                    </b-navbar-nav>
-                </b-collapse>
+            <nav class="nav_menu">
+                <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
+                <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
+                <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
+                <b-link :to="{name: 'outlet'}">전문관</b-link>
+                <b-link :to="{name: 'cscenter'}">고객센터</b-link>
+                <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
+            </nav>
+            
+            <div class="head_sch_box">
+                <b-form class="head_sch" @submit.prevent="routerPush">
+                    <select class="custom-select" v-model="frm.mode">
+                        <option value="">전체</option>
+                        <option value="gd_name">상품명</option>
+                        <option value="gm_name">제품명</option>
+                        <option value="gm_code">모델명</option>
+                        <option value="cat_no">Cat.No</option>
+                        <option value="maker">제조사</option>
+                    </select>
+                    <b-form-input v-model="frm.keyword" placeholder="검색어를 입력하세요" />
+                    <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
+                </b-form>
+            </div>
 
-                <div v-if="user && user.is_admin" class="admin">
-                    <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
-                    <router-link
-                        v-if="this.$route.name === 'goods_show'"
-                        :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
-                        target="_blank"
-                    >
-                        상품관리
-                    </router-link>
-                </div>
-            </b-navbar>
+            <div v-if="user && user.is_admin" class="admin">
+                <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
+                <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
+                    :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
+                >상품관리</router-link>
+            </div>
         </div>
+        <Categorys v-if="true" />
+        <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
     </div>
-
-    <Categorys v-if="true" />
-
-    <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
-    
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
             <template slot="header"><div class="modal_login">로그인</div></template>
@@ -155,30 +142,25 @@ export default {
 
 <style lang="css" scoped>
 #header { background-color:#F5F5F5; }
-#header #real nav { align-items:flex-end; padding:16.5px 0; }
-#header #real nav .navbar-brand { padding:0; margin-bottom:-5px; }
-#header #real nav .navbar-brand img { width:100%; transition:all .3s; }
+#header #real .layout { position:relative; display:flex; align-items:flex-end; height:90px; padding-bottom:5px; }
+#header #real .layout>* { flex-basis:0; flex-grow:1; max-width:100%; }
+#header #real .layout .top_menu { position:absolute; top:11px; right:0; font-size:.9rem; }
+#header #real .layout .top_menu a { position:relative; display:inline-block; padding:3px 15px 3px 8px; }
+#header #real .layout .top_menu a:not(:last-child):after { content:"|"; position:absolute; right:-1px; }
+#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); }
+#header #real .layout .nav_menu a { display:inline-block; padding:3px 7px; font-weight:600; }
+#header #real .layout .nav_menu a:hover { color:#1A90D6; text-decoration:underline; font-weight:900; }
+#header #real .head_sch_box { margin-bottom:3px; }
+#header #real .head_sch_box .head_sch { align-items:center; display:flex; flex-flow:row wrap; background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
+#header #real .head_sch_box .head_sch { min-width:36rem; transition:all .3s; }
+#header #real .head_sch_box .head_sch select { width:auto; border-radius:17px 0 0 17px; height:36px; padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
+#header #real .head_sch_box .head_sch input { width:auto; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:1.2rem; height:36px; margin-left:.17rem; flex-grow:1; }
+#header #real .head_sch_box .head_sch input:focus { outline:0; }
+#header #real .head_sch_box .head_sch button { width:auto; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
+#header #real .head_sch_box .head_sch button svg { font-size:1.4rem; }
 
-#header #real nav .menu_user { position:absolute; top:13px; right:0; }
-#header #real nav .menu_user li a { font-weight:bold; font-size:13px; padding:3px 14px; position:relative; }
-#header #real nav .menu_user li:not(:last-child) a:after { content:"|"; position:absolute; right:-1px; }
-
-#header #real nav .navbar-collapse { align-items:flex-end; }
-#header #real nav .navbar-collapse ul li a { padding:0 .5rem; color: rgba(0, 0, 0, 1); font-size:14px; }
-#header #real nav .navbar-collapse ul li a:hover { color:#1A91D5; text-decoration: underline; }
-#header #real nav .navbar-collapse ul li a.router-link-exact-active { font-weight:bold; background:#0A7C8B; color:#FFF; border-radius:10px; }
-
-#header #real nav .head_sch_box { margin-bottom:3px; }
-#header #real nav .head_sch_box .head_sch { background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
-#header #real nav .head_sch_box .head_sch form { min-width:36rem; transition:all .3s; }
-#header #real nav .head_sch_box .head_sch form select { border-radius:17px 0 0 17px; height:36px; padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
-#header #real nav .head_sch_box .head_sch form input { border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:1.2rem; height:36px; margin-left:.17rem; flex-grow:1; }
-#header #real nav .head_sch_box .head_sch form input:focus { outline:0; }
-#header #real nav .head_sch_box .head_sch form button { padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
-#header #real nav .head_sch_box .head_sch form button svg { font-size:1.4rem; }
-
-#header #real nav .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); }
-#header #real nav .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
+#header #real .layout .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); }
+#header #real .layout .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 
 #header.fixed #afterimage { height:100px; }
@@ -187,4 +169,16 @@ export default {
 #header.fixed #real nav .menu_user,
 #header.fixed #real nav .nav_menu { display:none; }
 #header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
+
+@media (max-width: 992px){
+    #header #real .layout { height:60px; padding-bottom: 0px; }
+    #header #real .layout .logo { flex:0 0 46px; max-width:46px; margin-right:13px; }
+    #header #real .layout .nav_menu a { padding:3px 0; font-size:.95rem; }
+    #header #real .head_sch_box { position: absolute; bottom: -46px; z-index: 17;left:50%; transform:translateX(-50%); }
+    #header #real .head_sch_box .head_sch { min-width:0; }
+    #header #real .head_sch_box .head_sch select { display:none; }
+    #header #real .head_sch_box .head_sch input { border-radius:18px; width:78%; }
+    #header #real .head_sch_box .head_sch button { padding: 0 10px; }
+}
+
 </style>

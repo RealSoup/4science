@@ -309,5 +309,8 @@ export default {
 .byCate .con .row .list .col img { width:166px; height:166px; object-fit:cover; }
 .byCate .con .row .list .col p { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px; }
 
+
+@media (max-width: 992px){
+}
 </style>
 

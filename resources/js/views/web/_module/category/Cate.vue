@@ -155,4 +155,10 @@ export default {
 .rs_modal { z-index:1050; }
 .rs_modal .overlay { opacity: 0.5; background-color: black; }
 .rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/
+
+@media (max-width: 992px){
+    #categorys .depth01 > li:first-of-type { width:60px; }
+    #categorys .depth01 > li:first-of-type .ca01 { padding:0; }
+    #categorys .depth01 > li:not(:first-of-type) { display:none; }
+}
 </style>

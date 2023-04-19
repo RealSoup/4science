@@ -250,7 +250,7 @@ class EstimateController extends Controller {
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
             DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update($eq_impl);
         } else {
-            $eq_impl['created_id'] = auth()->check() ? auth()->user()->id : 0;
+            $eq_impl['created_id'] = 0;
             $eq_impl['eq_title'] = '<b>[ 임의견적 ]</b> ';
             $eq_id = DB::table('shop_estimate_req')->insertGetId($eq_impl, 'eq_id');
         }
@@ -274,7 +274,7 @@ class EstimateController extends Controller {
         if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
             $to_email = $req->estimate_req['eq_email'];
             $to_name = $req->estimate_req['eq_name'];
-            $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $eq_id, $er_id, $req->estimate_req['eq_name']);
+            $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $eq_id, $er_id, $req->estimate_req);
             $this->estimateMailSend($to_email, $to_name, $params, $er_id);
         }
 
@@ -337,7 +337,7 @@ class EstimateController extends Controller {
             if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
                 $to_name = $req->estimate_req['eq_name'];
                 $to_email = $req->estimate_req['eq_email'];
-                $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req['eq_name']);
+                $params = $this->mailParam_paramImplant($req->estimate_reply, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req);
                 $this->estimateMailSend($to_email, $to_name, $params, $er_id);
             }
             return response()->json($er_id, 200);
@@ -347,7 +347,7 @@ class EstimateController extends Controller {
     public function reSend(Request $req, $er_id) {
         $to_name = $req->estimate_req['eq_name'];
         $to_email = $req->estimate_req['eq_email'];
-        $params = $this->mailParam_paramImplant($req, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req['eq_name']);
+        $params = $this->mailParam_paramImplant($req, $req->estimate_model, $req->er_eq_id, $er_id, $req->estimate_req);
         return $this->estimateMailSend($to_email, $to_name, $params, $er_id);
     }
 
@@ -371,8 +371,9 @@ class EstimateController extends Controller {
         // }
         
     }
-    public function mailParam_paramImplant($er, $model, $eq_id, $er_id, $eq_name){
-        return [    'eq_name'         => $eq_name,
+    public function mailParam_paramImplant($er, $model, $eq_id, $er_id, $eq){
+        $redirect_url = (array_key_exists('created_id', $eq) && $eq['created_id'])? (config('app.url')."/mypage/estimate/reply/${er_id}") : '';
+        return [    'eq_name'         => $eq['eq_name'],
                     'er_id'           => $er_id,
                     'eq_id'           => $eq_id,
                     'estimated_date'  => \Carbon\Carbon::now(),
@@ -389,7 +390,7 @@ class EstimateController extends Controller {
                     'er_air_price'    => isset($er['er_air_price']) && $er['er_air_price']       ? $er['er_air_price']    : 0,
                     'er_all_price'    => isset($er['er_all_price']) && $er['er_all_price']       ? $er['er_all_price']    : 0,
                     'er_no_dlvy_fee'  => isset($er['er_no_dlvy_fee']) && $er['er_no_dlvy_fee']   ? $er['er_no_dlvy_fee']  : 'N',
-                    'redirect_url'    => config('app.url')."/mypage/estimate/reply/${er_id}",
+                    'redirect_url'    => $redirect_url,
                     'domain'          => config('app.url'), 
         ];
     }

@@ -133,8 +133,21 @@
     </tr>
     <tr>
         <td align="center" style="padding:20px 0 30px;">
-            <a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn01.png" /></a>&nbsp;
-            <a href="{{$redirect_url}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn02.png" /></a>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
+                <tr>
+                    <td width="50%" align="right" style="padding:13px 10px;"><a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn01.png" /></a></td>
+                    <td style="padding:13px 10px;">
+                        @if ($redirect_url)
+                        <a href="{{$redirect_url}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn02.png" /></a>
+                        @else
+                        비회원 고객님께 발송된 견적서 메일입니다.<br>
+                        비회원 고객님은 온라인 주문을 이용하실 수 없습니다.<br>
+                        4science 온라인 회원 가입 후 재견적요청/ 온라인 주문을 이용해주시기 바랍니다.<br>
+                        감사합니다.
+                        @endif
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
@@ -142,7 +155,7 @@
             <!-- <a href="https://www.4science.net/goods/search_newest/search_column/all/search_keyword/VWRE.do" target='_blank'>
                 <img src="https://www.4science.net/templates/sites/basic/_images/event/210817/estimate.png" />
             </a> -->
-            <table cellpadding="0" cellspacing="0" border="0">
+            <!-- <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td rowspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0314/estimate01.jpg" border="0" /></td>
                     <td colspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0314/estimate02.jpg" border="0" /></td>
@@ -159,7 +172,7 @@
                         </a>
                     </td>
                 </tr>
-            </table>
+            </table> -->
         </td>
     </tr>
     <tr>

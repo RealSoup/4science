@@ -175,5 +175,8 @@ export default {
 #Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important; }
 #Cart.hideCart ul>>>li>div a img { border-radius:50%; width:50px; height:50px; }
 
-
+@media (max-width: 992px){
+    #Cart { top: 100px; }
+}
+    
 </style>
