@@ -209,7 +209,9 @@ export default {
 .tax_iv .custom-control { margin:2rem 0 1rem 4rem; }
 .tax_iv .b-form-file { margin-left:3rem; }
 .tax_iv .container { padding:0 3rem; }
-.tax_iv .container .row  { margin:1rem 0; align-items:center; }
+.tax_iv .container .row { margin:1rem 0; align-items:center; }
+.tax_iv .container .row input,
+.tax_iv .container .row textarea { flex-basis: 0; flex-grow: 1; max-width: 100%; }
 .tax_iv .container .row label { flex:0 0 30%; max-width:30%; font-weight:bold; font-size:.8rem; }
 .tax_iv .container .row span { flex-basis: 0; flex-grow: 1; max-width: 100%; }
 .tax_iv .container .row b { margin:0 .5rem; }

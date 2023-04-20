@@ -414,9 +414,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'order.extra.oex_type_fir': {
       handler: function handler(n, o) {
+        console.log(n);
         if (n == 'TX') this.order.extra.oex_type = 'IV';else if (n == 'CA') this.order.extra.oex_type = 'HP';else if (n == 'NO') this.order.extra.oex_type = 'NO';
-      },
-      deep: true
+      }
     }
   },
   data: function data() {
@@ -1049,9 +1049,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     console.log('collapseId:', collapseId)
     //     console.log('isJustShown:', isJustShown)
     // })
-    var plugin = document.createElement("script");
-    plugin.setAttribute("src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js"); //  테스트1
-    // plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
+    var plugin = document.createElement("script"); // plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
+
+    plugin.setAttribute("src", "https://stdpay.inicis.com/stdjs/INIStdPay.js"); //  운영
 
     plugin.async = true;
     document.head.appendChild(plugin);

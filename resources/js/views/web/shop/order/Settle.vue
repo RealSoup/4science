@@ -376,11 +376,11 @@ export default {
         },
         'order.extra.oex_type_fir': {
             handler(n, o) {
+                console.log(n);
                 if (n == 'TX')      this.order.extra.oex_type = 'IV';
                 else if (n == 'CA') this.order.extra.oex_type = 'HP';
                 else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
-            deep: true
         },
     },
     data() {
@@ -743,8 +743,8 @@ export default {
         //     console.log('isJustShown:', isJustShown)
         // })
         const plugin = document.createElement("script");
-        plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
-        // plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
+        // plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
+        plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
         plugin.async = true;
         document.head.appendChild(plugin);
     },
