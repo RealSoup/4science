@@ -203,12 +203,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 isValid = _context.sent;
 
                 if (!isValid) {
-                  _context.next = 49;
+                  _context.next = 113;
                   break;
                 }
 
-                if (!(_this.value.oex_type !== 'IVNO')) {
-                  _context.next = 48;
+                if (!(_this.value.oex_type === 'IV')) {
+                  _context.next = 50;
                   break;
                 }
 
@@ -341,9 +341,201 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 48:
+                _context.next = 112;
+                break;
+
+              case 50:
+                if (!(_this.value.oex_type === 'HP')) {
+                  _context.next = 65;
+                  break;
+                }
+
+                if (!isEmpty(_this.value.oex_num_hp1)) {
+                  _context.next = 55;
+                  break;
+                }
+
+                Notify.toast('danger', "핸드폰 번호 첫번째를 입력해주세요");
+
+                _this.$refs.oex_num_hp1.focus();
+
+                return _context.abrupt("return", false);
+
+              case 55:
+                if (!isEmpty(_this.value.oex_num_hp2)) {
+                  _context.next = 59;
+                  break;
+                }
+
+                Notify.toast('danger', "핸드폰 번호 두번째를 입력해주세요");
+
+                _this.$refs.oex_num_hp2.focus();
+
+                return _context.abrupt("return", false);
+
+              case 59:
+                if (!isEmpty(_this.value.oex_num_hp3)) {
+                  _context.next = 63;
+                  break;
+                }
+
+                Notify.toast('danger', "핸드폰 번호 세번째를 입력해주세요");
+
+                _this.$refs.oex_num_hp3.focus();
+
+                return _context.abrupt("return", false);
+
+              case 63:
+                _context.next = 112;
+                break;
+
+              case 65:
+                if (!(_this.value.oex_type === 'IN')) {
+                  _context.next = 76;
+                  break;
+                }
+
+                if (!isEmpty(_this.value.oex_num_in1)) {
+                  _context.next = 70;
+                  break;
+                }
+
+                Notify.toast('danger', "주민번호 첫번째를 입력해주세요");
+
+                _this.$refs.oex_num_in1.focus();
+
+                return _context.abrupt("return", false);
+
+              case 70:
+                if (!isEmpty(_this.value.oex_num_in2)) {
+                  _context.next = 74;
+                  break;
+                }
+
+                Notify.toast('danger', "주민번호 두번째를 입력해주세요");
+
+                _this.$refs.oex_num_in2.focus();
+
+                return _context.abrupt("return", false);
+
+              case 74:
+                _context.next = 112;
+                break;
+
+              case 76:
+                if (!(_this.value.oex_type === 'CN')) {
+                  _context.next = 95;
+                  break;
+                }
+
+                if (!isEmpty(_this.value.oex_num_cn1)) {
+                  _context.next = 81;
+                  break;
+                }
+
+                Notify.toast('danger', "카드번호 첫번째를 입력해주세요");
+
+                _this.$refs.oex_num_cn1.focus();
+
+                return _context.abrupt("return", false);
+
+              case 81:
+                if (!isEmpty(_this.value.oex_num_cn2)) {
+                  _context.next = 85;
+                  break;
+                }
+
+                Notify.toast('danger', "카드번호 두번째를 입력해주세요");
+
+                _this.$refs.oex_num_cn2.focus();
+
+                return _context.abrupt("return", false);
+
+              case 85:
+                if (!isEmpty(_this.value.oex_num_cn3)) {
+                  _context.next = 89;
+                  break;
+                }
+
+                Notify.toast('danger', "카드번호 세번째를 입력해주세요");
+
+                _this.$refs.oex_num_cn3.focus();
+
+                return _context.abrupt("return", false);
+
+              case 89:
+                if (!isEmpty(_this.value.oex_num_cn4)) {
+                  _context.next = 93;
+                  break;
+                }
+
+                Notify.toast('danger', "카드번호 네번째를 입력해주세요");
+
+                _this.$refs.oex_num_cn4.focus();
+
+                return _context.abrupt("return", false);
+
+              case 93:
+                _context.next = 112;
+                break;
+
+              case 95:
+                if (!(_this.value.oex_type === 'BN')) {
+                  _context.next = 112;
+                  break;
+                }
+
+                if (!isEmpty(_this.value.oex_num_bn1)) {
+                  _context.next = 100;
+                  break;
+                }
+
+                Notify.toast('danger', "사업자 번호 첫번째를 입력해주세요");
+
+                _this.$refs.oex_num_bn1.focus();
+
+                return _context.abrupt("return", false);
+
+              case 100:
+                if (!isEmpty(_this.value.oex_num_bn2)) {
+                  _context.next = 104;
+                  break;
+                }
+
+                Notify.toast('danger', "사업자 번호 두번째를 입력해주세요");
+
+                _this.$refs.oex_num_bn2.focus();
+
+                return _context.abrupt("return", false);
+
+              case 104:
+                if (!isEmpty(_this.value.oex_num_bn3)) {
+                  _context.next = 108;
+                  break;
+                }
+
+                Notify.toast('danger', "사업자 번호 세번째를 입력해주세요");
+
+                _this.$refs.oex_num_bn3.focus();
+
+                return _context.abrupt("return", false);
+
+              case 108:
+                if (!isEmpty(_this.value.oex_biz_name)) {
+                  _context.next = 112;
+                  break;
+                }
+
+                Notify.toast('danger', "업체면을 입력해주세요");
+
+                _this.$refs.oex_biz_name.focus();
+
+                return _context.abrupt("return", false);
+
+              case 112:
                 _this.$emit('close');
 
-              case 49:
+              case 113:
               case "end":
                 return _context.stop();
             }

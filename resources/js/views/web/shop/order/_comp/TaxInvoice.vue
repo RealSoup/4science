@@ -171,7 +171,7 @@ export default {
         async close () {
             const isValid = await this.$refs.observer.validate();
             if (isValid) {
-                if ( this.value.oex_type !== 'IVNO') {
+                if ( this.value.oex_type === 'IV') {
                     if ( this.value.oex_hasBizLicense ) {
                         if (isEmpty(this.value.oex_file)) { Notify.toast('danger', "사업자 등록증 사본을 첨부해주세요"); this.$refs.oex_file.$refs.input.focus(); return false; }
                     } else {
@@ -185,6 +185,23 @@ export default {
                     if (isEmpty(this.value.oex_mng)) { Notify.toast('danger', "담당자를 입력해주세요");                 this.$refs.oex_mng.focus(); return false; }
                     if (isEmpty(this.value.oex_email)) { Notify.toast('danger', "이메일을 입력해주세요");               this.$refs.oex_email.focus(); return false; }
                     if (isEmpty(this.value.oex_num_tel)) { Notify.toast('danger', "핸드폰 번호를 입력해주세요");        this.$refs.oex_num_tel.focus(); return false; }
+                } else if ( this.value.oex_type === 'HP') {
+                    if (isEmpty(this.value.oex_num_hp1)) { Notify.toast('danger', "핸드폰 번호 첫번째를 입력해주세요"); this.$refs.oex_num_hp1.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_hp2)) { Notify.toast('danger', "핸드폰 번호 두번째를 입력해주세요"); this.$refs.oex_num_hp2.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_hp3)) { Notify.toast('danger', "핸드폰 번호 세번째를 입력해주세요"); this.$refs.oex_num_hp3.focus(); return false; }
+                } else if ( this.value.oex_type === 'IN') {
+                    if (isEmpty(this.value.oex_num_in1)) { Notify.toast('danger', "주민번호 첫번째를 입력해주세요"); this.$refs.oex_num_in1.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_in2)) { Notify.toast('danger', "주민번호 두번째를 입력해주세요"); this.$refs.oex_num_in2.focus(); return false; }
+                } else if ( this.value.oex_type === 'CN') {
+                    if (isEmpty(this.value.oex_num_cn1)) { Notify.toast('danger', "카드번호 첫번째를 입력해주세요"); this.$refs.oex_num_cn1.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_cn2)) { Notify.toast('danger', "카드번호 두번째를 입력해주세요"); this.$refs.oex_num_cn2.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_cn3)) { Notify.toast('danger', "카드번호 세번째를 입력해주세요"); this.$refs.oex_num_cn3.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_cn4)) { Notify.toast('danger', "카드번호 네번째를 입력해주세요"); this.$refs.oex_num_cn4.focus(); return false; }
+                } else if ( this.value.oex_type === 'BN') {
+                    if (isEmpty(this.value.oex_num_bn1)) { Notify.toast('danger', "사업자 번호 첫번째를 입력해주세요"); this.$refs.oex_num_bn1.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_bn2)) { Notify.toast('danger', "사업자 번호 두번째를 입력해주세요"); this.$refs.oex_num_bn2.focus(); return false; }
+                    if (isEmpty(this.value.oex_num_bn3)) { Notify.toast('danger', "사업자 번호 세번째를 입력해주세요"); this.$refs.oex_num_bn3.focus(); return false; }
+                    if (isEmpty(this.value.oex_biz_name)) { Notify.toast('danger', "업체면을 입력해주세요"); this.$refs.oex_biz_name.focus(); return false; }
                 }
                 this.$emit('close'); 
             }
