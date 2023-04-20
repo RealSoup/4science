@@ -186,6 +186,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1231,9 +1232,9 @@ var render = function () {
                           ),
                         ]
                       )
-                    : _vm._e(),
+                    : [_vm._v(_vm._s(_vm.frm.estimate_req.eq_name))],
                 ],
-                1
+                2
               ),
               _vm._v(" "),
               _c("b-col", [_vm._v("연락처")]),

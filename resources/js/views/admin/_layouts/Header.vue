@@ -156,21 +156,15 @@ export default {
 <style lang="css" scoped>
 #header { background:#4E647B; }
 #header .layout nav { z-index:1021; }
-#header .layout >>> nav .nav-link { color:#fff; }
+#header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 0.5vw; font-size: calc(.25vw + .7rem); }
 #header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
 #header .layout nav .go_shop { margin-left:30px; }
 
-@media (min-width: 992px) {
-#header .layout >>> .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 1.4rem;
-    padding-left: 1.4rem;
-}
-}
-
-
-
-
 .blink { margin:0 3px; background:#fff; animation: blink 2.5s linear infinite; }
 @keyframes blink { 50% { opacity: 0; } }
+
+
+
+    
 
 </style>

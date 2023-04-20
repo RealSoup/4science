@@ -174,10 +174,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "span",
-    {
-      class: { line02: _vm.value.line02 },
-      style: { maxWidth: _vm.width + "px" },
-    },
+    { class: { line02: _vm.line02 }, style: { maxWidth: _vm.width + "px" } },
     [_vm._v(_vm._s(_vm.value.cut(200)))]
   )
 }

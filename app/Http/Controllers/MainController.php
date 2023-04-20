@@ -20,7 +20,14 @@ class MainController extends Controller {
             ->orderBy('sw_seq')
             ->get();
         }
-        $rst['best'] = Goods::SchGd_id(ShowWindow::select('sw_key')->where('sw_type', 'best')->orderBy('sw_seq')->orderBy('sw_id')->limit(6)->pluck('sw_key'))->get();
+        $rst['best'] = Goods::SchGd_id(
+            ShowWindow::select('sw_key')
+            ->where('sw_type', 'best')
+            ->orderBy('sw_seq')->orderBy('sw_id')
+            ->limit(6)
+            ->pluck('sw_key')
+        )->with('goodsCategoryFirst')
+        ->get();
         return response()->json($rst);
     }
 }

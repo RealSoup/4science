@@ -41,7 +41,7 @@
                 >
                     <img :src="item.image" />
                     <div class="box-footer">
-                        <p class="box_ca">{{item.ca01_name}}</p>
+                        <SubString v-model="item.ca01_name" :width="184" class="box_ca" />
                         <SubString v-model="item.gd_name" :width="184" :line02="true" class="box_tit" />
                     </div>
                 </b-link>
@@ -57,12 +57,12 @@
             </b-row>
             <b-row>
                 <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_show', params:{gd_id:1227}}"><b-img :src="`${s3url}main/rec01.png`" /></b-link></b-col>
-                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:46852}}"><b-img :src="`${s3url}main/rec02.png`" /></b-link></b-col>
-                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'28', ca02:'3481', ca03:'3483'}}"><b-img :src="`${s3url}main/rec03.png`" /></b-link></b-col>
+                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:46852}}"><b-img :src="`${s3url}main/rec02.png`" /></b-link></b-col>
+                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'28', ca02:'3481', ca03:'3483'}}"><b-img :src="`${s3url}main/rec03.png`" /></b-link></b-col>
             </b-row>
             <b-row>
-                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:7919}}"><b-img :src="`${s3url}main/rec04.png`" /></b-link></b-col>
-                <b-col col cols="12" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec06.png`" /></b-link></b-col>
+                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_show', params:{gd_id:7919}}"><b-img :src="`${s3url}main/rec04.png`" /></b-link></b-col>
+                <b-col col cols="6" md="6" lg="3"><b-link :to="{name:'goods_index', query: {ca01:'30', ca02:'5042'}}"><b-img :src="`${s3url}main/rec06.png`" /></b-link></b-col>
                 <b-col col cols="12" md="12" lg="6"><b-link :to="{name:'goods_index', query: {keyword:'goodsgood'}}"><b-img :src="`${s3url}main/rec05.png`" /></b-link></b-col>
             </b-row>
         </b-container>
@@ -165,7 +165,7 @@ export default {
             for (let i in this.list.best) {
                 dummy.push({
                     gd_name: this.list.best[i].gd_name, 
-                    ca01_name:  this.list.best[i].gc_ca01_name,
+                    ca01_name:  this.list.best[i].goods_category_first.gc_ca01_name,
                     gd_id: this.list.best[i].gd_id,
                     image: this.list.best[i].image_src_thumb[0] })
             }
@@ -276,7 +276,7 @@ export default {
 #best .col .box-row { display:flex; justify-content:center; align-items:center; width:100%; height:320px; }
 #best .col .box-row a { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px; }
 #best .col .box-row a:last-of-type { margin-right:0; }
-#best .col .box-row a img { width: 100%; height: 210px; object-fit: cover; border: 1px solid #B7B7B7; }
+#best .col .box-row a img { width: 100%; height: 210px; object-fit:contain; border: 1px solid #B7B7B7; }
 #best .col .box-row a .box-footer { position:absolute; bottom:0; height:80px; padding:10px 15px; }
 #best .col .box-row a .box-footer .box_ca { color:#1A8FD4; margin-bottom:3px; font-size:.8rem; }
 #best .col .box-row a .box-footer .box_tit { font-weight:bold; }
@@ -307,16 +307,34 @@ export default {
 .byCate .con .row .tit a span { color:#9FA0A2; }
 .byCate .con .row .list { display:flex; flex-wrap:wrap; }
 .byCate .con .row .list .col { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1; }
-.byCate .con .row .list .col img { width:166px; height:166px; object-fit:cover; }
+.byCate .con .row .list .col img { width:166px; height:166px; object-fit:contain; }
 .byCate .con .row .list .col p { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px; }
 
 
 @media (max-width: 992px){
+    .slide_banner { margin-left: -300px; margin-right: -300px; }
     #best { flex-direction: column; margin-top: 10px; }
     #best>.col:nth-of-type(1) { padding:0; }
     #best>.col:nth-of-type(2) { flex:0 0 100%; max-width:100%; }
-    #best .col .box-row { flex-wrap:wrap; }
-    #best .col .box-row a { flex:0 0 33.333334%; max-width:33.333334%; }
+    #best .col .box-row { flex-wrap:wrap; height:auto; }
+    #best .col .box-row a { flex:0 0 33.333334%; max-width:33.333334%; height:180px; margin:0; padding:10px; }
+    #best .col .box-row a img { height:110px; }
+    #best .col .box-row a .box-footer { padding: 0 5px; position: static; height: auto; line-height: 1;}
+    #best .col .box-row a .box-footer .box_ca { font-size: calc(.3vw + .5rem); }
+    #best .col .box-row a .box-footer .box_tit { font-size: calc(.3vw + .7rem); }
+
+    .recommend .container .row:nth-of-type(2) .col-md-6,
+    .recommend .container .row:last-child,
+    .recommend .container .row:last-child .col-md-12  { margin-top:.5rem; }
+
+    .byCate .con .row { flex-direction:column; margin-bottom:1rem; }
+    .byCate .con .row .tit { max-width: 100%; }
+    .byCate .con .row .tit a { padding: 8px 0 0 8px; }
+    .byCate .con .row .tit a img { display:none; }
+    .byCate .con .row .tit a h6 { display:inline-block; }
+    .byCate .con .row .list .col { padding:5px; flex: 0 0 25%; max-width: 25%; }
+    .byCate .con .row .list .col img { width:100%; height:80px; }
+    .byCate .con .row .list .col p { font-size: calc(.3vw + .7rem); }
 }
 </style>
 

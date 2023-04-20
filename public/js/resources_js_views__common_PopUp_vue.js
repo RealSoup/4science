@@ -86,7 +86,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   beforeDestroy: function beforeDestroy() {
     window.removeEventListener('message', this.recvEvtFromChild);
     this.windowRef.removeEventListener('beforeunload', this.evtClose);
-    console.log(123123);
   }
 });
 

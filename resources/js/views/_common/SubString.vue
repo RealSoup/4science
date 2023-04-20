@@ -1,5 +1,5 @@
 <template>
-    <span :style="{ maxWidth: width+'px' }" :class="{line02:value.line02}">{{value.cut(200)}}</span>
+    <span :style="{ maxWidth: width+'px' }" :class="{line02:line02}">{{value.cut(200)}}</span>
 </template>
 
 <script>

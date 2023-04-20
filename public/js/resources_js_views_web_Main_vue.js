@@ -200,7 +200,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       for (var i in this.list.best) {
         dummy.push({
           gd_name: this.list.best[i].gd_name,
-          ca01_name: this.list.best[i].gc_ca01_name,
+          ca01_name: this.list.best[i].goods_category_first.gc_ca01_name,
           gd_id: this.list.best[i].gd_id,
           image: this.list.best[i].image_src_thumb[0]
         });
@@ -357,7 +357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.slide_banner[data-v-5322a9b3] { max-width: 1920px; margin: auto;\n}\n.slide_banner[data-v-5322a9b3] .carousel-indicators li { background-color:#898989;\n}\n.slide_banner[data-v-5322a9b3] .carousel-control-prev:hover,\r\n.slide_banner[data-v-5322a9b3] .carousel-control-next:hover { background-color:#55888888;\n}\n.slide_banner .split_link[data-v-5322a9b3] { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%);\n}\n.slide_banner a#app01[data-v-5322a9b3] { left:23%;\n}\n.slide_banner a#app02[data-v-5322a9b3] { left:77%;}\n#best[data-v-5322a9b3] { margin-top:26px;\n}\n#best>.col[data-v-5322a9b3] { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%;\n}\n#best .col .box-row[data-v-5322a9b3] { display:flex; justify-content:center; align-items:center; width:100%; height:320px;\n}\n#best .col .box-row a[data-v-5322a9b3] { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px;\n}\n#best .col .box-row a[data-v-5322a9b3]:last-of-type { margin-right:0;\n}\n#best .col .box-row a img[data-v-5322a9b3] { width: 100%; height: 210px; -o-object-fit: cover; object-fit: cover; border: 1px solid #B7B7B7;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { position:absolute; bottom:0; height:80px; padding:10px 15px;\n}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { color:#1A8FD4; margin-bottom:3px; font-size:.8rem;\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-weight:bold;\n}\n.recommend .back[data-v-5322a9b3] { background:#fbcad0; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .container .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .container .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .container .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .container .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius:10px; width:100%;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate aside[data-v-5322a9b3] { margin-left:-76px; z-index:1;\n}\n.byCate aside ul[data-v-5322a9b3] { border:1px solid #898989;\n}\n.byCate aside ul li[data-v-5322a9b3] { padding:4px 6px; cursor:pointer; position:relative;\n}\n.byCate aside ul li.active[data-v-5322a9b3],\r\n.byCate aside ul li[data-v-5322a9b3]:hover { background:#448AC8;\n}\n.byCate aside ul li span[data-v-5322a9b3] { padding-left:10px; background:#448AC8; position:absolute; width:216px; color:#fff; z-index:1; top:0; line-height:44px;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative; height:100%; padding: 24px 0 0 16px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position:absolute; z-index:-1; width:200px; height:500px; -o-object-fit:cover; object-fit:cover; top:0; left:0;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:cover; object-fit:cover;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px;\n}\n@media (max-width: 992px){\n#best[data-v-5322a9b3] { flex-direction: column; margin-top: 10px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 100%; max-width:100%;\n}\n#best .col .box-row[data-v-5322a9b3] { flex-wrap:wrap;\n}\n#best .col .box-row a[data-v-5322a9b3] { flex:0 0 33.333334%; max-width:33.333334%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.slide_banner[data-v-5322a9b3] { max-width: 1920px; margin: auto;\n}\n.slide_banner[data-v-5322a9b3] .carousel-indicators li { background-color:#898989;\n}\n.slide_banner[data-v-5322a9b3] .carousel-control-prev:hover,\r\n.slide_banner[data-v-5322a9b3] .carousel-control-next:hover { background-color:#55888888;\n}\n.slide_banner .split_link[data-v-5322a9b3] { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%);\n}\n.slide_banner a#app01[data-v-5322a9b3] { left:23%;\n}\n.slide_banner a#app02[data-v-5322a9b3] { left:77%;}\n#best[data-v-5322a9b3] { margin-top:26px;\n}\n#best>.col[data-v-5322a9b3] { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { flex:0 0 6.933334%; max-width:6.933334%; padding-top:20px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 93.066666%; max-width:93.066666%;\n}\n#best .col .box-row[data-v-5322a9b3] { display:flex; justify-content:center; align-items:center; width:100%; height:320px;\n}\n#best .col .box-row a[data-v-5322a9b3] { position: relative; background-color: #FFFFFF; height:288px; width:220px; margin:10px;\n}\n#best .col .box-row a[data-v-5322a9b3]:last-of-type { margin-right:0;\n}\n#best .col .box-row a img[data-v-5322a9b3] { width: 100%; height: 210px; -o-object-fit:contain; object-fit:contain; border: 1px solid #B7B7B7;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { position:absolute; bottom:0; height:80px; padding:10px 15px;\n}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { color:#1A8FD4; margin-bottom:3px; font-size:.8rem;\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-weight:bold;\n}\n.recommend .back[data-v-5322a9b3] { background:#fbcad0; position:absolute; width:100%; height:18.5rem;\n}\n.recommend .container .row[data-v-5322a9b3]:last-child { margin-top:2rem;\n}\n.recommend .container .row .tit[data-v-5322a9b3] { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM;\n}\n.recommend .container .row .col a[data-v-5322a9b3] { display:block;\n}\n.recommend .container .row .col a img[data-v-5322a9b3] { border:1px solid #CCC; border-radius:10px; width:100%;\n}\n.byCate[data-v-5322a9b3] { position:relative; margin-top:5rem;\n}\n.byCate .titByCate[data-v-5322a9b3] { margin-bottom:1.5rem;\n}\n.byCate .titByCate h5[data-v-5322a9b3] { font-style:italic; font-weight:bold; font-size:2rem;\n}\n.byCate aside[data-v-5322a9b3] { margin-left:-76px; z-index:1;\n}\n.byCate aside ul[data-v-5322a9b3] { border:1px solid #898989;\n}\n.byCate aside ul li[data-v-5322a9b3] { padding:4px 6px; cursor:pointer; position:relative;\n}\n.byCate aside ul li.active[data-v-5322a9b3],\r\n.byCate aside ul li[data-v-5322a9b3]:hover { background:#448AC8;\n}\n.byCate aside ul li span[data-v-5322a9b3] { padding-left:10px; background:#448AC8; position:absolute; width:216px; color:#fff; z-index:1; top:0; line-height:44px;\n}\n.byCate .con .row[data-v-5322a9b3] { border-top:2px solid #4A505C; margin-bottom:2.5rem;\n}\n.byCate .con .row .col[data-v-5322a9b3] { padding:0;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { flex:0 0 13.4%; max-width:200px; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { display:block; position:relative; height:100%; padding: 24px 0 0 16px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { position:absolute; z-index:-1; width:200px; height:500px; -o-object-fit:cover; object-fit:cover; top:0; left:0;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { font-weight:bold; font-size:1.5rem;\n}\n.byCate .con .row .tit a span[data-v-5322a9b3] { color:#9FA0A2;\n}\n.byCate .con .row .list[data-v-5322a9b3] { display:flex; flex-wrap:wrap;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { flex:0 0 16.666666%; max-width:16.666666%; padding:16px; text-align:center; border-right:1px solid #B1B1B1; border-bottom:1px solid #B1B1B1;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:166px; height:166px; -o-object-fit:contain; object-fit:contain;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { margin:9px 0 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height:42px; font-size:14px;\n}\n@media (max-width: 992px){\n.slide_banner[data-v-5322a9b3] { margin-left: -300px; margin-right: -300px;\n}\n#best[data-v-5322a9b3] { flex-direction: column; margin-top: 10px;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(1) { padding:0;\n}\n#best>.col[data-v-5322a9b3]:nth-of-type(2) { flex:0 0 100%; max-width:100%;\n}\n#best .col .box-row[data-v-5322a9b3] { flex-wrap:wrap; height:auto;\n}\n#best .col .box-row a[data-v-5322a9b3] { flex:0 0 33.333334%; max-width:33.333334%; height:180px; margin:0; padding:10px;\n}\n#best .col .box-row a img[data-v-5322a9b3] { height:110px;\n}\n#best .col .box-row a .box-footer[data-v-5322a9b3] { padding: 0 5px; position: static; height: auto; line-height: 1;}\n#best .col .box-row a .box-footer .box_ca[data-v-5322a9b3] { font-size: calc(.3vw + .5rem);\n}\n#best .col .box-row a .box-footer .box_tit[data-v-5322a9b3] { font-size: calc(.3vw + .7rem);\n}\n.recommend .container .row:nth-of-type(2) .col-md-6[data-v-5322a9b3],\r\n    .recommend .container .row[data-v-5322a9b3]:last-child,\r\n    .recommend .container .row:last-child .col-md-12[data-v-5322a9b3]  { margin-top:.5rem;\n}\n.byCate .con .row[data-v-5322a9b3] { flex-direction:column; margin-bottom:1rem;\n}\n.byCate .con .row .tit[data-v-5322a9b3] { max-width: 100%;\n}\n.byCate .con .row .tit a[data-v-5322a9b3] { padding: 8px 0 0 8px;\n}\n.byCate .con .row .tit a img[data-v-5322a9b3] { display:none;\n}\n.byCate .con .row .tit a h6[data-v-5322a9b3] { display:inline-block;\n}\n.byCate .con .row .list .col[data-v-5322a9b3] { padding:5px; flex: 0 0 25%; max-width: 25%;\n}\n.byCate .con .row .list .col img[data-v-5322a9b3] { width:100%; height:80px;\n}\n.byCate .con .row .list .col p[data-v-5322a9b3] { font-size: calc(.3vw + .7rem);\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -663,9 +663,17 @@ var render = function () {
                       "div",
                       { staticClass: "box-footer" },
                       [
-                        _c("p", { staticClass: "box_ca" }, [
-                          _vm._v(_vm._s(item.ca01_name)),
-                        ]),
+                        _c("SubString", {
+                          staticClass: "box_ca",
+                          attrs: { width: 184 },
+                          model: {
+                            value: item.ca01_name,
+                            callback: function ($$v) {
+                              _vm.$set(item, "ca01_name", $$v)
+                            },
+                            expression: "item.ca01_name",
+                          },
+                        }),
                         _vm._v(" "),
                         _c("SubString", {
                           staticClass: "box_tit",
@@ -738,7 +746,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    { attrs: { col: "", cols: "6", md: "6", lg: "3" } },
                     [
                       _c(
                         "b-link",
@@ -763,7 +771,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    { attrs: { col: "", cols: "6", md: "6", lg: "3" } },
                     [
                       _c(
                         "b-link",
@@ -794,7 +802,7 @@ var render = function () {
                 [
                   _c(
                     "b-col",
-                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    { attrs: { col: "", cols: "6", md: "6", lg: "3" } },
                     [
                       _c(
                         "b-link",
@@ -816,7 +824,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { col: "", cols: "12", md: "6", lg: "3" } },
+                    { attrs: { col: "", cols: "6", md: "6", lg: "3" } },
                     [
                       _c(
                         "b-link",

@@ -43,6 +43,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.popup { position:absolute; top:162px; left:300px; z-index:10; }
+.popup { position:absolute; top:162px; left:300px; z-index:16; }
 .popup .ctrl { background-color:#FFF; text-align:right; }
+
+@media (max-width: 992px){
+    .popup { top:0; left:0;  }
+    .popup img { width:100%; }
+}
+@media (max-width: 576px){
+    .popup { width:100%; }
+}
 </style>

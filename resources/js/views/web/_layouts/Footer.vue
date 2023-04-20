@@ -30,7 +30,7 @@
             <b-col class="thi">
                 <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
                 <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
-                    <span>{{bo.bo_subject}}</span>
+                    <SubString v-model="bo.bo_subject" :width="330" />
                     <span>{{bo.created_at | formatDate}}</span>
                 </b-link>
             </b-col>
@@ -81,6 +81,7 @@ export default {
     components: {
         'RecentGoods': () => import('../_module/RecentGoods'),
         'GoTop':       () => import('../_module/GoTop'),
+        'SubString': () => import('@/views/_common/SubString.vue'),
     },
     
     data() {
@@ -149,4 +150,17 @@ export default {
 #footer #footer_bottom .container .row .col .copy { margin-top: 22px; }
 #footer #footer_bottom .container .row .col.logo { text-align:right; }
 
+@media (max-width: 992px){
+    #footer { margin-top:1rem; padding-top:1rem; }
+    #footer #footer_top .row .col { flex: 0 0 100%; max-width: 100%; }
+    #footer #footer_top .row .fir { margin:0; }
+    #footer #footer_top .row .sec { display:none; }
+    #footer #footer_top .row .thi a span:nth-child(2) { display:none; }
+    #footer #footer_bottom { padding: 0rem 0 3rem 0; margin-top: 1.3rem; }
+    #footer #footer_bottom .container { padding:10px; }
+    #footer #footer_bottom .container .row .col { flex: 0 0 100%; max-width: 100%; }
+    #footer #footer_bottom .container .row:nth-child(1) a { margin-right:10px; padding:7px 0; }
+    #footer #footer_bottom .container .row .col .copy { margin-top:5px; }
+    #footer #footer_bottom .container .row .col.logo { margin-top:10px; }
+}
 </style>
