@@ -45,6 +45,7 @@
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
 
+                    <template v-if="user.id != 286">
                     <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc'" text="매출장부">
                         <b-dropdown-item :to="{name: 'adm_ledger'}">통합 장부</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_ledger_acct_wait'}">매출 대기</b-dropdown-item>
@@ -54,7 +55,7 @@
                     </b-nav-item-dropdown>
 
                     <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
-
+                    </template>
                     <b-nav-item-dropdown text="게시판">
                         <b-dropdown-group header="일반글">
                             <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'notice' }}">공지사항</b-dropdown-item>

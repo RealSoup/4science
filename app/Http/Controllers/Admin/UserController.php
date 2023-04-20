@@ -72,14 +72,14 @@ class UserController extends Controller {
             'tutor' => $req->filled('tutor') ? $req->tutor : '',
             'offer' => $req->filled('offer') ? $req->offer : '',
             'offer_lab' => $req->filled('offer_lab') ? $req->offer_lab : '',
-            'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
+            
             'interest_etc' => $req->filled('interest_etc') ? $req->interest_etc : '',
             'join_route' => $req->filled('join_route') ? $req->join_route : '',
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',
             'receive_mail' => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
             'mng' => $req->filled('mng') ? $req->mng : 0,
         ]);
-        
+        // 'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
         if ( $req->level > 20 ) {
             DB::table('user_mng')->updateOrInsert(
             [   'um_user_id' => $id ],
