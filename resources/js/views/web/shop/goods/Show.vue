@@ -35,7 +35,7 @@
                     <li>
                         <div>첨부파일</div>
                         <div>
-                            <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(`api/downloadGoods/${file.fi_id}`, file.fi_original)">{{file.fi_original}}</b-button>
+                            <b-button class="white sm mr-2" v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown(file.down_path, file.fi_original)">{{file.fi_original}}</b-button>
                             <!-- <b-button v-for="(file, i) in content.file_goods_add" :key="i" @click="fileDown('api/downloadGoods/1760', file.fi_original)">{{file.fi_original}}</b-button> -->
                         </div>
                     </li>

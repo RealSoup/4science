@@ -209,30 +209,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.addFiles(files);
     },
     fileProcessor: function fileProcessor(fi_key) {
-      var frmData = new FormData();
-      frmData.append('fi_group', this.fi_group);
-      frmData.append('fi_key', fi_key);
-      var fi_room = 0;
-      if (this.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
-      frmData.append('fi_room', fi_room);
-      frmData.append('fi_kind', this.fi_kind);
-      if (!isEmpty(this.is_thumb)) frmData.append('is_thumb', this.is_thumb);
-      if (!isEmpty(this.seqUpdate)) frmData.append('is_change_seq', this.seqUpdate);
-      if (this.delete_file_goods.length) frmData.append('is_delete', JSON.stringify(this.delete_file_goods));
+      var _this2 = this;
 
-      for (var i in this.value) {
-        // this.$delete(this.value[i], 'src_thumb');
-        if (this.value[i].hasOwnProperty('fi_id')) {
-          this.value[i].type = 'rewrite';
-          this.value[i] = JSON.stringify(this.value[i]);
-        }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var frmData, fi_room, i, upUrl;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                frmData = new FormData();
+                frmData.append('fi_group', _this2.fi_group);
+                frmData.append('fi_key', fi_key);
+                fi_room = 0;
+                if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
+                frmData.append('fi_room', fi_room);
+                frmData.append('fi_kind', _this2.fi_kind);
+                if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
+                if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);
+                if (_this2.delete_file_goods.length) frmData.append('is_delete', JSON.stringify(_this2.delete_file_goods));
 
-        frmData.append('file[' + i + ']', this.value[i]);
-      }
+                for (i in _this2.value) {
+                  // this.$delete(this.value[i], 'src_thumb');
+                  if (_this2.value[i].hasOwnProperty('fi_id')) {
+                    _this2.value[i].type = 'rewrite';
+                    _this2.value[i] = JSON.stringify(_this2.value[i]);
+                  }
 
-      var upUrl = "/api/upload";
-      if (this.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
-      _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post(upUrl, frmData);
+                  frmData.append('file[' + i + ']', _this2.value[i]);
+                }
+
+                upUrl = "/api/upload";
+                if (_this2.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
+                _context4.next = 15;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post(upUrl, frmData);
+
+              case 15:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   }
 });

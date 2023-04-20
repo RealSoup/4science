@@ -1198,10 +1198,11 @@ var render = function () {
                             "b-button",
                             {
                               key: i,
+                              staticClass: "white sm mr-2",
                               on: {
                                 click: function ($event) {
                                   return _vm.fileDown(
-                                    "api/downloadGoods/" + file.fi_id,
+                                    file.down_path,
                                     file.fi_original
                                   )
                                 },

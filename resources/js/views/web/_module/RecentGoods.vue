@@ -11,8 +11,8 @@
         </div>
         
         <div class="ctrlBtn">
-            <b-button @click="setCubeClass('left')" :disabled="direction_int<1"><</b-button>
-            <b-button @click="setCubeClass('right')" :disabled="(direction_int>1 || direction_int>=(this.divideRecentGoods.length-1))">></b-button>
+            <b-button @click="setCubeClass('left')" :disabled="direction_int<1">&lt;</b-button>
+            <b-button @click="setCubeClass('right')" :disabled="(direction_int>1 || direction_int>=(this.divideRecentGoods.length-1))">&gt;</b-button>
         </div>
     </div>
 </div>

@@ -32,7 +32,7 @@
     </div>
 
     <div class="box gd_list" v-if="frm.estimate_model && frm.estimate_model.length">
-        <h5>주문상품정보</h5>
+        <h5>견적상품정보</h5>
         <b-row class="list head">
             <b-col>주문 상품</b-col>
             <b-col>Cat.No/모델명</b-col>
@@ -52,8 +52,8 @@
                 </div>
             </b-col>
             <b-col>
-                {{em.em_code}}<br>
-                {{em.em_catno}}
+                {{em.em_catno}}<br>
+                {{em.em_code}}
             </b-col>
             <b-col>{{em.em_maker}}</b-col>
             <b-col>{{em.em_unit}}</b-col>
@@ -126,7 +126,7 @@
         <b-row>
             <b-col>첨부파일</b-col>
             <b-col>
-                <b-button v-for="(file, i) in frm.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                <b-button v-for="(file, i) in frm.estimate_req.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
                     {{file.fi_original}}
                 </b-button>
             </b-col>

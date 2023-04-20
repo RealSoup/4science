@@ -49,6 +49,12 @@
         <Categorys v-if="true" />
         <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
     </div>
+    <div class="sm_view">
+        <b-link><img :src="s3url+'common/cate/all_.png'" /></b-link>
+        <b-link><b-icon-list-stars/></b-link>
+        <b-link><b-icon-search /></b-link>
+        <b-link><b-icon-person-fill /></b-link>
+    </div>
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
             <template slot="header"><div class="modal_login">로그인</div></template>
@@ -170,7 +176,10 @@ export default {
 #header.fixed #real nav .nav_menu { display:none; }
 #header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
 
+#header .sm_view { display:none; }
+
 @media (max-width: 992px){
+    #header .sm_view { display:block; position:fixed; bottom:0; }
     #header #real .layout { height:60px; padding-bottom: 0px; }
     #header #real .layout .logo { flex:0 0 46px; max-width:46px; margin-right:13px; }
     #header #real .layout .nav_menu a { padding:3px 0; font-size:.95rem; }

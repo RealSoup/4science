@@ -79,7 +79,7 @@ export default {
             this.addFiles(files);
         },
 
-        fileProcessor(fi_key) {
+        async fileProcessor(fi_key) {
             const frmData = new FormData()
             frmData.append('fi_group', this.fi_group);
             frmData.append('fi_key', fi_key);
@@ -103,7 +103,7 @@ export default {
             }
             let upUrl = "/api/upload";
             if (this.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
-            ax.post(upUrl, frmData);
+            await ax.post(upUrl, frmData);
         }, 
     },
 };

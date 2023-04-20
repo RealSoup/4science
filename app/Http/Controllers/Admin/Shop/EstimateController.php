@@ -126,6 +126,7 @@ class EstimateController extends Controller {
     public function show(Request $req, int $id) {
         if ($req->filled('type') && $req->type=='reply') {
             $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($id);
+            $data->estimateReq->fileInfo;
             $coll = array();
             foreach ($data->estimateModel as $em) {
                 $em->estimateOption;

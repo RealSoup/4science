@@ -922,7 +922,7 @@ var render = function () {
             "div",
             { staticClass: "box gd_list" },
             [
-              _c("h5", [_vm._v("주문상품정보")]),
+              _c("h5", [_vm._v("견적상품정보")]),
               _vm._v(" "),
               _c(
                 "b-row",
@@ -989,11 +989,11 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("b-col", [
-                      _vm._v("\r\n                " + _vm._s(em.em_code)),
+                      _vm._v("\r\n                " + _vm._s(em.em_catno)),
                       _c("br"),
                       _vm._v(
                         "\r\n                " +
-                          _vm._s(em.em_catno) +
+                          _vm._s(em.em_code) +
                           "\r\n            "
                       ),
                     ]),
@@ -1284,7 +1284,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                _vm._l(_vm.frm.file_info, function (file, i) {
+                _vm._l(_vm.frm.estimate_req.file_info, function (file, i) {
                   return _c(
                     "b-button",
                     {
