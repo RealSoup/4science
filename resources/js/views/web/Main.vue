@@ -42,7 +42,7 @@
                     <img :src="item.image" />
                     <div class="box-footer">
                         <p class="box_ca">{{item.ca01_name}}</p>
-                        <h6 class="box_tit">{{item.gd_name}}</h6>
+                        <SubString v-model="item.gd_name" :width="184" :line02="true" class="box_tit" />
                     </div>
                 </b-link>
             </div>
@@ -133,6 +133,7 @@ export default {
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         vueAccordion, // https://github.com/zeratulmdq/vue-accordion
         'PopUp': () => import('./_module/PopUp'),
+        'SubString': () => import('@/views/_common/SubString.vue'),
     },
     data() {
         return {
@@ -311,6 +312,11 @@ export default {
 
 
 @media (max-width: 992px){
+    #best { flex-direction: column; margin-top: 10px; }
+    #best>.col:nth-of-type(1) { padding:0; }
+    #best>.col:nth-of-type(2) { flex:0 0 100%; max-width:100%; }
+    #best .col .box-row { flex-wrap:wrap; }
+    #best .col .box-row a { flex:0 0 33.333334%; max-width:33.333334%; }
 }
 </style>
 

@@ -251,7 +251,7 @@ class EstimateController extends Controller {
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
             DB::table('shop_estimate_req')->where('eq_id', $eq_id)->update($eq_impl);
         } else {
-            $eq_impl['created_id'] = 0;
+            // $eq_impl['created_id'] = 0;
             $eq_impl['eq_title'] = '<b>[ 임의견적 ]</b> ';
             $eq_id = DB::table('shop_estimate_req')->insertGetId($eq_impl, 'eq_id');
         }

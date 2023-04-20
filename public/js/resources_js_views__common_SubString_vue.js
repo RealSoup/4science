@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SubString",
-  props: ['value', 'width']
+  props: ['value', 'width', 'line02']
 });
 
 /***/ }),
@@ -38,7 +38,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nspan[data-v-20b9d49d] { display:inline-block; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden; vertical-align:bottom\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nspan[data-v-20b9d49d] { display:inline-block; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden; vertical-align:bottom\n}\n.line02[data-v-20b9d49d] { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -172,9 +172,14 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", { style: { maxWidth: _vm.width + "px" } }, [
-    _vm._v(_vm._s(_vm.value.cut(200))),
-  ])
+  return _c(
+    "span",
+    {
+      class: { line02: _vm.value.line02 },
+      style: { maxWidth: _vm.width + "px" },
+    },
+    [_vm._v(_vm._s(_vm.value.cut(200)))]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

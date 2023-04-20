@@ -112,6 +112,7 @@
                 <b-link v-if="frm.estimate_req.created_id" @click="openWinPop(`/admin/user/${frm.estimate_req.created_id}/edit`, 1700, 900)">
                     {{ frm.estimate_req.eq_name }}
                 </b-link>
+                <template v-else>{{ frm.estimate_req.eq_name }}</template>
             </b-col>
             <b-col>연락처</b-col><b-col>{{ frm.estimate_req.eq_hp }}{{ frm.estimate_req.eq_tel }}</b-col>
         </b-row>
