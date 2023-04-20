@@ -1,6 +1,6 @@
 <template>
 
-<header id="header" :class="{fixed:headerFix}">
+<div id="header" :class="{headerFix:headerFix}">
     <div id="afterimage"></div>
     <div id="real">
         <div class="layout">
@@ -15,7 +15,7 @@
                 <b-link :to="{name: 'auth_intro'}">회원가입</b-link>
             </div>
 
-            <nav class="nav_menu">
+            <nav class="nav_menu" :class="{view_nav:view_nav}">
                 <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
                 <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
                 <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
@@ -24,7 +24,7 @@
                 <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
             </nav>
             
-            <div class="head_sch_box">
+            <div class="head_sch_box" :class="{view_sch:view_sch}">
                 <b-form class="head_sch" @submit.prevent="routerPush">
                     <select class="custom-select" v-model="frm.mode">
                         <option value="">전체</option>
@@ -46,14 +46,15 @@
                 >상품관리</router-link>
             </div>
         </div>
-        <Categorys v-if="true" />
+        <Categorys v-if="true" :class="{view_cate:view_cate}" />
         <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
     </div>
     <div class="sm_view">
-        <b-link><img :src="s3url+'common/cate/all_.png'" /></b-link>
-        <b-link><b-icon-list-stars/></b-link>
-        <b-link><b-icon-search /></b-link>
-        <b-link><b-icon-person-fill /></b-link>
+        <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
+        <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link>
+        <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
+        <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
+        <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
     </div>
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
@@ -61,7 +62,7 @@
             <LoginPopUp @close-modal="isModalViewed = false" />
         </Modal>
     </transition>
-</header>
+</div>
 </template>
 
 <script>
@@ -85,6 +86,9 @@ export default {
         return {
             headerFix: false,
             isModalViewed: false,
+            view_sch:false,
+            view_nav:false,
+            view_cate:false,
         }
     },
     watch: {
@@ -169,25 +173,32 @@ export default {
 #header #real .layout .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 
-#header.fixed #afterimage { height:100px; }
-#header.fixed #real { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
-#header.fixed #real nav .navbar-brand img { width:180px; }
-#header.fixed #real nav .menu_user,
-#header.fixed #real nav .nav_menu { display:none; }
-#header.fixed #real nav .head_sch_box .head_sch form { min-width:74rem; }
+#header.headerFix #afterimage { height:0; }
+#header.headerFix #real { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
+
 
 #header .sm_view { display:none; }
 
 @media (max-width: 992px){
-    #header .sm_view { display:block; position:fixed; bottom:0; }
-    #header #real .layout { height:60px; padding-bottom: 0px; }
-    #header #real .layout .logo { flex:0 0 46px; max-width:46px; margin-right:13px; }
-    #header #real .layout .nav_menu a { padding:3px 0; font-size:.95rem; }
-    #header #real .head_sch_box { position: absolute; bottom: -46px; z-index: 17;left:50%; transform:translateX(-50%); }
+    #header .sm_view { position:fixed; bottom:0; display:flex; z-index:9999999999999999999; background:#DDD; width:100%; border-radius:2rem 2rem 0 0;}
+    #header .sm_view a { flex-basis:0; flex-grow:1; max-width:100%; font-size:2rem; text-align:center; }
+    #header #real .layout { height:50px; justify-content:center; }
+    #header #real .layout .top_menu { display:none; }
+    #header #real .layout .logo { flex:0 0 132px; max-width:132px; height:40px; background-size:contain; }
+    #header #real .layout .nav_menu { position:fixed; bottom:48px; border-radius:1rem 1rem 0 0; background:#DDD; z-index:1; width:100%; display:flex; max-height:0; transition:max-height .2s; overflow:hidden;  }
+    #header #real .layout .nav_menu a { text-align:center; flex-basis:0; flex-grow:1; padding:8px 10px; font-size:.95rem; }
+    #header #real .layout .nav_menu.view_nav { max-height:60px; }
+
+
+    #header #real .head_sch_box { width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
+    #header #real .head_sch_box.view_sch { max-height:50px; }
     #header #real .head_sch_box .head_sch { min-width:0; }
     #header #real .head_sch_box .head_sch select { display:none; }
     #header #real .head_sch_box .head_sch input { border-radius:18px; width:78%; }
     #header #real .head_sch_box .head_sch button { padding: 0 10px; }
+    
+    #header #real>>>#categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
+    #header #real>>>#categorys.view_cate .depth01>li>ul { padding:.5rem; border-width:2px; max-width:240px; max-height:640px; }
 }
 
 </style>

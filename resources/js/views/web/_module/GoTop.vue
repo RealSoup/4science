@@ -37,4 +37,7 @@ export default {
 
 .go_top_box { height:0; transition:height .7s ease;}
 .go_top_box.view_go_top { height:50px; }
+@media (max-width: 992px){
+    .go_top_box { display:none; }
+}
 </style>

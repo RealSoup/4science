@@ -119,7 +119,7 @@ class User extends Authenticatable implements MustVerifyEmail {
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'unique:users'],
             'password' => ['required', 'confirmed', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/'],
-            // 'sex' => ['required'],
+            'office' => ['required'],
             'hp' => ['required', 'regex:/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/'],
             'birth' => ['required', 'regex:/^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/'],
         ];
@@ -133,7 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail {
             'password.regex' => '숫자, 문자 1개 이상. 6 ~ 20자 조합. 가능한 특수문자 ~!@#$%^&*()+|=',
             'password.required' => '비밀번호를 입력하세요.',
             'password.confirmed' => '비밀번호와 비밀번호 확인이 서로 다릅니다.',
-            'sex.required' => '성별을 선택하세요.',
+            'office.required' => '직장 또는 학교명을 입력하세요.',
             'hp.required' => '휴대전화 번호를 입력하세요.',
             'hp.regex' => '휴대전화 번호 입력형식은 01x-xxx(x)-xxxx 입니다.',
             'birth.required' => '생년월일을 입력하세요',

@@ -6,9 +6,6 @@
                 <b-col class="label_st">직업</b-col><b-col><b-form-select v-model="value.job" :options="job" /></b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">직장명/학교명</b-col><b-col><b-form-input v-model="value.office" /></b-col>
-            </b-row>
-            <b-row>
                 <b-col class="label_st">부서/학과/연구실명</b-col><b-col><b-form-input v-model="value.department" /></b-col>
             </b-row>
             <b-row>

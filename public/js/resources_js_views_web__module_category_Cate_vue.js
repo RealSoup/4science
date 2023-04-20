@@ -151,7 +151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys[data-v-5bfe9972] { background:#626C75; z-index:16; position:relative;\n}\n#categorys .depth01[data-v-5bfe9972] { display:flex;\n}\n#categorys .depth01 > li[data-v-5bfe9972] { width:4.761904%; cursor:pointer;\n}\n#categorys .depth01 > li .ca01[data-v-5bfe9972] { display:flex; align-items:center; flex-direction:column; padding:8px 5px; overflow:hidden; height:100%;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding-left:0;\n}\n#categorys .depth01 > li:last-of-type .ca01[data-v-5bfe9972] { padding-right:0;\n}\n#categorys .depth01 > li .ca01 img[data-v-5bfe9972] { width:46px;\n}\n#categorys .depth01 > li .ca01 span[data-v-5bfe9972] { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap;\n}\n#categorys .depth01 > li.active .ca01 span[data-v-5bfe9972],\r\n#categorys .depth01 > li:hover .ca01 span[data-v-5bfe9972] { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px;\n}\n#categorys .depth01 > li .icon_cell[data-v-5bfe9972] { height:100%; display:flex; align-items:center; text-align:center; line-height:20px;\n}\n#categorys .depth01 > li .icon_cell i[data-v-5bfe9972] { color:#EEE; font-size:.8rem; font-style:normal; letter-spacing:-.1px;\n}\n#categorys .depth01 > li .icon_cell i p[data-v-5bfe9972] { margin-bottom:0; line-height:13px;\n}\n#categorys ul[data-v-5bfe9972] ul { position:absolute; width:15rem; padding:0.5rem; background-color:#FFF; border:2px solid #000; z-index:10;\n}\n#categorys>ul>li>ul[data-v-5bfe9972]:before { content:''; position:absolute; top:-32px; left:20px; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/cate/semo.png') no-repeat center; width:31px; height:34px;\n}\n#categorys ul[data-v-5bfe9972] ul li { position: relative;\n}\n#categorys ul[data-v-5bfe9972] ul li a { display:block; font-size:14px; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\n#categorys ul[data-v-5bfe9972] ul li:not(.depth01_tit):hover>a { padding:10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif;\n}\n#categorys ul[data-v-5bfe9972] ul ul { top:0; left:13.5rem;\n}\n.slideUpDown-enter-to[data-v-5bfe9972],\r\n.slideUpDown-leave[data-v-5bfe9972] { max-height:auto;\n}\n.slideUpDown-enter-active[data-v-5bfe9972]  { transition:max-height 0.4s;\n}\n.slideUpDown-enter[data-v-5bfe9972],\r\n.slideUpDown-leave-to[data-v-5bfe9972] { max-height:0;\n}\r\n\r\n/* #categorys { z-index:1050; background-color:#616C74; }\r\n#categorys ul { display:flex; }\r\n#categorys ul li { flex: 1 1 auto; }\r\n#categorys ul li img { display:block; margin:auto; }\r\n#categorys ul li a { display:block; text-align:center; color:#FFF; font-size:.7rem; letter-spacing:-1px; } */\r\n/*#categorys ul { background-color:#FFF; position:absolute; top:0; left:0; width:15rem; height:15rem; }*/\r\n\r\n/* Modal */\r\n/*.rs_modal,\r\n.overlay { width: 100%; height: 100%; position: fixed; left: 0; top: 0; }\r\n.rs_modal { z-index:1050; }\r\n.rs_modal .overlay { opacity: 0.5; background-color: black; }\r\n.rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/\n@media (max-width: 992px){\n#categorys .depth01 > li[data-v-5bfe9972]:first-of-type { width:60px;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding:0;\n}\n#categorys .depth01 > li[data-v-5bfe9972]:not(:first-of-type) { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#categorys[data-v-5bfe9972] { background:#626C75; z-index:16; position:relative;\n}\n#categorys .depth01[data-v-5bfe9972] { display:flex;\n}\n#categorys .depth01 > li[data-v-5bfe9972] { width:4.761904%; cursor:pointer;\n}\n#categorys .depth01 > li .ca01[data-v-5bfe9972] { display:flex; align-items:center; flex-direction:column; padding:8px 5px; overflow:hidden; height:100%;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding-left:0;\n}\n#categorys .depth01 > li:first-of-type ul[data-v-5bfe9972] { display:none;\n}\n#categorys .depth01 > li:first-of-type ul.all_show[data-v-5bfe9972] { display:block;\n}\n#categorys .depth01 > li:last-of-type .ca01[data-v-5bfe9972] { padding-right:0;\n}\n#categorys .depth01 > li .ca01 img[data-v-5bfe9972] { width:46px;\n}\n#categorys .depth01 > li .ca01 span[data-v-5bfe9972] { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap;\n}\n#categorys .depth01 > li.active .ca01 span[data-v-5bfe9972],\r\n#categorys .depth01 > li:hover .ca01 span[data-v-5bfe9972] { color:#FFF200; font-weight:bold; font-size:.8rem; letter-spacing:-1px; z-index:2; background:#626C75; padding:0 10px;\n}\n#categorys .depth01 > li .icon_cell[data-v-5bfe9972] { height:100%; display:flex; align-items:center; text-align:center; line-height:20px;\n}\n#categorys .depth01 > li .icon_cell i[data-v-5bfe9972] { color:#EEE; font-size:.8rem; font-style:normal; letter-spacing:-.1px;\n}\n#categorys .depth01 > li .icon_cell i p[data-v-5bfe9972] { margin-bottom:0; line-height:13px;\n}\n#categorys ul[data-v-5bfe9972] ul { position:absolute; width:15rem; padding:0.5rem; background-color:#FFF; border:2px solid #000; z-index:10;\n}\n#categorys>ul>li>ul[data-v-5bfe9972]:before { content:''; position:absolute; top:-32px; left:20px; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/cate/semo.png') no-repeat center; width:31px; height:34px;\n}\n#categorys ul[data-v-5bfe9972] ul li { position: relative;\n}\n#categorys ul[data-v-5bfe9972] ul li a { display:block; font-size:14px; padding:5px 10px; border-radius:0.4rem; transition: all .2s;}\n#categorys ul[data-v-5bfe9972] ul li:not(.depth01_tit):hover>a { padding:10px; background-color:#777; color:#FFF; font-size:1.2rem; font-weight:bold; font-family: \"Malgun Gothic\", serif;\n}\n#categorys ul[data-v-5bfe9972] ul ul { top:0; left:13.5rem;\n}\n.slideUpDown-enter-to[data-v-5bfe9972],\r\n.slideUpDown-leave[data-v-5bfe9972] { max-height:auto;\n}\n.slideUpDown-enter-active[data-v-5bfe9972]  { transition:max-height 0.4s;\n}\n.slideUpDown-enter[data-v-5bfe9972],\r\n.slideUpDown-leave-to[data-v-5bfe9972] { max-height:0;\n}\r\n\r\n/* #categorys { z-index:1050; background-color:#616C74; }\r\n#categorys ul { display:flex; }\r\n#categorys ul li { flex: 1 1 auto; }\r\n#categorys ul li img { display:block; margin:auto; }\r\n#categorys ul li a { display:block; text-align:center; color:#FFF; font-size:.7rem; letter-spacing:-1px; } */\r\n/*#categorys ul { background-color:#FFF; position:absolute; top:0; left:0; width:15rem; height:15rem; }*/\r\n\r\n/* Modal */\r\n/*.rs_modal,\r\n.overlay { width: 100%; height: 100%; position: fixed; left: 0; top: 0; }\r\n.rs_modal { z-index:1050; }\r\n.rs_modal .overlay { opacity: 0.5; background-color: black; }\r\n.rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/\n@media (max-width: 992px){\n#categorys .depth01 > li[data-v-5bfe9972]:first-of-type { width:0; height:0;\n}\n#categorys .depth01 > li:first-of-type .ca01[data-v-5bfe9972] { padding:0;\n}\n#categorys .depth01 > li[data-v-5bfe9972]:not(:first-of-type) { display:none;\n}\n#categorys .depth01 > li:first-of-type ul[data-v-5bfe9972] { display:block !important;\n}\n#categorys .depth01 > li:first-of-type ul[data-v-5bfe9972]:before { content: none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -313,52 +313,51 @@ var render = function () {
                   }),
             ]),
             _vm._v(" "),
-            _vm.all_show
-              ? _c(
-                  "ul",
-                  _vm._l(_vm.category_all, function (ca) {
-                    return _c(
-                      "li",
+            _c(
+              "ul",
+              { class: { all_show: _vm.all_show } },
+              _vm._l(_vm.category_all, function (ca) {
+                return _c(
+                  "li",
+                  {
+                    key: "all" + ca.ca_id,
+                    on: {
+                      mouseenter: function ($event) {
+                        ca.sub_show = true
+                      },
+                      mouseleave: function ($event) {
+                        ca.sub_show = false
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "b-link",
                       {
-                        key: "all" + ca.ca_id,
-                        on: {
-                          mouseenter: function ($event) {
-                            ca.sub_show = true
-                          },
-                          mouseleave: function ($event) {
-                            ca.sub_show = false
+                        attrs: {
+                          to: {
+                            name: "goods_index",
+                            query: { ca01: ca.ca_id },
                           },
                         },
                       },
-                      [
-                        _c(
-                          "b-link",
-                          {
-                            attrs: {
-                              to: {
-                                name: "goods_index",
-                                query: { ca01: ca.ca_id },
-                              },
-                            },
-                          },
-                          [_vm._v(_vm._s(ca.ca_name))]
-                        ),
-                        _vm._v(" "),
-                        _c("CateSub", {
-                          attrs: {
-                            sub_show: ca.sub_show && ca.sub.length,
-                            depth: 1,
-                            cate: ca.sub,
-                            paramLink: "/" + ca.ca_id,
-                          },
-                        }),
-                      ],
-                      1
-                    )
-                  }),
-                  0
+                      [_vm._v(_vm._s(ca.ca_name))]
+                    ),
+                    _vm._v(" "),
+                    _c("CateSub", {
+                      attrs: {
+                        sub_show: ca.sub_show && ca.sub.length,
+                        depth: 1,
+                        cate: ca.sub,
+                        paramLink: "/" + ca.ca_id,
+                      },
+                    }),
+                  ],
+                  1
                 )
-              : _vm._e(),
+              }),
+              0
+            ),
           ]
         ),
         _vm._v(" "),

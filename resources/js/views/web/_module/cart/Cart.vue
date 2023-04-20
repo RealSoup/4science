@@ -177,6 +177,7 @@ export default {
 
 @media (max-width: 992px){
     #Cart { top: 100px; }
+    #Cart .list_box { width:0; }
 }
     
 </style>

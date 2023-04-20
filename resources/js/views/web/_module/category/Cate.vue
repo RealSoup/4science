@@ -9,7 +9,7 @@
                 <img v-if="all_show" :src="s3url+'common/cate/all_.png'" />
                 <img v-else :src="s3url+'common/cate/all.png'" />
             </span>
-            <ul v-if="all_show">
+            <ul :class="{all_show:all_show}">
                 <li v-for="ca in category_all" :key="`all${ca.ca_id}`" @mouseenter="ca.sub_show = true" @mouseleave="ca.sub_show = false">
                     <b-link :to="{name: 'goods_index', query: {ca01:ca.ca_id}}">{{ca.ca_name}}</b-link>
                     <CateSub :sub_show='ca.sub_show && ca.sub.length' :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id" />
@@ -117,6 +117,8 @@ export default {
 #categorys .depth01 > li { width:4.761904%; cursor:pointer; }
 #categorys .depth01 > li .ca01 { display:flex; align-items:center; flex-direction:column; padding:8px 5px; overflow:hidden; height:100%; }
 #categorys .depth01 > li:first-of-type .ca01 { padding-left:0; }
+#categorys .depth01 > li:first-of-type ul { display:none; }
+#categorys .depth01 > li:first-of-type ul.all_show { display:block; }
 #categorys .depth01 > li:last-of-type .ca01 { padding-right:0; }
 #categorys .depth01 > li .ca01 img { width:46px; }
 #categorys .depth01 > li .ca01 span { transition:.3s; font-size:.2rem; letter-spacing:-4px; color:#FFF; white-space: nowrap; }
@@ -157,8 +159,10 @@ export default {
 .rs_modal .rs_modal-card { position: relative; max-width: 80%; margin: auto; margin-top: 30px; padding: 20px; background-color: white; min-height: 500px; z-index: 10; opacity: 1; }*/
 
 @media (max-width: 992px){
-    #categorys .depth01 > li:first-of-type { width:60px; }
+    #categorys .depth01 > li:first-of-type { width:0; height:0; }
     #categorys .depth01 > li:first-of-type .ca01 { padding:0; }
     #categorys .depth01 > li:not(:first-of-type) { display:none; }
+    #categorys .depth01 > li:first-of-type ul { display:block !important; }
+    #categorys .depth01 > li:first-of-type ul:before { content: none; }
 }
 </style>

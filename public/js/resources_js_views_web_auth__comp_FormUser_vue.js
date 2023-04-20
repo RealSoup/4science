@@ -50,9 +50,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   data: function data() {
@@ -280,31 +277,6 @@ var render = function () {
                         _vm.$set(_vm.value, "job", $$v)
                       },
                       expression: "value.job",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [
-                _vm._v("직장명/학교명"),
-              ]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.office,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "office", $$v)
-                      },
-                      expression: "value.office",
                     },
                   }),
                 ],

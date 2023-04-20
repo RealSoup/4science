@@ -63,6 +63,16 @@
                 </b-col>
             </b-row>
             <b-row>
+                <b-col class="label_st">직장/학교<b class="need" /></b-col>
+                <b-col>                    
+                    <validation-provider name="직장명/학교명" rules="required" v-slot="validationContext">
+                        <b-form-input id="office" v-model="value.office" :state="getValidationState(validationContext)" />
+                        <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </validation-provider>
+                    <Validation :error="$store.state.error.validations.office" />
+                </b-col>
+            </b-row>
+            <b-row>
                 <b-col class="label_st">휴대폰<b class="need" /></b-col>
                 <b-col class="hp">
                     <validation-provider name="휴대폰 1" rules="required|length:3|numeric" v-slot="validationContext">

@@ -153,6 +153,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'Validation': function Validation() {
@@ -724,6 +734,60 @@ var render = function () {
                       _c("Validation", {
                         attrs: {
                           error: _vm.$store.state.error.validations.birth,
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { staticClass: "label_st" }, [
+                    _vm._v("직장/학교"),
+                    _c("b", { staticClass: "need" }),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    [
+                      _c("validation-provider", {
+                        attrs: { name: "직장명/학교명", rules: "required" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (validationContext) {
+                              return [
+                                _c("b-form-input", {
+                                  attrs: {
+                                    id: "office",
+                                    state:
+                                      _vm.getValidationState(validationContext),
+                                  },
+                                  model: {
+                                    value: _vm.value.office,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.value, "office", $$v)
+                                    },
+                                    expression: "value.office",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("b-form-invalid-feedback", [
+                                  _vm._v(_vm._s(validationContext.errors[0])),
+                                ]),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("Validation", {
+                        attrs: {
+                          error: _vm.$store.state.error.validations.office,
                         },
                       }),
                     ],
