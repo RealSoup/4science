@@ -52,7 +52,7 @@
             </template>
         </b-col>
     </b-row>
-    <PopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
 </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
     name: 'AdmEstimateIndexList',
     components: { 
         'SubString': () => import('@/views/_common/SubString.vue'),
-        'PopUp': () => import('@/views/_common/PopUp'),
+        'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     props:['list'],
     filters: {

@@ -2,7 +2,7 @@
 <div id="print_area">
     <div class="p_wrap">
         <h3 class="p_tit">주문 상세</h3>
-        <div class="print_mng_nm">{{od.mng.name}}</div>
+        <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
         <div class="act_ctrl print_hide">
             <b-row cols="1" cols-md="2">
                 <b-col class="def_info">
@@ -452,6 +452,7 @@ export default {
                 order_extra_info:{},
                 order_config: {},
                 mng: {},
+                user: {},
                 order_purchase_at:[],
                 order_pg:{},
             },

@@ -75,8 +75,8 @@ __webpack_require__.r(__webpack_exports__);
     'SubString': function SubString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
     },
-    'PopUp': function PopUp() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/PopUp */ "./resources/js/views/_common/PopUp.vue"));
+    'WinPopUp': function WinPopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
     }
   },
   props: ['list'],
@@ -528,7 +528,7 @@ var render = function () {
         )
       }),
       _vm._v(" "),
-      _c("PopUp", {
+      _c("WinPopUp", {
         ref: "winPopup",
         on: {
           onClose: function (val) {

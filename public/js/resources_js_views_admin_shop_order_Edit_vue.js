@@ -484,6 +484,7 @@ var dt = new Date();
         order_extra_info: {},
         order_config: {},
         mng: {},
+        user: {},
         order_purchase_at: [],
         order_pg: {}
       },
@@ -1330,9 +1331,11 @@ var render = function () {
       [
         _c("h3", { staticClass: "p_tit" }, [_vm._v("주문 상세")]),
         _vm._v(" "),
-        _c("div", { staticClass: "print_mng_nm" }, [
-          _vm._v(_vm._s(_vm.od.mng.name)),
-        ]),
+        _vm.od.od_mng > 0
+          ? _c("div", { staticClass: "print_mng_nm" }, [
+              _vm._v(_vm._s(_vm.od.mng.name)),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "div",

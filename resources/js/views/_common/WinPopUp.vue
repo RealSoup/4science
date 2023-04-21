@@ -6,8 +6,10 @@ export default {
     data(){ return { windowRef : null, } },
     methods : {
         openWinPop( uri, width, height ) {
+            // if( this.windowRef != null )
             if( this.windowRef != null )
-                this.closeWinPop();
+                console.log(this.windowRef.location.href);
+                // this.closeWinPop();
         
 
             let left = (screen.width) ? (screen.width - width) / 2 : 0;
@@ -17,31 +19,31 @@ export default {
 
             // 1. 윈도우 팝업 띄우기 
             this.windowRef = window.open(uri, "", attr);
-            if( this.windowRef != null ) {
-                this.windowRef.addEventListener('beforeunload', this.evtClose);
-            }else{
-                alert( "window.open fail!!!" );
-            }
+            // if( this.windowRef != null ) {
+            //     this.windowRef.addEventListener('beforeunload', this.evtClose);
+            // }else{
+            //     alert( "window.open fail!!!" );
+            // }
 
             // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
             // window.addEventListener("message", this.recvEvtFromChild, false);
         },
 
         // 윈도우 팝업 닫기 
-        closeWinPop(){
-            if(this.windowRef) {
-                this.windowRef.close();
-                this.windowRef = null;
-            }
-        },
+        // closeWinPop(){
+        //     if(this.windowRef) {
+        //         this.windowRef.close();
+        //         this.windowRef = null;
+        //     }
+        // },
 
-        evtClose() {
-            if(this.windowRef) {
-                this.windowRef.close();
-                this.windowRef = null;
-                this.$emit('onClose');
-            }
-        },
+        // evtClose() {
+        //     if(this.windowRef) {
+        //         this.windowRef.close();
+        //         this.windowRef = null;
+        //         this.$emit('onClose');
+        //     }
+        // },
 
         // 3. 부모창에서 팝업창에 메세지 보내기 
         sendEvtToChild( evt ){
@@ -79,7 +81,7 @@ export default {
     },
     beforeDestroy: function () {
         window.removeEventListener('message', this.recvEvtFromChild);
-        this.windowRef.removeEventListener('beforeunload', this.evtClose);
+        // this.windowRef.removeEventListener('beforeunload', this.evtClose);
     },
 }
 

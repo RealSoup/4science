@@ -240,9 +240,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var self = this;
 
     if (opener) {
-      console.log("opener is valid!!!"); // opener에 g_winPopup 변수로 this를 넣어줌에 따라 WinPop.vue에서 이 소스의 객체를 직접 접근할 수 있게 된다 
+      // opener에 g_winPopup 변수로 this를 넣어줌에 따라 WinPop.vue에서 이 소스의 객체를 직접 접근할 수 있게 된다 
       // WinPop.vue에서 g_winPopup 변수 활용을 확인할것 
-
       opener.g_winPopup = this;
     }
 

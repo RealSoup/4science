@@ -96,7 +96,7 @@
         </pagination>
     </b-container>
 
-    <PopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
     <!-- <button type="button" @click="openWinPop">윈 팝업 띄우기</button>
     <button type="button" @click="sendToChild">윈 팝업으로 전송</button> -->
 </div>
@@ -109,7 +109,7 @@ export default {
     components: {
         'SchDate': () => import('@/views/_common/SchDate'),
         'List': () => import('./_comp/List'),
-        'PopUp': () => import('@/views/_common/PopUp'),
+        'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     data() {
         return {

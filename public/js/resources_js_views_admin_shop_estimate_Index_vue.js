@@ -134,8 +134,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     'List': function List() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
     },
-    'PopUp': function PopUp() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/PopUp */ "./resources/js/views/_common/PopUp.vue"));
+    'WinPopUp': function WinPopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
     }
   },
   data: function data() {
@@ -863,7 +863,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("PopUp", {
+      _c("WinPopUp", {
         ref: "winPopup",
         on: {
           onClose: function (val) {
