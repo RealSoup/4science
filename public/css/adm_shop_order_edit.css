@@ -1,4 +1,4 @@
-.p_wrap { margin:1rem; padding-top:2rem; }
+.p_wrap { margin:1rem; }
 
 .p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
 .p_wrap h5 b { position:relative; bottom:-2px; }
@@ -17,19 +17,7 @@
 .p_wrap .print_hide_inline_block { display:none !important; }
 .p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }
 
-.p_wrap .top {  }
-.p_wrap .top .row:first-child { border:1px solid #4EB8C8; background-color:#4EB8C8; color:#FFF; border-radius:.4rem .4rem 0 0; font-size:.95rem; }
-.p_wrap .top .row:first-child .col { padding:.6rem 0 .25rem 0; }
-.p_wrap .top .row:last-child { border:1px solid #4EB8C8; border-radius:0 0 .4rem .4rem; }
-.p_wrap .top .row:last-child .col { padding:.3rem .75rem; line-height:2rem; }
-.p_wrap .top .row:last-child .col .btn { border-color:#8A8A8A; padding:.2rem .75rem; }
-.p_wrap .top .row:last-child .col .custom-select { height: calc(1.95rem + 2px); padding: 0.23rem 1.75rem 0.23rem 0.75rem; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center; }
-.p_wrap .top .row:first-child .col:nth-child(6) { border-right:1px solid #FFF;  }
-.p_wrap .top .row:last-child .col:nth-child(6) { border-right:1px solid #4EB8C8;  }
-.p_wrap .top .row .col { text-align:center; }
-
-
-
+.p_wrap .print_mng_nm { top:30px; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; }
 .p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
 .p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
