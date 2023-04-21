@@ -70,14 +70,18 @@ export default {
                 if (res && res.status === 200) {
                     await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
                     this.isLoadingModalViewed=false;
+                    this.clickable = true;
                     window.opener.postMessage( 'reread' );
                     if(type == 'preview') {
+                        Notify.toast('success', '임시저장 완료');
                         var url = `/api/admin/shop/estimate/showEstimate/${res.data}`;
                         var name = "견적서 미리보기";
                         var option = "width = 900, height = 900, top = 10, left = 10, location = no"
                         window.open(url, name, option);
-                        self.close();
-                    } else 
+                        // self.close();
+                    } else if ( type == 'store' ) {
+                        Notify.toast('success', '임시저장 완료');
+                    } else
                         this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:res.data } });                    
                 }
             } catch (e) {

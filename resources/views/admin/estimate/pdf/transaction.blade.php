@@ -112,7 +112,7 @@ $no=1;
     <table class="bottom">
         <tr>
             <td>
-                <p>담당자 : {{$er->estimateReq->mng->name}} {{$er->estimateReq->mng->userMng->um_position}}, TEL : {{$er->estimateReq->mng->tel}}, FAX : {{$er->estimateReq->mng->fax}}</p>
+                <p>담당자 : {{$er->estimateReq->mng->name}} {{$er->estimateReq->mng->userMng->posName}}, TEL : {{$er->estimateReq->mng->tel}}, FAX : {{$er->estimateReq->mng->fax}}</p>
                 계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
                             {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
             </td>

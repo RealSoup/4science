@@ -74,10 +74,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     'SubString': function SubString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
-    },
-    'WinPopUp': function WinPopUp() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
-    }
+    } // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
+
   },
   props: ['list'],
   filters: {
@@ -105,23 +103,18 @@ __webpack_require__.r(__webpack_exports__);
       return rst;
     }
   },
-  methods: {
-    ////////////////////////////////
-    evtCloseWinPopup: function evtCloseWinPopup() {
-      console.log("evtCloseWinPopup () ========  ");
-    },
-    openWinPop: function openWinPop(url) {
-      this.$refs.winPopup.openWinPop(url, 1700, 900);
-    },
-    onRecvWinPop: function onRecvWinPop(recvObj) {
-      console.log("onRecvWinPop  ---------");
-      if (recvObj == 'reread') this.index();
-    },
-    sendToChild: function sendToChild() {
-      this.$refs.winPopup.sendEvtToChild({
-        msg: 'abcde'
-      });
-    }
+  methods: {////////////////////////////////
+    // evtCloseWinPopup( ){
+    //     console.log( "evtCloseWinPopup () ========  ");
+    // },
+    // openWinPop(url){
+    //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
+    // }, 
+    // onRecvWinPop( recvObj ){
+    //     console.log( "onRecvWinPop  ---------" );
+    //     if(recvObj == 'reread') this.index();
+    // },
+    // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
   }
 });
 
@@ -526,18 +519,6 @@ var render = function () {
           ],
           1
         )
-      }),
-      _vm._v(" "),
-      _c("WinPopUp", {
-        ref: "winPopup",
-        on: {
-          onClose: function (val) {
-            return _vm.evtCloseWinPopup(val)
-          },
-          onRecvEvtFromWinPop: function (val) {
-            return _vm.onRecvWinPop(val)
-          },
-        },
       }),
     ],
     2

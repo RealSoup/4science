@@ -63,7 +63,7 @@ class Order extends Model {
     public function getOrderConfig() { return $this->orderConfig; }
     // public function getStepAttribute() { return self::gdImgSrc(); }
 
-    public function user() { return $this->belongsTo(\App\Models\User::class, 'created_id'); }
+    public function user() { return $this->belongsTo(\App\Models\User::class, 'created_id')->withDefault(); }
     public function mng() { return $this->belongsTo(\App\Models\User::class, 'od_mng'); }
     public function orderPurchaseAt() { return $this->hasMany(OrderPurchaseAt::class, "odpa_od_id"); }//->orderBy('gm_order'); }
     public function orderModel() { return $this->hasMany(OrderModel::class, "odm_od_id"); }

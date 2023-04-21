@@ -180,7 +180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 27;
+                  _context2.next = 28;
                   break;
                 }
 
@@ -189,13 +189,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 24:
                 _this2.isLoadingModalViewed = false;
+                _this2.clickable = true;
                 window.opener.postMessage('reread');
 
                 if (type == 'preview') {
+                  Notify.toast('success', '임시저장 완료');
                   url = "/api/admin/shop/estimate/showEstimate/".concat(_this2.$route.params.er_id);
                   name = "견적서 미리보기";
                   option = "width = 900, height = 900, top = 10, left = 10, location = no";
                   window.open(url, name, option); // self.close();
+                } else if (type == 'store') {
+                  Notify.toast('success', '임시저장 완료');
                 } else _this2.$router.push({
                   name: 'adm_estimate_show_reply',
                   params: {
@@ -203,22 +207,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 27:
-                _context2.next = 33;
+              case 28:
+                _context2.next = 34;
                 break;
 
-              case 29:
-                _context2.prev = 29;
+              case 30:
+                _context2.prev = 30;
                 _context2.t1 = _context2["catch"](7);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
-              case 33:
+              case 34:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[7, 29]]);
+        }, _callee2, null, [[7, 30]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {

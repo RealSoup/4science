@@ -25,34 +25,37 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   methods: {
     openWinPop: function openWinPop(uri, width, height) {
       // if( this.windowRef != null )
-      if (this.windowRef != null) console.log(this.windowRef.location.href); // this.closeWinPop();
-
+      //     this.closeWinPop();
+      //  여러새창 열어야 하는데
+      //   이것때문에 닫히고 한개만 열림
       var left = screen.width ? (screen.width - width) / 2 : 0;
       var top = screen.height ? (screen.height - height) / 2 : 0;
       var attr = 'top=' + top + ', left=' + left + ', width=' + width + ', height=' + height + ', resizable=no,status=no'; // 1. 윈도우 팝업 띄우기 
 
-      this.windowRef = window.open(uri, "", attr); // if( this.windowRef != null ) {
-      //     this.windowRef.addEventListener('beforeunload', this.evtClose);
-      // }else{
-      //     alert( "window.open fail!!!" );
-      // }
-      // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
+      this.windowRef = window.open(uri, "", attr);
+
+      if (this.windowRef != null) {
+        this.windowRef.addEventListener('beforeunload', this.evtClose);
+      } else {
+        alert("window.open fail!!!");
+      } // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
       // window.addEventListener("message", this.recvEvtFromChild, false);
+
     },
     // 윈도우 팝업 닫기 
-    // closeWinPop(){
-    //     if(this.windowRef) {
-    //         this.windowRef.close();
-    //         this.windowRef = null;
-    //     }
-    // },
-    // evtClose() {
-    //     if(this.windowRef) {
-    //         this.windowRef.close();
-    //         this.windowRef = null;
-    //         this.$emit('onClose');
-    //     }
-    // },
+    closeWinPop: function closeWinPop() {
+      if (this.windowRef) {
+        this.windowRef.close();
+        this.windowRef = null;
+      }
+    },
+    evtClose: function evtClose() {
+      if (this.windowRef) {
+        this.windowRef.close();
+        this.windowRef = null;
+        this.$emit('onClose');
+      }
+    },
     // 3. 부모창에서 팝업창에 메세지 보내기 
     sendEvtToChild: function sendEvtToChild(evt) {
       if (!common.isValidObj(this.windowRef)) return;
@@ -84,7 +87,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     window.addEventListener("message", this.recvEvtFromChild, false);
   },
   beforeDestroy: function beforeDestroy() {
-    window.removeEventListener('message', this.recvEvtFromChild); // this.windowRef.removeEventListener('beforeunload', this.evtClose);
+    window.removeEventListener('message', this.recvEvtFromChild);
+    this.windowRef.removeEventListener('beforeunload', this.evtClose);
   }
 });
 

@@ -309,7 +309,7 @@ export default {
             return str;
         } 
 
-        Vue.prototype.openWinPop = function ( uri, width, height ) {
+        Vue.prototype.openWinPop = function ( uri, width=1700, height=900 ) {
             let left = (screen.width) ? (screen.width - width) / 2 : 300;
             let top = (screen.height) ? (screen.height - height) / 2 : 0;
             let attr = 'top=' + top + ', left=' + left  + ', width=' + width + ', height=' + height + ', resizable=no,status=no';

@@ -52,7 +52,7 @@
             </template>
         </b-col>
     </b-row>
-    <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <!-- <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" /> -->
 </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
     name: 'AdmEstimateIndexList',
     components: { 
         'SubString': () => import('@/views/_common/SubString.vue'),
-        'WinPopUp': () => import('@/views/_common/WinPopUp'),
+        // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     props:['list'],
     filters: {
@@ -78,20 +78,20 @@ export default {
     },
     methods: {
         ////////////////////////////////
-        evtCloseWinPopup( ){
-            console.log( "evtCloseWinPopup () ========  ");
-        },
+        // evtCloseWinPopup( ){
+        //     console.log( "evtCloseWinPopup () ========  ");
+        // },
         
-        openWinPop(url){
-            this.$refs.winPopup.openWinPop( url, 1700, 900 );
-        }, 
+        // openWinPop(url){
+        //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
+        // }, 
         
-        onRecvWinPop( recvObj ){
-            console.log( "onRecvWinPop  ---------" );
-            if(recvObj == 'reread') this.index();
-        },
+        // onRecvWinPop( recvObj ){
+        //     console.log( "onRecvWinPop  ---------" );
+        //     if(recvObj == 'reread') this.index();
+        // },
 
-        sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+        // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
     },
     
             
