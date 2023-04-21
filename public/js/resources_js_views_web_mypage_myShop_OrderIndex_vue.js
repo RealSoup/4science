@@ -70,7 +70,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sch_frm: {
         page: 1,
         startDate: '',
-        endDate: ''
+        endDate: '',
+        od_type: 'no_buy_temp'
       },
       order_config: {}
     };

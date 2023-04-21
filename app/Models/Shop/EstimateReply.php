@@ -32,6 +32,7 @@ class EstimateReply extends Model {
     public function scopeEndDate(   $q, $v) { return $q->where('shop_estimate_reply.created_at', '<=', $v); }
     public function scopeStartPrice($q, $v) { return $q->where('er_all_price', '>=', $v); }
     public function scopeEndPrice(  $q, $v) { return $q->where('er_all_price', '<=', $v); }
+    public function scopeCplt(          $q) { return $q->where('er_step', 1); }
 
 
 

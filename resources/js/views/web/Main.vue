@@ -334,7 +334,7 @@ export default {
     .byCate .con .row .tit a h6 { display:inline-block; }
     .byCate .con .row .list .col { padding:5px; flex: 0 0 25%; max-width: 25%; }
     .byCate .con .row .list .col img { width:100%; height:80px; }
-    .byCate .con .row .list .col p { font-size: calc(.3vw + .7rem); }
+    .byCate .con .row .list .col p { font-size: calc(.3vw + .7rem); margin:0; height:auto; }
 }
 </style>
 

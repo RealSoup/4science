@@ -292,7 +292,7 @@ class Goods extends Model {
                 $paSum += $item['price']*$item['ea'];
             $rst['price']['goods'] += $paSum;
             if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
-                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = $paSum < $this->free_dlvy_max ? $this->dlvy_fee : 0;
+                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = rrp($paSum) < $this->free_dlvy_max ? $this->dlvy_fee : 0;
                 $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = rrp($rst['lists'][$pa_id][0]['pa_dlvy_p']);
                 //  $pa_group[0] 변수를 사용하면 값이 대입되지 않아서 저렇게 했다
             }

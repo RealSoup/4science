@@ -28,7 +28,7 @@
 
             <b-col class="step"><EstimateStep v-model="eq.eq_step" /></b-col>
             <b-col class="date">
-                <div v-for="(er, i) in eq.estimate_reply" :key="i" class="mb-1">
+                <div v-for="(er, i) in eq.estimate_reply_cplt" :key="i" class="mb-1">
                     <b-badge><b-icon-calendar2-date /> {{er.created_at | formatDate_YY_MM_DD }}</b-badge>
                     <b-button variant="outline-dark" size="sm" :to="{ name: 'my_estimate_show_reply', params: {er_id: er.er_id} }">
                         <b v-if="i!==0">재</b>견적서

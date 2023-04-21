@@ -334,7 +334,7 @@ var render = function () {
             _c(
               "b-col",
               { staticClass: "date" },
-              _vm._l(eq.estimate_reply, function (er, i) {
+              _vm._l(eq.estimate_reply_cplt, function (er, i) {
                 return _c(
                   "div",
                   { key: i, staticClass: "mb-1" },

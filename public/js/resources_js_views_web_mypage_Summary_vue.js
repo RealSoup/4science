@@ -70,7 +70,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order", {
                 params: {
                   limit: 5,
-                  type: 'with_gm'
+                  type: 'with_gm',
+                  od_type: 'no_buy_temp'
                 }
               });
 

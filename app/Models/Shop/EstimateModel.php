@@ -86,7 +86,7 @@ class EstimateModel extends Model {
             if ($key)
                 $pa['price']['dlvy'] = $pa['list'][0]['purchaseAt']->pa_price_add_vat;
             else
-                $pa['price']['dlvy'] = $pa['price']['goods'] < $pa['list'][0]['free_dlvy_max'] ? $pa['list'][0]['dlvy_fee_add_vat'] : 0;
+                $pa['price']['dlvy'] = (rrp($pa['price']['goods']) < $pa['list'][0]['free_dlvy_max']) ? $pa['list'][0]['dlvy_fee_add_vat'] : 0;
 
             $rst['price']['dlvy'] += $pa['price']['dlvy'];
             $rst['price']['sum'] += $pa['price']['dlvy'];

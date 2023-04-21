@@ -466,8 +466,8 @@ export default {
 .conLeft ul li div { float:left; font-size:1.5rem; }*/
 .conLeft ul { margin:1rem 0 0 1rem; padding:1rem 0 0 1rem; border-top:1px solid #D7D7D7; }
 .conLeft ul li { display:flex; line-height:1.5rem; }
-.conLeft ul li div { font-size:.9rem; }
-.conLeft ul li div:nth-child(1) { flex-basis:30%; min-width:100px; font-weight:bold; }
+.conLeft ul li div { font-size:.9rem; flex-basis: 0; flex-grow:1; max-width:100%; }
+.conLeft ul li div:nth-child(1) { flex-basis:30%; max-width:30%; font-weight:bold; }
 
 .conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; flex:0 0 calc(66.666667% - 10px); max-width:calc(66.666667% - 10px); }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
@@ -565,6 +565,17 @@ export default {
 .conRight  #return_info em { color:#ce0000; font-weight:bold; }
 
 .conRight  #gd_inquiry .tit button { margin-left:1rem; border-color:#898989; }
+
+@media (max-width: 992px){
+    #goods_show { padding:20px; }
+    .location { display:none; }
+    .atrium.fixed .conLeft { position:static; }
+    .conLeft .carousel >>> .carousel-inner .carousel-item img { height:260px; }
+    .conLeft ul { margin:0; padding:0; border-top-width:0; }
+
+    .conRight { flex: 0 0 100%; max-width:100%; margin:0; }
+    .conRight h3 { font-size: calc(.6vw + 1rem); }
+}
 /*
 <div class="cube_box">
     <div class="cube">

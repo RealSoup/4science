@@ -154,6 +154,7 @@ export default {
     #footer { margin-top:1rem; padding-top:1rem; }
     #footer #footer_top .row .col { flex: 0 0 100%; max-width: 100%; }
     #footer #footer_top .row .fir { margin:0; }
+    #footer #footer_top .row .fir .contact { display:none; }
     #footer #footer_top .row .sec { display:none; }
     #footer #footer_top .row .thi a span:nth-child(2) { display:none; }
     #footer #footer_bottom { padding: 0rem 0 3rem 0; margin-top: 1.3rem; }

@@ -179,8 +179,8 @@ export default {
             if ( isEmpty(this.value.id) )
                 return this.user_type;
             else {
-                if ( this.value.level<10  ) return 'personal';
-                else if ( this.value.level<20  ) return 'dealer';
+                if ( this.value.is_dealer  ) return 'dealer';
+                else return 'personal';
             }
         },
     },

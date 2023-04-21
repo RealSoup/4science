@@ -16,7 +16,7 @@ class EstimateController extends Controller {
         if ($req->filled('startDate'))  $eq = $eq->StartDate($req->startDate);
         if ($req->filled('endDate'))  	$eq = $eq->EndDate($req->endDate);
 
-        $eq = $eq->with('estimateReply')->CreatedId(auth()->user()->id)->latest();
+        $eq = EstimateReq::with('estimateReplyCplt')->CreatedId(auth()->user()->id)->latest();
 
         $eq->when(request('type', 'with_em'), fn ($q) => $q->with('estimateModel'));
         
@@ -194,7 +194,7 @@ class EstimateController extends Controller {
             $v->goods;
             $v->estimateOption;
         }
-        foreach ($eq->estimateReply as $v) {
+        foreach ($eq->estimateReplyCplt as $v) {
             foreach ($v->estimateModel as $v2) {
                 $v2->goods;
                 $v2->estimateOption;

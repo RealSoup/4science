@@ -32,7 +32,7 @@ export default {
         }
     },
     async mounted() {
-        let data_od = await ax.get(`/api/shop/order`, { params: {limit:5, type:'with_gm'}});
+        let data_od = await ax.get(`/api/shop/order`, { params: {limit:5, type:'with_gm', od_type:'no_buy_temp', }});
         this.order = data_od.data.order;
         this.order_config = data_od.data.order_config;
         let data_eq = await ax.get(`/api/shop/estimate`, { params: {limit:5, type:'with_em'}});

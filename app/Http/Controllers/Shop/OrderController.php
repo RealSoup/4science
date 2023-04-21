@@ -330,6 +330,10 @@ class OrderController extends Controller {
         $od = $this->order
                 ->when($req->startDate, fn ($q, $v) => $q->StartDate($v))
                 ->when($req->endDate,   fn ($q, $v) => $q->EndDate($v))
+                ->when($req->od_type, function ($q, $v) {
+                    if ($v == 'no_buy_temp') return $q->where('od_type', '!=', 'buy_temp');
+                    else                     return $q->where('od_type', $v);
+                })
                 ->when($req->od_step, function ($q, $v) {
                     if ($v == 'early')  return $q->whereIn('od_step', ['10', '11', '12', '13', '14', '15']);
                     else                return $q->OdStep($v);

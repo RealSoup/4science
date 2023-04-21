@@ -38,6 +38,7 @@ export default {
                 page:1,
                 startDate:'',
                 endDate:'',
+                od_type:'no_buy_temp'
             },
             order_config: {},
         }

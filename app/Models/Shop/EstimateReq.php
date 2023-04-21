@@ -47,6 +47,7 @@ class EstimateReq extends Model {
     ];
     public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
     public function estimateReply() {   return $this->hasMany(EstimateReply::class, "er_eq_id"); }
+    public function estimateReplyCplt() {   return $this->hasMany(EstimateReply::class, "er_eq_id")->Cplt(); }
     public function estimateCustom() {   return $this->hasMany(EstimateCustom::class, "ec_eq_id"); }
     public function fileInfo() {        return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function mng()       {       return $this->belongsTo(User::class, 'eq_mng'); }
@@ -73,5 +74,4 @@ class EstimateReq extends Model {
     public function scopeErEndDate(   $q, $v) { return $q->where('shop_estimate_reply.created_at', '<=', $v); }
     public function scopeErStartPrice($q, $v) { return $q->where('er_all_price', '>=', $v); }
     public function scopeErEndPrice(  $q, $v) { return $q->where('er_all_price', '<=', $v); }
-
 }

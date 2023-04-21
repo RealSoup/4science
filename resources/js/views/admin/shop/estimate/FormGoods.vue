@@ -171,7 +171,7 @@ export default {
             this.frm.estimate_reply.er_air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
             this.frm.estimate_reply.er_surtax = this.frm.estimate_reply.er_gd_price*0.1;
             for (var key in collect) {
-                if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) {
+                if (collect[key].dlvy && (collect[key].goods*1.1) < collect[key].free_dlvy_max) {
                     dlvy += Number(collect[key].dlvy);
                 }
             }

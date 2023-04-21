@@ -112,7 +112,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#categorys { background:#626C75; z-index:16; position:relative; }
+#categorys { background:#626C75; z-index:17; position:relative; }
 #categorys .depth01 { display:flex; }
 #categorys .depth01 > li { width:4.761904%; cursor:pointer; }
 #categorys .depth01 > li .ca01 { display:flex; align-items:center; flex-direction:column; padding:8px 5px; overflow:hidden; height:100%; }
