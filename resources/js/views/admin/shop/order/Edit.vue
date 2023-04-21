@@ -1,436 +1,439 @@
 <template>
-<div id="print_area">
-    <div class="p_wrap">
-        <b-row class="row h3">
-            <b-col tag="h3">주문 상세</b-col>
-            <b-col class="print_hide"><b-button :to="{name: 'adm_order_index'}" class="white" size="sm">목록으로 돌아가기</b-button></b-col>
+<div id="print_area" class="p_wrap">
+    <h3 class="p_tit">주문 상세</h3>
+    <div class="act_ctrl">
+        <b-row cols="1" cols-md="2">
+            <b-col class="def_info">
+                <span>No.</span> <b>{{od.od_id}}.</b>
+                <span>주문번호</span> <b>{{ od.od_no }}</b>
+                <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
+            </b-col>
+            <b-col class="btn_area">
+                <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
+
+                <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
+                <b-button v-else class="sky sm">{{od.mng.name}}</b-button>
+
+                <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right />영업장부</b-button>
+                <b-button v-else class="d_gray sm">장부등록됨</b-button>
+
+                <b-button class="gray sm" @click="print"><b-icon-printer /> 인쇄</b-button>
+
+                <b-input-group v-if="od.od_mng" size="sm">
+                    <b-form-select class="custom-select" v-model="document_type">
+                        <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
+                        <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
+                        <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
+                        <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
+                        <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
+                    </b-form-select>
+                    <b-input-group-append><b-button @click="document_action" class="d_gray sm">받기</b-button></b-input-group-append>
+                </b-input-group>
+                <b-button v-else class="gray sm">담당 등록 후...</b-button>
+                
+                <b-input-group size="sm">
+                    <b-form-select v-model="od.od_step">
+                        <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
+                        <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                    </b-form-select>
+                    <b-input-group-append><b-button @click="update('od_step')" class="d_gray sm">변경</b-button></b-input-group-append>
+                </b-input-group>
+
+            </b-col>
+        </b-row>
+    </div>
+    
+    <div class="box">
+        <b-row tag="h5">
+            <b-col tag="b">주문 상품</b-col>
+            <b-col class="text-right print_hide"><b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button></b-col>
         </b-row>
         
-        <b-container class="top">
-            <b-row>
-                <b-col>No.</b-col>
-                <b-col>주문번호</b-col>
-                <b-col>주문날짜</b-col>
-                <b-col>주문자</b-col>
-                <b-col>연락처</b-col>
-                <b-col>이메일</b-col>
-                <b-col>담당</b-col>
-                <b-col class="print_hide">영업장부</b-col>
-                <b-col class="print_hide">주문서</b-col>
-                <b-col class="print_hide">문서받기</b-col>
-                <b-col class="print_hide">처리상태</b-col>
-            </b-row>
-            <b-row>
-                <b-col>{{ od.od_id }}.</b-col>
-                <b-col>{{ od.od_no }}</b-col>
-                <b-col>{{ od.created_at | formatDate_YYYY_MM_DD }}</b-col>
-                <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">
-                    {{ od.od_orderer }}
-                </b-link>
-                <b-col>{{ od.od_orderer_hp }}</b-col>
-                <b-col>{{ od.od_orderer_email }}</b-col>
-                <b-col>
-                    <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="white">담당</b-button>
-                    <template v-else>{{od.mng.name}}</template>
-                </b-col>
-                <b-col class="print_hide">
-                    <b-button v-if="od.od_has_ledger == 'N'" class="white" @click="ledger">등록</b-button>
-                    <template v-else>등록됨</template>
-                </b-col>
-                <b-col class="print_hide">
-                    <b-button class="white" @click="print">인쇄</b-button>
-                </b-col>
-                <b-col class="print_hide">
-                    <b-input-group v-if="od.od_mng">
-                        <b-form-select class="custom-select" v-model="document_type">
-                            <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
-                            <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
-                            <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
-                            <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
-                            <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
-                        </b-form-select>
-                        <b-input-group-append><b-button @click="document_action" class="d_gray">받기</b-button></b-input-group-append>
-                    </b-input-group>
-                    <template v-else>담당 등록 후...</template>
-                </b-col>
-                <b-col class="print_hide">
-                    <b-input-group>
-                        <b-form-select v-model="od.od_step">
-                            <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
-                            <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
-                        </b-form-select>
-                        <b-input-group-append><b-button @click="update('od_step')" class="d_gray">변경</b-button></b-input-group-append>
-                    </b-input-group>
-                </b-col>
-            </b-row>
-        </b-container>
-        
-        <div class="box">
-            <b-row tag="h5">
-                <b-col tag="b">주문 상품</b-col>
-                <b-col class="text-right print_hide"><b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button></b-col>
-            </b-row>
+        <div class="top_border" />
+        <b-row class="goods" v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
+            <b-col class="pa_tit print_hide_flex">
+                <b v-if="pa.odpa_pa_id">업체<br />직배송</b>
+                <b v-else>포사이언스<br />배송</b>
+            </b-col>
             
-            <div class="top_border" />
-            <b-row class="goods" v-for="(pa, pa_i) in od.order_purchase_at" :key="`pa_${pa_i}`">
-                <b-col class="pa_tit print_hide_flex">
-                    <b v-if="pa.odpa_pa_id">업체<br />직배송</b>
-                    <b v-else>포사이언스<br />배송</b>
-                </b-col>
-                
-                <b-col class="gd_con">
-                    <b-row>
-                        <b-col class="print_hide">
-                            <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
-                        </b-col>
-                        <b-col></b-col>
-                        <b-col>주문 상품</b-col>
-                        <b-col>제조사</b-col>
-                        <b-col>판매가</b-col>
-                        <b-col>수량</b-col>
-                        <b-col>금액</b-col>
-                        <b-col class="print_hide"></b-col>
-                    </b-row>
-                    <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
-                        <b-col class="align print_hide">
-                            <b-form-checkbox class="myCheck" v-if="odm.odm_type=='MODEL'" value="Y" unchecked-value="N" v-model="odm.dlvy_chk" @change="changeSon(pa)" />
-                        </b-col>
-                        <b-col class="align">
-                            <div v-if="odm.odm_type=='MODEL'">
-                                <img :src="odm.img_thumb_src" v-if="odm.odm_gd_id>0" @click="openWinPop(`/admin/shop/goods/${odm.odm_gd_id}/edit`, 1700, 900)" />
-                                <img :src="odm.img_thumb_src" v-else />
+            <b-col class="gd_con">
+                <b-row>
+                    <b-col class="print_hide">
+                        <b-form-checkbox class="myCheck allCheck" v-model="pa.dlvy_all_chk" :indeterminate="pa.indeterminate" @change="toggleAll(pa)" />
+                    </b-col>
+                    <b-col></b-col>
+                    <b-col>주문 상품</b-col>
+                    <b-col>제조사</b-col>
+                    <b-col>판매가</b-col>
+                    <b-col>수량</b-col>
+                    <b-col>금액</b-col>
+                    <b-col class="print_hide"></b-col>
+                </b-row>
+                <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
+                    <b-col class="align print_hide">
+                        <b-form-checkbox class="myCheck" v-if="odm.odm_type=='MODEL'" value="Y" unchecked-value="N" v-model="odm.dlvy_chk" @change="changeSon(pa)" />
+                    </b-col>
+                    <b-col class="align">
+                        <div v-if="odm.odm_type=='MODEL'">
+                            <img :src="odm.img_thumb_src" v-if="odm.odm_gd_id>0" @click="openWinPop(`/admin/shop/goods/${odm.odm_gd_id}/edit`, 1700, 900)" />
+                            <img :src="odm.img_thumb_src" v-else />
+                        </div>
+                        <b v-else>추가 옵션</b>
+                    </b-col>
+                    <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
+                        <template v-if="odm.odm_type=='MODEL'">
+                            <b>{{odm.odm_gd_name}}</b>
+                            <p>
+                                제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
+                                모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
+                                사양: {{odm.odm_gm_spec}}
+                            </p>
+                        </template>
+                        <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
+                    </b-col>
+                    <b-col class="align">{{odm.odm_mk_name}}</b-col>
+                    <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
+                    <b-col class="align">
+                        <div class="cube_box">
+                            <div class="cube" :class="{show_bottom: odm.show_bottom}">
+                                <div class="piece front">{{odm.odm_ea | comma}}</div>
+                                <div class="piece bottom"><EaInput v-model="pa.order_model[odm_i]" /></div>
                             </div>
-                            <b v-else>추가 옵션</b>
-                        </b-col>
-                        <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
-                            <template v-if="odm.odm_type=='MODEL'">
-                                <b>{{odm.odm_gd_name}}</b>
-                                <p>
-                                    제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
-                                    모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
-                                    사양: {{odm.odm_gm_spec}}
-                                </p>
-                            </template>
-                            <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
-                        </b-col>
-                        <b-col class="align">{{odm.odm_mk_name}}</b-col>
-                        <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
-                        <b-col class="align">
-                            <div class="cube_box">
-                                <div class="cube" :class="{show_bottom: odm.show_bottom}">
-                                    <div class="piece front">{{odm.odm_ea | comma}}</div>
-                                    <div class="piece bottom"><EaInput v-model="pa.order_model[odm_i]" /></div>
-                                </div>
-                            </div>
-                        </b-col>
-                        <b-col class="align">
-                            <b class="sum">
-                                {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
-                                <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button class="print_hide">
-                                    배송비 포함
-                                </b-form-checkbox>
-                            </b>
-                        </b-col>
-                        <b-col class="align print_hide_flex" :style="{flexWrap:'wrap'}">
-                            <template v-if="odm.odm_type=='MODEL'">
-                                <b-badge v-if="(!isEmpty(odm.order_dlvy_info.oddi_receive_date) && odm.order_dlvy_info.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
-                                <b-badge v-else-if="(!isEmpty(odm.order_dlvy_info.oddi_arrival_date) && odm.order_dlvy_info.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
-                                <b-link v-if="!isEmpty(odm.order_dlvy_info.oddi_dlvy_num)" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)" class="teal sm">
-                                    {{odm.order_dlvy_info.oddi_dlvy_com}}, {{odm.order_dlvy_info.oddi_dlvy_num}}
-                                </b-link>
-                                <br />
-                                <b-button class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
-                            </template>
-                        </b-col>
-                    </b-row>
-                </b-col>
-                <b-col class="dlvy_fare print_hide_flex">
+                        </div>
+                    </b-col>
+                    <b-col class="align">
+                        <b class="sum">
+                            {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
+                            <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button class="print_hide">
+                                배송비 포함
+                            </b-form-checkbox>
+                        </b>
+                    </b-col>
+                    <b-col class="align print_hide_flex" :style="{flexWrap:'wrap'}">
+                        <template v-if="odm.odm_type=='MODEL'">
+                            <b-badge v-if="(!isEmpty(odm.order_dlvy_info.oddi_receive_date) && odm.order_dlvy_info.oddi_receive_date !='0000-00-00')" class="gray">수취완료</b-badge>
+                            <b-badge v-else-if="(!isEmpty(odm.order_dlvy_info.oddi_arrival_date) && odm.order_dlvy_info.oddi_arrival_date!='0000-00-00')" class="green">배송완료</b-badge>
+                            <b-link v-if="!isEmpty(odm.order_dlvy_info.oddi_dlvy_num)" :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)" class="teal sm">
+                                {{odm.order_dlvy_info.oddi_dlvy_com}}, {{odm.order_dlvy_info.oddi_dlvy_num}}
+                            </b-link>
+                            <br />
+                            <b-button class="white" @click="writeDlvyInfo(odm)">배송정보</b-button>
+                        </template>
+                    </b-col>
+                </b-row>
+            </b-col>
+            <b-col class="dlvy_fare print_hide_flex">
+                <div>
+                    <p v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</p>
+                    <p v-else>배송비</p>
+                    {{pa.odpa_dlvy_p_add_vat | comma | won}}
+                </div>
+            </b-col>
+        </b-row>
+
+        <b-row class="action print_hide">
+            <b-col>선택한 상품의 <b-button @click="writeDlvyInfo('bundle')" class="teal ml-2">배송정보 일괄 등록</b-button></b-col>
+        </b-row>
+        
+        <div class="top_border" />
+        <div class="sum_up">
+            <b-row class="total">
+                <b-col>상품금액</b-col>
+                <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
+                <b-col>배송료</b-col>
+                <b-col><b>{{od.od_dlvy_price | comma | won}}</b></b-col>
+                <b-col>결제 예정 금액</b-col>
+                <b-col><b>{{od.od_all_price | comma | won}}</b></b-col>
+            </b-row>
+            <b-row class="total_sub">
+                <b-col>
                     <div>
-                        <p v-if="pa.odpa_pa_type == 'AIR'">항공 운임료</p>
-                        <p v-else>배송비</p>
-                        {{pa.odpa_dlvy_p_add_vat | comma | won}}
+                        <b-col>상품가</b-col><b-col>{{od.od_gd_price | comma | won}}</b-col>
+                    </div>
+                    <div>
+                        <b-col>부가세</b-col><b-col>{{od.od_surtax | comma | won}}</b-col>
+                    </div>
+                </b-col>
+                <b-col>
+                    <div>
+                        <b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col>
+                    </div>
+                    <div>
+                        <b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col>
+                    </div>
+                </b-col>
+                <b-col>
+                    <div>
+                        <b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col>
                     </div>
                 </b-col>
             </b-row>
-
-            <b-row class="action print_hide">
-                <b-col>선택한 상품의 <b-button @click="writeDlvyInfo('bundle')" class="teal ml-2">배송정보 일괄 등록</b-button></b-col>
-            </b-row>
-          
-            <div class="top_border" />
-            <div class="sum_up">
-                <b-row class="total">
-                    <b-col>상품금액</b-col>
-                    <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
-                    <b-col>배송료</b-col>
-                    <b-col><b>{{od.od_dlvy_price | comma | won}}</b></b-col>
-                    <b-col>결제 예정 금액</b-col>
-                    <b-col><b>{{od.od_all_price | comma | won}}</b></b-col>
-                </b-row>
-                <b-row class="total_sub">
-                    <b-col>
-                        <div>
-                            <b-col>상품가</b-col><b-col>{{od.od_gd_price | comma | won}}</b-col>
-                        </div>
-                        <div>
-                            <b-col>부가세</b-col><b-col>{{od.od_surtax | comma | won}}</b-col>
-                        </div>
-                    </b-col>
-                    <b-col>
-                        <div>
-                            <b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col>
-                        </div>
-                        <div>
-                            <b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col>
-                        </div>
-                    </b-col>
-                    <b-col>
-                        <div>
-                            <b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col>
-                        </div>
-                    </b-col>
-                </b-row>
-            </div>
         </div>
+    </div>
 
-        <div class="box extra_info">
-            <b-row tag="h5"><b-col tag="b">결제정보</b-col></b-row>
-            <table class="tbl_st" v-if="od.od_pay_method == 'B' || od.od_pay_method == 'E'">
-                <tr>
-                    <th>결제금액</th><td>{{od.od_all_price | comma | won}}</td>
-                    <th>결제예정일</th>
-                    <td>{{payPlanDisplay}}</td>
-                </tr>
-                <tr>
-                    <th>결제수단</th>
-                    <td>
-                        <span v-if="od.od_pay_method=='B'">계좌이체</span>
-                        <span v-else-if="od.od_pay_method=='E'">에스크로</span>
-                    </td>
-                    <th>입금계좌</th>
-                    <td>
-                        <span v-if="od.order_extra_info.oex_bank=='K'">국민은행</span>
-                        <span v-else-if="od.order_extra_info.oex_bank=='W'">우리은행</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>입금자</th><td colspan="3">{{od.order_extra_info.oex_depositor}}</td>
-                </tr>
-            </table>
-            <table class="tbl_st" v-else>
-                <tr>
-                    <th>결제금액</th><td>{{od.od_all_price | comma | won}}</td>
-                    <th>결제예정일</th>
-                    <td>{{payPlanDisplay}}</td>
-                </tr>
-                <tr>
-                    <th>결제수단</th>
-                    <td>
-                        <span v-if="od.od_pay_method=='C'">카드결제</span>
-                        <span v-else-if="od.od_pay_method=='P'">PSYS</span>
-                        <span v-else-if="od.od_pay_method=='R'">원격결제</span>
-
-                        <b-button v-if="od.order_pg && od.order_pg.pg_id" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
-                    </td>
-                    <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
-                </tr>
-                <tr>
-                    <th>결과메세제</th><td>{{od.order_pg.pg_msg}}</td>
-                    <th>결제자</th><td>{{od.order_pg.pg_buyer_nm}}</td>
-                </tr>
-            </table>
+    
+    <b-container class="top">
+        <b-row>
             
-            <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
-            <table class="tbl_st address">
-                <tr>
-                    <th>수취인</th>
-                    <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'수취인 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
-                        <div class="cube_box receiver">
-                            <div class="cube" :class="{show_bottom: focusInfo.od_receiver}">
-                                <div class="piece front">{{ od.od_receiver }}</div>
-                                <div class="piece bottom">
-                                    <b-form-input v-model="od.od_receiver" @focus="focusInfo.od_receiver = true" @blur="focusInfo.od_receiver = false" size="sm" />
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <th>전화번호</th>
-                    <td>
-                        <font-awesome-icon icon="copy" v-b-tooltip="'전화번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block" />
-                        <div class="cube_box receiver_hp">
-                            <div class="cube" :class="{show_bottom: focusInfo.od_receiver_hp}">
-                                <div class="piece front">{{ od.od_receiver_hp }}</div>
-                                <div class="piece bottom">
-                                    <b-form-input v-model="od.od_receiver_hp" @focus="focusInfo.od_receiver_hp = true" @blur="focusInfo.od_receiver_hp = false" size="sm" />
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        배송주소
-                        <b-button class="teal xm" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">검색</b-button>
-                    </th>
-                    <td colspan="3">
-                        <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
-                        {{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>배송시 요구사항</th><td colspan="3">{{od.od_memo}}</td>
-                </tr>
-            </table>
+            <b-col>{{ od.od_orderer_hp }}</b-col>
+            <b-col>{{ od.od_orderer_email }}</b-col>
+        </b-row>
+    </b-container>
 
-            <b-row tag="h5"><b-col tag="b">요청서류</b-col></b-row>
-            <table class="tbl_st">
-                <tr>
-                    <th>요청서류</th>
-                    <td colspan="3">{{reqDocumentDisplay}}</td>
-                </tr>
-                <tr><th>첨부서류 메모</th><td colspan="3" v-html="od.order_extra_info.oex_memo"></td></tr>
-                <template v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'E')">
-                    <template v-if="od.order_extra_info.oex_type == 'IV'">
-                        <tr v-if="od.file_info">
-                            <th>사업자등록증</th>
-                            <td>
-                                <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">사업자 등록증 보기</b-button>
-                                <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">사업자 등록증 다운로드</b-button>
-                            </td>
-                        </tr>
-                        <template v-else>
-                            <tr>
-                                <th>법인명</th><td>{{od.order_extra_info.oex_biz_name}}</td>
-                                <th>사업자등록번호</th><td>{{od.order_extra_info.oex_biz_num}}</td>
-                                <th>대표자</th><td>{{od.order_extra_info.oex_ceo}}</td>
-                            </tr>
-                            <tr>
-                                <th>주소</th><td>{{od.order_extra_info.oex_addr}}</td>
-                                <th>업태</th><td>{{od.order_extra_info.oex_biz_type}}</td>
-                                <th>업종</th><td>{{od.order_extra_info.oex_biz_item}}</td>
-                            </tr>
-                        </template>
+    <div class="box extra_info">
+        <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
+        <table class="tbl_st address">
+            <tr>
+                <th>주문자</th>
+                <td><b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}" class="col">{{ od.od_orderer }}</b-link></td>
+                <th>소속</th>
+                <td>
+                    {{ od.od_department }}
+                    ({{ od.user.office }} - {{od.user.department}})
+                </td>
+            </tr>
+            <tr>
+                <th>전화번호</th><td>{{ od.od_orderer_hp }}</td>
+                <th>이메일</th><td>{{ od.od_orderer_email }}</td>
+            </tr>
+        </table>
+
+        <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
+        <table class="tbl_st address">
+            <tr>
+                <th>수취인</th>
+                <td>
+                    <font-awesome-icon icon="copy" v-b-tooltip="'수취인 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
+                    <div class="cube_box receiver">
+                        <div class="cube" :class="{show_bottom: focusInfo.od_receiver}">
+                            <div class="piece front">{{ od.od_receiver }}</div>
+                            <div class="piece bottom">
+                                <b-form-input v-model="od.od_receiver" @focus="focusInfo.od_receiver = true" @blur="focusInfo.od_receiver = false" size="sm" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <th>전화번호</th>
+                <td>
+                    <font-awesome-icon icon="copy" v-b-tooltip="'전화번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block" />
+                    <div class="cube_box receiver_hp">
+                        <div class="cube" :class="{show_bottom: focusInfo.od_receiver_hp}">
+                            <div class="piece front">{{ od.od_receiver_hp }}</div>
+                            <div class="piece bottom">
+                                <b-form-input v-model="od.od_receiver_hp" @focus="focusInfo.od_receiver_hp = true" @blur="focusInfo.od_receiver_hp = false" size="sm" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    배송주소
+                    <b-button class="teal xm" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">검색</b-button>
+                </th>
+                <td colspan="3">
+                    <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block" />
+                    {{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}
+                </td>
+            </tr>
+            <tr>
+                <th>배송시 요구사항</th><td colspan="3">{{od.od_memo}}</td>
+            </tr>
+        </table>
+
+        <b-row tag="h5"><b-col tag="b">결제정보</b-col></b-row>
+        <table class="tbl_st" v-if="od.od_pay_method == 'B' || od.od_pay_method == 'E'">
+            <tr>
+                <th>결제금액</th><td>{{od.od_all_price | comma | won}}</td>
+                <th>결제예정일</th>
+                <td>{{payPlanDisplay}}</td>
+            </tr>
+            <tr>
+                <th>결제수단</th>
+                <td>
+                    <span v-if="od.od_pay_method=='B'">계좌이체</span>
+                    <span v-else-if="od.od_pay_method=='E'">에스크로</span>
+                </td>
+                <th>입금계좌</th>
+                <td>
+                    <span v-if="od.order_extra_info.oex_bank=='K'">국민은행</span>
+                    <span v-else-if="od.order_extra_info.oex_bank=='W'">우리은행</span>
+                </td>
+            </tr>
+            <tr>
+                <th>입금자</th><td colspan="3">{{od.order_extra_info.oex_depositor}}</td>
+            </tr>
+        </table>
+        <table class="tbl_st" v-else>
+            <tr>
+                <th>결제금액</th><td>{{od.od_all_price | comma | won}}</td>
+                <th>결제예정일</th>
+                <td>{{payPlanDisplay}}</td>
+            </tr>
+            <tr>
+                <th>결제수단</th>
+                <td>
+                    <span v-if="od.od_pay_method=='C'">카드결제</span>
+                    <span v-else-if="od.od_pay_method=='P'">PSYS</span>
+                    <span v-else-if="od.od_pay_method=='R'">원격결제</span>
+
+                    <b-button v-if="od.order_pg && od.order_pg.pg_id" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
+                </td>
+                <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
+            </tr>
+            <tr>
+                <th>결과메세제</th><td>{{od.order_pg.pg_msg}}</td>
+                <th>결제자</th><td>{{od.order_pg.pg_buyer_nm}}</td>
+            </tr>
+        </table>
+
+        <b-row tag="h5"><b-col tag="b">요청서류</b-col></b-row>
+        <table class="tbl_st">
+            <tr>
+                <th>요청서류</th>
+                <td colspan="3">{{reqDocumentDisplay}}</td>
+            </tr>
+            <tr><th>첨부서류 메모</th><td colspan="3" v-html="od.order_extra_info.oex_memo"></td></tr>
+            <template v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'E')">
+                <template v-if="od.order_extra_info.oex_type == 'IV'">
+                    <tr v-if="od.file_info">
+                        <th>사업자등록증</th>
+                        <td>
+                            <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">사업자 등록증 보기</b-button>
+                            <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">사업자 등록증 다운로드</b-button>
+                        </td>
+                    </tr>
+                    <template v-else>
                         <tr>
-                            <th>담당자 이름</th><td>{{od.order_extra_info.oex_mng}}</td>
-                            <th>담당자 메일</th><td>{{od.order_extra_info.oex_email}}</td>
-                            <th>담당자 번호</th><td>{{od.order_extra_info.oex_num}}</td>
+                            <th>법인명</th><td>{{od.order_extra_info.oex_biz_name}}</td>
+                            <th>사업자등록번호</th><td>{{od.order_extra_info.oex_biz_num}}</td>
+                            <th>대표자</th><td>{{od.order_extra_info.oex_ceo}}</td>
                         </tr>
                         <tr>
-                            <th>세금계산서 발급시 요구사항</th><td colspan="5" v-html="od.order_extra_info.oex_requirement"></td>
+                            <th>주소</th><td>{{od.order_extra_info.oex_addr}}</td>
+                            <th>업태</th><td>{{od.order_extra_info.oex_biz_type}}</td>
+                            <th>업종</th><td>{{od.order_extra_info.oex_biz_item}}</td>
                         </tr>
                     </template>
-                    <tr v-else-if="od.order_extra_info.oex_type == 'IVNO'">
-                        <th>지출 증빙 서류</th>
-                        <td colspan="5">세금계산서 입력안함</td>
+                    <tr>
+                        <th>담당자 이름</th><td>{{od.order_extra_info.oex_mng}}</td>
+                        <th>담당자 메일</th><td>{{od.order_extra_info.oex_email}}</td>
+                        <th>담당자 번호</th><td>{{od.order_extra_info.oex_num}}</td>
                     </tr>
-                    <tr v-else-if="od.order_extra_info.oex_type == 'NO'">
-                        <th>지출 증빙 서류</th>
-                        <td colspan="5">미발급</td>
-                    </tr>
-                    <tr v-else>
-                        <th>
-                            지출 증빙 서류<br />
-                            (
-                                <span v-if="od.order_extra_info.oex_type == 'HP'">휴대폰번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'IN'">주민등록번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'CN'">카드번호</span>
-                                <span v-else-if="od.order_extra_info.oex_type == 'BN'">사업자번호</span>
-                            )
-                        </th>
-                        <td colspan="5">{{od.order_extra_info.oex_num}}</td>
+                    <tr>
+                        <th>세금계산서 발급시 요구사항</th><td colspan="5" v-html="od.order_extra_info.oex_requirement"></td>
                     </tr>
                 </template>
-            </table>
-        </div>
-
-        <transition name="modal">
-            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="600">
-                <template v-if="modalType == 'blView'">
-                    <template slot="header">사업자 등록증 보기</template>
-                    <img :src="od.file_info.path" @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" style="max-width: 100%; height: auto;"/>
-                </template>
-
-                <template v-else-if="modalType == 'postCode'">
-                    <template slot="header">우편번호 검색</template>
-                    <VueDaumPostcode class="shadow mt-3" @complete="onPostcodeSlt" :animation="true" />
-                </template>
-
-                <template v-else-if="modalType == 'postDetail'">
-                    <template slot="header">배송지 변경</template>
-                    <b-container class="adform layerModal">
-                        <b-row>
-                            <b-col class="label">우편번호</b-col>
-                            <b-col>{{od.od_zip}}</b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col class="label">주소</b-col>
-                            <b-col>{{od.od_addr1}}</b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col class="label">상세 주소</b-col>
-                            <b-col><b-form-input v-model="od.od_addr2" @keyup.enter="isModalViewed = false" /></b-col>
-                        </b-row>
-                        
-                        <b-row>
-                            <b-col class="ctrl"><b-button @click="isModalViewed = false">완료</b-button></b-col>
-                        </b-row>
-                    </b-container>
-                </template>
-
-                <template v-else-if="modalType == 'sendTransaction'">
-                    <template slot="header">거래명세서 PDF 발송</template>
-                    <b-container class="adform layerModal">
-                        <b-row>
-                            <b-col class="label">공급 날짜</b-col>
-                            <b-col>
-                                <b-input-group size="sm">
-                                    <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
-                                    <b-input-group-append>
-                                        <b-form-datepicker size="sm" v-model="od.trans_date" button-only right></b-form-datepicker>
-                                    </b-input-group-append>
-                                </b-input-group>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col class="label">공급 받는자</b-col>
-                            <b-col><b-form-input v-model="od.trans_receive" /></b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col class="label">받을 Email</b-col>
-                            <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
-                        </b-row>
-                        
-                        <b-row>
-                            <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
-                        </b-row>
-                    </b-container>
-                </template>
-
-                <template v-else-if="modalType == 'dlvyInfo'">
-                    <template slot="header">배송 정보 등록</template>
-                    <b-container class="adform layerModal">
-                        <b-row>
-                            <b-col class="label">운송사</b-col>
-                            <b-col>
-                                <b-form-select v-model="dlvy_info.company" size="sm">
-                                    <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
-                                </b-form-select>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col class="label">송장번호</b-col>
-                            <b-col><b-form-input v-model="dlvy_info.number" /></b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col><b-button variant="success" @click="update('arrival')">배송완료</b-button></b-col>
-                            <b-col class="ctrl"><b-button @click="update('dlvy')">등록</b-button></b-col>
-                        </b-row>
-                    </b-container>
-                </template>
-            </Modal>
-        </transition>
+                <tr v-else-if="od.order_extra_info.oex_type == 'IVNO'">
+                    <th>지출 증빙 서류</th>
+                    <td colspan="5">세금계산서 입력안함</td>
+                </tr>
+                <tr v-else-if="od.order_extra_info.oex_type == 'NO'">
+                    <th>지출 증빙 서류</th>
+                    <td colspan="5">미발급</td>
+                </tr>
+                <tr v-else>
+                    <th>
+                        지출 증빙 서류<br />
+                        (
+                            <span v-if="od.order_extra_info.oex_type == 'HP'">휴대폰번호</span>
+                            <span v-else-if="od.order_extra_info.oex_type == 'IN'">주민등록번호</span>
+                            <span v-else-if="od.order_extra_info.oex_type == 'CN'">카드번호</span>
+                            <span v-else-if="od.order_extra_info.oex_type == 'BN'">사업자번호</span>
+                        )
+                    </th>
+                    <td colspan="5">{{od.order_extra_info.oex_num}}</td>
+                </tr>
+            </template>
+        </table>
     </div>
+
+    <transition name="modal">
+        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="600">
+            <template v-if="modalType == 'blView'">
+                <template slot="header">사업자 등록증 보기</template>
+                <img :src="od.file_info.path" @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" style="max-width: 100%; height: auto;"/>
+            </template>
+
+            <template v-else-if="modalType == 'postCode'">
+                <template slot="header">우편번호 검색</template>
+                <VueDaumPostcode class="shadow mt-3" @complete="onPostcodeSlt" :animation="true" />
+            </template>
+
+            <template v-else-if="modalType == 'postDetail'">
+                <template slot="header">배송지 변경</template>
+                <b-container class="adform layerModal">
+                    <b-row>
+                        <b-col class="label">우편번호</b-col>
+                        <b-col>{{od.od_zip}}</b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">주소</b-col>
+                        <b-col>{{od.od_addr1}}</b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">상세 주소</b-col>
+                        <b-col><b-form-input v-model="od.od_addr2" @keyup.enter="isModalViewed = false" /></b-col>
+                    </b-row>
+                    
+                    <b-row>
+                        <b-col class="ctrl"><b-button @click="isModalViewed = false">완료</b-button></b-col>
+                    </b-row>
+                </b-container>
+            </template>
+
+            <template v-else-if="modalType == 'sendTransaction'">
+                <template slot="header">거래명세서 PDF 발송</template>
+                <b-container class="adform layerModal">
+                    <b-row>
+                        <b-col class="label">공급 날짜</b-col>
+                        <b-col>
+                            <b-input-group size="sm">
+                                <b-form-input v-model="od.trans_date" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date"></b-form-input>
+                                <b-input-group-append>
+                                    <b-form-datepicker size="sm" v-model="od.trans_date" button-only right></b-form-datepicker>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">공급 받는자</b-col>
+                        <b-col><b-form-input v-model="od.trans_receive" /></b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">받을 Email</b-col>
+                        <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
+                    </b-row>
+                    
+                    <b-row>
+                        <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
+                    </b-row>
+                </b-container>
+            </template>
+
+            <template v-else-if="modalType == 'dlvyInfo'">
+                <template slot="header">배송 정보 등록</template>
+                <b-container class="adform layerModal">
+                    <b-row>
+                        <b-col class="label">운송사</b-col>
+                        <b-col>
+                            <b-form-select v-model="dlvy_info.company" size="sm">
+                                <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
+                            </b-form-select>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label">송장번호</b-col>
+                        <b-col><b-form-input v-model="dlvy_info.number" /></b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col><b-button variant="success" @click="update('arrival')">배송완료</b-button></b-col>
+                        <b-col class="ctrl"><b-button @click="update('dlvy')">등록</b-button></b-col>
+                    </b-row>
+                </b-container>
+            </template>
+        </Modal>
+    </transition>
 </div>
 </template>
 

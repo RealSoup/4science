@@ -105,6 +105,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .white { background-color:#FFF; border-color:#CCCCCC; color:#000 !important; }
 .gray { background-color:#B7B7B7; border-color:#B7B7B7; color:#FFF !important; }
 .d_gray { background-color:#4E6479; border-color:#4E6479; color:#FFF !important; }
+.sky { background-color:#44ADF1; border-color:#44ADF1; color:#FFF !important; }
 .blue { background-color:#0094EA; border-color:#0094EA; color:#FFF !important; }
 .mint { background-color:#00A1CB; border-color:#00A1CB; color:#FFF !important; }
 .d_blue { background-color:#0E4D9C; border-color:#0E4D9C; color:#FFF !important; }

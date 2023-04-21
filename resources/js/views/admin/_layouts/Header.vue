@@ -156,7 +156,7 @@ export default {
 <style lang="css" scoped>
 #header { background:#4E647B; }
 #header .layout nav { z-index:1021; }
-#header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 0.5vw; font-size: calc(.25vw + .7rem); }
+#header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 1.3vw; font-size: calc(.25vw + .7rem); }
 #header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
 #header .layout nav .go_shop { margin-left:30px; }
 
@@ -164,7 +164,9 @@ export default {
 @keyframes blink { 50% { opacity: 0; } }
 
 
+@media (max-width: 1200px){
+    #header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 0.5vw; font-size: calc(.25vw + .7rem); }
 
-    
+}
 
 </style>

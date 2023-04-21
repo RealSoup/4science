@@ -158,7 +158,7 @@ class OrderController extends Controller {
 			'od_pay_method'    => NULL,
 			'od_sale_env'      => NULL,
 			'ip'               => NULL,
-			'created_id'       => auth()->user()->id
+			'created_id'       => $req->filled('estimate_req')	? $req->estimate_req['created_id'] : 0,
 		], 'od_id');
 		foreach ($req->collect['lists'] as $pa_id => $pa) {
 			$insert_tmp = array();
@@ -252,7 +252,7 @@ class OrderController extends Controller {
 		// $params['site_code'] = config('const.dlvy.siteCode');
 		// $params['dlvy_com_code'] = config('const.dlvy.dlvyComCode');
 		// $params['refund_bank_code'] = config('const.iamport.bank_code');
-		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('orderPg')->with('mng')->find($od_id);
+		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('orderPg')->with('mng')->with('user')->find($od_id);
 		if ($data->mng)
 			$data->mng->userMng;
 		foreach ($data->orderPurchaseAt as $opa) {

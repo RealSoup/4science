@@ -287,6 +287,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4712,10 +4719,42 @@ var render = function () {
                         attrs: { title: "작성자" },
                       },
                       [
-                        _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                        _vm._v(_vm._s(_vm.board.bo_writer)),
+                        _vm.board.created_id
+                          ? _c(
+                              "b-link",
+                              {
+                                staticClass: "col",
+                                attrs: {
+                                  to: {
+                                    name: "adm_user_edit",
+                                    params: { id: _vm.board.created_id },
+                                  },
+                                },
+                              },
+                              [
+                                _c("font-awesome-icon", {
+                                  attrs: { icon: "user" },
+                                }),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.board.bo_writer) +
+                                    "\r\n                        "
+                                ),
+                              ],
+                              1
+                            )
+                          : [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "user" },
+                              }),
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.board.bo_writer) +
+                                  "\r\n                        "
+                              ),
+                            ],
                       ],
-                      1
+                      2
                     ),
                     _vm._v(" "),
                     _c(

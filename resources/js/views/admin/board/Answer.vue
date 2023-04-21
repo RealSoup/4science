@@ -25,7 +25,11 @@ v-model="something"
             <b-row>
                 <b-col>
                     <span v-b-tooltip.hover title="작성번호"><font-awesome-icon icon="tags" />{{ board.bo_id }}</span>
-                    <span v-b-tooltip.hover title="작성자"><font-awesome-icon icon="user" />{{ board.bo_writer }}</span>
+                    <span v-b-tooltip.hover title="작성자">
+                        <b-link v-if="board.created_id" :to="{name: 'adm_user_edit', params: { id:board.created_id }}" class="col">
+                            <font-awesome-icon icon="user" />{{ board.bo_writer }}
+                        </b-link>
+                    </span>
                     <span v-b-tooltip.hover title="작성일"><b-icon-calendar-date />{{ board.created_at | formatDate }}</span>
                 </b-col>
             </b-row>
@@ -47,7 +51,7 @@ v-model="something"
                 </b-col>
             </b-row>
             <b-row>
-                <b-col v-b-tooltip="'내용'" v-html="nl2br(board.bo_content)" />
+                <b-col v-b-tooltip="'내용'"><p v-html="nl2br(board.bo_content)" /></b-col>
             </b-row>
             <b-row>
                 <b-col>
