@@ -769,7 +769,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.1';
+@import '/css/adm_shop_order_edit.css?ver=1.3';
 .p_wrap { padding-top:1rem; }
 .p_wrap .print_mng_nm { display:none; }
 .p_wrap .print_hide { display:block !important; }
