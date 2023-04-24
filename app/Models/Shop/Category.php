@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\{DB, Validator, Input};
+use Illuminate\Support\Facades\{DB, Validator, Input, Cache};
 use Storage;
 
 class Category extends Model {
@@ -42,7 +42,7 @@ class Category extends Model {
     public function getName($ca_id) { return $this->find($ca_id)->ca_name; }
 
     public static function getSelectedCate ($ca01=0, $ca02=0, $ca03=0) {
-        $cate = Storage::disk('local')->get('category.json');
+        $cate = Cache::get('categoryAll');
         $rst = Array();
         $rst[0] = self::filterCate($cate);
         foreach ($cate as $v_1){
