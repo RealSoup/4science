@@ -6,8 +6,9 @@ use App\Models\Shop\EstimateReply;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -75,10 +76,10 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', number_format($this->er->er_gd_price)];
         $data[] = ['V. A. T.', '', '', '', '', '', '', number_format($this->er->er_surtax)];
         if ($this->er->er_no_dlvy_fee !== 'Y') {
-            $data[] = ['배송료', '', '', '', '', '', '', number_format($this->er->er_dlvy_price)];
-            if ($this->er->er_air_price) {
+            if ($this->er->er_dlvy_price > 0) 
+                $data[] = ['배송료', '', '', '', '', '', '', number_format($this->er->er_dlvy_price)];
+            if ($this->er->er_air_price)
                 $data[] = ['항공운임료', '', '', '', '', '', '', number_format($this->er->er_air_price)];
-            }
         }
         $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', number_format($this->er->er_all_price)];
         $data[] = [''];
@@ -169,9 +170,11 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
 
         if ($this->er->er_no_dlvy_fee !== 'Y'){
-            $addRow++;
-            $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-            $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+            if ($this->er->er_dlvy_price > 0) {
+                $addRow++;
+                $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
+                $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+            }
 
             if ($this->er->er_air_price) {
                 $addRow++;
@@ -373,9 +376,11 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
 
         if ($this->er->er_no_dlvy_fee !== 'Y'){
-            $addRow++;
-            $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-            $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
+            if ($this->er->er_dlvy_price > 0) {
+                $addRow++;
+                $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
+                $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
+            }
             if ($this->er->er_air_price) {
                 $addRow++;
                 $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
@@ -502,6 +507,35 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
 
         return [$drawing, $drawing2];
     }
+
+    public function columnFormats(): array {
+        // FORMAT_NUMBER_COMMA 
+        // 해당 기능없어서 라이브러리 조작
+        // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
+        $rst = [];
+        for ($i=9; $i < $this->row_cnt+9; $i++)
+            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+        
+        $r = $this->row_cnt + 9;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+        $r++;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+
+        if ($this->er->er_no_dlvy_fee !== 'Y') {
+            if ($this->er->er_dlvy_price > 0) {
+                $r++;
+                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+            }
+            if ($this->er->er_air_price) {
+                $r++;
+                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+            }
+        }
+        $r++;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;        
+        return $rst;
+    }
+
 
     public function registerEvents():array {
         $styleArray = [

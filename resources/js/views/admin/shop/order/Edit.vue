@@ -767,7 +767,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css';
+@import '/css/adm_shop_order_edit.css?ver=1.0';
 .p_wrap { padding-top:1rem; }
 .p_wrap .act_ctrl .def_info { line-height:1.9; }
 .p_wrap .act_ctrl .def_info span { margin-left: 2rem; }

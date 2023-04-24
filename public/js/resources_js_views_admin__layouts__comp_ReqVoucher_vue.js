@@ -24,10 +24,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmHeaderReqVoucher',
   props: ['list'],
@@ -62,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh2[data-v-61580ac7] { text-align: center;\n}\nbutton[data-v-61580ac7] { margin:10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh4[data-v-61580ac7] { font-weight:900; margin-bottom:.5rem;\n}\nbutton[data-v-61580ac7] { margin:10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -197,21 +193,11 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-container",
+    "div",
     [
       _c(
         "b-row",
-        [
-          _c(
-            "b-col",
-            [
-              _c("b-alert", { attrs: { show: "" } }, [
-                _c("h2", [_vm._v("상품권 신청")]),
-              ]),
-            ],
-            1
-          ),
-        ],
+        [_c("b-col", { attrs: { tag: "h4" } }, [_vm._v("상품권 신청")])],
         1
       ),
       _vm._v(" "),

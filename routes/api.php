@@ -101,6 +101,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         /*  <<<<<<<<<<<<<<<<<<<<<<      관리자        >>>>>>>>>>>>>>>>>>>>>>>*/
         Route::prefix('admin')->group(function () {
             Route::Get('/', 'Admin\MainController@index');
+            Route::prefix('common')->group(function () {
+                Route::GET('/', 'Admin\CommonController@index');
+            });
             Route::prefix('site')->group(function () {
                 Route::GET('/', 'Admin\SiteController@index');
                 Route::PATCH('/', 'Admin\SiteController@update');
@@ -115,7 +118,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             });
             
             Route::prefix('mileage')->group(function () {
-                Route::GET('requesterVoucher',  'Admin\MileageController@getRequesterVoucher');
                 Route::GET('enable/{id}',       'Admin\MileageController@enable');
                 Route::GET('{id}',              'Admin\MileageController@index');
                 Route::PATCH('{id}',            'Admin\MileageController@update');
@@ -227,7 +229,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             });
 
             //  게시판
-            Route::get('board/requestAsk', 'Admin\BoardController@requestAsk');
             Route::prefix('board/{bo_cd}')->group(function () {
                 Route::GET('',                      'Admin\BoardController@index')->name(   'admin.board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
                 Route::GET('create',                'Admin\BoardController@create')->name(  'admin.board.create')->where('bo_cd', '[a-zA-Z0-9_]+');

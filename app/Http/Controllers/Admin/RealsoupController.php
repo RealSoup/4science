@@ -5,6 +5,21 @@ use Illuminate\Http\Request;
 use DB;
 class RealsoupController extends Controller {
     public function es_update(Request $req) {
+        if(!\Cache::has('lt_cache')) {
+            dump('없다해');
+            $lists = \Cache::remember('lt_cache', 60, function() { //60분 캐싱
+                dump('캐시한다해');
+                return "realsoup 1234";
+            });
+        } else {
+            dump('있다해');
+        }
+
+        if(!Cache::has('categoryAll')) {
+            dump('카테 캐시 없다해');
+        }
+        
+        exit;
         $paarray = [
             14 => ["pa_type" => "LAND", "pa_name" => "덕산", "pa_price" => 0, "mk_no" => 31],
             15 => ["pa_type" => "LAND", "pa_name" => "대정", "pa_price" => 0, "mk_no" => 30],

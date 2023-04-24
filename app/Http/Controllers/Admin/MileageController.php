@@ -53,14 +53,6 @@ class MileageController extends Controller {
         return response()->json("success", 200);
     }
 
-    public function getRequesterVoucher(Request $req) {
-        $ml = $this->mileage->with('user')->Type('REQ')
-                ->when($req->ml_tbl,  fn ($q, $v) => $q->Tbl($v))
-                ->when($req->ml_key,  fn ($q, $v) => $q->Key($v));
-        $ml = $ml->latest()->get();
-        return response()->json($ml, 200);
-    }
-
     public function enable($id) {
         return $this->mileage->enableMileage($id);
     }

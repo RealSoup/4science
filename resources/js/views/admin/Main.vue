@@ -52,7 +52,7 @@
                 </b-row>
                 <div class="body">
                     <b-row class="head">
-                        <b-col>우청일</b-col>
+                        <b-col>요청일</b-col>
                         <b-col>아이디</b-col>
                         <b-col>이름</b-col>
                         <b-col>견적요쳥 내용</b-col>

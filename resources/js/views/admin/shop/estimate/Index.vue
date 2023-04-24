@@ -96,7 +96,7 @@
         </pagination>
     </b-container>
 
-    <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <!-- <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" /> -->
     <!-- <button type="button" @click="openWinPop">윈 팝업 띄우기</button>
     <button type="button" @click="sendToChild">윈 팝업으로 전송</button> -->
 </div>
@@ -109,7 +109,7 @@ export default {
     components: {
         'SchDate': () => import('@/views/_common/SchDate'),
         'List': () => import('./_comp/List'),
-        'WinPopUp': () => import('@/views/_common/WinPopUp'),
+        // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     data() {
         return {
@@ -165,20 +165,20 @@ export default {
 
 
         ////////////////////////////////
-        evtCloseWinPopup( ){
-            console.log( "evtCloseWinPopup () ========  ");
-        },
+        // evtCloseWinPopup( ){
+        //     console.log( "evtCloseWinPopup () ========  ");
+        // },
         
-        openWinPop(url){
-            this.$refs.winPopup.openWinPop( url, 1700, 900 );
-        }, 
+        // openWinPop(url){
+        //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
+        // }, 
         
-        onRecvWinPop( recvObj ){
-            console.log( "onRecvWinPop  ---------" );
-            if(recvObj == 'reread') this.index();
-        },
+        // onRecvWinPop( recvObj ){
+        //     console.log( "onRecvWinPop  ---------" );
+        //     if(recvObj == 'reread') this.index();
+        // },
 
-        sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+        // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
     },
 
     mounted() {

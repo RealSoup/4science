@@ -3,8 +3,9 @@
 <header id="header">
     <div class="layout">
         <b-navbar toggleable="lg" type="dark">
-            <b-navbar-brand :to="{name: 'adm_main'}">
-                <b-img :src="`${s3url}common/logo/admin_logo.png`" />
+            <b-navbar-brand :to="{name: 'adm_main'}" class="logo_link">
+                <!-- <b-img :src="`${s3url}common/logo/admin_logo.png`" /> -->
+                4S Admin
             </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -80,23 +81,29 @@
 
 
                 <b-navbar-nav class="">
-                    <b-button variant="light" size="sm" class="blink"
-                        v-if="reqVoucher.length" 
-                        @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
-                        v-b-tooltip.leftbottom.hover title="상품권 신청"
+                    <b-button class="blink white sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqOrder'"
+                        v-if="reqOrder.length" v-b-tooltip.leftbottom.hover title="주문"
+                    >
+                        주문 ({{reqOrder.length}})</b-button>
+                    <b-button class="blink gray sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqEstimate'"
+                        v-if="reqEstimate.length" v-b-tooltip.leftbottom.hover title="견적"
+                    >
+                        견적 ({{reqEstimate.length}})
+                    </b-button>
+                    <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
+                        v-if="reqVoucher.length" v-b-tooltip.leftbottom.hover title="상품권 신청"
                     >
                         <b-icon-gift /> ({{reqVoucher.length}})
                     </b-button>
-                    <b-button variant="light" size="sm" class="blink"
-                        v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length"
-                        @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
-                        v-b-tooltip.rightbottom.hover title="답변 요청"
+                    <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
+                        v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length" v-b-tooltip.rightbottom.hover title="답변 요청"
                     >
                         <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
                     </b-button>                    
         
-                    <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop">
-                        <b-img :src="`${s3url}common/logo/estimate_logo.png`" />
+                    <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop logo_link">
+                        <!-- <b-img :src="`${s3url}common/logo/estimate_logo.png`" /> -->
+                        4S Shop
                     </b-link>
                 </b-navbar-nav>
             </b-collapse>
@@ -105,8 +112,10 @@
 
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <reqVoucher v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
-            <reqAsk v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
+            <ReqVoucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
+            <ReqAsk      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
+            <ReqOrder    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" />
+            <ReqEstimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" />
         </Modal>
     </transition>
 </header>
@@ -121,8 +130,10 @@ export default {
     name: 'Header',
     components: {
         'Modal'     : () => import('@/views/_common/Modal'),
-        'reqVoucher': () => import('./_comp/ReqVoucher'),
-        'reqAsk'    : () => import('./_comp/ReqAsk'),
+        'ReqOrder'   : () => import('./_comp/ReqOrder'),
+        'ReqEstimate'    : () => import('./_comp/ReqEstimate'),
+        'ReqVoucher': () => import('./_comp/ReqVoucher'),
+        'ReqAsk'    : () => import('./_comp/ReqAsk'),
     },
     computed: {
         ...mapGetters({
@@ -131,41 +142,45 @@ export default {
     },
     data() {
         return {
-            modalMode:'',
+            modalMode    :'',
             isModalViewed: false,
-            reqVoucher: [],
-            reqAsk: {
+            reqOrder     : [],
+            reqEstimate  : [],
+            reqAsk       : {
                 as:[],
                 cancel:[],
                 gd_inquiry:[],
                 inquiry:[],
             },
+            reqVoucher   : [],
         }
     },
 
     async mounted(){
-        //  ml_key=0 => 상품권 요청
-        let res = await ax.get(`api/admin/mileage/requesterVoucher`, { params: {ml_tbl:'voucher', ml_key:0}});
-        if (res && res.status === 200) this.reqVoucher = res.data;
-        
-        res = await ax.get(`api/admin/board/requestAsk`, { params: {type:'cnt'}});
-        if (res && res.status === 200) this.reqAsk = res.data;
+        let res = await ax.get(`api/admin/common`);
+        if (res && res.status === 200) {
+            this.reqOrder    = res.data.reqOrder;
+            this.reqEstimate = res.data.reqEstimate;
+            this.reqAsk      = res.data.reqAsk;
+            this.reqVoucher  = res.data.reqVoucher;
+        }
     }
 }
 </script>
 <style lang="css" scoped>
 #header { background:#4E647B; }
-#header .layout nav { z-index:1021; }
-#header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 1.3vw; font-size: calc(.25vw + .7rem); }
+#header .layout nav { z-index:1021; padding:.5rem 0rem; }
+#header .layout >>> nav .nav-link { color:#fff; padding:.5rem 1.15vw; font-size: calc(.25vw + .7rem); }
 #header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
-#header .layout nav .go_shop { margin-left:30px; }
+#header .layout nav .go_shop { margin-left:15px; color:#fff; font-size:1.25rem; }
+#header .layout nav .logo_link img { width:35px; }
 
-.blink { margin:0 3px; background:#fff; animation: blink 2.5s linear infinite; }
-@keyframes blink { 50% { opacity: 0; } }
+.blink { margin:0 3px; animation: blink 2.5s linear infinite; }
+@keyframes blink { 50% { opacity:.4; } }
 
 
-@media (max-width: 1200px){
-    #header .layout >>> nav .nav-link { color:#fff; padding:0.5rem 0.5vw; font-size: calc(.25vw + .7rem); }
+@media (max-width: 1320px){
+    #header .layout >>> nav .nav-link { color:#fff; padding:.5rem .8vw; }
 
 }
 

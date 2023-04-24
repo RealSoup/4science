@@ -133,10 +133,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'List': function List() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
-    },
-    'WinPopUp': function WinPopUp() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
-    }
+    } // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
+
   },
   data: function data() {
     return {
@@ -223,23 +221,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     price_comma: function price_comma(e) {
       return this.priceComma(e);
-    },
-    ////////////////////////////////
-    evtCloseWinPopup: function evtCloseWinPopup() {
-      console.log("evtCloseWinPopup () ========  ");
-    },
-    openWinPop: function openWinPop(url) {
-      this.$refs.winPopup.openWinPop(url, 1700, 900);
-    },
-    onRecvWinPop: function onRecvWinPop(recvObj) {
-      console.log("onRecvWinPop  ---------");
-      if (recvObj == 'reread') this.index();
-    },
-    sendToChild: function sendToChild() {
-      this.$refs.winPopup.sendEvtToChild({
-        msg: 'abcde'
-      });
-    }
+    } ////////////////////////////////
+    // evtCloseWinPopup( ){
+    //     console.log( "evtCloseWinPopup () ========  ");
+    // },
+    // openWinPop(url){
+    //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
+    // }, 
+    // onRecvWinPop( recvObj ){
+    //     console.log( "onRecvWinPop  ---------" );
+    //     if(recvObj == 'reread') this.index();
+    // },
+    // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+
   },
   mounted: function mounted() {
     this.index();
@@ -862,18 +856,6 @@ var render = function () {
         ],
         1
       ),
-      _vm._v(" "),
-      _c("WinPopUp", {
-        ref: "winPopup",
-        on: {
-          onClose: function (val) {
-            return _vm.evtCloseWinPopup(val)
-          },
-          onRecvEvtFromWinPop: function (val) {
-            return _vm.onRecvWinPop(val)
-          },
-        },
-      }),
     ],
     1
   )

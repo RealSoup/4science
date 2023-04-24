@@ -467,7 +467,7 @@ var render = function () {
                         "b-row",
                         { staticClass: "head" },
                         [
-                          _c("b-col", [_vm._v("우청일")]),
+                          _c("b-col", [_vm._v("요청일")]),
                           _vm._v(" "),
                           _c("b-col", [_vm._v("아이디")]),
                           _vm._v(" "),

@@ -19,7 +19,7 @@ class BoardController extends Controller {
     protected $param;
 
     public function __construct(Request $req, Board $board) {
-        if(isset($req->bo_cd) && $req->bo_cd !== 'requestask') {
+        if(isset($req->bo_cd)) {
             $board->setCode(isset($req->bo_cd) ? $req->bo_cd : 'notice');
             $this->board = $board;
             $this->param['config'] = $board->config;
@@ -56,17 +56,6 @@ class BoardController extends Controller {
         $this->param['list'] = $bo;
         return response()->json($this->param);
 
-    }
-
-    public function requestAsk(Request $req) {
-        $rst['inquiry']    = DB::table('board_inquiry')   ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['as']         = DB::table('board_as')        ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['cancel']     = DB::table('board_cancel')    ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
-        $rst['gd_inquiry'] = DB::table('board_gd_inquiry')->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
-
-
-        
-        return response()->json($rst);
     }
     
     public function create($bo_cd) {
