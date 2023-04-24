@@ -85,6 +85,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                   _this.$emit('recount');
 
+                  Notify.toast('success', '추가 완료');
                   _this.$refs['ca_name_id' + _this.gene_idx].$el.value = '';
                   _this.$refs['ca_tel_id' + _this.gene_idx].$el.value = '';
                 }

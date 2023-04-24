@@ -40,16 +40,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'category',
   components: {
     'TreeView': function TreeView() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_TreeView_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./TreeView.vue */ "./resources/js/views/admin/shop/category/TreeView.vue"));
+    },
+    'LoadingModal': function LoadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
   data: function data() {
     return {
+      isLoadingModalViewed: false,
       ca: {
         "ca_id": 0,
         "ca_papa": 0,
@@ -94,6 +106,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    rewrite: function rewrite() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var rst, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return Notify.confirm('카테고리 캐시파일을 업데이트', 'danger');
+
+              case 2:
+                rst = _context2.sent;
+
+                if (!rst) {
+                  _context2.next = 9;
+                  break;
+                }
+
+                _this2.isLoadingModalViewed = true;
+                _context2.next = 7;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/category/rewrite");
+
+              case 7:
+                res = _context2.sent;
+
+                if (res && res.status === 200) {
+                  _this2.isLoadingModalViewed = false;
+                  Notify.modal("업데이트 완료.", 'success');
+                }
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     },
     getSub: function getSub(ca) {
@@ -269,7 +321,46 @@ var render = function () {
             "b-col",
             { attrs: { sm: "12", md: "10", lg: "6" } },
             [
-              _c("h3", { staticClass: "p_tit" }, [_vm._v("카테고리")]),
+              _c(
+                "transition",
+                { attrs: { name: "fade" } },
+                [
+                  _vm.isLoadingModalViewed
+                    ? _c(
+                        "LoadingModal",
+                        {
+                          attrs: { position: "" },
+                          on: {
+                            "close-modal": function ($event) {
+                              _vm.isLoadingModalViewed = false
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    카테고리 갱신 중 ......\r\n                "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "h3",
+                { staticClass: "p_tit" },
+                [
+                  _vm._v("\r\n                카테고리\r\n                "),
+                  _c(
+                    "b-button",
+                    { on: { click: _vm.rewrite } },
+                    [_c("b-icon-recycle")],
+                    1
+                  ),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "b-card",

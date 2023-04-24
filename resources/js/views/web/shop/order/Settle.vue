@@ -95,6 +95,7 @@
                 </div>
 
                 <div id="address" class="address">
+                    <PopUp /> <!-- 팝업 -->
                     <h4>
                         <span>03. 배송지 정보</span>
                         <div>
@@ -352,6 +353,7 @@ export default {
         'AddrIndex'     : () => import('@/views/web/_module/addr/Index'),
         'AddrCreate'    : () => import('@/views/web/_module/addr/Create'),
         'AddrEdit'      : () => import('@/views/web/_module/addr/Edit'),
+        'PopUp'         : () => import('@/views/web/_module/PopUp'),
     },
     watch: {
         'order.od_pay_method': {
@@ -781,6 +783,7 @@ export default {
 #settle .st_bottom .inputs div .row .col .btn { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989; }
 #settle .st_bottom .inputs div .row .col svg { margin:0 .5rem; }
 
+#settle .st_bottom .inputs .address { position:relative; }
 #settle .st_bottom .inputs .address h4 { display:flex; align-items:center; justify-content:space-between; }
 #settle .st_bottom .inputs .address h4 div { display:flex; justify-content:flex-end; align-items:center; }
 #settle .st_bottom .inputs .address h4 div>>>label { font-size:1rem; margin-right:1rem; }

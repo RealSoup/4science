@@ -127,7 +127,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('category/index_init', 'Admin\Shop\CategoryController@indexInit')->name('category.index_init');
                 Route::GET('category/ca_name/{ca_id}', 'Admin\Shop\CategoryController@getName')->name('category.ca_name');
                 Route::POST('category/set_seq', 'Admin\Shop\CategoryController@setSeq')->name('category.setSeq');
-                Route::POST('category/set_seq', 'Admin\Shop\CategoryController@setSeq')->name('category.setSeq');
+                Route::GET('category/rewrite', 'Admin\Shop\CategoryController@rewrite')->name('category.rewrite');
                 Route::resource('category', 'Admin\Shop\CategoryController', [
                     'except'    => [ 'edit', 'create' ],
                     'names'     => [

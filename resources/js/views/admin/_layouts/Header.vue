@@ -3,10 +3,7 @@
 <header id="header">
     <div class="layout">
         <b-navbar toggleable="lg" type="dark">
-            <b-navbar-brand :to="{name: 'adm_main'}" class="logo_link">
-                <!-- <b-img :src="`${s3url}common/logo/admin_logo.png`" /> -->
-                4S Admin
-            </b-navbar-brand>
+            <b-navbar-brand :to="{name: 'adm_main'}" class="logo_link"><b-img :src="`${s3url}common/logo/admin.png`" /></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -102,8 +99,7 @@
                     </b-button>                    
         
                     <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop logo_link">
-                        <!-- <b-img :src="`${s3url}common/logo/estimate_logo.png`" /> -->
-                        4S Shop
+                        <b-img :src="`${s3url}common/logo/admin_4s.png`" />
                     </b-link>
                 </b-navbar-nav>
             </b-collapse>
@@ -173,7 +169,7 @@ export default {
 #header .layout >>> nav .nav-link { color:#fff; padding:.5rem 1.15vw; font-size: calc(.25vw + .7rem); }
 #header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
 #header .layout nav .go_shop { margin-left:15px; color:#fff; font-size:1.25rem; }
-#header .layout nav .logo_link img { width:35px; }
+#header .layout nav .logo_link img { width:85px; }
 
 .blink { margin:0 3px; animation: blink 2.5s linear infinite; }
 @keyframes blink { 50% { opacity:.4; } }

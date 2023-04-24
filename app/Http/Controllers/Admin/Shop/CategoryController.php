@@ -46,7 +46,6 @@ class CategoryController extends Controller {
 		$this->category->ca_seq  = $req->filled('ca_seq') ? trim($req->ca_seq) : 0;
 		$this->category->ca_tel  = $req->filled('ca_tel') ? trim($req->ca_tel) : NULL;
 		if ($this->category->save()) {
-			self::cateCacheReload();
 			return response()->json(["msg"=>"success", 'ca_id'=>$this->category->ca_id], 200);
 		}
     }
@@ -56,7 +55,6 @@ class CategoryController extends Controller {
 		$cate->ca_name = trim($req->ca_name);
 		$cate->ca_tel  = trim($req->ca_tel);
 		$cate->save();
-		self::cateCacheReload();
 		return response()->json('success', 200);
     }
 
@@ -68,7 +66,6 @@ class CategoryController extends Controller {
 			$val->ca_seq = $seq;
 			$val->save();
 		}
-		self::cateCacheReload();
 		return response()->json('success', 200);
 	}
 
@@ -84,7 +81,6 @@ class CategoryController extends Controller {
 			else
 				$msg = "카테고리 삭제 실패";
 		}
-		self::cateCacheReload();
 		return response()->json(["msg"=>$msg], $resCode);
     }
 
@@ -93,9 +89,10 @@ class CategoryController extends Controller {
 			return $ca->ca_name;
 	}
 
-	public function cateCacheReload() {
-		Cache::forget('categoryAll');
-		Cache::put('categoryAll', $this->category->cateTree());
-		
+	public function rewrite() {
+		$k = uniqid();
+		DB::table('shop_category')->where('ca_id', 1)->update(['ca_name' => $k]);
+		$this->category->writeCateJsonFile();
 	}
+	
 }

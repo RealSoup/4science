@@ -2,7 +2,15 @@
 <b-container class="p_wrap">
     <b-row class="justify-content-center">
         <b-col sm="12" md="10" lg="6">
-            <h3 class="p_tit">카테고리</h3>
+            <transition name="fade">
+                <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="''">
+                    카테고리 갱신 중 ......
+                </LoadingModal>
+            </transition>
+            <h3 class="p_tit">
+                카테고리
+                <b-button @click="rewrite"><b-icon-recycle /></b-button>
+            </h3>
             <b-card >
                 <tree-view
                     :cate = "ca.subCate"
@@ -24,9 +32,11 @@ export default {
     name: 'category',
     components: {
         'TreeView': () => import('./TreeView.vue'),
+        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
+            isLoadingModalViewed:false,
             ca:{
                 "ca_id": 0,
                 "ca_papa": 0,
@@ -45,6 +55,17 @@ export default {
             if (res && res.status === 200) {
                 if (ca_id == 0) this.ca.subCate = res.data;
                 else            this.$set(ca, 'subCate', res.data);
+            }
+        },
+        async rewrite(){
+            var rst = await Notify.confirm('카테고리 캐시파일을 업데이트', 'danger');
+            if (rst) {
+                this.isLoadingModalViewed=true;
+                const res = await ax.get(`/api/admin/shop/category/rewrite`);
+                if (res && res.status === 200) {
+                    this.isLoadingModalViewed=false;
+                    Notify.modal("업데이트 완료.", 'success');
+                }
             }
         },
         getSub(ca){ this.index(ca); },

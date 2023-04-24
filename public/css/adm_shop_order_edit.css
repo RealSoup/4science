@@ -88,6 +88,7 @@
 .p_wrap .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
 .p_wrap .extra_info table tr:last-child td { border-right-width:0; }
 .p_wrap .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }
+.p_wrap .extra_info .address .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }
 .cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }
 .cube_box, 
 .cube_box * { box-sizing: border-box; }

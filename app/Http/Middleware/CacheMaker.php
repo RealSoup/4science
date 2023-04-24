@@ -31,9 +31,15 @@ class CacheMaker {
             $u = User::whereHas('UserMng')->get()->keyBy('id');      
             Cache::forever('UserMngOff', json_decode($u, true));  //  배열 형태로 들어감
         }
-        if(!Cache::has('categoryAll')) {
-            $ca = new Category;    
-            Cache::forever('categoryAll', json_decode($ca->cateTree(), true));  //  배열 형태로 들어감
+
+        $ca = new Category;
+        $db_key = $ca->find(1)->ca_name;
+        $cache_key = Cache::get('cate_cache_modify_key');
+        if(!($db_key == $cache_key && Cache::has("categoryAll"))) {
+            Cache::forever("cate_cache_modify_key", $db_key); 
+            Cache::forever("categoryAll", json_decode(
+                \Illuminate\Support\Facades\Storage::disk('local')->get('category.json'), true
+            ));  //  배열 형태로 들어감
         }
         return $next($request);
         // \Auth::logout();

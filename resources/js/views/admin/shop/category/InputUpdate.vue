@@ -28,7 +28,10 @@ export default {
         async update(){
             try {
                 const res = await ax.post(`/api/admin/shop/category/${this.ca.ca_id}`, {_method : 'PATCH', ca_name:this.ca.ca_name, ca_tel:this.ca.ca_tel});
-                if (res && res.status === 200) this.ca.update=false;
+                if (res && res.status === 200) {
+                    this.ca.update=false;
+                    Notify.toast('success', '변경 완료');
+                }
             } catch (e) {
                 this.errorConsolePrint(e);
             }

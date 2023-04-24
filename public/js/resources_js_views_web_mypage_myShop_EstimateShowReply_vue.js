@@ -362,7 +362,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.air_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.air;
       }, 0);
-      this.surtax = this.gd_price * 0.1;
+      this.surtax = Number((this.gd_price * 0.1).toFixed());
 
       for (var key in collect) {
         if (key == 0) {

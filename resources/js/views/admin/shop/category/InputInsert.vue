@@ -39,7 +39,7 @@ export default {
                 if (res && res.status === 200) {
                     this.cate.push(Object.assign(newCate, {ca_id:res.data.ca_id}));
                     this.$emit('recount');
-
+                    Notify.toast('success', '추가 완료');
                     this.$refs['ca_name_id'+this.gene_idx].$el.value = '';
                     this.$refs['ca_tel_id'+this.gene_idx].$el.value = '';
                 }

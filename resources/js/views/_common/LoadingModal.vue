@@ -1,6 +1,7 @@
 <template>
     <div class="rs_modal" :class="classObject">
-        <div class="overlay" @click="$emit('close-modal')"></div>
+        <!-- <div class="overlay" @click="$emit('close-modal')"></div> -->
+		<div class="overlay"></div>
         <div class="rs_modal-card">
 			<b-img :src="`${s3url}common/logo/logo_loading.gif`" />
             <!-- <div class="cssload-container">

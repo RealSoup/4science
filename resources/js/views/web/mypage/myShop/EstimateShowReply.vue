@@ -235,7 +235,7 @@ export default {
 
             this.gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
             this.air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
-            this.surtax = this.gd_price*0.1;
+            this.surtax = Number((this.gd_price*0.1).toFixed());
             for (var key in collect) {
                 if(key == 0) {
                     if (collect[key].dlvy && collect[key].goods < collect[key].free_dlvy_max) this.dlvy_4s = Number(collect[key].dlvy);                    

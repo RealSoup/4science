@@ -192,9 +192,15 @@
 
             <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
             <table class="tbl_st address">
+                <colgroup>
+                    <col width="15%" />
+                    <col width="35%" />
+                    <col width="15%" />
+                    <col width="35%" />
+                </colgroup>
                 <tr>
                     <th>수취인</th>
-                    <td>
+                    <td class="position-relative">
                         <font-awesome-icon icon="copy" v-b-tooltip="'수취인 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block" />
                         <div class="cube_box receiver">
                             <div class="cube" :class="{show_bottom: focusInfo.od_receiver}">
@@ -204,6 +210,7 @@
                                 </div>
                             </div>
                         </div>
+                        <span v-if="od.od_receiver != od.od_orderer" class="warning">* 주문자와 수취인이 다릅니다.</span>
                     </td>
                     <th>전화번호</th>
                     <td>
@@ -587,7 +594,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.4'
+                '/css/adm_shop_order_edit.css?ver=1.5'
             ]});
         },
 

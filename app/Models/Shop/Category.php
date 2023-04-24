@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\{DB, Validator, Input};
+use Storage;
 
 class Category extends Model {
     use SoftDeletes;
@@ -41,7 +42,7 @@ class Category extends Model {
     public function getName($ca_id) { return $this->find($ca_id)->ca_name; }
 
     public static function getSelectedCate ($ca01=0, $ca02=0, $ca03=0) {
-        $cate = \Cache::get('categoryAll');
+        $cate = Storage::disk('local')->get('category.json');
         $rst = Array();
         $rst[0] = self::filterCate($cate);
         foreach ($cate as $v_1){
@@ -71,16 +72,15 @@ class Category extends Model {
         return $rst;
     }
 
-    public function cateTree01(int $ca_id=0, int $depth=1) {
+    public function getCateTree(int $ca_id=0, int $depth=1) {
 		$ca = self::select('ca_id', 'ca_papa', 'ca_name', 'ca_seq', 'ca_seq')->ca_papa($ca_id)->oldest('ca_seq')->get()->toArray();
 		if ($depth < 4) {
 			foreach ($ca as $key => $val)
-				$ca[$key]['sub'] = self::cateTree($val['ca_id'], $depth+1);
+				$ca[$key]['sub'] = self::getCateTree($val['ca_id'], $depth+1);
 		}
 		return $ca;
     }
-    public function cateTree(int $ca_id=0, int $depth=1) {
-        $json_string = file_get_contents("xx.json");
-        return $json_string;
+    public function writeCateJsonFile() {
+        Storage::disk('local')->put('category.json', json_encode(self::getCateTree()));
     }
 }

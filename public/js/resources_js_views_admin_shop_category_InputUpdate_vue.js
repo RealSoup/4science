@@ -73,7 +73,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
                 res = _context.sent;
-                if (res && res.status === 200) _this.ca.update = false;
+
+                if (res && res.status === 200) {
+                  _this.ca.update = false;
+                  Notify.toast('success', '변경 완료');
+                }
+
                 _context.next = 10;
                 break;
 

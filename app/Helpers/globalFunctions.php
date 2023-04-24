@@ -37,7 +37,7 @@ if (! function_exists('rrp')) { //  RECOMMENDED RETAIL PRICE     권장 소비�
 
 if (! function_exists('surtax')) { //  부가세 계산
     function surtax($price, $comma=0) {
-        $price = $price*0.1;
+        $price = floor($price*0.1);
         return $comma ? number_format($price) : $price;
     }
 }

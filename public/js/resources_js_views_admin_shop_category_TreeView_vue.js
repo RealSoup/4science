@@ -223,32 +223,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log(e);
-                _context2.prev = 1;
-                _context2.next = 4;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/admin/shop/category/set_seq', {
                   ca_seq: e.moved.newIndex,
                   old_ca_seq: e.moved.oldIndex,
                   ca_papa: e.moved.element.ca_papa
                 });
 
-              case 4:
+              case 3:
                 res = _context2.sent;
                 if (res && res.status === 200) Notify.toast('success', '순서 변경 완료');
-                _context2.next = 11;
+                _context2.next = 10;
                 break;
 
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](1);
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
                 Notify.consolePrint(_context2.t0);
 
-              case 11:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[1, 8]]);
+        }, _callee2, null, [[0, 7]]);
       }))();
     }
   },

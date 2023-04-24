@@ -164,7 +164,6 @@ export default {
         },
 
         async sortUpdate(e) {
-            console.log(e);
             try {
                 const res = await ax.post('/api/admin/shop/category/set_seq', {
                     ca_seq:e.moved.newIndex,
