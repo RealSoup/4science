@@ -10,7 +10,7 @@
                     <span>주문번호</span> <b>{{ od.od_no }}</b>
                     <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
                 </b-col>
-                <b-col class="btn_area">
+                <b-col class="btn_area print_hide_flex">
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
 
                     <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
@@ -180,11 +180,13 @@
                     <th>주문자</th><td><b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link></td>
                     <th>전화번호</th><td>{{ od.od_orderer_hp }}</td>
                     <th>이메일</th><td>{{ od.od_orderer_email }}</td>
-                    <th>소속</th><td>{{ od.od_department }} </td>
                 </tr>
                 <tr>
-                    <th>직장 / 학교</th><td colspan="2">{{ od.user.office }} </td>
-                    <th>부서 / 학과 / 연구실</th><td colspan="4">{{ od.user.department }} </td>
+                    <th>소속</th><td colspan="5">{{ od.od_department }} </td>
+                </tr>
+                <tr>
+                    <th>직장 / 학교</th><td>{{ od.user.office }} </td>
+                    <th>부서 / 학과 / 연구실</th><td colspan="3">{{ od.user.department }} </td>
                 </tr>
             </table>
 
