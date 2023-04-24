@@ -18,7 +18,7 @@ class CommonController extends Controller {
     }
 
     public function index(Request $req) {
-        $rst['reqOrder'] = $this->order->StartDate(date('Y-m-d'))->where('od_mng', '>', 0)->latest()->get();
+        $rst['reqOrder'] = $this->order->StartDate(date('Y-m-d'))->whereNull('od_mng')->latest()->get();
         $rst['reqEstimate'] = $this->estimateReq->EqStep('DONOT')->StartDate(date('Y-m-d'))->latest()->get();
         
         $rst['reqAsk']['inquiry']    = DB::table('board_inquiry')   ->select('bo_id', 'bo_subject', DB::raw('COUNT(bo_seq) AS cnt'))->groupBy('bo_seq')->having('cnt', 1)->get();
