@@ -3,7 +3,7 @@
     <div class="p_wrap">
         <h3 class="p_tit">주문 상세</h3>
         <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
-        <div class="act_ctrl print_hide">
+        <div class="act_ctrl">
             <b-row cols="1" cols-md="2">
                 <b-col class="def_info">
                     <span>No.</span> <b>{{od.od_id}}.</b>
@@ -769,14 +769,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.0';
+@import '/css/adm_shop_order_edit.css?ver=1.1';
 .p_wrap { padding-top:1rem; }
-.p_wrap .act_ctrl .def_info { line-height:1.9; }
-.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }
-.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }
-.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; }
-.p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
-.p_wrap .act_ctrl .btn_area .input-group { max-width:170px; }
 .p_wrap .print_mng_nm { display:none; }
 .p_wrap .print_hide { display:block !important; }
 .p_wrap .print_hide_flex { display:flex !important; }

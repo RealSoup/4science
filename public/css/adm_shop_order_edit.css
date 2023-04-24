@@ -17,6 +17,12 @@
 .p_wrap .print_hide_inline_block { display:none !important; }
 .p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }
 
+.p_wrap .act_ctrl .def_info { line-height:1.9; }
+.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }
+.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }
+.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; }
+.p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
+.p_wrap .act_ctrl .btn_area .input-group { max-width:170px; }
 .p_wrap .print_mng_nm { top:30px; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; }
 .p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
