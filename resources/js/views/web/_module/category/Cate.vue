@@ -79,7 +79,9 @@
                 </transition>
                 <transition name="slideUpDown">
                     <div v-if="cus_hover" class="icon_cell">
-                        <i>주문제작</i>
+                        <b-link :to="{name: 'estimate_custom_index' }" style="padding:0;">
+                            <i>주문제작</i>
+                        </b-link>
                     </div>
                 </transition>
             </span>

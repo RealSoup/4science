@@ -42,6 +42,10 @@ class OrderController extends Controller {
 		$this->category = $cate;
 		$this->user = $us;
 		$this->orderExtraInfo = $oex;
+
+		$option = ['defaultPaperSize'=>'a4', 'isRemoteEnabled' => true, 'isHtml5ParserEnabled' => true,];
+        if (config('app.env') == "production") { $option['isRemoteEnabled'] = true; }
+        $this->pdf = PDF::setOptions($option);
     }
 
 	public function index(Request $req) {
@@ -112,7 +116,8 @@ class OrderController extends Controller {
 		if ($req->filled('limit'))
             $data['list'] = $orders->latest('od_id')->limit($req->limit)->get();
         else {
-			$data['list'] = $orders->latest('od_id')->paginate();
+			$list_size = $req->filled('list_size') ? $req->list_size : 20;
+			$data['list'] = $orders->latest('od_id')->paginate($list_size);
 			$data['list']->appends($input)->links();
 		}
 

@@ -142,7 +142,7 @@ export default {
         this.frm.eq_hp03 = eq_hp[2];
         this.frm.eq_email01 = eq_email[0];
         this.frm.eq_email02 = eq_email[1];
-        this.frm.eq_department = Auth.user().department;
+        this.frm.eq_department = Auth.user().office+' '+Auth.user().department;
     },
 }
 </script>

@@ -83,9 +83,14 @@
     </b-container>
     
     <b-container class="cmain">
-        <b-row>
+        <b-row class="list_top">
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col sm="12" md="6" class="text-right">
+                <b-form-select v-model="sch_frm.list_size">
+                    <b-form-select-option value="20">20개</b-form-select-option>
+                    <b-form-select-option value="50">50개</b-form-select-option>
+                    <b-form-select-option value="100">100개</b-form-select-option>
+                </b-form-select>
                 <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
@@ -128,10 +133,18 @@ export default {
                 mng_group:'',
                 keyword_type:'eq_name',
                 keyword:'',
-                page:0
+                page:0,
+                list_size:20,
             },
         }
     },
+    watch: {
+		'sch_frm.list_size': {
+			handler() {
+				this.index();
+			}
+		}
+	},
     methods: {
         routerPush(){
             this.$router.push({name: 'adm_estimate_index', query: this.sch_frm }).catch(()=>{});
@@ -197,5 +210,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.cmain .list_top select { display: inline-block; max-width: 7rem; }
 </style>

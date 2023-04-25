@@ -1,6 +1,6 @@
 <template>
 <div id="adm_estimate_show" class="p_wrap">
-    <h3 class="p_tit">견적 요청</h3>
+    <h3 class="p_tit">견적 응답</h3>
     <div class="act_ctrl">
         <b-row cols="1" cols-md="2">
             <b-col class="def_info">
@@ -27,6 +27,40 @@
                 </b-dropdown>
                 <b-button @click="print" class="sm">인쇄</b-button>
                 <b-button class="red sm" @click="destroy"><b-icon icon="trash-fill" /> 삭제</b-button>
+            </b-col>
+        </b-row>
+    </div>
+
+    <div class="box est_frm">
+        <h5>요청자 정보</h5>
+        <b-row>
+            <b-col>견적요청번호</b-col><b-col>{{ frm.estimate_req.eq_id }}</b-col>
+            <b-col>요청일자</b-col><b-col>{{ frm.estimate_req.created_at }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>요청자</b-col>
+            <b-col>
+                <b-link v-if="frm.estimate_req.created_id" @click="openWinPop(`/admin/user/${frm.estimate_req.created_id}/edit`, 1700, 900)">
+                    {{ frm.estimate_req.eq_name }}
+                </b-link>
+                <template v-else>{{ frm.estimate_req.eq_name }}</template>
+            </b-col>
+            <b-col>연락처</b-col><b-col>{{ frm.estimate_req.eq_hp }}<span v-if="frm.estimate_req.eq_tel"> / {{ frm.estimate_req.eq_tel }}</span> </b-col>
+        </b-row>
+        <b-row>
+            <b-col>소속</b-col><b-col>{{ frm.estimate_req.eq_department }}</b-col>
+            <b-col>이메일</b-col><b-col>{{ frm.estimate_req.eq_email }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>문의사항</b-col>
+            <b-col><p v-html="nl2br(frm.estimate_req.eq_content)" /></b-col>
+        </b-row>
+        <b-row>
+            <b-col>첨부파일</b-col>
+            <b-col>
+                <b-button v-for="(file, i) in frm.estimate_req.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                    {{file.fi_original}}
+                </b-button>
             </b-col>
         </b-row>
     </div>
@@ -59,7 +93,10 @@
             <b-col>{{em.em_unit}}</b-col>
             <b-col>{{em.em_price | comma}}</b-col>
             <b-col>{{em.em_ea | comma}}</b-col>
-            <b-col>{{em.em_price*em.em_ea | comma}}</b-col>
+            <b-col class="em_sum">
+                {{em.em_price*em.em_ea | comma}}
+                <b-form-checkbox button v-model="em.dlvy_all_in" @change="DlvyAllIn(em.em_id)">배송비 포함</b-form-checkbox>
+            </b-col>
             
             <b-col cols="12" v-if="em.estimate_option.length" class="opc">
                 <b-row v-for="option in em.estimate_option" :key="option.eo_id">
@@ -69,7 +106,7 @@
             </b-col>
         </b-row>
         <div class="sum_up">
-        <div class="top_border" />
+            <div class="top_border" />
             <b-row class="total">
                 <b-col>상품금액</b-col>
                 <b-col><b>{{(frm.er_gd_price+frm.er_surtax) | comma | won}}</b></b-col>
@@ -98,40 +135,6 @@
                 <b-col></b-col>
             </b-row>
         </div>
-    </div>
-    
-    <div class="box est_frm">
-        <h5>요청자 정보</h5>
-        <b-row>
-            <b-col>견적요청번호</b-col><b-col>{{ frm.estimate_req.eq_id }}</b-col>
-            <b-col>요청일자</b-col><b-col>{{ frm.estimate_req.created_at }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>요청자</b-col>
-            <b-col>
-                <b-link v-if="frm.estimate_req.created_id" @click="openWinPop(`/admin/user/${frm.estimate_req.created_id}/edit`, 1700, 900)">
-                    {{ frm.estimate_req.eq_name }}
-                </b-link>
-                <template v-else>{{ frm.estimate_req.eq_name }}</template>
-            </b-col>
-            <b-col>연락처</b-col><b-col>{{ frm.estimate_req.eq_hp }}{{ frm.estimate_req.eq_tel }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>소속</b-col><b-col>{{ frm.estimate_req.eq_department }}</b-col>
-            <b-col>이메일</b-col><b-col>{{ frm.estimate_req.eq_email }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>문의사항</b-col>
-            <b-col><p v-html="nl2br(frm.estimate_req.eq_content)" /></b-col>
-        </b-row>
-        <b-row>
-            <b-col>첨부파일</b-col>
-            <b-col>
-                <b-button v-for="(file, i) in frm.estimate_req.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
-                    {{file.fi_original}}
-                </b-button>
-            </b-col>
-        </b-row>
     </div>
 
     <div class="box est_frm">
@@ -233,36 +236,20 @@ export default {
             window.open(url, name, option);
         },
         async estimateExcel(){
-            try {
-                const res = await ax.get(`/api/admin/shop/estimate/exportEstimateExcel/${this.$route.params.er_id}`, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
-            } catch (e) {
-                Notify.consolePrint(e);
-            }
+            const res = await ax.post(`/api/admin/shop/estimate/exportEstimateExcel`, this.frm, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
         },
         async estimatePdf(){
-            try {
-                const res = await ax.get(`/api/admin/shop/estimate/exportEstimatePdf/${this.$route.params.er_id}`, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.pdf');
-            } catch (e) {
-                Notify.consolePrint(e);
-            }
+            const res = await ax.post(`/api/admin/shop/estimate/exportEstimatePdf`, this.frm, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.pdf');
         },
         async transactionExcel(){
-            try {
-                const res = await ax.get(`/api/admin/shop/estimate/exportTransactionExcel/${this.$route.params.er_id}`, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
-            } catch (e) {
-                Notify.consolePrint(e);
-            }
+            const res = await ax.post(`/api/admin/shop/estimate/exportTransactionExcel`, this.frm, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
         },
         async transactionPdf(){
-            try {
-                const res = await ax.get(`/api/admin/shop/estimate/exportTransactionPdf/${this.$route.params.er_id}`, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
-            } catch (e) {
-                Notify.consolePrint(e);
-            }
+            const res = await ax.post(`/api/admin/shop/estimate/exportTransactionPdf`, this.frm, { responseType: 'blob' });
+            this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
         },
         orderDocumentDown(res, fileNm){
             let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
@@ -306,7 +293,11 @@ export default {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response);
             }
-        }
+        },
+        DlvyAllIn (em_id) {
+            for (var em of this.frm.estimate_model)
+                if (em.em_id !== em_id) em.dlvy_all_in = false;
+        },
 
     },
     mounted() {
@@ -342,6 +333,11 @@ export default {
 .p_wrap .gd_list .row .col a { width:120px; height:120px; padding-left:20px; }
 .p_wrap .gd_list .row .col a img { width:100%; height:100%; object-fit:contain; border:1px solid #8F8F8F; }
 
+.p_wrap .gd_list .row.body .em_sum { flex-direction: column; }
+.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle { display:block !important; text-align:center; }
+.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
+.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
+
 .p_wrap .sum_up .total { border-bottom:1px solid #D6D6D6; }
 .p_wrap .sum_up .total .col { color:#000; font-weight:bold; }
 .p_wrap .sum_up .total .col b { font-size:1.4rem; }
@@ -364,4 +360,6 @@ export default {
 .p_wrap .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }
 .p_wrap .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .p_wrap .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+
+
 </style>

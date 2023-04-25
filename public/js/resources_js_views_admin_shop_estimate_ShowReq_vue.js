@@ -694,12 +694,133 @@ var render = function () {
         1
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box est_frm" },
+        [
+          _c("h5", [_vm._v("요청자 정보")]),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("요청자")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
+                  _vm.frm.created_id
+                    ? _c(
+                        "b-link",
+                        {
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/user/" + _vm.frm.created_id + "/edit",
+                                1700,
+                                900
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm.frm.eq_name) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("연락처")]),
+              _c("b-col", [
+                _vm._v(_vm._s(_vm.frm.eq_hp)),
+                _vm.frm.eq_tel
+                  ? _c("span", [_vm._v(" / " + _vm._s(_vm.frm.eq_tel))])
+                  : _vm._e(),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("소속")]),
+              _c("b-col", [
+                _vm._v(
+                  _vm._s(_vm.frm.office) + "  " + _vm._s(_vm.frm.eq_department)
+                ),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이메일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.eq_email))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("문의사항")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", {
+                  domProps: {
+                    innerHTML: _vm._s(_vm.nl2br(_vm.frm.eq_content)),
+                  },
+                }),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("첨부파일")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                _vm._l(_vm.frm.file_info, function (file, i) {
+                  return _c(
+                    "b-button",
+                    {
+                      key: i,
+                      staticClass: "white sm mr-2",
+                      on: {
+                        click: function ($event) {
+                          return _vm.fileDown(file.down_path, file.fi_original)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(file.fi_original) +
+                          "\r\n                "
+                      ),
+                    ]
+                  )
+                }),
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _vm.frm.estimate_model && _vm.frm.estimate_model.length
         ? _c(
             "div",
             { staticClass: "box gd_list" },
             [
-              _c("h5", [_vm._v("견적상품 등록")]),
+              _c("h5", [_vm._v("견적요청 상품")]),
               _vm._v(" "),
               _c(
                 "b-row",
@@ -836,124 +957,6 @@ var render = function () {
             1
           )
         : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "box est_frm" },
-        [
-          _c("h5", [_vm._v("요청자 정보")]),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("요청자")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _vm.frm.created_id
-                    ? _c(
-                        "b-link",
-                        {
-                          on: {
-                            click: function ($event) {
-                              return _vm.openWinPop(
-                                "/admin/user/" + _vm.frm.created_id + "/edit",
-                                1700,
-                                900
-                              )
-                            },
-                          },
-                        },
-                        [
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(_vm.frm.eq_name) +
-                              "\r\n                "
-                          ),
-                        ]
-                      )
-                    : _vm._e(),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("연락처")]),
-              _c("b-col", [
-                _vm._v(_vm._s(_vm.frm.eq_hp) + _vm._s(_vm.frm.eq_tel)),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("소속")]),
-              _c("b-col", [
-                _vm._v(
-                  _vm._s(_vm.frm.office) + "  " + _vm._s(_vm.frm.eq_department)
-                ),
-              ]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("이메일")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.eq_email))]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("문의사항")]),
-              _vm._v(" "),
-              _c("b-col", [
-                _c("p", {
-                  domProps: {
-                    innerHTML: _vm._s(_vm.nl2br(_vm.frm.eq_content)),
-                  },
-                }),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("첨부파일")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                _vm._l(_vm.frm.file_info, function (file, i) {
-                  return _c(
-                    "b-button",
-                    {
-                      key: i,
-                      staticClass: "white sm mr-2",
-                      on: {
-                        click: function ($event) {
-                          return _vm.fileDown(file.down_path, file.fi_original)
-                        },
-                      },
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                    " +
-                          _vm._s(file.fi_original) +
-                          "\r\n                "
-                      ),
-                    ]
-                  )
-                }),
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
     ]
   )
 }

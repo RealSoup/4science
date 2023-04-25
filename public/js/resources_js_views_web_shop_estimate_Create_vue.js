@@ -501,7 +501,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this4.frm.eq_hp03 = eq_hp[2];
               _this4.frm.eq_email01 = eq_email[0];
               _this4.frm.eq_email02 = eq_email[1];
-              _this4.frm.eq_department = Auth.user().department;
+              _this4.frm.eq_department = Auth.user().office + ' ' + Auth.user().department;
 
             case 15:
             case "end":

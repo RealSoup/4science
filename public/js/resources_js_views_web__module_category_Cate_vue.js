@@ -108,6 +108,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ModuleCategory',
@@ -583,9 +585,21 @@ var render = function () {
                 _vm._v(" "),
                 _c("transition", { attrs: { name: "slideUpDown" } }, [
                   _vm.cus_hover
-                    ? _c("div", { staticClass: "icon_cell" }, [
-                        _c("i", [_vm._v("주문제작")]),
-                      ])
+                    ? _c(
+                        "div",
+                        { staticClass: "icon_cell" },
+                        [
+                          _c(
+                            "b-link",
+                            {
+                              staticStyle: { padding: "0" },
+                              attrs: { to: { name: "estimate_custom_index" } },
+                            },
+                            [_c("i", [_vm._v("주문제작")])]
+                          ),
+                        ],
+                        1
+                      )
                     : _vm._e(),
                 ]),
               ],

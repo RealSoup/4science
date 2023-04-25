@@ -29,6 +29,10 @@
                         {{bo.created_at | formatDate}}
                     </b-col>
                 </b-row>
+                <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+                    <span slot="prev-nav"><b-icon-chevron-left /></span>
+                    <span slot="next-nav"><b-icon-chevron-right /></span>
+                </pagination>
             </b-container>
         </b-card>
     </b-container>

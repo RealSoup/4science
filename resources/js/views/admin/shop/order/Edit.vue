@@ -40,11 +40,28 @@
                         </b-form-select>
                         <b-input-group-append><b-button @click="update('od_step')" class="d_gray sm">변경</b-button></b-input-group-append>
                     </b-input-group>
-
                 </b-col>
             </b-row>
         </div>
         
+        <div class="box extra_info">
+            <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
+            <table class="tbl_st address mb-0">
+                <tr>
+                    <th>주문자</th><td><b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link></td>
+                    <th>전화번호</th><td>{{ od.od_orderer_hp }}</td>
+                    <th>이메일</th><td>{{ od.od_orderer_email }}</td>
+                </tr>
+                <tr>
+                    <th>소속</th><td colspan="5">{{ od.od_department }} </td>
+                </tr>
+                <tr>
+                    <th>직장 / 학교</th><td>{{ od.user.office }} </td>
+                    <th>부서 / 학과 / 연구실</th><td colspan="3">{{ od.user.department }} </td>
+                </tr>
+            </table>
+        </div>
+
         <div class="box">
             <b-row tag="h5">
                 <b-col tag="b">주문 상품</b-col>
@@ -94,7 +111,7 @@
                             <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
                         </b-col>
                         <b-col class="align">{{odm.odm_mk_name}}</b-col>
-                        <b-col class="align end">{{odm.odm_price_add_vat | comma | won}}</b-col>
+                        <b-col class="align end text-right">{{odm.odm_price | comma | won}}</b-col>
                         <b-col class="align">
                             <div class="cube_box">
                                 <div class="cube" :class="{show_bottom: odm.show_bottom}">
@@ -105,7 +122,7 @@
                         </b-col>
                         <b-col class="align">
                             <b class="sum">
-                                {{odm.odm_price_add_vat*odm.odm_ea | comma | won}}
+                                {{odm.odm_price*odm.odm_ea | comma | won}}
                                 <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button class="print_hide">
                                     배송비 포함
                                 </b-form-checkbox>
@@ -174,22 +191,6 @@
         </div>
 
         <div class="box extra_info">
-            <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
-            <table class="tbl_st address">
-                <tr>
-                    <th>주문자</th><td><b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link></td>
-                    <th>전화번호</th><td>{{ od.od_orderer_hp }}</td>
-                    <th>이메일</th><td>{{ od.od_orderer_email }}</td>
-                </tr>
-                <tr>
-                    <th>소속</th><td colspan="5">{{ od.od_department }} </td>
-                </tr>
-                <tr>
-                    <th>직장 / 학교</th><td>{{ od.user.office }} </td>
-                    <th>부서 / 학과 / 연구실</th><td colspan="3">{{ od.user.department }} </td>
-                </tr>
-            </table>
-
             <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
             <table class="tbl_st address">
                 <colgroup>
@@ -489,6 +490,7 @@ export default {
         },
         reqDocumentDisplay() {
             let req = new Array();
+            if(this.od.order_extra_info.oex_type == 'IV')  req.push('세금계산서');
             if ( this.od.order_extra_info ) {
                 if (this.od.order_extra_info.oex_req_est =='Y') req.push('견적서');
                 if (this.od.order_extra_info.oex_req_tran=='Y') req.push('거래명세서');
@@ -581,11 +583,13 @@ export default {
         },
 
         document_action () {
+            let f_k=this.od.od_id;
+            if (this.od.od_er_id>0) f_k = this.od.od_er_id;
             switch (this.document_type) {
-                case 'est_e'      : this.estimateExcel(); break;  
-                case 'est_p'      : this.estimatePdf(); break;  
-                case 'tra_e'      : this.transactionExcel(); break;  
-                case 'tra_p'      : this.transactionPdf(); break;  
+                case 'est_e'      : this.estimateExcel(f_k+'_estimate'); break;  
+                case 'est_p'      : this.estimatePdf(f_k+'_estimate'); break;  
+                case 'tra_e'      : this.transactionExcel(this.od.od_id+'_statement'); break;  
+                case 'tra_p'      : this.transactionPdf(this.od.od_id+'_statement'); break;  
                 case 'send_tra_p' : this.isModalViewed = !this.isModalViewed; this.modalType = 'sendTransaction'; break;      
                 default: break;
             }
@@ -598,41 +602,41 @@ export default {
             ]});
         },
 
-        async estimateExcel(){
+        async estimateExcel(nm){
             try {
                 this.mngChk();
                 const res = await ax.post(`/api/admin/shop/order/exportEstimateExcel`, this.od, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
+                this.orderDocumentDown(res, nm+'.xlsx');
             } catch (e) {
                 Notify.consolePrint(e);
             }
         },
-        async estimatePdf(){
+        async estimatePdf(nm){
             try {
                 this.mngChk();
                 const res = await ax.post(`/api/admin/shop/order/exportEstimatePdf`, this.od, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.pdf');
+                this.orderDocumentDown(res, nm+'.pdf');
             } catch (e) {
                 Notify.consolePrint(e);
             }
         },
-        async transactionExcel(){
+        async transactionExcel(nm){
             try {
                 this.mngChk();
                 const res = await ax.post(`/api/admin/shop/order/exportTransactionExcel`, this.od, { responseType: 'blob' });
-                this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
+                this.orderDocumentDown(res, nm+'.xlsx');
             } catch (e) {
                 Notify.consolePrint(e);
             }
         },
-        async transactionPdf(query = ''){
+        async transactionPdf(nm, query = ''){
             try {
                 this.mngChk();
                 const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
                 if (res && res.status === 200) {
                     if ( query ) Notify.toast('success', '발송 완료');
                     else {
-                        this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
+                        this.orderDocumentDown(res, nm+'.pdf');
                         Notify.toast('success', '다운 완료');
                     }
                 } else Notify.toast('warning', '실패');
@@ -689,7 +693,7 @@ export default {
         },
 
         sendTransaction () {            
-            this.transactionPdf(`trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`);
+            this.transactionPdf(this.od.od_id+'_statement', `trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`);
             this.isModalViewed = false;
         },
 
@@ -783,5 +787,8 @@ export default {
 .p_wrap .print_hide_flex { display:flex !important; }
 .p_wrap .print_hide_inline_block { display:inline-block !important; }
 
+.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
+.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
+.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
 </style>

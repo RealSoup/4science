@@ -152,9 +152,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <!-- <a href="https://www.4science.net/goods/search_newest/search_column/all/search_keyword/VWRE.do" target='_blank'>
-                <img src="https://www.4science.net/templates/sites/basic/_images/event/210817/estimate.png" />
-            </a> -->
+            <a href="https://4science.net/shop/goods?ca01=33&ca02=5619" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0425/estimate.jpg" />
+            </a>
             <!-- <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td rowspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0314/estimate01.jpg" border="0" /></td>

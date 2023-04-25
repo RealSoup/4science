@@ -113,7 +113,8 @@ class EstimateController extends Controller {
         if ($req->filled('limit'))
             $data['list'] = $eq->limit($req->limit)->get();
         else {
-            $data['list'] = $eq->latest('eq_id')->paginate();
+            $list_size = $req->filled('list_size') ? $req->list_size : 20;
+            $data['list'] = $eq->latest('eq_id')->paginate($list_size );
             $data['list']->appends($req->all())->links();
         }
 
@@ -127,6 +128,8 @@ class EstimateController extends Controller {
         if ($req->filled('type') && $req->type=='reply') {
             $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($id);
             $data->estimateReq->fileInfo;
+            if ($data->user)
+			    $data->user->userMng;
             $coll = array();
             foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
@@ -354,7 +357,8 @@ class EstimateController extends Controller {
 
     public function estimateMailSend($to_email, $to_name, $params, $er_id) {
         $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
-        $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id)]);
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();      
+        $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er]);
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
@@ -465,27 +469,10 @@ class EstimateController extends Controller {
         return response()->json($rst_data, $rst_code);
     }
 
-    public function exportEstimateExcel(int $er_id) {
-		return Excel::download(new EstimateEstimateExport($er_id), 'estimate.xlsx');
-	}
-
-	public function exportEstimatePdf(int $er_id) {
-		return $this->pdf->loadView('admin.estimate.pdf.estimate', 
-                [   'er' => EstimateReply::find($er_id), 
-                    'logo'=>Storage::disk('s3')->url("common//logo/estimate_logo.png"),
-                    'addr'=>Storage::disk('s3')->url("common/addr_estimate200921.gif")])
-				->download('estimate.pdf'); // ->stream();
-	}
-
-	public function exportTransactionExcel(int $er_id) {
-		return Excel::download(new EstimateTransactionExport($er_id), 'estimate.xlsx');
-	}
-
-	public function exportTransactionPdf(int $er_id) {
-		return $this->pdf->loadView('admin.estimate.pdf.transaction', ['er' => EstimateReply::find($er_id)])
-				// ->download('estimate.pdf');
-				->stream();
-	}
+    public function exportEstimateExcel(Request $req) { return Excel::download(new EstimateEstimateExport($req->all()), 'estimate.xlsx'); }
+	public function exportEstimatePdf(Request $req) { return $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $req->all()])->download('estimate.pdf'); }
+	public function exportTransactionExcel(Request $req) { return Excel::download(new EstimateTransactionExport($req->all()), 'estimate.xlsx'); }
+    public function exportTransactionPdf(Request $req) { return $this->pdf->loadView('admin.estimate.pdf.transaction', ['er' => $req->all()]) ->stream(); }
 
     public function showEstimate(Request $req, int $er_id) {
         $er = EstimateReply::find($er_id);

@@ -14,12 +14,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -327,31 +336,22 @@ var dt = new Date();
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/exportEstimateExcel/".concat(_this3.$route.params.er_id), {
+                _context3.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/exportEstimateExcel", _this3.frm, {
                   responseType: 'blob'
                 });
 
-              case 3:
+              case 2:
                 res = _context3.sent;
 
                 _this3.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.xlsx');
 
-                _context3.next = 10;
-                break;
-
-              case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](0);
-                Notify.consolePrint(_context3.t0);
-
-              case 10:
+              case 4:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 7]]);
+        }, _callee3);
       }))();
     },
     estimatePdf: function estimatePdf() {
@@ -363,31 +363,22 @@ var dt = new Date();
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.prev = 0;
-                _context4.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/exportEstimatePdf/".concat(_this4.$route.params.er_id), {
+                _context4.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/exportEstimatePdf", _this4.frm, {
                   responseType: 'blob'
                 });
 
-              case 3:
+              case 2:
                 res = _context4.sent;
 
                 _this4.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.pdf');
 
-                _context4.next = 10;
-                break;
-
-              case 7:
-                _context4.prev = 7;
-                _context4.t0 = _context4["catch"](0);
-                Notify.consolePrint(_context4.t0);
-
-              case 10:
+              case 4:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 7]]);
+        }, _callee4);
       }))();
     },
     transactionExcel: function transactionExcel() {
@@ -399,31 +390,22 @@ var dt = new Date();
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/exportTransactionExcel/".concat(_this5.$route.params.er_id), {
+                _context5.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/exportTransactionExcel", _this5.frm, {
                   responseType: 'blob'
                 });
 
-              case 3:
+              case 2:
                 res = _context5.sent;
 
                 _this5.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.xlsx');
 
-                _context5.next = 10;
-                break;
-
-              case 7:
-                _context5.prev = 7;
-                _context5.t0 = _context5["catch"](0);
-                Notify.consolePrint(_context5.t0);
-
-              case 10:
+              case 4:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[0, 7]]);
+        }, _callee5);
       }))();
     },
     transactionPdf: function transactionPdf() {
@@ -435,31 +417,22 @@ var dt = new Date();
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.prev = 0;
-                _context6.next = 3;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/estimate/exportTransactionPdf/".concat(_this6.$route.params.er_id), {
+                _context6.next = 2;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/exportTransactionPdf", _this6.frm, {
                   responseType: 'blob'
                 });
 
-              case 3:
+              case 2:
                 res = _context6.sent;
 
                 _this6.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.pdf');
 
-                _context6.next = 10;
-                break;
-
-              case 7:
-                _context6.prev = 7;
-                _context6.t0 = _context6["catch"](0);
-                Notify.consolePrint(_context6.t0);
-
-              case 10:
+              case 4:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6, null, [[0, 7]]);
+        }, _callee6);
       }))();
     },
     orderDocumentDown: function orderDocumentDown(res, fileNm) {
@@ -580,6 +553,21 @@ var dt = new Date();
           }
         }, _callee9, null, [[0, 7]]);
       }))();
+    },
+    DlvyAllIn: function DlvyAllIn(em_id) {
+      var _iterator = _createForOfIteratorHelper(this.frm.estimate_model),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var em = _step.value;
+          if (em.em_id !== em_id) em.dlvy_all_in = false;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
     }
   },
   mounted: function mounted() {
@@ -605,7 +593,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0] { line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ec9c9aa0] { margin-left: 2rem;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ec9c9aa0] { font-weight:900; margin-left:.5rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { text-align:right;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ec9c9aa0] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .box .top_border[data-v-ec9c9aa0] { border-top:3px solid #4F637B;\n}\n.p_wrap .gd_list .row.head[data-v-ec9c9aa0] { border-top: 3px solid #4F637B; font-weight:600;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(2) { flex: 0 0 12%; max-width: 12%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(3) { flex: 0 0 9%; max-width: 9%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(4) { flex: 0 0 7%; max-width: 7%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(5) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(6) { flex: 0 0 5%; max-width: 5%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(7) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0] { justify-content: center; padding:0.75rem; display:flex; align-items:center; font-size: .95rem;\n}\n.p_wrap .gd_list .row.list:not(:last-of-type) .col[data-v-ec9c9aa0] { border-bottom: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:not(:last-of-type) { border-right: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col[data-v-ec9c9aa0] { color:#949494;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type a[data-v-ec9c9aa0] { flex: 0 0 145px; max-width: 145px;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div[data-v-ec9c9aa0] { text-align:left; padding-left:2rem; flex-basis: 0; flex-grow: 1; max-width: 100%;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name[data-v-ec9c9aa0] { display:block; color:#555;\n}\n.p_wrap .gd_list .row .col a[data-v-ec9c9aa0] { width:120px; height:120px; padding-left:20px;\n}\n.p_wrap .gd_list .row .col a img[data-v-ec9c9aa0] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain; border:1px solid #8F8F8F;\n}\n.p_wrap .sum_up .total[data-v-ec9c9aa0] { border-bottom:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0] { color:#000; font-weight:bold;\n}\n.p_wrap .sum_up .total .col b[data-v-ec9c9aa0] { font-size:1.4rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1rem 0 1rem 2rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(even) { text-align:right; padding:1rem 2rem 1rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after,\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2),\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after { content:\"+\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { content:\"=\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(5) { flex-basis:16%; max-width:16%;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(6) { flex-basis:24%; max-width:24%;\n}\n.p_wrap .sum_up .total_sub[data-v-ec9c9aa0] { background:#F2F3F5; border-bottom-width:0;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0] { display:flex; flex-wrap:wrap;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(1) { padding:1rem 2rem .5rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(2) { padding:0 2rem 1rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0]:nth-of-type(2) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0] { line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ec9c9aa0] { margin-left: 2rem;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ec9c9aa0] { font-weight:900; margin-left:.5rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { text-align:right;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ec9c9aa0] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .box .top_border[data-v-ec9c9aa0] { border-top:3px solid #4F637B;\n}\n.p_wrap .gd_list .row.head[data-v-ec9c9aa0] { border-top: 3px solid #4F637B; font-weight:600;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(2) { flex: 0 0 12%; max-width: 12%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(3) { flex: 0 0 9%; max-width: 9%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(4) { flex: 0 0 7%; max-width: 7%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(5) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(6) { flex: 0 0 5%; max-width: 5%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:nth-child(7) { flex: 0 0 8%; max-width: 8%;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0] { justify-content: center; padding:0.75rem; display:flex; align-items:center; font-size: .95rem;\n}\n.p_wrap .gd_list .row.list:not(:last-of-type) .col[data-v-ec9c9aa0] { border-bottom: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row.list .col[data-v-ec9c9aa0]:not(:last-of-type) { border-right: 1px solid #D7D7D7;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col[data-v-ec9c9aa0] { color:#949494;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type a[data-v-ec9c9aa0] { flex: 0 0 145px; max-width: 145px;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div[data-v-ec9c9aa0] { text-align:left; padding-left:2rem; flex-basis: 0; flex-grow: 1; max-width: 100%;\n}\n.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name[data-v-ec9c9aa0] { display:block; color:#555;\n}\n.p_wrap .gd_list .row .col a[data-v-ec9c9aa0] { width:120px; height:120px; padding-left:20px;\n}\n.p_wrap .gd_list .row .col a img[data-v-ec9c9aa0] { width:100%; height:100%; -o-object-fit:contain; object-fit:contain; border:1px solid #8F8F8F;\n}\n.p_wrap .gd_list .row.body .em_sum[data-v-ec9c9aa0] { flex-direction: column;\n}\n.p_wrap .gd_list .row.body .em_sum[data-v-ec9c9aa0] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .gd_list .row.body .em_sum[data-v-ec9c9aa0] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .gd_list .row.body .em_sum[data-v-ec9c9aa0] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .sum_up .total[data-v-ec9c9aa0] { border-bottom:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0] { color:#000; font-weight:bold;\n}\n.p_wrap .sum_up .total .col b[data-v-ec9c9aa0] { font-size:1.4rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1rem 0 1rem 2rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(even) { text-align:right; padding:1rem 2rem 1rem;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after,\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2),\r\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(2):after { content:\"+\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(4):after { content:\"=\";\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(5) { flex-basis:16%; max-width:16%;\n}\n.p_wrap .sum_up .total .col[data-v-ec9c9aa0]:nth-of-type(6) { flex-basis:24%; max-width:24%;\n}\n.p_wrap .sum_up .total_sub[data-v-ec9c9aa0] { background:#F2F3F5; border-bottom-width:0;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.p_wrap .sum_up .total_sub>.col[data-v-ec9c9aa0]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0] { display:flex; flex-wrap:wrap;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(1) { padding:1rem 2rem .5rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div[data-v-ec9c9aa0]:nth-of-type(2) { padding:0 2rem 1rem 2rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.p_wrap .sum_up .total_sub .col>div .col[data-v-ec9c9aa0]:nth-of-type(2) { text-align:right;\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -743,7 +731,7 @@ var render = function () {
     "div",
     { staticClass: "p_wrap", attrs: { id: "adm_estimate_show" } },
     [
-      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 요청")]),
+      _c("h3", { staticClass: "p_tit" }, [_vm._v("견적 응답")]),
       _vm._v(" "),
       _c(
         "div",
@@ -918,6 +906,141 @@ var render = function () {
         1
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box est_frm" },
+        [
+          _c("h5", [_vm._v("요청자 정보")]),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("견적요청번호")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_id))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("요청일자")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.created_at))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("요청자")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
+                  _vm.frm.estimate_req.created_id
+                    ? _c(
+                        "b-link",
+                        {
+                          on: {
+                            click: function ($event) {
+                              return _vm.openWinPop(
+                                "/admin/user/" +
+                                  _vm.frm.estimate_req.created_id +
+                                  "/edit",
+                                1700,
+                                900
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(_vm.frm.estimate_req.eq_name) +
+                              "\r\n                "
+                          ),
+                        ]
+                      )
+                    : [_vm._v(_vm._s(_vm.frm.estimate_req.eq_name))],
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("연락처")]),
+              _c("b-col", [
+                _vm._v(_vm._s(_vm.frm.estimate_req.eq_hp)),
+                _vm.frm.estimate_req.eq_tel
+                  ? _c("span", [
+                      _vm._v(" / " + _vm._s(_vm.frm.estimate_req.eq_tel)),
+                    ])
+                  : _vm._e(),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("소속")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_department))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이메일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_email))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("문의사항")]),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", {
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.nl2br(_vm.frm.estimate_req.eq_content)
+                    ),
+                  },
+                }),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("첨부파일")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                _vm._l(_vm.frm.estimate_req.file_info, function (file, i) {
+                  return _c(
+                    "b-button",
+                    {
+                      key: i,
+                      staticClass: "white sm mr-2",
+                      on: {
+                        click: function ($event) {
+                          return _vm.fileDown(file.down_path, file.fi_original)
+                        },
+                      },
+                    },
+                    [
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(file.fi_original) +
+                          "\r\n                "
+                      ),
+                    ]
+                  )
+                }),
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _vm.frm.estimate_model && _vm.frm.estimate_model.length
         ? _c(
             "div",
@@ -1007,9 +1130,37 @@ var render = function () {
                     _vm._v(" "),
                     _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(em.em_ea)))]),
                     _vm._v(" "),
-                    _c("b-col", [
-                      _vm._v(_vm._s(_vm._f("comma")(em.em_price * em.em_ea))),
-                    ]),
+                    _c(
+                      "b-col",
+                      { staticClass: "em_sum" },
+                      [
+                        _vm._v(
+                          "\r\n                " +
+                            _vm._s(_vm._f("comma")(em.em_price * em.em_ea)) +
+                            "\r\n                "
+                        ),
+                        _c(
+                          "b-form-checkbox",
+                          {
+                            attrs: { button: "" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.DlvyAllIn(em.em_id)
+                              },
+                            },
+                            model: {
+                              value: em.dlvy_all_in,
+                              callback: function ($$v) {
+                                _vm.$set(em, "dlvy_all_in", $$v)
+                              },
+                              expression: "em.dlvy_all_in",
+                            },
+                          },
+                          [_vm._v("배송비 포함")]
+                        ),
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     em.estimate_option.length
                       ? _c(
@@ -1181,139 +1332,6 @@ var render = function () {
             2
           )
         : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "box est_frm" },
-        [
-          _c("h5", [_vm._v("요청자 정보")]),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("견적요청번호")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_id))]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("요청일자")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.created_at))]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("요청자")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _vm.frm.estimate_req.created_id
-                    ? _c(
-                        "b-link",
-                        {
-                          on: {
-                            click: function ($event) {
-                              return _vm.openWinPop(
-                                "/admin/user/" +
-                                  _vm.frm.estimate_req.created_id +
-                                  "/edit",
-                                1700,
-                                900
-                              )
-                            },
-                          },
-                        },
-                        [
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(_vm.frm.estimate_req.eq_name) +
-                              "\r\n                "
-                          ),
-                        ]
-                      )
-                    : [_vm._v(_vm._s(_vm.frm.estimate_req.eq_name))],
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("연락처")]),
-              _c("b-col", [
-                _vm._v(
-                  _vm._s(_vm.frm.estimate_req.eq_hp) +
-                    _vm._s(_vm.frm.estimate_req.eq_tel)
-                ),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("소속")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_department))]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("이메일")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_email))]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("문의사항")]),
-              _vm._v(" "),
-              _c("b-col", [
-                _c("p", {
-                  domProps: {
-                    innerHTML: _vm._s(
-                      _vm.nl2br(_vm.frm.estimate_req.eq_content)
-                    ),
-                  },
-                }),
-              ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", [_vm._v("첨부파일")]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                _vm._l(_vm.frm.estimate_req.file_info, function (file, i) {
-                  return _c(
-                    "b-button",
-                    {
-                      key: i,
-                      staticClass: "white sm mr-2",
-                      on: {
-                        click: function ($event) {
-                          return _vm.fileDown(file.down_path, file.fi_original)
-                        },
-                      },
-                    },
-                    [
-                      _vm._v(
-                        "\r\n                    " +
-                          _vm._s(file.fi_original) +
-                          "\r\n                "
-                      ),
-                    ]
-                  )
-                }),
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
       _vm._v(" "),
       _c(
         "div",

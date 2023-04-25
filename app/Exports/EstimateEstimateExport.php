@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Exports;
 
 use App\Models\Shop\EstimateReply;
@@ -15,73 +14,71 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Events\BeforeSheet;
 use Illuminate\Support\Arr;
 
-class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    protected $er_id;
+class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents {  
     protected $er;
     protected $row_cnt = 0;
     protected $row_height = [];
+    function __construct($er) { $this->er = $er; }
 
-    function __construct($id) { $this->er_id = $id; }
-
-    public function columnWidths(): array {
-        return [
-            'A' => 6,
-            'B' => 6,
-            'C' => 11,
-            'D' => 11,
-            'E' => 11,
-            'F' => 11,
-            'G' => 6,
-            'H' => 6,
-            'I' => 11,
-            'J' => 11,
-            'K' => 11,
-            'L' => 11,
-        ];
-    }
+    public function columnWidths(): array { return [
+        'A' => 6,
+        'B' => 6,
+        'C' => 11,
+        'D' => 11,
+        'E' => 11,
+        'F' => 11,
+        'G' => 6,
+        'H' => 6,
+        'I' => 11,
+        'J' => 11,
+        'K' => 11,
+        'L' => 11,
+    ]; }
 
     public function collection() {
         $data = [];
-        $this->er = EstimateReply::find($this->er_id);
-        $this->er->estimateReq->mng;
-        // $pa_list = $gd->getGoodsInfo($od, 'order');
-        // dd($this->er);
         $data[] = ['견    적    서'];
         $data[] = [''];
         $data[] = [''];
         $data[] = [''];
-        $data[] = ['견적번호', '', '', $this->er->er_id, '', '', '납품기일', '', '', "납기 {$this->er->er_dlvy_at} 이내"];
-        $data[] = ['견적일자', '', '', date('Y-m-d', strtotime($this->er->created_at)), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
-        $data[] = ['수신', '', '', $this->er->estimateReq->eq_department, '', '', '유효기간', '', '', $this->er->er_effective_at.' 까지'];
+        $data[] = ['견적번호', '', '', $this->er['er_id'], '', '', '납품기일', '', '', "납기 {$this->er['er_dlvy_at']} 이내"];
+        $data[] = ['견적일자', '', '', date('Y-m-d', strtotime($this->er['created_at'])), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
+        $data[] = ['수신', '', '', $this->er['estimate_req']['eq_department'], '', '', '유효기간', '', '', "{$this->er['er_effective_at']} 까지"];
         $data[] = [''];
-        $data[] = ['견적요청인', '', '', $this->er->estimateReq->eq_name, '', '', '견적담당자', '', '', $this->er->estimateReq->mng->name];
-        $data[] = ['전화번호', '', '', $this->er->estimateReq->eq_tel, '', '', '전화번호', '', '', $this->er->estimateReq->mng->tel];
-        $data[] = ['휴대폰번호', '', '', $this->er->estimateReq->eq_hp, '', '', '이메일주소', '', '', $this->er->estimateReq->mng->email];
-        $data[] = ['이메일주소', '', '', $this->er->estimateReq->eq_email, '', '', '펙스번호', '', '', $this->er->estimateReq->mng->fax];
-        $data[] = ['펙스번호', '', '', $this->er->estimateReq->eq_fax];
+        $data[] = ['견적요청인', '', '', $this->er['estimate_req']['eq_name'], '', '', '견적담당자', '', '', $this->er['user']['name']];
+        $data[] = ['전화번호', '', '', $this->er['estimate_req']['eq_tel'], '', '', '전화번호', '', '', $this->er['user']['tel']];
+        $data[] = ['휴대폰번호', '', '', $this->er['estimate_req']['eq_hp'], '', '', '이메일주소', '', '', $this->er['user']['email']];
+        $data[] = ['이메일주소', '', '', $this->er['estimate_req']['eq_email'], '', '', '펙스번호', '', '', $this->er['user']['fax']];
+        $data[] = ['펙스번호', '', '', $this->er['estimate_req']['eq_fax']];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];
 
-        foreach ($this->er->estimateModel as $em) {
+        foreach ($this->er['estimate_model'] as $em) {
+            if ( $em['dlvy_all_in'] ) {
+                //  부동소수점 오류 해결을 위한 식
+                //  부가세를 상품갯수만큼 나눠 1.1을 곱한다.( 부가세를 빼는 식 )
+                $em['em_price'] += bcdiv($this->er['er_dlvy_price']/$em['em_ea'], 1.1);
+                $this->er['er_gd_price'] += bcdiv($this->er['er_dlvy_price'], 1.1);
+                $this->er['er_surtax'] += $this->er['er_dlvy_price']-bcdiv($this->er['er_dlvy_price'], 1.1);
+                $this->er['er_dlvy_price']  = 0;
+            }
             $this->row_cnt++;
-            $data[] = [$this->row_cnt, $em->em_name, '', '', '', $em->em_unit, '', number_format($em->em_price), '', $em->em_ea, number_format($em->em_price*$em->em_ea)];
-            $data[] = ['', $em->em_catno.' / '.$em->em_code];
-            $data[] = ['', nl2br($em->em_spec)];
-            $this->row_height[] = substr_count( $em->em_spec, "\n" );
+            $data[] = [$this->row_cnt, $em['em_name'], '', '', '', $em['em_unit'], '', number_format($em['em_price']), '', $em['em_ea'], number_format($em['em_price']*$em['em_ea'])];
+            if($em['em_dlvy_at']) $data[] = ['', "{$em['em_catno']}. / .{$em['em_code']}", '', '', '', "납기 : {$em['em_dlvy_at']}"];
+            else                $data[] = ['', "{$em['em_catno']}. / .{$em['em_code']}"];
+            $data[] = ['', nl2br($em['em_spec'])];
+            $this->row_height[] = substr_count( $em['em_spec'], "\n" );
         }
         $data[] = [''];
-        $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', number_format($this->er->er_gd_price)];
-        $data[] = ['V. A. T.', '', '', '', '', '', '', number_format($this->er->er_surtax)];
-        if ($this->er->er_no_dlvy_fee !== 'Y') {
-            if ($this->er->er_dlvy_price > 0) 
-                $data[] = ['배송료', '', '', '', '', '', '', number_format($this->er->er_dlvy_price)];
-            if ($this->er->er_air_price)
-                $data[] = ['항공운임료', '', '', '', '', '', '', number_format($this->er->er_air_price)];
+        $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', number_format($this->er['er_gd_price'])];
+        $data[] = ['V. A. T.', '', '', '', '', '', '', number_format($this->er['er_surtax'])];
+        if ($this->er['er_no_dlvy_fee'] !== 'Y') {
+            if ($this->er['er_dlvy_price'] > 0) 
+                $data[] = ['배송료', '', '', '', '', '', '', number_format($this->er['er_dlvy_price'])];
+            if ($this->er['er_air_price'])
+                $data[] = ['항공운임료', '', '', '', '', '', '', number_format($this->er['er_air_price'])];
         }
-        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', number_format($this->er->er_all_price)];
+        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', number_format($this->er['er_all_price'])];
         $data[] = [''];
         $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
         $data[] = ['발주일'];
@@ -144,7 +141,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             $sheet->getRowDimension($r)->setRowHeight(20);
             $sheet->mergeCells('B'.$r.':E'.$r)->mergeCells('F'.$r.':G'.$r)->mergeCells('H'.$r.':I'.$r)->mergeCells('K'.$r.':L'.$r);
             $sheet->getRowDimension($r+1)->setRowHeight(20);
-            $sheet->mergeCells('B'.($r+1).':L'.($r+1));
+            // $sheet->mergeCells('B'.($r+1).':L'.($r+1));
+            $sheet->mergeCells('B'.($r+1).':E'.($r+1))->mergeCells('F'.($r+1).':G'.($r+1))->mergeCells('H'.($r+1).':I'.($r+1))->mergeCells('K'.($r+1).':L'.($r+1));
             $height=20;
             if ($this->row_height[$i])
                 $height= ($this->row_height[$i]+1)*13;
@@ -153,7 +151,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             //  줄이 긴 내용이 짤려서
             //  줄기이 만큼 적당한 높이 곱해서 설정
             // $sheet->getRowDimension($r+2)->setRowHeight(-1);
-            $sheet->mergeCells('B'.($r+2).':L'.($r+2));
+            // $sheet->mergeCells('B'.($r+2).':L'.($r+2));
+            $sheet->mergeCells('B'.($r+2).':E'.($r+2))->mergeCells('F'.($r+2).':G'.($r+2))->mergeCells('H'.($r+2).':I'.($r+2))->mergeCells('K'.($r+2).':L'.($r+2));
         }
 
         $aftRow = $this->row_cnt*3;
@@ -169,14 +168,14 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
         $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
 
-        if ($this->er->er_no_dlvy_fee !== 'Y'){
-            if ($this->er->er_dlvy_price > 0) {
+        if ($this->er['er_no_dlvy_fee'] !== 'Y'){
+            if ($this->er['er_dlvy_price'] > 0) {
                 $addRow++;
                 $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
                 $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
             }
 
-            if ($this->er->er_air_price) {
+            if ($this->er['er_air_price']) {
                 $addRow++;
                 $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
                 $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
@@ -375,13 +374,13 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
         $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
 
-        if ($this->er->er_no_dlvy_fee !== 'Y'){
-            if ($this->er->er_dlvy_price > 0) {
+        if ($this->er['er_no_dlvy_fee'] !== 'Y'){
+            if ($this->er['er_dlvy_price'] > 0) {
                 $addRow++;
                 $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
                 $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
             }
-            if ($this->er->er_air_price) {
+            if ($this->er['er_air_price']) {
                 $addRow++;
                 $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
                 $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
@@ -521,12 +520,12 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $r++;
         $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
 
-        if ($this->er->er_no_dlvy_fee !== 'Y') {
-            if ($this->er->er_dlvy_price > 0) {
+        if ($this->er['er_no_dlvy_fee'] !== 'Y') {
+            if ($this->er['er_dlvy_price'] > 0) {
                 $r++;
                 $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
             }
-            if ($this->er->er_air_price) {
+            if ($this->er['er_air_price']) {
                 $r++;
                 $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
             }

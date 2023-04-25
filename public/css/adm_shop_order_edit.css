@@ -24,7 +24,7 @@
 .p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; }
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 .p_wrap .act_ctrl .btn_area .input-group { max-width:170px; }
-.p_wrap .print_mng_nm { top:30px; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }
+.p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }
 .p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
 .p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
@@ -41,9 +41,9 @@
 .p_wrap .box .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
+.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }
-.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; border-right:0px solid #D7D7D7; }
+.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 13%; max-width:13%; border-right:0px solid #D7D7D7; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }
     
 .p_wrap .box .goods .gd_con .row .col img { width:100%; cursor:pointer; }
@@ -51,20 +51,17 @@
 .p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 .p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }
 .p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }
-.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
-.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
-.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }
 
 .p_wrap .box .action { padding:1.5rem 3rem; font-weight:600; }
 
 .p_wrap .box .sum_up .total { border-bottom:1px solid #D6D6D6; }
 .p_wrap .box .sum_up .total .col { color:#000; font-weight:bold; }
-.p_wrap .box .sum_up .total .col b { font-size:1.4rem; }
-.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1rem 0 1rem 2rem; }
-.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1rem 2rem 1rem; }
+.p_wrap .box .sum_up .total .col b { font-size:1.3vw; }
+.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }
+.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1vw 2vw 1vw 0; }
 .p_wrap .box .sum_up .total .col:nth-of-type(2):after,
-.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
+.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }
 .p_wrap .box .sum_up .total .col:nth-of-type(2),
 .p_wrap .box .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
 .p_wrap .box .sum_up .total .col:nth-of-type(2):after { content:"+"; }

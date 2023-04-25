@@ -368,6 +368,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -1279,25 +1280,23 @@ var render = function () {
                           1
                         ),
                         _vm._v(" "),
-                        idx != 0
-                          ? _c(
-                              "b-button",
-                              {
-                                staticClass: "plum sm",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.emDel(idx)
-                                  },
-                                },
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "plum sm",
+                            on: {
+                              click: function ($event) {
+                                return _vm.emDel(idx)
                               },
-                              [
-                                _c("b-icon-x-lg"),
-                                _vm._v(" "),
-                                _c("b", [_vm._v("삭제")]),
-                              ],
-                              1
-                            )
-                          : _vm._e(),
+                            },
+                          },
+                          [
+                            _c("b-icon-x-lg"),
+                            _vm._v(" "),
+                            _c("b", [_vm._v("삭제")]),
+                          ],
+                          1
+                        ),
                       ],
                       1
                     ),
@@ -1326,6 +1325,23 @@ var render = function () {
                         expression: "em.em_catno",
                       },
                     }),
+                    _vm._v(" "),
+                    em.em_gd_id
+                      ? _c(
+                          "b-button",
+                          {
+                            staticClass: "gray sm",
+                            attrs: {
+                              to: {
+                                name: "goods_show",
+                                params: { gd_id: em.em_gd_id },
+                              },
+                              target: "_blank",
+                            },
+                          },
+                          [_vm._v("상품보기")]
+                        )
+                      : _vm._e(),
                   ],
                   1
                 ),

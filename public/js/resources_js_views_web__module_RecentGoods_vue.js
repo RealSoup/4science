@@ -87,35 +87,36 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
               case 0:
                 _context.prev = 0;
                 cookies = _this.$cookies.get(_this.ck_key);
-                _context.next = 4;
+                console.log(cookies);
+                _context.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/goods/recentGoods", {
                   params: {
                     gd_id: cookies
                   }
                 });
 
-              case 4:
+              case 5:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.recentGoods = res.data;
                 }
 
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 9]]);
       }))();
     },
     setCubeClass: function setCubeClass(direction) {
@@ -159,14 +160,13 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
       if (cookieRecentGoods) {
         var array_cookieRecentGoods = cookieRecentGoods.split(',');
         array_cookieRecentGoods = array_cookieRecentGoods.reduce(function (acc, el) {
-          if (el != _this2.$route.params.gd_id) acc.push(el); //  값이 있따면 빼고 리턴
+          if (el != _this2.$route.params.gd_id && el != '') acc.push(el); //  값이 있따면 빼고 리턴
 
           return acc;
         }, []);
         array_cookieRecentGoods = [this.$route.params.gd_id].concat(array_cookieRecentGoods);
         array_cookieRecentGoods = array_cookieRecentGoods.reduce(function (acc, el, idx) {
-          if (idx < 15) acc.push(el); //  값이 있따면 빼고 리턴
-
+          if (idx < 15) acc.push(el);
           return acc;
         }, []);
         cookieRecentGoods = array_cookieRecentGoods.join(',');

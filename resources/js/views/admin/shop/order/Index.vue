@@ -76,11 +76,17 @@
 
    
     <b-container class="cmain">
-        <b-row>
+        <b-row class="list_top">
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col sm="12" md="6" class="text-right">
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
+                
+                <b-form-select v-model="sch_frm.list_size">
+                    <b-form-select-option value="20">20개</b-form-select-option>
+                    <b-form-select-option value="50">50개</b-form-select-option>
+                    <b-form-select-option value="100">100개</b-form-select-option>
+                </b-form-select>
             </b-col>
         </b-row>
         <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off" />
@@ -117,7 +123,8 @@ export default {
                 gd_enable:'',
                 mode:'od_orderer',
                 keyword:'',
-                page:0
+                page:0,
+                list_size:20,
             },
             mng_on:{},
             mng_off:{},
@@ -127,6 +134,13 @@ export default {
 
         }
     },
+    watch: {
+		'sch_frm.list_size': {
+			handler() {
+				this.routerPush();
+			}
+		}
+	},
     methods: {
         
         async index() {
@@ -169,4 +183,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.cmain .list_top select { display: inline-block; max-width: 7rem; }
 </style>

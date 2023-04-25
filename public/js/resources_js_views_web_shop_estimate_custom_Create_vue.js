@@ -367,7 +367,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         eq_name: Auth.user().name,
         eq_email: Auth.user().email,
         eq_hp: Auth.user().hp,
-        eq_department: Auth.user().department,
+        eq_department: Auth.user().office + ' ' + Auth.user().department,
         eq_1depth: (_this$$route$params$i = this.$route.params.id) !== null && _this$$route$params$i !== void 0 ? _this$$route$params$i : '',
         eq_content: "제품명 : \n사양 : \n수량 : "
       },

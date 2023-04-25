@@ -63,7 +63,7 @@ table tr th, table tr td { padding:5px; }
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
                 <p>{{ date('Y년 m월 d일') }}</p>
-                <p>{{ $er->estimateReq->eq_department }} 귀하</p>
+                <p>{{ $er['estimate_req']['eq_department'] }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
             <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/addr_estimate200921.gif" width="270px" height="67px" /></td>
@@ -83,36 +83,50 @@ table tr th, table tr td { padding:5px; }
 @php
 $no=1;
 @endphp
-@foreach ($er->estimateModel as $em)
+@foreach ($er['estimate_model'] as $em)
+    @if ( $em['dlvy_all_in'] )
+        @php
+        //  부동소수점 오류 해결을 위한 식
+        //  부가세를 상품갯수만큼 나눠 1.1을 곱한다.( 부가세를 빼는 식 )
+        $em['em_price'] += bcdiv($er['er_dlvy_price']/$em['em_ea'], 1.1);
+        $er['er_gd_price'] += bcdiv($er['er_dlvy_price'], 1.1);
+        $er['er_surtax'] += $er['er_dlvy_price']-bcdiv($er['er_dlvy_price'], 1.1);
+        $er['er_dlvy_price']  = 0;
+
+        @endphp
+    @endif
+
         <tr class="line01">
             <td>{{ $no }}</td>
-            <td>{{ $em->em_name }}</td>
-            <td>{{ $em->em_catno }}</td>
-            <td>{{ $em->em_code }}</td>
-            <td>{{ number_format($em->em_price) }}</td>
-            <td>{{ $em->em_ea }}</td>
-            <td>{{ number_format($em->em_price*$em->em_ea) }}</td>
+            <td>{{ $em['em_name'] }}</td>
+            <td>{{ $em['em_catno'] }}</td>
+            <td>{{ $em['em_code'] }}</td>
+            <td>{{ number_format($em['em_price']) }}</td>
+            <td>{{ $em['em_ea'] }}</td>
+            <td>{{ number_format($em['em_price']*$em['em_ea']) }}</td>
         </tr>
         @php
         $no++;
         @endphp
 @endforeach
 
-        <tr class="line03 line04"><td colspan="4">SUPPLY PRICE</td>   <td colspan="3">{{ number_format($er->er_gd_price) }}</td></tr>
-        <tr class="line03 line04"><td colspan="4">V.A.T</td>          <td colspan="3">{{ number_format($er->er_surtax) }}</td></tr>
-        @if ($er->er_no_dlvy_fee !== 'Y')
-            <tr class="line03 line04"><td colspan="4">배송료</td>   <td colspan="3">{{ number_format($er->er_dlvy_price) }}</td></tr>
-            @if ($er->er_air_price)
-                <tr class="line03 line04"><td colspan="4">항공운임료</td>   <td colspan="3">{{ number_format($er->er_air_price) }}</td></tr>
+        <tr class="line03 line04"><td colspan="4">SUPPLY PRICE</td>   <td colspan="3">{{ number_format($er['er_gd_price']) }}</td></tr>
+        <tr class="line03 line04"><td colspan="4">V.A.T</td>          <td colspan="3">{{ number_format($er['er_surtax']) }}</td></tr>
+        @if ($er['er_no_dlvy_fee'] !== 'Y')
+            @if ($er['er_dlvy_price'] > 0) 
+                <tr class="line03 line04"><td colspan="4">배송료</td>   <td colspan="3">{{ number_format($er['er_dlvy_price']) }}</td></tr>
+            @endif
+            @if ($er['er_air_price'])
+                <tr class="line03 line04"><td colspan="4">항공운임료</td>   <td colspan="3">{{ number_format($er['er_air_price']) }}</td></tr>
             @endif
         @endif
-        <tr class="line03 line05"><td colspan="4">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format($er->er_all_price) }}</td></tr>
+        <tr class="line03 line05"><td colspan="4">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format($er['er_all_price']) }}</td></tr>
     </table>
 
     <table class="bottom">
         <tr>
             <td>
-                <p>담당자 : {{$er->estimateReq->mng->name}} {{$er->estimateReq->mng->userMng->posName}}, TEL : {{$er->estimateReq->mng->tel}}, FAX : {{$er->estimateReq->mng->fax}}</p>
+                <p>담당자 : {{$er['user']['name']}} {{$er['user']['user_mng']['pos_name']}}, TEL : {{$er['user']['tel']}}, FAX : {{$er['user']['fax']}}</p>
                 계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
                             {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
             </td>

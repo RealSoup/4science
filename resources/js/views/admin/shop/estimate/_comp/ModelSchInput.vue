@@ -83,5 +83,5 @@ export default {
 }
 </script>
 <style scoped>
-.cell { width:60%; }
+.cell { width:60%; display:inline-block; }
 </style>

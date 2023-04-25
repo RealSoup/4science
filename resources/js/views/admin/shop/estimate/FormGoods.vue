@@ -18,7 +18,7 @@
                 
                 <b-button-group>
                     <b-button class="orange sm" @click="emReset(idx)"><b-icon-app /> <b>초기화</b></b-button>
-                    <b-button class="plum sm" @click="emDel(idx)" v-if="(idx!=0)"><b-icon-x-lg /> <b>삭제</b></b-button>
+                    <b-button class="plum sm" @click="emDel(idx)"><b-icon-x-lg /> <b>삭제</b></b-button>
                 </b-button-group>
             </b-col>
         </b-row>
@@ -27,6 +27,7 @@
             <b-col>CAT.No</b-col>
             <b-col>
                 <ModelSchInput v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
+                <b-button v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}" target="_blank" class="gray sm">상품보기</b-button>
             </b-col>
 
             <b-col>모델명</b-col>

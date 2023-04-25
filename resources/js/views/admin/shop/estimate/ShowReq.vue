@@ -36,8 +36,37 @@
         </b-row>
     </div>
 
+    <div class="box est_frm">
+        <h5>요청자 정보</h5>
+        <b-row>
+            <b-col>요청자</b-col>
+            <b-col>
+                <b-link v-if="frm.created_id" @click="openWinPop(`/admin/user/${frm.created_id}/edit`, 1700, 900)">
+                    {{frm.eq_name}}
+                </b-link>
+            </b-col>
+            <b-col>연락처</b-col><b-col>{{ frm.eq_hp }}<span v-if="frm.eq_tel"> / {{ frm.eq_tel }}</span></b-col>
+        </b-row>
+        <b-row>
+            <b-col>소속</b-col><b-col>{{frm.office}}  {{ frm.eq_department }}</b-col>
+            <b-col>이메일</b-col><b-col>{{ frm.eq_email }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>문의사항</b-col>
+            <b-col><p v-html="nl2br(frm.eq_content)" /></b-col>
+        </b-row>
+        <b-row>
+            <b-col>첨부파일</b-col>
+            <b-col>
+                <b-button v-for="(file, i) in frm.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                    {{file.fi_original}}
+                </b-button>
+            </b-col>
+        </b-row>
+    </div>  
+
     <div class="box gd_list" v-if="frm.estimate_model && frm.estimate_model.length">
-        <h5>견적상품 등록</h5>
+        <h5>견적요청 상품</h5>
         <b-row>
             <b-col>주문 상품</b-col>
             <b-col>사양</b-col>
@@ -71,35 +100,6 @@
         <h5>주문제작 정보: {{frm.made_cate[frm.eq_1depth]}}</h5>
         <component ref="custom_sub" :is="choiceSubType" v-model="frm.estimate_custom" />
     </div>
-
-    <div class="box est_frm">
-        <h5>요청자 정보</h5>
-        <b-row>
-            <b-col>요청자</b-col>
-            <b-col>
-                <b-link v-if="frm.created_id" @click="openWinPop(`/admin/user/${frm.created_id}/edit`, 1700, 900)">
-                    {{frm.eq_name}}
-                </b-link>
-            </b-col>
-            <b-col>연락처</b-col><b-col>{{ frm.eq_hp }}{{ frm.eq_tel }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>소속</b-col><b-col>{{frm.office}}  {{ frm.eq_department }}</b-col>
-            <b-col>이메일</b-col><b-col>{{ frm.eq_email }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>문의사항</b-col>
-            <b-col><p v-html="nl2br(frm.eq_content)" /></b-col>
-        </b-row>
-        <b-row>
-            <b-col>첨부파일</b-col>
-            <b-col>
-                <b-button v-for="(file, i) in frm.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
-                    {{file.fi_original}}
-                </b-button>
-            </b-col>
-        </b-row>
-    </div>  
 </div>
 </template>
 

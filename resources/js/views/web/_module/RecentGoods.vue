@@ -56,6 +56,7 @@ export default {
         async setRecentGoods() {
             try {
                 let cookies = this.$cookies.get(this.ck_key);
+                console.log(cookies);
                 const res = await ax.get(`/api/shop/goods/recentGoods`, { params: {gd_id:cookies}});
                 if (res && res.status === 200) {
                     this.recentGoods = res.data;
@@ -92,12 +93,12 @@ export default {
             if (cookieRecentGoods) {
                 let array_cookieRecentGoods = cookieRecentGoods.split(',');
                 array_cookieRecentGoods =  array_cookieRecentGoods.reduce((acc, el) => {
-                    if (el != this.$route.params.gd_id) acc.push(el);   //  값이 있따면 빼고 리턴
+                    if (el != this.$route.params.gd_id && el!='') acc.push(el);   //  값이 있따면 빼고 리턴
                     return acc;
                 }, []);
                 array_cookieRecentGoods = [this.$route.params.gd_id].concat(array_cookieRecentGoods);
                 array_cookieRecentGoods =  array_cookieRecentGoods.reduce((acc, el, idx) => {
-                    if (idx < 15) acc.push(el);   //  값이 있따면 빼고 리턴
+                    if (idx < 15) acc.push(el);
                     return acc;
                 }, []);
                 cookieRecentGoods = array_cookieRecentGoods.join(',');

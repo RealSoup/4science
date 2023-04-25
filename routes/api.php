@@ -199,11 +199,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::get('bundleDc/findGmId/{gm_id}', 'Admin\Shop\BundleDcController@findGmId');
                 
 
-                Route::get('estimate/exportEstimateExcel/{er_id}', 'Admin\Shop\EstimateController@exportEstimateExcel')->name('admin.shop.estimate.exportEstimateExcel');
-                Route::get('estimate/exportEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@exportEstimatePdf')->name('admin.shop.estimate.exportEstimatePdf');
-                Route::get('estimate/exportTransactionExcel/{er_id}', 'Admin\Shop\EstimateController@exportTransactionExcel')->name('admin.shop.estimate.exportTransactionExcel');
-                Route::get('estimate/exportTransactionPdf/{er_id}', 'Admin\Shop\EstimateController@exportTransactionPdf')->name('admin.shop.estimate.exportTransactionPdf');
-                Route::get('estimate/printEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@printEstimatePdf')->name('admin.shop.estimate.printEstimatePdf');
+                Route::POST('estimate/exportEstimateExcel', 'Admin\Shop\EstimateController@exportEstimateExcel')->name('admin.shop.estimate.exportEstimateExcel');
+                Route::POST('estimate/exportEstimatePdf', 'Admin\Shop\EstimateController@exportEstimatePdf')->name('admin.shop.estimate.exportEstimatePdf');
+                Route::POST('estimate/exportTransactionExcel', 'Admin\Shop\EstimateController@exportTransactionExcel')->name('admin.shop.estimate.exportTransactionExcel');
+                Route::POST('estimate/exportTransactionPdf', 'Admin\Shop\EstimateController@exportTransactionPdf')->name('admin.shop.estimate.exportTransactionPdf');
+                // Route::get('estimate/printEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@printEstimatePdf')->name('admin.shop.estimate.printEstimatePdf');
                 Route::POST('estimate/reSend/{er_id}', 'Admin\Shop\EstimateController@reSend')->name('admin.shop.estimate.reSend');
                 Route::get('estimate/showEstimate/{er_id}', 'Admin\Shop\EstimateController@showEstimate');
                 Route::get('estimate/getEmptyEm', 'Admin\Shop\EstimateController@getEmptyEm');

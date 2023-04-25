@@ -113,36 +113,36 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 
     <table class="profile">
         <tr class="line01 line02">
-            <th>견적번호</th> <td width="33%">{{ $er->er_id }}</td>
-            <th>납품기일</th> <td>납기 {{ $er->er_dlvy_at }} 이내</td>
+            <th>견적번호</th> <td width="33%">{{ $er['er_id'] }}</td>
+            <th>납품기일</th> <td>납기 {{ $er['er_dlvy_at'] }} 이내</td>
         </tr>
         <tr class="line01">
-            <th>견적일자</th> <td>{{ date('Y-m-d', strtotime($er->created_at)) }}</td>
+            <th>견적일자</th> <td>{{ date('Y-m-d', strtotime($er['created_at'])) }}</td>
             <th>결제조건</th> <td>선결제 (대학교 및 국가연구소 제외)</td>
         </tr>
         <tr>
-            <th>수신</th> <td>{{ $er->estimateReq->eq_department }} 귀하</td>
-            <th>유효기간</th> <td>{{ $er->er_effective_at }} 까지</td>
+            <th>수신</th> <td>{{ $er['estimate_req']['eq_department'] }} 귀하</td>
+            <th>유효기간</th> <td>{{ $er['er_effective_at'] }} 까지</td>
         </tr>
         <tr class="line02"><td colspan="4"></td></tr>
         <tr class="line01 line02">
-            <th>견적요청인</th> <td>{{ $er->estimateReq->eq_name }}</td>
-            <th>견적담당자</th> <td>{{ $er->estimateReq->mng->name }}</td>
+            <th>견적요청인</th> <td>{{ $er['estimate_req']['eq_name'] }}</td>
+            <th>견적담당자</th> <td>{{ $er['user']['name'] }}</td>
         </tr>
         <tr class="line01">
-            <th>전화번호</th> <td>{{ $er->estimateReq->eq_tel }}</td>
-            <th>전화번호</th> <td>{{ $er->estimateReq->mng->tel }}</td>
+            <th>전화번호</th> <td>{{ $er['estimate_req']['eq_tel'] }}</td>
+            <th>전화번호</th> <td>{{ $er['user']['tel'] }}</td>
         </tr>
         <tr class="line01">
-            <th>휴대폰번호</th> <td>{{ $er->estimateReq->eq_hp }}</td>
-            <th>이메일주소</th> <td>{{ $er->estimateReq->mng->email }}</td>
+            <th>휴대폰번호</th> <td>{{ $er['estimate_req']['eq_hp'] }}</td>
+            <th>이메일주소</th> <td>{{ $er['user']['email'] }}</td>
         </tr>
         <tr class="line01">
-            <th>이메일주소</th> <td>{{ $er->estimateReq->eq_email }}</td>
-            <th>팩스주소</th> <td>{{ $er->estimateReq->mng->fax }}</td>
+            <th>이메일주소</th> <td>{{ $er['estimate_req']['eq_email'] }}</td>
+            <th>팩스주소</th> <td>{{ $er['user']['fax'] }}</td>
         </tr>
         <tr class="line03">
-            <th>팩스주소</th> <td colspan="3">{{ $er->estimateReq->eq_fax }}</td>
+            <th>팩스주소</th> <td colspan="3">{{ $er['estimate_req']['eq_fax'] }}</td>
         </tr>
     </table>
 
@@ -158,26 +158,46 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 @php
 $no=1;
 @endphp
-@foreach ($er->estimateModel as $em)
+@foreach ($er['estimate_model'] as $em)
+    @if ( $em['dlvy_all_in'] )
+        @php
+        //  부동소수점 오류 해결을 위한 식
+        //  부가세를 상품갯수만큼 나눠 1.1을 곱한다.( 부가세를 빼는 식 )
+        $em['em_price'] += bcdiv($er['er_dlvy_price']/$em['em_ea'], 1.1);
+        $er['er_gd_price'] += bcdiv($er['er_dlvy_price'], 1.1);
+        $er['er_surtax'] += $er['er_dlvy_price']-bcdiv($er['er_dlvy_price'], 1.1);
+        $er['er_dlvy_price']  = 0;
+
+        @endphp
+    @endif
+
+
+        
+        
+            
         <tr class="line01">
             <td>{{ $no }}</td>
-            <td width="33%">{{ $em->em_name }}</td>
-            <td>{{ $em->em_unit }}</td>
-            <td>{{ number_format($em->em_price) }}</td>
-            <td>{{ $em->em_ea }}</td>
-            <td>{{ number_format($em->em_price*$em->em_ea) }}</td>
+            <td width="33%">{{ $em['em_name'] }}</td>
+            <td>{{ $em['em_unit'] }}</td>
+            <td>{{ number_format($em['em_price']) }}</td>
+            <td>{{ $em['em_ea'] }}</td>
+            <td>{{ number_format($em['em_price']*$em['em_ea']) }}</td>
         </tr>
         <tr class="line01">
             <td></td>
-            <td>{{ $em->em_catno.' / '.$em->em_code }}</td>
-            <td></td>
+            <td>{{ $em['em_catno'].' / '.$em['em_code'] }}</td>
+            <td>
+                @if ($em['em_dlvy_at'])
+                    납기 : {{$em['em_dlvy_at']}}
+                @endif
+            </td>
             <td></td>
             <td></td>
             <td></td>
         </tr>
         <tr class="line02">
             <td></td>
-            <td>@nl2br($em->em_spec)</td>
+            <td>@nl2br($em['em_spec'])</td>
             <td></td>
             <td></td>
             <td></td>
@@ -189,15 +209,17 @@ $no=1;
 @endforeach
         <tr class="line03 line05"><td colspan="3"></td><td colspan="3"></td></tr>
 
-        <tr class="line03 line04"><td colspan="3">SUPPLY PRICE</td>   <td colspan="3">{{ number_format($er->er_gd_price) }}</td></tr>
-        <tr class="line03 line04"><td colspan="3">V.A.T</td>          <td colspan="3">{{ number_format($er->er_surtax) }}</td></tr>
-        @if ($er->er_no_dlvy_fee !== 'Y')
-            <tr class="line03 line04"><td colspan="3">배송료</td>          <td colspan="3">{{ number_format($er->er_dlvy_price) }}</td></tr>
-            @if ($er->er_air_price)
-                <tr class="line03 line04"><td colspan="3">항공운임료</td>          <td colspan="3">{{ number_format($er->er_air_price) }}</td></tr>
+        <tr class="line03 line04"><td colspan="3">SUPPLY PRICE</td>   <td colspan="3">{{ number_format($er['er_gd_price']) }}</td></tr>
+        <tr class="line03 line04"><td colspan="3">V.A.T</td>          <td colspan="3">{{ number_format($er['er_surtax']) }}</td></tr>
+        @if ($er['er_no_dlvy_fee'] !== 'Y')
+            @if ($er['er_dlvy_price'] > 0) 
+                <tr class="line03 line04"><td colspan="3">배송료</td>          <td colspan="3">{{ number_format($er['er_dlvy_price']) }}</td></tr>
+            @endif
+            @if ($er['er_air_price'])
+                <tr class="line03 line04"><td colspan="3">항공운임료</td>          <td colspan="3">{{ number_format($er['er_air_price']) }}</td></tr>
             @endif
         @endif
-        <tr class="line03 line05"><td colspan="3">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format($er->er_all_price) }}</td></tr>
+        <tr class="line03 line05"><td colspan="3">TOTAL AMOUNT</td>   <td colspan="3">{{ number_format($er['er_all_price']) }}</td></tr>
     </table>
 
     <table class="request">
