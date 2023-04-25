@@ -598,7 +598,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.5'
+                '/css/adm_shop_order_edit.css?ver=1.6'
             ]});
         },
 
