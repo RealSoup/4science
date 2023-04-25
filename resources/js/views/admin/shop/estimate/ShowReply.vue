@@ -230,7 +230,7 @@ export default {
         },
 ///////////////////////////////////////////////////////////////////////////////////////////
         print () {
-            var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}/?type=print`;
+            var url = `/api/admin/shop/estimate/showEstimate/${this.$route.params.er_id}?type=print`;
             var name = "견적서 인쇄";
             var option = "width = 900, height = 900, top = 10, left = 10, location = no"
             window.open(url, name, option);

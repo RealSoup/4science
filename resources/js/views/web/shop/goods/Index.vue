@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div class="p_wrap">
     <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
         Loading ......
@@ -211,4 +211,12 @@ export default {
 .list .col .lbody .link p span { display:block; color:#949494; margin-top:1.4rem; }
 .list .col .lbody .price { font-weight:bold; }
 
+@media (max-width: 992px){
+    .p_wrap { padding: 0 .3rem; margin-top:15px; }
+    .pick,
+    .list .sort { display:None; }
+    .list .col .lbody div { padding: 0 3px; }
+    .list .col .lbody .link img { border: 1px solid #ddd; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
+
+}
 </style>

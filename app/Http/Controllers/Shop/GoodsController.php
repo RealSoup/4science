@@ -29,7 +29,7 @@ class GoodsController extends Controller {
                             "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
                             "gm_code", "gm_spec", "gm_unit")
                 ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
-                ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')->where('gc_prime', '=', 'Y'); })
+                ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'); })
                 ->leftJoin('shop_goods_model', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id'); })
                 ->leftJoin('shop_makers', 'shop_goods.gd_mk_id', '=', 'shop_makers.mk_id')
                 ->Enable('Y')->groupBy('gd_id');

@@ -91,7 +91,8 @@ export default {
 .location>ul>li ul li:hover a { color:#FFF; }
 @media (max-width:768px){
     .location>ul>li:after { top:0.55rem; }
-    .location>ul>li .ts_loc { padding:0.5rem 0.8rem; }
+    .location>ul>li .ts_loc { padding:1vw 1.5vw; }
+    .location>ul>li.ca_div { display:none; }
     .location>ul>li .ts_loc b { margin-left:3px; }
 }
 </style>

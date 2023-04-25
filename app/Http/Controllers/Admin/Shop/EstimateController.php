@@ -357,7 +357,7 @@ class EstimateController extends Controller {
 
     public function estimateMailSend($to_email, $to_name, $params, $er_id) {
         $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
-        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();      
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
         $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er]);
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
@@ -475,7 +475,7 @@ class EstimateController extends Controller {
     public function exportTransactionPdf(Request $req) { return $this->pdf->loadView('admin.estimate.pdf.transaction', ['er' => $req->all()]) ->stream(); }
 
     public function showEstimate(Request $req, int $er_id) {
-        $er = EstimateReply::find($er_id);
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
         $type = $req->filled('type') ? $req->type : 'view';
         return view('admin.estimate.pdf.estimate', ['er' => $er, 'type'=>$type]);
 	}
