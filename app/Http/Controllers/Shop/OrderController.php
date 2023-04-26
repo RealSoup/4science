@@ -511,7 +511,7 @@ class OrderController extends Controller {
 
             if ($result['P_STATUS'] == '00'){
                 $pgdb_rst = OrderPg::insert([
-                    'pg_od_id'    => $result['P_OID'],
+                    'pg_od_id'    => $result['P_NOTI'],
                     'pg_app_no'   => $result['P_AUTH_NO'],
                     'pg_tid'      => $result['P_TID'],
                     'pg_pay_type' => $result['P_TYPE'],
