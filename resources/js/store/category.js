@@ -14,8 +14,9 @@ export default {
                     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의 
                     data[i], // 수정하려는 객체 
                     {
-                        // hover : false,      //  메인 하단 카테고리별 mouse on
-                        show_txt : false,    //  메인 하단 카테고리별 on
+                        showing: false,     //  메인 하단 카테고리별에서 스크롤 위치에 따른 사이드바 호버효과
+                        hover : false,      //  메인 하단 카테고리별 mouse on
+                        show_txt : false,   //  메인 하단 카테고리별 on
                     } // 삽입하려는 내용 
                 )
             }

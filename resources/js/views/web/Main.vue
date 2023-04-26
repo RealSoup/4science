@@ -78,16 +78,17 @@
 
         <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
             <ul>
-                <li v-for="(ca, i) in category" :key="ca.ca_id"
-                    @mouseenter="ca.hover = !ca.hover"
-                    @mouseleave="ca.hover = !ca.hover"
-                    @click="scrollToCate(i)"
-                    :class="{ 'active': ca.showing }"
-                >
-                    <img :src="ca.hover||ca.showing ? `${s3url}main/cate/${ca.ca_id}_.png` :`${s3url}main/cate/${ca.ca_id}.png`" />
-                    <span v-if="ca.hover">{{ca.ca_name}}</span>
-                </li>
-                
+                <template v-for="(ca, i) in category">
+                    <li v-if="ca.ca_id != 38" :key="ca.ca_id"
+                        @mouseenter="ca.hover = !ca.hover"
+                        @mouseleave="ca.hover = !ca.hover"
+                        @click="scrollToCate(i)"
+                        :class="{ 'active': ca.showing }"
+                    >
+                        <img :src="(ca.hover||ca.showing ) ? `${s3url}main/cate/${ca.ca_id}_.png` : `${s3url}main/cate/${ca.ca_id}.png`" />
+                        <span v-if="ca.hover">{{ca.ca_name}}</span>
+                    </li>
+                </template>
                 <!-- <li>
                     <button @click="scrollch('+')">up</button>
                     <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
@@ -122,7 +123,6 @@
 </div>
 </template>
 
-
 <script>
 import ax from '@/api/http';
 import { KinesisContainer, KinesisElement } from 'vue-kinesis';
@@ -147,8 +147,8 @@ export default {
             cateSideMenuPosition: 'absolute',
             cateSideMenuTop: 'auto',
             cateSideMenuBottom: 'auto',
-            scrollVal: [1760, 2302, 2846, 3387, 3929, 4471, 5013, 5555, 6097, 6639, 7181, 7723, 8265, 8807, 9349, 9891, 10433, 10975, 11517, 12059],
-            scrollEnd: 11721,
+            scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447],
+            scrollEnd: 11130,
             currentScroll:0,
 
             // best:[
@@ -211,6 +211,7 @@ export default {
 
         },
         scrollListener: function (e) {
+            console.log(window.scrollY);
             this.currentScroll = window.scrollY;
             if (window.scrollY > this.scrollEnd) {
                 this.cateSideMenuPosition = 'absolute';
@@ -218,7 +219,7 @@ export default {
                 this.cateSideMenuBottom = 0;
             } else if (window.scrollY > this.scrollVal[0]) {
                 this.cateSideMenuPosition = 'fixed';
-                this.cateSideMenuTop = '82px';
+                this.cateSideMenuTop = '153px';
                 this.cateSideMenuBottom = 'auto';
             } else if (window.scrollY < this.scrollVal[0]) {
                 this.cateSideMenuPosition = 'absolute';

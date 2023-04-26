@@ -183,8 +183,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       cateSideMenuPosition: 'absolute',
       cateSideMenuTop: 'auto',
       cateSideMenuBottom: 'auto',
-      scrollVal: [1760, 2302, 2846, 3387, 3929, 4471, 5013, 5555, 6097, 6639, 7181, 7723, 8265, 8807, 9349, 9891, 10433, 10975, 11517, 12059],
-      scrollEnd: 11721,
+      scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447],
+      scrollEnd: 11130,
       currentScroll: 0 // best:[
       //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
       // ],
@@ -271,6 +271,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     scrollListener: function scrollListener(e) {
+      console.log(window.scrollY);
       this.currentScroll = window.scrollY;
 
       if (window.scrollY > this.scrollEnd) {
@@ -279,7 +280,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.cateSideMenuBottom = 0;
       } else if (window.scrollY > this.scrollVal[0]) {
         this.cateSideMenuPosition = 'fixed';
-        this.cateSideMenuTop = '82px';
+        this.cateSideMenuTop = '153px';
         this.cateSideMenuBottom = 'auto';
       } else if (window.scrollY < this.scrollVal[0]) {
         this.cateSideMenuPosition = 'absolute';
@@ -922,41 +923,53 @@ var render = function () {
             [
               _c(
                 "ul",
-                _vm._l(_vm.category, function (ca, i) {
-                  return _c(
-                    "li",
-                    {
-                      key: ca.ca_id,
-                      class: { active: ca.showing },
-                      on: {
-                        mouseenter: function ($event) {
-                          ca.hover = !ca.hover
-                        },
-                        mouseleave: function ($event) {
-                          ca.hover = !ca.hover
-                        },
-                        click: function ($event) {
-                          return _vm.scrollToCate(i)
-                        },
-                      },
-                    },
-                    [
-                      _c("img", {
-                        attrs: {
-                          src:
-                            ca.hover || ca.showing
-                              ? _vm.s3url + "main/cate/" + ca.ca_id + "_.png"
-                              : _vm.s3url + "main/cate/" + ca.ca_id + ".png",
-                        },
-                      }),
-                      _vm._v(" "),
-                      ca.hover
-                        ? _c("span", [_vm._v(_vm._s(ca.ca_name))])
+                [
+                  _vm._l(_vm.category, function (ca, i) {
+                    return [
+                      ca.ca_id != 38
+                        ? _c(
+                            "li",
+                            {
+                              key: ca.ca_id,
+                              class: { active: ca.showing },
+                              on: {
+                                mouseenter: function ($event) {
+                                  ca.hover = !ca.hover
+                                },
+                                mouseleave: function ($event) {
+                                  ca.hover = !ca.hover
+                                },
+                                click: function ($event) {
+                                  return _vm.scrollToCate(i)
+                                },
+                              },
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src:
+                                    ca.hover || ca.showing
+                                      ? _vm.s3url +
+                                        "main/cate/" +
+                                        ca.ca_id +
+                                        "_.png"
+                                      : _vm.s3url +
+                                        "main/cate/" +
+                                        ca.ca_id +
+                                        ".png",
+                                },
+                              }),
+                              _vm._v(" "),
+                              ca.hover
+                                ? _c("span", [_vm._v(_vm._s(ca.ca_name))])
+                                : _vm._e(),
+                            ]
+                          )
                         : _vm._e(),
                     ]
-                  )
-                }),
-                0
+                  }),
+                ],
+                2
               ),
             ]
           ),

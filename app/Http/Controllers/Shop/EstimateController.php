@@ -215,7 +215,8 @@ class EstimateController extends Controller {
     }
 
     public function printEstimate(int $er_id) {
-        return view('admin.estimate.pdf.estimate', ['er' => EstimateReply::find($er_id), 'type'=>'print']);
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
+        return view('admin.estimate.pdf.estimate', ['er' => $er, 'type'=>'print']);
 	}
 
     public function getCustomMadeCategory() { return EstimateReq::$option['custom_made_category']; }

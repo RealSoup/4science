@@ -202,6 +202,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 var dt = new Date();
@@ -1152,7 +1157,39 @@ var render = function () {
                                   : _vm.od.od_pay_method == "E"
                                   ? _c("span", [_vm._v("에스크로")])
                                   : _vm.od.od_pay_method == "C"
-                                  ? _c("span", [_vm._v("카드결제")])
+                                  ? _c(
+                                      "span",
+                                      [
+                                        _vm._v(
+                                          "\r\n                                카드결제\r\n                                "
+                                        ),
+                                        _vm.od.order_pg &&
+                                        _vm.od.order_pg.pg_pay_type != "PSYS"
+                                          ? [
+                                              _c(
+                                                "b-button",
+                                                {
+                                                  staticClass: "sm",
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.openWinPop(
+                                                        "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=" +
+                                                          _vm.od.order_pg
+                                                            .pg_tid +
+                                                          "&noMethod=1",
+                                                        450,
+                                                        550
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [_vm._v("매출전표")]
+                                              ),
+                                            ]
+                                          : _vm._e(),
+                                      ],
+                                      2
+                                    )
                                   : _vm.od.od_pay_method == "P"
                                   ? _c("span", [_vm._v("PSYS")])
                                   : _vm.od.od_pay_method == "R"

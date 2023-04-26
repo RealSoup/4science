@@ -355,7 +355,7 @@ class OrderController extends Controller {
     }
 
     public function show($od_id) {
-        $data = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->find($od_id);
+        $data = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->with('orderPg')->find($od_id);
 
         foreach ($data->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm)
