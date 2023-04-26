@@ -46,7 +46,7 @@
                 >상품관리</router-link>
             </div>
         </div>
-        <Categorys v-if="true" :class="{view_cate:view_cate}" />
+        <Categorys v-if="true" :class="{view_cate:view_cate}" @close_cate="view_cate = false" />
         <Cart v-if="isLoggedin && $route.name !== 'order_settle'" /> <!-- 장바구니 -->
     </div>
     <div class="sm_view">
@@ -173,7 +173,7 @@ export default {
 #header #real .layout .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 
-#header.headerFix #afterimage { height:0; }
+#header.headerFix #afterimage { height:152px; }
 #header.headerFix #real { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
 
 

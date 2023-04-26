@@ -857,4 +857,9 @@ export default {
 
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
 #settle .inicis_form { width:0; height:0; visibility:hidden; overflow:hidden; }
+
+@media (max-width: 992px){
+    #settle { margin-top: 1rem; }
+    #settle h4 { margin:0; }
+}
 </style>

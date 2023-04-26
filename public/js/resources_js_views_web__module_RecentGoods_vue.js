@@ -87,36 +87,35 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
               case 0:
                 _context.prev = 0;
                 cookies = _this.$cookies.get(_this.ck_key);
-                console.log(cookies);
-                _context.next = 5;
+                _context.next = 4;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/goods/recentGoods", {
                   params: {
                     gd_id: cookies
                   }
                 });
 
-              case 5:
+              case 4:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.recentGoods = res.data;
                 }
 
-                _context.next = 13;
+                _context.next = 12;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 13:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 8]]);
       }))();
     },
     setCubeClass: function setCubeClass(direction) {

@@ -263,7 +263,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.slide_banner { max-width: 1920px; margin: auto; }
+.slide_banner { max-width:1920px; margin:auto; height:400px; }
+.slide_banner >>> .carousel-inner { position:absolute; left:50%; margin-left:-50%; }
 .slide_banner >>> .carousel-indicators li { background-color:#898989; }
 .slide_banner >>> .carousel-control-prev:hover,
 .slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
@@ -315,7 +316,6 @@ export default {
 
 
 @media (max-width: 992px){
-    .slide_banner { margin-left: -300px; margin-right: -300px; }
     #best { flex-direction: column; margin-top: 10px; }
     #best>.col:nth-of-type(1) { padding:0; }
     #best>.col:nth-of-type(2) { flex:0 0 100%; max-width:100%; }

@@ -11,7 +11,10 @@
             </span>
             <ul :class="{all_show:all_show}">
                 <li v-for="ca in category_all" :key="`all${ca.ca_id}`" @mouseenter="ca.sub_show = true" @mouseleave="ca.sub_show = false">
-                    <b-link :to="{name: 'goods_index', query: {ca01:ca.ca_id}}">{{ca.ca_name}}</b-link>
+                    <b-link 
+                        @click="$emit('close_cate')"
+                        :to="{name: 'goods_index', query: {ca01:ca.ca_id}}"
+                    >{{ca.ca_name}}</b-link>
                     <CateSub :sub_show='ca.sub_show && ca.sub.length' :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id" />
                 </li>
             </ul>

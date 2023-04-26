@@ -132,7 +132,7 @@ export default {
 <style lang="css" scoped>
 
 #Cart { 
-    position:absolute; top:19px; right:0; z-index:16; background:#FFF;
+    position:absolute; top:19px; right:0; z-index:17; background:#FFF;
     border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;
     border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);
     height:100%; max-height:680px; transition:all 0.3s;

@@ -46,7 +46,7 @@
             </b-container>
         </div>
 
-        <div class="pick">
+        <div class="pick m_hide">
             <b-row class="layout">
                 <b-col class="fir">
                     <b-img :src="`${s3url}goods/4spick.png`" />
@@ -72,7 +72,7 @@
         <div class="layout">
             <b-container>
                 <b-row class="list">
-                    <b-col class="sort">
+                    <b-col class="sort m_hide">
                         <ul>
                             <li :class="{active : frm.sort == 'hot'}" @click="sort('hot')">인기상품순</li>
                             <li :class="{active : frm.sort == 'new'}" @click="sort('new')">신상품순</li>
@@ -84,8 +84,8 @@
                     <b-col>
                         <b-row class="lhead">
                             <b-col>상품</b-col>
-                            <b-col>가격</b-col>
-                            <b-col>제조사</b-col>
+                            <b-col class="m_hide">가격</b-col>
+                            <b-col class="m_hide">제조사</b-col>
                         </b-row>
                         <template v-if="list.data && list.data.length">
                             <b-row v-for="(row, idx) in list.data" :key="row.gd_id" class="lbody">
@@ -94,16 +94,20 @@
                                     <p>
                                         <b>{{row.gd_name}}</b>
                                         <span> {{row.gm_code}} / {{row.gm_spec}} / {{row.gm_unit}}</span>
+                                        <i>가격 : {{row.gm_price_add_vat | comma | price_zero}}</i>
                                     </p>
                                 </b-link>
-                                <b-col class="price">
+                                <b-col class="price m_hide">
                                     {{row.gm_price_add_vat | comma | price_zero | won}} 
                                 </b-col>
-                                <b-col>{{row.mk_name}}</b-col>
+                                <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
                         </template>
                         <NoItem v-else />
-                        <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
+                        <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
+                            <span slot="prev-nav"><b-icon-chevron-left /></span>
+                            <span slot="next-nav"><b-icon-chevron-right /></span>
+                        </pagination>
                     </b-col>
                 </b-row>
             </b-container>
@@ -211,12 +215,16 @@ export default {
 .list .col .lbody .link p span { display:block; color:#949494; margin-top:1.4rem; }
 .list .col .lbody .price { font-weight:bold; }
 
+
+
 @media (max-width: 992px){
     .p_wrap { padding: 0 .3rem; margin-top:15px; }
-    .pick,
-    .list .sort { display:None; }
     .list .col .lbody div { padding: 0 3px; }
-    .list .col .lbody .link img { border: 1px solid #ddd; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
-
+    .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
+    .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
+    .list .col .lbody .link p span { margin-top:.4rem; }
+    .list .col .lbody .link p i { font-size: calc(1.3vw + .5rem); font-weight: 600; }
+    
+    .p_wrap >>> .page-link { min-width: 30px; padding:0; }
 }
 </style>

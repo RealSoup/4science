@@ -56,7 +56,6 @@ export default {
         async setRecentGoods() {
             try {
                 let cookies = this.$cookies.get(this.ck_key);
-                console.log(cookies);
                 const res = await ax.get(`/api/shop/goods/recentGoods`, { params: {gd_id:cookies}});
                 if (res && res.status === 200) {
                     this.recentGoods = res.data;

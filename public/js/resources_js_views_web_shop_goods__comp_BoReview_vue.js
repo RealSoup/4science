@@ -124,7 +124,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bo_index[data-v-212a3e8e] { max-width:1000px;\n}\n.bo_index table tr td[data-v-212a3e8e] { padding:.7rem 0; text-align:center; border-top-width:0; border-bottom:1px solid #959595;\n}\n.bo_index table tr td.satisfaction[data-v-212a3e8e] { color:red;\n}\n.bo_index table tr td[data-v-212a3e8e]:nth-child(3) { text-align:left;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bo_index[data-v-212a3e8e] { max-width:1000px;\n}\n.bo_index table tr td[data-v-212a3e8e] { padding:.7rem 0; text-align:center; border-top-width:0; border-bottom:1px solid #959595;\n}\n.bo_index table tr td.satisfaction[data-v-212a3e8e] { color:red;\n}\n.bo_index table tr td[data-v-212a3e8e]:nth-child(3) { text-align:left;\n}\n@media (max-width: 992px){\n.bo_index>.bo_body>.col[data-v-212a3e8e]:nth-of-type(4) { flex-basis:17%; max-width:17%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -269,7 +269,7 @@ var render = function () {
           "tbody",
           _vm._l(_vm.list.data, function (bo, i) {
             return _c("tr", { key: i }, [
-              _c("td", [
+              _c("td", { staticClass: "m_hide" }, [
                 _vm._v(
                   _vm._s(
                     _vm.list.total -
@@ -308,7 +308,9 @@ var render = function () {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm._f("formatDate")(bo.created_at)))]),
+              _c("td", { staticClass: "m_hide" }, [
+                _vm._v(_vm._s(_vm._f("formatDate")(bo.created_at))),
+              ]),
             ])
           }),
           0
@@ -353,7 +355,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("colgroup", [
-      _c("col", { attrs: { width: "10%" } }),
+      _c("col", { staticClass: "m_hide", attrs: { width: "10%" } }),
       _vm._v(" "),
       _c("col", { attrs: { width: "15%" } }),
       _vm._v(" "),
@@ -361,7 +363,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("col", { attrs: { width: "15%" } }),
       _vm._v(" "),
-      _c("col", { attrs: { width: "10%" } }),
+      _c("col", { staticClass: "m_hide", attrs: { width: "10%" } }),
     ])
   },
 ]

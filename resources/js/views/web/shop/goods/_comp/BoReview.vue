@@ -2,15 +2,15 @@
 <div class="bo_index">
     <table class="table">
         <colgroup>
-            <col width="10%" />
+            <col width="10%" class="m_hide" />
             <col width="15%" />
             <col width="" />
             <col width="15%" />
-            <col width="10%" />
+            <col width="10%" class="m_hide" />
         </colgroup>
         <tbody>
             <tr v-for="(bo, i) in list.data" :key="i">
-                <td>{{list.total-(list.per_page*(list.current_page-1))-i}}</td>
+                <td class="m_hide">{{list.total-(list.per_page*(list.current_page-1))-i}}</td>
                 <td class="satisfaction">
                     <template v-if="bo.bo_good == 100"><b-icon-star-fill /><b-icon-star-fill /><b-icon-star-fill /></template>
                     <template v-else-if="bo.bo_good == 50"><b-icon-star-fill /><b-icon-star-fill /><b-icon-star /></template>
@@ -19,7 +19,7 @@
                 
                 <td>{{bo.bo_content}}</td>
                 <td>{{bo.bo_writer}}</td>
-                <td>{{bo.created_at | formatDate}}</td>
+                <td class="m_hide">{{bo.created_at | formatDate}}</td>
             </tr>
         </tbody>
     </table>   
@@ -69,4 +69,7 @@ export default {
 .bo_index table tr td { padding:.7rem 0; text-align:center; border-top-width:0; border-bottom:1px solid #959595; }
 .bo_index table tr td.satisfaction { color:red; }
 .bo_index table tr td:nth-child(3) { text-align:left; }
+@media (max-width: 992px){
+    .bo_index>.bo_body>.col:nth-of-type(4) { flex-basis:17%; max-width:17%; }
+}
 </style>

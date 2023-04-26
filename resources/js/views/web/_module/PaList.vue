@@ -9,7 +9,7 @@
         <b-col>배송비</b-col>
     </b-row>
     <b-row v-for="(pa, pa_id) in value" :key="pa_id" class="lbody">
-        <b-col>{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
+        <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
         <b-col>
             <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
                 <template v-if="item.type == 'model'">

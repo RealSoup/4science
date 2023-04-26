@@ -47,26 +47,35 @@
                 
                 <div class="model">
                     <b-row>
-                        <b-col>Cat.No.</b-col>
-                        <b-col>모델명</b-col>
+                        <b-col class="m_hide">Cat.No.</b-col>
+                        <b-col class="m_hide">모델명</b-col>
                         <b-col>제품명</b-col>
-                        <b-col>사양</b-col>
-                        <b-col>판매단위</b-col>
-                        <b-col>판매가</b-col>
+                        <b-col class="m_hide">사양</b-col>
+                        <b-col class="m_hide">판매단위</b-col>
+                        <b-col class="m_hide">판매가</b-col>
                         <b-col>수량</b-col>
                     </b-row>
                 
                     <b-row v-for="gm in content.goods_model" :key="gm.gm_id" :class="{'selected': gm.ea}">
-                        <b-col>{{gm.gm_catno}}</b-col>
-                        <b-col>{{gm.gm_code}}</b-col>
-                        <b-col>{{gm.gm_name}}</b-col>
-                        <b-col>{{gm.gm_spec}}</b-col>
-                        <b-col>{{gm.gm_unit}}</b-col>
-                        <b-col class="price">
+                        <b-col class="m_hide">{{gm.gm_catno}}</b-col>
+                        <b-col class="m_hide">{{gm.gm_code}}</b-col>
+                        <b-col class="gm_name">
+                            <b>{{gm.gm_name}}</b>
+                            <p class="m_show">Cat.No:{{gm.gm_catno}}</p>
+                            <p class="m_show">모델명:{{gm.gm_code}}</p>
+                            <p class="m_show">사양:{{gm.gm_spec}}</p>
+                        </b-col>
+                        <b-col class="m_hide">{{gm.gm_spec}}</b-col>
+                        <b-col class="m_hide">{{gm.gm_unit}}</b-col>
+                        <b-col class="price m_hide">
                             {{gm.gm_price_add_vat | comma | price_zero}}
                             <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{bd.bd_price_add_vat | comma}}원</i>
                         </b-col>
-                        <b-col><vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea"></vue-numeric-input></b-col>
+                        <b-col>
+                            <p class="m_show">단위:{{gm.gm_unit}}</p>
+                            <p class="m_show">가격:{{gm.gm_price_add_vat | comma | price_zero}}</p>
+                            <vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea" />
+                        </b-col>
                     </b-row>
                 </div>
                 
@@ -426,15 +435,32 @@ export default {
         },
 
         scrollListener: function (e) {
-            const head_top=139;
+            const head_top=135;
             this.isScrollPass = window.scrollY >= head_top;
             this.is_bottom = (window.innerHeight + window.scrollY) >= (this.scrollHeight-this.footer_h);
-            if (this.isScrollPass) {
-                if (this.is_bottom) this.top_y = this.fix_y-((window.innerHeight + window.scrollY)-(this.scrollHeight-this.footer_h));
-                else                this.top_y = this.fix_y;
+            if (window.innerWidth>992 && this.isScrollPass) {
+                // if (this.is_bottom) this.top_y = this.fix_y-((window.innerHeight + window.scrollY)-(this.scrollHeight-this.footer_h));
+                // else                this.top_y = this.fix_y;
+                if (!this.is_bottom) this.top_y = window.scrollY-head_top;
             } else                  this.top_y = 0;
         },
-        
+/*
+        openDropDownAndShowNavBar(e) {
+            if (e.target.tagName === "A") {
+                e.target.classList.add("mouseover");
+                this.underbarStyle.left = e.target.offsetLeft + 16 + "px";
+                this.underbarStyle.width = e.target.offsetWidth - 30 + "px";
+                this.underbarStyle.display = "block";
+            }
+        },
+        closeDropDown() {
+            const target = document.querySelectorAll(".mouseover");
+            target?.forEach((el) => el.classList.remove("mouseover"));
+        },
+        hideNavBar() {
+            this.underbarStyle.display = "none";
+        },
+*/        
     },
     mounted() {
         this.show();
@@ -453,11 +479,11 @@ export default {
 <style lang="css" scoped>
 #goods_show { margin-top:3rem; }
 #goods_show>.row>.col { padding:0; }
-#goods_show .atrium { align-items:flex-start; }
+#goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
-.atrium .conLeft { flex-basis:500px; max-width:500px; height:auto; max-height:90vh; overflow:auto; }
-.atrium.fixed .conLeft { position:fixed; z-index:2; }
-.atrium.fixed .rack { flex-basis:500px; max-width:500px; }
+.atrium .conLeft { flex:33.333333%; max-width:33.333333%; height:auto; max-height:90vh; overflow:auto; }
+.atrium.fixed .conLeft { position:absolute; z-index:2; }
+.atrium.fixed .rack { flex:33.333333%; max-width:33.333333%; }
 .conLeft .carousel >>> .carousel-inner .carousel-item img { width:100%; height:498px; object-fit:contain; }
 .conLeft .carousel >>> .carousel-control-prev:hover,
 .conLeft .carousel >>> .carousel-control-next:hover { background-color:#CCC; }
@@ -567,14 +593,29 @@ export default {
 .conRight  #gd_inquiry .tit button { margin-left:1rem; border-color:#898989; }
 
 @media (max-width: 992px){
-    #goods_show { padding:20px; }
-    .location { display:none; }
-    .atrium.fixed .conLeft { position:static; }
+    .p_wrap { padding: 0 .3rem; margin-top:15px; }
+    #goods_show { padding:20px; margin-top:0; } 
+    .atrium .conLeft { position:static !important; flex: 0 0 100% !important; max-width:100% !important; }
     .conLeft .carousel >>> .carousel-inner .carousel-item img { height:260px; }
     .conLeft ul { margin:0; padding:0; border-top-width:0; }
 
     .conRight { flex: 0 0 100%; max-width:100%; margin:0; }
     .conRight h3 { font-size: calc(.6vw + 1rem); }
+
+    .conRight .model .row .col { text-align:left; }
+    .conRight .model .row .col:nth-of-type(7) { flex-basis:35%; max-width:35%; }
+    .conRight .model .row .col b { font-size: calc(1.3vw + .7rem); }
+    .conRight .model .row .col p { margin:0; font-size:calc(.9vw + .6rem); text-align:left; }
+    .conRight .model .row .col:nth-of-type(7) .vue-numeric-input { width:80% !important; max-width:90px; margin:auto; }
+    
+    .conRight .pick_info .total { padding-right:0; }
+    .conRight .pick_info .total b.cnt { margin-right: 1rem; }
+    .conRight .pick_info .total b.price { font-size: 1.3rem; }
+    .conRight .pick_info .btn-group { width:100%; }
+    .conRight .pick_info .btn-group .btn { padding-left:0; padding-right:0; }
+
+    .conRight .goods_nav { top:50px; padding:0; }
+    .conRight .goods_nav a { border-radius:.2rem; margin:.2rem; padding:7px 0; flex-basis:0; flex-grow:1; max-width:100%; text-align:center; }
 }
 /*
 <div class="cube_box">

@@ -310,7 +310,7 @@ var render = function () {
           "b-row",
           { key: pa_id, staticClass: "lbody" },
           [
-            _c("b-col", [
+            _c("b-col", { staticClass: "m_hide" }, [
               _vm._v(_vm._s(pa[0]["pa_name"] ? "업체" : "포사이언스")),
               _c("br"),
               _vm._v("배송"),

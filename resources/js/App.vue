@@ -129,7 +129,11 @@ label { margin-bottom:0; }
 @media (min-width: 1700px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { max-width: 1600px; }
 }
-
+.m_show { display:none; }
+@media (max-width: 992px){
+    .m_show { display:block; }
+    .m_hide { display:None !important; }
+}
 
 .w_fence { padding-top:3rem; margin-bottom:2rem; }
 .w_fence h3 { margin-bottom:2rem; font-size:1.8rem; font-weight:bold; }

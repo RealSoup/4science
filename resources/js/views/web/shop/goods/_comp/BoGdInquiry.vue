@@ -3,12 +3,12 @@
     <b-row v-for="(bo, i) in list.data" :key="bo.bo_id" class="bo_body">
         <b-col>{{list.total-(list.per_page*(list.current_page-1))-i}}</b-col>
         <b-col v-b-toggle="`collapse_${bo.bo_id}`">{{bo.bo_content}}</b-col>
-        <b-col>
+        <b-col class="m_hide">
             <b-badge v-if="bo.answer" class="answer_mark">답변완료</b-badge>
             <b-badge v-else>답변대기</b-badge>
         </b-col>
         <b-col>{{bo.bo_writer}}</b-col>
-        <b-col>{{bo.created_at | formatDate}}</b-col>
+        <b-col class="m_hide">{{bo.created_at | formatDate}}</b-col>
 
         <b-col class="answer">
             <b-collapse :id="`collapse_${bo.bo_id}`">
@@ -116,4 +116,7 @@ export default {
 .bo_index .bo_body .answer .collapse .card .card-body .ans .card-text { margin-top:1.3rem; }
 .bo_index .bo_body .answer .collapse .card .card-body .ans .date { margin-top:1.3rem; }
 .bo_index .pagination { margin-top:1rem; }
+@media (max-width: 992px){
+    .bo_index>.bo_body>.col:nth-of-type(4) { flex-basis:17%; max-width:17%; }
+}
 </style>

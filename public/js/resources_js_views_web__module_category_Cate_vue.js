@@ -110,6 +110,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ModuleCategory',
@@ -340,6 +343,11 @@ var render = function () {
                           to: {
                             name: "goods_index",
                             query: { ca01: ca.ca_id },
+                          },
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.$emit("close_cate")
                           },
                         },
                       },
