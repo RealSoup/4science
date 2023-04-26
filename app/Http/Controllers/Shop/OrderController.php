@@ -519,11 +519,8 @@ class OrderController extends Controller {
                     'pg_card_com' => OrderPg::$option['cardComNm'][$result['P_FN_CD1']],
                     'pg_buyer_nm' => $result['P_UNAME'],
                     'pg_code'     => $result['P_STATUS'],
-                    'pg_msg'      => $result['P_RMESG1']]);
-                
-                $od = $this->order->find(($result['P_NOTI']));
-                $od->od_step = '20';
-                $od->save();
+                    'pg_msg'      => $result['P_RMESG1']]);       
+                DB::table('shop_order')->where('od_id', $result['P_NOTI'])->update(['od_step'=> '20']);
                 return redirect("/shop/order/done/{$result['P_NOTI']}");               
             } else {
                 return redirect("/shop/order/payCardFail?msg=카드결제에 실패 했습니다.\\n다시 해주시기 바랍니다.");
