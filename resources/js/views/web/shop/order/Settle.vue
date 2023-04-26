@@ -315,7 +315,7 @@
         <b-form-input name="gopaymethod"    value="Card" />
         <b-form-input name="merchantData"   :value="order.od_id" />       
     </form>
-    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post">
+    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="euc-kr">
         <b-form-input name="P_INI_PAYMENT"   value="CARD" />
         <b-form-input name="P_MID"           :value="inicis.mid" />
         <b-form-input name="P_OID"           :value="order.od_no" />
@@ -540,6 +540,7 @@ export default {
                             objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);                 form.appendChild(objs09);                            
                             form.setAttribute('method', 'post'); //get,post 가능
                             form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+                            form.setAttribute("accept-charset", "EUC-KR");
                             document.body.appendChild(form);
                             form.submit();
                         }

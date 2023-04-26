@@ -641,6 +641,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
 
+                  form.setAttribute("accept-charset", "EUC-KR");
                   document.body.appendChild(form);
                   form.submit();
                 }
@@ -3131,6 +3132,7 @@ var render = function () {
                 id: "MobilePayForm",
                 action: "https://mobile.inicis.com/smart/payment/",
                 method: "post",
+                "accept-charset": "euc-kr",
               },
             },
             [
