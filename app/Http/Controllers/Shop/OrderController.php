@@ -517,7 +517,7 @@ class OrderController extends Controller {
                     'pg_pay_type' => $result['P_TYPE'],
                     'pg_price'    => $result['P_AMT'],
                     'pg_card_com' => OrderPg::$option['cardComNm'][$result['P_FN_CD1']],
-                    'pg_buyer_nm' => $resultMap['P_UNAME'],
+                    'pg_buyer_nm' => $result['P_UNAME'],
                     'pg_code'     => $result['P_STATUS'],
                     'pg_msg'      => $result['P_RMESG1']]);
                 
