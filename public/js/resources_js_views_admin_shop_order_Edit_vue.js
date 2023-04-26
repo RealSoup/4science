@@ -468,6 +468,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 var dt = new Date();
@@ -2559,20 +2560,23 @@ var render = function () {
                           ? _c(
                               "b-button",
                               {
-                                staticClass: "teal print_hide_inline_block",
+                                staticClass: "sm teal print_hide_inline_block",
                                 on: {
                                   click: function ($event) {
                                     return _vm.openWinPop(
-                                      "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=" +
-                                        _vm.od.order_pg.pg_tid +
-                                        "&noMethod=1",
-                                      430,
-                                      540
+                                      "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=" +
+                                        _vm.od.order_pg.pg_tid,
+                                      450,
+                                      550
                                     )
                                   },
                                 },
                               },
-                              [_vm._v("매출전표")]
+                              [
+                                _vm._v(
+                                  "\r\n                            매출전표\r\n                        "
+                                ),
+                              ]
                             )
                           : _vm._e(),
                       ],

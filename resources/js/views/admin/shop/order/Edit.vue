@@ -276,8 +276,9 @@
                         <span v-if="od.od_pay_method=='C'">카드결제</span>
                         <span v-else-if="od.od_pay_method=='P'">PSYS</span>
                         <span v-else-if="od.od_pay_method=='R'">원격결제</span>
-
-                        <b-button v-if="od.order_pg && od.order_pg.pg_id" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 430, 540)" class="teal print_hide_inline_block">매출전표</b-button>
+                        <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block" @click="openWinPop(`https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${od.order_pg.pg_tid}`, 450, 550)">
+                            매출전표
+                        </b-button>
                     </td>
                     <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
                 </tr>

@@ -3131,7 +3131,6 @@ var render = function () {
                 id: "MobilePayForm",
                 action: "https://mobile.inicis.com/smart/payment/",
                 method: "post",
-                "accept-charset": "EUC-KR",
               },
             },
             [

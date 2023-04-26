@@ -133,7 +133,7 @@
                             <span v-else-if="od.od_pay_method=='C'">
                                 카드결제
                                 <template v-if="od.order_pg && od.order_pg.pg_pay_type != 'PSYS'">
-                                    <b-button class="sm" @click="openWinPop(`https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=${od.order_pg.pg_tid}&noMethod=1`, 450, 550)">매출전표</b-button>
+                                    <b-button class="sm" @click="openWinPop(`https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${od.order_pg.pg_tid}`, 450, 550)">매출전표</b-button>
                                 </template>
                             </span>
                             <span v-else-if="od.od_pay_method=='P'">PSYS</span>

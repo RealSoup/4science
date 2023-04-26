@@ -1173,10 +1173,9 @@ var render = function () {
                                                   on: {
                                                     click: function ($event) {
                                                       return _vm.openWinPop(
-                                                        "https://iniweb.inicis.com/DefaultWebApp/mall/cr/cm/mCmReceipt_head.jsp?noTid=" +
+                                                        "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=" +
                                                           _vm.od.order_pg
-                                                            .pg_tid +
-                                                          "&noMethod=1",
+                                                            .pg_tid,
                                                         450,
                                                         550
                                                       )

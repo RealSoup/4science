@@ -315,7 +315,7 @@
         <b-form-input name="gopaymethod"    value="Card" />
         <b-form-input name="merchantData"   :value="order.od_id" />       
     </form>
-    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="EUC-KR">
+    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post">
         <b-form-input name="P_INI_PAYMENT"   value="CARD" />
         <b-form-input name="P_MID"           :value="inicis.mid" />
         <b-form-input name="P_OID"           :value="order.od_no" />
