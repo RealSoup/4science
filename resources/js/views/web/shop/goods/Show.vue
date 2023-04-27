@@ -127,7 +127,7 @@
                     </b-button-group>
                 </div>
 
-                <b-row class="goods_relate" v-if="content.goods_relate.length">
+                <b-row class="goods_relate m_hide" v-if="content.goods_relate.length">
                     <b-col class="head"><b>연관<br>상품</b></b-col>
                     <perfect-scrollbar>
                     <b-col class="gd_list">

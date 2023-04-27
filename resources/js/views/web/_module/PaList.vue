@@ -165,7 +165,7 @@ export default {
 .pa_list .total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
 .pa_list .total .col { color:#000; font-weight:bold; padding:1rem 3rem; }
 .pa_list .total .col b { font-size:1.4rem; }
-.pa_list .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }
+.pa_list .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:1.2rem; }
 .pa_list .total .col:nth-of-type(even) { text-align:right; padding: 1vw 2vw 1vw 0; }
 .pa_list .total .col:nth-of-type(2):after,
 .pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }

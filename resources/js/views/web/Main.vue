@@ -223,7 +223,6 @@ export default {
 
         },
         scrollListener: function (e) {
-            console.log(window.scrollY);
             this.currentScroll = window.scrollY;
             if (window.scrollY > this.scrollEnd) {
                 this.cateSideMenuPosition = 'absolute';
@@ -276,8 +275,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.slide_banner { max-width:1920px; margin:auto; height:400px; }
-.slide_banner >>> .carousel-inner { position:absolute; left:50%; margin-left:-50%; }
+.slide_banner { overflow:hidden; }
+.slide_banner >>> .carousel-inner { left:50%; transform:translateX(-50%); width:900px; }
 .slide_banner >>> .carousel-indicators li { background-color:#898989; }
 .slide_banner >>> .carousel-control-prev:hover,
 .slide_banner >>> .carousel-control-next:hover { background-color:#55888888; }
