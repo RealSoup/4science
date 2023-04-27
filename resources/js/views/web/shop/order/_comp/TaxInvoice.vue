@@ -239,4 +239,10 @@ export default {
 .slideUpDown-enter-active  { transition:max-height 0.9s; }
 .slideUpDown-enter,
 .slideUpDown-leave-to { max-height:0; }
+
+
+@media (max-width: 992px){
+    .tax_iv .custom-control { margin: 2rem 0 1rem 1rem; }
+    .tax_iv .container .container { padding:0 !important; }
+}
 </style>

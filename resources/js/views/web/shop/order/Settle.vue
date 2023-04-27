@@ -72,8 +72,8 @@
                     <b-row>
                         <label for="od_orderer_hp">연락처<i class="require" /></label>
                         <b-col>
-                            <b-form-input v-model="order.od_orderer_hp1" ref="od_orderer_hp1" @input.native="focusNext($event, 3, 'od_orderer_hp2')" :formatter="maxlength_3" id="od_orderer_hp" /><b-icon-dash />
-                            <b-form-input v-model="order.od_orderer_hp2" ref="od_orderer_hp2" @input.native="focusNext($event, 4, 'od_orderer_hp3')" :formatter="maxlength_4" /><b-icon-dash />
+                            <b-form-input v-model="order.od_orderer_hp1" ref="od_orderer_hp1" @input.native="focusNext($event, 3, 'od_orderer_hp2')" :formatter="maxlength_3" id="od_orderer_hp" /><b-icon-dash class="m_hide" />
+                            <b-form-input v-model="order.od_orderer_hp2" ref="od_orderer_hp2" @input.native="focusNext($event, 4, 'od_orderer_hp3')" :formatter="maxlength_4" /><b-icon-dash class="m_hide" />
                             <b-form-input v-model="order.od_orderer_hp3" ref="od_orderer_hp3" @input.native="focusNext($event, 4, 'od_orderer_email_id')" :formatter="maxlength_4" />
                         </b-col>
                     </b-row>
@@ -101,7 +101,7 @@
                         <div>
                             <b-form-radio v-model="order.addr_type" value="D" @change="change_addr_type">기본 배송지</b-form-radio>
                             <b-form-radio v-model="order.addr_type" value="N" @change="change_addr_type">신규 배송지</b-form-radio>
-                            <b-button variant="light" @click="config_addr">배송지 관리</b-button>
+                            <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
                         </div>
                     </h4>
                     <b-row>
@@ -117,8 +117,8 @@
                     <b-row>
                         <label for="od_receiver_hp">연락처<i class="require" /></label>
                         <b-col>
-                            <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash />
-                            <b-form-input v-model="order.od_receiver_hp2" ref="od_receiver_hp2" @input.native="focusNext($event, 4, 'od_receiver_hp3')" :formatter="maxlength_4" /><b-icon-dash />
+                            <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash class="m_hide" />
+                            <b-form-input v-model="order.od_receiver_hp2" ref="od_receiver_hp2" @input.native="focusNext($event, 4, 'od_receiver_hp3')" :formatter="maxlength_4" /><b-icon-dash class="m_hide" />
                             <b-form-input v-model="order.od_receiver_hp3" ref="od_receiver_hp3" @input.native="focusNext($event, 4, 'btn_postcode')" :formatter="maxlength_4" />
                         </b-col>
                     </b-row>                        
@@ -801,7 +801,7 @@ export default {
 #settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input { max-width:180px; }
 #settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select { max-width:122px; margin:0 .5rem; }
 
-#settle .st_bottom .inputs .address .row:nth-of-type(4) .col { display:block; flex-basis:46%; max-width:46%; }
+#settle .st_bottom .inputs .address .row:nth-of-type(4) .col { flex-basis:46%; max-width:46%; }
 #settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input { max-width:180px; display:inline-block; }
 #settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn { font-size:.9rem; height:36px; position:relative; top:-2px;}
 #settle .st_bottom .inputs .address .row:nth-of-type(5) .col { display:block; flex-basis:53%; max-width:53%; }
@@ -862,5 +862,18 @@ export default {
 @media (max-width: 992px){
     #settle { margin-top: 1rem; }
     #settle h4 { margin:0; }
+
+    #settle .st_bottom .inputs div .row label { text-indent:0; flex-basis:18.8%; max-width:18.8%; }
+    #settle .st_bottom .inputs .address h4 { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem; }
+    #settle .st_bottom .inputs .address h4>* { flex-basis:100%; max-width:100%; }
+    #settle .st_bottom .inputs .address h4 div>>>label { font-size: calc(.6vw + .7rem); }
+    #settle .st_bottom .inputs .address .row:nth-of-type(4) .col,
+    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col { flex-basis:0; flex-grow:1; max-width:100%; }
+    #settle .st_bottom .inputs .agreement { flex-direction:column; }
+    #settle .st_bottom .inputs .agreement .col:nth-of-type(2) { margin:5px 0; }
+    #settle .st_bottom .row .col.inputs { padding-right:0; margin:10px 3px; }
+    #settle .st_bottom .row .col.payment { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px; }
+    
+
 }
 </style>

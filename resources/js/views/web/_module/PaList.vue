@@ -1,6 +1,6 @@
 <template>
 <b-container class="pa_list frm_st">
-    <b-row class="lhead">
+    <b-row class="lhead m_hide">
         <b-col>주문 상품</b-col>        
         <b-col>제조사</b-col>
         <b-col>판매가</b-col>
@@ -16,26 +16,26 @@
                     <b-col><img :src="item.img" /></b-col>
                     <b-col>
                         <p>{{item.gd_name}}</p>
-                        <p>모델명:{{item.gm_code}} / Cat.No.:{{item.gm_catno}}</p>
-                        <p>제품명:{{item.gm_name}} / 사양:{{item.gm_spec}}</p>
+                        <p><b class="m_hide">제품명:</b>{{item.gm_name}} / <b class="m_hide">Cat.No.:</b>{{item.gm_catno}}</p>
+                        <p><b class="m_hide">모델명:</b>{{item.gm_code}} / <b class="m_hide">사양:</b>{{item.gm_spec}}</p>
                         <p>판매단위:{{item.gm_unit}}</p>
-                        <p>납기:{{item.dlvy_at}}</p>
+                        <p v-if="item.dlvy_at">납기:{{item.dlvy_at}}</p>
                     </b-col>
-                    <b-col>{{item.mk_name}}</b-col>
+                    <b-col class="m_hide">{{item.mk_name}}</b-col>
                     <b-col>{{item.price_add_vat | comma}} 원</b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
                             {{item.price_add_vat*item.ea | comma}} 원
-                            <br />
-                            <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                            <br class="m_hide" />
+                            <span class="m_hide">({{item.gain_mileage*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
                 </template>
                 <template v-else-if="item.type == 'option'">
                     <b-col>추가 옵션</b-col>
                     <b-col>{{item.goc_name}}</b-col>
-                    <b-col></b-col>
+                    <b-col class="m_hide"></b-col>
                     <b-col>{{item.price_add_vat | comma}} 원</b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
@@ -49,7 +49,7 @@
             </b-row>
         </b-col>
 
-        <b-col>
+        <b-col class="m_hide">
             <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
             <template v-else>배송비</template>
             <br />
@@ -157,7 +157,7 @@ export default {
 
 .pa_list .row .col .row.option { background:#F4F1EC; }
 .pa_list .row .col .row .col { padding:.8rem 0; }
-.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:cover; }
+.pa_list .row .col .row .col img { width:100%; max-width:120px; height:auto; object-fit:contain; }
 .pa_list .row .col .row .col p { margin-bottom:.2rem; }
 .pa_list .row .col .row .col:nth-of-type(2) { padding-left:1rem; }
 .pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }
@@ -165,14 +165,17 @@ export default {
 .pa_list .total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
 .pa_list .total .col { color:#000; font-weight:bold; padding:1rem 3rem; }
 .pa_list .total .col b { font-size:1.4rem; }
-.pa_list .total .col:nth-of-type(1) { display:flex; align-items:center; }
-.pa_list .total .col:nth-of-type(2) { text-align:right; border-right:1px solid #D6D6D6; }
-.pa_list .total .col:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"+"; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
-.pa_list .total .col:nth-of-type(3) { display:flex; align-items:center; }
-.pa_list .total .col:nth-of-type(4) { text-align:right; border-right:1px solid #D6D6D6; }
-.pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:"="; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1; }
-.pa_list .total .col:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%; }
-.pa_list .total .col:nth-of-type(6) { text-align:right; flex-basis:20%; max-width:20%; }
+.pa_list .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }
+.pa_list .total .col:nth-of-type(even) { text-align:right; padding: 1vw 2vw 1vw 0; }
+.pa_list .total .col:nth-of-type(2):after,
+.pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }
+.pa_list .total .col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(2):after { content:"+"; }
+
+.pa_list .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(4):after { content:"="; }
+.pa_list .total .col:nth-of-type(5) { flex-basis:20%; max-width:20%; }
+.pa_list .total .col:nth-of-type(6) { flex-basis:20%; max-width:20%; }
 
 .pa_list .total_sub { background:#F2F3F5; border-bottom-width:0; }
 .pa_list .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
@@ -184,4 +187,24 @@ export default {
 .pa_list .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .pa_list .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
 
+@media (max-width: 992px){
+    
+    .pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:25%; max-width:25%; }
+    .pa_list .lbody .col .row .col:nth-of-type(2) { flex-basis:75%; max-width:75%; }
+    .pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:35%; max-width:35%; }
+    .pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:25%; max-width:25%; }
+    .pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:40%; max-width:40%; }
+    .pa_list .row .col .row .col { padding:0; }
+    .pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1) { margin-bottom:.2rem; }
+    .pa_list .row .col .row .col p { margin-bottom:0; line-height:1.3; }
+
+    .pa_list .total .col:nth-of-type(odd) { flex-basis:45%; max-width:45%; }
+    .pa_list .total .col:nth-of-type(even) { flex-basis:55%; max-width:55%; }
+    .pa_list .total .col:nth-of-type(2):after,
+    .pa_list .total .col:nth-of-type(4):after { content:none; }
+    .pa_list .total_sub>.col:nth-of-type(1),
+    .pa_list .total_sub>.col:nth-of-type(2),
+    .pa_list .total_sub>.col:nth-of-type(3) { flex-basis:100%; max-width:100%; }
+    .pa_list .total_sub .col>div{ padding:2vw !important; }
+}
 </style>
