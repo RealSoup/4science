@@ -1,6 +1,4 @@
 {
-    "name": "4science",
-    "version": "23042702",
     "private": true,
     "scripts": {
         "dev": "npm run development",
