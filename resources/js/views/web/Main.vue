@@ -2,8 +2,14 @@
 <div>
     <PopUp /> <!-- 팝업 -->
     <b-carousel controls indicators class="slide_banner">
+        <b-link v-if="slide_check01" to="/shop/goods?ca01=32&ca02=5439">
+            <b-carousel-slide :img-src="s3url+'event/2023/0425/slide02.jpg'"></b-carousel-slide>
+        </b-link>
         <b-link to="/board/event/show/36">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/230418.jpg'"></b-carousel-slide>
+        </b-link>
+        <b-link v-if="slide_check02" to="/shop/goods?ca01=32&ca02=5439">
+            <b-carousel-slide :img-src="s3url+'event/2023/0425/slide02.jpg'"></b-carousel-slide>
         </b-link>
         <b-link to="/board/event/show/31">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
@@ -160,6 +166,9 @@ export default {
             //     },
 
             // }
+            date01: new Date('2023-05-02 00:00'),
+            date02: new Date('2023-05-16 23:59'),
+            date_now: new Date(),
         }
     },
     computed: {
@@ -175,6 +184,9 @@ export default {
             return dummy;
         },
         ...mapState('category', ['category']),
+
+        slide_check01() { return this.date01 < this.date_now && this.date_now < this.date02; },
+        slide_check02() { return this.date02 < this.date_now; },
     },
     methods: {
         async index(frm){

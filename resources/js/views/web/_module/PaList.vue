@@ -19,6 +19,7 @@
                         <p>모델명:{{item.gm_code}} / Cat.No.:{{item.gm_catno}}</p>
                         <p>제품명:{{item.gm_name}} / 사양:{{item.gm_spec}}</p>
                         <p>판매단위:{{item.gm_unit}}</p>
+                        <p>납기:{{item.dlvy_at}}</p>
                     </b-col>
                     <b-col>{{item.mk_name}}</b-col>
                     <b-col>{{item.price_add_vat | comma}} 원</b-col>
@@ -99,7 +100,11 @@
 export default { 
     name: 'PaList', 
     props: ['value', 'price'],
-    
+    data() {
+        return {
+            
+        }
+    },
     computed: {
         dlvy_4s () {
             return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
@@ -117,6 +122,10 @@ export default {
             }, 0);
         },
     }, 
+    methods:{
+        
+        
+    },
 };
 </script>
 

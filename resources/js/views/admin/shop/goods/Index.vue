@@ -86,7 +86,10 @@
             <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.image_src_thumb[0]" rounded /></b-link>
             <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><span>{{row.gd_name}}</span></b-link>
             <b-col><span>{{row.maker.mk_name}}</span></b-col>
-            <b-col><span v-if="row.user"></span></b-col>
+            <b-col>
+                <template v-if="mng_off[row.updated_id]">{{mng_off[row.updated_id].name}}</template>
+                <template v-else>{{row.updated_id}}</template>
+            </b-col>
             <b-col><span v-if="row.gd_enable=='Y'">활성</span><span v-else>비활성</span></b-col>
             <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
         </b-row>
@@ -128,7 +131,7 @@ export default {
             makers: {},
             gd_enable: { 0:{value:'Y', name:'활성'}, 1:{value:'N', name:'비활성'} },
             deleted_at: { 0:{value:'Y', name:'삭제'}, 1:{value:'N', name:'존재'} },
-
+            mng_off:[],
         }
     },
     methods: {
@@ -145,7 +148,7 @@ export default {
                 const res = await ax.get(`/api/admin/shop/goods`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
-                    // this.categorys = res.data.categorys;
+                    this.mng_off = res.data.mng_off;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -157,7 +160,7 @@ export default {
     async mounted() {
         this.index();
         const res = await ax.get(`/api/admin/shop/maker`, { params: {type: 'all'}});
-        if (res && res.status === 200)
+        if (res && res.status === 200) 
             this.makers = res.data.list;
     },
 }

@@ -122,12 +122,19 @@ class EstimateController extends Controller {
     }
 
     public function reEstimate(Request $req) {
-        $eq_title = Arr::first($req->estimate_model, function ($v, $k) { return $v['em_check_opt'] == 'Y'; })['em_name'];
-        $em_cnt = count(Arr::where($req->estimate_model, function ($v, $k) { return $v['em_check_opt'] == 'Y'; }));
+        $eq_title = '';
+        foreach ($req->collect['lists'] as $v) {
+            $eq_title = Arr::first($v, function ($v1, $k1) { return $v1['em_check_opt']; })['gm_name'];
+            if ($eq_title != '') break;
+        }        
+        $em_cnt = 0;
+        foreach ($req->collect['lists'] as $v)
+            $em_cnt += count(Arr::where($v, function ($v1, $k1) { return $v1['em_check_opt']; }));
         $eq_title .= $em_cnt >= 2 ? '외 ['.($em_cnt - 1).']' : '';
 
         $eq_id = EstimateReq::insertGetId([
             "eq_type"       => 'REREQ',
+
             "eq_title"      => $eq_title,
             "eq_name"       => $req->estimate_req['eq_name'],
             "eq_email"      => $req->estimate_req['eq_email'],
@@ -141,37 +148,41 @@ class EstimateController extends Controller {
             'created_id'    => auth()->check() ? auth()->user()->id : 0
         ]);
 
-
-        foreach ($req->estimate_model as $em) {
-            if ($em['em_check_opt'] == 'Y') {
-                $em_id = EstimateModel::insertGetId([
-                    'em_type'       => 'estimateReq',
-                    'em_papa_id'    => $eq_id,
-                    'em_gd_id'      => $em['em_gd_id'],
-                    'em_gm_id'      => $em['em_gm_id'],
-                    'em_name'       => $em['em_name'],
-                    'em_catno'      => $em['em_catno'],
-                    'em_code'       => $em['em_code'],
-                    'em_unit'       => $em['em_unit'],
-                    'em_spec'       => $em['em_spec'],
-                    'em_maker'      => $em['em_maker'],
-                    'em_ea'         => $em['em_ea'],
-                    'em_cost_price' => $em['em_cost_price'],
-                    'em_price'      => $em['em_price'],
-                    'em_dlvy_at'    => $em['em_dlvy_at'],
-                ]);
-                foreach ($em['estimate_option'] as $eo) {
-                    if ($eo['eo_check_opt'] == 'Y') {
-                        EstimateOption::insert([
-                            'eo_em_id'  => $em_id,
-                            'eo_gd_id'  => $eo['eo_gd_id'],
-                            'eo_opc_id' => $eo['eo_opc_id'],
-                            'eo_tit'    => $eo['eo_tit'],
-                            'eo_name'   => $eo['eo_name'],
-                            'eo_ea'     => $eo['eo_ea'],
-                            'eo_price'  => $eo['eo_price'],
+        $is_model_check = false;
+        $em_id = 0;
+        foreach ($req->collect['lists'] as $pa) {
+            foreach ($pa as $em) {
+                if ($em['type'] == 'model') {
+                    if ($em['em_check_opt'] && $em['ea']>0) {
+                        $em_id = EstimateModel::insertGetId([
+                            'em_type'       => 'estimateReq',
+                            'em_papa_id'    => $eq_id,
+                            'em_gd_id'      => $em['gd_id'],
+                            'em_gm_id'      => $em['gm_id'],
+                            'em_name'       => $em['gm_name'],
+                            'em_catno'      => $em['gm_catno'],
+                            'em_code'       => $em['gm_code'],
+                            'em_unit'       => $em['gm_unit'],
+                            'em_spec'       => $em['gm_spec'],
+                            'em_maker'      => $em['mk_name'],
+                            'em_ea'         => $em['ea'],
+                            'em_cost_price' => $em['price'],
+                            'em_price'      => $em['price'],
+                            'em_dlvy_at'    => $em['dlvy_at'],
                         ]);
-                    }
+                        $is_model_check = true;
+                    } else $is_model_check = false;
+                }
+                if ($em['type'] == 'option' && $is_model_check) {
+                    EstimateOption::insert([
+                        'eo_em_id'  => $em_id,
+                        'eo_gd_id'  => $em['gd_id'],
+                        'eo_goc_id' => $em['goc_id'],
+                        'eo_tit'    => $em['go_name'],
+                        'eo_name'   => $em['goc_name'],
+                        'eo_ea'     => $em['ea'],
+                        'eo_price'  => $em['price'],
+                    ]);
                 }
             }
         }
@@ -205,13 +216,23 @@ class EstimateController extends Controller {
 
 
     public function replyShow(EstimateReply $er, $er_id) {
-        $er = $er->with('estimateReq')->with('user')->with('fileInfo')->find($er_id);
-        foreach ($er->estimateModel as $v) {
-            if ($v->goods)
-                $v->goods->purchaseAt;
-            $v->estimateOption;
+        $data = $er->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($er_id);
+        $data->estimateReq->fileInfo;
+        if ($data->user)
+            $data->user->userMng;
+        $coll = array();
+        foreach ($data->estimateModel as $em) {
+            $em->estimateOption;
+            $coll['goods'][] = [ 'gd_id' => $em->em_gd_id, 'em_id' => $em->em_id ];
+            if ($em->estimateOption()->exists())
+                foreach ($em->estimateOption as $eo)
+                    $coll['goods'][] = [ 'gd_id' => $em->em_gd_id, 'eo_id' => $eo->eo_id ];
         }
-        return response()->json($er, 200);
+        $gd = new Goods;
+        $data->goods = $gd;
+        $data->collect = $gd->getGoodsDataCollection($coll, 'buy_estimate');
+
+        return response()->json($data, 200);
     }
 
     public function printEstimate(int $er_id) {

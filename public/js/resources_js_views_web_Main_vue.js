@@ -155,6 +155,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -185,7 +191,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       cateSideMenuBottom: 'auto',
       scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447],
       scrollEnd: 11130,
-      currentScroll: 0 // best:[
+      currentScroll: 0,
+      // best:[
       //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
       // ],
       // styles: {
@@ -193,10 +200,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //         backgroundSize:'cover',
       //     },
       // }
-
+      date01: new Date('2023-05-02 00:00'),
+      date02: new Date('2023-05-16 23:59'),
+      date_now: new Date()
     };
   },
-  computed: _objectSpread({
+  computed: _objectSpread(_objectSpread({
     bestRemodel: function bestRemodel() {
       var dummy = [];
 
@@ -211,7 +220,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return dummy;
     }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('category', ['category'])),
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('category', ['category'])), {}, {
+    slide_check01: function slide_check01() {
+      return this.date01 < this.date_now && this.date_now < this.date02;
+    },
+    slide_check02: function slide_check02() {
+      return this.date02 < this.date_now;
+    }
+  }),
   methods: {
     index: function index(frm) {
       var _this = this;
@@ -523,6 +539,21 @@ var render = function () {
           attrs: { controls: "", indicators: "" },
         },
         [
+          _vm.slide_check01
+            ? _c(
+                "b-link",
+                { attrs: { to: "/shop/goods?ca01=32&ca02=5439" } },
+                [
+                  _c("b-carousel-slide", {
+                    attrs: {
+                      "img-src": _vm.s3url + "event/2023/0425/slide02.jpg",
+                    },
+                  }),
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "b-link",
             { attrs: { to: "/board/event/show/36" } },
@@ -533,6 +564,21 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _vm.slide_check02
+            ? _c(
+                "b-link",
+                { attrs: { to: "/shop/goods?ca01=32&ca02=5439" } },
+                [
+                  _c("b-carousel-slide", {
+                    attrs: {
+                      "img-src": _vm.s3url + "event/2023/0425/slide02.jpg",
+                    },
+                  }),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "b-link",

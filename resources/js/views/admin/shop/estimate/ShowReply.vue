@@ -65,76 +65,12 @@
         </b-row>
     </div>
 
-    <div class="box gd_list" v-if="frm.estimate_model && frm.estimate_model.length">
+    <div class="box" v-if="frm.estimate_model && frm.estimate_model.length">
         <h5>견적상품정보</h5>
-        <b-row class="list head">
-            <b-col>주문 상품</b-col>
-            <b-col>Cat.No/모델명</b-col>
-            <b-col>제조사</b-col>
-            <b-col>판매단위</b-col>
-            <b-col>단가</b-col>
-            <b-col>수량</b-col>
-            <b-col>합계</b-col>
-        </b-row>
-        <b-row v-for="em in frm.estimate_model" :key="em.em_id" class="list body">
-            <b-col>
-                <b-link @click="openWinPop(`/admin/shop/goods/${em.gd_id}/edit`, 1700, 900)"><img :src="em.img_src" /></b-link>
-                <div>
-                    <b class="gd_name">{{em.em_name}}</b>
-                    <p v-html="nl2br(em.em_spec)" />
-                    <p v-if="em.dlvy_at">납기 : {{em.dlvy_at}}</p>
-                </div>
-            </b-col>
-            <b-col>
-                {{em.em_catno}}<br>
-                {{em.em_code}}
-            </b-col>
-            <b-col>{{em.em_maker}}</b-col>
-            <b-col>{{em.em_unit}}</b-col>
-            <b-col>{{em.em_price | comma}}</b-col>
-            <b-col>{{em.em_ea | comma}}</b-col>
-            <b-col class="em_sum">
-                {{em.em_price*em.em_ea | comma}}
-                <b-form-checkbox button v-model="em.dlvy_all_in" @change="DlvyAllIn(em.em_id)">배송비 포함</b-form-checkbox>
-            </b-col>
-            
-            <b-col cols="12" v-if="em.estimate_option.length" class="opc">
-                <b-row v-for="option in em.estimate_option" :key="option.eo_id">
-                    <b-col offset="6">{{option.eo_tit}}: {{option.eo_name}}</b-col>
-                    <b-col tag="i">수량 : <b>{{option.eo_ea | comma}}</b> 개</b-col>
-                </b-row>
-            </b-col>
-        </b-row>
-        <div class="sum_up">
-            <div class="top_border" />
-            <b-row class="total">
-                <b-col>상품금액</b-col>
-                <b-col><b>{{(frm.er_gd_price+frm.er_surtax) | comma | won}}</b></b-col>
-                <b-col>배송료</b-col>
-                <b-col><b>{{frm.er_dlvy_price | comma | won}}</b></b-col>
-                <b-col>결제 예정 금액</b-col>
-                <b-col><b>{{frm.er_all_price| comma | won}}</b></b-col>
-            </b-row>
-            <b-row class="total_sub">
-                <b-col>
-                    <div>
-                        <b-col>상품가</b-col><b-col>{{frm.er_gd_price | comma | won}}</b-col>
-                    </div>
-                    <div>
-                        <b-col>부가세</b-col><b-col>{{frm.er_surtax | comma | won}}</b-col>
-                    </div>
-                </b-col>
-                <b-col>
-                    <div>
-                        <b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col>
-                    </div>
-                    <div>
-                        <b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}}</b-col>
-                    </div>
-                </b-col>
-                <b-col></b-col>
-            </b-row>
-        </div>
+
+        <div class="top_border" />
+
+        <PaList v-model="frm.collect.lists" :price="frm.collect.price" />
     </div>
 
     <div class="box est_frm">
@@ -173,6 +109,9 @@ import ax from '@/api/http';
 
 var dt = new Date();
 export default {
+    components: {
+        'PaList'        : () => import('@/views/web/_module/PaList'),
+    },
     data() {
         return {
             frm:{
@@ -186,16 +125,6 @@ export default {
 
             },
         }
-    },
-    computed: {
-        dlvy_4s () {
-            return this.frm.collect.lists.hasOwnProperty(0) ? this.frm.collect.lists[0][0].pa_dlvy_p_add_vat : 0;
-        },
-        dlvy_other () {
-            return Object.values(this.frm.collect.lists).reduce((acc, el) => {
-                return acc + el[0].pa_name != '' ? el[0].pa_dlvy_p_add_vat : 0
-            }, 0);
-        },
     },
     methods: {
         async show() {
@@ -295,8 +224,14 @@ export default {
             }
         },
         DlvyAllIn (em_id) {
-            for (var em of this.frm.estimate_model)
-                if (em.em_id !== em_id) em.dlvy_all_in = false;
+            for (var i in this.frm.collect.lists)
+                for (var j in this.frm.collect.lists[i]) 
+                    if (this.frm.collect.lists[i][j].em_id !== em_id) 
+                        this.frm.collect.lists[i][j].dlvy_all_in = false;
+            // console.log(this.frm.collect.lists);
+            // for (var i in this.frm.collect.lists)
+            //     for (var j of this.frm.collect.lists[i]) 
+            //         
         },
 
     },
@@ -314,52 +249,5 @@ export default {
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
-.p_wrap .gd_list .row.head { border-top: 3px solid #4F637B; font-weight:600; }
-.p_wrap .gd_list .row.list .col:nth-child(2) { flex: 0 0 12%; max-width: 12%; }
-.p_wrap .gd_list .row.list .col:nth-child(3) { flex: 0 0 9%; max-width: 9%; }
-.p_wrap .gd_list .row.list .col:nth-child(4) { flex: 0 0 7%; max-width: 7%; }
-.p_wrap .gd_list .row.list .col:nth-child(5) { flex: 0 0 8%; max-width: 8%; }
-.p_wrap .gd_list .row.list .col:nth-child(6) { flex: 0 0 5%; max-width: 5%; }
-.p_wrap .gd_list .row.list .col:nth-child(7) { flex: 0 0 8%; max-width: 8%; }
-.p_wrap .gd_list .row.list .col { justify-content: center; padding:0.75rem; display:flex; align-items:center; font-size: .95rem; }
-.p_wrap .gd_list .row.list:not(:last-of-type) .col { border-bottom: 1px solid #D7D7D7; }
-.p_wrap .gd_list .row.list .col:not(:last-of-type) { border-right: 1px solid #D7D7D7; }
-
-.p_wrap .gd_list .row:not(:first-of-type) .col { color:#949494; }
-
-.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type a { flex: 0 0 145px; max-width: 145px; }
-.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div { text-align:left; padding-left:2rem; flex-basis: 0; flex-grow: 1; max-width: 100%; }
-.p_wrap .gd_list .row:not(:first-of-type) .col:first-of-type div .gd_name { display:block; color:#555; }
-.p_wrap .gd_list .row .col a { width:120px; height:120px; padding-left:20px; }
-.p_wrap .gd_list .row .col a img { width:100%; height:100%; object-fit:contain; border:1px solid #8F8F8F; }
-
-.p_wrap .gd_list .row.body .em_sum { flex-direction: column; }
-.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle { display:block !important; text-align:center; }
-.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
-.p_wrap .gd_list .row.body .em_sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
-
-.p_wrap .sum_up .total { border-bottom:1px solid #D6D6D6; }
-.p_wrap .sum_up .total .col { color:#000; font-weight:bold; }
-.p_wrap .sum_up .total .col b { font-size:1.4rem; }
-.p_wrap .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1rem 0 1rem 2rem; }
-.p_wrap .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1rem 2rem 1rem; }
-.p_wrap .sum_up .total .col:nth-of-type(2):after,
-.p_wrap .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
-.p_wrap .sum_up .total .col:nth-of-type(2),
-.p_wrap .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
-.p_wrap .sum_up .total .col:nth-of-type(2):after { content:"+"; }
-.p_wrap .sum_up .total .col:nth-of-type(4):after { content:"="; }
-.p_wrap .sum_up .total .col:nth-of-type(5) { flex-basis:16%; max-width:16%; }
-.p_wrap .sum_up .total .col:nth-of-type(6) { flex-basis:24%; max-width:24%; }
-.p_wrap .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
-.p_wrap .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.p_wrap .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.p_wrap .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
-.p_wrap .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
-.p_wrap .sum_up .total_sub .col>div:nth-of-type(1) { padding:1rem 2rem .5rem 2rem; }
-.p_wrap .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }
-.p_wrap .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.p_wrap .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
-
-
+.p_wrap .box .container { max-width:100%; }
 </style>

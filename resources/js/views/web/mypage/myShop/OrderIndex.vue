@@ -14,7 +14,10 @@
         
         <OrderList v-model="order.data" :order_config="order_config" />
 
-        <pagination :data="order" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5" />
+        <pagination :data="order" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+            <span slot="prev-nav"><b-icon-chevron-left /></span>
+            <span slot="next-nav"><b-icon-chevron-right /></span>
+        </pagination>
     </template>
 </b-container>
 </template>

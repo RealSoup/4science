@@ -34,7 +34,7 @@ class GoodsController extends Controller {
 
     public function index(Category $cate, Request $req) {
         //  카테고리 검색때문에 with을 안쓰고 조인을 했다.
-        $gd = $this->goods->with('goodsCategoryFirst')->with('fileGoodsGoods')->with('maker')->with('user')
+        $gd = $this->goods->with('goodsCategoryFirst')->with('fileGoodsGoods')->with('maker')
                 // ->rightJoin(
                 //      DB::raw("
                 //         (SELECT 
@@ -105,6 +105,8 @@ class GoodsController extends Controller {
         }
         $data['list'] = $gd->latest("gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
+
+        $data['mng_off'] = \Cache::get('UserMngOff');
         
 		return response()->json($data);
     }

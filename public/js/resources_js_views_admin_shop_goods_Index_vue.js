@@ -121,6 +121,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -169,7 +172,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           value: 'N',
           name: '존재'
         }
-      }
+      },
+      mng_off: []
     };
   },
   methods: {
@@ -208,7 +212,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.list = res.data.list; // this.categorys = res.data.categorys;
+                  _this.list = res.data.list;
+                  _this.mng_off = res.data.mng_off;
                 }
 
                 _context.next = 16;
@@ -820,7 +825,15 @@ var render = function () {
                 _vm._v(" "),
                 _c("b-col", [_c("span", [_vm._v(_vm._s(row.maker.mk_name))])]),
                 _vm._v(" "),
-                _c("b-col", [row.user ? _c("span") : _vm._e()]),
+                _c(
+                  "b-col",
+                  [
+                    _vm.mng_off[row.updated_id]
+                      ? [_vm._v(_vm._s(_vm.mng_off[row.updated_id].name))]
+                      : [_vm._v(_vm._s(row.updated_id))],
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("b-col", [
                   row.gd_enable == "Y"

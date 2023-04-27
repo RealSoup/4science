@@ -156,6 +156,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -163,6 +174,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   components: {
     'LoadingModal': function LoadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    },
+    'PaList': function PaList() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList */ "./resources/js/views/web/_module/PaList.vue"));
     }
   },
   data: function data() {
@@ -177,48 +191,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       all_price: 0,
       sum_mileage: 0,
       indeterminate: false,
-      all_chk: false
+      all_chk: true
     };
   },
   computed: {},
   methods: {
     settle: function settle() {
       var rst = [];
+      var is_model_check = false;
 
-      var _iterator = _createForOfIteratorHelper(this.reply.estimate_model),
-          _step;
+      for (var pa_id in this.reply.collect.lists) {
+        var _iterator = _createForOfIteratorHelper(this.reply.collect.lists[pa_id]),
+            _step;
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var v = _step.value;
-          if (v.em_ea > 0 && v.em_check_opt == 'Y') rst.push({
-            gd_id: v.em_gd_id,
-            em_id: v.em_id
-          });
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var em = _step.value;
 
-          if (v.hasOwnProperty('estimate_option')) {
-            var _iterator2 = _createForOfIteratorHelper(v.estimate_option),
-                _step2;
-
-            try {
-              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                var op = _step2.value;
-                if (op.eo_ea > 0 && op.eo_check_opt == 'Y') rst.push({
-                  gd_id: op.eo_gd_id,
-                  eo_id: op.eo_id
+            if (em.type == 'model') {
+              if (em.ea > 0 && em.em_check_opt) {
+                rst.push({
+                  gd_id: em.gd_id,
+                  em_id: em.em_id
                 });
-              }
-            } catch (err) {
-              _iterator2.e(err);
-            } finally {
-              _iterator2.f();
+                is_model_check = true;
+              } else is_model_check = false;
             }
+
+            if (em.type == 'option' && is_model_check) rst.push({
+              gd_id: em.gd_id,
+              eo_id: em.eo_id
+            });
           }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
       }
 
       if (!rst.length) {
@@ -264,7 +273,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                 if (res && res.status === 200) {
                   console.log(res);
-                  Notify.toast('success', '견적 요청 완료'); // this.$router.push({name: 'main'});
+                  Notify.toast('success', '견적 요청 완료');
+
+                  _this.$router.push({
+                    name: 'my_estimate'
+                  });
                 } else {
                   Notify.toast('warning', res);
                 }
@@ -299,62 +312,60 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var option = "width = 900, height = 900, top = 10, left = 10, location = no";
       window.open(url, name, option);
     },
+    getValidationState: function getValidationState(_ref) {
+      var dirty = _ref.dirty,
+          validated = _ref.validated,
+          _ref$valid = _ref.valid,
+          valid = _ref$valid === void 0 ? null : _ref$valid;
+      return dirty || validated ? valid : null;
+    },
     calculator: function calculator() {
       var collect = {};
       var sum_mileage = 0;
       var dlvy_other = 0;
+      var is_model_check = false;
 
-      var _iterator3 = _createForOfIteratorHelper(this.reply.estimate_model),
-          _step3;
+      for (var pa_id in this.reply.collect.lists) {
+        var _iterator2 = _createForOfIteratorHelper(this.reply.collect.lists[pa_id]),
+            _step2;
 
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var em = _step3.value;
-          var pa_id = 0;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var em = _step2.value;
 
-          if (em.em_check_opt == 'Y') {
-            if (!!em.goods && !!em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
+            if (em.type == 'model') {
+              if (em.em_check_opt) {
+                if (!collect.hasOwnProperty(pa_id)) {
+                  if (pa_id > 0 && em.pa_type == "AIR") collect[pa_id] = {
+                    'goods': 0,
+                    'dlvy': 0,
+                    'air': Number(em.pa_dlvy_p_add_vat)
+                  };else collect[pa_id] = {
+                    'goods': 0,
+                    'dlvy': Number(em.pa_dlvy_p_add_vat),
+                    'free_dlvy_max': Number(this.reply.goods.free_dlvy_max),
+                    'air': 0
+                  };
+                }
 
-            if (!collect.hasOwnProperty(pa_id)) {
-              if (pa_id > 0 && em.goods.purchase_at.pa_type == "AIR") collect[pa_id] = {
-                'goods': 0,
-                'dlvy': 0,
-                'air': Number(em.goods.purchase_at.pa_price_add_vat)
-              };else collect[pa_id] = {
-                'goods': 0,
-                'dlvy': Number(em.goods.dlvy_fee_add_vat),
-                'free_dlvy_max': Number(em.goods.free_dlvy_max),
-                'air': 0
-              };
+                collect[pa_id].goods += Number(em.price) * Number(em.ea);
+                sum_mileage += em.gain_mileage;
+                is_model_check = true;
+              } else is_model_check = false;
             }
 
-            collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
-            sum_mileage += em.gain_mileage;
-          }
-
-          var _iterator4 = _createForOfIteratorHelper(em.estimate_option),
-              _step4;
-
-          try {
-            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-              var eo = _step4.value;
-
-              if (eo.eo_check_opt == 'Y') {
-                collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
-                sum_mileage += eo.gain_mileage;
-              }
+            if (em.type == 'option' && is_model_check) {
+              collect[pa_id].goods += Number(em.price) * Number(em.ea);
+              sum_mileage += em.gain_mileage;
             }
-          } catch (err) {
-            _iterator4.e(err);
-          } finally {
-            _iterator4.f();
           }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
         }
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
-      }
+      } // console.log(collect);
+
 
       this.gd_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.goods;
@@ -376,34 +387,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.sum_mileage = sum_mileage;
       this.all_price = this.gd_price + this.surtax + this.dlvy_4s + this.air_price + dlvy_other;
     },
-    getValidationState: function getValidationState(_ref) {
-      var dirty = _ref.dirty,
-          validated = _ref.validated,
-          _ref$valid = _ref.valid,
-          valid = _ref$valid === void 0 ? null : _ref$valid;
-      return dirty || validated ? valid : null;
-    },
     chkChange: function chkChange() {
-      var chkCnt = this.reply.estimate_model.filter(function (el) {
-        return el.em_check_opt == true;
-      }).length;
+      var chkCnt = Object.values(this.reply.collect.lists).reduce(function (acc, pa) {
+        return acc + pa.filter(function (el) {
+          return el.em_check_opt == true;
+        }).length;
+      }, 0);
 
       if (chkCnt === 0) {
         this.indeterminate = false;
-        this.allSelected = false;
-      } else if (chkCnt === this.ledger.data.length) {
+        this.all_chk = false;
+      } else if (chkCnt === this.reply.estimate_model.length) {
         this.indeterminate = false;
-        this.allSelected = true;
+        this.all_chk = true;
       } else {
         this.indeterminate = true;
-        this.allSelected = false;
+        this.all_chk = false;
       }
 
       this.calculator();
     },
     toggle_all_chk: function toggle_all_chk(checked) {
-      this.ledger.data.forEach(function (el) {
-        el.chk_cplt = checked ? true : false;
+      Object.values(this.reply.collect.lists).forEach(function (el) {
+        el.forEach(function (el02) {
+          el02.em_check_opt = checked ? true : false;
+        });
       });
       this.indeterminate = false;
     }
@@ -458,7 +466,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-76fdf33c] { padding-right:0; padding-left:0;\n}\n.w_fence .container[data-v-76fdf33c],\r\n.w_fence .container .row[data-v-76fdf33c], \r\n.w_fence .container .row .col[data-v-76fdf33c] { margin:0; padding:0;\n}\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\nh6[data-v-76fdf33c] { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem;\n}\n.w_fence .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.w_fence .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.w_fence .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.w_fence .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .goods[data-v-76fdf33c] { padding-bottom:.5rem;\n}\n.w_fence .goods .row .col[data-v-76fdf33c] { text-align:center; padding-top:.4rem; padding-bottom:.4rem;\n}\n.w_fence .goods .row .col.align[data-v-76fdf33c] { display:flex; align-items:center; justify-content:center;\n}\n.w_fence .goods .row[data-v-76fdf33c]:first-child { border-top:1px solid #ACACAC; border-bottom:1px solid #ACACAC; background-color:#ECECEC;\n}\n.w_fence .goods .row:first-child .col[data-v-76fdf33c] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem;\n}\n.w_fence .goods .row:not(:first-child) .col[data-v-76fdf33c],\r\n.w_fence .goods .row:not(:first-child) .col p[data-v-76fdf33c] { color:#AEAEAE; font-size:.85rem;\n}\n.w_fence .goods .row .col b[data-v-76fdf33c] { color:#000; font-size:.95rem;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(3) {  display:flex; align-items:center; text-align:left; padding-left:3%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(4) { flex:0 0 10%; max-width:10%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.w_fence .goods .row .col[data-v-76fdf33c]:nth-child(6) { flex:0 0 10%; max-width:10%; font-weight:900; color:#000;\n}\n.w_fence .goods .row .col img[data-v-76fdf33c] { width:100%;\n}\n.w_fence .goods .row .col p[data-v-76fdf33c] { margin:0;\n}\n.w_fence .goods .row .col[data-v-76fdf33c] .myCheck .custom-control-label::before, \r\n.w_fence .goods .row .col[data-v-76fdf33c] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.w_fence .goods .row .option[data-v-76fdf33c] { flex:0 0 100%; max-width:100%; display:flex;\n}\n.w_fence .sum_up[data-v-76fdf33c] { border-top:3px solid #4F637B;\n}\n.w_fence .sum_up .total[data-v-76fdf33c] { border-bottom:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.w_fence .sum_up .total .col b[data-v-76fdf33c] { font-size:1.4rem;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(1) {\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2):after,\r\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(2):after { content:\"+\";\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(3) {\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(4):after { content:\"=\";\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.w_fence .sum_up .total .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%;\n}\n.w_fence .sum_up .total_sub[data-v-76fdf33c] { background:#F2F3F5; border-bottom-width:0;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .sum_up .total_sub>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:39%; max-width:39%;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c] { display:flex; flex-wrap:wrap;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.w_fence .sum_up .total_sub .col>div[data-v-76fdf33c]:nth-of-type(2) { padding:0 1rem 1.5rem 1rem;\n}\n.w_fence .sum_up .total_sub .col>div .col[data-v-76fdf33c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.w_fence .sum_up .total_sub .col>div .col[data-v-76fdf33c]:nth-of-type(2) { text-align:right;\n}\n.w_fence .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.w_fence .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.w_fence .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.w_fence .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem;}\n.w_fence .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-76fdf33c] { padding-right:0; padding-left:0;\n}\n.w_fence .container[data-v-76fdf33c],\r\n.w_fence .container .row[data-v-76fdf33c], \r\n.w_fence .container .row .col[data-v-76fdf33c] { margin:0; padding:0;\n}\nh3[data-v-76fdf33c] { font-size:1.5rem;\n}\nh3 b[data-v-76fdf33c] { color:#0094EA; font-size:1.3rem;\n}\nh6[data-v-76fdf33c] { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem;\n}\n.w_fence .top[data-v-76fdf33c] { border-top:2px solid #4F637B; border-left:1px solid #B7B7B7;\n}\n.w_fence .top .row .col[data-v-76fdf33c] { border-right:1px solid #B7B7B7; border-bottom:1px solid #B7B7B7; padding:1.2rem 0; text-align:center;\n}\n.w_fence .top .row .col[data-v-76fdf33c]:nth-of-type(4) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .top .row .col span[data-v-76fdf33c] { margin-right:.7rem; font-weight:600;\n}\n.w_fence .top .row .col b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .top_border[data-v-76fdf33c] { border-top:3px solid #4F637B;\n}\r\n\r\n\r\n/************************************** */\n.pa_list[data-v-76fdf33c] { margin-bottom:2.5rem; padding:0;\n}\n.pa_list .row[data-v-76fdf33c] { margin:0; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .row .col[data-v-76fdf33c] { padding:0; font-size:.93rem; color:#666;\n}\n.pa_list .row.lbody .col[data-v-76fdf33c]:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center;\n}\n.pa_list .row .col .row[data-v-76fdf33c]:last-child { border-bottom-width:0;\n}\n.pa_list .row.lbody>.col[data-v-76fdf33c]:first-child { border-right:1px solid #D6D6D6;\n}\n.pa_list .row.lbody>.col[data-v-76fdf33c]:last-child { border-left:1px solid #D6D6D6;\n}\n.pa_list .lhead .col[data-v-76fdf33c] { font-weight:bold; text-align:center; padding:.74rem 0 !important; color:#000;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%;\n}\n.pa_list .lhead .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:10%; max-width:10%;\n}\n.pa_list .lbody>.col[data-v-76fdf33c]:nth-of-type(1),\r\n.pa_list .lbody>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(1) { flex-basis:18%; max-width:18%;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:14%; max-width:14%;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem;\n}\n.pa_list .lbody .col .row .col:nth-of-type(6) span[data-v-76fdf33c] { font-size:.7rem; color:#666;\n}\n.pa_list .row .col .row.option[data-v-76fdf33c] { background:#F4F1EC;\n}\n.pa_list .row .col .row .col[data-v-76fdf33c] { padding:.8rem 0;\n}\n.pa_list .row .col .row .col img[data-v-76fdf33c] { width:119px; height:119px; -o-object-fit:cover; object-fit:cover;\n}\n.pa_list .row .col .row .col p[data-v-76fdf33c] { margin-bottom:.2rem;\n}\n.pa_list .row .col .row .col[data-v-76fdf33c]:nth-of-type(2) { padding-left:1rem;\n}\n.pa_list .row .col .row .col:nth-of-type(2) p[data-v-76fdf33c]:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000;\n}\n.pa_list .row .col[data-v-76fdf33c] .myCheck { display:inline-block; padding-left:1.3em; margin:0 .5rem;\n}\n.pa_list .row .col[data-v-76fdf33c] .myCheck .custom-control-label::before, \r\n.pa_list .row .col[data-v-76fdf33c] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.pa_list .total[data-v-76fdf33c] { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c] { color:#000; font-weight:bold;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(odd) { display: flex; align-items: center; flex-basis: 12%; max-width: 12%; padding: 1vw 0 1vw 2vw; font-size: .9vw;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(even) { text-align: right; padding: 1vw 2vw 1vw 0;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2):after,\r\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%);\n}\n.pa_list .total .col b[data-v-76fdf33c] { font-size:1.4rem;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(2):after { content:\"+\";\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(4):after { content:\"=\";\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(5) { flex-basis:20%; max-width:20%;\n}\n.pa_list .total .col[data-v-76fdf33c]:nth-of-type(6) { flex-basis:20%; max-width:20%;\n}\n.pa_list .total_sub[data-v-76fdf33c] { background:#F2F3F5; border-bottom-width:0;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.pa_list .total_sub>.col[data-v-76fdf33c]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c] { display:flex; flex-wrap:wrap;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.pa_list .total_sub .col>div[data-v-76fdf33c]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.pa_list .total_sub .col>div .col[data-v-76fdf33c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.pa_list .total_sub .col>div .col[data-v-76fdf33c]:nth-of-type(2) { text-align:right;\n}\r\n/************************************** */\n.w_fence .extra[data-v-76fdf33c] { margin-top:2rem;\n}\n.w_fence .extra .row .col[data-v-76fdf33c]:nth-child(1) { margin-right:2rem;\n}\n.w_fence .extra .row .col h6[data-v-76fdf33c] { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem;\n}\n.w_fence .extra .row .col h6 b[data-v-76fdf33c] { color:#0094EA;\n}\n.w_fence .extra .row .col:nth-child(1) .desc[data-v-76fdf33c] { border:1px solid #D6D6D6; padding:1rem; min-height:calc(3vw + 5rem);\n}\n.w_fence .extra .row .col .btn[data-v-76fdf33c] { font-size:.85rem; padding:.3rem;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -663,13 +671,7 @@ var render = function () {
                                   _c("span", [_vm._v("납품기일")]),
                                   _vm._v(" "),
                                   _c("b", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("formatDate_YYYY_MM_DD")(
-                                          _vm.reply.er_dlvy_at
-                                        )
-                                      )
-                                    ),
+                                    _vm._v(_vm._s(_vm.reply.er_dlvy_at)),
                                   ]),
                                 ]),
                                 _vm._v(" "),
@@ -693,12 +695,15 @@ var render = function () {
                         _vm._v(" "),
                         _c("h6", [_vm._v("상품정보")]),
                         _vm._v(" "),
+                        _c("div", { staticClass: "top_border" }),
+                        _vm._v(" "),
                         _c(
                           "b-container",
-                          { staticClass: "goods" },
+                          { staticClass: "pa_list frm_st" },
                           [
                             _c(
                               "b-row",
+                              { staticClass: "lhead" },
                               [
                                 _c(
                                   "b-col",
@@ -717,274 +722,287 @@ var render = function () {
                                         expression: "all_chk",
                                       },
                                     }),
+                                    _vm._v(
+                                      "\r\n                        주문 상품\r\n                    "
+                                    ),
                                   ],
                                   1
                                 ),
                                 _vm._v(" "),
-                                _c("b-col"),
+                                _c("b-col", [_vm._v("제조사")]),
                                 _vm._v(" "),
-                                _c("b-col", [_vm._v("상품명 / 모델명")]),
-                                _vm._v(" "),
-                                _c("b-col", [_vm._v("판매가격")]),
+                                _c("b-col", [_vm._v("판매가")]),
                                 _vm._v(" "),
                                 _c("b-col", [_vm._v("수량")]),
                                 _vm._v(" "),
-                                _c("b-col", [_vm._v("합계")]),
+                                _c("b-col", [_vm._v("금액")]),
+                                _vm._v(" "),
+                                _c("b-col", [_vm._v("배송비")]),
                               ],
                               1
                             ),
                             _vm._v(" "),
-                            _vm._l(_vm.reply.estimate_model, function (em) {
-                              return _c(
-                                "b-row",
-                                { key: em.em_id },
-                                [
-                                  _c(
-                                    "b-col",
-                                    { staticClass: "align" },
-                                    [
-                                      _c("b-form-checkbox", {
-                                        staticClass: "myCheck",
-                                        attrs: {
-                                          value: "Y",
-                                          "unchecked-value": "N",
-                                        },
-                                        on: { change: _vm.chkChange },
-                                        model: {
-                                          value: em.em_check_opt,
-                                          callback: function ($$v) {
-                                            _vm.$set(em, "em_check_opt", $$v)
-                                          },
-                                          expression: "em.em_check_opt",
-                                        },
-                                      }),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-col",
-                                    [
-                                      !!em.em_gd_id
-                                        ? _c(
-                                            "b-link",
-                                            {
-                                              attrs: {
-                                                to: {
-                                                  name: "goods_show",
-                                                  params: {
-                                                    gd_id: em.em_gd_id,
-                                                  },
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-fluid",
-                                                attrs: {
-                                                  src: em.goods
-                                                    .image_src_thumb[0],
-                                                },
-                                              }),
-                                            ]
-                                          )
-                                        : _c("img", {
-                                            staticClass: "img-fluid",
-                                            attrs: {
-                                              src: em.goods.image_src_thumb[0],
-                                            },
-                                          }),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-col",
-                                    [
-                                      !!em.em_gd_id
-                                        ? _c(
-                                            "b-link",
-                                            {
-                                              attrs: {
-                                                to: {
-                                                  name: "goods_show",
-                                                  params: {
-                                                    gd_id: em.em_gd_id,
-                                                  },
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _c("b", [
-                                                _vm._v(_vm._s(em.em_name)),
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("p", [
-                                                _vm._v(
-                                                  "\r\n                                모델명: " +
-                                                    _vm._s(em.em_code) +
-                                                    " / Cat.No.: " +
-                                                    _vm._s(em.em_catno)
-                                                ),
-                                                _c("br"),
-                                                _vm._v(
-                                                  "\r\n                                사양: " +
-                                                    _vm._s(em.em_spec)
-                                                ),
-                                                _c("br"),
-                                                _vm._v(
-                                                  "\r\n                                판매단위: " +
-                                                    _vm._s(em.em_unit) +
-                                                    "\r\n                            "
-                                                ),
-                                              ]),
-                                            ]
-                                          )
-                                        : _c("div", [
-                                            _vm._v(
-                                              "\r\n                            " +
-                                                _vm._s(em.em_name) +
-                                                "\r\n                            "
-                                            ),
-                                            _c("p", [
-                                              _vm._v(
-                                                "\r\n                                모델명: " +
-                                                  _vm._s(em.em_code) +
-                                                  " / Cat.No.: " +
-                                                  _vm._s(em.em_catno)
-                                              ),
-                                              _c("br"),
-                                              _vm._v(
-                                                "\r\n                                사양: " +
-                                                  _vm._s(em.em_spec)
-                                              ),
-                                              _c("br"),
-                                              _vm._v(
-                                                "\r\n                                판매단위: " +
-                                                  _vm._s(em.em_unit) +
-                                                  "\r\n                            "
-                                              ),
-                                            ]),
-                                          ]),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-col", { staticClass: "align" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("won")(
-                                          _vm._f("comma")(
-                                            _vm._f("rrp")(em.em_price)
-                                          )
+                            _vm._l(
+                              _vm.reply.collect.lists,
+                              function (pa, pa_id) {
+                                return _c(
+                                  "b-row",
+                                  { key: pa_id, staticClass: "lbody" },
+                                  [
+                                    _c("b-col", { staticClass: "m_hide" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          pa[0]["pa_name"]
+                                            ? "업체"
+                                            : "포사이언스"
                                         )
-                                      )
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-col", { staticClass: "align" }, [
-                                    _vm._v(_vm._s(em.em_ea)),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-col", { staticClass: "align" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("won")(
-                                          _vm._f("comma")(
-                                            _vm._f("rrp")(
-                                              em.em_price * em.em_ea
-                                            )
-                                          )
-                                        )
-                                      )
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  em.estimate_option.length
-                                    ? _vm._l(em.estimate_option, function (eo) {
+                                      ),
+                                      _c("br"),
+                                      _vm._v("배송"),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      _vm._l(pa, function (item, i_item) {
                                         return _c(
-                                          "b-col",
+                                          "b-row",
                                           {
-                                            key: eo.eo_id,
-                                            staticClass: "option",
+                                            key: "" + pa_id + i_item,
+                                            class: {
+                                              option: item.type == "option",
+                                            },
                                           },
                                           [
-                                            _c("b-col"),
-                                            _vm._v(" "),
-                                            _c("b-col", [_vm._v("추가 옵션")]),
-                                            _vm._v(" "),
-                                            _c("b-col", [
-                                              _vm._v(
-                                                _vm._s(eo.eo_tit) +
-                                                  ":" +
-                                                  _vm._s(eo.eo_name)
-                                              ),
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-col", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm._f("won")(
-                                                    _vm._f("comma")(
-                                                      _vm._f("rrp")(eo.eo_price)
-                                                    )
-                                                  )
-                                                )
-                                              ),
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-col", [
-                                              _vm._v(_vm._s(eo.eo_ea)),
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-col", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm._f("won")(
-                                                    _vm._f("comma")(
-                                                      _vm._f("rrp")(
-                                                        eo.eo_price * eo.eo_ea
-                                                      )
-                                                    )
-                                                  )
-                                                )
-                                              ),
-                                            ]),
+                                            item.type == "model"
+                                              ? [
+                                                  _c(
+                                                    "b-col",
+                                                    [
+                                                      _c("b-form-checkbox", {
+                                                        staticClass: "myCheck",
+                                                        on: {
+                                                          change: _vm.chkChange,
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            item.em_check_opt,
+                                                          callback: function (
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              item,
+                                                              "em_check_opt",
+                                                              $$v
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "item.em_check_opt",
+                                                        },
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("img", {
+                                                        attrs: {
+                                                          src: item.img,
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _c("p", [
+                                                      _vm._v(
+                                                        _vm._s(item.gd_name)
+                                                      ),
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("p", [
+                                                      _vm._v(
+                                                        "모델명:" +
+                                                          _vm._s(item.gm_code) +
+                                                          " / Cat.No.:" +
+                                                          _vm._s(item.gm_catno)
+                                                      ),
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("p", [
+                                                      _vm._v(
+                                                        "제품명:" +
+                                                          _vm._s(item.gm_name) +
+                                                          " / 사양:" +
+                                                          _vm._s(item.gm_spec)
+                                                      ),
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c("p", [
+                                                      _vm._v(
+                                                        "판매단위:" +
+                                                          _vm._s(item.gm_unit)
+                                                      ),
+                                                    ]),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(item.mk_name)
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm._f("comma")(
+                                                          item.price
+                                                        )
+                                                      ) + " 원"
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(item.ea) + " 개"
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _c("div", [
+                                                      _vm._v(
+                                                        "\r\n                                        " +
+                                                          _vm._s(
+                                                            _vm._f("comma")(
+                                                              item.price *
+                                                                item.ea
+                                                            )
+                                                          ) +
+                                                          " 원\r\n                                        "
+                                                      ),
+                                                      _c("br"),
+                                                      _vm._v(" "),
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          "(" +
+                                                            _vm._s(
+                                                              _vm._f("comma")(
+                                                                item.gain_mileage *
+                                                                  item.ea
+                                                              )
+                                                            ) +
+                                                            "p 적립)"
+                                                        ),
+                                                      ]),
+                                                    ]),
+                                                  ]),
+                                                ]
+                                              : item.type == "option"
+                                              ? [
+                                                  _c("b-col", [
+                                                    _vm._v("추가 옵션"),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(item.goc_name)
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col"),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm._f("comma")(
+                                                          item.price
+                                                        )
+                                                      ) + " 원"
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _vm._v(
+                                                      _vm._s(item.ea) + " 개"
+                                                    ),
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-col", [
+                                                    _c("div", [
+                                                      _vm._v(
+                                                        "\r\n                                        " +
+                                                          _vm._s(
+                                                            _vm._f("comma")(
+                                                              item.price *
+                                                                item.ea
+                                                            )
+                                                          ) +
+                                                          " 원\r\n                                        "
+                                                      ),
+                                                      _c("br"),
+                                                      _vm._v(" "),
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          "(" +
+                                                            _vm._s(
+                                                              _vm._f("comma")(
+                                                                item.gain_mileage *
+                                                                  item.ea
+                                                              )
+                                                            ) +
+                                                            "p 적립)"
+                                                        ),
+                                                      ]),
+                                                    ]),
+                                                  ]),
+                                                ]
+                                              : _vm._e(),
                                           ],
-                                          1
+                                          2
                                         )
-                                      })
-                                    : _vm._e(),
-                                ],
-                                2
-                              )
-                            }),
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-container",
-                          { staticClass: "sum_up" },
-                          [
+                                      }),
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-col",
+                                      [
+                                        pa[0]["pa_type"] == "AIR"
+                                          ? [_vm._v("항공운임료")]
+                                          : [_vm._v("배송비")],
+                                        _vm._v(" "),
+                                        _c("br"),
+                                        _vm._v(
+                                          "\r\n                        " +
+                                            _vm._s(
+                                              _vm._f("comma")(
+                                                pa[0].pa_dlvy_p_add_vat
+                                              )
+                                            ) +
+                                            " 원\r\n                    "
+                                        ),
+                                      ],
+                                      2
+                                    ),
+                                  ],
+                                  1
+                                )
+                              }
+                            ),
+                            _vm._v(" "),
                             _c(
                               "b-row",
                               { staticClass: "total" },
                               [
-                                _c("b-col", [_vm._v("견적가")]),
+                                _c("b-col", [_vm._v("상품금액")]),
                                 _vm._v(" "),
                                 _c("b-col", [
                                   _c("b", [
                                     _vm._v(
                                       _vm._s(
-                                        _vm._f("won")(
-                                          _vm._f("comma")(
-                                            _vm.gd_price + _vm.surtax
-                                          )
+                                        _vm._f("comma")(
+                                          _vm.gd_price + _vm.surtax
                                         )
                                       )
                                     ),
                                   ]),
+                                  _vm._v(" 원"),
                                 ]),
                                 _vm._v(" "),
                                 _c("b-col", [_vm._v("배송료")]),
@@ -993,16 +1011,15 @@ var render = function () {
                                   _c("b", [
                                     _vm._v(
                                       _vm._s(
-                                        _vm._f("won")(
-                                          _vm._f("comma")(
-                                            _vm.dlvy_4s +
-                                              _vm.dlvy_other +
-                                              _vm.air_price
-                                          )
+                                        _vm._f("comma")(
+                                          _vm.dlvy_4s +
+                                            _vm.air_price +
+                                            _vm.dlvy_other
                                         )
                                       )
                                     ),
                                   ]),
+                                  _vm._v(" 원"),
                                 ]),
                                 _vm._v(" "),
                                 _c("b-col", [_vm._v("결제 예정 금액")]),
@@ -1010,13 +1027,10 @@ var render = function () {
                                 _c("b-col", [
                                   _c("b", [
                                     _vm._v(
-                                      _vm._s(
-                                        _vm._f("won")(
-                                          _vm._f("comma")(_vm.all_price)
-                                        )
-                                      )
+                                      _vm._s(_vm._f("comma")(_vm.all_price))
                                     ),
                                   ]),
+                                  _vm._v(" 원"),
                                 ]),
                               ],
                               1
@@ -1024,20 +1038,22 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "b-row",
-                              { staticClass: "total_sub" },
+                              {
+                                staticClass: "total_sub",
+                                attrs: { id: "total_sub" },
+                              },
                               [
                                 _c("b-col", [
                                   _c(
                                     "div",
                                     [
                                       _c("b-col", [_vm._v("상품가")]),
+                                      _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(
                                           _vm._s(
-                                            _vm._f("won")(
-                                              _vm._f("comma")(_vm.gd_price)
-                                            )
-                                          )
+                                            _vm._f("comma")(_vm.gd_price)
+                                          ) + " 원"
                                         ),
                                       ]),
                                     ],
@@ -1048,13 +1064,11 @@ var render = function () {
                                     "div",
                                     [
                                       _c("b-col", [_vm._v("부가세")]),
+                                      _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm._f("won")(
-                                              _vm._f("comma")(_vm.surtax)
-                                            )
-                                          )
+                                          _vm._s(_vm._f("comma")(_vm.surtax)) +
+                                            " 원"
                                         ),
                                       ]),
                                     ],
@@ -1067,9 +1081,11 @@ var render = function () {
                                     "div",
                                     [
                                       _c("b-col", [_vm._v("포사이언스 배송")]),
+                                      _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(
-                                          _vm._s(_vm._f("comma")(_vm.dlvy_4s))
+                                          _vm._s(_vm._f("comma")(_vm.dlvy_4s)) +
+                                            " 원"
                                         ),
                                       ]),
                                     ],
@@ -1080,13 +1096,12 @@ var render = function () {
                                     "div",
                                     [
                                       _c("b-col", [_vm._v("업체 배송")]),
+                                      _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(
                                           _vm._s(
-                                            _vm._f("comma")(
-                                              _vm.dlvy_other + _vm.air_price
-                                            )
-                                          )
+                                            _vm._f("comma")(_vm.dlvy_other)
+                                          ) + " 원"
                                         ),
                                       ]),
                                     ],
@@ -1101,11 +1116,12 @@ var render = function () {
                                       _c("b-col", [
                                         _vm._v("적립예정 마일리지"),
                                       ]),
+                                      _vm._v(" "),
                                       _c("b-col", [
                                         _vm._v(
                                           _vm._s(
                                             _vm._f("comma")(_vm.sum_mileage)
-                                          )
+                                          ) + " 원"
                                         ),
                                       ]),
                                     ],
@@ -1116,7 +1132,7 @@ var render = function () {
                               1
                             ),
                           ],
-                          1
+                          2
                         ),
                         _vm._v(" "),
                         _c(

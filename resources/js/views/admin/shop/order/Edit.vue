@@ -7,8 +7,9 @@
             <b-row cols="1" cols-md="2">
                 <b-col class="def_info">
                     <span>No.</span> <b>{{od.od_id}}.</b>
-                    <span>주문번호</span> <b>{{ od.od_no }}</b>
+                    <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
+                    <span>주문환경</span> <b>{{ od.od_sale_env | sale_env}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
@@ -48,7 +49,11 @@
             <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
             <table class="tbl_st address mb-0">
                 <tr>
-                    <th>주문자</th><td><b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link></td>
+                    <th>주문자</th>
+                    <td>
+                        <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link>
+                        <template v-else>{{ od.od_orderer }}</template>
+                    </td>
                     <th>전화번호</th><td>{{ od.od_orderer_hp }}</td>
                     <th>이메일</th><td>{{ od.od_orderer_email }}</td>
                 </tr>
@@ -511,6 +516,18 @@ export default {
         sum_mileage () {
             return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
         },
+    },
+    filters: {
+        sale_env (str) {
+            var rst = '';
+            switch (str) {
+                case 'P': rst = 'PC'; break;
+                case 'M': rst = '모바일'; break;
+                case 'A': rst = '어플'; break;
+                default:  rst = 'PC'; break;
+            }
+            return rst;
+        }
     },
     methods: {
         async edit(){

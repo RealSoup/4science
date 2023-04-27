@@ -51,7 +51,7 @@ class Goods extends Model {
     public function fileGoods() {           return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
     public function fileGoodsAdd() {        return $this->hasMany(FileGoods::class, 'fi_key')->Kind('add')->orderBy('fi_seq'); }
     public function fileGoodsGoods() {      return $this->hasMany(FileGoods::class, 'fi_key')->Kind('goods')->orderBy('fi_seq'); }
-    public function user() {                return $this->belongsTo(User::class, 'created_id'); }
+    // public function user() {                return $this->belongsTo(User::class, 'created_id'); }
     public function maker() {               return $this->hasOne(Maker::class, 'mk_id', 'gd_mk_id')->withDefault(); }
     public function purchaseAt() {          return $this->hasOne(PurchaseAt::class, 'pa_id', 'gd_pa_id'); }
 
@@ -178,6 +178,7 @@ class Goods extends Model {
                                         'gd_enable'         => NULL,
                                         'gm_enable'         => NULL,
                                         'gm_prime'          => NULL,
+                                        'em_id'             => $em->em_id,
                                         'gm_id'             => $em->em_gm_id,
                                         'ea'                => $em->em_ea,
                                         'img'               => $gd->image_src_thumb[0],
@@ -191,7 +192,9 @@ class Goods extends Model {
                                         'price'             => $em->em_price,
                                         'price_add_vat'     => rrp($em->em_price),
                                         'gain_mileage'      => $em->gain_mileage,
-                                        'dlvy_at'           => $em->em_dlvy_at,];
+                                        'dlvy_at'           => $em->em_dlvy_at,
+                                        'dlvy_all_in'       => false,
+                                        'em_check_opt'      => true,];
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }
 
@@ -200,6 +203,7 @@ class Goods extends Model {
                             $tmpOption = [  'type'          => 'option',
                                             'gd_id'         => $gd_id,
                                             'goc_id'        => $eo->eo_goc_id,
+                                            'eo_id'         => $eo->eo_id,
                                             'ea'            => $eo->eo_ea,
                                             'go_name'       => $eo->eo_tit,
                                             'goc_name'      => $eo->eo_name,

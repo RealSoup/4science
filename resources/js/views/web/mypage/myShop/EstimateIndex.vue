@@ -13,7 +13,10 @@
 
         <EstimateList v-model="estimateReq.data" />
 
-        <pagination :data="estimateReq" @pagination-change-page="index" />
+        <pagination :data="estimateReq" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+            <span slot="prev-nav"><b-icon-chevron-left /></span>
+            <span slot="next-nav"><b-icon-chevron-right /></span>
+        </pagination>
     </template>
 </b-container>
 </template>

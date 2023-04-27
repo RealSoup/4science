@@ -469,6 +469,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 var dt = new Date();
@@ -537,6 +542,31 @@ var dt = new Date();
     },
     sum_mileage: function sum_mileage() {
       return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
+    }
+  },
+  filters: {
+    sale_env: function sale_env(str) {
+      var rst = '';
+
+      switch (str) {
+        case 'P':
+          rst = 'PC';
+          break;
+
+        case 'M':
+          rst = '모바일';
+          break;
+
+        case 'A':
+          rst = '어플';
+          break;
+
+        default:
+          rst = 'PC';
+          break;
+      }
+
+      return rst;
     }
   },
   methods: {
@@ -1360,23 +1390,55 @@ var render = function () {
               "b-row",
               { attrs: { cols: "1", "cols-md": "2" } },
               [
-                _c("b-col", { staticClass: "def_info" }, [
-                  _c("span", [_vm._v("No.")]),
-                  _vm._v(" "),
-                  _c("b", [_vm._v(_vm._s(_vm.od.od_id) + ".")]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("주문번호")]),
-                  _vm._v(" "),
-                  _c("b", [_vm._v(_vm._s(_vm.od.od_no))]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("주문날짜")]),
-                  _vm._v(" "),
-                  _c("b", [
-                    _vm._v(
-                      _vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.od.created_at))
-                    ),
-                  ]),
-                ]),
+                _c(
+                  "b-col",
+                  { staticClass: "def_info" },
+                  [
+                    _c("span", [_vm._v("No.")]),
+                    _vm._v(" "),
+                    _c("b", [_vm._v(_vm._s(_vm.od.od_id) + ".")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("주문번호")]),
+                    _vm._v(" "),
+                    _c("b", [_vm._v(_vm._s(_vm.od.od_no))]),
+                    _vm._v(" "),
+                    _vm.od.od_er_id
+                      ? _c(
+                          "b-button",
+                          {
+                            staticClass: "plum xm",
+                            on: {
+                              click: function ($event) {
+                                return _vm.openWinPop(
+                                  "/admin/shop/estimate/reply/" +
+                                    _vm.od.od_er_id
+                                )
+                              },
+                            },
+                          },
+                          [_c("b-icon-box-arrow-up-right"), _vm._v(" 견적서")],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("주문날짜")]),
+                    _vm._v(" "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("formatDate_YYYY_MM_DD")(_vm.od.created_at)
+                        )
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("주문환경")]),
+                    _vm._v(" "),
+                    _c("b", [
+                      _vm._v(_vm._s(_vm._f("sale_env")(_vm.od.od_sale_env))),
+                    ]),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c(
                   "b-col",
@@ -1583,6 +1645,7 @@ var render = function () {
             _c("table", { staticClass: "tbl_st address mb-0" }, [
               _c("tr", [
                 _c("th", [_vm._v("주문자")]),
+                _vm._v(" "),
                 _c(
                   "td",
                   [
@@ -1599,9 +1662,9 @@ var render = function () {
                           },
                           [_vm._v(_vm._s(_vm.od.od_orderer))]
                         )
-                      : _vm._e(),
+                      : [_vm._v(_vm._s(_vm.od.od_orderer))],
                   ],
-                  1
+                  2
                 ),
                 _vm._v(" "),
                 _c("th", [_vm._v("전화번호")]),

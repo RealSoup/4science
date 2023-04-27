@@ -48,6 +48,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -354,16 +357,34 @@ var render = function () {
               },
             }),
             _vm._v(" "),
-            _c("pagination", {
-              staticClass: "mt-5",
-              attrs: {
-                data: _vm.order,
-                size: "small",
-                limit: 5,
-                align: "center",
+            _c(
+              "pagination",
+              {
+                staticClass: "mt-5",
+                attrs: {
+                  data: _vm.order,
+                  limit: 5,
+                  showDisabled: true,
+                  align: "center",
+                },
+                on: { "pagination-change-page": _vm.index },
               },
-              on: { "pagination-change-page": _vm.index },
-            }),
+              [
+                _c(
+                  "span",
+                  { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                  [_c("b-icon-chevron-left")],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                  [_c("b-icon-chevron-right")],
+                  1
+                ),
+              ]
+            ),
           ],
     ],
     2

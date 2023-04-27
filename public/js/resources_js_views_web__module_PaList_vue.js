@@ -108,9 +108,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
   props: ['value', 'price'],
+  data: function data() {
+    return {};
+  },
   computed: {
     dlvy_4s: function dlvy_4s() {
       return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
@@ -127,7 +131,8 @@ __webpack_require__.r(__webpack_exports__);
         }, 0);
       }, 0);
     }
-  }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -356,6 +361,8 @@ var render = function () {
                             _c("p", [
                               _vm._v("판매단위:" + _vm._s(item.gm_unit)),
                             ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("납기:" + _vm._s(item.dlvy_at))]),
                           ]),
                           _vm._v(" "),
                           _c("b-col", [_vm._v(_vm._s(item.mk_name))]),

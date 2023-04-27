@@ -10,86 +10,97 @@
                 <b-row>
                     <b-col><span>견적일자</span> <b>{{reply.created_at | formatDate_YYYY_MM_DD}}</b></b-col>
                     <b-col><span>유효기간</span> <b>{{reply.er_effective_at | formatDate_YYYY_MM_DD}}</b></b-col>
-                    <b-col><span>납품기일</span> <b>{{reply.er_dlvy_at | formatDate_YYYY_MM_DD}}</b></b-col>
+                    <b-col><span>납품기일</span> <b>{{reply.er_dlvy_at}}</b></b-col>
                     <b-col><span>담당자/문의</span> {{reply.user.name}}&nbsp;&nbsp; {{reply.user.tel}}&nbsp;&nbsp; {{reply.user.email}}</b-col>
                 </b-row>
             </b-container>
 
             <h6>상품정보</h6>
-            <b-container class="goods">
-                <b-row>
-                    <b-col><b-form-checkbox class="myCheck" v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk" /></b-col>
-                    <b-col></b-col>
-                    <b-col>상품명 / 모델명</b-col>
-                    <b-col>판매가격</b-col>
+            <div class="top_border" />
+            <b-container class="pa_list frm_st">
+                <b-row class="lhead">
+                    <b-col>
+                        <b-form-checkbox class="myCheck" v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk" />
+                        주문 상품
+                    </b-col>        
+                    <b-col>제조사</b-col>
+                    <b-col>판매가</b-col>
                     <b-col>수량</b-col>
-                    <b-col>합계</b-col>
+                    <b-col>금액</b-col>
+                    <b-col>배송비</b-col>
+                </b-row>
+                <b-row v-for="(pa, pa_id) in reply.collect.lists" :key="pa_id" class="lbody">
+                    <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
+                    <b-col>
+                        <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
+                            <template v-if="item.type == 'model'">
+                                <b-col>
+                                    <b-form-checkbox class="myCheck" v-model="item.em_check_opt" @change="chkChange" />
+                                    <img :src="item.img" />
+                                </b-col>
+                                <b-col>
+                                    <p>{{item.gd_name}}</p>
+                                    <p>모델명:{{item.gm_code}} / Cat.No.:{{item.gm_catno}}</p>
+                                    <p>제품명:{{item.gm_name}} / 사양:{{item.gm_spec}}</p>
+                                    <p>판매단위:{{item.gm_unit}}</p>
+                                </b-col>
+                                <b-col>{{item.mk_name}}</b-col>
+                                <b-col>{{item.price | comma}} 원</b-col>
+                                <b-col>{{item.ea}} 개</b-col>
+                                <b-col>
+                                    <div>
+                                        {{item.price*item.ea | comma}} 원
+                                        <br />
+                                        <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                                    </div>
+                                </b-col>
+                            </template>
+                            <template v-else-if="item.type == 'option'">
+                                <b-col>추가 옵션</b-col>
+                                <b-col>{{item.goc_name}}</b-col>
+                                <b-col></b-col>
+                                <b-col>{{item.price | comma}} 원</b-col>
+                                <b-col>{{item.ea}} 개</b-col>
+                                <b-col>
+                                    <div>
+                                        {{item.price*item.ea | comma}} 원
+                                        <br />
+                                        <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                                    </div>
+                                </b-col>
+                            </template>
+                        </b-row>
+                    </b-col>
+
+                    <b-col>
+                        <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
+                        <template v-else>배송비</template>
+                        <br />
+                        {{pa[0].pa_dlvy_p_add_vat | comma}} 원
+                    </b-col>
                 </b-row>
 
-                <b-row v-for="em in reply.estimate_model" :key="em.em_id">
-                    <b-col class="align">
-                        <b-form-checkbox class="myCheck" v-model="em.em_check_opt" value="Y" unchecked-value="N" @change="chkChange" />
-                    </b-col>
+                <b-row class="total">
+                    <b-col>상품금액</b-col>         <b-col><b>{{gd_price+surtax | comma}}</b> 원</b-col>
+                    <b-col>배송료</b-col>           <b-col><b>{{dlvy_4s+air_price+dlvy_other | comma}}</b> 원</b-col>
+                    <b-col>결제 예정 금액</b-col>   <b-col><b>{{all_price | comma}}</b> 원</b-col>
+                </b-row>
+                <b-row class="total_sub" id="total_sub">
                     <b-col>
-                        <b-link v-if="!!em.em_gd_id" :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
-                            <img :src="em.goods.image_src_thumb[0]" class="img-fluid" />
-                        </b-link>
-                        <img v-else :src="em.goods.image_src_thumb[0]" class="img-fluid" />
-                    </b-col>
-                    <b-col>
-                        <b-link v-if="!!em.em_gd_id" :to="{name: 'goods_show', params:{gd_id:em.em_gd_id} }">
-                            <b>{{em.em_name}}</b>
-                            <p>
-                                모델명: {{em.em_code}} / Cat.No.: {{em.em_catno}}<br />
-                                사양: {{em.em_spec}}<br />
-                                판매단위: {{em.em_unit}}
-                            </p>
-                        </b-link>
-                        <div v-else>
-                            {{em.em_name}}
-                            <p>
-                                모델명: {{em.em_code}} / Cat.No.: {{em.em_catno}}<br />
-                                사양: {{em.em_spec}}<br />
-                                판매단위: {{em.em_unit}}
-                            </p>
+                        <div><b-col>상품가</b-col>              <b-col>{{gd_price | comma}} 원</b-col>
+                        </div>
+                        <div><b-col>부가세</b-col>              <b-col>{{surtax | comma}} 원</b-col>
                         </div>
                     </b-col>
-                    <b-col class="align">{{em.em_price | rrp | comma | won}}</b-col>
-                    <b-col class="align">{{em.em_ea}}</b-col>
-                    <b-col class="align">{{em.em_price*em.em_ea | rrp | comma | won}}</b-col>
-                    <template v-if="em.estimate_option.length">
-                        <b-col class="option" v-for="eo in em.estimate_option" :key="eo.eo_id">
-                            <b-col></b-col>
-                            <b-col>추가 옵션</b-col>
-                            <b-col>{{eo.eo_tit}}:{{eo.eo_name}}</b-col>
-                            <b-col>{{eo.eo_price | rrp | comma | won}}</b-col>
-                            <b-col>{{eo.eo_ea}}</b-col>
-                            <b-col>{{eo.eo_price*eo.eo_ea | rrp | comma | won}}</b-col>
-                        </b-col>
-                    </template>
-                </b-row>
-            </b-container>
-
-            <b-container class="sum_up">
-                <b-row class="total">
-                    <b-col>견적가</b-col>
-                    <b-col><b>{{(gd_price+surtax) | comma | won}}</b></b-col>
-                    <b-col>배송료</b-col>
-                    <b-col><b>{{(dlvy_4s+dlvy_other+air_price) | comma | won}}</b></b-col>
-                    <b-col>결제 예정 금액</b-col>
-                    <b-col><b>{{all_price | comma | won}}</b></b-col>
-                </b-row>
-                <b-row class="total_sub">
                     <b-col>
-                        <div><b-col>상품가</b-col><b-col>{{gd_price | comma | won}}</b-col></div>
-                        <div><b-col>부가세</b-col><b-col>{{surtax | comma | won}}</b-col></div>
+                        <div><b-col>포사이언스 배송</b-col>     <b-col>{{dlvy_4s | comma}} 원</b-col>
+                        </div>
+                        <div><b-col>업체 배송</b-col>           <b-col>{{dlvy_other | comma}} 원</b-col>
+                        </div>
                     </b-col>
                     <b-col>
-                        <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}}</b-col></div>
-                        <div><b-col>업체 배송</b-col><b-col>{{(dlvy_other+air_price) | comma}}</b-col></div>
-                    </b-col>
-                    <b-col>
-                        <div><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col></div>
+                        <div><b-col>적립예정 마일리지</b-col>   <b-col>{{sum_mileage | comma}} 원</b-col>
+                        </div>
                     </b-col>
                 </b-row>
             </b-container>
@@ -136,6 +147,7 @@ export default {
     name: "mypageEstimateReplyShow",
     components: {
         'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'PaList'        : () => import('@/views/web/_module/PaList'),
     },
     data() {
         return {
@@ -149,26 +161,26 @@ export default {
             all_price: 0,
             sum_mileage: 0,
             indeterminate:false,
-            all_chk:false,
+            all_chk:true,
         }
     },
     computed: {
         
     },
     methods:{
-        
-
         settle() {
             let rst = [];
-            for (var v of this.reply.estimate_model) {
-                if (v.em_ea > 0 && v.em_check_opt == 'Y')
-                    rst.push({gd_id:v.em_gd_id, em_id:v.em_id});
-
-                if (v.hasOwnProperty('estimate_option')) {
-                    for (var op of v.estimate_option) {
-                        if (op.eo_ea > 0 && op.eo_check_opt == 'Y')
-                            rst.push({gd_id:op.eo_gd_id, eo_id:op.eo_id});
+            let is_model_check = false;
+            for (var pa_id in this.reply.collect.lists) {
+                for (var em of this.reply.collect.lists[pa_id]) {
+                    if (em.type=='model') {
+                        if (em.ea > 0 && em.em_check_opt) {
+                            rst.push({gd_id:em.gd_id, em_id:em.em_id});
+                            is_model_check = true;
+                        } else is_model_check = false;
                     }
+                    if (em.type == 'option' && is_model_check)
+                        rst.push({gd_id:em.gd_id, eo_id:em.eo_id});
                 }
             }
             if (!rst.length) {
@@ -186,7 +198,7 @@ export default {
                     if (res && res.status === 200) {
                         console.log(res);
                         Notify.toast('success', '견적 요청 완료')
-                        // this.$router.push({name: 'main'});
+                        this.$router.push({name: 'my_estimate'});
                     } else {
                         Notify.toast('warning', res);
                     }
@@ -205,34 +217,39 @@ export default {
             var option = "width = 900, height = 900, top = 10, left = 10, location = no"
             window.open(url, name, option);
         },
-
         
+        getValidationState({ dirty, validated, valid = null }) {
+            return dirty || validated ? valid : null;
+        },
+
         calculator() {
             let collect = {};
             let sum_mileage = 0;
             let dlvy_other = 0;
-            for (var em of this.reply.estimate_model) {
-                let pa_id = 0;
-                if (em.em_check_opt == 'Y') {
-                    if (!!em.goods&&!!em.goods.purchase_at)
-                    pa_id = em.goods.gd_pa_id;
-                    if (!collect.hasOwnProperty(pa_id)) {
-                        if (pa_id>0 && em.goods.purchase_at.pa_type == "AIR")
-                            collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.goods.purchase_at.pa_price_add_vat)};
-                        else
-                            collect[pa_id] = { 'goods':0, 'dlvy':Number(em.goods.dlvy_fee_add_vat), 'free_dlvy_max':Number(em.goods.free_dlvy_max), 'air':0};
+            let is_model_check = false;
+            for (var pa_id in this.reply.collect.lists) {
+                for (var em of this.reply.collect.lists[pa_id]) {
+                    if (em.type=='model') {
+                        if( em.em_check_opt ){
+                            if (!collect.hasOwnProperty(pa_id)) {
+                                if (pa_id>0 && em.pa_type == "AIR")
+                                    collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(em.pa_dlvy_p_add_vat)};
+                                else
+                                    collect[pa_id] = { 'goods':0, 'dlvy':Number(em.pa_dlvy_p_add_vat), 'free_dlvy_max':Number(this.reply.goods.free_dlvy_max), 'air':0};
+                            }
+
+                            collect[pa_id].goods += Number(em.price) * Number(em.ea);
+                            sum_mileage += em.gain_mileage;
+                            is_model_check = true;
+                        } else is_model_check = false;
                     }
-                    collect[pa_id].goods += Number(em.em_price) * Number(em.em_ea);
-                    sum_mileage += em.gain_mileage;
-                }
-                for (var eo of em.estimate_option) {
-                    if (eo.eo_check_opt == 'Y') {
-                        collect[pa_id].goods += Number(eo.eo_price) * Number(eo.eo_ea);
-                        sum_mileage += eo.gain_mileage;
+                    if (em.type == 'option' && is_model_check) {
+                        collect[pa_id].goods += Number(em.price) * Number(em.ea);
+                        sum_mileage += em.gain_mileage;
                     }
                 }
             }
-
+// console.log(collect);
             this.gd_price = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
             this.air_price = Object.values(collect).reduce((acc, el) => acc + el.air, 0);
             this.surtax = Number((this.gd_price*0.1).toFixed());
@@ -247,29 +264,30 @@ export default {
             this.sum_mileage = sum_mileage;
             this.all_price = this.gd_price+this.surtax+this.dlvy_4s+this.air_price+dlvy_other;
         },
-        getValidationState({ dirty, validated, valid = null }) {
-            return dirty || validated ? valid : null;
-        },
-
         chkChange () {
-            let chkCnt = this.reply.estimate_model.filter(el => el.em_check_opt==true).length;
+            let chkCnt = Object.values(this.reply.collect.lists).reduce(function(acc, pa) {
+                return acc + pa.filter(el => el.em_check_opt==true).length;
+            }, 0);
+
             if (chkCnt === 0) {
                 this.indeterminate = false;
-                this.allSelected = false;
-            } else if (chkCnt === this.ledger.data.length) {
+                this.all_chk = false;
+            } else if (chkCnt === this.reply.estimate_model.length) {
                 this.indeterminate = false;
-                this.allSelected = true;
+                this.all_chk = true;
             } else {
                 this.indeterminate = true;
-                this.allSelected = false;
+                this.all_chk = false;
             }
 
             this.calculator();
         },
 
         toggle_all_chk(checked) {
-            this.ledger.data.forEach(el => {
-                el.chk_cplt = checked ? true : false;
+            Object.values(this.reply.collect.lists).forEach(el => {
+                el.forEach(el02 => {
+                    el02.em_check_opt = checked ? true : false;
+                });
             });
             this.indeterminate = false;
         },
@@ -301,59 +319,79 @@ h6 { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem; }
 .w_fence .top .row .col span { margin-right:.7rem; font-weight:600; }
 .w_fence .top .row .col b { color:#0094EA; }
 
-.w_fence .goods { padding-bottom:.5rem; }
-.w_fence .goods .row .col { text-align:center; padding-top:.4rem; padding-bottom:.4rem; }
-.w_fence .goods .row .col.align { display:flex; align-items:center; justify-content:center; }
-.w_fence .goods .row:first-child { border-top:1px solid #ACACAC; border-bottom:1px solid #ACACAC; background-color:#ECECEC; }
-.w_fence .goods .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; }
-.w_fence .goods .row:not(:first-child) .col,
-.w_fence .goods .row:not(:first-child) .col p { color:#AEAEAE; font-size:.85rem; }
-.w_fence .goods .row .col b { color:#000; font-size:.95rem; }
-.w_fence .goods .row .col:nth-child(1) { flex:0 0 7%; max-width:7%; }
-.w_fence .goods .row .col:nth-child(2) { flex:0 0 9%; max-width:9%; }
-.w_fence .goods .row .col:nth-child(3) {  display:flex; align-items:center; text-align:left; padding-left:3%; }
-.w_fence .goods .row .col:nth-child(4) { flex:0 0 10%; max-width:10%; }
-.w_fence .goods .row .col:nth-child(5) { flex:0 0 10%; max-width:10%; }
-.w_fence .goods .row .col:nth-child(6) { flex:0 0 10%; max-width:10%; font-weight:900; color:#000; }
-.w_fence .goods .row .col img { width:100%; }
-.w_fence .goods .row .col p { margin:0; }
-.w_fence .goods .row .col >>> .myCheck .custom-control-label::before, 
-.w_fence .goods .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
-.w_fence .goods .row .option { flex:0 0 100%; max-width:100%; display:flex; }
+.w_fence .top_border { border-top:3px solid #4F637B; }
 
-.w_fence .sum_up { border-top:3px solid #4F637B; }
-.w_fence .sum_up .total { border-bottom:1px solid #D6D6D6; }
-.w_fence .sum_up .total .col { color:#000; font-weight:bold; padding:1rem .5rem; }
-.w_fence .sum_up .total .col b { font-size:1.4rem; }
 
-.w_fence .sum_up .total .col:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center; }
-.w_fence .sum_up .total .col:nth-of-type(even) { padding-right:2rem; text-align:right; }
+/************************************** */
+.pa_list { margin-bottom:2.5rem; padding:0; }
+.pa_list .row { margin:0; border-bottom:1px solid #D6D6D6; }
+.pa_list .row .col { padding:0; font-size:.93rem; color:#666; }
+.pa_list .row.lbody .col:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center; }
 
-.w_fence .sum_up .total .col:nth-of-type(1) {  }
-.w_fence .sum_up .total .col:nth-of-type(2) {  border-right:1px solid #D6D6D6; }
-.w_fence .sum_up .total .col:nth-of-type(2):after,
-.w_fence .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2; }
-.w_fence .sum_up .total .col:nth-of-type(2):after { content:"+"; }
-.w_fence .sum_up .total .col:nth-of-type(3) {  }
-.w_fence .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
-.w_fence .sum_up .total .col:nth-of-type(4):after { content:"="; }
-.w_fence .sum_up .total .col:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%; }
-.w_fence .sum_up .total .col:nth-of-type(6) { flex-basis:19.5%; max-width:19.5%; }
-.w_fence .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }
-.w_fence .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
-.w_fence .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
-.w_fence .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:39%; max-width:39%; }
-.w_fence .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }
-.w_fence .sum_up .total_sub .col>div:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem; }
-.w_fence .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 1rem 1.5rem 1rem; }
-.w_fence .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
-.w_fence .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+.pa_list .row .col .row:last-child { border-bottom-width:0; }
+.pa_list .row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }
+.pa_list .row.lbody>.col:last-child { border-left:1px solid #D6D6D6; }
+
+.pa_list .lhead .col { font-weight:bold; text-align:center; padding:.74rem 0 !important; color:#000; }
+.pa_list .lhead .col:nth-of-type(2) { flex-basis:11.2%; max-width:11.2%; }
+.pa_list .lhead .col:nth-of-type(3) { flex-basis:8.8%; max-width:8.8%; }
+.pa_list .lhead .col:nth-of-type(4) { flex-basis:7.2%; max-width:7.2%; }
+.pa_list .lhead .col:nth-of-type(5) { flex-basis:9.6%; max-width:9.6%; }
+.pa_list .lhead .col:nth-of-type(6) { flex-basis:10%; max-width:10%; }
+
+.pa_list .lbody>.col:nth-of-type(1),
+.pa_list .lbody>.col:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000; }
+.pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:18%; max-width:18%; }
+.pa_list .lbody .col .row .col:nth-of-type(3) { flex-basis:14%; max-width:14%; }
+.pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(6) span { font-size:.7rem; color:#666;  }
+
+.pa_list .row .col .row.option { background:#F4F1EC; }
+.pa_list .row .col .row .col { padding:.8rem 0; }
+.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:cover; }
+.pa_list .row .col .row .col p { margin-bottom:.2rem; }
+.pa_list .row .col .row .col:nth-of-type(2) { padding-left:1rem; }
+.pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }
+.pa_list .row .col >>> .myCheck { display:inline-block; padding-left:1.3em; margin:0 .5rem; }
+.pa_list .row .col >>> .myCheck .custom-control-label::before, 
+.pa_list .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
+
+.pa_list .total { margin-top:1.6rem; border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; }
+.pa_list .total .col { color:#000; font-weight:bold; }
+.pa_list .total .col:nth-of-type(odd) { display: flex; align-items: center; flex-basis: 12%; max-width: 12%; padding: 1vw 0 1vw 2vw; font-size: .9vw; }
+.pa_list .total .col:nth-of-type(even) { text-align: right; padding: 1vw 2vw 1vw 0; }
+.pa_list .total .col:nth-of-type(2):after,
+.pa_list .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }
+.pa_list .total .col b { font-size:1.4rem; }
+.pa_list .total .col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(2):after { content:"+"; }
+.pa_list .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }
+.pa_list .total .col:nth-of-type(4):after { content:"="; }
+.pa_list .total .col:nth-of-type(5) { flex-basis:20%; max-width:20%; }
+.pa_list .total .col:nth-of-type(6) { flex-basis:20%; max-width:20%; }
+
+.pa_list .total_sub { background:#F2F3F5; border-bottom-width:0; }
+.pa_list .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }
+.pa_list .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }
+.pa_list .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }
+.pa_list .total_sub .col>div { display:flex; flex-wrap:wrap; }
+.pa_list .total_sub .col>div:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem; }
+.pa_list .total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
+.pa_list .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
+.pa_list .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
+/************************************** */
+
+
+
+
 
 .w_fence .extra { margin-top:2rem; }
 .w_fence .extra .row .col:nth-child(1) { margin-right:2rem; }
 .w_fence .extra .row .col h6 { border-bottom:2px solid #707070; margin-bottom:.7rem; padding-bottom:.5rem; }
 .w_fence .extra .row .col h6 b { color:#0094EA; }
-.w_fence .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem;}
+.w_fence .extra .row .col:nth-child(1) .desc { border:1px solid #D6D6D6; padding:1rem; min-height:calc(3vw + 5rem); }
 .w_fence .extra .row .col .btn { font-size:.85rem; padding:.3rem; }
 
 </style>

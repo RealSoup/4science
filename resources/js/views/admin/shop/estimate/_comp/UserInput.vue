@@ -59,6 +59,8 @@ export default {
         },
         setUser(i) {
             if (this.users[i] && this.users[i].name != "정보없음") {
+                this.users[i].office = !isEmpty(this.users[i].office) ? this.users[i].office : '';
+                this.users[i].department = !isEmpty(this.users[i].department) ? this.users[i].department : '';
                 this.$set(this.frm, 'created_id'   , this.users[i].id);
                 this.$set(this.frm, 'eq_name'      , this.users[i].name);
                 this.$set(this.frm, 'eq_email'     , this.users[i].email);
