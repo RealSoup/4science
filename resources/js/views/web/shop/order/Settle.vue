@@ -156,7 +156,7 @@
                         </b-col>
                     </b-row>
                 </div>
-                <b-button  variant="primary" size="lg" @click="exePayment">주문하기</b-button>
+                <b-button class="m_hide" variant="primary" size="lg" @click="exePayment">주문하기</b-button>
             </b-col>
 
             <b-col id="payment" class="payment">
@@ -280,6 +280,7 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
+                <b-button class="m_show" variant="primary" size="lg" @click="exePayment">주문하기</b-button>
             </b-col>
         </b-row>
     </b-container>

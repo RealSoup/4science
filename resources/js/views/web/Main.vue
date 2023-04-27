@@ -342,6 +342,7 @@ export default {
     .recommend .container .row:last-child,
     .recommend .container .row:last-child .col-md-12  { margin-top:.5rem; }
 
+    .byCate .titByCate { margin:0; }
     .byCate .con .row { flex-direction:column; margin-bottom:1rem; }
     .byCate .con .row .tit { max-width: 100%; }
     .byCate .con .row .tit a { padding: 8px 0 0 8px; }
