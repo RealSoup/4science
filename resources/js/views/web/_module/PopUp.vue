@@ -13,6 +13,13 @@
             <b-button class="white xm" @click="todayStop(1)">24시간 안 보기</b-button>
         </div>
     </div>
+
+    <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view">
+        <b-img :src="`${s3url}main/popup/230427.jpg`" />
+        <div class="ctrl">
+            <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
+        </div>
+    </div>
 </div>
 
 </template>
@@ -25,6 +32,7 @@ export default {
             pop: [ 
                 {ck_key: 'view01', is_view: true},
                 {ck_key: 'view02', is_view: true}, 
+                {ck_key: 'view03', is_view: true}, 
             ]          
         }
     },
@@ -43,10 +51,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.popup { position:absolute; top:162px; left:300px; z-index:16; }
+.popup { position:absolute; top:162px; left:300px; z-index:16; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); background: #FFF; }
 .popup .ctrl { background-color:#FFF; text-align:right; }
 @media (max-width: 992px){ .popup { top:0; left:0;  } .popup img { width:100%; } }
 @media (max-width: 576px){ .popup { width:100%; } }
 
 .pop_1 { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF; }
+
+.pop_2 { left:720px; }
 </style>
