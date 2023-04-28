@@ -18,7 +18,9 @@ mix.js('resources/js/app.js', 'public/js')
             host: "0.0.0.0",
             port: 8000,
         },
-    });
+    })
+    // .version()
+    ;
 
 
 mix.browserSync ( 'https://4science.net/');

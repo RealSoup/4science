@@ -7,7 +7,7 @@
         <h3>주문 배송조회</h3>
         <SchDate v-model="sch_frm" class="sch">
             <b-col slot="prev" cols="0" lg="3"></b-col>
-            <b-col slot="after" cols="1">
+            <b-col slot="after" col cols="1">
                 <b-button class="gray" @click="index">검색</b-button>
             </b-col>
         </SchDate>
@@ -82,4 +82,7 @@ export default {
 
 <style scoped>
 .sch { margin-bottom:2rem;  }
+@media (max-width: 992px){
+    .w_fence { padding-top:0; }
+}
 </style>

@@ -16,7 +16,7 @@
             </b-input-group-append>
         </b-input-group>
     </b-col>
-    <b-col class="period_btn">
+    <b-col class="period_btn m_hide">
         <b-button-group>
             <b-button variant="outline-secondary" @click="setDate('today')">오늘</b-button>
             <b-button variant="outline-secondary" @click="setDate('3day')">3일</b-button>
@@ -63,4 +63,12 @@ export default {
 .row .period > div { width: calc(50% - 10px); }
 .row .period_btn .btn-group { display:flex; }
 .row .period_btn .btn-group .btn { flex:1; }
+
+@media (max-width: 992px) {
+    .row .period { flex:0 0 80%; max-width:80%; }
+    .row .col { padding:0; }
+    .row .col>>>.btn { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
+    .row .col .input-group .form-control { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:0.2rem; height:calc(1.5em + 0.5rem + 2px); }
+    .row .col-1 { flex: 0 0 20%; max-width:20%; text-align:right; }
+}
 </style>

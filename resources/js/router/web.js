@@ -27,7 +27,10 @@ export default [
     {   path: '/login',
         name: 'login',
         component:() => import('@/views/web/auth/Login'),
-        beforeEnter: isNotLoggedin(),
+        beforeEnter: (to, from, next) => {
+            if (!store.state.auth.isLoggedin) return next();
+            else next('/mypage/summary');
+        }
         // beforeEnter: function(to, from, next) {
             // 인증 값 검증 로직 추가
         // }

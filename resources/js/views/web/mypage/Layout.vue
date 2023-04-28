@@ -3,7 +3,7 @@
         <h2>마이페이지</h2>
         <b-row class="top">
             <b-col class="name">
-                <b>{{user.name}}</b> 님
+                <span><b>{{user.name}}</b> 님</span>
                 <p>{{user.email}}</p>
             </b-col>
             <b-col class="rank">
@@ -30,7 +30,7 @@
                 <p>내가 찜한 상품</p>
                 <b-link :to="{name:'my_wish'}"><b>{{cnt_wish}} <small>개</small></b></b-link>
             </b-col>
-            <b-col class="od_step">
+            <b-col class="od_step m_hide">
                 <p>나의 주문 건<small>최근 한달 간 주문량</small></p>
                 <ul>
                     <li>
@@ -73,7 +73,7 @@
         </b-row>
         <b-row class="middle">
             <b-col class="left">
-                <b-button v-b-toggle.mymenu id="menu_btn" size="sm">Menu</b-button>
+                <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
 
                 <b-sidebar id="mymenu" title="My Page" :backdrop-variant="'info'" backdrop shadow>
                     <ul class="nav">
@@ -198,18 +198,26 @@ export default {
 #mypage .middle .left .nav li div a:hover { background-color:#00ADBB; color:#fff; font-weight:bold; }
 #mypage .middle .left .b-sidebar-outer { z-index:16; }
 
-
-
-@media (max-width: 992px) {
-    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/
-}
-
 @media (min-width: 992px) {
     #menu_btn { display:none; }
     .b-sidebar-outer { position:relative; height:100%; }
     .b-sidebar-outer >>> .b-sidebar-backdrop { display:none; }
     .b-sidebar-outer >>> .b-sidebar { position:relative; box-shadow: none !important; display:flex !important; background:none !important; height:100%; }
     .b-sidebar-outer >>> .b-sidebar .b-sidebar-header { display:none; }
+}
+
+@media (max-width: 992px) {
+    /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/
+    .container h2 { margin: 1rem; font-size:calc(1vw + 1rem); }
+    #mypage .top { flex-direction:column; }
+    #mypage .top>.col { display:flex; justify-content:space-around; padding:2vw 1vw; align-items: center; }
+    #mypage .top .name { flex-basis:100%; max-width:100%; }
+    #mypage .top>.col b,
+    #mypage .top>.col p { margin-bottom:0; line-height:1.5; }
+    #mypage .top .col:nth-child(2):after,
+    #mypage .top .col:nth-child(3):after,
+    #mypage .top .col:nth-child(4):after { content:none; }
+   
 }
 </style>
 
@@ -227,7 +235,6 @@ export default {
 .list01 .header .col { font-weight:bold; font-size:.9rem; padding:.68rem 0; }
 .list01 .data:not(:last-child) { border-bottom:1px solid #ddd; }
 
-
 .list01 .row { align-items:center; }
 .list01 .row .col { text-align:center; }
 .list01 .row .chk { flex:0 0 7%; max-width:7%; }
@@ -243,56 +250,20 @@ export default {
 .list01 .data .product a img:hover { border:4px solid black; border-radius:5px; } 
 .list01 .data .product a div { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
-
-
-@media (max-width: 768px) {
-    .mypage .order .header { display:none; }
-    .mypage .order .row .col { max-width:none !important; width:auto !important; }
-    .mypage .order .row .col:nth-child(1) { flex-basis:100%; text-align:left; }
-    .mypage .order .row .col:nth-child(2) { flex-basis:auto; }
-    .mypage .order .row .col:nth-child(3) { flex-basis:60%; flex-grow:1; }
-    .mypage .order .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left; }
-    .mypage .order .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right; }
+@media (max-width: 992px) {
+    #mypage .middle .mypage { padding:0 10px; flex: 0 0 100%; max-width: 100%; }
+    #mypage .middle .mypage h5 { margin-top:0; }
+    .list01 .header { display:none; }
+    .list01 .row .date { flex: 0 0 30%; max-width: 30%; }
+    .list01 .data .product { display:none; }
+    .list01 .row .num { flex: 0 0 70%; max-width: 70%; }
+    .list01 .row .num div { display:inline-block; margin-right:1rem; width:40%; }
+    .list01 .row .num .btn { width:30%; }
+    .list01 .row .price { flex:0 0 30%; max-width:30%; text-align:center !important;}
+    .list01 .row .step { flex:0 0 30%; max-width:30%; text-align:center !important; }
+    .list01.order .row .step { margin-left:40%;}
+    .list01.estimate .row>div:last-child { flex:0 0 70%; max-width:70%; }
+    .list01.estimate .row>div:last-child > div { display: flex; justify-content: space-evenly; }
+ 
 }
-
-
-@media (max-width: 768px) {
-    .mypage .estimate .header { display:none; }
-    .mypage .estimate .row .col { max-width:none !important; width:auto !important; }
-    .mypage .estimate .row .col:nth-child(1) { flex-basis:100%; text-align:left; }
-    .mypage .estimate .row .col:nth-child(2) { flex-basis:auto; }
-    .mypage .estimate .row .col:nth-child(3) { flex-basis:60%; flex-grow:1; }
-    .mypage .estimate .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left; }
-    .mypage .estimate .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right; }
-}
-
-
-
-
-
-
-
-
-
-
-/*
-.order .header { background-color:#DDD; }
-.order .header .col { font-weight:bold; }
-.order .data { border-top:1px solid #ddd; }
-.order .row .col { padding:.6rem 0; }
-.order .row .col:nth-child(1) { flex:0 0 10%; max-width:10%; text-align:center; }
-.order .row .col:nth-child(2) { flex:0 0 10%; max-width:10%; text-align:center; }
-.order .row .col:nth-child(3) .btn { text-align:left; }
-.order .row .col:nth-child(4) { flex:0 0 15%; max-width:15%; text-align:right; }
-.order .row .col:nth-child(5) { flex:0 0 8%; max-width:8%; text-align:center; }
-@media (max-width: 768px) {
-    .order .header { display:none; }
-    .order .row .col { max-width:none !important; width:auto !important; }
-    .order .row .col:nth-child(1) { flex-basis:100%; text-align:left; }
-    .order .row .col:nth-child(2) { flex-basis:auto; }
-    .order .row .col:nth-child(3) { flex-basis:60%; flex-grow:1; }
-    .order .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; text-align:left; }
-    .order .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; text-align:right; }
-}
-*/
 </style>

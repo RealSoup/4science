@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .period[data-v-1cdb0092] { flex:0 0 28%; max-width:28%; display:flex; align-items:center; justify-content:space-between;\n}\n.row .period > b[data-v-1cdb0092] { font-size:20px;\n}\n.row .period > div[data-v-1cdb0092] { width: calc(50% - 10px);\n}\n.row .period_btn .btn-group[data-v-1cdb0092] { display:flex;\n}\n.row .period_btn .btn-group .btn[data-v-1cdb0092] { flex:1;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .period[data-v-1cdb0092] { flex:0 0 28%; max-width:28%; display:flex; align-items:center; justify-content:space-between;\n}\n.row .period > b[data-v-1cdb0092] { font-size:20px;\n}\n.row .period > div[data-v-1cdb0092] { width: calc(50% - 10px);\n}\n.row .period_btn .btn-group[data-v-1cdb0092] { display:flex;\n}\n.row .period_btn .btn-group .btn[data-v-1cdb0092] { flex:1;\n}\n@media (max-width: 992px) {\n.row .period[data-v-1cdb0092] { flex:0 0 80%; max-width:80%;\n}\n.row .col[data-v-1cdb0092] { padding:0;\n}\n.row .col[data-v-1cdb0092] .btn { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem;\n}\n.row .col .input-group .form-control[data-v-1cdb0092] { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:0.2rem; height:calc(1.5em + 0.5rem + 2px);\n}\n.row .col-1[data-v-1cdb0092] { flex: 0 0 20%; max-width:20%; text-align:right;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -331,7 +331,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-col",
-        { staticClass: "period_btn" },
+        { staticClass: "period_btn m_hide" },
         [
           _c(
             "b-button-group",

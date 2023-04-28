@@ -50,6 +50,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -237,45 +239,33 @@ var render = function () {
             _c("h3", [_vm._v("견적서 조회")]),
             _vm._v(" "),
             _c(
-              "div",
-              { staticClass: "row mb-2" },
+              "SchDate",
+              {
+                staticClass: "sch",
+                model: {
+                  value: _vm.frm,
+                  callback: function ($$v) {
+                    _vm.frm = $$v
+                  },
+                  expression: "frm",
+                },
+              },
               [
+                _c("b-col", {
+                  attrs: { slot: "prev", cols: "0", lg: "3" },
+                  slot: "prev",
+                }),
+                _vm._v(" "),
                 _c(
                   "b-col",
                   {
-                    staticClass: "align-middle",
-                    staticStyle: { "line-height": "31px" },
-                    attrs: { lg: "3", md: "12" },
+                    attrs: { slot: "after", col: "", cols: "1" },
+                    slot: "after",
                   },
-                  [_vm._v("총 게시물 : " + _vm._s(_vm.estimateReq.total))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _c("SchDate", {
-                      model: {
-                        value: _vm.frm,
-                        callback: function ($$v) {
-                          _vm.frm = $$v
-                        },
-                        expression: "frm",
-                      },
-                    }),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  { attrs: { cols: "1" } },
                   [
                     _c(
                       "b-button",
-                      {
-                        attrs: { size: "sm", variant: "primary" },
-                        on: { click: _vm.index },
-                      },
+                      { staticClass: "gray sm", on: { click: _vm.index } },
                       [_vm._v("검색")]
                     ),
                   ],

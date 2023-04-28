@@ -5,11 +5,13 @@
     </LoadingModal>
     <template v-else>
         <h3>견적서 조회</h3>
-        <div class="row mb-2">
-            <b-col lg="3" md="12" class="align-middle" style="line-height:31px;">총 게시물 : {{estimateReq.total}}</b-col>
-            <b-col><SchDate v-model="frm" /></b-col>
-            <b-col cols="1"><b-button size="sm" variant="primary" @click="index">검색</b-button></b-col>
-        </div>
+        
+        <SchDate v-model="frm" class="sch">
+            <b-col slot="prev" cols="0" lg="3"></b-col>
+            <b-col slot="after" col cols="1">
+                <b-button class="gray sm" @click="index">검색</b-button>
+            </b-col>
+        </SchDate>
 
         <EstimateList v-model="estimateReq.data" />
 

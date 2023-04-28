@@ -221,6 +221,10 @@ var render = function () {
               },
             }),
             _vm._v(" "),
+            _c("br", { staticClass: "m_show" }),
+            _vm._v(" "),
+            _c("br", { staticClass: "m_show" }),
+            _vm._v(" "),
             _c("h5", [
               _vm._v("최근 견적 내역 "),
               _c("small", [_vm._v("최근 견적 5개를 보여줍니다.")]),

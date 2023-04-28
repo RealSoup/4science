@@ -6,7 +6,7 @@
         <template v-else>
             <h5>최근 주문 내역 <small>최근 주문 5개를 보여줍니다.</small></h5>
             <OrderList v-model="order" :order_config="order_config" />
-
+            <br class="m_show" /> <br class="m_show" />
             <h5>최근 견적 내역 <small>최근 견적 5개를 보여줍니다.</small></h5>
             <EstimateList v-model="estimateReq" />
         </template>
