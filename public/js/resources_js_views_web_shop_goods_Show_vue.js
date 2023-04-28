@@ -1667,7 +1667,7 @@ var render = function () {
               _vm.content.goods_relate.length
                 ? _c(
                     "b-row",
-                    { staticClass: "goods_relate" },
+                    { staticClass: "goods_relate m_hide" },
                     [
                       _c("b-col", { staticClass: "head" }, [
                         _c("b", [_vm._v("연관"), _c("br"), _vm._v("상품")]),

@@ -141,7 +141,7 @@ export default {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         vueAccordion, // https://github.com/zeratulmdq/vue-accordion
-        'PopUp': () => import('./_module/PopUp'),
+        'PopUp':     () => import('@/views/web/_module/PopUp'),
         'SubString': () => import('@/views/_common/SubString.vue'),
     },
     data() {

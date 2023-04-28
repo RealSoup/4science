@@ -113,6 +113,19 @@ Vue.use(VueHtmlToPaper, options);
 import VueScrollactive from 'vue-scrollactive';
 Vue.use(VueScrollactive);
 
+
+let nextPath= '/login';
+router.onError((error) => {
+    console.error(error);
+
+    if (error.name === 'ChunkLoadError') {
+        window.location.href = nextPath || '/';
+    } else {
+        console.log(123123);
+    }
+});
+
+
 const playVue = () => {
     new Vue({
         router,

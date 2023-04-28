@@ -156,7 +156,7 @@
                         </b-col>
                     </b-row>
                 </div>
-                <b-button class="m_hide" variant="primary" size="lg" @click="exePayment">주문하기</b-button>
+                <b-button class="m_hide pay_go" @click="exePayment">주문하기</b-button>
             </b-col>
 
             <b-col id="payment" class="payment">
@@ -280,7 +280,7 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
-                <b-button class="m_show" variant="primary" size="lg" @click="exePayment">주문하기</b-button>
+                <b-button class="m_show pay_go" @click="exePayment">주문하기</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -809,7 +809,7 @@ export default {
 #settle .st_bottom .inputs .address .row:nth-of-type(5) .col select { max-width:446px; }
 #settle .st_bottom .inputs .address .sch_zip { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000; }
 
-#settle .st_bottom .inputs>button { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
+#settle .st_bottom .pay_go { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
 
 #settle .st_bottom .row .col.payment { flex-basis:31%; max-width:31%; padding-left:.875rem; }
 #settle .st_bottom .payment .top { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center; }

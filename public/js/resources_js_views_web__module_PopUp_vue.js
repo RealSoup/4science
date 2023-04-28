@@ -86,7 +86,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.popup[data-v-0511783e] { position:absolute; top:162px; left:300px; z-index:16; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); background: #FFF;\n}\n.popup .ctrl[data-v-0511783e] { background-color:#FFF; text-align:right;\n}\n@media (max-width: 992px){\n.popup[data-v-0511783e] { top:0; left:0;\n}\n.popup img[data-v-0511783e] { width:100%;\n}\n}\n@media (max-width: 576px){\n.popup[data-v-0511783e] { width:100%;\n}\n}\n.pop_1[data-v-0511783e] { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF;\n}\n.pop_2[data-v-0511783e] { left:720px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.popup[data-v-0511783e] { position:absolute; top:162px; left:300px; z-index:16; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); background: #FFF;\n}\n.popup .ctrl[data-v-0511783e] { background-color:#FFF; text-align:right;\n}\n.pop_1[data-v-0511783e] { position:absolute; top:20%; left:20%; box-shadow: 0 1px 15px 1px rgba(39,39,39,.5); border-radius: 50px 50px 0 0; background: #FFF;\n}\n.pop_2[data-v-0511783e] { left:720px;\n}\n@media (max-width: 992px){\n.popup[data-v-0511783e] { top:0; left:0;\n}\n.popup img[data-v-0511783e] { width:100%;\n}\n}\n@media (max-width: 576px){\n.popup[data-v-0511783e] { width:100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
