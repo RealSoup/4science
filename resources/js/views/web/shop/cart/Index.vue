@@ -304,7 +304,41 @@ export default {
 .w_fence .total_sub .col>div:nth-of-type(2) { padding:0 3rem 2.5rem 3rem; }
 .w_fence .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .w_fence .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
-.w_fence .btn_box .col button { widows:300px; }
 .w_fence .dlvy_info .col { color:#898989; text-align:center; padding:.7rem; }
 .w_fence .more .col button { width:100%; margin-top:2rem; }
+
+@media (max-width: 992px){
+    .w_fence { padding-top:1rem; }
+    .w_fence h3 { margin-bottom:0; }
+    .w_fence .head { display:none; }
+    .w_fence .cart_info { margin: 1rem -10px; }
+    .w_fence .cart_data .col:nth-child(1) { flex:0 0 10%; max-width: 10%; }
+    .w_fence .cart_data .col:nth-child(2) { flex:0 0 22%; max-width:22%; }
+    .w_fence .cart_data .col:nth-child(3) { flex:0 0 68%; max-width:68%; padding-left:10px !important; }
+    .w_fence .cart_data .col:nth-child(4) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem); }
+    .w_fence .cart_data .col:nth-child(5) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem); }
+    .w_fence .cart_data .col:nth-child(6) { flex:0 0 40%; max-width:40%; }
+    .w_fence .cart_data .col:nth-child(7) { flex:0 0 60%; max-width:60%; font-size: calc(1.4vw + .7rem); text-align:right; }
+    .w_fence .cart_data .col:nth-child(8) { flex:0 0 40%; max-width:40%; }
+    .w_fence .cart_data .col:nth-child(8) .btn { padding:0 .2rem;  border-radius:.2rem; }
+    
+    .w_fence .body .row.model { min-height:150px; height:auto; padding:15px 0; }
+    .w_fence .body .row .col { padding:3px 0; }
+    .w_fence .body .row .col .box { margin:0 8px; }
+    .w_fence .body .row .col .box>>>.vue-numeric-input { width:100% !important; height:1.3rem; }
+    .w_fence .body .row .col .box>>>.vue-numeric-input .input-btn { width:1.3rem; }
+    .w_fence .body .row .col .box>>>.vue-numeric-input .numeric-input { padding:2px 1rem; }
+
+    .w_fence .delete .col { text-align:right; }
+    .w_fence .total .col:nth-of-type(odd) { flex-basis:45%; max-width:45%; }
+    .w_fence .total .col:nth-of-type(even) { flex-basis:55%; max-width:55%; }
+    .w_fence .total .col:nth-of-type(2):after,
+    .w_fence .total .col:nth-of-type(4):after { content:none; }
+    .w_fence .total_sub>.col:nth-of-type(1),
+    .w_fence .total_sub>.col:nth-of-type(2),
+    .w_fence .total_sub>.col:nth-of-type(3) { flex-basis:100%; max-width:100%; }
+    .w_fence .total_sub .col>div{ padding:2vw !important; }
+    .w_fence .btn_box .col { padding:0 10px !important; }
+    .w_fence .btn_box .col button { width:100%; margin-bottom:3px; }
+}
 </style>
