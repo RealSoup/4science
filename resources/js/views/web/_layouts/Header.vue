@@ -54,7 +54,7 @@
         <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link>
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
-        <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
+        <b-link to="/login"><b-icon-person-fill /></b-link>
     </div>
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >

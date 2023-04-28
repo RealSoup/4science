@@ -25,7 +25,7 @@
         <b-link class="col" @click="find_pw"><span>비밀번호 재설정</span></b-link>
         <b-link class="col" @click="join"><span>회원가입</span></b-link>
     </b-row>
-    <b-row class="link">
+    <b-row class="link sns">
         <b-link class="col" href="/social/naver"><img :src="s3url+'auth/naver_login.png'" /></b-link>
         <b-link class="col" href="/social/kakao"><img :src="s3url+'auth/kakao_login.png'" /></b-link>
     </b-row>
@@ -115,6 +115,7 @@ export default {
 </script>
 
 <style scoped>
+.w_fence { padding-top: calc(1vw + 1.8rem); }
 .frm_st { max-width:450px; margin-top:.75rem; }
 .frm_st h3 { text-align:center; font-size:3rem; }
 .frm_st .row { margin: 0 0 1.3rem 0; }
@@ -126,10 +127,9 @@ export default {
 .frm_st .link.link_auth a { color:#898989; font-size:.95rem; display:inline-block; padding:0; cursor:pointer; }
 .frm_st .link.link_auth a span { display:inline-block; width:100%; line-height:1; text-align:center; }
 .frm_st .link.link_auth a:not(:last-child) span { border-right:1px solid #D7D7D7; }
-.frm_st .link:last-child .col { text-align:center; margin-top:1.86rem; }
-.frm_st .link:last-child .col:first-child { padding-right:5px; }
-.frm_st .link:last-child .col:last-child { padding-left:5px; }
-.frm_st .link:last-child .col img { width:100%; max-width:205px;}
+.frm_st .link.sns .col { flex:0 0 48%; max-width:48%; margin:1%; }
+.frm_st .link.sns .col img { width:100%; }
+ 
 .frm_st .find_email>.col { border:3px solid #4EB8C8; border-radius:.4rem; margin-bottom:1.5rem; }
 .frm_st .find_email .col a { background-color:#4EB8C8; color:#fff; font-weight:600; text-align:center; display:block; padding:.6rem 0; }
 .frm_st .find_email>.col>.row { margin-bottom:0 !important; }
