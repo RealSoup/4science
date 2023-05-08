@@ -35,7 +35,7 @@ class Order extends Model {
             'B' => '계좌이체',
             'P' => 'PSYS',
             'R' => '원격결제',
-            'E' => '에스크로',
+            // 'E' => '에스크로',
         ],
         'delivery_com' => [
             "우체국택배" => "http://service.epost.go.kr/trace.RetrieveRegiPrclDeliv.postal?sid1=[송장번호]",

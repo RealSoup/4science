@@ -2202,6 +2202,18 @@ var render = function () {
                                       }),
                                     ]),
                                   ])
+                                : k == "P"
+                                ? _c("span", [
+                                    _vm._v("원격지 연구비 직접결제"),
+                                    _c("b", [
+                                      _vm._v("[자세히]"),
+                                      _c("img", {
+                                        attrs: {
+                                          src: _vm.s3url + "order/pay_psys.png",
+                                        },
+                                      }),
+                                    ]),
+                                  ])
                                 : k == "R"
                                 ? _c("span", [
                                     _vm._v("원격지 카드 결제"),

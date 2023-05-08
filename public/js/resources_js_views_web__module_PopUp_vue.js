@@ -294,7 +294,7 @@ var render = function () {
           { staticClass: "popup pop_2" },
           [
             _c("b-img", {
-              attrs: { src: _vm.s3url + "main/popup/230508.jpg" },
+              attrs: { src: _vm.s3url + "main/popup/230508_1.jpg" },
             }),
             _vm._v(" "),
             _c(

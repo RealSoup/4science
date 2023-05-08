@@ -18,7 +18,7 @@
     
     <!-- 5월 휴무 안내 -->
     <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view">
-        <b-img :src="`${s3url}main/popup/230508.jpg`" />
+        <b-img :src="`${s3url}main/popup/230508_1.jpg`" />
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
         </div>
