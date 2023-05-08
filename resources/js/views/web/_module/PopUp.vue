@@ -1,5 +1,6 @@
 <template>
 <div>
+    <!-- 로그인시 이메일 안내 -->
     <div class="popup pop_0" v-if="$route.name == 'main' && pop[0].is_view">
         <b-img :src="`${s3url}main/popup/230417.jpg`" />
         <div class="ctrl">
@@ -7,15 +8,17 @@
         </div>
     </div>
 
+    <!-- 주문시 주소 확인 안내 -->
     <div class="popup pop_1" v-if="$route.name == 'order_settle' && pop[1].is_view">
         <b-img :src="`${s3url}order/popup.png`" />
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(1)">24시간 안 보기</b-button>
         </div>
     </div>
-
+    
+    <!-- 5월 휴무 안내 -->
     <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view">
-        <b-img :src="`${s3url}main/popup/230427.jpg`" />
+        <b-img :src="`${s3url}main/popup/230508.jpg`" />
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
         </div>

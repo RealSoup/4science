@@ -109,6 +109,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
   props: ['value', 'price'],
@@ -344,31 +347,42 @@ var render = function () {
                               _c("b", { staticClass: "m_hide" }, [
                                 _vm._v("제품명:"),
                               ]),
-                              _vm._v(_vm._s(item.gm_name) + " / "),
+                              _vm._v(" " + _vm._s(item.gm_name) + " / "),
                               _c("b", { staticClass: "m_hide" }, [
                                 _vm._v("Cat.No.:"),
                               ]),
-                              _vm._v(_vm._s(item.gm_catno)),
+                              _vm._v(" " + _vm._s(item.gm_catno)),
                             ]),
                             _vm._v(" "),
                             _c("p", [
                               _c("b", { staticClass: "m_hide" }, [
                                 _vm._v("모델명:"),
                               ]),
-                              _vm._v(_vm._s(item.gm_code) + " / "),
+                              _vm._v(" " + _vm._s(item.gm_code) + " / "),
+                              _c("b", { staticClass: "m_hide" }, [
+                                _vm._v("판매단위:"),
+                              ]),
+                              _vm._v(" " + _vm._s(item.gm_unit)),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
                               _c("b", { staticClass: "m_hide" }, [
                                 _vm._v("사양:"),
                               ]),
-                              _vm._v(_vm._s(item.gm_spec)),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v("판매단위:" + _vm._s(item.gm_unit)),
+                              _vm._v(" "),
+                              _c("span", {
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.nl2br(item.gm_spec)),
+                                },
+                              }),
                             ]),
                             _vm._v(" "),
                             item.dlvy_at
                               ? _c("p", [
-                                  _vm._v("납기:" + _vm._s(item.dlvy_at)),
+                                  _c("b", { staticClass: "m_hide" }, [
+                                    _vm._v("납기:"),
+                                  ]),
+                                  _vm._v(" " + _vm._s(item.dlvy_at)),
                                 ])
                               : _vm._e(),
                           ]),

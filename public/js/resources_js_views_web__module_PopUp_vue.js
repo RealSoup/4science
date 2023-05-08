@@ -37,6 +37,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "web_modulePopUp",
   data: function data() {
@@ -291,7 +294,7 @@ var render = function () {
           { staticClass: "popup pop_2" },
           [
             _c("b-img", {
-              attrs: { src: _vm.s3url + "main/popup/230427.jpg" },
+              attrs: { src: _vm.s3url + "main/popup/230508.jpg" },
             }),
             _vm._v(" "),
             _c(
