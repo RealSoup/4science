@@ -129,6 +129,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -155,6 +164,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         eq_type: '',
         eq_step: '',
         eq_mng: '',
+        eq_env: '',
         mng_group: '',
         keyword_type: 'eq_name',
         keyword: '',
@@ -572,11 +582,49 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("요청기기")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.sch_frm.eq_env,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "eq_env", $$v)
+                        },
+                        expression: "sch_frm.eq_env",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "P" } }, [
+                        _vm._v("PC"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "M" } }, [
+                        _vm._v("MOBILE"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-form-select-option", { attrs: { value: "A" } }, [
+                        _vm._v("APP"),
+                      ]),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("b-col", { staticClass: "label" }, [_vm._v("견적금액")]),
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "type03 period" },
+                { staticClass: "period" },
                 [
                   _c("b-form-input", {
                     attrs: { formatter: _vm.price_comma, size: "sm" },

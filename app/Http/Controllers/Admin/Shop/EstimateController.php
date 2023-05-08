@@ -72,6 +72,7 @@ class EstimateController extends Controller {
         $eq->when($req->eq_type, fn ($q, $v) => $q->EqType($v));
         $eq->when($req->eq_step, fn ($q, $v) => $q->EqStep($v));
         $eq->when($req->eq_mng,  fn ($q, $v) => $q->EqMng($v));
+        $eq->when($req->eq_env,  fn ($q, $v) => $q->where('eq_env', $v));
         $eq->when($req->writer,  fn ($q, $v) => $q->CreatedId($v));
 
         $mng = $this->userMng;
@@ -408,7 +409,8 @@ class EstimateController extends Controller {
                     'eq_hp'         => array_key_exists('eq_hp', $req) && $req['eq_hp']                 ? $req['eq_hp']         : '',
                     'eq_department' => array_key_exists('eq_department', $req) && $req['eq_department'] ? $req['eq_department'] : '',
                     'eq_content'    => array_key_exists('eq_content', $req) && $req['eq_content']       ? $req['eq_content']    : '',
-                    'eq_mng'        => auth()->check() ? auth()->user()->id : 0, ];
+                    'eq_mng'        => auth()->check() ? auth()->user()->id : 0,
+                    'eq_env'        => 'P', ];
     }
     public function estimateReply_paramImplant($req){
         return [    'er_step'            => array_key_exists('er_step',         $req) && $req['er_step']         ? $req['er_step']         : 0,

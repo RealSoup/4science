@@ -48,6 +48,13 @@
                     <b-form-select-option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</b-form-select-option>
                 </b-form-select>
             </b-col>
+            <b-col class="label">주문기기</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.sale_env">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
             <b-col class="label">검색</b-col>
             <b-col>
@@ -120,6 +127,7 @@ export default {
                 od_type:'',
                 od_pay_method:'',
                 um_group:'',
+                sale_env:'',
                 gd_enable:'',
                 mode:'od_orderer',
                 keyword:'',

@@ -60,13 +60,17 @@
                         </b-form-checkbox>
                     </b-col>
 
-                    <b-col class="label">성별</b-col>
-                    <b-col class="type01">
-                        <b-form-checkbox v-model="frm.sex" button size="sm" value="male" unchecked-value="female" :button-variant="frm.sex == 'male' ? 'primary' : 'danger'">
-                            <template v-if="frm.sex == 'male'">남</template><template v-else>여</template>자
+                    <b-col class="label">휴대폰</b-col>
+                    <b-col class="type02"><b-form-input v-model="frm.hp" /></b-col>
+                    <b-col class="checkbox01">
+                        <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
+                            수신
+                            <b v-if="frm.receive_sms=='Y'">동의</b>
+                            <b v-else>안함</b>
                         </b-form-checkbox>
                     </b-col>
-
+                </b-row>
+                <b-row>
                     <b-col class="label">생년월일</b-col>
                     <b-col class="type02">
                         <b-input-group size="sm">
@@ -76,22 +80,8 @@
                             </b-input-group-append>
                         </b-input-group>
                     </b-col>
-                </b-row>
-                <b-row>
                     <b-col class="label">일반전화</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.tel" /></b-col>
-
-                    <b-col class="label">휴대폰</b-col>
-                    <b-col class="type02"><b-form-input v-model="frm.hp" /></b-col>
-
-                    <b-col class="checkbox01">
-                        <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
-                            수신
-                            <b v-if="frm.receive_sms=='Y'">동의</b>
-                            <b v-else>안함</b>
-                        </b-form-checkbox>
-                    </b-col>
-
                     <b-col class="label">팩스</b-col>
                     <b-col class="type02"><b-form-input v-model="frm.fax" /></b-col>
                 </b-row>

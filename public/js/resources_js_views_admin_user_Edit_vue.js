@@ -205,16 +205,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEdit',
@@ -801,43 +791,65 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("성별")]),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("휴대폰")]),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "type01" },
+                    { staticClass: "type02" },
+                    [
+                      _c("b-form-input", {
+                        model: {
+                          value: _vm.frm.hp,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.frm, "hp", $$v)
+                          },
+                          expression: "frm.hp",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "checkbox01" },
                     [
                       _c(
                         "b-form-checkbox",
                         {
                           attrs: {
-                            button: "",
-                            size: "sm",
-                            value: "male",
-                            "unchecked-value": "female",
-                            "button-variant":
-                              _vm.frm.sex == "male" ? "primary" : "danger",
+                            id: "receive_sms",
+                            value: "Y",
+                            "unchecked-value": "N",
+                            size: "lg",
                           },
                           model: {
-                            value: _vm.frm.sex,
+                            value: _vm.frm.receive_sms,
                             callback: function ($$v) {
-                              _vm.$set(_vm.frm, "sex", $$v)
+                              _vm.$set(_vm.frm, "receive_sms", $$v)
                             },
-                            expression: "frm.sex",
+                            expression: "frm.receive_sms",
                           },
                         },
                         [
-                          _vm.frm.sex == "male"
-                            ? [_vm._v("남")]
-                            : [_vm._v("여")],
-                          _vm._v("자\n                    "),
-                        ],
-                        2
+                          _vm._v(
+                            "\n                        수신\n                        "
+                          ),
+                          _vm.frm.receive_sms == "Y"
+                            ? _c("b", [_vm._v("동의")])
+                            : _c("b", [_vm._v("안함")]),
+                        ]
                       ),
                     ],
                     1
                   ),
-                  _vm._v(" "),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
                   _c("b-col", { staticClass: "label" }, [_vm._v("생년월일")]),
                   _vm._v(" "),
                   _c(
@@ -891,13 +903,7 @@ var render = function () {
                     ],
                     1
                   ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
+                  _vm._v(" "),
                   _c("b-col", { staticClass: "label" }, [_vm._v("일반전화")]),
                   _vm._v(" "),
                   _c(
@@ -913,59 +919,6 @@ var render = function () {
                           expression: "frm.tel",
                         },
                       }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { staticClass: "label" }, [_vm._v("휴대폰")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "type02" },
-                    [
-                      _c("b-form-input", {
-                        model: {
-                          value: _vm.frm.hp,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "hp", $$v)
-                          },
-                          expression: "frm.hp",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "checkbox01" },
-                    [
-                      _c(
-                        "b-form-checkbox",
-                        {
-                          attrs: {
-                            id: "receive_sms",
-                            value: "Y",
-                            "unchecked-value": "N",
-                            size: "lg",
-                          },
-                          model: {
-                            value: _vm.frm.receive_sms,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.frm, "receive_sms", $$v)
-                            },
-                            expression: "frm.receive_sms",
-                          },
-                        },
-                        [
-                          _vm._v(
-                            "\n                        수신\n                        "
-                          ),
-                          _vm.frm.receive_sms == "Y"
-                            ? _c("b", [_vm._v("동의")])
-                            : _c("b", [_vm._v("안함")]),
-                        ]
-                      ),
                     ],
                     1
                   ),

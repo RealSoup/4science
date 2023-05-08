@@ -31,8 +31,17 @@
                     <b-form-select-option value="CANCEL">취소</b-form-select-option>
                 </b-form-select>
             </b-col>
+            <b-col class="label">요청기기</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.eq_env">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option value="P">PC</b-form-select-option>
+                    <b-form-select-option value="M">MOBILE</b-form-select-option>
+                    <b-form-select-option value="A">APP</b-form-select-option>
+                </b-form-select>
+            </b-col>
             <b-col class="label">견적금액</b-col>
-            <b-col class="type03 period">
+            <b-col class="period">
                 <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
                 <b>~</b>
                 <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
@@ -130,6 +139,7 @@ export default {
                 eq_type:'',
                 eq_step:'',
                 eq_mng:'',
+                eq_env:'',
                 mng_group:'',
                 keyword_type:'eq_name',
                 keyword:'',

@@ -441,7 +441,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var em = _step.value;
-          this.$set(em, 'em_dc_rate', this.frm.all_dc);
+          this.$set(em, 'em_dc_rate', this.frm.estimate_reply.all_dc);
         }
       } catch (err) {
         _iterator.e(err);

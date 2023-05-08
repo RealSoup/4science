@@ -15,7 +15,7 @@ class MileageController extends Controller {
 
     public function index(Request $req, $id) {
         $rst = array();
-        $ml = $this->mileage->Uid($id)->latest();
+        $ml = $this->mileage->with('orderModel')->Uid($id)->latest();
         if ($req->filled('limit'))
             $rst['list'] = $ml->limit($req->limit)->get();
         else {

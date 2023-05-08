@@ -114,8 +114,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserIndex',
@@ -230,7 +228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-031b2e2d] { text-align:right; color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .col .normal[data-v-031b2e2d] { background-color:#17A2B9;\n}\n.cmain .row .col .bronz[data-v-031b2e2d] { background-color:#F16621;\n}\n.cmain .row .col .silver[data-v-031b2e2d] { background-color:#ACACAC;\n}\n.cmain .row .col .gold[data-v-031b2e2d] { background-color:#FBC660;\n}\n.cmain .row .col .dealer[data-v-031b2e2d] { background-color:#9B1AB2;\n}\n.cmain .row .col .admin[data-v-031b2e2d] { background-color:#0173BA;\n}\n.cmain .row .col .super[data-v-031b2e2d] { background-color:#ED1C22;\n}\n.cmain .body[data-v-031b2e2d] { align-items:center;\n}\n.cmain .list .col[data-v-031b2e2d] { line-height:1.5;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 6%; max-width:6%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) { flex:0 0 18%; max-width:18%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) {\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(6) { flex:0 0 15%; max-width:15%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(7) { flex:0 0 11%; max-width:11%;\n}\n.cmain .body .col[data-v-031b2e2d] { padding: 0.7rem 0;\n}\n.cmain .body .col:nth-child(5) span[data-v-031b2e2d] { min-width:150px; display:inline-block; text-align:left;\n}\n.cmain .body .col:nth-child(5) span[data-v-031b2e2d]:first-child { margin-right:2rem;\n}\n.cmain .body .col:nth-child(5) span svg[data-v-031b2e2d] { margin-right:.6rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-031b2e2d] { text-align:right; color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .col .normal[data-v-031b2e2d] { background-color:#17A2B9;\n}\n.cmain .row .col .bronz[data-v-031b2e2d] { background-color:#F16621;\n}\n.cmain .row .col .silver[data-v-031b2e2d] { background-color:#ACACAC;\n}\n.cmain .row .col .gold[data-v-031b2e2d] { background-color:#FBC660;\n}\n.cmain .row .col .dealer[data-v-031b2e2d] { background-color:#9B1AB2;\n}\n.cmain .row .col .admin[data-v-031b2e2d] { background-color:#0173BA;\n}\n.cmain .row .col .super[data-v-031b2e2d] { background-color:#ED1C22;\n}\n.cmain .body[data-v-031b2e2d] { align-items:center;\n}\n.cmain .list .col[data-v-031b2e2d] { line-height:1.5;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 18%; max-width:18%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) {\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) { flex:0 0 15%; max-width:15%;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(6) { flex:0 0 11%; max-width:11%;\n}\n.cmain .body .col[data-v-031b2e2d] { padding: 0.7rem 0;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d] { min-width:150px; display:inline-block; text-align:left;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d]:first-child { margin-right:2rem;\n}\n.cmain .body .col:nth-child(4) span svg[data-v-031b2e2d] { margin-right:.6rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -632,8 +630,6 @@ var render = function () {
               _vm._v(" "),
               _c("b-col", [_vm._v("이름")]),
               _vm._v(" "),
-              _c("b-col", [_vm._v("성별")]),
-              _vm._v(" "),
               _c("b-col", [_vm._v("E-mail")]),
               _vm._v(" "),
               _c("b-col", [_vm._v("연락처")]),
@@ -716,14 +712,6 @@ var render = function () {
                   ],
                   1
                 ),
-                _vm._v(" "),
-                _c("b-col", [
-                  us.sex == "male"
-                    ? _c("span", [_vm._v("남")])
-                    : us.sex == "female"
-                    ? _c("span", [_vm._v("여")])
-                    : _vm._e(),
-                ]),
                 _vm._v(" "),
                 _c(
                   "b-col",

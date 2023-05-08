@@ -152,7 +152,7 @@ class GoodsController extends Controller {
 
     public function store(SaveGoodsRequest $req) {
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
-		$goods->created_id = auth()->user()->id;
+		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
         foreach ($req->goods_category as $gc) {
             $istArr['gc_gd_id'] = $goods->gd_id;
@@ -166,12 +166,13 @@ class GoodsController extends Controller {
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
         $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
+        $cat[1] = substr("00000".$cat[1], -6);
         $cat[2] = 0;
         
         foreach ($req->goods_model as $gm) {
             $cat[2] += 1;
             $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
-            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>$cat[2]]]);
+            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
 
             foreach ($gm['bundle_dc'] as $bd) {
@@ -257,7 +258,7 @@ class GoodsController extends Controller {
             if ($gm_id) {   $gm_impl_add = ['updated_id' => auth()->user()->id];
             } else {
                 $cat[2] += 1;
-                $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => $cat[2] ]; 
+                $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => substr("0".$cat[2], -2) ]; 
             }
             $gm_impl = Arr::collapse([$gm_impl, $gm_impl_add, ['ip' => $req->ip()]]);
       

@@ -121,6 +121,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -144,6 +151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         od_type: '',
         od_pay_method: '',
         um_group: '',
+        sale_env: '',
         gd_enable: '',
         mode: 'od_orderer',
         keyword: '',
@@ -637,6 +645,40 @@ var render = function () {
                       _c("b-form-select-option", { attrs: { value: "" } }),
                       _vm._v(" "),
                       _vm._l(_vm.mng_info.group, function (val, key) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: key, attrs: { value: key } },
+                          [_vm._v(_vm._s(val))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("주문기기")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type01" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.sch_frm.sale_env,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "sale_env", $$v)
+                        },
+                        expression: "sch_frm.sale_env",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.order_config.sale_env, function (val, key) {
                         return _c(
                           "b-form-select-option",
                           { key: key, attrs: { value: key } },

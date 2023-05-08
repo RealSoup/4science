@@ -56,8 +56,7 @@
                     
         <b-row class="head list">
             <b-col>번호/등급</b-col>
-            <b-col>이름</b-col>   
-            <b-col>성별</b-col>                
+            <b-col>이름</b-col>
             <b-col>E-mail</b-col>
             <b-col>연락처</b-col>
             <b-col>직장/학교</b-col>
@@ -76,7 +75,6 @@
                 <b-badge v-if="us.level==29" class="super">{{option.grade[us.level]}}</b-badge>
             </b-col>
             <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.name}}</b-link></b-col>
-            <b-col><span v-if="us.sex=='male'">남</span><span v-else-if="us.sex=='female'">여</span></b-col>
             <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.email}}</b-link></b-col>                
             <b-col>
                 <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" />{{us.hp}}</span>
@@ -179,14 +177,13 @@ export default {
 .cmain .list .col { line-height:1.5; }
 .cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; }
 .cmain .list .col:nth-child(2) { flex:0 0 9%; max-width:9%; }
-.cmain .list .col:nth-child(3) { flex:0 0 6%; max-width:6%; }
-.cmain .list .col:nth-child(4) { flex:0 0 18%; max-width:18%; }
-.cmain .list .col:nth-child(5) {  }
-.cmain .list .col:nth-child(6) { flex:0 0 15%; max-width:15%; }
-.cmain .list .col:nth-child(7) { flex:0 0 11%; max-width:11%; }
+.cmain .list .col:nth-child(3) { flex:0 0 18%; max-width:18%; }
+.cmain .list .col:nth-child(4) {  }
+.cmain .list .col:nth-child(5) { flex:0 0 15%; max-width:15%; }
+.cmain .list .col:nth-child(6) { flex:0 0 11%; max-width:11%; }
 
 .cmain .body .col { padding: 0.7rem 0; }
-.cmain .body .col:nth-child(5) span { min-width:150px; display:inline-block; text-align:left; }
-.cmain .body .col:nth-child(5) span:first-child { margin-right:2rem; }
-.cmain .body .col:nth-child(5) span svg { margin-right:.6rem; }
+.cmain .body .col:nth-child(4) span { min-width:150px; display:inline-block; text-align:left; }
+.cmain .body .col:nth-child(4) span:first-child { margin-right:2rem; }
+.cmain .body .col:nth-child(4) span svg { margin-right:.6rem; }
 </style>

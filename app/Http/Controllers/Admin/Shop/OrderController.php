@@ -81,7 +81,8 @@ class OrderController extends Controller {
 			$group = UserMng::Group($data['um_group'])->pluck('um_user_id');
 			$orders = $orders->whereIn('od_mng', (count($group) ? $group : ['']));
 		}
-		if (isset($data['writer'])) $orders = $orders->SchWriter($data['writer']);
+		if (isset($data['sale_env']))	$orders = $orders->where('od_sale_env', $data['sale_env']);
+		if (isset($data['writer']))		$orders = $orders->SchWriter($data['writer']);
 
         if (isset($data['keyword'])){
 			$txt = $data['keyword'];
@@ -161,7 +162,7 @@ class OrderController extends Controller {
 			'od_addr2'         => '',
 			'od_memo'          => '',
 			'od_pay_method'    => NULL,
-			'od_sale_env'      => NULL,
+			'od_sale_env'      => 'P',
 			'ip'               => NULL,
 			'created_id'       => $req->filled('estimate_req')	? $req->estimate_req['created_id'] : 0,
 		], 'od_id');

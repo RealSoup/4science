@@ -18,6 +18,8 @@
                 </div>
                 <div v-else>
                     {{ml.ml_content}}
+                    <b-button v-if="ml.ml_tbl == 'shop_order_model'" class="sm" :to="{name: 'adm_order_edit', params: { od_id:ml.order_model.odm_od_id }}"><b-icon-link45deg />주문 보기</b-button>
+
                     <b-badge v-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
                     <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
                 </div>

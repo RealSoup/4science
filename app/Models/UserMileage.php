@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Shop\{OrderModel};
 
 class UserMileage extends Model {
     use SoftDeletes;
@@ -30,6 +31,7 @@ class UserMileage extends Model {
     
 
     public function user() { return $this->belongsTo(User::class, 'ml_uid'); }
+    public function orderModel() {  return $this->belongsTo(OrderModel::class, "ml_key"); }
 
     public function getRefineContentAttribute() {
         $arr_con = null;

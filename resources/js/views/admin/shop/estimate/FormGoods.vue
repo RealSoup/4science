@@ -142,7 +142,7 @@ export default {
         },
         setDcLate() {
             for (var em of this.value) {
-                this.$set(em, 'em_dc_rate', this.frm.all_dc);
+                this.$set(em, 'em_dc_rate', this.frm.estimate_reply.all_dc);
             }
         },
         async emReset(i) {
