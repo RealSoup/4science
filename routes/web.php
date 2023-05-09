@@ -93,8 +93,9 @@ Route::POST('/shop/order/payReturnMobile',    'Shop\OrderController@payReturnMob
 
 Route::POST('auth/user/find_email',    'Auth\UserController@find_email');
 Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
+Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
 
-
+Route::GET('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
 
 
 // Route::post('email/resend', function (Request $request) {

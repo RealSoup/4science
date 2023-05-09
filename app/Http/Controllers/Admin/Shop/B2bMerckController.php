@@ -7,13 +7,18 @@ use App\Models\Shop\{OrderModel, B2bMerck, B2bMerckModel, B2bMerckConfirmation, 
 use DB;
 
 class B2bMerckController extends Controller {
-	protected $MerckMemberCode	= 'INESUS2035422570';
+	protected $MerckMemberCode	= 'INESUS2035422570-T';
+	// protected $MerckMemberCode	= 'INESUS2035422570';
 	protected $B2b_url = "https://api.sigmaaldrich.com/B2B/handler";
-    public function order() {
-        $data = OrderModel::leftJoin('shop_b2b_merck_model', 'shop_order_model.odm_id', '=', 'shop_b2b_merck_model.bmm_odm_id')
-							->whereRaw('LEFT(odm_gm_catno, 3)=?', ['40-'])
-							->whereNull('shop_b2b_merck_model.bmm_odm_id')
-							->get();
+    public function order(Request $req) {
+        $data = OrderModel::with('order')
+			->leftJoin('shop_b2b_merck_model', 'shop_order_model.odm_id', '=', 'shop_b2b_merck_model.bmm_odm_id')
+			// ->where('odm_id', '>', 427049)
+			->where('odm_id', '>', 417049)
+			->whereRaw('LEFT(odm_gm_catno, 3)=?', ['40-'])
+			->whereNull('shop_b2b_merck_model.bmm_odm_id')
+			->paginate(15);
+		$data->appends($req->all())->links();
 		return response()->json($data);
     }
 
@@ -21,20 +26,15 @@ class B2bMerckController extends Controller {
 		$todayCnt = DB::table('shop_b2b_merck')->whereDate('created_at', date('Y-m-d'))->count();
 		$todayCnt = $todayCnt < 10 ? '0'.$todayCnt : $todayCnt;
 
-		$DeploymentMode	= "production";//"test";
+		$DeploymentMode	= "test";
+		// $DeploymentMode	= "production";
 		$xmlVersion		= '1.2.009';
 		$payloadID		= 'payloadID_'.date("ymd").$todayCnt;
-		$xmlLang		= 'en-US';
+		$xmlLang		= 'ko-KR';
 		$Domain			= 'DUNS';
 		$currency		= 'KRW';
-		$DeliverTo		= 'iNexus_'.auth()->user()->name;
-		$ContactNm		= 'iNexus_'.auth()->user()->name;
-		$Street			= '경기도 성남시 분당구';
-		$City			= '판교로 253 C동 402호';
-		$PostalCode		= '13486';
 		$Country		= 'Republic Of Korea';
 		$isoCountryCode	= 'KR';
-		$Email			= auth()->user()->email;
 		$ToIdentity		= 'SIGMAALDRICH';
 		$SenderSharedSecret	= 'SIG01ALD123';
 		$UserAgent		= 'iNexus';
@@ -52,7 +52,7 @@ class B2bMerckController extends Controller {
 		$SenderIdentity	= $this -> MerckMemberCode;
 
 		$bm_id = DB::table('shop_b2b_merck')->insertGetId([ 'bm_orderid'	=> $orderID,
-															'bm_req_dlvy'	=> $req->req_dlvy,
+															'bm_req_dlvy'	=> $req->extra['req_dlvy'],
 															'bm_total_amt'	=> $total_amt,
 															'created_id'	=> auth()->user()->id, ]);
 		$xml = new \XMLWriter;
@@ -108,37 +108,52 @@ class B2bMerckController extends Controller {
 								$xml->writeAttribute('addressID', $addressID);
 								$xml->startElement('Name');
 									$xml->writeAttribute('xml:lang', $xmlLang);
-									$xml->text($UserAgent);
+									$xml->text($req->extra['company']);
 								$xml->endElement();
 								$xml->startElement('PostalAddress');
 									$xml->writeAttribute('name', 'default');
-									$xml->writeElement('DeliverTo', $DeliverTo);
-									$xml->writeElement('Street', $Street);
-									$xml->writeElement('City', $City);
-									$xml->writeElement('State', '');
-									$xml->writeElement('PostalCode', $PostalCode);
+									$xml->writeElement('DeliverTo', $req->extra['part']);
+									$xml->writeElement('DeliverTo', $req->extra['name']);
+									$xml->writeElement('Street', $req->extra['detail']);
+									$xml->writeElement('Street', $req->extra['street']);
+									$xml->writeElement('City', $req->extra['city']);
+									$xml->writeElement('State', $req->extra['state']);
+									$xml->writeElement('PostalCode', $req->extra['code']);
 									$xml->startElement('Country');
 										$xml->writeAttribute('isoCountryCode', $isoCountryCode);
 										$xml->text($Country);
 									$xml->endElement();
 								$xml->endElement();
-								$xml->writeElement('Email', $Email);
+								// $xml->writeElement('Email', $req->extra['email']);
+
+								$xml->startElement('Phone');
+									$xml->writeAttribute('name', 'work');
+									$xml->startElement('TelephoneNumber');
+										$xml->startElement('CountryCode');
+											$xml->writeAttribute('isoCountryCode', $isoCountryCode);
+											$xml->text(82);
+										$xml->endElement();
+										$xml->writeElement('AreaOrCityCode', '');
+										$xml->writeElement('Number', $req->extra['hp']);
+									$xml->endElement();
+								$xml->endElement();
+
 							$xml->endElement();
 						$xml->endElement();
 						$xml->startElement('BillTo');
 							$xml->startElement('Address');
-								$xml->writeAttribute('addressID', $addressID);
+								$xml->writeAttribute('addressID', '');
 								$xml->startElement('Name');
 									$xml->writeAttribute('xml:lang', $xmlLang);
-									$xml->text($UserAgent);
+									// $xml->text($UserAgent);
 								$xml->endElement();
 								$xml->startElement('PostalAddress');
 									$xml->writeAttribute('name', 'default');
-									$xml->writeElement('DeliverTo', $DeliverTo);
-									$xml->writeElement('Street', $Street);
-									$xml->writeElement('City', $City);
+									$xml->writeElement('DeliverTo', '');
+									$xml->writeElement('Street', '');
+									$xml->writeElement('City', '');
 									$xml->writeElement('State', '');
-									$xml->writeElement('PostalCode', $PostalCode);
+									$xml->writeElement('PostalCode', '');
 									$xml->startElement('Country');
 										$xml->writeAttribute('isoCountryCode', $isoCountryCode);
 										$xml->text($Country);
@@ -146,35 +161,35 @@ class B2bMerckController extends Controller {
 								$xml->endElement();
 							$xml->endElement();
 						$xml->endElement();
-						$xml->startElement('Contact');
-							$xml->writeAttribute('role', 'buyer');
-							$xml->startElement('Name');
-								$xml->writeAttribute('xml:lang', $xmlLang);
-								$xml->text($ContactNm);
-							$xml->endElement();
-							$xml->writeElement('Email', $Email);
-						$xml->endElement();
+						// $xml->startElement('Contact');
+						// 	$xml->writeAttribute('role', 'buyer');
+						// 	$xml->startElement('Name');
+						// 		$xml->writeAttribute('xml:lang', $xmlLang);
+						// 		$xml->text($ContactNm);
+						// 	$xml->endElement();
+						// 	$xml->writeElement('Email', $Email);
+						// $xml->endElement();
 
 
-						$xml->startElement('Tax');
-							$xml->startElement('Money');
-								$xml->writeAttribute('currency', $currency);
-								$xml->text('0.0');
-							$xml->endElement();
-							$xml->startElement('Description');
-								$xml->writeAttribute('xml:lang', $xmlLang);
-								$xml->text('');
-							$xml->endElement();
-						$xml->endElement();
-						$xml->startElement('Payment');
-							$xml->startElement('PCard');
-								$xml->writeAttribute('number', '');
-								$xml->writeAttribute('expiration', '');
-							$xml->endElement();
-						$xml->endElement();
+						// $xml->startElement('Tax');
+						// 	$xml->startElement('Money');
+						// 		$xml->writeAttribute('currency', $currency);
+						// 		$xml->text('0.0');
+						// 	$xml->endElement();
+						// 	$xml->startElement('Description');
+						// 		$xml->writeAttribute('xml:lang', $xmlLang);
+						// 		$xml->text('');
+						// 	$xml->endElement();
+						// $xml->endElement();
+						// $xml->startElement('Payment');
+						// 	$xml->startElement('PCard');
+						// 		$xml->writeAttribute('number', '');
+						// 		$xml->writeAttribute('expiration', '');
+						// 	$xml->endElement();
+						// $xml->endElement();
 						$xml->startElement('Comments');
 							$xml->writeAttribute('xml:lang', $xmlLang);
-							$xml->text($req->req_dlvy);
+							$xml->text($req->extra['req_dlvy']);
 						$xml->endElement();
 					$xml->endElement();
 
@@ -202,10 +217,9 @@ class B2bMerckController extends Controller {
 						$xml->startElement('ItemOut');
 							$xml->writeAttribute('quantity', $v['odm_ea']);
 							$xml->writeAttribute('lineNumber', $k+1);
-							$xml->writeAttribute('requestedDeliveryDate', $currentTime);
+							$xml->writeAttribute('requestedDeliveryDate', '');
 							$xml->startElement('ItemID');
 								$xml->writeElement('SupplierPartID', $v['odm_gm_code']);
-								$xml->writeElement('SupplierPartAuxiliaryID', "");
 							$xml->endElement();
 							$xml->startElement('ItemDetail');
 								$xml->startElement('UnitPrice');
@@ -238,9 +252,9 @@ class B2bMerckController extends Controller {
 		$xml->endElement();
 		$xml->endDocument();
 		$XmlData = $xml->outputMemory(TRUE);
-				header('Content-type: text/xml; charset=UTF-8');
-				echo $XmlData;
-				exit;
+				// header('Content-type: text/xml; charset=UTF-8');
+				// echo $XmlData;
+				// exit;
 		$options = array(
 			'http' => array(
 				'header'  => "Content-type: text/xml\r\n",

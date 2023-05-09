@@ -74,6 +74,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
@@ -84,59 +119,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      list: [],
+      list: {},
       indeterminate: false,
       all_chk: false,
-      req_dlvy: ''
+      extra: {
+        req_dlvy: '',
+        addressID: '',
+        state: '',
+        part: '',
+        name: '',
+        hp: '',
+        code: '',
+        city: '',
+        street: '',
+        detail: ''
+      },
+      sch_frm: {}
     };
   },
   methods: {
-    index: function index() {// try {
-      //     const res = await ax.get(`/api/admin/shop/b2b_merck/order`);
-      //     if (res && res.status === 200) {
-      //         this.list = res.data;
-      //     }
-      // } catch (e) {
-      //     Notify.consolePrint(e);
-      //     Notify.toast('warning', e.response.data.message);
-      // }
+    index: function index() {
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/b2b_merck/order", {
+                  params: _this.sch_frm
+                });
+
+              case 3:
+                res = _context.sent;
+
+                if (res && res.status === 200) {
+                  _this.list = res.data;
+                }
+
+                _context.next = 11;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                Notify.consolePrint(_context.t0);
+                Notify.toast('warning', _context.t0.response.data.message);
+
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[0, 7]]);
       }))();
     },
-    chkChange: function chkChange() {
-      var chkCnt = this.list.filter(function (el) {
-        return el.b2b_chk == true;
-      }).length;
+    chkChange: function chkChange(i) {
+      if (this.list.data[i].b2b_chk) {
+        this.extra.part = this.list.data[i].order.od_department;
+        this.extra.name = this.list.data[i].order.od_receiver;
+        this.extra.hp = this.list.data[i].order.od_receiver_hp;
+        this.extra.code = this.list.data[i].order.od_zip;
+        this.extra.city = this.list.data[i].order.od_addr1; // this.extra.street = this.list.data[i].order.od_addr1;
 
-      if (chkCnt === 0) {
-        this.indeterminate = false;
-        this.all_chk = false;
-      } else if (chkCnt === this.list.length) {
-        this.indeterminate = false;
-        this.all_chk = true;
-      } else {
-        this.indeterminate = true;
-        this.all_chk = false;
+        this.extra.detail = this.list.data[i].order.od_addr2;
       }
     },
-    toggle_all_chk: function toggle_all_chk(chk) {
-      this.list.forEach(function (el) {
-        el.b2b_chk = chk;
-      });
-      this.indeterminate = false;
-    },
     order: function order() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var chkList, res;
@@ -145,7 +198,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                chkList = _this.list.filter(function (el) {
+                chkList = _this2.list.data.filter(function (el) {
                   return el.b2b_chk == true;
                 });
 
@@ -161,12 +214,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.next = 7;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                   list: chkList,
-                  req_dlvy: _this.req_dlvy
+                  extra: _this2.extra
                 });
 
               case 7:
                 res = _context2.sent;
-                if (res && res.status === 200 && res.data.msg == 'success') _this.$router.push({
+                if (res && res.status === 200 && res.data.msg == 'success') _this2.$router.push({
                   name: 'adm_b2b_merck_order_result'
                 });
                 _context2.next = 15;
@@ -187,7 +240,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     stockCheck: function stockCheck(code, ea) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var res;
@@ -206,7 +259,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context3.sent;
 
                 if (res && res.status === 200) {
-                  _this2.list = res.data;
+                  _this3.list.data = res.data;
                 }
 
                 _context3.next = 11;
@@ -227,7 +280,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     addModel: function addModel(m) {
-      this.list.unshift({
+      this.list.data.unshift({
         "b2b_chk": true,
         "odm_id": 0,
         "odm_gm_id": m.gm_id,
@@ -240,10 +293,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "odm_mk_name": m.mk_name,
         "req_order": null
       });
+    },
+    routerPush: function routerPush() {
+      this.$router.push({
+        name: 'adm_b2b_merck_order',
+        query: this.sch_frm
+      })["catch"](function () {});
+    },
+    pageSet: function pageSet(p) {
+      this.sch_frm.page = p;
+      this.routerPush();
+    },
+    frm_formatHp: function frm_formatHp(v) {
+      return this.formatHp(v);
     }
   },
   mounted: function mounted() {
+    this.sch_frm = Object.assign({}, this.sch_frm, this.$route.query);
     this.index();
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.sch_frm = Object.assign({}, this.sch_frm, to.query);
+    this.index();
+    next();
   }
 });
 
@@ -265,7 +337,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.row>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.row>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -414,22 +486,6 @@ var render = function () {
             { attrs: { col: "", sm: "12", md: "6" } },
             [
               _c(
-                "b-form-checkbox",
-                {
-                  attrs: { indeterminate: _vm.indeterminate },
-                  on: { change: _vm.toggle_all_chk },
-                  model: {
-                    value: _vm.all_chk,
-                    callback: function ($$v) {
-                      _vm.all_chk = $$v
-                    },
-                    expression: "all_chk",
-                  },
-                },
-                [_vm._v("All")]
-              ),
-              _vm._v(" "),
-              _c(
                 "b-button",
                 {
                   attrs: { variant: "primary", size: "sm" },
@@ -453,7 +509,308 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-row",
-        { staticClass: "head" },
+        { staticClass: "extra" },
+        [
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c(
+                "b-form-select",
+                {
+                  attrs: { size: "sm" },
+                  model: {
+                    value: _vm.extra.addressID,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.extra, "addressID", $$v)
+                    },
+                    expression: "extra.addressID",
+                  },
+                },
+                [
+                  _c("b-form-select-option", { attrs: { value: "" } }, [
+                    _vm._v("ShipTo Code"),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-select-option",
+                    { attrs: { value: "2035422570" } },
+                    [_vm._v("2035422570")]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c(
+                "b-form-select",
+                {
+                  attrs: { size: "sm" },
+                  model: {
+                    value: _vm.extra.state,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.extra, "state", $$v)
+                    },
+                    expression: "extra.state",
+                  },
+                },
+                [
+                  _c("b-form-select-option", { attrs: { value: "" } }, [
+                    _vm._v("State Code"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "SE" } }, [
+                    _vm._v("서울"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "GG" } }, [
+                    _vm._v("경기"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "IC" } }, [
+                    _vm._v("인천"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "BS" } }, [
+                    _vm._v("부산"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "CB" } }, [
+                    _vm._v("충북"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "CN" } }, [
+                    _vm._v("충남"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "DG" } }, [
+                    _vm._v("대구"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "DJ" } }, [
+                    _vm._v("대전"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "GW" } }, [
+                    _vm._v("강원"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "GJ" } }, [
+                    _vm._v("광주"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "GB" } }, [
+                    _vm._v("경북"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "GN" } }, [
+                    _vm._v("경남"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "JJ" } }, [
+                    _vm._v("제주"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "JB" } }, [
+                    _vm._v("전북"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "JN" } }, [
+                    _vm._v("전남"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "SJ" } }, [
+                    _vm._v("세종"),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-select-option", { attrs: { value: "US" } }, [
+                    _vm._v("울산"),
+                  ]),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "이름" },
+                model: {
+                  value: _vm.extra.name,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "name", $$v)
+                  },
+                  expression: "extra.name",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "3" } },
+            [
+              _c("b-form-input", {
+                attrs: {
+                  size: "sm",
+                  placeholder: "HP",
+                  formatter: _vm.frm_formatHp,
+                },
+                model: {
+                  value: _vm.extra.hp,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "hp", $$v)
+                  },
+                  expression: "extra.hp",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "3" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "소속" },
+                model: {
+                  value: _vm.extra.part,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "part", $$v)
+                  },
+                  expression: "extra.part",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "업체명" },
+                model: {
+                  value: _vm.extra.company,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "company", $$v)
+                  },
+                  expression: "extra.company",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "우편번호" },
+                model: {
+                  value: _vm.extra.code,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "code", $$v)
+                  },
+                  expression: "extra.code",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "2" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "**시 **구" },
+                model: {
+                  value: _vm.extra.city,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "city", $$v)
+                  },
+                  expression: "extra.city",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "3" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "도로명" },
+                model: {
+                  value: _vm.extra.street,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "street", $$v)
+                  },
+                  expression: "extra.street",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12", md: "3" } },
+            [
+              _c("b-form-input", {
+                attrs: { size: "sm", placeholder: "상세 동호수" },
+                model: {
+                  value: _vm.extra.detail,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "detail", $$v)
+                  },
+                  expression: "extra.detail",
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { attrs: { col: "", sm: "12" } },
+            [
+              _c("b-form-textarea", {
+                attrs: { placeholder: "배송시 요청사항 입력" },
+                model: {
+                  value: _vm.extra.req_dlvy,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.extra, "req_dlvy", $$v)
+                  },
+                  expression: "extra.req_dlvy",
+                },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        { staticClass: "list head" },
         [
           _c("b-col", [
             _c("span", [_vm._v("주문번호")]),
@@ -478,10 +835,10 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm._l(_vm.list, function (row) {
+      _vm._l(_vm.list.data, function (row, i) {
         return _c(
           "b-row",
-          { key: row.odm_id, staticClass: "body" },
+          { key: row.odm_id, staticClass: "list body" },
           [
             _c("b-col", [
               _c(
@@ -491,7 +848,11 @@ var render = function () {
                     "b-form-checkbox",
                     {
                       attrs: { name: "b2b_chk" },
-                      on: { change: _vm.chkChange },
+                      on: {
+                        change: function ($event) {
+                          return _vm.chkChange(i)
+                        },
+                      },
                       model: {
                         value: row.b2b_chk,
                         callback: function ($$v) {
@@ -590,26 +951,32 @@ var render = function () {
       }),
       _vm._v(" "),
       _c(
-        "b-row",
+        "pagination",
+        {
+          staticClass: "mt-5",
+          attrs: {
+            data: _vm.list,
+            limit: 5,
+            showDisabled: true,
+            align: "center",
+          },
+          on: { "pagination-change-page": _vm.pageSet },
+        },
         [
           _c(
-            "b-col",
-            [
-              _c("b-form-textarea", {
-                attrs: { placeholder: "배송시 요청사항 입력" },
-                model: {
-                  value: _vm.req_dlvy,
-                  callback: function ($$v) {
-                    _vm.req_dlvy = $$v
-                  },
-                  expression: "req_dlvy",
-                },
-              }),
-            ],
+            "span",
+            { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+            [_c("b-icon-chevron-left")],
             1
           ),
-        ],
-        1
+          _vm._v(" "),
+          _c(
+            "span",
+            { attrs: { slot: "next-nav" }, slot: "next-nav" },
+            [_c("b-icon-chevron-right")],
+            1
+          ),
+        ]
       ),
     ],
     2

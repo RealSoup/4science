@@ -142,7 +142,9 @@ export default {
         this.frm.eq_hp03 = eq_hp[2];
         this.frm.eq_email01 = eq_email[0];
         this.frm.eq_email02 = eq_email[1];
-        this.frm.eq_department = Auth.user().office+' '+Auth.user().department;
+        let office = Auth.user().office = !isEmpty(Auth.user().office) ? Auth.user().office : '';
+        let department = Auth.user().department = !isEmpty(Auth.user().department) ? Auth.user().department : '';
+        this.frm.eq_department = office+' '+department;
     },
 }
 </script>

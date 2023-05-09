@@ -3,27 +3,61 @@
     <h3>Merck Order List</h3>
     
     <b-row class="top">
-        <b-col col sm="12" md="6">
-            <b-form-checkbox v-model="all_chk" :indeterminate="indeterminate" @change="toggle_all_chk">All</b-form-checkbox>
-            <b-button variant="primary" size="sm" @click="order">선택 발주</b-button>
-        </b-col>
-        <b-col col sm="12" md="6" class="addModel">
-            <ModelSchInput @addModel="addModel" />
-        </b-col>
+        <b-col col sm="12" md="6"><b-button variant="primary" size="sm" @click="order">선택 발주</b-button></b-col>
+        <b-col col sm="12" md="6" class="addModel"><ModelSchInput @addModel="addModel" /></b-col>
     </b-row>
     
+    <b-row class="extra">
+        <b-col col sm="12" md="2">
+            <b-form-select size="sm" v-model="extra.addressID">
+                <b-form-select-option value="">ShipTo Code</b-form-select-option>
+                <b-form-select-option value="2035422570">2035422570</b-form-select-option>
+            </b-form-select>
+        </b-col>
+        <b-col col sm="12" md="2">
+            <b-form-select size="sm" v-model="extra.state">
+                <b-form-select-option value="">State Code</b-form-select-option>
+                <b-form-select-option value="SE">서울</b-form-select-option>
+                <b-form-select-option value="GG">경기</b-form-select-option>
+                <b-form-select-option value="IC">인천</b-form-select-option>
+                <b-form-select-option value="BS">부산</b-form-select-option>
+                <b-form-select-option value="CB">충북</b-form-select-option>
+                <b-form-select-option value="CN">충남</b-form-select-option>
+                <b-form-select-option value="DG">대구</b-form-select-option>
+                <b-form-select-option value="DJ">대전</b-form-select-option>
+                <b-form-select-option value="GW">강원</b-form-select-option>
+                <b-form-select-option value="GJ">광주</b-form-select-option>
+                <b-form-select-option value="GB">경북</b-form-select-option>
+                <b-form-select-option value="GN">경남</b-form-select-option>
+                <b-form-select-option value="JJ">제주</b-form-select-option>
+                <b-form-select-option value="JB">전북</b-form-select-option>
+                <b-form-select-option value="JN">전남</b-form-select-option>
+                <b-form-select-option value="SJ">세종</b-form-select-option>
+                <b-form-select-option value="US">울산</b-form-select-option>
+            </b-form-select>
+        </b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="이름" v-model="extra.name" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="HP" v-model="extra.hp" :formatter="frm_formatHp" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="소속" v-model="extra.part" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="업체명" v-model="extra.company" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="우편번호" v-model="extra.code" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="**시 **구" v-model="extra.city" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="도로명" v-model="extra.street" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="상세 동호수" v-model="extra.detail" /></b-col>
+        <b-col col sm="12"><b-form-textarea v-model="extra.req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
+    </b-row>
 
-    <b-row class="head">
+    <b-row class="list head">
         <b-col><span>주문번호</span><span>제품명</span></b-col>                
         <b-col><span>모델명</span><span>판매단위</span></b-col>
         <b-col><span>수량</span><span>가격</span></b-col>
         <b-col><span>요청사항</span><span>Ctrl</span></b-col>
     </b-row>
     
-    <b-row class="body" v-for="row in list" :key="row.odm_id">
+    <b-row class="list body" v-for="(row, i) in list.data" :key="row.odm_id">
         <b-col>
             <span>
-                <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="chkChange">
+                <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="chkChange(i)">
                     {{row.odm_od_id}}
                 </b-form-checkbox>
             </span>
@@ -45,10 +79,11 @@
             <span><b-button size="sm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button></span>
         </b-col>
     </b-row>
-    <b-row>
-        <b-col><b-form-textarea v-model="req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
-    </b-row>
-      
+
+    <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <span slot="prev-nav"><b-icon-chevron-left /></span>
+        <span slot="next-nav"><b-icon-chevron-right /></span>
+    </pagination>
 </b-container>
 </template>
 
@@ -63,51 +98,58 @@ export default {
     },
     data() {
         return {
-            list: [],
+            list: {},
             indeterminate:false,
             all_chk:false,
-            req_dlvy: '',
+            extra: {
+                req_dlvy: '',
+                addressID: '',
+                state: '',
+                part: '',
+                name: '',
+                hp: '',
+                code: '',
+                city: '',
+                street: '',
+                detail: '',
+            },
+            sch_frm: {}
         };
     },
     methods: {
-        async index(){
-            // try {
-            //     const res = await ax.get(`/api/admin/shop/b2b_merck/order`);
-            //     if (res && res.status === 200) {
-            //         this.list = res.data;
-            //     }
-            // } catch (e) {
-            //     Notify.consolePrint(e);
-            //     Notify.toast('warning', e.response.data.message);
-            // }
-        },
 
-        chkChange () {
-            let chkCnt = this.list.filter(el => el.b2b_chk==true).length;
-            if (chkCnt === 0) {
-                this.indeterminate = false;
-                this.all_chk = false;
-            } else if (chkCnt === this.list.length) {
-                this.indeterminate = false;
-                this.all_chk = true;
-            } else {
-                this.indeterminate = true;
-                this.all_chk = false;
+        async index(){
+            try {
+                const res = await ax.get(`/api/admin/shop/b2b_merck/order`, { params: this.sch_frm});
+                if (res && res.status === 200) {
+                    this.list = res.data;
+                }
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response.data.message);
             }
         },
-        toggle_all_chk(chk) {
-            this.list.forEach(el => { el.b2b_chk = chk; });
-            this.indeterminate = false;
+
+        chkChange (i) {
+            if(this.list.data[i].b2b_chk) {
+                this.extra.part   = this.list.data[i].order.od_department;
+                this.extra.name   = this.list.data[i].order.od_receiver;
+                this.extra.hp     = this.list.data[i].order.od_receiver_hp;
+                this.extra.code   = this.list.data[i].order.od_zip;
+                this.extra.city   = this.list.data[i].order.od_addr1;
+                // this.extra.street = this.list.data[i].order.od_addr1;
+                this.extra.detail = this.list.data[i].order.od_addr2;
+            }
         },
 
         async order(){
             try {
-                let chkList = this.list.filter(el => el.b2b_chk==true);
+                let chkList = this.list.data.filter(el => el.b2b_chk==true);
                 if (!chkList.length) {
                     Notify.modal('선택하세요', 'warning');
                     return false;
                 }
-                const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, req_dlvy: this.req_dlvy});
+                const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, extra: this.extra});
 
                 if (res && res.status === 200 && res.data.msg == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })
             } catch (e) {
@@ -120,7 +162,7 @@ export default {
             try {
                 const res = await ax.post(`/api/admin/shop/b2b_merck/stockCheck`, {code:code, ea:ea});
                 if (res && res.status === 200) {
-                    this.list = res.data;
+                    this.list.data = res.data;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -129,7 +171,7 @@ export default {
         },
 
         addModel(m) {
-            this.list.unshift({
+            this.list.data.unshift({
                 "b2b_chk"       : true,
                 "odm_id"        : 0,
                 "odm_gm_id"     : m.gm_id,
@@ -142,11 +184,26 @@ export default {
                 "odm_mk_name"   : m.mk_name,
                 "req_order"     : null,
             });	
-        }
+        },
+
+        routerPush(){
+            this.$router.push({name: 'adm_b2b_merck_order', query: this.sch_frm }).catch(()=>{});
+        },
+        pageSet(p){
+            this.sch_frm.page = p;
+            this.routerPush();
+        },
+        frm_formatHp(v)   { return this.formatHp(v); },
     },
 
     mounted() {
-        this.index()
+        this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
+        this.index();
+    },
+    beforeRouteUpdate (to, from, next) {
+        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
+        this.index();
+        next();
     },
 };
 </script>
@@ -159,8 +216,9 @@ export default {
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
 .body:hover { background: #d8f2fd94; }
 /*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/
-.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
-.row>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
+.extra>div { padding-top:5px; padding-bottom:5px; font-size:.9rem; }
+.list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
+.list>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
 .row>div>span:nth-of-type(2) { float:right; }
