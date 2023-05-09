@@ -165,7 +165,7 @@ class GoodsController extends Controller {
         }
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
-        $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
+        $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
         $cat[1] = substr("00000".$cat[1], -6);
         $cat[2] = 0;
         
@@ -248,7 +248,7 @@ class GoodsController extends Controller {
             $cat[2] = collect($req->goods_model)->max('gm_catno03');
         } else {
             $cat[0] = $req->goods_category[0]['gc_ca01'];
-            $cat[1] = $this->goods_model->Catno01($cat[0])->max('gm_catno02')+1;
+            $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
             $cat[2] = 0;
         }
         foreach ($req->goods_model as $gm) {

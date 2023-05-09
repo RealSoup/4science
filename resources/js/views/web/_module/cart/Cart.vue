@@ -167,7 +167,7 @@ export default {
 #Cart .footer .btn-group button:nth-of-type(1) { margin-right:10px; }
 #Cart .footer .btn-group button:nth-of-type(2) { background:#00A1CB; border-color:#0089AD; }
 
-#Cart.fixed_header { position:fixed; top:85px; }
+#Cart.fixed_header { position:fixed; top:90px; }
 #Cart.hideCart { height:auto; border-bottom-left-radius:0; box-shadow:none; }
 #Cart.hideCart ul { width:64px; }
 #Cart.hideCart ul>>>li { padding:3px 7px; }

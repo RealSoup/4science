@@ -152,8 +152,8 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <a href="https://4science.net/shop/goods?ca01=33&ca02=5619" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0425/estimate.jpg" />
+            <a href="https://4science.net/shop/goods/51495" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0509/estimate.jpg" />
             </a>
             <!-- <table cellpadding="0" cellspacing="0" border="0">
                 <tr>

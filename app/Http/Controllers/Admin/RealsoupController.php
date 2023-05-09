@@ -11,26 +11,82 @@ use Illuminate\Support\Facades\Cache;
 
 class RealsoupController extends Controller {
     public function index(Request $req) {
-        $rst = Array();
-        // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
-        // dd(file_put_contents("xx.json", $json));
-        foreach (Cache::get('categoryAll') as $ca) {
-            $rst['bestByCate'][$ca['ca_id']] = ShowWindow::with('goods')
-            ->where('sw_type', 'ca_best')
-            ->where('sw_group', $ca['ca_id'])
-            ->orderBy('sw_seq')
+        $rst_er = DB::table('user_mileage')
+            ->where('ml_id', '<', 150189)
+            ->where('ml_tbl', 'shop_order_model')
+            ->where('created_at', '>', '2023-03-14 00:00:00');
+            echo_query($rst_er);
+            exit;
+        foreach( $rst_er as $er ){
+            $rst_em = DB::table('shop_estimate_model')
+            ->where('em_type', 'estimateReply')
+            ->where('em_papa_id', $er->er_id)
             ->get();
+           
+            $collect = [];
+            $pa_id = $er_dlvy_price = $er_gd_price = $er_air_price = $er_surtax = 0;
+            foreach( $rst_em as $em ){
+                $rst_gd = null;
+                if($em->em_gd_id>0)
+                    $rst_gd = DB::table('shop_goods')->where('gd_id', $em->em_gd_id)->first();
+                
+                if ($rst_gd !== null&&$rst_gd->gd_pa_id) $pa_id = $rst_gd->gd_pa_id;
+                else $pa_id =0;
+
+                if (!array_key_exists($pa_id, $collect)) {
+                    if ($pa_id>0 && $paarray[$pa_id]["pa_type"] == "AIR")
+                        $collect[$pa_id] = ['goods'=>0, 'dlvy'=>0, 'air'=>intval($paarray[$pa_id]["pa_price"]*1.1)];
+                    else
+                        $collect[$pa_id] = ['goods'=>0, 'dlvy'=>4400, 'free_dlvy_max'=>100000, 'air'=>0];
+                }
+
+                $collect[$pa_id]['goods'] += intval($em->em_price) * intval($em->em_ea);
+            }
+
+            foreach ($collect as $k => $v) {
+                $er_gd_price += $v['goods'];
+                $er_air_price = $v['air'];
+
+                if ($v['dlvy'] && $v['goods'] < $v['free_dlvy_max']) {
+                    $er_dlvy_price += intval($v['dlvy']);
+                }
+            }
+            $er_surtax = intval($er_gd_price*0.1);
+
+            $er_all_price = $er_gd_price+$er_surtax+$er_dlvy_price+$er_air_price;
+            DB::table('shop_estimate_reply')->where('er_id', $er->er_id)->update([
+                'er_gd_price'   => $er_gd_price,
+                'er_surtax'     => $er_surtax,
+                'er_dlvy_price' => $er_dlvy_price,
+                'er_air_price'  => $er_air_price,
+                'er_all_price'  => $er_all_price,
+            ]);
+
+            echo "{$er->er_id} <br>";
         }
-        $rst['best'] = Goods::SchGd_id(
-            ShowWindow::select('sw_key')
-            ->where('sw_type', 'best')
-            ->orderBy('sw_seq')->orderBy('sw_id')
-            ->limit(6)
-            ->pluck('sw_key')
-        )->with('goodsCategoryFirst')
-        ->get();
-        return response()->json($rst);
+        echo " <br>ORDER end <br>";
     }
+    // public function index(Request $req) {
+    //     $rst = Array();
+    //     // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
+    //     // dd(file_put_contents("xx.json", $json));
+    //     foreach (Cache::get('categoryAll') as $ca) {
+    //         $rst['bestByCate'][$ca['ca_id']] = ShowWindow::with('goods')
+    //         ->where('sw_type', 'ca_best')
+    //         ->where('sw_group', $ca['ca_id'])
+    //         ->orderBy('sw_seq')
+    //         ->get();
+    //     }
+    //     $rst['best'] = Goods::SchGd_id(
+    //         ShowWindow::select('sw_key')
+    //         ->where('sw_type', 'best')
+    //         ->orderBy('sw_seq')->orderBy('sw_id')
+    //         ->limit(6)
+    //         ->pluck('sw_key')
+    //     )->with('goodsCategoryFirst')
+    //     ->get();
+    //     return response()->json($rst);
+    // }
 
     public function es_update_000(Request $req) {
         $paarray = [

@@ -62,6 +62,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
@@ -415,7 +420,7 @@ var render = function () {
                               _vm._s(ml.ml_content) +
                               "\r\n                    "
                           ),
-                          ml.ml_tbl == "shop_order_model"
+                          ml.ml_tbl == "shop_order_model" && ml.order_model
                             ? _c(
                                 "b-button",
                                 {
@@ -429,7 +434,10 @@ var render = function () {
                                     },
                                   },
                                 },
-                                [_c("b-icon-link45deg"), _vm._v("주문 보기")],
+                                [
+                                  _c("b-icon-link45deg"),
+                                  _vm._v("주문 보기\r\n                    "),
+                                ],
                                 1
                               )
                             : _vm._e(),
