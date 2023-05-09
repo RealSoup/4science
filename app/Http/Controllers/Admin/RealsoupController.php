@@ -12,57 +12,29 @@ use Illuminate\Support\Facades\Cache;
 class RealsoupController extends Controller {
     public function index(Request $req) {
         $rst_er = DB::table('user_mileage')
+            ->select('ml_id', 'ml_idx')
             ->where('ml_id', '<', 150189)
             ->where('ml_tbl', 'shop_order_model')
-            ->where('created_at', '>', '2023-03-14 00:00:00');
-            echo_query($rst_er);
-            exit;
+            ->where('created_at', '>', '2023-03-14 00:00:00')->get();
         foreach( $rst_er as $er ){
-            $rst_em = DB::table('shop_estimate_model')
-            ->where('em_type', 'estimateReply')
-            ->where('em_papa_id', $er->er_id)
-            ->get();
-           
-            $collect = [];
-            $pa_id = $er_dlvy_price = $er_gd_price = $er_air_price = $er_surtax = 0;
-            foreach( $rst_em as $em ){
-                $rst_gd = null;
-                if($em->em_gd_id>0)
-                    $rst_gd = DB::table('shop_goods')->where('gd_id', $em->em_gd_id)->first();
-                
-                if ($rst_gd !== null&&$rst_gd->gd_pa_id) $pa_id = $rst_gd->gd_pa_id;
-                else $pa_id =0;
+            $rst = DB::select( "
+                select opt_no
+                from nc_mileage_log a
+                    join nc_order_item_option b on a.ml_sub_data = b.ord_no
+                where ml_idx = ?
+                limit 1
+            ", [$er->ml_idx]); 
 
-                if (!array_key_exists($pa_id, $collect)) {
-                    if ($pa_id>0 && $paarray[$pa_id]["pa_type"] == "AIR")
-                        $collect[$pa_id] = ['goods'=>0, 'dlvy'=>0, 'air'=>intval($paarray[$pa_id]["pa_price"]*1.1)];
-                    else
-                        $collect[$pa_id] = ['goods'=>0, 'dlvy'=>4400, 'free_dlvy_max'=>100000, 'air'=>0];
-                }
+            $rst2 = DB::select( "
+                select odm_id
+                from la_shop_order_model
+                where opt_no = ?
+                limit 1
+            ", [$rst[0]->opt_no]); 
 
-                $collect[$pa_id]['goods'] += intval($em->em_price) * intval($em->em_ea);
-            }
+            DB::table('user_mileage')->where('ml_id', $er->ml_id)->update([ 'ml_key'   => $rst2[0]->odm_id ]);
 
-            foreach ($collect as $k => $v) {
-                $er_gd_price += $v['goods'];
-                $er_air_price = $v['air'];
-
-                if ($v['dlvy'] && $v['goods'] < $v['free_dlvy_max']) {
-                    $er_dlvy_price += intval($v['dlvy']);
-                }
-            }
-            $er_surtax = intval($er_gd_price*0.1);
-
-            $er_all_price = $er_gd_price+$er_surtax+$er_dlvy_price+$er_air_price;
-            DB::table('shop_estimate_reply')->where('er_id', $er->er_id)->update([
-                'er_gd_price'   => $er_gd_price,
-                'er_surtax'     => $er_surtax,
-                'er_dlvy_price' => $er_dlvy_price,
-                'er_air_price'  => $er_air_price,
-                'er_all_price'  => $er_all_price,
-            ]);
-
-            echo "{$er->er_id} <br>";
+            echo "{$er->ml_idx} <br>";
         }
         echo " <br>ORDER end <br>";
     }
