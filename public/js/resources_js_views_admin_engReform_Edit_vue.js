@@ -4869,7 +4869,10 @@ var render = function () {
                                   },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.fileDown(f.path, f.fi_original)
+                                      return _vm.fileDown(
+                                        f.down_path,
+                                        f.fi_original
+                                      )
                                     },
                                   },
                                 },
@@ -4905,7 +4908,10 @@ var render = function () {
                                   },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.fileDown(f.path, f.fi_original)
+                                      return _vm.fileDown(
+                                        f.down_path,
+                                        f.fi_original
+                                      )
                                     },
                                   },
                                 },

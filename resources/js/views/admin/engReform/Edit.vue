@@ -48,7 +48,7 @@
                 </b-col>                
                 <b-col>
                     <div v-for="f in frm.file_info" :key="f.fi_id">
-                        <b-button v-if="f.fi_kind == 'work'" size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
+                        <b-button v-if="f.fi_kind == 'work'" size="sm" variant="outline-info" block @click="fileDown(f.down_path, f.fi_original)">{{f.fi_original}}</b-button>
                     </div>
                 </b-col>
 
@@ -57,7 +57,7 @@
                 </b-col>                
                 <b-col>
                     <div v-for="f in frm.file_info" :key="f.fi_id">
-                        <b-button v-if="f.fi_kind == 'ref'" size="sm" variant="outline-info" block @click="fileDown(f.path, f.fi_original)">{{f.fi_original}}</b-button>
+                        <b-button v-if="f.fi_kind == 'ref'" size="sm" variant="outline-info" block @click="fileDown(f.down_path, f.fi_original)">{{f.fi_original}}</b-button>
                     </div>
                 </b-col>
             </b-row>

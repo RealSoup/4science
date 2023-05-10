@@ -161,6 +161,6 @@ if (! function_exists('mailer')) {  //  라라벨은 메일이 잘 안된다
 if(! function_exists('ver_asset')) {
     function ver_asset($path)
     {
-        return asset($path). '?ver='. Carbon\Carbon::now()->format('YmdHis');
+        return asset($path). '?ver='. Carbon\Carbon::now()->format('Ymd');
     }
 }

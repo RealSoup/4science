@@ -16,8 +16,8 @@
     <title>{{ config('app.name', '4SCIENCE') }}</title>
     
 
-    <script src="{{ ver_asset('js/app.js') }}"></script>
-    <!-- <script src="{{ mix('js/app.js') }}"></script> -->
+    <!-- <script src="{{ ver_asset('js/app.js') }}"></script> -->
+    <script src="{{ mix('js/app.js') }}"></script>
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet" /> -->
 </head>
 <body>

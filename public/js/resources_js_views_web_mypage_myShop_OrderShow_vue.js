@@ -1278,7 +1278,7 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm.od.order_config.step[_vm.od.od_step].receiveable
+              _vm.od.od_step < 60
                 ? _c(
                     "div",
                     { staticClass: "btn_box" },
