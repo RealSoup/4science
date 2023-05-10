@@ -163,7 +163,7 @@
             </b-row>
         </b-container>
         
-        <div class="btn_box" v-if="od.od_step < 60 && isEmpty(od.od_mng)">
+        <div class="btn_box" v-if="od.od_step < 60 && !isEmpty(od.od_mng)">
             <b-button class="black lg" @click="print">견적서 출력</b-button>
             <b-button class="gray lg" @click="downEstimateExcel">견적서 EXCEL 다운</b-button>
             <b-button class="blue lg" @click="downTransactionExcel">거래명세서 EXCEL 다운</b-button>
