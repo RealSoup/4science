@@ -36,12 +36,6 @@ trait FileControl {
                 Storage::disk('s3')->put($subFolder.'thumb/'.$file->hashName(), $img);
             }
         } else {
-            
-            // if (strpos($subFolder, 'api_engReform') !== false) {
-            //     dump($subFolder);
-            //     dump($file->hashName());
-            //     dump($file);
-            // }
             Storage::disk('s3')->put($subFolder.$file->hashName(), file_get_contents($file));
         }
     }
