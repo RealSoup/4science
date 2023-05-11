@@ -4666,6 +4666,7 @@ var render = function () {
                   _c("h4", [_vm._v("01. 견적요청 상품")]),
                   _vm._v(" "),
                   _c("PaList", {
+                    attrs: { add_vat: true },
                     model: {
                       value: _vm.frm.lists,
                       callback: function ($$v) {

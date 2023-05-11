@@ -181,34 +181,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
     },
     index: function index() {
-      var _arguments = arguments,
-          _this = this;
+      var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var p, res;
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                p = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 0;
-                _context.prev = 1;
-                _this.sch_frm.page = p;
+                _context.prev = 0;
 
                 if (!(_this.sch_frm.startDate && _this.sch_frm.endDate && _this.sch_frm.startDate > _this.sch_frm.endDate)) {
-                  _context.next = 6;
+                  _context.next = 4;
                   break;
                 }
 
                 Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                 return _context.abrupt("return", false);
 
-              case 6:
-                _context.next = 8;
+              case 4:
+                _context.next = 6;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/goods", {
                   params: _this.sch_frm
                 });
 
-              case 8:
+              case 6:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
@@ -216,22 +213,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.mng_off = res.data.mng_off;
                 }
 
-                _context.next = 16;
+                _context.next = 14;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 16:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 12]]);
+        }, _callee, null, [[0, 10]]);
       }))();
+    },
+    routerPush: function routerPush() {
+      this.$router.push({
+        name: 'adm_goods_index',
+        query: this.sch_frm
+      })["catch"](function () {});
+    },
+    pageSet: function pageSet(p) {
+      this.sch_frm.page = p;
+      this.routerPush();
     }
   },
   mounted: function mounted() {
@@ -243,26 +250,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              _this2.sch_frm = Object.assign({}, _this2.sch_frm, _this2.$route.query);
+
               _this2.index();
 
-              _context2.next = 3;
+              _context2.next = 4;
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/maker", {
                 params: {
                   type: 'all'
                 }
               });
 
-            case 3:
+            case 4:
               res = _context2.sent;
               if (res && res.status === 200) _this2.makers = res.data.list;
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
         }
       }, _callee2);
     }))();
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.sch_frm = Object.assign({}, this.sch_frm, to.query);
+    this.index();
+    next();
   }
 });
 
@@ -646,7 +660,7 @@ var render = function () {
                             ) {
                               return null
                             }
-                            return _vm.index.apply(null, arguments)
+                            return _vm.routerPush.apply(null, arguments)
                           },
                         },
                         model: {
@@ -663,7 +677,7 @@ var render = function () {
                         [
                           _c(
                             "b-button",
-                            { on: { click: _vm.index } },
+                            { on: { click: _vm.routerPush } },
                             [_c("b-icon-search")],
                             1
                           ),
@@ -861,7 +875,7 @@ var render = function () {
                 showDisabled: true,
                 align: "center",
               },
-              on: { "pagination-change-page": _vm.index },
+              on: { "pagination-change-page": _vm.pageSet },
             },
             [
               _c(

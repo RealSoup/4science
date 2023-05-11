@@ -115,15 +115,6 @@ export default {
             option: {},
         };
     },
-
-    computed: {
-        
-    },
-
-    mounted() {
-        this.index();
-    },
-
     methods: {
         routerPush(){
             this.$router.push({name: 'adm_user', query: this.sch_frm }).catch(()=>{});
@@ -149,13 +140,12 @@ export default {
             }
         },
     },
-
+    mounted() {
+        this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
+        this.index();
+    },
     beforeRouteUpdate (to, from, next) {
-        this.sch_frm = Object.assign(
-            {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-            this.sch_frm, // 수정하려는 객체
-            to.query
-        );
+        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
         this.index();
         next();
     },

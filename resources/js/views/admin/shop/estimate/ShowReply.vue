@@ -70,7 +70,7 @@
 
         <div class="top_border" />
 
-        <PaList v-model="frm.collect.lists" :price="frm.collect.price" />
+        <PaList v-model="frm.collect.lists" :price="frm.collect.price" :add_vat="false" />
     </div>
 
     <div class="box est_frm">

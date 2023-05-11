@@ -25,11 +25,16 @@
                         <p v-if="item.dlvy_at"><b class="m_hide">납기:</b> {{item.dlvy_at}}</p>
                     </b-col>
                     <b-col class="m_hide">{{item.mk_name}}</b-col>
-                    <b-col>{{item.price_add_vat | comma}} 원</b-col>
+                    <b-col>
+                        {{add_vat}}
+                        <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
+                        <template v-else>{{item.price | comma | won}}</template>
+                    </b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
-                            {{item.price_add_vat*item.ea | comma}} 원
+                            <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
+                            <template v-else>{{item.price*item.ea | comma | won}}</template>
                             <br class="m_hide" />
                             <span class="m_hide">({{item.gain_mileage*item.ea | comma}}p 적립)</span>
                         </div>
@@ -39,11 +44,15 @@
                     <b-col>추가 옵션</b-col>
                     <b-col>{{item.goc_name}}</b-col>
                     <b-col class="m_hide"></b-col>
-                    <b-col>{{item.price_add_vat | comma}} 원</b-col>
+                    <b-col>
+                        <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
+                        <template v-else>{{item.price | comma | won}}</template>
+                    </b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
-                            {{item.price_add_vat*item.ea | comma}} 원
+                            <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
+                            <template v-else>{{item.price*item.ea | comma | won}}</template>
                             <br />
                             <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
                         </div>
@@ -56,7 +65,8 @@
             <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
             <template v-else>배송비</template>
             <br />
-            {{pa[0].pa_dlvy_p_add_vat | comma}} 원
+            <template v-if="add_vat">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</template>
+            <template v-else>{{pa[0].pa_dlvy_p | comma | won}}</template>
         </b-col>
     </b-row>
 
@@ -102,7 +112,7 @@
 <script>
 export default { 
     name: 'PaList', 
-    props: ['value', 'price'],
+    props: ['value', 'price', 'add_vat'],
     data() {
         return {
             

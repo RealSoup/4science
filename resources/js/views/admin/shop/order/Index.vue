@@ -48,13 +48,6 @@
                     <b-form-select-option v-for="(val, key) in mng_info.group" :key="key" :value="key">{{ val }}</b-form-select-option>
                 </b-form-select>
             </b-col>
-            <b-col class="label">주문기기</b-col>
-            <b-col class="type01">
-                <b-form-select v-model="sch_frm.sale_env">
-                    <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
-                </b-form-select>
-            </b-col>
 
             <b-col class="label">검색</b-col>
             <b-col>
@@ -77,6 +70,14 @@
                     <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush"></b-form-input>
                     <b-input-group-append><b-button @click="routerPush"><b-icon-search /></b-button></b-input-group-append>
                 </b-input-group>
+            </b-col>
+
+            <b-col class="label type_cus">주문기기</b-col>
+            <b-col class="type_cus">
+                <b-form-select v-model="sch_frm.sale_env">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
             </b-col>
         </b-row>
     </b-container>
@@ -192,4 +193,5 @@ export default {
 
 <style lang="css" scoped>
 .cmain .list_top select { display: inline-block; max-width: 7rem; }
+.p_wrap .frm_sch .row .type_cus { flex:0 0 7%; max-width:7%; }
 </style>

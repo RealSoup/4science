@@ -47,18 +47,24 @@ instance.interceptors.response.use(function (response) {
             return false;
         }
     } else if (error.response.status === 403) {
-        Notify.modal(error.response.data.message, 'danger');
-        if ( error.response.data.message === "Your email address is not verified." )
-            router.push({name:'email_verify'})
+        // if ( error.response.data.message === "Your email address is not verified." )
+            // error.response.data.message = '입력하신 이메일로 발송된 메일의 인증 단추를 클릭하세요.'
+        
+        if ( error.response.data.message === "Your email address is not verified." ) {
+            error.response.data.message = '입력하신 이메일로 발송된 메일의 인증 단추를 클릭하세요.'
+            Notify.modal(error.response.data.message, 'danger');
+            
+            if (router.name != 'email_verify')
+                router.push({name:'email_verify'}).catch(() => true);
+            // location.replace('/email_verify');
             // .catch((e) => console.log(e));
-            .catch(() => true);
+        }
         return false;
     } else if (error.response.status === 419) {
         if ( error.response.data.message.search('CSRF token mismatch.') !== -1  ) {
             router.push({name:'main'});
             // router.go();
             Notify.modal("로그인 정보가 없습니다.", 'danger');
-            // 
             // window.location.reload(true);
         } else {
             Notify.modal(error.response.data.message, 'danger');

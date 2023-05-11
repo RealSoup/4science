@@ -43,10 +43,10 @@
                         </b-form-select>
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="index"></b-form-input>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush"></b-form-input>
 
                     <b-input-group-append>
-                        <b-button @click="index"><b-icon-search /></b-button>
+                        <b-button @click="routerPush"><b-icon-search /></b-button>
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -94,7 +94,7 @@
             <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
         </b-row>
 
-        <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -138,9 +138,8 @@ export default {
         numCalc(i) {
             return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
         },
-        async index(p=0) {
+        async index() {
             try {
-                this.sch_frm.page = p;
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
@@ -155,13 +154,25 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-
+        routerPush(){
+            this.$router.push({name: 'adm_goods_index', query: this.sch_frm }).catch(()=>{});
+        },
+        pageSet(p){
+            this.sch_frm.page = p;
+            this.routerPush();
+        },
     },
     async mounted() {
+        this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
         this.index();
         const res = await ax.get(`/api/admin/shop/maker`, { params: {type: 'all'}});
         if (res && res.status === 200) 
             this.makers = res.data.list;
+    },
+    beforeRouteUpdate (to, from, next) {
+        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
+        this.index();
+        next();
     },
 }
 </script>

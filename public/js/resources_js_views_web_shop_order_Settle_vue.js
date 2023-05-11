@@ -1243,7 +1243,7 @@ var render = function () {
       _c("h4", [_vm._v("01. 주문 상품 확인")]),
       _vm._v(" "),
       _c("PaList", {
-        attrs: { price: _vm.order.price },
+        attrs: { price: _vm.order.price, add_vat: true },
         model: {
           value: _vm.order.lists,
           callback: function ($$v) {

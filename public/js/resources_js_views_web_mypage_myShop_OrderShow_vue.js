@@ -1278,7 +1278,7 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm.od.od_step < 60
+              _vm.od.od_step < 60 && !_vm.isEmpty(_vm.od.od_mng)
                 ? _c(
                     "div",
                     { staticClass: "btn_box" },

@@ -259,12 +259,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
   },
   mounted: function mounted() {
+    this.sch_frm = Object.assign({}, this.sch_frm, this.$route.query);
     this.index();
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    this.sch_frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-    this.sch_frm, // 수정하려는 객체
-    to.query);
+    this.sch_frm = Object.assign({}, this.sch_frm, to.query);
     this.index();
     next();
   }

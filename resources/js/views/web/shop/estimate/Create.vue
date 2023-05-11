@@ -4,7 +4,7 @@
         <b-row v-if="Object.keys(frm.lists).length">
             <b-col class="goods">
                 <h4>01. 견적요청 상품</h4>
-                <PaList v-model="frm.lists" />
+                <PaList v-model="frm.lists" :add_vat="true" />
             </b-col>
         </b-row>
 

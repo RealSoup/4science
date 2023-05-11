@@ -12,6 +12,13 @@
                     </validation-provider>
                     <Validation :error="$store.state.error.validations.email" />
                 </b-col>
+                <b-col class="accept_contact">
+                    <b-form-checkbox v-model="value.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="sm">
+                        수신
+                        <b v-if="value.receive_mail=='Y'">동의</b>
+                        <b v-else>안함</b>
+                    </b-form-checkbox>
+                </b-col>
             </b-row>
             <b-row>
                 <b-col class="label_st">비밀번호<b class="need" /></b-col>
@@ -88,6 +95,13 @@
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
                     <Validation :error="$store.state.error.validations.hp" />
+                </b-col>
+                <b-col class="accept_contact">
+                    <b-form-checkbox v-model="value.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="sm">
+                        수신
+                        <b v-if="value.receive_sms=='Y'">동의</b>
+                        <b v-else>안함</b>
+                    </b-form-checkbox>
                 </b-col>
             </b-row>
             <b-row>
@@ -245,6 +259,7 @@ export default {
 .form_box .col .frm_vali_st .row .col.hp span { position:relative; flex:0 0 30%; max-width:30%; }
 .form_box .col .frm_vali_st .row .col.hp span:nth-child(1):after,
 .form_box .col .frm_vali_st .row .col.hp span:nth-child(2):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989; }
+.form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px; }
 .form_box .col .frm_vali_st .agree { margin-bottom:.6rem; }
 .form_box .col .frm_vali_st .agree .col .custom-checkbox { display:inline-block; margin-right:1rem; }
 .form_box .col .frm_vali_st .agree .col a,

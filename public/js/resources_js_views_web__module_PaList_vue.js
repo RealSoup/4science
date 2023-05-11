@@ -112,9 +112,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
-  props: ['value', 'price'],
+  props: ['value', 'price', 'add_vat'],
   data: function data() {
     return {};
   },
@@ -391,40 +401,83 @@ var render = function () {
                             _vm._v(_vm._s(item.mk_name)),
                           ]),
                           _vm._v(" "),
-                          _c("b-col", [
-                            _vm._v(
-                              _vm._s(_vm._f("comma")(item.price_add_vat)) +
-                                " 원"
-                            ),
-                          ]),
+                          _c(
+                            "b-col",
+                            [
+                              _vm._v(
+                                "\r\n                        " +
+                                  _vm._s(_vm.add_vat) +
+                                  "\r\n                        "
+                              ),
+                              _vm.add_vat
+                                ? [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("won")(
+                                          _vm._f("comma")(item.price_add_vat)
+                                        )
+                                      )
+                                    ),
+                                  ]
+                                : [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("won")(
+                                          _vm._f("comma")(item.price)
+                                        )
+                                      )
+                                    ),
+                                  ],
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]),
                           _vm._v(" "),
                           _c("b-col", [
-                            _c("div", [
-                              _vm._v(
-                                "\r\n                            " +
-                                  _vm._s(
-                                    _vm._f("comma")(
-                                      item.price_add_vat * item.ea
-                                    )
-                                  ) +
-                                  " 원\r\n                            "
-                              ),
-                              _c("br", { staticClass: "m_hide" }),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "m_hide" }, [
-                                _vm._v(
-                                  "(" +
-                                    _vm._s(
-                                      _vm._f("comma")(
-                                        item.gain_mileage * item.ea
-                                      )
-                                    ) +
-                                    "p 적립)"
-                                ),
-                              ]),
-                            ]),
+                            _c(
+                              "div",
+                              [
+                                _vm.add_vat
+                                  ? [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("won")(
+                                            _vm._f("comma")(
+                                              item.price_add_vat * item.ea
+                                            )
+                                          )
+                                        )
+                                      ),
+                                    ]
+                                  : [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("won")(
+                                            _vm._f("comma")(
+                                              item.price * item.ea
+                                            )
+                                          )
+                                        )
+                                      ),
+                                    ],
+                                _vm._v(" "),
+                                _c("br", { staticClass: "m_hide" }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "m_hide" }, [
+                                  _vm._v(
+                                    "(" +
+                                      _vm._s(
+                                        _vm._f("comma")(
+                                          item.gain_mileage * item.ea
+                                        )
+                                      ) +
+                                      "p 적립)"
+                                  ),
+                                ]),
+                              ],
+                              2
+                            ),
                           ]),
                         ]
                       : item.type == "option"
@@ -435,40 +488,78 @@ var render = function () {
                           _vm._v(" "),
                           _c("b-col", { staticClass: "m_hide" }),
                           _vm._v(" "),
-                          _c("b-col", [
-                            _vm._v(
-                              _vm._s(_vm._f("comma")(item.price_add_vat)) +
-                                " 원"
-                            ),
-                          ]),
+                          _c(
+                            "b-col",
+                            [
+                              _vm.add_vat
+                                ? [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("won")(
+                                          _vm._f("comma")(item.price_add_vat)
+                                        )
+                                      )
+                                    ),
+                                  ]
+                                : [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("won")(
+                                          _vm._f("comma")(item.price)
+                                        )
+                                      )
+                                    ),
+                                  ],
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]),
                           _vm._v(" "),
                           _c("b-col", [
-                            _c("div", [
-                              _vm._v(
-                                "\r\n                            " +
-                                  _vm._s(
-                                    _vm._f("comma")(
-                                      item.price_add_vat * item.ea
-                                    )
-                                  ) +
-                                  " 원\r\n                            "
-                              ),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c("span", [
-                                _vm._v(
-                                  "(" +
-                                    _vm._s(
-                                      _vm._f("comma")(
-                                        item.gain_mileage * item.ea
-                                      )
-                                    ) +
-                                    "p 적립)"
-                                ),
-                              ]),
-                            ]),
+                            _c(
+                              "div",
+                              [
+                                _vm.add_vat
+                                  ? [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("won")(
+                                            _vm._f("comma")(
+                                              item.price_add_vat * item.ea
+                                            )
+                                          )
+                                        )
+                                      ),
+                                    ]
+                                  : [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("won")(
+                                            _vm._f("comma")(
+                                              item.price * item.ea
+                                            )
+                                          )
+                                        )
+                                      ),
+                                    ],
+                                _vm._v(" "),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "(" +
+                                      _vm._s(
+                                        _vm._f("comma")(
+                                          item.gain_mileage * item.ea
+                                        )
+                                      ) +
+                                      "p 적립)"
+                                  ),
+                                ]),
+                              ],
+                              2
+                            ),
                           ]),
                         ]
                       : _vm._e(),
@@ -488,11 +579,22 @@ var render = function () {
                   : [_vm._v("배송비")],
                 _vm._v(" "),
                 _c("br"),
-                _vm._v(
-                  "\r\n            " +
-                    _vm._s(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat)) +
-                    " 원\r\n        "
-                ),
+                _vm._v(" "),
+                _vm.add_vat
+                  ? [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("won")(
+                            _vm._f("comma")(pa[0].pa_dlvy_p_add_vat)
+                          )
+                        )
+                      ),
+                    ]
+                  : [
+                      _vm._v(
+                        _vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p)))
+                      ),
+                    ],
               ],
               2
             ),

@@ -269,7 +269,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 //  로그인 필요 없는 서비스
 Route::get('siteInfo', 'CommonController@siteInfo');
-Route::get('main', 'MainController@index');
+Route::get('main', 'MainController@index')->name('web_main');
 Route::get('category/indexAll', 'Shop\CategoryController@indexAll')->name('category.indexAll');
 Route::get('category/{ca_id}', 'Shop\CategoryController@index')->name('category.index');
 Route::prefix('shop')->group(function () {
