@@ -36,6 +36,7 @@ class GoodsController extends Controller {
 
         if ($req->filled('keyword')){
             $isCatNo=false;
+            $cat_no = null;
             if ( (!$req->filled('mode') || $req->mode == 'cat_no') && strpos($req->keyword, '-') !== false ) {
                 $cat_no = explode('-', $req->keyword);
                 if (implode( '', $cat_no ) != '')  {    //  단순히 하이푼만 입력하면 무한 로딩
@@ -67,7 +68,7 @@ class GoodsController extends Controller {
                 }
                 $gd->whereIn('gd_id', $goods->pluck('gd_id'));
             } else {
-                $gd_name = $gm_name = $gm_code = $cat_no = $hash = $maker = null;
+                $gd_name = $gm_name = $gm_code = $hash = $maker = null;
                 
                 // $ftWord = $req->keyword;
                 if ( $req->mode == 'gd_name' ) $gd_name = $ftWord;

@@ -38,6 +38,8 @@ export default {
                 provider    :this.$route.query.provider?this.$route.query.provider:'',
                 social_id   :this.$route.query.social_id?this.$route.query.social_id:'',
                 social_token:this.$route.query.social_token?this.$route.query.social_token:'',
+                receive_sms : 'Y',
+                receive_mail: 'Y',
                 file_info:[],
             },
             active_mode: 'inter_lock',

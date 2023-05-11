@@ -51,37 +51,7 @@ class OrderController extends Controller {
     public function settle(Request $req){
         $type = $req->filled('type') ? $req->type : 'buy';
         $params = $this->goods->getGoodsDataCollection($req, $type);
-        // dd($params);
-        // $params['od_type'] = 'inst';
-        // if (isset($req->cm_id) && count($req->cm_id) > 0)
-        //     $params['od_type'] = 'cart';
-        $params['inicis']['sale_env'] = $this->saleEnv();
-        $params['inicis']['returnUrl'] = config('app.url')."shop/order/payReturn";
-        $params['inicis']['returnUrlMobaile'] = config('app.url')."shop/order/payReturnMobile";
-        $params['inicis']['closeUrl'] = config('app.url')."shop/order/pgClose";
-        
-        //
-        // $goods_info = getGoodsDataCollection($req);
-        // $params = Arr::collapse([$params, $goods_info]);
-        // if(auth()->check() && auth()->user()->address()->exists()){
-        //     $addr = auth()->user()->address();
-        //     if($addr->Def()->exists())  $addr = $addr->Def();
-        //     $params['addr'] = $addr->first();
-        // }
-        //
-        /************************** 이니시스 값 설정 Start **************************/
-        /*****************************************************************************/
-        /*********/$params['inicis']['mid'] = $this->mid;  // 가맹점 ID(가맹점 수정후 고정)
-        /*********/$params['inicis']['timestamp'] = $this->getTimestamp();   // util에 의해서 자동생성
-        /*********/$params['od_no'] = $this->getNew_od_no();
-        /*********/$params['inicis']['mKey'] = $this->makeHash($this->signKey, "sha256");
-        /*********/$signParams = array(    "oid"       => $params['od_no'],
-        /*********/                        "price"     => $params['price']['total'],
-        /*********/                        "timestamp" => $params['inicis']['timestamp'] );
-        /*********/$params['inicis']['sign'] = $this->makeSignature($signParams, "sha256");
-        /*****************************************************************************/
-        /************************** 이니시스 값 설정 End **************************/
-        
+        $params['sale_env'] = $this->saleEnv();
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
         foreach ($params['lists'] as $pa_group) {    //  주문 갯수
@@ -115,13 +85,24 @@ class OrderController extends Controller {
     public function pay(Request $req) {
         // try {
         //     DB::beginTransaction();
-
-            $sale_env = "P";
-            $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
-            if(preg_match($mobile_agent, $_SERVER['HTTP_USER_AGENT'])) $sale_env = "M"; // preg_match() 함수를 이용해 모바일 기기로 접속하였는지 확인
-
+            
+            $params['inicis']['returnUrl'] = config('app.url')."shop/order/payReturn";
+            $params['inicis']['returnUrlMobaile'] = config('app.url')."shop/order/payReturnMobile";
+            $params['inicis']['closeUrl'] = config('app.url')."shop/order/pgClose";            
+           
+            /************************** 이니시스 값 설정 Start **************************/
+            /**/$params['inicis']['mid'] = $this->mid;  // 가맹점 ID(가맹점 수정후 고정)
+            /**/$params['inicis']['timestamp'] = $this->getTimestamp();   // util에 의해서 자동생성
+            /**/$params['inicis']['od_no'] = $this->getNew_od_no();
+            /**/$params['inicis']['mKey'] = $this->makeHash($this->signKey, "sha256");
+            /**/$signParams = array(    "oid"       => $params['inicis']['od_no'],
+            /**/                        "price"     => $req->price['total'],
+            /**/                        "timestamp" => $params['inicis']['timestamp'] );
+            /**/$params['inicis']['sign'] = $this->makeSignature($signParams, "sha256");
+            /************************** 이니시스 값 설정 End **************************/
+            
             $od_id = $this->order->insertGetId([
-                'od_no'            => $req->filled('od_no')            ? $req->od_no            : 0,
+                'od_no'            => $params['inicis']['od_no'],
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
@@ -142,11 +123,11 @@ class OrderController extends Controller {
                 'od_addr2'         => $req->filled('od_addr2')         ? $req->od_addr2         : '',
         	   	'od_memo'          => $req->filled('od_memo')          ? $req->od_memo          : '',
                 'od_pay_method'    => $req->filled('od_pay_method')    ? $req->od_pay_method    : 'C',
-                'od_sale_env'      => $sale_env,
+                'od_sale_env'      => $req->filled('sale_env')         ? $req->sale_env         : 'P',
                 'ip'               => $req->ip(),
                 'created_id'       => (auth()->check() ? auth()->user()->id : 0)
             ], 'od_id');
-
+            $params['od_id'] = $od_id;
             // if ($req->od_type == 'buy_estimate') {
             //     //  견적 주문일때 주문 정보 저장
             //     dd($req->all());
@@ -302,7 +283,7 @@ class OrderController extends Controller {
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
             // DB::commit();
-            return response()->json(["message"=>"success", "od_id"=>$od_id], 200);
+            return response()->json($params, 200);
         // } catch (Exception $e) {
         //     Log::debug("구매 트랜젝션 에러");
         //     Log::channel('4s_log')->alert($e->getMessage());

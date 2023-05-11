@@ -67,6 +67,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
@@ -443,14 +446,20 @@ var render = function () {
                             : _vm._e(),
                           _vm._v(" "),
                           ml.ml_type == "SP"
-                            ? _c(
-                                "b-badge",
-                                {
-                                  staticClass: "ml-3",
-                                  attrs: { variant: "warning" },
-                                },
-                                [_vm._v("상품권 구매")]
-                              )
+                            ? [
+                                ml.ml_tbl == "admin"
+                                  ? _c("b-badge", { staticClass: "ml-3" }, [
+                                      _vm._v("관리자 지급"),
+                                    ])
+                                  : _c(
+                                      "b-badge",
+                                      {
+                                        staticClass: "ml-3",
+                                        attrs: { variant: "warning" },
+                                      },
+                                      [_vm._v("상품권 구매")]
+                                    ),
+                              ]
                             : _vm._e(),
                           _vm._v(" "),
                           ml.expiration
@@ -464,7 +473,7 @@ var render = function () {
                               )
                             : _vm._e(),
                         ],
-                        1
+                        2
                       ),
                 ]),
                 _vm._v(" "),

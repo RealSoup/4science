@@ -298,14 +298,14 @@
         </Modal>
     </transition>
 
-    <form v-if="inicis.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
+    <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
         <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
         <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
         <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
         <b-form-input name="version" 	    value="1.0" />
         <b-form-input name="mid" 		    :value="inicis.mid" />
         <b-form-input name="goodname" 	    :value="order.od_name" />
-        <b-form-input name="oid" 		    :value="order.od_no" />
+        <b-form-input name="oid" 		    :value="inicis.od_no" />
         <b-form-input name="price" 		    :value="order.price.total" />
         <b-form-input name="currency" 	    value="WON" />
         <b-form-input name="timestamp" 	    :value="inicis.timestamp" />
@@ -316,10 +316,10 @@
         <b-form-input name="gopaymethod"    value="Card" />
         <b-form-input name="merchantData"   :value="order.od_id" />       
     </form>
-    <form v-else-if="inicis.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="euc-kr">
+    <form v-else-if="order.sale_env == 'M'" id="MobilePayForm" class="inicis_form" action="https://mobile.inicis.com/smart/payment/" method="post" accept-charset="euc-kr">
         <b-form-input name="P_INI_PAYMENT"   value="CARD" />
         <b-form-input name="P_MID"           :value="inicis.mid" />
-        <b-form-input name="P_OID"           :value="order.od_no" />
+        <b-form-input name="P_OID"           :value="inicis.od_no" />
         <b-form-input name="P_GOODS"         :value="order.od_name" />
         <b-form-input name="P_AMT"           :value="order.price.total" />
         <b-form-input name="P_UNAME"         :value="$store.state.auth.user.name" />
@@ -396,7 +396,6 @@ export default {
                 goods: this.$route.params.od_goods,
                 lists:{},
                 price:{},
-                od_no: "",
                 od_name: "",
                 od_er_id: this.$route.params.od_er_id,
 
@@ -450,6 +449,7 @@ export default {
                 privacy: 'Y',
                 check_terms: 'Y',
                 dlvy_air: 'N',
+                sale_env: '',
             },
             addr: [],
             addr_edit_index: 0,
@@ -505,6 +505,7 @@ export default {
                
                 let pay = await ax.post(`/api/shop/order/pay`, this.order);
                 if (pay && pay.status === 200) {
+                    this.inicis = pay.data.inicis;
                     if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
                         let frm = new FormData();
                         frm.append('fi_group', 'order');
@@ -517,9 +518,9 @@ export default {
 
                     if (this.order.od_pay_method == 'C') {
                         this.order.od_id = pay.data.od_id;
-                        if(this.inicis.sale_env == 'P') 
+                        if(this.order.sale_env == 'P') 
                             INIStdPay.pay('SendPayForm');
-                        else if(this.inicis.sale_env == 'M') {
+                        else if(this.order.sale_env == 'M') {
                             var form = document.createElement('form'); // 폼객체 생성
                             var objs01 = document.createElement('input'); 
                             var objs02 = document.createElement('input'); 
@@ -532,7 +533,7 @@ export default {
                             var objs09 = document.createElement('input');
                             objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                           form.appendChild(objs01);
                             objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);                  form.appendChild(objs02);
-                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.order.od_no);                 form.appendChild(objs03);
+                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);                 form.appendChild(objs03);
                             objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);               form.appendChild(objs04);
                             objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);           form.appendChild(objs05);
                             objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.$store.state.auth.user.name); form.appendChild(objs06);
@@ -723,11 +724,10 @@ export default {
             if (res && res.status === 200) {
                 this.order.lists = res.data.lists;
                 this.order.price = res.data.price;
-                this.order.od_no = res.data.od_no;
                 this.order.od_name = res.data.od_name;
                 this.config = res.data.config;
                 this.addr = res.data.addr;
-                this.inicis = res.data.inicis;
+                this.order.sale_env = res.data.sale_env;
                 this.set_orderer();
                 this.addr_choose(this.addr[0]);
             }

@@ -24,8 +24,11 @@
                     >
                         <b-icon-link45deg />주문 보기
                     </b-button>
-
-                    <b-badge v-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
+                    
+                    <template v-if="ml.ml_type=='SP'">
+                        <b-badge v-if="ml.ml_tbl == 'admin'" class="ml-3">관리자 지급</b-badge>
+                        <b-badge v-else variant="warning" class="ml-3">상품권 구매</b-badge>
+                    </template>
                     <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
                 </div>
             </b-col>

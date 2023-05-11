@@ -434,7 +434,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         goods: this.$route.params.od_goods,
         lists: {},
         price: {},
-        od_no: "",
         od_name: "",
         od_er_id: this.$route.params.od_er_id,
         od_type: this.$route.params.od_type,
@@ -482,7 +481,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         tCode: '',
         privacy: 'Y',
         check_terms: 'Y',
-        dlvy_air: 'N'
+        dlvy_air: 'N',
+        sale_env: ''
       },
       addr: [],
       addr_edit_index: 0,
@@ -537,7 +537,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.order.od_orderer_email = "".concat(_this.order.od_orderer_email_id, "@").concat(_this.order.od_orderer_email_domain);
 
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 36;
+                  _context.next = 37;
                   break;
                 }
 
@@ -574,12 +574,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 36;
+                  _context.next = 37;
                   break;
                 }
 
+                _this.inicis = pay.data.inicis;
+
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 29;
+                  _context.next = 30;
                   break;
                 }
 
@@ -589,17 +591,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_kind', 'biz');
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 29;
+                _context.next = 30;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 29:
+              case 30:
                 if (!(_this.order.od_pay_method == 'C')) {
-                  _context.next = 34;
+                  _context.next = 35;
                   break;
                 }
 
                 _this.order.od_id = pay.data.od_id;
-                if (_this.inicis.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.inicis.sale_env == 'M') {
+                if (_this.order.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.order.sale_env == 'M') {
                   form = document.createElement('form'); // 폼객체 생성
 
                   objs01 = document.createElement('input');
@@ -618,7 +620,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   objs02.setAttribute('value', _this.inicis.mid);
                   form.appendChild(objs02);
                   objs03.setAttribute('name', 'P_OID');
-                  objs03.setAttribute('value', _this.order.od_no);
+                  objs03.setAttribute('value', _this.inicis.od_no);
                   form.appendChild(objs03);
                   objs04.setAttribute('name', 'P_GOODS');
                   objs04.setAttribute('value', _this.order.od_name);
@@ -646,11 +648,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   document.body.appendChild(form);
                   form.submit();
                 }
-                _context.next = 36;
+                _context.next = 37;
                 break;
 
-              case 34:
-                _context.next = 36;
+              case 35:
+                _context.next = 37;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -658,7 +660,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 36:
+              case 37:
               case "end":
                 return _context.stop();
             }
@@ -1016,11 +1018,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (res && res.status === 200) {
                 _this2.order.lists = res.data.lists;
                 _this2.order.price = res.data.price;
-                _this2.order.od_no = res.data.od_no;
                 _this2.order.od_name = res.data.od_name;
                 _this2.config = res.data.config;
                 _this2.addr = res.data.addr;
-                _this2.inicis = res.data.inicis;
+                _this2.order.sale_env = res.data.sale_env;
 
                 _this2.set_orderer();
 
@@ -3054,7 +3055,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm.inicis.sale_env == "P"
+      _vm.order.sale_env == "P"
         ? _c(
             "form",
             {
@@ -3094,7 +3095,7 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: { name: "oid", value: _vm.order.od_no },
+                attrs: { name: "oid", value: _vm.inicis.od_no },
               }),
               _vm._v(" "),
               _c("b-form-input", {
@@ -3133,7 +3134,7 @@ var render = function () {
             ],
             1
           )
-        : _vm.inicis.sale_env == "M"
+        : _vm.order.sale_env == "M"
         ? _c(
             "form",
             {
@@ -3155,7 +3156,7 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: { name: "P_OID", value: _vm.order.od_no },
+                attrs: { name: "P_OID", value: _vm.inicis.od_no },
               }),
               _vm._v(" "),
               _c("b-form-input", {
