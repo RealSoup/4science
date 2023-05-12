@@ -23,7 +23,7 @@ mix.js('resources/js/app.js', 'public/js')
     ;
 
 
-mix.browserSync ( 'https://4science.net/');
+mix.browserSync ( 'https://dev.4science.net/');
 // mix.browserSync (process.env.APP_URL);
 // mix.disableNotifications();
 // mix.browserSync({
