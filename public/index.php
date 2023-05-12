@@ -1,5 +1,5 @@
 <?php
-
+// phpinfo(); exit;
 // if(!((isset($_SERVER["HTTP_X_FORWARDED_FOR"])&&$_SERVER["HTTP_X_FORWARDED_FOR"] == '125.132.234.16') || $_SERVER["HTTP_HOST"] == "127.0.0.1:8000")) {
 //     echo "<div style='text-align:center;'><img src='https://fourscience.s3.ap-northeast-2.amazonaws.com/common/no_access02.jpg' width='80%' /></div>";
 //     return false;

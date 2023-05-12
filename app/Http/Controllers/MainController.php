@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use DB;
 
 class MainController extends Controller {
-    public function index(Request $request) {     
+    public function index(Request $request) {
         $rst = Array();
         // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
         // dd(file_put_contents("xx.json", $json));

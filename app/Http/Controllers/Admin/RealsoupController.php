@@ -8,9 +8,20 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\ShowWindow;
 use App\Models\Shop\Goods;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class RealsoupController extends Controller {
     public function index(Request $req) {
+        // Redis::set('name',  '김진국'); // 10 Minutes
+        // $lists = Cache::rememberForever('list_cache', function(){
+        //     return auth()->user()->name;
+        // });
+
+dd(Redis::get('name'));
+
+        exit;
+
+
         $rst_er = DB::table('user_mileage')
             ->select('ml_id', 'ml_idx')
             ->where('ml_id', '<', 150189)
