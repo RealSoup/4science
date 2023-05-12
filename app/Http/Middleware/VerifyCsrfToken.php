@@ -28,7 +28,7 @@ class VerifyCsrfToken extends Middleware {
             // return response('', 403)
     		// 	->header('X-Inertia-Location', "1");
             // abort(404);
-            abort(403, '로그인 후 이메일에서 인증버튼은 다시 눌러주세요.');
+            abort(403, '가입시 등록한 이메일로 로그인 후 이메일에서 인증버튼은 다시 눌러주세요.');
         }
             // return response()->json("success", 201);
         /*  아래는 이전 소스, 위는 나의 추가 소스 */

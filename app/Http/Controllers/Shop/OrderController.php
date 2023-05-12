@@ -301,7 +301,8 @@ class OrderController extends Controller {
     }    
 
     public function getNew_od_no() {
-        return date("ymd").substr('000'.$this->order->Today()->count(), -4);
+        $today_cnt = DB::table('shop_order')->whereRaw('created_at > CURDATE()')->count();
+        return date("ymd").substr('000'.$today_cnt, -4);
     }
 
     public function pgClose () { echo '<script>parent.INIStdPay.viewOff();</script>'; }

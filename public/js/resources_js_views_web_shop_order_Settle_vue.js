@@ -3064,23 +3064,17 @@ var render = function () {
             },
             [
               _c("b-form-input", {
-                attrs: {
-                  name: "buyername",
-                  value: _vm.$store.state.auth.user.name,
-                },
+                attrs: { name: "buyername", value: _vm.order.od_orderer },
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: {
-                  name: "buyertel",
-                  value: _vm.$store.state.auth.user.hp,
-                },
+                attrs: { name: "buyertel", value: _vm.order.od_orderer_hp },
               }),
               _vm._v(" "),
               _c("b-form-input", {
                 attrs: {
                   name: "buyeremail",
-                  value: _vm.$store.state.auth.user.email,
+                  value: _vm.order.od_orderer_email,
                 },
               }),
               _vm._v(" "),

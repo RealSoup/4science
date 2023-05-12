@@ -299,9 +299,9 @@
     </transition>
 
     <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
-        <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
-        <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
-        <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
+        <b-form-input name="buyername" 	    :value="order.od_orderer" />
+        <b-form-input name="buyertel" 	    :value="order.od_orderer_hp" />
+        <b-form-input name="buyeremail" 	:value="order.od_orderer_email" />
         <b-form-input name="version" 	    value="1.0" />
         <b-form-input name="mid" 		    :value="inicis.mid" />
         <b-form-input name="goodname" 	    :value="order.od_name" />
