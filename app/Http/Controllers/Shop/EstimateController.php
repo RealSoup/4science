@@ -223,6 +223,7 @@ class EstimateController extends Controller {
     public function replyShow(EstimateReply $er, $er_id) {
         $data = $er->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($er_id);
         $data->estimateReq->fileInfo;
+        $data->estimateReq->user;
         if ($data->user)
             $data->user->userMng;
         $coll = array();

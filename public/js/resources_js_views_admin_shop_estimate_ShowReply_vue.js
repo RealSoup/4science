@@ -972,7 +972,11 @@ var render = function () {
               _c("div", { staticClass: "top_border" }),
               _vm._v(" "),
               _c("PaList", {
-                attrs: { price: _vm.frm.collect.price, add_vat: false },
+                attrs: {
+                  price: _vm.frm.collect.price,
+                  user: _vm.frm.estimate_req.user,
+                  add_vat: false,
+                },
                 model: {
                   value: _vm.frm.collect.lists,
                   callback: function ($$v) {

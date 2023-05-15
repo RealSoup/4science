@@ -1,20 +1,20 @@
 <template>
-    <b-container class="p_wrap">
-        <h3>
-            배송지 선택
-            <b-button variant="primary" size="sm" @click="create"><b-icon-plus-lg /></b-button>
-        </h3>
-        <b-row v-for="(addr, i) in address" :key="addr.ua_id">
-            <b-col @click="select_addr(i)">
-                {{addr.ua_title}} <b-badge v-if="addr.ua_def=='Y'" variant="primary">기본배송지</b-badge>
-            </b-col>
-            <b-col @click="select_addr(i)">{{addr.ua_addr1}}, {{addr.ua_addr2}}</b-col>
-            <b-col @click="select_addr(i)">{{addr.ua_hp}}</b-col>
-            <b-col @click="select_addr(i)">{{addr.ua_memo}}</b-col>
-            <b-button variant="outline-danger" size="sm" @click="destroy(i)" class="destroy">삭제</b-button>
-            <b-button variant="outline-primary" size="sm" @click="edit(i)" class="edit">수정</b-button>
-        </b-row>
-    </b-container>
+<b-container class="p_wrap">
+    <h3>
+        배송지 선택
+        <b-button variant="primary" size="sm" @click="create"><b-icon-plus-lg /></b-button>
+    </h3>
+    <b-row v-for="(addr, i) in address" :key="addr.ua_id">
+        <b-col @click="select_addr(i)">
+            {{addr.ua_title}} <b-badge v-if="addr.ua_def=='Y'" variant="primary">기본배송지</b-badge>
+        </b-col>
+        <b-col @click="select_addr(i)">{{addr.ua_addr1}}, {{addr.ua_addr2}}</b-col>
+        <b-col @click="select_addr(i)">{{addr.ua_hp}}</b-col>
+        <b-col @click="select_addr(i)">{{addr.ua_memo}}</b-col>
+        <b-button variant="outline-danger" size="sm" @click="destroy(i)" class="destroy">삭제</b-button>
+        <b-button variant="outline-primary" size="sm" @click="edit(i)" class="edit">수정</b-button>
+    </b-row>
+</b-container>
 </template>
 
 
@@ -56,8 +56,8 @@ export default {
 </script>
 
 <style scoped>
-.p_wrap { width:calc( 100% - 30px ); }
-.p_wrap h3 { margin-right:-30px; margin-left:-15px; }
+.p_wrap { width:calc( 100% - 30px ); padding: 20px;}
+.p_wrap h3 { margin-right:-15px; margin-left:-15px; }
 .p_wrap h3 button { float:right; }
 .row { border:1px solid #CCC; cursor:pointer; position:relative; }
 .row:not(:last-child) { border-bottom-width:0; }

@@ -121,10 +121,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
-  props: ['value', 'price', 'add_vat'],
+  props: ['value', 'price', 'user', 'add_vat'],
   data: function data() {
     return {};
   },
@@ -138,9 +137,11 @@ __webpack_require__.r(__webpack_exports__);
       }, 0);
     },
     sum_mileage: function sum_mileage() {
+      var _this = this;
+
       return Object.values(this.value).reduce(function (acc, el) {
         return acc + el.reduce(function (acc02, el02) {
-          return acc02 + el02.gain_mileage;
+          return acc02 + el02.price * el02.ea * _this.user.mileage_mul;
         }, 0);
       }, 0);
     }
@@ -404,11 +405,6 @@ var render = function () {
                           _c(
                             "b-col",
                             [
-                              _vm._v(
-                                "\r\n                        " +
-                                  _vm._s(_vm.add_vat) +
-                                  "\r\n                        "
-                              ),
                               _vm.add_vat
                                 ? [
                                     _vm._v(
@@ -469,7 +465,9 @@ var render = function () {
                                     "(" +
                                       _vm._s(
                                         _vm._f("comma")(
-                                          item.gain_mileage * item.ea
+                                          item.price *
+                                            _vm.user.mileage_mul *
+                                            item.ea
                                         )
                                       ) +
                                       "p 적립)"
@@ -551,7 +549,9 @@ var render = function () {
                                     "(" +
                                       _vm._s(
                                         _vm._f("comma")(
-                                          item.gain_mileage * item.ea
+                                          item.price *
+                                            _vm.user.mileage_mul *
+                                            item.ea
                                         )
                                       ) +
                                       "p 적립)"

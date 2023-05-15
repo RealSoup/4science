@@ -5,7 +5,7 @@
 
     <h4>01. 주문 상품 확인</h4>
 
-    <PaList v-model="order.lists" :price="order.price" :add_vat="true" />
+    <PaList v-model="order.lists" :price="order.price" :user="$store.state.auth.user" :add_vat="true" />
     
     <b-container class="st_bottom">
         <b-row>

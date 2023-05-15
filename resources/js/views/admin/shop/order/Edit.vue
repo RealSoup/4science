@@ -10,6 +10,7 @@
                     <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
                     <span>주문환경</span> <b>{{ od.od_sale_env | sale_env}}</b>
+                    <span>주문유형</span> <b>{{ od.order_config.type[od.od_type]}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
@@ -288,7 +289,7 @@
                     <th>카드종류</th><td>{{od.order_pg.pg_card_com}}</td>
                 </tr>
                 <tr>
-                    <th>결과메세제</th><td>{{od.order_pg.pg_msg}}</td>
+                    <th>결과메시지</th><td>{{od.order_pg.pg_msg}}</td>
                     <th>결제자</th><td>{{od.order_pg.pg_buyer_nm}}</td>
                 </tr>
             </table>
@@ -514,7 +515,7 @@ export default {
             }, 0);
         },
         sum_mileage () {
-            return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
+            return Math.round(this.od.od_gd_price * this.od.user.mileage_mul);
         },
     },
     filters: {

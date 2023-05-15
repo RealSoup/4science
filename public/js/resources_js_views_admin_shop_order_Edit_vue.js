@@ -474,6 +474,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 var dt = new Date();
@@ -541,7 +542,7 @@ var dt = new Date();
       }, 0);
     },
     sum_mileage: function sum_mileage() {
-      return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
+      return Math.round(this.od.od_gd_price * this.od.user.mileage_mul);
     }
   },
   filters: {
@@ -1435,6 +1436,12 @@ var render = function () {
                     _vm._v(" "),
                     _c("b", [
                       _vm._v(_vm._s(_vm._f("sale_env")(_vm.od.od_sale_env))),
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("주문유형")]),
+                    _vm._v(" "),
+                    _c("b", [
+                      _vm._v(_vm._s(_vm.od.order_config.type[_vm.od.od_type])),
                     ]),
                   ],
                   1
@@ -2651,7 +2658,7 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _c("th", [_vm._v("결과메세제")]),
+                    _c("th", [_vm._v("결과메시지")]),
                     _c("td", [_vm._v(_vm._s(_vm.od.order_pg.pg_msg))]),
                     _vm._v(" "),
                     _c("th", [_vm._v("결제자")]),

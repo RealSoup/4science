@@ -51,7 +51,7 @@ Vue.filter('formatDate', function (dt) {
 
 Vue.filter('comma', function (val) {
     if (val){
-        return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return String(Math.floor(val)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     } else {
         return 0;
     }

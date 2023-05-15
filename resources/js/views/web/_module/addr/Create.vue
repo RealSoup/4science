@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style scoped>
-.p_wrap { margin:0 -15px; }
+.p_wrap {  }
 .p_wrap h3 { margin-left:15px; }
 .row { justify-content:space-between; margin:15px; }
 </style>

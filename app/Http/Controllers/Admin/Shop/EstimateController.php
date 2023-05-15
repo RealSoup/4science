@@ -129,6 +129,7 @@ class EstimateController extends Controller {
         if ($req->filled('type') && $req->type=='reply') {
             $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($id);
             $data->estimateReq->fileInfo;
+            $data->estimateReq->user;
             if ($data->user)
 			    $data->user->userMng;
             $coll = array();

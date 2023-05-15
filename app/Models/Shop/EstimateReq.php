@@ -48,9 +48,10 @@ class EstimateReq extends Model {
     public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
     public function estimateReply() {   return $this->hasMany(EstimateReply::class, "er_eq_id"); }
     public function estimateReplyCplt() {   return $this->hasMany(EstimateReply::class, "er_eq_id")->Cplt(); }
-    public function estimateCustom() {   return $this->hasMany(EstimateCustom::class, "ec_eq_id"); }
+    public function estimateCustom() {  return $this->hasMany(EstimateCustom::class, "ec_eq_id"); }
     public function fileInfo() {        return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function mng()       {       return $this->belongsTo(User::class, 'eq_mng'); }
+    public function user()       {      return $this->belongsTo(User::class, 'created_id'); }
 
     public function scopeEqId($query, $id_arr=[0]) {
         // if ($id_arr->count() == 0) $id_arr = [0];

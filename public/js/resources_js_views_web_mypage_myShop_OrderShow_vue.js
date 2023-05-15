@@ -264,7 +264,7 @@ var dt = new Date();
       }, 0);
     },
     sum_mileage: function sum_mileage() {
-      return Math.round(this.od.od_gd_price * Auth.user().my_mileage_rate / 100);
+      return Math.round(this.od.od_gd_price * Auth.user().mileage_mul);
     }
   }),
   methods: {

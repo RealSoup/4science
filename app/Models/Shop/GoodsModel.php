@@ -10,14 +10,13 @@ class GoodsModel extends Model {
     protected $primaryKey = 'gm_id';
     protected $table = 'shop_goods_model';
     protected $fillable = ['gm_gd_id', 'gm_catno01', 'gm_catno02', 'gm_catno03', 'gm_name', 'gm_code', 'gm_spec', 'gm_unit', 'gm_enable', 'gm_price', 'gm_prime', 'created_id', 'updated_id', 'ip']; // 수정가능 필드 입력
-    protected $appends = ['gm_catno', 'gm_price_add_vat', 'gain_mileage'];
+    protected $appends = ['gm_catno', 'gm_price_add_vat'];
 
     public function goods() { return $this->belongsTo(Goods::class, 'gm_gd_id'); }
     public function bundleDc() { return $this->hasMany(BundleDc::class, "bd_gm_id"); }
 
     public function getGmCatnoAttribute() { return $this->gm_catno01.'-'.$this->gm_catno02.'-'.$this->gm_catno03; }
     public function getGmPriceAddVatAttribute() { return ($this->gm_price>0) ? intval($this->gm_price*1.1) : $this->gm_price; }
-    public function getGainMileageAttribute() { return round($this->gm_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
 
     public function scopeGd_id($query, int $gd_id) { return $query->where('gm_gd_id', $gd_id); }
     public function scopeGm_id($query, $gm_id) {

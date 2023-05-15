@@ -9,11 +9,10 @@ class GoodsOptionChild extends Model {
     protected $primaryKey = 'goc_id';
     protected $fillable = ['goc_go_id', 'goc_name', 'goc_price']; // 수정가능 필드 입력
     public $timestamps = false;
-    protected $appends = ['show', 'goc_price_add_vat', 'gain_mileage'];
+    protected $appends = ['show', 'goc_price_add_vat'];
 
     public function getShowAttribute() { return false; }
     public function getGocPriceAddVatAttribute() { return (int)($this->goc_price*1.1); }
-    public function getGainMileageAttribute() { return round($this->goc_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
 
     public function goodsOption() { return $this->belongsTo(GoodsOption::class, 'goc_go_id'); }
 

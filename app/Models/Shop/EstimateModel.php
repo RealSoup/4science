@@ -10,13 +10,12 @@ class EstimateModel extends Model {
     use HasFactory;
     protected $table = 'shop_estimate_model';
     protected $primaryKey = 'em_id';
-    protected $appends = ['em_check_opt', 'img_src', 'gain_mileage', 'dlvy_all_in'];
+    protected $appends = ['em_check_opt', 'img_src', 'dlvy_all_in'];
     protected $guarded = [];
     public $timestamps = false;
 
     public function getEmCheckOptAttribute() { return 'Y'; }
     public function getImgSrcAttribute() { return self::gdImgSrc(true)[0]; }
-    public function getGainMileageAttribute() { return round($this->em_price * (auth()->check() ? auth()->user()->my_mileage_rate / 100 : 0)); }
     public function getDlvyAllInAttribute() { return FALSE; }   //  관리자 견적응답 상세페이지 배송비 몰방 등록시 사용
     
     public function estimateAble() { return $this->morphTo(); }

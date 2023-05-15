@@ -170,7 +170,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     sum_mileage: function sum_mileage() {
       return Object.values(this.computedModel).reduce(function (acc, el) {
-        return acc + (el.ct_check_opt == 'Y' ? el.gain_mileage * el.ea : 0);
+        return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea * Auth.user().mileage_mul : 0);
       }, 0);
     },
     goodsDefault: function goodsDefault() {

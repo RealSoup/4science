@@ -191,7 +191,6 @@ class Goods extends Model {
                                         'mk_name'           => $em->em_maker,
                                         'price'             => $em->em_price,
                                         'price_add_vat'     => rrp($em->em_price),
-                                        'gain_mileage'      => $em->gain_mileage,
                                         'dlvy_at'           => $em->em_dlvy_at,
                                         'dlvy_all_in'       => false,
                                         'em_check_opt'      => true,];
@@ -208,8 +207,7 @@ class Goods extends Model {
                                             'go_name'       => $eo->eo_tit,
                                             'goc_name'      => $eo->eo_name,
                                             'price'         => $eo->eo_price,
-                                            'price_add_vat' => rrp($eo->eo_price),
-                                            'gain_mileage'  => $eo->gain_mileage, ];
+                                            'price_add_vat' => rrp($eo->eo_price), ];
                             $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
                         }
                     }
@@ -238,8 +236,7 @@ class Goods extends Model {
                                         'gm_unit'           => $gm->gm_unit,
                                         'mk_name'           => $gd->maker->mk_name,
                                         'price'             => $gm->gm_price,
-                                        'price_add_vat'     => $gm->gm_price_add_vat,
-                                        'gain_mileage'      => $gm->gain_mileage];
+                                        'price_add_vat'     => $gm->gm_price_add_vat,];
                         
                         if ($type == 'order') { //  주문은 주문 시점 가격을 가져온다
                             $tmpModel['price']= $d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price'];
@@ -272,7 +269,6 @@ class Goods extends Model {
                             'goc_name'      => $goc->goc_name,
                             'price'         => $goc->goc_price,
                             'price_add_vat' => $goc->goc_price_add_vat,
-                            'gain_mileage'  => $goc->gain_mileage,
                         ];
                         
                         if ($type == 'cart') {

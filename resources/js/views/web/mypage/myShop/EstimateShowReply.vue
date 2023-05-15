@@ -51,7 +51,7 @@
                                     <div>
                                         {{item.price*item.ea | comma}} 원
                                         <br />
-                                        <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                                        <span>({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)</span>
                                     </div>
                                 </b-col>
                             </template>
@@ -65,7 +65,7 @@
                                     <div>
                                         {{item.price*item.ea | comma}} 원
                                         <br />
-                                        <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                                        <span>({{item.price*reply.estimate_req.user.mileage_mul*item.ea | comma}}p 적립)</span>
                                     </div>
                                 </b-col>
                             </template>
@@ -239,13 +239,13 @@ export default {
                             }
 
                             collect[pa_id].goods += Number(em.price) * Number(em.ea);
-                            sum_mileage += em.gain_mileage;
+                            sum_mileage += em.price*this.reply.estimate_req.user.mileage_mul*em.ea;
                             is_model_check = true;
                         } else is_model_check = false;
                     }
                     if (em.type == 'option' && is_model_check) {
                         collect[pa_id].goods += Number(em.price) * Number(em.ea);
-                        sum_mileage += em.gain_mileage;
+                        sum_mileage += em.price*this.reply.estimate_req.user.mileage_mul*em.ea;
                     }
                 }
             }
@@ -350,7 +350,7 @@ h6 { font-size:1.15rem; font-weight:600; margin-top:2rem; padding-left:2rem; }
 
 .pa_list .row .col .row.option { background:#F4F1EC; }
 .pa_list .row .col .row .col { padding:.8rem 0; }
-.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:cover; }
+.pa_list .row .col .row .col img { width:119px; height:119px; object-fit:contain; }
 .pa_list .row .col .row .col p { margin-bottom:.2rem; }
 .pa_list .row .col .row .col:nth-of-type(2) { padding-left:1rem; }
 .pa_list .row .col .row .col:nth-of-type(2) p:nth-of-type(1){ font-weight:bold; margin-bottom:.8rem; color:#000; }

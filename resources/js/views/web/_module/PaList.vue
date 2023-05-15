@@ -26,7 +26,6 @@
                     </b-col>
                     <b-col class="m_hide">{{item.mk_name}}</b-col>
                     <b-col>
-                        {{add_vat}}
                         <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
                         <template v-else>{{item.price | comma | won}}</template>
                     </b-col>
@@ -36,7 +35,7 @@
                             <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                             <template v-else>{{item.price*item.ea | comma | won}}</template>
                             <br class="m_hide" />
-                            <span class="m_hide">({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                            <span class="m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
                 </template>
@@ -54,7 +53,7 @@
                             <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                             <template v-else>{{item.price*item.ea | comma | won}}</template>
                             <br />
-                            <span>({{item.gain_mileage*item.ea | comma}}p 적립)</span>
+                            <span>({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
                 </template>
@@ -112,7 +111,7 @@
 <script>
 export default { 
     name: 'PaList', 
-    props: ['value', 'price', 'add_vat'],
+    props: ['value', 'price', 'user', 'add_vat'],
     data() {
         return {
             
@@ -130,7 +129,7 @@ export default {
         sum_mileage () {
             return Object.values(this.value).reduce((acc, el) => {
                 return acc + el.reduce((acc02, el02) => {
-                    return acc02 + el02.gain_mileage;
+                    return acc02 + (el02.price*el02.ea*this.user.mileage_mul);
                 }, 0)
             }, 0);
         },

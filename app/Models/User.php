@@ -14,7 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     protected $guarded = [];
     protected $hidden = [ 'password' ];
-    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'my_mileage_rate', 'hp01', 'hp02', 'hp03'];
+    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'mileage_mul', 'hp01', 'hp02', 'hp03'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     public static $option = [
         'group' => [    '1' => '일반',
@@ -103,9 +103,10 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getIsAdminAttribute() { return $this->level > 20 ? true : false; }
     public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }
     public function getIsDealerAttribute() { return ($this->level > 10 && $this->level < 20) ? true : false; }
-    public function getMyMileageRateAttribute() {
+    public function getMileageMulAttribute() {
         $lv = $this->level>4?4:$this->level;
-        return $lv < 2 ? 0 : $this->mileage_rate[$lv]; 
+        $rate = $lv < 2 ? 0 : $this->mileage_rate[$lv];
+        return $rate/100; 
     }
     public function getHp01Attribute() { return count(explode('-', $this->hp))>0 ? explode('-', $this->hp)[0] : ''; }
     public function getHp02Attribute() { return count(explode('-', $this->hp))>1 ? explode('-', $this->hp)[1] : ''; }

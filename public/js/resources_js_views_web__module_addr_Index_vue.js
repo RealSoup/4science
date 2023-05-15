@@ -145,7 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-60f8121c] { width:calc( 100% - 30px );\n}\n.p_wrap h3[data-v-60f8121c] { margin-right:-30px; margin-left:-15px;\n}\n.p_wrap h3 button[data-v-60f8121c] { float:right;\n}\n.row[data-v-60f8121c] { border:1px solid #CCC; cursor:pointer; position:relative;\n}\n.row[data-v-60f8121c]:not(:last-child) { border-bottom-width:0;\n}\n.row[data-v-60f8121c]:hover { background:#20613722;\n}\n.row .col[data-v-60f8121c] { flex-basis:100%; padding:.1rem 1.5rem;\n}\n.row:first-of-type .col[data-v-60f8121c]:first-of-type { padding-top:.6rem;\n}\n.row:last-of-type .col[data-v-60f8121c]:last-of-type { padding-bottom:.6rem;\n}\n.row .col[data-v-60f8121c]:nth-of-type(1) { font-weight:bold;\n}\n.row .col div[data-v-60f8121c] { float:right;\n}\n.row button[data-v-60f8121c] { position:absolute; top:4px; padding:0 .2rem;\n}\n.row button.destroy[data-v-60f8121c]  { right:55px;\n}\n.row button.edit[data-v-60f8121c] { right:13px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-60f8121c] { width:calc( 100% - 30px ); padding: 20px;}\n.p_wrap h3[data-v-60f8121c] { margin-right:-15px; margin-left:-15px;\n}\n.p_wrap h3 button[data-v-60f8121c] { float:right;\n}\n.row[data-v-60f8121c] { border:1px solid #CCC; cursor:pointer; position:relative;\n}\n.row[data-v-60f8121c]:not(:last-child) { border-bottom-width:0;\n}\n.row[data-v-60f8121c]:hover { background:#20613722;\n}\n.row .col[data-v-60f8121c] { flex-basis:100%; padding:.1rem 1.5rem;\n}\n.row:first-of-type .col[data-v-60f8121c]:first-of-type { padding-top:.6rem;\n}\n.row:last-of-type .col[data-v-60f8121c]:last-of-type { padding-bottom:.6rem;\n}\n.row .col[data-v-60f8121c]:nth-of-type(1) { font-weight:bold;\n}\n.row .col div[data-v-60f8121c] { float:right;\n}\n.row button[data-v-60f8121c] { position:absolute; top:4px; padding:0 .2rem;\n}\n.row button.destroy[data-v-60f8121c]  { right:55px;\n}\n.row button.edit[data-v-60f8121c] { right:13px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -286,7 +286,7 @@ var render = function () {
       _c(
         "h3",
         [
-          _vm._v("\n        배송지 선택\n        "),
+          _vm._v("\r\n        배송지 선택\r\n        "),
           _c(
             "b-button",
             {
@@ -315,7 +315,7 @@ var render = function () {
                 },
               },
               [
-                _vm._v("\n            " + _vm._s(addr.ua_title) + " "),
+                _vm._v("\r\n            " + _vm._s(addr.ua_title) + " "),
                 addr.ua_def == "Y"
                   ? _c("b-badge", { attrs: { variant: "primary" } }, [
                       _vm._v("기본배송지"),
