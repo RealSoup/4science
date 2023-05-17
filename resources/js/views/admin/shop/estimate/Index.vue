@@ -157,7 +157,7 @@ export default {
 	},
     methods: {
         routerPush(){
-            this.sch_frm.page = p;
+            this.sch_frm.page = 1;
             this.$router.push({name: 'adm_estimate_index', query: this.sch_frm }).catch(()=>{});
         },
         pageSet(p){
