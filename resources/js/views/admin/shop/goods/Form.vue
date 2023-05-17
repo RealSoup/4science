@@ -43,7 +43,9 @@
                     <span v-if="ca.gc_ca03">{{ca.gc_ca03_name}}</span>
                     <b-icon-chevron-right v-if="ca.gc_ca04" />
                     <span v-if="ca.gc_ca04">{{ca.gc_ca04_name}}</span>
-                    <b-button pill size="sm" variant="danger" @click="removeCate(i)"><b-icon-trash-fill /></b-button>                    
+                    <b-form-checkbox size="lg" v-model="ca.gc_prime" value="Y" unchecked-value="N" class="ml-5" @change="gc_prime(i)">대표</b-form-checkbox>
+                    <b-icon-slash-lg />
+                    <b-button pill size="sm" variant="danger" @click="removeCate(i)"><b-icon-trash-fill /></b-button>      
                 </b-col>
             </b-row>
             <Validation :error="$store.state.error.validations.goods_category" />
@@ -343,8 +345,17 @@ export default {
                 if (!isEmpty(this.ca02)) { ca.gc_ca02 = this.ca02.ca_id; ca.gc_ca02_name = this.ca02.ca_name; }
                 if (!isEmpty(this.ca03)) { ca.gc_ca03 = this.ca03.ca_id; ca.gc_ca03_name = this.ca03.ca_name; }
                 if (!isEmpty(this.ca04)) { ca.gc_ca04 = this.ca04.ca_id; ca.gc_ca04_name = this.ca04.ca_name; }
+                if ( this.value.goods_category.length == 0 )    ca.gc_prime = 'Y';
+                else    ca.gc_prime = 'N';
                 this.value.goods_category.push(ca);
                 this.ca01 = this.ca02 = this.ca03 = this.ca04 = 0;
+            }
+        },
+        gc_prime(i) {
+            if(this.value.goods_category[i].gc_prime == 'Y') {
+                for (var j in this.value.goods_category)
+                    if(i != j)
+                        this.value.goods_category[j].gc_prime='N';
             }
         },
         async removeCate(i) {
@@ -416,7 +427,7 @@ export default {
             const tag = { hs_id: 0, hs_tag: newTag };
             this.value.hash_join.push(tag);
             this.hashs.push(tag);
-        }
+        },
     },
     mounted() { this.getCate(0); },
 }
@@ -430,7 +441,7 @@ export default {
 .cate .selecter div:first-child { display:flex; flex-wrap:wrap; padding:0; }
 .cate .selected:not(:last-child) { border-bottom: 1px solid #ccc; }
 .cate .selected .col { display:flex; align-items:center; padding:.5rem; }
-.cate .selected .col .btn { padding:0 3px; margin-left:2rem; }
+.cate .selected .col .btn { padding:0 3px; }
 .cate .selected .col>svg { margin:0 1rem; font-size:1.5rem; color:#000; }
 
 

@@ -17,28 +17,28 @@
                     <b-col>
                         <h5>카테고리</h5>
                         <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
-                        <p v-for="(ca, i) in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
+                        <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
                             {{ca.name}} <span>{{ca.cnt}}</span>
                         </p>
                     </b-col>
                     
                     <b-col>
                         <h5>중분류</h5>
-                        <p v-for="(ca, i) in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
+                        <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
                             {{ca.name}} <span>{{ca.cnt}}</span>
                         </p>
                     </b-col>
                     
                     <b-col>
                         <h5>소분류</h5>
-                        <p v-for="(ca, i) in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
+                        <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
                             {{ca.name}} <span>{{ca.cnt}}</span>
                         </p>
                     </b-col>
                     
                     <b-col>
                         <h5>제조사</h5>
-                        <p v-for="(mk, i) in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
+                        <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
                             {{mk.name}} <span>{{mk.cnt}}</span>
                         </p>
                     </b-col>
@@ -59,10 +59,10 @@
                             router-tag="li"
                         >   
                             <div>
-                                <img :src="gd.image_src_thumb[0]" />
+                                <img :src="gd.goods.image_src_thumb[0]" />
                             </div>
                             <p class="tit">{{gd.gd_name}}</p>
-                            <p class="pri">{{gd.gm_price_add_vat | comma | price_zero | won}}</p>
+                            <p class="pri">{{gd.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</p>
                         </b-link>
                     </b-row>
                 </b-col>
@@ -88,17 +88,17 @@
                             <b-col class="m_hide">제조사</b-col>
                         </b-row>
                         <template v-if="list.data && list.data.length">
-                            <b-row v-for="(row, idx) in list.data" :key="row.gd_id" class="lbody">
+                            <b-row v-for="row in list.data" :key="row.gd_id" class="lbody">
                                 <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" router-tag="div" class="col link">
-                                    <img :src="row.image_src_thumb[0]" />
+                                    <img :src="row.goods.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
-                                        <span> {{row.gm_code}} / {{row.gm_spec}} / {{row.gm_unit}}</span>
-                                        <i>가격 : {{row.gm_price_add_vat | comma | price_zero}}</i>
+                                        <span> {{row.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
+                                        <i>가격 : {{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</i>
                                     </p>
                                 </b-link>
                                 <b-col class="price m_hide">
-                                    {{row.gm_price_add_vat | comma | price_zero | won}} 
+                                    {{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}} 
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>

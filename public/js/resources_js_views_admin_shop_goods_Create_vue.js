@@ -829,6 +829,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -980,8 +982,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           ca.gc_ca04_name = this.ca04.ca_name;
         }
 
+        if (this.value.goods_category.length == 0) ca.gc_prime = 'Y';else ca.gc_prime = 'N';
         this.value.goods_category.push(ca);
         this.ca01 = this.ca02 = this.ca03 = this.ca04 = 0;
+      }
+    },
+    gc_prime: function gc_prime(i) {
+      if (this.value.goods_category[i].gc_prime == 'Y') {
+        for (var j in this.value.goods_category) {
+          if (i != j) this.value.goods_category[j].gc_prime = 'N';
+        }
       }
     },
     removeCate: function removeCate(i) {
@@ -1306,7 +1316,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cate .selecter[data-v-311c4b87] { border-bottom:2px solid #000; padding-bottom:1rem; margin-bottom:1rem;\n}\n.cate .selecter div[data-v-311c4b87]:first-child { display:flex; flex-wrap:wrap; padding:0;\n}\n.cate .selected[data-v-311c4b87]:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.cate .selected .col[data-v-311c4b87] { display:flex; align-items:center; padding:.5rem;\n}\n.cate .selected .col .btn[data-v-311c4b87] { padding:0 3px; margin-left:2rem;\n}\n.cate .selected .col>svg[data-v-311c4b87] { margin:0 1rem; font-size:1.5rem; color:#000;\n}\n.model .head .col[data-v-311c4b87] { text-align:center;\n}\n.model .row .col .bundle_box[data-v-311c4b87] { position:absolute; top:2rem; right:0; width:300px; margin-top:.5rem; z-index:1;\n}\n.model .row .col .bundle_box .card[data-v-311c4b87] { margin-top:0;\n}\n.model .row .col .bundle_box .card header button[data-v-311c4b87] { padding-top: 0.1rem; padding-bottom: 0.1rem; float:right;\n}\n.model .row .col.ctrlBox[data-v-311c4b87] { text-align:right;\n}\n.model .row .col.ctrlBox button[data-v-311c4b87] { padding-left:.4rem; padding-right:.4rem;\n}\n.option.adform .row .label[data-v-311c4b87] { flex:0 0 12%; max-width:12%;\n}\n.option.adform .row .label + .type04[data-v-311c4b87] { flex: 0 0 29.666667%; max-width:29.666667%;\n}\n.option.adform .row .label + .type05[data-v-311c4b87] { flex: 0 0 38%; max-width:38%;\n}\n.option.adform .row .col .btn-xm[data-v-311c4b87] { padding:.1rem .2rem; font-size: 0.7rem;\n}\n.option .head>div[data-v-311c4b87] { text-align:center;\n}\n.option .body[data-v-311c4b87] { align-items: flex-start !important;\n}\n.option .body>.col:first-child span[data-v-311c4b87] { color:#dc3545; cursor:pointer;\n}\n.option .body>.col:first-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n.option .body>.col .row .col[data-v-311c4b87] { padding-top:0;\n}\n.option .body>.col .row .col:last-child span[data-v-311c4b87] { cursor:pointer;\n}\n.option .body>.col .row .col:last-child span.add[data-v-311c4b87] { color:#17a2b8;\n}\n.option .body>.col .row .col:last-child span.del[data-v-311c4b87] { color:#dc3545;\n}\n.option .body>.col .row .col:last-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cate .selecter[data-v-311c4b87] { border-bottom:2px solid #000; padding-bottom:1rem; margin-bottom:1rem;\n}\n.cate .selecter div[data-v-311c4b87]:first-child { display:flex; flex-wrap:wrap; padding:0;\n}\n.cate .selected[data-v-311c4b87]:not(:last-child) { border-bottom: 1px solid #ccc;\n}\n.cate .selected .col[data-v-311c4b87] { display:flex; align-items:center; padding:.5rem;\n}\n.cate .selected .col .btn[data-v-311c4b87] { padding:0 3px;\n}\n.cate .selected .col>svg[data-v-311c4b87] { margin:0 1rem; font-size:1.5rem; color:#000;\n}\n.model .head .col[data-v-311c4b87] { text-align:center;\n}\n.model .row .col .bundle_box[data-v-311c4b87] { position:absolute; top:2rem; right:0; width:300px; margin-top:.5rem; z-index:1;\n}\n.model .row .col .bundle_box .card[data-v-311c4b87] { margin-top:0;\n}\n.model .row .col .bundle_box .card header button[data-v-311c4b87] { padding-top: 0.1rem; padding-bottom: 0.1rem; float:right;\n}\n.model .row .col.ctrlBox[data-v-311c4b87] { text-align:right;\n}\n.model .row .col.ctrlBox button[data-v-311c4b87] { padding-left:.4rem; padding-right:.4rem;\n}\n.option.adform .row .label[data-v-311c4b87] { flex:0 0 12%; max-width:12%;\n}\n.option.adform .row .label + .type04[data-v-311c4b87] { flex: 0 0 29.666667%; max-width:29.666667%;\n}\n.option.adform .row .label + .type05[data-v-311c4b87] { flex: 0 0 38%; max-width:38%;\n}\n.option.adform .row .col .btn-xm[data-v-311c4b87] { padding:.1rem .2rem; font-size: 0.7rem;\n}\n.option .head>div[data-v-311c4b87] { text-align:center;\n}\n.option .body[data-v-311c4b87] { align-items: flex-start !important;\n}\n.option .body>.col:first-child span[data-v-311c4b87] { color:#dc3545; cursor:pointer;\n}\n.option .body>.col:first-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\n.option .body>.col .row .col[data-v-311c4b87] { padding-top:0;\n}\n.option .body>.col .row .col:last-child span[data-v-311c4b87] { cursor:pointer;\n}\n.option .body>.col .row .col:last-child span.add[data-v-311c4b87] { color:#17a2b8;\n}\n.option .body>.col .row .col:last-child span.del[data-v-311c4b87] { color:#dc3545;\n}\n.option .body>.col .row .col:last-child input[data-v-311c4b87] { width:calc(100% - 22px); display:inline-block;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6117,6 +6127,33 @@ var render = function () {
                         ca.gc_ca04
                           ? _c("span", [_vm._v(_vm._s(ca.gc_ca04_name))])
                           : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "b-form-checkbox",
+                          {
+                            staticClass: "ml-5",
+                            attrs: {
+                              size: "lg",
+                              value: "Y",
+                              "unchecked-value": "N",
+                            },
+                            on: {
+                              change: function ($event) {
+                                return _vm.gc_prime(i)
+                              },
+                            },
+                            model: {
+                              value: ca.gc_prime,
+                              callback: function ($$v) {
+                                _vm.$set(ca, "gc_prime", $$v)
+                              },
+                              expression: "ca.gc_prime",
+                            },
+                          },
+                          [_vm._v("대표")]
+                        ),
+                        _vm._v(" "),
+                        _c("b-icon-slash-lg"),
                         _vm._v(" "),
                         _c(
                           "b-button",

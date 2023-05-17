@@ -408,35 +408,32 @@ var render = function () {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._l(
-                                  _vm.sch_cate_info.ca01,
-                                  function (ca, i) {
-                                    return _c(
-                                      "p",
-                                      {
-                                        key: ca.key,
-                                        class: { chk: _vm.frm.ca01 == ca.key },
-                                        on: {
-                                          click: function ($event) {
-                                            ;(_vm.frm.ca01 = ca.key),
-                                              (_vm.frm.ca02 = 0),
-                                              (_vm.frm.ca03 = 0),
-                                              (_vm.frm.mk_id = 0),
-                                              _vm.routerPush()
-                                          },
+                                _vm._l(_vm.sch_cate_info.ca01, function (ca) {
+                                  return _c(
+                                    "p",
+                                    {
+                                      key: ca.key,
+                                      class: { chk: _vm.frm.ca01 == ca.key },
+                                      on: {
+                                        click: function ($event) {
+                                          ;(_vm.frm.ca01 = ca.key),
+                                            (_vm.frm.ca02 = 0),
+                                            (_vm.frm.ca03 = 0),
+                                            (_vm.frm.mk_id = 0),
+                                            _vm.routerPush()
                                         },
                                       },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(ca.name) +
-                                            " "
-                                        ),
-                                        _c("span", [_vm._v(_vm._s(ca.cnt))]),
-                                      ]
-                                    )
-                                  }
-                                ),
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\r\n                            " +
+                                          _vm._s(ca.name) +
+                                          " "
+                                      ),
+                                      _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                                    ]
+                                  )
+                                }),
                               ],
                               2
                             ),
@@ -446,34 +443,31 @@ var render = function () {
                               [
                                 _c("h5", [_vm._v("중분류")]),
                                 _vm._v(" "),
-                                _vm._l(
-                                  _vm.sch_cate_info.ca02,
-                                  function (ca, i) {
-                                    return _c(
-                                      "p",
-                                      {
-                                        key: ca.key,
-                                        class: { chk: _vm.frm.ca02 == ca.key },
-                                        on: {
-                                          click: function ($event) {
-                                            ;(_vm.frm.ca02 = ca.key),
-                                              (_vm.frm.ca03 = 0),
-                                              (_vm.frm.mk_id = 0),
-                                              _vm.routerPush()
-                                          },
+                                _vm._l(_vm.sch_cate_info.ca02, function (ca) {
+                                  return _c(
+                                    "p",
+                                    {
+                                      key: ca.key,
+                                      class: { chk: _vm.frm.ca02 == ca.key },
+                                      on: {
+                                        click: function ($event) {
+                                          ;(_vm.frm.ca02 = ca.key),
+                                            (_vm.frm.ca03 = 0),
+                                            (_vm.frm.mk_id = 0),
+                                            _vm.routerPush()
                                         },
                                       },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(ca.name) +
-                                            " "
-                                        ),
-                                        _c("span", [_vm._v(_vm._s(ca.cnt))]),
-                                      ]
-                                    )
-                                  }
-                                ),
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\r\n                            " +
+                                          _vm._s(ca.name) +
+                                          " "
+                                      ),
+                                      _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                                    ]
+                                  )
+                                }),
                               ],
                               2
                             ),
@@ -483,33 +477,30 @@ var render = function () {
                               [
                                 _c("h5", [_vm._v("소분류")]),
                                 _vm._v(" "),
-                                _vm._l(
-                                  _vm.sch_cate_info.ca03,
-                                  function (ca, i) {
-                                    return _c(
-                                      "p",
-                                      {
-                                        key: ca.key,
-                                        class: { chk: _vm.frm.ca03 == ca.key },
-                                        on: {
-                                          click: function ($event) {
-                                            ;(_vm.frm.ca03 = ca.key),
-                                              (_vm.frm.mk_id = 0),
-                                              _vm.routerPush()
-                                          },
+                                _vm._l(_vm.sch_cate_info.ca03, function (ca) {
+                                  return _c(
+                                    "p",
+                                    {
+                                      key: ca.key,
+                                      class: { chk: _vm.frm.ca03 == ca.key },
+                                      on: {
+                                        click: function ($event) {
+                                          ;(_vm.frm.ca03 = ca.key),
+                                            (_vm.frm.mk_id = 0),
+                                            _vm.routerPush()
                                         },
                                       },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(ca.name) +
-                                            " "
-                                        ),
-                                        _c("span", [_vm._v(_vm._s(ca.cnt))]),
-                                      ]
-                                    )
-                                  }
-                                ),
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\r\n                            " +
+                                          _vm._s(ca.name) +
+                                          " "
+                                      ),
+                                      _c("span", [_vm._v(_vm._s(ca.cnt))]),
+                                    ]
+                                  )
+                                }),
                               ],
                               2
                             ),
@@ -519,32 +510,29 @@ var render = function () {
                               [
                                 _c("h5", [_vm._v("제조사")]),
                                 _vm._v(" "),
-                                _vm._l(
-                                  _vm.sch_cate_info.maker,
-                                  function (mk, i) {
-                                    return _c(
-                                      "p",
-                                      {
-                                        key: mk.key,
-                                        class: { chk: _vm.frm.mk_id == mk.key },
-                                        on: {
-                                          click: function ($event) {
-                                            ;(_vm.frm.mk_id = mk.key),
-                                              _vm.routerPush()
-                                          },
+                                _vm._l(_vm.sch_cate_info.maker, function (mk) {
+                                  return _c(
+                                    "p",
+                                    {
+                                      key: mk.key,
+                                      class: { chk: _vm.frm.mk_id == mk.key },
+                                      on: {
+                                        click: function ($event) {
+                                          ;(_vm.frm.mk_id = mk.key),
+                                            _vm.routerPush()
                                         },
                                       },
-                                      [
-                                        _vm._v(
-                                          "\r\n                            " +
-                                            _vm._s(mk.name) +
-                                            " "
-                                        ),
-                                        _c("span", [_vm._v(_vm._s(mk.cnt))]),
-                                      ]
-                                    )
-                                  }
-                                ),
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\r\n                            " +
+                                          _vm._s(mk.name) +
+                                          " "
+                                      ),
+                                      _c("span", [_vm._v(_vm._s(mk.cnt))]),
+                                    ]
+                                  )
+                                }),
                               ],
                               2
                             ),
@@ -609,7 +597,7 @@ var render = function () {
                               [
                                 _c("div", [
                                   _c("img", {
-                                    attrs: { src: gd.image_src_thumb[0] },
+                                    attrs: { src: gd.goods.image_src_thumb[0] },
                                   }),
                                 ]),
                                 _vm._v(" "),
@@ -622,7 +610,10 @@ var render = function () {
                                     _vm._s(
                                       _vm._f("won")(
                                         _vm._f("price_zero")(
-                                          _vm._f("comma")(gd.gm_price_add_vat)
+                                          _vm._f("comma")(
+                                            gd.goods_model_prime
+                                              .gm_price_add_vat
+                                          )
                                         )
                                       )
                                     )
@@ -731,7 +722,7 @@ var render = function () {
                             ),
                             _vm._v(" "),
                             _vm.list.data && _vm.list.data.length
-                              ? _vm._l(_vm.list.data, function (row, idx) {
+                              ? _vm._l(_vm.list.data, function (row) {
                                   return _c(
                                     "b-row",
                                     { key: row.gd_id, staticClass: "lbody" },
@@ -751,7 +742,7 @@ var render = function () {
                                         [
                                           _c("img", {
                                             attrs: {
-                                              src: row.image_src_thumb[0],
+                                              src: row.goods.image_src_thumb[0],
                                             },
                                           }),
                                           _vm._v(" "),
@@ -765,9 +756,15 @@ var render = function () {
                                                 " " +
                                                   _vm._s(row.gm_code) +
                                                   " / " +
-                                                  _vm._s(row.gm_spec) +
+                                                  _vm._s(
+                                                    row.goods_model_prime
+                                                      .gm_spec
+                                                  ) +
                                                   " / " +
-                                                  _vm._s(row.gm_unit)
+                                                  _vm._s(
+                                                    row.goods_model_prime
+                                                      .gm_unit
+                                                  )
                                               ),
                                             ]),
                                             _vm._v(" "),
@@ -777,7 +774,8 @@ var render = function () {
                                                   _vm._s(
                                                     _vm._f("price_zero")(
                                                       _vm._f("comma")(
-                                                        row.gm_price_add_vat
+                                                        row.goods_model_prime
+                                                          .gm_price_add_vat
                                                       )
                                                     )
                                                   )
@@ -797,7 +795,8 @@ var render = function () {
                                                 _vm._f("won")(
                                                   _vm._f("price_zero")(
                                                     _vm._f("comma")(
-                                                      row.gm_price_add_vat
+                                                      row.goods_model_prime
+                                                        .gm_price_add_vat
                                                     )
                                                   )
                                                 )

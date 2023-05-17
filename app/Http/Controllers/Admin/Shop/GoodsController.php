@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, BundleDc, Maker, Hash, HashJoin, GoodsOption, GoodsOptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, Hash, HashJoin, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -154,14 +154,20 @@ class GoodsController extends Controller {
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
+        $cate_ist_info = [];
         foreach ($req->goods_category as $gc) {
+            $istArr=[];
             $istArr['gc_gd_id'] = $goods->gd_id;
+            $istArr['gc_prime'] = $gc['gc_prime'];
             $istArr['gc_ca01'] = $gc['gc_ca01'];
             $istArr['gc_ca01_name'] = $gc['gc_ca01_name'];
             if(count($gc) > 3) { $istArr['gc_ca02'] = $gc['gc_ca02']; $istArr['gc_ca02_name'] = $gc['gc_ca02_name']; }
             if(count($gc) > 5) { $istArr['gc_ca03'] = $gc['gc_ca03']; $istArr['gc_ca03_name'] = $gc['gc_ca03_name']; }
             if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }
-            DB::table('shop_goods_category')->insert($istArr);
+            $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
+            $istArr['gc_id'] = $ist_gc_id;
+            $cate_ist_info[] = $istArr;
+            unset($istArr);
         }
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
@@ -181,6 +187,14 @@ class GoodsController extends Controller {
                     $this->bd->insert(Arr::collapse([$bd_impl, ['created_id'=>auth()->user()->id, 'ip' => $req->ip()]]));
                 }
             }
+
+            //  검색 테이블 insert
+            foreach ($cate_ist_info as $v) {                
+                $goods->gd_mk_name = $req->gd_mk_name;
+                $gm_impl['gm_id'] = $ist_gm_id;
+                DB::table('shop_goods_search')->insert($this->search_paramImplant($goods, $v, $gm_impl));
+            }
+            //  검색 테이블 insert
         }
 
         foreach ($req->goods_option as $go) {
@@ -207,16 +221,24 @@ class GoodsController extends Controller {
 	   	$gd_rst = $goods->save();
 
         //  카테고리 추가
-        foreach ($req->goods_category as $gc) {
+        $cate_ist_info = [];
+        foreach ($req->goods_category as $k => $gc) {
+            $ist_gc_id = 0;
+            $istArr=[];
             if (!array_key_exists('gc_id', $gc)) {
                 $istArr['gc_gd_id'] = $gd_id;
+                $istArr['gc_prime'] = $gc['gc_prime'];
                 $istArr['gc_ca01'] = $gc['gc_ca01'];
                 $istArr['gc_ca01_name'] = $gc['gc_ca01_name'];
                 if(count($gc) > 3) { $istArr['gc_ca02'] = $gc['gc_ca02']; $istArr['gc_ca02_name'] = $gc['gc_ca02_name']; }
                 if(count($gc) > 5) { $istArr['gc_ca03'] = $gc['gc_ca03']; $istArr['gc_ca03_name'] = $gc['gc_ca03_name']; }
-                if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }
-                DB::table('shop_goods_category')->insert($istArr);
+                if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }                
+                $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
             }
+            if($ist_gc_id != 0)
+                $gc['gc_id'] = $ist_gc_id;
+            $cate_ist_info[] = $gc;
+            unset($istArr);
         }
 
         if ($req->filled('delete_goods_category')) {    //  카테고리 삭제
@@ -249,8 +271,12 @@ class GoodsController extends Controller {
         } else {
             $cat[0] = $req->goods_category[0]['gc_ca01'];
             $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
+            $cat[1] = substr("00000".$cat[1], -6);
             $cat[2] = 0;
         }
+
+        //  검색 테이블 삭제했다가 다시 밀어넣기
+        DB::table('shop_goods_search')->where('gd_id', $gd_id)->delete();
         foreach ($req->goods_model as $gm) {
             $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm);
             $gm_impl_add = array();
@@ -274,6 +300,13 @@ class GoodsController extends Controller {
                     $this->bd->updateOrCreate(['bd_id' => $bd['bd_id']], $bd_impl);                    
                 }
             }
+
+            //  검색 테이블        
+            foreach ($cate_ist_info as $gc) {
+                $goods->gd_mk_name = $req->gd_mk_name;
+                DB::table('shop_goods_search')->insert($this->search_paramImplant($goods, $gc, $udt_gm));
+            }
+            //  검색 테이블
         }        
 
         if ($req->filled('delete_bundle_dc')) {    //  묶음할인 삭제
@@ -368,6 +401,8 @@ class GoodsController extends Controller {
         // }
         // DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
         DB::table('shop_goods')->where('gd_id', $id)->update(['deleted_at' => \Carbon\Carbon::now()]);
+        //  검색 테이블
+        DB::table('shop_goods_search')->where('gd_id', $id)->delete();
     }
 
     public function hashStore($hash_join, $gd_id){
@@ -418,6 +453,34 @@ class GoodsController extends Controller {
         return [    'bd_gm_id' => $gm_id,
                     'bd_ea'    => $bd['bd_ea'],
                     'bd_price' => $bd['bd_price']];
+    }
+
+    public function search_paramImplant($gd, $gc, $gm) {
+        return ['gd_id'        => $gd->gd_id,
+                'gd_enable'    => $gd->gd_enable,
+                'gd_name'      => $gd->gd_name,
+                'gd_rank'      => 999999,
+                'mk_name'      => $gd->gd_mk_name,
+                'gm_id'        => $gm['gm_id'],
+                'gm_enable'    => $gm['gm_enable'],
+                'gm_catno'     => "{$gm['gm_catno01']}-{$gm['gm_catno02']}-{$gm['gm_catno03']}",
+                'gm_catno01'   => $gm['gm_catno01'],
+                'gm_catno02'   => $gm['gm_catno02'],
+                'gm_catno03'   => $gm['gm_catno03'],
+                'gm_name'      => $gm['gm_name'],
+                'gm_code'      => $gm['gm_code'],
+                'gm_prime'     => $gm['gm_prime'],
+                'gc_id'        => $gc['gc_id'],
+                'gc_ca01'      => $gc['gc_ca01'],
+                'gc_ca01_name' => $gc['gc_ca01_name'],
+                'gc_ca02'      => array_key_exists('gc_ca02',      $gc) ? $gc['gc_ca02']      : NULL,
+                'gc_ca02_name' => array_key_exists('gc_ca02_name', $gc) ? $gc['gc_ca02_name'] : NULL,
+                'gc_ca03'      => array_key_exists('gc_ca03',      $gc) ? $gc['gc_ca03']      : NULL,
+                'gc_ca03_name' => array_key_exists('gc_ca03_name', $gc) ? $gc['gc_ca03_name'] : NULL,
+                'gc_ca04'      => array_key_exists('gc_ca04',      $gc) ? $gc['gc_ca04']      : NULL,
+                'gc_ca04_name' => array_key_exists('gc_ca04_name', $gc) ? $gc['gc_ca04_name'] : NULL,
+                'gc_prime'     => $gc['gc_prime'],
+                'updated_id'   => $gd->created_id ];
     }
 
     public function getModel(Request $req){

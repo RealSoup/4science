@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory, Hash};
+use App\Models\Shop\{Goods, Category, GoodsCategory, GoodsSearch, Hash};
 use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
@@ -23,84 +23,43 @@ class GoodsController extends Controller {
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
 
-        $gd = $this->goods
-                ->select(   "gd_id", "gd_name", "gd_mk_id", "mk_name",
-                            "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name",
-                            "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
-                            "gm_code", "gm_spec", "gm_unit")
-                ->selectRaw('gm_price * ? as gm_price_add_vat', [1.1])
-                ->leftJoin('shop_goods_category', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'); })
-                ->leftJoin('shop_goods_model', function ($join) { $join->on('shop_goods.gd_id', '=', 'shop_goods_model.gm_gd_id'); })
-                ->leftJoin('shop_makers', 'shop_goods.gd_mk_id', '=', 'shop_makers.mk_id')
-                ->Enable('Y')->groupBy('gd_id');
+        $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')->with('goodsModelPrime')
+            ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
+                "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
+                "gs.gd_rank", "gd.gd_view_cnt", 'gs.gd_id'
+            )
+            ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
+            ->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
 
         if ($req->filled('keyword')){
-            $isCatNo=false;
-            $cat_no = null;
-            if ( (!$req->filled('mode') || $req->mode == 'cat_no') && strpos($req->keyword, '-') !== false ) {
-                $cat_no = explode('-', $req->keyword);
-                if (implode( '', $cat_no ) != '')  {    //  단순히 하이푼만 입력하면 무한 로딩
-                    $isCatNo = true;
-                    foreach ($cat_no as $k => $v) {
-                        if ( preg_match("/[^0-9]/i", @intval($v)) || ($k==1 && $v=='')) {
-                            $isCatNo = false; 
-                            break;
-                        }
-                    }
-                }
-            }
-
             $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
             if ( !$req->filled('mode') ) {
-                $goods = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ftWord)->where('gd_enable', 'Y');
-                $model = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText(['gm_name', 'gm_code'], $ftWord)->where('gm_enable', 'Y');
-                $maker = DB::table('shop_makers')->select('gd_id')->join('shop_goods', 'shop_makers.mk_id', '=', 'shop_goods.gd_mk_id')->where('mk_name', $ftWord);
-                $goods = $goods->union($model)->union($maker);
+                $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score01 , MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score02
+                                , MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score03 , MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score04
+                                , MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score05 ")
+                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno) AGAINST (? IN NATURAL LANGUAGE MODE)', ["'{$ftWord}'"]);
+                
                 if ($h = Hash::HsTag($ftWord)->first()) {
                     $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
-                    $goods = $goods->union($hash);
-                }
-                if ($isCatNo) {
-                    $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
-                    if (count($cat_no)==2)       $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1]);
-                    else if (count($cat_no)==3)  $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1])->where('gm_catno03', $cat_no[2]);
-                    $goods = $goods->union($model_prev->where('gm_enable', 'Y'));
-                }
-                $gd->whereIn('gd_id', $goods->pluck('gd_id'));
+                    $hj = DB::table('shop_hash_join AS hs' )
+                    ->selectRaw("la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, 
+                        gc_ca01, gc_ca01_name, gc_ca02, gc_ca02_name, gc_ca03, gc_ca03_name, gc_ca04, gc_ca04_name,
+                        0 as score01, 0 as score02, 0 as score03, 0 as score04, 0 as score05, la_gs.gd_rank, 0 as gd_view_cnt, la_gs.gd_id "
+                    )
+                    ->join('shop_goods_search AS gs', 'hs.gd_id', '=', 'gs.gd_id')
+                    ->whereIn('gs.gd_id', $hash)
+                    ->groupBy('gs.gd_id');
+                    $gs = $gs->union($hj); 
+                }            
             } else {
-                $gd_name = $gm_name = $gm_code = $hash = $maker = null;
-                
-                // $ftWord = $req->keyword;
-                if ( $req->mode == 'gd_name' ) $gd_name = $ftWord;
-                if ( $req->mode == 'gm_name' ) $gm_name = $ftWord;
-                if ( $req->mode == 'gm_code' ) $gm_code = $ftWord;
-                if ( $req->mode == 'maker' )   $maker   = $ftWord;
-
-                $gd->when($gd_name, fn ($q, $v) => $q->whereFullText('gd_name', $v))
-                    ->when($gm_name, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->whereFullText('gm_name', $v)->where('gm_enable', 'Y'); }))
-                    ->when($gm_code, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_code', $v)->where('gm_enable', 'Y'); }))
-                    ->when($cat_no, function ($q, $v) use($isCatNo) {
-                        if (!$isCatNo) return;
-                        else         return $q->whereIn('gd_id', function($q) use($v) {
-                            if (count($v)==2)       $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_enable', 'Y');
-                            else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
-                        });
-                    })
-                    /*
-                    ->when($hash, function ($q, $v) {
-                        $h = Hash::HsTag($v)->first();
-                        if ( !$h )  return;
-                        else        return $q->whereIn('gd_id', function($q) use($h) {
-                            $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
-                        }, 'or');
-                    })
-                    */
-                    ->when($maker, function ($q, $v) { 
-                        return $q->whereIn('gd_mk_id', function($q) use($v) { $q->select('mk_id')->from('shop_makers')->where('mk_name', $v); }); 
-                    });
+                if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gd_name', $ftWord);
+                if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_name', $ftWord);
+                if ( $req->mode == 'gm_code' ) $gs->selectRaw(" MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_code', $ftWord);
+                if ( $req->mode == 'cat_no' )  $gs->selectRaw(" MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_catno', $ftWord);
+                if ( $req->mode == 'maker' )   $gs->selectRaw(" MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.mk_name', $ftWord);
             }
 
-            $grouped = $gd->get();
+            $grouped = $gs->get();
             if ( $grouped->count()) {
                 //  검색시 카테고리 상세 검색을 위한
                 //  검생 상품이 속한 카테고리 배열정보
@@ -149,7 +108,7 @@ class GoodsController extends Controller {
         }
         
         //  결과 내 카테고리 선택 Start
-        $gd->when($req->ca01, function ($q, $v) use($req) {
+        $gs->when($req->ca01, function ($q, $v) use($req) {
             return $q->whereIn('gd_id', function($q) use($req) {
                 if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
                 else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
@@ -157,28 +116,29 @@ class GoodsController extends Controller {
                 else                 $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01);
             });
         });
-        $gd->when($req->mk_id, fn ($q, $v) => $q->maker($v));
+        $gs->when($req->mk_id, fn ($q, $v) => $q->maker($v));
         //  결과 내 카테고리 선택 End
 
 
       
         // 정렬 설정 Strart
         switch ($req->sort) {
-            case 'hot':     $gd = $gd->orderBy('gd_view_cnt'); break;
-            case 'new':     $gd = $gd->latest('gd_id');        break;
-            case 'lowPri':  $gd = $gd->oldest('gm_price');     break;
-            case 'highPri': $gd = $gd->latest('gm_price');     break;
+            case 'hot':
+                if ( $req->filled('mode') ) $gs->orderBy('score', 'DESC');
+                else $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
+            break;
+            case 'new':     $gs = $gs->latest('gd_id');        break;
+            case 'lowPri':  $gs = $gs->oldest('gm_price');     break;
+            case 'highPri': $gs = $gs->latest('gm_price');     break;
         }
-        $gd->orderBy('gd_rank');
-        if ($req->sort != 'hot')
-            $gd->orderBy('gd_view_cnt');
+        $gs->orderBy('gd_rank')->orderBy('gd_view_cnt');
         // 정렬 설정 End
         
-        // echo_query($gd);
+        // echo_query($gs);
         if ($req->filled('limit'))  //  메인 베스트
-            $data['list'] = $gd->limit($req->limit)->get(); 
+            $data['list'] = $gs->limit($req->limit)->get(); 
         else {
-            $data['list'] = $gd->paginate();
+            $data['list'] = $gs->paginate();
             $data['list']->appends($req->all())->links();
 
                        

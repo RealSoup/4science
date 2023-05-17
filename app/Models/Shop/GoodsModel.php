@@ -28,6 +28,7 @@ class GoodsModel extends Model {
     public function scopeSpec($query, $spec) { return $query->where('gm_spec', 'like', "%" . $spec . "%"); }
     public function scopeEnable($query) { return $query->where('gm_enable', 'Y'); }
     public function scopeCatno01($query, $id) { return $query->where('gm_catno01', $id); }
+    public function scopePrime($q) { return $q->where('gm_prime', 'Y'); }
 
 
 
