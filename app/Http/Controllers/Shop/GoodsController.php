@@ -32,8 +32,9 @@ class GoodsController extends Controller {
             ->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
 
         if ($req->filled('keyword')){
-            // $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
-            $ftWord = $req->keyword.'*';
+            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
+			else 									    $ftWord = $req->keyword.'*';
+
             if ( !$req->filled('mode') ) {
                 $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score01 , MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score02
                                 , MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score03 , MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score04
