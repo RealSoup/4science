@@ -109,6 +109,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
@@ -211,32 +212,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 5:
-                _context2.next = 7;
+                if (!(_this2.extra.addressID == '')) {
+                  _context2.next = 9;
+                  break;
+                }
+
+                Notify.toast('danger', "ShipTo Code를 선택하세요.");
+
+                _this2.$refs.addressID.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 9:
+                if (!(_this2.extra.state == '')) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                Notify.toast('danger', "State Code를 선택하세요.");
+
+                _this2.$refs.state.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 13:
+                _context2.next = 15;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                   list: chkList,
                   extra: _this2.extra
                 });
 
-              case 7:
+              case 15:
                 res = _context2.sent;
                 if (res && res.status === 200 && res.data.msg == 'success') _this2.$router.push({
                   name: 'adm_b2b_merck_order_result'
                 });
-                _context2.next = 15;
+                _context2.next = 23;
                 break;
 
-              case 11:
-                _context2.prev = 11;
+              case 19:
+                _context2.prev = 19;
                 _context2.t0 = _context2["catch"](0);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.response.data.message);
 
-              case 15:
+              case 23:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 11]]);
+        }, _callee2, null, [[0, 19]]);
       }))();
     },
     stockCheck: function stockCheck(code, ea) {
@@ -518,6 +543,7 @@ var render = function () {
               _c(
                 "b-form-select",
                 {
+                  ref: "addressID",
                   attrs: { size: "sm" },
                   model: {
                     value: _vm.extra.addressID,
@@ -534,8 +560,14 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-form-select-option",
-                    { attrs: { value: "2035422570" } },
-                    [_vm._v("2035422570")]
+                    { attrs: { value: "2036349057" } },
+                    [_vm._v("서울")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-select-option",
+                    { attrs: { value: "2036349058" } },
+                    [_vm._v("그 밖의 지역")]
                   ),
                 ],
                 1
@@ -551,6 +583,7 @@ var render = function () {
               _c(
                 "b-form-select",
                 {
+                  ref: "state",
                   attrs: { size: "sm" },
                   model: {
                     value: _vm.extra.state,

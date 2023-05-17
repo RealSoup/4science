@@ -32,12 +32,13 @@ class GoodsController extends Controller {
             ->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
 
         if ($req->filled('keyword')){
-            $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            // $ftWord = (preg_match("/[-+*.]/", $req->keyword)) ? '"'.$req->keyword.'"' : $req->keyword;
+            $ftWord = $req->keyword.'*';
             if ( !$req->filled('mode') ) {
-                $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score01 , MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score02
-                                , MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score03 , MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score04
-                                , MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score05 ")
-                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno) AGAINST (? IN NATURAL LANGUAGE MODE)', ["'{$ftWord}'"]);
+                $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score01 , MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score02
+                                , MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score03 , MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score04
+                                , MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05 ")
+                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);
                 
                 if ($h = Hash::HsTag($ftWord)->first()) {
                     $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
@@ -52,11 +53,11 @@ class GoodsController extends Controller {
                     $gs = $gs->union($hj); 
                 }            
             } else {
-                if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gd_name', $ftWord);
-                if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_name', $ftWord);
-                if ( $req->mode == 'gm_code' ) $gs->selectRaw(" MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_code', $ftWord);
-                if ( $req->mode == 'cat_no' )  $gs->selectRaw(" MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.gm_catno', $ftWord);
-                if ( $req->mode == 'maker' )   $gs->selectRaw(" MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN NATURAL LANGUAGE MODE) as score ")->whereFullText('gs.mk_name', $ftWord);
+                if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'gm_code' ) $gs->selectRaw(" MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'cat_no' )  $gs->selectRaw(" MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_catno', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'maker' )   $gs->selectRaw(" MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.mk_name', $ftWord, ['mode' => 'boolean']);
             }
 
             $grouped = $gs->get();

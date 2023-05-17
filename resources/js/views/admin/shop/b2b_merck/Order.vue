@@ -9,13 +9,14 @@
     
     <b-row class="extra">
         <b-col col sm="12" md="2">
-            <b-form-select size="sm" v-model="extra.addressID">
+            <b-form-select size="sm" ref="addressID" v-model="extra.addressID">
                 <b-form-select-option value="">ShipTo Code</b-form-select-option>
-                <b-form-select-option value="2035422570">2035422570</b-form-select-option>
+                <b-form-select-option value="2036349057">서울</b-form-select-option>
+                <b-form-select-option value="2036349058">그 밖의 지역</b-form-select-option>
             </b-form-select>
         </b-col>
         <b-col col sm="12" md="2">
-            <b-form-select size="sm" v-model="extra.state">
+            <b-form-select size="sm" ref="state" v-model="extra.state">
                 <b-form-select-option value="">State Code</b-form-select-option>
                 <b-form-select-option value="SE">서울</b-form-select-option>
                 <b-form-select-option value="GG">경기</b-form-select-option>
@@ -147,6 +148,16 @@ export default {
                 let chkList = this.list.data.filter(el => el.b2b_chk==true);
                 if (!chkList.length) {
                     Notify.modal('선택하세요', 'warning');
+                    return false;
+                }
+                if (this.extra.addressID == '') { 
+                    Notify.toast('danger', "ShipTo Code를 선택하세요.");
+                    this.$refs.addressID.focus()
+                    return false;
+                }
+                if (this.extra.state == '') { 
+                    Notify.toast('danger', "State Code를 선택하세요.");
+                    this.$refs.state.focus()
                     return false;
                 }
                 const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, extra: this.extra});

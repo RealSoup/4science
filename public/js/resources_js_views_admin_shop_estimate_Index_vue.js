@@ -182,6 +182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     routerPush: function routerPush() {
+      this.sch_frm.page = p;
       this.$router.push({
         name: 'adm_estimate_index',
         query: this.sch_frm

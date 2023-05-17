@@ -172,6 +172,7 @@ export default {
             }
         },
         routerPush(){
+            this.sch_frm.page = 1;
             this.$router.push({name: 'adm_order_index', query: this.sch_frm }).catch(()=>{});
         },
         pageSet(p){

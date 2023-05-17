@@ -76,7 +76,7 @@
         <b-row class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
             <b-col><span>{{row.gd_id}}</span></b-col>
             <b-col>
-                <div>
+                <div v-if="row.goods_category_first">
                     <p v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</p>
                     <p v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</p>
                     <p v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</p>
@@ -155,6 +155,7 @@ export default {
             }
         },
         routerPush(){
+            this.sch_frm.page = p;
             this.$router.push({name: 'adm_goods_index', query: this.sch_frm }).catch(()=>{});
         },
         pageSet(p){

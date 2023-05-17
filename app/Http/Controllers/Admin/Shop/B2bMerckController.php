@@ -9,7 +9,8 @@ use DB;
 class B2bMerckController extends Controller {
 	protected $MerckMemberCode	= 'INESUS2035422570-T';
 	// protected $MerckMemberCode	= 'INESUS2035422570';
-	protected $B2b_url = "https://api.sigmaaldrich.com/B2B/handler";
+	protected $B2b_url = "https://apiqws.sigmaaldrich.com/B2B/handler";	// Test
+	// protected $B2b_url = "https://api.sigmaaldrich.com/B2B/handler";
     public function order(Request $req) {
         $data = OrderModel::with('order')
 			->leftJoin('shop_b2b_merck_model', 'shop_order_model.odm_id', '=', 'shop_b2b_merck_model.bmm_odm_id')
