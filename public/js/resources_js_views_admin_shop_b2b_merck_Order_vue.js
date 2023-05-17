@@ -236,32 +236,116 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 13:
-                _context2.next = 15;
+                if (!(_this2.extra.name == '')) {
+                  _context2.next = 17;
+                  break;
+                }
+
+                Notify.toast('danger', "이름을 입력하세요.");
+
+                _this2.$refs.name.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 17:
+                if (!(_this2.extra.part == '')) {
+                  _context2.next = 21;
+                  break;
+                }
+
+                Notify.toast('danger', "소속을 입력하세요.");
+
+                _this2.$refs.part.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 21:
+                if (!(_this2.extra.company == '')) {
+                  _context2.next = 25;
+                  break;
+                }
+
+                Notify.toast('danger', "업체명을 입력하세요.");
+
+                _this2.$refs.company.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 25:
+                if (!(_this2.extra.code == '')) {
+                  _context2.next = 29;
+                  break;
+                }
+
+                Notify.toast('danger', "우편번호를 입력하세요.");
+
+                _this2.$refs.code.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 29:
+                if (!(_this2.extra.city == '')) {
+                  _context2.next = 33;
+                  break;
+                }
+
+                Notify.toast('danger', "**시 **구를 입력하세요.");
+
+                _this2.$refs.city.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 33:
+                if (!(_this2.extra.street == '')) {
+                  _context2.next = 37;
+                  break;
+                }
+
+                Notify.toast('danger', "도로명을 입력하세요.");
+
+                _this2.$refs.street.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 37:
+                if (!(_this2.extra.detail == '')) {
+                  _context2.next = 41;
+                  break;
+                }
+
+                Notify.toast('danger', "상세 주소를 입력하세요.");
+
+                _this2.$refs.detail.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 41:
+                _context2.next = 43;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                   list: chkList,
                   extra: _this2.extra
                 });
 
-              case 15:
+              case 43:
                 res = _context2.sent;
                 if (res && res.status === 200 && res.data.msg == 'success') _this2.$router.push({
                   name: 'adm_b2b_merck_order_result'
                 });
-                _context2.next = 23;
+                _context2.next = 51;
                 break;
 
-              case 19:
-                _context2.prev = 19;
+              case 47:
+                _context2.prev = 47;
                 _context2.t0 = _context2["catch"](0);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.response.data.message);
 
-              case 23:
+              case 51:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 19]]);
+        }, _callee2, null, [[0, 47]]);
       }))();
     },
     stockCheck: function stockCheck(code, ea) {

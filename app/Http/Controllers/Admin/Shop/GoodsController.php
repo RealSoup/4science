@@ -413,7 +413,7 @@ class GoodsController extends Controller {
             $prev->forget($prev->search($v['hs_id']));
         }
         foreach ($prev as $id)
-            HashJoin::GdId($gd_id)->Hs_id($id)->delete();
+            HashJoin::GdId($gd_id)->HsId($id)->delete();
     }
 
     public function goods_paramImplant($goods, $req){

@@ -15,5 +15,6 @@ class HashJoin extends Model {
 
     public function scopeGdId($query, $gd_id) { return $query->where('gd_id', $gd_id); }
     public function scopeHsId($query, $hs_id) { return $query->where('hs_id', $hs_id); }
+    
 
 }
