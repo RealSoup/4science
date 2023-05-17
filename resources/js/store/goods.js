@@ -46,7 +46,7 @@ export default {
     },
     actions: {
         async index(context){
-            // context.state.isLoadingModalViewed= true;
+            context.state.isLoadingModalViewed= true;
             let nfrm = {};
             for (let i in context.state.frm) {
                 if ( !isEmpty(context.state.frm[i]) )

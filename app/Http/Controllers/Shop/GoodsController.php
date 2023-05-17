@@ -109,7 +109,7 @@ class GoodsController extends Controller {
         
         //  결과 내 카테고리 선택 Start
         $gs->when($req->ca01, function ($q, $v) use($req) {
-            return $q->whereIn('gd_id', function($q) use($req) {
+            return $q->whereIn('gs.gd_id', function($q) use($req) {
                 if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
                 else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
                 else if ($req->ca02) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02);
