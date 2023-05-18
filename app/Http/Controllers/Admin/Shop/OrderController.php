@@ -277,7 +277,7 @@ class OrderController extends Controller {
 	}
 
 	public function exportEstimatePdf(Request $req) {
-		return PDF::loadView('admin.order.pdf.order_estimate', $req->all())
+		return $this->pdf->loadView('admin.order.pdf.order_estimate', $req->all())
 				->download('order.pdf'); // ->stream();
 	}
 
@@ -289,14 +289,15 @@ class OrderController extends Controller {
 		if ($req->filled('trans_date')) {
 			$subject = '거래명세서 메일입니다.';
 			$params['name'] = $req->filled('od_orderer') ? $req->od_orderer : auth()->user()->name;
+			$params['file_nm'] = $req->od_no;
 			$to_email = [$req->trans_email, $req->trans_mng_email];
-			$pdf = PDF::loadView('admin.order.pdf.order_transaction', $req->all());
+			$pdf = $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all());
 			// $pdf->setOptions(['dpi' => 96 ]);
 			$filename = uniqid();
 			Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
 			return Mail::to($to_email)->queue(new SendTransaction(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
 		} else {
-			return PDF::loadView('admin.order.pdf.order_transaction', $req->all())
+			return $this->pdf->loadView('admin.order.pdf.order_transaction', $req->all())
 				// ->download('order.pdf');
 				->stream();
 		}

@@ -84,7 +84,7 @@ table tr th, table tr td { padding:5px; }
                 <p>{{ isset($trans_receive) ? $trans_receive : $od_department }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
-            <td align="center" valign="middle"><img src="./img/addr_estimate200921.gif" width="270px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/addr_estimate200921.gif" width="270px" /></td>
         </tr>
     </table>
 
@@ -159,7 +159,7 @@ $goods_p = 0;
             </td>
         </tr>
         <tr>
-            <td align="center" valign="middle"><img src="./img/estimate_logo.png" width="100px" /></td>
+            <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/estimate_logo.png" width="100px" /></td>
         </tr>
     </table>
 </body>

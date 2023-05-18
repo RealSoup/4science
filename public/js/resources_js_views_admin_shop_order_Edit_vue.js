@@ -473,8 +473,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 var dt = new Date();
@@ -700,36 +698,6 @@ var dt = new Date();
         }, _callee2, null, [[1, 10]]);
       }))();
     },
-    document_action: function document_action() {
-      var f_k = this.od.od_id;
-      if (this.od.od_er_id > 0) f_k = this.od.od_er_id;
-
-      switch (this.document_type) {
-        case 'est_e':
-          this.estimateExcel(f_k + '_estimate');
-          break;
-
-        case 'est_p':
-          this.estimatePdf(f_k + '_estimate');
-          break;
-
-        case 'tra_e':
-          this.transactionExcel(this.od.od_id + '_statement');
-          break;
-
-        case 'tra_p':
-          this.transactionPdf(this.od.od_id + '_statement');
-          break;
-
-        case 'send_tra_p':
-          this.isModalViewed = !this.isModalViewed;
-          this.modalType = 'sendTransaction';
-          break;
-
-        default:
-          break;
-      }
-    },
     print: function print() {
       var _this3 = this;
 
@@ -751,7 +719,7 @@ var dt = new Date();
         }, _callee3);
       }))();
     },
-    estimateExcel: function estimateExcel(nm) {
+    estimateExcel: function estimateExcel() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -760,37 +728,25 @@ var dt = new Date();
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.prev = 0;
-
-                _this4.mngChk();
-
-                _context4.next = 4;
+                _context4.next = 2;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/order/exportEstimateExcel", _this4.od, {
                   responseType: 'blob'
                 });
 
-              case 4:
+              case 2:
                 res = _context4.sent;
 
-                _this4.orderDocumentDown(res, nm + '.xlsx');
+                _this4.orderDocumentDown(res, "".concat(_this4.od.od_no, "_Estimate.xlsx"));
 
-                _context4.next = 11;
-                break;
-
-              case 8:
-                _context4.prev = 8;
-                _context4.t0 = _context4["catch"](0);
-                Notify.consolePrint(_context4.t0);
-
-              case 11:
+              case 4:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4);
       }))();
     },
-    estimatePdf: function estimatePdf(nm) {
+    estimatePdf: function estimatePdf() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -799,37 +755,25 @@ var dt = new Date();
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.prev = 0;
-
-                _this5.mngChk();
-
-                _context5.next = 4;
+                _context5.next = 2;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/order/exportEstimatePdf", _this5.od, {
                   responseType: 'blob'
                 });
 
-              case 4:
+              case 2:
                 res = _context5.sent;
 
-                _this5.orderDocumentDown(res, nm + '.pdf');
+                _this5.orderDocumentDown(res, "".concat(_this5.od.od_no, "_Estimate.pdf"));
 
-                _context5.next = 11;
-                break;
-
-              case 8:
-                _context5.prev = 8;
-                _context5.t0 = _context5["catch"](0);
-                Notify.consolePrint(_context5.t0);
-
-              case 11:
+              case 4:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[0, 8]]);
+        }, _callee5);
       }))();
     },
-    transactionExcel: function transactionExcel(nm) {
+    transactionExcel: function transactionExcel() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
@@ -838,50 +782,41 @@ var dt = new Date();
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.prev = 0;
-
-                _this6.mngChk();
-
-                _context6.next = 4;
+                _context6.next = 2;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/order/exportTransactionExcel", _this6.od, {
                   responseType: 'blob'
                 });
 
-              case 4:
+              case 2:
                 res = _context6.sent;
 
-                _this6.orderDocumentDown(res, nm + '.xlsx');
+                _this6.orderDocumentDown(res, "".concat(_this6.od.od_no, "_Statement.xlsx"));
 
-                _context6.next = 11;
-                break;
-
-              case 8:
-                _context6.prev = 8;
-                _context6.t0 = _context6["catch"](0);
-                Notify.consolePrint(_context6.t0);
-
-              case 11:
+              case 4:
               case "end":
                 return _context6.stop();
             }
           }
-        }, _callee6, null, [[0, 8]]);
+        }, _callee6);
       }))();
     },
-    transactionPdf: function transactionPdf(nm) {
+    transactionPdf: function transactionPdf() {
       var _arguments2 = arguments,
           _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        var query, res;
+        var type, query, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                query = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : '';
-                _context7.prev = 1;
+                type = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : null;
+                query = '';
 
-                _this7.mngChk();
+                if (type == 'send') {
+                  query = "trans_date=".concat(_this7.od.trans_date, "&trans_receive=").concat(_this7.od.trans_receive, "&trans_email=").concat(_this7.od.trans_email, "&trans_mng_email=").concat(_this7.od.mng.email);
+                  _this7.isModalViewed = false;
+                }
 
                 _context7.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/order/exportTransactionPdf?".concat(query), _this7.od, {
@@ -892,28 +827,24 @@ var dt = new Date();
                 res = _context7.sent;
 
                 if (res && res.status === 200) {
-                  if (query) Notify.toast('success', '발송 완료');else {
-                    _this7.orderDocumentDown(res, nm + '.pdf');
+                  if (type == 'send') Notify.toast('success', '발송 완료');else {
+                    _this7.orderDocumentDown(res, "".concat(_this7.od.od_no, "_Statement.pdf"));
 
                     Notify.toast('success', '다운 완료');
                   }
                 } else Notify.toast('warning', '실패');
 
-                _context7.next = 12;
-                break;
-
-              case 9:
-                _context7.prev = 9;
-                _context7.t0 = _context7["catch"](1);
-                Notify.consolePrint(_context7.t0);
-
-              case 12:
+              case 7:
               case "end":
                 return _context7.stop();
             }
           }
-        }, _callee7, null, [[1, 9]]);
+        }, _callee7);
       }))();
+    },
+    sendTran: function sendTran() {
+      this.isModalViewed = !this.isModalViewed;
+      this.modalType = 'sendTransaction';
     },
     orderDocumentDown: function orderDocumentDown(res, fileNm) {
       var fileUrl = window.URL.createObjectURL(new Blob([res.data]));
@@ -922,12 +853,6 @@ var dt = new Date();
       fileLink.setAttribute('download', fileNm);
       document.body.appendChild(fileLink);
       fileLink.click();
-    },
-    mngChk: function mngChk() {
-      if (!this.od.od_mng) {
-        Notify.modal('담당자 배정 이후에 사용가능합니다.', 'warning');
-        return false;
-      }
     },
     ledger: function ledger() {
       var _this8 = this;
@@ -989,10 +914,6 @@ var dt = new Date();
       document.body.removeChild(aux); // body 로 부터 다시 반환 한다.
 
       Notify.toast('success', '복사됨');
-    },
-    sendTransaction: function sendTransaction() {
-      this.transactionPdf(this.od.od_id + '_statement', "trans_date=".concat(this.od.trans_date, "&trans_receive=").concat(this.od.trans_receive, "&trans_email=").concat(this.od.trans_email, "&trans_mng_email=").concat(this.od.mng.email));
-      this.isModalViewed = false;
     },
     toggleAll: function toggleAll(pa) {
       var opt = 'N';
@@ -1440,9 +1361,13 @@ var render = function () {
                     _vm._v(" "),
                     _c("span", [_vm._v("주문유형")]),
                     _vm._v(" "),
-                    _c("b", [
-                      _vm._v(_vm._s(_vm.od.order_config.type[_vm.od.od_type])),
-                    ]),
+                    _vm.od.order_config.type
+                      ? _c("b", [
+                          _vm._v(
+                            _vm._s(_vm.od.order_config.type[_vm.od.od_type])
+                          ),
+                        ])
+                      : _vm._e(),
                   ],
                   1
                 ),
@@ -1504,66 +1429,78 @@ var render = function () {
                     _vm._v(" "),
                     _vm.od.od_mng
                       ? _c(
-                          "b-input-group",
-                          { attrs: { size: "sm" } },
+                          "b-dropdown",
+                          {
+                            attrs: {
+                              size: "sm",
+                              text: "파일 다운",
+                              variant: "outline-dark",
+                            },
+                          },
                           [
                             _c(
-                              "b-form-select",
+                              "b-dropdown-item-button",
                               {
-                                staticClass: "custom-select",
-                                model: {
-                                  value: _vm.document_type,
-                                  callback: function ($$v) {
-                                    _vm.document_type = $$v
-                                  },
-                                  expression: "document_type",
-                                },
+                                attrs: { variant: "success" },
+                                on: { click: _vm.estimateExcel },
                               },
                               [
-                                _c(
-                                  "b-form-select-option",
-                                  { attrs: { value: "est_e" } },
-                                  [_vm._v("견적서 EXCEL")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-form-select-option",
-                                  { attrs: { value: "est_p" } },
-                                  [_vm._v("견적서 PDF")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-form-select-option",
-                                  { attrs: { value: "tra_e" } },
-                                  [_vm._v("거래명세서 EXCEL")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-form-select-option",
-                                  { attrs: { value: "tra_p" } },
-                                  [_vm._v("거래명세서 PDF")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-form-select-option",
-                                  { attrs: { value: "send_tra_p" } },
-                                  [_vm._v("거래명세서 발송 PDF")]
-                                ),
+                                _vm._v("견적서 "),
+                                _c("b-badge", [_vm._v("EXCEL")]),
                               ],
                               1
                             ),
                             _vm._v(" "),
                             _c(
-                              "b-input-group-append",
+                              "b-dropdown-item-button",
+                              {
+                                attrs: { variant: "warning" },
+                                on: { click: _vm.estimatePdf },
+                              },
                               [
-                                _c(
-                                  "b-button",
-                                  {
-                                    staticClass: "d_gray sm",
-                                    on: { click: _vm.document_action },
-                                  },
-                                  [_vm._v("받기")]
-                                ),
+                                _vm._v("견적서 "),
+                                _c("b-badge", [_vm._v("PDF")]),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("b-dropdown-divider"),
+                            _vm._v(" "),
+                            _c(
+                              "b-dropdown-item-button",
+                              {
+                                attrs: { variant: "success" },
+                                on: { click: _vm.transactionExcel },
+                              },
+                              [
+                                _vm._v("거래명세서 "),
+                                _c("b-badge", [_vm._v("EXCEL")]),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-dropdown-item-button",
+                              {
+                                attrs: { variant: "warning" },
+                                on: { click: _vm.transactionPdf },
+                              },
+                              [
+                                _vm._v("거래명세서 "),
+                                _c("b-badge", [_vm._v("PDF")]),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-dropdown-item-button",
+                              {
+                                attrs: { variant: "danger" },
+                                on: { click: _vm.sendTran },
+                              },
+                              [
+                                _vm._v("거래명세서 발송 "),
+                                _c("b-badge", [_vm._v("PDF")]),
                               ],
                               1
                             ),
@@ -3168,10 +3105,7 @@ var render = function () {
                                             ) {
                                               return null
                                             }
-                                            return _vm.sendTransaction.apply(
-                                              null,
-                                              arguments
-                                            )
+                                            return _vm.transactionPdf("send")
                                           },
                                         },
                                         model: {
@@ -3198,7 +3132,13 @@ var render = function () {
                                     [
                                       _c(
                                         "b-button",
-                                        { on: { click: _vm.sendTransaction } },
+                                        {
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.transactionPdf("send")
+                                            },
+                                          },
+                                        },
                                         [_vm._v("발송")]
                                       ),
                                     ],

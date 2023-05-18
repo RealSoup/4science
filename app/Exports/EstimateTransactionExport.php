@@ -37,7 +37,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         $data[] = ['거   래   명   세   서'];
         $data[] = ['(공급받는자 보관용)'];
         $data[] = [''];
-        $data[] = [date('Y년 m월 d일')];
+        $data[] = [date('Y년 m월 d일', strtotime($this->er['created_at']))];
         $data[] = [$this->er['estimate_req']['eq_department']." 귀하"];
         $data[] = ['아래와 같이 계산합니다.'];
         $data[] = [''];
@@ -214,8 +214,9 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             ],
         ];
 
-        $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT ] ];
-        $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+        $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT, 'wrapText' => true ] ];
+        $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'wrapText' => true ] ];
+        $text_wrap = [ 'alignment' => [ 'wrapText' => true ] ];
         for ($i=0; $i < $this->row_cnt; $i++) {
             $r = 9+$i;
             $sheet_style['A'.$r.':G'.$r] = [
@@ -231,6 +232,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
                 ],
             ];
             $sheet_style['A'.$r] = $text_center;
+            $sheet_style['B'.$r] = $text_wrap;
             $sheet_style['C'.$r] = $text_center;
             $sheet_style['D'.$r] = $text_center;
             $sheet_style['E'.$r] = $text_right;
@@ -364,26 +366,27 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
     }
     public function columnFormats(): array {
         $rst = [];
+        $rst["A4:C4"] = NumberFormat::FORMAT_DATE_01;
         for ($i=9; $i < $this->row_cnt+9; $i++)
-            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         
         $r = $this->row_cnt + 9;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         $r++;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y') {
             if ($this->er['er_dlvy_price'] > 0) {
                 $r++;
-                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
             }
             if ($this->er['er_air_price']) {
                 $r++;
-                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;
+                $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
             }
         }
         $r++;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_NUMBER_COMMA;        
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
         return $rst;
     }
 
@@ -411,6 +414,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
                 $drawing2->setPath(public_path('img/estimate_logo.png'));
                 $drawing2->setHeight(43);
                 $drawing2->setCoordinates('C'.($this->logo_position));
+                $drawing2->setOffsetX(35);
                 $drawing2->setWorksheet($event->sheet->getDelegate());
             }
         ];

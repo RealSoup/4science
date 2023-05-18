@@ -23,15 +23,17 @@
 
                     <b-button class="gray sm" @click="print"><b-icon-printer /> 인쇄</b-button>
 
-                    <b-dropdown v-if="od.od_mng" size="sm" text="파일 다운" variant="outline-dark">
-                        <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                        <b-dropdown-item-button variant="danger" @click="sendTran">거래명세서 발송 <b-badge>PDF</b-badge></b-dropdown-item-button>
-                    </b-dropdown>
-                    <b-button v-else class="gray sm">파일 받기 담당 등록 후...</b-button>                    
+                    <b-input-group v-if="od.od_mng" size="sm">
+                        <b-form-select class="custom-select" v-model="document_type">
+                            <b-form-select-option value="est_e">견적서 EXCEL</b-form-select-option>
+                            <b-form-select-option value="est_p">견적서 PDF</b-form-select-option>
+                            <b-form-select-option value="tra_e">거래명세서 EXCEL</b-form-select-option>
+                            <b-form-select-option value="tra_p">거래명세서 PDF</b-form-select-option>
+                            <b-form-select-option value="send_tra_p">거래명세서 발송 PDF</b-form-select-option>
+                        </b-form-select>
+                        <b-input-group-append><b-button @click="document_action" class="d_gray sm">받기</b-button></b-input-group-append>
+                    </b-input-group>
+                    <b-button v-else class="gray sm">파일 받기 담당 등록 후...</b-button>
                     
                     <b-input-group size="sm">
                         <b-form-select v-model="od.od_step">
@@ -407,11 +409,11 @@
                         </b-row>
                         <b-row>
                             <b-col class="label">받을 Email</b-col>
-                            <b-col><b-form-input v-model="od.trans_email" @keyup.enter="transactionPdf('send')" /></b-col>
+                            <b-col><b-form-input v-model="od.trans_email" @keyup.enter="sendTransaction" /></b-col>
                         </b-row>
                         
                         <b-row>
-                            <b-col class="ctrl"><b-button @click="transactionPdf('send')">발송</b-button></b-col>
+                            <b-col class="ctrl"><b-button @click="sendTransaction">발송</b-button></b-col>
                         </b-row>
                     </b-container>
                 </template>
@@ -599,6 +601,18 @@ export default {
             }
         },
 
+        document_action () {
+            let f_k=this.od.od_id;
+            if (this.od.od_er_id>0) f_k = this.od.od_er_id;
+            switch (this.document_type) {
+                case 'est_e'      : this.estimateExcel(f_k+'_estimate'); break;  
+                case 'est_p'      : this.estimatePdf(f_k+'_estimate'); break;  
+                case 'tra_e'      : this.transactionExcel(this.od.od_id+'_statement'); break;  
+                case 'tra_p'      : this.transactionPdf(this.od.od_id+'_statement'); break;  
+                case 'send_tra_p' : this.isModalViewed = !this.isModalViewed; this.modalType = 'sendTransaction'; break;      
+                default: break;
+            }
+        },
         async print () {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
@@ -607,38 +621,47 @@ export default {
             ]});
         },
 
-        async estimateExcel(){
-            const res = await ax.post(`/api/admin/shop/order/exportEstimateExcel`, this.od, { responseType: 'blob' });
-            this.orderDocumentDown(res, `${this.od.od_no}_Estimate.xlsx`);
-        },
-        async estimatePdf(){
-            const res = await ax.post(`/api/admin/shop/order/exportEstimatePdf`, this.od, { responseType: 'blob' });
-            this.orderDocumentDown(res, `${this.od.od_no}_Estimate.pdf`);
-        },
-        async transactionExcel(){
-            const res = await ax.post(`/api/admin/shop/order/exportTransactionExcel`, this.od, { responseType: 'blob' });
-            this.orderDocumentDown(res, `${this.od.od_no}_Statement.xlsx`);
-        },
-        async transactionPdf(type=null){
-            let query = '';
-            if ( type == 'send' ) {
-                query = `trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`;
-                this.isModalViewed = false;
+        async estimateExcel(nm){
+            try {
+                this.mngChk();
+                const res = await ax.post(`/api/admin/shop/order/exportEstimateExcel`, this.od, { responseType: 'blob' });
+                this.orderDocumentDown(res, nm+'.xlsx');
+            } catch (e) {
+                Notify.consolePrint(e);
             }
-            const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
-            if (res && res.status === 200) {
-                if ( type == 'send' ) Notify.toast('success', '발송 완료');
-                else {
-                    this.orderDocumentDown(res, `${this.od.od_no}_Statement.pdf`);
-                    Notify.toast('success', '다운 완료');
-                }
-            } else Notify.toast('warning', '실패');
-          
         },
-
-        sendTran(){
-            this.isModalViewed = !this.isModalViewed; 
-            this.modalType = 'sendTransaction';
+        async estimatePdf(nm){
+            try {
+                this.mngChk();
+                const res = await ax.post(`/api/admin/shop/order/exportEstimatePdf`, this.od, { responseType: 'blob' });
+                this.orderDocumentDown(res, nm+'.pdf');
+            } catch (e) {
+                Notify.consolePrint(e);
+            }
+        },
+        async transactionExcel(nm){
+            try {
+                this.mngChk();
+                const res = await ax.post(`/api/admin/shop/order/exportTransactionExcel`, this.od, { responseType: 'blob' });
+                this.orderDocumentDown(res, nm+'.xlsx');
+            } catch (e) {
+                Notify.consolePrint(e);
+            }
+        },
+        async transactionPdf(nm, query = ''){
+            try {
+                this.mngChk();
+                const res = await ax.post(`/api/admin/shop/order/exportTransactionPdf?${query}`, this.od, { responseType: 'blob' });
+                if (res && res.status === 200) {
+                    if ( query ) Notify.toast('success', '발송 완료');
+                    else {
+                        this.orderDocumentDown(res, nm+'.pdf');
+                        Notify.toast('success', '다운 완료');
+                    }
+                } else Notify.toast('warning', '실패');
+            } catch (e) {
+                Notify.consolePrint(e);
+            }
         },
         orderDocumentDown(res, fileNm){
             let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
@@ -647,6 +670,12 @@ export default {
             fileLink.setAttribute('download', fileNm);
             document.body.appendChild(fileLink);
             fileLink.click();
+        },
+        mngChk(){
+            if (!this.od.od_mng) {
+                Notify.modal('담당자 배정 이후에 사용가능합니다.', 'warning');
+                return false;
+            }
         },
 
         async ledger() {
@@ -680,6 +709,11 @@ export default {
             document.execCommand("copy");   // 텍스트를 카피 하는 변수를 생성
             document.body.removeChild(aux); // body 로 부터 다시 반환 한다.
             Notify.toast('success', '복사됨');
+        },
+
+        sendTransaction () {            
+            this.transactionPdf(this.od.od_id+'_statement', `trans_date=${this.od.trans_date}&trans_receive=${this.od.trans_receive}&trans_email=${this.od.trans_email}&trans_mng_email=${this.od.mng.email}`);
+            this.isModalViewed = false;
         },
 
         toggleAll(pa) {

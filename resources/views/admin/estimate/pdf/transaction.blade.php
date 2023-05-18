@@ -62,7 +62,7 @@ table tr th, table tr td { padding:5px; }
         </tr>
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
-                <p>{{ date('Y년 m월 d일') }}</p>
+                <p>{{ date('Y년 m월 d일', strtotime($er['created_at'])) }}</p>
                 <p>{{ $er['estimate_req']['eq_department'] }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>

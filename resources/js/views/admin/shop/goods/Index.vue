@@ -43,10 +43,10 @@
                         </b-form-select>
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush"></b-form-input>
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush(1)"></b-form-input>
 
                     <b-input-group-append>
-                        <b-button @click="routerPush"><b-icon-search /></b-button>
+                        <b-button @click="routerPush(1)"><b-icon-search /></b-button>
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -94,7 +94,7 @@
             <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
         </b-row>
 
-        <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -154,13 +154,9 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        routerPush(){
-            // this.sch_frm.page = 1;
-            this.$router.push({name: 'adm_goods_index', query: this.sch_frm }).catch(()=>{});
-        },
-        pageSet(p){
+        routerPush(p=1){
             this.sch_frm.page = p;
-            this.routerPush();
+            this.$router.push({name: 'adm_goods_index', query: this.sch_frm }).catch(()=>{});
         },
     },
     async mounted() {

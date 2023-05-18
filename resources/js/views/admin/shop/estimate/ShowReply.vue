@@ -107,7 +107,6 @@
 <script>
 import ax from '@/api/http';
 
-var dt = new Date();
 export default {
     components: {
         'PaList'        : () => import('@/views/web/_module/PaList'),
@@ -166,19 +165,19 @@ export default {
         },
         async estimateExcel(){
             const res = await ax.post(`/api/admin/shop/estimate/exportEstimateExcel`, this.frm, { responseType: 'blob' });
-            this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.xlsx');
+            this.orderDocumentDown(res, `${this.frm.er_id}_Estimate.xlsx`);
         },
         async estimatePdf(){
             const res = await ax.post(`/api/admin/shop/estimate/exportEstimatePdf`, this.frm, { responseType: 'blob' });
-            this.orderDocumentDown(res, 'Estimate_'+dt.format("yyyyMMdd")+'.pdf');
+            this.orderDocumentDown(res, `${this.frm.er_id}_Estimate.pdf`);
         },
         async transactionExcel(){
             const res = await ax.post(`/api/admin/shop/estimate/exportTransactionExcel`, this.frm, { responseType: 'blob' });
-            this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.xlsx');
+            this.orderDocumentDown(res, `${this.frm.er_id}_Statement.xlsx`);
         },
         async transactionPdf(){
             const res = await ax.post(`/api/admin/shop/estimate/exportTransactionPdf`, this.frm, { responseType: 'blob' });
-            this.orderDocumentDown(res, 'Transaction_'+dt.format("yyyyMMdd")+'.pdf');
+            this.orderDocumentDown(res, `${this.frm.er_id}_Statement.pdf`);
         },
         orderDocumentDown(res, fileNm){
             let fileUrl = window.URL.createObjectURL(new Blob([res.data]));

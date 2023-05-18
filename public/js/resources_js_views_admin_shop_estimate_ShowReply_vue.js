@@ -127,7 +127,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
-var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'PaList': function PaList() {
@@ -269,7 +268,7 @@ var dt = new Date();
               case 2:
                 res = _context3.sent;
 
-                _this3.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.xlsx');
+                _this3.orderDocumentDown(res, "".concat(_this3.frm.er_id, "_Estimate.xlsx"));
 
               case 4:
               case "end":
@@ -296,7 +295,7 @@ var dt = new Date();
               case 2:
                 res = _context4.sent;
 
-                _this4.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.pdf');
+                _this4.orderDocumentDown(res, "".concat(_this4.frm.er_id, "_Estimate.pdf"));
 
               case 4:
               case "end":
@@ -323,7 +322,7 @@ var dt = new Date();
               case 2:
                 res = _context5.sent;
 
-                _this5.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.xlsx');
+                _this5.orderDocumentDown(res, "".concat(_this5.frm.er_id, "_Statement.xlsx"));
 
               case 4:
               case "end":
@@ -350,7 +349,7 @@ var dt = new Date();
               case 2:
                 res = _context6.sent;
 
-                _this6.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.pdf');
+                _this6.orderDocumentDown(res, "".concat(_this6.frm.er_id, "_Statement.pdf"));
 
               case 4:
               case "end":

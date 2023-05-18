@@ -64,9 +64,10 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $seq = 0;
         foreach ($od['order_purchase_at'] as $opa) {
             foreach ($opa['order_model'] as $k => $odm) {
+                $type='m';
                 if ($odm['odm_type'] == 'MODEL') {
                     $seq++;
-                    $this->odm_map[] = 'm';
+                    $type = 'm';
                     if ( $odm['dlvy_all_in'] ) {
                         //  부동소수점 오류 해결을 위한 식
                         $odm['odm_price'] += bcdiv($od['od_dlvy_price']/$odm['odm_ea'], 1.1);
@@ -78,11 +79,16 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                     $data[] = ['', $odm['odm_gm_catno'].' / '.$odm['odm_gm_code']];
                     $data[] = ['', $odm['odm_gm_spec']];
                 } else {
-                    $this->odm_map[] = 'o';
+                    $type = 'o';
                     $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', number_format($odm['odm_price']), '', $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea'])];
                 }
                 
                 $goods_p += $odm['odm_price']*$odm['odm_ea'];
+
+                $this->odm_map[] = [
+                    'type' => $type,
+                    'line_cnt' => substr_count( $odm['odm_gm_spec'], "\n" )
+                ];
             }
         }
         $data[] = [''];
@@ -149,16 +155,17 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $sheet->mergeCells('B15:E15')->mergeCells('F15:G15')->mergeCells('H15:I15')->mergeCells('K15:L15');
 
         $n = 16;
-        foreach ($this->odm_map as $row) {
-            if ( $row == 'm' ) {
+        foreach ($this->odm_map as $k => $row) {
+            if ( $row['type'] == 'm' ) {
                 $sheet->getRowDimension($n)->setRowHeight(20);
                 $sheet->mergeCells("B{$n}:E{$n}")->mergeCells("F{$n}:G{$n}")->mergeCells("H{$n}:I{$n}")->mergeCells("K{$n}:L{$n}");
                 $n++;
                 $sheet->getRowDimension($n)->setRowHeight(20);
-                $sheet->mergeCells("B{$n}:L{$n}");
+                $sheet->mergeCells("B{$n}:E{$n}")->mergeCells("F{$n}:G{$n}")->mergeCells("H{$n}:I{$n}")->mergeCells("K{$n}:L{$n}");
                 $n++;
-                $sheet->getRowDimension($n)->setRowHeight(20);
-                $sheet->mergeCells("B{$n}:L{$n}");
+                $height = $this->odm_map[$k] ? ($this->odm_map[$k]['line_cnt']+1)*16 : 20;
+                $sheet->getRowDimension($n)->setRowHeight($height);
+                $sheet->mergeCells("B{$n}:E{$n}")->mergeCells("F{$n}:G{$n}")->mergeCells("H{$n}:I{$n}")->mergeCells("K{$n}:L{$n}");
                 $n++;
             } else {
                 $sheet->getRowDimension($n)->setRowHeight(20);
@@ -226,7 +233,14 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $sheet->getRowDimension($n)->setRowHeight(18);
         $sheet->mergeCells("A{$n}:L{$n}");
 
-        $tit01 = [ 'font' => ['size' => 9, 'bold' => true], 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ]];
+        $tit01 = [ 
+            'font' => ['size' => 9, 'bold' => true], 
+            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => [ 'argb' => 'FFF7F7F7' ],
+            ],
+        ];
         $sheet_style = [
             'A' => [ 'width' => 5, ],
             'A1:L1' => [
@@ -268,8 +282,8 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                         'color' => ['argb' => 'FFD5D5D5'],
                     ],
                     'inside' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['argb' => 'FFFFFFFF'],
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
                     ],
                 ],
             ],
@@ -286,11 +300,15 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
             'A11' => $tit01, 'G11' => $tit01,
             'A12' => $tit01, 'G12' => $tit01,
             'A13' => $tit01, 'G13' => $tit01,
-            'A13:L13' => [
+            'A9:L13' => [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                        'color' => ['argb' => 'FF3A3A3A'],
+                        'color' => ['argb' => 'FFD5D5D5'],
+                    ],
+                    'inside' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
                     ],
                 ],
             ],
@@ -329,24 +347,65 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+            ],
+        ];
+        $border01 = [
+            'borders' => [
+                'right' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+            ],
+        ];
+        $border02 = [
+            'borders' => [
+                'right' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
                     'color' => ['argb' => 'FFD5D5D5'],
                 ],
             ],
         ];
+       
 
         $r = 16;
         foreach ($this->odm_map as $row) {
-            if ( $row == 'm' ) {
+            if ( $row['type'] == 'm' ) {
                 $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
                 $sheet_style["H{$r}"] = $text_right;
                 $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
                 $sheet_style["K{$r}"] = $text_right;
 
-                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+                $sheet_style["A{$r}"] = $border01;
+                $sheet_style["B{$r}:E{$r}"] = $border01;
+                $sheet_style["F{$r}:G{$r}"] = $border01;
+                $sheet_style["H{$r}:I{$r}"] = $border01;
+                $sheet_style["J{$r}"] = $border01;
+                $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
                 $r++;
-                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
+                $sheet_style["A{$r}"] = $border01;
+                $sheet_style["B{$r}:E{$r}"] = $border01;
+                $sheet_style["F{$r}:G{$r}"] = $border01;
+                $sheet_style["H{$r}:I{$r}"] = $border01;
+                $sheet_style["J{$r}"] = $border01;
+                $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
                 $r++;
-                $sheet_style["A{$r}:L{$r}"] = [
+                $sheet_style["A{$r}"] = $border02;
+                $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
+                $sheet_style["B{$r}:E{$r}"] = $border02;
+                $sheet_style["F{$r}:G{$r}"] = $border02;
+                $sheet_style["H{$r}:I{$r}"] = $border02;
+                $sheet_style["J{$r}"] = $border02;
+                $sheet_style["K{$r}:L{$r}"] = [
                     'borders' => [
                         'bottom' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,

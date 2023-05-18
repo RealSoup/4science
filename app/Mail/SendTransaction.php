@@ -27,6 +27,6 @@ class SendTransaction extends Mailable {
             ->subject($this->subject)
             ->view("admin.order.email.sendTransaction")
             ->with($this->params)
-            ->attach($this->file, [ 'as' => 'Transaction.pdf', 'mime' => 'application/pdf' ]);
+            ->attach($this->file, [ 'as' => "{$this->params['file_nm']}_Statement.pdf", 'mime' => 'application/pdf' ]);
     }
 }

@@ -231,15 +231,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     routerPush: function routerPush() {
+      var p = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.sch_frm.page = p;
       this.$router.push({
         name: 'adm_goods_index',
         query: this.sch_frm
       })["catch"](function () {});
-    },
-    pageSet: function pageSet(p) {
-      this.sch_frm.page = p;
-      this.routerPush();
     }
   },
   mounted: function mounted() {
@@ -661,7 +658,7 @@ var render = function () {
                             ) {
                               return null
                             }
-                            return _vm.routerPush.apply(null, arguments)
+                            return _vm.routerPush(1)
                           },
                         },
                         model: {
@@ -678,7 +675,13 @@ var render = function () {
                         [
                           _c(
                             "b-button",
-                            { on: { click: _vm.routerPush } },
+                            {
+                              on: {
+                                click: function ($event) {
+                                  return _vm.routerPush(1)
+                                },
+                              },
+                            },
                             [_c("b-icon-search")],
                             1
                           ),
@@ -886,7 +889,7 @@ var render = function () {
                 showDisabled: true,
                 align: "center",
               },
-              on: { "pagination-change-page": _vm.pageSet },
+              on: { "pagination-change-page": _vm.routerPush },
             },
             [
               _c(

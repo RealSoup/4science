@@ -42,9 +42,9 @@
             </b-col>
             <b-col class="label">견적금액</b-col>
             <b-col class="period">
-                <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
+                <b-form-input v-model="sch_frm.startPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush(1)" />
                 <b>~</b>
-                <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush" />
+                <b-form-input v-model="sch_frm.endPrice" :formatter="price_comma" size="sm" @keyup.enter="routerPush(1)" />
             </b-col>
         </b-row>
 
@@ -81,10 +81,10 @@
                         </b-form-select>
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush" />
+                    <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush(1)" />
 
                     <b-input-group-append>
-                        <b-button @click="routerPush"><b-icon-search /></b-button>
+                        <b-button @click="routerPush(1)"><b-icon-search /></b-button>
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
@@ -104,7 +104,7 @@
             </b-col>
         </b-row>
         <List v-if="list.data && list.data.length" :list="list.data" />
-        <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
@@ -156,13 +156,9 @@ export default {
 		}
 	},
     methods: {
-        routerPush(){
-            // this.sch_frm.page = 1;
-            this.$router.push({name: 'adm_estimate_index', query: this.sch_frm }).catch(()=>{});
-        },
-        pageSet(p){
+        routerPush(p=1){
             this.sch_frm.page = p;
-            this.routerPush();
+            this.$router.push({name: 'adm_estimate_index', query: this.sch_frm }).catch(()=>{});
         },
         async index() {
             try {

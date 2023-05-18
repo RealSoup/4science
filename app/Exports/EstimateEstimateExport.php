@@ -147,7 +147,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             $sheet->mergeCells('B'.($r+1).':E'.($r+1))->mergeCells('F'.($r+1).':G'.($r+1))->mergeCells('H'.($r+1).':I'.($r+1))->mergeCells('K'.($r+1).':L'.($r+1));
             $height=20;
             if ($this->row_height[$i])
-                $height= ($this->row_height[$i]+1)*13;
+                $height= ($this->row_height[$i]+1)*16;
             $sheet->getRowDimension($r+2)->setRowHeight($height);
             //  기존에는 높이를 20으로 설정해놨는데
             //  줄이 긴 내용이 짤려서
@@ -230,7 +230,14 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
         $sheet->mergeCells('A'.($aftRow+$addRow).':L'.($aftRow+$addRow));
 
-        $tit01 = [ 'font' => ['size' => 9, 'bold' => true], 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ]];
+        $tit01 = [ 
+            'font' => ['size' => 9, 'bold' => true], 
+            'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => [ 'argb' => 'FFF7F7F7' ],
+            ],
+        ];
         $sheet_style = [
             'A' => [ 'width' => 5, ],
             'A1:L1' => [
@@ -272,8 +279,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
                         'color' => ['argb' => 'FFD5D5D5'],
                     ],
                     'inside' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['argb' => 'FFFFFFFF'],
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
                     ],
                 ],
             ],
@@ -290,11 +297,15 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             'A11' => $tit01, 'G11' => $tit01,
             'A12' => $tit01, 'G12' => $tit01,
             'A13' => $tit01, 'G13' => $tit01,
-            'A13:L13' => [
+            'A9:L13' => [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
                         'color' => ['argb' => 'FF3A3A3A'],
+                    ],
+                    'inside' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
                     ],
                 ],
             ],
@@ -333,20 +344,65 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+            ],
+        ];
+
+        $border01 = [
+            'borders' => [
+                'right' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+            ],
+        ];
+        $border02 = [
+            'borders' => [
+                'right' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FFE5E5E5'],
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
                     'color' => ['argb' => 'FFD5D5D5'],
                 ],
             ],
         ];
         for ($i=0; $i < $this->row_cnt; $i++) {
             $r = 16+($i*3);
-            $sheet_style['A'.$r] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-            $sheet_style['H'.$r] = $text_right;
-            $sheet_style['J'.$r] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-            $sheet_style['K'.$r] = $text_right;
+            $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+            $sheet_style["H{$r}"] = $text_right;
+            $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+            $sheet_style["K{$r}"] = $text_right;
 
-            $sheet_style['A'.$r.':L'.$r] = $border_medium_dashed;
-            $sheet_style['A'.($r+1).':L'.($r+1)] = $border_medium_dashed;
-            $sheet_style['A'.($r+2).':L'.($r+2)] = [
+            $sheet_style["A{$r}"] = $border01;
+            $sheet_style["B{$r}:E{$r}"] = $border01;
+            $sheet_style["F{$r}:G{$r}"] = $border01;
+            $sheet_style["H{$r}:I{$r}"] = $border01;
+            $sheet_style["J{$r}"] = $border01;
+            $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
+            
+            $r++;
+            $sheet_style["A{$r}"] = $border01;
+            $sheet_style["B{$r}:E{$r}"] = $border01;
+            $sheet_style["F{$r}:G{$r}"] = $border01;
+            $sheet_style["H{$r}:I{$r}"] = $border01;
+            $sheet_style["J{$r}"] = $border01;
+            $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
+            
+            $r++;
+            $sheet_style["A{$r}"] = $border02;
+            $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
+            $sheet_style["B{$r}:E{$r}"] = $border02;
+            $sheet_style["F{$r}:G{$r}"] = $border02;
+            $sheet_style["H{$r}:I{$r}"] = $border02;
+            $sheet_style["J{$r}"] = $border02;
+            $sheet_style["K{$r}:L{$r}"] = [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -354,7 +410,6 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ];
-            $sheet_style['B'.($r+2)] = [ 'alignment' => ['wrapText' => true] ];
         }
 
         $addRow = 16;
