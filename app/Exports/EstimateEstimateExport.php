@@ -23,15 +23,15 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
     public function columnWidths(): array { return [
         'A' => 6,
         'B' => 6,
-        'C' => 11,
-        'D' => 11,
+        'C' => 10,
+        'D' => 10,
         'E' => 11,
-        'F' => 11,
-        'G' => 6,
-        'H' => 6,
-        'I' => 11,
-        'J' => 11,
-        'K' => 11,
+        'F' => 10,
+        'G' => 8,
+        'H' => 7,
+        'I' => 7,
+        'J' => 8,
+        'K' => 12,
         'L' => 11,
     ]; }
 
@@ -389,6 +389,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             
             $r++;
             $sheet_style["A{$r}"] = $border01;
+            $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
             $sheet_style["B{$r}:E{$r}"] = $border01;
             $sheet_style["F{$r}:G{$r}"] = $border01;
             $sheet_style["H{$r}:I{$r}"] = $border01;
