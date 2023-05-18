@@ -48,7 +48,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $data[] = [''];
         $data[] = [''];
         $data[] = [''];
-        $data[] = ['구매번호', '', '', $od['od_no'], '', '', '납품기일', '', '', '납기 2주이내'];
+        $data[] = ['구매번호', '', '', $od['od_no'], '', '', '납품기일', '', '', '납기 4주이내'];
         $data[] = ['견적일자', '', '', date('Y-m-d'), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
         $data[] = ['수신', '', '', $od['od_department'], '', '', '유효기간', '', '', '견적일로부터 2주 까지'];
         $data[] = [''];
