@@ -29,7 +29,8 @@ class GoodsController extends Controller {
                 "gs.gd_rank", "gd.gd_view_cnt", 'gs.gd_id'
             )
             ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
-            ->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
+            ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
+            ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
 
         if ($req->filled('keyword')){
             if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
