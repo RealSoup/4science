@@ -26,11 +26,11 @@ class GoodsController extends Controller {
         $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')->with('goodsModelPrime')
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
-                "gs.gd_rank", "gd.gd_view_cnt", 'gs.gd_id'
+                "gs.gd_rank", 'gs.gd_id'
             )
             ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
-            ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
-            ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
+            // ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
+            ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y');
 
         if ($req->filled('keyword')){
             if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
@@ -47,7 +47,7 @@ class GoodsController extends Controller {
                     $hj = DB::table('shop_hash_join AS hs' )
                     ->selectRaw("la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, 
                         gc_ca01, gc_ca01_name, gc_ca02, gc_ca02_name, gc_ca03, gc_ca03_name, gc_ca04, gc_ca04_name,
-                        0 as score01, 0 as score02, 0 as score03, 0 as score04, 0 as score05, la_gs.gd_rank, 0 as gd_view_cnt, la_gs.gd_id "
+                        0 as score01, 0 as score02, 0 as score03, 0 as score04, 0 as score05, la_gs.gd_rank, la_gs.gd_id "
                     )
                     ->join('shop_goods_search AS gs', 'hs.gd_id', '=', 'gs.gd_id')
                     ->whereIn('gs.gd_id', $hash)
@@ -66,7 +66,11 @@ class GoodsController extends Controller {
             if ( $grouped->count()) {
                 //  검색시 카테고리 상세 검색을 위한
                 //  검생 상품이 속한 카테고리 배열정보
-                // $grouped = collect($data['list']->items())->groupBy('gc_ca01');      
+                
+                //  검색어 없이 카테고리만 선택시 상품수가 많을수록 group by 속도가 너무 느리다
+                //  그래서 검색어가 있을때만 group by 하고
+                //  없으면 gm_prime = Y 로 gd_id가 겹치지 않게 한다.
+                $grouped = $gs->groupBy('gs.gd_id')->get();
                 
                 $data['sch_cate_info']['all'] = count($grouped);
 
@@ -108,35 +112,31 @@ class GoodsController extends Controller {
                     }
                 }
             }
+            
+            if ( $req->filled('mode') ) 
+                $gs->orderBy('score', 'DESC');
+            else 
+                $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
+            
+        } else {
+            $gs->where('gs.gm_prime', 'Y');
         }
+        //  카테고리 where 절은 카테고리 분류한 후에 있어야
+        //  결과네 카테고리 검색의 값이 바뀌지 않는다.
+        $gs->when($req->ca01, fn ($q, $v) => $q->where('gc_ca01', $v))
+            ->when($req->ca02, fn ($q, $v) => $q->where('gc_ca02', $v))
+            ->when($req->ca03, fn ($q, $v) => $q->where('gc_ca03', $v))
+            ->when($req->ca04, fn ($q, $v) => $q->where('gc_ca04', $v))
+            ->when($req->mk_id, fn ($q, $v) => $q->maker($v));
         
-        //  결과 내 카테고리 선택 Start
-        $gs->when($req->ca01, function ($q, $v) use($req) {
-            return $q->whereIn('gs.gd_id', function($q) use($req) {
-                if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
-                else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
-                else if ($req->ca02) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02);
-                else                 $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01);
-            });
-        });
-        $gs->when($req->mk_id, fn ($q, $v) => $q->maker($v));
-        //  결과 내 카테고리 선택 End
-
-
-      
-        // 정렬 설정 Strart
+        $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
-            case 'hot':
-                if ( $req->filled('mode') ) $gs->orderBy('score', 'DESC');
-                else $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
-            break;
-            case 'new':     $gs = $gs->latest('gd_id');        break;
-            case 'lowPri':  $gs = $gs->oldest('gm_price');     break;
-            case 'highPri': $gs = $gs->latest('gm_price');     break;
+            case 'hot':     $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; break;
+            case 'new':     $gs->latest('gd_id');        break;
+            case 'lowPri':  $gs->oldest('gm_price');     break;
+            case 'highPri': $gs->latest('gm_price');     break;
         }
-        $gs->orderBy('gd_rank')->orderBy('gd_view_cnt');
-        // 정렬 설정 End
-        
+
         // echo_query($gs);
         if ($req->filled('limit'))  //  메인 베스트
             $data['list'] = $gs->limit($req->limit)->get(); 
