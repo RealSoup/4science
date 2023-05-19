@@ -106,7 +106,7 @@ class B2bMerckController extends Controller {
 						$xml->endElement();
 						$xml->startElement('ShipTo');
 							$xml->startElement('Address');
-								$xml->writeAttribute('addressID', $addressID);
+								$xml->writeAttribute('addressID', $$req->extra['addressID']);
 								$xml->startElement('Name');
 									$xml->writeAttribute('xml:lang', $xmlLang);
 									$xml->text($req->extra['company']);

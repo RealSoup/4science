@@ -11,6 +11,7 @@
         <b-col col sm="12" md="2">
             <b-form-select size="sm" ref="addressID" v-model="extra.addressID">
                 <b-form-select-option value="">ShipTo Code</b-form-select-option>
+                <b-form-select-option value="2035422570">사무실(판교로 253)</b-form-select-option>
                 <b-form-select-option value="2036349057">서울</b-form-select-option>
                 <b-form-select-option value="2036349058">그 밖의 지역</b-form-select-option>
             </b-form-select>
