@@ -29,7 +29,6 @@ class GoodsController extends Controller {
                 "gs.gd_rank", "gd.gd_view_cnt", 'gs.gd_id'
             )
             ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
-            ->whereExists(function ($query) { $query->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
             ->where('gs.gd_enable', 'Y')->groupBy('gs.gd_id');
 
         if ($req->filled('keyword')){
@@ -42,7 +41,7 @@ class GoodsController extends Controller {
                                 , MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05 ")
                 ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);
                 
-                if ($h = Hash::HsTag($req->keyword)->first()) {
+                if ($h = Hash::HsTag($ftWord)->first()) {
                     $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
                     $hj = DB::table('shop_hash_join AS hs' )
                     ->selectRaw("la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, 
