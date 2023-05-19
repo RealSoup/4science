@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Exports;
 
 use App\Models\Shop\Order;
@@ -9,13 +8,15 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Events\BeforeSheet;
 use Illuminate\Support\Arr;
 
-class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents {
+class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents, WithColumnFormatting {
     protected $od;
     protected $odm_map = [];
 
@@ -58,22 +59,22 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                         $od['od_dlvy_price']        = 0;
                         //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
                     }
-                    $data[] = [$seq, $odm['odm_gm_name'], $odm['odm_gm_catno'], $odm['odm_gm_code'], number_format($odm['odm_price']), $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea']) ];
+                    $data[] = [$seq, $odm['odm_gm_name'], $odm['odm_gm_catno'], $odm['odm_gm_code'], $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea'] ];
                 } else {
                     $this->odm_map[] = 'o';
-                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', number_format($odm['odm_price']), $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea'])];
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea']];
                 }                
                 $goods_p += $odm['odm_price']*$odm['odm_ea'];
             }
         }
 
-        $data[] = ['SUPPLY PRICE', '', '', '', number_format($goods_p)];
-        $data[] = ['V. A. T.', '', '', '', surtax($goods_p, 1)];
+        $data[] = ['SUPPLY PRICE', '', '', '', $goods_p];
+        $data[] = ['V. A. T.', '', '', '', surtax($goods_p)];
         if ($od['od_dlvy_price'])
-            $data[] = ['SHIPPING FEES', '', '', '', number_format($od['od_dlvy_price'])];
+            $data[] = ['SHIPPING FEES', '', '', '', $od['od_dlvy_price']];
         if ($od['od_air_price'])
-            $data[] = ['항공 운임료', '', '', '', number_format($od['od_air_price'])];
-        $data[] = ['TOTAL AMOUNT', '', '', '', number_format(rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price'])];
+            $data[] = ['항공 운임료', '', '', '', $od['od_air_price']];
+        $data[] = ['TOTAL AMOUNT', '', '', '', rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price']];
         $data[] = [''];
         $data[] = ['담당자 : '.$od['mng']['name'].' '.$od['mng']['user_mng']['pos_name'].', TEL : '.$od['mng']['tel'].', FAX : '.$od['mng']['fax']];
         $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
@@ -370,6 +371,29 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $drawing->setHeight(80);
         $drawing->setCoordinates('D4');
         return $drawing;
+    }
+
+    public function columnFormats(): array {
+        $rst = [];
+        $rst["A4:C4"] = NumberFormat::FORMAT_DATE_01;
+        for ($i=9; $i < count($this->odm_map)+9; $i++)
+            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        
+        $r = count($this->odm_map) + 9;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $r++;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        if ($this->od['od_dlvy_price']) {
+            $r++;
+            $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        }
+        if ($this->od['od_air_price']) {
+            $r++;
+            $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        }
+        $r++;
+        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        return $rst;
     }
 
     public function registerEvents():array {

@@ -14,8 +14,10 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Events\BeforeSheet;
 use Illuminate\Support\Arr;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents {
+class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents, WithColumnFormatting {
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -75,12 +77,12 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                         $od['od_dlvy_price']        = 0;
                         //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
                     }
-                    $data[] = [$seq, $odm['odm_gm_name'], '', '', '', $odm['odm_gm_unit'], '', number_format($odm['odm_price']), '', $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea']) ];
+                    $data[] = [$seq, $odm['odm_gm_name'], '', '', '', $odm['odm_gm_unit'], '', $odm['odm_price'], '', $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea'] ];
                     $data[] = ['', $odm['odm_gm_catno'].' / '.$odm['odm_gm_code']];
                     $data[] = ['', $odm['odm_gm_spec']];
                 } else {
                     $type = 'o';
-                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', number_format($odm['odm_price']), '', $odm['odm_ea'], number_format($odm['odm_price']*$odm['odm_ea'])];
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', $odm['odm_price'], '', $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea']];
                 }
                 
                 $goods_p += $odm['odm_price']*$odm['odm_ea'];
@@ -92,13 +94,13 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
             }
         }
         $data[] = [''];
-        $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', number_format($goods_p)];
-        $data[] = ['V. A. T.', '', '', '', '', '', '', surtax($goods_p, 1)];
+        $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', $goods_p];
+        $data[] = ['V. A. T.', '', '', '', '', '', '', surtax($goods_p)];
         if ($od['od_dlvy_price'])
-            $data[] = ['SHIPPING FEES', '', '', '', '', '', '', number_format($od['od_dlvy_price'])];
+            $data[] = ['SHIPPING FEES', '', '', '', '', '', '', $od['od_dlvy_price']];
         if ($od['od_air_price'])
-            $data[] = ['항공 운임료', '', '', '', '', '', '', number_format($od['od_air_price'])];
-        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', number_format(rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price'])];
+            $data[] = ['항공 운임료', '', '', '', '', '', '', $od['od_air_price']];
+        $data[] = ['TOTAL AMOUNT', '', '', '', '', '', '', rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price']];
         $data[] = [''];
         $data[] = ['▶ 주문요청 (주문시 사업자등록증을 팩스로 보내주세요.)'];
         $data[] = ['발주일'];
@@ -576,6 +578,34 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         $drawing2->setCoordinates('G3');
 
         return [$drawing, $drawing2];
+    }
+
+    public function columnFormats(): array {
+        // FORMAT_NUMBER_COMMA 
+        // 해당 기능없어서 라이브러리 조작
+        // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
+        $rst = [];
+        $r = 16;
+        foreach ($this->odm_map as $row) {
+            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $r+=3;
+        }
+        $r++;
+        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $r++;
+        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+
+        if ($this->od['od_dlvy_price']) {
+            $r++;
+            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        }
+        if ($this->od['od_air_price']) {
+            $r++;
+            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        }
+        $r++;
+        $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        return $rst;
     }
 
     public function registerEvents():array {
