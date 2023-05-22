@@ -40,7 +40,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $data[] = ['거   래   명   세   서'];
         $data[] = ['(공급받는자 보관용)'];
         $data[] = [''];
-        $data[] = [date('Y년 m월 d일')];
+        $data[] = [date('Y년 m월 d일', strtotime($od['created_at']))];
         $data[] = [$od['od_department']." 귀하"];
         $data[] = ['아래와 같이 계산합니다.'];
         $data[] = [''];
