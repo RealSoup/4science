@@ -20,7 +20,7 @@ class RealsoupController extends Controller {
                 where 
                     glt_no <= ?
                 order by glt_no
-            ", [359]);
+            ", [2000]);
         foreach( $rst as $v ){
             $gf = DB::select( "
                 SELECT * 
@@ -37,8 +37,12 @@ class RealsoupController extends Controller {
                 $size = @intval($gf[0]->mtf_size??0) * 1024;
                 $ext=null;
                 $origin = '';
+                $server = '';
                 if(isset($gf[0]->mtf_file_origin) && $gf[0]->mtf_file_origin) $origin = $gf[0]->mtf_file_origin;
                 else $origin = $gf[0]->mtf_file;
+
+                if(isset($gf[0]->mtf_file) && $gf[0]->mtf_file) $server = $gf[0]->mtf_file;
+                else $server = $gf[0]->mtf_file_origin;
                 $ext = explode('.', $origin);
                 $ext = strtolower(end($ext));
                 
@@ -54,7 +58,7 @@ class RealsoupController extends Controller {
                 ]);
                 
 
-                $file01 = "https://www.4science.net/UserFiles2/item_file/".rawurlencode($gf[0]->mtf_file_origin);
+                $file01 = "http://old.4science.net/UserFiles2/item_file/".rawurlencode($server);
                 $file02 = "api_goods/{$fi_path}/add/".$fi_new;
 
                 $file_headers = get_headers($file01);
@@ -83,8 +87,19 @@ class RealsoupController extends Controller {
         }
         echo " <br>end <br>";
     }
-    public function test (Request $req) {
-        
+    public function test (Request $req) {   //  AWS S3 FOLDER DELETE
+        exit;
+        $f_nm = '/add';
+        foreach( Storage::disk('s3')->directories('api_goods') as $k => $v ) {
+            // dump(in_array("{$v}/add22", Storage::disk('s3')->directories($v)));
+            // dump(Storage::disk('s3')->directories($v));
+
+            if((in_array("{$v}{$f_nm}", Storage::disk('s3')->directories($v)))) {
+                dump(Storage::disk('s3')->deleteDirectory("{$v}{$f_nm}"));
+                echo "{$v}{$f_nm} <- del <br/>";
+            }
+            exit;
+        }
     }
     public function play (Request $req) {
         

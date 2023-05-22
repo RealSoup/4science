@@ -1,6 +1,6 @@
 <template>
 <b-container class="w_fence" id="engReform">
-    <h3 class="btn_box">영문교정 <b-button href="#engReform_form_od_top" class="blue lg">영문 교정 신청하기</b-button></h3>
+    <h3 class="btn_box">영문교정 <b-button href="/engReform/create#engReform_form_od_top" class="blue lg">영문 교정 신청하기</b-button></h3>
 
     <b-row>
         <b-col>
@@ -258,7 +258,7 @@
                             <b-input-group-prepend is-text>
                                 <b-form-radio v-model="frm.er_format" button value="FM">Formatting</b-form-radio>
                             </b-input-group-prepend>
-                            <b-form-input v-model="frm.er_format_url" id="er_format_url" placeholder="저널 URL을 입력하세요"></b-form-input>
+                            <b-form-input v-model="frm.er_journal_url" id="er_journal_url" placeholder="저널 URL을 입력하세요"></b-form-input>
                         </b-input-group>
                         <Validation :error="this.$store.state.error.validations.er_format" />
                     </b-col>
@@ -379,7 +379,7 @@ export default {
     methods: {
         async store() {
             if (isEmpty(this.frm.er_dlvy_at)) { Notify.toast('danger', "납기일을 입력하세요."); document.getElementById('er_dlvy_at').focus(); return false; }
-            if (isEmpty(this.frm.er_format_url) && this.frm.er_format == 'FM') { Notify.toast('danger', "저널 URL을 입력하세요."); document.getElementById('er_format_url').focus(); return false; }
+            if (isEmpty(this.frm.er_journal_url) && this.frm.er_format == 'FM') { Notify.toast('danger', "저널 URL을 입력하세요."); document.getElementById('er_journal_url').focus(); return false; }
             if (isEmpty(this.frm.er_use)) { Notify.toast('danger', "문서 용도를 선택하세요."); document.getElementById('er_use').focus(); return false; }
             if (isEmpty(this.frm.er_branch)) { Notify.toast('danger', "학문 분야를 선택하세요."); document.getElementById('er_branch').focus(); return false; }
             if (isEmpty(this.frm.er_editor)) { Notify.toast('danger', "에디터를 선택하세요."); document.getElementById('er_editor').focus(); return false; }

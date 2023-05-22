@@ -647,13 +647,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 4:
-                if (!(isEmpty(_this.frm.er_format_url) && _this.frm.er_format == 'FM')) {
+                if (!(isEmpty(_this.frm.er_journal_url) && _this.frm.er_format == 'FM')) {
                   _context.next = 8;
                   break;
                 }
 
                 Notify.toast('danger', "저널 URL을 입력하세요.");
-                document.getElementById('er_format_url').focus();
+                document.getElementById('er_journal_url').focus();
                 return _context.abrupt("return", false);
 
               case 8:
@@ -6308,7 +6308,7 @@ var render = function () {
             "b-button",
             {
               staticClass: "blue lg",
-              attrs: { href: "#engReform_form_od_top" },
+              attrs: { href: "/engReform/create#engReform_form_od_top" },
             },
             [_vm._v("영문 교정 신청하기")]
           ),
@@ -7472,15 +7472,15 @@ var render = function () {
                               _vm._v(" "),
                               _c("b-form-input", {
                                 attrs: {
-                                  id: "er_format_url",
+                                  id: "er_journal_url",
                                   placeholder: "저널 URL을 입력하세요",
                                 },
                                 model: {
-                                  value: _vm.frm.er_format_url,
+                                  value: _vm.frm.er_journal_url,
                                   callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_format_url", $$v)
+                                    _vm.$set(_vm.frm, "er_journal_url", $$v)
                                   },
-                                  expression: "frm.er_format_url",
+                                  expression: "frm.er_journal_url",
                                 },
                               }),
                             ],
