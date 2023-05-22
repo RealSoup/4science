@@ -110,6 +110,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
@@ -641,6 +642,12 @@ var render = function () {
                   _c("b-form-select-option", { attrs: { value: "" } }, [
                     _vm._v("ShipTo Code"),
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-select-option",
+                    { attrs: { value: "2035422570" } },
+                    [_vm._v("사무실(판교로 253)")]
+                  ),
                   _vm._v(" "),
                   _c(
                     "b-form-select-option",

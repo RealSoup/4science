@@ -22,9 +22,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://4science.net/board/event/show/36" target='_blank'>
+            <!-- <a href="https://4science.net/board/event/show/36" target='_blank'>
                 <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0418/230418_estimate.jpg" />
-            </a>
+            </a> -->
         </td>
     </tr>
 

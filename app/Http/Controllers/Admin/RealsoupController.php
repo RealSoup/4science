@@ -10,66 +10,94 @@ use App\Models\Shop\Goods;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
+
 class RealsoupController extends Controller {
+
     public function index(Request $req) {
+        $rst = DB::select( "
+                select glt_no, gd_id
+                from la_shop_goods a
+                where 
+                    glt_no <= ?
+                order by glt_no
+            ", [359]);
+        foreach( $rst as $v ){
+            $gf = DB::select( "
+                SELECT * 
+                FROM nc_site_meta_file 
+                WHERE mtf_parent_tbl = 'item_file' AND 
+                mtf_delete_yn = 'N' AND 
+                mtf_parent_no = ?
+                limit 1
+            ", [$v->glt_no]); 
+            if($gf && $gf[0]) {
+                DB::table('file_goods')->where('fi_key', $v->gd_id)->where('fi_kind', 'add')->delete();
+
+                $fi_path = @intval($v->gd_id/1000)+1;
+                $size = @intval($gf[0]->mtf_size??0) * 1024;
+                $ext=null;
+                $origin = '';
+                if(isset($gf[0]->mtf_file_origin) && $gf[0]->mtf_file_origin) $origin = $gf[0]->mtf_file_origin;
+                else $origin = $gf[0]->mtf_file;
+                $ext = explode('.', $origin);
+                $ext = strtolower(end($ext));
+                
+                $fi_new = uniqid().".{$ext}";
+                DB::table('file_goods')->insert([
+                    'fi_key'  => $v->gd_id, 
+                    'fi_room' => $fi_path,
+                    'fi_kind' => 'add',
+                    'fi_original' => addslashes($origin),
+                    'fi_new'  => $fi_new,
+                    'fi_size' => $size,
+                    'fi_ext'  => $ext
+                ]);
+                
+
+                $file01 = "https://www.4science.net/UserFiles2/item_file/".rawurlencode($gf[0]->mtf_file_origin);
+                $file02 = "api_goods/{$fi_path}/add/".$fi_new;
+
+                $file_headers = get_headers($file01);
+                if(strpos($file_headers[0], '404') === false)
+                    Storage::disk('s3')->put($file02, file_get_contents($file01));
+            }
+            
+            
+            //  keyword
+
+            $gl = DB::select( " SELECT goods_keyword FROM nc_goods_list WHERE glt_no = ? limit 1 ", [$v->glt_no]);
+            if($gl && $gl[0] && $gl[0]->goods_keyword!='')
+                DB::table('shop_goods')->where('gd_id', $v->gd_id)->update([ 'gd_keyword'   => $gl[0]->goods_keyword ]);
+
+
+            echo "{$v->glt_no} <br>";
+
+
+
+
+
+
+
+
+            
+        }
+        echo " <br>end <br>";
+    }
+    public function test (Request $req) {
+        
+    }
+    public function play (Request $req) {
+        
+    }
+
+    public function index00(Request $req) {
         // Redis::set('name',  '김진국'); // 10 Minutes
         // $lists = Cache::rememberForever('list_cache', function(){
         //     return auth()->user()->name;
         // });
 
-dd(Redis::get('name'));
-
-        exit;
-
-
-        $rst_er = DB::table('user_mileage')
-            ->select('ml_id', 'ml_idx')
-            ->where('ml_id', '<', 150189)
-            ->where('ml_tbl', 'shop_order_model')
-            ->where('created_at', '>', '2023-03-14 00:00:00')->get();
-        foreach( $rst_er as $er ){
-            $rst = DB::select( "
-                select opt_no
-                from nc_mileage_log a
-                    join nc_order_item_option b on a.ml_sub_data = b.ord_no
-                where ml_idx = ?
-                limit 1
-            ", [$er->ml_idx]); 
-
-            $rst2 = DB::select( "
-                select odm_id
-                from la_shop_order_model
-                where opt_no = ?
-                limit 1
-            ", [$rst[0]->opt_no]); 
-
-            DB::table('user_mileage')->where('ml_id', $er->ml_id)->update([ 'ml_key'   => $rst2[0]->odm_id ]);
-
-            echo "{$er->ml_idx} <br>";
-        }
-        echo " <br>ORDER end <br>";
+        // dd(Redis::get('name'));
     }
-    // public function index(Request $req) {
-    //     $rst = Array();
-    //     // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
-    //     // dd(file_put_contents("xx.json", $json));
-    //     foreach (Cache::get('categoryAll') as $ca) {
-    //         $rst['bestByCate'][$ca['ca_id']] = ShowWindow::with('goods')
-    //         ->where('sw_type', 'ca_best')
-    //         ->where('sw_group', $ca['ca_id'])
-    //         ->orderBy('sw_seq')
-    //         ->get();
-    //     }
-    //     $rst['best'] = Goods::SchGd_id(
-    //         ShowWindow::select('sw_key')
-    //         ->where('sw_type', 'best')
-    //         ->orderBy('sw_seq')->orderBy('sw_id')
-    //         ->limit(6)
-    //         ->pluck('sw_key')
-    //     )->with('goodsCategoryFirst')
-    //     ->get();
-    //     return response()->json($rst);
-    // }
 
     public function es_update_000(Request $req) {
         $paarray = [
