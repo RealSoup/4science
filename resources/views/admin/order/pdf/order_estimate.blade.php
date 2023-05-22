@@ -128,7 +128,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>납품기일</th> <td>납기 2주이내</td>
         </tr>
         <tr class="line01">
-            <th>견적일자</th> <td>{{ date('Y년 m월 d일', strtotime($created_at)) }}</td>
+            <th>견적일자</th> <td>{{ date('Y-m-d', strtotime($created_at)) }}</td>
             <th>결제조건</th> <td>선결제 (대학교 및 국가연구소 제외)</td>
         </tr>
         <tr>
