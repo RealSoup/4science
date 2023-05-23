@@ -11,9 +11,6 @@
         <b-link to="/shop/goods/51495">
             <b-carousel-slide :img-src="s3url+'event/2023/0509/slide.jpg'"></b-carousel-slide>
         </b-link>
-        <b-link to="/shop/goods?ca01=33&ca02=5619">
-            <b-carousel-slide :img-src="s3url+'event/2023/0425/slide.jpg'"></b-carousel-slide>
-        </b-link>
         <b-link to="/shop/goods/255439">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041605.jpg'"></b-carousel-slide>
         </b-link>

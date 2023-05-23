@@ -8,7 +8,25 @@
     font-family: 'NanumGothic';
     font-style: normal;
     font-weight: 100;
-    src: url("{{ public_path()}}/fonts/NanumGothicLight.ttf") format('truetype');
+    src: url("{{ public_path('fonts/NanumGothicLight.ttf') }}") format('truetype');
+}
+@font-face {
+    font-family: 'NanumGothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url("{{ public_path('fonts/NanumGothic.ttf') }}") format('truetype');
+}
+@font-face {
+    font-family: 'NanumGothic';
+    font-style: normal;
+    font-weight: 700;
+    src: url("{{ public_path('fonts/NanumGothicBold.ttf') }}") format('truetype');
+}
+@font-face {
+    font-family: 'NanumGothic';
+    font-style: normal;
+    font-weight: 800;
+    src: url("{{ public_path('fonts/NanumGothicExtraBold.ttf') }}") format('truetype');
 }
 
 

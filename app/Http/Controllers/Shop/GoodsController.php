@@ -23,7 +23,7 @@ class GoodsController extends Controller {
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
 
-        $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')->with('goodsModelPrime')
+        $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
                 "gs.gd_rank", 'gs.gd_id'
@@ -123,6 +123,10 @@ class GoodsController extends Controller {
             case 'lowPri':  $gs->oldest('gm_price');     break;
             case 'highPri': $gs->latest('gm_price');     break;
         }
+
+        //  미리 위에서 명시 할수 있지만
+        //  위에서 하면 카테고리 검색때문에 2번 씩 된다
+        $gs->with('goods')->with('goodsModelPrime');
 
         // echo_query($gs);
         if ($req->filled('limit'))  //  메인 베스트
