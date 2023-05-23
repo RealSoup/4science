@@ -354,7 +354,7 @@ var render = function () {
                           {
                             attrs: {
                               to: {
-                                name: "adm_board_edit",
+                                name: "adm_board_show",
                                 params: { bo_cd: _vm.bo_cd, bo_id: bo.bo_id },
                               },
                               variant: "outline-secondary",

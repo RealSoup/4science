@@ -16,7 +16,7 @@
                         <b-badge v-else>답변</b-badge>
                     </b-col>
                     <b-col col lg="7">
-                        <b-button :to="{name: `adm_board_edit`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}" variant="outline-secondary" block>{{bo.bo_subject}}</b-button>
+                        <b-button :to="{name: `adm_board_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}" variant="outline-secondary" block>{{bo.bo_subject}}</b-button>
                     </b-col>
                     <b-col col lg="2">
                         {{bo.bo_writer}}

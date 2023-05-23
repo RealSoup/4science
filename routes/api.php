@@ -162,16 +162,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     ]
                 ]);
 
-                Route::resource('hash', 'Admin\Shop\HashController', [
-                    'except' => [ 'show', 'create', 'edit' ],
-                    'names' => [
-                        'index'		=> 'admin.shop.hash.index',
-                        'store'		=> 'admin.shop.hash.store',
-                        'destroy'	=> 'admin.shop.hash.destroy',
-                        'update'	=> 'admin.shop.hash.update',
-                    ]
-                ]);
-
                 Route::resource('purchase_at', 'Admin\Shop\PurchaseAtController', [
                     'except' => [ 'show', 'create', 'edit' ],
                     'names' => [
@@ -231,6 +221,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             //  게시판
             Route::prefix('board/{bo_cd}')->group(function () {
                 Route::GET('',                      'Admin\BoardController@index')->name(   'admin.board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
+                Route::GET('show/{bo_id}',          'Admin\BoardController@show')->name(    'admin.board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
                 Route::GET('create',                'Admin\BoardController@create')->name(  'admin.board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
                 Route::POST('store',                'Admin\BoardController@store')->name(   'admin.board.store')->where('bo_cd', '[a-zA-Z0-9_]+');
                 Route::GET('edit/{bo_id}',          'Admin\BoardController@edit')->name(    'admin.board.edit')->where('bo_cd', '[a-zA-Z0-9_]+');

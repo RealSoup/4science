@@ -94,19 +94,7 @@
             <b-row>                
                 <b-col class="label">키워드</b-col>
                 <b-col class="type11">
-                    <multiselect 
-                        v-model="value.hash_join" 
-                        tag-placeholder="새로운 키워드 추가" 
-                        placeholder="키워드를 선택 및 입력하세요"
-                        deselectLabel="클릭 or 엔터를 눌러 제거"
-                        selectedLabel="선택됨" 
-                        label="hs_tag" 
-                        track-by="hs_id" 
-                        :options="hashs" 
-                        :multiple="true" 
-                        :taggable="true"
-                        @tag="addTag"
-                    ></multiselect>
+                    <b-form-input id="gd_keyword" v-model="value.gd_keyword" />
                 </b-col>
             </b-row>
 

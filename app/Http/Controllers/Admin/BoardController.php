@@ -64,6 +64,29 @@ class BoardController extends Controller {
         return response()->json($this->param);
     }
 
+    public function show(Request $req, $bo_cd, $bo_id) {
+        if (!auth()->check()) {
+            if ( !in_array($bo_cd, ['notice', 'event']) ) abort(500, '로그인하세요.');
+        }
+
+        // dd($this->authorize('show', $this->board));
+        $bo = $this->board->find($bo_id);
+        event(new BoardView($req, $bo));
+        
+        $bo->img_file = collect();
+        $bo->add_file = collect();
+        if (  $bo_cd == 'inquiry' || $bo_cd == 'as' || $bo_cd == 'cancel' || $bo_cd == 'gd_inquiry' ) {
+            if ( $bo_cd == 'gd_inquiry' ) $bo->goods;
+            $bo->answer=$this->board->where('bo_seq', $bo->bo_seq)->where('bo_seq_cd', 'A')->first();            
+        }
+        foreach ($bo->fileInfo_bo as $fi) {
+            if(isImg($fi->fi_ext)) $bo->img_file[] = $fi;
+            else                $bo->add_file[] = $fi;
+        }
+ 
+        return response()->json($bo);
+    }
+
     public function store(StoreBoard $req, $bo_cd) {
         $pieces = ['bo_seq' => ($this->board->min('bo_seq'))-1];
         $pieces = Arr::collapse([$this->bo_reqImplant($req), $pieces]);
@@ -197,19 +220,19 @@ class BoardController extends Controller {
         return response()->json($comment);
     }
 
-    public function show(Request $req, $bo_cd, $bo_id) {
-        $bo = $this->board->find($bo_id);
-        event(new BoardView($req, $bo));
+    // public function show(Request $req, $bo_cd, $bo_id) {
+    //     $bo = $this->board->find($bo_id);
+    //     event(new BoardView($req, $bo));
         
-        $bo->img_file = collect();
-        $bo->add_file = collect();
-        foreach ($bo->fileInfo_bo as $fi) {
-            if(isImg($fi->fi_ext)) $bo->img_file[] = $fi;
-            else                $bo->add_file[] = $fi;
-        }
+    //     $bo->img_file = collect();
+    //     $bo->add_file = collect();
+    //     foreach ($bo->fileInfo_bo as $fi) {
+    //         if(isImg($fi->fi_ext)) $bo->img_file[] = $fi;
+    //         else                $bo->add_file[] = $fi;
+    //     }
  
-        return response()->json($bo);
-    }
+    //     return response()->json($bo);
+    // }
 
 
     

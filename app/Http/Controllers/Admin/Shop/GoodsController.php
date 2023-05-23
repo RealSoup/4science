@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, Hash, HashJoin, GoodsOption, GoodsOptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -120,7 +120,6 @@ class GoodsController extends Controller {
     }
 
     public function create() {
-        $data['hashs'] = Hash::orderBy('hs_tag')->get(); //  키워드 연결
         $data['makers'] = $this->maker::Select('mk_id', 'mk_name')->orderBy('mk_name')->get(); //  상품등록시 제조사 연결
         $data['purchaseAt'] = PurchaseAt::orderBy('pa_name')->get(); //  매입처 직배송
         // $params['categorys'] = $this->category->getSltCate($this->ca_id);
@@ -135,7 +134,7 @@ class GoodsController extends Controller {
         return response()->json($data);
     }
 
-    public function edit(HashJoin $hj, $gd_id) {
+    public function edit($gd_id) {
         $data['goods'] = $this->goods->select("shop_goods.*",
 							DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_goods.gd_mk_id = mk_id) as gd_mk_name"),)
                         ->with('goodsModel')->with('goodsOption')->with('goodsCategory')->find($gd_id);
@@ -144,9 +143,6 @@ class GoodsController extends Controller {
         $data['goods']->fileGoodsGoods;
         $data['goods']->fileGoodsAdd;
         $data['purchaseAt'] = PurchaseAt::orderBy('pa_name')->get(); //  매입처 직배송
-        $data['hashs'] = Hash::orderBy('hs_tag')->get(); //  키워드 연결
-        $data['goods']->hash_join = $hj->joinHash()->GdId($gd_id)->get();
-
         return response()->json($data);
     }
 
@@ -205,8 +201,6 @@ class GoodsController extends Controller {
                 }
             }
         }
-
-        if ($req->filled('hash_join')) $this->hashStore($req->hash_join, $goods->gd_id);
 
         if ($rst)
             return response()->json($goods->gd_id, 200);
@@ -342,8 +336,6 @@ class GoodsController extends Controller {
             }
         }
 
-        if ($req->filled('hash_join')) $this->hashStore($req->hash_join, $gd_id);
-
         if ($gd_rst)
             return response()->json($gd_id, 200);
         else
@@ -385,8 +377,7 @@ class GoodsController extends Controller {
         return response()->json("success", 200);
     }
 
-    public function destroy($id) {
-        // DB::table('shop_hash_join')->where('gd_id', $id)->delete();       
+    public function destroy($id) {    
         // foreach (FileGoods::Key($id)->get() as $v)
         //     app('App\Http\Controllers\CommonController')->deleteFiles($v->fi_id, 'goods');        
         // foreach (GoodsOption::Gd_id($id)->get() as $go) {
@@ -405,20 +396,10 @@ class GoodsController extends Controller {
         DB::table('shop_goods_search')->where('gd_id', $id)->delete();
     }
 
-    public function hashStore($hash_join, $gd_id){
-        $prev = HashJoin::Gdid($gd_id)->pluck('hs_id');
-        foreach ($hash_join as $v) {
-            $r = Hash::firstOrCreate( ['hs_id'=>$v['hs_id']], ['hs_tag'=>$v['hs_tag']] );
-            HashJoin::firstOrCreate( ['gd_id'=>$gd_id, 'hs_id'=>$r->hs_id] );
-            $prev->forget($prev->search($v['hs_id']));
-        }
-        foreach ($prev as $id)
-            HashJoin::GdId($gd_id)->HsId($id)->delete();
-    }
-
     public function goods_paramImplant($goods, $req){
         $goods->gd_name        = $req->gd_name;
 	   	$goods->gd_desc        = $req->gd_desc;
+        $goods->gd_keyword     = $req->gd_keyword;
         $goods->gd_video       = $req->gd_video;
 	   	$goods->gd_dlvy_at     = $req->gd_dlvy_at;
 	   	$goods->gd_enable      = $req->filled('gd_enable') ? $req->gd_enable : 'N';
@@ -459,6 +440,7 @@ class GoodsController extends Controller {
         return ['gd_id'        => $gd->gd_id,
                 'gd_enable'    => $gd->gd_enable,
                 'gd_name'      => $gd->gd_name,
+                'gd_keyword'   => $gd->gd_keyword,
                 'gd_rank'      => 999999,
                 'mk_name'      => $gd->gd_mk_name,
                 'gm_id'        => $gm['gm_id'],

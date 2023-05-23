@@ -4,15 +4,11 @@ namespace app\Http\Controllers\admin\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\Hash;
 
 class HashController extends Controller {
-
-    protected $hash;
 	protected $params;
 
-    public function __construct(Hash $hash, Request $req) {
-        $this->hash = $hash;
+    public function __construct( Request $req) {
     }
 
 	public function index(Request $req) {

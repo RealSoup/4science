@@ -16,7 +16,7 @@
         </b-container>
     </b-card>
 
-    <Form ref="form" v-model="frm" :hashs="hashs" :purchaseAt="purchaseAt" />
+    <Form ref="form" v-model="frm" :purchaseAt="purchaseAt" />
 </b-container>
 </template>
 
@@ -34,7 +34,6 @@ export default {
     },
     data() {
         return {
-            hashs: [],
             purchaseAt: [],
             frm: {
                 file_goods_goods:[],
@@ -51,7 +50,6 @@ export default {
                 const res = await ax.get(`/api/admin/shop/goods/${this.$route.params.gd_id}/edit`);
                 if (res && res.status === 200) {
                     this.frm = res.data.goods;
-                    this.hashs = res.data.hashs;
                     this.purchaseAt = res.data.purchaseAt;
                 }
             } catch (e) {

@@ -15,7 +15,7 @@
             </b-row>
         </b-container>
     </b-card>
-    <Form ref="form" v-model="frm" :hashs="hashs" :makers="makers" :purchaseAt="purchaseAt" />
+    <Form ref="form" v-model="frm" :makers="makers" :purchaseAt="purchaseAt" />
 </b-container>
 </template>
 
@@ -34,7 +34,6 @@ export default {
     
     data() {
         return {
-            hashs: [],
             makers: [],
             purchaseAt: [],
             frm: {
@@ -43,7 +42,6 @@ export default {
                 goods_model : [],
                 goods_option : [],
                 fi_id: [],
-                hash_join: [],
                 file_goods_goods: [],
                 file_goods_add: [],
             },
@@ -54,7 +52,6 @@ export default {
             try {
                 const res = await ax.get(`/api/admin/shop/goods/create`);
                 if (res && res.status === 200) {
-                    this.hashs = res.data.hashs;
                     this.makers = res.data.makers;
                     this.purchaseAt = res.data.purchaseAt;
                 }

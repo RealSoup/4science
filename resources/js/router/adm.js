@@ -114,6 +114,10 @@ export default [
                 name: 'adm_board_index',
                 component:() => import('@/views/admin/board/Index'),
             }, {   
+                path: 'board/:bo_cd/show/:bo_id',
+                name: 'adm_board_show',
+                component:() => import('@/views/admin/board/Show'),
+            }, {   
                 path: 'board/:bo_cd/create',
                 name: 'adm_board_create',
                 component:() => import('@/views/admin/board/Create'),

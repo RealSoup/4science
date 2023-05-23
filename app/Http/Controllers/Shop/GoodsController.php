@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory, GoodsSearch, Hash};
+use App\Models\Shop\{Goods, Category, GoodsCategory, GoodsSearch};
 use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
@@ -39,22 +39,8 @@ class GoodsController extends Controller {
             if ( !$req->filled('mode') ) {
                 $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score02, 
                                 MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score03, MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score04, 
-                                MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05 ")
-                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);
-                
-                if ($h = Hash::HsTag($req->keyword)->first()) {
-                    $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
-                    $hj = DB::table('shop_hash_join AS hs' )
-                    ->selectRaw("la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, 
-                        gc_ca01, gc_ca01_name, gc_ca02, gc_ca02_name, gc_ca03, gc_ca03_name, gc_ca04, gc_ca04_name,
-                        la_gs.gd_rank, la_gs.gd_id,
-                        0 as score01, 0 as score02, 0 as score03, 0 as score04, 0 as score05 "
-                    )
-                    ->rightJoin('shop_goods_search AS gs', 'hs.gd_id', '=', 'gs.gd_id')
-                    ->whereIn('gs.gd_id', $hash)
-                    ->groupBy('gs.gd_id');
-                    $gs = $gs->union($hj); 
-                }            
+                                MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05, MATCH (la_gs.gd_keyword) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score06 ")
+                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);                
             } else {
                 if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
                 if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
@@ -117,7 +103,7 @@ class GoodsController extends Controller {
             if ( $req->filled('mode') ) 
                 $gs->orderBy('score', 'DESC');
             else 
-                $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
+                $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
             
         } else {
             $gs->where('gs.gm_prime', 'Y');

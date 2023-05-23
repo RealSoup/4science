@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory, Hash};
+use App\Models\Shop\{Goods, Category, GoodsCategory};
 use Illuminate\Support\Facades\DB;
 
 class GoodsController extends Controller {
@@ -56,10 +56,7 @@ class GoodsController extends Controller {
                 $model = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText(['gm_name', 'gm_code'], $ftWord)->where('gm_enable', 'Y');
                 $maker = DB::table('shop_makers')->select('gd_id')->join('shop_goods', 'shop_makers.mk_id', '=', 'shop_goods.gd_mk_id')->where('mk_name', $ftWord);
                 $goods = $goods->union($model)->union($maker);
-                if ($h = Hash::HsTag($ftWord)->first()) {
-                    $hash  = DB::table('shop_hash_join')->select('gd_id')->where('hs_id', $h->hs_id);
-                    $goods = $goods->union($hash);
-                }
+               
                 if ($isCatNo) {
                     $model_prev = DB::table('shop_goods_model')->select('gm_gd_id');
                     if (count($cat_no)==2)       $model_prev->where('gm_catno01', $cat_no[0])->where('gm_catno02', $cat_no[1]);
@@ -68,7 +65,7 @@ class GoodsController extends Controller {
                 }
                 $gd->whereIn('gd_id', $goods->pluck('gd_id'));
             } else {
-                $gd_name = $gm_name = $gm_code = $hash = $maker = null;
+                $gd_name = $gm_name = $gm_code = $maker = null;
                 
                 // $ftWord = $req->keyword;
                 if ( $req->mode == 'gd_name' ) $gd_name = $ftWord;
@@ -86,15 +83,6 @@ class GoodsController extends Controller {
                             else if (count($v)==3)  $q->select('gm_gd_id')->from('shop_goods_model')->where('gm_catno01', "{$v[0]}")->where('gm_catno02', "{$v[1]}")->where('gm_catno03', "{$v[2]}")->where('gm_enable', 'Y'); 
                         });
                     })
-                    /*
-                    ->when($hash, function ($q, $v) {
-                        $h = Hash::HsTag($v)->first();
-                        if ( !$h )  return;
-                        else        return $q->whereIn('gd_id', function($q) use($h) {
-                            $q->select('gd_id')->from('shop_hash_join')->where('hs_id', $h->hs_id);
-                        }, 'or');
-                    })
-                    */
                     ->when($maker, function ($q, $v) { 
                         return $q->whereIn('gd_mk_id', function($q) use($v) { $q->select('mk_id')->from('shop_makers')->where('mk_name', $v); }); 
                     });

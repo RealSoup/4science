@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ShowWindow;
-use App\Models\Shop\{Goods, GoodsCategory, Hash, HashJoin};
+use App\Models\Shop\{Goods, GoodsCategory};
 
 class OutletController extends Controller {
 	  public function index(Request $req, $type, $group) {
@@ -16,8 +16,8 @@ class OutletController extends Controller {
                 $arr_id = ShowWindow::select('sw_key')->Type("outlet_{$type}")->Group($group)->pluck('sw_key');
             break;
             case 'tweezer':
-                $h = Hash::HsTag($group)->first();                
-                $arr_id = HashJoin::HsId($h->hs_id)->pluck('gd_id');
+                // $h = Hash::HsTag($group)->first();                
+                // $arr_id = HashJoin::HsId($h->hs_id)->pluck('gd_id');
             break;
             case 'hotplate':
                 if ( in_array($group, ['01', '02', '03', '04']) ) {

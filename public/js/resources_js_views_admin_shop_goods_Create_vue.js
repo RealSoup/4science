@@ -408,7 +408,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      hashs: [],
       makers: [],
       purchaseAt: [],
       frm: {
@@ -417,7 +416,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         goods_model: [],
         goods_option: [],
         fi_id: [],
-        hash_join: [],
         file_goods_goods: [],
         file_goods_add: []
       }
@@ -441,7 +439,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.hashs = res.data.hashs;
                   _this.makers = res.data.makers;
                   _this.purchaseAt = res.data.purchaseAt;
                 }
@@ -556,18 +553,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5774,11 +5759,7 @@ var render = function () {
       _vm._v(" "),
       _c("Form", {
         ref: "form",
-        attrs: {
-          hashs: _vm.hashs,
-          makers: _vm.makers,
-          purchaseAt: _vm.purchaseAt,
-        },
+        attrs: { makers: _vm.makers, purchaseAt: _vm.purchaseAt },
         model: {
           value: _vm.frm,
           callback: function ($$v) {
@@ -6402,25 +6383,14 @@ var render = function () {
                     "b-col",
                     { staticClass: "type11" },
                     [
-                      _c("multiselect", {
-                        attrs: {
-                          "tag-placeholder": "새로운 키워드 추가",
-                          placeholder: "키워드를 선택 및 입력하세요",
-                          deselectLabel: "클릭 or 엔터를 눌러 제거",
-                          selectedLabel: "선택됨",
-                          label: "hs_tag",
-                          "track-by": "hs_id",
-                          options: _vm.hashs,
-                          multiple: true,
-                          taggable: true,
-                        },
-                        on: { tag: _vm.addTag },
+                      _c("b-form-input", {
+                        attrs: { id: "gd_keyword" },
                         model: {
-                          value: _vm.value.hash_join,
+                          value: _vm.value.gd_keyword,
                           callback: function ($$v) {
-                            _vm.$set(_vm.value, "hash_join", $$v)
+                            _vm.$set(_vm.value, "gd_keyword", $$v)
                           },
-                          expression: "value.hash_join",
+                          expression: "value.gd_keyword",
                         },
                       }),
                     ],
