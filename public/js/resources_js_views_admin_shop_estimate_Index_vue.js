@@ -153,7 +153,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       list: {},
-      mng: {},
+      mng_on: {},
+      mng_off: {},
       mng_info: {},
       sch_frm: {
         date_type: 'reque',
@@ -219,7 +220,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res && res.status === 200) {
                   _this.list = res.data.list;
-                  _this.mng = res.data.mng;
+                  _this.mng_on = res.data.mng_on;
+                  _this.mng_off = res.data.mng_off;
                   _this.mng_info = res.data.mng_info;
                 }
 
@@ -712,7 +714,7 @@ var render = function () {
                     [
                       _c("b-form-select-option", { attrs: { value: "" } }),
                       _vm._v(" "),
-                      _vm._l(_vm.mng, function (m, k) {
+                      _vm._l(_vm.mng_on, function (m, k) {
                         return _c(
                           "b-form-select-option",
                           { key: k, attrs: { value: m.id } },
@@ -980,7 +982,9 @@ var render = function () {
           ),
           _vm._v(" "),
           _vm.list.data && _vm.list.data.length
-            ? _c("List", { attrs: { list: _vm.list.data } })
+            ? _c("List", {
+                attrs: { list: _vm.list.data, mng_off: _vm.mng_off },
+              })
             : _vm._e(),
           _vm._v(" "),
           _c(

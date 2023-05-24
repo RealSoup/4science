@@ -24,7 +24,13 @@
             <b-badge v-else-if="row.eq_type == 'REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
             <b-badge v-else-if="row.eq_type == 'CUS'" class="mint" v-b-tooltip.hover title="주문제작">주</b-badge>
         </b-col>
-        <b-col>{{row.eq_name}}</b-col>
+        <b-col>
+            <div class="eq_name">
+                {{row.eq_name}}
+                <br class="d-none d-lg-block" />
+                <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
+            </div>
+        </b-col>
         <b-col>{{ row.created_at | formatDate }}</b-col>
         <b-col>
             <b-badge class="plum" v-if="row.eq_step === 'DONOT'" >{{row.eq_step | eqStep}}</b-badge>
@@ -63,7 +69,7 @@ export default {
         'SubString': () => import('@/views/_common/SubString.vue'),
         // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
-    props:['list'],
+    props:['list', 'mng_off'],
     filters: {
         eqStep: function (str) {
             var rst = '';
@@ -109,6 +115,7 @@ export default {
 .row .col:nth-child(7) { flex:0 0 20%; max-width:20%; }
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; }
+.body .col .eq_name { line-height:1rem; }
 .eq_tit .badge { width:26px; height:26px; border-radius:50%; font-weight:900; }
 .er_box { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}
 .er_box span { text-align:center; }

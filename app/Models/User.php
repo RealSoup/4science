@@ -99,6 +99,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function scopeTutor($query, $v) { return $query->where('tutor', 'like', "%{$v}%"); }
     public function scopeTel($query, $v) { return $query->where('tel', 'like', "%{$v}%"); }
     public function scopeHp($query, $v) { return $query->where('hp', 'like', "%{$v}%"); }
+    public function scopeAdmin($q) { return $q->where('level', '>', 20); }
 
     public function getIsAdminAttribute() { return $this->level > 20 ? true : false; }
     public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }

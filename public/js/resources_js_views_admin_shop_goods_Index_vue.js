@@ -781,41 +781,23 @@ var render = function () {
                 _c("b-col", [_c("span", [_vm._v(_vm._s(row.gd_id))])]),
                 _vm._v(" "),
                 _c("b-col", [
-                  row.goods_category_first
-                    ? _c("div", [
-                        row.goods_category_first.gc_ca01_name
-                          ? _c("p", [
-                              _vm._v(
-                                _vm._s(row.goods_category_first.gc_ca01_name)
-                              ),
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        row.goods_category_first.gc_ca02_name
-                          ? _c("p", [
-                              _vm._v(
-                                _vm._s(row.goods_category_first.gc_ca02_name)
-                              ),
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        row.goods_category_first.gc_ca03_name
-                          ? _c("p", [
-                              _vm._v(
-                                _vm._s(row.goods_category_first.gc_ca03_name)
-                              ),
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        row.goods_category_first.gc_ca04_name
-                          ? _c("p", [
-                              _vm._v(
-                                _vm._s(row.goods_category_first.gc_ca04_name)
-                              ),
-                            ])
-                          : _vm._e(),
-                      ])
-                    : _vm._e(),
+                  _c("div", [
+                    row.gc_ca01_name
+                      ? _c("p", [_vm._v(_vm._s(row.gc_ca01_name))])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.gc_ca02_name
+                      ? _c("p", [_vm._v(_vm._s(row.gc_ca02_name))])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.gc_ca03_name
+                      ? _c("p", [_vm._v(_vm._s(row.gc_ca03_name))])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    row.gc_ca04_name
+                      ? _c("p", [_vm._v(_vm._s(row.gc_ca04_name))])
+                      : _vm._e(),
+                  ]),
                 ]),
                 _vm._v(" "),
                 _c(
@@ -831,7 +813,7 @@ var render = function () {
                   },
                   [
                     _c("b-img", {
-                      attrs: { src: row.image_src_thumb[0], rounded: "" },
+                      attrs: { src: row.goods.image_src_thumb[0], rounded: "" },
                     }),
                   ],
                   1
@@ -851,7 +833,7 @@ var render = function () {
                   [_c("span", [_vm._v(_vm._s(row.gd_name))])]
                 ),
                 _vm._v(" "),
-                _c("b-col", [_c("span", [_vm._v(_vm._s(row.maker.mk_name))])]),
+                _c("b-col", [_c("span", [_vm._v(_vm._s(row.mk_name))])]),
                 _vm._v(" "),
                 _c(
                   "b-col",

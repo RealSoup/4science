@@ -4,7 +4,10 @@
     <div id="afterimage"></div>
     <div id="real">
         <div class="layout">
-            <b-link :to="{name: 'main'}" class="logo"></b-link>
+            <b-link :to="{name: 'main'}" class="logo">
+                <!-- <b-img :src="`${s3url}common/logo/logo.png`" /> -->
+                <b-img :src="`${s3url}common/logo/logo_230524.png`" />
+            </b-link>
 
             <div v-if="isLoggedin" class="top_menu">
                 <b-link :to="{name: 'mypage'}">마이페이지</b-link>
@@ -157,7 +160,9 @@ export default {
 #header #real .layout .top_menu { position:absolute; top:11px; right:0; font-size:.9rem; }
 #header #real .layout .top_menu a { position:relative; display:inline-block; padding:3px 15px 3px 8px; }
 #header #real .layout .top_menu a:not(:last-child):after { content:"|"; position:absolute; right:-1px; }
-#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); }
+/*#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
+#header #real .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}
+#header #real .layout .logo img { position:absolute; top:0;}
 #header #real .layout .nav_menu a { display:inline-block; padding:3px 7px; font-weight:600; }
 #header #real .layout .nav_menu a:hover { color:#1A90D6; text-decoration:underline; font-weight:900; }
 #header #real .head_sch_box { margin-bottom:3px; }

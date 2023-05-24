@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use PDF;
 use Exception;
+use Cache;
 
 use Mail;
 use App\Mail\EstimateSend;
@@ -39,16 +40,13 @@ class EstimateController extends Controller {
         $this->pdf = PDF::setOptions($option);
     }
     public function index(Request $req) {
-
-        $data['mng'] = $this->user::whereHas('UserMng', function ($q) { $q->where('um_status', 'Y'); })->get();
-        $data['mng_info'] = $this->userMng->getMngInfo();
-
         $eq = $this->estimateReq;
         $er = $this->estimateReply;
         $em = $this->estimateModel;
 		$eq = $eq->select("shop_estimate_req.*",
 							DB::raw("(SELECT name FROM la_users
-							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),);
+							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),)
+                ->with('user');
         if ($req->date_type == 'reque') {
                 $eq->when($req->startDate, fn ($q, $v) => $q->StartDate($v.' 00:00:00'));
                 $eq->when($req->endDate, fn ($q, $v) => $q->EndDate($v.' 23:59:59'));
@@ -122,6 +120,10 @@ class EstimateController extends Controller {
         foreach ($data['list'] as $eq)
             $eq->estimateReply;
 
+            
+		$data['mng_on'] = Cache::get('UserMngOn');
+		$data['mng_off'] = Cache::get('UserMngOff');
+        $data['mng_info'] = $this->userMng->getMngInfo();
 		return response()->json($data);
     }
 
@@ -426,11 +428,13 @@ class EstimateController extends Controller {
                     'er_no_dlvy_fee'     => array_key_exists('er_no_dlvy_fee',  $req) && $req['er_no_dlvy_fee']  ? $req['er_no_dlvy_fee']  : 'N',];
     }
     public function estimateModel_paramImplant($em, $er_id){
+        $em_title = array_key_exists('goods', $em) ? $em['goods']['gd_name'] : $em['em_name'];
         return [    'em_type'       => 'estimateReply',
                     'em_papa_id'    => $er_id,
                     'em_gd_id'      => array_key_exists('em_gd_id', $em) && $em['em_gd_id']             ? $em['em_gd_id']      : 0,
                     'em_gm_id'      => array_key_exists('em_gm_id', $em) && $em['em_gm_id']             ? $em['em_gm_id']      : 0,
                     'em_name'       => array_key_exists('em_name', $em) && $em['em_name']               ? $em['em_name']       : '',
+                    'em_title'      => $em_title,
                     'em_catno'      => array_key_exists('em_catno', $em) && $em['em_catno']             ? $em['em_catno']      : '',
                     'em_code'       => array_key_exists('em_code', $em) && $em['em_code']               ? $em['em_code']       : '',
                     'em_unit'       => array_key_exists('em_unit', $em) && $em['em_unit']               ? $em['em_unit']       : '',

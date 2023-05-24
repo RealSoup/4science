@@ -53,7 +53,7 @@
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.eq_mng">
                     <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="(m, k) in mng" :value="m.id" :key="k">{{m.name}}</b-form-select-option>
+                    <b-form-select-option v-for="(m, k) in mng_on" :value="m.id" :key="k">{{m.name}}</b-form-select-option>
                 </b-form-select>
             </b-col>
             <b-col class="label">팀검색</b-col>
@@ -103,7 +103,7 @@
                 <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" />
+        <List v-if="list.data && list.data.length" :list="list.data" :mng_off="mng_off" />
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
@@ -128,7 +128,8 @@ export default {
     data() {
         return {
             list: {},
-            mng: {},
+            mng_on:{},
+            mng_off:{},
             mng_info: {},
             sch_frm: {
                 date_type:'reque',
@@ -169,7 +170,8 @@ export default {
                 const res = await ax.get(`/api/admin/shop/estimate`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
-                    this.mng = res.data.mng;
+                    this.mng_on = res.data.mng_on;
+                    this.mng_off = res.data.mng_off;
                     this.mng_info = res.data.mng_info;
                 }
             } catch (e) {

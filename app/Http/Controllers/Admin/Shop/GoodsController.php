@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, GoodsSearch, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -33,77 +33,45 @@ class GoodsController extends Controller {
 
 
     public function index(Category $cate, Request $req) {
-        //  카테고리 검색때문에 with을 안쓰고 조인을 했다.
-        $gd = $this->goods->with('goodsCategoryFirst')->with('fileGoodsGoods')->with('maker')
-                // ->rightJoin(
-                //      DB::raw("
-                //         (SELECT 
-                //             gc_gd_id, gc_prime, 
-                //             gc_ca01, gc_ca01_name, 
-                //             gc_ca02, gc_ca02_name, 
-                //             gc_ca03, gc_ca03_name, 
-                //             gc_ca04, gc_ca04_name
-                //         from la_shop_goods_category
-                //         where gc_prime = 'Y') la_shop_goods_category
-                //     "), 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id'
-                // )
-                ;
-                // ->rightJoin('shop_goods_category', 'shop_goods.gd_id', '=', 'shop_goods_category.gc_gd_id')
-                // ->where('gc_prime', 'Y');
+        $gd_chk = ($req->startDate||$req->endDate||$req->gd_mk_id||$req->deleted_at);
+        $model_chk = $req->filled('keyword')&&($req->mode=='gm_name'||$req->mode=='gm_code'||$req->mode=='cat_no');
+        $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')
+            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at" )
+            //  shop_goods 필드 검색이 없다면 속도하되니 조인하지말자
+            ->when($gd_chk, fn ($q) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
+            ->when($req->startDate,  fn ($q, $v) => $q->whereDate('gd.created_at', '>=', $v))
+            ->when($req->endDate,    fn ($q, $v) => $q->whereDate('gd.created_at', '<=', $v))
+            ->when($req->gd_enable,  fn ($q, $v) => $q->where('gs.gd_enable', $v))
+            ->when($req->gd_mk_id,   fn ($q, $v) => $q->where('gd.gd_mk_id', $v))
+            ->when($req->deleted_at, function ($q, $v) { 
+                if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
+                elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
+            })
+            ->when($req->ca01, fn ($q, $v) => $q->where('gs.gc_ca01', $v))
+            ->when($req->ca02, fn ($q, $v) => $q->where('gs.gc_ca02', $v))
+            ->when($req->ca03, fn ($q, $v) => $q->where('gs.gc_ca03', $v))
+            ->when($req->ca04, fn ($q, $v) => $q->where('gs.gc_ca04', $v))
+            ->latest('gs.gd_id');
 
-                
-        // if ($req->ca01)         $gd = $gd->where('gc_ca01', $req->ca01);
-        // $gd->when($req->ca01, fn ($q, $v) => $q->whereGcCa01($v));
-        // $gd->when($req->ca02, fn ($q, $v) => $q->whereGcCa02($v));
-        // $gd->when($req->ca03, fn ($q, $v) => $q->whereGcCa03($v));
-        // $gd->when($req->ca04, fn ($q, $v) => $q->whereGcCa04($v));
-        // $gd->when($req->ca01, fn ($q, $v) => $q->whereIn('gd_id', function($q) use($v) { $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $v); }));
-        $gd->when($req->ca01, function ($q, $v) use($req) {
-            return $q->whereIn('gd_id', function($q) use($req) {
-                if ($req->ca04)      $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03)->where('gc_ca04', $req->ca04);
-                else if ($req->ca03) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02)->where('gc_ca03', $req->ca03);
-                else if ($req->ca02) $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01)->where('gc_ca02', $req->ca02);
-                else                 $q->select('gc_gd_id')->from('shop_goods_category')->where('gc_ca01', $req->ca01);
-            });
-        })
-        ->when($req->startDate,  fn ($q, $v) => $q->StartDate($v))
-        ->when($req->endDate,    fn ($q, $v) => $q->EndDate($v))
-        ->when($req->gd_enable,  fn ($q, $v) => $q->Enable($v))
-        ->when($req->gd_mk_id,   fn ($q, $v) => $q->Maker($v))
-        ->when($req->deleted_at, function ($q, $v) { if ($v == 'Y') return $q->onlyTrashed(); });
-
-        if ($req->keyword){
-            $gm = $this->goods_model;
-            switch ($req->mode) {
-                case 'gd_name':     $gd = $gd->SchGd_name($req->keyword); break;
-                case 'gm_name':     $gd = $gd->SchGd_id($gm->Name($req->keyword)->pluck('gm_gd_id')); break;
-                case 'gm_code':     $gd = $gd->SchGd_id($gm->Code($req->keyword)->pluck('gm_gd_id')); break;
-                case 'manager':     $gd = $gd->SchWriter(User::Name($req->keyword)->pluck('id')); break;
-                case 'cat_no':      $keyword = explode('-', $req->keyword);
-                    if (count($keyword) == 3) {
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
-                                                ->where('gm_catno02', $keyword[1])
-                                                ->where('gm_catno03', $keyword[2])->pluck('gm_gd_id'));
-                    } else if (count($keyword) == 2){
-                        $gd = $gd->SchGd_id($gm->where('gm_catno01', $keyword[0])
-                                                ->where('gm_catno02', $keyword[1])->pluck('gm_gd_id'));
-                    } 
-                    // else if (count($keyword) == 1){
-                    //     $gd = $gd->SchGd_id($gm->where('gm_catno01', 'like', $keyword[0].'%')
-                    //                 ->where('gm_catno02', 'like', $keyword[0].'%')
-                    //                 ->where('gm_catno03', 'like', $keyword[0].'%')->pluck('gm_gd_id'));
-                    // }
-                break;
-                default:
-                    $gd = $gd->where(function($query) use ($req){
-                        $query->SchGd_name($req->keyword)->orWhere(function (Builder $query) use ($req) {
-                            $query->SchWriter(User::SchName($req->keyword)->pluck('id'));
-                        });
-                    });
-                break;
+        if ($req->filled('keyword')){
+            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
+			else 									    $ftWord = $req->keyword.'*';
+          
+            if ( $req->mode == 'gd_name' ) $gs->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
+            if ( $req->mode == 'gm_name' ) $gs->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
+            if ( $req->mode == 'gm_code' ) $gs->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
+            if ( $req->mode == 'cat_no' )  $gs->whereFullText('gs.gm_catno', $ftWord, ['mode' => 'boolean']);
+            if ( $req->mode == 'manager' ) {
+                $uid = User::Name($req->keyword)->Admin()->first();
+                $gs->where("gs.updated_id", $uid->id);
             }
         }
-        $data['list'] = $gd->latest("gd_id")->paginate($req->filled('limit') ? $req->limit : 10);
+        
+        //  상품의 하위 모델 상세 검색이 아니면 속도하되니 groupBy하지말자
+        //  (gc_prime, Y)(gm_prime, Y)  이것으로 같은 효과
+        $gs->when($model_chk, fn ($q) => $q->groupBy('gs.gd_id'))
+            ->when(!$model_chk, fn ($q) => $q->where('gs.gc_prime', 'Y')->where('gs.gm_prime', 'Y'));
+        $data['list'] = $gs->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
 
         $data['mng_off'] = \Cache::get('UserMngOff');
@@ -462,7 +430,7 @@ class GoodsController extends Controller {
                 'gc_ca04'      => array_key_exists('gc_ca04',      $gc) ? $gc['gc_ca04']      : NULL,
                 'gc_ca04_name' => array_key_exists('gc_ca04_name', $gc) ? $gc['gc_ca04_name'] : NULL,
                 'gc_prime'     => $gc['gc_prime'],
-                'updated_id'   => $gd->created_id ];
+                'updated_id'   => $gd->updated_id ];
     }
 
     public function getModel(Request $req){

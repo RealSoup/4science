@@ -76,16 +76,16 @@
         <b-row class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
             <b-col><span>{{row.gd_id}}</span></b-col>
             <b-col>
-                <div v-if="row.goods_category_first">
-                    <p v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca04_name">{{row.goods_category_first.gc_ca04_name}}</p>
+                <div>
+                    <p v-if="row.gc_ca01_name">{{row.gc_ca01_name}}</p>
+                    <p v-if="row.gc_ca02_name">{{row.gc_ca02_name}}</p>
+                    <p v-if="row.gc_ca03_name">{{row.gc_ca03_name}}</p>
+                    <p v-if="row.gc_ca04_name">{{row.gc_ca04_name}}</p>
                 </div>
             </b-col>
-            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.image_src_thumb[0]" rounded /></b-link>
+            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.goods.image_src_thumb[0]" rounded /></b-link>
             <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><span>{{row.gd_name}}</span></b-link>
-            <b-col><span>{{row.maker.mk_name}}</span></b-col>
+            <b-col><span>{{row.mk_name}}</span></b-col>
             <b-col>
                 <template v-if="mng_off[row.updated_id]">{{mng_off[row.updated_id].name}}</template>
                 <template v-else>{{row.updated_id}}</template>
