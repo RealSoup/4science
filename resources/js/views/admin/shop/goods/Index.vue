@@ -72,8 +72,10 @@
             <b-col>활성</b-col>
             <b-col>최종수정일</b-col>
         </b-row>
-        
-        <b-row class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
+        <LoadingModal v-if="isLoadingModalViewed" :position="'absolute'">
+            Loading ......
+        </LoadingModal>
+        <b-row v-else class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
             <b-col><span>{{row.gd_id}}</span></b-col>
             <b-col>
                 <div>
@@ -109,9 +111,11 @@ export default {
     components: {
         'Categorys': () => import('./_comp/Categorys.vue'),
         'SchDate': () => import('@/views/_common/SchDate.vue'),
+        'LoadingModal': () => import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
+            isLoadingModalViewed: false,
             list: {},
             sch_frm: {
                 startDate:'',
@@ -144,10 +148,12 @@ export default {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
                 }
+                this.isLoadingModalViewed=true;
                 const res = await ax.get(`/api/admin/shop/goods`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
                     this.mng_off = res.data.mng_off;
+                    this.isLoadingModalViewed=false;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -175,6 +181,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.cmain { position:relative; min-height:30rem; }
 .cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
 .cmain .row .ctrl .btn { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem; }
 .cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; }

@@ -124,6 +124,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -132,10 +134,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'SchDate': function SchDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
+    },
+    'LoadingModal': function LoadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
   data: function data() {
     return {
+      isLoadingModalViewed: false,
       list: {},
       sch_frm: {
         startDate: '',
@@ -200,34 +206,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 4:
-                _context.next = 6;
+                _this.isLoadingModalViewed = true;
+                _context.next = 7;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/shop/goods", {
                   params: _this.sch_frm
                 });
 
-              case 6:
+              case 7:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.list = res.data.list;
                   _this.mng_off = res.data.mng_off;
+                  _this.isLoadingModalViewed = false;
                 }
 
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 11]]);
       }))();
     },
     routerPush: function routerPush() {
@@ -296,7 +304,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-590d599f] { color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .ctrl .btn[data-v-590d599f] { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(3) { flex:0 0 8%; max-width:8%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(4) { justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(6) { flex:0 0 7.5%; max-width:7.5%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(7) { flex:0 0 7%; max-width:7%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(8) { flex:0 0 11%; max-width:11%;\n}\n.cmain .list .col[data-v-590d599f] { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-590d599f]:last-child,\r\n.cmain .list .col[data-v-590d599f]:nth-child(3) { border-width:0;\n}\n.cmain .list .col:nth-child(3) img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n.cmain .body .col[data-v-590d599f] { padding:.65rem; display:flex; justify-content:center; align-items:center;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(2) { padding:0;\n}\n.cmain .body .col:nth-child(2) div[data-v-590d599f] { text-align:left; margin-left:4%;\n}\n.cmain .body .col:nth-child(2) div p[data-v-590d599f] { margin:0; line-height:1.5; font-size:.9rem;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(4) { text-align:left;\n}\n.cmain .body.disable[data-v-590d599f] { background-color:#E1E1E1;\n}\n.cmain .body.disable .col[data-v-590d599f] { color:#9C9C9C;\n}\r\n/*\r\n.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }\r\n.gd_list .body:hover { background: #d8f2fd94; }\r\n\r\n.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }\r\n.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }\r\n.gd_list .body>div { cursor:pointer; }\r\n.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }\r\n.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }\r\n\r\n.gd_list .row>div { font-size:.9rem; }\r\n.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }\r\n.gd_list .row>div>span ul { display:inline-block; }\r\n.gd_list .row>div>span:nth-of-type(2) { float:right; }\r\n.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }\r\n*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain[data-v-590d599f] { position:relative; min-height:30rem;\n}\n.cmain .row .ctrl[data-v-590d599f] { color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .ctrl .btn[data-v-590d599f] { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(3) { flex:0 0 8%; max-width:8%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(4) { justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(6) { flex:0 0 7.5%; max-width:7.5%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(7) { flex:0 0 7%; max-width:7%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(8) { flex:0 0 11%; max-width:11%;\n}\n.cmain .list .col[data-v-590d599f] { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-590d599f]:last-child,\r\n.cmain .list .col[data-v-590d599f]:nth-child(3) { border-width:0;\n}\n.cmain .list .col:nth-child(3) img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n.cmain .body .col[data-v-590d599f] { padding:.65rem; display:flex; justify-content:center; align-items:center;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(2) { padding:0;\n}\n.cmain .body .col:nth-child(2) div[data-v-590d599f] { text-align:left; margin-left:4%;\n}\n.cmain .body .col:nth-child(2) div p[data-v-590d599f] { margin:0; line-height:1.5; font-size:.9rem;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(4) { text-align:left;\n}\n.cmain .body.disable[data-v-590d599f] { background-color:#E1E1E1;\n}\n.cmain .body.disable .col[data-v-590d599f] { color:#9C9C9C;\n}\r\n/*\r\n.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }\r\n.gd_list .body:hover { background: #d8f2fd94; }\r\n\r\n.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }\r\n.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }\r\n.gd_list .body>div { cursor:pointer; }\r\n.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }\r\n.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }\r\n\r\n.gd_list .row>div { font-size:.9rem; }\r\n.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }\r\n.gd_list .row>div>span ul { display:inline-block; }\r\n.gd_list .row>div>span:nth-of-type(2) { float:right; }\r\n.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }\r\n*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -769,97 +777,104 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.list.data, function (row) {
-            return _c(
-              "b-row",
-              {
-                key: row.mk_id,
-                staticClass: "list body",
-                class: { disable: row.gd_enable == "N" },
-              },
-              [
-                _c("b-col", [_c("span", [_vm._v(_vm._s(row.gd_id))])]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _c("div", [
-                    row.gc_ca01_name
-                      ? _c("p", [_vm._v(_vm._s(row.gc_ca01_name))])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    row.gc_ca02_name
-                      ? _c("p", [_vm._v(_vm._s(row.gc_ca02_name))])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    row.gc_ca03_name
-                      ? _c("p", [_vm._v(_vm._s(row.gc_ca03_name))])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    row.gc_ca04_name
-                      ? _c("p", [_vm._v(_vm._s(row.gc_ca04_name))])
-                      : _vm._e(),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "b-link",
+          _vm.isLoadingModalViewed
+            ? _c("LoadingModal", { attrs: { position: "absolute" } }, [
+                _vm._v("\r\n            Loading ......\r\n        "),
+              ])
+            : _vm._l(_vm.list.data, function (row) {
+                return _c(
+                  "b-row",
                   {
-                    staticClass: "col",
-                    attrs: {
-                      to: {
-                        name: "adm_goods_edit",
-                        params: { gd_id: row.gd_id },
-                      },
-                    },
+                    key: row.mk_id,
+                    staticClass: "list body",
+                    class: { disable: row.gd_enable == "N" },
                   },
                   [
-                    _c("b-img", {
-                      attrs: { src: row.goods.image_src_thumb[0], rounded: "" },
-                    }),
+                    _c("b-col", [_c("span", [_vm._v(_vm._s(row.gd_id))])]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _c("div", [
+                        row.gc_ca01_name
+                          ? _c("p", [_vm._v(_vm._s(row.gc_ca01_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        row.gc_ca02_name
+                          ? _c("p", [_vm._v(_vm._s(row.gc_ca02_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        row.gc_ca03_name
+                          ? _c("p", [_vm._v(_vm._s(row.gc_ca03_name))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        row.gc_ca04_name
+                          ? _c("p", [_vm._v(_vm._s(row.gc_ca04_name))])
+                          : _vm._e(),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "b-link",
+                      {
+                        staticClass: "col",
+                        attrs: {
+                          to: {
+                            name: "adm_goods_edit",
+                            params: { gd_id: row.gd_id },
+                          },
+                        },
+                      },
+                      [
+                        _c("b-img", {
+                          attrs: {
+                            src: row.goods.image_src_thumb[0],
+                            rounded: "",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-link",
+                      {
+                        staticClass: "col",
+                        attrs: {
+                          to: {
+                            name: "adm_goods_edit",
+                            params: { gd_id: row.gd_id },
+                          },
+                        },
+                      },
+                      [_c("span", [_vm._v(_vm._s(row.gd_name))])]
+                    ),
+                    _vm._v(" "),
+                    _c("b-col", [_c("span", [_vm._v(_vm._s(row.mk_name))])]),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      [
+                        _vm.mng_off[row.updated_id]
+                          ? [_vm._v(_vm._s(_vm.mng_off[row.updated_id].name))]
+                          : [_vm._v(_vm._s(row.updated_id))],
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      row.gd_enable == "Y"
+                        ? _c("span", [_vm._v("활성")])
+                        : _c("span", [_vm._v("비활성")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", [
+                      _c("span", [
+                        _vm._v(_vm._s(_vm._f("formatDate")(row.updated_at))),
+                      ]),
+                    ]),
                   ],
                   1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-link",
-                  {
-                    staticClass: "col",
-                    attrs: {
-                      to: {
-                        name: "adm_goods_edit",
-                        params: { gd_id: row.gd_id },
-                      },
-                    },
-                  },
-                  [_c("span", [_vm._v(_vm._s(row.gd_name))])]
-                ),
-                _vm._v(" "),
-                _c("b-col", [_c("span", [_vm._v(_vm._s(row.mk_name))])]),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    _vm.mng_off[row.updated_id]
-                      ? [_vm._v(_vm._s(_vm.mng_off[row.updated_id].name))]
-                      : [_vm._v(_vm._s(row.updated_id))],
-                  ],
-                  2
-                ),
-                _vm._v(" "),
-                _c("b-col", [
-                  row.gd_enable == "Y"
-                    ? _c("span", [_vm._v("활성")])
-                    : _c("span", [_vm._v("비활성")]),
-                ]),
-                _vm._v(" "),
-                _c("b-col", [
-                  _c("span", [
-                    _vm._v(_vm._s(_vm._f("formatDate")(row.updated_at))),
-                  ]),
-                ]),
-              ],
-              1
-            )
-          }),
+                )
+              }),
           _vm._v(" "),
           _c(
             "pagination",

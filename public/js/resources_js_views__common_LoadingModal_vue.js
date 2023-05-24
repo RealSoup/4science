@@ -45,8 +45,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     classObject: function classObject() {
       return {
-        'position-absolute': this.position === 'absolute',
-        'position-fixed': this.position === ''
+        'position-absolute': this.position == 'absolute',
+        'position-fixed': isEmpty(this.position)
       };
     }
   }

@@ -33,8 +33,8 @@ export default {
     computed: {
         classObject: function () {
             return {
-                'position-absolute': this.position === 'absolute',
-                'position-fixed': this.position === ''
+                'position-absolute': this.position == 'absolute',
+                'position-fixed': isEmpty(this.position)
             }
         }
     }
