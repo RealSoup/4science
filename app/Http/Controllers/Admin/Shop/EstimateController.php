@@ -428,7 +428,11 @@ class EstimateController extends Controller {
                     'er_no_dlvy_fee'     => array_key_exists('er_no_dlvy_fee',  $req) && $req['er_no_dlvy_fee']  ? $req['er_no_dlvy_fee']  : 'N',];
     }
     public function estimateModel_paramImplant($em, $er_id){
-        $em_title = array_key_exists('goods', $em) ? $em['goods']['gd_name'] : $em['em_name'];
+        $em_title = '';
+        if(array_key_exists('goods', $em) && array_key_exists('gd_name', $em['goods']))
+            $em_title = $em['goods']['gd_name'];
+        else
+            $em_title = $em['em_name'];
         return [    'em_type'       => 'estimateReply',
                     'em_papa_id'    => $er_id,
                     'em_gd_id'      => array_key_exists('em_gd_id', $em) && $em['em_gd_id']             ? $em['em_gd_id']      : 0,

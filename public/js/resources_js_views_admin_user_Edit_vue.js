@@ -780,7 +780,7 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                        수신\n                        "
+                            "\r\n                        수신\r\n                        "
                           ),
                           _vm.frm.receive_mail == "Y"
                             ? _c("b", [_vm._v("동의")])
@@ -833,7 +833,7 @@ var render = function () {
                         },
                         [
                           _vm._v(
-                            "\n                        수신\n                        "
+                            "\r\n                        수신\r\n                        "
                           ),
                           _vm.frm.receive_sms == "Y"
                             ? _c("b", [_vm._v("동의")])
@@ -1132,7 +1132,7 @@ var render = function () {
                     { staticClass: "type11" },
                     [
                       _vm._v(
-                        "\n                    " + _vm._s(_vm.frm.interest)
+                        "\r\n                    " + _vm._s(_vm.frm.interest)
                       ),
                       _vm.frm.interest_etc
                         ? [_vm._v(", " + _vm._s(_vm.frm.interest_etc))]
@@ -1195,7 +1195,7 @@ var render = function () {
                               _vm.frm.user_mng.um_status == "N"
                                 ? _c("b", [_vm._v("비")])
                                 : _vm._e(),
-                              _vm._v("활성\n                    "),
+                              _vm._v("활성\r\n                    "),
                             ]
                           ),
                         ],

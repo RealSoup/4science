@@ -1,15 +1,15 @@
 <template>
-<div>
-    <b-card no-body class="shadow mb-2 sticky-top p-2">
-        <b-container fluid>
-            <b-row>
-                <b-col cols="12" sm="6"></b-col>
-                <b-col cols="12" sm="6" class="text-right">
-                    <b-button variant="primary" @click="update"><font-awesome-icon icon="save" /> 저장</b-button>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
+<div class="p_wrap">
+    <h3>영문교정 응답</h3>
+    <div class="act_ctrl">
+        <b-row>
+            <b-col class="text-right">
+                <b-button class="blue sm" @click="update">
+                    <font-awesome-icon icon="save" /> 저장
+                </b-button>
+            </b-col>
+        </b-row>
+    </div>
 
     <b-card id="adm_eng_reform_edit" class="shadow" title="영문교정 요청 내역">
         <b-container>

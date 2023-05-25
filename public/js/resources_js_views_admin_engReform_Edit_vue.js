@@ -4591,39 +4591,27 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "p_wrap" },
     [
+      _c("h3", [_vm._v("영문교정 응답")]),
+      _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "shadow mb-2 sticky-top p-2", attrs: { "no-body": "" } },
+        "div",
+        { staticClass: "act_ctrl" },
         [
           _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+            "b-row",
             [
               _c(
-                "b-row",
+                "b-col",
+                { staticClass: "text-right" },
                 [
-                  _c("b-col", { attrs: { cols: "12", sm: "6" } }),
-                  _vm._v(" "),
                   _c(
-                    "b-col",
-                    {
-                      staticClass: "text-right",
-                      attrs: { cols: "12", sm: "6" },
-                    },
+                    "b-button",
+                    { staticClass: "blue sm", on: { click: _vm.update } },
                     [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "primary" },
-                          on: { click: _vm.update },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                          _vm._v(" 저장"),
-                        ],
-                        1
-                      ),
+                      _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                      _vm._v(" 저장\r\n                "),
                     ],
                     1
                   ),
