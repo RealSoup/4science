@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{EngReform};
 use DB;
+use Cache;
 
 class EngReformController extends Controller {
 
@@ -26,8 +27,9 @@ class EngReformController extends Controller {
                 case 'er_hp':     $eng = $eng->Hp($req->keyword); break;
             }
         }        
-        $eng = $eng->latest()->paginate(10);
-        return response()->json($eng, 200);
+        $data['list'] = $eng->latest()->paginate(10);
+		$data['mng_off'] = Cache::get('UserMngOff');
+        return response()->json($data, 200);
     }
 
     public function edit(Request $req, $er_id) {

@@ -53,6 +53,9 @@
                 <b-col class="ctrl"><b-button pill variant="outline-dark" @click="outCart(i)">삭제</b-button></b-col>
             </template>
         </b-row>
+        
+        <b-row class="more" :key="'more'"><b-col><b-button v-if="0<cartList.length && cartList.length>page*7" @click="page++" class="sky lg">더보기</b-button></b-col></b-row>
+
         <b-row class="delete" :key="'delete'">
             <b-col>선택한 상품을 <b-button class="white" @click="outCart('chk')">삭제</b-button></b-col>
         </b-row>
@@ -93,7 +96,6 @@
         </b-col></b-row>
     </transition-group>
     <b-row v-else><b-col><b-alert variant="danger" show>No Item</b-alert></b-col></b-row>
-    <b-row class="more"><b-col><b-button v-if="0<cartList.length && cartList.length>page*7" @click="page++" class="white lg">더보기</b-button></b-col></b-row>
     
 </b-container>
 </template>
@@ -141,9 +143,6 @@ export default {
         goodsDefault() {
             return this.$store.state.goods.default;
         },
-        estimate_price_check () {
-            this.hide_order_btn = this.computedModel.filter(ct => ct.ct_check_opt == 'Y' && ct.price == 0).length ? true : false;
-        },
     },
     methods:{
         async outCart(i) {
@@ -168,7 +167,6 @@ export default {
                 this.$store.dispatch('cart/destroy', id_arr);
         },
         chkChange () {
-            this.estimate_price_check();
             let chkCnt = Object.values(this.computedModel).filter(el => el.ct_check_opt=='Y').length;         
             if (chkCnt === 0) {
                 this.indeterminate = false;
@@ -182,7 +180,6 @@ export default {
             }
         },
         toggle_all_chk(chk) {
-            this.estimate_price_check();
             for(let k in this.computedModel) this.computedModel[k].ct_check_opt = chk ? 'Y' : 'N';
             this.indeterminate = false;
         },
@@ -271,6 +268,8 @@ export default {
 .w_fence .body .row .img img { width:120px; height:120px; object-fit:cover; }
 .w_fence .row { align-items:center; }
 .w_fence .row .col { padding:0; }
+.w_fence .row .col .custom-checkbox>>>label::before, 
+.w_fence .row .col .custom-checkbox>>>label::after { top:2px; left:-1.2rem; width:1.5rem; height:1.5rem; }
 .w_fence .cart_data .col:nth-child(1) { flex:0 0 4%; max-width:4%; }
 .w_fence .cart_data .col:nth-child(2) { flex:0 0 11%; max-width:11%; }
 .w_fence .cart_data .col:nth-child(3) {  }
@@ -305,7 +304,7 @@ export default {
 .w_fence .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .w_fence .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
 .w_fence .dlvy_info .col { color:#898989; text-align:center; padding:.7rem; }
-.w_fence .more .col button { width:100%; margin-top:2rem; }
+.w_fence .more .col button { width:100%; margin-top:2rem; font-size:1.5rem; }
 
 @media (max-width: 992px){
     .w_fence { padding-top:1rem; }
