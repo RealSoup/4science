@@ -6,7 +6,8 @@
         <div class="layout">
             <b-link :to="{name: 'main'}" class="logo">
                 <!-- <b-img :src="`${s3url}common/logo/logo.png`" /> -->
-                <b-img :src="`${s3url}common/logo/logo_230524.png`" />
+                <b-img :src="`${s3url}common/logo/logo_230526.png`" class="season" />
+                <b-img :src="`${s3url}common/logo/logo.png`" class="default" />
             </b-link>
 
             <div v-if="isLoggedin" class="top_menu">
@@ -162,7 +163,8 @@ export default {
 #header #real .layout .top_menu a:not(:last-child):after { content:"|"; position:absolute; right:-1px; }
 /*#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
 #header #real .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}
-#header #real .layout .logo img { position:absolute; top:0;}
+#header #real .layout .logo .season { position:absolute; top:0;}
+#header #real .layout .logo .default { display:none; }
 #header #real .layout .nav_menu a { display:inline-block; padding:3px 7px; font-weight:600; }
 #header #real .layout .nav_menu a:hover { color:#1A90D6; text-decoration:underline; font-weight:900; }
 #header #real .head_sch_box { margin-bottom:3px; }
@@ -190,6 +192,8 @@ export default {
     #header #real .layout { height:50px; justify-content:center; }
     #header #real .layout .top_menu { display:none; }
     #header #real .layout .logo { flex:0 0 132px; max-width:132px; height:40px; background-size:contain; }
+    #header #real .layout .logo .season { display:none; }
+    #header #real .layout .logo .default { display:block; width:100%; }
     #header #real .layout .nav_menu { position:fixed; bottom:48px; border-radius:1rem 1rem 0 0; background:#DDD; z-index:1; width:100%; display:flex; max-height:0; transition:max-height .2s; overflow:hidden;  }
     #header #real .layout .nav_menu a { text-align:center; flex-basis:0; flex-grow:1; padding:8px 10px; font-size:.95rem; }
     #header #real .layout .nav_menu.view_nav { max-height:60px; }

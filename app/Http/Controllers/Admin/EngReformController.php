@@ -33,12 +33,13 @@ class EngReformController extends Controller {
     }
 
     public function edit(Request $req, $er_id) {
-        $er = EngReform::find($er_id);
-        $er->fileInfo;
+        $data['con'] = EngReform::find($er_id);
+        $data['con']->fileInfo;
         //  배열값을 넘겨줘야 하는데 values 함수 안쓰면 Object가 넘어온다.
-        $er->file_info_cplt = $er->fileInfo->where('fi_kind', 'cplt')->values();
-        $er->mng;        
-        return response()->json($er, 200);
+        $data['con']->file_info_cplt = $data['con']->fileInfo->where('fi_kind', 'cplt')->values();
+        $data['con']->mng;
+        $data['option'] = EngReform::$option;
+        return response()->json($data, 200);
     }
 
     public function update(Request $req, $er_id) {

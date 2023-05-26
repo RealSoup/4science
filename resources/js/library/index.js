@@ -1,5 +1,6 @@
 import ax from '@/api/http';
 import store from '@/store/index';
+import copy from "fast-copy";
 
 export default {
     install(Vue, options) {
@@ -155,13 +156,14 @@ export default {
         window.Auth.isMine = function (id) { return this.user().id == id; }
 
         window.bundleCheck = function (arr, ea, p){
+            let pp = copy(p);
+
             for (var bd of arr) {
                 if (ea < bd.bd_ea)      { break; }
-                else if (ea == bd.bd_ea){ p = bd.bd_price; break; }
-                else if (ea > bd.bd_ea) { p = bd.bd_price; }
+                else if (ea == bd.bd_ea){ pp = bd.bd_price; break; }
+                else if (ea > bd.bd_ea) { pp = bd.bd_price; }
             }
-            // return (p*1.1).toFixed();
-            return p;
+            return pp;
         };
         window.bundleCheckAddVat = function (arr, ea, p){
             for (var bd of arr) {

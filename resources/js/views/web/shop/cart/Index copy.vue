@@ -16,8 +16,8 @@
         <b-col>금액</b-col>
         <b-col></b-col>
     </b-row>
-    <div v-if="cartList.length" class="container body">
-        <b-row v-for="(cm, i) in cartList" :key="cm.cm_id ? cm.cm_id : `goc${cm.goc_id}`" class="cart_data" :class="{model:cm.type=='model', option:cm.type=='option'}">
+    <transition-group v-if="cartList.length" class="container body" tag="div" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
+        <b-row v-for="(cm, i) in computedModel" :key="cm.cm_id ? cm.cm_id : `goc${cm.goc_id}`" class="cart_data" :class="{model:cm.type=='model', option:cm.type=='option'}">
             <template v-if="cm.type=='model'">
                 <b-col class="check"><b-form-checkbox v-model="cm.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
                 <b-col class="img"><img :src="cm.img" class="img-fluid" /></b-col>
@@ -34,7 +34,7 @@
                 <b-col class="maker">{{cm.mk_name}}</b-col>
                 <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
-                    <div class="box"><InputNo v-model="cartList[i]" /></div>
+                    <div class="box"><InputNo v-model="computedModel[i]" /></div>
                 </b-col>
                 <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" size="sm" @click="outCart(i)">삭제</b-button></b-col>
@@ -47,17 +47,19 @@
                 <b-col></b-col>
                 <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
-                    <div class="box"><InputNo v-model="cartList[i]" /></div>
+                    <div class="box"><InputNo v-model="computedModel[i]" /></div>
                 </b-col>
                 <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" @click="outCart(i)">삭제</b-button></b-col>
             </template>
         </b-row>
+        
+        <b-row class="more" :key="'more'"><b-col><b-button v-if="0<cartList.length && cartList.length>page*7" @click="page++" class="sky lg">더보기</b-button></b-col></b-row>
 
-        <b-row class="delete">
+        <b-row class="delete" :key="'delete'">
             <b-col>선택한 상품을 <b-button class="white" @click="outCart('chk')">삭제</b-button></b-col>
         </b-row>
-        <b-row class="total">
+        <b-row class="total" :key="'total'">
             <b-col>상품금액</b-col>
             <b-col><b>{{sum_goods_add_vat | comma}}</b> 원</b-col>
             <b-col>배송료</b-col>
@@ -65,7 +67,7 @@
             <b-col>결제 예정 금액</b-col>
             <b-col><b>{{sum_goods_add_vat | comma}}</b> 원</b-col>
         </b-row>
-        <b-row class="total_sub">
+        <b-row class="total_sub" :key="'total_sub'">
             <b-col>
                 <div>
                     <b-col>상품가</b-col>
@@ -85,14 +87,14 @@
                 <div><b-col>&nbsp;</b-col><b-col></b-col></div>
             </b-col>
         </b-row>
-        <b-row class="dlvy_info"><b-col>
+        <b-row class="dlvy_info" :key="'dlvy_info'"><b-col>
             총 구매금액이 {{goodsDefault.free_dlvy_max | comma | won}} 미만일 경우 배송료 {{goodsDefault.dlvy_fee_add_vat | comma | won}}이 부과됩니다.
         </b-col></b-row>
-        <b-row class="btn_box"><b-col>
+        <b-row class="btn_box" :key="'btn_box'"><b-col>
             <b-button @click="action('estimate')" class="gray xl">견적 요청하기</b-button>
             <b-button @click="action('settle')" class="blue xl" v-if="!hide_order_btn">주문하기</b-button>
         </b-col></b-row>
-    </div>
+    </transition-group>
     <b-row v-else><b-col><b-alert variant="danger" show>No Item</b-alert></b-col></b-row>
     
 </b-container>
@@ -119,18 +121,22 @@ export default {
     },
     computed: {
         ...mapState('cart', ['cartList']),
+        ...mapState('goods', ['default']),
+        computedModel: function () {
+            return this.cartList.slice( 0, this.page*7 );
+        },
         sum_goods_add_vat () {
-            return Object.values(this.cartList).reduce((acc, el) => 
+            return Object.values(this.computedModel).reduce((acc, el) => 
                 acc + ((el.ct_check_opt=='Y')?(el.price_add_vat*el.ea):0)
             , 0);
         },
         sum_goods () {
-            return Object.values(this.cartList).reduce((acc, el) => { 
+            return Object.values(this.computedModel).reduce((acc, el) => { 
                 return acc + (el.ct_check_opt=='Y'?el.price*el.ea:0); 
             }, 0);
         },
         sum_mileage () {
-            return Object.values(this.cartList).reduce((acc, el) => { 
+            return Object.values(this.computedModel).reduce((acc, el) => { 
                 return acc + ((el.ct_check_opt=='Y')?(el.price*el.ea*Auth.user().mileage_mul):0); 
             }, 0);
         },
@@ -142,9 +148,9 @@ export default {
         async outCart(i) {
             let id_arr = [];
             if (i=='chk') {
-                let chkCnt = Object.values(this.cartList).filter(el => el.ct_check_opt=='Y').length;
+                let chkCnt = Object.values(this.computedModel).filter(el => el.ct_check_opt=='Y').length;
                 if (chkCnt) {
-                    for (const v of this.cartList) {
+                    for (const v of this.computedModel) {
                         if ( v.ct_check_opt == 'Y' ) {
                             id_arr.push({type:v.type, id:v.cm_id??v.co_id});
                         }
@@ -155,17 +161,17 @@ export default {
                 }
                 
             } else 
-                id_arr.push({type:this.cartList[i].type, id:this.cartList[i].cm_id??this.cartList[i].co_id});
+                id_arr.push({type:this.computedModel[i].type, id:this.computedModel[i].cm_id??this.computedModel[i].co_id});
             
             if (await Notify.confirm('삭제', 'danger'))
                 this.$store.dispatch('cart/destroy', id_arr);
         },
         chkChange () {
-            let chkCnt = Object.values(this.cartList).filter(el => el.ct_check_opt=='Y').length;         
+            let chkCnt = Object.values(this.computedModel).filter(el => el.ct_check_opt=='Y').length;         
             if (chkCnt === 0) {
                 this.indeterminate = false;
                 this.all_chk = false;
-            } else if (chkCnt === Object.keys(this.cartList).length) {
+            } else if (chkCnt === Object.keys(this.computedModel).length) {
                 this.indeterminate = false;
                 this.all_chk = true;
             } else {
@@ -174,8 +180,22 @@ export default {
             }
         },
         toggle_all_chk(chk) {
-            for(let k in this.cartList) this.cartList[k].ct_check_opt = chk ? 'Y' : 'N';
+            for(let k in this.computedModel) this.computedModel[k].ct_check_opt = chk ? 'Y' : 'N';
             this.indeterminate = false;
+        },
+        beforeEnter: function (el) {
+            el.style.opacity = 0
+            el.style.height = 0
+        },
+        enter: function (el, done) {
+            var delay = el.dataset.index * 150
+            setTimeout(function () {
+                Velocity(
+                    el,
+                    { opacity: 1, height: '150px' },
+                    { complete: done }
+                )
+            }, delay)
         },
         action(type) {
             let params = this.makeParam();
@@ -190,7 +210,7 @@ export default {
 
             switch (type) {
                 case "settle":
-                    let estimate_price_list = this.cartList.filter(ct => ct.ea > 0 && ct.ct_check_opt == 'Y' && ct.price == 0);
+                    let estimate_price_list = this.computedModel.filter(ct => ct.ea > 0 && ct.ct_check_opt == 'Y' && ct.price == 0);
                     if (estimate_price_list.length) {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
@@ -206,7 +226,7 @@ export default {
 
         makeParam () {
             let params = [];
-            this.cartList.forEach(ct => {
+            this.computedModel.forEach(ct => {
                 if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
                     if (ct.type == 'model')         params.push({gd_id:ct.gd_id, gm_id:ct.gm_id, ea:ct.ea});
                     else if (ct.type == 'option')   params.push({gd_id:ct.gd_id, goc_id:ct.goc_id, ea:ct.ea});
@@ -217,6 +237,10 @@ export default {
     },
     mounted() {
         this.$store.dispatch('cart/index');
+        const plugin = document.createElement("script");
+        plugin.setAttribute( "src", "https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.6/velocity.min.js" );
+        plugin.async = true;
+        document.head.appendChild(plugin);
     },
 }
 </script>
@@ -280,6 +304,7 @@ export default {
 .w_fence .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .w_fence .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
 .w_fence .dlvy_info .col { color:#898989; text-align:center; padding:.7rem; }
+.w_fence .more .col button { width:100%; margin-top:2rem; font-size:1.5rem; }
 
 @media (max-width: 992px){
     .w_fence { padding-top:1rem; }

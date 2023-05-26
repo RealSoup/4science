@@ -135,8 +135,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -156,22 +154,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hide_order_btn: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('goods', ['default'])), {}, {
-    computedModel: function computedModel() {
-      return this.cartList.slice(0, this.page * 7);
-    },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('cart', ['cartList'])), {}, {
     sum_goods_add_vat: function sum_goods_add_vat() {
-      return Object.values(this.computedModel).reduce(function (acc, el) {
+      return Object.values(this.cartList).reduce(function (acc, el) {
         return acc + (el.ct_check_opt == 'Y' ? el.price_add_vat * el.ea : 0);
       }, 0);
     },
     sum_goods: function sum_goods() {
-      return Object.values(this.computedModel).reduce(function (acc, el) {
+      return Object.values(this.cartList).reduce(function (acc, el) {
         return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea : 0);
       }, 0);
     },
     sum_mileage: function sum_mileage() {
-      return Object.values(this.computedModel).reduce(function (acc, el) {
+      return Object.values(this.cartList).reduce(function (acc, el) {
         return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea * Auth.user().mileage_mul : 0);
       }, 0);
     },
@@ -184,7 +179,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this$computedModel$i;
+        var _this$cartList$i$cm_i;
 
         var id_arr, chkCnt, _iterator, _step, v, _v$cm_id;
 
@@ -199,7 +194,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                chkCnt = Object.values(_this.computedModel).filter(function (el) {
+                chkCnt = Object.values(_this.cartList).filter(function (el) {
                   return el.ct_check_opt == 'Y';
                 }).length;
 
@@ -208,7 +203,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                _iterator = _createForOfIteratorHelper(_this.computedModel);
+                _iterator = _createForOfIteratorHelper(_this.cartList);
 
                 try {
                   for (_iterator.s(); !(_step = _iterator.n()).done;) {
@@ -240,8 +235,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 12:
                 id_arr.push({
-                  type: _this.computedModel[i].type,
-                  id: (_this$computedModel$i = _this.computedModel[i].cm_id) !== null && _this$computedModel$i !== void 0 ? _this$computedModel$i : _this.computedModel[i].co_id
+                  type: _this.cartList[i].type,
+                  id: (_this$cartList$i$cm_i = _this.cartList[i].cm_id) !== null && _this$cartList$i$cm_i !== void 0 ? _this$cartList$i$cm_i : _this.cartList[i].co_id
                 });
 
               case 13:
@@ -265,14 +260,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     chkChange: function chkChange() {
-      var chkCnt = Object.values(this.computedModel).filter(function (el) {
+      var chkCnt = Object.values(this.cartList).filter(function (el) {
         return el.ct_check_opt == 'Y';
       }).length;
 
       if (chkCnt === 0) {
         this.indeterminate = false;
         this.all_chk = false;
-      } else if (chkCnt === Object.keys(this.computedModel).length) {
+      } else if (chkCnt === Object.keys(this.cartList).length) {
         this.indeterminate = false;
         this.all_chk = true;
       } else {
@@ -281,26 +276,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     toggle_all_chk: function toggle_all_chk(chk) {
-      for (var k in this.computedModel) {
-        this.computedModel[k].ct_check_opt = chk ? 'Y' : 'N';
+      for (var k in this.cartList) {
+        this.cartList[k].ct_check_opt = chk ? 'Y' : 'N';
       }
 
       this.indeterminate = false;
-    },
-    beforeEnter: function beforeEnter(el) {
-      el.style.opacity = 0;
-      el.style.height = 0;
-    },
-    enter: function enter(el, done) {
-      var delay = el.dataset.index * 150;
-      setTimeout(function () {
-        Velocity(el, {
-          opacity: 1,
-          height: '150px'
-        }, {
-          complete: done
-        });
-      }, delay);
     },
     action: function action(type) {
       var params = this.makeParam();
@@ -315,7 +295,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       switch (type) {
         case "settle":
-          var estimate_price_list = this.computedModel.filter(function (ct) {
+          var estimate_price_list = this.cartList.filter(function (ct) {
             return ct.ea > 0 && ct.ct_check_opt == 'Y' && ct.price == 0;
           });
 
@@ -345,7 +325,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     makeParam: function makeParam() {
       var params = [];
-      this.computedModel.forEach(function (ct) {
+      this.cartList.forEach(function (ct) {
         if (ct.ea > 0 && ct.ct_check_opt == 'Y') {
           if (ct.type == 'model') params.push({
             gd_id: ct.gd_id,
@@ -363,10 +343,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.$store.dispatch('cart/index');
-    var plugin = document.createElement("script");
-    plugin.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.6/velocity.min.js");
-    plugin.async = true;
-    document.head.appendChild(plugin);
   }
 });
 
@@ -389,7 +365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence .container[data-v-2c1d515c] { padding:0;\n}\n.w_fence .cart_info[data-v-2c1d515c] { line-height:1.75; margin-bottom:2.4rem;\n}\n.w_fence .cart_info .col[data-v-2c1d515c] { flex:0 0 100%; max-width:100%;\n}\n.w_fence .head[data-v-2c1d515c] { border-top:2px solid #363636; border-bottom:1px solid #D7D7D7; padding:.7rem 0;\n}\n.w_fence .head .col[data-v-2c1d515c] { font-weight:bold; text-align:center; font-size:.9rem;\n}\n.w_fence .body .cart_data[data-v-2c1d515c] { border-bottom:1px solid #D7D7D7;\n}\n.w_fence .body .row.model[data-v-2c1d515c] { height:150px;\n}\n.w_fence .body .row.option[data-v-2c1d515c] { height:50px !important; background-color:#F4F1EC;\n}\n.w_fence .body .row .col[data-v-2c1d515c],\r\n.w_fence .body .row .col ul li[data-v-2c1d515c] { color:#949494;\n}\n.w_fence .body .row .col a .tit[data-v-2c1d515c] { font-weight:900; font-size:.9.5rem;\n}\n.w_fence .body .row .col ul li[data-v-2c1d515c] { font-size:.8rem;\n}\n.w_fence .body .row .price[data-v-2c1d515c] { text-align:right;\n}\n.w_fence .body .row .sum[data-v-2c1d515c] { font-weight:bold; font-size:1.1rem; color:#000;\n}\n.w_fence .body .row .check[data-v-2c1d515c],\r\n.w_fence .body .row .maker[data-v-2c1d515c],\r\n.w_fence .body .row .ctrl[data-v-2c1d515c] { text-align:center;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] { margin:0 15px;\n}\n.w_fence .body .row .img[data-v-2c1d515c] { text-align:center;\n}\n.w_fence .body .row .img img[data-v-2c1d515c] { width:120px; height:120px; -o-object-fit:cover; object-fit:cover;\n}\n.w_fence .row[data-v-2c1d515c] { align-items:center;\n}\n.w_fence .row .col[data-v-2c1d515c] { padding:0;\n}\n.w_fence .row .col .custom-checkbox[data-v-2c1d515c] label::before, \r\n.w_fence .row .col .custom-checkbox[data-v-2c1d515c] label::after { top:2px; left:-1.2rem; width:1.5rem; height:1.5rem;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(1) { flex:0 0 4%; max-width:4%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(2) { flex:0 0 11%; max-width:11%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(3) {\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(4) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(5) { flex:0 0 9%; max-width:9%;}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(6) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(7) { flex:0 0 9.5%; max-width:9.5%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(8) { flex:0 0 6%; max-width:6%;\n}\n.w_fence .delete .col[data-v-2c1d515c] { padding:1.2rem 2rem;\n}\n.w_fence .delete .col button[data-v-2c1d515c] { padding:.3rem 1rem; border-color:#666; margin-left:1rem;\n}\n.w_fence .total[data-v-2c1d515c] { border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; align-items:stretch;\n}\n.w_fence .total .col[data-v-2c1d515c] { color:#000 !important; font-weight:bold; padding:1rem; display:flex; align-items:center;\n}\n.w_fence .total .col b[data-v-2c1d515c] { font-size:1.4rem;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-child(odd) { padding-left:3rem;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-child(even) { padding-right:3rem; justify-content:flex-end;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(1) { display:flex; align-items:center;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"+\"; position:absolute; top:20px; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(3) { display:flex; align-items:center;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(4) { border-right:1px solid #D6D6D6; color:#FF0000 !important;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"=\"; position:absolute; top:20px; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(6) { flex-basis:20%; max-width:20%;\n}\n.w_fence .total_sub[data-v-2c1d515c] { background:#F2F3F5; border-bottom-width:0;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c] { display:flex; flex-wrap:wrap;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.w_fence .total_sub .col>div .col[data-v-2c1d515c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.w_fence .total_sub .col>div .col[data-v-2c1d515c]:nth-of-type(2) { text-align:right;\n}\n.w_fence .dlvy_info .col[data-v-2c1d515c] { color:#898989; text-align:center; padding:.7rem;\n}\n.w_fence .more .col button[data-v-2c1d515c] { width:100%; margin-top:2rem; font-size:1.5rem;\n}\n@media (max-width: 992px){\n.w_fence[data-v-2c1d515c] { padding-top:1rem;\n}\n.w_fence h3[data-v-2c1d515c] { margin-bottom:0;\n}\n.w_fence .head[data-v-2c1d515c] { display:none;\n}\n.w_fence .cart_info[data-v-2c1d515c] { margin: 1rem -10px;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(1) { flex:0 0 10%; max-width: 10%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(2) { flex:0 0 22%; max-width:22%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(3) { flex:0 0 68%; max-width:68%; padding-left:10px !important;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(4) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem);\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(5) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem);\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(6) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(7) { flex:0 0 60%; max-width:60%; font-size: calc(1.4vw + .7rem); text-align:right;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(8) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .cart_data .col:nth-child(8) .btn[data-v-2c1d515c] { padding:0 .2rem;  border-radius:.2rem;\n}\n.w_fence .body .row.model[data-v-2c1d515c] { min-height:150px; height:auto; padding:15px 0;\n}\n.w_fence .body .row .col[data-v-2c1d515c] { padding:3px 0;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] { margin:0 8px;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input { width:100% !important; height:1.3rem;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input .input-btn { width:1.3rem;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input .numeric-input { padding:2px 1rem;\n}\n.w_fence .delete .col[data-v-2c1d515c] { text-align:right;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(odd) { flex-basis:45%; max-width:45%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(even) { flex-basis:55%; max-width:55%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2):after,\r\n    .w_fence .total .col[data-v-2c1d515c]:nth-of-type(4):after { content:none;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(1),\r\n    .w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(2),\r\n    .w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(3) { flex-basis:100%; max-width:100%;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]{ padding:2vw !important;\n}\n.w_fence .btn_box .col[data-v-2c1d515c] { padding:0 10px !important;\n}\n.w_fence .btn_box .col button[data-v-2c1d515c] { width:100%; margin-bottom:3px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence .container[data-v-2c1d515c] { padding:0;\n}\n.w_fence .cart_info[data-v-2c1d515c] { line-height:1.75; margin-bottom:2.4rem;\n}\n.w_fence .cart_info .col[data-v-2c1d515c] { flex:0 0 100%; max-width:100%;\n}\n.w_fence .head[data-v-2c1d515c] { border-top:2px solid #363636; border-bottom:1px solid #D7D7D7; padding:.7rem 0;\n}\n.w_fence .head .col[data-v-2c1d515c] { font-weight:bold; text-align:center; font-size:.9rem;\n}\n.w_fence .body .cart_data[data-v-2c1d515c] { border-bottom:1px solid #D7D7D7;\n}\n.w_fence .body .row.model[data-v-2c1d515c] { height:150px;\n}\n.w_fence .body .row.option[data-v-2c1d515c] { height:50px !important; background-color:#F4F1EC;\n}\n.w_fence .body .row .col[data-v-2c1d515c],\r\n.w_fence .body .row .col ul li[data-v-2c1d515c] { color:#949494;\n}\n.w_fence .body .row .col a .tit[data-v-2c1d515c] { font-weight:900; font-size:.9.5rem;\n}\n.w_fence .body .row .col ul li[data-v-2c1d515c] { font-size:.8rem;\n}\n.w_fence .body .row .price[data-v-2c1d515c] { text-align:right;\n}\n.w_fence .body .row .sum[data-v-2c1d515c] { font-weight:bold; font-size:1.1rem; color:#000;\n}\n.w_fence .body .row .check[data-v-2c1d515c],\r\n.w_fence .body .row .maker[data-v-2c1d515c],\r\n.w_fence .body .row .ctrl[data-v-2c1d515c] { text-align:center;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] { margin:0 15px;\n}\n.w_fence .body .row .img[data-v-2c1d515c] { text-align:center;\n}\n.w_fence .body .row .img img[data-v-2c1d515c] { width:120px; height:120px; -o-object-fit:cover; object-fit:cover;\n}\n.w_fence .row[data-v-2c1d515c] { align-items:center;\n}\n.w_fence .row .col[data-v-2c1d515c] { padding:0;\n}\n.w_fence .row .col .custom-checkbox[data-v-2c1d515c] label::before, \r\n.w_fence .row .col .custom-checkbox[data-v-2c1d515c] label::after { top:2px; left:-1.2rem; width:1.5rem; height:1.5rem;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(1) { flex:0 0 4%; max-width:4%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(2) { flex:0 0 11%; max-width:11%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(3) {\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(4) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(5) { flex:0 0 9%; max-width:9%;}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(6) { flex:0 0 9%; max-width:9%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(7) { flex:0 0 9.5%; max-width:9.5%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(8) { flex:0 0 6%; max-width:6%;\n}\n.w_fence .delete .col[data-v-2c1d515c] { padding:1.2rem 2rem;\n}\n.w_fence .delete .col button[data-v-2c1d515c] { padding:.3rem 1rem; border-color:#666; margin-left:1rem;\n}\n.w_fence .total[data-v-2c1d515c] { border-top:2px solid #363636; border-bottom:1px solid #D6D6D6; align-items:stretch;\n}\n.w_fence .total .col[data-v-2c1d515c] { color:#000 !important; font-weight:bold; padding:1rem; display:flex; align-items:center;\n}\n.w_fence .total .col b[data-v-2c1d515c] { font-size:1.4rem;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-child(odd) { padding-left:3rem;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-child(even) { padding-right:3rem; justify-content:flex-end;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(1) { display:flex; align-items:center;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"+\"; position:absolute; top:20px; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(3) { display:flex; align-items:center;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(4) { border-right:1px solid #D6D6D6; color:#FF0000 !important;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; content:\"=\"; position:absolute; top:20px; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(5) { display:flex; align-items:center; flex-basis:20%; max-width:20%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(6) { flex-basis:20%; max-width:20%;\n}\n.w_fence .total_sub[data-v-2c1d515c] { background:#F2F3F5; border-bottom-width:0;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(3) { flex-basis:40%; max-width:40%;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c] { display:flex; flex-wrap:wrap;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]:nth-of-type(1) { padding:1.3rem 3rem .5rem 3rem;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]:nth-of-type(2) { padding:0 3rem 2.5rem 3rem;\n}\n.w_fence .total_sub .col>div .col[data-v-2c1d515c] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.w_fence .total_sub .col>div .col[data-v-2c1d515c]:nth-of-type(2) { text-align:right;\n}\n.w_fence .dlvy_info .col[data-v-2c1d515c] { color:#898989; text-align:center; padding:.7rem;\n}\n@media (max-width: 992px){\n.w_fence[data-v-2c1d515c] { padding-top:1rem;\n}\n.w_fence h3[data-v-2c1d515c] { margin-bottom:0;\n}\n.w_fence .head[data-v-2c1d515c] { display:none;\n}\n.w_fence .cart_info[data-v-2c1d515c] { margin: 1rem -10px;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(1) { flex:0 0 10%; max-width: 10%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(2) { flex:0 0 22%; max-width:22%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(3) { flex:0 0 68%; max-width:68%; padding-left:10px !important;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(4) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem);\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(5) { flex:0 0 30%; max-width:30%; font-size: calc(1vw + .6rem);\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(6) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(7) { flex:0 0 60%; max-width:60%; font-size: calc(1.4vw + .7rem); text-align:right;\n}\n.w_fence .cart_data .col[data-v-2c1d515c]:nth-child(8) { flex:0 0 40%; max-width:40%;\n}\n.w_fence .cart_data .col:nth-child(8) .btn[data-v-2c1d515c] { padding:0 .2rem;  border-radius:.2rem;\n}\n.w_fence .body .row.model[data-v-2c1d515c] { min-height:150px; height:auto; padding:15px 0;\n}\n.w_fence .body .row .col[data-v-2c1d515c] { padding:3px 0;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] { margin:0 8px;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input { width:100% !important; height:1.3rem;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input .input-btn { width:1.3rem;\n}\n.w_fence .body .row .col .box[data-v-2c1d515c] .vue-numeric-input .numeric-input { padding:2px 1rem;\n}\n.w_fence .delete .col[data-v-2c1d515c] { text-align:right;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(odd) { flex-basis:45%; max-width:45%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(even) { flex-basis:55%; max-width:55%;\n}\n.w_fence .total .col[data-v-2c1d515c]:nth-of-type(2):after,\r\n    .w_fence .total .col[data-v-2c1d515c]:nth-of-type(4):after { content:none;\n}\n.w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(1),\r\n    .w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(2),\r\n    .w_fence .total_sub>.col[data-v-2c1d515c]:nth-of-type(3) { flex-basis:100%; max-width:100%;\n}\n.w_fence .total_sub .col>div[data-v-2c1d515c]{ padding:2vw !important;\n}\n.w_fence .btn_box .col[data-v-2c1d515c] { padding:0 10px !important;\n}\n.w_fence .btn_box .col button[data-v-2c1d515c] { width:100%; margin-bottom:3px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -602,14 +578,10 @@ var render = function () {
       _vm._v(" "),
       _vm.cartList.length
         ? _c(
-            "transition-group",
-            {
-              staticClass: "container body",
-              attrs: { tag: "div", css: false },
-              on: { "before-enter": _vm.beforeEnter, enter: _vm.enter },
-            },
+            "div",
+            { staticClass: "container body" },
             [
-              _vm._l(_vm.computedModel, function (cm, i) {
+              _vm._l(_vm.cartList, function (cm, i) {
                 return _c(
                   "b-row",
                   {
@@ -719,11 +691,11 @@ var render = function () {
                               [
                                 _c("InputNo", {
                                   model: {
-                                    value: _vm.computedModel[i],
+                                    value: _vm.cartList[i],
                                     callback: function ($$v) {
-                                      _vm.$set(_vm.computedModel, i, $$v)
+                                      _vm.$set(_vm.cartList, i, $$v)
                                     },
-                                    expression: "computedModel[i]",
+                                    expression: "cartList[i]",
                                   },
                                 }),
                               ],
@@ -816,11 +788,11 @@ var render = function () {
                               [
                                 _c("InputNo", {
                                   model: {
-                                    value: _vm.computedModel[i],
+                                    value: _vm.cartList[i],
                                     callback: function ($$v) {
-                                      _vm.$set(_vm.computedModel, i, $$v)
+                                      _vm.$set(_vm.cartList, i, $$v)
                                     },
-                                    expression: "computedModel[i]",
+                                    expression: "cartList[i]",
                                   },
                                 }),
                               ],
@@ -868,36 +840,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
-                { key: "more", staticClass: "more" },
-                [
-                  _c(
-                    "b-col",
-                    [
-                      0 < _vm.cartList.length &&
-                      _vm.cartList.length > _vm.page * 7
-                        ? _c(
-                            "b-button",
-                            {
-                              staticClass: "sky lg",
-                              on: {
-                                click: function ($event) {
-                                  _vm.page++
-                                },
-                              },
-                            },
-                            [_vm._v("더보기")]
-                          )
-                        : _vm._e(),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                { key: "delete", staticClass: "delete" },
+                { staticClass: "delete" },
                 [
                   _c(
                     "b-col",
@@ -924,7 +867,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
-                { key: "total", staticClass: "total" },
+                { staticClass: "total" },
                 [
                   _c("b-col", [_vm._v("상품금액")]),
                   _vm._v(" "),
@@ -953,7 +896,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
-                { key: "total_sub", staticClass: "total_sub" },
+                { staticClass: "total_sub" },
                 [
                   _c("b-col", [
                     _c(
@@ -1014,7 +957,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
-                { key: "dlvy_info", staticClass: "dlvy_info" },
+                { staticClass: "dlvy_info" },
                 [
                   _c("b-col", [
                     _vm._v(
@@ -1039,7 +982,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-row",
-                { key: "btn_box", staticClass: "btn_box" },
+                { staticClass: "btn_box" },
                 [
                   _c(
                     "b-col",

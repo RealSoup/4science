@@ -17,6 +17,10 @@ class EngReformController extends Controller {
         return response()->json($eng, 200);
     }
 
+    public function getOption () {
+        return response()->json(EngReform::$option, 200);
+    }
+
     public function store(StoreEngReform $req) {
         $er_id = EngReform::insertGetId([
             "er_name"        => $req->filled('er_name')         ? $req->er_name         : '',

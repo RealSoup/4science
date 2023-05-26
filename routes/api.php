@@ -71,16 +71,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
             });
 
-            Route::get('listing/{type}/{group?}', 'Shop\ListingController@index');
-            Route::get('maker', 'Shop\MakerController@index');
+            Route::GET('listing/{type}/{group?}', 'Shop\ListingController@index');
+            Route::GET('maker', 'Shop\MakerController@index');
         });
 
+        Route::GET('engReform/getOption', 'EngReformController@getOption');
         Route::RESOURCE('engReform', EngReformController::class)->only([ 'index', 'store' ]);
 
         Route::prefix('board/{bo_cd}')->group(function () {
-            Route::get('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::GET('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
             // Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
-            Route::get('create/{bo_papa_id?}', 'BoardController@create')->name('board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
+            Route::GET('create/{bo_papa_id?}', 'BoardController@create')->name('board.create')->where('bo_cd', '[a-zA-Z0-9_]+');
             Route::post('store', 'BoardController@store')->name('board.store')->where('bo_cd', '[a-zA-Z0-9_]+');
             Route::GET('edit/{bo_id}', 'BoardController@edit')->name('board.edit')->where('bo_cd', '[a-zA-Z0-9_]+');
             Route::PATCH('update/{bo_id}', 'BoardController@update')->name('board.update')->where('bo_cd', '[a-zA-Z0-9_]+');

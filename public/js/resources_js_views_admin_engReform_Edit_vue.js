@@ -328,20 +328,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -353,21 +339,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoadingModalViewed: false,
       frm: {
-        file_info_cplt: []
+        file_info_cplt: [],
+        er_step: ''
       },
-      er_step: [{
-        text: '처리중',
-        value: 'ING'
-      }, {
-        text: '처리완료',
-        value: 'CPLT'
-      }, {
-        text: '미처리',
-        value: 'NOT'
-      }, {
-        text: '취소',
-        value: 'CXL'
-      }]
+      option: {},
+      er_step: {
+        0: {
+          value: 'ING',
+          name: '처리중'
+        },
+        1: {
+          value: 'CPLT',
+          name: '처리완료'
+        },
+        2: {
+          value: 'NOT',
+          name: '미처리'
+        },
+        3: {
+          value: 'CXL',
+          name: '취소'
+        }
+      }
     };
   },
   methods: {
@@ -388,7 +381,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  _this.frm = res.data;
+                  _this.frm = res.data.con;
+                  _this.option = res.data.option;
                 }
 
                 _context.next = 11;
@@ -498,7 +492,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#adm_eng_reform_edit .row[data-v-24a8b37a] { margin-bottom:2rem;\n}\n#adm_eng_reform_edit .row .col[data-v-24a8b37a] { box-shadow:3px 2px 2px 0px; border:1px solid #EDEDED; padding:1rem;\n}\n#adm_eng_reform_edit .row .col div[data-v-24a8b37a] { margin:1rem;\n}\n#adm_eng_reform_edit .row .col div span[data-v-24a8b37a] { margin-right:1rem;\n}\n#adm_eng_reform_edit .row .col div span svg[data-v-24a8b37a],\r\n#adm_eng_reform_edit .row .col div span b[data-v-24a8b37a] { margin-right:0.5rem;\n}\n#adm_eng_reform_edit .row .col div span.proc_con[data-v-24a8b37a] { display:inline-block;\n}\n#adm_eng_reform_edit .row .col div span.proc_con div[data-v-24a8b37a] { display:inline-block; margin:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-24a8b37a] { max-width:1640px; margin-left:auto; margin-right:auto;\n}\n.est_frm .row .col.sty02[data-v-24a8b37a],\r\n.est_frm .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 10%; max-width:10%;\n}\n.est_frm .row .col.sty01[data-v-24a8b37a] { flex:0 0 24%; max-width:24%;\n}\n.est_frm .row .col.sty03[data-v-24a8b37a] { flex:0 0 14%; max-width:14%;\n}\n.est_frm .row .col.sty04[data-v-24a8b37a] { flex:0 0 13%; max-width:13%;\n}\n.box_f .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 14%; max-width:14%;\n}\n.box_f .row .add_file div .btn[data-v-24a8b37a] { max-width:400px; margin-bottom:.7rem;\n}\n.box_f .row .col .cnt[data-v-24a8b37a] { color:#16A2B9; font-size:.9rem;\n}\n.bottom .col[data-v-24a8b37a] { display:flex; justify-content:flex-end; align-items:center;\n}\n.bottom .col .input-group[data-v-24a8b37a] { max-width:200px;\n}\n.bottom .col span>b[data-v-24a8b37a],\r\n.bottom .col>.input-group[data-v-24a8b37a], \r\n.bottom .col>.btn[data-v-24a8b37a] { margin-left:1rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4597,21 +4591,275 @@ var render = function () {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "act_ctrl" },
+        { staticClass: "box est_frm" },
+        [
+          _c("h5", [_vm._v("요청 정보")]),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("요청자")]),
+              _c("b-col", { staticClass: "sty01" }, [
+                _vm._v(_vm._s(_vm.frm.er_name)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("연락처")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_hp))]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("이메일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_email))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("소속")]),
+              _c("b-col", { staticClass: "sty01" }, [
+                _vm._v(_vm._s(_vm.frm.er_depart)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("등록일")]),
+              _c("b-col", [
+                _vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.created_at))),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("납기일")]),
+              _c("b-col", [
+                _vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.er_dlvy_at))),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("포멧팅")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "sty01" },
+                [
+                  _vm.frm.er_format == "NFM"
+                    ? [_vm._v("No-formatting")]
+                    : [_vm._v("formatting")],
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("저널명")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_journal_url))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("학문분야")]),
+              _c("b-col", { staticClass: "sty03" }, [
+                _vm._v(_vm._s(_vm.frm.er_branch)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("하위학문분야")]),
+              _c("b-col", { staticClass: "sty02" }, [
+                _vm._v(_vm._s(_vm.frm.er_branch_sub)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("에디터")]),
+              _c("b-col", { staticClass: "sty04" }, [
+                _vm._v(_vm._s(_vm.frm.er_editor)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("문체스타일")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_eng_style))]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("요청사항")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_demand))]),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box box_f" },
         [
           _c(
             "b-row",
             [
+              _c("b-col", [
+                _vm._v("작업문서 파일 "),
+                _vm.frm.file_info
+                  ? _c("span", { staticClass: "cnt" }, [
+                      _vm._v(
+                        "(" +
+                          _vm._s(
+                            _vm.frm.file_info.filter(function (f) {
+                              return f.fi_kind == "work"
+                            }).length
+                          ) +
+                          ")"
+                      ),
+                    ])
+                  : _vm._e(),
+              ]),
+              _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "text-right" },
-                [
-                  _c(
-                    "b-button",
-                    { staticClass: "blue sm", on: { click: _vm.update } },
+                { staticClass: "add_file" },
+                _vm._l(_vm.frm.file_info, function (f) {
+                  return _c(
+                    "div",
+                    { key: f.fi_id },
                     [
-                      _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                      _vm._v(" 저장\r\n                "),
+                      f.fi_kind == "work"
+                        ? _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                size: "sm",
+                                variant: "outline-info",
+                                block: "",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.fileDown(
+                                    f.down_path,
+                                    f.fi_original
+                                  )
+                                },
+                              },
+                            },
+                            [_vm._v(_vm._s(f.fi_original))]
+                          )
+                        : _vm._e(),
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c("b-col", [
+                _vm._v("참고문서 파일 "),
+                _vm.frm.file_info
+                  ? _c("span", { staticClass: "cnt" }, [
+                      _vm._v(
+                        "(" +
+                          _vm._s(
+                            _vm.frm.file_info.filter(function (f) {
+                              return f.fi_kind == "ref"
+                            }).length
+                          ) +
+                          ")"
+                      ),
+                    ])
+                  : _vm._e(),
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "add_file" },
+                _vm._l(_vm.frm.file_info, function (f) {
+                  return _c(
+                    "div",
+                    { key: f.fi_id },
+                    [
+                      f.fi_kind == "ref"
+                        ? _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                size: "sm",
+                                variant: "outline-info",
+                                block: "",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.fileDown(
+                                    f.down_path,
+                                    f.fi_original
+                                  )
+                                },
+                              },
+                            },
+                            [_vm._v(_vm._s(f.fi_original))]
+                          )
+                        : _vm._e(),
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "box box_f" },
+        [
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("교정자료 업로드")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
+                  _c("file-upload", {
+                    ref: "fileupload",
+                    attrs: {
+                      fi_group: "engReform",
+                      fi_kind: "cplt",
+                      height: 150,
+                    },
+                    model: {
+                      value: _vm.frm.file_info_cplt,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.frm, "file_info_cplt", $$v)
+                      },
+                      expression: "frm.file_info_cplt",
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    { attrs: { name: "fade" } },
+                    [
+                      _vm.isLoadingModalViewed
+                        ? _c(
+                            "LoadingModal",
+                            {
+                              on: {
+                                "close-modal": function ($event) {
+                                  _vm.isLoadingModalViewed = false
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        첨부파일 전송중 ......\r\n                    "
+                              ),
+                            ]
+                          )
+                        : _vm._e(),
                     ],
                     1
                   ),
@@ -4626,345 +4874,65 @@ var render = function () {
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        {
-          staticClass: "shadow",
-          attrs: { id: "adm_eng_reform_edit", title: "영문교정 요청 내역" },
-        },
+        "b-row",
+        { staticClass: "bottom" },
         [
           _c(
-            "b-container",
+            "b-col",
             [
-              _c(
-                "b-row",
-                [
-                  _c("b-col", [
-                    _c("div", [
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "이름" },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                          _vm._v(_vm._s(_vm.frm.er_name)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "일반전화" },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "phone" } }),
-                          _vm._v(_vm._s(_vm.frm.er_tel)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "HP" },
-                        },
-                        [
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "mobile-alt" },
-                          }),
-                          _vm._v(_vm._s(_vm.frm.er_hp)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "이메일" },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "at" } }),
-                          _vm._v(_vm._s(_vm.frm.er_email)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "소속" },
-                        },
-                        [
-                          _c("font-awesome-icon", { attrs: { icon: "users" } }),
-                          _vm._v(_vm._s(_vm.frm.er_depart)),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "신청일" },
-                        },
-                        [
-                          _c("b-icon-calendar2-date"),
-                          _vm._v(
-                            _vm._s(_vm._f("formatDate")(_vm.frm.created_at))
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true },
-                            },
-                          ],
-                          attrs: { title: "납기일" },
-                        },
-                        [
-                          _c("b-icon-stopwatch-fill"),
-                          _vm._v(
-                            _vm._s(_vm._f("formatDate")(_vm.frm.er_dlvy_at))
-                          ),
-                        ],
-                        1
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c(
-                        "span",
-                        [
-                          _c("b", [_vm._v("포맷팅:")]),
-                          _vm._v(" "),
-                          _vm.frm.er_format == "NFM"
-                            ? [_vm._v("No-formatting")]
-                            : [_vm._v("formatting")],
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _vm.frm.er_format == "FM"
-                        ? _c("span", [
-                            _c("b", [_vm._v("저널명:")]),
-                            _vm._v(" " + _vm._s(_vm.frm.er_journal_url)),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("span", [
-                        _c("b", [_vm._v("학문분야:")]),
-                        _vm._v(" " + _vm._s(_vm.frm.er_branch)),
-                      ]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _c("b", [_vm._v("하위학문분야:")]),
-                        _vm._v(" " + _vm._s(_vm.frm.er_branch_sub)),
-                      ]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _c("b", [_vm._v("에디터:")]),
-                        _vm._v(" " + _vm._s(_vm.frm.er_editor)),
-                      ]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _c("b", [_vm._v("문체스타일:")]),
-                        _vm._v(" " + _vm._s(_vm.frm.er_eng_style)),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("span", [
-                        _c("b", [_vm._v("요청사항:")]),
-                        _vm._v(" " + _vm._s(_vm.frm.er_demand)),
-                      ]),
-                    ]),
-                  ]),
-                ],
-                1
-              ),
+              _vm.frm.updated_id > 0
+                ? _c("span", [
+                    _c("b", [_vm._v("처리일:")]),
+                    _vm._v(" " + _vm._s(_vm.frm.updated_at) + " "),
+                    _c("b", [_vm._v("관리자:")]),
+                    _vm._v(" " + _vm._s(_vm.frm.mng.name)),
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-input-group",
                 [
-                  _c("b-col", { attrs: { cols: "2", col: "" } }, [
-                    _c("b", [_vm._v("작업 문서 파일:")]),
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "b-col",
-                    _vm._l(_vm.frm.file_info, function (f) {
-                      return _c(
-                        "div",
-                        { key: f.fi_id },
-                        [
-                          f.fi_kind == "work"
-                            ? _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    size: "sm",
-                                    variant: "outline-info",
-                                    block: "",
-                                  },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.fileDown(
-                                        f.down_path,
-                                        f.fi_original
-                                      )
-                                    },
-                                  },
-                                },
-                                [_vm._v(_vm._s(f.fi_original))]
-                              )
-                            : _vm._e(),
-                        ],
-                        1
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c("b-col", { attrs: { cols: "2", col: "" } }, [
-                    _c("b", [_vm._v("참고 문서 파일:")]),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    _vm._l(_vm.frm.file_info, function (f) {
-                      return _c(
-                        "div",
-                        { key: f.fi_id },
-                        [
-                          f.fi_kind == "ref"
-                            ? _c(
-                                "b-button",
-                                {
-                                  attrs: {
-                                    size: "sm",
-                                    variant: "outline-info",
-                                    block: "",
-                                  },
-                                  on: {
-                                    click: function ($event) {
-                                      return _vm.fileDown(
-                                        f.down_path,
-                                        f.fi_original
-                                      )
-                                    },
-                                  },
-                                },
-                                [_vm._v(_vm._s(f.fi_original))]
-                              )
-                            : _vm._e(),
-                        ],
-                        1
-                      )
-                    }),
-                    0
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c("b-col", { attrs: { cols: "2", col: "" } }, [
-                    _c("b", [_vm._v("교정자료 업로드:")]),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.frm.er_step,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.frm, "er_step", $$v)
+                        },
+                        expression: "frm.er_step",
+                      },
+                    },
                     [
-                      _c("file-upload", {
-                        ref: "fileupload",
-                        attrs: {
-                          fi_group: "engReform",
-                          fi_kind: "cplt",
-                          height: 150,
-                        },
-                        model: {
-                          value: _vm.frm.file_info_cplt,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "file_info_cplt", $$v)
-                          },
-                          expression: "frm.file_info_cplt",
-                        },
-                      }),
+                      _c("b-form-select-option", { attrs: { value: "" } }, [
+                        _vm._v("◖처리 상태◗"),
+                      ]),
                       _vm._v(" "),
+                      _vm._l(_vm.er_step, function (v, k) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: k, attrs: { value: v.value } },
+                          [_vm._v(_vm._s(v.name))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-input-group-append",
+                    [
                       _c(
-                        "transition",
-                        { attrs: { name: "fade" } },
-                        [
-                          _vm.isLoadingModalViewed
-                            ? _c(
-                                "LoadingModal",
-                                {
-                                  on: {
-                                    "close-modal": function ($event) {
-                                      _vm.isLoadingModalViewed = false
-                                    },
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\r\n                            첨부파일 전송중 ......\r\n                        "
-                                  ),
-                                ]
-                              )
-                            : _vm._e(),
-                        ],
-                        1
+                        "b-button",
+                        {
+                          staticClass: "d_gray",
+                          on: {
+                            click: function ($event) {
+                              return _vm.update("od_step")
+                            },
+                          },
+                        },
+                        [_vm._v("변경")]
                       ),
                     ],
                     1
@@ -4974,55 +4942,11 @@ var render = function () {
               ),
               _vm._v(" "),
               _c(
-                "b-row",
+                "b-button",
+                { staticClass: "d_blue", on: { click: _vm.update } },
                 [
-                  _c("b-col", { attrs: { cols: "12", col: "" } }, [
-                    _c("div", [
-                      _c(
-                        "span",
-                        { staticClass: "proc_con" },
-                        [
-                          _c(
-                            "b-alert",
-                            { attrs: { show: "" } },
-                            [
-                              _c("b", [_vm._v("처리상태:")]),
-                              _vm._v(" "),
-                              _c("b-form-radio-group", {
-                                attrs: {
-                                  options: _vm.er_step,
-                                  name: "er_step",
-                                },
-                                model: {
-                                  value: _vm.frm.er_step,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_step", $$v)
-                                  },
-                                  expression: "frm.er_step",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.frm.updated_id > 0
-                        ? _c("span", [
-                            _c("b", [_vm._v("처리일:")]),
-                            _vm._v(" " + _vm._s(_vm.frm.updated_at)),
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.frm.updated_id > 0
-                        ? _c("span", [
-                            _c("b", [_vm._v("관리자:")]),
-                            _vm._v(" " + _vm._s(_vm.frm.mng.name)),
-                          ])
-                        : _vm._e(),
-                    ]),
-                  ]),
+                  _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                  _vm._v(" 저장"),
                 ],
                 1
               ),

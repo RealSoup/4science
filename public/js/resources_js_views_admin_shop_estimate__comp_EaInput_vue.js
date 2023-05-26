@@ -20,10 +20,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     displayValue: {
       get: function get() {
-        if (this.em && this.em.bundle_dc && this.em.bundle_dc.length) this.em.em_price = bundleCheck(this.em.bundle_dc, this.value, this.em.em_cost_price);
         return this.priceComma(this.value.toString());
       },
       set: function set(v) {
+        if (this.em && this.em.bundle_dc && this.em.bundle_dc.length) this.em.em_price = bundleCheck(this.em.bundle_dc, v, this.em.em_cost_price);
         this.$emit('input', v.replace(/[^0-9]/g, '').toString());
       }
     }
