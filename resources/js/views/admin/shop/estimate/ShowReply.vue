@@ -70,7 +70,7 @@
 
         <div class="top_border" />
 
-        <PaList v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" />
+        <pa-list v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" />
     </div>
 
     <div class="box est_frm">
@@ -109,7 +109,7 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'PaList'        : () => import('@/views/web/_module/PaList'),
+        'pa-list'        : () => import('@/views/web/_module/PaList'),
     },
     data() {
         return {

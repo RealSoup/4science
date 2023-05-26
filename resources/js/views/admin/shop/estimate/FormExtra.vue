@@ -5,7 +5,7 @@
         <b-col>주문납품기일</b-col>
         <b-col>
             <b-form-input id="er_dlvy_at" v-model="value.er_dlvy_at" v-b-tooltip.hover title="입력예: 2주이내, 1개월 이내" />
-            <Validation :error="$store.state.error.validations.er_dlvy_at" />
+            <validation :error="$store.state.error.validations.er_dlvy_at" />
         </b-col>
         <b-col>견적유효기간</b-col>
         <b-col>
@@ -22,7 +22,7 @@
         <b-col>
             <file-upload ref="fileupload" v-model="value.file_info" :fi_group="'estimateReply'" :fi_kind="'add'" :height="124" />
             <transition name="fade">
-                <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">첨부파일 전송중 ..... </LoadingModal>
+                <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">첨부파일 전송중 ..... </loading-modal>
             </transition>
         </b-col>
 
@@ -37,9 +37,9 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
     components: {
-        FileUpload,
-        'Validation': () => import('@/views/_common/Validation.vue'),
-        'LoadingModal': () => import('@/views/_common/LoadingModal.vue'),
+        'file-upload': FileUpload,
+        'validation': () => import('@/views/_common/Validation.vue'),
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     props: ['value', 'isLoadingModalViewed'],
 }

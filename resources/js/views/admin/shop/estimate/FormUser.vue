@@ -4,25 +4,25 @@
     <b-row>
         <b-col>요청자</b-col>
         <b-col>
-            <UserInput v-model="value.eq_name" :type="'name'" :frm="value" />
-            <Validation :error="$store.state.error.validations.eq_name" />
+            <user-input v-model="value.eq_name" :type="'name'" :frm="value" />
+            <validation :error="$store.state.error.validations.eq_name" />
         </b-col>
         <b-col>소속/부서</b-col>
         <b-col>
-            <UserInput v-model="value.eq_department" :type="'department'" :frm="value" />
-            <Validation :error="$store.state.error.validations.eq_department" />
+            <user-input v-model="value.eq_department" :type="'department'" :frm="value" />
+            <validation :error="$store.state.error.validations.eq_department" />
         </b-col>
     </b-row>
     <b-row>
         <b-col>이메일</b-col>
         <b-col>
-            <UserInput v-model="value.eq_email" :type="'email'" :frm="value" />
-            <Validation :error="$store.state.error.validations.eq_email" />
+            <user-input v-model="value.eq_email" :type="'email'" :frm="value" />
+            <validation :error="$store.state.error.validations.eq_email" />
         </b-col>
         <b-col>휴대폰 번호</b-col>
         <b-col>
-            <UserInput v-model="value.eq_hp" :type="'hp'" :frm="value" />
-            <Validation :error="$store.state.error.validations.eq_hp" />
+            <user-input v-model="value.eq_hp" :type="'hp'" :frm="value" />
+            <validation :error="$store.state.error.validations.eq_hp" />
         </b-col>
     </b-row>
     <b-row>
@@ -45,8 +45,8 @@
 <script>
 export default {
     components: {
-        'UserInput': () =>      import('./_comp/UserInput.vue'),
-        'Validation': () => import('@/views/_common/Validation.vue'),
+        'user-input': () =>      import('./_comp/UserInput.vue'),
+        'validation': () => import('@/views/_common/Validation.vue'),
     },
     props: ['value'],
 }

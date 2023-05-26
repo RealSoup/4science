@@ -109,11 +109,11 @@ import ax from '@/api/http';
 export default {
     name: 'admShopEstimateShowReq',
     components: {
-        'MadeType01':   () => import('./_comp/MadeType01'),
-        'MadeType08':   () => import('./_comp/MadeType08'),
-        'MadeType20':   () => import('./_comp/MadeType20'),
-        'MadeType24':   () => import('./_comp/MadeType24'),
-        'MadeTypeCommon':   () => import('./_comp/MadeTypeCommon'),
+        'made-type01':   () => import('./_comp/MadeType01'),
+        'made-type08':   () => import('./_comp/MadeType08'),
+        'made-type20':   () => import('./_comp/MadeType20'),
+        'made-type24':   () => import('./_comp/MadeType24'),
+        'made-type-common':   () => import('./_comp/MadeTypeCommon'),
     },
     data() {
         return {
@@ -125,11 +125,11 @@ export default {
     computed:{
     	choiceSubType(){
         	switch(this.frm.eq_1depth){
-            	case '1': return 'MadeType01';  break; 
-                case '8': return 'MadeType08';  break; 
-                case '20': return 'MadeType20';  break; 
-                case '24': return 'MadeType24';  break; 
-                default: return 'MadeTypeCommon';  break;
+            	case '1': return 'made-type01';  break; 
+                case '8': return 'made-type08';  break; 
+                case '20': return 'made-type20';  break; 
+                case '24': return 'made-type24';  break; 
+                default: return 'made-type-common';  break;
             }
         },
     },

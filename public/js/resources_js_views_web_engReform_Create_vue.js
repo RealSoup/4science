@@ -584,19 +584,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    'Validation': function Validation() {
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     },
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'Modal': function Modal() {
+    'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
     }
   },
@@ -624,7 +632,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editor_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.editor_opt,
       email_domain: [],
       email_domain_slt_idx: 0,
-      isModalViewed: false
+      isModalViewed: false,
+      option: {}
     };
   },
   methods: {
@@ -760,7 +769,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      var res, er_hp, er_email;
+      var res, opt, er_hp, er_email;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -771,6 +780,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context2.sent;
               if (res && res.status === 200) _this2.email_domain = res.data;
+              _context2.next = 6;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/engReform/getOption");
+
+            case 6:
+              opt = _context2.sent;
+              if (opt && opt.status === 200) _this2.option = opt.data;
               er_hp = Auth.user().hp.split('-');
               er_email = Auth.user().email.split('@');
               _this2.frm.er_name = Auth.user().name;
@@ -781,7 +796,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.frm.er_email02 = er_email[1];
               _this2.frm.er_depart = Auth.user().department;
 
-            case 13:
+            case 17:
             case "end":
               return _context2.stop();
           }
@@ -2204,7 +2219,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-5d903260] { margin-top:0; text-align:left;\n}\n.w_fence .lg[data-v-5d903260] { padding: 7px 0px; margin-left:1rem;\n}\n#engReform>.row>.col[data-v-5d903260] { padding:0;\n}\n#engReform .row .col h5[data-v-5d903260] { margin:30px 0 20px 20px;\n}\n.tbl01[data-v-5d903260] { width:100%; border:5px solid #E1E1E1;\n}\n.tbl01.strong tr th[data-v-5d903260],\r\n.tbl01.strong tr td[data-v-5d903260] { font-weight:bold;\n}\n.tbl01 tr th[data-v-5d903260],\r\n.tbl01 tr td[data-v-5d903260] { text-align:center; font-size:.9rem;\n}\n.tbl01 tr th[data-v-5d903260] { background:#4F708F; color:#fff; text-align:center; width:300px; padding:10px 0;\n}\n.tbl01 tr td[data-v-5d903260] { padding:10px 30px;\n}\n.tbl01 tr td.bg1[data-v-5d903260] { background:#B7B7B7;\n}\n.tbl01 tr td.bg2[data-v-5d903260] { background:#EFF0F2;\n}\n.tbl01 tr td.other[data-v-5d903260] { text-align:left; font-weight:normal;\n}\nol.num_list[data-v-5d903260] { margin:15px 0 0 40px;\n}\nol.num_list li[data-v-5d903260] { list-style-type:decimal; font-size:.82rem; margin:.3rem 0;\n}\nol.num_list li:first-child b[data-v-5d903260] { color:#0094EA;\n}\n.style01[data-v-5d903260] { border:3px solid #7EA8DA; position:relative; padding:22px 80px 30px 140px; border-radius:2.7rem; margin:2.5rem -15px 2.5rem 4rem;\n}\n.style01 .circle[data-v-5d903260] { position:absolute; top:50%; left:-6%; transform:translateY(-50%); background:#7EA8DA; width:170px; padding:67px 0; text-align:center; font-size:1.25rem; color:#fff; font-weight:bold; border-radius:50%;\n}\n.style01 p[data-v-5d903260] { font-weight:bold; margin-bottom:.1rem;\n}\n.style01 .point[data-v-5d903260] { color:#0094EA; margin-top:.7rem;font-size:1.2rem;\n}\n.style01 hr[data-v-5d903260] { border-color:#D7D7D7;\n}\n.style01.premium[data-v-5d903260] { border-color:#5674BA;\n}\n.style01.premium .circle[data-v-5d903260] { background:#5674BA;\n}\n.style01.plus[data-v-5d903260] { border-color:#855FAA;\n}\n.style01.plus .circle[data-v-5d903260] { background:#855FAA;\n}\n#engReform .row .user[data-v-5d903260] { flex-basis:38%; max-width:38%; margin-right:45px;\n}\n#engReform .row .user .rs_modal[data-v-5d903260] { color:#1a1a1a;\n}\n.frm_st .row .col.label_st[data-v-5d903260] { font-size:.9rem; flex-basis:115px; max-width:115px;\n}\n.frm_st .row .col small[data-v-5d903260] { font-size:.68rem; color:#999; margin-left:.6rem;\n}\n.frm_st .row .col small.line2[data-v-5d903260]  { width:45%; display:inline-block;\n}\n.frm_st .row .col .len01[data-v-5d903260] { width:40%; float:left;\n}\n.frm_st .row .col .len02[data-v-5d903260] { width:50%; float:left;\n}\n.frm_st .row .col_er_type>div[data-v-5d903260]:not(:last-child) { margin-right:12px;\n}\n.frm_st .row .col .b-form-btn-label-control[data-v-5d903260] { background:#F2F3F5;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:first-child { float:left;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:last-child { float:right; border:2px solid #1A90D6; border-radius:17px; overflow:hidden;\n}\n.frm_st .row .col_er_format .input-group[data-v-5d903260] { width:80%;\n}\n.frm_st .row .col_er_format .input-group .input-group-text[data-v-5d903260] { padding:0; border-width:0; background:none;\n}\n.frm_st .row .col_er_format .input-group input[data-v-5d903260] { height:auto;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn { border-width:0 !important;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn.active { border-radius: 20px 0 0 20px;\n}\n.frm_st .row .col input[data-v-5d903260], \r\n.frm_st .row .col select[data-v-5d903260], \r\n.frm_st .row .col textarea[data-v-5d903260] { padding:2px 16px;\n}\n.frm_st .row .col input[data-v-5d903260]:focus, \r\n.frm_st .row .col select[data-v-5d903260]:focus, \r\n.frm_st .row .col textarea[data-v-5d903260]:focus { background: #fff; border-width:0 !important;\n}\n.frm_st .row .col.hp span[data-v-5d903260]:not(:last-child):after { right: -14px;\n}\n.frm_st .row .col.email span[data-v-5d903260]:first-child:after { right:-19px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-5d903260] { margin-top:0; text-align:left;\n}\n.w_fence .lg[data-v-5d903260] { padding: 7px 0px; margin-left:1rem;\n}\n#engReform[data-v-5d903260] { max-width: 60rem; margin: auto;\n}\n#engReform>.row>.col[data-v-5d903260] { padding:0;\n}\n#engReform .row .col h5[data-v-5d903260] { margin:30px 0 20px 20px;\n}\n.tbl01[data-v-5d903260] { width:100%; border:5px solid #E1E1E1;\n}\n.tbl01.strong tr th[data-v-5d903260],\r\n.tbl01.strong tr td[data-v-5d903260] { font-weight:bold;\n}\n.tbl01 tr th[data-v-5d903260],\r\n.tbl01 tr td[data-v-5d903260] { text-align:center; font-size:.9rem;\n}\n.tbl01 tr th[data-v-5d903260] { background:#4F708F; color:#fff; text-align:center; width:300px; padding:10px 0;\n}\n.tbl01 tr td[data-v-5d903260] { padding:10px 30px;\n}\n.tbl01 tr td.bg1[data-v-5d903260] { background:#B7B7B7;\n}\n.tbl01 tr td.bg2[data-v-5d903260] { background:#EFF0F2;\n}\n.tbl01 tr td.other[data-v-5d903260] { text-align:left; font-weight:normal;\n}\nol.num_list[data-v-5d903260] { margin:15px 0 0 40px;\n}\nol.num_list li[data-v-5d903260] { list-style-type:decimal; font-size:.82rem; margin:.3rem 0;\n}\nol.num_list li:first-child b[data-v-5d903260] { color:#0094EA;\n}\n.style01[data-v-5d903260] { border:3px solid #7EA8DA; position:relative; padding:22px 80px 30px 140px; border-radius:2.7rem; margin:2.5rem -15px 2.5rem 4rem;\n}\n.style01 .circle[data-v-5d903260] { position:absolute; top:50%; left:-6%; transform:translateY(-50%); background:#7EA8DA; width:170px; padding:67px 0; text-align:center; font-size:1.25rem; color:#fff; font-weight:bold; border-radius:50%;\n}\n.style01 p[data-v-5d903260] { font-weight:bold; margin-bottom:.1rem;\n}\n.style01 .point[data-v-5d903260] { color:#0094EA; margin-top:.7rem;font-size:1.2rem;\n}\n.style01 hr[data-v-5d903260] { border-color:#D7D7D7;\n}\n.style01.premium[data-v-5d903260] { border-color:#5674BA;\n}\n.style01.premium .circle[data-v-5d903260] { background:#5674BA;\n}\n.style01.plus[data-v-5d903260] { border-color:#855FAA;\n}\n.style01.plus .circle[data-v-5d903260] { background:#855FAA;\n}\n#engReform .row .user[data-v-5d903260] { flex-basis:38%; max-width:38%; margin-right:45px;\n}\n#engReform .row .user .rs_modal[data-v-5d903260] { color:#1a1a1a;\n}\n.frm_st .row .col.label_st[data-v-5d903260] { font-size:.9rem; flex-basis:115px; max-width:115px;\n}\n.frm_st .row .col small[data-v-5d903260] { font-size:.68rem; color:#999; margin-left:.6rem;\n}\n.frm_st .row .col small.line2[data-v-5d903260]  { width:45%; display:inline-block;\n}\n.frm_st .row .col .len01[data-v-5d903260] { width:40%; float:left;\n}\n.frm_st .row .col .len02[data-v-5d903260] { width:50%; float:left;\n}\n.frm_st .row .col_er_type>div[data-v-5d903260]:not(:last-child) { margin-right:12px;\n}\n.frm_st .row .col .b-form-btn-label-control[data-v-5d903260] { background:#F2F3F5;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:first-child { float:left;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:last-child { float:right; border:2px solid #1A90D6; border-radius:17px; overflow:hidden;\n}\n.frm_st .row .col_er_format .input-group[data-v-5d903260] { width:80%;\n}\n.frm_st .row .col_er_format .input-group .input-group-text[data-v-5d903260] { padding:0; border-width:0; background:none;\n}\n.frm_st .row .col_er_format .input-group input[data-v-5d903260] { height:auto;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn { border-width:0 !important;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn.active { border-radius: 20px 0 0 20px;\n}\n.frm_st .row .col input[data-v-5d903260], \r\n.frm_st .row .col select[data-v-5d903260], \r\n.frm_st .row .col textarea[data-v-5d903260] { padding:2px 16px;\n}\n.frm_st .row .col input[data-v-5d903260]:focus, \r\n.frm_st .row .col select[data-v-5d903260]:focus, \r\n.frm_st .row .col textarea[data-v-5d903260]:focus { background: #fff; border-width:0 !important;\n}\n.frm_st .row .col.hp span[data-v-5d903260]:not(:last-child):after { right: -14px;\n}\n.frm_st .row .col.email span[data-v-5d903260]:first-child:after { right:-19px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6316,520 +6331,6 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c(
-              "table",
-              {
-                staticClass: "tbl01 strong",
-                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
-              },
-              [
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", [_vm._v("서비스내용")]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "other", attrs: { colspan: "5" } },
-                      [
-                        _vm._v(
-                          "영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서"
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("파일서식")]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "other", attrs: { colspan: "5" } },
-                      [
-                        _vm._v(
-                          "\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    "
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", { attrs: { rowspan: "2" } }, [
-                      _vm._v("일반 교정"),
-                      _c("p", [_vm._v("(부가세포함)")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("소요 기간")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("1~2일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("3~4일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("5~6일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("7~8일")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("18,700원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("16,500원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("14,300원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("13,200원")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("프리미엄 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("29,700원")]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("논문")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("프리미엄 플러스 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("33,000원")]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [
-                      _vm._v("논문 + 저널답변서 교정 포함"),
-                    ]),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c("ol", { staticClass: "num_list" }, [
-              _c("li", [_vm._v("- 부가세 포함 가격입니다.")]),
-              _vm._v(" "),
-              _c("li", [
-                _vm._v("- "),
-                _c("b", [_vm._v("1page = 영문 200단어")]),
-                _vm._v("를 기준합니다."),
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _vm._v(
-                  "- 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다."
-                ),
-              ]),
-            ]),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("h5", [_vm._v("◈  서비스 내용")]),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "tbl01",
-                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
-              },
-              [
-                _c("colgroup", [
-                  _c("col", { attrs: { width: "50%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "50%" } }),
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v(
-                        "경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버"
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("문법, 맞춤법, 오타")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("단어수 무료 축소 10%")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("단어수 무료 축소 20%")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("레퍼런스 일관성 점검")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("재교정시 50% 할인 적용"),
-                      _c("br"),
-                      _c("span", [
-                        _vm._v(
-                          "(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)"
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v("논문 수정까지 고려하신다면 무료 재교정"),
-                      _c("br"),
-                      _c("span", [
-                        _vm._v(
-                          "(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)"
-                        ),
-                      ]),
-                    ]),
-                  ]),
-                ]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("일반 교정")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\r\n            영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며, \r\n            비영어권 고객과 영어권 고객 묻에게 유용합니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\r\n            문서 크기에 따라 유연한 납품기일 선택이 가능합니다. \r\n            저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "\r\n            합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("- 빠른 납기일을 제공하고 있습니다.")]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)"
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01 premium" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 교정")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "영문 교정 후 1년 이내 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등을 포함해 인상적인 원고로 교정해 드립니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "저널 투고 논문 교정에 만전을 기하고 싶은 분에게 최적의 서비스입니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "저널 무료 포맷팅은 교정서비스에 포함되는 분분에 한하여 1회 무료입니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01 plus" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 플러스")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("프리미엄 교정 + 저널 답변서 교정")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "\r\n            저널 리뷰어 코멘트 하나 하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검하여 드립니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("h5", [_vm._v("◈  일반 교정 VS 프리미엄 교정")]),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "tbl01",
-                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
-              },
-              [
-                _c("colgroup", [
-                  _c("col", { attrs: { width: "50%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "25%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "25%" } }),
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", [_vm._v("교정사항")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("일반 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("프리미엄 교정")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)"),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v(
-                        "문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)"
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("어휘선택")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("언어 관련 조언")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("논리체계 및 연관성")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("체계성 및 문체: 흐름, presentation, 어조 등"),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("커버레터")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("문장구조")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("무료 저널 양식 맞춤")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", { attrs: { id: "engReform_form_od_top" } }, [
-                    _c("td", [_vm._v("과학 기술 용어 체크")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                ]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("br"),
@@ -6848,434 +6349,8 @@ var render = function () {
         [
           _c(
             "b-col",
-            { staticClass: "user" },
             [
-              _c("h4", [_vm._v("01. 주문자 정보")]),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "frm_st" },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("주문자명"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-input", {
-                            attrs: { id: "er_name" },
-                            model: {
-                              value: _vm.frm.er_name,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_name", $$v)
-                              },
-                              expression: "frm.er_name",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_name,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("연락처"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "hp" },
-                        [
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "er_hp01",
-                                attrs: {
-                                  formatter: _vm.maxlength_3,
-                                  id: "er_hp",
-                                },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext($event, 3, "er_hp02")
-                                  },
-                                },
-                                model: {
-                                  value: _vm.frm.er_hp01,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_hp01", $$v)
-                                  },
-                                  expression: "frm.er_hp01",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "er_hp02",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext($event, 4, "er_hp03")
-                                  },
-                                },
-                                model: {
-                                  value: _vm.frm.er_hp02,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_hp02", $$v)
-                                  },
-                                  expression: "frm.er_hp02",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                ref: "er_hp03",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                model: {
-                                  value: _vm.frm.er_hp03,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_hp03", $$v)
-                                  },
-                                  expression: "frm.er_hp03",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error: this.$store.state.error.validations.er_hp,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("이메일"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "email" },
-                        [
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                attrs: { id: "er_email" },
-                                model: {
-                                  value: _vm.frm.er_email01,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_email01", $$v)
-                                  },
-                                  expression: "frm.er_email01",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c("b-form-input", {
-                                model: {
-                                  value: _vm.frm.er_email02,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_email02", $$v)
-                                  },
-                                  expression: "frm.er_email02",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            [
-                              _c(
-                                "b-form-select",
-                                {
-                                  on: { change: _vm.email_domain_slt },
-                                  model: {
-                                    value: _vm.email_domain_slt_idx,
-                                    callback: function ($$v) {
-                                      _vm.email_domain_slt_idx = $$v
-                                    },
-                                    expression: "email_domain_slt_idx",
-                                  },
-                                },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "0" } },
-                                    [_vm._v("직접입력")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.email_domain, function (dm, i) {
-                                    return _c(
-                                      "b-form-select-option",
-                                      { key: i, attrs: { value: i } },
-                                      [_vm._v(_vm._s(dm))]
-                                    )
-                                  }),
-                                ],
-                                2
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_email,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("소속"),
-                        _c("b", { staticClass: "need" }),
-                        _c("small", [_c("i", [_vm._v("직장/학교/연구실")])]),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-input", {
-                            attrs: { id: "er_depart" },
-                            model: {
-                              value: _vm.frm.er_depart,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_depart", $$v)
-                              },
-                              expression: "frm.er_depart",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("Validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_depart,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    { staticClass: "agree" },
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _vm._v(
-                            "\r\n                        개인정보 수집 및 이용 동의 "
-                          ),
-                          _c(
-                            "b-link",
-                            {
-                              on: {
-                                click: function ($event) {
-                                  _vm.isModalViewed = !_vm.isModalViewed
-                                },
-                              },
-                            },
-                            [_vm._v("[자세히 보기]")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { value: "Y" },
-                              model: {
-                                value: _vm.frm.agree,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "agree", $$v)
-                                },
-                                expression: "frm.agree",
-                              },
-                            },
-                            [_vm._v("동의함")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { value: "N" },
-                              model: {
-                                value: _vm.frm.agree,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "agree", $$v)
-                                },
-                                expression: "frm.agree",
-                              },
-                            },
-                            [_vm._v("동의하지 않음")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "transition",
-                            { attrs: { name: "modal" } },
-                            [
-                              _vm.isModalViewed
-                                ? _c(
-                                    "Modal",
-                                    {
-                                      attrs: { max_width: 700 },
-                                      on: {
-                                        "close-modal": function ($event) {
-                                          _vm.isModalViewed = false
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "strong",
-                                        {
-                                          attrs: { slot: "header" },
-                                          slot: "header",
-                                        },
-                                        [_vm._v("개인정보 수집동의")]
-                                      ),
-                                      _c("br"),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다."
-                                      ),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                제공대상: 포사이언스"
-                                      ),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, 인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, 이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, 로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 보유 및 이용기간: 3개월"
-                                      ),
-                                      _c("br"),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                다만, 아래의 경우에는 예외로 합니다."
-                                      ),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                - 이용자들이 사전에 동의한 경우"
-                                      ),
-                                      _c("br"),
-                                      _vm._v(
-                                        "\r\n                                - 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우\r\n                            "
-                                      ),
-                                    ]
-                                  )
-                                : _vm._e(),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    { staticClass: "notify" },
-                    [
-                      _c("b-col", [
-                        _c("ol", [
-                          _c("li", [
-                            _vm._v(
-                              '\r\n                                - "접수완료"가 된 후, 신청하신 서비스에 대한 소요신간과 요금이 명시된 견적서는 주문자 정보에 입력된 메일로 발송됩니다. \r\n                                (교정 신청 후 견적서를 못 받으셨다면 '
-                            ),
-                            _c("b", [_vm._v("1644-4214")]),
-                            _vm._v(
-                              "로 연락 바랍니다.)\r\n                            "
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("li", [
-                            _vm._v(
-                              "- 내용을 확인하신 후 교정 진행 의사를 메일 or 전화로 알려주시면 영문교정 서비스가 진행됩니다."
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("li", [
-                            _vm._v(
-                              "- 교정이 완료되면, 주문자 정보에 입력된 임일로 발송됩니다."
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("li", [
-                            _vm._v("- 4science 회원으로 신청하여 주시면 "),
-                            _c("b", [_vm._v("MY PAGE")]),
-                            _vm._v("에 접수 확인이 가능합니다."),
-                          ]),
-                        ]),
-                      ]),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            [
-              _c("h4", [_vm._v("02. 요청사항")]),
+              _c("h4", [_vm._v("요청사항")]),
               _vm._v(" "),
               _c(
                 "b-container",
@@ -7338,7 +6413,7 @@ var render = function () {
                             [_vm._v("프리미엄플러스  교정")]
                           ),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations.er_type,
@@ -7389,7 +6464,7 @@ var render = function () {
                             },
                           }),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations.er_dlvy_at,
@@ -7487,7 +6562,7 @@ var render = function () {
                             1
                           ),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations.er_format,
@@ -7511,17 +6586,34 @@ var render = function () {
                       _c(
                         "b-col",
                         [
-                          _c("b-form-select", {
-                            staticClass: "len01",
-                            attrs: { id: "er_use", options: _vm.use_opt },
-                            model: {
-                              value: _vm.frm.er_use,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_use", $$v)
+                          _c(
+                            "b-form-select",
+                            {
+                              staticClass: "len01",
+                              attrs: { id: "er_use" },
+                              model: {
+                                value: _vm.frm.er_use,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_use", $$v)
+                                },
+                                expression: "frm.er_use",
                               },
-                              expression: "frm.er_use",
                             },
-                          }),
+                            [
+                              _c("b-form-select-option", {
+                                attrs: { value: "" },
+                              }),
+                              _vm._v(" "),
+                              _vm._l(_vm.option.er_use, function (opt, k) {
+                                return _c(
+                                  "b-form-select-option",
+                                  { key: k, attrs: { value: opt } },
+                                  [_vm._v(_vm._s(opt))]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c("small", [
                             _vm._v(
@@ -7529,7 +6621,7 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error: this.$store.state.error.validations.er_use,
                             },
@@ -7552,17 +6644,37 @@ var render = function () {
                       _c(
                         "b-col",
                         [
-                          _c("b-form-select", {
-                            staticClass: "len01",
-                            attrs: { id: "er_branch", options: _vm.branch_opt },
-                            model: {
-                              value: _vm.frm.er_branch,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_branch", $$v)
+                          _c(
+                            "b-form-select",
+                            {
+                              staticClass: "len01",
+                              attrs: {
+                                id: "er_branch",
+                                options: _vm.branch_opt,
                               },
-                              expression: "frm.er_branch",
+                              model: {
+                                value: _vm.frm.er_branch,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_branch", $$v)
+                                },
+                                expression: "frm.er_branch",
+                              },
                             },
-                          }),
+                            [
+                              _c("b-form-select-option", {
+                                attrs: { value: "" },
+                              }),
+                              _vm._v(" "),
+                              _vm._l(_vm.option.er_use, function (opt, k) {
+                                return _c(
+                                  "b-form-select-option",
+                                  { key: k, attrs: { value: opt } },
+                                  [_vm._v(_vm._s(opt))]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c("small", [
                             _vm._v(
@@ -7570,7 +6682,7 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations.er_branch,
@@ -7615,7 +6727,7 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations.er_editor,
@@ -7702,7 +6814,7 @@ var render = function () {
                             1
                           ),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations
@@ -7748,7 +6860,7 @@ var render = function () {
                             _vm._v("최대 업로드 가능 용량 : 200MB"),
                           ]),
                           _vm._v(" "),
-                          _c("Validation", {
+                          _c("validation", {
                             attrs: {
                               error:
                                 this.$store.state.error.validations
@@ -7801,7 +6913,7 @@ var render = function () {
                         [
                           _vm.isLoadingModalViewed
                             ? _c(
-                                "LoadingModal",
+                                "loading-modal",
                                 {
                                   attrs: { position: "" },
                                   on: {

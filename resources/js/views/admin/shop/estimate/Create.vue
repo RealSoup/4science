@@ -1,10 +1,10 @@
 <template lang="html">
 <b-container id="adm_estimate_create" class="p_wrap">
     <h3>견적서 작성</h3>
-    <FormCtrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable" />
-    <FormUser v-model="frm.estimate_req" />
-    <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:mounted="" />
-    <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
+    <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable" />
+    <form-user v-model="frm.estimate_req" />
+    <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:mounted="" />
+    <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
     <!-- <button type="button" @click="sendMsgToParent">부모로 이벤트 보내기</button> -->
 </b-container>
 </template>
@@ -16,10 +16,10 @@ import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra }
 export default {
     name: 'Create',
     components: {
-        'FormCtrl': () =>      import('./FormCtrl.vue'),
-        'FormUser': () =>      import('./FormUser.vue'),
-        FormGoods,
-        'FormExtra': () =>      import('./FormExtra.vue'),
+        'form-ctrl': () =>      import('./FormCtrl.vue'),
+        'form-user': () =>      import('./FormUser.vue'),
+        'form-goods':FormGoods,
+        'form-extra': () =>      import('./FormExtra.vue'),
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함

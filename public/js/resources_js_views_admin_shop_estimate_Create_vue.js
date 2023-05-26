@@ -39,14 +39,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Create',
   components: {
-    'FormCtrl': function FormCtrl() {
+    'form-ctrl': function formCtrl() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormCtrl_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormCtrl.vue */ "./resources/js/views/admin/shop/estimate/FormCtrl.vue"));
     },
-    'FormUser': function FormUser() {
+    'form-user': function formUser() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormUser_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormUser.vue */ "./resources/js/views/admin/shop/estimate/FormUser.vue"));
     },
-    FormGoods: _FormGoods_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'FormExtra': function FormExtra() {
+    'form-goods': _FormGoods_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'form-extra': function formExtra() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormExtra_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormExtra.vue */ "./resources/js/views/admin/shop/estimate/FormExtra.vue"));
     } // 'Form': () => import('./Form.vue'),
     //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
@@ -410,24 +410,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    GoodsOptionAdd: _comp_GoodsOptionAdd_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'PriceInput': function PriceInput() {
+    "goods-option-add": _comp_GoodsOptionAdd_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'price-input': function priceInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_PriceInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/PriceInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/PriceInput.vue"));
     },
-    'DcLateInput': function DcLateInput() {
+    'dc-late-input': function dcLateInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_DcLateInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/DcLateInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/DcLateInput.vue"));
     },
-    'ModelSchInput': function ModelSchInput() {
+    'model-sch-input': function modelSchInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_ModelSchInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ModelSchInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/ModelSchInput.vue"));
     },
-    'EaInput': function EaInput() {
+    'ea-input': function eaInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_EaInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/EaInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/EaInput.vue"));
     },
-    'Validation': function Validation() {
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
-    },
-    'FormGoodsChecker': function FormGoodsChecker() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate_FormGoodsChecker_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./FormGoodsChecker.vue */ "./resources/js/views/admin/shop/estimate/FormGoodsChecker.vue"));
     }
   },
   props: ['value', 'frm'],
@@ -1212,7 +1209,7 @@ var render = function () {
     [
       _c("h3", [_vm._v("견적서 작성")]),
       _vm._v(" "),
-      _c("FormCtrl", {
+      _c("form-ctrl", {
         attrs: { clickable: _vm.clickable },
         on: { all_dc_update: _vm.all_dc_apply, save: _vm.store },
         model: {
@@ -1224,7 +1221,7 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("FormUser", {
+      _c("form-user", {
         model: {
           value: _vm.frm.estimate_req,
           callback: function ($$v) {
@@ -1234,7 +1231,7 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("FormGoods", {
+      _c("form-goods", {
         ref: "form_goods",
         attrs: { frm: _vm.frm },
         on: { "hook:mounted": function ($event) {} },
@@ -1247,7 +1244,7 @@ var render = function () {
         },
       }),
       _vm._v(" "),
-      _c("FormExtra", {
+      _c("form-extra", {
         ref: "form_extra",
         attrs: { isLoadingModalViewed: _vm.isLoadingModalViewed },
         model: {
@@ -1352,7 +1349,7 @@ var render = function () {
                       [_vm._v("옵션")]
                     ),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1417,7 +1414,7 @@ var render = function () {
                 _c(
                   "b-col",
                   [
-                    _c("ModelSchInput", {
+                    _c("model-sch-input", {
                       attrs: { type: "em_catno", id: "em_catno" + idx, em: em },
                       model: {
                         value: em.em_catno,
@@ -1453,7 +1450,7 @@ var render = function () {
                 _c(
                   "b-col",
                   [
-                    _c("ModelSchInput", {
+                    _c("model-sch-input", {
                       attrs: {
                         type: "em_code",
                         id: "estimate_model" + idx + "em_code",
@@ -1468,7 +1465,7 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1533,7 +1530,7 @@ var render = function () {
                 _c(
                   "b-col",
                   [
-                    _c("EaInput", {
+                    _c("ea-input", {
                       attrs: { id: "estimate_model" + idx + "em_ea", em: em },
                       model: {
                         value: em.em_ea,
@@ -1544,7 +1541,7 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1567,7 +1564,7 @@ var render = function () {
                 _c(
                   "b-col",
                   [
-                    _c("PriceInput", {
+                    _c("price-input", {
                       attrs: {
                         id: "estimate_model" + idx + "em_price",
                         em: em,
@@ -1581,7 +1578,7 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1615,7 +1612,7 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1632,7 +1629,7 @@ var render = function () {
                 _c(
                   "b-col",
                   [
-                    _c("DcLateInput", {
+                    _c("dc-late-input", {
                       staticClass: "text-right",
                       attrs: { id: "em_dc_rate" + idx, em: em },
                       model: {
@@ -1672,7 +1669,7 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("Validation", {
+                    _c("validation", {
                       attrs: {
                         error:
                           _vm.$store.state.error.validations[
@@ -1687,7 +1684,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("GoodsOptionAdd", {
+            _c("goods-option-add", {
               ref: "goods_option_add",
               refInFor: true,
               attrs: { em_id: em.em_id, gd_id: em.em_gd_id },
@@ -1745,7 +1742,7 @@ var render = function () {
                               [_vm._v("수량")]
                             ),
                             _vm._v(" "),
-                            _c("EaInput", {
+                            _c("ea-input", {
                               attrs: { id: "eo_ea" + idx + "_" + oi },
                               model: {
                                 value: eo.eo_ea,
@@ -1762,7 +1759,7 @@ var render = function () {
                               [_vm._v("판매단가")]
                             ),
                             _vm._v(" "),
-                            _c("PriceInput", {
+                            _c("price-input", {
                               attrs: { id: "eo_price" + idx + "_" + oi },
                               model: {
                                 value: eo.eo_price,
@@ -1787,7 +1784,7 @@ var render = function () {
         )
       }),
       _vm._v(" "),
-      _c("Validation", {
+      _c("validation", {
         attrs: { error: _vm.$store.state.error.validations.estimate_model },
       }),
       _vm._v(" "),

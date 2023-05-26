@@ -78,7 +78,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEstimateIndexList',
   components: {
-    'SubString': function SubString() {
+    'sub-string': function subString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
     } // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
 
@@ -328,7 +328,7 @@ var render = function () {
               [
                 row.eq_title
                   ? _c("b", { domProps: { innerHTML: _vm._s(row.eq_title) } })
-                  : _c("SubString", {
+                  : _c("sub-string", {
                       attrs: { width: 650 },
                       model: {
                         value: row.eq_content,

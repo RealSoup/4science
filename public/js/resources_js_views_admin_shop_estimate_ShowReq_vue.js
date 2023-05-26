@@ -129,19 +129,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopEstimateShowReq',
   components: {
-    'MadeType01': function MadeType01() {
+    'made-type01': function madeType01() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType01_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType01 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType01.vue"));
     },
-    'MadeType08': function MadeType08() {
+    'made-type08': function madeType08() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType08_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType08 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType08.vue"));
     },
-    'MadeType20': function MadeType20() {
+    'made-type20': function madeType20() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType20_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType20 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType20.vue"));
     },
-    'MadeType24': function MadeType24() {
+    'made-type24': function madeType24() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeType24_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeType24 */ "./resources/js/views/admin/shop/estimate/_comp/MadeType24.vue"));
     },
-    'MadeTypeCommon': function MadeTypeCommon() {
+    'made-type-common': function madeTypeCommon() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_MadeTypeCommon_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/MadeTypeCommon */ "./resources/js/views/admin/shop/estimate/_comp/MadeTypeCommon.vue"));
     }
   },
@@ -156,23 +156,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     choiceSubType: function choiceSubType() {
       switch (this.frm.eq_1depth) {
         case '1':
-          return 'MadeType01';
+          return 'made-type01';
           break;
 
         case '8':
-          return 'MadeType08';
+          return 'made-type08';
           break;
 
         case '20':
-          return 'MadeType20';
+          return 'made-type20';
           break;
 
         case '24':
-          return 'MadeType24';
+          return 'made-type24';
           break;
 
         default:
-          return 'MadeTypeCommon';
+          return 'made-type-common';
           break;
       }
     }

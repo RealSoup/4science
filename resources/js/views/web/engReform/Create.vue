@@ -1,7 +1,7 @@
 <template>
 <b-container class="w_fence" id="engReform">
     <h3 class="btn_box">영문교정 <b-button href="/engReform/create#engReform_form_od_top" class="blue lg">영문 교정 신청하기</b-button></h3>
-
+<!--
     <b-row>
         <b-col>
             <table cellpadding="0" cellspacing="0" border="1" class="tbl01 strong">
@@ -153,10 +153,12 @@
             </table>
         </b-col>
     </b-row>
+-->
     <br /> <br />
     <br /> <br />
     <br /> <br />
     <b-row id="engReform_form">
+<!--        
         <b-col class="user">
             <h4>01. 주문자 정보</h4>
             <b-container class="frm_st">
@@ -164,7 +166,7 @@
                     <b-col class="label_st">주문자명<b class="need" /></b-col>
                     <b-col>
                         <b-form-input v-model="frm.er_name" id="er_name" />
-                        <Validation :error="this.$store.state.error.validations.er_name" />
+                        <validation :error="this.$store.state.error.validations.er_name" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -173,7 +175,7 @@
                         <span><b-form-input v-model="frm.er_hp01" ref="er_hp01" @input.native="focusNext($event, 3, 'er_hp02')" :formatter="maxlength_3" id="er_hp" /></span>
                         <span><b-form-input v-model="frm.er_hp02" ref="er_hp02" @input.native="focusNext($event, 4, 'er_hp03')" :formatter="maxlength_4" /></span>
                         <span><b-form-input v-model="frm.er_hp03" ref="er_hp03" :formatter="maxlength_4" /></span>
-                        <Validation :error="this.$store.state.error.validations.er_hp" />
+                        <validation :error="this.$store.state.error.validations.er_hp" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -187,14 +189,14 @@
                                 <b-form-select-option v-for="(dm, i) in email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
                             </b-form-select>
                         </span>
-                        <Validation :error="this.$store.state.error.validations.er_email" />
+                        <validation :error="this.$store.state.error.validations.er_email" />
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="label_st">소속<b class="need" /><small><i>직장/학교/연구실</i></small></b-col>
                     <b-col>
                         <b-form-input v-model="frm.er_depart" id="er_depart" />
-                        <Validation :error="this.$store.state.error.validations.er_depart" />
+                        <validation :error="this.$store.state.error.validations.er_depart" />
                     </b-col>
                 </b-row>
                 <b-row class="agree">
@@ -203,7 +205,7 @@
                         <b-form-radio v-model="frm.agree" value="Y">동의함</b-form-radio>
                         <b-form-radio v-model="frm.agree" value="N">동의하지 않음</b-form-radio>
                         <transition name="modal">
-                            <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+                            <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
                                 <strong slot="header">개인정보 수집동의</strong><br><br>
                                 회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.<br>
                                 제공대상: 포사이언스<br>
@@ -211,7 +213,7 @@
                                 다만, 아래의 경우에는 예외로 합니다.<br>
                                 - 이용자들이 사전에 동의한 경우<br>
                                 - 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우
-                            </Modal>
+                            </modal>
                         </transition>
                     </b-col>
                 </b-row>
@@ -230,9 +232,9 @@
                 </b-row>
             </b-container>
         </b-col>
-
+-->
         <b-col>
-            <h4>02. 요청사항</h4>
+            <h4>요청사항</h4>
             <b-container class="frm_st">
                 <b-row>
                     <b-col class="label_st">서비스 선택<b class="need" /></b-col>
@@ -240,14 +242,14 @@
                         <b-form-radio v-model="frm.er_type" button value="1">일반 교정</b-form-radio>
                         <b-form-radio v-model="frm.er_type" button value="2">프리미엄 교정</b-form-radio>
                         <b-form-radio v-model="frm.er_type" button value="3">프리미엄플러스  교정</b-form-radio>
-                        <Validation :error="this.$store.state.error.validations.er_type" />
+                        <validation :error="this.$store.state.error.validations.er_type" />
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="label_st">납기일<b class="need" /></b-col>
                     <b-col v-b-tooltip="'교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.'">
                         <b-form-datepicker id="er_dlvy_at" v-model="frm.er_dlvy_at" placeholder="날짜를 선택하세요" class="mb-2" />
-                        <Validation :error="this.$store.state.error.validations.er_dlvy_at" />
+                        <validation :error="this.$store.state.error.validations.er_dlvy_at" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -260,23 +262,29 @@
                             </b-input-group-prepend>
                             <b-form-input v-model="frm.er_journal_url" id="er_journal_url" placeholder="저널 URL을 입력하세요"></b-form-input>
                         </b-input-group>
-                        <Validation :error="this.$store.state.error.validations.er_format" />
+                        <validation :error="this.$store.state.error.validations.er_format" />
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="label_st">문서용도<b class="need" /></b-col>
                     <b-col>
-                        <b-form-select class="len01" v-model="frm.er_use" id="er_use" :options="use_opt" />
+                        <b-form-select class="len01" v-model="frm.er_use" id="er_use">
+                            <b-form-select-option value=""></b-form-select-option>
+                            <b-form-select-option v-for="(opt, k) in option.er_use" :key="k" :value="opt">{{opt}}</b-form-select-option>
+                        </b-form-select>
                         <small>문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다.</small>
-                        <Validation :error="this.$store.state.error.validations.er_use" />
+                        <validation :error="this.$store.state.error.validations.er_use" />
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col class="label_st">학문분야<b class="need" /></b-col>
                     <b-col>
-                        <b-form-select class="len01" v-model="frm.er_branch" id="er_branch" :options="branch_opt" />
+                        <b-form-select class="len01" v-model="frm.er_branch" id="er_branch" :options="branch_opt">
+                            <b-form-select-option value=""></b-form-select-option>
+                            <b-form-select-option v-for="(opt, k) in option.er_use" :key="k" :value="opt">{{opt}}</b-form-select-option>
+                        </b-form-select>
                         <small>에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오.</small>
-                        <Validation :error="this.$store.state.error.validations.er_branch" />
+                        <validation :error="this.$store.state.error.validations.er_branch" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -284,7 +292,7 @@
                     <b-col>
                         <b-form-select class="len02" v-model="frm.er_editor" id="er_editor" :options="editor_opt[this.frm.er_branch-1]" />
                         <small>어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?</small>
-                        <Validation :error="this.$store.state.error.validations.er_editor" />
+                        <validation :error="this.$store.state.error.validations.er_editor" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -301,7 +309,7 @@
                             <b-form-select-option value="AM">American English</b-form-select-option>
                             <b-form-select-option value="BR">British English</b-form-select-option>
                         </b-form-select>
-                        <Validation :error="this.$store.state.error.validations.er_eng_style" />
+                        <validation :error="this.$store.state.error.validations.er_eng_style" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -309,7 +317,7 @@
                     <b-col>
                         <file-upload ref="fileupload1" v-model="frm.file_info_work" id="file_info_work" :fi_group="'engReform'" :fi_kind="'work'" :height="100" />
                         <small>최대 업로드 가능 용량 : 200MB</small>
-                        <Validation :error="this.$store.state.error.validations.file_info_work" />
+                        <validation :error="this.$store.state.error.validations.file_info_work" />
                     </b-col>
                 </b-row>
                 <b-row>
@@ -319,9 +327,9 @@
                         <small>최대 업로드 가능 용량 : 200MB</small>
                     </b-col>
                     <transition name="fade">
-                        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="''">
+                        <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="''">
                             첨부파일 전송중 ......
-                        </LoadingModal>
+                        </loading-modal>
                     </transition>
                 </b-row>
                 <b-row>
@@ -344,9 +352,9 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     components: {
         FileUpload,
-        'Validation': () =>     import('@/views/_common/Validation.vue'),
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'Modal'     : () => import('@/views/_common/Modal'),
+        'validation': () =>     import('@/views/_common/Validation.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'modal'     : () => import('@/views/_common/Modal'),
     },
     watch: {
         'frm.er_branch': function(){
@@ -373,6 +381,7 @@ export default {
             email_domain: [],
             email_domain_slt_idx:0,
             isModalViewed: false,
+            option: {},
         }
     },
 
@@ -406,6 +415,9 @@ export default {
     async mounted() {
         let res = await ax.get(`/api/user/getEmailDomain`);
         if (res && res.status === 200) this.email_domain = res.data;
+        
+        let opt = await ax.get(`/api/engReform/getOption`);
+        if (opt && opt.status === 200) this.option = opt.data;
 
         let er_hp = Auth.user().hp.split('-');
         let er_email = Auth.user().email.split('@');
@@ -423,6 +435,7 @@ export default {
 <style lang="css" scoped>
 .w_fence h3 { margin-top:0; text-align:left; }
 .w_fence .lg { padding: 7px 0px; margin-left:1rem; }
+#engReform { max-width: 60rem; margin: auto; }
 #engReform>.row>.col { padding:0; }
 #engReform .row .col h5 { margin:30px 0 20px 20px;  }
 .tbl01 { width:100%; border:5px solid #E1E1E1; }

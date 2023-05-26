@@ -273,11 +273,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'Validation': function Validation() {
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     },
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
@@ -4453,7 +4453,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: { error: _vm.$store.state.error.validations.er_dlvy_at },
               }),
             ],
@@ -4540,7 +4540,7 @@ var render = function () {
                 [
                   _vm.isLoadingModalViewed
                     ? _c(
-                        "LoadingModal",
+                        "loading-modal",
                         {
                           on: {
                             "close-modal": function ($event) {

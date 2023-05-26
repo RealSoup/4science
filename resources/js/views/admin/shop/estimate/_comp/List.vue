@@ -18,7 +18,7 @@
         <b-col>{{row.eq_id}}.</b-col>
         <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title" />
-            <SubString v-else v-model="row.eq_content" :width="650" />
+            <sub-string v-else v-model="row.eq_content" :width="650" />
 
             <b-badge v-if="row.eq_type == 'TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
             <b-badge v-else-if="row.eq_type == 'REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
@@ -66,7 +66,7 @@
 export default {
     name: 'AdmEstimateIndexList',
     components: { 
-        'SubString': () => import('@/views/_common/SubString.vue'),
+        'sub-string': () => import('@/views/_common/SubString.vue'),
         // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     props:['list', 'mng_off'],

@@ -57,10 +57,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'UserInput': function UserInput() {
+    'user-input': function userInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_UserInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/UserInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/UserInput.vue"));
     },
-    'Validation': function Validation() {
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     }
   },
@@ -167,7 +167,7 @@ var render = function () {
           _c(
             "b-col",
             [
-              _c("UserInput", {
+              _c("user-input", {
                 attrs: { type: "name", frm: _vm.value },
                 model: {
                   value: _vm.value.eq_name,
@@ -178,7 +178,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: { error: _vm.$store.state.error.validations.eq_name },
               }),
             ],
@@ -190,7 +190,7 @@ var render = function () {
           _c(
             "b-col",
             [
-              _c("UserInput", {
+              _c("user-input", {
                 attrs: { type: "department", frm: _vm.value },
                 model: {
                   value: _vm.value.eq_department,
@@ -201,7 +201,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: {
                   error: _vm.$store.state.error.validations.eq_department,
                 },
@@ -221,7 +221,7 @@ var render = function () {
           _c(
             "b-col",
             [
-              _c("UserInput", {
+              _c("user-input", {
                 attrs: { type: "email", frm: _vm.value },
                 model: {
                   value: _vm.value.eq_email,
@@ -232,7 +232,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: { error: _vm.$store.state.error.validations.eq_email },
               }),
             ],
@@ -244,7 +244,7 @@ var render = function () {
           _c(
             "b-col",
             [
-              _c("UserInput", {
+              _c("user-input", {
                 attrs: { type: "hp", frm: _vm.value },
                 model: {
                   value: _vm.value.eq_hp,
@@ -255,7 +255,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: { error: _vm.$store.state.error.validations.eq_hp },
               }),
             ],

@@ -149,9 +149,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -570,19 +567,6 @@ var render = function () {
             [
               _c("b-carousel-slide", {
                 attrs: { "img-src": _vm.s3url + "event/2023/0509/slide.jpg" },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-link",
-            { attrs: { to: "/shop/goods/255439" } },
-            [
-              _c("b-carousel-slide", {
-                attrs: {
-                  "img-src": _vm.s3url + "main/slide/2023/23041605.jpg",
-                },
               }),
             ],
             1

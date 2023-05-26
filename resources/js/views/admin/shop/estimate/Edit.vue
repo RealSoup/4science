@@ -1,27 +1,25 @@
 <template lang="html">
     <b-container id="adm_estimate_edit" class="p_wrap">
         <h1>견적서 수정</h1>
-        <FormCtrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="update" :clickable="clickable" />
-        <FormUser v-model="frm.estimate_req" />
-        <FormGoods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
-        <FormExtra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
+        <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="update" :clickable="clickable" />
+        <form-user v-model="frm.estimate_req" />
+        <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
+        <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
     </b-container>
 </template>
 
 <script>
 import ax from '@/api/http';
-import router from '@/router';
 import FormGoods from './FormGoods.vue';
 import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra } from './FormValidation.js'
 
 export default {
     name: 'Edit',
     components: {
-        'FormCtrl': () =>      import('./FormCtrl.vue'),
-        'FormSetting': () =>   import('./FormSetting.vue'),
-        'FormUser': () =>      import('./FormUser.vue'),
-        FormGoods,
-        'FormExtra': () =>      import('./FormExtra.vue'),
+        'form-ctrl': () =>      import('./FormCtrl.vue'),
+        'form-user': () =>      import('./FormUser.vue'),
+        'form-goods': FormGoods,
+        'form-extra': () =>      import('./FormExtra.vue'),
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함

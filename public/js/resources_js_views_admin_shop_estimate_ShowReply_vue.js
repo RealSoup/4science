@@ -129,7 +129,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'PaList': function PaList() {
+    'pa-list': function paList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList */ "./resources/js/views/web/_module/PaList.vue"));
     }
   },
@@ -970,7 +970,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "top_border" }),
               _vm._v(" "),
-              _c("PaList", {
+              _c("pa-list", {
                 attrs: {
                   price: _vm.frm.collect.price,
                   user: _vm.frm.estimate_req.user,

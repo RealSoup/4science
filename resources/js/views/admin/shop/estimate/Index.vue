@@ -2,7 +2,7 @@
 <div id="adm_estimate_show" class="p_wrap">
     <h3 class="p_tit">견적 목록</h3>
     <b-container class="frm_sch">
-        <SchDate v-model="sch_frm">
+        <sch-date v-model="sch_frm">
             <b-col slot="prev" class="label top_left">기간</b-col>
             <b-col slot="prev" :style="{ flex:'0 0 8%', maxWidth:'8%' }">
                 <b-form-select v-model="sch_frm.date_type">
@@ -10,7 +10,7 @@
                     <b-form-select-option value="reply">응답일</b-form-select-option>
                 </b-form-select>
             </b-col>
-        </SchDate>
+        </sch-date>
         <b-row>
             <b-col class="label">요청/임의</b-col>
             <b-col class="type01">
@@ -103,7 +103,7 @@
                 <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" :mng_off="mng_off" />
+        <list v-if="list.data && list.data.length" :list="list.data" :mng_off="mng_off" />
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
@@ -121,8 +121,8 @@ import ax from '@/api/http';
 import { mapState } from 'vuex';
 export default {
     components: {
-        'SchDate': () => import('@/views/_common/SchDate'),
-        'List': () => import('./_comp/List'),
+        'sch-date': () => import('@/views/_common/SchDate'),
+        'list': () => import('./_comp/List'),
         // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
     },
     data() {

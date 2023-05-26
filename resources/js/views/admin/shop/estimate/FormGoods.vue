@@ -14,7 +14,7 @@
             <b-col class="em_name_i">
                 <b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" />
                 <b-button class="d_gray sm" @click="openOption(idx, em.em_gd_id)">옵션</b-button>
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
                 
                 <b-button-group>
                     <b-button class="orange sm" @click="emReset(idx)"><b-icon-app /> <b>초기화</b></b-button>
@@ -26,14 +26,14 @@
         <b-row>
             <b-col>CAT.No</b-col>
             <b-col>
-                <ModelSchInput v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
+                <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
                 <b-button v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}" target="_blank" class="gray sm">상품보기</b-button>
             </b-col>
 
             <b-col>모델명</b-col>
             <b-col>
-                <ModelSchInput v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em" />
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
+                <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
             </b-col>
         </b-row>
         
@@ -50,36 +50,36 @@
         <b-row>
             <b-col>수량</b-col>
             <b-col>
-                <EaInput v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" />
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
+                <ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
             </b-col>
 
             <b-col>판매단가({{em.em_cost_price | comma}})</b-col>
             <b-col>
-                <PriceInput v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em" />
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
+                <price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
             </b-col>
         </b-row>
         <b-row>
             <b-col>납품기일</b-col>
             <b-col>
                 <b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" />
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]" />
             </b-col>
             <b-col>할인율</b-col>
             <b-col>
-                <DcLateInput v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right" />
+                <dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right" />
             </b-col>
         </b-row>
         <b-row>
             <b-col>제품정보</b-col>
             <b-col>
                 <b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8"></b-form-textarea>
-                <Validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
             </b-col>
         </b-row>
 
-        <GoodsOptionAdd ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
+        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
         
         <b-row v-if="em.estimate_option.length" class="option">
             <b-col>옵션</b-col>
@@ -88,15 +88,15 @@
                     <b><b-button class="plum xm ml-2" @click="delOption(idx, oi)">X</b-button></b>
                     <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
                     <label :for="`eo_ea${idx}_${oi}`">수량</label>
-                    <EaInput v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
+                    <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
 
                     <label :for="`eo_price${idx}_${oi}`">판매단가</label>
-                    <PriceInput v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
+                    <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
                 </p>
             </b-col>
         </b-row>
     </b-container>
-    <Validation :error="$store.state.error.validations.estimate_model" />
+    <validation :error="$store.state.error.validations.estimate_model" />
         
     <b-row><b-col class="mt-4 text-right"><b-button class="mint" @click="emAdd">제품 추가</b-button></b-col></b-row>
 </div>
@@ -110,13 +110,12 @@ import moment from 'moment';
 
 export default {
     components: {
-        GoodsOptionAdd,
-        'PriceInput': () =>     import('./_comp/PriceInput.vue'),
-        'DcLateInput': () =>    import('./_comp/DcLateInput.vue'),
-        'ModelSchInput': () =>  import('./_comp/ModelSchInput.vue'),
-        'EaInput': () =>        import('./_comp/EaInput.vue'),
-        'Validation': () => import('@/views/_common/Validation.vue'),
-        'FormGoodsChecker': () =>      import('./FormGoodsChecker.vue'),
+        "goods-option-add": GoodsOptionAdd,
+        'price-input': () =>     import('./_comp/PriceInput.vue'),
+        'dc-late-input': () =>   import('./_comp/DcLateInput.vue'),
+        'model-sch-input': () => import('./_comp/ModelSchInput.vue'),
+        'ea-input': () =>        import('./_comp/EaInput.vue'),
+        'validation': () =>      import('@/views/_common/Validation.vue'),
     },
     props: ['value', 'frm'],
     methods: {
