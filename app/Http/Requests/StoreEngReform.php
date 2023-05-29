@@ -11,10 +11,10 @@ class StoreEngReform extends FormRequest {
 
     public function rules() {
         return [
-            'er_name'	=> 'required',
-            'er_email'	=> 'required|email',
-            'er_hp'	=> 'required',
-            'er_company'	=> 'required',
+            // 'er_name'	=> 'required',
+            // 'er_email'	=> 'required|email',
+            // 'er_hp'	=> 'required',
+            // 'er_company'	=> 'required',
 
             'er_type'	=> 'required',
             'er_dlvy_at'	=> 'required',

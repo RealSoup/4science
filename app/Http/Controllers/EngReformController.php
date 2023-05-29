@@ -23,11 +23,11 @@ class EngReformController extends Controller {
 
     public function store(StoreEngReform $req) {
         $er_id = EngReform::insertGetId([
-            "er_name"        => $req->filled('er_name')         ? $req->er_name         : '',
-            "er_email"       => $req->filled('er_email')        ? $req->er_email        : '',
-            "er_hp"          => $req->filled('er_hp')           ? $req->er_hp           : '',
-            "er_tel"         => $req->filled('er_tel')          ? $req->er_tel          : '',
-            "er_company"     => $req->filled('er_company')     ? $req->er_company    : '',
+            "er_name"        => auth()->check()                 ? auth()->user()->name    : '',
+            "er_email"       => auth()->check()                 ? auth()->user()->email   : '',
+            "er_hp"          => auth()->check()                 ? auth()->user()->hp      : '',
+            "er_company"     => auth()->check()                 ? auth()->user()->company : '',
+
             "er_type"        => $req->filled('er_type')         ? $req->er_type         : '1',
             "er_dlvy_at"     => $req->filled('er_dlvy_at')      ? $req->er_dlvy_at      : '',
             "er_format"      => $req->filled('er_format')       ? $req->er_format       : 'NFM',

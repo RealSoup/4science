@@ -19,7 +19,6 @@ class EngReform extends Model {
     public function scopeName($query, $name) { return $query->where('er_name', 'like', '%'.$name.'%'); }
     public function scopeDemand($query, $demand) { return $query->where('er_demand', 'like', '%'.$demand.'%'); }
     public function scopeEmail($query, $email) { return $query->where('er_email', 'like', '%'.$email.'%'); }
-    public function scopeTel($query, $tel) { return $query->where('er_tel', $tel); }
     public function scopeHp($query, $hp) { return $query->where('er_hp', $hp); }
 
     public static $option = [
