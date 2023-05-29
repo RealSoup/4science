@@ -794,8 +794,8 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "b-form-select-option",
-                                { attrs: { value: "eq_department" } },
-                                [_vm._v("소속")]
+                                { attrs: { value: "eq_company" } },
+                                [_vm._v("직장/학교")]
                               ),
                               _vm._v(" "),
                               _c(

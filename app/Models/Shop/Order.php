@@ -81,10 +81,7 @@ class Order extends Model {
     public function scopeSchWriter($query, $id) { return $query->where('created_id', $id); }
     // public function scopeToday($query) { return $query->whereRaw('created_at > CURDATE()'); }
     public function scopeOdStep($q, $v) { return $q->where('od_step', $v); }
-
     public function scopeSchOd_addr($query, $sch_text) { return $query->where('od_addr1', 'like', "%$sch_text%"); }
-
-    public function scopeSchDepartment($query, $id) { return $query->whereIn('created_id', $id)->whereNotNull('od_no'); }
     public function scopeOdinLast3Mths($query) {
         return $query->where([
             ['od_step', '>=', 30],

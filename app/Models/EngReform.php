@@ -66,7 +66,7 @@ class EngReform extends Model {
             '21' => '기타', ],
 
 
-        'er_editor' => [
+        'er_branch_sub' => [
             [
                 1  => 'Abnormal psychology',
                 2  => 'Addictive behaviors',

@@ -592,6 +592,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -609,7 +612,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   watch: {
-    'frm.er_branch': function frmEr_branch() {
+    'frm.er_branch_key': function frmEr_branch_key() {
       this.frm.er_editor = '';
     }
   },
@@ -620,7 +623,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         er_format: 'NFM',
         er_use: '',
         er_branch: '',
-        er_editor: '',
+        er_branch_key: 0,
+        er_branch_sub: '',
         er_eng_style: 'AM',
         file_info_work: [],
         file_info_ref: [],
@@ -633,7 +637,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       email_domain: [],
       email_domain_slt_idx: 0,
       isModalViewed: false,
-      option: {}
+      option: {
+        er_branch_sub: []
+      }
     };
   },
   methods: {
@@ -646,8 +652,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.frm.er_branch = _this.option.er_branch[_this.frm.er_branch_key];
+                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
+                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
+
                 if (!isEmpty(_this.frm.er_dlvy_at)) {
-                  _context.next = 4;
+                  _context.next = 7;
                   break;
                 }
 
@@ -655,9 +665,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_dlvy_at').focus();
                 return _context.abrupt("return", false);
 
-              case 4:
+              case 7:
                 if (!(isEmpty(_this.frm.er_journal_url) && _this.frm.er_format == 'FM')) {
-                  _context.next = 8;
+                  _context.next = 11;
                   break;
                 }
 
@@ -665,9 +675,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_journal_url').focus();
                 return _context.abrupt("return", false);
 
-              case 8:
+              case 11:
                 if (!isEmpty(_this.frm.er_use)) {
-                  _context.next = 12;
+                  _context.next = 15;
                   break;
                 }
 
@@ -675,9 +685,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_use').focus();
                 return _context.abrupt("return", false);
 
-              case 12:
+              case 15:
                 if (!isEmpty(_this.frm.er_branch)) {
-                  _context.next = 16;
+                  _context.next = 19;
                   break;
                 }
 
@@ -685,19 +695,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_branch').focus();
                 return _context.abrupt("return", false);
 
-              case 16:
-                if (!isEmpty(_this.frm.er_editor)) {
-                  _context.next = 20;
+              case 19:
+                if (!isEmpty(_this.frm.er_branch_sub)) {
+                  _context.next = 23;
                   break;
                 }
 
-                Notify.toast('danger', "에디터를 선택하세요.");
-                document.getElementById('er_editor').focus();
+                Notify.toast('danger', "상세 학문분야를 선택하세요.");
+                document.getElementById('er_branch_sub').focus();
                 return _context.abrupt("return", false);
 
-              case 20:
+              case 23:
                 if (!isEmpty(_this.frm.er_eng_style)) {
-                  _context.next = 24;
+                  _context.next = 27;
                   break;
                 }
 
@@ -705,9 +715,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_eng_style').focus();
                 return _context.abrupt("return", false);
 
-              case 24:
+              case 27:
                 if (!isEmpty(_this.frm.file_info_work)) {
-                  _context.next = 28;
+                  _context.next = 31;
                   break;
                 }
 
@@ -715,36 +725,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 document.getElementById('er_eng_style').focus();
                 return _context.abrupt("return", false);
 
-              case 28:
-                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
-                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
+              case 31:
                 _this.isLoadingModalViewed = true;
-                _context.next = 33;
+                _context.next = 34;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
 
-              case 33:
+              case 34:
                 res = _context.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context.next = 41;
+                  _context.next = 42;
                   break;
                 }
 
-                _context.next = 37;
+                _context.next = 38;
                 return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
 
-              case 37:
-                _context.next = 39;
+              case 38:
+                _context.next = 40;
                 return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
 
-              case 39:
+              case 40:
                 _this.isLoadingModalViewed = false;
 
                 _this.$router.push({
                   name: 'my_eng_reform_index'
                 });
 
-              case 41:
+              case 42:
               case "end":
                 return _context.stop();
             }
@@ -794,7 +802,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.frm.er_hp03 = er_hp[2];
               _this2.frm.er_email01 = er_email[0];
               _this2.frm.er_email02 = er_email[1];
-              _this2.frm.er_depart = Auth.user().department;
+              _this2.frm.er_company = Auth.user().company;
 
             case 17:
             case "end":
@@ -6331,6 +6339,520 @@ var render = function () {
         1
       ),
       _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c(
+              "table",
+              {
+                staticClass: "tbl01 strong",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", [_vm._v("서비스내용")]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "other", attrs: { colspan: "5" } },
+                      [
+                        _vm._v(
+                          "영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서"
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("파일서식")]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "other", attrs: { colspan: "5" } },
+                      [
+                        _vm._v(
+                          "\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"
+                        ),
+                        _c("br"),
+                        _vm._v(
+                          "\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    "
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", { attrs: { rowspan: "2" } }, [
+                      _vm._v("일반 교정"),
+                      _c("p", [_vm._v("(부가세포함)")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("소요 기간")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("1~2일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("3~4일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("5~6일")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }, [_vm._v("7~8일")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("18,700원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("16,500원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("14,300원")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("13,200원")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("프리미엄 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("29,700원")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("논문")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("프리미엄 플러스 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg2" }),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("33,000원")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("논문 + 저널답변서 교정 포함"),
+                    ]),
+                  ]),
+                ]),
+              ]
+            ),
+            _vm._v(" "),
+            _c("ol", { staticClass: "num_list" }, [
+              _c("li", [_vm._v("- 부가세 포함 가격입니다.")]),
+              _vm._v(" "),
+              _c("li", [
+                _vm._v("- "),
+                _c("b", [_vm._v("1page = 영문 200단어")]),
+                _vm._v("를 기준합니다."),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _vm._v(
+                  "- 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다."
+                ),
+              ]),
+            ]),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("h5", [_vm._v("◈  서비스 내용")]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "tbl01",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("colgroup", [
+                  _c("col", { attrs: { width: "50%" } }),
+                  _vm._v(" "),
+                  _c("col", { attrs: { width: "50%" } }),
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v(
+                        "경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버"
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("문법, 맞춤법, 오타")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("단어수 무료 축소 10%")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("단어수 무료 축소 20%")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("레퍼런스 일관성 점검")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("재교정시 50% 할인 적용"),
+                      _c("br"),
+                      _c("span", [
+                        _vm._v(
+                          "(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)"
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("논문 수정까지 고려하신다면 무료 재교정"),
+                      _c("br"),
+                      _c("span", [
+                        _vm._v(
+                          "(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)"
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]
+            ),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("일반 교정")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\r\n            영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며, \r\n            비영어권 고객과 영어권 고객 묻에게 유용합니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "\r\n            문서 크기에 따라 유연한 납품기일 선택이 가능합니다. \r\n            저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "\r\n            합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [_vm._v("- 빠른 납기일을 제공하고 있습니다.")]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)"
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01 premium" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 교정")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "영문 교정 후 1년 이내 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등을 포함해 인상적인 원고로 교정해 드립니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "저널 투고 논문 교정에 만전을 기하고 싶은 분에게 최적의 서비스입니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "저널 무료 포맷팅은 교정서비스에 포함되는 분분에 한하여 1회 무료입니다."
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다."
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "style01 plus" }, [
+        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 플러스")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("프리미엄 교정 + 저널 답변서 교정")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "point" }, [
+          _vm._v(
+            "\r\n            저널 리뷰어 코멘트 하나 하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검하여 드립니다.\r\n        "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", [
+          _c("li", [
+            _vm._v(
+              "- 작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다."
+            ),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _vm._v(
+              "- 저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다."
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("h5", [_vm._v("◈  일반 교정 VS 프리미엄 교정")]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "tbl01",
+                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
+              },
+              [
+                _c("colgroup", [
+                  _c("col", { attrs: { width: "50%" } }),
+                  _vm._v(" "),
+                  _c("col", { attrs: { width: "25%" } }),
+                  _vm._v(" "),
+                  _c("col", { attrs: { width: "25%" } }),
+                ]),
+                _vm._v(" "),
+                _c("tbody", [
+                  _c("tr", [
+                    _c("th", [_vm._v("교정사항")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("일반 교정")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "bg1" }, [_vm._v("프리미엄 교정")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)"),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v(
+                        "문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)"
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("어휘선택")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("언어 관련 조언")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("논리체계 및 연관성")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [
+                      _vm._v("체계성 및 문체: 흐름, presentation, 어조 등"),
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("커버레터")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("문장구조")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("X")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("무료 저널 양식 맞춤")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", { attrs: { id: "engReform_form_od_top" } }, [
+                    _c("td", [_vm._v("과학 기술 용어 체크")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("O")]),
+                  ]),
+                ]),
+              ]
+            ),
+          ]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("br"),
@@ -6648,16 +7170,13 @@ var render = function () {
                             "b-form-select",
                             {
                               staticClass: "len01",
-                              attrs: {
-                                id: "er_branch",
-                                options: _vm.branch_opt,
-                              },
+                              attrs: { id: "er_branch" },
                               model: {
-                                value: _vm.frm.er_branch,
+                                value: _vm.frm.er_branch_key,
                                 callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_branch", $$v)
+                                  _vm.$set(_vm.frm, "er_branch_key", $$v)
                                 },
-                                expression: "frm.er_branch",
+                                expression: "frm.er_branch_key",
                               },
                             },
                             [
@@ -6665,10 +7184,10 @@ var render = function () {
                                 attrs: { value: "" },
                               }),
                               _vm._v(" "),
-                              _vm._l(_vm.option.er_use, function (opt, k) {
+                              _vm._l(_vm.option.er_branch, function (opt, k) {
                                 return _c(
                                   "b-form-select-option",
-                                  { key: k, attrs: { value: opt } },
+                                  { key: k, attrs: { value: k } },
                                   [_vm._v(_vm._s(opt))]
                                 )
                               }),
@@ -6699,27 +7218,46 @@ var render = function () {
                     "b-row",
                     [
                       _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("에디터"),
+                        _vm._v("상세 학문분야"),
                         _c("b", { staticClass: "need" }),
                       ]),
                       _vm._v(" "),
                       _c(
                         "b-col",
                         [
-                          _c("b-form-select", {
-                            staticClass: "len02",
-                            attrs: {
-                              id: "er_editor",
-                              options: _vm.editor_opt[this.frm.er_branch - 1],
-                            },
-                            model: {
-                              value: _vm.frm.er_editor,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_editor", $$v)
+                          _c(
+                            "b-form-select",
+                            {
+                              staticClass: "len02",
+                              attrs: { id: "er_branch_sub" },
+                              model: {
+                                value: _vm.frm.er_branch_sub,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.frm, "er_branch_sub", $$v)
+                                },
+                                expression: "frm.er_branch_sub",
                               },
-                              expression: "frm.er_editor",
                             },
-                          }),
+                            [
+                              _c("b-form-select-option", {
+                                attrs: { value: "" },
+                              }),
+                              _vm._v(" "),
+                              _vm._l(
+                                _vm.option.er_branch_sub[
+                                  this.frm.er_branch_key - 1
+                                ],
+                                function (opt, k) {
+                                  return _c(
+                                    "b-form-select-option",
+                                    { key: k, attrs: { value: opt } },
+                                    [_vm._v(_vm._s(opt))]
+                                  )
+                                }
+                              ),
+                            ],
+                            2
+                          ),
                           _vm._v(" "),
                           _c("small", [
                             _vm._v(
@@ -6730,43 +7268,10 @@ var render = function () {
                           _c("validation", {
                             attrs: {
                               error:
-                                this.$store.state.error.validations.er_editor,
+                                this.$store.state.error.validations
+                                  .er_branch_sub,
                             },
                           }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("하위 학문 분야"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-input", {
-                            staticClass: "len02",
-                            attrs: { placeholder: "하위 학문 분야 기재" },
-                            model: {
-                              value: _vm.frm.er_branch_sub,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_branch_sub", $$v)
-                              },
-                              expression: "frm.er_branch_sub",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "line2" }, [
-                            _vm._v(
-                              "고객님의 연구분야가 매우 특수하여 해당 전문 경험이 있는 교정자에게 맡기고 싶은 경우에만 기재하여 주십시오."
-                            ),
-                          ]),
                         ],
                         1
                       ),

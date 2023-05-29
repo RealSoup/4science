@@ -86,7 +86,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 11:
-                if (!(_this.type == 'department' && v.length < 3)) {
+                if (!(_this.type == 'company' && v.length < 3)) {
                   _context.next = 16;
                   break;
                 }
@@ -104,7 +104,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 19:
-                if (!(_this.type == 'name' && v.length > 1 || _this.type == 'email' && v.length > 2 || _this.type == 'department' && v.length > 2 || _this.type == 'hp' && v.length > 3)) {
+                if (!(_this.type == 'name' && v.length > 1 || _this.type == 'email' && v.length > 2 || _this.type == 'company' && v.length > 2 || _this.type == 'hp' && v.length > 3)) {
                   _context.next = 31;
                   break;
                 }
@@ -146,12 +146,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     setUser: function setUser(i) {
       if (this.users[i] && this.users[i].name != "정보없음") {
-        this.users[i].office = !isEmpty(this.users[i].office) ? this.users[i].office : '';
-        this.users[i].department = !isEmpty(this.users[i].department) ? this.users[i].department : '';
         this.$set(this.frm, 'created_id', this.users[i].id);
         this.$set(this.frm, 'eq_name', this.users[i].name);
         this.$set(this.frm, 'eq_email', this.users[i].email);
-        this.$set(this.frm, 'eq_department', this.users[i].office + ' ' + this.users[i].department);
+        this.$set(this.frm, 'eq_company', this.users[i].company);
         this.$set(this.frm, 'eq_hp', this.users[i].hp);
         this.$set(this.frm, 'eq_tel', this.users[i].tel);
         this.$set(this.frm, 'eq_fax', this.users[i].fax);
@@ -412,9 +410,7 @@ var render = function () {
                   _vm._v(" "),
                   us.hp ? _c("p", [_vm._v(_vm._s(us.hp))]) : _vm._e(),
                   _vm._v(" "),
-                  us.department
-                    ? _c("p", [_vm._v(_vm._s(us.department))])
-                    : _vm._e(),
+                  us.company ? _c("p", [_vm._v(_vm._s(us.company))]) : _vm._e(),
                 ]
               )
             }),

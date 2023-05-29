@@ -161,9 +161,9 @@ var startDate = init_dt.format("yyyy-MM-dd"); // endDate = '';
             w: 120,
             name: '매출처'
           },
-          depart: {
+          company: {
             w: 120,
-            name: '소속'
+            name: '직장/학교'
           },
           lab_prof: {
             w: 120,

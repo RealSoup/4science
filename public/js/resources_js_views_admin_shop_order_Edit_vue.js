@@ -470,9 +470,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 var dt = new Date();
@@ -1619,19 +1616,12 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("tr", [
-                _c("th", [_vm._v("소속")]),
-                _c("td", { attrs: { colspan: "5" } }, [
-                  _vm._v(_vm._s(_vm.od.od_department) + " "),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
                 _c("th", [_vm._v("직장 / 학교")]),
-                _c("td", [_vm._v(_vm._s(_vm.od.user.office) + " ")]),
+                _c("td", [_vm._v(_vm._s(_vm.od.od_company) + " ")]),
                 _vm._v(" "),
                 _c("th", [_vm._v("부서 / 학과 / 연구실")]),
                 _c("td", { attrs: { colspan: "3" } }, [
-                  _vm._v(_vm._s(_vm.od.user.department) + " "),
+                  _vm._v(_vm._s(_vm.od.od_part) + " "),
                 ]),
               ]),
             ]),

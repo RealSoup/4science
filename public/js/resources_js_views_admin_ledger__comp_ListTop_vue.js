@@ -274,12 +274,12 @@ var render = function () {
                   maxWidth: _vm.column_list.COLUMN.distributor + "px",
                 },
               })
-            : mcc.umc_val == "depart"
+            : mcc.umc_val == "company"
             ? _c("b-col", {
                 key: i,
                 style: {
-                  flexBasis: _vm.column_list.COLUMN.depart.w + "px",
-                  maxWidth: _vm.column_list.COLUMN.depart + "px",
+                  flexBasis: _vm.column_list.COLUMN.company.w + "px",
+                  maxWidth: _vm.column_list.COLUMN.company + "px",
                 },
               })
             : mcc.umc_val == "lab_prof"

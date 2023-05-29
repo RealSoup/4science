@@ -48,8 +48,8 @@ class UserController extends Controller {
         $user->tel          = $req->tel;
         $user->fax          = $req->fax;
         $user->job          = $req->job;
-        $user->office       = $req->office;
-        $user->department   = $req->department;
+        $user->company      = $req->company;
+        $user->part         = $req->part;
         $user->grade        = $req->grade;
         $user->tutor        = $req->tutor;
         $user->offer        = $req->offer;

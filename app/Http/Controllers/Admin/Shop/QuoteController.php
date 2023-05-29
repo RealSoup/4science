@@ -116,7 +116,7 @@ class QuoteController extends Controller {
         return [
 			'qq_1depth' 	=> $req->filled('qq_1depth') 		? $req->qq_1depth 		: NULL,
 			'qq_name' 		=> $req->filled('qq_name') 			? $req->qq_name 		: NULL,
-			'qq_department' => $req->filled('qq_department') 	? $req->qq_department 	: NULL,
+			'qq_company' => $req->filled('qq_company') 	? $req->qq_company 	: NULL,
 			'qq_email' 		=> $req->filled('qq_email') 		? $req->qq_email 		: NULL,
 			'qq_tel' 		=> $req->filled('qq_tel') 			? $req->qq_tel 			: NULL,
 			'qq_fax' 		=> $req->filled('qq_fax') 			? $req->qq_fax 			: NULL,

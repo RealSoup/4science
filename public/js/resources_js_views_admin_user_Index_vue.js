@@ -505,13 +505,13 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "b-form-select-option",
-                                { attrs: { value: "office" } },
+                                { attrs: { value: "company" } },
                                 [_vm._v("직장/학교")]
                               ),
                               _vm._v(" "),
                               _c(
                                 "b-form-select-option",
-                                { attrs: { value: "department" } },
+                                { attrs: { value: "part" } },
                                 [_vm._v("부서/학과/연구실")]
                               ),
                               _vm._v(" "),
@@ -753,7 +753,7 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
-                _c("b-col", [_vm._v(_vm._s(us.office))]),
+                _c("b-col", [_vm._v(_vm._s(us.company))]),
                 _vm._v(" "),
                 _c("b-col", [
                   _vm._v(_vm._s(_vm._f("formatDate")(us.created_at))),

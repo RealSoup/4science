@@ -7,10 +7,10 @@
             <user-input v-model="value.eq_name" :type="'name'" :frm="value" />
             <validation :error="$store.state.error.validations.eq_name" />
         </b-col>
-        <b-col>소속/부서</b-col>
+        <b-col>직장/학교</b-col>
         <b-col>
-            <user-input v-model="value.eq_department" :type="'department'" :frm="value" />
-            <validation :error="$store.state.error.validations.eq_department" />
+            <user-input v-model="value.eq_company" :type="'company'" :frm="value" />
+            <validation :error="$store.state.error.validations.eq_company" />
         </b-col>
     </b-row>
     <b-row>

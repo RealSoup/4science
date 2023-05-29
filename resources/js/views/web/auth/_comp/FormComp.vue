@@ -73,10 +73,10 @@
                 <b-col class="label_st">직장/학교<b class="need" /></b-col>
                 <b-col>                    
                     <validation-provider name="직장명/학교명" rules="required" v-slot="validationContext">
-                        <b-form-input id="office" v-model="value.office" :state="getValidationState(validationContext)" />
+                        <b-form-input id="company" v-model="value.company" :state="getValidationState(validationContext)" />
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
-                    <Validation :error="$store.state.error.validations.office" />
+                    <Validation :error="$store.state.error.validations.company" />
                 </b-col>
             </b-row>
             <b-row>

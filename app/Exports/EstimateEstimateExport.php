@@ -44,7 +44,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $data[] = [''];
         $data[] = ['견적번호', '', '', $this->er['er_id'], '', '', '납품기일', '', '', "납기 {$this->er['er_dlvy_at']} 이내"];
         $data[] = ['견적일자', '', '', date('Y-m-d', strtotime($this->er['created_at'])), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
-        $data[] = ['수신', '', '', $this->er['estimate_req']['eq_department'], '', '', '유효기간', '', '', "{$this->er['er_effective_at']} 까지"];
+        $data[] = ['수신', '', '', $this->er['estimate_req']['eq_company'], '', '', '유효기간', '', '', "{$this->er['er_effective_at']} 까지"];
         $data[] = [''];
         $data[] = ['견적요청인', '', '', $this->er['estimate_req']['eq_name'], '', '', '견적담당자', '', '', $this->er['user']['name']];
         $data[] = ['전화번호', '', '', $this->er['estimate_req']['eq_tel'], '', '', '전화번호', '', '', $this->er['user']['tel']];

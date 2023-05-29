@@ -113,7 +113,7 @@ export default {
                     od_id       : { w:120, name:'주문번호'      },
                     sale_dt     : { w:120, name:'매출일'        },
                     distributor : { w:120, name:'매출처'        },
-                    depart      : { w:120, name:'소속'          },
+                    company     : { w:120, name:'직장/학교'          },
                     lab_prof    : { w:120, name:'연구실/교수님' },
                     orderer     : { w:120, name:'고객명'        },
                     od_name     : { w:120, name:'주문명'        },

@@ -207,6 +207,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 var dt = new Date();
@@ -1049,11 +1050,20 @@ var render = function () {
                             "b-row",
                             [
                               _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("소속"),
+                                _vm._v("직장/학교"),
                               ]),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.od.od_department)),
+                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_company))]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-row",
+                            [
+                              _c("b-col", { staticClass: "label_st" }, [
+                                _vm._v("부서/학과/연구실"),
                               ]),
+                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_part))]),
                             ],
                             1
                           ),

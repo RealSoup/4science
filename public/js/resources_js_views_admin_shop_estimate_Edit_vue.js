@@ -735,9 +735,9 @@ var validationCheckerUser = function validationCheckerUser(frm) {
     return false;
   }
 
-  if (isEmpty(frm.eq_department)) {
-    Notify.toast('danger', "요청자 소속을 입력하세요.");
-    document.getElementById('eq_department').focus();
+  if (isEmpty(frm.eq_company)) {
+    Notify.toast('danger', "요청자 직장/학교를 입력하세요.");
+    document.getElementById('eq_company').focus();
     return false;
   }
 

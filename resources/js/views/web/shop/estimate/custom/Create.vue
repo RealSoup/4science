@@ -54,7 +54,7 @@ export default {
                 eq_name:Auth.user().name,
                 eq_email:Auth.user().email,
                 eq_hp:Auth.user().hp,
-                eq_department:Auth.user().office+' '+Auth.user().department,
+                eq_company:Auth.user().company,
                 eq_1depth:this.$route.params.id??'',
                 eq_content:"제품명 : \n사양 : \n수량 : ",
             },

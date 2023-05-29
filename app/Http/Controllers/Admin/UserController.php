@@ -19,8 +19,8 @@ class UserController extends Controller {
             switch ($req->keyword_type) {
                 case 'name':        $user = $user->Name($req->keyword); break;
                 case 'email':       $user = $user->Email($req->keyword); break;
-                case 'office':      $user = $user->Office($req->keyword); break;
-                case 'department':  $user = $user->Department($req->keyword); break;
+                case 'part':        $user = $user->Part($req->keyword); break;
+                case 'company':     $user = $user->company($req->keyword); break;
                 case 'tutor':       $user = $user->Tutor($req->keyword); break;
                 case 'tel':         $user = $user->Tel($req->keyword); break;
                 case 'hp':          $user = $user->Hp($req->keyword); break;
@@ -47,7 +47,7 @@ class UserController extends Controller {
         switch ($req->type) {
             case 'name':        $us = $us->Name($req->key); break;
             case 'email':       $us = $us->Email($req->key); break;
-            case 'department':  $us = $us->Department($req->key); break;
+            case 'company':     $us = $us->Company($req->key); break;
             case 'hp':          $us = $us->Hp($req->key); break;
             default: return response()->json('검색 자료 부족', 500); break;
         }
@@ -66,8 +66,8 @@ class UserController extends Controller {
             'group' => $req->filled('group') ? $req->group : '일반',
             'birth' => $req->filled('birth') ? $req->birth : '',
             'job' => $req->filled('job') ? $req->job : '',
-            'office' => $req->filled('office') ? $req->office : '',
-            'department' => $req->filled('department') ? $req->department : '',
+            'part' => $req->filled('part') ? $req->part : '',
+            'company' => $req->filled('company') ? $req->company : '',
             'grade' => $req->filled('grade') ? $req->grade : '',
             'tutor' => $req->filled('tutor') ? $req->tutor : '',
             'offer' => $req->filled('offer') ? $req->offer : '',

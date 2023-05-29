@@ -694,7 +694,7 @@ var render = function () {
                   1
                 ),
                 _vm._v(" "),
-                _c("b-col", [_vm._v(_vm._s(er.er_depart))]),
+                _c("b-col", [_vm._v(_vm._s(er.er_company))]),
                 _vm._v(" "),
                 _c("b-col", [_vm._v(_vm._s(er.er_hp))]),
                 _vm._v(" "),

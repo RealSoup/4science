@@ -505,7 +505,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("b-col", [_vm._v(_vm._s(lga.lga_distributor))]),
                 _vm._v(" "),
-                _c("b-col", [_vm._v(_vm._s(lga.lga_depart))]),
+                _c("b-col", [_vm._v(_vm._s(lga.lga_company))]),
                 _vm._v(" "),
                 _c("b-col", [_vm._v(_vm._s(lga.lga_orderer))]),
                 _vm._v(" "),

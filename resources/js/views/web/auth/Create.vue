@@ -1,8 +1,8 @@
 <template>
 <b-container class="w_fence" :class="{simple:$route.params.code == 'sync'}">
     <h3>회원가입 정보 입력</h3>
-    <FormSync v-if="$route.params.code == 'sync'" v-model="frm" @register="register" />
-    <FormComp v-else ref="form_comp" v-model="frm" />
+    <form-sync v-if="$route.params.code == 'sync'" v-model="frm" @register="register" />
+    <form-comp v-else ref="form_comp" v-model="frm" />
     <b-row>
         <b-col class="btn_box">
             <b-button class="blue xl" @click="register">
@@ -20,8 +20,8 @@ import store from '@/store/index';
 export default {
     name: "AuthCreate",
     components: {
-        'FormComp': () => import('./_comp/FormComp'),
-        'FormSync': () => import('./_comp/FormSync'),
+        'form-comp': () => import('./_comp/FormComp'),
+        'form-sync': () => import('./_comp/FormSync'),
     },
     data() {
         return {

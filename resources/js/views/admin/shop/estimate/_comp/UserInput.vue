@@ -10,7 +10,7 @@
             {{ us.name }}<br />
             <p v-if="us.email">{{us.email}}</p>
             <p v-if="us.hp">{{us.hp}}</p>
-            <p v-if="us.department">{{us.department}}</p>
+            <p v-if="us.company">{{us.company}}</p>
         </li>
     </ul>
 </div>
@@ -35,7 +35,7 @@ export default {
                 Notify.toast('warning', '2자 이상 입력시 검색 가능합니다.'); return false;
             } else if (this.type == 'email' && v.length < 3) {
                 Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.'); return false;
-            } else if (this.type == 'department' && v.length < 3) {
+            } else if (this.type == 'company' && v.length < 3) {
                 Notify.toast('warning', '3자 이상 입력시 검색 가능합니다.'); return false;
             } else if (this.type == 'hp' && v.length < 4) {
                 Notify.toast('warning', '4자 이상 입력시 검색 가능합니다.'); return false;
@@ -43,7 +43,7 @@ export default {
 
             if ( (this.type=='name'         && v.length > 1) ||
                  (this.type=='email'        && v.length > 2) ||
-                 (this.type=='department'   && v.length > 2) ||
+                 (this.type=='company'   && v.length > 2) ||
                  (this.type=='hp'           && v.length > 3) ) {
                 try {
                     const res = await ax.get(`/api/admin/user/list`, {params:{type:this.type, key:v}});
@@ -59,12 +59,10 @@ export default {
         },
         setUser(i) {
             if (this.users[i] && this.users[i].name != "정보없음") {
-                this.users[i].office = !isEmpty(this.users[i].office) ? this.users[i].office : '';
-                this.users[i].department = !isEmpty(this.users[i].department) ? this.users[i].department : '';
                 this.$set(this.frm, 'created_id'   , this.users[i].id);
                 this.$set(this.frm, 'eq_name'      , this.users[i].name);
                 this.$set(this.frm, 'eq_email'     , this.users[i].email);
-                this.$set(this.frm, 'eq_department', this.users[i].office+' '+this.users[i].department);
+                this.$set(this.frm, 'eq_company'   , this.users[i].company);
                 this.$set(this.frm, 'eq_hp'        , this.users[i].hp);
                 this.$set(this.frm, 'eq_tel'       , this.users[i].tel);
                 this.$set(this.frm, 'eq_fax'       , this.users[i].fax);

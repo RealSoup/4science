@@ -8,7 +8,7 @@
         <b-col v-else-if="mcc.umc_val == 'od_id'"       :style="{ flexBasis: column_list.COLUMN.od_id.w + 'px',       maxWidth: column_list.COLUMN.od_id + 'px' }"       :key="i"></b-col>
         <b-col v-else-if="mcc.umc_val == 'sale_dt'"     :style="{ flexBasis: column_list.COLUMN.sale_dt.w + 'px',     maxWidth: column_list.COLUMN.sale_dt + 'px' }"     :key="i"></b-col>
         <b-col v-else-if="mcc.umc_val == 'distributor'" :style="{ flexBasis: column_list.COLUMN.distributor.w + 'px', maxWidth: column_list.COLUMN.distributor + 'px' }" :key="i"></b-col>
-        <b-col v-else-if="mcc.umc_val == 'depart'"      :style="{ flexBasis: column_list.COLUMN.depart.w + 'px',      maxWidth: column_list.COLUMN.depart + 'px' }"      :key="i"></b-col>
+        <b-col v-else-if="mcc.umc_val == 'company'"      :style="{ flexBasis: column_list.COLUMN.company.w + 'px',      maxWidth: column_list.COLUMN.company + 'px' }"      :key="i"></b-col>
         <b-col v-else-if="mcc.umc_val == 'lab_prof'"    :style="{ flexBasis: column_list.COLUMN.lab_prof.w + 'px',    maxWidth: column_list.COLUMN.lab_prof + 'px' }"    :key="i"></b-col>
         <b-col v-else-if="mcc.umc_val == 'orderer'"     :style="{ flexBasis: column_list.COLUMN.orderer.w + 'px',     maxWidth: column_list.COLUMN.orderer + 'px' }"     :key="i"></b-col>
         <b-col v-else-if="mcc.umc_val == 'od_name'"     :style="{ flexBasis: column_list.COLUMN.od_name.w + 'px',     maxWidth: column_list.COLUMN.od_name + 'px' }"     :key="i"></b-col>

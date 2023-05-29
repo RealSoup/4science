@@ -81,7 +81,7 @@ table tr th, table tr td { padding:5px; }
         <tr>
             <td align="center" width="60%" style="padding:10px 0;">
                 <p>{{ date('Y년 m월 d일', strtotime($er['created_at'])) }}</p>
-                <p>{{ $er['estimate_req']['eq_department'] }} 귀하</p>
+                <p>{{ $er['estimate_req']['eq_company'] }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
             <td align="center" valign="middle"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/addr_estimate200921.gif" width="270px" height="67px" /></td>

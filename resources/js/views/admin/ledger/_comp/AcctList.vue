@@ -9,7 +9,7 @@
         <b-col class="odno"></b-col>
         <b-col class="pdt"></b-col>
         <b-col class="dist"></b-col>
-        <b-col class="depart"></b-col>
+        <b-col class="company"></b-col>
         <b-col class="oder"></b-col>
         <b-col class="odnm"></b-col>
         <b-col class="eap price"><b-badge variant="info">{{total_ea_p | comma}}</b-badge></b-col>
@@ -25,7 +25,7 @@
         <b-col class="odno"><InputText v-model="sch.od_id" @index="index" /></b-col>
         <b-col class="pdt"><InputText v-model="sch.lga_date" @index="index" /></b-col>
         <b-col class="dist"><InputText v-model="sch.distributor" @index="index" /></b-col>
-        <b-col class="depart"><InputText v-model="sch.depart" @index="index" /></b-col>
+        <b-col class="company"><InputText v-model="sch.company" @index="index" /></b-col>
         <b-col class="oder"><InputText v-model="sch.orderer" @index="index" /></b-col>
         <b-col class="odnm"><InputText v-model="sch.od_name" @index="index" /></b-col>
         <b-col class="eap"><InputPrice v-model="sch.ea_p" @index="index" /></b-col>
@@ -59,7 +59,7 @@
         <b-col class="odno">주문번호</b-col>
         <b-col class="pdt">매출일</b-col>
         <b-col class="dist">매출처</b-col>
-        <b-col class="depart">소속</b-col>
+        <b-col class="company">소속</b-col>
         <b-col class="oder">고객명</b-col>
         <b-col class="odnm">품목명</b-col>
         <b-col class="eap">공급가액</b-col>
@@ -126,7 +126,7 @@
                 </b-input-group>
             </b-col>
             <b-col class="dist"><b-form-input @update="lga.is_edit=true" v-model="lga.lga_distributor" size="sm" /></b-col>
-            <b-col class="depart"><b-form-input @update="lga.is_edit=true" v-model="lga.lga_depart" size="sm" /></b-col>
+            <b-col class="company"><b-form-input @update="lga.is_edit=true" v-model="lga.lga_company" size="sm" /></b-col>
             <b-col class="oder"><b-form-input @update="lga.is_edit=true" v-model="lga.lga_orderer" size="sm" /></b-col>
             <b-col class="odnm"><b-form-input @update="lga.is_edit=true" v-model="lga.lga_od_name" size="sm" /></b-col>
             <b-col class="eap"><InputPrice v-model="lga.lga_ea_p" @update="lga.is_edit=true" /></b-col>
@@ -324,7 +324,7 @@ h3 { max-width:1500px; margin:auto; }
 .container-fluid .row .odno { flex-basis:80px; max-width:80px; }
 .container-fluid .row .pdt { flex-basis:120px; max-width:120px; }
 .container-fluid .row .dist { flex-basis:200px; max-width:200px; } /*매출처 */
-.container-fluid .row .depart { flex-basis:200px; max-width:200px; }
+.container-fluid .row .company { flex-basis:200px; max-width:200px; }
 .container-fluid .row .oder { flex-basis:80px; max-width:80px; }
 .container-fluid .row .odnm { flex-basis:160px; max-width:160px; } /*품목명 */
 .container-fluid .row .eap { flex-basis:120px; max-width:120px; }

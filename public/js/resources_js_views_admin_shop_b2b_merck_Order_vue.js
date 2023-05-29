@@ -181,7 +181,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     chkChange: function chkChange(i) {
       if (this.list.data[i].b2b_chk) {
-        this.extra.part = this.list.data[i].order.od_department;
+        this.extra.part = this.list.data[i].order.od_part;
         this.extra.name = this.list.data[i].order.od_receiver;
         this.extra.hp = this.list.data[i].order.od_receiver_hp;
         this.extra.code = this.list.data[i].order.od_zip;

@@ -79,7 +79,7 @@ class EstimateController extends Controller {
         if ($req->filled('keyword')){
             switch ($req->keyword_type) {
 				case 'eq_name':			$eq = $eq->EqName($req->keyword); break;
-				case 'eq_department':	$eq = $eq->EqDepartment($req->keyword); break;
+				case 'eq_company':	    $eq = $eq->EqCompany($req->keyword); break;
                 case 'eq_tel':			$eq = $eq->EqTel($req->keyword); break;
                 case 'eq_hp':			$eq = $eq->EqHp($req->keyword); break;
                 case 'eq_email':		$eq = $eq->EqEmail($req->keyword); break;
@@ -311,7 +311,8 @@ class EstimateController extends Controller {
                 $em_impl = $this->estimateModel_paramImplant($em, $er_id);
                 $udt_em = $this->estimateModel->updateOrCreate(['em_id' => ($em['em_id'] ?? 0)], $em_impl);
                 $em_id = $udt_em->em_id;
-                $provEstimateModel->forget($provEstimateModel->search($em_id));
+                if($provEstimateModel->search($em_id) !== false)
+                    $provEstimateModel->forget($provEstimateModel->search($em_id));
 
                 $provEstimateOption = $this->estimateOption->select("eo_id")->EmId($em_id)->pluck('eo_id');
                 foreach ($em['estimate_option'] as $eo) {
@@ -319,7 +320,8 @@ class EstimateController extends Controller {
                         $eo_id = $eo['eo_id'] ?? 0;
                         $eo_impl = $this->estimateOption_paramImplant($eo, $em_id);
                         $this->estimateOption->updateOrCreate(['eo_id' => $eo_id], $eo_impl);
-                        $provEstimateOption->forget($provEstimateOption->search($eo_id));
+                        if($provEstimateOption->search($eo_id) !== false)
+                            $provEstimateOption->forget($provEstimateOption->search($eo_id));
                     }
                 }
                 foreach ($provEstimateOption as $col) $this->estimateOption->destroy($col);
@@ -404,14 +406,14 @@ class EstimateController extends Controller {
         ];
     }
     public function estimateReq_paramImplant($req){
-        return [    'eq_type'       => array_key_exists('eq_type', $req) && $req['eq_type']             ? $req['eq_type']       : 'TEMP',
-                    'eq_name'       => array_key_exists('eq_name', $req) && $req['eq_name']             ? $req['eq_name']       : '',
-                    'eq_email'      => array_key_exists('eq_email', $req) && $req['eq_email']           ? $req['eq_email']      : '',
-                    'eq_tel'        => array_key_exists('eq_tel', $req) && $req['eq_tel']               ? $req['eq_tel']        : '',
-                    'eq_fax'        => array_key_exists('eq_fax', $req) && $req['eq_fax']               ? $req['eq_fax']        : '',
-                    'eq_hp'         => array_key_exists('eq_hp', $req) && $req['eq_hp']                 ? $req['eq_hp']         : '',
-                    'eq_department' => array_key_exists('eq_department', $req) && $req['eq_department'] ? $req['eq_department'] : '',
-                    'eq_content'    => array_key_exists('eq_content', $req) && $req['eq_content']       ? $req['eq_content']    : '',
+        return [    'eq_type'       => array_key_exists('eq_type', $req) && $req['eq_type']       ? $req['eq_type']       : 'TEMP',
+                    'eq_name'       => array_key_exists('eq_name', $req) && $req['eq_name']       ? $req['eq_name']       : '',
+                    'eq_email'      => array_key_exists('eq_email', $req) && $req['eq_email']     ? $req['eq_email']      : '',
+                    'eq_tel'        => array_key_exists('eq_tel', $req) && $req['eq_tel']         ? $req['eq_tel']        : '',
+                    'eq_fax'        => array_key_exists('eq_fax', $req) && $req['eq_fax']         ? $req['eq_fax']        : '',
+                    'eq_hp'         => array_key_exists('eq_hp', $req) && $req['eq_hp']           ? $req['eq_hp']         : '',
+                    'eq_company'    => array_key_exists('eq_company', $req) && $req['eq_company'] ? $req['eq_company']    : '',
+                    'eq_content'    => array_key_exists('eq_content', $req) && $req['eq_content'] ? $req['eq_content']    : '',
                     'eq_mng'        => auth()->check() ? auth()->user()->id : 0,
                     'eq_env'        => 'P', ];
     }

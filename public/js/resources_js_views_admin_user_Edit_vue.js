@@ -209,16 +209,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEdit',
   components: {
-    'Modal': function Modal() {
+    'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
-    'Mileage': function Mileage() {
+    'mileage': function mileage() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_user__comp_Mileage_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Mileage.vue */ "./resources/js/views/admin/user/_comp/Mileage.vue"));
     },
-    'Order': function Order() {
+    'order': function order() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_order__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/order/_comp/List.vue */ "./resources/js/views/admin/shop/order/_comp/List.vue"));
     },
-    'Estimate': function Estimate() {
+    'estimate': function estimate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/List.vue */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
     }
   },
@@ -990,11 +990,11 @@ var render = function () {
                     [
                       _c("b-form-input", {
                         model: {
-                          value: _vm.frm.office,
+                          value: _vm.frm.company,
                           callback: function ($$v) {
-                            _vm.$set(_vm.frm, "office", $$v)
+                            _vm.$set(_vm.frm, "company", $$v)
                           },
-                          expression: "frm.office",
+                          expression: "frm.company",
                         },
                       }),
                     ],
@@ -1013,11 +1013,11 @@ var render = function () {
                     [
                       _c("b-form-input", {
                         model: {
-                          value: _vm.frm.department,
+                          value: _vm.frm.part,
                           callback: function ($$v) {
-                            _vm.$set(_vm.frm, "department", $$v)
+                            _vm.$set(_vm.frm, "part", $$v)
                           },
-                          expression: "frm.department",
+                          expression: "frm.part",
                         },
                       }),
                     ],
@@ -1336,7 +1336,7 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c("Order", {
+              _c("order", {
                 staticClass: "cmain",
                 attrs: {
                   list: _vm.order,
@@ -1367,9 +1367,9 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c("Estimate", {
+              _c("estimate", {
                 staticClass: "cmain",
-                attrs: { list: _vm.estimate },
+                attrs: { list: _vm.estimate, mng_off: _vm.mng_off },
               }),
             ],
             1
@@ -1384,7 +1384,7 @@ var render = function () {
         [
           _vm.isModalViewed
             ? _c(
-                "Modal",
+                "modal",
                 {
                   attrs: { max_width: 900 },
                   on: {
@@ -1396,7 +1396,7 @@ var render = function () {
                 [
                   _c("template", { slot: "header" }, [_vm._v("마일리지 목록")]),
                   _vm._v(" "),
-                  _c("Mileage"),
+                  _c("mileage"),
                 ],
                 2
               )

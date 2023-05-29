@@ -297,11 +297,11 @@ var render = function () {
                 [
                   _c("b-form-input", {
                     model: {
-                      value: _vm.value.department,
+                      value: _vm.value.part,
                       callback: function ($$v) {
-                        _vm.$set(_vm.value, "department", $$v)
+                        _vm.$set(_vm.value, "part", $$v)
                       },
-                      expression: "value.department",
+                      expression: "value.part",
                     },
                   }),
                 ],

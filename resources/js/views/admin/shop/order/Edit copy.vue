@@ -62,8 +62,8 @@
                     <th>소속</th><td colspan="5">{{ od.od_department }} </td>
                 </tr>
                 <tr>
-                    <th>직장 / 학교</th><td>{{ od.user.office }} </td>
-                    <th>부서 / 학과 / 연구실</th><td colspan="3">{{ od.user.department }} </td>
+                    <th>직장 / 학교</th><td>{{ od.od_company }} </td>
+                    <th>부서 / 학과 / 연구실</th><td colspan="3">{{ od.od_part }} </td>
                 </tr>
             </table>
         </div>

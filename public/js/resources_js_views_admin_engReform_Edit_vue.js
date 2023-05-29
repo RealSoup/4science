@@ -328,12 +328,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmEngReformEdit',
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'loading-modal': function loadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    }
   },
   data: function data() {
     return {
@@ -4617,7 +4621,7 @@ var render = function () {
             [
               _c("b-col", [_vm._v("소속")]),
               _c("b-col", { staticClass: "sty01" }, [
-                _vm._v(_vm._s(_vm.frm.er_depart)),
+                _vm._v(_vm._s(_vm.frm.er_company)),
               ]),
               _vm._v(" "),
               _c("b-col", [_vm._v("등록일")]),
@@ -4629,6 +4633,39 @@ var render = function () {
               _c("b-col", [
                 _vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.er_dlvy_at))),
               ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("학문분야")]),
+              _c("b-col", { staticClass: "sty01" }, [
+                _vm._v(_vm._s(_vm.frm.er_branch)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("상세학문분야")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_branch_sub))]),
+              _vm._v(" "),
+              _vm.frm.er_editor ? _c("b-col", [_vm._v("에디터")]) : _vm._e(),
+              _vm.frm.er_editor
+                ? _c("b-col", [_vm._v(_vm._s(_vm.frm.er_editor))])
+                : _vm._e(),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c("b-col", [_vm._v("문체스타일")]),
+              _c("b-col", { staticClass: "sty01" }, [
+                _vm._v(_vm._s(_vm.frm.er_eng_style)),
+              ]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("문서 용도")]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_use))]),
             ],
             1
           ),
@@ -4659,32 +4696,12 @@ var render = function () {
           _c(
             "b-row",
             [
-              _c("b-col", [_vm._v("학문분야")]),
-              _c("b-col", { staticClass: "sty03" }, [
-                _vm._v(_vm._s(_vm.frm.er_branch)),
-              ]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("하위학문분야")]),
-              _c("b-col", { staticClass: "sty02" }, [
-                _vm._v(_vm._s(_vm.frm.er_branch_sub)),
-              ]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("에디터")]),
-              _c("b-col", { staticClass: "sty04" }, [
-                _vm._v(_vm._s(_vm.frm.er_editor)),
-              ]),
-              _vm._v(" "),
-              _c("b-col", [_vm._v("문체스타일")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_eng_style))]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
               _c("b-col", [_vm._v("요청사항")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.er_demand))]),
+              _c("b-col", [
+                _c("p", {
+                  domProps: { innerHTML: _vm._s(_vm.nl2br(_vm.frm.er_demand)) },
+                }),
+              ]),
             ],
             1
           ),
@@ -4845,7 +4862,7 @@ var render = function () {
                     [
                       _vm.isLoadingModalViewed
                         ? _c(
-                            "LoadingModal",
+                            "loading-modal",
                             {
                               on: {
                                 "close-modal": function ($event) {
@@ -4853,11 +4870,7 @@ var render = function () {
                                 },
                               },
                             },
-                            [
-                              _vm._v(
-                                "\r\n                        첨부파일 전송중 ......\r\n                    "
-                              ),
-                            ]
+                            [_vm._v("첨부파일 전송중 ......")]
                           )
                         : _vm._e(),
                     ],

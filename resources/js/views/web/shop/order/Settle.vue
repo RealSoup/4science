@@ -5,7 +5,7 @@
 
     <h4>01. 주문 상품 확인</h4>
 
-    <PaList v-model="order.lists" :price="order.price" :user="$store.state.auth.user" :add_vat="true" />
+    <pa-list v-model="order.lists" :price="order.price" :user="$store.state.auth.user" :add_vat="true" />
     
     <b-container class="st_bottom">
         <b-row>
@@ -63,7 +63,7 @@
                     </b-col>
                 </b-row>
 
-                <div class="orderer">
+<!--            <div class="orderer">
                     <h4>02. 주문자 정보</h4>
                     <b-row>
                         <label for="od_orderer">주문자명<i class="require" /></label>
@@ -89,15 +89,15 @@
                         </b-col>
                     </b-row>
                     <b-row>
-                        <label for="od_department">소속</label>
-                        <b-col><b-form-input v-model="order.od_department" id="od_department" /></b-col>
+                        <label for="od_company">소속</label>
+                        <b-col><b-form-input v-model="order.od_company" id="od_company" /></b-col>
                     </b-row>
                 </div>
-
+ -->
                 <div id="address" class="address">
-                    <PopUp /> <!-- 팝업 -->
+                    <pop-up /> <!-- 팝업 -->
                     <h4>
-                        <span>03. 배송지 정보</span>
+                        <span>02. 배송지 정보</span>
                         <div>
                             <b-form-radio v-model="order.addr_type" value="D" @change="change_addr_type">기본 배송지</b-form-radio>
                             <b-form-radio v-model="order.addr_type" value="N" @change="change_addr_type">신규 배송지</b-form-radio>
@@ -123,7 +123,7 @@
                         </b-col>
                     </b-row>                        
                     <b-row>
-                        <label for="od_department">주소<i class="require" /></label>
+                        <label>주소<i class="require" /></label>
                         <b-col>
                             <div>
                                 <b-form-input v-model="order.od_zip" readonly />
@@ -133,11 +133,11 @@
                                 </span>
 
                                 <template v-if="postcode_open">
-                                    <VueDaumPostcode class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" >
+                                    <vue-daum-postcode class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" >
                                         <template #loading>
                                             <b-spinner variant="success" label="Spinning" />
                                         </template>
-                                    </VueDaumPostcode>
+                                    </vue-daum-postcode>
                                 </template>
                             </div>
                             <b-form-input v-model="order.od_addr1" readonly />
@@ -147,7 +147,7 @@
                     
                     <b-row>
                         <label for="od_memo">배송 요청사항</label>
-                        <b-col>
+                        <b-col class="od_memo">
                             <b-form-select v-model="order.od_memo_slt" @change="memo_slt">
                                 <b-form-select-option value="">선택</b-form-select-option>
                                 <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
@@ -256,7 +256,7 @@
                         </div>
                     </transition>
 
-                    <PayPlan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'P'" v-model="order.extra" />
+                    <pay-plan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'P'" v-model="order.extra" />
                     
                     <transition name="slideUpDown">
                         <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
@@ -286,16 +286,16 @@
     </b-container>
 
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
             <template slot="header">
                 <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
                 <template v-else>지출 증빙</template>
             </template>
-            <AddrIndex v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
-            <AddrCreate v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
-            <AddrEdit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
-            <TaxInvoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" />
-        </Modal>
+            <addr-index v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
+            <addr-create v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
+            <addr-edit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
+            <tax-invoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" />
+        </modal>
     </transition>
 
     <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
@@ -346,15 +346,15 @@ import router from '@/router';
 export default {
     // props:['gd_id', 'model', 'option'],
     components: {
-        VueDaumPostcode,
-        'Modal'         : () => import('@/views/_common/Modal.vue'),
-        'PayPlan'       : () => import('./_comp/PayPlan'),
-        'TaxInvoice'    : () => import('./_comp/TaxInvoice'),
-        'PaList'        : () => import('@/views/web/_module/PaList'),
-        'AddrIndex'     : () => import('@/views/web/_module/addr/Index'),
-        'AddrCreate'    : () => import('@/views/web/_module/addr/Create'),
-        'AddrEdit'      : () => import('@/views/web/_module/addr/Edit'),
-        'PopUp'         : () => import('@/views/web/_module/PopUp'),
+        'vue-daum-postcode' : VueDaumPostcode,
+        'modal'         : () => import('@/views/_common/Modal.vue'),
+        'pay-plan'       : () => import('./_comp/PayPlan'),
+        'tax-invoice'    : () => import('./_comp/TaxInvoice'),
+        'pa-list'        : () => import('@/views/web/_module/PaList'),
+        'addr-index'     : () => import('@/views/web/_module/addr/Index'),
+        'addr-create'    : () => import('@/views/web/_module/addr/Create'),
+        'addr-edit'      : () => import('@/views/web/_module/addr/Edit'),
+        'pop-up'         : () => import('@/views/web/_module/PopUp'),
     },
     watch: {
         'order.od_pay_method': {
@@ -410,7 +410,7 @@ export default {
                 od_orderer_email_id: '',
                 od_orderer_email_domain:'',
                 od_orderer_email_domain_slt : '',
-                od_department: '',
+                od_company: '',
                 od_ua_title: '',
                 od_zip : "",
                 od_addr1 : "",
@@ -569,7 +569,8 @@ export default {
             this.order.od_orderer_hp3 = odhp[2];
             this.order.od_orderer_email_id = odemail[0];
             this.order.od_orderer_email_domain = odemail[1];
-            this.order.od_department = Auth.user().department;
+            this.order.od_company = Auth.user().company;
+            this.order.od_part = Auth.user().part;
             return;
         },
 
@@ -808,6 +809,7 @@ export default {
 #settle .st_bottom .inputs .address .row:nth-of-type(5) .col { display:block; flex-basis:53%; max-width:53%; }
 #settle .st_bottom .inputs .address .row:nth-of-type(5) .col select { max-width:446px; }
 #settle .st_bottom .inputs .address .sch_zip { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000; }
+#settle .st_bottom .inputs .address .row .od_memo select { max-width:16rem; }
 
 #settle .st_bottom .pay_go { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
 

@@ -44,7 +44,7 @@
             </b-input-group>
         </b-col>
         <b-col v-else-if="mcc.umc_val == 'distributor'" :style="distributor" :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_distributor" /></b-col>
-        <b-col v-else-if="mcc.umc_val == 'depart'"      :style="depart"      :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_depart" /></b-col>
+        <b-col v-else-if="mcc.umc_val == 'company'"      :style="company"      :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_company" /></b-col>
         <b-col v-else-if="mcc.umc_val == 'lab_prof'"    :style="lab_prof"    :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_lab_prof" /></b-col>
         <b-col v-else-if="mcc.umc_val == 'orderer'"     :style="orderer"     :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_orderer" /></b-col>
         <b-col v-else-if="mcc.umc_val == 'od_name'"     :style="od_name"     :key="i"><b-form-input size="sm" @update="lg.is_edit=true" v-model="lg.lg_od_name" /></b-col>
@@ -110,7 +110,7 @@ export default {
         od_id(){          return { flexBasis: this.column_list.COLUMN.od_id.w+'px',         maxWidth: this.column_list.COLUMN.od_id.w+'px'                             };},
         sale_dt(){        return { flexBasis: this.column_list.COLUMN.sale_dt.w+'px',       maxWidth: this.column_list.COLUMN.sale_dt.w+'px'                           };},
         distributor(){    return { flexBasis: this.column_list.COLUMN.distributor.w+'px',   maxWidth: this.column_list.COLUMN.distributor.w+'px'                       };},
-        depart(){         return { flexBasis: this.column_list.COLUMN.depart.w+'px',        maxWidth: this.column_list.COLUMN.depart.w+'px'                            };},
+        company(){         return { flexBasis: this.column_list.COLUMN.company.w+'px',        maxWidth: this.column_list.COLUMN.company.w+'px'                            };},
         lab_prof(){       return { flexBasis: this.column_list.COLUMN.lab_prof.w+'px',      maxWidth: this.column_list.COLUMN.lab_prof.w+'px'                          };},
         orderer(){        return { flexBasis: this.column_list.COLUMN.orderer.w+'px',       maxWidth: this.column_list.COLUMN.orderer.w+'px'                           };},
         od_name(){        return { flexBasis: this.column_list.COLUMN.od_name.w+'px',       maxWidth: this.column_list.COLUMN.od_name.w+'px'                           };},

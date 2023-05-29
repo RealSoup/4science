@@ -132,7 +132,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>결제조건</th> <td>선결제 (대학교 및 국가연구소 제외)</td>
         </tr>
         <tr>
-            <th>수신</th> <td>{{ $od_department }} 귀하</td>
+            <th>수신</th> <td>{{ $od_company }} 귀하</td>
             <th>유효기간</th> <td>견적일로부터 2주 까지</td>
         </tr>
         <tr class="line02"><td colspan="4"></td></tr>

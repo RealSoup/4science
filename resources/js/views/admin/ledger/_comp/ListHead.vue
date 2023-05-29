@@ -16,7 +16,7 @@
         <b-col v-else-if="mcc.umc_val == 'od_id'"       :style="{ flexBasis: column_list.COLUMN.od_id.w + 'px',       maxWidth: column_list.COLUMN.od_id.w + 'px' }"       :key="i">주문번호</b-col>
         <b-col v-else-if="mcc.umc_val == 'sale_dt'"     :style="{ flexBasis: column_list.COLUMN.sale_dt.w + 'px',     maxWidth: column_list.COLUMN.sale_dt.w + 'px' }"     :key="i">매출일</b-col>
         <b-col v-else-if="mcc.umc_val == 'distributor'" :style="{ flexBasis: column_list.COLUMN.distributor.w + 'px', maxWidth: column_list.COLUMN.distributor.w + 'px' }" :key="i">매출처</b-col>
-        <b-col v-else-if="mcc.umc_val == 'depart'"      :style="{ flexBasis: column_list.COLUMN.depart.w + 'px',      maxWidth: column_list.COLUMN.depart.w + 'px' }"      :key="i">소속</b-col>
+        <b-col v-else-if="mcc.umc_val == 'company'"      :style="{ flexBasis: column_list.COLUMN.company.w + 'px',      maxWidth: column_list.COLUMN.company.w + 'px' }"      :key="i">소속</b-col>
         <b-col v-else-if="mcc.umc_val == 'lab_prof'"    :style="{ flexBasis: column_list.COLUMN.lab_prof.w + 'px',    maxWidth: column_list.COLUMN.lab_prof.w + 'px' }"    :key="i">연구실/교수님</b-col>
         <b-col v-else-if="mcc.umc_val == 'orderer'"     :style="{ flexBasis: column_list.COLUMN.orderer.w + 'px',     maxWidth: column_list.COLUMN.orderer.w + 'px' }"     :key="i">고객명</b-col>
         <b-col v-else-if="mcc.umc_val == 'od_name'"     :style="{ flexBasis: column_list.COLUMN.od_name.w + 'px',     maxWidth: column_list.COLUMN.od_name.w + 'px' }"     :key="i">주문명</b-col>

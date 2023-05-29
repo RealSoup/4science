@@ -30,8 +30,8 @@
                         <b-form-select v-model="sch_frm.keyword_type">
                             <b-form-select-option value="name">회원명</b-form-select-option>
                             <b-form-select-option value="email">이메일</b-form-select-option>
-                            <b-form-select-option value="office">직장/학교</b-form-select-option>
-                            <b-form-select-option value="department">부서/학과/연구실</b-form-select-option>
+                            <b-form-select-option value="company">직장/학교</b-form-select-option>
+                            <b-form-select-option value="part">부서/학과/연구실</b-form-select-option>
                             <b-form-select-option value="tutor">담당교수</b-form-select-option>
                             <b-form-select-option value="tel">TEL</b-form-select-option>
                             <b-form-select-option value="hp">HP</b-form-select-option>
@@ -80,7 +80,7 @@
                 <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" />{{us.hp}}</span>
                 <span><font-awesome-icon icon="phone" v-if="us.tel" />{{us.tel}}</span>
             </b-col>
-            <b-col>{{ us.office }}</b-col>
+            <b-col>{{ us.company }}</b-col>
             <b-col>{{ us.created_at | formatDate }}</b-col>
         </b-row>
         <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">

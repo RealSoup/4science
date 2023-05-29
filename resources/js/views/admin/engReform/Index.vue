@@ -62,7 +62,7 @@
             <b-col>
                 <b-button :to="{name: 'adm_user_edit', params: { id:er.user.id}}" class="teal sm">{{er.er_name}}</b-button>
             </b-col>
-            <b-col>{{er.er_depart}}</b-col>
+            <b-col>{{er.er_company}}</b-col>
             <b-col>{{er.er_hp}}</b-col>
             <b-col>{{er.er_email}}</b-col>
             <b-col>{{er.er_dlvy_at | formatDate_YY_MM_DD}}</b-col>

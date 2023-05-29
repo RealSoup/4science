@@ -811,16 +811,16 @@ var render = function () {
                               return [
                                 _c("b-form-input", {
                                   attrs: {
-                                    id: "office",
+                                    id: "company",
                                     state:
                                       _vm.getValidationState(validationContext),
                                   },
                                   model: {
-                                    value: _vm.value.office,
+                                    value: _vm.value.company,
                                     callback: function ($$v) {
-                                      _vm.$set(_vm.value, "office", $$v)
+                                      _vm.$set(_vm.value, "company", $$v)
                                     },
-                                    expression: "value.office",
+                                    expression: "value.company",
                                   },
                                 }),
                                 _vm._v(" "),
@@ -835,7 +835,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("Validation", {
                         attrs: {
-                          error: _vm.$store.state.error.validations.office,
+                          error: _vm.$store.state.error.validations.company,
                         },
                       }),
                     ],

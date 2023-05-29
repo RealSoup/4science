@@ -112,7 +112,8 @@
                     <b-row><b-col class="label_st">주문자명</b-col><b-col>{{od.od_name}}</b-col></b-row>
                     <b-row><b-col class="label_st">연락처</b-col><b-col>{{od.od_orderer_hp}}</b-col></b-row>
                     <b-row><b-col class="label_st">이메일</b-col><b-col>{{od.od_orderer_email}}</b-col></b-row>
-                    <b-row><b-col class="label_st">소속</b-col><b-col>{{od.od_department}}</b-col></b-row>
+                    <b-row><b-col class="label_st">직장/학교</b-col><b-col>{{od.od_company}}</b-col></b-row>
+                    <b-row><b-col class="label_st">부서/학과/연구실</b-col><b-col>{{od.od_part}}</b-col></b-row>
                 </b-col>
                 <b-col>
                     <b-row><b-col class="label_st">수령인</b-col><b-col>{{od.od_receiver}}</b-col></b-row>

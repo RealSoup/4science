@@ -97,10 +97,10 @@
                 </b-col>
 
                 <b-col class="label">직장/학교명</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.office" /></b-col>
+                <b-col class="type02"><b-form-input v-model="frm.company" /></b-col>
 
                 <b-col class="label short">부서/학과/<br />연구실명</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.department" /></b-col>
+                <b-col class="type02"><b-form-input v-model="frm.part" /></b-col>
 
                 <b-col class="label">직급/학년</b-col>
                 <b-col class="type02"><b-form-input v-model="frm.grade" /></b-col>
@@ -163,22 +163,22 @@
     <b-card>
         <b-container>
             <b-row><b-col class="tit">최근 주문 내역</b-col></b-row>
-            <Order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
+            <order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
         </b-container>
     </b-card>
 
     <b-card>
         <b-container>
             <b-row><b-col class="tit">최근 견적 내역</b-col></b-row>
-            <Estimate :list="estimate" class="cmain" />
+            <estimate :list="estimate" :mng_off="mng_off" class="cmain" />
         </b-container>
     </b-card>
 
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
             <template slot="header">마일리지 목록</template>
-            <Mileage />
-        </Modal>
+            <mileage />
+        </modal>
     </transition>
 </div>
 </template>
@@ -189,10 +189,10 @@ import ax from '@/api/http';
 export default {
     name: 'AdmUserEdit',
     components: {
-        'Modal': () => import('@/views/_common/Modal.vue'),
-        'Mileage': () => import('./_comp/Mileage.vue'),
-        'Order': () => import('@/views/admin/shop/order/_comp/List.vue'),
-        'Estimate': () => import('@/views/admin/shop/estimate/_comp/List.vue'),
+        'modal': () => import('@/views/_common/Modal.vue'),
+        'mileage': () => import('./_comp/Mileage.vue'),
+        'order': () => import('@/views/admin/shop/order/_comp/List.vue'),
+        'estimate': () => import('@/views/admin/shop/estimate/_comp/List.vue'),
     },
 
     data() {

@@ -318,7 +318,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         eq_tel: "",
         eq_fax: "",
         eq_hp: "",
-        eq_department: "",
+        eq_company: "",
         eq_content: "제품명: \n사양: \n수량:",
         eq_1depth: ''
       },
@@ -478,7 +478,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      var res, eq_hp, eq_email, office, department;
+      var res, eq_hp, eq_email;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -501,11 +501,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this4.frm.eq_hp03 = eq_hp[2];
               _this4.frm.eq_email01 = eq_email[0];
               _this4.frm.eq_email02 = eq_email[1];
-              office = Auth.user().office = !isEmpty(Auth.user().office) ? Auth.user().office : '';
-              department = Auth.user().department = !isEmpty(Auth.user().department) ? Auth.user().department : '';
-              _this4.frm.eq_department = office + ' ' + department;
+              _this4.frm.eq_company = Auth.user().company;
 
-            case 17:
+            case 15:
             case "end":
               return _context4.stop();
           }

@@ -3,7 +3,7 @@
     <h3 class="p_tit">주문 목록</h3>
 
     <b-container class="frm_sch">
-        <SchDate v-model="sch_frm"><b-col slot="prev" class="label top_left">주문일</b-col></SchDate>
+        <sch-date v-model="sch_frm"><b-col slot="prev" class="label top_left">주문일</b-col></sch-date>
         <b-row>
             <b-col class="label">주문유형</b-col>
             <b-col class="type01">
@@ -57,6 +57,7 @@
                             <b-form-select-option value="od_orderer">주문자</b-form-select-option>
                             <b-form-select-option value="orderer_email">주문자이메일</b-form-select-option>
                             <b-form-select-option value="orderer_hp">주문자휴대폰</b-form-select-option>
+                            <b-form-select-option value="od_company">직장/학교</b-form-select-option>
                             <b-form-select-option value="od_no">주문번호</b-form-select-option>
                             <b-form-select-option value="od_id">글번호</b-form-select-option>
                             <b-form-select-option value="od_receiver">수취인명</b-form-select-option>
@@ -97,7 +98,7 @@
                 </b-form-select>
             </b-col>
         </b-row>
-        <List v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off" />
+        <list v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off" />
         
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
@@ -112,8 +113,8 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
-        'List': () => import('./_comp/List.vue'),
+        'sch-date': () => import('@/views/_common/SchDate.vue'),
+        'list': () => import('./_comp/List.vue'),
     },
     data() {
         return {

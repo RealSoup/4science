@@ -27,7 +27,7 @@ class EngReformController extends Controller {
             "er_email"       => $req->filled('er_email')        ? $req->er_email        : '',
             "er_hp"          => $req->filled('er_hp')           ? $req->er_hp           : '',
             "er_tel"         => $req->filled('er_tel')          ? $req->er_tel          : '',
-            "er_depart"      => $req->filled('er_depart')       ? $req->er_depart       : '',
+            "er_company"     => $req->filled('er_company')     ? $req->er_company    : '',
             "er_type"        => $req->filled('er_type')         ? $req->er_type         : '1',
             "er_dlvy_at"     => $req->filled('er_dlvy_at')      ? $req->er_dlvy_at      : '',
             "er_format"      => $req->filled('er_format')       ? $req->er_format       : 'NFM',

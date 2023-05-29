@@ -185,26 +185,24 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("b-col", [_vm._v("소속/부서")]),
+          _c("b-col", [_vm._v("직장/학교")]),
           _vm._v(" "),
           _c(
             "b-col",
             [
               _c("user-input", {
-                attrs: { type: "department", frm: _vm.value },
+                attrs: { type: "company", frm: _vm.value },
                 model: {
-                  value: _vm.value.eq_department,
+                  value: _vm.value.eq_company,
                   callback: function ($$v) {
-                    _vm.$set(_vm.value, "eq_department", $$v)
+                    _vm.$set(_vm.value, "eq_company", $$v)
                   },
-                  expression: "value.eq_department",
+                  expression: "value.eq_company",
                 },
               }),
               _vm._v(" "),
               _c("validation", {
-                attrs: {
-                  error: _vm.$store.state.error.validations.eq_department,
-                },
+                attrs: { error: _vm.$store.state.error.validations.eq_company },
               }),
             ],
             1

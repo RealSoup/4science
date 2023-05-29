@@ -9,9 +9,18 @@
             <b-col>이메일</b-col><b-col>{{ frm.er_email }}</b-col>
         </b-row>
         <b-row>
-            <b-col>소속</b-col><b-col class="sty01">{{ frm.er_depart }}</b-col>
+            <b-col>소속</b-col><b-col class="sty01">{{ frm.er_company }}</b-col>
             <b-col>등록일</b-col><b-col>{{ frm.created_at | formatDate }}</b-col>
             <b-col>납기일</b-col><b-col>{{ frm.er_dlvy_at | formatDate }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>학문분야</b-col><b-col class="sty01">{{ frm.er_branch }}</b-col>
+            <b-col>상세학문분야</b-col><b-col>{{ frm.er_branch_sub }}</b-col>
+            <b-col v-if="frm.er_editor">에디터</b-col><b-col v-if="frm.er_editor">{{ frm.er_editor }}</b-col>
+        </b-row>
+        <b-row>
+            <b-col>문체스타일</b-col><b-col class="sty01">{{ frm.er_eng_style }}</b-col>
+            <b-col>문서 용도</b-col><b-col>{{ frm.er_use }}</b-col>
         </b-row>
         <b-row>
             <b-col>포멧팅</b-col>
@@ -22,13 +31,7 @@
             <b-col>저널명</b-col> <b-col>{{ frm.er_journal_url }}</b-col>
         </b-row>
         <b-row>
-            <b-col>학문분야</b-col><b-col class="sty03">{{ frm.er_branch }}</b-col>
-            <b-col>하위학문분야</b-col><b-col class="sty02">{{ frm.er_branch_sub }}</b-col>
-            <b-col>에디터</b-col><b-col class="sty04">{{ frm.er_editor }}</b-col>
-            <b-col>문체스타일</b-col><b-col>{{ frm.er_eng_style }}</b-col>
-        </b-row>
-        <b-row>
-            <b-col>요청사항</b-col><b-col>{{ frm.er_demand }}</b-col>
+            <b-col>요청사항</b-col><b-col><p v-html="nl2br(frm.er_demand)" /></b-col>
         </b-row>
     </div>
 
@@ -55,9 +58,7 @@
             <b-col>
                 <file-upload ref="fileupload" v-model="frm.file_info_cplt" :fi_group="'engReform'" :fi_kind="'cplt'" :height="150" />
                 <transition name="fade">
-                    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">
-                        첨부파일 전송중 ......
-                    </LoadingModal>
+                    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">첨부파일 전송중 ......</loading-modal>
                 </transition>
             </b-col>
         </b-row>
@@ -88,7 +89,8 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     name: 'AdmEngReformEdit',
     components:{
-        FileUpload,
+        'file-upload': FileUpload,
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {

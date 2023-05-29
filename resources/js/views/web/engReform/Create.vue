@@ -1,7 +1,7 @@
 <template>
 <b-container class="w_fence" id="engReform">
     <h3 class="btn_box">영문교정 <b-button href="/engReform/create#engReform_form_od_top" class="blue lg">영문 교정 신청하기</b-button></h3>
-<!--
+
     <b-row>
         <b-col>
             <table cellpadding="0" cellspacing="0" border="1" class="tbl01 strong">
@@ -153,12 +153,12 @@
             </table>
         </b-col>
     </b-row>
--->
+
     <br /> <br />
     <br /> <br />
     <br /> <br />
     <b-row id="engReform_form">
-<!--        
+<!--       
         <b-col class="user">
             <h4>01. 주문자 정보</h4>
             <b-container class="frm_st">
@@ -195,8 +195,8 @@
                 <b-row>
                     <b-col class="label_st">소속<b class="need" /><small><i>직장/학교/연구실</i></small></b-col>
                     <b-col>
-                        <b-form-input v-model="frm.er_depart" id="er_depart" />
-                        <validation :error="this.$store.state.error.validations.er_depart" />
+                        <b-form-input v-model="frm.er_company" id="er_company" />
+                        <validation :error="this.$store.state.error.validations.er_company" />
                     </b-col>
                 </b-row>
                 <b-row class="agree">
@@ -279,29 +279,32 @@
                 <b-row>
                     <b-col class="label_st">학문분야<b class="need" /></b-col>
                     <b-col>
-                        <b-form-select class="len01" v-model="frm.er_branch" id="er_branch" :options="branch_opt">
+                        <b-form-select class="len01" v-model="frm.er_branch_key" id="er_branch">
                             <b-form-select-option value=""></b-form-select-option>
-                            <b-form-select-option v-for="(opt, k) in option.er_use" :key="k" :value="opt">{{opt}}</b-form-select-option>
+                            <b-form-select-option v-for="(opt, k) in option.er_branch" :key="k" :value="k">{{opt}}</b-form-select-option>
                         </b-form-select>
                         <small>에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오.</small>
                         <validation :error="this.$store.state.error.validations.er_branch" />
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col class="label_st">에디터<b class="need" /></b-col>
+                    <b-col class="label_st">상세 학문분야<b class="need" /></b-col>
                     <b-col>
-                        <b-form-select class="len02" v-model="frm.er_editor" id="er_editor" :options="editor_opt[this.frm.er_branch-1]" />
+                        <b-form-select class="len02" v-model="frm.er_branch_sub" id="er_branch_sub"><!--  :options="editor_opt[this.frm.er_branch-1]" -->
+                            <b-form-select-option value=""></b-form-select-option>
+                            <b-form-select-option v-for="(opt, k) in option.er_branch_sub[(this.frm.er_branch_key-1)]" :key="k" :value="opt">{{opt}}</b-form-select-option>
+                        </b-form-select>
                         <small>어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?</small>
-                        <validation :error="this.$store.state.error.validations.er_editor" />
+                        <validation :error="this.$store.state.error.validations.er_branch_sub" />
                     </b-col>
                 </b-row>
-                <b-row>
+                <!-- <b-row>
                     <b-col class="label_st">하위 학문 분야</b-col>
                     <b-col>
                         <b-form-input class="len02" v-model="frm.er_branch_sub" placeholder="하위 학문 분야 기재" />
                         <small class="line2">고객님의 연구분야가 매우 특수하여 해당 전문 경험이 있는 교정자에게 맡기고 싶은 경우에만 기재하여 주십시오.</small>
                     </b-col>
-                </b-row>
+                </b-row> -->
                 <b-row>
                     <b-col class="label_st">언어스타일<b class="need" /></b-col>
                     <b-col>
@@ -357,7 +360,7 @@ export default {
         'modal'     : () => import('@/views/_common/Modal'),
     },
     watch: {
-        'frm.er_branch': function(){
+        'frm.er_branch_key': function(){
             this.frm.er_editor = '';
         },
     },
@@ -368,7 +371,8 @@ export default {
                 er_format: 'NFM',
                 er_use:'',
                 er_branch:'',
-                er_editor:'',
+                er_branch_key:0,
+                er_branch_sub:'',
                 er_eng_style: 'AM',
                 file_info_work:[],
                 file_info_ref:[],
@@ -381,21 +385,24 @@ export default {
             email_domain: [],
             email_domain_slt_idx:0,
             isModalViewed: false,
-            option: {},
+            option: {
+                er_branch_sub:[]
+            },
         }
     },
 
     methods: {
         async store() {
+            this.frm.er_branch = this.option.er_branch[this.frm.er_branch_key];
+            this.frm.er_hp = `${this.frm.er_hp01}-${this.frm.er_hp02}-${this.frm.er_hp03}`;
+            this.frm.er_email = `${this.frm.er_email01}@${this.frm.er_email02}`;  
             if (isEmpty(this.frm.er_dlvy_at)) { Notify.toast('danger', "납기일을 입력하세요."); document.getElementById('er_dlvy_at').focus(); return false; }
             if (isEmpty(this.frm.er_journal_url) && this.frm.er_format == 'FM') { Notify.toast('danger', "저널 URL을 입력하세요."); document.getElementById('er_journal_url').focus(); return false; }
             if (isEmpty(this.frm.er_use)) { Notify.toast('danger', "문서 용도를 선택하세요."); document.getElementById('er_use').focus(); return false; }
             if (isEmpty(this.frm.er_branch)) { Notify.toast('danger', "학문 분야를 선택하세요."); document.getElementById('er_branch').focus(); return false; }
-            if (isEmpty(this.frm.er_editor)) { Notify.toast('danger', "에디터를 선택하세요."); document.getElementById('er_editor').focus(); return false; }
+            if (isEmpty(this.frm.er_branch_sub)) { Notify.toast('danger', "상세 학문분야를 선택하세요."); document.getElementById('er_branch_sub').focus(); return false; }
             if (isEmpty(this.frm.er_eng_style)) { Notify.toast('danger', "언어 스타일을 선택하세요."); document.getElementById('er_eng_style').focus(); return false; }
-            if (isEmpty(this.frm.file_info_work)) { Notify.toast('danger', "작업문서를 업로드하세요"); document.getElementById('er_eng_style').focus(); return false; }
-            this.frm.er_hp = `${this.frm.er_hp01}-${this.frm.er_hp02}-${this.frm.er_hp03}`;
-            this.frm.er_email = `${this.frm.er_email01}@${this.frm.er_email02}`;
+            if (isEmpty(this.frm.file_info_work)) { Notify.toast('danger', "작업문서를 업로드하세요"); document.getElementById('er_eng_style').focus(); return false; }      
             this.isLoadingModalViewed=true;
             const res = await ax.post(`/api/engReform`, this.frm);
             if (res && res.status === 200) {                        
@@ -427,7 +434,7 @@ export default {
         this.frm.er_hp03 = er_hp[2];
         this.frm.er_email01 = er_email[0];
         this.frm.er_email02 = er_email[1];
-        this.frm.er_depart = Auth.user().department;
+        this.frm.er_company = Auth.user().company;
     },
 }
 </script>

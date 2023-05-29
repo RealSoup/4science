@@ -179,10 +179,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         maxWidth: this.column_list.COLUMN.distributor.w + 'px'
       };
     },
-    depart: function depart() {
+    company: function company() {
       return {
-        flexBasis: this.column_list.COLUMN.depart.w + 'px',
-        maxWidth: this.column_list.COLUMN.depart.w + 'px'
+        flexBasis: this.column_list.COLUMN.company.w + 'px',
+        maxWidth: this.column_list.COLUMN.company.w + 'px'
       };
     },
     lab_prof: function lab_prof() {
@@ -980,10 +980,10 @@ var render = function () {
                     ],
                     1
                   )
-                : mcc.umc_val == "depart"
+                : mcc.umc_val == "company"
                 ? _c(
                     "b-col",
-                    { key: i, style: _vm.depart },
+                    { key: i, style: _vm.company },
                     [
                       _c("b-form-input", {
                         attrs: { size: "sm" },
@@ -993,11 +993,11 @@ var render = function () {
                           },
                         },
                         model: {
-                          value: lg.lg_depart,
+                          value: lg.lg_company,
                           callback: function ($$v) {
-                            _vm.$set(lg, "lg_depart", $$v)
+                            _vm.$set(lg, "lg_company", $$v)
                           },
-                          expression: "lg.lg_depart",
+                          expression: "lg.lg_company",
                         },
                       }),
                     ],

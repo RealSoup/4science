@@ -129,13 +129,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'SchDate': function SchDate() {
+    'sch-date': function schDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     },
-    'List': function List() {
+    'list': function list() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_order__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List.vue */ "./resources/js/views/admin/shop/order/_comp/List.vue"));
     }
   },
@@ -419,7 +420,7 @@ var render = function () {
         { staticClass: "frm_sch" },
         [
           _c(
-            "SchDate",
+            "sch-date",
             {
               model: {
                 value: _vm.sch_frm,
@@ -701,6 +702,12 @@ var render = function () {
                               _vm._v(" "),
                               _c(
                                 "b-form-select-option",
+                                { attrs: { value: "od_company" } },
+                                [_vm._v("직장/학교")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
                                 { attrs: { value: "od_no" } },
                                 [_vm._v("주문번호")]
                               ),
@@ -916,7 +923,7 @@ var render = function () {
           ),
           _vm._v(" "),
           _vm.list.data && _vm.list.data.length
-            ? _c("List", {
+            ? _c("list", {
                 attrs: {
                   list: _vm.list.data,
                   config: _vm.order_config,

@@ -29,7 +29,7 @@ class LedgerAcctController extends Controller {
         $lga['lga']->when($req->od_id           , fn ($q, $v) => $q->where('lga_od_id', $v));
         $lga['lga']->when($req->lga_date        , fn ($q, $v) => $q->where('lga_date', $v));
         $lga['lga']->when($req->distributor     , fn ($q, $v) => $q->where('lga_distributor', 'LIKE', "%{$v}%"));
-        $lga['lga']->when($req->depart          , fn ($q, $v) => $q->where('lga_depart', 'LIKE', "%{$v}%"));
+        $lga['lga']->when($req->company          , fn ($q, $v) => $q->where('lga_company', 'LIKE', "%{$v}%"));
         $lga['lga']->when($req->orderer         , fn ($q, $v) => $q->where('lga_orderer', 'LIKE', "%{$v}%"));
         $lga['lga']->when($req->od_name         , fn ($q, $v) => $q->where('lga_od_name', 'LIKE', "%{$v}%"));
         $lga['lga']->when($req->ea_p            , fn ($q, $v) => $q->where('lga_ea_p', $v));
@@ -67,7 +67,7 @@ class LedgerAcctController extends Controller {
                     'lga_pay_type'    => $v['lg_pay_type'],
                     'lga_mng'         => $v['lg_mng'],
                     'lga_distributor' => $v['lg_distributor'],
-                    'lga_depart'      => $v['lg_depart'],
+                    'lga_company'      => $v['lg_company'],
                     'lga_orderer'     => $v['lg_orderer'],
                     'lga_od_name'     => $v['lg_od_name'],
                     'lga_ea_p'        => $v['lg_sum_ea_p'],
@@ -113,7 +113,7 @@ class LedgerAcctController extends Controller {
                             'lga_mng'         => $req->filled('lga_mng')         ? $req->lga_mng          : '',
                             'lga_date'        => $req->filled('lga_date')        ? $req->lga_date         : NULL,
                             'lga_distributor' => $req->filled('lga_distributor') ? $req->lga_distributor  : '',
-                            'lga_depart'      => $req->filled('lga_depart')      ? $req->lga_depart       : '',
+                            'lga_company'      => $req->filled('lga_company')      ? $req->lga_company       : '',
                             'lga_orderer'     => $req->filled('lga_orderer')     ? $req->lga_orderer      : '',
                             'lga_od_name'     => $req->filled('lga_od_name')     ? $req->lga_od_name      : '',
                             'lga_ea_p'        => $req->filled('lga_ea_p')        ? $req->lga_ea_p         : 0,

@@ -40,7 +40,7 @@
             <b-col>{{lga.lga_od_id}}</b-col>
             <b-col>{{lga.lga_mng}}</b-col>
             <b-col>{{lga.lga_distributor}}</b-col>
-            <b-col>{{lga.lga_depart}}</b-col>
+            <b-col>{{lga.lga_company}}</b-col>
             <b-col>{{lga.lga_orderer}}</b-col>
             <b-col>{{lga.lga_od_name}}</b-col>
             <b-col>{{lga.lga_ea_p | comma}}</b-col>

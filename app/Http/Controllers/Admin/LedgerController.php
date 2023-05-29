@@ -30,7 +30,7 @@ class LedgerController extends Controller {
         $lg->when($req->sum_sum_p,        fn ($q, $v) => $q->where('lg_sum_sum_p', $v));
         $lg->when($req->sum_surtax,       fn ($q, $v) => $q->where('lg_sum_surtax', $v));
         $lg->when($req->distributor,      fn ($q, $v) => $q->where('lg_distributor', 'like', "%{$v}%"));
-        $lg->when($req->depart,           fn ($q, $v) => $q->where('lg_depart', 'like', "%{$v}%"));
+        $lg->when($req->company,           fn ($q, $v) => $q->where('lg_company', 'like', "%{$v}%"));
         $lg->when($req->orderer,          fn ($q, $v) => $q->where('lg_orderer', $v));
         $lg->when($req->lab_prof,         fn ($q, $v) => $q->where('lg_lab_prof', 'like', "%{$v}%"));
         $lg->when($req->tax_name,         fn ($q, $v) => $q->where('lg_tax_name', $v));
@@ -129,7 +129,7 @@ class LedgerController extends Controller {
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'od_id']);
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'sale_dt']);
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'distributor']);
-               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'depart']);
+               $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'company']);
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'lab_prof']);
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'orderer']);
                $config->push([ 'umc_key' => 'COLUMN', 'umc_val' => 'od_name']);
@@ -187,7 +187,8 @@ class LedgerController extends Controller {
                 'lg_mng'         => $req->od_mng_nm,
                 'lg_source_type' => $req->data_type,
                 'lg_od_id'       => $req->od_id,
-                'lg_depart'      => $req->od_department,
+                'lg_company'     => $req->od_company,
+                'lg_part'        => $req->od_part,
                 'lg_orderer'     => $req->od_orderer,
                 'lg_od_name'     => $req->od_name,
                 'lg_tax_name'    => $req->order_extra_info ? $req->order_extra_info['oex_mng'] : '',
@@ -292,7 +293,7 @@ class LedgerController extends Controller {
                              'lg_od_id'       => $req->lg_od_id,
                              'lg_sale_dt'     => $req->lg_sale_dt,
                              'lg_distributor' => $req->lg_distributor,
-                             'lg_depart'      => $req->lg_depart,
+                             'lg_company'      => $req->lg_company,
                              'lg_lab_prof'    => $req->lg_lab_prof,
                              'lg_orderer'     => $req->lg_orderer,
                              'lg_od_name'     => $req->lg_od_name,

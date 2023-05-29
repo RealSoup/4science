@@ -713,14 +713,14 @@ var render = function () {
                 ],
                 1
               )
-            : mcc.umc_val == "depart"
+            : mcc.umc_val == "company"
             ? _c(
                 "b-col",
                 {
                   key: i,
                   style: {
-                    flexBasis: _vm.column_list.COLUMN.depart.w + "px",
-                    maxWidth: _vm.column_list.COLUMN.depart.w + "px",
+                    flexBasis: _vm.column_list.COLUMN.company.w + "px",
+                    maxWidth: _vm.column_list.COLUMN.company.w + "px",
                   },
                 },
                 [
@@ -743,11 +743,11 @@ var render = function () {
                       },
                     },
                     model: {
-                      value: _vm.value.depart,
+                      value: _vm.value.company,
                       callback: function ($$v) {
-                        _vm.$set(_vm.value, "depart", $$v)
+                        _vm.$set(_vm.value, "company", $$v)
                       },
-                      expression: "value.depart",
+                      expression: "value.company",
                     },
                   }),
                 ],

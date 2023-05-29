@@ -38,7 +38,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         $data[] = ['(공급받는자 보관용)'];
         $data[] = [''];
         $data[] = [date('Y년 m월 d일', strtotime($this->er['created_at']))];
-        $data[] = [$this->er['estimate_req']['eq_department']." 귀하"];
+        $data[] = [$this->er['estimate_req']['eq_company']." 귀하"];
         $data[] = ['아래와 같이 계산합니다.'];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', 'Cat. No.', '모델명', '단가', '수량', '공급가액'];

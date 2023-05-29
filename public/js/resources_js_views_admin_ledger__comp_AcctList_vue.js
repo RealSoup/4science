@@ -487,7 +487,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-2705f4e9] { max-width:1500px; margin:auto;\n}\n.container-fluid[data-v-2705f4e9] { margin-bottom:2rem;\n}\n.container-fluid .row.top_info[data-v-2705f4e9] { position:relative; z-index:3; font-size:1.2rem;\n}\n.container-fluid .row.head[data-v-2705f4e9] { background:#666; padding:5px 0; position:relative; z-index:3;\n}\n.container-fluid .row.head .col[data-v-2705f4e9] { font-weight:bold; font-size:.9rem; color:#fff; text-align:center; border-left:1px solid #ccc;}\n.container-fluid .row.body[data-v-2705f4e9] { border-bottom:1px solid #ccc;\n}\n.container-fluid .body[data-v-2705f4e9]:hover { background:#00000015;\n}\n.container-fluid .row .col[data-v-2705f4e9] { text-align:center; position:relative; padding:.2rem .3rem;\n}\n.container-fluid .row .seq[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .ctrl[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .pay_t[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .mng[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .odno[data-v-2705f4e9] { flex-basis:80px; max-width:80px;\n}\n.container-fluid .row .pdt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .dist[data-v-2705f4e9] { flex-basis:200px; max-width:200px;\n} /*매출처 */\n.container-fluid .row .depart[data-v-2705f4e9] { flex-basis:200px; max-width:200px;\n}\n.container-fluid .row .oder[data-v-2705f4e9] { flex-basis:80px; max-width:80px;\n}\n.container-fluid .row .odnm[data-v-2705f4e9] { flex-basis:160px; max-width:160px;\n} /*품목명 */\n.container-fluid .row .eap[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .txp[data-v-2705f4e9] { flex-basis:100px; max-width:100px;\n}\n.container-fluid .row .sump[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row.top_info .eap[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .txp[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .sump[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .price span[data-v-2705f4e9] {\n}\n.container-fluid .row .nopay[data-v-2705f4e9] { flex-basis:50px; max-width:50px;\n}\n.container-fluid .row .cadt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .atdt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .mail[data-v-2705f4e9] { flex-basis:150px; max-width:150px;\n}\n.container-fluid .row .tel[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .tcom[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .tmng[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .ccod[data-v-2705f4e9] { flex-basis:60px; max-width:60px;\n}\n.container-fluid .row .kind[data-v-2705f4e9] { flex-basis:60px; max-width:60px;\n}\n.container-fluid .row .cacom[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .apno[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .payer[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .body .col[data-v-2705f4e9],\r\n.container-fluid .body .col[data-v-2705f4e9] input,\r\n.container-fluid .body .col select[data-v-2705f4e9] { font-size:.8rem;\n}\n.container-fluid .body .col select[data-v-2705f4e9],\r\n.container-fluid .body .col[data-v-2705f4e9] input,\r\n.container-fluid .body .col textarea[data-v-2705f4e9] { border-color:#00000010; padding:0 4px; background:none; height:1.4rem;\n}\n.container-fluid .body .col textarea[data-v-2705f4e9]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; right:0;\n}\n.container-fluid .body .col select[data-v-2705f4e9]:focus,\r\n.container-fluid .body .col input[data-v-2705f4e9]:focus { border-color:#FF4B0088;\n}\n.container-fluid .body.modified[data-v-2705f4e9] { background:#FFC10755;\n}\n.container-fluid .row .col[data-v-2705f4e9] .btn-sm { padding: 0.1rem 0.3rem; font-size: 0.7rem;\n}\n.container-fluid .body .col .hidden_menu[data-v-2705f4e9] { position:absolute; left:0; z-index:2;\n}\n.slide-fade-enter-active[data-v-2705f4e9] { transition: all .2s ease;\n}\n.slide-fade-leave-active[data-v-2705f4e9] { transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-2705f4e9], .slide-fade-leave-to[data-v-2705f4e9]\r\n/* .slide-fade-leave-active below version 2.1.8 */ { transform: translateX(-20px); opacity: 0;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh3[data-v-2705f4e9] { max-width:1500px; margin:auto;\n}\n.container-fluid[data-v-2705f4e9] { margin-bottom:2rem;\n}\n.container-fluid .row.top_info[data-v-2705f4e9] { position:relative; z-index:3; font-size:1.2rem;\n}\n.container-fluid .row.head[data-v-2705f4e9] { background:#666; padding:5px 0; position:relative; z-index:3;\n}\n.container-fluid .row.head .col[data-v-2705f4e9] { font-weight:bold; font-size:.9rem; color:#fff; text-align:center; border-left:1px solid #ccc;}\n.container-fluid .row.body[data-v-2705f4e9] { border-bottom:1px solid #ccc;\n}\n.container-fluid .body[data-v-2705f4e9]:hover { background:#00000015;\n}\n.container-fluid .row .col[data-v-2705f4e9] { text-align:center; position:relative; padding:.2rem .3rem;\n}\n.container-fluid .row .seq[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .ctrl[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .pay_t[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .mng[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .odno[data-v-2705f4e9] { flex-basis:80px; max-width:80px;\n}\n.container-fluid .row .pdt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .dist[data-v-2705f4e9] { flex-basis:200px; max-width:200px;\n} /*매출처 */\n.container-fluid .row .company[data-v-2705f4e9] { flex-basis:200px; max-width:200px;\n}\n.container-fluid .row .oder[data-v-2705f4e9] { flex-basis:80px; max-width:80px;\n}\n.container-fluid .row .odnm[data-v-2705f4e9] { flex-basis:160px; max-width:160px;\n} /*품목명 */\n.container-fluid .row .eap[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .txp[data-v-2705f4e9] { flex-basis:100px; max-width:100px;\n}\n.container-fluid .row .sump[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row.top_info .eap[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .txp[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .sump[data-v-2705f4e9] { text-align:right;\n}\n.container-fluid .row.top_info .price span[data-v-2705f4e9] {\n}\n.container-fluid .row .nopay[data-v-2705f4e9] { flex-basis:50px; max-width:50px;\n}\n.container-fluid .row .cadt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .atdt[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .mail[data-v-2705f4e9] { flex-basis:150px; max-width:150px;\n}\n.container-fluid .row .tel[data-v-2705f4e9] { flex-basis:120px; max-width:120px;\n}\n.container-fluid .row .tcom[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .tmng[data-v-2705f4e9] { flex-basis:90px; max-width:90px;\n}\n.container-fluid .row .ccod[data-v-2705f4e9] { flex-basis:60px; max-width:60px;\n}\n.container-fluid .row .kind[data-v-2705f4e9] { flex-basis:60px; max-width:60px;\n}\n.container-fluid .row .cacom[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .apno[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .row .payer[data-v-2705f4e9] { flex-basis:70px; max-width:70px;\n}\n.container-fluid .body .col[data-v-2705f4e9],\r\n.container-fluid .body .col[data-v-2705f4e9] input,\r\n.container-fluid .body .col select[data-v-2705f4e9] { font-size:.8rem;\n}\n.container-fluid .body .col select[data-v-2705f4e9],\r\n.container-fluid .body .col[data-v-2705f4e9] input,\r\n.container-fluid .body .col textarea[data-v-2705f4e9] { border-color:#00000010; padding:0 4px; background:none; height:1.4rem;\n}\n.container-fluid .body .col textarea[data-v-2705f4e9]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; right:0;\n}\n.container-fluid .body .col select[data-v-2705f4e9]:focus,\r\n.container-fluid .body .col input[data-v-2705f4e9]:focus { border-color:#FF4B0088;\n}\n.container-fluid .body.modified[data-v-2705f4e9] { background:#FFC10755;\n}\n.container-fluid .row .col[data-v-2705f4e9] .btn-sm { padding: 0.1rem 0.3rem; font-size: 0.7rem;\n}\n.container-fluid .body .col .hidden_menu[data-v-2705f4e9] { position:absolute; left:0; z-index:2;\n}\n.slide-fade-enter-active[data-v-2705f4e9] { transition: all .2s ease;\n}\n.slide-fade-leave-active[data-v-2705f4e9] { transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-2705f4e9], .slide-fade-leave-to[data-v-2705f4e9]\r\n/* .slide-fade-leave-active below version 2.1.8 */ { transform: translateX(-20px); opacity: 0;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4370,7 +4370,7 @@ var render = function () {
           _vm._v(" "),
           _c("b-col", { staticClass: "dist" }),
           _vm._v(" "),
-          _c("b-col", { staticClass: "depart" }),
+          _c("b-col", { staticClass: "company" }),
           _vm._v(" "),
           _c("b-col", { staticClass: "oder" }),
           _vm._v(" "),
@@ -4520,16 +4520,16 @@ var render = function () {
           _vm._v(" "),
           _c(
             "b-col",
-            { staticClass: "depart" },
+            { staticClass: "company" },
             [
               _c("InputText", {
                 on: { index: _vm.index },
                 model: {
-                  value: _vm.sch.depart,
+                  value: _vm.sch.company,
                   callback: function ($$v) {
-                    _vm.$set(_vm.sch, "depart", $$v)
+                    _vm.$set(_vm.sch, "company", $$v)
                   },
-                  expression: "sch.depart",
+                  expression: "sch.company",
                 },
               }),
             ],
@@ -4994,7 +4994,7 @@ var render = function () {
           _vm._v(" "),
           _c("b-col", { staticClass: "dist" }, [_vm._v("매출처")]),
           _vm._v(" "),
-          _c("b-col", { staticClass: "depart" }, [_vm._v("소속")]),
+          _c("b-col", { staticClass: "company" }, [_vm._v("소속")]),
           _vm._v(" "),
           _c("b-col", { staticClass: "oder" }, [_vm._v("고객명")]),
           _vm._v(" "),
@@ -5424,7 +5424,7 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "b-col",
-                { staticClass: "depart" },
+                { staticClass: "company" },
                 [
                   _c("b-form-input", {
                     attrs: { size: "sm" },
@@ -5434,11 +5434,11 @@ var render = function () {
                       },
                     },
                     model: {
-                      value: lga.lga_depart,
+                      value: lga.lga_company,
                       callback: function ($$v) {
-                        _vm.$set(lga, "lga_depart", $$v)
+                        _vm.$set(lga, "lga_company", $$v)
                       },
-                      expression: "lga.lga_depart",
+                      expression: "lga.lga_company",
                     },
                   }),
                 ],

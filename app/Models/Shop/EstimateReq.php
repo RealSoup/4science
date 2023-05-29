@@ -58,7 +58,7 @@ class EstimateReq extends Model {
         return $query->whereIn('eq_id', $id_arr);
     }
     public function scopeEqName($query, $keyword) { return $query->where('eq_name', 'like', "%" . $keyword . "%"); }
-    public function scopeEqDepartment($query, $keyword) { return $query->where('eq_department', 'like', "%" . $keyword . "%"); }
+    public function scopeEqCompany($query, $keyword) { return $query->where('eq_company', 'like', "%" . $keyword . "%"); }
     public function scopeEqTel($query, $keyword) { return $query->where('eq_tel', 'like', "%" . $keyword . "%"); }
     public function scopeEqEmail($query, $keyword) { return $query->where('eq_email', 'like', "%" . $keyword . "%"); }
 

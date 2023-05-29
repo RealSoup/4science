@@ -69,7 +69,7 @@
                     <b-input-group-prepend>
                         <b-form-select v-model="sch_frm.keyword_type">
                             <b-form-select-option value="eq_name">요청자명</b-form-select-option>
-                            <b-form-select-option value="eq_department">소속</b-form-select-option>
+                            <b-form-select-option value="eq_company">직장/학교</b-form-select-option>
                             <b-form-select-option value="eq_tel">전화번호</b-form-select-option>
                             <b-form-select-option value="eq_hp">휴대폰</b-form-select-option>
                             <b-form-select-option value="eq_email">이메일</b-form-select-option>

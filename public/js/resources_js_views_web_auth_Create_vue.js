@@ -41,10 +41,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AuthCreate",
   components: {
-    'FormComp': function FormComp() {
+    'form-comp': function formComp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormComp_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormComp */ "./resources/js/views/web/auth/_comp/FormComp.vue"));
     },
-    'FormSync': function FormSync() {
+    'form-sync': function formSync() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormSync_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/FormSync */ "./resources/js/views/web/auth/_comp/FormSync.vue"));
     }
   },
@@ -374,7 +374,7 @@ var render = function () {
       _c("h3", [_vm._v("회원가입 정보 입력")]),
       _vm._v(" "),
       _vm.$route.params.code == "sync"
-        ? _c("FormSync", {
+        ? _c("form-sync", {
             on: { register: _vm.register },
             model: {
               value: _vm.frm,
@@ -384,7 +384,7 @@ var render = function () {
               expression: "frm",
             },
           })
-        : _c("FormComp", {
+        : _c("form-comp", {
             ref: "form_comp",
             model: {
               value: _vm.frm,

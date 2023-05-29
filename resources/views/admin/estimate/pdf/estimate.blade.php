@@ -121,7 +121,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
             <th>결제조건</th> <td>선결제 (대학교 및 국가연구소 제외)</td>
         </tr>
         <tr>
-            <th>수신</th> <td>{{ $er['estimate_req']['eq_department'] }} 귀하</td>
+            <th>수신</th> <td>{{ $er['estimate_req']['eq_company'] }} 귀하</td>
             <th>유효기간</th> <td>{{ $er['er_effective_at'] }} 까지</td>
         </tr>
         <tr class="line02"><td colspan="4"></td></tr>

@@ -369,29 +369,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   // props:['gd_id', 'model', 'option'],
   components: {
-    VueDaumPostcode: vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__.VueDaumPostcode,
-    'Modal': function Modal() {
+    'vue-daum-postcode': vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__.VueDaumPostcode,
+    'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
-    'PayPlan': function PayPlan() {
+    'pay-plan': function payPlan() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_PayPlan_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/PayPlan */ "./resources/js/views/web/shop/order/_comp/PayPlan.vue"));
     },
-    'TaxInvoice': function TaxInvoice() {
+    'tax-invoice': function taxInvoice() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_TaxInvoice_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/TaxInvoice */ "./resources/js/views/web/shop/order/_comp/TaxInvoice.vue"));
     },
-    'PaList': function PaList() {
+    'pa-list': function paList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList */ "./resources/js/views/web/_module/PaList.vue"));
     },
-    'AddrIndex': function AddrIndex() {
+    'addr-index': function addrIndex() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_addr_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/addr/Index */ "./resources/js/views/web/_module/addr/Index.vue"));
     },
-    'AddrCreate': function AddrCreate() {
+    'addr-create': function addrCreate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_addr_Create_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/addr/Create */ "./resources/js/views/web/_module/addr/Create.vue"));
     },
-    'AddrEdit': function AddrEdit() {
+    'addr-edit': function addrEdit() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_addr_Edit_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/addr/Edit */ "./resources/js/views/web/_module/addr/Edit.vue"));
     },
-    'PopUp': function PopUp() {
+    'pop-up': function popUp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PopUp */ "./resources/js/views/web/_module/PopUp.vue"));
     }
   },
@@ -447,7 +447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         od_orderer_email_id: '',
         od_orderer_email_domain: '',
         od_orderer_email_domain_slt: '',
-        od_department: '',
+        od_company: '',
         od_ua_title: '',
         od_zip: "",
         od_addr1: "",
@@ -683,7 +683,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.order.od_orderer_hp3 = odhp[2];
       this.order.od_orderer_email_id = odemail[0];
       this.order.od_orderer_email_domain = odemail[1];
-      this.order.od_department = Auth.user().department;
+      this.order.od_company = Auth.user().company;
+      this.order.od_part = Auth.user().part;
       return;
     },
     addr_choose: function addr_choose(addr) {
@@ -1084,7 +1085,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address[data-v-6c9bc94a] { position:relative;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(2) .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a] { flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select[data-v-6c9bc94a] { max-width:446px;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .pay_go[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; width:28%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle .inicis_form[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { margin-top: 1rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { text-indent:0; flex-basis:18.8%; max-width:18.8%;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem;\n}\n#settle .st_bottom .inputs .address h4>*[data-v-6c9bc94a] { flex-basis:100%; max-width:100%;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size: calc(.6vw + .7rem);\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { flex-direction:column;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin:5px 0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:0; margin:10px 3px;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address[data-v-6c9bc94a] { position:relative;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(2) .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a] { flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select[data-v-6c9bc94a] { max-width:446px;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs .address .row .od_memo select[data-v-6c9bc94a] { max-width:16rem;\n}\n#settle .st_bottom .pay_go[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; width:28%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle .inicis_form[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { margin-top: 1rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { text-indent:0; flex-basis:18.8%; max-width:18.8%;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem;\n}\n#settle .st_bottom .inputs .address h4>*[data-v-6c9bc94a] { flex-basis:100%; max-width:100%;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size: calc(.6vw + .7rem);\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { flex-direction:column;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin:5px 0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:0; margin:10px 3px;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1243,7 +1244,7 @@ var render = function () {
       _vm._v(" "),
       _c("h4", [_vm._v("01. 주문 상품 확인")]),
       _vm._v(" "),
-      _c("PaList", {
+      _c("pa-list", {
         attrs: {
           price: _vm.order.price,
           user: _vm.$store.state.auth.user,
@@ -1531,249 +1532,12 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "orderer" },
-                    [
-                      _c("h4", [_vm._v("02. 주문자 정보")]),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("label", { attrs: { for: "od_orderer" } }, [
-                            _vm._v("주문자명"),
-                            _c("i", { staticClass: "require" }),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            [
-                              _c("b-form-input", {
-                                ref: "od_orderer",
-                                attrs: { id: "od_orderer" },
-                                model: {
-                                  value: _vm.order.od_orderer,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.order, "od_orderer", $$v)
-                                  },
-                                  expression: "order.od_orderer",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("label", { attrs: { for: "od_orderer_hp" } }, [
-                            _vm._v("연락처"),
-                            _c("i", { staticClass: "require" }),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            [
-                              _c("b-form-input", {
-                                ref: "od_orderer_hp1",
-                                attrs: {
-                                  formatter: _vm.maxlength_3,
-                                  id: "od_orderer_hp",
-                                },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext(
-                                      $event,
-                                      3,
-                                      "od_orderer_hp2"
-                                    )
-                                  },
-                                },
-                                model: {
-                                  value: _vm.order.od_orderer_hp1,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.order, "od_orderer_hp1", $$v)
-                                  },
-                                  expression: "order.od_orderer_hp1",
-                                },
-                              }),
-                              _c("b-icon-dash", { staticClass: "m_hide" }),
-                              _vm._v(" "),
-                              _c("b-form-input", {
-                                ref: "od_orderer_hp2",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext(
-                                      $event,
-                                      4,
-                                      "od_orderer_hp3"
-                                    )
-                                  },
-                                },
-                                model: {
-                                  value: _vm.order.od_orderer_hp2,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.order, "od_orderer_hp2", $$v)
-                                  },
-                                  expression: "order.od_orderer_hp2",
-                                },
-                              }),
-                              _c("b-icon-dash", { staticClass: "m_hide" }),
-                              _vm._v(" "),
-                              _c("b-form-input", {
-                                ref: "od_orderer_hp3",
-                                attrs: { formatter: _vm.maxlength_4 },
-                                nativeOn: {
-                                  input: function ($event) {
-                                    return _vm.focusNext(
-                                      $event,
-                                      4,
-                                      "od_orderer_email_id"
-                                    )
-                                  },
-                                },
-                                model: {
-                                  value: _vm.order.od_orderer_hp3,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.order, "od_orderer_hp3", $$v)
-                                  },
-                                  expression: "order.od_orderer_hp3",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("label", { attrs: { for: "od_orderer_email" } }, [
-                            _vm._v("이메일"),
-                            _c("i", { staticClass: "require" }),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            [
-                              _c("b-form-input", {
-                                ref: "od_orderer_email_id",
-                                attrs: { id: "od_orderer_email" },
-                                model: {
-                                  value: _vm.order.od_orderer_email_id,
-                                  callback: function ($$v) {
-                                    _vm.$set(
-                                      _vm.order,
-                                      "od_orderer_email_id",
-                                      $$v
-                                    )
-                                  },
-                                  expression: "order.od_orderer_email_id",
-                                },
-                              }),
-                              _c("b-icon-at"),
-                              _vm._v(" "),
-                              _c("b-form-input", {
-                                model: {
-                                  value: _vm.order.od_orderer_email_domain,
-                                  callback: function ($$v) {
-                                    _vm.$set(
-                                      _vm.order,
-                                      "od_orderer_email_domain",
-                                      $$v
-                                    )
-                                  },
-                                  expression: "order.od_orderer_email_domain",
-                                },
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select",
-                                {
-                                  on: { change: _vm.email_domain_slt },
-                                  model: {
-                                    value:
-                                      _vm.order.od_orderer_email_domain_slt,
-                                    callback: function ($$v) {
-                                      _vm.$set(
-                                        _vm.order,
-                                        "od_orderer_email_domain_slt",
-                                        $$v
-                                      )
-                                    },
-                                    expression:
-                                      "order.od_orderer_email_domain_slt",
-                                  },
-                                },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "" } },
-                                    [_vm._v("직접입력")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(
-                                    _vm.config.email_domain,
-                                    function (dm, i) {
-                                      return _c(
-                                        "b-form-select-option",
-                                        { key: i, attrs: { value: i } },
-                                        [_vm._v(_vm._s(dm))]
-                                      )
-                                    }
-                                  ),
-                                ],
-                                2
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("label", { attrs: { for: "od_department" } }, [
-                            _vm._v("소속"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            [
-                              _c("b-form-input", {
-                                attrs: { id: "od_department" },
-                                model: {
-                                  value: _vm.order.od_department,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.order, "od_department", $$v)
-                                  },
-                                  expression: "order.od_department",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
                     { staticClass: "address", attrs: { id: "address" } },
                     [
-                      _c("PopUp"),
+                      _c("pop-up"),
                       _vm._v(" "),
                       _c("h4", [
-                        _c("span", [_vm._v("03. 배송지 정보")]),
+                        _c("span", [_vm._v("02. 배송지 정보")]),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -1952,7 +1716,7 @@ var render = function () {
                       _c(
                         "b-row",
                         [
-                          _c("label", { attrs: { for: "od_department" } }, [
+                          _c("label", [
                             _vm._v("주소"),
                             _c("i", { staticClass: "require" }),
                           ]),
@@ -1995,7 +1759,7 @@ var render = function () {
                                   _vm._v(" "),
                                   _vm.postcode_open
                                     ? [
-                                        _c("VueDaumPostcode", {
+                                        _c("vue-daum-postcode", {
                                           staticClass: "sch_zip shadow",
                                           attrs: { animation: true },
                                           on: { complete: _vm.onPostcodeSlt },
@@ -2064,6 +1828,7 @@ var render = function () {
                           _vm._v(" "),
                           _c(
                             "b-col",
+                            { staticClass: "od_memo" },
                             [
                               _c(
                                 "b-form-select",
@@ -2770,7 +2535,7 @@ var render = function () {
                       _vm._v(" "),
                       _vm.order.od_pay_method == "B" ||
                       _vm.order.od_pay_method == "P"
-                        ? _c("PayPlan", {
+                        ? _c("pay-plan", {
                             model: {
                               value: _vm.order.extra,
                               callback: function ($$v) {
@@ -2995,7 +2760,7 @@ var render = function () {
         [
           _vm.isModalViewed
             ? _c(
-                "Modal",
+                "modal",
                 {
                   attrs: { max_width: 500, min_height: 0, padding: "20px 0 0" },
                   on: {
@@ -3017,7 +2782,7 @@ var render = function () {
                   ),
                   _vm._v(" "),
                   _vm.modal_type == "index"
-                    ? _c("AddrIndex", {
+                    ? _c("addr-index", {
                         attrs: { address: _vm.addr },
                         on: {
                           choose: _vm.addr_choose,
@@ -3026,12 +2791,12 @@ var render = function () {
                         },
                       })
                     : _vm.modal_type == "create"
-                    ? _c("AddrCreate", {
+                    ? _c("addr-create", {
                         attrs: { address: _vm.addr },
                         on: { index: _vm.addr_index },
                       })
                     : _vm.modal_type == "edit"
-                    ? _c("AddrEdit", {
+                    ? _c("addr-edit", {
                         attrs: {
                           address: _vm.addr,
                           addr: _vm.addr[_vm.addr_edit_index],
@@ -3039,7 +2804,7 @@ var render = function () {
                         on: { index: _vm.addr_index },
                       })
                     : _vm.modal_type == "tax"
-                    ? _c("TaxInvoice", {
+                    ? _c("tax-invoice", {
                         ref: "tax_invoice",
                         on: { close: _vm.modal_close },
                         model: {

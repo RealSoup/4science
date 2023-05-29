@@ -90,11 +90,12 @@ class OrderController extends Controller {
 				case 'od_orderer':		$orders = $orders->where('od_orderer', 'like', "%$txt%"); break;
 				case 'orderer_email':	$orders = $orders->where('od_orderer_email', 'like', "%$txt%"); break;
 				case 'orderer_hp':		$orders = $orders->where('od_orderer_hp', 'like', "%$txt%"); break;
+				case 'od_company':		$orders = $orders->where('od_company', 'like', "%$txt%"); break;
 				case 'od_no':			$orders = $orders->where('od_no', $txt); break;
 				case 'od_id':			$orders = $orders->where('od_id', $txt); break;
 				case 'od_receiver':		$orders = $orders->where('od_receiver', 'like' , "%$txt%"); break;
 				case 'od_addr1':		$orders = $orders->where('od_addr1', 'like' , "%$txt%"); break;
-				case 'or_department':	$orders = $orders->where('or_department', 'like' , "%$txt%"); break;
+				case 'or_company':		$orders = $orders->where('or_company', 'like' , "%$txt%"); break;
 				case 'oex_depositor':
 					$ids = $this->orderExtraInfo::where('oex_depositor', 'like' , "%$txt%")->pluck('oex_od_id');
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
