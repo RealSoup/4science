@@ -1,13 +1,11 @@
 <template>
 <b-container class="w_fence">
     <h3>주문 정보</h3>
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-        Loading ......
-    </LoadingModal>
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
         <h5>
             <b>{{od.created_at}}</b> &nbsp; 주문번호 {{od.od_no}} &nbsp;
-            <OrderStep v-model="od.od_step" :order_config="od.order_config" />
+            <order-step v-model="od.od_step" :order_config="od.order_config" />
         </h5>
 
         <b-container class="goods">
@@ -172,9 +170,9 @@
     </div>
     
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500">
-            <ReceiptConfirm :item="receiptItem" @hide_modal = "hide_modal" />
-        </Modal>
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500">
+            <receipt-confirm :item="receiptItem" @hide_modal = "hide_modal" />
+        </modal>
     </transition>
 </b-container>
 </template>
@@ -186,10 +184,10 @@ var dt = new Date();
 export default {
     name: "MyOrder",
     components: {
-        'LoadingModal'  : () =>   import('@/views/_common/LoadingModal.vue'),
-        'OrderStep'     : () => import('../_comp/OrderStep.vue'),
-        'Modal'         : () => import('@/views/_common/Modal.vue'),
-        'ReceiptConfirm': () => import('./_comp/ReceiptConfirm'),
+        'loading-modal'  : () =>   import('@/views/_common/LoadingModal.vue'),
+        'order-step'     : () => import('../_comp/OrderStep.vue'),
+        'modal'         : () => import('@/views/_common/Modal.vue'),
+        'receipt-confirm': () => import('./_comp/ReceiptConfirm'),
     },
     data() {
         return {

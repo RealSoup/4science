@@ -3,9 +3,9 @@
     <h3 class="p_tit">회원 목록</h3>
 
     <b-container class="frm_sch">
-        <SchDate v-model="sch_frm">
+        <sch-date v-model="sch_frm">
             <b-col slot="prev" class="label top_left">가입일</b-col>
-        </SchDate>
+        </sch-date>
         <b-row>
             <b-col class="label bottom_left">유형</b-col>
             <b-col class="type01">
@@ -99,7 +99,7 @@ export default {
     name: 'AdmUserIndex',
 
     components: {
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
+        'sch-date': () => import('@/views/_common/SchDate.vue'),
     },
 
     data() {

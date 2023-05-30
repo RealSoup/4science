@@ -34,7 +34,7 @@
                 <b-col class="maker">{{cm.mk_name}}</b-col>
                 <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
-                    <div class="box"><InputNo v-model="cartList[i]" /></div>
+                    <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
                 <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" size="sm" @click="outCart(i)">삭제</b-button></b-col>
@@ -47,7 +47,7 @@
                 <b-col></b-col>
                 <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
-                    <div class="box"><InputNo v-model="cartList[i]" /></div>
+                    <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
                 <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" @click="outCart(i)">삭제</b-button></b-col>
@@ -101,13 +101,11 @@
 <script>
 import ax from '@/api/http';
 import { mapState, mapGetters } from 'vuex';
-import VueNumericInput from 'vue-numeric-input'
 
 export default {
     name: 'ShopCartIndex', 
     components: { 
-        VueNumericInput,
-        'InputNo': () =>   import('./InputNo'),
+        'input-no': () =>   import('./InputNo'),
     },
     data() {
         return { 

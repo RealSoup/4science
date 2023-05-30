@@ -3,18 +3,18 @@
     <h3>고객센터</h3>
      
     <b-tabs class="cscenter_tab" vertical>
-        <b-tab title="1:1 문의" active><BoardCreate :cs_bo_cd="'inquiry'" /></b-tab>
-        <b-tab title="A/S 신청"><BoardCreate :cs_bo_cd="'as'" /></b-tab>
-        <b-tab title="취소/교환"><BoardCreate :cs_bo_cd="'cancel'" /></b-tab>
-        <b-tab title="FAQ"><Faq /></b-tab>
+        <b-tab title="1:1 문의" active><board-create :cs_bo_cd="'inquiry'" /></b-tab>
+        <b-tab title="A/S 신청"><board-create :cs_bo_cd="'as'" /></b-tab>
+        <b-tab title="취소/교환"><board-create :cs_bo_cd="'cancel'" /></b-tab>
+        <b-tab title="FAQ"><faq /></b-tab>
     </b-tabs>
     
     <div id="info_tab_scroll"><!-- 스크롤 이동을 위한 테그 --></div>
 
     <b-tabs class="cscenter_tab info_tab" vertical v-model="info_tab">
-        <b-tab title="견적문의 안내"><EstimateGuide /></b-tab>
-        <b-tab title="주문 안내"><OrderGuide /></b-tab>
-        <b-tab title="결제 안내"><PayGuide /></b-tab>
+        <b-tab title="견적문의 안내"><estimate-guide /></b-tab>
+        <b-tab title="주문 안내"><order-guide /></b-tab>
+        <b-tab title="결제 안내"><pay-guide /></b-tab>
         <b-tab title="회원혜택 안내"><img :src="`${s3url}cscenter/member_info.png`" style="" /></b-tab>
     </b-tabs>
 </b-container>
@@ -24,17 +24,13 @@
 export default {
     name: 'CSCenterIndex',
     components: {
-        'BoardCreate': () =>    import('@/views/web/board/Create'),
-        'EstimateGuide': () =>  import('./_comp/EstimateGuide'),
-        'OrderGuide': () =>     import('./_comp/OrderGuide'),
-        'PayGuide': () =>       import('./_comp/PayGuide'),
-        'Faq': () =>            import('./_comp/Faq'),
+        'board-create': () =>    import('@/views/web/board/Create'),
+        'estimate-guide': () =>  import('./_comp/EstimateGuide'),
+        'order-guide': () =>     import('./_comp/OrderGuide'),
+        'pay-guide': () =>       import('./_comp/PayGuide'),
+        'faq': () =>            import('./_comp/Faq'),
     },
-    data() {
-        return {
-            info_tab:0,
-        }
-    },
+    data() { return { info_tab:0, } },
     mounted() {
         if (this.$route.query.view_type == 'membership')
             this.$nextTick(function () {
@@ -43,8 +39,6 @@ export default {
                 // this.$route.params?.target && this.$refs.target?.scrollIntoView();
                 // https://velog.io/@tjdud0123/vue-router-target-scroll
             });
-            
-        
     },
 };
 </script>

@@ -354,7 +354,7 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
     components: {
-        FileUpload,
+        'file-upload' : FileUpload,
         'validation': () =>     import('@/views/_common/Validation.vue'),
         'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
         'modal'     : () => import('@/views/_common/Modal'),

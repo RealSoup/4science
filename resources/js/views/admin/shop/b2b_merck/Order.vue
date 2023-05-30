@@ -152,14 +152,16 @@ export default {
                     return false;
                 }
                 if (this.extra.addressID == '') { Notify.toast('danger', "ShipTo Code를 선택하세요."); this.$refs.addressID.focus(); return false; }
-                if (this.extra.state == '') {     Notify.toast('danger', "State Code를 선택하세요."); this.$refs.state.focus(); return false; }
-                if (this.extra.name == '') {      Notify.toast('danger', "이름을 입력하세요."); this.$refs.name.focus(); return false; }
-                if (this.extra.part == '') {      Notify.toast('danger', "소속을 입력하세요."); this.$refs.part.focus(); return false; }
-                if (this.extra.company == '') {   Notify.toast('danger', "업체명을 입력하세요."); this.$refs.company.focus(); return false; }
-                if (this.extra.code == '') {      Notify.toast('danger', "우편번호를 입력하세요."); this.$refs.code.focus(); return false; }
-                if (this.extra.city == '') {      Notify.toast('danger', "**시 **구를 입력하세요."); this.$refs.city.focus(); return false; }
-                if (this.extra.street == '') {    Notify.toast('danger', "도로명을 입력하세요."); this.$refs.street.focus(); return false; }
-                if (this.extra.detail == '') {    Notify.toast('danger', "상세 주소를 입력하세요."); this.$refs.detail.focus(); return false; }
+                if (this.extra.addressID !== '2035422570') {
+                    if (this.extra.state == '') {     Notify.toast('danger', "State Code를 선택하세요."); this.$refs.state.focus(); return false; }
+                    if (this.extra.name == '') {      Notify.toast('danger', "이름을 입력하세요."); this.$refs.name.focus(); return false; }
+                    if (this.extra.part == '') {      Notify.toast('danger', "소속을 입력하세요."); this.$refs.part.focus(); return false; }
+                    if (this.extra.company == '') {   Notify.toast('danger', "업체명을 입력하세요."); this.$refs.company.focus(); return false; }
+                    if (this.extra.code == '') {      Notify.toast('danger', "우편번호를 입력하세요."); this.$refs.code.focus(); return false; }
+                    if (this.extra.city == '') {      Notify.toast('danger', "**시 **구를 입력하세요."); this.$refs.city.focus(); return false; }
+                    if (this.extra.street == '') {    Notify.toast('danger', "도로명을 입력하세요."); this.$refs.street.focus(); return false; }
+                    if (this.extra.detail == '') {    Notify.toast('danger', "상세 주소를 입력하세요."); this.$refs.detail.focus(); return false; }
+                }
                 const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, extra: this.extra});
 
                 if (res && res.status === 200 && res.data.msg == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })

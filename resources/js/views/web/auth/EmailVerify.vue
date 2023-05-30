@@ -1,9 +1,8 @@
 <template>
 <b-card header="이메일 주소 인증 확인">
-        계속하기 전에 이메일에서 확인 링크를 확인하십시오.
-        <br />
-        이메일을 받지 못한 경우 다른 이메일을 요청하려면 
-        <b-button size="sm" variant="light" @click="resend">여기를 클릭하십시오.</b-button>
+    가입시 입력한 이메일로 가서 링크를 클릭하세요. <br />
+    이메일을 받지 못한 경우 재전송 버튼을 누르세요.
+    <b-button size="sm" @click="resend">재전송</b-button>
 </b-card>
 </template>
 <script> 

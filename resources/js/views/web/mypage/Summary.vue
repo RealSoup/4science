@@ -1,14 +1,14 @@
 <template lang="html">
     <div>
-        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+        <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
             Loading ......
-        </LoadingModal>
+        </loading-modal>
         <template v-else>
             <h5>최근 주문 내역 <small>최근 주문 5개를 보여줍니다.</small></h5>
-            <OrderList v-model="order" :order_config="order_config" />
+            <order-list v-model="order" :order_config="order_config" />
             <br class="m_show" /> <br class="m_show" />
             <h5>최근 견적 내역 <small>최근 견적 5개를 보여줍니다.</small></h5>
-            <EstimateList v-model="estimateReq" />
+            <estimate-list v-model="estimateReq" />
         </template>
     </div>
 </template>
@@ -19,9 +19,9 @@ import ax from '@/api/http';
 export default {
     name: "Mypage",
     components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'OrderList': () => import('./myShop/OrderList.vue'),
-        'EstimateList': () => import('./myShop/EstimateList.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'order-list': () => import('./myShop/OrderList.vue'),
+        'estimate-list': () => import('./myShop/EstimateList.vue'),
     },
     data() {
         return {

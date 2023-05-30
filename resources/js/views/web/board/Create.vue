@@ -1,6 +1,6 @@
 <template>
     <div>
-        <FormGroup ref="form_group" v-model="frm" :config="config" />
+        <form-group ref="form_group" v-model="frm" :config="config" />
     <!--
     v-model="something"
 
@@ -26,7 +26,7 @@ import FormGroup from "./FormGroup.vue";
 export default {
     name: 'BoardCreate',
     components: {
-        FormGroup,
+        'form-group': FormGroup,
     },
     props: ['cs_bo_cd'],
     data() {

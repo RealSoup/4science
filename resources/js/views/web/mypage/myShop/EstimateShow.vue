@@ -1,9 +1,7 @@
 <template>
 <b-container class="w_fence">
     <h3>견적서 조회 <b>Q-{{estimate.eq_id}}</b></h3>
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-        Loading ......
-    </LoadingModal>
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
         <div class="top">
             <span v-if="estimate.eq_step == 'DONOT' || estimate.eq_step == 'DOING'">담당자가 견적 요청을 확인 중 입니다.</span>
@@ -91,10 +89,7 @@ import ax from '@/api/http';
 
 export default {
     name: "MyShopEstimateShow",
-    components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'EstimateStep': () => import('../_comp/EstimateStep.vue'),
-    },
+    components: { 'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'), },
     data() {
         return {
             isLoadingModalViewed: true,

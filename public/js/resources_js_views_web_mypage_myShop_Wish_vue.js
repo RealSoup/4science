@@ -67,13 +67,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyWish",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
@@ -488,7 +486,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -497,7 +495,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\n        Loading ......\n    ")]
+            [_vm._v("Loading ......")]
           )
         : [
             _c("h5", [

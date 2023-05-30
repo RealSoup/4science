@@ -49,20 +49,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyOrder",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'SchDate': function SchDate() {
+    'sch-date': function schDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     },
-    'OrderList': function OrderList() {
+    'order-list': function orderList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop_OrderList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./OrderList.vue */ "./resources/js/views/web/mypage/myShop/OrderList.vue"));
     }
   },
@@ -298,7 +296,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -307,13 +305,13 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\r\n        Loading ......\r\n    ")]
+            [_vm._v("Loading ......")]
           )
         : [
             _c("h3", [_vm._v("주문 배송조회")]),
             _vm._v(" "),
             _c(
-              "SchDate",
+              "sch-date",
               {
                 staticClass: "sch",
                 model: {
@@ -349,7 +347,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("OrderList", {
+            _c("order-list", {
               attrs: { order_config: _vm.order_config },
               model: {
                 value: _vm.order.data,

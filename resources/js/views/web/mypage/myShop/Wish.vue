@@ -1,8 +1,6 @@
 <template lang="html">
     <div id="wish">        
-        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-            Loading ......
-        </LoadingModal>
+        <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
         <template v-else>
             <h5>관심상품 <small>{{this.model.length}} 개</small></h5>
             <b-container class="order list01">
@@ -52,9 +50,7 @@ import ax from '@/api/http';
 
 export default {
     name: "MyWish",
-    components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-    },
+    components: { 'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'), },
     data() {
         return {
             isLoadingModalViewed: true,

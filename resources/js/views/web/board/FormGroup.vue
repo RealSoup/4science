@@ -23,14 +23,14 @@
         <b-col class="label_st">제목<b class="need" /></b-col>
         <b-col>
             <b-form-input v-model="value.bo_subject" ref="bo_subject" id="bo_subject" />
-            <Validation :error="this.$store.state.error.validations.bo_subject" />
+            <validation :error="this.$store.state.error.validations.bo_subject" />
         </b-col>
     </b-row>
     <b-row>
         <b-col class="label_st">내용<b class="need" /></b-col>
         <b-col>
             <b-form-textarea v-model="value.bo_content" ref="bo_content" rows="9" id="bo_content" />
-            <Validation :error="this.$store.state.error.validations.bo_content" />
+            <validation :error="this.$store.state.error.validations.bo_content" />
         </b-col>
     </b-row>
     <b-row v-if="config.is_addFile">
@@ -53,8 +53,8 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     name: 'FormGroup',
     components: {
-        FileUpload,
-        'Validation': () =>     import('@/views/_common/Validation.vue'),
+        'file-upload': FileUpload,
+        'validation': () =>     import('@/views/_common/Validation.vue'),
     },
     props: ['value', 'config'],
         

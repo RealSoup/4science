@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'List': function List() {
+    'list': function list() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_board_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/board/Index.vue */ "./resources/js/views/web/board/Index.vue"));
     }
   }
@@ -108,7 +108,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("List", { attrs: { papa_bo_cd: _vm.$route.params.bo_cd } })
+  return _c("list", { attrs: { papa_bo_cd: _vm.$route.params.bo_cd } })
 }
 var staticRenderFns = []
 render._withStripped = true

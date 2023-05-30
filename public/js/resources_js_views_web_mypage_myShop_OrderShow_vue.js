@@ -206,24 +206,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 var dt = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyOrder",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'OrderStep': function OrderStep() {
+    'order-step': function orderStep() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_OrderStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/OrderStep.vue */ "./resources/js/views/web/mypage/_comp/OrderStep.vue"));
     },
-    'Modal': function Modal() {
+    'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
-    'ReceiptConfirm': function ReceiptConfirm() {
+    'receipt-confirm': function receiptConfirm() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop__comp_ReceiptConfirm_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ReceiptConfirm */ "./resources/js/views/web/mypage/myShop/_comp/ReceiptConfirm.vue"));
     }
   },
@@ -538,7 +536,7 @@ var render = function () {
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -547,7 +545,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\r\n        Loading ......\r\n    ")]
+            [_vm._v("Loading ......")]
           )
         : _c(
             "div",
@@ -559,7 +557,7 @@ var render = function () {
                   _vm._v(
                     "   주문번호 " + _vm._s(_vm.od.od_no) + "  \r\n            "
                   ),
-                  _c("OrderStep", {
+                  _c("order-step", {
                     attrs: { order_config: _vm.od.order_config },
                     model: {
                       value: _vm.od.od_step,
@@ -1330,7 +1328,7 @@ var render = function () {
         [
           _vm.isModalViewed
             ? _c(
-                "Modal",
+                "modal",
                 {
                   attrs: { max_width: 500 },
                   on: {
@@ -1340,7 +1338,7 @@ var render = function () {
                   },
                 },
                 [
-                  _c("ReceiptConfirm", {
+                  _c("receipt-confirm", {
                     attrs: { item: _vm.receiptItem },
                     on: { hide_modal: _vm.hide_modal },
                   }),

@@ -2,7 +2,7 @@
 <b-container class="w_fence">
     <h3>회원정보 수정</h3>
 
-    <FormComp ref="form_comp" v-model="frm" />
+    <form-comp ref="form_comp" v-model="frm" />
 
     <b-row>
         <b-col class="btn_box">
@@ -19,7 +19,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'MyUserEdit',
     components: {
-        'FormComp': () => import('@/views/web/auth/_comp/FormComp'),
+        'form-comp': () => import('@/views/web/auth/_comp/FormComp'),
     },
     data() {
         return {

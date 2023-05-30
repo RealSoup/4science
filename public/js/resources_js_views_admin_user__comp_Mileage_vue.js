@@ -70,18 +70,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEditMileage',
   components: {},
   data: function data() {
     return {
+      show_add: false,
       frm: {
         page: 0
       },
       list: {},
       enableMileage: 0,
-      config: null
+      config: null,
+      act: {
+        type: 'plus',
+        mileage: '',
+        msg: ''
+      }
     };
   },
   computed: {
@@ -162,32 +184,102 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     numCalc: function numCalc(i) {
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
+    },
+    action: function action() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var rst, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!isEmpty(_this2.act.mileage)) {
+                  _context3.next = 4;
+                  break;
+                }
+
+                Notify.toast('danger', "마일리지를 입력하세요");
+
+                _this2.$refs.mileage.focus();
+
+                return _context3.abrupt("return", false);
+
+              case 4:
+                if (!isEmpty(_this2.act.msg)) {
+                  _context3.next = 8;
+                  break;
+                }
+
+                Notify.toast('danger', "메시지를 입력하세요");
+
+                _this2.$refs.msg.focus();
+
+                return _context3.abrupt("return", false);
+
+              case 8:
+                _context3.next = 10;
+                return Notify.confirm('지급&차감', 'warning');
+
+              case 10:
+                rst = _context3.sent;
+
+                if (!rst) {
+                  _context3.next = 16;
+                  break;
+                }
+
+                _context3.next = 14;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/mileage/".concat(_this2.$route.params.id), _this2.act);
+
+              case 14:
+                res = _context3.sent;
+
+                if (res && res.status === 200) {
+                  _this2.list = res.data.list;
+                  _this2.enableMileage = res.data.mileage;
+                  _this2.act.type = 'plus';
+                  _this2.act.mileage = '';
+                  _this2.act.msg = '';
+                  Notify.toast('success', '변경 완료');
+                }
+
+              case 16:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    frm_priceComma: function frm_priceComma(v) {
+      return this.priceComma(v);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var ml;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _this2.index();
+              _this3.index();
 
-              _context3.next = 3;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/mileage/enable/".concat(_this2.$route.params.id));
+              _context4.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/admin/mileage/enable/".concat(_this3.$route.params.id));
 
             case 3:
-              ml = _context3.sent;
-              _this2.enableMileage = ml.data;
+              ml = _context4.sent;
+              _this3.enableMileage = ml.data;
 
             case 5:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   }
 });
@@ -210,7 +302,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.top[data-v-4ea7ee84] { text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(1) { flex:0 0 12%; max-width:12%;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(3) { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(4) { flex:0 0 16%; max-width:16%;\n}\n.list .col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.col[data-v-4ea7ee84] { padding:10px 5px;\n}\n.mileage_add .mileage[data-v-4ea7ee84] { max-width:95px; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(1) { flex:0 0 12%; max-width:12%;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(2) { text-align:left;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(3) { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.list .col[data-v-4ea7ee84]:nth-of-type(4) { flex:0 0 16%; max-width:16%;\n}\n.list .col svg[data-v-4ea7ee84] { margin-right:0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -352,10 +444,147 @@ var render = function () {
         "b-container",
         { staticClass: "cmain" },
         [
-          _c("div", { staticClass: "top" }, [
-            _vm._v("가용 마일리지: "),
-            _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)))]),
-          ]),
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "sm mint",
+                      on: {
+                        click: function ($event) {
+                          _vm.show_add = !_vm.show_add
+                        },
+                      },
+                    },
+                    [_vm._v("지급&차감")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", { staticClass: "text-right" }, [
+                _vm._v("가용 마일리지: "),
+                _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)))]),
+              ]),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.show_add
+            ? _c(
+                "div",
+                { staticClass: "mileage_add" },
+                [
+                  _c(
+                    "b-input-group",
+                    { attrs: { size: "sm" } },
+                    [
+                      _c(
+                        "b-input-group-prepend",
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              staticClass: "custom-select",
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.act.type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.act, "type", $$v)
+                                },
+                                expression: "act.type",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "plus" } },
+                                [_vm._v("지급")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "minus" } },
+                                [_vm._v("차감")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        ref: "msg",
+                        attrs: { placeholder: "메시지" },
+                        model: {
+                          value: _vm.act.msg,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.act, "msg", $$v)
+                          },
+                          expression: "act.msg",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c("b-form-input", {
+                            ref: "mileage",
+                            staticClass: "mileage",
+                            attrs: {
+                              placeholder: "마일리지",
+                              size: "sm",
+                              formatter: _vm.frm_priceComma,
+                            },
+                            on: {
+                              keyup: function ($event) {
+                                if (
+                                  !$event.type.indexOf("key") &&
+                                  _vm._k(
+                                    $event.keyCode,
+                                    "enter",
+                                    13,
+                                    $event.key,
+                                    "Enter"
+                                  )
+                                ) {
+                                  return null
+                                }
+                                return _vm.action.apply(null, arguments)
+                              },
+                            },
+                            model: {
+                              value: _vm.act.mileage,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.act, "mileage", $$v)
+                              },
+                              expression: "act.mileage",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "d_blue sm",
+                              on: { click: _vm.action },
+                            },
+                            [_vm._v("실행")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "b-row",
@@ -445,21 +674,19 @@ var render = function () {
                               )
                             : _vm._e(),
                           _vm._v(" "),
-                          ml.ml_type == "SP"
-                            ? [
-                                ml.ml_tbl == "admin"
-                                  ? _c("b-badge", { staticClass: "ml-3" }, [
-                                      _vm._v("관리자 지급"),
-                                    ])
-                                  : _c(
-                                      "b-badge",
-                                      {
-                                        staticClass: "ml-3",
-                                        attrs: { variant: "warning" },
-                                      },
-                                      [_vm._v("상품권 구매")]
-                                    ),
-                              ]
+                          ml.ml_tbl == "admin"
+                            ? _c("b-badge", { staticClass: "ml-3" }, [
+                                _vm._v("관리자 지급"),
+                              ])
+                            : ml.ml_type == "SP"
+                            ? _c(
+                                "b-badge",
+                                {
+                                  staticClass: "ml-3",
+                                  attrs: { variant: "warning" },
+                                },
+                                [_vm._v("상품권 구매")]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           ml.expiration
@@ -473,7 +700,7 @@ var render = function () {
                               )
                             : _vm._e(),
                         ],
-                        2
+                        1
                       ),
                 ]),
                 _vm._v(" "),

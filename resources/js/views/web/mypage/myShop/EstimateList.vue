@@ -26,7 +26,7 @@
                 <div v-else v-html="eq.eq_title" />
             </b-col>
 
-            <b-col class="step"><EstimateStep v-model="eq.eq_step" /></b-col>
+            <b-col class="step"><estimate-step v-model="eq.eq_step" /></b-col>
             <b-col class="date">
                 <div v-for="(er, i) in eq.estimate_reply_cplt" :key="i" class="mb-1">
                     <b-badge><b-icon-calendar2-date /> {{er.created_at | formatDate_YY_MM_DD }}</b-badge>
@@ -43,7 +43,7 @@
 export default {
     props: ['value'],
     components: {
-        'EstimateStep': () => import('../_comp/EstimateStep.vue'),
+        'estimate-step': () => import('../_comp/EstimateStep.vue'),
     },
 }
 </script>

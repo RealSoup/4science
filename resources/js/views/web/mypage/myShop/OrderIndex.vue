@@ -1,18 +1,16 @@
 <template>
 <b-container class="w_fence">
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-        Loading ......
-    </LoadingModal>
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <template v-else>
         <h3>주문 배송조회</h3>
-        <SchDate v-model="sch_frm" class="sch">
+        <sch-date v-model="sch_frm" class="sch">
             <b-col slot="prev" cols="0" lg="3"></b-col>
             <b-col slot="after" col cols="1">
                 <b-button class="gray" @click="index">검색</b-button>
             </b-col>
-        </SchDate>
+        </sch-date>
         
-        <OrderList v-model="order.data" :order_config="order_config" />
+        <order-list v-model="order.data" :order_config="order_config" />
 
         <pagination :data="order" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
@@ -29,9 +27,9 @@ import { mapGetters } from 'vuex'
 export default {
     name: "MyOrder",
     components: {
-        'LoadingModal': () => import('@/views/_common/LoadingModal.vue'),
-        'SchDate':      () => import('@/views/_common/SchDate.vue'),
-        'OrderList':    () => import('./OrderList.vue'),
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
+        'sch-date':      () => import('@/views/_common/SchDate.vue'),
+        'order-list':    () => import('./OrderList.vue'),
     },
     data() {
         return {

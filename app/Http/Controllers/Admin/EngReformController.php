@@ -23,7 +23,6 @@ class EngReformController extends Controller {
                 case 'er_name':   $eng = $eng->Name($req->keyword); break;
                 case 'er_demand': $eng = $eng->Demand($req->keyword); break;
                 case 'er_email':  $eng = $eng->Email($req->keyword); break;
-                case 'er_tel':    $eng = $eng->Tel($req->keyword); break;
                 case 'er_hp':     $eng = $eng->Hp($req->keyword); break;
             }
         }        

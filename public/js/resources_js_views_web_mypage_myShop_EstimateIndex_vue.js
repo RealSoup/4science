@@ -57,13 +57,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyOrder",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'SchDate': function SchDate() {
+    'sch-date': function schDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     },
-    'EstimateList': function EstimateList() {
+    'estimate-list': function estimateList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop_EstimateList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./EstimateList.vue */ "./resources/js/views/web/mypage/myShop/EstimateList.vue"));
     }
   },
@@ -224,7 +224,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -239,7 +239,7 @@ var render = function () {
             _c("h3", [_vm._v("견적서 조회")]),
             _vm._v(" "),
             _c(
-              "SchDate",
+              "sch-date",
               {
                 staticClass: "sch",
                 model: {
@@ -275,7 +275,7 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("EstimateList", {
+            _c("estimate-list", {
               model: {
                 value: _vm.estimateReq.data,
                 callback: function ($$v) {

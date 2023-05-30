@@ -45,7 +45,7 @@ class UserMileage extends Model {
         else                            return false;
     }
 
-    public function scopeEnable($query) { return $query->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)"); }
+    public function scopeEnable($query) { return $query->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)")->where('ml_type', '<>', 'NO'); }
     public function scopeUid($query, $id) { return $query->where('ml_uid', $id); }
     // public function scopeWriter($query, $id) { return $query->where('created_id', $id); }
     public function scopeTbl($query, $v) { return $query->where('ml_tbl', $v); }

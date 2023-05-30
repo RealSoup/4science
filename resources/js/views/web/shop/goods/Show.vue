@@ -1,6 +1,6 @@
 <template>
     <b-container id="goods_show">
-        <Location :categorys="categorys" 
+        <location :categorys="categorys" 
             :p_ca01="content.goods_category_first.gc_ca01" 
             :p_ca02="content.goods_category_first.gc_ca02" 
             :p_ca03="content.goods_category_first.gc_ca03" 
@@ -133,7 +133,7 @@
                     <b-col class="gd_list">
                         <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id" :to="{name:'goods_show', params:{gd_id:gr.gr_val}}">
                             <div><img :src="gr.goods.image_src_thumb[0]" /></div>
-                            <SubString v-model="gr.goods.gd_name" :width="165" />
+                            <sub-string v-model="gr.goods.gd_name" :width="165" />
                         </b-link>
                     </b-col>
                     </perfect-scrollbar>
@@ -147,10 +147,55 @@
                     <a class="scrollactive-item" href="#gd_inquiry">Q & A <b>{{bo_cnt.inquiry}}</b></a>
                 </scrollactive>
 
-                <b-row id="goods_desc">
-                    <b-col cols="12"><div v-html="content.gd_desc" /></b-col>
-                    <b-col cols="12" v-if="content.gd_video"><div v-html="content.gd_video" /></b-col>
-                </b-row>
+                <div class="prev_alarm"> <!-- 카테고리별 사전 안내 -->           
+                    <p v-if="content.goods_category_first.gc_ca01==28 && content.goods_category_first.gc_ca02==3481" class="warning">
+                        ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.
+                    </p>
+
+                    <div v-if="content.goods_category_first.gc_ca01==28 || 
+                        content.goods_category_first.gc_ca01==40 || 
+                        ( content.goods_category_first.gc_ca01==33 && content.goods_category_first.gc_ca02 ==5579) || 
+                        ( content.goods_category_first.gc_ca01==33 && content.goods_category_first.gc_ca02 ==5590) || 
+                        content.maker.mk_name=='US Research Nanomaterials, Inc.' || 
+                        content.maker.mk_name=='Novarials' || 
+                        ( content.gd_keyword && content.gd_keyword.indexOf('유해물질안내') !== -1 )"
+                    >
+                        <br>
+                        <p class="warning">
+                            ※ 이 안내는 「화학물질관리법」 제29조의2 및 같은 법 시행규칙 제31조의2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 
+                            유해화학물질 취급기준을 준수하여야함을 구매자에게 서면 또는 전자문서로 알려주는 것을 목적으로 하고 있습니다.<br />
+                            ※ 해당 제품은 일반인과 미성년자의 구매를 금합니다.<br />
+                            ※ 제품 이미지는 실제와 다를 수 있습니다.<br />
+                            ※ 이미지는 참고용입니다.
+                        </p>
+                        <br>
+                        <a href="http://ncis.nier.go.kr/" target="_blank" style="display:block; text-align:center;">
+                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="700">
+                        </a>
+                    </div>
+
+                    <p v-if="content.goods_category_first.gc_ca01==38" class="warning">
+                        EO 제품군이 전기안전법과 제조사 사정에 의해 단가 변동 사항이 있습니다. <br />
+                        해당 제품 주문 전 견적문의를 통해 '단가'와 '납품기한'을 꼭 확인하시기를 부탁드리겠습니다.
+                    </p>
+
+                    <p class="warning"
+                        v-if="content.goods_category_first.gc_ca01==31 && 
+                            content.goods_category_first.gc_ca02==5114 && 
+                            (content.goods_category_first.gc_ca03==5122 || content.goods_category_first.gc_ca03==5136 || content.goods_category_first.gc_ca03==5137)"
+                    >
+                        - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)
+                    </p>
+                </div>
+                <div id="goods_desc" :class="{merck_style:content.goods_category_first.gc_ca01==40}">
+                    <div v-if="content.goods_category_first.gc_ca01==40" class="merck_tit">
+                        <h1>Properties</h1>
+                        <h2>CAS Number : {{content.gd_keyword}}</h2>
+                    </div>
+
+                    <div v-html="content.gd_desc" />
+                    <div v-if="content.gd_video" v-html="content.gd_video" />
+                </div>
 
                 
 
@@ -190,7 +235,7 @@
                         <h4>상품 리뷰 <i>{{bo_cnt.review}}</i></h4>
                         <p>본 상품을 주문하신 고객님께서 작성하신 리뷰입니다.</p>
                     </div>
-                    <BoReview :bo_cd="'review'" :bo_cnt="bo_cnt" />
+                    <bo-Review :bo_cd="'review'" :bo_cnt="bo_cnt" />
                 </div>
 
                 <!-- 상품문의 -->
@@ -235,12 +280,12 @@ export default {
         }
     },
     components: {
-        'Location': () => import('./_comp/Location.vue'),
+        'location': () => import('./_comp/Location.vue'),
         // Splide, SplideSlide,
-        VueNumericInput,
-        'BoReview': () => import('./_comp/BoReview.vue'),
-        BoGdInquiry,
-        'SubString': () => import('@/views/_common/SubString.vue'),
+        'vue-numeric-input': VueNumericInput,
+        'bo-review': () => import('./_comp/BoReview.vue'),
+        'bo-gd-inquiry': BoGdInquiry,
+        'sub-string': () => import('@/views/_common/SubString.vue'),
     },
     data() {
         return {
@@ -257,6 +302,7 @@ export default {
                 goods_category_first:{},
                 file_goods_add:[],
                 goods_relate:[],
+                gd_keyword:'',
             },
             hadModelEa: false,
             bo_cnt:{
@@ -570,6 +616,7 @@ export default {
 .conRight .goods_nav a.is-active { background:#4F708F; }
 .conRight .goods_nav a.is-active b { color:#fff; }
 
+.conRight .prev_alarm { color:red; font-size:20px; font-weight:bold; margin-top:1rem; }
 .conRight #goods_desc { margin-top:50px; }
 .conRight #goods_desc >>> img { max-width:100%; }
 /* trc 옵션 설명 스타일 */
@@ -578,6 +625,12 @@ export default {
 .conRight #goods_desc #style01 { padding-left:0px; }
 .conRight #goods_desc #style01 .desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:10%; background-color:#F8F8F8; }
 /* trc 옵션 설명 스타일 */
+.conRight .merck_style>>>.merck_tit h1 { font-weight:bold; font-size:40px; line-height:40px; margin:20px 0 10px 0; }
+.conRight .merck_style>>>.merck_tit h2 { font-weight:bold; font-size:20px; line-height:20px; margin:20px 0 10px 0; }
+.conRight .merck_style>>>span { display:inline-block; line-height:24px; color:#666; padding:5px 15px; }
+.conRight .merck_style>>>.desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:20%; background-color:#F8F8F8; }
+.conRight .merck_style>>>.desc_content a { font-size: 14px; font-weight:bold; font-style: italic; }
+.conRight .merck_style>>>.desc_content a:hover { color:blue; }
 .conRight .desc_pdf { margin-top:3rem; }
 
 .conRight .goods_desc_piece { margin-top:3rem; }

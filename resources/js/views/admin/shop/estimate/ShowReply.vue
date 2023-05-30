@@ -48,7 +48,7 @@
             <b-col>연락처</b-col><b-col>{{ frm.estimate_req.eq_hp }}<span v-if="frm.estimate_req.eq_tel"> / {{ frm.estimate_req.eq_tel }}</span> </b-col>
         </b-row>
         <b-row>
-            <b-col>소속</b-col><b-col>{{ frm.estimate_req.eq_company }}</b-col>
+            <b-col>직장 / 학교</b-col><b-col>{{ frm.estimate_req.eq_company }}</b-col>
             <b-col>이메일</b-col><b-col>{{ frm.estimate_req.eq_email }}</b-col>
         </b-row>
         <b-row>

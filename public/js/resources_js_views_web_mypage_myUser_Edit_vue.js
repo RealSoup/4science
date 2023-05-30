@@ -46,7 +46,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyUserEdit',
   components: {
-    'FormComp': function FormComp() {
+    'form-comp': function formComp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_auth__comp_FormComp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/auth/_comp/FormComp */ "./resources/js/views/web/auth/_comp/FormComp.vue"));
     }
   },
@@ -324,7 +324,7 @@ var render = function () {
     [
       _c("h3", [_vm._v("회원정보 수정")]),
       _vm._v(" "),
-      _c("FormComp", {
+      _c("form-comp", {
         ref: "form_comp",
         model: {
           value: _vm.frm,

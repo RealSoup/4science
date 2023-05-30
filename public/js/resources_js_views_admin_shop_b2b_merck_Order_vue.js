@@ -225,8 +225,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 9:
+                if (!(_this2.extra.addressID !== '2035422570')) {
+                  _context2.next = 42;
+                  break;
+                }
+
                 if (!(_this2.extra.state == '')) {
-                  _context2.next = 13;
+                  _context2.next = 14;
                   break;
                 }
 
@@ -236,9 +241,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 13:
+              case 14:
                 if (!(_this2.extra.name == '')) {
-                  _context2.next = 17;
+                  _context2.next = 18;
                   break;
                 }
 
@@ -248,9 +253,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 17:
+              case 18:
                 if (!(_this2.extra.part == '')) {
-                  _context2.next = 21;
+                  _context2.next = 22;
                   break;
                 }
 
@@ -260,9 +265,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 21:
+              case 22:
                 if (!(_this2.extra.company == '')) {
-                  _context2.next = 25;
+                  _context2.next = 26;
                   break;
                 }
 
@@ -272,9 +277,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 25:
+              case 26:
                 if (!(_this2.extra.code == '')) {
-                  _context2.next = 29;
+                  _context2.next = 30;
                   break;
                 }
 
@@ -284,9 +289,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 29:
+              case 30:
                 if (!(_this2.extra.city == '')) {
-                  _context2.next = 33;
+                  _context2.next = 34;
                   break;
                 }
 
@@ -296,9 +301,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 33:
+              case 34:
                 if (!(_this2.extra.street == '')) {
-                  _context2.next = 37;
+                  _context2.next = 38;
                   break;
                 }
 
@@ -308,9 +313,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 37:
+              case 38:
                 if (!(_this2.extra.detail == '')) {
-                  _context2.next = 41;
+                  _context2.next = 42;
                   break;
                 }
 
@@ -320,33 +325,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context2.abrupt("return", false);
 
-              case 41:
-                _context2.next = 43;
+              case 42:
+                _context2.next = 44;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                   list: chkList,
                   extra: _this2.extra
                 });
 
-              case 43:
+              case 44:
                 res = _context2.sent;
                 if (res && res.status === 200 && res.data.msg == 'success') _this2.$router.push({
                   name: 'adm_b2b_merck_order_result'
                 });
-                _context2.next = 51;
+                _context2.next = 52;
                 break;
 
-              case 47:
-                _context2.prev = 47;
+              case 48:
+                _context2.prev = 48;
                 _context2.t0 = _context2["catch"](0);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.response.data.message);
 
-              case 51:
+              case 52:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 47]]);
+        }, _callee2, null, [[0, 48]]);
       }))();
     },
     stockCheck: function stockCheck(code, ea) {

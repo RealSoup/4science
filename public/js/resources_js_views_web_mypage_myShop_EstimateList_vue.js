@@ -55,7 +55,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   components: {
-    'EstimateStep': function EstimateStep() {
+    'estimate-step': function estimateStep() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_EstimateStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/EstimateStep.vue */ "./resources/js/views/web/mypage/_comp/EstimateStep.vue"));
     }
   }
@@ -316,7 +316,7 @@ var render = function () {
               "b-col",
               { staticClass: "step" },
               [
-                _c("EstimateStep", {
+                _c("estimate-step", {
                   model: {
                     value: eq.eq_step,
                     callback: function ($$v) {

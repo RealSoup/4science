@@ -70,11 +70,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyBought",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
-    },
-    'SchDate': function SchDate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     }
   },
   data: function data() {
@@ -320,7 +317,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {

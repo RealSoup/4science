@@ -70,14 +70,14 @@ v-model="something"
                 <b-col class="awesome_p">
                     <b-form-input v-model="answer_subject" id="bo_subject" size="lg" required />
                     <label for="bo_subject">제목</label>
-                    <Validation :error="$store.state.error.validations.bo_subject" />
+                    <validation :error="$store.state.error.validations.bo_subject" />
                 </b-col>
             </b-row>
             <b-row>
                 <b-col class="awesome_p">
                     <textarea id="'bo_content" v-model="frm.bo_content" rows="8" required></textarea>
                     <label for="bo_content">내용</label>
-                    <Validation :error="$store.state.error.validations.bo_content" />
+                    <validation :error="$store.state.error.validations.bo_content" />
                 </b-col>
             </b-row>        
         </b-container>
@@ -87,13 +87,11 @@ v-model="something"
 
 <script>
 import ax from '@/api/http';
-import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
     name: 'AdmBoardEdit',
     components: {
-        FileUpload,
-        'Validation': () => import('@/views/_common/Validation.vue'),
+        'validation': () => import('@/views/_common/Validation.vue'),
     },
     
     data() {

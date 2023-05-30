@@ -106,17 +106,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MyShopEstimateShow",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
-    },
-    'EstimateStep': function EstimateStep() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage__comp_EstimateStep_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../_comp/EstimateStep.vue */ "./resources/js/views/web/mypage/_comp/EstimateStep.vue"));
     }
   },
   data: function data() {
@@ -333,7 +328,7 @@ var render = function () {
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -342,7 +337,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._v("\r\n        Loading ......\r\n    ")]
+            [_vm._v("Loading ......")]
           )
         : _c(
             "div",

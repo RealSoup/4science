@@ -271,7 +271,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'BoardCreate',
   components: {
-    FormGroup: _FormGroup_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'form-group': _FormGroup_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: ['cs_bo_cd'],
   data: function data() {
@@ -464,8 +464,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FormGroup',
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'Validation': function Validation() {
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     }
   },
@@ -4758,7 +4758,7 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("FormGroup", {
+      _c("form-group", {
         ref: "form_group",
         attrs: { config: _vm.config },
         model: {
@@ -4997,7 +4997,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: {
                   error: this.$store.state.error.validations.bo_subject,
                 },
@@ -5032,7 +5032,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: {
                   error: this.$store.state.error.validations.bo_content,
                 },

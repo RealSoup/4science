@@ -23,7 +23,7 @@
             </template>
         </b-col>
         <b-col class="price">{{od.od_all_price | comma}} 원</b-col>
-        <b-col class="step"><OrderStep v-model="od.od_step" :order_config="order_config" /></b-col>
+        <b-col class="step"><order-step v-model="od.od_step" :order_config="order_config" /></b-col>
     </b-row>
 </b-container>
 </template>
@@ -32,7 +32,7 @@
 export default {
     props: ['value', 'order_config'],
     components: {
-        'OrderStep': () => import('../_comp/OrderStep.vue'),
+        'order-step': () => import('../_comp/OrderStep.vue'),
     },
 }
 </script>

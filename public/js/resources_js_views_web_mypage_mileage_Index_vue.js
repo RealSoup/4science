@@ -101,19 +101,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyMileageIndex',
   components: {
-    'Validation': function Validation() {
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     }
   },
@@ -122,6 +115,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   data: function data() {
     return {
+      clickable: true,
       frm: {},
       mileage: {},
       config: {}
@@ -184,56 +178,93 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this2.frm.type && _this2.frm.ea)) {
-                  _context2.next = 18;
+                if (!isEmpty(_this2.frm.type)) {
+                  _context2.next = 3;
                   break;
                 }
 
-                console.log(_this2.enableMileage, _this2.config[_this2.frm.type].point * _this2.frm.ea);
+                Notify.toast('danger', "상품권을 선택하세요");
+                return _context2.abrupt("return", false);
 
+              case 3:
+                if (!isEmpty(_this2.frm.ea)) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                Notify.toast('danger', "신청 수량을 입력하세요");
+
+                _this2.$refs.ea.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 7:
+                if (!isEmpty(_this2.frm.name)) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                Notify.toast('danger', "수령인을 입력하세요");
+
+                _this2.$refs.name.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 11:
+                if (!isEmpty(_this2.frm.hp)) {
+                  _context2.next = 15;
+                  break;
+                }
+
+                Notify.toast('danger', "휴대폰 번호를 입력하세요");
+
+                _this2.$refs.hp.focus();
+
+                return _context2.abrupt("return", false);
+
+              case 15:
                 if (!(_this2.enableMileage < _this2.config[_this2.frm.type].point * _this2.frm.ea)) {
-                  _context2.next = 5;
+                  _context2.next = 18;
                   break;
                 }
 
                 Notify.modal('마일리지가 모자릅니다.', 'warning');
                 return _context2.abrupt("return", false);
 
-              case 5:
-                _context2.prev = 5;
-                _context2.next = 8;
+              case 18:
+                _context2.prev = 18;
+                _this2.clickable = false;
+                _context2.next = 22;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/mileage", _this2.frm);
 
-              case 8:
+              case 22:
                 res = _context2.sent;
 
                 if (res && res.status === 200) {
+                  _this2.clickable = true;
+                  _this2.$store.state.auth.enable_mileage = res.data;
                   Notify.modal("신청 되었습니다.", 'info');
                 }
 
-                _context2.next = 16;
+                _context2.next = 30;
                 break;
 
-              case 12:
-                _context2.prev = 12;
-                _context2.t0 = _context2["catch"](5);
+              case 26:
+                _context2.prev = 26;
+                _context2.t0 = _context2["catch"](18);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.response.data.message);
 
-              case 16:
-                _context2.next = 19;
-                break;
-
-              case 18:
-                Notify.modal('신청 정보를 입력하세요.', 'warning');
-
-              case 19:
+              case 30:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 12]]);
+        }, _callee2, null, [[18, 26]]);
       }))();
+    },
+    frm_formatHp: function frm_formatHp(v) {
+      return this.formatHp(v);
     }
   }
 });
@@ -392,8 +423,9 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "w_fence" },
     [
-      _vm._m(0),
+      _c("h3", [_vm._v("마 일 리 지")]),
       _vm._v(" "),
       _c(
         "b-container",
@@ -454,7 +486,7 @@ var render = function () {
                           _vm._v(
                             " " +
                               _vm._s(ml.refine_content[3]) +
-                              "\n                "
+                              "\r\n                "
                           ),
                         ],
                         1
@@ -463,9 +495,9 @@ var render = function () {
                         "div",
                         [
                           _vm._v(
-                            "\n                    " +
+                            "\r\n                    " +
                               _vm._s(ml.ml_content) +
-                              "\n                    "
+                              "\r\n                    "
                           ),
                           ml.ml_type == "SP"
                             ? _c(
@@ -587,7 +619,7 @@ var render = function () {
                 )
               }),
               _vm._v(" "),
-              _c("Validation", {
+              _c("validation", {
                 attrs: { error: this.$store.state.error.validations.type },
               }),
             ],
@@ -602,6 +634,7 @@ var render = function () {
                 { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
+                    ref: "ea",
                     attrs: { id: "ea", required: "" },
                     model: {
                       value: _vm.frm.ea,
@@ -616,7 +649,7 @@ var render = function () {
                     _c("span", [_vm._v("신청 수량")]),
                   ]),
                   _vm._v(" "),
-                  _c("Validation", {
+                  _c("validation", {
                     attrs: { error: this.$store.state.error.validations.ea },
                   }),
                 ],
@@ -628,6 +661,7 @@ var render = function () {
                 { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
+                    ref: "name",
                     attrs: { id: "name", required: "" },
                     model: {
                       value: _vm.frm.name,
@@ -642,7 +676,7 @@ var render = function () {
                     _c("span", [_vm._v("수령인")]),
                   ]),
                   _vm._v(" "),
-                  _c("Validation", {
+                  _c("validation", {
                     attrs: { error: this.$store.state.error.validations.name },
                   }),
                 ],
@@ -654,7 +688,12 @@ var render = function () {
                 { staticClass: "awesome_p" },
                 [
                   _c("b-form-input", {
-                    attrs: { id: "hp", required: "" },
+                    ref: "hp",
+                    attrs: {
+                      id: "hp",
+                      required: "",
+                      formatter: _vm.frm_formatHp,
+                    },
                     model: {
                       value: _vm.frm.hp,
                       callback: function ($$v) {
@@ -668,7 +707,7 @@ var render = function () {
                     _c("span", [_vm._v("휴대폰 번호")]),
                   ]),
                   _vm._v(" "),
-                  _c("Validation", {
+                  _c("validation", {
                     attrs: { error: this.$store.state.error.validations.hp },
                   }),
                 ],
@@ -678,14 +717,24 @@ var render = function () {
               _c(
                 "b-col",
                 [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "info", block: "" },
-                      on: { click: _vm.store },
-                    },
-                    [_vm._v("신청하기")]
-                  ),
+                  _vm.clickable
+                    ? _c(
+                        "b-button",
+                        {
+                          attrs: { variant: "info", block: "" },
+                          on: { click: _vm.store },
+                        },
+                        [_vm._v("신청하기")]
+                      )
+                    : _c(
+                        "b-button",
+                        { staticClass: "gray", attrs: { size: "sm" } },
+                        [
+                          _c("font-awesome-icon", { attrs: { icon: "save" } }),
+                          _vm._v(" 신청 중~!"),
+                        ],
+                        1
+                      ),
                 ],
                 1
               ),
@@ -699,28 +748,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pTitle" }, [
-      _c("span", [_c("i", [_vm._v("마")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("일")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break d-md-block d-none" }),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("리")])]),
-      _vm._v(" "),
-      _c("span", [_c("i", [_vm._v("지")])]),
-      _vm._v(" "),
-      _c("div", { staticClass: "break" }),
-      _vm._v(" "),
-      _c("span", [_c("i")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -5,14 +5,14 @@
             <b-col class="awesome_p">
                 <b-form-input v-model="value.bo_subject" id="bo_subject" size="lg" required />
                 <label for="bo_subject">제목</label>
-                <Validation :error="$store.state.error.validations.bo_subject" />
+                <validation :error="$store.state.error.validations.bo_subject" />
             </b-col>
         </b-row>
         <b-row>
             <b-col class="awesome_p">
                 <textarea id="'bo_content" v-model="value.bo_content" rows="8" required></textarea>
                 <label for="bo_content">내용</label>
-                <Validation :error="$store.state.error.validations.bo_content" />
+                <validation :error="$store.state.error.validations.bo_content" />
             </b-col>
         </b-row>        
     </b-container>
@@ -26,9 +26,9 @@
 // import Comment from "../components/Comment.vue"
 
 export default {
-    name: 'AdmBoardEditForm',
+    name: 'AdmBoardBoForm',
     components: {
-        'Validation': () => import('@/views/_common/Validation.vue'),
+        'validation': () => import('@/views/_common/Validation.vue'),
     },
     props: ['value'],
     data() {

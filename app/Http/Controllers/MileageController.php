@@ -25,16 +25,18 @@ class MileageController extends Controller {
     public function enable() { return $this->mileage->enableMileage(auth()->user()->id); }
     
     public function store(StoreGiftCard $req) {
+        $p = intval(-UserMileage::$config['voucher'][$req->type]['point'] * $req->ea);
         UserMileage::insert([
             "ml_uid"     => auth()->check() ? auth()->user()->id : 0,
             "ml_tbl"     => 'voucher',
             "ml_key"     => 0,
             "ml_type"    => 'REQ',
             "ml_content" => "{$req->type}||{$req->ea}||{$req->name}||{$req->hp}",
-            "ml_mileage" => -UserMileage::$config['voucher'][$req->type]['point'],
+            "ml_mileage" => $p,
+            "ml_enable_m" => $p,
             'created_id' => auth()->check() ? auth()->user()->id : 0
         ]);
-        return response()->json("success", 200);
+        return response()->json($this->enable(), 200);
     }
 
     // public function update(Request $req, $id) {

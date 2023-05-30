@@ -26,6 +26,26 @@ class MileageController extends Controller {
         return response()->json($rst, 200);
     }
 
+    public function store(Request $req, $id) {
+        $p = intval(preg_replace("/[^\d]/", "", $req->mileage));
+        $ml_type = 'SV';
+        if($req->type=='minus') {
+            $p = $p*(-1);
+            $ml_type = 'SP';
+        }
+        UserMileage::insert([
+            "ml_uid"     => $id,
+            "ml_tbl"     => 'admin',
+            "ml_key"     => 0,
+            "ml_type"    => "{$ml_type}",
+            "ml_content" => "{$req->msg}",
+            "ml_mileage" => $p,
+            "ml_enable_m" => $p,
+            'created_id' => auth()->check() ? auth()->user()->id : 0
+        ]);
+        return response()->json(['list'=>$this->index($req, $id)->original['list'], 'mileage'=>$this->enable($id)], 200);
+    }
+
     public function update(Request $req, $id) {
         $ml =  $this->mileage->find($id);
         $config = UserMileage::$config['voucher'];

@@ -165,18 +165,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "mypageEstimateReplyShow",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
-    },
-    'PaList': function PaList() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList */ "./resources/js/views/web/_module/PaList.vue"));
     }
   },
   data: function data() {
@@ -606,7 +601,7 @@ var render = function () {
     [
       _c("h3", [_vm._v("견적서 "), _c("b", [_vm._v(_vm._s(_vm.reply.er_id))])]),
       _vm._v(" "),
-      _c("ValidationObserver", {
+      _c("validation-observer", {
         ref: "observer",
         staticClass: "estimate_show",
         attrs: { tag: "form" },
@@ -618,7 +613,7 @@ var render = function () {
               return [
                 _vm.isLoadingModalViewed
                   ? _c(
-                      "LoadingModal",
+                      "loading-modal",
                       {
                         attrs: { position: "absolute" },
                         on: {
@@ -627,7 +622,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v("\r\n            Loading ......\r\n        ")]
+                      [_vm._v("Loading ......")]
                     )
                   : _c(
                       "div",

@@ -897,7 +897,7 @@ var render = function () {
           _c(
             "b-row",
             [
-              _c("b-col", [_vm._v("소속")]),
+              _c("b-col", [_vm._v("직장 / 학교")]),
               _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.eq_company))]),
               _vm._v(" "),
               _c("b-col", [_vm._v("이메일")]),

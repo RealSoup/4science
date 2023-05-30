@@ -48,7 +48,7 @@
                     <b-button pill size="sm" variant="danger" @click="removeCate(i)"><b-icon-trash-fill /></b-button>      
                 </b-col>
             </b-row>
-            <Validation :error="$store.state.error.validations.goods_category" />
+            <validation :error="$store.state.error.validations.goods_category" />
         </b-container>
     </b-card>
 
@@ -59,12 +59,12 @@
                 <b-col class="label">상품명</b-col>
                 <b-col class="type05">
                     <b-form-input id="gd_name" v-model="value.gd_name" />
-                    <Validation :error="$store.state.error.validations.gd_name" />
+                    <validation :error="$store.state.error.validations.gd_name" />
                 </b-col>
                 <b-col class="label">납기일</b-col>
                 <b-col class="type03">
                     <b-form-input id="gd_dlvy_at" v-model="value.gd_dlvy_at" />
-                    <Validation :error="$store.state.error.validations.gd_dlvy_at" />
+                    <validation :error="$store.state.error.validations.gd_dlvy_at" />
                 </b-col>
                 <b-col class="label">활성화</b-col>
                 <b-col class="type01">
@@ -75,8 +75,8 @@
             <b-row>
                 <b-col class="label">제조사</b-col>
                 <b-col class="type03">
-                    <MakerInput v-model="value.gd_mk_name" :frm="value" />
-                    <Validation :error="$store.state.error.validations.gd_mk_id" />
+                    <maker-input v-model="value.gd_mk_name" :frm="value" />
+                    <validation :error="$store.state.error.validations.gd_mk_id" />
                 </b-col>
                 <b-col class="label short">매입처 직배송</b-col>
                 <b-col class="type03">
@@ -101,8 +101,8 @@
             <b-row class="align-items-baseline">
                 <b-col class="label">상품 설명</b-col>
                 <b-col class="type11">
-                    <Ckeditor v-model="value.gd_desc" />
-                    <Validation :error="$store.state.error.validations.gd_desc" />
+                    <ckeditor v-model="value.gd_desc" />
+                    <validation :error="$store.state.error.validations.gd_desc" />
                 </b-col>
             </b-row>
             <b-row class="align-items-baseline">
@@ -155,22 +155,22 @@
                         </b-input-group-prepend>
                         <b-form-input :id="`goods_model.${i}.gm_name`" v-model='model.gm_name' />
                     </b-input-group>
-                    <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]" />
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]" />
                 </b-col>
                 <b-col col lg="1">
                     <b-form-input v-model='model.gm_catno' readonly />
                 </b-col>
                 <b-col col lg="1">
                     <b-form-input :id="`goods_model.${i}.gm_code`" v-model='model.gm_code' />
-                    <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]" />
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_code`]" />
                 </b-col>
                 <b-col col lg="3">
                     <b-form-input :id="`goods_model.${i}.gm_spec`" v-model='model.gm_spec' />
-                    <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]" />
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_spec`]" />
                 </b-col>
                 <b-col col lg="1">
                     <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit' />
-                    <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]" />
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]" />
                 </b-col>
                 <b-col col lg="2">
                     <b-input-group size="sm">
@@ -179,7 +179,7 @@
                             <b-form-checkbox switch class="mr-n2 mb-n1" v-model='model.gm_prime' value="Y" unchecked-value="N" @input="uniqueCheck(i)" v-b-tooltip="'대표 가격'" />
                         </b-input-group-append>
                     </b-input-group>
-                    <Validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
+                    <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
                 </b-col>
                 <b-col col lg="1" class="ctrlBox">
                     <b-button size="sm" variant="success" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip.hover title="묶음 할인"><b-icon icon="tags-fill" /></b-button>
@@ -203,7 +203,7 @@
                     </b-collapse>
                 </b-col>
             </b-row>
-            <Validation :error="$store.state.error.validations.goods_model" />
+            <validation :error="$store.state.error.validations.goods_model" />
             
         </b-container>
 
@@ -264,7 +264,7 @@
 <script>
 import ax from '@/api/http';
 import draggable from 'vuedraggable';
-import Multiselect from 'vue-multiselect'
+// import Multiselect from 'vue-multiselect'
 import Ckeditor from '@/views/_common/ckeditor5/Ckeditor.vue'
 import FileUpload from '@/views/_common/FileUpload.vue'
 
@@ -272,12 +272,12 @@ export default {
     name: 'GoodsForm',
     components: {
         draggable,
-        Multiselect,
-        FileUpload,
-        'Validation': () => import('@/views/_common/Validation'),
-        'Categorys': () => import('./_comp/Categorys'),
-        Ckeditor,
-        'MakerInput': () => import('./_comp/MakerInput'),
+        // Multiselect,
+        'file-upload': FileUpload,
+        'validation': () => import('@/views/_common/Validation'),
+        'categorys': () => import('./_comp/Categorys'),
+        'ckeditor': Ckeditor,
+        'maker-input': () => import('./_comp/MakerInput'),
     },
     props: ['value', 'hashs', 'purchaseAt'],
 
@@ -372,6 +372,11 @@ export default {
         },
         removeAtModel(i) {
             if (this.$route.name == 'adm_goods_edit' && this.value.goods_model[i].gm_id) {
+                if (this.value.goods_model[i].gm_prime == 'Y') {
+                    Notify.modal("대표 가격 삭제 불가", 'warning');
+                    return false;
+                }
+                
                 if (!this.value.hasOwnProperty("delete_goods_model"))
                     this.value.delete_goods_model = Array();  
                 this.value.delete_goods_model.push(this.value.goods_model[i].gm_id);

@@ -160,7 +160,6 @@ class GoodsController extends Controller {
             $val->ea = 0;
             $val->bundleDc;
         }
-        
         foreach ($data['goods']->goodsOption as $go) {
             foreach ($go->goodsOptionChild as $goc)
                 $goc->ea = 0;
@@ -168,20 +167,30 @@ class GoodsController extends Controller {
 
         foreach ($data['goods']->goodsRelate as $v)
             $v->goods;
-
+        
         event(new \App\Events\GoodsView($data['goods']));  //  조회수 증가
-        // $data['categorys'] = collect();
-        // $data['categorys'][0] = $cate->getCate(0);
-        // if ($data['goods']->goodsCategoryFirst->gc_ca01)    $data['categorys'][1] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca01);
-        // if ($data['goods']->goodsCategoryFirst->gc_ca02)    $data['categorys'][2] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca02);
-        // if ($data['goods']->goodsCategoryFirst->gc_ca03)    $data['categorys'][3] = $cate->getCate($data['goods']->goodsCategoryFirst->gc_ca03);
 
         $ca01 = $data['goods']->goodsCategoryFirst->gc_ca01 ? $data['goods']->goodsCategoryFirst->gc_ca01 : 0;
         $ca02 = $data['goods']->goodsCategoryFirst->gc_ca02 ? $data['goods']->goodsCategoryFirst->gc_ca02 : 0;
         $ca03 = $data['goods']->goodsCategoryFirst->gc_ca03 ? $data['goods']->goodsCategoryFirst->gc_ca03 : 0;
-
         $data['categorys'] = Category::getSelectedCate( $ca01, $ca02, $ca03);
-        
+
+        if ( $data['goods']->goodsCategoryFirst->gc_ca01 =='0040' ) {
+			if (isset($data['goods']->gd_desc)) {
+				$improve_description = "";
+				$tempArray = explode("<br />", $data['goods']->gd_desc);
+				foreach ( $tempArray as $key => $value) {
+					$tempArray02 = explode(" : ", $value);
+					foreach ( $tempArray02 as $key02 => $value02) {
+						if ( $key02 == 0 )      $improve_description .= "<span class='desc_title'>".$value02."</span>";
+						else if ( $key02 == 1 ) $improve_description .= "<span class='desc_content'>".$value02."</span><br />";
+					}
+				}
+				$improve_description .= "<span class='desc_title'>MSDS</span>";
+				$improve_description .= "<span class='desc_content'><a href='https://www.sigmaaldrich.com/KR/ko/search' target='_blank'>MSDS(물질안전보건자료) 바로가기</a></span>";
+				$data['goods']->gd_desc = $improve_description;
+			}
+		}
         return response()->json($data);
     }
 

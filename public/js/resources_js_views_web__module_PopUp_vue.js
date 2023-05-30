@@ -287,39 +287,6 @@ var render = function () {
           1
         )
       : _vm._e(),
-    _vm._v(" "),
-    _vm.$route.name == "main" && _vm.pop[2].is_view
-      ? _c(
-          "div",
-          { staticClass: "popup pop_2" },
-          [
-            _c("b-img", {
-              attrs: { src: _vm.s3url + "main/popup/230508_1.jpg" },
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "ctrl" },
-              [
-                _c(
-                  "b-button",
-                  {
-                    staticClass: "white xm",
-                    on: {
-                      click: function ($event) {
-                        return _vm.todayStop(2)
-                      },
-                    },
-                  },
-                  [_vm._v("24시간 안 보기")]
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        )
-      : _vm._e(),
   ])
 }
 var staticRenderFns = []

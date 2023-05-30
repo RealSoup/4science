@@ -36,19 +36,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'CSCenterIndex',
   components: {
-    'BoardCreate': function BoardCreate() {
+    'board-create': function boardCreate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_board_Create_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/board/Create */ "./resources/js/views/web/board/Create.vue"));
     },
-    'EstimateGuide': function EstimateGuide() {
+    'estimate-guide': function estimateGuide() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_cscenter__comp_EstimateGuide_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/EstimateGuide */ "./resources/js/views/web/cscenter/_comp/EstimateGuide.vue"));
     },
-    'OrderGuide': function OrderGuide() {
+    'order-guide': function orderGuide() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_cscenter__comp_OrderGuide_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/OrderGuide */ "./resources/js/views/web/cscenter/_comp/OrderGuide.vue"));
     },
-    'PayGuide': function PayGuide() {
+    'pay-guide': function payGuide() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_cscenter__comp_PayGuide_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/PayGuide */ "./resources/js/views/web/cscenter/_comp/PayGuide.vue"));
     },
-    'Faq': function Faq() {
+    'faq': function faq() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_cscenter__comp_Faq_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Faq */ "./resources/js/views/web/cscenter/_comp/Faq.vue"));
     }
   },
@@ -231,25 +231,25 @@ var render = function () {
           _c(
             "b-tab",
             { attrs: { title: "1:1 문의", active: "" } },
-            [_c("BoardCreate", { attrs: { cs_bo_cd: "inquiry" } })],
+            [_c("board-create", { attrs: { cs_bo_cd: "inquiry" } })],
             1
           ),
           _vm._v(" "),
           _c(
             "b-tab",
             { attrs: { title: "A/S 신청" } },
-            [_c("BoardCreate", { attrs: { cs_bo_cd: "as" } })],
+            [_c("board-create", { attrs: { cs_bo_cd: "as" } })],
             1
           ),
           _vm._v(" "),
           _c(
             "b-tab",
             { attrs: { title: "취소/교환" } },
-            [_c("BoardCreate", { attrs: { cs_bo_cd: "cancel" } })],
+            [_c("board-create", { attrs: { cs_bo_cd: "cancel" } })],
             1
           ),
           _vm._v(" "),
-          _c("b-tab", { attrs: { title: "FAQ" } }, [_c("Faq")], 1),
+          _c("b-tab", { attrs: { title: "FAQ" } }, [_c("faq")], 1),
         ],
         1
       ),
@@ -273,13 +273,18 @@ var render = function () {
           _c(
             "b-tab",
             { attrs: { title: "견적문의 안내" } },
-            [_c("EstimateGuide")],
+            [_c("estimate-guide")],
             1
           ),
           _vm._v(" "),
-          _c("b-tab", { attrs: { title: "주문 안내" } }, [_c("OrderGuide")], 1),
+          _c(
+            "b-tab",
+            { attrs: { title: "주문 안내" } },
+            [_c("order-guide")],
+            1
+          ),
           _vm._v(" "),
-          _c("b-tab", { attrs: { title: "결제 안내" } }, [_c("PayGuide")], 1),
+          _c("b-tab", { attrs: { title: "결제 안내" } }, [_c("pay-guide")], 1),
           _vm._v(" "),
           _c("b-tab", { attrs: { title: "회원혜택 안내" } }, [
             _c("img", {

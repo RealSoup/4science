@@ -19,7 +19,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AuthEmailVerify",
@@ -186,18 +185,12 @@ var render = function () {
     "b-card",
     { attrs: { header: "이메일 주소 인증 확인" } },
     [
-      _vm._v(
-        "\r\n        계속하기 전에 이메일에서 확인 링크를 확인하십시오.\r\n        "
-      ),
+      _vm._v("\r\n    가입시 입력한 이메일로 가서 링크를 클릭하세요. "),
       _c("br"),
-      _vm._v(
-        "\r\n        이메일을 받지 못한 경우 다른 이메일을 요청하려면 \r\n        "
-      ),
-      _c(
-        "b-button",
-        { attrs: { size: "sm", variant: "light" }, on: { click: _vm.resend } },
-        [_vm._v("여기를 클릭하십시오.")]
-      ),
+      _vm._v("\r\n    이메일을 받지 못한 경우 재전송 버튼을 누르세요.\r\n    "),
+      _c("b-button", { attrs: { size: "sm" }, on: { click: _vm.resend } }, [
+        _vm._v("재전송"),
+      ]),
     ],
     1
   )

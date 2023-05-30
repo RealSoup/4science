@@ -1,82 +1,75 @@
 <template>
-    <div>
-        <div class="pTitle">
-            <span><i>마</i></span>
-            <span><i>일</i></span>
-            <div class="break d-md-block d-none"></div>
-            <span><i>리</i></span>
-            <span><i>지</i></span>
-            <div class="break"></div>
-            <span><i></i></span>
-        </div>
-        <b-container class="list">
-            <b-row class="header">
-                <b-col>적립일</b-col>
-                <b-col>내역</b-col>
-                <b-col>마일리지</b-col>
-                <b-col>*</b-col>
-            </b-row>
-            <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
-                <b-col>{{ml.created_at | formatDate_YYYY_MM_DD}}</b-col>
-                <b-col>
-                    <div v-if="ml.ml_tbl == 'voucher'">
-                        <b-icon-gift-fill /> {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 <br />
-                        <font-awesome-icon icon="user" /> {{ml.refine_content[2]}} <br />
-                        <font-awesome-icon icon="mobile-alt" /> {{ml.refine_content[3]}}
-                    </div>
-                    <div v-else>
-                        {{ml.ml_content}}
-                        <b-badge v-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
-                        <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
-                    </div>
-                </b-col>
-                <b-col>
-                    <template v-if="ml.ml_tbl == 'voucher'">상품권 신청</template>
-                    <template v-else>{{ml.ml_enable_m | comma}} <b>P</b></template>
-                </b-col>
-                <b-col>
-                    <template v-if="ml.ml_tbl == 'voucher'">
-                        <b-badge v-if="ml.ml_type == 'REQ'" variant="secondary">요청</b-badge>
-                        <b-badge v-else-if="ml.ml_type == 'OK'" variant="success">승인</b-badge>
-                        <b-badge v-else-if="ml.ml_type == 'NO'" variant="warning">반려</b-badge>
-                    </template>
-                </b-col>
-            </b-row>
-            <pagination :data="mileage" align="center" @pagination-change-page="index"></pagination>
-        </b-container>
+<div class="w_fence">
+    <h3>마 일 리 지</h3>
+    <b-container class="list">
+        <b-row class="header">
+            <b-col>적립일</b-col>
+            <b-col>내역</b-col>
+            <b-col>마일리지</b-col>
+            <b-col>*</b-col>
+        </b-row>
+        <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
+            <b-col>{{ml.created_at | formatDate_YYYY_MM_DD}}</b-col>
+            <b-col>
+                <div v-if="ml.ml_tbl == 'voucher'">
+                    <b-icon-gift-fill /> {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 <br />
+                    <font-awesome-icon icon="user" /> {{ml.refine_content[2]}} <br />
+                    <font-awesome-icon icon="mobile-alt" /> {{ml.refine_content[3]}}
+                </div>
+                <div v-else>
+                    {{ml.ml_content}}
+                    <b-badge v-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
+                    <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
+                </div>
+            </b-col>
+            <b-col>
+                <template v-if="ml.ml_tbl == 'voucher'">상품권 신청</template>
+                <template v-else>{{ml.ml_enable_m | comma}} <b>P</b></template>
+            </b-col>
+            <b-col>
+                <template v-if="ml.ml_tbl == 'voucher'">
+                    <b-badge v-if="ml.ml_type == 'REQ'" variant="secondary">요청</b-badge>
+                    <b-badge v-else-if="ml.ml_type == 'OK'" variant="success">승인</b-badge>
+                    <b-badge v-else-if="ml.ml_type == 'NO'" variant="warning">반려</b-badge>
+                </template>
+            </b-col>
+        </b-row>
+        <pagination :data="mileage" align="center" @pagination-change-page="index"></pagination>
+    </b-container>
 
-        <b-container class="request">
-            <b-row>
-                <b-col v-for="(v, k) in config" :key="k">
-                    <b-form-radio v-model="frm.type" :value="k">
-                        <img :src="`${s3url}mypage/mileage/gift${v.point}.png`" />
-                        <p>{{v.name}}</p>
-                    </b-form-radio>
-                </b-col>
-                <Validation :error="this.$store.state.error.validations.type" />
-            </b-row>
-            <b-row>
-                <b-col class="awesome_p">
-                    <b-form-input v-model="frm.ea" id="ea" required />
-                    <label for="oex_num_in"><span>신청 수량</span></label>
-                    <Validation :error="this.$store.state.error.validations.ea" />
-                </b-col>
-                <b-col class="awesome_p">
-                    <b-form-input v-model="frm.name" id="name" required />
-                    <label for="oex_num_in"><span>수령인</span></label> 
-                    <Validation :error="this.$store.state.error.validations.name" />                   
-                </b-col>
-                <b-col class="awesome_p">
-                    <b-form-input v-model="frm.hp" id="hp" required />
-                    <label for="oex_num_in"><span>휴대폰 번호</span></label>  
-                    <Validation :error="this.$store.state.error.validations.hp" />                  
-                </b-col>
-                <b-col>
-                    <b-button @click="store" variant="info" block>신청하기</b-button>
-                </b-col>
-            </b-row>
-        </b-container>
-    </div>
+    <b-container class="request">
+        <b-row>
+            <b-col v-for="(v, k) in config" :key="k">
+                <b-form-radio v-model="frm.type" :value="k">
+                    <img :src="`${s3url}mypage/mileage/gift${v.point}.png`" />
+                    <p>{{v.name}}</p>
+                </b-form-radio>
+            </b-col>
+            <validation :error="this.$store.state.error.validations.type" />
+        </b-row>
+        <b-row>
+            <b-col class="awesome_p">
+                <b-form-input v-model="frm.ea" id="ea" required ref="ea" />
+                <label for="oex_num_in"><span>신청 수량</span></label>
+                <validation :error="this.$store.state.error.validations.ea" />
+            </b-col>
+            <b-col class="awesome_p">
+                <b-form-input v-model="frm.name" id="name" required ref="name" />
+                <label for="oex_num_in"><span>수령인</span></label> 
+                <validation :error="this.$store.state.error.validations.name" />                   
+            </b-col>
+            <b-col class="awesome_p">
+                <b-form-input v-model="frm.hp" id="hp" required ref="hp" :formatter="frm_formatHp" />
+                <label for="oex_num_in"><span>휴대폰 번호</span></label>  
+                <validation :error="this.$store.state.error.validations.hp" />                  
+            </b-col>
+            <b-col>
+                <b-button v-if="clickable" @click="store" variant="info" block>신청하기</b-button>
+                <b-button v-else class="gray" size="sm"><font-awesome-icon icon="save" /> 신청 중~!</b-button>
+            </b-col>
+        </b-row>
+    </b-container>
+</div>
 </template>
 
 <script>
@@ -85,25 +78,18 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'MyMileageIndex',
-    components: {
-        'Validation': () =>     import('@/views/_common/Validation.vue'),
-    },
-    computed: {
-        ...mapGetters({
-            enableMileage: 'auth/enableMileage',
-        })
-    },
+    components: { 'validation': () =>     import('@/views/_common/Validation.vue'), },
+    computed: { ...mapGetters({ enableMileage: 'auth/enableMileage', }) },
     data() {
         return {
+            clickable : true,
             frm:{},
             mileage:{},
             config:{},
         };
     },
 
-    mounted() {
-        this.index();
-    },
+    mounted() { this.index(); },
 
     methods: {
         async index(page=1){
@@ -119,25 +105,26 @@ export default {
             }
         },
         async store(){
-            if (this.frm.type && this.frm.ea) {
-                console.log(this.enableMileage, this.config[this.frm.type].point*this.frm.ea);
-                if (this.enableMileage < this.config[this.frm.type].point*this.frm.ea) {
-                    Notify.modal('마일리지가 모자릅니다.', 'warning');
-                    return false;
+            if (isEmpty(this.frm.type)) { Notify.toast('danger', "상품권을 선택하세요"); return false; }
+            if (isEmpty(this.frm.ea)) { Notify.toast('danger', "신청 수량을 입력하세요"); this.$refs.ea.focus(); return false; }
+            if (isEmpty(this.frm.name)) { Notify.toast('danger', "수령인을 입력하세요"); this.$refs.name.focus(); return false; }
+            if (isEmpty(this.frm.hp)) { Notify.toast('danger', "휴대폰 번호를 입력하세요"); this.$refs.hp.focus(); return false; }
+            if (this.enableMileage < this.config[this.frm.type].point*this.frm.ea) { Notify.modal('마일리지가 모자릅니다.', 'warning'); return false; }
+            try {
+                this.clickable = false;
+                const res = await ax.post(`/api/mileage`, this.frm);
+                if (res && res.status === 200) {
+                    this.clickable = true;
+                    this.$store.state.auth.enable_mileage = res.data;
+                    Notify.modal("신청 되었습니다.", 'info');
                 }
-                try {
-                    const res = await ax.post(`/api/mileage`, this.frm);
-                    if (res && res.status === 200) {
-                        Notify.modal("신청 되었습니다.", 'info');
-                    }
-                } catch (e) {
-                    Notify.consolePrint(e);
-                    Notify.toast('warning', e.response.data.message);
-                }
-            } else {
-                Notify.modal('신청 정보를 입력하세요.', 'warning');
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response.data.message);
             }
+           
         },
+        frm_formatHp(v)   { return this.formatHp(v); },
     },
 };
 </script>

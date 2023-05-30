@@ -600,7 +600,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     },

@@ -122,6 +122,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('enable/{id}',       'Admin\MileageController@enable');
                 Route::GET('{id}',              'Admin\MileageController@index');
                 Route::PATCH('{id}',            'Admin\MileageController@update');
+                Route::POST('{id}',             'Admin\MileageController@store');
             });
 
             Route::prefix('shop')->group(function () {

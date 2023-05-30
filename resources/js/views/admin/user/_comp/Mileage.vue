@@ -1,7 +1,25 @@
 <template>
 <div class="p_wrap">
     <b-container class="cmain">
-        <div class="top">가용 마일리지: <b>{{enableMileage | comma}}</b></div>
+        <b-row>
+            <b-col><b-button class="sm mint" @click="show_add=!show_add">지급&차감</b-button></b-col>
+            <b-col class="text-right">가용 마일리지: <b>{{enableMileage | comma}}</b></b-col>
+        </b-row>
+        <div class="mileage_add" v-if="show_add">
+            <b-input-group size="sm">
+                <b-input-group-prepend>
+                    <b-form-select class="custom-select" v-model="act.type" size="sm">
+                        <b-form-select-option value="plus">지급</b-form-select-option>
+                        <b-form-select-option value="minus">차감</b-form-select-option>
+                    </b-form-select>
+                </b-input-group-prepend>
+                <b-form-input v-model="act.msg" ref="msg" placeholder="메시지" />
+                <b-input-group-append>
+                    <b-form-input v-model="act.mileage" ref="mileage" placeholder="마일리지" class="mileage" size="sm" @keyup.enter="action" :formatter="frm_priceComma" />
+                    <b-button class="d_blue sm" @click="action">실행</b-button>
+                </b-input-group-append>
+            </b-input-group>
+        </div>
         <b-row class="head list">
             <b-col>번호</b-col>
             <b-col>내용</b-col>
@@ -25,10 +43,8 @@
                         <b-icon-link45deg />주문 보기
                     </b-button>
                     
-                    <template v-if="ml.ml_type=='SP'">
-                        <b-badge v-if="ml.ml_tbl == 'admin'" class="ml-3">관리자 지급</b-badge>
-                        <b-badge v-else variant="warning" class="ml-3">상품권 구매</b-badge>
-                    </template>
+                    <b-badge v-if="ml.ml_tbl == 'admin'" class="ml-3">관리자 지급</b-badge>               
+                    <b-badge v-else-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
                     <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
                 </div>
             </b-col>
@@ -56,13 +72,18 @@ export default {
 
     data() {
         return {
+            show_add:false,
             frm:{
                 page:0,
             },
             list: {},
             enableMileage: 0,
             config: null,
-            
+            act:{
+                type:'plus',
+                mileage:'',
+                msg:'',
+            },
         };
     },
     computed: {
@@ -96,19 +117,36 @@ export default {
         numCalc(i) {
             return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
         },
+
+        async action () {
+            if (isEmpty(this.act.mileage)) { Notify.toast('danger', "마일리지를 입력하세요"); this.$refs.mileage.focus(); return false; }
+            if (isEmpty(this.act.msg)) { Notify.toast('danger', "메시지를 입력하세요"); this.$refs.msg.focus(); return false; }
+            var rst = await Notify.confirm('지급&차감', 'warning');
+            if (rst) {
+                const res = await ax.post(`/api/admin/mileage/${this.$route.params.id}`, this.act);
+                if (res && res.status === 200) {
+                    this.list = res.data.list;
+                    this.enableMileage = res.data.mileage;
+                    this.act.type = 'plus';
+                    this.act.mileage = '';
+                    this.act.msg = '';
+                    Notify.toast('success', '변경 완료')
+                }
+            }
+        },
+        frm_priceComma(v)   { return this.priceComma(v); },
     },
     
     async mounted() {
         this.index();
         const ml = await ax.get(`/api/admin/mileage/enable/${this.$route.params.id}`);
         this.enableMileage = ml.data;
-        
     },
 }
 </script>
 <style lang="css" scoped>
 .col { padding:10px 5px; }
-.top { text-align:right; }
+.mileage_add .mileage { max-width:95px; text-align:right; }
 .list .col:nth-of-type(1) { flex:0 0 12%; max-width:12%; }
 .list .col:nth-of-type(2) { text-align:left; }
 .list .col:nth-of-type(3) { flex:0 0 13%; max-width:13%; text-align:right; }

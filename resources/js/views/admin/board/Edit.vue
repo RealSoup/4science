@@ -38,7 +38,7 @@ v-model="something"
                 </b-col>
             </b-row>            
         </b-container>
-        <Form v-model="board" />
+        <bo-form v-model="board" />
     </b-card>
     
     <b-card class="shadow mt-3" v-if="board.config.is_addFile">
@@ -54,8 +54,8 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     name: 'AdmBoardEdit',
     components: {
-        'Form': () => import('./_comp/Form'),
-        FileUpload,
+        'bo-form': () => import('./_comp/BoForm'),
+        'file-upload': FileUpload,
     },
     
     data() {

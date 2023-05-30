@@ -72,12 +72,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmBoardShow',
   components: {
-    Comment: _views_web_board_components_Comment_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'comment': _views_web_board_components_Comment_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -87,6 +91,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       bo_cd: this.$route.params.bo_cd,
       bo_id: this.$route.params.bo_id
     };
+  },
+  filters: {
+    bo_type: function bo_type(str) {
+      var rst = '';
+
+      switch (str) {
+        case "C":
+          rst = "배송전 주문취소";
+          break;
+
+        case "R":
+          rst = "반품";
+          break;
+
+        case "S":
+          rst = "교환";
+          break;
+      }
+
+      return rst;
+    }
   },
   computed: {
     getLink: function getLink() {
@@ -160,7 +185,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 9:
                 res = _context2.sent;
                 if (res && res.status === 200) _this2.$router.push({
-                  name: 'bo_index',
+                  name: 'adm_board_index',
                   params: {
                     bo_cd: _this2.bo_cd
                   }
@@ -549,7 +574,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show { max-width:1400px; margin:auto;\n}\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .bd_info .bo_type { font-size:1.2rem;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -829,8 +854,22 @@ var render = function () {
           "li",
           { staticClass: "list-inline-item" },
           [
-            _c("b-icon", { attrs: { icon: "person-fill" } }),
-            _vm._v(" " + _vm._s(_vm.board.bo_writer)),
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: {
+                    name: "adm_user_edit",
+                    params: { id: _vm.board.created_id },
+                  },
+                },
+              },
+              [
+                _c("b-icon", { attrs: { icon: "person-fill" } }),
+                _vm._v(" " + _vm._s(_vm.board.bo_writer)),
+              ],
+              1
+            ),
           ],
           1
         ),
@@ -886,6 +925,20 @@ var render = function () {
                 }),
               ],
               2
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.bo_cd == "cancel"
+          ? _c(
+              "li",
+              { staticClass: "list-inline-item bo_type badge badge-warning" },
+              [
+                _vm._v(
+                  "\r\n            분류 : " +
+                    _vm._s(_vm._f("bo_type")(_vm.board.bo_type)) +
+                    "\r\n        "
+                ),
+              ]
             )
           : _vm._e(),
       ]),
@@ -954,10 +1007,7 @@ var render = function () {
               {
                 staticClass: "btn btn-sm btn-light",
                 attrs: {
-                  to: {
-                    name: _vm.getLink + "bo_index",
-                    params: { bo_cd: _vm.bo_cd },
-                  },
+                  to: { name: "adm_board_index", params: { bo_cd: _vm.bo_cd } },
                 },
               },
               [_vm._v("목록")]
@@ -965,10 +1015,40 @@ var render = function () {
           ],
           1
         ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-6 text-right" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-sm btn-warning",
+                attrs: {
+                  to: {
+                    name: "adm_board_edit",
+                    params: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id },
+                  },
+                },
+              },
+              [_vm._v("수정")]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                attrs: { variant: "danger", size: "sm" },
+                on: { click: _vm.destroy },
+              },
+              [_vm._v("삭제")]
+            ),
+          ],
+          1
+        ),
       ]),
       _vm._v(" "),
       _vm.board.config.is_comment
-        ? _c("Comment", { attrs: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id } })
+        ? _c("comment", { attrs: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id } })
         : _vm._e(),
     ],
     1

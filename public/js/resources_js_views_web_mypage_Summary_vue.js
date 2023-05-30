@@ -39,13 +39,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Mypage",
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'OrderList': function OrderList() {
+    'order-list': function orderList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop_OrderList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./myShop/OrderList.vue */ "./resources/js/views/web/mypage/myShop/OrderList.vue"));
     },
-    'EstimateList': function EstimateList() {
+    'estimate-list': function estimateList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_mypage_myShop_EstimateList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./myShop/EstimateList.vue */ "./resources/js/views/web/mypage/myShop/EstimateList.vue"));
     }
   },
@@ -193,7 +193,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -210,7 +210,7 @@ var render = function () {
               _c("small", [_vm._v("최근 주문 5개를 보여줍니다.")]),
             ]),
             _vm._v(" "),
-            _c("OrderList", {
+            _c("order-list", {
               attrs: { order_config: _vm.order_config },
               model: {
                 value: _vm.order,
@@ -230,7 +230,7 @@ var render = function () {
               _c("small", [_vm._v("최근 견적 5개를 보여줍니다.")]),
             ]),
             _vm._v(" "),
-            _c("EstimateList", {
+            _c("estimate-list", {
               model: {
                 value: _vm.estimateReq,
                 callback: function ($$v) {

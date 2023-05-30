@@ -1,10 +1,8 @@
 <template>
 <b-container class="w_fence">
     <h3>견적서 <b>{{reply.er_id}}</b></h3>
-    <ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
-        <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
-            Loading ......
-        </LoadingModal>
+    <validation-observer ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
+        <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
         <div v-else>
             <b-container class="top">
                 <b-row>
@@ -135,7 +133,7 @@
                 <b-button class="blue lg" @click="settle">선택상품 주문하기</b-button>
             </div>
         </div>
-    </ValidationObserver>
+    </validation-observer>
 </b-container>    
 </template>
 
@@ -145,10 +143,7 @@ import { Validator } from 'vee-validate';
 
 export default {
     name: "mypageEstimateReplyShow",
-    components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'PaList'        : () => import('@/views/web/_module/PaList'),
-    },
+    components: { 'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'), },
     data() {
         return {
             isLoadingModalViewed: true,

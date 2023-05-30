@@ -1,9 +1,9 @@
 
 <template>
 <b-container class="w_fence">     
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
         Loading ......
-    </LoadingModal>
+    </loading-modal>
     <template v-else>
         <h3>구매 상품목록</h3>
 
@@ -43,8 +43,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: "MyBought",
     components: {
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
