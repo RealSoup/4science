@@ -10,8 +10,9 @@ import ax from '@/api/http';
 export default { 
     name: "AuthEmailVerify",
     methods:{
-        resend() {
-            ax.post(`email/resend`);
+        async resend() {
+            const res = await ax.post(`email/resend`);
+            if (res && res.status === 202) Notify.modal('이메일이 재전송 되었습니다.', 'success');
         },
     },
 } 

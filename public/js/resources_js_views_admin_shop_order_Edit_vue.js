@@ -529,7 +529,11 @@ var dt = new Date();
       return req.join(', ');
     },
     dlvy_4s: function dlvy_4s() {
-      return this.od.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
+      var rst = 0;
+      this.od.order_purchase_at.forEach(function (el) {
+        if (el.odpa_pa_id == 0) rst = el.odpa_dlvy_p_add_vat;
+      });
+      return rst;
     },
     dlvy_other: function dlvy_other() {
       return Object.values(this.od.order_purchase_at).reduce(function (acc, el) {
@@ -1822,10 +1826,15 @@ var render = function () {
                                         ),
                                         _c("br"),
                                         _vm._v(
-                                          "\r\n                                    사양: " +
-                                            _vm._s(odm.odm_gm_spec) +
-                                            "\r\n                                "
+                                          "\r\n                                    사양: "
                                         ),
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              _vm.nl2br(odm.odm_gm_spec)
+                                            ),
+                                          },
+                                        }),
                                       ]),
                                     ]
                                   : [
@@ -2118,7 +2127,11 @@ var render = function () {
                       _c("b", [
                         _vm._v(
                           _vm._s(
-                            _vm._f("won")(_vm._f("comma")(_vm.od.od_dlvy_price))
+                            _vm._f("won")(
+                              _vm._f("comma")(
+                                _vm.od.od_dlvy_price + _vm.od.od_air_price
+                              )
+                            )
                           )
                         ),
                       ]),

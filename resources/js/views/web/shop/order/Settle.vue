@@ -94,8 +94,10 @@
                     </b-row>
                 </div>
  -->
+ 
+                <pop-up /> <!-- 팝업 -->
+
                 <div id="address" class="address">
-                    <pop-up /> <!-- 팝업 -->
                     <h4>
                         <span>02. 배송지 정보</span>
                         <div>
@@ -104,17 +106,17 @@
                             <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
                         </div>
                     </h4>
-                    <b-row>
+                    <b-row class="od_orderer">
                         <label for="od_orderer">배송지명</label>
                         <b-col>{{order.od_ua_title}}</b-col>
                     </b-row>
-                    <b-row>
+                    <b-row class="od_receiver">
                         <label for="od_receiver">수령인<i class="require" /></label>
                         <b-col>
                             <b-form-input v-model="order.od_receiver" ref="od_receiver" id="od_receiver" />
                         </b-col>
                     </b-row>
-                    <b-row>
+                    <b-row class="od_receiver_hp">
                         <label for="od_receiver_hp">연락처<i class="require" /></label>
                         <b-col>
                             <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash class="m_hide" />
@@ -122,32 +124,25 @@
                             <b-form-input v-model="order.od_receiver_hp3" ref="od_receiver_hp3" @input.native="focusNext($event, 4, 'btn_postcode')" :formatter="maxlength_4" />
                         </b-col>
                     </b-row>                        
-                    <b-row>
+                    <b-row class="od_addr">
                         <label>주소<i class="require" /></label>
                         <b-col>
                             <div>
                                 <b-form-input v-model="order.od_zip" readonly />
                                 <span class="btn" @click="postcode_open = !postcode_open" ref="btn_postcode">
-                                    <template v-if="postcode_open"><b-icon-x-square-fill /></template>
+                                    <template v-if="postcode_open">닫기</template>
                                     <template v-else>우편번호 찾기</template>
                                 </span>
-
-                                <template v-if="postcode_open">
-                                    <vue-daum-postcode class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" >
-                                        <template #loading>
-                                            <b-spinner variant="success" label="Spinning" />
-                                        </template>
-                                    </vue-daum-postcode>
-                                </template>
+                                <vue-daum-postcode v-if="postcode_open" class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" />
                             </div>
-                            <b-form-input v-model="order.od_addr1" readonly />
+                            <b-form-input v-model="order.od_addr1" readonly class="od_addr1" />
                             <b-form-input v-model="order.od_addr2" ref="od_addr2" />
                         </b-col>
                     </b-row>
                     
-                    <b-row>
+                    <b-row class="od_memo">
                         <label for="od_memo">배송 요청사항</label>
-                        <b-col class="od_memo">
+                        <b-col>
                             <b-form-select v-model="order.od_memo_slt" @change="memo_slt">
                                 <b-form-select-option value="">선택</b-form-select-option>
                                 <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
@@ -162,10 +157,7 @@
             <b-col id="payment" class="payment">
                 <b-row class="top">
                     <b-col>최종 결제 금액</b-col>
-                    <b-col>
-                        <b>{{order.price.total | comma}}</b> 원
-                        <span>부가세 포함</span>
-                    </b-col>
+                    <b-col><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
                 </b-row>
                 <div class="body">
                     <h5>결제 수단</h5>
@@ -184,39 +176,30 @@
                         <div v-if="order.od_pay_method == 'B'" class="pay_info">
                             <h6>무통장 입금</h6>
                             <b-row>
-                                <b-col cols="3">결제금액</b-col>
-                                <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
+                                <b-col cols="3">결제금액</b-col><b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
                             </b-row>
                             <b-row>
                                 <b-col cols="3">은행선택</b-col>
                                 <b-col>
-                                    <b-form-radio v-model="order.extra.oex_bank" value="K">
-                                        국민은행 010-01-0944-960
-                                    </b-form-radio>
-                                    <b-form-radio v-model="order.extra.oex_bank" value="W">
-                                        우리은행 849-103249-13-002
-                                    </b-form-radio>
+                                    <b-form-radio v-model="order.extra.oex_bank" value="K">국민은행 010-01-0944-960</b-form-radio>
+                                    <b-form-radio v-model="order.extra.oex_bank" value="W">우리은행 849-103249-13-002</b-form-radio>
                                 </b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">예금주</b-col>
-                                <b-col>(주) 아이넥서스</b-col>
+                                <b-col cols="3">예금주</b-col><b-col>(주) 아이넥서스</b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">입금자</b-col>
-                                <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm" /></b-col>
+                                <b-col cols="3">입금자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="입금자" size="sm" /></b-col>
                             </b-row>
                         </div>
                         
                         <div v-if="order.od_pay_method == 'P'" class="pay_info">
                             <h6>PSYS 결제</h6>
                             <b-row>
-                                <b-col cols="3">결제금액</b-col>
-                                <b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
+                                <b-col cols="3">결제금액</b-col><b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">결제자</b-col>
-                                <b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm" /></b-col>
+                                <b-col cols="3">결제자</b-col><b-col><b-form-input v-model="order.extra.oex_depositor" ref="oex_depositor" placeholder="결제자" size="sm" /></b-col>
                             </b-row>
                         </div>
                         
@@ -235,10 +218,7 @@
                                 </b-col>
                             </b-row>
                             <b-row>
-                                <b-col cols="3">담당자</b-col>
-                                <b-col>
-                                    <b-form-input v-model="order.extra.oex_mng" size="sm" />
-                                </b-col>
+                                <b-col cols="3">담당자</b-col><b-col><b-form-input v-model="order.extra.oex_mng" size="sm" /></b-col>
                             </b-row>
                             <b-row class="pay_r_tel">
                                 <b-col cols="3">연락처</b-col>
@@ -249,10 +229,8 @@
                                 </b-col>
                             </b-row>
                             <b-row class="pay_r_tel">
-                                <b-col cols="3">이메일</b-col>
-                                <b-col><b-form-input v-model="order.extra.oex_email" ref="oex_email" id="oex_email" size="sm" /></b-col>
-                            </b-row>
-                    
+                                <b-col cols="3">이메일</b-col><b-col><b-form-input v-model="order.extra.oex_email" ref="oex_email" id="oex_email" size="sm" /></b-col>
+                            </b-row>                    
                         </div>
                     </transition>
 
@@ -730,7 +708,8 @@ export default {
                 this.addr = res.data.addr;
                 this.order.sale_env = res.data.sale_env;
                 this.set_orderer();
-                this.addr_choose(this.addr[0]);
+                if(this.addr.length)
+                    this.addr_choose(this.addr[0]);
             }
             /*  견적가 에러는 
                 \resources\js\api\http.js
@@ -795,21 +774,22 @@ export default {
 
 #settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col,
 #settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col,
-#settle .st_bottom .inputs .address .row:nth-of-type(1) .col,
-#settle .st_bottom .inputs .address .row:nth-of-type(2) .col { flex-basis:36%; max-width:36%; }
+#settle .st_bottom .inputs .address .od_orderer .col,
+#settle .st_bottom .inputs .address .od_receiver .col { flex-basis:36%; max-width:36%; }
 
 #settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input,
-#settle .st_bottom .inputs .address .row:nth-of-type(3) .col input { max-width:122px; }
+#settle .st_bottom .inputs .address .od_receiver_hp .col input { max-width:122px; }
 #settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input { max-width:180px; }
 #settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select { max-width:122px; margin:0 .5rem; }
 
-#settle .st_bottom .inputs .address .row:nth-of-type(4) .col { flex-basis:46%; max-width:46%; }
-#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div input { max-width:180px; display:inline-block; }
-#settle .st_bottom .inputs .address .row:nth-of-type(4) .col div .btn { font-size:.9rem; height:36px; position:relative; top:-2px;}
-#settle .st_bottom .inputs .address .row:nth-of-type(5) .col { display:block; flex-basis:53%; max-width:53%; }
-#settle .st_bottom .inputs .address .row:nth-of-type(5) .col select { max-width:446px; }
-#settle .st_bottom .inputs .address .sch_zip { margin-top:1rem; position:absolute; z-index:1; border:2px solid #000; }
-#settle .st_bottom .inputs .address .row .od_memo select { max-width:16rem; }
+#settle .st_bottom .inputs .address .od_receiver_hp .col { flex-basis:46%; max-width:46%; }
+#settle .st_bottom .inputs .address .od_receiver_hp .col div input { max-width:180px; display:inline-block; }
+#settle .st_bottom .inputs .address .od_receiver_hp .col div .btn { font-size:.9rem; height:36px; position:relative; top:-2px;}
+#settle .st_bottom .inputs .address .od_addr .col { display:block; flex-basis:53%; max-width:53%; }
+#settle .st_bottom .inputs .address .od_addr .col div input { max-width:16rem; display:inline-block; }
+#settle .st_bottom .inputs .address .od_addr .col .od_addr1 { margin-top:0; }
+#settle .st_bottom .inputs .address .sch_zip { width:100%; position:absolute; z-index:1; border:2px solid #000; }
+#settle .st_bottom .inputs .address .od_memo .col select { max-width:16rem; }
 
 #settle .st_bottom .pay_go { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
 

@@ -36,14 +36,14 @@
                         <div class="section">
                             <div class="flex_wrap">
                                 <b>브랜드별</b>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1288' }}" ><img :src="s3url+'outlet/pipette/thermo.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1286' }}" ><img :src="s3url+'outlet/pipette/witeg.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1281' }}" ><img :src="s3url+'outlet/pipette/gilson.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1283' }}" ><img :src="s3url+'outlet/pipette/eppen.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1287' }}" ><img :src="s3url+'outlet/pipette/axygen.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1282' }}" ><img :src="s3url+'outlet/pipette/sartorius.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1284' }}" ><img :src="s3url+'outlet/pipette/socorex.png'" /></b-link>
-                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1277', ca03:'1280', ca04:'1293' }}" ><img :src="s3url+'outlet/pipette/etc.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1289' }}" ><img :src="s3url+'outlet/pipette/thermo.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1287' }}" ><img :src="s3url+'outlet/pipette/witeg.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1282' }}" ><img :src="s3url+'outlet/pipette/gilson.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1284' }}" ><img :src="s3url+'outlet/pipette/eppen.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1288' }}" ><img :src="s3url+'outlet/pipette/axygen.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1283' }}" ><img :src="s3url+'outlet/pipette/sartorius.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1285' }}" ><img :src="s3url+'outlet/pipette/socorex.png'" /></b-link>
+                                <b-link :to="{name: 'goods_index', query: { ca01:'27', ca02:'1278', ca03:'1281', ca04:'1294' }}" ><img :src="s3url+'outlet/pipette/etc.png'" /></b-link>
                             </div>
                         </div>
                         

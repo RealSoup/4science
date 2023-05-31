@@ -491,7 +491,7 @@ var render = function () {
                 "b",
                 [
                   _vm.user.level == 1
-                    ? [_vm._v("       일반")]
+                    ? [_vm._v("       신입")]
                     : _vm.user.level == 2
                     ? [_vm._v("  브론즈")]
                     : _vm.user.level == 3
@@ -528,7 +528,7 @@ var render = function () {
               _c("p", [_vm._v("나의 마일리지")]),
               _vm._v(" "),
               _c("b", [
-                _vm._v(_vm._s(_vm.enableMileage) + " "),
+                _vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)) + " "),
                 _c("small", [_vm._v("P")]),
               ]),
               _vm._v(" "),

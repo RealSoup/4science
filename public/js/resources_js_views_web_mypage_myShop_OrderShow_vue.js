@@ -1013,7 +1013,7 @@ var render = function () {
                               _c("b-col", { staticClass: "label_st" }, [
                                 _vm._v("주문자명"),
                               ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_name))]),
+                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_orderer))]),
                             ],
                             1
                           ),

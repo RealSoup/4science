@@ -106,7 +106,7 @@
                                 <p>
                                     제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
                                     모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
-                                    사양: {{odm.odm_gm_spec}}
+                                    사양: <span v-html="nl2br(odm.odm_gm_spec)" />
                                 </p>
                             </template>
                             <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
@@ -161,7 +161,7 @@
                     <b-col>상품금액</b-col>
                     <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
                     <b-col>배송료</b-col>
-                    <b-col><b>{{od.od_dlvy_price | comma | won}}</b></b-col>
+                    <b-col><b>{{od.od_dlvy_price+od.od_air_price | comma | won}}</b></b-col>
                     <b-col>결제 예정 금액</b-col>
                     <b-col><b>{{od.od_all_price | comma | won}}</b></b-col>
                 </b-row>
@@ -502,7 +502,9 @@ export default {
             return req.join(', ');
         },
         dlvy_4s () {
-            return this.od.order_purchase_at.hasOwnProperty(0) ? this.od.order_purchase_at[0].odpa_dlvy_p_add_vat : 0;
+            let rst = 0;
+            this.od.order_purchase_at.forEach(el => { if(el.odpa_pa_id == 0) rst = el.odpa_dlvy_p_add_vat });
+            return rst;
         },
         dlvy_other () {
             return Object.values(this.od.order_purchase_at).reduce((acc, el) => {

@@ -53,20 +53,18 @@ class MileageController extends Controller {
         $enable_price = (int) $this->enable($ml->ml_uid);
         
         if ( $req->ml_type == 'OK') {
-            if ( $enable_price >= $req_price  ) {
-                foreach ($this->mileage->Uid($ml->ml_uid)->Enable()->where('ml_enable_m', '>', 0)->get() as $v) {
-                    $req_price -= $v->ml_enable_m;
-                    $tmp = 0;
-                    if ($req_price >= 0) 	$tmp = 0;
-                    else 					$tmp = abs($req_price);
-                    DB::table('user_mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
-                    if ($req_price <= 0) break;
-                }
-            } else 
-                return response()->json(["msg"=>"마일리지 부족"], 500);
+            foreach ($this->mileage->Uid($ml->ml_uid)->whereRaw("created_at > SUBDATE(NOW(), INTERVAL 1 YEAR)")->where('ml_enable_m', '>', 0)->get() as $v) {
+                $req_price -= $v->ml_enable_m;
+                $tmp = 0;
+                if ($req_price >= 0) 	$tmp = 0;
+                else 					$tmp = abs($req_price);
+                DB::table('user_mileage')->where('ml_id', $v->ml_id)->update(["ml_type" => 'SP', "ml_enable_m" => $tmp]);        
+                if ($req_price <= 0) break;
+            }
         }
         
         $ml->ml_type = $req->ml_type;
+        $ml->ml_enable_m = 0;
         $ml->updated_id = auth()->user()->id;
         $ml->save();   
 

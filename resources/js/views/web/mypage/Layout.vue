@@ -9,7 +9,7 @@
             <b-col class="rank">
                 <p>나의 등급</p>
                 <b>
-                    <template v-if="user.level == 1">       일반</template>
+                    <template v-if="user.level == 1">       신입</template>
                     <template v-else-if="user.level == 2">  브론즈</template>
                     <template v-else-if="user.level == 3">  실버</template>
                     <template v-else-if="user.level == 4">  골드</template>
@@ -23,7 +23,7 @@
             </b-col>
             <b-col>
                 <p>나의 마일리지</p>
-                <b>{{enableMileage}} <small>P</small></b> 
+                <b>{{enableMileage | comma}} <small>P</small></b> 
                 <b-link to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
             </b-col>
             <b-col>

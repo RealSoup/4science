@@ -1,72 +1,82 @@
 <template>
 <div class="w_fence">
-    <h3>마 일 리 지</h3>
+    <h3>마일리지 <small>고객님의 마일리지 히스토리입니다.</small></h3>
     <b-container class="list">
         <b-row class="header">
-            <b-col>적립일</b-col>
-            <b-col>내역</b-col>
+            <b-col>날짜</b-col>
+            <b-col>적립/차감내역</b-col>
             <b-col>마일리지</b-col>
-            <b-col>*</b-col>
+            <b-col>상품권 교환</b-col>
+            <b-col>가용 마일리지</b-col>
         </b-row>
-        <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data" :class="{'bg-danger':(ml.expiration || ml.ml_type=='SP')}">
+        <b-row v-for="ml in mileage.data" :key="ml.ml_id" class="data" :class="{expiration:(ml.expiration || ml.ml_type=='SP')}">
             <b-col>{{ml.created_at | formatDate_YYYY_MM_DD}}</b-col>
             <b-col>
+                
                 <div v-if="ml.ml_tbl == 'voucher'">
-                    <b-icon-gift-fill /> {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 <br />
-                    <font-awesome-icon icon="user" /> {{ml.refine_content[2]}} <br />
-                    <font-awesome-icon icon="mobile-alt" /> {{ml.refine_content[3]}}
+                    {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 /
+                    수령인: {{ml.refine_content[2]}} ({{ml.refine_content[3]}})
                 </div>
                 <div v-else>
-                    {{ml.ml_content}}
-                    <b-badge v-if="ml.ml_type=='SP'" variant="warning" class="ml-3">상품권 구매</b-badge>
-                    <b-badge v-if="ml.expiration" variant="warning" class="ml-3">만료</b-badge>
+                    <span v-if="ml.expiration">기간만료 마일리지 소멸</span>
+                    <span v-else>{{ml.ml_content}}</span>
                 </div>
             </b-col>
             <b-col>
-                <template v-if="ml.ml_tbl == 'voucher'">상품권 신청</template>
-                <template v-else>{{ml.ml_enable_m | comma}} <b>P</b></template>
+                <span v-if="ml.ml_type == 'NO'">-</span>
+                <span v-else>{{ml.ml_mileage | comma}} <b>P</b></span>
             </b-col>
             <b-col>
                 <template v-if="ml.ml_tbl == 'voucher'">
-                    <b-badge v-if="ml.ml_type == 'REQ'" variant="secondary">요청</b-badge>
-                    <b-badge v-else-if="ml.ml_type == 'OK'" variant="success">승인</b-badge>
-                    <b-badge v-else-if="ml.ml_type == 'NO'" variant="warning">반려</b-badge>
+                    <b-badge v-if="ml.ml_type == 'REQ'" class="white">요청</b-badge>
+                    <b-badge v-else-if="ml.ml_type == 'OK'" class="green">승인</b-badge>
+                    <b-badge v-else-if="ml.ml_type == 'NO'" class="gray">반려</b-badge>
                 </template>
+            </b-col>
+            <b-col>
+                <span v-if="ml.ml_tbl !== 'voucher'">{{ml.ml_enable_m | comma}} <b>P</b></span>
             </b-col>
         </b-row>
         <pagination :data="mileage" align="center" @pagination-change-page="index"></pagination>
     </b-container>
 
     <b-container class="request">
+        <span class="tit">상품권 신청</span>
         <b-row>
-            <b-col v-for="(v, k) in config" :key="k">
-                <b-form-radio v-model="frm.type" :value="k">
-                    <img :src="`${s3url}mypage/mileage/gift${v.point}.png`" />
-                    <p>{{v.name}}</p>
-                </b-form-radio>
-            </b-col>
-            <validation :error="this.$store.state.error.validations.type" />
-        </b-row>
-        <b-row>
-            <b-col class="awesome_p">
-                <b-form-input v-model="frm.ea" id="ea" required ref="ea" />
-                <label for="oex_num_in"><span>신청 수량</span></label>
-                <validation :error="this.$store.state.error.validations.ea" />
-            </b-col>
-            <b-col class="awesome_p">
-                <b-form-input v-model="frm.name" id="name" required ref="name" />
-                <label for="oex_num_in"><span>수령인</span></label> 
-                <validation :error="this.$store.state.error.validations.name" />                   
-            </b-col>
-            <b-col class="awesome_p">
-                <b-form-input v-model="frm.hp" id="hp" required ref="hp" :formatter="frm_formatHp" />
-                <label for="oex_num_in"><span>휴대폰 번호</span></label>  
-                <validation :error="this.$store.state.error.validations.hp" />                  
+            <b-col>
+                <div v-for="(v, k) in config" :key="k">
+                    <b-form-radio v-model="frm.type" :value="k">
+                        <img :src="`${s3url}mypage/mileage/gift${v.point}.png`" />
+                        <p>{{v.name}}</p>
+                    </b-form-radio>
+                </div>
+                <validation :error="this.$store.state.error.validations.type" />
             </b-col>
             <b-col>
-                <b-button v-if="clickable" @click="store" variant="info" block>신청하기</b-button>
-                <b-button v-else class="gray" size="sm"><font-awesome-icon icon="save" /> 신청 중~!</b-button>
+                <b-row>
+                    <b-col>
+                        <b-form-input v-model="frm.ea" placeholder="신청수량" id="ea" ref="ea" />
+                        <validation :error="this.$store.state.error.validations.ea" />
+                    </b-col>
+                    <b-col>
+                        <b-form-input v-model="frm.name" placeholder="수령인" id="name" ref="name" />
+                        <validation :error="this.$store.state.error.validations.name" />                   
+                    </b-col>
+                    <b-col>
+                        <b-form-input v-model="frm.hp" placeholder="휴대폰번호" id="hp" ref="hp" :formatter="frm_formatHp" />
+                        <validation :error="this.$store.state.error.validations.hp" />                  
+                    </b-col>
+                    <b-col>
+                        <b-button v-if="clickable" @click="store" variant="info" block>신청하기</b-button>
+                        <b-button v-else class="gray" size="sm"><font-awesome-icon icon="save" /> 신청 중~!</b-button>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col>※휴대폰 번호 오기입으로 인한 상품권 미수령은 당사가 책임지지 않으니 재확인 바랍니다.</b-col>
+                </b-row>
             </b-col>
+
+            
         </b-row>
     </b-container>
 </div>
@@ -130,13 +140,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list .header { background-color:#DDD; }
+h3 small { font-size:50%; }
+.list .header { background-color:#DDD; border-top:2px solid #333; border-bottom:1px solid #ccc; }
 .list .header .col { font-weight:bold; }
-.list .data { border-top:1px solid #ddd; }
+.list .data { border-bottom:1px solid #ccc; }
+.list .expiration { background-color:#DDD; }
 .list .row .col { padding:.6rem 0; }
-.list .row .col:nth-child(1) { flex:0 0 15%; max-width:15%; text-align:center; }
-.list .row .col:nth-child(3) { flex:0 0 15%; max-width:15%; text-align:right; }
+.list .row .col:nth-child(1) { flex:0 0 13%; max-width:13%; text-align:center; }
+.list .row .col:nth-child(3) { flex:0 0 11%; max-width:11%; text-align:right; }
 .list .row .col:nth-child(4) { flex:0 0 15%; max-width:15%; text-align:center; }
+.list .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; text-align:right; padding-right:1.5rem; }
 @media (max-width: 768px) {
     .list .header { display:none; }
     .list .row .col { max-width:none !important; width:auto !important; }
@@ -144,8 +157,17 @@ export default {
     .list .row .col:nth-child(2) { flex-basis:70%; flex-grow:1; }
     .list .row .col:nth-child(3) { flex-basis:50%; flex-grow:0; }
     .list .row .col:nth-child(4) { flex-basis:50%; flex-grow:0; }
+    .list .row .col:nth-child(5) { flex-basis:50%; flex-grow:0; }
 }
 
-.request { margin-top:2rem; }
-.request .row .col { text-align:center; }
+.request { margin-top:3rem; }
+.request .tit { border-radius:20px; background-color:#1A90D6; padding:7px 20px; color:#fff; }
+.request>.row { margin-top:1rem; border:1px solid #AAA; align-items:center; justify-content:center; }
+.request>.row>.col { padding:1.6rem 1.1rem; }
+.request>.row>.col:nth-child(1) { flex:0 0 30%; max-width:30%; border-right:1px solid #AAA; text-align:center; display:flex; justify-content:space-around; }
+.request>.row>.col:nth-child(1) div { display:inline-block; }
+.request>.row>.col:nth-child(1) div label img { width:115px; }
+.request>.row>.col:nth-child(1) div p { margin:0; font-size:.82rem; color:#666; }
+.request>.row>.col .row { margin-left:0; margin-right:0; }
+.request>.row>.col .row:nth-child(2) .col { margin-top:1.5rem; font-size:.9rem; }
 </style>

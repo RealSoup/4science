@@ -27,23 +27,6 @@ class CommonController extends Controller {
                         'created_id' => auth()->user()->id,
                         'ip' => $req->ip(),
                     ]);
-                } else if (gettype($f) == 'string') {
-                    $f  = json_decode($f);
-                    if($f->type=="rewrite") {   //  재작성시 파일 이전 견적서 파일 복사
-                        // $this->file_upload($f, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
-                        DB::table('file_info')->insert([
-                            'fi_group' => $req->fi_group,
-                            'fi_key' => $req->fi_key, 
-                            'fi_room' => $req->fi_room,
-                            'fi_kind' => $req->fi_kind,
-                            'fi_original' => $f->fi_original,
-                            'fi_new' => $f->fi_new,
-                            'fi_size' => $f->fi_size,
-                            'fi_ext' => $f->fi_ext,
-                            'created_id' => auth()->user()->id,
-                            'ip' => $req->ip(),
-                        ]);
-                    }
                 }
             }
         }

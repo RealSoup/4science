@@ -154,6 +154,7 @@ export default {
             let pa_id = 0;
             let dlvy = 0;
             for (var em of this.value) {
+                pa_id = 0;
                 if (em.goods&&em.goods.purchase_at)
                     pa_id = em.goods.gd_pa_id;
                 if (!collect.hasOwnProperty(pa_id)) {

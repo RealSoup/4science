@@ -279,6 +279,21 @@ class EstimateController extends Controller {
             }
         }
 
+        if ($req->isRewrite) {
+            foreach ($req->estimate_reply['file_info'] as $fi)
+                if (array_key_exists('fi_id', $fi))
+                    DB::table('file_info')->insert(['fi_group'    => $fi['fi_group'],
+                                                    'fi_key'      => $er_id,
+                                                    'fi_room'     => $fi['fi_room'],
+                                                    'fi_kind'     => $fi['fi_kind'],
+                                                    'fi_original' => $fi['fi_original'],
+                                                    'fi_new'      => $fi['fi_new'],
+                                                    'fi_ext'      => $fi['fi_ext'],
+                                                    'fi_size'     => $fi['fi_size'],
+                                                    'created_id'  => auth()->user()->id,
+                                                    'ip'          => $req->ip() ]);
+        }
+
         if ($req->estimate_reply['er_step'] == 1) { //  견적서 메일 발송
             $to_email = $req->estimate_req['eq_email'];
             $to_name = $req->estimate_req['eq_name'];

@@ -95,11 +95,10 @@ export default {
 
             for (let i in this.value) {
                 // this.$delete(this.value[i], 'src_thumb');
-                if(this.value[i].hasOwnProperty('fi_id')) {
-                    this.value[i].type = 'rewrite';
-                    this.value[i] = JSON.stringify(this.value[i]);
-                }
-                frmData.append('file['+i+']', this.value[i]);
+                // if(this.value[i].hasOwnProperty('fi_id'))
+                //     this.value[i] = JSON.stringify(this.value[i]);
+                if(!this.value[i].hasOwnProperty('fi_id'))                
+                    frmData.append('file['+i+']', this.value[i]);
             }
             let upUrl = "/api/upload";
             if (this.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";

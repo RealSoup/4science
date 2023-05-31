@@ -160,11 +160,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -813,8 +808,8 @@ var render = function () {
                                                     _vm._v(" "),
                                                     _c("p", [
                                                       _vm._v(
-                                                        "모델명:" +
-                                                          _vm._s(item.gm_code) +
+                                                        "제품명:" +
+                                                          _vm._s(item.gm_name) +
                                                           " / Cat.No.:" +
                                                           _vm._s(item.gm_catno)
                                                       ),
@@ -822,19 +817,24 @@ var render = function () {
                                                     _vm._v(" "),
                                                     _c("p", [
                                                       _vm._v(
-                                                        "제품명:" +
-                                                          _vm._s(item.gm_name) +
-                                                          " / 사양:" +
-                                                          _vm._s(item.gm_spec)
-                                                      ),
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("p", [
-                                                      _vm._v(
-                                                        "판매단위:" +
+                                                        "모델명:" +
+                                                          _vm._s(item.gm_code) +
+                                                          " / 판매단위:" +
                                                           _vm._s(item.gm_unit)
                                                       ),
                                                     ]),
+                                                    _vm._v(
+                                                      "\r\n                                    사양:"
+                                                    ),
+                                                    _c("span", {
+                                                      domProps: {
+                                                        innerHTML: _vm._s(
+                                                          _vm.nl2br(
+                                                            item.gm_spec
+                                                          )
+                                                        ),
+                                                      },
+                                                    }),
                                                   ]),
                                                   _vm._v(" "),
                                                   _c("b-col", [
@@ -1103,7 +1103,9 @@ var render = function () {
                                       _c("b-col", [
                                         _vm._v(
                                           _vm._s(
-                                            _vm._f("comma")(_vm.dlvy_other)
+                                            _vm._f("comma")(
+                                              _vm.air_price + _vm.dlvy_other
+                                            )
                                           ) + " 원"
                                         ),
                                       ]),

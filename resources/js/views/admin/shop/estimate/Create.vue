@@ -46,6 +46,7 @@ export default {
                     }});
                 if (res && res.status === 200) {
                     this.frm = res.data;
+                    this.frm.isRewrite = (this.$route.query.eq_id && this.$route.query.er_id) ? true : false;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -71,7 +72,8 @@ export default {
                     await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
                     this.isLoadingModalViewed=false;
                     this.clickable = true;
-                    window.opener.postMessage( 'reread' );
+                    if(!isEmpty(window.opener))
+                        window.opener.postMessage( 'reread' );
                     if(type == 'preview') {
                         Notify.toast('success', '임시저장 완료');
                         var url = `/api/admin/shop/estimate/showEstimate/${res.data}`;

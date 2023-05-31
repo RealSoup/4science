@@ -170,11 +170,6 @@ $no=1;
 
         @endphp
     @endif
-
-
-        
-        
-            
         <tr class="line01">
             <td>{{ $no }}</td>
             <td width="33%">{{ $em['em_name'] }}</td>

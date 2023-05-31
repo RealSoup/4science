@@ -230,12 +230,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 for (i in _this2.value) {
                   // this.$delete(this.value[i], 'src_thumb');
-                  if (_this2.value[i].hasOwnProperty('fi_id')) {
-                    _this2.value[i].type = 'rewrite';
-                    _this2.value[i] = JSON.stringify(_this2.value[i]);
-                  }
-
-                  frmData.append('file[' + i + ']', _this2.value[i]);
+                  // if(this.value[i].hasOwnProperty('fi_id'))
+                  //     this.value[i] = JSON.stringify(this.value[i]);
+                  if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);
                 }
 
                 upUrl = "/api/upload";

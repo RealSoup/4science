@@ -91,6 +91,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res && res.status === 200) {
                   _this.frm = res.data;
+                  _this.frm.isRewrite = _this.$route.query.eq_id && _this.$route.query.er_id ? true : false;
                 }
 
                 _context.next = 11;
@@ -179,7 +180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 23:
                 _this2.isLoadingModalViewed = false;
                 _this2.clickable = true;
-                window.opener.postMessage('reread');
+                if (!isEmpty(window.opener)) window.opener.postMessage('reread');
 
                 if (type == 'preview') {
                   Notify.toast('success', '임시저장 완료');
@@ -518,6 +519,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var em = _step2.value;
+          pa_id = 0;
           if (em.goods && em.goods.purchase_at) pa_id = em.goods.gd_pa_id;
 
           if (!collect.hasOwnProperty(pa_id)) {

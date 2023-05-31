@@ -5,9 +5,9 @@
     <div id="real">
         <div class="layout">
             <b-link :to="{name: 'main'}" class="logo">
-                <!-- <b-img :src="`${s3url}common/logo/logo.png`" /> -->
-                <b-img :src="`${s3url}common/logo/logo_230526.png`" class="season" />
-                <b-img :src="`${s3url}common/logo/logo.png`" class="default" />
+                <b-img :src="`${s3url}common/logo/logo.png`" />
+                <!-- <b-img :src="`${s3url}common/logo/logo_230526.png`" class="season" />
+                <b-img :src="`${s3url}common/logo/logo.png`" class="default" /> -->
             </b-link>
 
             <div v-if="isLoggedin" class="top_menu">
@@ -162,7 +162,8 @@ export default {
 #header #real .layout .top_menu a { position:relative; display:inline-block; padding:3px 15px 3px 8px; }
 #header #real .layout .top_menu a:not(:last-child):after { content:"|"; position:absolute; right:-1px; }
 /*#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
-#header #real .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}
+/*#header #real .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
+#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; position:relative; display:block;}
 #header #real .layout .logo .season { position:absolute; top:0;}
 #header #real .layout .logo .default { display:none; }
 #header #real .layout .nav_menu a { display:inline-block; padding:3px 7px; font-weight:600; }

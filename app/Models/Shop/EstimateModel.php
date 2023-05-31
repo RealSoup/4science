@@ -46,52 +46,52 @@ class EstimateModel extends Model {
     }
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
-    public function dataAwesomeCollection($data) {
-        $rst = collect([    'lists'=>collect(),
-                            'price'=>collect([ 'goods'=>0, 'surtax'=>0, 'dlvy'=>0, 'sum'=>0 ]) ]);
-        $collect = collect();
-        $n_gd = new Goods;
-        foreach ($data as $em) {
-            if (!$collect->has($em->em_gd_id)) {
-                if ($em->em_gd_id)  $gd = $n_gd->find($em->em_gd_id);
-                else                $gd = collect([ 'gd_id'=>0, 'free_dlvy_max'=>$n_gd->free_dlvy_max, 'dlvy_fee_add_vat'=>$n_gd->dlvy_fee_add_vat ]);
-                $gd->estimate_model=collect();
-                $gd->goods_p=0;
-                $collect[$em->em_gd_id] = $gd;
-            }
-            $collect[$em->em_gd_id]->estimate_model->push($em);
+    // public function dataAwesomeCollection($data) {
+    //     $rst = collect([    'lists'=>collect(),
+    //                         'price'=>collect([ 'goods'=>0, 'surtax'=>0, 'dlvy'=>0, 'sum'=>0 ]) ]);
+    //     $collect = collect();
+    //     $n_gd = new Goods;
+    //     foreach ($data as $em) {
+    //         if (!$collect->has($em->em_gd_id)) {
+    //             if ($em->em_gd_id)  $gd = $n_gd->find($em->em_gd_id);
+    //             else                $gd = collect([ 'gd_id'=>0, 'free_dlvy_max'=>$n_gd->free_dlvy_max, 'dlvy_fee_add_vat'=>$n_gd->dlvy_fee_add_vat ]);
+    //             $gd->estimate_model=collect();
+    //             $gd->goods_p=0;
+    //             $collect[$em->em_gd_id] = $gd;
+    //         }
+    //         $collect[$em->em_gd_id]->estimate_model->push($em);
 
-            $collect[$em->em_gd_id]->goods_p += $em->em_price*$em->em_ea;
-            foreach ($em->estimateOption as $v)
-                $collect[$em->em_gd_id]->goods_p += $v->eo_price*$v->eo_ea;
+    //         $collect[$em->em_gd_id]->goods_p += $em->em_price*$em->em_ea;
+    //         foreach ($em->estimateOption as $v)
+    //             $collect[$em->em_gd_id]->goods_p += $v->eo_price*$v->eo_ea;
 
-        }
+    //     }
 
-        foreach ($collect as $key => $gd) {
-            $pa_id = 0;
-            if ($key && $gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출
-            if (!$rst['lists']->has($pa_id)) { //  직배송 키로 컬랙션 생성
-                $rst['lists']->put($pa_id, collect([
-                    'price'=>collect([ 'goods'=>0, 'dlvy'=>0 ]),
-                    'list'=>collect(),
-                ]));
-            }
-            $rst['lists'][$pa_id]['list'][] = $gd;
-            $rst['lists'][$pa_id]['price']['goods'] += $gd->goods_p;
-            $rst['price']['goods'] += $gd->goods_p;
-            $rst['price']['sum'] += $gd->goods_p;
-        }
+    //     foreach ($collect as $key => $gd) {
+    //         $pa_id = 0;
+    //         if ($key && $gd->purchaseAt) { $pa_id = $gd->gd_pa_id; }  //  직배송 키 추출
+    //         if (!$rst['lists']->has($pa_id)) { //  직배송 키로 컬랙션 생성
+    //             $rst['lists']->put($pa_id, collect([
+    //                 'price'=>collect([ 'goods'=>0, 'dlvy'=>0 ]),
+    //                 'list'=>collect(),
+    //             ]));
+    //         }
+    //         $rst['lists'][$pa_id]['list'][] = $gd;
+    //         $rst['lists'][$pa_id]['price']['goods'] += $gd->goods_p;
+    //         $rst['price']['goods'] += $gd->goods_p;
+    //         $rst['price']['sum'] += $gd->goods_p;
+    //     }
 
-        foreach ($rst['lists'] as $key => $pa) {
-            if ($key)
-                $pa['price']['dlvy'] = $pa['list'][0]['purchaseAt']->pa_price_add_vat;
-            else
-                $pa['price']['dlvy'] = (rrp($pa['price']['goods']) < $pa['list'][0]['free_dlvy_max']) ? $pa['list'][0]['dlvy_fee_add_vat'] : 0;
+    //     foreach ($rst['lists'] as $key => $pa) {
+    //         if ($key)
+    //             $pa['price']['dlvy'] = $pa['list'][0]['purchaseAt']->pa_price_add_vat;
+    //         else
+    //             $pa['price']['dlvy'] = (rrp($pa['price']['goods']) < $pa['list'][0]['free_dlvy_max']) ? $pa['list'][0]['dlvy_fee_add_vat'] : 0;
 
-            $rst['price']['dlvy'] += $pa['price']['dlvy'];
-            $rst['price']['sum'] += $pa['price']['dlvy'];
-        }
-        $rst['price']['surtax'] = surtax($rst['price']['goods']);
-        return $rst;
-    }
+    //         $rst['price']['dlvy'] += $pa['price']['dlvy'];
+    //         $rst['price']['sum'] += $pa['price']['dlvy'];
+    //     }
+    //     $rst['price']['surtax'] = surtax($rst['price']['goods']);
+    //     return $rst;
+    // }
 }

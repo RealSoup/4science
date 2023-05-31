@@ -230,12 +230,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 for (i in _this2.value) {
                   // this.$delete(this.value[i], 'src_thumb');
-                  if (_this2.value[i].hasOwnProperty('fi_id')) {
-                    _this2.value[i].type = 'rewrite';
-                    _this2.value[i] = JSON.stringify(_this2.value[i]);
-                  }
-
-                  frmData.append('file[' + i + ']', _this2.value[i]);
+                  // if(this.value[i].hasOwnProperty('fi_id'))
+                  //     this.value[i] = JSON.stringify(this.value[i]);
+                  if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);
                 }
 
                 upUrl = "/api/upload";
@@ -478,7 +475,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 11;
+                  _context2.next = 10;
                   break;
                 }
 
@@ -490,10 +487,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.$refs.form.$refs.fileupload2.fileProcessor(res.data);
 
               case 9:
-                Notify.toast('success', '수정 완료');
-                window.location.reload(true);
+                Notify.toast('success', '수정 완료'); // window.location.reload(true);
 
-              case 11:
+              case 10:
               case "end":
                 return _context2.stop();
             }

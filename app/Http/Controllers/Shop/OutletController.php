@@ -11,13 +11,13 @@ class OutletController extends Controller {
         $arr_id = Array();
         $mk_id = null;
         $hot_kind = false;
+        $rst = Goods::orderBy('gd_rank')->orderBy('gd_view_cnt');
         switch ($type) {
             case 'pipette':
                 $arr_id = ShowWindow::select('sw_key')->Type("outlet_{$type}")->Group($group)->pluck('sw_key');
             break;
             case 'tweezer':
-                // $h = Hash::HsTag($group)->first();                
-                // $arr_id = HashJoin::HsId($h->hs_id)->pluck('gd_id');
+                $rst->whereFullText('gd_keyword', $group, ['mode' => 'boolean']);
             break;
             case 'hotplate':
                 if ( in_array($group, ['01', '02', '03', '04']) ) {
@@ -40,8 +40,9 @@ class OutletController extends Controller {
                 $arr_id = ShowWindow::select('sw_key')->Type("outlet_{$type}")->Group($group)->pluck('sw_key');
             break;
         }
-        $rst = Goods::SchGd_id($arr_id)->orderBy('gd_rank')->orderBy('gd_view_cnt')
-                  ->when($mk_id, fn ($q, $v) => $q->where("gd_mk_id", $v));
+        
+        $rst->when($type != 'tweezer', function ($q, $v) use($arr_id) { return $q->SchGd_id($arr_id); })
+            ->when($mk_id, fn ($q, $v) => $q->where("gd_mk_id", $v));
                   
         if ($hot_kind) {
             $rst = $rst->join('show_window', function ($join) use($type, $group) { 

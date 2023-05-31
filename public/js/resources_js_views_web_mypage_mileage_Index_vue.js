@@ -101,6 +101,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -287,7 +297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".list .header[data-v-69500633] {\n  background-color: #DDD;\n}\n.list .header .col[data-v-69500633] {\n  font-weight: bold;\n}\n.list .data[data-v-69500633] {\n  border-top: 1px solid #ddd;\n}\n.list .row .col[data-v-69500633] {\n  padding: 0.6rem 0;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: right;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n@media (max-width: 768px) {\n.list .header[data-v-69500633] {\n    display: none;\n}\n.list .row .col[data-v-69500633] {\n    max-width: none !important;\n    width: auto !important;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n    flex-basis: 30%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(2) {\n    flex-basis: 70%;\n    flex-grow: 1;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n}\n.request[data-v-69500633] {\n  margin-top: 2rem;\n}\n.request .row .col[data-v-69500633] {\n  text-align: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "h3 small[data-v-69500633] {\n  font-size: 50%;\n}\n.list .header[data-v-69500633] {\n  background-color: #DDD;\n  border-top: 2px solid #333;\n  border-bottom: 1px solid #ccc;\n}\n.list .header .col[data-v-69500633] {\n  font-weight: bold;\n}\n.list .data[data-v-69500633] {\n  border-bottom: 1px solid #ccc;\n}\n.list .expiration[data-v-69500633] {\n  background-color: #DDD;\n}\n.list .row .col[data-v-69500633] {\n  padding: 0.6rem 0;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n  flex: 0 0 13%;\n  max-width: 13%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n  flex: 0 0 11%;\n  max-width: 11%;\n  text-align: right;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n  flex: 0 0 15%;\n  max-width: 15%;\n  text-align: center;\n}\n.list .row .col[data-v-69500633]:nth-child(5) {\n  flex: 0 0 11%;\n  max-width: 11%;\n  text-align: right;\n  padding-right: 1.5rem;\n}\n@media (max-width: 768px) {\n.list .header[data-v-69500633] {\n    display: none;\n}\n.list .row .col[data-v-69500633] {\n    max-width: none !important;\n    width: auto !important;\n}\n.list .row .col[data-v-69500633]:nth-child(1) {\n    flex-basis: 30%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(2) {\n    flex-basis: 70%;\n    flex-grow: 1;\n}\n.list .row .col[data-v-69500633]:nth-child(3) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(4) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n.list .row .col[data-v-69500633]:nth-child(5) {\n    flex-basis: 50%;\n    flex-grow: 0;\n}\n}\n.request[data-v-69500633] {\n  margin-top: 3rem;\n}\n.request .tit[data-v-69500633] {\n  border-radius: 20px;\n  background-color: #1A90D6;\n  padding: 7px 20px;\n  color: #fff;\n}\n.request > .row[data-v-69500633] {\n  margin-top: 1rem;\n  border: 1px solid #AAA;\n  align-items: center;\n  justify-content: center;\n}\n.request > .row > .col[data-v-69500633] {\n  padding: 1.6rem 1.1rem;\n}\n.request > .row > .col[data-v-69500633]:nth-child(1) {\n  flex: 0 0 30%;\n  max-width: 30%;\n  border-right: 1px solid #AAA;\n  text-align: center;\n  display: flex;\n  justify-content: space-around;\n}\n.request > .row > .col:nth-child(1) div[data-v-69500633] {\n  display: inline-block;\n}\n.request > .row > .col:nth-child(1) div label img[data-v-69500633] {\n  width: 115px;\n}\n.request > .row > .col:nth-child(1) div p[data-v-69500633] {\n  margin: 0;\n  font-size: 0.82rem;\n  color: #666;\n}\n.request > .row > .col .row[data-v-69500633] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.request > .row > .col .row:nth-child(2) .col[data-v-69500633] {\n  margin-top: 1.5rem;\n  font-size: 0.9rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -425,7 +435,7 @@ var render = function () {
     "div",
     { staticClass: "w_fence" },
     [
-      _c("h3", [_vm._v("마 일 리 지")]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "b-container",
@@ -435,13 +445,15 @@ var render = function () {
             "b-row",
             { staticClass: "header" },
             [
-              _c("b-col", [_vm._v("적립일")]),
+              _c("b-col", [_vm._v("날짜")]),
               _vm._v(" "),
-              _c("b-col", [_vm._v("내역")]),
+              _c("b-col", [_vm._v("적립/차감내역")]),
               _vm._v(" "),
               _c("b-col", [_vm._v("마일리지")]),
               _vm._v(" "),
-              _c("b-col", [_vm._v("*")]),
+              _c("b-col", [_vm._v("상품권 교환")]),
+              _vm._v(" "),
+              _c("b-col", [_vm._v("가용 마일리지")]),
             ],
             1
           ),
@@ -452,7 +464,7 @@ var render = function () {
               {
                 key: ml.ml_id,
                 staticClass: "data",
-                class: { "bg-danger": ml.expiration || ml.ml_type == "SP" },
+                class: { expiration: ml.expiration || ml.ml_type == "SP" },
               },
               [
                 _c("b-col", [
@@ -463,80 +475,34 @@ var render = function () {
                 _vm._v(" "),
                 _c("b-col", [
                   ml.ml_tbl == "voucher"
-                    ? _c(
-                        "div",
-                        [
-                          _c("b-icon-gift-fill"),
-                          _vm._v(
-                            " " +
-                              _vm._s(_vm.config[ml.refine_content[0]].name) +
-                              " : " +
-                              _vm._s(ml.refine_content[1]) +
-                              " 장 "
-                          ),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("font-awesome-icon", { attrs: { icon: "user" } }),
-                          _vm._v(" " + _vm._s(ml.refine_content[2]) + " "),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("font-awesome-icon", {
-                            attrs: { icon: "mobile-alt" },
-                          }),
-                          _vm._v(
-                            " " +
-                              _vm._s(ml.refine_content[3]) +
-                              "\r\n                "
-                          ),
-                        ],
-                        1
-                      )
-                    : _c(
-                        "div",
-                        [
-                          _vm._v(
-                            "\r\n                    " +
-                              _vm._s(ml.ml_content) +
-                              "\r\n                    "
-                          ),
-                          ml.ml_type == "SP"
-                            ? _c(
-                                "b-badge",
-                                {
-                                  staticClass: "ml-3",
-                                  attrs: { variant: "warning" },
-                                },
-                                [_vm._v("상품권 구매")]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          ml.expiration
-                            ? _c(
-                                "b-badge",
-                                {
-                                  staticClass: "ml-3",
-                                  attrs: { variant: "warning" },
-                                },
-                                [_vm._v("만료")]
-                              )
-                            : _vm._e(),
-                        ],
-                        1
-                      ),
+                    ? _c("div", [
+                        _vm._v(
+                          "\r\n                    " +
+                            _vm._s(_vm.config[ml.refine_content[0]].name) +
+                            " : " +
+                            _vm._s(ml.refine_content[1]) +
+                            " 장 /\r\n                    수령인: " +
+                            _vm._s(ml.refine_content[2]) +
+                            " (" +
+                            _vm._s(ml.refine_content[3]) +
+                            ")\r\n                "
+                        ),
+                      ])
+                    : _c("div", [
+                        ml.expiration
+                          ? _c("span", [_vm._v("기간만료 마일리지 소멸")])
+                          : _c("span", [_vm._v(_vm._s(ml.ml_content))]),
+                      ]),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "b-col",
-                  [
-                    ml.ml_tbl == "voucher"
-                      ? [_vm._v("상품권 신청")]
-                      : [
-                          _vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)) + " "),
-                          _c("b", [_vm._v("P")]),
-                        ],
-                  ],
-                  2
-                ),
+                _c("b-col", [
+                  ml.ml_type == "NO"
+                    ? _c("span", [_vm._v("-")])
+                    : _c("span", [
+                        _vm._v(_vm._s(_vm._f("comma")(ml.ml_mileage)) + " "),
+                        _c("b", [_vm._v("P")]),
+                      ]),
+                ]),
                 _vm._v(" "),
                 _c(
                   "b-col",
@@ -544,17 +510,15 @@ var render = function () {
                     ml.ml_tbl == "voucher"
                       ? [
                           ml.ml_type == "REQ"
-                            ? _c(
-                                "b-badge",
-                                { attrs: { variant: "secondary" } },
-                                [_vm._v("요청")]
-                              )
+                            ? _c("b-badge", { staticClass: "white" }, [
+                                _vm._v("요청"),
+                              ])
                             : ml.ml_type == "OK"
-                            ? _c("b-badge", { attrs: { variant: "success" } }, [
+                            ? _c("b-badge", { staticClass: "green" }, [
                                 _vm._v("승인"),
                               ])
                             : ml.ml_type == "NO"
-                            ? _c("b-badge", { attrs: { variant: "warning" } }, [
+                            ? _c("b-badge", { staticClass: "gray" }, [
                                 _vm._v("반려"),
                               ])
                             : _vm._e(),
@@ -563,6 +527,15 @@ var render = function () {
                   ],
                   2
                 ),
+                _vm._v(" "),
+                _c("b-col", [
+                  ml.ml_tbl !== "voucher"
+                    ? _c("span", [
+                        _vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)) + " "),
+                        _c("b", [_vm._v("P")]),
+                      ])
+                    : _vm._e(),
+                ]),
               ],
               1
             )
@@ -580,161 +553,180 @@ var render = function () {
         "b-container",
         { staticClass: "request" },
         [
-          _c(
-            "b-row",
-            [
-              _vm._l(_vm.config, function (v, k) {
-                return _c(
-                  "b-col",
-                  { key: k },
-                  [
-                    _c(
-                      "b-form-radio",
-                      {
-                        attrs: { value: k },
-                        model: {
-                          value: _vm.frm.type,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.frm, "type", $$v)
-                          },
-                          expression: "frm.type",
-                        },
-                      },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src:
-                              _vm.s3url +
-                              "mypage/mileage/gift" +
-                              v.point +
-                              ".png",
-                          },
-                        }),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(v.name))]),
-                      ]
-                    ),
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _c("validation", {
-                attrs: { error: this.$store.state.error.validations.type },
-              }),
-            ],
-            2
-          ),
+          _c("span", { staticClass: "tit" }, [_vm._v("상품권 신청")]),
           _vm._v(" "),
           _c(
             "b-row",
             [
               _c(
                 "b-col",
-                { staticClass: "awesome_p" },
                 [
-                  _c("b-form-input", {
-                    ref: "ea",
-                    attrs: { id: "ea", required: "" },
-                    model: {
-                      value: _vm.frm.ea,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.frm, "ea", $$v)
-                      },
-                      expression: "frm.ea",
-                    },
+                  _vm._l(_vm.config, function (v, k) {
+                    return _c(
+                      "div",
+                      { key: k },
+                      [
+                        _c(
+                          "b-form-radio",
+                          {
+                            attrs: { value: k },
+                            model: {
+                              value: _vm.frm.type,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "type", $$v)
+                              },
+                              expression: "frm.type",
+                            },
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src:
+                                  _vm.s3url +
+                                  "mypage/mileage/gift" +
+                                  v.point +
+                                  ".png",
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(v.name))]),
+                          ]
+                        ),
+                      ],
+                      1
+                    )
                   }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "oex_num_in" } }, [
-                    _c("span", [_vm._v("신청 수량")]),
-                  ]),
                   _vm._v(" "),
                   _c("validation", {
-                    attrs: { error: this.$store.state.error.validations.ea },
+                    attrs: { error: this.$store.state.error.validations.type },
                   }),
                 ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "awesome_p" },
-                [
-                  _c("b-form-input", {
-                    ref: "name",
-                    attrs: { id: "name", required: "" },
-                    model: {
-                      value: _vm.frm.name,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.frm, "name", $$v)
-                      },
-                      expression: "frm.name",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "oex_num_in" } }, [
-                    _c("span", [_vm._v("수령인")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("validation", {
-                    attrs: { error: this.$store.state.error.validations.name },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "awesome_p" },
-                [
-                  _c("b-form-input", {
-                    ref: "hp",
-                    attrs: {
-                      id: "hp",
-                      required: "",
-                      formatter: _vm.frm_formatHp,
-                    },
-                    model: {
-                      value: _vm.frm.hp,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.frm, "hp", $$v)
-                      },
-                      expression: "frm.hp",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: "oex_num_in" } }, [
-                    _c("span", [_vm._v("휴대폰 번호")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("validation", {
-                    attrs: { error: this.$store.state.error.validations.hp },
-                  }),
-                ],
-                1
+                2
               ),
               _vm._v(" "),
               _c(
                 "b-col",
                 [
-                  _vm.clickable
-                    ? _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "info", block: "" },
-                          on: { click: _vm.store },
-                        },
-                        [_vm._v("신청하기")]
-                      )
-                    : _c(
-                        "b-button",
-                        { staticClass: "gray", attrs: { size: "sm" } },
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
                         [
-                          _c("font-awesome-icon", { attrs: { icon: "save" } }),
-                          _vm._v(" 신청 중~!"),
+                          _c("b-form-input", {
+                            ref: "ea",
+                            attrs: { placeholder: "신청수량", id: "ea" },
+                            model: {
+                              value: _vm.frm.ea,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "ea", $$v)
+                              },
+                              expression: "frm.ea",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.ea,
+                            },
+                          }),
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            ref: "name",
+                            attrs: { placeholder: "수령인", id: "name" },
+                            model: {
+                              value: _vm.frm.name,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "name", $$v)
+                              },
+                              expression: "frm.name",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.name,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            ref: "hp",
+                            attrs: {
+                              placeholder: "휴대폰번호",
+                              id: "hp",
+                              formatter: _vm.frm_formatHp,
+                            },
+                            model: {
+                              value: _vm.frm.hp,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "hp", $$v)
+                              },
+                              expression: "frm.hp",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.hp,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _vm.clickable
+                            ? _c(
+                                "b-button",
+                                {
+                                  attrs: { variant: "info", block: "" },
+                                  on: { click: _vm.store },
+                                },
+                                [_vm._v("신청하기")]
+                              )
+                            : _c(
+                                "b-button",
+                                { staticClass: "gray", attrs: { size: "sm" } },
+                                [
+                                  _c("font-awesome-icon", {
+                                    attrs: { icon: "save" },
+                                  }),
+                                  _vm._v(" 신청 중~!"),
+                                ],
+                                1
+                              ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", [
+                        _vm._v(
+                          "※휴대폰 번호 오기입으로 인한 상품권 미수령은 당사가 책임지지 않으니 재확인 바랍니다."
+                        ),
+                      ]),
+                    ],
+                    1
+                  ),
                 ],
                 1
               ),
@@ -748,7 +740,17 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _vm._v("마일리지 "),
+      _c("small", [_vm._v("고객님의 마일리지 히스토리입니다.")]),
+    ])
+  },
+]
 render._withStripped = true
 
 

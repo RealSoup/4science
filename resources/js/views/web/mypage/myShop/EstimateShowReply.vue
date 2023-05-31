@@ -38,9 +38,9 @@
                                 </b-col>
                                 <b-col>
                                     <p>{{item.gd_name}}</p>
-                                    <p>모델명:{{item.gm_code}} / Cat.No.:{{item.gm_catno}}</p>
-                                    <p>제품명:{{item.gm_name}} / 사양:{{item.gm_spec}}</p>
-                                    <p>판매단위:{{item.gm_unit}}</p>
+                                    <p>제품명:{{item.gm_name}} / Cat.No.:{{item.gm_catno}}</p>
+                                    <p>모델명:{{item.gm_code}} / 판매단위:{{item.gm_unit}}</p>
+                                    사양:<span v-html="nl2br(item.gm_spec)" />
                                 </b-col>
                                 <b-col>{{item.mk_name}}</b-col>
                                 <b-col>{{item.price | comma}} 원</b-col>
@@ -85,20 +85,15 @@
                 </b-row>
                 <b-row class="total_sub" id="total_sub">
                     <b-col>
-                        <div><b-col>상품가</b-col>              <b-col>{{gd_price | comma}} 원</b-col>
-                        </div>
-                        <div><b-col>부가세</b-col>              <b-col>{{surtax | comma}} 원</b-col>
-                        </div>
+                        <div><b-col>상품가</b-col>              <b-col>{{gd_price | comma}} 원</b-col></div>
+                        <div><b-col>부가세</b-col>              <b-col>{{surtax | comma}} 원</b-col></div>
                     </b-col>
                     <b-col>
-                        <div><b-col>포사이언스 배송</b-col>     <b-col>{{dlvy_4s | comma}} 원</b-col>
-                        </div>
-                        <div><b-col>업체 배송</b-col>           <b-col>{{dlvy_other | comma}} 원</b-col>
-                        </div>
+                        <div><b-col>포사이언스 배송</b-col>     <b-col>{{dlvy_4s | comma}} 원</b-col></div>
+                        <div><b-col>업체 배송</b-col>           <b-col>{{air_price+dlvy_other | comma}} 원</b-col></div>
                     </b-col>
                     <b-col>
-                        <div><b-col>적립예정 마일리지</b-col>   <b-col>{{sum_mileage | comma}} 원</b-col>
-                        </div>
+                        <div><b-col>적립예정 마일리지</b-col>   <b-col>{{sum_mileage | comma}} 원</b-col></div>
                     </b-col>
                 </b-row>
             </b-container>

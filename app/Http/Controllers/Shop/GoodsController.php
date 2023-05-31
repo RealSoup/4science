@@ -57,7 +57,7 @@ class GoodsController extends Controller {
                 //  검색어 없이 카테고리만 선택시 상품수가 많을수록 group by 속도가 너무 느리다
                 //  그래서 검색어가 있을때만 group by 하고
                 //  없으면 gm_prime = Y 로 gd_id가 겹치지 않게 한다.
-                $grouped = $gs->groupBy('gs.gd_id')->get();
+                $grouped = $gs->groupBy('gs.gd_id')->get();     //  이것이 리스트 그룹바이다.
                 
                 $data['sch_cate_info']['all'] = count($grouped);
 
@@ -99,12 +99,6 @@ class GoodsController extends Controller {
                     }
                 }
             }
-            
-            if ( $req->filled('mode') ) 
-                $gs->orderBy('score', 'DESC');
-            else 
-                $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
-            
         } else {
             $gs->where('gs.gm_prime', 'Y');
         }
@@ -118,10 +112,16 @@ class GoodsController extends Controller {
         
         $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
-            case 'hot':     $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; break;
+            case 'hot':
+                if ( $req->filled('mode') ) 
+                    $gs->orderBy('score', 'DESC');
+                else 
+                    $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
+                $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
+            break;
             case 'new':     $gs->latest('gd_id');        break;
-            case 'lowPri':  $gs->oldest('gm_price');     break;
-            case 'highPri': $gs->latest('gm_price');     break;
+            case 'lowPri':  $gs->join('shop_goods_model AS gm', 'gm.gm_id', '=', 'gs.gm_id')->oldest('gm_price');     break;
+            case 'highPri': $gs->join('shop_goods_model AS gm', 'gm.gm_id', '=', 'gs.gm_id')->latest('gm_price');     break;
         }
 
         //  미리 위에서 명시 할수 있지만
