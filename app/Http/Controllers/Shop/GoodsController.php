@@ -113,10 +113,12 @@ class GoodsController extends Controller {
         $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
             case 'hot':
-                if ( $req->filled('mode') ) 
-                    $gs->orderBy('score', 'DESC');
-                else 
-                    $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
+                if ($req->filled('keyword')){
+                    if ( $req->filled('mode') ) 
+                        $gs->orderBy('score', 'DESC');
+                    else 
+                        $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
+                }
                 $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
             break;
             case 'new':     $gs->latest('gd_id');        break;
