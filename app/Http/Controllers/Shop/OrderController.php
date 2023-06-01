@@ -55,7 +55,7 @@ class OrderController extends Controller {
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
         foreach ($params['lists'] as $pa_group) {    //  주문 갯수
-            $go_required_chk = false;
+            $go_required_chk = true;
             foreach ($pa_group as $item){
                 // 판매 가능 여부 재확인
                 if(isset($item['gd_enable']) && $item['gd_enable'] == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
