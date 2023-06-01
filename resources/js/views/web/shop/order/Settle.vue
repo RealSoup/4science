@@ -248,7 +248,7 @@
                     </transition>
                     
                     <div class="order_paper">
-                        <h6>첨부 서류</h6>
+                        <h6>요청 서류</h6>
                         <div>
                             <b-form-checkbox v-model="order.extra.oex_req_est" value='Y' unchecked-value="N">견적서</b-form-checkbox>
                             <b-form-checkbox v-model="order.extra.oex_req_tran" value='Y' unchecked-value="N">거래명세서</b-form-checkbox>

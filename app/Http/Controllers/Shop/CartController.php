@@ -4,7 +4,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Cart, CartModel, CartOption, Goods, GoodsModel, GoodsDiscount};
+use App\Models\Shop\{Cart, Goods, GoodsModel, GoodsDiscount};
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Arr;
@@ -12,22 +12,13 @@ use DB;
 use Cookie;
 
 class CartController extends Controller {
-
-    protected $c_nm_guest_id;
     protected $ck_expires;    //  분단위 설정으로 7일
-    protected $s_nm;
     protected $cart;
-    protected $cartModel;
-    protected $cartOption;
     protected $goods;
 
-    public function __construct(Cart $ca, CartModel $cm, CartOption $co, Goods $gd) {
-        $this->c_nm_guest_id = config('const.cookie_nm.guest_id');
+    public function __construct(Cart $ca, Goods $gd) {
         // $this->ck_expires = 60*24*((int)cache("config.server")->ck_expires);
-        $this->s_nm = config('const.cookie_nm.cart_size');
         $this->cart = $ca;
-        $this->cartModel = $cm;
-        $this->cartOption = $co;
         $this->goods = $gd;
     }
 
@@ -35,12 +26,7 @@ class CartController extends Controller {
 // DB::enableQueryLog();
         // $params = $req->input();
         $rst = [];
-        if(auth()->check()){
-            $carts = $this->cart->Created_id(auth()->user()->id)->get();
-
-
-
-        } else {                $mb_yn = 'N'; $created_id = $req->cookie($this->c_nm_guest_id); }
+        $carts = $this->cart->Created_id(auth()->user()->id)->get();
 
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
 
@@ -92,38 +78,48 @@ class CartController extends Controller {
 
     public function store(Request $req) {
         
-        if ($req->filled('type') && $req->type == 'add') {
-            foreach ($req->list as $v) {
-                $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$v['gd_id'], "created_id"=>auth()->user()->id] );
-                $rst = $this->cartModel->firstOrCreate( ['cm_ct_id'=>$ct->ct_id, "cm_gm_id"=>$v['gm_id']], ['cm_ea' => 1] );
-            }
+        if ($req->filled('type') && $req->type == 'add') {   //  관심상품에서 상품 추가
+            foreach ($req->list as $v)
+                $rst = $this->cart->insert([
+                    'ct_gd_id'   => $v['gd_id'],
+                    'ct_key'     => $v['gm_id'], 
+                    'ct_ea'      => 1,
+                    "created_id" => auth()->user()->id,
+                    'ip'         => $req->ip()
+                ]);
         } else {
-            $ct = $this->cart->firstOrCreate( ['ct_gd_id'=>$req->gd_id, "created_id"=>auth()->user()->id] );
-
-            if ($req->filled('gm_id')) $rst = $this->cartModel->create(['cm_ct_id'=>$ct->ct_id, 'cm_gm_id'=>$req->gm_id, 'cm_ea'=>$req->ea]);
-            if ($req->filled('go_id')) $rst = $this->cartOption->create(['co_ct_id'=>$ct->ct_id, 'co_go_id'=>$req->go_id, 'co_goc_id'=>$req->goc_id, 'co_ea'=>$req->ea]);
+            if ($req->filled('gm_id')) 
+                $rst = $this->cart->insert([
+                    'ct_gd_id'   => $req->gd_id,
+                    'ct_key'     => $req->gm_id,
+                    'ct_ea'      => $req->ea,
+                    "created_id" => auth()->user()->id,
+                    'ip'         => $req->ip()
+                ]);
+            else if ($req->filled('go_id')) 
+                $rst = $this->cart->insert([
+                    'ct_gd_id'   => $req->gd_id,
+                    'ct_key'     => $req->goc_id,
+                    'ct_type'    => 'OPTION',
+                    'ct_ea'      => $req->ea,
+                    "created_id" => auth()->user()->id,
+                    'ip'         => $req->ip()
+                ]);
         }
-
         if ($rst)   return response()->json($rst, 200);
         else        return response()->json("장바구니 에러", 400);// return alertRedirect("모델을 선택하세요", '');
     }
 
 	public function update(Request $req) {
-        if ($req->filled('cm_id'))  $rst = $this->cartModel->updateOrCreate( ['cm_id'=>$req->cm_id], ['cm_ea'=>$req->ea] );
-        if ($req->filled('co_id'))  $rst = $this->cartOption->updateOrCreate( ['co_id'=>$req->co_id], ['co_ea'=>$req->ea] );
+        $rst = $this->cart->updateOrCreate( ['ct_id'=>$req->ct_id], ['ct_ea'=>$req->ea] );
         if($rst) return response()->json("장바구니 수량 변경", 200);
         else return response()->json("장바구니 에러", 400);
     }
 
 
     public function destroy(Request $req, $id) {
-        foreach ($req->payload as $v) {
-            if($v['type'] == 'model')
-                $rst = $this->cartModel->where('cm_id', $v['id'])->delete();
-            else if($v['type'] == 'option')
-                $rst = $this->cartOption->where('co_id', $v['id'])->delete();
-        }
-
+        foreach ($req->payload as $v)
+            $rst = $this->cart->where('ct_id', $v)->delete();
 		if($rst) return response()->json("삭제완료", 200);
         else return response()->json(["type"=>"alert", "message"=>"삭제 오류"], 400);
     }

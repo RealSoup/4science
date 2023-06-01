@@ -128,27 +128,27 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
-      if (isEmpty(this.val[2])) {
+      if (isEmpty(this.val[15])) {
         Notify.toast('danger', "8. Sample type의 Solid wafer을(를) 입력하세요");
         return false;
       }
 
-      if (isEmpty(this.val[3])) {
+      if (isEmpty(this.val[16])) {
         Notify.toast('danger', "8. Sample type의 Liquid을(를) 입력하세요");
         return false;
       }
 
-      if (isEmpty(this.val[4])) {
+      if (isEmpty(this.val[17])) {
         Notify.toast('danger', "8. Sample type의 Powder을(를) 입력하세요");
         return false;
       }
 
-      if (isEmpty(this.val[5])) {
+      if (isEmpty(this.val[18])) {
         Notify.toast('danger', "8. Sample type의 Others을(를) 입력하세요");
         return false;
       }
 
-      if (isEmpty(this.val[6])) {
+      if (isEmpty(this.val[21])) {
         Notify.toast('danger', "11. Application을(를) 입력하세요");
         return false;
       }

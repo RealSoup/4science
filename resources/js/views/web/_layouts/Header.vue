@@ -50,8 +50,8 @@
                 >상품관리</router-link>
             </div>
         </div>
-        <Categorys v-if="true" :class="{view_cate:view_cate}" @close_cate="view_cate = false" />
-        <Cart v-if="isLoggedin && ['order_settle', 'cart_index'].indexOf($route.name) === -1" /> <!-- 장바구니 -->
+        <categorys v-if="true" :class="{view_cate:view_cate}" @close_cate="view_cate = false" />
+        <cart v-if="isLoggedin && ['order_settle', 'cart_index'].indexOf($route.name) === -1" /> <!-- 장바구니 -->
     </div>
     <div class="sm_view">
         <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
@@ -61,10 +61,10 @@
         <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
     </div>
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
             <template slot="header"><div class="modal_login">로그인</div></template>
-            <LoginPopUp @close-modal="isModalViewed = false" />
-        </Modal>
+            <login-pop-up @close-modal="isModalViewed = false" />
+        </modal>
     </transition>
 </div>
 </template>
@@ -79,12 +79,10 @@ export default {
     components: {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
-        LoginPopUp,
-        'Modal'     : () => import('@/views/_common/Modal'),
-        // 'Categorys': () => import('../_module/category/Index.vue'),
-        // <categorys :cateOpen="cateOpen"></categorys>
-        'Categorys': () => import('../_module/category/Cate.vue'),
-        'Cart': () => import('../_module/cart/Cart.vue'),
+        'login-pop-up': LoginPopUp,
+        'modal'     :   () => import('@/views/_common/Modal'),
+        'categorys':    () => import('../_module/category/Cate.vue'),
+        'cart':         () => import('../_module/cart/Cart.vue'),
     },
     data() {
         return {

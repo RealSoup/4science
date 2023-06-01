@@ -155,11 +155,10 @@ class Goods extends Model {
 
             case 'cart':    //  장바구니 목록을 보여주기 위한 데이터 편집           
                 foreach ($some as $ct) {
-                    foreach ($ct->cartModel as $cm)
-                        $d_arrange[$ct->ct_gd_id]['model'][$cm->cm_gm_id] = [ 'gm_id' => $cm->cm_gm_id, 'ea' => $cm->cm_ea, 'cm_id' => $cm->cm_id ];
-                    
-                    foreach ($ct->cartOption as $co)
-                        $d_arrange[$ct->ct_gd_id]['option'][$co->co_goc_id] = [ 'goc_id' => $co->co_goc_id, 'ea' => $co->co_ea, 'co_id' => $co->co_id ];
+                    if($ct->ct_type == 'MODEL')
+                        $d_arrange[$ct->ct_gd_id]['model'][$ct->ct_key] = [ 'gm_id' => $ct->ct_key, 'ea' => $ct->ct_ea, 'ct_id' => $ct->ct_id ];
+                    else
+                        $d_arrange[$ct->ct_gd_id]['option'][$ct->ct_key] = [ 'goc_id' => $ct->ct_key, 'ea' => $ct->ct_ea, 'ct_id' => $ct->ct_id ];
                 }
             break;
         }
@@ -244,7 +243,7 @@ class Goods extends Model {
                             $tmpModel['dlvy_check_opt'] = 'N';  //  관리자 주문 상세페이지 일괄 배송정보 등록시 사용
                         } else {
                             if ($type == 'cart') {
-                                $tmpModel['cm_id'] = $d_arrange[$gd_id]['model'][$gm->gm_id]['cm_id'];
+                                $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
                                 $tmpModel['ct_check_opt'] = 'Y';
                             }
                             
@@ -263,6 +262,7 @@ class Goods extends Model {
                         $tmpOption = [
                             'type'          => 'option',
                             'gd_id'         => $gd_id,
+                            'go_id'         => $goc->goc_go_id,
                             'goc_id'        => $goc->goc_id,
                             'ea'            => $v['option'][$goc->goc_id]['ea'],
                             'go_name'       => $go->go_name,
@@ -272,7 +272,7 @@ class Goods extends Model {
                         ];
                         
                         if ($type == 'cart') {
-                            $tmpOption['co_id'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['co_id'];
+                            $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
                             $tmpOption['ct_check_opt'] = 'Y';
                             $tmpOption['go_required'] = $go->go_required;
                         } else if ($type == 'order') {

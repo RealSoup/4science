@@ -140,7 +140,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           lists: {},
           price: {}
         },
-        estimate_req: {},
+        estimate_req: {
+          mng: {}
+        },
         user: {},
         price: {}
       }
@@ -1014,13 +1016,13 @@ var render = function () {
             "b-row",
             [
               _c("b-col", [_vm._v("담당자")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.name))]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.mng.name))]),
               _vm._v(" "),
               _c("b-col", [_vm._v("전화번호")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.tel))]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.mng.tel))]),
               _vm._v(" "),
               _c("b-col", [_vm._v("이메일")]),
-              _c("b-col", [_vm._v(_vm._s(_vm.frm.user.email))]),
+              _c("b-col", [_vm._v(_vm._s(_vm.frm.estimate_req.mng.email))]),
             ],
             1
           ),

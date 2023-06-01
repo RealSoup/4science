@@ -129,11 +129,12 @@ class EstimateController extends Controller {
 
     public function show(Request $req, int $id) {
         if ($req->filled('type') && $req->type=='reply') {
-            $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($id);
+            $data = $this->estimateReply->with('fileInfo')->with('estimateReq')->with('estimateModel')->find($id);
             $data->estimateReq->fileInfo;
             $data->estimateReq->user;
-            if ($data->user)
-			    $data->user->userMng;
+            $data->estimateReq->mng;
+            if ($data->estimateReq->mng)
+			    $data->estimateReq->mng->userMng;
             $coll = array();
             foreach ($data->estimateModel as $em) {
                 $em->estimateOption;
@@ -378,8 +379,9 @@ class EstimateController extends Controller {
 
     public function estimateMailSend($to_email, $to_name, $params, $er_id) {
         $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
-        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
-        $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er]);
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
+        $er->estimateReq->mng;
+        $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er->toArray()]);
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
@@ -503,9 +505,10 @@ class EstimateController extends Controller {
     public function exportTransactionPdf(Request $req) { return $this->pdf->loadView('admin.estimate.pdf.transaction', ['er' => $req->all()]) ->stream(); }
 
     public function showEstimate(Request $req, int $er_id) {
-        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
+        $er->estimateReq->mng;
         $type = $req->filled('type') ? $req->type : 'view';
-        return view('admin.estimate.pdf.estimate', ['er' => $er, 'type'=>$type]);
+        return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>$type]);
 	}
 
     public function getEmptyEm () {

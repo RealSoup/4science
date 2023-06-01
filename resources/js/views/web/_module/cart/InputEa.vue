@@ -1,5 +1,5 @@
 <template>
-    <vue-numeric-input align="center" :min="1" width="110px" v-model="value.ea" @input="update" />
+    <vue-numeric-input align="center" :min="1" width="100%" v-model="value.ea" @input="update" />
 </template>
 
 <script>

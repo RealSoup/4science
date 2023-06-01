@@ -26,12 +26,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     update: function update(v) {
-      var id_obj = this.value.cm_id ? {
-        cm_id: this.value.cm_id
-      } : {
-        co_id: this.value.co_id
-      };
-      this.$store.dispatch('cart/update', Object.assign(id_obj, {
+      this.$store.dispatch('cart/update', Object.assign({
+        ct_id: this.value.ct_id
+      }, {
         ea: v
       }));
     }

@@ -930,6 +930,7 @@ var render = function () {
       Number(_vm.frm.eq_1depth)
         ? _c(
             "div",
+            { staticClass: "box" },
             [
               _c("h5", [
                 _vm._v(

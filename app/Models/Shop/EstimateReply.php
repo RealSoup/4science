@@ -22,7 +22,7 @@ class EstimateReply extends Model {
 
     public function estimateModel() {   return $this->morphMany(EstimateModel::class, 'estimateAble', 'em_type', "em_papa_id"); }
     public function estimateReq() {     return $this->belongsTo(EstimateReq::class,      'er_eq_id'); }
-    public function user() {            return $this->belongsTo(User::class, 'created_id'); }
+    // public function user() {            return $this->belongsTo(User::class, 'created_id'); }
     public function fileInfo() {    return $this->morphMany(FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
 
     public function scopeErIdArr(   $q, $v) { return $q->whereIn('er_id', $v); }

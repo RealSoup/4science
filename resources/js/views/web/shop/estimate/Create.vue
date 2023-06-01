@@ -4,13 +4,61 @@
         <b-row v-if="Object.keys(frm.lists).length">
             <b-col class="goods">
                 <h4>01. 견적요청 상품</h4>
-                <PaList v-model="frm.lists" :user="$store.state.auth.user" :add_vat="true" />
+                <pa-list v-model="frm.lists" :user="$store.state.auth.user" :add_vat="true" />
             </b-col>
         </b-row>
 
         <b-row>
             <b-col class="user">
-                <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. 요청사항</h4>
+                <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. 회원 정보</h4>
+                <b-container class="frm_st">
+                    <b-row>
+                        <b-col class="label_st">주문자명<b class="need" /></b-col>
+                        <b-col>
+                            <b-form-input v-model="frm.eq_name" id="eq_name" />
+                            <validation :error="this.$store.state.error.validations.eq_name" />
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label_st">연락처<b class="need" /></b-col>
+                        <b-col class="hp">
+                            <span><b-form-input v-model="frm.eq_hp01" ref="eq_hp01" @input.native="focusNext($event, 3, 'eq_hp02')" :formatter="maxlength_3" id="eq_hp" /></span>
+                            <span><b-form-input v-model="frm.eq_hp02" ref="eq_hp02" @input.native="focusNext($event, 4, 'eq_hp03')" :formatter="maxlength_4" /></span>
+                            <span><b-form-input v-model="frm.eq_hp03" ref="eq_hp03" :formatter="maxlength_4" /></span>
+                            <validation :error="this.$store.state.error.validations.eq_hp" />
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label_st">이메일<b class="need" /></b-col>
+                        <b-col class="email">
+                            <span><b-form-input v-model="frm.eq_email01" id="eq_email" /></span>
+                            <span><b-form-input v-model="frm.eq_email02" /></span>
+                            <span>
+                                <b-form-select v-model="email_domain_slt_idx" @change="email_domain_slt">
+                                    <b-form-select-option value="0">직접입력</b-form-select-option>
+                                    <b-form-select-option v-for="(dm, i) in email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
+                                </b-form-select>
+                            </span>
+                            <validation :error="this.$store.state.error.validations.eq_email" />
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label_st">소속<small><i>직장/학교</i></small><b class="need" /></b-col>
+                        <b-col>
+                            <b-form-input v-model="frm.eq_company" />
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col class="label_st">첨부파일</b-col>
+                        <b-col>
+                            <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" :height="200" />
+                        </b-col>
+                    </b-row>
+                </b-container>
+            </b-col>
+
+            <b-col class="inquiry">
+                <h4>0{{Object.keys(frm.lists).length ? 3 : 2}}. 문의사항</h4>
                 <b-container class="frm_st">
                     <div class="frm_bd">
                         <b-row v-if="isEmpty(frm.lists)" class="cate">
@@ -20,25 +68,13 @@
                                     <b-form-select-option value="">선택</b-form-select-option>
                                     <b-form-select-option v-for="ca in cate" :key="ca.ca_id" :value="ca.ca_name">{{ca.ca_name}}</b-form-select-option>
                                 </b-form-select>
-                                <Validation :error="this.$store.state.error.validations.eq_1depth" />
+                                <validation :error="this.$store.state.error.validations.eq_1depth" />
                             </b-col>
                         </b-row>
                         <b-row>
                             <b-col><b-form-textarea v-model="frm.eq_content" rows="13" /></b-col>
                         </b-row>
                     </div>
-                </b-container>
-            </b-col>
-
-            <b-col class="inquiry">
-                <h4>0{{Object.keys(frm.lists).length ? 3 : 2}}. 첨부파일</h4>
-                <b-container class="frm_st">                    
-                    <b-row>
-                        <b-col class="label_st">첨부파일</b-col>
-                        <b-col>
-                            <file-upload ref="fileupload" v-model="files" :fi_group="'estimateReq'" :fi_kind="'add'" :height="200" />
-                        </b-col>
-                    </b-row>
                 </b-container>
             </b-col>
         </b-row>
@@ -53,9 +89,9 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
     components: {
-        FileUpload,
-        'Validation':   () => import('@/views/_common/Validation.vue'),
-        'PaList':       () => import('@/views/web/_module/PaList.vue'),
+        'file-upload': FileUpload,
+        'validation':   () => import('@/views/_common/Validation.vue'),
+        'pa-list':       () => import('@/views/web/_module/PaList.vue'),
     },
     data() {
         return {
@@ -100,6 +136,7 @@ export default {
                 if (res && res.status === 200) {
                     await this.$refs.fileupload.fileProcessor(res.data);
                     Notify.toast('success', '견적 요청 완료')
+                    this.$store.dispatch('cart/index');
                     this.$router.push({name: 'my_estimate_show', params: { eq_id: res.data }});
                 } else {
                     Notify.toast('warning', res);

@@ -8,10 +8,33 @@
     
     <div class="list_box" v-if="cntItem">
         <ul>
-        <template v-for="(item, i) in cartList">
-            <CartModel v-if="item.type=='model'" v-model="cartList[i]" @outCart="outCart(i)" :key="i" />
-            <CartOption v-else-if="item.type=='option'" v-model="cartList[i]" @outCart="outCart(i)" :key="i" />
-        </template>
+            <b-row v-for="(ct, i) in cartList" :key="i" tag="li" :class="{gd_model:ct.type=='model', gd_option:ct.type=='option'}">
+                <template v-if="ct.type=='model'">
+                    <b-col>
+                        <b-form-checkbox v-model="ct.ct_check_opt" value="Y" unchecked-value="N" class="hide" />
+                        <b-badge pill variant="danger" class="btn_x hide" @click="outCart(i)">X</b-badge>
+                        <router-link :to="{ name: 'goods_show', params: {gd_id: ct.gd_id} }"><img :src="ct.img" /></router-link>
+                    </b-col>
+                    <b-col class="hide">
+                        <div>{{strCut(ct.gm_name, 15)}}</div>
+                        <div class="price">{{ct.price_add_vat | comma}}</div>
+                        <input-ea v-model="cartList[i]" />
+                    </b-col>
+                </template>
+
+                <template v-if="ct.type=='option'">
+                    <b-col>
+                        <b-form-checkbox v-model="ct.ct_check_opt" value="Y" unchecked-value="N" @change="opc_check(i)" class="hide" />
+                        <div>{{strCut(ct.goc_name, 10)}}</div>
+                    </b-col>
+                    <b-col class="hide price">{{ct.price_add_vat | comma}}</b-col>        
+                    <b-col class="hide">
+                        <div></div>
+                        <input-ea v-model="cartList[i]" />
+                        <b-badge pill variant="danger" class="btn_x" @click="outCart(i)">X</b-badge>
+                    </b-col>
+                </template>
+            </b-row>
         </ul>
     </div>
 
@@ -33,11 +56,7 @@ import { mapState, mapGetters } from 'vuex';
 import VueNumericInput from 'vue-numeric-input'
 
 export default {
-    components: {
-        VueNumericInput,
-        'CartModel': () => import('./CartModel.vue'),
-        'CartOption': () => import('./CartOption.vue'),
-    },
+    components: { 'input-ea': () => import('./InputEa'), },
     data () {
         return {
             ck_key: 'CartGoods',
@@ -57,7 +76,13 @@ export default {
             this.$store.dispatch('cart/index');
         },
         outCart(i){
-            this.$store.dispatch('cart/destroy', [{type:this.cartList[i].type, id:this.cartList[i].cm_id??this.cartList[i].co_id}]);
+            this.$store.dispatch('cart/destroy', [this.cartList[i].ct_id]);
+        },
+        update(v) {
+            this.$store.dispatch('cart/update', {
+                co_id: this.value.co_id,
+                ea: v
+            });
         },
         action(type) {
             let params = this.makeParam();
@@ -114,7 +139,13 @@ export default {
         },
         gm_chg(a){
             console.log(a);
-        }
+        },
+        opc_check(i) {
+            if (this.cartList[i].go_required == 'Y') {
+                Notify.toast('danger', "필수옵션은 해제 할 수 없습니다.");
+                this.$set(this.cartList[i], 'ct_check_opt', 'Y');
+            }
+        },
     },
     mounted() {
         window.addEventListener('scroll', this.scrollListener)
@@ -143,20 +174,22 @@ export default {
 
 #Cart .list_box { overflow:hidden; height:100%; max-height:520px; }
 #Cart .list_box ul { overflow-y:auto; width:254px; height:100%; transition:all 0.2s;}
-#Cart .list_box ul >>> li { margin:0; padding:10px 15px; }
-#Cart .list_box ul >>> li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
-#Cart .list_box ul >>> li>div { padding:0; justify-content:space-between; display:flex; }
+#Cart .list_box ul li { margin:0; padding:10px 15px; }
+#Cart .list_box ul li.hr { border-top:2px solid #eee; margin:15px; padding:0; }
+#Cart .list_box ul li>div { padding:0; justify-content:space-between; display:flex; }
+#Cart .list_box ul li>div .price { color:#0072BC; }
+#Cart .list_box ul li>div .vue-numeric-input { max-width:100px; }
 
-#Cart .list_box ul >>> li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
-#Cart .list_box ul >>> li.gd_model>div:nth-of-type(2) { margin-left:10px; }
-#Cart .list_box ul >>> li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1; }
-#Cart .list_box ul >>> li>div a img { transition:all 0.2s; width:80px; height:80px; object-fit:cover; }
-#Cart .list_box ul >>> li .hide { transition:all 0.2s; overflow:hidden; }
+#Cart .list_box ul li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end; }
+#Cart .list_box ul li.gd_model>div:nth-of-type(2) { margin-left:10px; }
+#Cart .list_box ul li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1; }
+#Cart .list_box ul li>div a img { transition:all 0.2s; width:80px; height:80px; object-fit:cover; }
+#Cart .list_box ul li .hide { transition:all 0.2s; overflow:hidden; }
 
-#Cart .list_box ul >>> li.gd_option { flex-direction:column; }
-#Cart .list_box ul >>> li.gd_option>div { flex-basis: auto; }
-#Cart .list_box ul >>> li.gd_option>div:nth-of-type(1) { align-items:center; }
-#Cart .list_box ul >>> li.gd_option>div:nth-of-type(1) span { margin-left: 10px; }
+#Cart .list_box ul li.gd_option { flex-direction:column; }
+#Cart .list_box ul li.gd_option>div { flex-basis: auto; }
+#Cart .list_box ul li.gd_option>div:nth-of-type(1) { align-items:center; }
+#Cart .list_box ul li.gd_option>div:nth-of-type(1) span { margin-left: 10px; }
 
 #Cart .footer { border-top:1px solid #888888; margin:20px; position:absolute; bottom:0; width:calc(100% - 40px); padding-top:10px; }
 #Cart .footer div b { color:#0072BC; }
@@ -170,10 +203,10 @@ export default {
 #Cart.fixed_header { position:fixed; top:90px; }
 #Cart.hideCart { height:auto; border-bottom-left-radius:0; box-shadow:none; }
 #Cart.hideCart ul { width:64px; }
-#Cart.hideCart ul>>>li { padding:3px 7px; }
-#Cart.hideCart ul>>>li:not(:first-child) {display:none; }
-#Cart.hideCart ul>>>li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important; }
-#Cart.hideCart ul>>>li>div a img { border-radius:50%; width:50px; height:50px; }
+#Cart.hideCart ul li { padding:3px 7px; }
+#Cart.hideCart ul li:not(:first-child) {display:none; }
+#Cart.hideCart ul li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important; }
+#Cart.hideCart ul li>div a img { border-radius:50%; width:50px; height:50px; }
 
 @media (max-width: 992px){
     #Cart { top: 100px; }

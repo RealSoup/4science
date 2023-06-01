@@ -17,39 +17,39 @@
         <b-col></b-col>
     </b-row>
     <div v-if="cartList.length" class="container body">
-        <b-row v-for="(cm, i) in cartList" :key="cm.cm_id ? cm.cm_id : `goc${cm.goc_id}`" class="cart_data" :class="{model:cm.type=='model', option:cm.type=='option'}">
-            <template v-if="cm.type=='model'">
-                <b-col class="check"><b-form-checkbox v-model="cm.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
-                <b-col class="img"><img :src="cm.img" class="img-fluid" /></b-col>
+        <b-row v-for="(ct, i) in cartList" :key="ct.ct_id" class="cart_data" :class="{model:ct.type=='model', option:ct.type=='option'}">
+            <template v-if="ct.type=='model'">
+                <b-col class="check"><b-form-checkbox v-model="ct.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
+                <b-col class="img"><img :src="ct.img" class="img-fluid" /></b-col>
                 <b-col>
-                    <b-link :to="{name: 'goods_show', params:{gd_id:cm.gd_id} }">
-                        <div class="tit">{{cm.gd_name}}</div>
+                    <b-link :to="{name: 'goods_show', params:{gd_id:ct.gd_id} }">
+                        <div class="tit">{{ct.gd_name}}</div>
                         <ul>
-                            <li>모델명:{{cm.gm_code}} / Cat.No.:{{cm.gm_catno}}</li>
-                            <li>제품명:{{cm.gm_name}} / 사양:{{cm.gm_spec}}</li>
-                            <li>판매단위:{{cm.gm_unit}}</li>
+                            <li>모델명:{{ct.gm_code}} / Cat.No.:{{ct.gm_catno}}</li>
+                            <li>제품명:{{ct.gm_name}} / 사양:{{ct.gm_spec}}</li>
+                            <li>판매단위:{{ct.gm_unit}}</li>
                         </ul>
                     </b-link>
                 </b-col>            
-                <b-col class="maker">{{cm.mk_name}}</b-col>
-                <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
+                <b-col class="maker">{{ct.mk_name}}</b-col>
+                <b-col class="price cost">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
-                <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
+                <b-col class="price sum">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" size="sm" @click="outCart(i)">삭제</b-button></b-col>
             </template>
 
-            <template v-else-if="cm.type=='option'">
-                <b-col></b-col>
+            <template v-else-if="ct.type=='option'">
+                <b-col class="check"><b-form-checkbox v-model="ct.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
                 <b-col class="img">추가옵션</b-col>
-                <b-col>{{cm.go_name}}:{{cm.goc_name}} <b-badge v-if="cm.go_required=='Y'" variant="danger">필수</b-badge></b-col>
+                <b-col>{{ct.go_name}}:{{ct.goc_name}} <b-badge v-if="ct.go_required=='Y'" variant="danger">필수</b-badge></b-col>
                 <b-col></b-col>
-                <b-col class="price cost">{{cm.price_add_vat | comma | price_zero | won}}</b-col>
+                <b-col class="price cost">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
-                <b-col class="price sum">{{cm.price_add_vat*cm.ea | comma | price_zero | won}}</b-col>
+                <b-col class="price sum">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" @click="outCart(i)">삭제</b-button></b-col>
             </template>
         </b-row>
@@ -142,18 +142,16 @@ export default {
             if (i=='chk') {
                 let chkCnt = Object.values(this.cartList).filter(el => el.ct_check_opt=='Y').length;
                 if (chkCnt) {
-                    for (const v of this.cartList) {
-                        if ( v.ct_check_opt == 'Y' ) {
-                            id_arr.push({type:v.type, id:v.cm_id??v.co_id});
-                        }
-                    }    
+                    for (const v of this.cartList) 
+                        if ( v.ct_check_opt == 'Y' ) 
+                            id_arr.push(v.ct_id);                        
                 } else {
                     Notify.modal("상품을 선택하세요", 'warning');
                     return false;
                 }
                 
             } else 
-                id_arr.push({type:this.cartList[i].type, id:this.cartList[i].cm_id??this.cartList[i].co_id});
+                id_arr.push(this.cartList[i].ct_id);
             
             if (await Notify.confirm('삭제', 'danger'))
                 this.$store.dispatch('cart/destroy', id_arr);

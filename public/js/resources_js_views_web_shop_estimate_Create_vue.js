@@ -291,15 +291,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    FileUpload: _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'Validation': function Validation() {
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     },
-    'PaList': function PaList() {
+    'pa-list': function paList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList.vue */ "./resources/js/views/web/_module/PaList.vue"));
     }
   },
@@ -382,7 +418,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 13;
+                  _context2.next = 14;
                   break;
                 }
 
@@ -392,6 +428,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 9:
                 Notify.toast('success', '견적 요청 완료');
 
+                _this2.$store.dispatch('cart/index');
+
                 _this2.$router.push({
                   name: 'my_estimate_show',
                   params: {
@@ -399,28 +437,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
-
-              case 13:
-                Notify.toast('warning', res);
 
               case 14:
-                _context2.next = 20;
+                Notify.toast('warning', res);
+
+              case 15:
+                _context2.next = 21;
                 break;
 
-              case 16:
-                _context2.prev = 16;
+              case 17:
+                _context2.prev = 17;
                 _context2.t0 = _context2["catch"](2);
                 Notify.consolePrint(_context2.t0);
                 Notify.toast('warning', _context2.t0.responsee);
 
-              case 20:
+              case 21:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[2, 16]]);
+        }, _callee2, null, [[2, 17]]);
       }))();
     },
     pushFi_id: function pushFi_id(fi_id) {
@@ -4660,7 +4698,7 @@ var render = function () {
                 [
                   _c("h4", [_vm._v("01. 견적요청 상품")]),
                   _vm._v(" "),
-                  _c("PaList", {
+                  _c("pa-list", {
                     attrs: { user: _vm.$store.state.auth.user, add_vat: true },
                     model: {
                       value: _vm.frm.lists,
@@ -4689,7 +4727,309 @@ var render = function () {
                 _vm._v(
                   "0" +
                     _vm._s(Object.keys(_vm.frm.lists).length ? 2 : 1) +
-                    ". 요청사항"
+                    ". 회원 정보"
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-container",
+                { staticClass: "frm_st" },
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("주문자명"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            attrs: { id: "eq_name" },
+                            model: {
+                              value: _vm.frm.eq_name,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "eq_name", $$v)
+                              },
+                              expression: "frm.eq_name",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.eq_name,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("연락처"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "hp" },
+                        [
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "eq_hp01",
+                                attrs: {
+                                  formatter: _vm.maxlength_3,
+                                  id: "eq_hp",
+                                },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 3, "eq_hp02")
+                                  },
+                                },
+                                model: {
+                                  value: _vm.frm.eq_hp01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp01", $$v)
+                                  },
+                                  expression: "frm.eq_hp01",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "eq_hp02",
+                                attrs: { formatter: _vm.maxlength_4 },
+                                nativeOn: {
+                                  input: function ($event) {
+                                    return _vm.focusNext($event, 4, "eq_hp03")
+                                  },
+                                },
+                                model: {
+                                  value: _vm.frm.eq_hp02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp02", $$v)
+                                  },
+                                  expression: "frm.eq_hp02",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                ref: "eq_hp03",
+                                attrs: { formatter: _vm.maxlength_4 },
+                                model: {
+                                  value: _vm.frm.eq_hp03,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_hp03", $$v)
+                                  },
+                                  expression: "frm.eq_hp03",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error: this.$store.state.error.validations.eq_hp,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("이메일"),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "email" },
+                        [
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                attrs: { id: "eq_email" },
+                                model: {
+                                  value: _vm.frm.eq_email01,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_email01", $$v)
+                                  },
+                                  expression: "frm.eq_email01",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-form-input", {
+                                model: {
+                                  value: _vm.frm.eq_email02,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.frm, "eq_email02", $$v)
+                                  },
+                                  expression: "frm.eq_email02",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  on: { change: _vm.email_domain_slt },
+                                  model: {
+                                    value: _vm.email_domain_slt_idx,
+                                    callback: function ($$v) {
+                                      _vm.email_domain_slt_idx = $$v
+                                    },
+                                    expression: "email_domain_slt_idx",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "0" } },
+                                    [_vm._v("직접입력")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.email_domain, function (dm, i) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      { key: i, attrs: { value: i } },
+                                      [_vm._v(_vm._s(dm))]
+                                    )
+                                  }),
+                                ],
+                                2
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("validation", {
+                            attrs: {
+                              error:
+                                this.$store.state.error.validations.eq_email,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("소속"),
+                        _c("small", [_c("i", [_vm._v("직장/학교")])]),
+                        _c("b", { staticClass: "need" }),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-input", {
+                            model: {
+                              value: _vm.frm.eq_company,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.frm, "eq_company", $$v)
+                              },
+                              expression: "frm.eq_company",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { staticClass: "label_st" }, [
+                        _vm._v("첨부파일"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c("file-upload", {
+                            ref: "fileupload",
+                            attrs: {
+                              fi_group: "estimateReq",
+                              fi_kind: "add",
+                              height: 200,
+                            },
+                            model: {
+                              value: _vm.files,
+                              callback: function ($$v) {
+                                _vm.files = $$v
+                              },
+                              expression: "files",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            { staticClass: "inquiry" },
+            [
+              _c("h4", [
+                _vm._v(
+                  "0" +
+                    _vm._s(Object.keys(_vm.frm.lists).length ? 3 : 2) +
+                    ". 문의사항"
                 ),
               ]),
               _vm._v(" "),
@@ -4748,7 +5088,7 @@ var render = function () {
                                   2
                                 ),
                                 _vm._v(" "),
-                                _c("Validation", {
+                                _c("validation", {
                                   attrs: {
                                     error:
                                       this.$store.state.error.validations
@@ -4789,60 +5129,6 @@ var render = function () {
                   1
                 ),
               ]),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { staticClass: "inquiry" },
-            [
-              _c("h4", [
-                _vm._v(
-                  "0" +
-                    _vm._s(Object.keys(_vm.frm.lists).length ? 3 : 2) +
-                    ". 첨부파일"
-                ),
-              ]),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "frm_st" },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("첨부파일"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("file-upload", {
-                            ref: "fileupload",
-                            attrs: {
-                              fi_group: "estimateReq",
-                              fi_kind: "add",
-                              height: 200,
-                            },
-                            model: {
-                              value: _vm.files,
-                              callback: function ($$v) {
-                                _vm.files = $$v
-                              },
-                              expression: "files",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
             ],
             1
           ),

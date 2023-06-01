@@ -87,18 +87,14 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 500) {
         // store.commit('error/setAuthorizationError', error.response.data.message);
         // router.go(-1);
-        if ( error.response.data.message.search('견적가 상품이 있습니다.') !== -1  ) {
-            Notify.modal(error.response.data.message, 'danger');
+        Notify.modal(error.response.data.message, 'danger');
+        if ( error.response.data.message.search('견적가 상품이 있습니다.') !== -1 ||
+            error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1 ||
+            error.response.data.message.search('필수 옵션과 같이 구매하세요') !== -1 
+        ) {
             router.go(-1);
-            return false;
-        } else if ( error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1  ) {
-            Notify.modal(error.response.data.message, 'danger');
-            router.go(-1);
-            return false;
-        } else {
-            Notify.modal(error.response.data.message, 'danger');
-            return false;
         }
+        return false;
     } else if (error.response.status === 501) { //  501 코드 임의 지정: 오류로 인한 뒤로가기 코드 
         Notify.modal(error.response.data.message, 'danger');
         router.go(-1);

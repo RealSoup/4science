@@ -81,9 +81,9 @@
             <b-col>견적유효기간</b-col><b-col>{{ frm.er_effective_at }}</b-col>
         </b-row>
         <b-row>
-            <b-col>담당자</b-col><b-col>{{ frm.user.name }}</b-col>
-            <b-col>전화번호</b-col><b-col>{{ frm.user.tel }}</b-col>
-            <b-col>이메일</b-col><b-col>{{ frm.user.email }}</b-col>
+            <b-col>담당자</b-col><b-col>{{ frm.estimate_req.mng.name }}</b-col>
+            <b-col>전화번호</b-col><b-col>{{ frm.estimate_req.mng.tel }}</b-col>
+            <b-col>이메일</b-col><b-col>{{ frm.estimate_req.mng.email }}</b-col>
         </b-row>
         <b-row>
             <b-col>납품기일</b-col><b-col>{{ frm.er_dlvy_at }}</b-col>
@@ -118,7 +118,9 @@ export default {
                     lists:{},
                     price:{}
                 },
-                estimate_req:{},
+                estimate_req:{
+                    mng:{},
+                },
                 user:{},
                 price: {},
 

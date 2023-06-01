@@ -96,6 +96,9 @@ Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
 Route::get('/admin/realsoup/test', 'Admin\RealsoupController@test');
 Route::get('/admin/realsoup/play', 'Admin\RealsoupController@play');
 
+Route::get('/admin/crontab/receiveConfirm', 'Admin\CronTabController@receiveConfirm');
+Route::get('/admin/crontab/adjustMemberLevel', 'Admin\CronTabController@adjustMemberLevel');
+
 Route::GET('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
 
 

@@ -235,7 +235,7 @@
                         <h4>상품 리뷰 <i>{{bo_cnt.review}}</i></h4>
                         <p>본 상품을 주문하신 고객님께서 작성하신 리뷰입니다.</p>
                     </div>
-                    <bo-Review :bo_cd="'review'" :bo_cnt="bo_cnt" />
+                    <bo-review :bo_cd="'review'" :bo_cnt="bo_cnt" />
                 </div>
 
                 <!-- 상품문의 -->

@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
 
-      if (isEmpty(this.val[6])) {
+      if (isEmpty(this.val[5])) {
         Notify.toast('danger', "기타사항을(를) 입력하세요");
         return false;
       }

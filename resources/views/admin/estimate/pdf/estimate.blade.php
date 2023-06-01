@@ -127,19 +127,19 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         <tr class="line02"><td colspan="4"></td></tr>
         <tr class="line01 line02">
             <th>견적요청인</th> <td>{{ $er['estimate_req']['eq_name'] }}</td>
-            <th>견적담당자</th> <td>{{ $er['user']['name'] }}</td>
+            <th>견적담당자</th> <td>{{ $er['estimate_req']['mng']['name'] }}</td>
         </tr>
         <tr class="line01">
             <th>전화번호</th> <td>{{ $er['estimate_req']['eq_tel'] }}</td>
-            <th>전화번호</th> <td>{{ $er['user']['tel'] }}</td>
+            <th>전화번호</th> <td>{{ $er['estimate_req']['mng']['tel'] }}</td>
         </tr>
         <tr class="line01">
             <th>휴대폰번호</th> <td>{{ $er['estimate_req']['eq_hp'] }}</td>
-            <th>이메일주소</th> <td>{{ $er['user']['email'] }}</td>
+            <th>이메일주소</th> <td>{{ $er['estimate_req']['mng']['email'] }}</td>
         </tr>
         <tr class="line01">
             <th>이메일주소</th> <td>{{ $er['estimate_req']['eq_email'] }}</td>
-            <th>팩스주소</th> <td>{{ $er['user']['fax'] }}</td>
+            <th>팩스주소</th> <td>{{ $er['estimate_req']['mng']['fax'] }}</td>
         </tr>
         <tr class="line03">
             <th>팩스주소</th> <td colspan="3">{{ $er['estimate_req']['eq_fax'] }}</td>

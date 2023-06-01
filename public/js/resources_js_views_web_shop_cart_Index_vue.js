@@ -175,9 +175,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this$cartList$i$cm_i;
-
-        var id_arr, chkCnt, _iterator, _step, v, _v$cm_id;
+        var id_arr, chkCnt, _iterator, _step, v;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -204,13 +202,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 try {
                   for (_iterator.s(); !(_step = _iterator.n()).done;) {
                     v = _step.value;
-
-                    if (v.ct_check_opt == 'Y') {
-                      id_arr.push({
-                        type: v.type,
-                        id: (_v$cm_id = v.cm_id) !== null && _v$cm_id !== void 0 ? _v$cm_id : v.co_id
-                      });
-                    }
+                    if (v.ct_check_opt == 'Y') id_arr.push(v.ct_id);
                   }
                 } catch (err) {
                   _iterator.e(err);
@@ -230,10 +222,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
 
               case 12:
-                id_arr.push({
-                  type: _this.cartList[i].type,
-                  id: (_this$cartList$i$cm_i = _this.cartList[i].cm_id) !== null && _this$cartList$i$cm_i !== void 0 ? _this$cartList$i$cm_i : _this.cartList[i].co_id
-                });
+                id_arr.push(_this.cartList[i].ct_id);
 
               case 13:
                 _context.next = 15;
@@ -570,19 +559,19 @@ var render = function () {
             "div",
             { staticClass: "container body" },
             [
-              _vm._l(_vm.cartList, function (cm, i) {
+              _vm._l(_vm.cartList, function (ct, i) {
                 return _c(
                   "b-row",
                   {
-                    key: cm.cm_id ? cm.cm_id : "goc" + cm.goc_id,
+                    key: ct.ct_id,
                     staticClass: "cart_data",
                     class: {
-                      model: cm.type == "model",
-                      option: cm.type == "option",
+                      model: ct.type == "model",
+                      option: ct.type == "option",
                     },
                   },
                   [
-                    cm.type == "model"
+                    ct.type == "model"
                       ? [
                           _c(
                             "b-col",
@@ -592,11 +581,11 @@ var render = function () {
                                 attrs: { value: "Y", "unchecked-value": "N" },
                                 on: { change: _vm.chkChange },
                                 model: {
-                                  value: cm.ct_check_opt,
+                                  value: ct.ct_check_opt,
                                   callback: function ($$v) {
-                                    _vm.$set(cm, "ct_check_opt", $$v)
+                                    _vm.$set(ct, "ct_check_opt", $$v)
                                   },
-                                  expression: "cm.ct_check_opt",
+                                  expression: "ct.ct_check_opt",
                                 },
                               }),
                             ],
@@ -606,7 +595,7 @@ var render = function () {
                           _c("b-col", { staticClass: "img" }, [
                             _c("img", {
                               staticClass: "img-fluid",
-                              attrs: { src: cm.img },
+                              attrs: { src: ct.img },
                             }),
                           ]),
                           _vm._v(" "),
@@ -619,36 +608,36 @@ var render = function () {
                                   attrs: {
                                     to: {
                                       name: "goods_show",
-                                      params: { gd_id: cm.gd_id },
+                                      params: { gd_id: ct.gd_id },
                                     },
                                   },
                                 },
                                 [
                                   _c("div", { staticClass: "tit" }, [
-                                    _vm._v(_vm._s(cm.gd_name)),
+                                    _vm._v(_vm._s(ct.gd_name)),
                                   ]),
                                   _vm._v(" "),
                                   _c("ul", [
                                     _c("li", [
                                       _vm._v(
                                         "모델명:" +
-                                          _vm._s(cm.gm_code) +
+                                          _vm._s(ct.gm_code) +
                                           " / Cat.No.:" +
-                                          _vm._s(cm.gm_catno)
+                                          _vm._s(ct.gm_catno)
                                       ),
                                     ]),
                                     _vm._v(" "),
                                     _c("li", [
                                       _vm._v(
                                         "제품명:" +
-                                          _vm._s(cm.gm_name) +
+                                          _vm._s(ct.gm_name) +
                                           " / 사양:" +
-                                          _vm._s(cm.gm_spec)
+                                          _vm._s(ct.gm_spec)
                                       ),
                                     ]),
                                     _vm._v(" "),
                                     _c("li", [
-                                      _vm._v("판매단위:" + _vm._s(cm.gm_unit)),
+                                      _vm._v("판매단위:" + _vm._s(ct.gm_unit)),
                                     ]),
                                   ]),
                                 ]
@@ -658,7 +647,7 @@ var render = function () {
                           ),
                           _vm._v(" "),
                           _c("b-col", { staticClass: "maker" }, [
-                            _vm._v(_vm._s(cm.mk_name)),
+                            _vm._v(_vm._s(ct.mk_name)),
                           ]),
                           _vm._v(" "),
                           _c("b-col", { staticClass: "price cost" }, [
@@ -666,7 +655,7 @@ var render = function () {
                               _vm._s(
                                 _vm._f("won")(
                                   _vm._f("price_zero")(
-                                    _vm._f("comma")(cm.price_add_vat)
+                                    _vm._f("comma")(ct.price_add_vat)
                                   )
                                 )
                               )
@@ -697,7 +686,7 @@ var render = function () {
                               _vm._s(
                                 _vm._f("won")(
                                   _vm._f("price_zero")(
-                                    _vm._f("comma")(cm.price_add_vat * cm.ea)
+                                    _vm._f("comma")(ct.price_add_vat * ct.ea)
                                   )
                                 )
                               )
@@ -728,9 +717,26 @@ var render = function () {
                             1
                           ),
                         ]
-                      : cm.type == "option"
+                      : ct.type == "option"
                       ? [
-                          _c("b-col"),
+                          _c(
+                            "b-col",
+                            { staticClass: "check" },
+                            [
+                              _c("b-form-checkbox", {
+                                attrs: { value: "Y", "unchecked-value": "N" },
+                                on: { change: _vm.chkChange },
+                                model: {
+                                  value: ct.ct_check_opt,
+                                  callback: function ($$v) {
+                                    _vm.$set(ct, "ct_check_opt", $$v)
+                                  },
+                                  expression: "ct.ct_check_opt",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("b-col", { staticClass: "img" }, [
                             _vm._v("추가옵션"),
@@ -740,12 +746,12 @@ var render = function () {
                             "b-col",
                             [
                               _vm._v(
-                                _vm._s(cm.go_name) +
+                                _vm._s(ct.go_name) +
                                   ":" +
-                                  _vm._s(cm.goc_name) +
+                                  _vm._s(ct.goc_name) +
                                   " "
                               ),
-                              cm.go_required == "Y"
+                              ct.go_required == "Y"
                                 ? _c(
                                     "b-badge",
                                     { attrs: { variant: "danger" } },
@@ -763,7 +769,7 @@ var render = function () {
                               _vm._s(
                                 _vm._f("won")(
                                   _vm._f("price_zero")(
-                                    _vm._f("comma")(cm.price_add_vat)
+                                    _vm._f("comma")(ct.price_add_vat)
                                   )
                                 )
                               )
@@ -794,7 +800,7 @@ var render = function () {
                               _vm._s(
                                 _vm._f("won")(
                                   _vm._f("price_zero")(
-                                    _vm._f("comma")(cm.price_add_vat * cm.ea)
+                                    _vm._f("comma")(ct.price_add_vat * ct.ea)
                                   )
                                 )
                               )

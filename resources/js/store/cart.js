@@ -70,7 +70,7 @@ export default {
                             if ( ct.type == 'model' && ct.gm_id == gm.gm_id ) {
                                 ct.ea += gm.ea;
                                 existFlag = true;
-                                context.dispatch('update', { cm_id: ct.cm_id, ea: ct.ea });
+                                context.dispatch('update', { ct_id: ct.ct_id, ea: ct.ea });
                             }
                         });
 
@@ -100,7 +100,7 @@ export default {
                                 if ( ct.type == 'option' && ct.goc_id == goc.goc_id ) {
                                     ct.ea += goc.ea;
                                     existFlag = true;
-                                    context.dispatch('update', { co_id: ct.co_id, ea: ct.ea });
+                                    context.dispatch('update', { ct_id: ct.ct_id, ea: ct.ea });
                                 }
                             });
 

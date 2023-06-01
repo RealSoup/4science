@@ -2577,7 +2577,7 @@ var render = function () {
                         "div",
                         { staticClass: "order_paper" },
                         [
-                          _c("h6", [_vm._v("첨부 서류")]),
+                          _c("h6", [_vm._v("요청 서류")]),
                           _vm._v(" "),
                           _c(
                             "div",

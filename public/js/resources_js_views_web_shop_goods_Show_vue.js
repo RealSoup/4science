@@ -2070,7 +2070,7 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("bo-Review", {
+                  _c("bo-review", {
                     attrs: { bo_cd: "review", bo_cnt: _vm.bo_cnt },
                   }),
                 ],

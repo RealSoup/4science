@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, EstimateCustom, Goods};
 use App\Models\{FileInfo};
+use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, EstimateCustom, Goods, Cart};
 use App\Http\Requests\StoreEstimateReq;
 use Illuminate\Support\Arr;
 use DB;
@@ -99,6 +99,7 @@ class EstimateController extends Controller {
                                 'em_cost_price' => $item['price'],
                                 'em_price'      => $item['price'],
                             ]);
+                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                         } else if ($item['type'] == 'option') {
                             EstimateOption::insert([
                                 'eo_em_id'  => $em_id,
@@ -109,6 +110,7 @@ class EstimateController extends Controller {
                                 'eo_ea'     => $item['ea'],
                                 'eo_price'  => $item['price'],
                             ]);
+                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
                         }
                     }
                 }
@@ -223,11 +225,12 @@ class EstimateController extends Controller {
 
 
     public function replyShow(EstimateReply $er, $er_id) {
-        $data = $er->with('fileInfo')->with('estimateReq')->with('estimateModel')->with('user')->find($er_id);
+        $data = $er->with('fileInfo')->with('estimateReq')->with('estimateModel')->find($er_id);
         $data->estimateReq->fileInfo;
         $data->estimateReq->user;
-        if ($data->user)
-            $data->user->userMng;
+        $data->estimateReq->mng;
+            if ($data->estimateReq->mng)
+			    $data->estimateReq->mng->userMng;
         $coll = array();
         foreach ($data->estimateModel as $em) {
             $em->estimateOption;
@@ -244,8 +247,9 @@ class EstimateController extends Controller {
     }
 
     public function printEstimate(int $er_id) {
-        $er = EstimateReply::with('estimateReq')->with('estimateModel')->with('user')->find($er_id)->toArray();
-        return view('admin.estimate.pdf.estimate', ['er' => $er, 'type'=>'print']);
+        $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
+        $er->estimateReq->mng;
+        return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>'print']);
 	}
 
     public function getCustomMadeCategory() { return EstimateReq::$option['custom_made_category']; }

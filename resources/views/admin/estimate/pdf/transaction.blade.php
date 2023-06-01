@@ -144,7 +144,7 @@ $no=1;
     <table class="bottom">
         <tr>
             <td>
-                <p>담당자 : {{$er['user']['name']}} {{$er['user']['user_mng']['pos_name']}}, TEL : {{$er['user']['tel']}}, FAX : {{$er['user']['fax']}}</p>
+                <p>담당자 : {{$er['estimate_req']['mng']['name']}} {{$er['estimate_req']['mng']['user_mng']['pos_name']}}, TEL : {{$er['estimate_req']['mng']['tel']}}, FAX : {{$er['estimate_req']['mng']['fax']}}</p>
                 계좌번호 : {{cache('bank')['name01']}} {{cache('bank')['num01']}},
                             {{cache('bank')['name02']}} {{cache('bank')['num02']}} {{cache('bank')['owner']}}
             </td>

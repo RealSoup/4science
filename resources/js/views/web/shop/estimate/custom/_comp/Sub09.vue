@@ -84,7 +84,7 @@ export default {
             if (isEmpty(this.val[2])) { Notify.toast('danger', "사이즈(가로,mm)을(를) 입력하세요"); return false; }
             if (isEmpty(this.val[3])) { Notify.toast('danger', "사이즈(세로,mm)을(를) 입력하세요"); return false; }
             if (isEmpty(this.val[4])) { Notify.toast('danger', "사이즈(높이,mm)을(를) 입력하세요"); return false; }
-            if (isEmpty(this.val[6])) { Notify.toast('danger', "기타사항을(를) 입력하세요"); return false; }
+            if (isEmpty(this.val[5])) { Notify.toast('danger', "기타사항을(를) 입력하세요"); return false; }
             
             return true;
         }

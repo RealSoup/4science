@@ -262,7 +262,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  console.log(res);
                   Notify.toast('success', '견적 요청 완료');
 
                   _this.$router.push({
@@ -669,11 +668,11 @@ var render = function () {
                                   _c("span", [_vm._v("담당자/문의")]),
                                   _vm._v(
                                     " " +
-                                      _vm._s(_vm.reply.user.name) +
+                                      _vm._s(_vm.reply.estimate_req.mng.name) +
                                       "   " +
-                                      _vm._s(_vm.reply.user.tel) +
+                                      _vm._s(_vm.reply.estimate_req.mng.tel) +
                                       "   " +
-                                      _vm._s(_vm.reply.user.email)
+                                      _vm._s(_vm.reply.estimate_req.mng.email)
                                   ),
                                 ]),
                               ],

@@ -49,16 +49,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    VueNumericInput: (vue_numeric_input__WEBPACK_IMPORTED_MODULE_0___default()),
-    'CartModel': function CartModel() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_cart_CartModel_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CartModel.vue */ "./resources/js/views/web/_module/cart/CartModel.vue"));
-    },
-    'CartOption': function CartOption() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_cart_CartOption_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./CartOption.vue */ "./resources/js/views/web/_module/cart/CartOption.vue"));
+    'input-ea': function inputEa() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_cart_InputEa_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./InputEa */ "./resources/js/views/web/_module/cart/InputEa.vue"));
     }
   },
   data: function data() {
@@ -78,12 +97,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('cart/index');
     },
     outCart: function outCart(i) {
-      var _this$cartList$i$cm_i;
-
-      this.$store.dispatch('cart/destroy', [{
-        type: this.cartList[i].type,
-        id: (_this$cartList$i$cm_i = this.cartList[i].cm_id) !== null && _this$cartList$i$cm_i !== void 0 ? _this$cartList$i$cm_i : this.cartList[i].co_id
-      }]);
+      this.$store.dispatch('cart/destroy', [this.cartList[i].ct_id]);
+    },
+    update: function update(v) {
+      this.$store.dispatch('cart/update', {
+        co_id: this.value.co_id,
+        ea: v
+      });
     },
     action: function action(type) {
       var params = this.makeParam();
@@ -155,6 +175,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     gm_chg: function gm_chg(a) {
       console.log(a);
+    },
+    opc_check: function opc_check(i) {
+      if (this.cartList[i].go_required == 'Y') {
+        Notify.toast('danger', "필수옵션은 해제 할 수 없습니다.");
+        this.$set(this.cartList[i], 'ct_check_opt', 'Y');
+      }
     }
   },
   mounted: function mounted() {
@@ -186,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#Cart[data-v-3eb0dde1] { \r\n    position:absolute; top:19px; right:0; z-index:17; background:#FFF;\r\n    border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;\r\n    border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);\r\n    height:100%; max-height:680px; transition:all 0.3s;\n}\n#Cart>a[data-v-3eb0dde1] { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-60px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C;\n}\n#Cart>a[data-v-3eb0dde1]:before { content:\"\"; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:60px; height:62px;\n}\n#Cart>a img[data-v-3eb0dde1] { margin:8px 5px; position:relative; width:67%;\n}\n#Cart .list_box[data-v-3eb0dde1] { overflow:hidden; height:100%; max-height:520px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] { overflow-y:auto; width:254px; height:100%; transition:all 0.2s;}\n#Cart .list_box ul[data-v-3eb0dde1] li { margin:0; padding:10px 15px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.hr { border-top:2px solid #eee; margin:15px; padding:0;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div { padding:0; justify-content:space-between; display:flex;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div:nth-of-type(2) { flex-direction:column; align-items:flex-end;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_model>div:nth-of-type(2) { margin-left:10px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div .btn_x { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li>div a img { transition:all 0.2s; width:80px; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li .hide { transition:all 0.2s; overflow:hidden;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option { flex-direction:column;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div { flex-basis: auto;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) { align-items:center;\n}\n#Cart .list_box ul[data-v-3eb0dde1] li.gd_option>div:nth-of-type(1) span { margin-left: 10px;\n}\n#Cart .footer[data-v-3eb0dde1] { border-top:1px solid #888888; margin:20px; position:absolute; bottom:0; width:calc(100% - 40px); padding-top:10px;\n}\n#Cart .footer div b[data-v-3eb0dde1] { color:#0072BC;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(1) { line-height:17px; font-weight:bold;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(2) { font-size:18px; display:flex; justify-content:space-between; align-items:baseline; font-weight:bold; line-height:20px; margin-bottom:20px;\n}\n#Cart .footer div:nth-of-type(2) b[data-v-3eb0dde1] { font-size:26px;\n}\n#Cart .footer .btn-group[data-v-3eb0dde1] { display:flex;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(1) { margin-right:10px;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(2) { background:#00A1CB; border-color:#0089AD;\n}\n#Cart.fixed_header[data-v-3eb0dde1] { position:fixed; top:90px;\n}\n#Cart.hideCart[data-v-3eb0dde1] { height:auto; border-bottom-left-radius:0; box-shadow:none;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] { width:64px;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li { padding:3px 7px;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li:not(:first-child) {display:none;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li .hide { max-width:0; height:0; margin:0 !important; padding:0 !important;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] li>div a img { border-radius:50%; width:50px; height:50px;\n}\n@media (max-width: 992px){\n#Cart[data-v-3eb0dde1] { top: 100px;\n}\n#Cart .list_box[data-v-3eb0dde1] { width:0;\n}\n}\r\n    \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#Cart[data-v-3eb0dde1] { \r\n    position:absolute; top:19px; right:0; z-index:17; background:#FFF;\r\n    border-color:#113F8C; border-style:solid; border-top-width:3px; border-left-width:3px; border-bottom-width:3px; border-right-width:0;\r\n    border-bottom-left-radius:10px; box-shadow:-2px 2px 2px 0px rgb(0 0 0 / 15%);\r\n    height:100%; max-height:680px; transition:all 0.3s;\n}\n#Cart>a[data-v-3eb0dde1] { display:inline-block; position:absolute; top:-3px; background:inherit; margin-left:-60px; border-radius:50% 0 0 50%; border-top:3px solid #113F8C; border-bottom:3px solid #113F8C;\n}\n#Cart>a[data-v-3eb0dde1]:before { content:\"\"; background:inherit; position:absolute; left:-20px; top:-3px; border:3px solid #113F8C; border-right-width:0; border-radius:50% 0 0 50%; width:60px; height:62px;\n}\n#Cart>a img[data-v-3eb0dde1] { margin:8px 5px; position:relative; width:67%;\n}\n#Cart .list_box[data-v-3eb0dde1] { overflow:hidden; height:100%; max-height:520px;\n}\n#Cart .list_box ul[data-v-3eb0dde1] { overflow-y:auto; width:254px; height:100%; transition:all 0.2s;}\n#Cart .list_box ul li[data-v-3eb0dde1] { margin:0; padding:10px 15px;\n}\n#Cart .list_box ul li.hr[data-v-3eb0dde1] { border-top:2px solid #eee; margin:15px; padding:0;\n}\n#Cart .list_box ul li>div[data-v-3eb0dde1] { padding:0; justify-content:space-between; display:flex;\n}\n#Cart .list_box ul li>div .price[data-v-3eb0dde1] { color:#0072BC;\n}\n#Cart .list_box ul li>div .vue-numeric-input[data-v-3eb0dde1] { max-width:100px;\n}\n#Cart .list_box ul li>div[data-v-3eb0dde1]:nth-of-type(2) { flex-direction:column; align-items:flex-end;\n}\n#Cart .list_box ul li.gd_model>div[data-v-3eb0dde1]:nth-of-type(2) { margin-left:10px;\n}\n#Cart .list_box ul li>div .btn_x[data-v-3eb0dde1] { position:absolute; bottom:0; left:0; padding: 0.35em 0.4em; cursor:pointer; z-index:1;\n}\n#Cart .list_box ul li>div a img[data-v-3eb0dde1] { transition:all 0.2s; width:80px; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n#Cart .list_box ul li .hide[data-v-3eb0dde1] { transition:all 0.2s; overflow:hidden;\n}\n#Cart .list_box ul li.gd_option[data-v-3eb0dde1] { flex-direction:column;\n}\n#Cart .list_box ul li.gd_option>div[data-v-3eb0dde1] { flex-basis: auto;\n}\n#Cart .list_box ul li.gd_option>div[data-v-3eb0dde1]:nth-of-type(1) { align-items:center;\n}\n#Cart .list_box ul li.gd_option>div:nth-of-type(1) span[data-v-3eb0dde1] { margin-left: 10px;\n}\n#Cart .footer[data-v-3eb0dde1] { border-top:1px solid #888888; margin:20px; position:absolute; bottom:0; width:calc(100% - 40px); padding-top:10px;\n}\n#Cart .footer div b[data-v-3eb0dde1] { color:#0072BC;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(1) { line-height:17px; font-weight:bold;\n}\n#Cart .footer div[data-v-3eb0dde1]:nth-of-type(2) { font-size:18px; display:flex; justify-content:space-between; align-items:baseline; font-weight:bold; line-height:20px; margin-bottom:20px;\n}\n#Cart .footer div:nth-of-type(2) b[data-v-3eb0dde1] { font-size:26px;\n}\n#Cart .footer .btn-group[data-v-3eb0dde1] { display:flex;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(1) { margin-right:10px;\n}\n#Cart .footer .btn-group button[data-v-3eb0dde1]:nth-of-type(2) { background:#00A1CB; border-color:#0089AD;\n}\n#Cart.fixed_header[data-v-3eb0dde1] { position:fixed; top:90px;\n}\n#Cart.hideCart[data-v-3eb0dde1] { height:auto; border-bottom-left-radius:0; box-shadow:none;\n}\n#Cart.hideCart ul[data-v-3eb0dde1] { width:64px;\n}\n#Cart.hideCart ul li[data-v-3eb0dde1] { padding:3px 7px;\n}\n#Cart.hideCart ul li[data-v-3eb0dde1]:not(:first-child) {display:none;\n}\n#Cart.hideCart ul li .hide[data-v-3eb0dde1] { max-width:0; height:0; margin:0 !important; padding:0 !important;\n}\n#Cart.hideCart ul li>div a img[data-v-3eb0dde1] { border-radius:50%; width:50px; height:50px;\n}\n@media (max-width: 992px){\n#Cart[data-v-3eb0dde1] { top: 100px;\n}\n#Cart .list_box[data-v-3eb0dde1] { width:0;\n}\n}\r\n    \r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -355,46 +381,166 @@ var render = function () {
         ? _c("div", { staticClass: "list_box" }, [
             _c(
               "ul",
-              [
-                _vm._l(_vm.cartList, function (item, i) {
-                  return [
-                    item.type == "model"
-                      ? _c("CartModel", {
-                          key: i,
-                          on: {
-                            outCart: function ($event) {
-                              return _vm.outCart(i)
-                            },
-                          },
-                          model: {
-                            value: _vm.cartList[i],
-                            callback: function ($$v) {
-                              _vm.$set(_vm.cartList, i, $$v)
-                            },
-                            expression: "cartList[i]",
-                          },
-                        })
-                      : item.type == "option"
-                      ? _c("CartOption", {
-                          key: i,
-                          on: {
-                            outCart: function ($event) {
-                              return _vm.outCart(i)
-                            },
-                          },
-                          model: {
-                            value: _vm.cartList[i],
-                            callback: function ($$v) {
-                              _vm.$set(_vm.cartList, i, $$v)
-                            },
-                            expression: "cartList[i]",
-                          },
-                        })
+              _vm._l(_vm.cartList, function (ct, i) {
+                return _c(
+                  "b-row",
+                  {
+                    key: i,
+                    class: {
+                      gd_model: ct.type == "model",
+                      gd_option: ct.type == "option",
+                    },
+                    attrs: { tag: "li" },
+                  },
+                  [
+                    ct.type == "model"
+                      ? [
+                          _c(
+                            "b-col",
+                            [
+                              _c("b-form-checkbox", {
+                                staticClass: "hide",
+                                attrs: { value: "Y", "unchecked-value": "N" },
+                                model: {
+                                  value: ct.ct_check_opt,
+                                  callback: function ($$v) {
+                                    _vm.$set(ct, "ct_check_opt", $$v)
+                                  },
+                                  expression: "ct.ct_check_opt",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "b-badge",
+                                {
+                                  staticClass: "btn_x hide",
+                                  attrs: { pill: "", variant: "danger" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.outCart(i)
+                                    },
+                                  },
+                                },
+                                [_vm._v("X")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "goods_show",
+                                      params: { gd_id: ct.gd_id },
+                                    },
+                                  },
+                                },
+                                [_c("img", { attrs: { src: ct.img } })]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            { staticClass: "hide" },
+                            [
+                              _c("div", [
+                                _vm._v(_vm._s(_vm.strCut(ct.gm_name, 15))),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "price" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("comma")(ct.price_add_vat))
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("input-ea", {
+                                model: {
+                                  value: _vm.cartList[i],
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.cartList, i, $$v)
+                                  },
+                                  expression: "cartList[i]",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ]
                       : _vm._e(),
-                  ]
-                }),
-              ],
-              2
+                    _vm._v(" "),
+                    ct.type == "option"
+                      ? [
+                          _c(
+                            "b-col",
+                            [
+                              _c("b-form-checkbox", {
+                                staticClass: "hide",
+                                attrs: { value: "Y", "unchecked-value": "N" },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.opc_check(i)
+                                  },
+                                },
+                                model: {
+                                  value: ct.ct_check_opt,
+                                  callback: function ($$v) {
+                                    _vm.$set(ct, "ct_check_opt", $$v)
+                                  },
+                                  expression: "ct.ct_check_opt",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("div", [
+                                _vm._v(_vm._s(_vm.strCut(ct.goc_name, 10))),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-col", { staticClass: "hide price" }, [
+                            _vm._v(_vm._s(_vm._f("comma")(ct.price_add_vat))),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            { staticClass: "hide" },
+                            [
+                              _c("div"),
+                              _vm._v(" "),
+                              _c("input-ea", {
+                                model: {
+                                  value: _vm.cartList[i],
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.cartList, i, $$v)
+                                  },
+                                  expression: "cartList[i]",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "b-badge",
+                                {
+                                  staticClass: "btn_x",
+                                  attrs: { pill: "", variant: "danger" },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.outCart(i)
+                                    },
+                                  },
+                                },
+                                [_vm._v("X")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ]
+                      : _vm._e(),
+                  ],
+                  2
+                )
+              }),
+              1
             ),
           ])
         : _vm._e(),

@@ -96,7 +96,7 @@
         </b-row>
     </div>
     
-    <div v-if="Number(frm.eq_1depth)">
+    <div class="box" v-if="Number(frm.eq_1depth)">
         <h5>주문제작 정보: {{frm.made_cate[frm.eq_1depth]}}</h5>
         <component ref="custom_sub" :is="choiceSubType" v-model="frm.estimate_custom" />
     </div>

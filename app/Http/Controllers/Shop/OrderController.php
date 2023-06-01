@@ -4,7 +4,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{ Goods, GoodsModel, Cart, CartModel, CartOption, OptionChild, Order, OrderPurchaseAt, OrderModel, OrderOption, OrderExtraInfo, OrderDlvyInfo, OrderPg,
+use App\Models\Shop\{ Goods, GoodsModel, GoodsOption, Cart, OptionChild, Order, OrderPurchaseAt, OrderModel, OrderOption, OrderExtraInfo, OrderDlvyInfo, OrderPg,
     EstimateModel, EstimateOption};
 use App\Models\{FileInfo, User};
 use App\Http\Requests\SaveOrderRequest;
@@ -55,15 +55,30 @@ class OrderController extends Controller {
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
         foreach ($params['lists'] as $pa_group) {    //  주문 갯수
+            $go_required_chk = false;
             foreach ($pa_group as $item){
                 // 판매 가능 여부 재확인
                 if(isset($item['gd_enable']) && $item['gd_enable'] == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
                 if($req->type === 'buy_inst' || $req->type === 'buy_cart') {
                     if(isset($item['gm_enable']) && $item['gm_enable'] == 'N')    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
                     //  견적가(0원) 구매 금지
-                    // if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으시겠습니까?');
                     if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
                 }
+
+                //  필수옵션 누락 체크
+                foreach(GoodsOption::Gd_id($item['gd_id'])->get() as $go) {
+                    if($go->go_required == 'Y') {
+                        $go_required_chk = false;
+                        foreach ($pa_group as $v){
+                            if ($v['type']=='option' && $v['go_id']==$go->go_id) {
+                                $go_required_chk = true;
+                                break 2;
+                            }
+                        }
+                    }
+                }
+                if(!$go_required_chk) abort(500, '필수 옵션과 같이 구매하세요');
+                //  필수옵션 누락 체크
 
                 if ($params['od_name'] == '')
                     $params['od_name'] = $item['gd_name'] ? $item['gd_name'] : $item['gm_name'];
@@ -184,8 +199,6 @@ class OrderController extends Controller {
                                                                         'odpa_pa_name' => isset($item['pa_name']) ? $item['pa_name'] : '',
                                                                         'odpa_dlvy_p'  => isset($item['pa_dlvy_p']) ? $item['pa_dlvy_p'] : 0 ], 'odpa_id');
                         }
-                        if(auth()->check() && $req->od_type == 'buy_cart')
-                            $ct = Cart::where([['ct_gd_id', $item['gd_id']], ['created_id', auth()->user()->id]])->first();
 
                         if ($item['type'] == 'model') {
                             $insert_tmp[] = array(
@@ -204,12 +217,7 @@ class OrderController extends Controller {
                                 'odm_ea'       => $item['ea'],
                                 'odm_price'    => $item['price'],
                             );
-
-                            //  장바구니 주문일 경우 주문 성공시 바구니 비우기
-                            if(isset($ct)) {
-                                $ct->delete();
-                                CartModel::where([['cm_ct_id', $ct->ct_id], ['cm_gm_id', $item['gm_id']]])->delete();
-                            }
+                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                         } else if ($item['type'] == 'option') {
                             $insert_tmp[] = array(
                                 'odm_od_id'    => $od_id,
@@ -227,9 +235,7 @@ class OrderController extends Controller {
                                 'odm_ea'       => $item['ea'],
                                 'odm_price'    => $item['price'],
                             );
-                            
-                            if(isset($ct))
-                                CartOption::where([['co_ct_id', $ct->ct_id], ['co_goc_id', $item['goc_id']]])->delete();                        
+                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
                         }
                     }                    
                     DB::table('shop_order_model')->insert($insert_tmp);

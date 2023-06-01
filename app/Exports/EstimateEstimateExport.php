@@ -46,10 +46,10 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $data[] = ['견적일자', '', '', date('Y-m-d', strtotime($this->er['created_at'])), '', '', '결제조건', '', '', '선결제 (대학교 및 국가연구소 제외)'];
         $data[] = ['수신', '', '', $this->er['estimate_req']['eq_company'], '', '', '유효기간', '', '', "{$this->er['er_effective_at']} 까지"];
         $data[] = [''];
-        $data[] = ['견적요청인', '', '', $this->er['estimate_req']['eq_name'], '', '', '견적담당자', '', '', $this->er['user']['name']];
-        $data[] = ['전화번호', '', '', $this->er['estimate_req']['eq_tel'], '', '', '전화번호', '', '', $this->er['user']['tel']];
-        $data[] = ['휴대폰번호', '', '', $this->er['estimate_req']['eq_hp'], '', '', '이메일주소', '', '', $this->er['user']['email']];
-        $data[] = ['이메일주소', '', '', $this->er['estimate_req']['eq_email'], '', '', '펙스번호', '', '', $this->er['user']['fax']];
+        $data[] = ['견적요청인', '', '', $this->er['estimate_req']['eq_name'], '', '', '견적담당자', '', '', $this->er['estimate_req']['mng']['name']];
+        $data[] = ['전화번호', '', '', $this->er['estimate_req']['eq_tel'], '', '', '전화번호', '', '', $this->er['estimate_req']['mng']['tel']];
+        $data[] = ['휴대폰번호', '', '', $this->er['estimate_req']['eq_hp'], '', '', '이메일주소', '', '', $this->er['estimate_req']['mng']['email']];
+        $data[] = ['이메일주소', '', '', $this->er['estimate_req']['eq_email'], '', '', '펙스번호', '', '', $this->er['estimate_req']['mng']['fax']];
         $data[] = ['펙스번호', '', '', $this->er['estimate_req']['eq_fax']];
         $data[] = [''];
         $data[] = ['No.', 'DESCRIPTION', '', '', '', '', '', 'U/PRICE', '', 'Q\'TY', 'AMOUNT'];

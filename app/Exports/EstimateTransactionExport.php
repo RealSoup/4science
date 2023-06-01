@@ -65,7 +65,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         }
         $data[] = ['TOTAL AMOUNT', '', '', '', $this->er['er_all_price']];
         $data[] = [''];
-        $data[] = ["담당자 : {$this->er['user']['name']} {$this->er['user']['user_mng']['pos_name']}, TEL : {$this->er['user']['tel']}, FAX : {$this->er['user']['fax']}"];
+        $data[] = ["담당자 : {$this->er['estimate_req']['mng']['name']} {$this->er['estimate_req']['mng']['user_mng']['pos_name']}, TEL : {$this->er['estimate_req']['mng']['tel']}, FAX : {$this->er['estimate_req']['mng']['fax']}"];
         $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
         return collect($data);
     }

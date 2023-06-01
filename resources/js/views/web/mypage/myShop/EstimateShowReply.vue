@@ -9,7 +9,7 @@
                     <b-col><span>견적일자</span> <b>{{reply.created_at | formatDate_YYYY_MM_DD}}</b></b-col>
                     <b-col><span>유효기간</span> <b>{{reply.er_effective_at | formatDate_YYYY_MM_DD}}</b></b-col>
                     <b-col><span>납품기일</span> <b>{{reply.er_dlvy_at}}</b></b-col>
-                    <b-col><span>담당자/문의</span> {{reply.user.name}}&nbsp;&nbsp; {{reply.user.tel}}&nbsp;&nbsp; {{reply.user.email}}</b-col>
+                    <b-col><span>담당자/문의</span> {{reply.estimate_req.mng.name}}&nbsp;&nbsp; {{reply.estimate_req.mng.tel}}&nbsp;&nbsp; {{reply.estimate_req.mng.email}}</b-col>
                 </b-row>
             </b-container>
 
@@ -186,7 +186,6 @@ export default {
                 try {
                     const res = await ax.post(`/api/shop/estimate/reEstimate`, this.reply);
                     if (res && res.status === 200) {
-                        console.log(res);
                         Notify.toast('success', '견적 요청 완료')
                         this.$router.push({name: 'my_estimate'});
                     } else {
