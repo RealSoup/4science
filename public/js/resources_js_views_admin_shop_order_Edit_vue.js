@@ -470,6 +470,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var dt = new Date();
@@ -1117,7 +1134,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css_ver_1_4__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n@media (max-width: 992px){\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.p_wrap .extra_info table tr td[data-v-ca63be56] { padding-left:.2rem;\n}\n}\n.sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 992px){\n.sm_ib_v[data-v-ca63be56] { display:inline-block;\n}\n.sm_ib_h[data-v-ca63be56] { display:none;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1141,7 +1158,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".p_wrap { margin:1rem; }\r\n\r\n.p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }\r\n.p_wrap h5 b { position:relative; bottom:-2px; }\r\n.p_wrap .container { max-width:100%; }\r\n.p_wrap .container,\r\n.p_wrap .row .col { padding:0; }\r\n.p_wrap .adform .row > div:not(.tit) { padding: 8px 5px; }\r\n.p_wrap .row,\r\n.p_wrap .row .col p { margin:0; }\r\n.p_wrap .h3 h3 { margin:0 0 .5rem 3rem }\r\n.p_wrap .h3 div { text-align:right; }\r\n.p_wrap .h3 div .btn { border-color:#000; font-weight:600; }\r\n\r\n.p_wrap .print_hide,\r\n.p_wrap .print_hide_flex,\r\n.p_wrap .print_hide_inline_block { display:none !important; }\r\n.p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }\r\n\r\n.p_wrap .act_ctrl { background-color: #fff; border: 5px solid #4eb8c8; border-radius: 1rem; padding: 8px; position: -webkit-sticky; position: sticky; top: 0; z-index: 3; }\r\n.p_wrap .act_ctrl .def_info { line-height:1.9; }\r\n.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }\r\n.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }\r\n.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; }\r\n.p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }\r\n.p_wrap .act_ctrl .btn_area .input-group { max-width:170px; }\r\n.p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }\r\n.p_wrap .box { border:5px solid #EBEBEB; border-radius:1rem; padding:2rem; margin:2rem 0; }\r\n.p_wrap .box .top_border { border-top:3px solid #4F637B; }\r\n.p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row.option { background-color:#F4F1EC; }\r\n.p_wrap .box .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }\r\n.p_wrap .box .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col { color:#AEAEAE; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }\r\n.p_wrap .box .goods .gd_con .row .col b { color:#000; font-size:.95rem; }\r\n\r\n.p_wrap .box .goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(1) { flex:0 0 4.5%; max-width:4.5%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 13%; max-width:13%; border-right:0px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }\r\n    \r\n.p_wrap .box .goods .gd_con .row .col img { width:100%; cursor:pointer; }\r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }\r\n.p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }\r\n.p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }\r\n.p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }\r\n\r\n.p_wrap .box .action { padding:1.5rem 3rem; font-weight:600; }\r\n\r\n.p_wrap .box .sum_up .total { border-bottom:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col { color:#000; font-weight:bold; }\r\n.p_wrap .box .sum_up .total .col b { font-size:1.3vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1vw 2vw 1vw 0; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after,\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2),\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after { content:\"+\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { content:\"=\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(5) { flex-basis:16%; max-width:16%; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:24%; max-width:24%; }\r\n.p_wrap .box .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }\r\n.p_wrap .box .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(1) { padding:1rem 2rem .5rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }\r\n\r\n.p_wrap .extra_info table { width:100%; border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }\r\n.p_wrap .extra_info table tr th { background-color:#F2F3F5; width:13%; text-align:center; padding:.55rem 0.3rem; font-size:.95rem; }\r\n.p_wrap .extra_info table tr td { padding-left:2rem; }\r\n.p_wrap .extra_info table tr th,\r\n.p_wrap .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }\r\n.p_wrap .extra_info table tr:last-child td { border-right-width:0; }\r\n.p_wrap .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }\r\n.p_wrap .extra_info .address .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }\r\n.cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }\r\n.cube_box, \r\n.cube_box * { box-sizing: border-box; }\r\n.cube_box { /*perspective:400px;*/ margin:auto; }\r\n.cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }\r\n.cube_box .cube .piece { position:absolute; }\r\n.cube_box,\r\n.cube_box .cube,\r\n.cube_box .cube .piece { width:100%; max-width:40px; height:30px; }\r\n.cube_box .cube .piece.front { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }\r\n/* .cube_box .cube .piece.right { transform: rotateY( 90deg) translateZ(20px); display:block; } */\r\n.cube_box .cube .piece.bottom { transform: rotateX(-90deg) translateZ(30px); display:block; }\r\n.cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }\r\n/* .cube_box .cube.show_right,\r\n.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); } */\r\n.cube_box .cube.show_bottom,\r\n.cube_box .cube:hover{ transform: translateZ(-30px) rotateX(  90deg); }\r\n\r\ntable tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }\r\n.cube_box.receiver,\r\n.cube_box.receiver .cube,\r\n.cube_box.receiver .cube .piece { max-width:150px; }\r\n.cube_box.receiver_hp,\r\n.cube_box.receiver_hp .cube,\r\n.cube_box.receiver_hp .cube .piece { max-width:250px; }\r\n.layerModal .row .ctrl { text-align:right; }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }\r\n.p_wrap h5 b { position:relative; bottom:-2px; }\r\n.p_wrap .container { max-width:100%; }\r\n.p_wrap .container,\r\n.p_wrap .row .col { padding:0; }\r\n.p_wrap .adform .row > div:not(.tit) { padding: 8px 5px; }\r\n.p_wrap .row,\r\n.p_wrap .row .col p { margin:0; }\r\n.p_wrap .h3 h3 { margin:0 0 .5rem 3rem }\r\n.p_wrap .h3 div { text-align:right; }\r\n.p_wrap .h3 div .btn { border-color:#000; font-weight:600; }\r\n\r\n.p_wrap .print_hide,\r\n.p_wrap .print_hide_flex,\r\n.p_wrap .print_hide_inline_block { display:none !important; }\r\n.p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }\r\n\r\n.p_wrap .act_ctrl { background-color: #fff; border: 5px solid #4eb8c8; border-radius: 1rem; padding: 8px; position: -webkit-sticky; position: sticky; top: 0; z-index: 3; }\r\n.p_wrap .act_ctrl .def_info { line-height:1.9; }\r\n.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }\r\n.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }\r\n.p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }\r\n.p_wrap .box .top_border { border-top:3px solid #4F637B; }\r\n.p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row.option { background-color:#F4F1EC; }\r\n.p_wrap .box .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }\r\n.p_wrap .box .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col { color:#AEAEAE; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }\r\n.p_wrap .box .goods .gd_con .row .col b { color:#000; font-size:.95rem; }\r\n\r\n.p_wrap .box .goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(1) { flex:0 0 4.5%; max-width:4.5%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 13%; max-width:13%; border-right:0px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }\r\n    \r\n.p_wrap .box .goods .gd_con .row .col img { width:100%; cursor:pointer; }\r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }\r\n.p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }\r\n.p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }\r\n.p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }\r\n\r\n.p_wrap .box .action { padding:1.5rem 3rem; font-weight:600; }\r\n\r\n.p_wrap .box .sum_up .total { border-bottom:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col { color:#000; font-weight:bold; }\r\n.p_wrap .box .sum_up .total .col b { font-size:1.3vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1vw 2vw 1vw 0; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after,\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2),\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after { content:\"+\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { content:\"=\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(5) { flex-basis:16%; max-width:16%; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:24%; max-width:24%; }\r\n.p_wrap .box .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }\r\n.p_wrap .box .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(1) { padding:1rem 2rem .5rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }\r\n\r\n.p_wrap .extra_info table { width:100%; border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }\r\n.p_wrap .extra_info table tr th { background-color:#F2F3F5; width:13%; text-align:center; padding:.55rem 0.3rem; font-size:.95rem; }\r\n.p_wrap .extra_info table tr td { padding-left:2rem; }\r\n.p_wrap .extra_info table tr td svg { font-size:1.6rem; vertical-align:middle; }\r\n.p_wrap .extra_info table tr th,\r\n.p_wrap .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }\r\n.p_wrap .extra_info table tr:last-child td { border-right-width:0; }\r\n.p_wrap .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }\r\n.p_wrap .extra_info .address .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }\r\n.cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }\r\n.cube_box, \r\n.cube_box * { box-sizing: border-box; }\r\n.cube_box { /*perspective:400px;*/ margin:auto; }\r\n.cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }\r\n.cube_box .cube .piece { position:absolute; }\r\n.cube_box,\r\n.cube_box .cube,\r\n.cube_box .cube .piece { width:100%; max-width:40px; height:30px; }\r\n.cube_box .cube .piece.front { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }\r\n/* .cube_box .cube .piece.right { transform: rotateY( 90deg) translateZ(20px); display:block; } */\r\n.cube_box .cube .piece.bottom { transform: rotateX(-90deg) translateZ(30px); display:block; }\r\n.cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }\r\n/* .cube_box .cube.show_right,\r\n.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); } */\r\n.cube_box .cube.show_bottom,\r\n.cube_box .cube:hover{ transform: translateZ(-30px) rotateX(  90deg); }\r\n\r\ntable tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }\r\n.cube_box.receiver,\r\n.cube_box.receiver .cube,\r\n.cube_box.receiver .cube .piece { max-width:150px; }\r\n.cube_box.receiver_hp,\r\n.cube_box.receiver_hp .cube,\r\n.cube_box.receiver_hp .cube .piece { max-width:250px; }\r\n.layerModal .row .ctrl { text-align:right; }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1311,7 +1328,6 @@ var render = function () {
           [
             _c(
               "b-row",
-              { attrs: { cols: "1", "cols-md": "2" } },
               [
                 _c(
                   "b-col",
@@ -1383,7 +1399,12 @@ var render = function () {
                         staticClass: "white sm",
                         attrs: { to: { name: "adm_order_index" } },
                       },
-                      [_c("b-icon-list"), _vm._v(" 목록으로")],
+                      [
+                        _c("b-icon-list"),
+                        _c("span", { staticClass: "sm_ib_h" }, [
+                          _vm._v(" 목록으로"),
+                        ]),
+                      ],
                       1
                     ),
                     _vm._v(" "),
@@ -1413,7 +1434,11 @@ var render = function () {
                           },
                           [
                             _c("b-icon-box-arrow-up-right"),
-                            _vm._v(" 영업장부"),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "sm_ib_h" }, [
+                              _vm._v("영업"),
+                            ]),
+                            _vm._v("장부"),
                           ],
                           1
                         )
@@ -1424,7 +1449,12 @@ var render = function () {
                     _c(
                       "b-button",
                       { staticClass: "gray sm", on: { click: _vm.print } },
-                      [_c("b-icon-printer"), _vm._v(" 인쇄")],
+                      [
+                        _c("b-icon-printer"),
+                        _c("span", { staticClass: "sm_ib_h" }, [
+                          _vm._v(" 인쇄"),
+                        ]),
+                      ],
                       1
                     ),
                     _vm._v(" "),
@@ -1432,13 +1462,29 @@ var render = function () {
                       ? _c(
                           "b-dropdown",
                           {
-                            attrs: {
-                              size: "sm",
-                              text: "파일 다운",
-                              variant: "outline-dark",
-                            },
+                            attrs: { size: "sm", variant: "outline-dark" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "button-content",
+                                  fn: function () {
+                                    return [
+                                      _vm._v("파일 "),
+                                      _c("span", { staticClass: "sm_ib_h" }, [
+                                        _vm._v("다운"),
+                                      ]),
+                                    ]
+                                  },
+                                  proxy: true,
+                                },
+                              ],
+                              null,
+                              false,
+                              1831102347
+                            ),
                           },
                           [
+                            _vm._v(" "),
                             _c(
                               "b-dropdown-item-button",
                               {
@@ -1519,6 +1565,7 @@ var render = function () {
                         _c(
                           "b-form-select",
                           {
+                            staticClass: "sm_ib_h",
                             model: {
                               value: _vm.od.od_step,
                               callback: function ($$v) {
@@ -1539,6 +1586,36 @@ var render = function () {
                                 "b-form-select-option",
                                 { key: k, attrs: { value: k } },
                                 [_vm._v(_vm._s(v.name))]
+                              )
+                            }),
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-form-select",
+                          {
+                            staticClass: "sm_ib_v",
+                            model: {
+                              value: _vm.od.od_step,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.od, "od_step", $$v)
+                              },
+                              expression: "od.od_step",
+                            },
+                          },
+                          [
+                            _c(
+                              "b-form-select-option",
+                              { attrs: { value: null, disabled: "" } },
+                              [_vm._v("상태")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.od.order_config.step, function (v, k) {
+                              return _c(
+                                "b-form-select-option",
+                                { key: k, attrs: { value: k } },
+                                [_vm._v(_vm._s(v.sm_name))]
                               )
                             }),
                           ],
@@ -1588,6 +1665,8 @@ var render = function () {
             ),
             _vm._v(" "),
             _c("table", { staticClass: "tbl_st address mb-0" }, [
+              _vm._m(0),
+              _vm._v(" "),
               _c("tr", [
                 _c("th", [_vm._v("주문자")]),
                 _vm._v(" "),
@@ -2269,7 +2348,7 @@ var render = function () {
             ),
             _vm._v(" "),
             _c("table", { staticClass: "tbl_st address" }, [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("tr", [
                 _c("th", [_vm._v("수취인")]),
@@ -2477,9 +2556,36 @@ var render = function () {
               _vm._v(" "),
               _c("tr", [
                 _c("th", [_vm._v("배송시 요구사항")]),
-                _c("td", { attrs: { colspan: "3" } }, [
-                  _vm._v(_vm._s(_vm.od.od_memo)),
-                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { attrs: { colspan: "3" } },
+                  [
+                    _c("font-awesome-icon", {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip",
+                          value: "요구사항 복사",
+                          expression: "'요구사항 복사'",
+                        },
+                      ],
+                      staticClass: "print_hide_inline_block",
+                      attrs: { icon: "copy" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.copyToClipboard(_vm.od.od_memo)
+                        },
+                      },
+                    }),
+                    _vm._v(
+                      "\r\n                        " +
+                        _vm._s(_vm.od.od_memo) +
+                        "\r\n                    "
+                    ),
+                  ],
+                  1
+                ),
               ]),
             ]),
             _vm._v(" "),
@@ -3300,6 +3406,24 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("colgroup", [
+      _c("col", { attrs: { width: "8%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "16%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "10%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "16%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "8%" } }),
+      _vm._v(" "),
+      _c("col", { attrs: { width: "" } }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

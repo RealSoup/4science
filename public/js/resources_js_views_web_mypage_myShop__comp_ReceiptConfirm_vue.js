@@ -58,12 +58,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyOrderReceiptConfirm',
   props: ['item'],
   data: function data() {
     return {
+      clickable: true,
       boFrm: {
         bo_gd_id: this.item.odm_gd_id,
         bo_good: 100
@@ -84,31 +86,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.clickable = false;
                 if (isEmpty(_this.boFrm.bo_subject)) _this.boFrm.bo_subject = _this.item.odm_gd_name;
                 if (isEmpty(_this.boFrm.bo_content)) _this.boFrm.bo_content = "만족";
-                _context.next = 4;
+                _context.next = 5;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/board/review/store", _this.boFrm);
 
-              case 4:
+              case 5:
                 resBo = _context.sent;
                 _this.odFrm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 _this.odFrm, // 수정하려는 객체
                 _this.item // 삽입하려는 내용
                 );
-                _context.next = 8;
+                _context.next = 9;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/".concat(_this.item.odm_od_id), _this.odFrm);
 
-              case 8:
+              case 9:
                 resOr = _context.sent;
 
                 if (resOr && resOr.status === 200) {
+                  _this.clickable = true;
                   _this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
                   Notify.toast('success', '수취 확인 완료');
 
                   _this.$emit('hide_modal');
                 }
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -443,11 +447,26 @@ var render = function () {
                     "div",
                     { staticClass: "btn_box" },
                     [
-                      _c(
-                        "b-button",
-                        { staticClass: "gray lg", on: { click: _vm.store } },
-                        [_vm._v("완료")]
-                      ),
+                      _vm.clickable
+                        ? _c(
+                            "b-button",
+                            {
+                              staticClass: "gray lg",
+                              on: { click: _vm.store },
+                            },
+                            [_vm._v("완료")]
+                          )
+                        : _c(
+                            "b-button",
+                            { staticClass: "gray", attrs: { size: "sm" } },
+                            [
+                              _c("font-awesome-icon", {
+                                attrs: { icon: "save" },
+                              }),
+                              _vm._v(" 완료 중~!"),
+                            ],
+                            1
+                          ),
                     ],
                     1
                   ),

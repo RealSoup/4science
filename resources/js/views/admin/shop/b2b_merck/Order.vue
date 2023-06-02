@@ -107,6 +107,7 @@ export default {
                 req_dlvy: '',
                 addressID: '',
                 state: '',
+                company: '',
                 part: '',
                 name: '',
                 hp: '',

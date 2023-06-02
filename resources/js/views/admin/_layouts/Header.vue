@@ -79,26 +79,26 @@
 
                 <b-navbar-nav class="">
                     <b-button class="blink white sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqOrder'"
-                        v-if="reqOrder.length" v-b-tooltip.leftbottom.hover title="주문"
+                        v-if="reqOrder.length"
                     >
                         주문 ({{reqOrder.length}})</b-button>
                     <b-button class="blink gray sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqEstimate'"
-                        v-if="reqEstimate.length" v-b-tooltip.leftbottom.hover title="견적"
+                        v-if="reqEstimate.length"
                     >
                         견적 ({{reqEstimate.length}})
                     </b-button>
                     <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'"
-                        v-if="reqVoucher.length" v-b-tooltip.leftbottom.hover title="상품권 신청"
+                        v-if="reqVoucher.length"
                     >
                         <b-icon-gift /> ({{reqVoucher.length}})
                     </b-button>
                     <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'"
-                        v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length" v-b-tooltip.rightbottom.hover title="답변 요청"
+                        v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length" 
                     >
                         <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
                     </b-button>                    
         
-                    <b-link :to="{name:'main'}" target="_blank" v-b-tooltip.leftbottom.hover title="SHOP으로 이동" class="go_shop logo_link">
+                    <b-link :to="{name:'main'}" target="_blank" class="go_shop logo_link">
                         <b-img :src="`${s3url}common/logo/admin_4s.png`" />
                     </b-link>
                 </b-navbar-nav>

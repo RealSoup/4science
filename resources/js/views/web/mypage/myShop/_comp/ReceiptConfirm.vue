@@ -28,7 +28,8 @@
                 </b-row>
                 
                 <div class="btn_box">
-                    <b-button class="gray lg" @click="store">완료</b-button>
+                    <b-button v-if="clickable" class="gray lg" @click="store">완료</b-button>
+                    <b-button v-else class="gray" size="sm"><font-awesome-icon icon="save" /> 완료 중~!</b-button>
                 </div>
             </b-col>
         </b-row>
@@ -44,6 +45,7 @@ export default {
     props:['item'],
     data() {
         return {
+            clickable : true,
             boFrm: {
                 bo_gd_id:this.item.odm_gd_id,
                 bo_good:100,
@@ -57,6 +59,7 @@ export default {
 
     methods: {
         async store() {
+            this.clickable = false;
             if ( isEmpty(this.boFrm.bo_subject) ) this.boFrm.bo_subject = this.item.odm_gd_name;
             if ( isEmpty(this.boFrm.bo_content) ) this.boFrm.bo_content = "만족";
             const resBo = await ax.post(`/api/board/review/store`, this.boFrm);
@@ -66,9 +69,10 @@ export default {
                 this.item // 삽입하려는 내용
             );
             const resOr = await ax.post(`/api/shop/order/${this.item.odm_od_id}`, this.odFrm);
-            if (resOr && resOr.status === 200) {     
+            if (resOr && resOr.status === 200) {    
+                this.clickable = true; 
                 this.item.order_dlvy_info.oddi_receive_date = new Date().format("yyyy-MM-dd HH:mm:ss");
-                Notify.toast('success', '수취 확인 완료')
+                Notify.toast('success', '수취 확인 완료');
                 this.$emit('hide_modal');
             }
         }

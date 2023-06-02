@@ -312,9 +312,18 @@ class OrderController extends Controller {
 		// dd($req->all());
 		$od = $this->order->find($od_id);
 		if ($req->filled('type')) {
-			if 		($req->type == 'od_mng' && 	$req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
-			else if ($req->type == 'od_step' && $req->filled('od_step'))	$od->od_step = $req->od_step;
-			else if ($req->type == 'odm_ea') {
+			if 		($req->type == 'od_mng' && $req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
+			else if ($req->type == 'od_step' && $req->filled('od_step')) {
+				$od->od_step = $req->od_step;
+				if($req->od_type != 'buy_temp') {
+					foreach ($req->order_purchase_at as $opa) {
+						foreach ($opa['order_model'] as $odm) {
+							if ($odm['odm_type'] == 'MODEL')
+								OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']]);
+						}
+					}
+				}
+			} else if ($req->type == 'odm_ea') {
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {
 						$odModel = OrderModel::find($odm['odm_id']);

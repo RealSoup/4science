@@ -4,7 +4,7 @@
         <h3 class="p_tit">주문 상세</h3>
         <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
         <div class="act_ctrl">
-            <b-row cols="1" cols-md="2">
+            <b-row>
                 <b-col class="def_info">
                     <span>No.</span> <b>{{od.od_id}}.</b>
                     <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm"><b-icon-box-arrow-up-right /> 견적서</b-button>
@@ -13,17 +13,18 @@
                     <span>주문유형</span> <b v-if="od.order_config.type">{{ od.order_config.type[od.od_type]}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
-                    <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>
+                    <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록으로</span></b-button>
 
                     <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
                     <b-button v-else class="sky sm">{{od.mng.name}}</b-button>
 
-                    <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right /> 영업장부</b-button>
+                    <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right /> <span class="sm_ib_h">영업</span>장부</b-button>
                     <b-button v-else class="d_gray sm">장부등록됨</b-button>
 
-                    <b-button class="gray sm" @click="print"><b-icon-printer /> 인쇄</b-button>
+                    <b-button class="gray sm" @click="print"><b-icon-printer /><span class="sm_ib_h"> 인쇄</span></b-button>
 
-                    <b-dropdown v-if="od.od_mng" size="sm" text="파일 다운" variant="outline-dark">
+                    <b-dropdown v-if="od.od_mng" size="sm" variant="outline-dark">
+                        <template #button-content>파일 <span class="sm_ib_h">다운</span></template>
                         <b-dropdown-item-button variant="success" @click="estimateExcel">견적서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
                         <b-dropdown-item-button variant="warning" @click="estimatePdf">견적서 <b-badge>PDF</b-badge></b-dropdown-item-button>
                         <b-dropdown-divider></b-dropdown-divider>
@@ -34,9 +35,13 @@
                     <b-button v-else class="gray sm">파일 받기 담당 등록 후...</b-button>                    
                     
                     <b-input-group size="sm">
-                        <b-form-select v-model="od.od_step">
+                        <b-form-select v-model="od.od_step" class="sm_ib_h">
                             <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
                             <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                        </b-form-select>
+                        <b-form-select v-model="od.od_step" class="sm_ib_v">
+                            <b-form-select-option :value="null" disabled>상태</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.sm_name}}</b-form-select-option>
                         </b-form-select>
                         <b-input-group-append><b-button @click="update('od_step')" class="d_gray sm">변경</b-button></b-input-group-append>
                     </b-input-group>
@@ -47,6 +52,14 @@
         <div class="box extra_info">
             <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
             <table class="tbl_st address mb-0">
+                <colgroup>
+                    <col width="8%" />
+                    <col width="16%" />
+                    <col width="10%" />
+                    <col width="16%" />
+                    <col width="8%" />
+                    <col width="" />
+                </colgroup>
                 <tr>
                     <th>주문자</th>
                     <td>
@@ -238,7 +251,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>배송시 요구사항</th><td colspan="3">{{od.od_memo}}</td>
+                    <th>배송시 요구사항</th>
+                    <td colspan="3">
+                        <font-awesome-icon icon="copy" v-b-tooltip="'요구사항 복사'" @click="copyToClipboard(od.od_memo)" class="print_hide_inline_block" />
+                        {{od.od_memo}}
+                    </td>
                 </tr>
             </table>
 
@@ -771,8 +788,31 @@ export default {
 .p_wrap .print_hide_flex { display:flex !important; }
 .p_wrap .print_hide_inline_block { display:inline-block !important; }
 
+
+.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%; }
+.p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
+.p_wrap .act_ctrl .btn_area .input-group { max-width:150px; }
+
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
+
+
+@media (max-width: 992px){
+    .p_wrap .act_ctrl .def_info span { margin-left:0; }
+    .p_wrap .act_ctrl .def_info b { margin-right:2%; margin-left:.1rem; }
+    .p_wrap .act_ctrl .btn_area { flex: 0 0 100%; max-width: 100%; }
+    .p_wrap .act_ctrl .btn_area .input-group { max-width:95px; }
+    .p_wrap .act_ctrl .btn_area .btn { padding: 0.1rem 0.2rem !important; }
+
+    .p_wrap .extra_info table tr td { padding-left:.2rem; }
+}
+
+.sm_ib_v { display:none; }
+@media (max-width: 992px){    
+    .sm_ib_v { display:inline-block; }
+    .sm_ib_h { display:none; }
+}
+
 </style>

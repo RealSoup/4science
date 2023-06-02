@@ -63,11 +63,9 @@
                                 >배송조회</b-button>
                                 <b-badge v-else variant="primary">준비중</b-badge>
                                 <br />
+                                
                                 <template v-if="!odm.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
-                                    <!-- 송장번호 입력날짜가 없지 않거나, 배송완료 날짜가 없지 않다면 -->
-                                    <b-button v-if="!!odm.order_dlvy_info.oddi_dlvy_created_at || !!odm.order_dlvy_info.oddi_arrival_date" class="teal xm"  @click="receiptConfirm(odm)">
-                                        수취확인
-                                    </b-button>
+                                    <b-button v-if="od.od_step=='40' || od.od_step=='50'" class="teal xm"  @click="receiptConfirm(odm)">수취확인</b-button>
                                 </template>
                             </template>
                         </b-col>
@@ -111,7 +109,7 @@
                     <b-row><b-col class="label_st">연락처</b-col><b-col>{{od.od_orderer_hp}}</b-col></b-row>
                     <b-row><b-col class="label_st">이메일</b-col><b-col>{{od.od_orderer_email}}</b-col></b-row>
                     <b-row><b-col class="label_st">직장/학교</b-col><b-col>{{od.od_company}}</b-col></b-row>
-                    <b-row><b-col class="label_st">부서/학과/연구실</b-col><b-col>{{od.od_part}}</b-col></b-row>
+                    <b-row><b-col class="label_st od_part">부서/학과/연구실</b-col><b-col>{{od.od_part}}</b-col></b-row>
                 </b-col>
                 <b-col>
                     <b-row><b-col class="label_st">수령인</b-col><b-col>{{od.od_receiver}}</b-col></b-row>
@@ -342,8 +340,9 @@ export default {
 
 .extra_info { margin-top:3rem; font-size:.95rem;  }
 .extra_info>.row>.col { border:1px solid #D7D7D7; padding:2%; }
-.extra_info>.row>.col .label_st { flex-basis:100px; max-width:100px; padding-top:0; }
-.extra_info>.row>.col:nth-of-type(1) { flex-basis:24%; max-width:24%; }
+.extra_info>.row>.col .label_st { flex-basis:88px; max-width:88px; padding-top:0; }
+.extra_info>.row>.col .label_st.od_part { flex-basis:130px; max-width:130px; }
+.extra_info>.row>.col:nth-of-type(1) { flex-basis:30%; max-width:30%; }
 .extra_info>.row>.col:not(:nth-of-type(1)) { margin-left:-1px; }
 .extra_info>.row>.col .row { margin-left: 0; margin-right: 0; }
 </style>

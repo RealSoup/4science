@@ -409,7 +409,7 @@ class GoodsController extends Controller {
                 'gd_enable'    => $gd->gd_enable,
                 'gd_name'      => $gd->gd_name,
                 'gd_keyword'   => $gd->gd_keyword,
-                'gd_rank'      => 999999,
+                'gd_rank'      => $gd->gd_rank,
                 'mk_name'      => $gd->gd_mk_name,
                 'gm_id'        => $gm['gm_id'],
                 'gm_enable'    => $gm['gm_enable'],
