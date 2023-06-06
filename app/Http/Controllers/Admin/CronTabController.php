@@ -25,6 +25,7 @@ class CronTabController extends Controller {
 			->StartDate('2022-01-01')
 			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
+			->where('shop_order.created_id', 130)
 			->orderBy('shop_order.od_id')
 			->get();
 
@@ -50,6 +51,7 @@ class CronTabController extends Controller {
 			->StartDate('2022-01-01')
 			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
+			->where('shop_order.created_id', 130)
 			->update(['shop_order_dlvy_info.oddi_receive_date' => \Carbon\Carbon::now()]);
 	}
 
