@@ -26,7 +26,10 @@ class BoardController extends Controller {
         }
     }
     public function index(Request $req, $bo_cd) {
-        $bo = $this->board->where('bo_group', 0)->orderByRaw('bo_seq, bo_seq_cd'); // ->whereNull('bo_seq_cd')
+        $bo = $this->board
+                ->where('bo_group', 0)
+                ->whereNull('bo_seq_cd')
+                ->orderByRaw('bo_seq, bo_seq_cd'); // ->whereNull('bo_seq_cd')
 
         if ($req->filled('sch_txt')) {
             $sch_txt = trim($req->sch_txt);
@@ -41,17 +44,18 @@ class BoardController extends Controller {
         $bo->appends($req->all())->links();
         
         //  답변 가져오기
-        // foreach ($bo as $v)
-        //     $v->answer = DB::table($this->board->getTable())->where('bo_seq', $v->bo_seq)->where('bo_seq_cd', 'A')->first();
+        if ( $this->param['config']['is_qna'] )
+            foreach ($bo as $v)
+                $v->answer = DB::table($this->board->getTable())->where('bo_seq', $v->bo_seq)->where('bo_seq_cd', 'A')->first();
 
-        if ( $this->param['config']['is_qna'] ) {
-            for ($i=0; $i < count($bo); $i++)   //  다음에 답변이 있는지 체크하는 루프
-                if(is_null($bo[$i]->bo_seq_cd)) //  질문 글 인가??
-                    if( isset($bo[$i+1]) && $bo[$i+1]->bo_seq_cd == 'A' && $bo[$i]->bo_seq == $bo[$i+1]->bo_seq )   //  답변이 있는가??
-                        $bo[$i]->answer = true;
-                    else
-                        $bo[$i]->answer = false;
-        }
+        // if ( $this->param['config']['is_qna'] ) {
+        //     for ($i=0; $i < count($bo); $i++)   //  다음에 답변이 있는지 체크하는 루프
+        //         if(is_null($bo[$i]->bo_seq_cd)) //  질문 글 인가??
+        //             if( isset($bo[$i+1]) && $bo[$i+1]->bo_seq_cd == 'A' && $bo[$i]->bo_seq == $bo[$i+1]->bo_seq )   //  답변이 있는가??
+        //                 $bo[$i]->answer = true;
+        //             else
+        //                 $bo[$i]->answer = false;
+        // }
             
         $this->param['list'] = $bo;
         return response()->json($this->param);

@@ -27,7 +27,7 @@ export default {
     watch: {
         '$route' (to, from) {
             if (to.name == 'goods_show')
-                this.updateRecentGoods();
+                this.setRecentGoods();
         },
     },
     data () {
@@ -55,8 +55,7 @@ export default {
     methods: {
         async setRecentGoods() {
             try {
-                let cookies = this.$cookies.get(this.ck_key);
-                const res = await ax.get(`/api/shop/goods/recentGoods`, { params: {gd_id:cookies}});
+                const res = await ax.get(`/api/shop/goods/recentGoods`);
                 if (res && res.status === 200) {
                     this.recentGoods = res.data;
                 }
@@ -85,31 +84,9 @@ export default {
                 else if (idx === 2) result.push('back');
             return result;
         },
-        updateRecentGoods() {
-            // this.$cookies.set("키", "값", "만료일");
-            let cookieRecentGoods = this.$cookies.get(this.ck_key);
-
-            if (cookieRecentGoods) {
-                let array_cookieRecentGoods = cookieRecentGoods.split(',');
-                array_cookieRecentGoods =  array_cookieRecentGoods.reduce((acc, el) => {
-                    if (el != this.$route.params.gd_id && el!='') acc.push(el);   //  값이 있따면 빼고 리턴
-                    return acc;
-                }, []);
-                array_cookieRecentGoods = [this.$route.params.gd_id].concat(array_cookieRecentGoods);
-                array_cookieRecentGoods =  array_cookieRecentGoods.reduce((acc, el, idx) => {
-                    if (idx < 15) acc.push(el);
-                    return acc;
-                }, []);
-                cookieRecentGoods = array_cookieRecentGoods.join(',');
-            } else {
-                cookieRecentGoods = this.$route.params.gd_id;
-            }
-            this.$cookies.set(this.ck_key, cookieRecentGoods);
-        }
+        
     },
     mounted() {
-        if (this.$route.name == 'goods_show')
-            this.updateRecentGoods();
         this.setRecentGoods();
     },
 }

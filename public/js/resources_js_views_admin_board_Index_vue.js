@@ -59,7 +59,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -328,26 +327,15 @@ var render = function () {
               _vm._l(_vm.list.data, function (bo, i) {
                 return _c(
                   "b-row",
-                  {
-                    key: i,
-                    staticClass: "list_item",
-                    class: { answer: bo.bo_seq_cd == "A" },
-                  },
+                  { key: i, staticClass: "list_item" },
                   [
-                    _c(
-                      "b-col",
-                      { attrs: { col: "", lg: "1" } },
-                      [
-                        _vm.isEmpty(bo.bo_seq_cd)
-                          ? [_vm._v(_vm._s(bo.bo_id))]
-                          : _c("b-badge", [_vm._v("답변")]),
-                      ],
-                      2
-                    ),
+                    _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                      _vm._v(_vm._s(bo.bo_id)),
+                    ]),
                     _vm._v(" "),
                     _c(
                       "b-col",
-                      { attrs: { col: "", lg: "7" } },
+                      { attrs: { col: "" } },
                       [
                         _c(
                           "b-button",
@@ -361,56 +349,57 @@ var render = function () {
                               block: "",
                             },
                           },
-                          [_vm._v(_vm._s(bo.bo_subject))]
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(bo.bo_subject) +
+                                "\n                    "
+                            ),
+                          ]
                         ),
                       ],
                       1
                     ),
                     _vm._v(" "),
-                    _c("b-col", { attrs: { col: "", lg: "2" } }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(bo.bo_writer) +
-                          "\n                "
-                      ),
+                    _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                      _vm._v(_vm._s(bo.bo_writer)),
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { col: "", lg: "2" } },
-                      [
-                        _vm.config.is_qna &&
-                        _vm.isEmpty(bo.bo_seq_cd) &&
-                        !bo.answer
-                          ? _c(
-                              "b-button",
-                              {
-                                attrs: {
-                                  variant: "warning",
-                                  to: {
-                                    name: "adm_board_answer",
-                                    params: {
-                                      bo_cd: _vm.bo_cd,
-                                      bo_id: bo.bo_id,
+                    _vm.config.is_qna
+                      ? _c(
+                          "b-col",
+                          { attrs: { col: "", lg: "1" } },
+                          [
+                            !bo.answer
+                              ? _c(
+                                  "b-button",
+                                  {
+                                    attrs: {
+                                      variant: "warning",
+                                      to: {
+                                        name: "adm_board_answer",
+                                        params: {
+                                          bo_cd: _vm.bo_cd,
+                                          bo_id: bo.bo_id,
+                                        },
+                                      },
                                     },
                                   },
-                                },
-                              },
-                              [
-                                _c("b-icon-headset"),
-                                _vm._v(" 답변\n                    "),
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(
-                          "\n                    \n                    " +
-                            _vm._s(_vm._f("formatDate")(bo.created_at)) +
-                            "\n                "
-                        ),
-                      ],
-                      1
-                    ),
+                                  [
+                                    _c("b-icon-headset"),
+                                    _vm._v(" 답변\n                    "),
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { col: "", lg: "1" } }, [
+                      _vm._v(_vm._s(_vm._f("formatDate")(bo.created_at))),
+                    ]),
                   ],
                   1
                 )

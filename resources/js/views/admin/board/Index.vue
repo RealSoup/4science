@@ -10,24 +10,23 @@
                     </b-col>
                 </b-row>
                 <hr>
-                <b-row class="list_item" :class="{ 'answer': bo.bo_seq_cd == 'A' }" v-for="(bo, i) in list.data" :key="i" >
-                    <b-col col lg="1">
-                        <template v-if="isEmpty(bo.bo_seq_cd)">{{bo.bo_id}}</template>
-                        <b-badge v-else>답변</b-badge>
+                <b-row class="list_item" v-for="(bo, i) in list.data" :key="i" >
+                    <b-col col lg="1">{{bo.bo_id}}</b-col>
+                    <b-col col>
+                        <b-button :to="{name: `adm_board_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}" variant="outline-secondary" block>
+                            {{bo.bo_subject}}
+                        </b-button>
                     </b-col>
-                    <b-col col lg="7">
-                        <b-button :to="{name: `adm_board_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}" variant="outline-secondary" block>{{bo.bo_subject}}</b-button>
-                    </b-col>
-                    <b-col col lg="2">
-                        {{bo.bo_writer}}
-                    </b-col>
-                    <b-col col lg="2">
-                        <b-button v-if="config.is_qna && isEmpty(bo.bo_seq_cd) && !bo.answer" variant="warning" :to="{name: `adm_board_answer`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">
+                    
+                    <b-col col lg="1">{{bo.bo_writer}}</b-col>
+
+                    <b-col col lg="1" v-if="config.is_qna">
+                        <b-button v-if="!bo.answer" variant="warning" :to="{name: `adm_board_answer`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">
                             <b-icon-headset /> 답변
                         </b-button>
-                        
-                        {{bo.created_at | formatDate}}
                     </b-col>
+                    
+                    <b-col col lg="1">{{bo.created_at | formatDate}}</b-col>
                 </b-row>
                 <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
                     <span slot="prev-nav"><b-icon-chevron-left /></span>

@@ -48,7 +48,7 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
   name: "RecentGoods",
   watch: {
     '$route': function $route(to, from) {
-      if (to.name == 'goods_show') this.updateRecentGoods();
+      if (to.name == 'goods_show') this.setRecentGoods();
     }
   },
   data: function data() {
@@ -80,42 +80,37 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var cookies, res;
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                cookies = _this.$cookies.get(_this.ck_key);
-                _context.next = 4;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/goods/recentGoods", {
-                  params: {
-                    gd_id: cookies
-                  }
-                });
+                _context.next = 3;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/goods/recentGoods");
 
-              case 4:
+              case 3:
                 res = _context.sent;
 
                 if (res && res.status === 200) {
                   _this.recentGoods = res.data;
                 }
 
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](0);
                 Notify.consolePrint(_context.t0);
                 Notify.toast('warning', _context.t0.response.data.message);
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 7]]);
       }))();
     },
     setCubeClass: function setCubeClass(direction) {
@@ -149,35 +144,9 @@ __webpack_require__(/*! vue2-animate/dist/vue2-animate.min.css */ "./node_module
       var result = [];
       if (idx === 0) result.push('front');else if (idx === 1) result.push('right');else if (idx === 2) result.push('back');
       return result;
-    },
-    updateRecentGoods: function updateRecentGoods() {
-      var _this2 = this;
-
-      // this.$cookies.set("키", "값", "만료일");
-      var cookieRecentGoods = this.$cookies.get(this.ck_key);
-
-      if (cookieRecentGoods) {
-        var array_cookieRecentGoods = cookieRecentGoods.split(',');
-        array_cookieRecentGoods = array_cookieRecentGoods.reduce(function (acc, el) {
-          if (el != _this2.$route.params.gd_id && el != '') acc.push(el); //  값이 있따면 빼고 리턴
-
-          return acc;
-        }, []);
-        array_cookieRecentGoods = [this.$route.params.gd_id].concat(array_cookieRecentGoods);
-        array_cookieRecentGoods = array_cookieRecentGoods.reduce(function (acc, el, idx) {
-          if (idx < 15) acc.push(el);
-          return acc;
-        }, []);
-        cookieRecentGoods = array_cookieRecentGoods.join(',');
-      } else {
-        cookieRecentGoods = this.$route.params.gd_id;
-      }
-
-      this.$cookies.set(this.ck_key, cookieRecentGoods);
     }
   },
   mounted: function mounted() {
-    if (this.$route.name == 'goods_show') this.updateRecentGoods();
     this.setRecentGoods();
   }
 });

@@ -150,6 +150,8 @@ class GoodsController extends Controller {
     public function show(Category $cate, Request $req, $gd_id) {
         abort_if($this->goods::where('gd_id', $gd_id)->doesntExist(), 501, '존재 하지 않는 상품입니다.');
 
+        event(new \App\Events\GoodsView($this->goods, $gd_id));  //  조회수 증가, 최근 본 상품 등록
+
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
             ->with('goodsRelate')
@@ -169,8 +171,6 @@ class GoodsController extends Controller {
 
         foreach ($data['goods']->goodsRelate as $v)
             $v->goods;
-        
-        event(new \App\Events\GoodsView($data['goods']));  //  조회수 증가
 
         $ca01 = $data['goods']->goodsCategoryFirst->gc_ca01 ? $data['goods']->goodsCategoryFirst->gc_ca01 : 0;
         $ca02 = $data['goods']->goodsCategoryFirst->gc_ca02 ? $data['goods']->goodsCategoryFirst->gc_ca02 : 0;
@@ -199,11 +199,9 @@ class GoodsController extends Controller {
     public function recentGoods(Request $req) {
         // DB::enableQueryLog();
         $data = null;
-        if ($req->filled('gd_id')) {
-            $data = $this->goods->whereIn('gd_id', explode(',', $req->gd_id))->orderByRaw('FIELD(gd_id, '.$req->gd_id.')')->get();
-        }
-        // dd(DB::getQueryLog());
-        // dd($data->toArray());
+        $gd_id_str = \Cookie::get('RecentGoods');
+        if ($gd_id_str)
+            $data = $this->goods->whereIn('gd_id', explode(',', $gd_id_str))->orderByRaw('FIELD(gd_id, '.$gd_id_str.')')->get();
         return response()->json($data);
     }
 

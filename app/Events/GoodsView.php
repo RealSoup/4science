@@ -14,6 +14,10 @@ use App\Models\Shop\Goods;
 class GoodsView {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $goods;
-    public function __construct(Goods $goods) { $this->goods = $goods; }
+    public $gd_id;
+    public function __construct(Goods $goods, $gd_id) { 
+        $this->goods = $goods; 
+        $this->gd_id = $gd_id; 
+    }
     public function broadcastOn() { return new PrivateChannel('channel-name'); }
 }

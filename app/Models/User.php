@@ -107,8 +107,10 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }
     public function getIsDealerAttribute() { return ($this->level > 10 && $this->level < 20) ? true : false; }
     public function getMileageMulAttribute() {
-        $lv = $this->level>4?4:$this->level;
-        $rate = $lv < 2 ? 0 : $this->mileage_rate[$lv];
+        $lv = $this->level;
+        if ($lv>4) $lv = 4;
+        if ($lv<2) $lv = 2;
+        $rate = $this->mileage_rate[$lv];
         return $rate/100; 
     }
     public function getHp01Attribute() { return count(explode('-', $this->hp))>0 ? explode('-', $this->hp)[0] : ''; }

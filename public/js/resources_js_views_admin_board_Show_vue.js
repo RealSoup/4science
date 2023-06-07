@@ -76,6 +76,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1020,6 +1021,22 @@ var render = function () {
           "div",
           { staticClass: "col-6 text-right" },
           [
+            !_vm.board.answer
+              ? _c(
+                  "b-button",
+                  {
+                    staticClass: "sm mint",
+                    attrs: {
+                      to: {
+                        name: "adm_board_answer",
+                        params: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id },
+                      },
+                    },
+                  },
+                  [_vm._v("답변")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "router-link",
               {
