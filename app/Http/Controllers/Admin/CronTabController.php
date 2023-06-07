@@ -53,6 +53,8 @@ class CronTabController extends Controller {
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
 			->where('shop_order.created_id', 130)
 			->update(['shop_order_dlvy_info.oddi_receive_date' => \Carbon\Carbon::now()]);
+
+		echo "<br>".\Carbon\Carbon::now();
 	}
 
 
