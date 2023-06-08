@@ -60,7 +60,7 @@ Vue.filter('comma', function (val) {
 Vue.filter('rrp', function (val) {
     //  RECOMMENDED RETAIL PRICE     권장 소비자가격
     //  가격 + 부가세
-    val = (val*1.1).toFixed();
+    val = Math.floor(val*1.1);
     if (val) return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     else return 0;
 });

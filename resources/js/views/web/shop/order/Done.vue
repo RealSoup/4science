@@ -51,10 +51,27 @@ export default {
             }
         },
     },
+    
+    methods:{
+        naver_js: function () {
+            let el = document.createElement('script'), self = this;
+            el.setAttribute('type', 'text/javascript');
+            el.setAttribute('src', '"//wcs.naver.net/wcslog.js');
+            document.getElementsByTagName('head')[0].appendChild(el);
+            // onload에 init 메소드 지정
+            el.onload = function(){
+                var _nasa={};
+                if (window.wcs) _nasa["cnv"] = wcs.cnv("1", this.order.od_all_price);
+            };
+        }
+    },
     async mounted() {
         const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
         if (res && res.status === 200)
             this.order = res.data;
+
+        this.naver_js();
+        
     },
 }
 </script>

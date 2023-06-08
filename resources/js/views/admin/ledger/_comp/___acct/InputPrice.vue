@@ -14,7 +14,7 @@ export default {
                     return this.value.toString()
                 } else {
                     // User is not modifying now. Format display value for user interface
-                    return this.value.toFixed().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+                    return Math.floor(this.value).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
                 }
             },
             set: function(modifiedValue) {

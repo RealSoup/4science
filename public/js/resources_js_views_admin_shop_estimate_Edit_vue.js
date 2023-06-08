@@ -521,7 +521,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.frm.estimate_reply.er_air_price = Object.values(collect).reduce(function (acc, el) {
         return acc + el.air;
       }, 0);
-      this.frm.estimate_reply.er_surtax = this.frm.estimate_reply.er_gd_price * 0.1;
+      this.frm.estimate_reply.er_surtax = Math.floor(this.frm.estimate_reply.er_gd_price * 0.1);
 
       for (var key in collect) {
         if (collect[key].dlvy && collect[key].goods * 1.1 < collect[key].free_dlvy_max) {

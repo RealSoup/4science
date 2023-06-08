@@ -104,6 +104,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     }
   },
+  methods: {
+    naver_js: function naver_js() {
+      var el = document.createElement('script'),
+          self = this;
+      el.setAttribute('type', 'text/javascript');
+      el.setAttribute('src', '"//wcs.naver.net/wcslog.js');
+      document.getElementsByTagName('head')[0].appendChild(el); // onload에 init 메소드 지정
+
+      el.onload = function () {
+        var _nasa = {};
+        if (window.wcs) _nasa["cnv"] = wcs.cnv("1", this.order.od_all_price);
+      };
+    }
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -120,7 +134,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               res = _context.sent;
               if (res && res.status === 200) _this.order = res.data;
 
-            case 4:
+              _this.naver_js();
+
+            case 5:
             case "end":
               return _context.stop();
           }

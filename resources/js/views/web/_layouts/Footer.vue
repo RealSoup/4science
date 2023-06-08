@@ -98,6 +98,23 @@ export default {
         scrollToTop(){
             this.$emit('scrollToTop');
         },
+
+        naver_js: function () {
+            let el = document.createElement('script'), self = this;
+            el.setAttribute('type', 'text/javascript');
+            el.setAttribute('src', '"//wcs.naver.net/wcslog.js');
+            document.getElementsByTagName('head')[0].appendChild(el);
+            // onload에 init 메소드 지정
+            el.onload = function(){
+                if(!wcs_add) var wcs_add = {};
+                wcs_add["wa"] = "s_256b3162e372";
+                if (!_nasa) var _nasa={};
+                if (window.wcs) {
+                    wcs.inflow();
+                    wcs_do(_nasa);
+                }
+            };
+        }
     },
 
     async mounted() {
@@ -105,6 +122,7 @@ export default {
         if (res && res.status === 200) {
             this.notice = res.data.list.data;
         }
+        this.naver_js();
     },
 }
 </script>
