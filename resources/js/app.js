@@ -121,7 +121,7 @@ router.onError((error) => {
     if (error.name === 'ChunkLoadError') {
         window.location.href = nextPath || '/';
     } else {
-        console.log(123123);
+        console.log('123123');
     }
 });
 
