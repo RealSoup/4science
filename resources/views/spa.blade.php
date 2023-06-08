@@ -6,9 +6,9 @@
     <!-- <meta name="viewport" content="width=1500, initial-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <!-- no cache 설정 -->
-    <!-- <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0"> -->
+    <meta http-equiv="Expires" content="0">
     <!-- <meta http-equiv="Cache-control" content="public" /> -->
     
     <meta name="csrf-token" content="{{ csrf_token() }}">
