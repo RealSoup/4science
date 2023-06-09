@@ -70,8 +70,9 @@ export default {
         if (res && res.status === 200)
             this.order = res.data;
 
-        // this.naver_js();
-        
+        /* 네이버 분석 관련 스크립트 */
+        var _nasa={};
+        if (window.wcs) _nasa["cnv"] = wcs.cnv("1", this.order.od_all_price);
     },
 }
 </script>

@@ -8,9 +8,6 @@
                 <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
             </b-carousel-slide>
         </b-link>
-        <b-link to="/shop/goods/51495">
-            <b-carousel-slide :img-src="s3url+'event/2023/0509/slide.jpg'"></b-carousel-slide>
-        </b-link>
         <b-link to="/shop/goods/925">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
         </b-link>

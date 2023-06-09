@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-row class="head">
+    <b-row class="head m_hide">
         <b-col>요청번호</b-col>
         <b-col>요청내용</b-col>
         <b-col>요청자</b-col>
@@ -127,4 +127,19 @@ export default {
 .er_box span.orange { color:#F18D04 !important; }
 .er_box span.gray { background-color:#aaa; color:#fff; }
 .er_box span.not_fir { margin-top:.25rem; }
+
+@media (max-width: 992px) {
+    .p_wrap .cmain .body { border-bottom: 3px solid #333; }
+    .p_wrap .cmain .body .col { padding: 0.1rem 0; line-height: 24px; }
+    .row .col:nth-child(1) { flex:0 0 20%; max-width:20%; }
+    .row .col:nth-child(2) { flex:0 0 60%; max-width:60%; }
+    .row .col:nth-child(3) { flex:0 0 20%; max-width:20%; }
+    .row .col:nth-child(4) { flex:0 0 20%; max-width:20%; border-width:0; }
+    .row .col:nth-child(5) { flex:0 0 20%; max-width:20%; }
+    .row .col:nth-child(6) { flex:0 0 60%; max-width:60%; text-align:left; padding-left:10px; border-width:0; }
+    .row .col:nth-child(7) { flex:0 0 100%; max-width:100%; background: #efefef; }
+    .er_box span:nth-child(3n+1) { flex:0 0 48%; max-width:48%; text-align:right; }
+    .er_box span:nth-child(3n+2) { flex:0 0 24%; max-width:24%; }
+    .er_box span:nth-child(3n+3) { flex:0 0 18%; max-width:18%; }
+}
 </style>

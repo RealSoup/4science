@@ -381,6 +381,8 @@ class OrderController extends Controller {
 						}
 					}
 				}
+			} else if ($req->type == 'pay') {
+				$od->od_pay_method = $req->od_pay_method;
 			}
 			
 			$od_rst = $od->save();

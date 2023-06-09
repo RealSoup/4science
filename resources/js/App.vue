@@ -208,18 +208,27 @@ label { margin-bottom:0; }
 .p_wrap .frm_sch { border:1px solid #B7B7B7; border-radius:1rem; margin-bottom:1.8rem; }
 .p_wrap .frm_sch .row .col { padding:10px; }
 .p_wrap .frm_sch .row:not(:last-child) { border-bottom:1px solid #B7B7B7; }
-.p_wrap .frm_sch .label { background-color:#EFF0F2; text-align:center; font-size:.95rem; flex:0 0 8%; max-width:8%; display:flex; justify-content:center; align-items:center; }
+.p_wrap .frm_sch .label { background-color:#EFF0F2; text-align:center; font-size:.95rem; flex:0 0 7%; max-width:7%; display:flex; justify-content:center; align-items:center; }
 .p_wrap .frm_sch .label.top_left { border-top-left-radius:1rem; }
 .p_wrap .frm_sch .label.bottom_left { border-bottom-left-radius:1rem; }
 .p_wrap .frm_sch .row .label + .type01 { flex: 0 0 14%; max-width:14%; }
 .p_wrap .frm_sch .row .label + .type02 { flex: 0 0 18%; max-width:18%; }
 .p_wrap .frm_sch .row .label + .type03 { flex: 0 0 26%; max-width:26%; }
-.p_wrap .frm_sch .row .label + .type04 { flex: 0 0 34.666667%; max-width:34.666667%; }
+.p_wrap .frm_sch .row .label + .type04 { flex: 0 0 34%; max-width:34%; }
 .p_wrap .frm_sch .row .label + .type05 { flex: 0 0 43%; max-width:43%; }
-.p_wrap .frm_sch .row .label + .type06 { flex: 0 0 59.666667%; max-width:59.666667%; }
+.p_wrap .frm_sch .row .label + .type06 { flex: 0 0 7%; max-width:7%; }
 .p_wrap .frm_sch .row .label + .period { display:flex; align-items:center; justify-content:space-between; }
 .p_wrap .frm_sch .row .label + .period b { font-size:20px; }
 .p_wrap .frm_sch .row .label + .period input { width: calc(50% - 10px); }
+@media (max-width: 992px){
+    .p_wrap .frm_sch .row .col { padding:0; }
+    .p_wrap .frm_sch .label { flex:0 0 30%; max-width:30%; }
+    .p_wrap .frm_sch .row .label + .type01, 
+    .p_wrap .frm_sch .row .label + .type03, 
+    .p_wrap .frm_sch .row .label + .type04, 
+    .p_wrap .frm_sch .row .label + .type06 { flex: 0 0 70%; max-width: 70%; }
+}
+
 
 .p_wrap .cmain { border:5px solid #EBEBEB; border-radius:1.2rem; padding:1rem 1.3rem !important; width:100%; }
 @media (min-width: 1700px) { .p_wrap .cmain { max-width:none; } }
@@ -252,6 +261,7 @@ label { margin-bottom:0; }
 
 @media (max-width: 992px){
     .p_wrap { margin:.1rem; }
+    .p_wrap .cmain { border-width:0; padding:0 !important; }
     .p_wrap .box { border-width:0; border-radius:.2rem; padding:.2rem; margin:1rem 0; }
 }
 .adform .row { align-items:center; }

@@ -47,6 +47,7 @@ class GoodsController extends Controller {
                 if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
                 elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
             })
+            ->when(!$req->ca01, fn ($q, $v) => $q->where('gs.gc_prime', 'Y'))
             ->when($req->ca01, fn ($q, $v) => $q->where('gs.gc_ca01', $v))
             ->when($req->ca02, fn ($q, $v) => $q->where('gs.gc_ca02', $v))
             ->when($req->ca03, fn ($q, $v) => $q->where('gs.gc_ca03', $v))
@@ -70,7 +71,7 @@ class GoodsController extends Controller {
         //  상품의 하위 모델 상세 검색이 아니면 속도하되니 groupBy하지말자
         //  (gc_prime, Y)(gm_prime, Y)  이것으로 같은 효과
         $gs->when($model_chk, fn ($q) => $q->groupBy('gs.gd_id'))
-            ->when(!$model_chk, fn ($q) => $q->where('gs.gc_prime', 'Y')->where('gs.gm_prime', 'Y'));
+            ->when(!$model_chk, fn ($q) => $q->where('gs.gm_prime', 'Y'));
         $data['list'] = $gs->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
 

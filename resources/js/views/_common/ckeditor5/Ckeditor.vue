@@ -29,6 +29,7 @@ export default {
                 toolbar: {
             		items: [ // 'bulletedList', 'numberedList', 'blockQuote', 'mediaEmbed',
             			'heading', '|',
+                        'fontfamily', 'fontsize', 'fontColor', '|',
             			'bold', 'italic', 'alignment', 'link',  '|',
             			'indent', 'outdent', '|',
             			'imageUpload', 'insertTable', 'undo', 'redo', '|',

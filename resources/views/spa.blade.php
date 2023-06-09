@@ -26,6 +26,8 @@
     -->
     <base href="/">
     <!-- 구글링 결과로 정확한 이유는 모른다. -->
+
+    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
 </head>
 <body>
     <div id="app"></div>

@@ -297,7 +297,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((_ckeditor_ckeditor5_vue2__WEBPA
         extraPlugins: [this.uploader],
         toolbar: {
           items: [// 'bulletedList', 'numberedList', 'blockQuote', 'mediaEmbed',
-          'heading', '|', 'bold', 'italic', 'alignment', 'link', '|', 'indent', 'outdent', '|', 'imageUpload', 'insertTable', 'undo', 'redo', '|', 'sourceEditing']
+          'heading', '|', 'fontfamily', 'fontsize', 'fontColor', '|', 'bold', 'italic', 'alignment', 'link', '|', 'indent', 'outdent', '|', 'imageUpload', 'insertTable', 'undo', 'redo', '|', 'sourceEditing']
         },
         table: {
           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']

@@ -49,8 +49,16 @@
                 </b-form-select>
             </b-col>
 
+            <b-col class="label">주문기기</b-col>
+            <b-col class="type06">
+                <b-form-select v-model="sch_frm.sale_env">
+                    <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+
             <b-col class="label">검색</b-col>
-            <b-col>
+            <b-col class="type04">
                 <b-input-group>
                     <b-input-group-prepend>
                         <b-form-select class="custom-select" v-model="sch_frm.mode">
@@ -72,20 +80,12 @@
                     <b-input-group-append><b-button @click="routerPush(1)"><b-icon-search /></b-button></b-input-group-append>
                 </b-input-group>
             </b-col>
-
-            <b-col class="label type_cus">주문기기</b-col>
-            <b-col class="type_cus">
-                <b-form-select v-model="sch_frm.sale_env">
-                    <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
-                </b-form-select>
-            </b-col>
         </b-row>
     </b-container>
 
    
     <b-container class="cmain">
-        <b-row class="list_top">
+        <b-row class="list_top m_hide">
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col sm="12" md="6" class="text-right">
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
@@ -191,5 +191,4 @@ export default {
 
 <style lang="css" scoped>
 .cmain .list_top select { display: inline-block; max-width: 7rem; }
-.p_wrap .frm_sch .row .type_cus { flex:0 0 7%; max-width:7%; }
 </style>

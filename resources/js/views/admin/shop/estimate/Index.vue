@@ -4,7 +4,7 @@
     <b-container class="frm_sch">
         <sch-date v-model="sch_frm">
             <b-col slot="prev" class="label top_left">기간</b-col>
-            <b-col slot="prev" :style="{ flex:'0 0 8%', maxWidth:'8%' }">
+            <b-col slot="prev" class="date_type">
                 <b-form-select v-model="sch_frm.date_type">
                     <b-form-select-option value="reque">요청일</b-form-select-option>
                     <b-form-select-option value="reply">응답일</b-form-select-option>
@@ -64,7 +64,7 @@
                 </b-form-select>
             </b-col>
             <b-col class="label">검색</b-col>
-            <b-col class="type05">
+            <b-col class="sch_input">
                 <b-input-group>
                     <b-input-group-prepend>
                         <b-form-select v-model="sch_frm.keyword_type">
@@ -92,7 +92,7 @@
     </b-container>
     
     <b-container class="cmain">
-        <b-row class="list_top">
+        <b-row class="list_top m_hide">
             <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
             <b-col sm="12" md="6" class="text-right">
                 <b-form-select v-model="sch_frm.list_size">
@@ -216,4 +216,11 @@ export default {
 
 <style lang="css" scoped>
 .cmain .list_top select { display: inline-block; max-width: 7rem; }
+.p_wrap .frm_sch .date_type { flex:0 0 8%; max-width:8%; }
+.p_wrap .frm_sch .sch_input { flex:0 0 51%; max-width:51%; }
+@media (max-width: 992px) {
+    .p_wrap .frm_sch .date_type { flex:0 0 20%; max-width:20%; }    
+    .p_wrap .frm_sch >>> .row .period { flex: 0 0 50%; max-width: 50%; }
+    .p_wrap .frm_sch .sch_input { flex:0 0 70%; max-width:70%; }
+}
 </style>

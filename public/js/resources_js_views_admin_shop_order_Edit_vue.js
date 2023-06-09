@@ -456,37 +456,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 var dt = new Date();
@@ -694,6 +663,8 @@ var dt = new Date();
                     _this2.isModalViewed = false;
 
                     _this2.offAllCheck();
+                  } else if (type == 'pay') {
+                    Notify.toast('success', '결제정보 수정');
                   }
 
                   _this2.$delete(_this2.od, '_method');
@@ -1127,23 +1098,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css_ver_1_4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! -!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../public/css/adm_shop_order_edit.css?ver=1.4 */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.4");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css_ver_1_5__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! -!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../public/css/adm_shop_order_edit.css?ver=1.5 */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.5");
 // Imports
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css_ver_1_4__WEBPACK_IMPORTED_MODULE_1__["default"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_public_css_adm_shop_order_edit_css_ver_1_5__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n@media (max-width: 992px){\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.p_wrap .extra_info table tr td[data-v-ca63be56] { padding-left:.2rem;\n}\n}\n.sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 992px){\n.sm_ib_v[data-v-ca63be56] { display:inline-block;\n}\n.sm_ib_h[data-v-ca63be56] { display:none;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-ca63be56] { padding-top:1rem;\n}\n.p_wrap .print_mng_nm[data-v-ca63be56] { display:none;\n}\n.p_wrap .print_hide[data-v-ca63be56] { display:block !important;\n}\n.p_wrap .print_hide_flex[data-v-ca63be56] { display:flex !important;\n}\n.p_wrap .print_hide_inline_block[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .act_ctrl[data-v-ca63be56] { border-width:5px;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ca63be56] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:150px;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle { display:block !important; text-align:center;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.p_wrap .box .goods .gd_con .row .col .sum[data-v-ca63be56] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { border-right-width:1px;\n}\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:none;\n}\n@media (max-width: 992px){\n.p_wrap .sm_ib_v[data-v-ca63be56] { display:inline-block !important;\n}\n.p_wrap .sm_ib_h[data-v-ca63be56] { display:none !important;\n}\n}\n@media (max-width: 992px){\n.p_wrap .act_ctrl .def_info span[data-v-ca63be56] { margin-left:0;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ca63be56] { margin-right:2%; margin-left:.1rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ca63be56] { flex: 0 0 100%; max-width: 100%;\n}\n.p_wrap .act_ctrl .btn_area .input-group[data-v-ca63be56] { max-width:95px;\n}\n.p_wrap .act_ctrl .btn_area .btn[data-v-ca63be56] { padding: 0.1rem 0.2rem !important;\n}\n.label_st .dt[data-v-ca63be56] { padding-left:.2rem;\n}\n.label_st .lb[data-v-ca63be56] { flex:0 0 40%; max-width:40%;\n}\n.label_st .wd1_3[data-v-ca63be56], .label_st .wd54[data-v-ca63be56], .label_st .wd1_2[data-v-ca63be56], \r\n    .label_st .wd1_1[data-v-ca63be56] { flex:0 0 60%; max-width:60%;\n}\n.p_wrap .box .goods .pa_tit[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(1) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(2) { flex:0 0 35%; max-width:35%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(3) { flex:0 0 65%; max-width:65%; border-top:2px solid #000;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(4) { display:none !important;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(5) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(6) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(7) { flex:0 0 33.333333%; max-width:33.333333%;\n}\n.p_wrap .box .goods .gd_con .row .col[data-v-ca63be56]:nth-child(8) { display:none !important;\n}\n.p_wrap .box .goods .dlvy_fare[data-v-ca63be56] { display:none !important;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(2):after,\r\n    .p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(4):after { content:none;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem;\n}\n.p_wrap .box .sum_up .total .col[data-v-ca63be56]:nth-of-type(6) { flex-basis:50%; max-width:50%;\n}\n.p_wrap .box .sum_up .total .col b[data-v-ca63be56] { font-size:1rem;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.4":
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.5":
 /*!******************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.4 ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./public/css/adm_shop_order_edit.css?ver=1.5 ***!
   \******************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1158,7 +1129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }\r\n.p_wrap h5 b { position:relative; bottom:-2px; }\r\n.p_wrap .container { max-width:100%; }\r\n.p_wrap .container,\r\n.p_wrap .row .col { padding:0; }\r\n.p_wrap .adform .row > div:not(.tit) { padding: 8px 5px; }\r\n.p_wrap .row,\r\n.p_wrap .row .col p { margin:0; }\r\n.p_wrap .h3 h3 { margin:0 0 .5rem 3rem }\r\n.p_wrap .h3 div { text-align:right; }\r\n.p_wrap .h3 div .btn { border-color:#000; font-weight:600; }\r\n\r\n.p_wrap .print_hide,\r\n.p_wrap .print_hide_flex,\r\n.p_wrap .print_hide_inline_block { display:none !important; }\r\n.p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }\r\n\r\n.p_wrap .act_ctrl { background-color: #fff; border: 5px solid #4eb8c8; border-radius: 1rem; padding: 8px; position: -webkit-sticky; position: sticky; top: 0; z-index: 3; }\r\n.p_wrap .act_ctrl .def_info { line-height:1.9; }\r\n.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }\r\n.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }\r\n.p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }\r\n.p_wrap .box .top_border { border-top:3px solid #4F637B; }\r\n.p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row.option { background-color:#F4F1EC; }\r\n.p_wrap .box .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }\r\n.p_wrap .box .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }\r\n.p_wrap .box .goods .gd_con .row .gray_c { color:#AEAEAE; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }\r\n.p_wrap .box .goods .gd_con .row .col b { color:#000; font-size:.95rem; }\r\n\r\n.p_wrap .box .goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(1) { flex:0 0 4.5%; max-width:4.5%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 13%; max-width:13%; border-right:0px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }\r\n    \r\n.p_wrap .box .goods .gd_con .row .col img { width:100%; cursor:pointer; }\r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }\r\n.p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }\r\n.p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }\r\n.p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }\r\n\r\n.p_wrap .box .action { padding:1.5rem 3rem; font-weight:600; }\r\n\r\n.p_wrap .box .sum_up .total { border-bottom:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col { color:#000; font-weight:bold; }\r\n.p_wrap .box .sum_up .total .col b { font-size:1.3vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1vw 2vw 1vw 0; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after,\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2),\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after { content:\"+\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { content:\"=\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(5) { flex-basis:16%; max-width:16%; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:24%; max-width:24%; }\r\n.p_wrap .box .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }\r\n.p_wrap .box .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(1) { padding:1rem 2rem .5rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }\r\n\r\n.p_wrap .extra_info table { width:100%; border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }\r\n.p_wrap .extra_info table tr th { background-color:#F2F3F5; width:13%; text-align:center; padding:.55rem 0.3rem; font-size:.95rem; }\r\n.p_wrap .extra_info table tr td { padding-left:2rem; }\r\n.p_wrap .extra_info table tr td svg { font-size:1.6rem; vertical-align:middle; }\r\n.p_wrap .extra_info table tr th,\r\n.p_wrap .extra_info table tr td { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }\r\n.p_wrap .extra_info table tr:last-child td { border-right-width:0; }\r\n.p_wrap .extra_info table tr td .btn { padding:.3rem .75rem .1rem; }\r\n.p_wrap .extra_info .address .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }\r\n.cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }\r\n.cube_box, \r\n.cube_box * { box-sizing: border-box; }\r\n.cube_box { /*perspective:400px;*/ margin:auto; }\r\n.cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }\r\n.cube_box .cube .piece { position:absolute; }\r\n.cube_box,\r\n.cube_box .cube,\r\n.cube_box .cube .piece { width:100%; max-width:40px; height:30px; }\r\n.cube_box .cube .piece.front { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }\r\n/* .cube_box .cube .piece.right { transform: rotateY( 90deg) translateZ(20px); display:block; } */\r\n.cube_box .cube .piece.bottom { transform: rotateX(-90deg) translateZ(30px); display:block; }\r\n.cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }\r\n/* .cube_box .cube.show_right,\r\n.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); } */\r\n.cube_box .cube.show_bottom,\r\n.cube_box .cube:hover{ transform: translateZ(-30px) rotateX(  90deg); }\r\n\r\ntable tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }\r\n.cube_box.receiver,\r\n.cube_box.receiver .cube,\r\n.cube_box.receiver .cube .piece { max-width:150px; }\r\n.cube_box.receiver_hp,\r\n.cube_box.receiver_hp .cube,\r\n.cube_box.receiver_hp .cube .piece { max-width:250px; }\r\n.layerModal .row .ctrl { text-align:right; }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }\r\n.p_wrap h5 b { position:relative; bottom:-2px; }\r\n.p_wrap .container { max-width:100%; }\r\n.p_wrap .container,\r\n.p_wrap .row .col { padding:0; }\r\n.p_wrap .adform .row > div:not(.tit) { padding: 8px 5px; }\r\n.p_wrap .row,\r\n.p_wrap .row .col p { margin:0; }\r\n.p_wrap .h3 h3 { margin:0 0 .5rem 3rem }\r\n.p_wrap .h3 div { text-align:right; }\r\n.p_wrap .h3 div .btn { border-color:#000; font-weight:600; }\r\n\r\n.p_wrap .print_hide,\r\n.p_wrap .print_hide_flex,\r\n.p_wrap .print_hide_inline_block { display:none !important; }\r\n.p_wrap .btn.teal { font-size:.9rem; padding:.5rem 0.75rem 0.3rem; }\r\n\r\n.p_wrap .act_ctrl { background-color: #fff; border:1px solid #4eb8c8; border-radius: 1rem; padding: 8px; position: -webkit-sticky; position: sticky; top: 0; z-index: 3; }\r\n.p_wrap .act_ctrl .def_info { line-height:1.9; }\r\n.p_wrap .act_ctrl .def_info span { margin-left: 2rem; }\r\n.p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }\r\n.p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }\r\n.p_wrap .box .top_border { border-top:3px solid #4F637B; }\r\n.p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row.option { background-color:#F4F1EC; }\r\n.p_wrap .box .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }\r\n.p_wrap .box .goods .gd_con .row .col.align { display:flex; align-items:center; justify-content:center; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .end { justify-content:flex-end; }\r\n.p_wrap .box .goods .gd_con .row .gray_c { color:#AEAEAE; }\r\n.p_wrap .box .goods .gd_con .row:not(:first-child) .col .btn { color:#AEAEAE; font-size:.9rem; }\r\n.p_wrap .box .goods .gd_con .row .col b { color:#000; font-size:.95rem; }\r\n\r\n.p_wrap .box .goods .gd_con .row:first-child .col { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(1) { flex:0 0 4.5%; max-width:4.5%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(2) { flex:0 0 7%; max-width:7%; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(3) { border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(4) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(7) { flex:0 0 13%; max-width:13%; border-right:0px solid #D7D7D7; }\r\n.p_wrap .box .goods .gd_con .row .col:nth-child(8) { flex:0 0 9%; max-width:9%; }\r\n    \r\n.p_wrap .box .goods .gd_con .row .col img { width:100%; cursor:pointer; }\r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, \r\n.p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }\r\n.p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }\r\n.p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }\r\n.p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }\r\n\r\n.p_wrap .box .action { padding:1.5rem 3rem; font-weight:600; }\r\n\r\n.p_wrap .box .sum_up .total { border-bottom:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col { color:#000; font-weight:bold; }\r\n.p_wrap .box .sum_up .total .col b { font-size:1.3vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(odd) { display:flex; align-items:center; flex-basis:12%; max-width:12%; padding:1vw 0 1vw 2vw; font-size:.9vw; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(even) { text-align:right; padding:1vw 2vw 1vw 0; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after,\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.32rem; top:50%; transform:translateY(-50%); }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2),\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(2):after { content:\"+\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(4):after { content:\"=\"; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(5) { flex-basis:16%; max-width:16%; }\r\n.p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:24%; max-width:24%; }\r\n.p_wrap .box .sum_up .total_sub { background:#F2F3F5; border-bottom-width:0; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(1) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(2) { border-right:1px solid #D6D6D6; }\r\n.p_wrap .box .sum_up .total_sub>.col:nth-of-type(3) { flex-basis:40%; max-width:40%; }\r\n.p_wrap .box .sum_up .total_sub .col>div { display:flex; flex-wrap:wrap; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(1) { padding:1rem 2rem .5rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }\r\n.p_wrap .box .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }\r\n\r\n.p_wrap .label_st { border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }\r\n.p_wrap .label_st .col { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }\r\n.p_wrap .label_st .lb { background-color:#F2F3F5; text-align:center; padding:.55rem 0.3rem; flex:0 0 13%; max-width:13%; }\r\n.p_wrap .label_st .dt { padding-left:2rem; display:flex; align-items:center; }\r\n.p_wrap .label_st .dt svg { font-size:1.6rem; vertical-align:middle; }\r\n.p_wrap .label_st .dt .btn { padding:.3rem .75rem .1rem; }\r\n.p_wrap .label_st .lb .col .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }\r\n.p_wrap .label_st .wd1_3 { flex:0 0 20.333333%; max-width:20.333333%; }\r\n.p_wrap .label_st .wd54 { flex:0 0 54%; max-width:54%; }\r\n.p_wrap .label_st .wd1_2 { flex:0 0 37%; max-width:37%; }\r\n.p_wrap .label_st .wd1_1 { flex:0 0 87%; max-width:87%; }\r\n\r\n.cube_box { display:inline-block; vertical-align:middle; margin-left:1rem !important; }\r\n.cube_box, \r\n.cube_box * { box-sizing: border-box; }\r\n.cube_box { /*perspective:400px;*/ margin:auto; }\r\n.cube_box .cube { position: relative; transform-style: preserve-3d; transform: translateZ(-50px); transition: transform .2s; }\r\n.cube_box .cube .piece { position:absolute; }\r\n.cube_box,\r\n.cube_box .cube,\r\n.cube_box .cube .piece { width:100%; max-width:40px; height:30px; }\r\n.cube_box .cube .piece.front { transform: rotateY(  0deg) translateZ(20px); line-height:2; padding-left:.6rem; }\r\n/* .cube_box .cube .piece.right { transform: rotateY( 90deg) translateZ(20px); display:block; } */\r\n.cube_box .cube .piece.bottom { transform: rotateX(-90deg) translateZ(30px); display:block; }\r\n.cube_box .cube.show_front  { transform: translateZ(-50px) rotateY(   0deg); }\r\n/* .cube_box .cube.show_right,\r\n.cube_box .cube:hover  { transform: translateZ(-50px) rotateY( -90deg); } */\r\n.cube_box .cube.show_bottom,\r\n.cube_box .cube:hover{ transform: translateZ(-30px) rotateX(  90deg); }\r\n\r\ntable tr td svg { cursor:pointer; font-size:1.2rem; vertical-align:middle; }\r\n.cube_box.receiver,\r\n.cube_box.receiver .cube,\r\n.cube_box.receiver .cube .piece { max-width:150px; }\r\n.cube_box.receiver_hp,\r\n.cube_box.receiver_hp .cube,\r\n.cube_box.receiver_hp .cube .piece { max-width:250px; }\r\n.layerModal .row .ctrl { text-align:right; }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1345,7 +1316,7 @@ var render = function () {
                       ? _c(
                           "b-button",
                           {
-                            staticClass: "plum xm",
+                            staticClass: "plum xm print_hide_inline_block",
                             on: {
                               click: function ($event) {
                                 return _vm.openWinPop(
@@ -1655,7 +1626,7 @@ var render = function () {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "box extra_info" },
+          { staticClass: "box" },
           [
             _c(
               "b-row",
@@ -1664,14 +1635,15 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("table", { staticClass: "tbl_st address mb-0" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("주문자")]),
+            _c(
+              "b-row",
+              { staticClass: "label_st" },
+              [
+                _c("b-col", { staticClass: "lb" }, [_vm._v("주문자")]),
                 _vm._v(" "),
                 _c(
-                  "td",
+                  "b-col",
+                  { staticClass: "dt wd1_3" },
                   [
                     _vm.od.created_id
                       ? _c(
@@ -1691,23 +1663,30 @@ var render = function () {
                   2
                 ),
                 _vm._v(" "),
-                _c("th", [_vm._v("전화번호")]),
-                _c("td", [_vm._v(_vm._s(_vm.od.od_orderer_hp))]),
-                _vm._v(" "),
-                _c("th", [_vm._v("이메일")]),
-                _c("td", [_vm._v(_vm._s(_vm.od.od_orderer_email))]),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("직장 / 학교")]),
-                _c("td", [_vm._v(_vm._s(_vm.od.od_company) + " ")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("부서 / 학과 / 연구실")]),
-                _c("td", { attrs: { colspan: "3" } }, [
-                  _vm._v(_vm._s(_vm.od.od_part) + " "),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("전화번호")]),
+                _c("b-col", { staticClass: "dt wd1_3" }, [
+                  _vm._v(_vm._s(_vm.od.od_orderer_hp)),
                 ]),
-              ]),
-            ]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("이메일")]),
+                _c("b-col", { staticClass: "dt wd1_3" }, [
+                  _vm._v(_vm._s(_vm.od.od_orderer_email)),
+                ]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("직장/학교")]),
+                _c("b-col", { staticClass: "dt wd1_3" }, [
+                  _vm._v(_vm._s(_vm.od.od_company)),
+                ]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "lb" }, [
+                  _vm._v("부서/학과/연구실"),
+                ]),
+                _c("b-col", { staticClass: "dt wd54" }, [
+                  _vm._v(_vm._s(_vm.od.od_part)),
+                ]),
+              ],
+              1
+            ),
           ],
           1
         ),
@@ -2153,7 +2132,7 @@ var render = function () {
             _vm._v(" "),
             _c(
               "b-row",
-              { staticClass: "action print_hide" },
+              { staticClass: "action print_hide sm_ib_h" },
               [
                 _c(
                   "b-col",
@@ -2237,7 +2216,7 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "b-row",
-                  { staticClass: "total_sub" },
+                  { staticClass: "total_sub sm_ib_h" },
                   [
                     _c("b-col", [
                       _c(
@@ -2321,7 +2300,7 @@ var render = function () {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "box extra_info" },
+          { staticClass: "box" },
           [
             _c(
               "b-row",
@@ -2351,15 +2330,15 @@ var render = function () {
               1
             ),
             _vm._v(" "),
-            _c("table", { staticClass: "tbl_st address" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("수취인")]),
+            _c(
+              "b-row",
+              { staticClass: "label_st" },
+              [
+                _c("b-col", { staticClass: "lb" }, [_vm._v("수취인")]),
                 _vm._v(" "),
                 _c(
-                  "td",
-                  { staticClass: "position-relative" },
+                  "b-col",
+                  { staticClass: "dt wd1_2" },
                   [
                     _c("font-awesome-icon", {
                       directives: [
@@ -2370,7 +2349,7 @@ var render = function () {
                           expression: "'수취인 복사'",
                         },
                       ],
-                      staticClass: "print_hide_inline_block",
+                      staticClass: "print_hide_inline_block sm_ib_h",
                       attrs: { icon: "copy" },
                       on: {
                         click: function ($event) {
@@ -2429,10 +2408,11 @@ var render = function () {
                   1
                 ),
                 _vm._v(" "),
-                _c("th", [_vm._v("전화번호")]),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("전화번호")]),
                 _vm._v(" "),
                 _c(
-                  "td",
+                  "b-col",
+                  { staticClass: "dt wd1_2" },
                   [
                     _c("font-awesome-icon", {
                       directives: [
@@ -2443,7 +2423,7 @@ var render = function () {
                           expression: "'전화번호 복사'",
                         },
                       ],
-                      staticClass: "print_hide_inline_block",
+                      staticClass: "print_hide_inline_block sm_ib_h",
                       attrs: { icon: "copy" },
                       on: {
                         click: function ($event) {
@@ -2495,14 +2475,13 @@ var render = function () {
                   ],
                   1
                 ),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
+                _vm._v(" "),
                 _c(
-                  "th",
+                  "b-col",
+                  { staticClass: "lb" },
                   [
                     _vm._v(
-                      "\r\n                        배송주소\r\n                        "
+                      "\r\n                    배송주소\r\n                    "
                     ),
                     _c(
                       "b-button",
@@ -2522,8 +2501,8 @@ var render = function () {
                 ),
                 _vm._v(" "),
                 _c(
-                  "td",
-                  { attrs: { colspan: "3" } },
+                  "b-col",
+                  { staticClass: "dt wd1_1" },
                   [
                     _c("font-awesome-icon", {
                       directives: [
@@ -2534,7 +2513,7 @@ var render = function () {
                           expression: "'배송 주소 복사'",
                         },
                       ],
-                      staticClass: "print_hide_inline_block",
+                      staticClass: "print_hide_inline_block sm_ib_h",
                       attrs: { icon: "copy" },
                       on: {
                         click: function ($event) {
@@ -2544,26 +2523,22 @@ var render = function () {
                         },
                       },
                     }),
-                    _vm._v(
-                      "\r\n                        " + _vm._s(_vm.od.od_zip)
-                    ),
+                    _vm._v("\r\n                    " + _vm._s(_vm.od.od_zip)),
                     _c("b", [_vm._v(",")]),
                     _vm._v(" " + _vm._s(_vm.od.od_addr1)),
                     _c("b", [_vm._v(",")]),
                     _vm._v(
-                      " " + _vm._s(_vm.od.od_addr2) + "\r\n                    "
+                      " " + _vm._s(_vm.od.od_addr2) + "\r\n                "
                     ),
                   ],
                   1
                 ),
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", [_vm._v("배송시 요구사항")]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("배송시 요구사항")]),
                 _vm._v(" "),
                 _c(
-                  "td",
-                  { attrs: { colspan: "3" } },
+                  "b-col",
+                  { staticClass: "dt wd1_1" },
                   [
                     _c("font-awesome-icon", {
                       directives: [
@@ -2574,7 +2549,7 @@ var render = function () {
                           expression: "'요구사항 복사'",
                         },
                       ],
-                      staticClass: "print_hide_inline_block",
+                      staticClass: "print_hide_inline_block sm_ib_h",
                       attrs: { icon: "copy" },
                       on: {
                         click: function ($event) {
@@ -2583,138 +2558,219 @@ var render = function () {
                       },
                     }),
                     _vm._v(
-                      "\r\n                        " +
+                      "\r\n                    " +
                         _vm._s(_vm.od.od_memo) +
-                        "\r\n                    "
+                        "\r\n                "
                     ),
                   ],
                   1
                 ),
-              ]),
-            ]),
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "b-row",
               { attrs: { tag: "h5" } },
-              [_c("b-col", { attrs: { tag: "b" } }, [_vm._v("결제정보")])],
+              [
+                _c("b-col", { attrs: { tag: "b" } }, [_vm._v("결제정보")]),
+                _vm._v(" "),
+                _c(
+                  "b-col",
+                  { staticClass: "text-right" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "teal print_hide_inline_block",
+                        on: {
+                          click: function ($event) {
+                            return _vm.update("pay")
+                          },
+                        },
+                      },
+                      [_vm._v("결제정보 수정")]
+                    ),
+                  ],
+                  1
+                ),
+              ],
               1
             ),
             _vm._v(" "),
-            _vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E"
-              ? _c("table", { staticClass: "tbl_st" }, [
-                  _c("tr", [
-                    _c("th", [_vm._v("결제금액")]),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))
-                        )
+            _c(
+              "b-row",
+              { staticClass: "label_st" },
+              [
+                _vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E"
+                  ? [
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("결제금액")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))
+                          )
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [
+                        _vm._v("결제예정일"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(_vm._s(_vm.payPlanDisplay)),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("결제수단")]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "dt wd1_2" },
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              style: { maxWidth: "100px" },
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.od.od_pay_method,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.od, "od_pay_method", $$v)
+                                },
+                                expression: "od.od_pay_method",
+                              },
+                            },
+                            _vm._l(
+                              _vm.od.order_config.pay_method,
+                              function (v, k) {
+                                return _c(
+                                  "b-form-select-option",
+                                  { key: k, attrs: { value: k } },
+                                  [_vm._v(_vm._s(v))]
+                                )
+                              }
+                            ),
+                            1
+                          ),
+                        ],
+                        1
                       ),
-                    ]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("결제예정일")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.payPlanDisplay))]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("결제수단")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm.od.od_pay_method == "B"
-                        ? _c("span", [_vm._v("계좌이체")])
-                        : _vm.od.od_pay_method == "E"
-                        ? _c("span", [_vm._v("에스크로")])
-                        : _vm._e(),
-                    ]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("입금계좌")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm.od.order_extra_info.oex_bank == "K"
-                        ? _c("span", [_vm._v("국민은행")])
-                        : _vm.od.order_extra_info.oex_bank == "W"
-                        ? _c("span", [_vm._v("우리은행")])
-                        : _vm._e(),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("입금자")]),
-                    _c("td", { attrs: { colspan: "3" } }, [
-                      _vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor)),
-                    ]),
-                  ]),
-                ])
-              : _c("table", { staticClass: "tbl_st" }, [
-                  _c("tr", [
-                    _c("th", [_vm._v("결제금액")]),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(
-                          _vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))
-                        )
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("결제예정일")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.payPlanDisplay))]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("결제수단")]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      [
-                        _vm.od.od_pay_method == "C"
-                          ? _c("span", [_vm._v("카드결제")])
-                          : _vm.od.od_pay_method == "P"
-                          ? _c("span", [_vm._v("PSYS")])
-                          : _vm.od.od_pay_method == "R"
-                          ? _c("span", [_vm._v("원격결제")])
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("입금계좌")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm.od.order_extra_info.oex_bank == "K"
+                          ? _c("span", [_vm._v("국민은행")])
+                          : _vm.od.order_extra_info.oex_bank == "W"
+                          ? _c("span", [_vm._v("우리은행")])
                           : _vm._e(),
-                        _vm._v(" "),
-                        _vm.od.order_pg && _vm.od.order_pg.pg_id
-                          ? _c(
-                              "b-button",
-                              {
-                                staticClass: "sm teal print_hide_inline_block",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.openWinPop(
-                                      "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=" +
-                                        _vm.od.order_pg.pg_tid,
-                                      450,
-                                      550
-                                    )
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("입금자")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_1" }, [
+                        _vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor)),
+                      ]),
+                    ]
+                  : [
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("결제금액")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))
+                          )
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [
+                        _vm._v("결제예정일"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(_vm._s(_vm.payPlanDisplay)),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("결제수단")]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "dt wd1_2" },
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              style: { maxWidth: "100px" },
+                              attrs: { size: "sm" },
+                              model: {
+                                value: _vm.od.od_pay_method,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.od, "od_pay_method", $$v)
+                                },
+                                expression: "od.od_pay_method",
+                              },
+                            },
+                            _vm._l(
+                              _vm.od.order_config.pay_method,
+                              function (v, k) {
+                                return _c(
+                                  "b-form-select-option",
+                                  { key: k, attrs: { value: k } },
+                                  [_vm._v(_vm._s(v))]
+                                )
+                              }
+                            ),
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm.od.order_pg && _vm.od.order_pg.pg_id
+                            ? _c(
+                                "b-button",
+                                {
+                                  staticClass:
+                                    "sm teal print_hide_inline_block ml-3",
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.openWinPop(
+                                        "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=" +
+                                          _vm.od.order_pg.pg_tid,
+                                        450,
+                                        550
+                                      )
+                                    },
                                   },
                                 },
-                              },
-                              [
-                                _vm._v(
-                                  "\r\n                            매출전표\r\n                        "
-                                ),
-                              ]
-                            )
-                          : _vm._e(),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("카드종류")]),
-                    _c("td", [_vm._v(_vm._s(_vm.od.order_pg.pg_card_com))]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("결과메시지")]),
-                    _c("td", [_vm._v(_vm._s(_vm.od.order_pg.pg_msg))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("결제자")]),
-                    _c("td", [_vm._v(_vm._s(_vm.od.order_pg.pg_buyer_nm))]),
-                  ]),
-                ]),
+                                [_vm._v("매출전표")]
+                              )
+                            : _vm._e(),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("카드종류")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(_vm._s(_vm.od.order_pg.pg_card_com)),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [
+                        _vm._v("결과메시지"),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(_vm._s(_vm.od.order_pg.pg_msg)),
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "lb" }, [_vm._v("결제자")]),
+                      _vm._v(" "),
+                      _c("b-col", { staticClass: "dt wd1_2" }, [
+                        _vm._v(_vm._s(_vm.od.order_pg.pg_buyer_nm)),
+                      ]),
+                    ],
+              ],
+              2
+            ),
             _vm._v(" "),
             _c(
               "b-row",
@@ -2724,21 +2780,19 @@ var render = function () {
             ),
             _vm._v(" "),
             _c(
-              "table",
-              { staticClass: "tbl_st" },
+              "b-row",
+              { staticClass: "label_st" },
               [
-                _c("tr", [
-                  _c("th", [_vm._v("요청서류")]),
-                  _vm._v(" "),
-                  _c("td", { attrs: { colspan: "3" } }, [
-                    _vm._v(_vm._s(_vm.reqDocumentDisplay)),
-                  ]),
+                _c("b-col", { staticClass: "lb" }, [_vm._v("요청서류")]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "dt wd1_1" }, [
+                  _vm._v(_vm._s(_vm.reqDocumentDisplay)),
                 ]),
                 _vm._v(" "),
-                _c("tr", [
-                  _c("th", [_vm._v("첨부서류 메모")]),
-                  _c("td", {
-                    attrs: { colspan: "3" },
+                _c("b-col", { staticClass: "lb" }, [_vm._v("첨부서류 메모")]),
+                _vm._v(" "),
+                _c("b-col", { staticClass: "dt wd1_1" }, [
+                  _c("p", {
                     domProps: {
                       innerHTML: _vm._s(_vm.od.order_extra_info.oex_memo),
                     },
@@ -2750,11 +2804,14 @@ var render = function () {
                       _vm.od.order_extra_info.oex_type == "IV"
                         ? [
                             _vm.od.file_info
-                              ? _c("tr", [
-                                  _c("th", [_vm._v("사업자등록증")]),
+                              ? [
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("사업자등록증"),
+                                  ]),
                                   _vm._v(" "),
                                   _c(
-                                    "td",
+                                    "b-col",
+                                    { staticClass: "dt wd1_1" },
                                     [
                                       _vm.checkImage(_vm.od.file_info.fi_ext)
                                         ? _c(
@@ -2789,112 +2846,121 @@ var render = function () {
                                     ],
                                     1
                                   ),
-                                ])
+                                ]
                               : [
-                                  _c("tr", [
-                                    _c("th", [_vm._v("법인명")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_biz_name
-                                        )
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("th", [_vm._v("사업자등록번호")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_biz_num
-                                        )
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("th", [_vm._v("대표자")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(_vm.od.order_extra_info.oex_ceo)
-                                      ),
-                                    ]),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("법인명"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.od.order_extra_info.oex_biz_name
+                                      )
+                                    ),
                                   ]),
                                   _vm._v(" "),
-                                  _c("tr", [
-                                    _c("th", [_vm._v("주소")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(_vm.od.order_extra_info.oex_addr)
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("th", [_vm._v("업태")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_biz_type
-                                        )
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("th", [_vm._v("업종")]),
-                                    _c("td", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.od.order_extra_info.oex_biz_item
-                                        )
-                                      ),
-                                    ]),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("사업자등록번호"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.od.order_extra_info.oex_biz_num
+                                      )
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("대표자"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.od.order_extra_info.oex_ceo)
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("주소"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.od.order_extra_info.oex_addr)
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("업태"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.od.order_extra_info.oex_biz_type
+                                      )
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", { staticClass: "lb" }, [
+                                    _vm._v("업종"),
+                                  ]),
+                                  _c("b-col", { staticClass: "dt wd1_3" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.od.order_extra_info.oex_biz_item
+                                      )
+                                    ),
                                   ]),
                                 ],
                             _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("담당자 이름")]),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.od.order_extra_info.oex_mng)),
-                              ]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("담당자 메일")]),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(_vm.od.order_extra_info.oex_email)
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("th", [_vm._v("담당자 번호")]),
-                              _c("td", [
-                                _vm._v(_vm._s(_vm.od.order_extra_info.oex_num)),
-                              ]),
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("담당자 이름"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_3" }, [
+                              _vm._v(_vm._s(_vm.od.order_extra_info.oex_mng)),
                             ]),
                             _vm._v(" "),
-                            _c("tr", [
-                              _c("th", [_vm._v("세금계산서 발급시 요구사항")]),
-                              _c("td", {
-                                attrs: { colspan: "5" },
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.od.order_extra_info.oex_requirement
-                                  ),
-                                },
-                              }),
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("담당자 메일"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_3" }, [
+                              _vm._v(_vm._s(_vm.od.order_extra_info.oex_email)),
+                            ]),
+                            _vm._v(" "),
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("담당자 번호"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_3" }, [
+                              _vm._v(_vm._s(_vm.od.order_extra_info.oex_num)),
+                            ]),
+                            _vm._v(" "),
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("세금계산서 발급시 요구사항"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_1" }, [
+                              _vm._v(
+                                _vm._s(_vm.od.order_extra_info.oex_requirement)
+                              ),
                             ]),
                           ]
                         : _vm.od.order_extra_info.oex_type == "IVNO"
-                        ? _c("tr", [
-                            _c("th", [_vm._v("지출 증빙 서류")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { colspan: "5" } }, [
+                        ? [
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("지출 증빙 서류"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_1" }, [
                               _vm._v("세금계산서 입력안함"),
                             ]),
-                          ])
+                          ]
                         : _vm.od.order_extra_info.oex_type == "NO"
-                        ? _c("tr", [
-                            _c("th", [_vm._v("지출 증빙 서류")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { colspan: "5" } }, [
+                        ? [
+                            _c("b-col", { staticClass: "lb" }, [
+                              _vm._v("지출 증빙 서류"),
+                            ]),
+                            _c("b-col", { staticClass: "dt wd1_1" }, [
                               _vm._v("미발급"),
                             ]),
-                          ])
-                        : _c("tr", [
-                            _c("th", [
+                          ]
+                        : [
+                            _c("b-col", { staticClass: "lb" }, [
                               _vm._v(
                                 "\r\n                            지출 증빙 서류"
                               ),
@@ -2916,10 +2982,10 @@ var render = function () {
                               ),
                             ]),
                             _vm._v(" "),
-                            _c("td", { attrs: { colspan: "5" } }, [
+                            _c("b-col", { staticClass: "dt wd1_1" }, [
                               _vm._v(_vm._s(_vm.od.order_extra_info.oex_num)),
                             ]),
-                          ]),
+                          ],
                     ]
                   : _vm._e(),
               ],
@@ -3409,40 +3475,7 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("colgroup", [
-      _c("col", { attrs: { width: "8%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "16%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "10%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "16%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "8%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "" } }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("colgroup", [
-      _c("col", { attrs: { width: "15%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "35%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "15%" } }),
-      _vm._v(" "),
-      _c("col", { attrs: { width: "35%" } }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

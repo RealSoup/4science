@@ -198,8 +198,10 @@ class Goods extends Model {
 
                     if(isset($v['option'])){
                         foreach (EstimateOption::find(Arr::pluck($v['option'], 'eo_id')) as $eo) {
+                            $go = GoodsOptionChild::find($eo->eo_goc_id);
                             $tmpOption = [  'type'          => 'option',
                                             'gd_id'         => $gd_id,
+                                            'go_id'         => $go->goc_go_id,
                                             'goc_id'        => $eo->eo_goc_id,
                                             'eo_id'         => $eo->eo_id,
                                             'ea'            => $eo->eo_ea,
@@ -212,8 +214,8 @@ class Goods extends Model {
                     }
                 }
             } else {
-                $gd = self::with('purchaseAt')->with('maker')->find($gd_id);
                 if ( $gd_id > 0 ) {
+                    $gd = self::with('purchaseAt')->with('maker')->find($gd_id);
                     foreach (GoodsModel::find(Arr::pluck($v['model'], 'gm_id')) as $gm) {  //  gm_id만 추출하여 모델 검색
                         $tmpModel = [   'type'              => 'model',
                                         'gd_id'             => $gd_id,
@@ -254,34 +256,58 @@ class Goods extends Model {
                         }
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }
-                }
-                
-                if(isset($v['option'])){
-                    foreach (GoodsOptionChild::find(Arr::pluck($v['option'], 'goc_id')) as $goc) {   //  goc_id만 추출하여 옵션 검색
-                        $go = GoodsOption::find($goc->goc_go_id);
-                        $tmpOption = [
-                            'type'          => 'option',
-                            'gd_id'         => $gd_id,
-                            'go_id'         => $goc->goc_go_id,
-                            'goc_id'        => $goc->goc_id,
-                            'ea'            => $v['option'][$goc->goc_id]['ea'],
-                            'go_name'       => $go->go_name,
-                            'goc_name'      => $goc->goc_name,
-                            'price'         => $goc->goc_price,
-                            'price_add_vat' => $goc->goc_price_add_vat,
-                        ];
-                        
-                        if ($type == 'cart') {
-                            $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
-                            $tmpOption['ct_check_opt'] = 'Y';
-                            $tmpOption['go_required'] = $go->go_required;
-                        } else if ($type == 'order') {
-                            $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
-                            $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);
+                    if(isset($v['option'])){
+                        foreach (GoodsOptionChild::find(Arr::pluck($v['option'], 'goc_id')) as $goc) {   //  goc_id만 추출하여 옵션 검색
+                            $go = GoodsOption::find($goc->goc_go_id);
+                            $tmpOption = [
+                                'type'          => 'option',
+                                'gd_id'         => $gd_id,
+                                'go_id'         => $goc->goc_go_id,
+                                'goc_id'        => $goc->goc_id,
+                                'ea'            => $v['option'][$goc->goc_id]['ea'],
+                                'go_name'       => $go->go_name,
+                                'goc_name'      => $goc->goc_name,
+                                'price'         => $goc->goc_price,
+                                'price_add_vat' => $goc->goc_price_add_vat,
+                            ];
+                            
+                            if ($type == 'cart') {
+                                $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
+                                $tmpOption['ct_check_opt'] = 'Y';
+                                $tmpOption['go_required'] = $go->go_required;
+                            } else if ($type == 'order') {
+                                $tmpOption['price'] = $d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price'];
+                                $tmpOption['price_add_vat'] = rrp($d_arrange[$gd_id]['option'][$goc->goc_id]['odo_price']);
+                            }
+                            $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
                         }
-                        $rst['lists'][$gd->gd_pa_id??0][] = $tmpOption;
+                    }
+                } else {    //  상품번호가 없으면 ( 견적때 만들어낸 상품이라면 )
+                    foreach ($v['model'] as $v2) {
+                        $tmpModel = [   'type'              => 'model',
+                                        'gd_id'             => 0,
+                                        'pa_name'           => NULL,
+                                        'pa_type'           => NULL,
+                                        'pa_dlvy_p'         => 0,
+                                        'pa_dlvy_p_add_vat' => 0,
+                                        'gm_id'             => 0,
+                                        'ea'                => $v2->odm_ea,
+                                        'gd_name'           => $v2->odm_gd_name,
+                                        'gm_name'           => $v2->odm_gm_name,
+                                        'gm_catno'          => $v2->odm_gm_catno,
+                                        'gm_code'           => $v2->odm_gm_code,
+                                        'gm_spec'           => $v2->odm_gm_spec,
+                                        'gm_unit'           => $v2->odm_gm_unit,
+                                        'mk_name'           => $v2->odm_mk_name,
+                                        'price'             => $v2->odm_price,
+                                        'price_add_vat'     => rrp($v2->odm_price),];
+                        if ($type == 'order') {
+                            $tmpModel['dlvy_check_opt'] = 'N';  //  관리자 주문 상세페이지 일괄 배송정보 등록시 사용
+                        }
+                        $rst['lists'][0][] = $tmpModel;
                     }
                 }
+                
             }
         }
 

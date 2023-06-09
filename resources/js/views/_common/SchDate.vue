@@ -65,7 +65,7 @@ export default {
 .row .period_btn .btn-group .btn { flex:1; }
 
 @media (max-width: 992px) {
-    .row .period { flex:0 0 80%; max-width:80%; }
+    .row .period { flex:0 0 70%; max-width:70%; }
     .row .col { padding:0; }
     .row .col>>>.btn { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
     .row .col .input-group .form-control { padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:0.2rem; height:calc(1.5em + 0.5rem + 2px); }

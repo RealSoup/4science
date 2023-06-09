@@ -275,7 +275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .list_top select[data-v-00adb397] { display: inline-block; max-width: 7rem;\n}\n.p_wrap .frm_sch .row .type_cus[data-v-00adb397] { flex:0 0 7%; max-width:7%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .list_top select[data-v-00adb397] { display: inline-block; max-width: 7rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -658,10 +658,45 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c("b-col", { staticClass: "label" }, [_vm._v("주문기기")]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "type06" },
+                [
+                  _c(
+                    "b-form-select",
+                    {
+                      model: {
+                        value: _vm.sch_frm.sale_env,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.sch_frm, "sale_env", $$v)
+                        },
+                        expression: "sch_frm.sale_env",
+                      },
+                    },
+                    [
+                      _c("b-form-select-option", { attrs: { value: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.order_config.sale_env, function (val, key) {
+                        return _c(
+                          "b-form-select-option",
+                          { key: key, attrs: { value: key } },
+                          [_vm._v(_vm._s(val))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("b-col", { staticClass: "label" }, [_vm._v("검색")]),
               _vm._v(" "),
               _c(
                 "b-col",
+                { staticClass: "type04" },
                 [
                   _c(
                     "b-input-group",
@@ -812,42 +847,6 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("b-col", { staticClass: "label type_cus" }, [
-                _vm._v("주문기기"),
-              ]),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "type_cus" },
-                [
-                  _c(
-                    "b-form-select",
-                    {
-                      model: {
-                        value: _vm.sch_frm.sale_env,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.sch_frm, "sale_env", $$v)
-                        },
-                        expression: "sch_frm.sale_env",
-                      },
-                    },
-                    [
-                      _c("b-form-select-option", { attrs: { value: "" } }),
-                      _vm._v(" "),
-                      _vm._l(_vm.order_config.sale_env, function (val, key) {
-                        return _c(
-                          "b-form-select-option",
-                          { key: key, attrs: { value: key } },
-                          [_vm._v(_vm._s(val))]
-                        )
-                      }),
-                    ],
-                    2
-                  ),
-                ],
-                1
-              ),
             ],
             1
           ),
@@ -861,7 +860,7 @@ var render = function () {
         [
           _c(
             "b-row",
-            { staticClass: "list_top" },
+            { staticClass: "list_top m_hide" },
             [
               _c(
                 "b-col",
