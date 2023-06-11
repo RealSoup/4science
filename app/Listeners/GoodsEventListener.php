@@ -31,7 +31,7 @@ class GoodsEventListener {
             //  세션에 값을 넣고 true이면 조회수를 늘리지 않는다
             //  세션이 사라져아 증가
             //  새로고침으로 계속 증가함을 막기 위해
-            $event->goods->decrement('gd_view_cnt');
+            $event->goods->where('gd_id', $event->gd_id)->decrement('gd_view_cnt');
             session()->put($sessionName, true);
         }
         // 
