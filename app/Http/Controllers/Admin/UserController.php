@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, UserMng};
+use App\Models\{User, UserMng, UserAddr};
 use Cache;
 use DB;
 
@@ -90,5 +90,48 @@ class UserController extends Controller {
             Cache::forget("UserMng");
         }
         return response()->json("success", 200);
+    }
+
+    public function indesAddr(Request $req, $id) {
+        return response()->json(UserAddr::where('ua_key', $id)->get(), 200);
+    }
+
+    public function storeAddr (Request $req) {
+        if ($req->filled('ua_def') && $req->ua_def == 'Y')
+            DB::table('user_addr')->where('ua_key', $req->ua_key)->update(['ua_def' => 'N']);
+        
+        $id = DB::table('user_addr')->insertGetId( [
+            "ua_key"    => $req->filled('ua_key')   ? $req->ua_key      : 0,
+            "ua_def"    => $req->filled('ua_def')   ? $req->ua_def      : 'N',
+            "ua_title"  => $req->filled('ua_title') ? $req->ua_title    : '',
+            "ua_name"   => $req->filled('ua_name')  ? $req->ua_name     : '',
+            "ua_hp"     => $req->filled('ua_hp')    ? $req->ua_hp       : '',
+            "ua_zip"    => $req->filled('ua_zip')   ? $req->ua_zip      : '',
+            "ua_addr1"  => $req->filled('ua_addr1') ? $req->ua_addr1    : '',
+            "ua_addr2"  => $req->filled('ua_addr2') ? $req->ua_addr2    : '',
+            "ua_memo"   => $req->filled('ua_memo')  ? $req->ua_memo     : '',
+        ] );
+        return response()->json("success", 200);
+    }
+
+    public function updateAddr (Request $req) {
+        if ($req->filled('ua_def') && $req->ua_def == 'Y')
+            DB::table('user_addr')->where('ua_key', $req->ua_key)->update(['ua_def' => 'N']);
+        DB::table('user_addr')->where('ua_id', $req->ua_id)->update([
+            "ua_def"    => $req->filled('ua_def')   ? $req->ua_def      : 'N',
+            "ua_title"  => $req->filled('ua_title') ? $req->ua_title    : '',
+            "ua_name"   => $req->filled('ua_name')  ? $req->ua_name     : '',
+            "ua_hp"     => $req->filled('ua_hp')    ? $req->ua_hp       : '',
+            "ua_zip"    => $req->filled('ua_zip')   ? $req->ua_zip      : '',
+            "ua_addr1"  => $req->filled('ua_addr1') ? $req->ua_addr1    : '',
+            "ua_addr2"  => $req->filled('ua_addr2') ? $req->ua_addr2    : '',
+            "ua_memo"   => $req->filled('ua_memo')  ? $req->ua_memo     : '',
+        ]);        
+        return response()->json("success", 200);
+    }
+
+    public function destroyAddr ($id) {
+		if(DB::table('user_addr')->where('ua_id', $id)->delete()) return response()->json('success', 200);
+		else return response()->json("Fail", 500);
     }
 }

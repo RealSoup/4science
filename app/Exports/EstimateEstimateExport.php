@@ -65,8 +65,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             }
             $this->row_cnt++;
             $data[] = [$this->row_cnt, $em['em_name'], '', '', '', $em['em_unit'], '', $em['em_price'], '', $em['em_ea'], $em['em_price']*$em['em_ea']];
-            if($em['em_dlvy_at']) $data[] = ['', "{$em['em_catno']}. / .{$em['em_code']}", '', '', '', "납기 : {$em['em_dlvy_at']}"];
-            else                $data[] = ['', "{$em['em_catno']}. / .{$em['em_code']}"];
+            if($em['em_dlvy_at']) $data[] = ['', "{$em['em_catno']} / {$em['em_code']}", '', '', '', "납기 : {$em['em_dlvy_at']}"];
+            else                $data[] = ['', "{$em['em_catno']} / {$em['em_code']}"];
             // $data[] = ['', nl2br($em['em_spec'])];
             // 엑셀파일에서 br태그 나옴
             $data[] = ['', $em['em_spec']];

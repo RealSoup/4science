@@ -116,6 +116,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);
             Route::prefix('user')->group(function () {
                 Route::GET('list', 'Admin\UserController@list')->name('user.list');
+                Route::GET('indesAddr/{id}', 'Admin\UserController@indesAddr');
+                Route::POST('storeAddr', 'Admin\UserController@storeAddr');
+                Route::POST('updateAddr', 'Admin\UserController@updateAddr');
+                Route::GET('destroyAddr/{id}', 'Admin\UserController@destroyAddr');
             });
             
             Route::prefix('mileage')->group(function () {

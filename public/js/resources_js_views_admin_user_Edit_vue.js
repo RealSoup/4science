@@ -205,27 +205,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEdit',
   components: {
     'modal': function modal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
     },
     'mileage': function mileage() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_user__comp_Mileage_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Mileage.vue */ "./resources/js/views/admin/user/_comp/Mileage.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_user__comp_Mileage_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Mileage */ "./resources/js/views/admin/user/_comp/Mileage.vue"));
+    },
+    'addr': function addr() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_user__comp_Addr_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Addr */ "./resources/js/views/admin/user/_comp/Addr.vue"));
     },
     'order': function order() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_order__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/order/_comp/List.vue */ "./resources/js/views/admin/shop/order/_comp/List.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_order__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/order/_comp/List */ "./resources/js/views/admin/shop/order/_comp/List.vue"));
     },
     'estimate': function estimate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/List.vue */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/List */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
     }
   },
   data: function data() {
     return {
       id: this.$route.params.id,
       isModalViewed: false,
+      modalMode: '',
       frm: {
         option: [],
         user_mng: {}
@@ -574,11 +585,26 @@ var render = function () {
                               attrs: { variant: "info" },
                               on: {
                                 click: function ($event) {
-                                  _vm.isModalViewed = !_vm.isModalViewed
+                                  ;(_vm.isModalViewed = !_vm.isModalViewed),
+                                    (_vm.modalMode = "mileage")
                                 },
                               },
                             },
                             [_vm._v("마일리지")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "dark" },
+                              on: {
+                                click: function ($event) {
+                                  ;(_vm.isModalViewed = !_vm.isModalViewed),
+                                    (_vm.modalMode = "addr")
+                                },
+                              },
+                            },
+                            [_vm._v("배송지")]
                           ),
                         ],
                         1
@@ -1394,9 +1420,23 @@ var render = function () {
                   },
                 },
                 [
-                  _c("template", { slot: "header" }, [_vm._v("마일리지 목록")]),
-                  _vm._v(" "),
-                  _c("mileage"),
+                  _vm.modalMode == "mileage"
+                    ? [
+                        _c("template", { slot: "header" }, [
+                          _vm._v("마일리지 목록"),
+                        ]),
+                        _vm._v(" "),
+                        _c("mileage"),
+                      ]
+                    : _vm.modalMode == "addr"
+                    ? [
+                        _c("template", { slot: "header" }, [
+                          _vm._v("배송지 관리"),
+                        ]),
+                        _vm._v(" "),
+                        _c("addr"),
+                      ]
+                    : _vm._e(),
                 ],
                 2
               )

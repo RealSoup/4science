@@ -250,7 +250,8 @@
                     <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
-                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }">
+                        <span class="print_show_inline">{{od.order_config.pay_method[od.od_pay_method]}}</span>
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in od.order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                     </b-col>
@@ -269,7 +270,8 @@
                     <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
-                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }">
+                        <span class="print_show_inline">{{od.order_config.pay_method[od.od_pay_method]}}</span>
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in od.order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                         <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block ml-3" 
@@ -448,7 +450,9 @@ export default {
             },
             od: {
                 order_extra_info:{},
-                order_config: {},
+                order_config: {
+                    pay_method:[],
+                },
                 mng: {},
                 user: {},
                 order_purchase_at:[],
@@ -590,7 +594,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.6'
+                '/css/adm_shop_order_edit.css?ver=1.7'
             ]});
         },
 
@@ -759,6 +763,7 @@ export default {
 .p_wrap .print_hide { display:block !important; }
 .p_wrap .print_hide_flex { display:flex !important; }
 .p_wrap .print_hide_inline_block { display:inline-block !important; }
+.p_wrap .print_show_inline  { display:none; }
 
 .p_wrap .act_ctrl { border-width:5px; }
 .p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%; }

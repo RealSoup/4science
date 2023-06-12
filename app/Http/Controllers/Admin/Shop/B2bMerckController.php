@@ -301,6 +301,16 @@ class B2bMerckController extends Controller {
 			$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
 				'bmc_orderid'	=> $xml['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'], 
 				'bmc_data' 		=> $xml ]);
+
+
+			DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+				'bmc_orderid'	=> '222', 
+				'bmc_data' 		=> $req->getContent() ]);
+			
+			DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+				'bmc_orderid'	=> '333', 
+				'bmc_data' 		=> simplexml_load_string(file_get_contents("php://input"))  ]);
+			
 			if ( $bmm_id ) {
 				echo "success";
 				echo "\nbmc_id : ".$bmm_id."\n";

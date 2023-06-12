@@ -12,7 +12,8 @@
                     <b-button-group size="sm">
                         <b-button variant="light" :to="{name: 'adm_user'}"><b-icon-list-ol />목록</b-button>
                         <b-button variant="primary" @click="update"><b-icon-pencil-square />수정 완료</b-button>
-                        <b-button variant="info" @click="isModalViewed = !isModalViewed">마일리지</b-button>
+                        <b-button variant="info" @click="isModalViewed = !isModalViewed, modalMode = 'mileage'">마일리지</b-button>
+                        <b-button variant="dark" @click="isModalViewed = !isModalViewed, modalMode = 'addr'">배송지</b-button>
                     </b-button-group>
                 </b-col>
             </b-row>
@@ -176,8 +177,14 @@
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
-            <template slot="header">마일리지 목록</template>
-            <mileage />
+            <template v-if="modalMode=='mileage'">
+                <template slot="header">마일리지 목록</template>
+                <mileage />
+            </template>
+            <template v-else-if="modalMode=='addr'">
+                <template slot="header">배송지 관리</template>
+                <addr />
+            </template>            
         </modal>
     </transition>
 </div>
@@ -189,16 +196,18 @@ import ax from '@/api/http';
 export default {
     name: 'AdmUserEdit',
     components: {
-        'modal': () => import('@/views/_common/Modal.vue'),
-        'mileage': () => import('./_comp/Mileage.vue'),
-        'order': () => import('@/views/admin/shop/order/_comp/List.vue'),
-        'estimate': () => import('@/views/admin/shop/estimate/_comp/List.vue'),
+        'modal': () => import('@/views/_common/Modal'),
+        'mileage': () => import('./_comp/Mileage'),
+        'addr': () => import('./_comp/Addr'),
+        'order': () => import('@/views/admin/shop/order/_comp/List'),
+        'estimate': () => import('@/views/admin/shop/estimate/_comp/List'),
     },
 
     data() {
         return {
             id:this.$route.params.id,
             isModalViewed: false,
+            modalMode:'',
             frm: {
                 option: [],
                 user_mng: {},

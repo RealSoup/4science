@@ -62,38 +62,6 @@
                         </b-collapse>
                     </b-col>
                 </b-row>
-
-<!--            <div class="orderer">
-                    <h4>02. 주문자 정보</h4>
-                    <b-row>
-                        <label for="od_orderer">주문자명<i class="require" /></label>
-                        <b-col><b-form-input v-model="order.od_orderer" ref="od_orderer" id="od_orderer" /></b-col>
-                    </b-row>
-                    <b-row>
-                        <label for="od_orderer_hp">연락처<i class="require" /></label>
-                        <b-col>
-                            <b-form-input v-model="order.od_orderer_hp1" ref="od_orderer_hp1" @input.native="focusNext($event, 3, 'od_orderer_hp2')" :formatter="maxlength_3" id="od_orderer_hp" /><b-icon-dash class="m_hide" />
-                            <b-form-input v-model="order.od_orderer_hp2" ref="od_orderer_hp2" @input.native="focusNext($event, 4, 'od_orderer_hp3')" :formatter="maxlength_4" /><b-icon-dash class="m_hide" />
-                            <b-form-input v-model="order.od_orderer_hp3" ref="od_orderer_hp3" @input.native="focusNext($event, 4, 'od_orderer_email_id')" :formatter="maxlength_4" />
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <label for="od_orderer_email">이메일<i class="require" /></label>
-                        <b-col>
-                            <b-form-input v-model="order.od_orderer_email_id" id="od_orderer_email" ref="od_orderer_email_id" /><b-icon-at />
-                            <b-form-input v-model="order.od_orderer_email_domain" />
-                            <b-form-select v-model="order.od_orderer_email_domain_slt" @change="email_domain_slt">
-                                <b-form-select-option value="">직접입력</b-form-select-option>
-                                <b-form-select-option v-for="(dm, i) in config.email_domain" :key="i" :value="i">{{dm}}</b-form-select-option>
-                            </b-form-select>
-                        </b-col>
-                    </b-row>
-                    <b-row>
-                        <label for="od_company">소속</label>
-                        <b-col><b-form-input v-model="order.od_company" id="od_company" /></b-col>
-                    </b-row>
-                </div>
- -->
  
                 <pop-up /> <!-- 팝업 -->
 
@@ -106,8 +74,8 @@
                             <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
                         </div>
                     </h4>
-                    <b-row class="od_orderer">
-                        <label for="od_orderer">배송지명</label>
+                    <b-row>
+                        <label>배송지명</label>
                         <b-col>{{order.od_ua_title}}</b-col>
                     </b-row>
                     <b-row class="od_receiver">
@@ -262,7 +230,7 @@
             </b-col>
         </b-row>
     </b-container>
-
+    
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
             <template slot="header">
@@ -277,9 +245,9 @@
     </transition>
 
     <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
-        <b-form-input name="buyername" 	    :value="order.od_orderer" />
-        <b-form-input name="buyertel" 	    :value="order.od_orderer_hp" />
-        <b-form-input name="buyeremail" 	:value="order.od_orderer_email" />
+        <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
+        <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
+        <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
         <b-form-input name="version" 	    value="1.0" />
         <b-form-input name="mid" 		    :value="inicis.mid" />
         <b-form-input name="goodname" 	    :value="order.od_name" />
@@ -379,15 +347,6 @@ export default {
 
                 od_type: this.$route.params.od_type,
                 od_pay_method:'',
-                od_orderer : '',
-                od_orderer_hp : "",
-                od_orderer_hp1 : '',
-                od_orderer_hp2 : '',
-                od_orderer_hp3 : '',
-                od_orderer_email : "",
-                od_orderer_email_id: '',
-                od_orderer_email_domain:'',
-                od_orderer_email_domain_slt : '',
                 od_company: '',
                 od_ua_title: '',
                 od_zip : "",
@@ -436,19 +395,6 @@ export default {
         }
     },
     computed: {
-        validationCounter () {
-            let cnt = 0;
-            let max = 8;
-            if (isEmpty(this.order.od_orderer)) cnt++;
-            if (isEmpty(this.order.od_orderer_hp)) cnt++;
-            if (isEmpty(this.order.od_orderer_email)) cnt++;
-            if (isEmpty(this.order.od_zip)) cnt++;
-            if (isEmpty(this.order.od_addr1)) cnt++;
-            if (isEmpty(this.order.od_addr2)) cnt++;
-            if (isEmpty(this.order.od_receiver)) cnt++;
-            if (isEmpty(this.order.od_receiver_hp)) cnt++;
-            return {max:max, cur:max-cnt};
-        },
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
     },
     methods:{
@@ -462,9 +408,6 @@ export default {
             this.postcode_open = false;
         },
         async exePayment () {
-            this.order.od_orderer_hp = `${this.order.od_orderer_hp1}-${this.order.od_orderer_hp2}-${this.order.od_orderer_hp3}`;
-            this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
-            this.order.od_orderer_email = `${this.order.od_orderer_email_id}@${this.order.od_orderer_email_domain}`;
             if (this.validationChecker(this.order)) {
                 
                 switch (this.order.extra.oex_type) {
@@ -531,25 +474,8 @@ export default {
             }
         },
 
-        email_domain_slt() {
-            this.order.od_orderer_email_domain = this.config.email_domain[this.order.od_orderer_email_domain_slt];
-        },
         memo_slt() {
             this.order.od_memo = this.config.dlvy_msg[this.order.od_memo_slt];
-        },
-
-        set_orderer () {
-            let odhp = Auth.user().hp.split('-');
-            let odemail = Auth.user().email.split('@');
-            this.order.od_orderer = Auth.user().name;
-            this.order.od_orderer_hp1 = odhp[0];
-            this.order.od_orderer_hp2 = odhp[1];
-            this.order.od_orderer_hp3 = odhp[2];
-            this.order.od_orderer_email_id = odemail[0];
-            this.order.od_orderer_email_domain = odemail[1];
-            this.order.od_company = Auth.user().company;
-            this.order.od_part = Auth.user().part;
-            return;
         },
 
         addr_choose (addr) {
@@ -652,13 +578,7 @@ export default {
             
                 default: break;
             }
-
-            if (isEmpty(frm.od_orderer)) { Notify.toast('danger', "주문자 이름을 입력하세요."); this.$refs.od_orderer.focus(); return false; }
-            if (isEmpty(frm.od_orderer_hp1)) { Notify.toast('danger', "주문자 전화번호 1를 입력하세요."); this.$refs.od_orderer_hp1.focus(); return false; }
-            if (isEmpty(frm.od_orderer_hp2)) { Notify.toast('danger', "주문자 전화번호 2를 입력하세요."); this.$refs.od_orderer_hp2.focus(); return false; }
-            if (isEmpty(frm.od_orderer_hp3)) { Notify.toast('danger', "주문자 전화번호 3를 입력하세요."); this.$refs.od_orderer_hp3.focus(); return false; }
-            if (isEmpty(frm.od_orderer_email_id)) { Notify.toast('danger', "주문자 이메일 ID을 입력하세요."); this.$refs.od_orderer_email_id.focus(); return false; }
-            if (isEmpty(frm.od_orderer_email_domain)) { Notify.toast('danger', "주문자 이메일 도메인을 입력하세요."); this.$refs.od_orderer_email_domain.focus(); return false; }
+            
             if (isEmpty(frm.od_receiver)) { Notify.toast('danger', "수령인을 입력하세요."); this.$refs.od_receiver.focus(); return false; }
             if (isEmpty(frm.od_receiver_hp1)) { Notify.toast('danger', "수령인 연락처 1를 입력하세요."); this.$refs.od_receiver_hp1.focus(); return false; }
             if (isEmpty(frm.od_receiver_hp2)) { Notify.toast('danger', "수령인 연락처 2를 입력하세요."); this.$refs.od_receiver_hp2.focus(); return false; }
@@ -707,7 +627,6 @@ export default {
                 this.config = res.data.config;
                 this.addr = res.data.addr;
                 this.order.sale_env = res.data.sale_env;
-                this.set_orderer();
                 if(this.addr.length)
                     this.addr_choose(this.addr[0]);
             }
@@ -774,7 +693,6 @@ export default {
 
 #settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col,
 #settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col,
-#settle .st_bottom .inputs .address .od_orderer .col,
 #settle .st_bottom .inputs .address .od_receiver .col { flex-basis:36%; max-width:36%; }
 
 #settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input,
