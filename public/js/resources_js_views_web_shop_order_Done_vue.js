@@ -42,6 +42,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
@@ -165,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-5b751812] { text-align:center;\n}\n.container p[data-v-5b751812]:nth-child(1) { font-size:3.2rem; color:#1A90D6; font-weight:100; margin-bottom:0;\n}\n.container p[data-v-5b751812]:nth-child(2) { font-size:1.9rem; font-weight:bold;\n}\n.container p[data-v-5b751812]:nth-child(3) { font-size:1.3rem; font-weight:bold;\n}\n.container p:nth-child(3) b[data-v-5b751812] { color:#1A90D6;\n}\n.container ul[data-v-5b751812] { border:1px solid #CCCCCC; width:620px; margin:3rem auto; border-radius:16px; padding:1.8rem;\n}\n.container ul .dd_style[data-v-5b751812] { display:flex; flex-wrap:wrap; align-items:center;\n}\n.container ul .dd_style span[data-v-5b751812] { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; font-size:1.1rem;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(1) { text-align:right; padding-right:10px; flex:0 0 39%; max-width:39%;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(2) { text-align:left; color:#1A90D6;\n}\n.container ul li[data-v-5b751812] { line-height:2.3;\n}\n.container ul li:nth-child(1) span[data-v-5b751812]:nth-child(2) { font-weight:800; font-size:1.4rem;\n}\n.container ul li[data-v-5b751812]:last-child { line-height: 1.5; font-size: .9rem;\n}\n.container ul li:last-child b[data-v-5b751812] { font-weight:800;\n}\n.container ul li b.point[data-v-5b751812] { color:#1A90D6;\n}\n.container .row[data-v-5b751812] { width:620px; margin:auto;\n}\n.container .row .col[data-v-5b751812]:nth-child(1) { padding-left:0;\n}\n.container .row .col[data-v-5b751812]:nth-child(2) { padding-right:0;\n}\n.container .row .col .btn[data-v-5b751812] { width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-5b751812] { text-align:center;\n}\n.container p[data-v-5b751812]:nth-child(1) { font-size:3.2rem; color:#1A90D6; font-weight:100; margin-bottom:0;\n}\n.container p[data-v-5b751812]:nth-child(2) { font-size:1.9rem; font-weight:bold;\n}\n.container p[data-v-5b751812]:nth-child(3) { font-size:1.3rem; font-weight:bold;\n}\n.container p:nth-child(3) b[data-v-5b751812] { color:#1A90D6;\n}\n.container ul[data-v-5b751812] { border:1px solid #CCCCCC; width:620px; margin:3rem auto; border-radius:16px; padding:1.8rem;\n}\n.container ul .dd_style[data-v-5b751812] { display:flex; flex-wrap:wrap; align-items:center;\n}\n.container ul .dd_style span[data-v-5b751812] { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; font-size:1.1rem;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(1) { text-align:right; padding-right:10px; flex:0 0 39%; max-width:39%;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(2) { text-align:left; color:#1A90D6;\n}\n.container ul li[data-v-5b751812] { line-height:2.3;\n}\n.container ul li:nth-child(1) span[data-v-5b751812]:nth-child(2),\r\n.container ul li:nth-child(4) span[data-v-5b751812]:nth-child(2) { font-weight:800; font-size:1.4rem;\n}\n.container ul li[data-v-5b751812]:last-child { line-height: 1.5; font-size: .9rem;\n}\n.container ul li:last-child b[data-v-5b751812] { font-weight:800;\n}\n.container ul li b.point[data-v-5b751812] { color:#1A90D6;\n}\n.container .row[data-v-5b751812] { width:620px; margin:auto;\n}\n.container .row .col[data-v-5b751812]:nth-child(1) { padding-left:0;\n}\n.container .row .col[data-v-5b751812]:nth-child(2) { padding-right:0;\n}\n.container .row .col .btn[data-v-5b751812] { width:100%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -327,6 +328,15 @@ var render = function () {
         _c("li", { staticClass: "dd_style" }, [
           _c("span", [_vm._v("결제 예정일")]),
           _c("span", [_vm._v(_vm._s(_vm.pay_plan))]),
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "dd_style" }, [
+          _c("span", [_vm._v("결제 금액")]),
+          _c("span", [
+            _vm._v(
+              _vm._s(_vm._f("won")(_vm._f("comma")(_vm.order.od_all_price)))
+            ),
+          ]),
         ]),
         _vm._v(" "),
         _c("li", [

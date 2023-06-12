@@ -7,6 +7,7 @@
             <li class="dd_style"><span>주문번호</span><span>{{order.od_no}}</span></li>
             <li class="dd_style"><span>결제방법</span><span>{{pay_method}}</span></li>
             <li class="dd_style"><span>결제 예정일</span><span>{{pay_plan}}</span></li>
+            <li class="dd_style"><span>결제 금액</span><span>{{order.od_all_price | comma | won}}</span></li>
             <li>
                 <b>{{after_10day}}</b>까지 주문 금액이 입금확인이 되지 않으면,
                 <br/><b>자동주문취소</b> 됨을 알려드립니다.
@@ -89,7 +90,8 @@ export default {
 .container ul .dd_style span:nth-child(1) { text-align:right; padding-right:10px; flex:0 0 39%; max-width:39%; }
 .container ul .dd_style span:nth-child(2) { text-align:left; color:#1A90D6; }
 .container ul li { line-height:2.3; }
-.container ul li:nth-child(1) span:nth-child(2) { font-weight:800; font-size:1.4rem; }
+.container ul li:nth-child(1) span:nth-child(2),
+.container ul li:nth-child(4) span:nth-child(2) { font-weight:800; font-size:1.4rem; }
 .container ul li:last-child { line-height: 1.5; font-size: .9rem; }
 .container ul li:last-child b { font-weight:800; }
 .container ul li b.point { color:#1A90D6; }
