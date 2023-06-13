@@ -22,9 +22,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <!-- <a href="https://4science.net/shop/goods/51495" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0509/estimate.jpg" />
-            </a> -->
+            <a href="https://4science.net/shop/goods?ca01=26&ca02=7717" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0613/estimate.jpg" />
+            </a>
         </td>
     </tr>
 

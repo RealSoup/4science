@@ -309,19 +309,20 @@ class OrderController extends Controller {
 
 
 	public function update(Request $req, $od_id) {
-		// dd($req->all());
 		$od = $this->order->find($od_id);
 		if ($req->filled('type')) {
 			if 		($req->type == 'od_mng' && $req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step')) {
 				$od->od_step = $req->od_step;
-				if($req->od_type != 'buy_temp') {
+				if($req->od_type != 'buy_temp' && intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
 					foreach ($req->order_purchase_at as $opa) {
 						foreach ($opa['order_model'] as $odm) {
 							if ($odm['odm_type'] == 'MODEL')
 								OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']]);
 						}
 					}
+					if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
+						DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
 				}
 			} else if ($req->type == 'odm_ea') {
 				foreach ($req->order_purchase_at as $opa) {

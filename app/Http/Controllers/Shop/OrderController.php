@@ -318,7 +318,7 @@ class OrderController extends Controller {
 			if ($req->type == 'receipt_confirm')
                 $rst = DB::table('shop_order_dlvy_info')->where('oddi_id', $req->order_dlvy_info['oddi_id'])->update(['oddi_receive_date'=> \Carbon\Carbon::now()]);
 		}
-		if ($rst) {
+		if ($rst && ( auth()->user()->level < 5 || auth()->user()->level > 20 )) {
             $m = new \App\Models\UserMileage;
             event(new Mileage("insert", auth()->user()->id, 'shop_order_model', $req->odm_id, 'SV', '수취 확인', $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
             return response()->json(["msg"=>"success"], 200);

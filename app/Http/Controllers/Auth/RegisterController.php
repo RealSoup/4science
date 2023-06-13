@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use App\Providers\RouteServiceProvider;
 use App\Models\{User, UserBiz, UserSocial};
+use App\Events\{Mileage};
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +30,8 @@ class RegisterController extends Controller {
         $r_m = User::validate_rule_msg($req->filled('level')??false);
         Validator::make($req->all(), $r_m['rule'], $r_m['message'])->validate();
         event(new Registered($user = $this->userStore($req)));
+        $m = new \App\Models\UserMileage;
+        event(new Mileage("insert", $user->id, 'users', $user->id, 'SV', '회원가입', 3000));
         $this->guard()->login($user);
         return $req->wantsJson() ? new JsonResponse($user->ub_id, 201) : redirect($this->redirectPath());
     }

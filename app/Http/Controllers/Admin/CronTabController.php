@@ -29,19 +29,21 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
-			DB::table('user_mileage')->insert([
-				'ml_uid'	  => $v->created_id,
-				'ml_tbl'	  => 'shop_order_model',
-				'ml_key'	  => $v->odm_id,
-				'ml_type'	  => 'SV',
-				'ml_content'  => '수취확인(자동)',
-				'ml_mileage'  => $p,
-				'ml_enable_m' => $p,
-			]);
-			//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
-			if(intval($v->user->level) == 1)
-				DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
+			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
+				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
+				DB::table('user_mileage')->insert([
+					'ml_uid'	  => $v->created_id,
+					'ml_tbl'	  => 'shop_order_model',
+					'ml_key'	  => $v->odm_id,
+					'ml_type'	  => 'SV',
+					'ml_content'  => '수취확인(자동)',
+					'ml_mileage'  => $p,
+					'ml_enable_m' => $p,
+				]);
+				//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
+				if(intval($v->user->level) == 1)
+					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
+			}
 		}
 		Order::join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
@@ -64,7 +66,7 @@ class CronTabController extends Controller {
      */
 	public function adjustMemberLevel(){
 		//	모든 유저 레벨 초기화
-		DB::update('update la_users set level = CASE WHEN level>10 THEN 11 WHEN level>1 THEN 2 ELSE 1 END where level > 1 and id > 286');
+		DB::update('update la_users set level = CASE WHEN level>1 THEN 2 ELSE 1 END where level > 1 and level < 5 and id > 286');
 		$od = Order::select(DB::raw('SUM(od_all_price) AS total'), "created_id")
 			->where('od_type', '<>', 'buy_temp')	// 임의 주문 제외
 			->where('od_step', '>=', '20')	//	입금 완료부터
@@ -79,18 +81,16 @@ class CronTabController extends Controller {
 			if ( intval($v->total) < 2000000 )	break;
 
 			$u = User::find($v->created_id);
-		
-			if (		intval($v->total) >= 5000000 )	//	3달에 5백넘게 주문하면
-				$lv = 4;
-			else if (	intval($v->total) >= 2000000 )	//	3달에 2백넘게 주문하면
-				$lv = 3;
-			else
-				$lv = 2;
+			if(intval($u->level) < 5) {	//	딜러회원은 제외
+				if (		intval($v->total) >= 5000000 )	//	3달에 5백넘게 주문하면
+					$lv = 4;
+				else if (	intval($v->total) >= 2000000 )	//	3달에 2백넘게 주문하면
+					$lv = 3;
+				else
+					$lv = 2;
 
-			if ( intval($u->level) > 10 )	//	딜러회원은 2자리 숫자
-				$lv += 10;
-
-			User::where('id', $u->id)->update(['level' => $lv]);
+				User::where('id', $u->id)->update(['level' => $lv]);
+			}
 		}
 	}
 ### 주문 2주후 자동으로 수취확인 및 포인트 적립   ###
