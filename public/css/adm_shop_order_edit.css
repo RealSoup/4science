@@ -78,7 +78,7 @@
 .p_wrap .label_st .dt { padding-left:2rem; display:flex; align-items:center; }
 .p_wrap .label_st .dt svg { font-size:1.6rem; vertical-align:middle; }
 .p_wrap .label_st .dt .btn { padding:.3rem .75rem .1rem; }
-.p_wrap .label_st .lb .col .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }
+.p_wrap .label_st .dt .warning { color:#FF0000; position:absolute; right:0; font-size:.8rem; }
 .p_wrap .label_st .wd1_3 { flex:0 0 20.333333%; max-width:20.333333%; }
 .p_wrap .label_st .wd54 { flex:0 0 53.666666%; max-width:53.666666%; }
 .p_wrap .label_st .wd1_2 { flex:0 0 37%; max-width:37%; }

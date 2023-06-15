@@ -67,9 +67,10 @@
                         </b-col>
                         <b-col class="m_hide">{{gm.gm_spec}}</b-col>
                         <b-col class="m_hide">{{gm.gm_unit}}</b-col>
-                        <b-col class="price m_hide">
-                            {{gm.gm_price_add_vat | comma | price_zero}}
-                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{bd.bd_price_add_vat | comma}}원</i>
+                        <b-col class="price m_hide" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                            <span class="normal">{{gm.gm_price_add_vat | comma | price_zero}}</span>
+                            <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(gm.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
+                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{dealer_price_chk(bd.bd_price_add_vat) | comma}}원</i>
                         </b-col>
                         <b-col>
                             <p class="m_show">단위:{{gm.gm_unit}}</p>
@@ -318,6 +319,7 @@ export default {
     },
     computed: {
         ...mapState('cart', ['cartList']),
+        ...mapState('auth', ['isLoggedin', 'user']),
         mngTel: function () {
             let mng_tel='';
             if (this.content.gd_mng_info) {
@@ -333,7 +335,7 @@ export default {
         },
         total: function() {
             let model =  this.content.goods_model.reduce((acc, el) => {                 
-                return acc + parseInt(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat) * el.ea);
+                return acc + parseInt(this.dealer_price_chk(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat)) * el.ea);
             }, 0);
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.reduce((acc02, el02) => {
@@ -354,7 +356,7 @@ export default {
                 return acc + el.goods_option_child.filter(goc => goc.ea > 0).length
             }, 0);
         },
-
+        
         // categorys[2].filter(ca => ca.ca_id == v_model.ca03)[0].ca_name
     },
     methods: {
@@ -490,6 +492,11 @@ export default {
                 if (!this.is_bottom) this.top_y = window.scrollY-head_top;
             } else                  this.top_y = 0;
         },
+
+        dealer_price_chk: function (v) {
+            return ( this.isLoggedin && this.user.level == 12 ) ? Math.floor(v*this.user.dc_mul) : v;
+        },
+
 /*
         openDropDownAndShowNavBar(e) {
             if (e.target.tagName === "A") {
@@ -553,9 +560,9 @@ export default {
 
 .conRight .model .row .col:nth-of-type(1) { flex-basis:13%; max-width:13%; }
 .conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; word-break: break-all; }
-.conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; }
-.conRight .model .row .col:nth-of-type(6) { flex-basis:11%; max-width:11%; }
-.conRight .model .row .col:nth-of-type(7) { flex-basis:10%; max-width:10%; }
+.conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; word-break: break-all;}
+.conRight .model .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; }
+.conRight .model .row .col:nth-of-type(7) { flex-basis:8%; max-width:8%; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input { height:1.3rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> button { width:1.2rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> .numeric-input { padding:2px 1rem; }

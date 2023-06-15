@@ -62,7 +62,6 @@ export default {
     methods: {
         async index(page=1){
             this.frm.page = page;
-            console.log(this.ax);
             try {
                 let url = '';
                 let extra_url = this.group == 'all' ? '' : `/${this.group}`;

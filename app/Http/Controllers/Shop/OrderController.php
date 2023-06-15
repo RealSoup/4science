@@ -49,8 +49,9 @@ class OrderController extends Controller {
     }
 
     public function settle(Request $req){
-        $type = $req->filled('type') ? $req->type : 'buy';
+        $type = $req->filled('type') ? $req->type : 'buy_inst';
         $params = $this->goods->getGoodsDataCollection($req, $type);
+        $params['goods_def'] = $this->goods;
         $params['sale_env'] = $this->saleEnv();
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
@@ -172,7 +173,7 @@ class OrderController extends Controller {
                             'odm_gm_unit'  => $item['gm_unit'],
                             'odm_mk_name'  => $item['mk_name'],
                             'odm_ea'       => $item['ea'],
-                            'odm_price'    => $item['price'],
+                            'odm_price'    => (auth()->user()->is_dealer&&$req->od_pay_method=='B') ? $item['price_deal'] : $item['price'],
                         );
                         Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                     } else if ($item['type'] == 'option') {
@@ -196,7 +197,7 @@ class OrderController extends Controller {
                     }
                 }                    
                 DB::table('shop_order_model')->insert($insert_tmp);
-                }
+            }
             
 
             //  지출 증빙 & 요청 첨부서류 등록
@@ -243,7 +244,7 @@ class OrderController extends Controller {
             $this->orderExtraInfo->oex_memo     = array_key_exists('oex_memo', $req->extra)     ? $req->extra['oex_memo']     : '';
             $this->orderExtraInfo->save();
 
-            $order_goodsInfo = $this->goods->getGoodsDataCollection($req, $req->od_type);
+            $order_goodsInfo = $this->goods->getGoodsDataCollection($req, 'buy_chk');
           
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
@@ -318,9 +319,11 @@ class OrderController extends Controller {
 			if ($req->type == 'receipt_confirm')
                 $rst = DB::table('shop_order_dlvy_info')->where('oddi_id', $req->order_dlvy_info['oddi_id'])->update(['oddi_receive_date'=> \Carbon\Carbon::now()]);
 		}
-		if ($rst && ( auth()->user()->level < 5 || auth()->user()->level > 20 )) {
-            $m = new \App\Models\UserMileage;
-            event(new Mileage("insert", auth()->user()->id, 'shop_order_model', $req->odm_id, 'SV', '수취 확인', $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
+		if ($rst) {
+            if ( auth()->user()->level < 5 || auth()->user()->level > 20 ) {
+                $m = new \App\Models\UserMileage;
+                event(new Mileage("insert", auth()->user()->id, 'shop_order_model', $req->odm_id, 'SV', '수취 확인', $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
+            }
             return response()->json(["msg"=>"success"], 200);
         } else
             return response()->json(["msg"=>"Fail"], 500);

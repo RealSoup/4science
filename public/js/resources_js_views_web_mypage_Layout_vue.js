@@ -502,10 +502,8 @@ var render = function () {
                     ? [_vm._v("  다이아")]
                     : _vm.user.level == 11
                     ? [_vm._v(" 딜러")]
-                    : _vm.user.level == 13
-                    ? [_vm._v(" 실버딜러")]
-                    : _vm.user.level == 14
-                    ? [_vm._v(" 골드딜러")]
+                    : _vm.user.level == 12
+                    ? [_vm._v(" 딜러")]
                     : _vm.user.level > 14
                     ? [_vm._v("  킹왕짱")]
                     : _vm._e(),
@@ -527,14 +525,20 @@ var render = function () {
             [
               _c("p", [_vm._v("나의 마일리지")]),
               _vm._v(" "),
-              _c("b", [
-                _vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)) + " "),
-                _c("small", [_vm._v("P")]),
-              ]),
+              _vm.user.is_dealer
+                ? _c("b", { style: { fontSize: "1.3rem" } }, [
+                    _vm._v("딜러할인적용중"),
+                  ])
+                : _c("b", [
+                    _vm._v(_vm._s(_vm._f("comma")(_vm.enableMileage)) + " "),
+                    _c("small", [_vm._v("P")]),
+                  ]),
               _vm._v(" "),
-              _c("b-link", { attrs: { to: "/mypage/mileage" } }, [
-                _vm._v("어떻게 사용하시나요? >"),
-              ]),
+              !_vm.user.is_dealer
+                ? _c("b-link", { attrs: { to: "/mypage/mileage" } }, [
+                    _vm._v("어떻게 사용하시나요? >"),
+                  ])
+                : _vm._e(),
             ],
             1
           ),

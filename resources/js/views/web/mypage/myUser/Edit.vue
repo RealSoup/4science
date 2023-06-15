@@ -58,7 +58,6 @@ export default {
     },
     async mounted() {
         try {
-            console.log();
             const res = await ax.get(`/api/user/${Auth.user().id}/edit`);
             if (res && res.status === 200) {
                 this.frm = Object.assign( 

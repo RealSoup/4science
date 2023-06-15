@@ -128,11 +128,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              console.log();
-              _context2.next = 4;
+              _context2.next = 3;
               return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/user/".concat(Auth.user().id, "/edit"));
 
-            case 4:
+            case 3:
               res = _context2.sent;
 
               if (res && res.status === 200) {
@@ -147,21 +146,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }, _this2.$store.state.auth.user, res.data);
               }
 
-              _context2.next = 12;
+              _context2.next = 11;
               break;
 
-            case 8:
-              _context2.prev = 8;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](0);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.responsee);
 
-            case 12:
+            case 11:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8]]);
+      }, _callee2, null, [[0, 7]]);
     }))();
   }
 });

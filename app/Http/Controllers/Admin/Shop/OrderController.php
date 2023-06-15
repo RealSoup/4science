@@ -264,6 +264,8 @@ class OrderController extends Controller {
 		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('orderPg')->with('mng')->with('user')->find($od_id);
 		if ($data->mng)
 			$data->mng->userMng;
+		if ($data->user)
+			$data->user->userAddr;
 		foreach ($data->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm) {
 				$odm->orderDlvyInfo;

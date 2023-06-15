@@ -192,7 +192,7 @@
             </div>
         </div>
 
-        <div class="box">
+        <div class="box od_addr">
             <b-row tag="h5"><b-col tag="b">배송정보</b-col><b-col class="text-right"><b-button @click="update('addr')" class="teal print_hide_inline_block">배송정보 수정</b-button></b-col></b-row>
 
             <b-row class="label_st">
@@ -224,6 +224,10 @@
                 <b-col class="lb">
                     배송주소
                     <b-button class="teal xm print_hide_inline_block" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">검색</b-button>
+                    <b-button class="mint xm print_hide_inline_block" @click="show_addr_list = !show_addr_list">선택</b-button>
+                    <ul v-if="show_addr_list" class="addr_list">
+                        <li v-for="(ua, i) in od.user.user_addr" :key="i" @click="change_dlvy_info(i)">{{ua.ua_addr1}} {{ua.ua_addr2}} ( {{ua.ua_hp}} )</li>
+                    </ul>
                 </b-col>
                 <b-col class="dt wd1_1">
                     <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block sm_ib_h" />
@@ -464,6 +468,7 @@ export default {
                 number: ''
             },
             document_type: '',
+            show_addr_list: false,
 
         };
     },
@@ -523,7 +528,6 @@ export default {
                 const res = await ax.get(`/api/admin/shop/order/${this.$route.params.od_id}/edit`);
                 if (res && res.status === 200) {
                     this.od = res.data;
-                    this.loaded = true;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -747,7 +751,12 @@ export default {
             return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
         },
         format_date(e) { return this.formatDate(e); },
-
+        change_dlvy_info(i){
+            this.od.od_zip = this.od.user.user_addr[i].ua_zip;
+            this.od.od_addr1 = this.od.user.user_addr[i].ua_addr1;
+            this.od.od_addr2 = this.od.user.user_addr[i].ua_addr2;
+            this.od.od_receiver_hp = this.od.user.user_addr[i].ua_hp;
+        },
     },
     mounted() {
         this.edit();
@@ -756,7 +765,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.5';
+@import '/css/adm_shop_order_edit.css?ver=1.6';
 
 .p_wrap { padding-top:1rem; }
 .p_wrap .print_mng_nm { display:none; }
@@ -774,7 +783,8 @@ export default {
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
-
+.p_wrap .od_addr .addr_list { position:absolute; top:50px; background:#F8F8F8; border:2px solid #555; border-radius:10px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); padding:10px 30px; z-index:1; min-width:40rem; text-align:left; }
+.p_wrap .od_addr .addr_list li { list-style-type:decimal; cursor:pointer; font-size:1.1rem; }
 
 
 .p_wrap .sm_ib_v { display:none; }

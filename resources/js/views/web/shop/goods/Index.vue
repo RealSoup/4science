@@ -93,12 +93,19 @@
                                     <img :src="row.goods.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
-                                        <span> {{row.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
-                                        <i>가격 : {{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</i>
+                                        <span class="info"> {{row.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
+                                        <i>
+                                            가격 : 
+                                            <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                                                <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</span>
+                                                <span class="dealer">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
+                                            </span>
+                                        </i>
                                     </p>
                                 </b-link>
-                                <b-col class="price m_hide">
-                                    {{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}} 
+                                <b-col class="price m_hide" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                                    <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
+                                    <span class="dealer">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
@@ -203,6 +210,7 @@ export default {
 
 .list .col .row div:nth-child(2),
 .list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
+.list .col .row div.price { align-items:flex-end; }
 
 .list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
 .list .col .lhead div:not(:first-child) { border-left-width:0px; }
@@ -212,8 +220,9 @@ export default {
 .list .col .lbody .link { cursor:pointer; display:flex; align-items:center; }
 .list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0; }
 .list .col .lbody .link p { display:inline-block; margin-bottom:0; }
-.list .col .lbody .link p span { display:block; color:#949494; margin-top:1.4rem; }
-.list .col .lbody .price { font-weight:bold; }
+.list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw; }
+.list .col .lbody .link p i { display:none; }
+
 
 
 
@@ -223,8 +232,9 @@ export default {
     .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
     .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
     .list .col .lbody .link p span { margin-top:.4rem; }
-    .list .col .lbody .link p i { font-size: calc(1.3vw + .5rem); font-weight: 600; }
-    
+    .list .col .lbody .link p i { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600; }
+    .list .col .lbody .link p i .see_dealer .dealer { display:inline; padding-left:12px; margin-left:12px; }
+    .list .col .lbody .link p i .see_dealer .dealer:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem; }
     .p_wrap >>> .page-link { min-width: 30px; padding:0; }
 }
 </style>

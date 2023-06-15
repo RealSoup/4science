@@ -88,9 +88,10 @@ instance.interceptors.response.use(function (response) {
         // store.commit('error/setAuthorizationError', error.response.data.message);
         // router.go(-1);
         Notify.modal(error.response.data.message, 'danger');
-        if ( error.response.data.message.search('견적가 상품이 있습니다.') !== -1 ||
-            error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1 ||
-            error.response.data.message.search('필수 옵션과 같이 구매하세요') !== -1 
+        if ( error.response.data.message && 
+            ( error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 
+                error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1 ||
+                error.response.data.message.search('필수 옵션과 같이 구매하세요') !== -1) 
         ) {
             router.go(-1);
         }

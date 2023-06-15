@@ -32,11 +32,21 @@
                     </b-link>
                 </b-col>            
                 <b-col class="maker">{{ct.mk_name}}</b-col>
-                <b-col class="price cost">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
+                <b-col class="price cost">
+                    <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                        <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
+                        <span class="dealer">{{(ct.price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                    </span>
+                </b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
-                <b-col class="price sum">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</b-col>
+                <b-col class="price sum">
+                    <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                        <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
+                        <span class="dealer">{{(ct.price_add_vat*ct.ea*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                    </span>
+                </b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" size="sm" @click="outCart(i)">삭제</b-button></b-col>
             </template>
 
@@ -78,7 +88,7 @@
             </b-col>
             <b-col></b-col>
             <b-col>
-                <div>
+                <div v-if="!this.$store.state.auth.user.is_dealer">
                     <b-col>적립예정 마일리지</b-col>
                     <b-col>{{sum_mileage | comma}} 원</b-col>
                 </div>
@@ -118,14 +128,20 @@ export default {
     computed: {
         ...mapState('cart', ['cartList']),
         sum_goods_add_vat () {
-            return Object.values(this.cartList).reduce((acc, el) => 
+            let p = Object.values(this.cartList).reduce((acc, el) => 
                 acc + ((el.ct_check_opt=='Y')?(el.price_add_vat*el.ea):0)
             , 0);
+            if (Auth.user() && Auth.user().level == 12)
+                p = p*Auth.user().dc_mul;
+            return p;
         },
         sum_goods () {
-            return Object.values(this.cartList).reduce((acc, el) => { 
+            let p =  Object.values(this.cartList).reduce((acc, el) => { 
                 return acc + (el.ct_check_opt=='Y'?el.price*el.ea:0); 
             }, 0);
+            if (Auth.user() && Auth.user().level == 12)
+                p = p*Auth.user().dc_mul;
+            return p;
         },
         sum_mileage () {
             return Object.values(this.cartList).reduce((acc, el) => { 

@@ -12,6 +12,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Mail;
+use App\Mail\DealerJoin;
 
 class RegisterController extends Controller {
 
@@ -60,7 +62,7 @@ class RegisterController extends Controller {
                 'level'          => $req->filled('level')        ? $req->level        : 1,
                 'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL];
         $rst = User::create($u);
-        if ( $req->filled('level') )
+        if ( $req->filled('level') ) {
             $rst->ub_id = DB::table('user_biz')->insertGetId( [
                 'ub_papa_id' => $rst->id,
                 'ub_num'   => $req->ub_num,
@@ -72,6 +74,13 @@ class RegisterController extends Controller {
                 'ub_addr2' => $req->ub_addr2,
                 'ub_type'  => $req->ub_type,
                 'ub_cond'  => $req->ub_cond ] );
+
+            
+            try { Mail::to('sales@4science.net')->queue(new DealerJoin(config('mail.mailers.smtp.username'), '딜러 회원 가입'));
+            } catch(\Swift_TransportException $e){
+                // if($e->getMessage()) dd($e->getMessage());
+            }
+        }
         if ( $req->filled('provider') && $req->provider !== '' )
             $this->userSocial->store($req, $rst->id);
         // if ( array_key_exists('ub_file', $req->all()) ) {

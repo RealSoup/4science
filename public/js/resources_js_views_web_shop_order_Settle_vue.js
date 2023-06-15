@@ -17,12 +17,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-daum-postcode */ "./node_modules/vue-daum-postcode/dist/index.js");
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_daum_postcode__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -302,6 +321,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 
  // import { validationChecker } from './_comp/FormValidation.js'
@@ -344,13 +364,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     'order.od_pay_method': {
       handler: function handler(n, o) {
+        if (this.user.is_dealer) this.calculator();
+
         if (n == 'R') {
-          var tel = this.$store.state.auth.user.hp.split('-');
-          this.order.extra.oex_mng = this.$store.state.auth.user.name;
+          var tel = this.user.hp.split('-');
+          this.order.extra.oex_mng = this.user.name;
           this.order.extra.oex_num_tel1 = tel[0];
           this.order.extra.oex_num_tel2 = tel[1];
           this.order.extra.oex_num_tel3 = tel[2];
-          this.order.extra.oex_email = this.$store.state.auth.user.email;
+          this.order.extra.oex_email = this.user.email;
         } else {
           this.order.extra.oex_mng = '';
           this.order.extra.oex_num_tel1 = '';
@@ -365,7 +387,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'order.extra.oex_type_fir': {
       handler: function handler(n, o) {
-        console.log(n);
         if (n == 'TX') this.order.extra.oex_type = 'IV';else if (n == 'CA') this.order.extra.oex_type = 'HP';else if (n == 'NO') this.order.extra.oex_type = 'NO';
       }
     }
@@ -424,17 +445,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       addr: [],
       addr_edit_index: 0,
       config: {},
-      inicis: {}
+      inicis: {},
+      goods_def: {}
     };
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
     isDlvyAir: function isDlvyAir() {
       return Object.values(this.order.lists).find(function (e) {
         return e[0].pa_type === 'AIR';
       }) !== undefined;
     }
-  },
+  }),
   methods: {
+    calculator: function calculator() {
+      var collect = {};
+      this.order.price.dlvy = 0;
+      this.order.price.air = 0;
+
+      for (var _i = 0, _Object$entries = Object.entries(this.order.lists); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            pa_id = _Object$entries$_i[0],
+            pa = _Object$entries$_i[1];
+
+        for (var _i2 = 0, _Object$entries2 = Object.entries(pa); _i2 < _Object$entries2.length; _i2++) {
+          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+              i = _Object$entries2$_i[0],
+              gm = _Object$entries2$_i[1];
+
+          if (!collect.hasOwnProperty(pa_id)) {
+            if (pa_id > 0 && gm.pa_type == "AIR") collect[pa_id] = {
+              'goods': 0,
+              'dlvy': 0,
+              'air': Number(gm.pa_dlvy_p)
+            };else collect[pa_id] = {
+              'goods': 0,
+              'dlvy': Number(gm.pa_dlvy_p),
+              'free_dlvy_max': Number(this.goods_def.free_dlvy_max),
+              'air': 0
+            };
+          }
+
+          collect[pa_id].goods += Number(gm.price * gm.ea);
+        }
+
+        if (this.order.od_pay_method == 'B') {
+          //  할인금액 빼준다
+          var add_mul = Math.floor((1 - this.user.dc_mul) * 100) / 100;
+          collect[pa_id].goods -= Math.floor(collect[pa_id].goods * add_mul);
+        }
+
+        if (pa[0]['pa_type'] != 'AIR') {
+          //  항공 운임료는 항상 부과되어 변동없이 간다.
+          //  업체 배송은 금액에 따라 부과되어 다시 계산한다.
+          if (Math.floor(collect[pa_id].goods * 1.1) < Number(this.goods_def.free_dlvy_max)) {
+            this.order.lists[pa_id][0]['pa_dlvy_p'] = this.goods_def.dlvy_fee;
+          } else this.order.lists[pa_id][0]['pa_dlvy_p'] = 0;
+
+          this.order.lists[pa_id][0]['pa_dlvy_p_add_vat'] = Math.floor(this.order.lists[pa_id][0]['pa_dlvy_p'] * 1.1);
+        }
+
+        if (pa[0]['pa_type'] == 'AIR') this.order.price.air += this.order.lists[pa_id][0]['pa_dlvy_p'];else this.order.price.dlvy += this.order.lists[pa_id][0]['pa_dlvy_p'];
+      }
+
+      this.order.price.air_add_vat = Math.floor(this.order.price.air * 1.1);
+      this.order.price.dlvy_add_vat = Math.floor(this.order.price.dlvy * 1.1);
+      this.order.price.goods = Object.values(collect).reduce(function (acc, el) {
+        return acc + el.goods;
+      }, 0);
+      this.order.price.goods_add_vat = Math.floor(this.order.price.goods * 1.1);
+      this.order.price.surtax = Math.floor(this.order.price.goods * 0.1);
+      this.order.price.total = this.order.price.air_add_vat + this.order.price.dlvy_add_vat + this.order.price.goods + this.order.price.surtax;
+    },
     onPostcodeSlt: function onPostcodeSlt(result) {
       this.$set(this.order, 'od_zip', result.zonecode);
       var addr = result.roadAddress;
@@ -453,52 +534,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
+
                 if (!_this.validationChecker(_this.order)) {
-                  _context.next = 34;
+                  _context.next = 35;
                   break;
                 }
 
                 _context.t0 = _this.order.extra.oex_type;
-                _context.next = _context.t0 === 'HP' ? 4 : _context.t0 === 'IN' ? 6 : _context.t0 === 'CN' ? 8 : _context.t0 === 'BN' ? 10 : 12;
+                _context.next = _context.t0 === 'HP' ? 5 : _context.t0 === 'IN' ? 7 : _context.t0 === 'CN' ? 9 : _context.t0 === 'BN' ? 11 : 13;
                 break;
 
-              case 4:
+              case 5:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_hp1, "-").concat(_this.order.extra.oex_num_hp2, "-").concat(_this.order.extra.oex_num_hp3);
-                return _context.abrupt("break", 12);
+                return _context.abrupt("break", 13);
 
-              case 6:
+              case 7:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_in1, "-").concat(_this.order.extra.oex_num_in2);
-                return _context.abrupt("break", 12);
+                return _context.abrupt("break", 13);
 
-              case 8:
+              case 9:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_cn1, "-").concat(_this.order.extra.oex_num_cn2, "-").concat(_this.order.extra.oex_num_cn3, "-").concat(_this.order.extra.oex_num_cn4);
-                return _context.abrupt("break", 12);
+                return _context.abrupt("break", 13);
 
-              case 10:
+              case 11:
                 _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_bn1, "-").concat(_this.order.extra.oex_num_bn2, "-").concat(_this.order.extra.oex_num_bn3);
-                return _context.abrupt("break", 12);
+                return _context.abrupt("break", 13);
 
-              case 12:
+              case 13:
                 if (_this.order.od_pay_method == 'R') {
                   _this.order.extra.oex_num_tel = "".concat(_this.order.extra.oex_num_tel1, "-").concat(_this.order.extra.oex_num_tel2, "-").concat(_this.order.extra.oex_num_tel3);
                   if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
                 }
 
-                _context.next = 15;
+                _context.next = 16;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/shop/order/pay", _this.order);
 
-              case 15:
+              case 16:
                 pay = _context.sent;
 
                 if (!(pay && pay.status === 200)) {
-                  _context.next = 34;
+                  _context.next = 35;
                   break;
                 }
 
                 _this.inicis = pay.data.inicis;
 
                 if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                  _context.next = 27;
+                  _context.next = 28;
                   break;
                 }
 
@@ -508,12 +591,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 frm.append('fi_kind', 'biz');
                 frm.append('fi_room', new Date().getFullYear());
                 frm.append("file[]", _this.order.extra.oex_file);
-                _context.next = 27;
+                _context.next = 28;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/upload', frm);
 
-              case 27:
+              case 28:
                 if (!(_this.order.od_pay_method == 'C')) {
-                  _context.next = 32;
+                  _context.next = 33;
                   break;
                 }
 
@@ -546,7 +629,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   objs05.setAttribute('value', _this.order.price.total);
                   form.appendChild(objs05);
                   objs06.setAttribute('name', 'P_UNAME');
-                  objs06.setAttribute('value', _this.$store.state.auth.user.name);
+                  objs06.setAttribute('value', _this.user.name);
                   form.appendChild(objs06);
                   objs07.setAttribute('name', 'P_NEXT_URL');
                   objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
@@ -565,11 +648,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   document.body.appendChild(form);
                   form.submit();
                 }
-                _context.next = 34;
+                _context.next = 35;
                 break;
 
-              case 32:
-                _context.next = 34;
+              case 33:
+                _context.next = 35;
                 return _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
                   name: 'order_done',
                   params: {
@@ -577,7 +660,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 34:
+              case 35:
               case "end":
                 return _context.stop();
             }
@@ -888,7 +971,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.config = res.data.config;
                 _this2.addr = res.data.addr;
                 _this2.order.sale_env = res.data.sale_env;
+                _this2.goods_def = res.data.goods_def;
                 if (_this2.addr.length) _this2.addr_choose(_this2.addr[0]);
+                if (_this2.user.is_dealer) _this2.calculator(); //  딜러가 계산
               }
               /*  견적가 에러는 
                   \resources\js\api\http.js
@@ -914,11 +999,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   mounted: function mounted() {
-    // console.log(this.$session.get('order'));
+    if (this.user.level == 12) this.order.od_pay_method = 'B'; // console.log(this.$session.get('order'));
     // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
     //     console.log('collapseId:', collapseId)
     //     console.log('isJustShown:', isJustShown)
     // })
+
     var plugin = document.createElement("script"); // plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
 
     plugin.setAttribute("src", "https://stdpay.inicis.com/stdjs/INIStdPay.js"); //  운영
@@ -1109,8 +1195,9 @@ var render = function () {
       _c("pa-list", {
         attrs: {
           price: _vm.order.price,
-          user: _vm.$store.state.auth.user,
+          user: _vm.user,
           add_vat: true,
+          d_price: _vm.order.od_pay_method == "B" && _vm.user.is_dealer,
         },
         model: {
           value: _vm.order.lists,
@@ -2659,24 +2746,15 @@ var render = function () {
             },
             [
               _c("b-form-input", {
-                attrs: {
-                  name: "buyername",
-                  value: _vm.$store.state.auth.user.name,
-                },
+                attrs: { name: "buyername", value: _vm.user.name },
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: {
-                  name: "buyertel",
-                  value: _vm.$store.state.auth.user.hp,
-                },
+                attrs: { name: "buyertel", value: _vm.user.hp },
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: {
-                  name: "buyeremail",
-                  value: _vm.$store.state.auth.user.email,
-                },
+                attrs: { name: "buyeremail", value: _vm.user.email },
               }),
               _vm._v(" "),
               _c("b-form-input", { attrs: { name: "version", value: "1.0" } }),
@@ -2763,10 +2841,7 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("b-form-input", {
-                attrs: {
-                  name: "P_UNAME",
-                  value: _vm.$store.state.auth.user.name,
-                },
+                attrs: { name: "P_UNAME", value: _vm.user.name },
               }),
               _vm._v(" "),
               _c("b-form-input", {

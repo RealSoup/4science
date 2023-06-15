@@ -15,16 +15,16 @@
                     <template v-else-if="user.level == 4">  골드</template>
                     <template v-else-if="user.level == 5">  다이아</template>
                     <template v-else-if="user.level == 11"> 딜러</template>
-                    <template v-else-if="user.level == 13"> 실버딜러</template>
-                    <template v-else-if="user.level == 14"> 골드딜러</template>
+                    <template v-else-if="user.level == 12"> 딜러</template>
                     <template v-else-if="user.level > 14">  킹왕짱</template>
                 </b>
                 <b-link to="/cscenter?view_type=membership">혜택 보러가기 ></b-link>
             </b-col>
             <b-col>
                 <p>나의 마일리지</p>
-                <b>{{enableMileage | comma}} <small>P</small></b> 
-                <b-link to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
+                <b v-if="user.is_dealer" :style="{fontSize:'1.3rem'}">딜러할인적용중</b>
+                <b v-else>{{enableMileage | comma}} <small>P</small></b>
+                <b-link v-if="!user.is_dealer" to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
             </b-col>
             <b-col>
                 <p>내가 찜한 상품</p>

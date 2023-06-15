@@ -107,6 +107,7 @@ class Goods extends Model {
         $rst = [ 'lists'=>array(), 'price'=>array() ];
         $d_arrange = Array();
         switch ($type) {
+            case 'buy_chk':
             case 'buy_inst':    //  바로 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'buy_cart':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'request_estimate':    //  유저가 견적요청(상품페이지, 장바구니에서)시 데이터 편집
@@ -243,16 +244,25 @@ class Goods extends Model {
                             $tmpModel['price']= $d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price'];
                             $tmpModel['price_add_vat'] = rrp($d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price']);
                             $tmpModel['dlvy_check_opt'] = 'N';  //  관리자 주문 상세페이지 일괄 배송정보 등록시 사용
-                        } else {
-                            if ($type == 'cart') {
-                                $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
-                                $tmpModel['ct_check_opt'] = 'Y';
+                        } else if (in_array($type, ['buy_inst', 'buy_cart'])) {
+                            $tmpModel['price_deal']= $gm->gm_price * (auth()->check() ? auth()->user()->dc_mul : 1);
+                            $tmpModel['price_deal_add_vat']= rrp($tmpModel['price_deal']);
+                        } else if ($type == 'cart') {
+                            $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
+                            $tmpModel['ct_check_opt'] = 'Y';
+                        } else if ($type == 'buy_chk') {
+                            if (auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B')
+                            foreach ($some['lists'] as $d1) {
+                                foreach ($d1 as $d2) {
+                                    if($d2['gm_id']==$gm->gm_id) {
+                                        $tmpModel['price'] = $d2['price_deal'];
+                                        $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
+                                    }
+                                }
                             }
-                            
-                            if ($gm->bundleDc()->exists()) {
-                                $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
-                                $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
-                            }
+                        } else if ($gm->bundleDc()->exists()) {
+                            $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
+                            $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
                         }
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }

@@ -5,7 +5,7 @@
 
     <h4>01. 주문 상품 확인</h4>
 
-    <pa-list v-model="order.lists" :price="order.price" :user="$store.state.auth.user" :add_vat="true" />
+    <pa-list v-model="order.lists" :price="order.price" :user="user" :add_vat="true" :d_price="order.od_pay_method == 'B' && user.is_dealer" />
     
     <b-container class="st_bottom">
         <b-row>
@@ -245,9 +245,9 @@
     </transition>
 
     <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
-        <b-form-input name="buyername" 	    :value="$store.state.auth.user.name" />
-        <b-form-input name="buyertel" 	    :value="$store.state.auth.user.hp" />
-        <b-form-input name="buyeremail" 	:value="$store.state.auth.user.email" />
+        <b-form-input name="buyername" 	    :value="user.name" />
+        <b-form-input name="buyertel" 	    :value="user.hp" />
+        <b-form-input name="buyeremail" 	:value="user.email" />
         <b-form-input name="version" 	    value="1.0" />
         <b-form-input name="mid" 		    :value="inicis.mid" />
         <b-form-input name="goodname" 	    :value="order.od_name" />
@@ -268,7 +268,7 @@
         <b-form-input name="P_OID"           :value="inicis.od_no" />
         <b-form-input name="P_GOODS"         :value="order.od_name" />
         <b-form-input name="P_AMT"           :value="order.price.total" />
-        <b-form-input name="P_UNAME"         :value="$store.state.auth.user.name" />
+        <b-form-input name="P_UNAME"         :value="user.name" />
         <b-form-input name="P_NEXT_URL"      :value="inicis.returnUrlMobaile" />
         <b-form-input name="P_CHARSET"       value="utf8" />
         <b-form-input name="P_NOTI"          :value="order.od_id" />
@@ -281,6 +281,7 @@
 import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
 import router from '@/router';
+import { mapState } from 'vuex';
 // import { validationChecker } from './_comp/FormValidation.js'
 // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
 
@@ -305,13 +306,15 @@ export default {
     watch: {
         'order.od_pay_method': {
             handler(n, o) {
+                if ( this.user.is_dealer ) this.calculator();
+                
                 if (n == 'R') {
-                    var tel = this.$store.state.auth.user.hp.split('-');
-                    this.order.extra.oex_mng = this.$store.state.auth.user.name;
+                    var tel = this.user.hp.split('-');
+                    this.order.extra.oex_mng = this.user.name;
                     this.order.extra.oex_num_tel1 =tel[0];
                     this.order.extra.oex_num_tel2 =tel[1];
                     this.order.extra.oex_num_tel3 =tel[2];
-                    this.order.extra.oex_email = this.$store.state.auth.user.email;
+                    this.order.extra.oex_email = this.user.email;
                 } else {
                     this.order.extra.oex_mng = '';
                     this.order.extra.oex_num_tel1 = '';
@@ -321,17 +324,17 @@ export default {
                 }
                 this.order.extra.oex_type = 'NO'; 
             },
-            deep: true
+            deep: true,
         },
         'order.extra.oex_type_fir': {
             handler(n, o) {
-                console.log(n);
                 if (n == 'TX')      this.order.extra.oex_type = 'IV';
                 else if (n == 'CA') this.order.extra.oex_type = 'HP';
                 else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
         },
     },
+    
     data() {
         return {
             isModalViewed: false,
@@ -392,12 +395,57 @@ export default {
             addr_edit_index: 0,
             config: {},
             inicis: {},
+            goods_def: {},
         }
     },
     computed: {
+        ...mapState('auth', ['isLoggedin', 'user']),
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
     },
     methods:{
+        calculator() {
+            let collect = {};
+            this.order.price.dlvy = 0;
+            this.order.price.air = 0;
+            for (let [pa_id, pa] of Object.entries(this.order.lists)) {
+                for (let [i, gm] of Object.entries(pa)) {
+                    if (!collect.hasOwnProperty(pa_id)) {
+                        if (pa_id>0 && gm.pa_type == "AIR")
+                            collect[pa_id] = { 'goods':0, 'dlvy':0, 'air':Number(gm.pa_dlvy_p)};
+                        else
+                            collect[pa_id] = { 'goods':0, 'dlvy':Number(gm.pa_dlvy_p), 'free_dlvy_max':Number(this.goods_def.free_dlvy_max), 'air':0};
+                    }
+                    collect[pa_id].goods += Number(gm.price * gm.ea);
+                }
+                
+                if ( this.order.od_pay_method == 'B' ) {    //  할인금액 빼준다
+                    let add_mul = Math.floor((1-this.user.dc_mul)*100)/100;
+                    collect[pa_id].goods -= Math.floor(collect[pa_id].goods*add_mul);
+                }
+                
+                if ( pa[0]['pa_type'] != 'AIR' ) {
+                    //  항공 운임료는 항상 부과되어 변동없이 간다.
+                    //  업체 배송은 금액에 따라 부과되어 다시 계산한다.
+                    if ( Math.floor(collect[pa_id].goods*1.1) < Number(this.goods_def.free_dlvy_max) ){
+                        this.order.lists[pa_id][0]['pa_dlvy_p'] = this.goods_def.dlvy_fee;
+                    }else 
+                        this.order.lists[pa_id][0]['pa_dlvy_p'] = 0;
+                    this.order.lists[pa_id][0]['pa_dlvy_p_add_vat'] = Math.floor(this.order.lists[pa_id][0]['pa_dlvy_p']*1.1);                    
+                }
+
+                if ( pa[0]['pa_type'] == 'AIR' )
+                    this.order.price.air += this.order.lists[pa_id][0]['pa_dlvy_p'];
+                else
+                    this.order.price.dlvy += this.order.lists[pa_id][0]['pa_dlvy_p'];
+            }
+            this.order.price.air_add_vat = Math.floor(this.order.price.air*1.1);
+            this.order.price.dlvy_add_vat = Math.floor(this.order.price.dlvy*1.1);
+            this.order.price.goods = Object.values(collect).reduce((acc, el) => acc + el.goods, 0);
+            this.order.price.goods_add_vat = Math.floor(this.order.price.goods*1.1);
+            this.order.price.surtax = Math.floor(this.order.price.goods*0.1);
+            this.order.price.total = this.order.price.air_add_vat+this.order.price.dlvy_add_vat+this.order.price.goods+this.order.price.surtax;
+        },
+
         onPostcodeSlt(result) {
             this.$set(this.order, 'od_zip', result.zonecode);
             let addr = result.roadAddress;
@@ -408,6 +456,7 @@ export default {
             this.postcode_open = false;
         },
         async exePayment () {
+            this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
             if (this.validationChecker(this.order)) {
                 
                 switch (this.order.extra.oex_type) {
@@ -457,7 +506,7 @@ export default {
                             objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);                 form.appendChild(objs03);
                             objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);               form.appendChild(objs04);
                             objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);           form.appendChild(objs05);
-                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.$store.state.auth.user.name); form.appendChild(objs06);
+                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name); form.appendChild(objs06);
                             objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile);     form.appendChild(objs07);
                             objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                           form.appendChild(objs08);
                             objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);                 form.appendChild(objs09);                            
@@ -627,8 +676,12 @@ export default {
                 this.config = res.data.config;
                 this.addr = res.data.addr;
                 this.order.sale_env = res.data.sale_env;
+                this.goods_def = res.data.goods_def;
                 if(this.addr.length)
                     this.addr_choose(this.addr[0]);
+                
+                if(this.user.is_dealer)
+                    this.calculator();  //  딜러가 계산
             }
             /*  견적가 에러는 
                 \resources\js\api\http.js
@@ -640,6 +693,9 @@ export default {
         }
     },
     mounted() {
+        if ( this.user.level == 12 )
+            this.order.od_pay_method = 'B';
+        
         // console.log(this.$session.get('order'));
         // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
         //     console.log('collapseId:', collapseId)

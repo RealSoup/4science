@@ -133,6 +133,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -152,14 +162,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('cart', ['cartList'])), {}, {
     sum_goods_add_vat: function sum_goods_add_vat() {
-      return Object.values(this.cartList).reduce(function (acc, el) {
+      var p = Object.values(this.cartList).reduce(function (acc, el) {
         return acc + (el.ct_check_opt == 'Y' ? el.price_add_vat * el.ea : 0);
       }, 0);
+      if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
+      return p;
     },
     sum_goods: function sum_goods() {
-      return Object.values(this.cartList).reduce(function (acc, el) {
+      var p = Object.values(this.cartList).reduce(function (acc, el) {
         return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea : 0);
       }, 0);
+      if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
+      return p;
     },
     sum_mileage: function sum_mileage() {
       return Object.values(this.cartList).reduce(function (acc, el) {
@@ -651,14 +665,44 @@ var render = function () {
                           ]),
                           _vm._v(" "),
                           _c("b-col", { staticClass: "price cost" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("won")(
-                                  _vm._f("price_zero")(
-                                    _vm._f("comma")(ct.price_add_vat)
-                                  )
-                                )
-                              )
+                            _c(
+                              "span",
+                              {
+                                staticClass: "price",
+                                class: {
+                                  see_dealer:
+                                    _vm.$store.state.auth.isLoggedin &&
+                                    _vm.$store.state.auth.user.level == 12,
+                                },
+                              },
+                              [
+                                _c("span", { staticClass: "normal" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("won")(
+                                        _vm._f("price_zero")(
+                                          _vm._f("comma")(ct.price_add_vat)
+                                        )
+                                      )
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "dealer" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("won")(
+                                        _vm._f("price_zero")(
+                                          _vm._f("comma")(
+                                            ct.price_add_vat *
+                                              _vm.$store.state.auth.user.dc_mul
+                                          )
+                                        )
+                                      )
+                                    )
+                                  ),
+                                ]),
+                              ]
                             ),
                           ]),
                           _vm._v(" "),
@@ -682,14 +726,45 @@ var render = function () {
                           ]),
                           _vm._v(" "),
                           _c("b-col", { staticClass: "price sum" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("won")(
-                                  _vm._f("price_zero")(
-                                    _vm._f("comma")(ct.price_add_vat * ct.ea)
-                                  )
-                                )
-                              )
+                            _c(
+                              "span",
+                              {
+                                staticClass: "price",
+                                class: {
+                                  see_dealer:
+                                    _vm.$store.state.auth.isLoggedin &&
+                                    _vm.$store.state.auth.user.level == 12,
+                                },
+                              },
+                              [
+                                _c("span", { staticClass: "normal" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("won")(
+                                        _vm._f("price_zero")(
+                                          _vm._f("comma")(ct.price_add_vat)
+                                        )
+                                      )
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "dealer" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("won")(
+                                        _vm._f("price_zero")(
+                                          _vm._f("comma")(
+                                            ct.price_add_vat *
+                                              ct.ea *
+                                              _vm.$store.state.auth.user.dc_mul
+                                          )
+                                        )
+                                      )
+                                    )
+                                  ),
+                                ]),
+                              ]
                             ),
                           ]),
                           _vm._v(" "),
@@ -930,19 +1005,21 @@ var render = function () {
                   _c("b-col"),
                   _vm._v(" "),
                   _c("b-col", [
-                    _c(
-                      "div",
-                      [
-                        _c("b-col", [_vm._v("적립예정 마일리지")]),
-                        _vm._v(" "),
-                        _c("b-col", [
-                          _vm._v(
-                            _vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원"
-                          ),
-                        ]),
-                      ],
-                      1
-                    ),
+                    !this.$store.state.auth.user.is_dealer
+                      ? _c(
+                          "div",
+                          [
+                            _c("b-col", [_vm._v("적립예정 마일리지")]),
+                            _vm._v(" "),
+                            _c("b-col", [
+                              _vm._v(
+                                _vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원"
+                              ),
+                            ]),
+                          ],
+                          1
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("div", [_c("b-col", [_vm._v(" ")]), _c("b-col")], 1),
                   ]),

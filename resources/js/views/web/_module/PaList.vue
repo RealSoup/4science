@@ -26,16 +26,27 @@
                     </b-col>
                     <b-col class="m_hide">{{item.mk_name}}</b-col>
                     <b-col>
-                        <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
-                        <template v-else>{{item.price | comma | won}}</template>
+                        <span class="price" :class="{see_dealer:d_price}">
+                            <span class="normal">
+                                <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
+                                <template v-else>{{item.price | comma | won}}</template>
+                            </span>
+                            <span class="dealer">{{(item.price_deal_add_vat) | comma | won}}</span>
+                        </span>
                     </b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
-                            <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
-                            <template v-else>{{item.price*item.ea | comma | won}}</template>
-                            <br class="m_hide" />
-                            <span class="m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
+                            <span class="price" :class="{see_dealer:d_price}">
+                                <span class="normal">
+                                    <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
+                                    <template v-else>{{item.price*item.ea | comma | won}}</template>
+                                </span>
+                                <span class="dealer">{{(item.price_deal_add_vat*item.ea) | comma | won}}</span>
+                            </span>
+                            
+                            <br v-if="!user.is_dealer" class="m_hide" />
+                            <span v-if="!user.is_dealer" class="mileage m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
                 </template>
@@ -52,8 +63,8 @@
                         <div>
                             <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                             <template v-else>{{item.price*item.ea | comma | won}}</template>
-                            <br />
-                            <span>({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
+                            <br v-if="!user.is_dealer" />
+                            <span v-if="!user.is_dealer">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
                 </template>
@@ -99,7 +110,7 @@
             </div>
         </b-col>
         <b-col>
-            <div>
+            <div v-if="!user.is_dealer">
                 <b-col>적립예정 마일리지</b-col>
                 <b-col>{{sum_mileage | comma}} 원</b-col>
             </div>
@@ -111,7 +122,7 @@
 <script>
 export default { 
     name: 'PaList', 
-    props: ['value', 'price', 'user', 'add_vat'],
+    props: ['value', 'price', 'user', 'add_vat', 'd_price'],
     data() {
         return {
             
@@ -165,7 +176,7 @@ export default {
 .pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
 .pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
 .pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(6) span { font-size:.7rem; color:#666;  }
+.pa_list .lbody .col .row .col:nth-of-type(6) .mileage { font-size:.7rem; color:#666;  }
 
 .pa_list .row .col .row.option { background:#F4F1EC; }
 .pa_list .row .col .row .col { padding:.8rem 0; }
