@@ -32,8 +32,10 @@ class RegisterController extends Controller {
         $r_m = User::validate_rule_msg($req->filled('level')??false);
         Validator::make($req->all(), $r_m['rule'], $r_m['message'])->validate();
         event(new Registered($user = $this->userStore($req)));
-        $m = new \App\Models\UserMileage;
-        event(new Mileage("insert", $user->id, 'users', $user->id, 'SV', '회원가입', 3000));
+        if ( $user->level < 10 ) {
+            $m = new \App\Models\UserMileage;
+            event(new Mileage("insert", $user->id, 'users', $user->id, 'SV', '회원가입', 3000));
+        }
         $this->guard()->login($user);
         return $req->wantsJson() ? new JsonResponse($user->ub_id, 201) : redirect($this->redirectPath());
     }

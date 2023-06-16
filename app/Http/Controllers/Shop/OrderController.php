@@ -244,8 +244,9 @@ class OrderController extends Controller {
             $this->orderExtraInfo->oex_memo     = array_key_exists('oex_memo', $req->extra)     ? $req->extra['oex_memo']     : '';
             $this->orderExtraInfo->save();
 
-            $order_goodsInfo = $this->goods->getGoodsDataCollection($req, 'buy_chk');
-          
+            // $order_goodsInfo = $this->goods->getGoodsDataCollection($req, 'buy_chk');
+            $order_goodsInfo = $this->goods->getGoodsDataCollection($req, $req->od_type);
+        //   dd($order_goodsInfo);
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
             // DB::commit();

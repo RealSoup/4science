@@ -251,12 +251,13 @@ class Goods extends Model {
                             $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
                             $tmpModel['ct_check_opt'] = 'Y';
                         } else if ($type == 'buy_chk') {
-                            if (auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B')
-                            foreach ($some['lists'] as $d1) {
-                                foreach ($d1 as $d2) {
-                                    if($d2['gm_id']==$gm->gm_id) {
-                                        $tmpModel['price'] = $d2['price_deal'];
-                                        $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
+                            if (auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B') {
+                                foreach ($some['lists'] as $d1) {
+                                    foreach ($d1 as $d2) {
+                                        if($d2['gm_id']==$gm->gm_id) {
+                                            $tmpModel['price'] = $d2['price_deal'];
+                                            $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
+                                        }
                                     }
                                 }
                             }

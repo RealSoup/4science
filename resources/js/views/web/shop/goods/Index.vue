@@ -210,7 +210,7 @@ export default {
 
 .list .col .row div:nth-child(2),
 .list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
-.list .col .row div.price { align-items:flex-end; }
+.list .col .row div.price { align-items:flex-end; flex-direction:column; }
 
 .list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
 .list .col .lhead div:not(:first-child) { border-left-width:0px; }

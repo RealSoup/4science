@@ -49,12 +49,12 @@
             </b-row>
         </div>
         
-        <div class="box">
+        <div class="box orderer">
             <b-row tag="h5"><b-col tag="b">주문자정보</b-col></b-row>
             <b-row class="label_st">
                 <b-col class="lb">주문자</b-col>
                 <b-col class="dt wd1_3">
-                    <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }}</b-link>
+                    <b-link v-if="od.created_id" :to="{name: 'adm_user_edit', params: { id:od.created_id }}">{{ od.od_orderer }} - <span class="u_group">{{ od.user.group | group }}</span></b-link>
                     <template v-else>{{ od.od_orderer }}</template>
                 </b-col>
                 <b-col class="lb">전화번호</b-col><b-col class="dt wd1_3">{{ od.od_orderer_hp }}</b-col>
@@ -520,7 +520,17 @@ export default {
                 default:  rst = 'PC'; break;
             }
             return rst;
-        }
+        },
+        group (v) {
+            var rst = '';
+            switch (v) {
+                case '1': rst = '일반회원'; break;
+                case '2': rst = '특별회원'; break;
+                case '3': rst = '미수회원'; break;
+                case '4': rst = '후불회원'; break;
+            }
+            return rst;
+        },
     },
     methods: {
         async edit(){
@@ -598,7 +608,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.7'
+                '/css/adm_shop_order_edit.css?ver=1.8'
             ]});
         },
 
@@ -765,7 +775,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.6';
+@import '/css/adm_shop_order_edit.css?ver=1.8';
 
 .p_wrap { padding-top:1rem; }
 .p_wrap .print_mng_nm { display:none; }

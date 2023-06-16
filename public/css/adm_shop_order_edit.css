@@ -21,6 +21,9 @@
 .p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }
 .p_wrap .print_mng_nm { top:0; position:absolute; left:50%; transform:translateX(-50%); font-size:3rem; z-index:4; }
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
+
+.p_wrap .orderer .row .col .u_group { color:#888; }
+ 
 .p_wrap .box .goods .pa_tit { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
 .p_wrap .box .goods .gd_con .row.option { background-color:#F4F1EC; }
 .p_wrap .box .goods .gd_con .row .col { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem; }
