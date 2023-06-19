@@ -39,7 +39,7 @@ class GoodsController extends Controller {
             if ( !$req->filled('mode') ) {
                 $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score02, 
                                 MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score03, MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score04, 
-                                MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05, MATCH (la_gs.gd_keyword) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score06 ")
+                                MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05 ")
                 ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);                
             } else {
                 if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
@@ -117,7 +117,7 @@ class GoodsController extends Controller {
                     if ( $req->filled('mode') ) 
                         $gs->orderBy('score', 'DESC');
                     else 
-                        $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
+                        $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
                 }
                 $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
             break;

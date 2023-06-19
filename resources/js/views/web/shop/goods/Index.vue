@@ -54,7 +54,7 @@
                 
                 <b-col>
                     <b-row v-for="(row, i) in pick" :key="i" :class="{active:i == pick_hover}" @mouseover="actHover(i)" tag="ul">
-                        <b-link v-for="gd in row" :key="gd.gd_id"
+                        <b-link v-for="gd in row" :key="`4p${gd.gd_id}`"
                             :to="{name: 'goods_show', params:{gd_id:gd.gd_id} }"
                             router-tag="li"
                         >   

@@ -103,11 +103,10 @@ class Goods extends Model {
 
 
     //  요청한 상품 정보를 직배송 형태로 변환, 리턴
-    public function getGoodsDataCollection($some, $type='buy_cart') {
+    public function getGoodsDataCollection($some, $type='buy_cart', $mode=null) {
         $rst = [ 'lists'=>array(), 'price'=>array() ];
         $d_arrange = Array();
         switch ($type) {
-            case 'buy_chk':
             case 'buy_inst':    //  바로 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'buy_cart':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'request_estimate':    //  유저가 견적요청(상품페이지, 장바구니에서)시 데이터 편집
@@ -239,7 +238,7 @@ class Goods extends Model {
                                         'mk_name'           => $gd->maker->mk_name,
                                         'price'             => $gm->gm_price,
                                         'price_add_vat'     => $gm->gm_price_add_vat,];
-                        
+                        // dd($mode);
                         if ($type == 'order') { //  주문은 주문 시점 가격을 가져온다
                             $tmpModel['price']= $d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price'];
                             $tmpModel['price_add_vat'] = rrp($d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price']);
@@ -250,20 +249,20 @@ class Goods extends Model {
                         } else if ($type == 'cart') {
                             $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
                             $tmpModel['ct_check_opt'] = 'Y';
-                        } else if ($type == 'buy_chk') {
-                            if (auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B') {
-                                foreach ($some['lists'] as $d1) {
-                                    foreach ($d1 as $d2) {
-                                        if($d2['gm_id']==$gm->gm_id) {
-                                            $tmpModel['price'] = $d2['price_deal'];
-                                            $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
-                                        }
-                                    }
-                                }
-                            }
                         } else if ($gm->bundleDc()->exists()) {
                             $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
                             $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
+                        }
+
+                        if ($mode == 'buy_chk' && auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B') {
+                            foreach ($some['lists'] as $d1) {
+                                foreach ($d1 as $d2) {
+                                    if($d2['gm_id']==$gm->gm_id) {
+                                        $tmpModel['price'] = $d2['price_deal'];
+                                        $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
+                                    }
+                                }
+                            }
                         }
                         $rst['lists'][$gd->gd_pa_id??0][] = $tmpModel;
                     }

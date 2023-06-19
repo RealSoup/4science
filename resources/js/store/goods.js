@@ -63,7 +63,9 @@ export default {
                 context.state.frm.ca02 = 0;
                 context.state.frm.ca03 = 0;
                 context.state.frm.ca04 = 0;
+                context.state.frm.mk_id = 0;
                 context.state.frm.page = 0;
+                context.state.frm.sort = 'hot';
             }
 
             let nfrm = {};

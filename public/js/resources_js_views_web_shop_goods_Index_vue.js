@@ -592,7 +592,7 @@ var render = function () {
                             return _c(
                               "b-link",
                               {
-                                key: gd.gd_id,
+                                key: "4p" + gd.gd_id,
                                 attrs: {
                                   to: {
                                     name: "goods_show",
