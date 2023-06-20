@@ -74,20 +74,24 @@
 
             <b-row>
                 <b-col class="label">제조사</b-col>
-                <b-col class="type03">
+                <b-col class="type02">
                     <maker-input v-model="value.gd_mk_name" :frm="value" />
                     <validation :error="$store.state.error.validations.gd_mk_id" />
                 </b-col>
                 <b-col class="label short">매입처 직배송</b-col>
-                <b-col class="type03">
+                <b-col class="type02">
                     <select class="custom-select" v-model="value.gd_pa_id">
                         <option value="0"></option>
                         <option v-for="opt in purchaseAt" :value="opt.pa_id" :key="opt.pa_id">{{ opt.pa_name }}</option>
                     </select>
                 </b-col>
                 <b-col class="label short">관리자 정보</b-col>
-                <b-col class="type03">
+                <b-col class="type02">
                     <b-form-input v-model="value.gd_mng_info" />
+                </b-col>
+                <b-col class="label">검색 순위</b-col>
+                <b-col class="type02" v-b-tooltip="'낮을 수록 먼저 나옵니다.'">
+                    <b-form-input v-model="value.gd_seq" />
                 </b-col>
             </b-row>
 

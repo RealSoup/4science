@@ -99,7 +99,9 @@ Route::get('/admin/realsoup/play', 'Admin\RealsoupController@play');
 Route::get('/admin/crontab/receiveConfirm', 'Admin\CronTabController@receiveConfirm');
 Route::get('/admin/crontab/adjustMemberLevel', 'Admin\CronTabController@adjustMemberLevel');
 
-Route::GET('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
+Route::POST('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
+Route::POST('/admin/shop/b2b_merck/Invoice', 'Admin\Shop\B2bMerckController@Invoice');
+Route::POST('/admin/shop/b2b_merck/Asn', 'Admin\Shop\B2bMerckController@Asn');
 
 
 // Route::post('email/resend', function (Request $request) {

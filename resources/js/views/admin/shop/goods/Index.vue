@@ -127,6 +127,7 @@ export default {
                 ca02:0,
                 ca03:0,
                 ca04:0,
+                gd_seq:'',
                 mode:'gd_name',
                 keyword:'',
                 page:0

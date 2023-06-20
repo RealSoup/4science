@@ -811,6 +811,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
  // import Multiselect from 'vue-multiselect'
 
@@ -6276,7 +6280,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "type03" },
+                    { staticClass: "type02" },
                     [
                       _c("maker-input", {
                         attrs: { frm: _vm.value },
@@ -6302,7 +6306,7 @@ var render = function () {
                     _vm._v("매입처 직배송"),
                   ]),
                   _vm._v(" "),
-                  _c("b-col", { staticClass: "type03" }, [
+                  _c("b-col", { staticClass: "type02" }, [
                     _c(
                       "select",
                       {
@@ -6356,7 +6360,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "type03" },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
                         model: {
@@ -6365,6 +6369,35 @@ var render = function () {
                             _vm.$set(_vm.value, "gd_mng_info", $$v)
                           },
                           expression: "value.gd_mng_info",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("검색 순위")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip",
+                          value: "낮을 수록 먼저 나옵니다.",
+                          expression: "'낮을 수록 먼저 나옵니다.'",
+                        },
+                      ],
+                      staticClass: "type02",
+                    },
+                    [
+                      _c("b-form-input", {
+                        model: {
+                          value: _vm.value.gd_seq,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "gd_seq", $$v)
+                          },
+                          expression: "value.gd_seq",
                         },
                       }),
                     ],

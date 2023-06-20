@@ -475,7 +475,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 10;
+                  _context2.next = 11;
                   break;
                 }
 
@@ -487,9 +487,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.$refs.form.$refs.fileupload2.fileProcessor(res.data);
 
               case 9:
-                Notify.toast('success', '수정 완료'); // window.location.reload(true);
+                Notify.toast('success', '수정 완료');
+                window.location.reload(true);
 
-              case 10:
+              case 11:
               case "end":
                 return _context2.stop();
             }
@@ -600,6 +601,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -6358,7 +6363,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "type03" },
+                    { staticClass: "type02" },
                     [
                       _c("maker-input", {
                         attrs: { frm: _vm.value },
@@ -6384,7 +6389,7 @@ var render = function () {
                     _vm._v("매입처 직배송"),
                   ]),
                   _vm._v(" "),
-                  _c("b-col", { staticClass: "type03" }, [
+                  _c("b-col", { staticClass: "type02" }, [
                     _c(
                       "select",
                       {
@@ -6438,7 +6443,7 @@ var render = function () {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { staticClass: "type03" },
+                    { staticClass: "type02" },
                     [
                       _c("b-form-input", {
                         model: {
@@ -6447,6 +6452,35 @@ var render = function () {
                             _vm.$set(_vm.value, "gd_mng_info", $$v)
                           },
                           expression: "value.gd_mng_info",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "label" }, [_vm._v("검색 순위")]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    {
+                      directives: [
+                        {
+                          name: "b-tooltip",
+                          rawName: "v-b-tooltip",
+                          value: "낮을 수록 먼저 나옵니다.",
+                          expression: "'낮을 수록 먼저 나옵니다.'",
+                        },
+                      ],
+                      staticClass: "type02",
+                    },
+                    [
+                      _c("b-form-input", {
+                        model: {
+                          value: _vm.value.gd_seq,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.value, "gd_seq", $$v)
+                          },
+                          expression: "value.gd_seq",
                         },
                       }),
                     ],

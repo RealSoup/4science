@@ -19,6 +19,7 @@ class GoodsController extends Controller {
             ($req->filled('ca03') && Category::where('ca_id', $req->ca03)->doesntExist()) ||
             ($req->filled('ca04') && Category::where('ca_id', $req->ca04)->doesntExist()) 
         ), 501, '존재 하지 않는 카테고리 입니다.');
+
         $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
@@ -27,97 +28,114 @@ class GoodsController extends Controller {
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
                 "gs.gd_rank", 'gs.gd_id'
-            )
-            ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
+            );
+            // ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
             // ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
-            ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y');
+            // ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y');
 
-        if ($req->filled('keyword')){
-            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
+        if ($req->filled('keyword')) {
+            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}\"";
 			else 									    $ftWord = $req->keyword.'*';
 
             if ( !$req->filled('mode') ) {
-                $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score02, 
-                                MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score03, MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score04, 
-                                MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score05 ")
-                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);                
+                $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score02, 
+                                MATCH (la_gs.gm_code) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score03, MATCH (la_gs.mk_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score04, 
+                                MATCH (la_gs.gm_catno) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score05, MATCH (la_gs.gd_keyword) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score06 ")
+                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);
             } else {
-                if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
-                if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
-                if ( $req->mode == 'gm_code' ) $gs->selectRaw(" MATCH (la_gs.gm_code) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
-                if ( $req->mode == 'cat_no' )  $gs->selectRaw(" MATCH (la_gs.gm_catno) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_catno', $ftWord, ['mode' => 'boolean']);
-                if ( $req->mode == 'maker' )   $gs->selectRaw(" MATCH (la_gs.mk_name) AGAINST ('".$ftWord."' IN BOOLEAN MODE) as score ")->whereFullText('gs.mk_name', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'gm_code' ) $gs->selectRaw(" MATCH (la_gs.gm_code) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'cat_no' )  $gs->selectRaw(" MATCH (la_gs.gm_catno) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_catno', $ftWord, ['mode' => 'boolean']);
+                if ( $req->mode == 'maker' )   $gs->selectRaw(" MATCH (la_gs.mk_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.mk_name', $ftWord, ['mode' => 'boolean']);
             }
 
-            $grouped = $gs->get();
-            if ( $grouped->count()) {
+            // $grouped = $gs->get();
+            // if ( $gs->count() ) {
+                
+                $gs->groupBy('gs.gd_id');
                 //  검색시 카테고리 상세 검색을 위한
                 //  검생 상품이 속한 카테고리 배열정보
                 
                 //  검색어 없이 카테고리만 선택시 상품수가 많을수록 group by 속도가 너무 느리다
                 //  그래서 검색어가 있을때만 group by 하고
                 //  없으면 gm_prime = Y 로 gd_id가 겹치지 않게 한다.
-                $grouped = $gs->groupBy('gs.gd_id')->get();     //  이것이 리스트 그룹바이다.
+                $prev = clone $gs;
+                $grouped = DB::table( $prev, 'sub' )
+                    ->select('sub.gc_ca01', 'sub.gc_ca01_name', DB::raw('COUNT(la_sub.gc_ca01) as sum_ca'))
+                    ->groupBy('sub.gc_ca01')
+                    ->get();
                 
-                $data['sch_cate_info']['all'] = count($grouped);
-
-                $grouped = $grouped->groupBy('gc_ca01');
+                $data['sch_cate_info']['all'] = $grouped->sum('sum_ca');
                 
                 foreach ($grouped as $v) {
-                    $tmp['key'] = $v[0]->gc_ca01;
-                    $tmp['name'] = $v[0]->gc_ca01_name;
-                    $tmp['cnt'] = count($v);
+                    $tmp['key'] = $v->gc_ca01;
+                    $tmp['name'] = $v->gc_ca01_name;
+                    $tmp['cnt'] = $v->sum_ca;
                     $data['sch_cate_info']['ca01'][] = $tmp;
                 }
                 if ($req->filled('ca01')) {
-                    $grouped = $grouped[$req->ca01]->groupBy('gc_ca02');
+                    $grouped = DB::table( $prev->where('gc_ca01', $req->ca01), 'sub' )
+                    ->select('sub.gc_ca02', 'sub.gc_ca02_name', DB::raw('COUNT(la_sub.gc_ca02) as sum_ca'))
+                    ->groupBy('sub.gc_ca02')
+                    ->get();
+
                     foreach ($grouped as $v) {
-                        $tmp['key'] = $v[0]->gc_ca02;
-                        $tmp['name'] = $v[0]->gc_ca02_name;
-                        $tmp['cnt'] = count($v);
+                        $tmp['key'] = $v->gc_ca02;
+                        $tmp['name'] = $v->gc_ca02_name;
+                        $tmp['cnt'] = $v->sum_ca;
                         $data['sch_cate_info']['ca02'][] = $tmp;
                     }
                 }
 
                 if ($req->filled('ca02')) {
-                    $grouped = $grouped[$req->ca02]->groupBy('gc_ca03');
+                    $grouped = DB::table( $prev->where('gc_ca02', $req->ca02), 'sub' )
+                    ->select('sub.gc_ca03', 'sub.gc_ca03_name', DB::raw('COUNT(la_sub.gc_ca03) as sum_ca'))
+                    ->groupBy('sub.gc_ca03')
+                    ->get();
                     foreach ($grouped as $v) {
-                        $tmp['key'] = $v[0]->gc_ca03;
-                        $tmp['name'] = $v[0]->gc_ca03_name;
-                        $tmp['cnt'] = count($v);
+                        $tmp['key'] = $v->gc_ca03;
+                        $tmp['name'] = $v->gc_ca03_name;
+                        $tmp['cnt'] = $v->sum_ca;
                         $data['sch_cate_info']['ca03'][] = $tmp;
                     }
                 }
 
                 if ($req->filled('ca03')) {
-                    $grouped = $grouped[$req->ca03]->groupBy('gd_mk_id');
+                    $gs->addSelect('gd.gd_mk_id')->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id');
+                    $grouped = DB::table( $prev->addSelect('gd.gd_mk_id')->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')->where('gc_ca03', $req->ca03), 'sub' )
+                    ->select('sub.gd_mk_id', 'sub.mk_name', DB::raw('COUNT(la_sub.gd_mk_id) as sum_ca'))
+                    ->groupBy('sub.gd_mk_id')
+                    ->get();
                     foreach ($grouped as $v) {
-                        $tmp['key'] = $v[0]->gd_mk_id;
-                        $tmp['name'] = $v[0]->mk_name;
-                        $tmp['cnt'] = count($v);
+                        $tmp['key'] = $v->gd_mk_id;
+                        $tmp['name'] = $v->mk_name;
+                        $tmp['cnt'] = $v->sum_ca;
                         $data['sch_cate_info']['maker'][] = $tmp;
                     }
                 }
-            }
+            // }
         } else {
             $gs->where('gs.gm_prime', 'Y');
         }
         //  카테고리 where 절은 카테고리 분류한 후에 있어야
         //  결과네 카테고리 검색의 값이 바뀌지 않는다.
+   
         $gs->when($req->ca01, fn ($q, $v) => $q->where('gc_ca01', $v))
             ->when($req->ca02, fn ($q, $v) => $q->where('gc_ca02', $v))
             ->when($req->ca03, fn ($q, $v) => $q->where('gc_ca03', $v))
             ->when($req->ca04, fn ($q, $v) => $q->where('gc_ca04', $v))
-            ->when($req->mk_id, fn ($q, $v) => $q->maker($v));
+            ->when($req->mk_id, fn ($q, $v) => $q->where('gd_mk_id', $v));
         
         $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
             case 'hot':
+                $gs->orderBy('gd_seq');
                 if ($req->filled('keyword')){
                     if ( $req->filled('mode') ) 
                         $gs->orderBy('score', 'DESC');
                     else 
-                        $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC');
+                        $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
                 }
                 $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
             break;

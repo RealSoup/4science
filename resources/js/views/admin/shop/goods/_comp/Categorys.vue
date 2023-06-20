@@ -31,6 +31,14 @@
                 <option v-for="opt in list04" :value="opt.ca_id" :key="opt.ca_id">{{ opt.ca_name }}</option>
             </select>
         </b-col>
+
+        <b-col class="label">우선순위상품</b-col>
+        <b-col class="type00">
+            <select class="custom-select custom-select-sm" v-model="value.gd_seq">
+                <option value=""></option>
+                <option value="Y">활성</option>
+            </select>
+        </b-col>
     </b-row>
 </template>
 
@@ -63,3 +71,9 @@ export default {
     mounted() { this.getCate(0, 0); },
 }
 </script>
+<style scoped>
+.p_wrap .frm_sch .row .type00 {
+    flex: 0 0 9%;
+    max-width: 9%;
+}
+</style>

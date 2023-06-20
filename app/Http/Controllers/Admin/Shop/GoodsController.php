@@ -47,6 +47,7 @@ class GoodsController extends Controller {
                 if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
                 elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
             })
+            ->when($req->gd_seq, fn ($q, $v) => $q->where('gs.gd_seq', '<', 999999))
             ->when(!$req->ca01, fn ($q, $v) => $q->where('gs.gc_prime', 'Y'))
             ->when($req->ca01, fn ($q, $v) => $q->where('gs.gc_ca01', $v))
             ->when($req->ca02, fn ($q, $v) => $q->where('gs.gc_ca02', $v))
@@ -375,6 +376,7 @@ class GoodsController extends Controller {
 	   	$goods->gd_mk_id       = $req->gd_mk_id;
 	   	$goods->gd_pa_id       = $req->gd_pa_id;
         $goods->gd_mng_info    = $req->gd_mng_info;
+        $goods->gd_seq         = $req->gd_seq;
         $goods->ip             = $req->ip();
         return $goods;
     }
@@ -411,6 +413,7 @@ class GoodsController extends Controller {
                 'gd_name'      => $gd->gd_name,
                 'gd_keyword'   => $gd->gd_keyword,
                 'gd_rank'      => $gd->gd_rank,
+                'gd_seq'       => $gd->gd_seq,
                 'mk_name'      => $gd->gd_mk_name,
                 'gm_id'        => $gm['gm_id'],
                 'gm_enable'    => $gm['gm_enable'],

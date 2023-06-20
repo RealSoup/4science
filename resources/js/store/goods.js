@@ -67,6 +67,12 @@ export default {
                 context.state.frm.page = 0;
                 context.state.frm.sort = 'hot';
             }
+            
+            if( context.state.frm.keyword == 'trc' ) {
+                context.state.frm.ca01 = 28;
+                context.state.frm.ca02 = 3614;
+                context.state.frm.keyword = '';
+            }
 
             let nfrm = {};
             for (let i in context.state.frm) {

@@ -101,7 +101,7 @@ export default {
 .recent_box .cube_box { width:70px; height:430px; margin:auto; transition:all .5s ease; }
 
 .recent_box .cube_box .cube { position: relative; transform-style: preserve-3d; width:100%; transform: translateZ(-30px); transition: transform .2s; }
-.recent_box .cube_box .cube .piece { position:absolute; overflow:hidden; transition:all .5s ease; background:#fff; height:100%; }
+.recent_box .cube_box .cube .piece { position:absolute; overflow:hidden; transition:all .5s ease; background:#fff; height:100%; border-radius:35px; }
 .recent_box .cube_box .cube .piece.front  { transform: rotateY(  0deg) translateZ(30px); }
 .recent_box .cube_box .cube .piece.right  { transform: rotateY( 90deg) translateZ(30px); }
 .recent_box .cube_box .cube .piece.back   { transform: rotateY(180deg) translateZ(30px); }

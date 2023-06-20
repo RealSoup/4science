@@ -141,15 +141,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return", false);
 
               case 6:
-                _this2.clickable = false; // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
-                // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
-
-                _context2.prev = 7;
+                _context2.prev = 6;
+                _this2.clickable = false;
 
                 _this2.$refs.form_goods.calculator();
 
                 _context2.t0 = type;
-                _context2.next = _context2.t0 === 'store' ? 12 : _context2.t0 === 'send' ? 14 : 16;
+                _context2.next = _context2.t0 === 'preview' ? 12 : _context2.t0 === 'store' ? 12 : _context2.t0 === 'send' ? 14 : 16;
                 break;
 
               case 12:
@@ -208,7 +206,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 30:
                 _context2.prev = 30;
-                _context2.t1 = _context2["catch"](7);
+                _context2.t1 = _context2["catch"](6);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
@@ -217,7 +215,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[7, 30]]);
+        }, _callee2, null, [[6, 30]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {

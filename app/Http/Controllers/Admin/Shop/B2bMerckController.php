@@ -324,6 +324,17 @@ class B2bMerckController extends Controller {
 		}
 	}
 
+	public function Invoice(Request $req) {
+		echo 'url test ok';
+		return false;
+	}
+
+	public function Asn(Request $req) {
+		echo 'url test ok';
+		return false;
+
+	}
+
 
 	 /**
      * 재고 가격 확인

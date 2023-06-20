@@ -56,13 +56,12 @@ export default {
         async update(type) {
             if (!validationCheckerUser(this.frm.estimate_req))      return false;
             if (!validationCheckerGoods(this.frm.estimate_model))   return false;
-            if (!validationCheckerExtra(this.frm.estimate_reply))   return false;
-            this.clickable = false;
-            // let acceptedFilesCount = this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone.dropzone.getAcceptedFiles();
-            // console.log(this.$refs.form_extra.$refs.add_file.$refs.myVueDropzone);
+            if (!validationCheckerExtra(this.frm.estimate_reply))   return false;       
             try {
+                this.clickable = false;
                 this.$refs.form_goods.calculator();
                 switch (type) {
+                    case 'preview': 
                     case 'store': this.frm.estimate_reply.er_step = 0; break;
                     case 'send': this.frm.estimate_reply.er_step = 1; break;
                 }
