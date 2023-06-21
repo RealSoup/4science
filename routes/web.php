@@ -113,5 +113,4 @@ Route::POST('/admin/shop/b2b_merck/Asn', 'Admin\Shop\B2bMerckController@Asn');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
 // Auth::routes(['verify' => true]);
-
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

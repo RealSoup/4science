@@ -732,7 +732,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("ValidationObserver", {
+  return _c("validation-observer", {
     ref: "observer",
     staticClass: "tax_iv",
     attrs: { tag: "form" },
@@ -808,7 +808,7 @@ var render = function () {
                                                   [_vm._v("파일 첨부")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "파일 첨부",
                                                     rules: "required",
@@ -902,7 +902,7 @@ var render = function () {
                                                   [_vm._v("법인명")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "법인명",
                                                     rules: "required",
@@ -980,7 +980,7 @@ var render = function () {
                                                   [_vm._v("등록번호")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "등록번호",
                                                     rules: "required",
@@ -1060,7 +1060,7 @@ var render = function () {
                                                   [_vm._v("업태/종목")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "업태",
                                                     rules: "required",
@@ -1124,7 +1124,7 @@ var render = function () {
                                                 _vm._v(" "),
                                                 _c("b", [_vm._v("/")]),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "종목",
                                                     rules: "required",
@@ -1198,7 +1198,7 @@ var render = function () {
                                                   [_vm._v("대표자명")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "대표자명",
                                                     rules: "required",
@@ -1274,7 +1274,7 @@ var render = function () {
                                                   [_vm._v("사업장소재지")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "사업장소재지",
                                                     rules: "required",
@@ -1352,7 +1352,7 @@ var render = function () {
                                                   [_vm._v("요구사항")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "요구사항",
                                                     rules: "",
@@ -1444,7 +1444,7 @@ var render = function () {
                                                   [_vm._v("담당자")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "담당자",
                                                     rules: "required",
@@ -1520,7 +1520,7 @@ var render = function () {
                                                   [_vm._v("이메일")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "이메일",
                                                     rules: "required|email",
@@ -1598,7 +1598,7 @@ var render = function () {
                                                   [_vm._v("연락처")]
                                                 ),
                                                 _vm._v(" "),
-                                                _c("ValidationProvider", {
+                                                _c("validation-provider", {
                                                   attrs: {
                                                     name: "연락처",
                                                     rules: "required",

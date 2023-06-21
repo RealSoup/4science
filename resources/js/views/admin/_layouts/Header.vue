@@ -107,12 +107,12 @@
     </div>
 
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <ReqVoucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
-            <ReqAsk      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
-            <ReqOrder    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" />
-            <ReqEstimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" />
-        </Modal>
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
+            <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
+            <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
+            <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" />
+            <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" />
+        </modal>
     </transition>
 </header>
 </template>
@@ -125,11 +125,11 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
     name: 'Header',
     components: {
-        'Modal'     : () => import('@/views/_common/Modal'),
-        'ReqOrder'   : () => import('./_comp/ReqOrder'),
-        'ReqEstimate'    : () => import('./_comp/ReqEstimate'),
-        'ReqVoucher': () => import('./_comp/ReqVoucher'),
-        'ReqAsk'    : () => import('./_comp/ReqAsk'),
+        'modal'     : () => import('@/views/_common/Modal'),
+        'req-order'   : () => import('./_comp/ReqOrder'),
+        'req-estimate'    : () => import('./_comp/ReqEstimate'),
+        'req-voucher': () => import('./_comp/ReqVoucher'),
+        'req-ask'    : () => import('./_comp/ReqAsk'),
     },
     computed: {
         ...mapGetters({
@@ -166,18 +166,20 @@ export default {
 <style lang="css" scoped>
 #header { background:#4E647B; }
 #header .layout nav { z-index:1021; padding:.5rem 0rem; }
-#header .layout >>> nav .nav-link { color:#fff; padding:.5rem 1.15vw; font-size: calc(.25vw + .7rem); }
+#header .layout >>> nav .nav-link { color:#fff; padding:.5rem 15px; font-size:1.1rem; }
 #header .layout nav .dropdown-header { background:#888; color:#fff; font-weight:900; }
 #header .layout nav .go_shop { margin-left:15px; color:#fff; font-size:1.25rem; }
-#header .layout nav .logo_link img { width:85px; }
+#header .layout nav .logo_link img { width:100px; }
 
 .blink { margin:0 3px; animation: blink 2.5s linear infinite; }
 @keyframes blink { 50% { opacity:.4; } }
 
 
 @media (max-width: 1320px){
-    #header .layout >>> nav .nav-link { color:#fff; padding:.5rem .8vw; }
+    #header .layout >>> nav .nav-link { color:#fff; padding:.5rem .8vw; font-size: calc(.25vw + .7rem); }
 
 }
-
+@media (max-width: 992px){
+    #header .layout >>> nav .nav-link { font-size:.85rem;}
+}
 </style>

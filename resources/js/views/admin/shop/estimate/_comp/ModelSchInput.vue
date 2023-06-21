@@ -21,7 +21,7 @@ import ax from '@/api/http';
 
 export default {
     props:['value', 'type', 'id', 'em'],
-    data() { return { model: [], maker: {}, } },
+    data() { return { model: [], } },
     computed: {
         input_val: {
             get: function() { return this.value; },
@@ -43,12 +43,10 @@ export default {
                 try {
                     const res = await ax.get(`/api/admin/shop/goods/getModel`, {params:{type:this.type, key:v}});
                     if (res && res.status === 200) {
-                        if (res.data.gd.length) {
-                            this.model = res.data.gd;
-                            this.maker = res.data.mk;
+                        if (res.data.length) {
+                            this.model = res.data;
                         } else {
                             this.model = [{gm_name:'정보없음'}];
-                            this.maker = [];
                         }
                     }
                 } catch (e) {
@@ -67,18 +65,18 @@ export default {
                 this.$set(this.em, 'em_code'      , this.model[i].gm_code);
                 this.$set(this.em, 'em_unit'      , this.model[i].gm_unit);
                 this.$set(this.em, 'em_spec'      , this.model[i].gm_spec);
-                this.$set(this.em, 'em_maker'     , this.maker.mk_name);
+                this.$set(this.em, 'em_maker'     , this.model[i].goods.maker.mk_name);
                 this.$set(this.em, 'em_ea'        , 1);
                 this.$set(this.em, 'em_cost_price', this.model[i].gm_price);
                 this.$set(this.em, 'em_dc_rate'   , 0);
                 this.$set(this.em, 'em_price'     , this.model[i].gm_price);
                 this.$set(this.em, 'em_dlvy_at'   , this.model[i].gm_dlvy_at);
                 this.$set(this.em, 'bundle_dc'    , this.model[i].bundle_dc);
-                this.$set(this.em, 'goods'        , this.model[0].goods);
+                this.$set(this.em, 'goods'        , this.model[i].goods);
             }
             this.hide();
         },
-        hide(){ this.model = []; this.maker = []; }
+        hide(){ this.model = []; }
     }
 }
 </script>

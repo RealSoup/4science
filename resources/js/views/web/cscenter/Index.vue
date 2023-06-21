@@ -2,7 +2,7 @@
 <b-container class="w_fence" id="cscenter">
     <h3>고객센터</h3>
      
-    <b-tabs class="cscenter_tab" vertical>
+    <b-tabs class="cscenter_tab row">
         <b-tab title="1:1 문의" active><board-create :cs_bo_cd="'inquiry'" /></b-tab>
         <b-tab title="A/S 신청"><board-create :cs_bo_cd="'as'" /></b-tab>
         <b-tab title="취소/교환"><board-create :cs_bo_cd="'cancel'" /></b-tab>
@@ -45,15 +45,16 @@ export default {
 
 <style lang="css" scoped>
 #cscenter >>> .cscenter_tab { border:5px solid #E2E2E2; margin-bottom:5rem; } 
-#cscenter >>> .cscenter_tab>.col-auto { width:370px; padding-left:0; padding-right:0; }
-#cscenter >>> .cscenter_tab>.col-auto .nav-tabs .nav-link { background:#4F708F; color:#FFF; font-weight:bold; text-align:center; border:1px solid #FFF; padding:47px 0; border-radius:0; }
-#cscenter >>> .cscenter_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#4F708F; }
-#cscenter >>> .cscenter_tab>.tab-content { padding:30px 45px 0; }
+#cscenter >>> .cscenter_tab>div:first-child { width:370px; padding-left:0; padding-right:0; flex:0 0 auto; max-width:100%; }
+#cscenter >>> .cscenter_tab>div .nav-tabs { flex-direction:column; }
+#cscenter >>> .cscenter_tab>div .nav-tabs .nav-link { background:#4F708F; color:#FFF; font-weight:bold; text-align:center; border:1px solid #FFF; padding:47px 0; border-radius:0; }
+#cscenter >>> .cscenter_tab>div .nav-tabs .nav-link.active { background:#FFF; color:#4F708F; }
+#cscenter >>> .cscenter_tab>.tab-content { padding:30px 45px 0; flex-basis: 0; flex-grow: 1; max-width: 100%;}
 
 #cscenter #info_tab_scroll { position:relative; top:-100px; }
 
-#cscenter >>> .info_tab>.col-auto .nav-tabs .nav-link { background:#01B7CD; }
-#cscenter >>> .info_tab>.col-auto .nav-tabs .nav-link.active { background:#FFF; color:#01B7CD; }
+#cscenter >>> .info_tab>div .nav-tabs .nav-link { background:#01B7CD; }
+#cscenter >>> .info_tab>div .nav-tabs .nav-link.active { background:#FFF; color:#01B7CD; }
 
 #cscenter >>> .info_tab h3 { color:#FD9800; font-size:1rem; margin-bottom:0; }
 #cscenter >>> .info_tab h3 span { background:#FD9800; border-radius:20px; padding:10px 20px; font-weight:bold; font-size:1rem; display:inline-block; color:#fff; }
@@ -62,4 +63,11 @@ export default {
 #cscenter >>> .info_tab ol li .point { color:#FD9800; }
 #cscenter >>> .info_tab>.tab-content .tab-pane:nth-of-type(4) { text-align:center; }
 #cscenter >>> .info_tab>.tab-content .tab-pane:nth-of-type(4) img { margin-bottom:3rem; }
+
+@media (max-width: 992px){
+    #cscenter >>> .cscenter_tab>div:first-child { width:100%; }
+    #cscenter >>> .cscenter_tab>div .nav-tabs { flex-direction:row; }
+    #cscenter >>> .cscenter_tab>div .nav-tabs li { flex-basis:0; flex-grow:1; width:100%; max-width:100%; }
+    #cscenter >>> .cscenter_tab>div .nav-tabs .nav-link { padding:10px 0; }
+}
 </style>

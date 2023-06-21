@@ -2936,7 +2936,15 @@ var render = function () {
                                                 },
                                               },
                                             },
-                                            [_vm._v("사업자 등록증 보기")]
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.od.file_info.fi_original
+                                                ) + " "
+                                              ),
+                                              _c("b-icon-eye-fill"),
+                                            ],
+                                            1
                                           )
                                         : _c(
                                             "b-button",
@@ -2951,7 +2959,15 @@ var render = function () {
                                                 },
                                               },
                                             },
-                                            [_vm._v("사업자 등록증 다운로드")]
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.od.file_info.fi_original
+                                                ) + " "
+                                              ),
+                                              _c("b-icon-download"),
+                                            ],
+                                            1
                                           ),
                                     ],
                                     1

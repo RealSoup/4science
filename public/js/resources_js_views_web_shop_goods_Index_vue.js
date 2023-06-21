@@ -146,16 +146,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'Location': function Location() {
+    'location': function location() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_Location_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Location.vue */ "./resources/js/views/web/shop/goods/_comp/Location.vue"));
     },
-    'Search': function Search() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_Search_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Search.vue */ "./resources/js/views/web/shop/goods/_comp/Search.vue"));
-    },
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'NoItem': function NoItem() {
+    'no-item': function noItem() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_NoItem_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/NoItem */ "./resources/js/views/web/_module/NoItem.vue"));
     }
   },
@@ -163,13 +160,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       pick_hover: 0
     };
-  },
-  watch: {// frm: {
-    //     handler(val, oldVal) {
-    //         this.routerPush();
-    //     },
-    //     deep: true
-    // },
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys'])),
   methods: {
@@ -353,7 +343,7 @@ var render = function () {
     [
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -366,7 +356,7 @@ var render = function () {
           )
         : [
             _vm.$route.name == "goods_index" && !_vm.$route.query.keyword
-              ? _c("Location", {
+              ? _c("location", {
                   attrs: {
                     categorys: _vm.categorys,
                     p_ca01: _vm.$route.query.ca01,
@@ -814,26 +804,36 @@ var render = function () {
                                                     ]
                                                   ),
                                                   _vm._v(" "),
-                                                  _c(
-                                                    "span",
-                                                    { staticClass: "dealer" },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm._f("price_zero")(
-                                                            _vm._f("comma")(
-                                                              row
-                                                                .goods_model_prime
-                                                                .gm_price_add_vat *
-                                                                _vm.$store.state
-                                                                  .auth.user
-                                                                  .dc_mul
+                                                  _vm.$store.state.auth
+                                                    .isLoggedin &&
+                                                  _vm.$store.state.auth.user
+                                                    .level == 12
+                                                    ? _c(
+                                                        "span",
+                                                        {
+                                                          staticClass: "dealer",
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              _vm._f(
+                                                                "price_zero"
+                                                              )(
+                                                                _vm._f("comma")(
+                                                                  row
+                                                                    .goods_model_prime
+                                                                    .gm_price_add_vat *
+                                                                    _vm.$store
+                                                                      .state
+                                                                      .auth.user
+                                                                      .dc_mul
+                                                                )
+                                                              )
                                                             )
-                                                          )
-                                                        )
-                                                      ),
-                                                    ]
-                                                  ),
+                                                          ),
+                                                        ]
+                                                      )
+                                                    : _vm._e(),
                                                 ]
                                               ),
                                             ]),
@@ -873,26 +873,31 @@ var render = function () {
                                             ]
                                           ),
                                           _vm._v(" "),
-                                          _c(
-                                            "span",
-                                            { staticClass: "dealer" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm._f("won")(
-                                                    _vm._f("price_zero")(
-                                                      _vm._f("comma")(
-                                                        row.goods_model_prime
-                                                          .gm_price_add_vat *
-                                                          _vm.$store.state.auth
-                                                            .user.dc_mul
+                                          _vm.$store.state.auth.isLoggedin &&
+                                          _vm.$store.state.auth.user.level == 12
+                                            ? _c(
+                                                "span",
+                                                { staticClass: "dealer" },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm._f("won")(
+                                                        _vm._f("price_zero")(
+                                                          _vm._f("comma")(
+                                                            row
+                                                              .goods_model_prime
+                                                              .gm_price_add_vat *
+                                                              _vm.$store.state
+                                                                .auth.user
+                                                                .dc_mul
+                                                          )
+                                                        )
                                                       )
                                                     )
-                                                  )
-                                                )
-                                              ),
-                                            ]
-                                          ),
+                                                  ),
+                                                ]
+                                              )
+                                            : _vm._e(),
                                         ]
                                       ),
                                       _vm._v(" "),
@@ -903,7 +908,7 @@ var render = function () {
                                     1
                                   )
                                 })
-                              : _c("NoItem"),
+                              : _c("no-item"),
                             _vm._v(" "),
                             _c(
                               "pagination",

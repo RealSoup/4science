@@ -1,6 +1,6 @@
 <template>
 <div>
-    <PopUp /> <!-- 팝업 -->
+    <pop-up /> <!-- 팝업 -->
     <b-carousel controls indicators class="slide_banner">
         <b-link to="/shop/goods?ca01=26&ca02=7717">
             <b-carousel-slide :img-src="s3url+'event/2023/0613/slide.jpg'"></b-carousel-slide>
@@ -38,8 +38,8 @@
                 >
                     <img :src="item.image" />
                     <div class="box-footer">
-                        <SubString v-model="item.ca01_name" :width="184" class="box_ca" />
-                        <SubString v-model="item.gd_name" :width="184" :line02="true" class="box_tit" />
+                        <sub-string v-model="item.ca01_name" :width="184" class="box_ca" />
+                        <sub-string v-model="item.gd_name" :width="184" :line02="true" class="box_tit" />
                     </div>
                 </b-link>
             </div>
@@ -129,8 +129,8 @@ export default {
         KinesisContainer,
         KinesisElement, // https://github.com/Aminerman/vue-kinesis
         vueAccordion, // https://github.com/zeratulmdq/vue-accordion
-        'PopUp': () => import('./_module/PopUp'),
-        'SubString': () => import('@/views/_common/SubString.vue'),
+        'pop-up': () => import('./_module/PopUp'),
+        'sub-string': () => import('@/views/_common/SubString.vue'),
     },
     data() {
         return {

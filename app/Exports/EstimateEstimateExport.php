@@ -376,16 +376,20 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         ];
         for ($i=0; $i < $this->row_cnt; $i++) {
             $r = 16+($i*3);
-            $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+            $sheet_style["A{$r}"] =  Arr::collapse([
+                [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
+                $border01
+            ]);
             $sheet_style["H{$r}"] = $text_right;
-            $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+            $sheet_style["J{$r}"] = Arr::collapse([
+                [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
+                $border01
+            ]);
             $sheet_style["K{$r}"] = $text_right;
-
-            $sheet_style["A{$r}"] = $border01;
+            
             $sheet_style["B{$r}:E{$r}"] = $border01;
             $sheet_style["F{$r}:G{$r}"] = $border01;
             $sheet_style["H{$r}:I{$r}"] = $border01;
-            $sheet_style["J{$r}"] = $border01;
             $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
             
             $r++;

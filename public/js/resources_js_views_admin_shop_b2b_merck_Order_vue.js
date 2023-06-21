@@ -115,7 +115,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
   components: {
-    'ModelSchInput': function ModelSchInput() {
+    'model-sch-input': function modelSchInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_b2b_merck__comp_ModelSchInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ModelSchInput */ "./resources/js/views/admin/shop/b2b_merck/_comp/ModelSchInput.vue"));
     }
   },
@@ -453,7 +453,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top[data-v-d2573ecc] {  padding:5px 0;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -616,7 +616,7 @@ var render = function () {
           _c(
             "b-col",
             { staticClass: "addModel", attrs: { col: "", sm: "12", md: "6" } },
-            [_c("ModelSchInput", { on: { addModel: _vm.addModel } })],
+            [_c("model-sch-input", { on: { addModel: _vm.addModel } })],
             1
           ),
         ],

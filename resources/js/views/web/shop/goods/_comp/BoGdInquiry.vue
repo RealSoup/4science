@@ -29,10 +29,10 @@
     <pagination :data="list" align="center" size="small" @pagination-change-page="index"></pagination>
     
     <transition name="modal">
-        <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
             <strong slot="header">상품 문의</strong>
-            <BoCreate v-model="bo" @store="store" />
-        </Modal>
+            <bo-create v-model="bo" @store="store" />
+        </modal>
     </transition>
 </b-container>
 </template>
@@ -43,8 +43,8 @@ import ax from '@/api/http';
 export default {
     name: 'ShopGoodsInquiry',
     components: {
-        'Modal': () => import('@/views/_common/Modal.vue'),
-        'BoCreate': () => import('./BoCreate.vue'),
+        'modal': () => import('@/views/_common/Modal.vue'),
+        'bo-create': () => import('./BoCreate.vue'),
     },
     props:['bo_cd', 'bo_cnt', 'bo_subject'],
     data() {

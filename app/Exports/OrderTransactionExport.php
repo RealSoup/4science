@@ -419,7 +419,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 $drawing2 = new Drawing();
                 $drawing2->setPath(public_path('img/estimate_logo.png'));
                 $drawing2->setHeight(43);
-                $drawing2->setCoordinates('C'.(count($this->odm_map)+17));
+                $drawing2->setCoordinates('C'.(count($this->odm_map)+16));
                 $drawing2->setOffsetX(35);
                 $drawing2->setWorksheet($event->sheet->getDelegate());
             }

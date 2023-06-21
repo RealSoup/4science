@@ -161,10 +161,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // https://github.com/Aminerman/vue-kinesis
     vueAccordion: vue_accordion__WEBPACK_IMPORTED_MODULE_3__.vueAccordion,
     // https://github.com/zeratulmdq/vue-accordion
-    'PopUp': function PopUp() {
+    'pop-up': function popUp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_module/PopUp */ "./resources/js/views/web/_module/PopUp.vue"));
     },
-    'SubString': function SubString() {
+    'sub-string': function subString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
     }
   },
@@ -517,7 +517,7 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("PopUp"),
+      _c("pop-up"),
       _vm._v(" "),
       _c(
         "b-carousel",
@@ -657,7 +657,7 @@ var render = function () {
                       "div",
                       { staticClass: "box-footer" },
                       [
-                        _c("SubString", {
+                        _c("sub-string", {
                           staticClass: "box_ca",
                           attrs: { width: 184 },
                           model: {
@@ -669,7 +669,7 @@ var render = function () {
                           },
                         }),
                         _vm._v(" "),
-                        _c("SubString", {
+                        _c("sub-string", {
                           staticClass: "box_tit",
                           attrs: { width: 184, line02: true },
                           model: {

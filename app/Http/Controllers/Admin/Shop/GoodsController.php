@@ -36,7 +36,7 @@ class GoodsController extends Controller {
         $gd_chk = ($req->startDate||$req->endDate||$req->gd_mk_id||$req->deleted_at);
         $model_chk = $req->filled('keyword')&&($req->mode=='gm_name'||$req->mode=='gm_code'||$req->mode=='cat_no');
         $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')
-            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at" )
+            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at", "gd_seq" )
             //  shop_goods 필드 검색이 없다면 속도하되니 조인하지말자
             ->when($gd_chk, fn ($q) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
             ->when($req->startDate,  fn ($q, $v) => $q->whereDate('gd.created_at', '>=', $v))
@@ -451,16 +451,14 @@ class GoodsController extends Controller {
             case 'em_code': $gm = $gm->Code($req->key); break;
             default: return response()->json('검색 자료 부족', 500); break;
         }
-        
+        //  머크쪽에서 머크 상품만 검색하기 위해 1차카테 검색
         $gm->when($req->ca01, fn ($q, $v) => $q->Catno01($v));
 
-        $rst['gd'] = $gm->orderBy('gm_catno01')->orderBy('gm_catno02')->orderBy('gm_catno03')->get();
-        foreach ($rst['gd'] as $md)
-            $md->bundleDc;
-        if (!$rst['gd']->isEmpty()) {
-            $rst['gd']->first()->goods->purchaseAt;
-            $gd_id = $rst['gd']->first()->gm_gd_id;
-            $rst['mk'] = $this->goods->find($gd_id)->maker;
+        $rst = $gm->orderBy('gm_catno01')->orderBy('gm_catno02')->orderBy('gm_catno03')->get();
+        foreach ($rst as $gm) {
+            $gm->bundleDc;
+            $gm->goods->purchaseAt;
+            $gm->goods->maker;
         }
         return response()->json($rst, 200);
     }

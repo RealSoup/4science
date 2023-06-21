@@ -1,10 +1,10 @@
 <template>
 <div class="p_wrap">
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
         Loading ......
-    </LoadingModal>
+    </loading-modal>
     <template v-else>
-        <Location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
+        <location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
                 :categorys="categorys"
                 :p_ca01="$route.query.ca01" 
                 :p_ca02="$route.query.ca02" 
@@ -98,19 +98,19 @@
                                             가격 : 
                                             <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
                                                 <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</span>
-                                                <span class="dealer">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
+                                                <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
                                             </span>
                                         </i>
                                     </p>
                                 </b-link>
                                 <b-col class="price m_hide" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
-                                    <span class="dealer">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                                    <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
                         </template>
-                        <NoItem v-else />
+                        <no-item v-else />
                         <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
                             <span slot="prev-nav"><b-icon-chevron-left /></span>
                             <span slot="next-nav"><b-icon-chevron-right /></span>
@@ -128,33 +128,14 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
     components: {
-        'Location': () => import('./_comp/Location.vue'),
-        'Search': () => import('./_comp/Search.vue'),
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
-        'NoItem': () => import('@/views/web/_module/NoItem'),
+        'location': () => import('./_comp/Location.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'no-item': () => import('@/views/web/_module/NoItem'),
     },
     data() {
-        return {
-            pick_hover:0,
-        }
-    },
-    watch: {
-        // frm: {
-        //     handler(val, oldVal) {
-        //         this.routerPush();
-        //     },
-        //     deep: true
-        // },
+        return { pick_hover:0, }
     },
     computed: {
-        // new_frm(){
-        //     let nfrm = {};
-        //     for (let i in this.sch_frm) {
-        //         if ( !isEmpty(this.sch_frm[i]) )
-        //             nfrm[i] = this.sch_frm[i];
-        //     }
-        //     return nfrm;
-        // },
         ...mapState('goods', ['frm', 'list', 'isLoadingModalViewed', 'sch_cate_info', 'pick', 'categorys']),
     },
     methods: {

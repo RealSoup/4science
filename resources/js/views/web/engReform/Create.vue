@@ -4,7 +4,7 @@
 
     <b-row>
         <b-col>
-            <table cellpadding="0" cellspacing="0" border="1" class="tbl01 strong">
+            <table width="100%" cellpadding="0" cellspacing="0" border="1" class="tbl01 t01 strong">
                 <tbody>
                 <tr>
                     <th>서비스내용</th> 
@@ -272,7 +272,7 @@
                             <b-form-select-option value=""></b-form-select-option>
                             <b-form-select-option v-for="(opt, k) in option.er_use" :key="k" :value="opt">{{opt}}</b-form-select-option>
                         </b-form-select>
-                        <small>문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다.</small>
+                        <small class="m_hide">문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다.</small>
                         <validation :error="this.$store.state.error.validations.er_use" />
                     </b-col>
                 </b-row>
@@ -283,7 +283,7 @@
                             <b-form-select-option value=""></b-form-select-option>
                             <b-form-select-option v-for="(opt, k) in option.er_branch" :key="k" :value="k">{{opt}}</b-form-select-option>
                         </b-form-select>
-                        <small>에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오.</small>
+                        <small class="m_hide">에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오.</small>
                         <validation :error="this.$store.state.error.validations.er_branch" />
                     </b-col>
                 </b-row>
@@ -294,7 +294,7 @@
                             <b-form-select-option value=""></b-form-select-option>
                             <b-form-select-option v-for="(opt, k) in option.er_branch_sub[(this.frm.er_branch_key-1)]" :key="k" :value="opt">{{opt}}</b-form-select-option>
                         </b-form-select>
-                        <small>어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?</small>
+                        <small class="m_hide">어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?</small>
                         <validation :error="this.$store.state.error.validations.er_branch_sub" />
                     </b-col>
                 </b-row>
@@ -493,4 +493,22 @@ ol.num_list li:first-child b { color:#0094EA; }
 .frm_st .row .col textarea:focus { background: #fff; border-width:0 !important; }
 .frm_st .row .col.hp span:not(:last-child):after { right: -14px; }
 .frm_st .row .col.email span:first-child:after { right:-19px; }
+
+@media (max-width: 992px){
+    .tbl01 tr td { padding:5px; }
+    .tbl01.t01 tr th { width:20%; }
+    .style01 { margin: 0px -17px; border-radius: 6px; padding: 5px; }
+    .style01 .circle { position:static; transform:none; padding:6px 0; border-radius:4px; }
+
+    .frm_st .row .col.label_st { flex-basis:100%; max-width:100%; }
+    .frm_st .row .col_er_type>div:not(:last-child) { margin-right:0; }
+    .frm_st .row .col_er_format>div:last-child { float:right; }
+    .frm_st .row .col_er_format .input-group { width:100%; }
+    
+    .btn_box { margin-top: 1rem; }
+    .btn.xl,
+    .frm_st .row .col .len01,
+    .frm_st .row .col .len02 { width:100%; }
+
+}
 </style>  

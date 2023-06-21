@@ -3,8 +3,8 @@
     <h3 class="p_tit">상품 목록</h3>
 
     <b-container class="frm_sch">
-        <SchDate v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></SchDate>
-        <Categorys v-model="sch_frm" />
+        <sch-date v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></sch-date>
+        <categorys v-model="sch_frm" />
         <b-row>
             <b-col class="label bottom_left">제조사</b-col>
             <b-col class="type01">
@@ -63,7 +63,10 @@
         </b-row>
 
         <b-row class="list head">
-            <b-col>번호</b-col>
+            <b-col>
+                <span v-if="!sch_frm.gd_seq">번호</span>
+                <span v-else>우선순위</span>
+            </b-col>
             <b-col>카테고리</b-col>
             <b-col>이미지</b-col>
             <b-col>상품명</b-col>
@@ -72,11 +75,12 @@
             <b-col>활성</b-col>
             <b-col>최종수정일</b-col>
         </b-row>
-        <LoadingModal v-if="isLoadingModalViewed" :position="'absolute'">
-            Loading ......
-        </LoadingModal>
+        <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
         <b-row v-else class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
-            <b-col><span>{{row.gd_id}}</span></b-col>
+            <b-col>
+                <span v-if="!sch_frm.gd_seq">{{row.gd_id}}</span>
+                <span v-else>{{row.gd_seq}}</span>
+            </b-col>
             <b-col>
                 <div>
                     <p v-if="row.gc_ca01_name">{{row.gc_ca01_name}}</p>
@@ -109,9 +113,9 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'Categorys': () => import('./_comp/Categorys.vue'),
-        'SchDate': () => import('@/views/_common/SchDate.vue'),
-        'LoadingModal': () => import('@/views/_common/LoadingModal.vue'),
+        'categorys': () => import('./_comp/Categorys.vue'),
+        'sch-date': () => import('@/views/_common/SchDate.vue'),
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {

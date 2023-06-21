@@ -194,4 +194,14 @@ export default {
 .inquiry .container .frm_bd .cate { border-bottom: 1px solid #D7D7D7; padding-bottom:8px; }
 .inquiry .container .frm_bd .cate .label_st { flex-basis:100px; max-width:100px; }
 .inquiry .container .frm_bd .row .col textarea { border-color:#fff; font-size:.9rem; color:#878787; line-height:1.6rem; }
+@media (max-width: 992px){
+    .user { flex-basis:100%; max-width:100%; }
+    .inquiry { padding-left:0; }
+    .frm_st .row .col.label_st { flex-basis:100%; max-width:100%; }
+    .frm_st .row .col.hp span:not(:last-child):after { top:3px; right:-13px; }
+    .frm_st .row .col.email span:first-child:after { top:6px; right:-17px; font-weight: bold; font-size: 15px; color: #898989; }
+    .frm_st .row { margin-bottom: 0.5rem; }
+    .btn_box { margin-top: 1rem; }
+    .btn.wd_33p { width: 100%; }
+}
 </style>

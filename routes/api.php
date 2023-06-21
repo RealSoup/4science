@@ -66,12 +66,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('printEstimate/{er_id}', 'Shop\EstimateController@printEstimate');
 
             });
-
-            Route::prefix('outlet')->group(function () {
-                Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
-            });
-
-            Route::GET('listing/{type}/{group?}', 'Shop\ListingController@index');
+            
             Route::GET('maker', 'Shop\MakerController@index');
         });
 
@@ -283,4 +278,12 @@ Route::prefix('shop')->group(function () {
 Route::prefix('board/{bo_cd}')->group(function () {
     Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
     Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
+});
+
+Route::prefix('shop')->group(function () {
+    Route::GET('listing/{type}/{group?}', 'Shop\ListingController@index');
+
+    Route::prefix('outlet')->group(function () {
+        Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
+    });
 });

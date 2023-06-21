@@ -129,8 +129,10 @@ export default {
             try {
                 if (Auth.check()) {
                     const res = await http.post('/api/shop/cart', payload);
-                    if (res.status === 200)
+                    if (res.status === 200) {
                         context.commit('cartIdUpdate', res.data);
+                        Notify.toast('success', "상품이 등록 됐습니다.");
+                    }
                 }
             } catch (e) {
                 Notify.consolePrint(e);
@@ -145,6 +147,7 @@ export default {
                     if (res.status === 200) {
                         Notify.toast('success', res.data);
                         // context.commit('setList', res.data);
+                        Notify.toast('success', "수량이 수정 되었습니다.");
                     }
                 }
             } catch (e) {

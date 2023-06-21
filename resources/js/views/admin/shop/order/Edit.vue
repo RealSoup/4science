@@ -303,8 +303,8 @@
                         <template v-if="od.file_info">
                             <b-col class="lb">사업자등록증</b-col>
                             <b-col class="dt wd1_1">
-                                <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">사업자 등록증 보기</b-button>
-                                <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">사업자 등록증 다운로드</b-button>
+                                <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">{{od.file_info.fi_original}} <b-icon-eye-fill /></b-button>
+                                <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">{{od.file_info.fi_original}} <b-icon-download /></b-button>
                             </b-col>
                         </template>
                         <template v-else>

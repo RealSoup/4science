@@ -335,7 +335,7 @@ var render = function () {
         _c(
           "b-row",
           [
-            _c("b-col", [
+            _c("b-col", { staticClass: "m_hide" }, [
               _c("img", { attrs: { src: _vm.s3url + "outlet/logo.png" } }),
             ]),
             _vm._v(" "),

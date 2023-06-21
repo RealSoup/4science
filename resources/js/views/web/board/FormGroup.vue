@@ -71,4 +71,8 @@ export default {
 <style lang="css" scoped>
 .cscenter { padding-left:0; padding-right:0; }
 .cscenter .row { margin-bottom:.8rem; }
+
+@media (max-width: 992px){
+    .frm_st .row .col.label_st { flex-basis:100%; max-width:100%; }
+}
 </style>

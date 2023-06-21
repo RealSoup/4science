@@ -28,7 +28,7 @@ class GoodsController extends Controller {
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
                 "gs.gd_rank", 'gs.gd_id'
-            );
+            )->groupBy('gs.gd_id');
             // ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
             // ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
             // ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y');
@@ -53,7 +53,7 @@ class GoodsController extends Controller {
             // $grouped = $gs->get();
             // if ( $gs->count() ) {
                 
-                $gs->groupBy('gs.gd_id');
+               
                 //  검색시 카테고리 상세 검색을 위한
                 //  검생 상품이 속한 카테고리 배열정보
                 
@@ -115,8 +115,6 @@ class GoodsController extends Controller {
                     }
                 }
             // }
-        } else {
-            $gs->where('gs.gm_prime', 'Y');
         }
         //  카테고리 where 절은 카테고리 분류한 후에 있어야
         //  결과네 카테고리 검색의 값이 바뀌지 않는다.

@@ -43,8 +43,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['value', 'type', 'id', 'em'],
   data: function data() {
     return {
-      model: [],
-      maker: {}
+      model: []
     };
   },
   computed: {
@@ -105,14 +104,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 if (res && res.status === 200) {
-                  if (res.data.gd.length) {
-                    _this.model = res.data.gd;
-                    _this.maker = res.data.mk;
+                  if (res.data.length) {
+                    _this.model = res.data;
                   } else {
                     _this.model = [{
                       gm_name: '정보없음'
                     }];
-                    _this.maker = [];
                   }
                 }
 
@@ -158,7 +155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.$set(_this2.em, 'em_spec', _this2.model[i].gm_spec);
 
-                  _this2.$set(_this2.em, 'em_maker', _this2.maker.mk_name);
+                  _this2.$set(_this2.em, 'em_maker', _this2.model[i].goods.maker.mk_name);
 
                   _this2.$set(_this2.em, 'em_ea', 1);
 
@@ -172,7 +169,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this2.$set(_this2.em, 'bundle_dc', _this2.model[i].bundle_dc);
 
-                  _this2.$set(_this2.em, 'goods', _this2.model[0].goods);
+                  _this2.$set(_this2.em, 'goods', _this2.model[i].goods);
                 }
 
                 _this2.hide();
@@ -187,7 +184,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     hide: function hide() {
       this.model = [];
-      this.maker = [];
     }
   }
 });

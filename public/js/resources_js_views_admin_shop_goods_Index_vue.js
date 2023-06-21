@@ -126,16 +126,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'Categorys': function Categorys() {
+    'categorys': function categorys() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
     },
-    'SchDate': function SchDate() {
+    'sch-date': function schDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));
     },
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
@@ -450,7 +454,7 @@ var render = function () {
         { staticClass: "frm_sch" },
         [
           _c(
-            "SchDate",
+            "sch-date",
             {
               model: {
                 value: _vm.sch_frm,
@@ -474,7 +478,7 @@ var render = function () {
             1
           ),
           _vm._v(" "),
-          _c("Categorys", {
+          _c("categorys", {
             model: {
               value: _vm.sch_frm,
               callback: function ($$v) {
@@ -759,7 +763,11 @@ var render = function () {
             "b-row",
             { staticClass: "list head" },
             [
-              _c("b-col", [_vm._v("번호")]),
+              _c("b-col", [
+                !_vm.sch_frm.gd_seq
+                  ? _c("span", [_vm._v("번호")])
+                  : _c("span", [_vm._v("우선순위")]),
+              ]),
               _vm._v(" "),
               _c("b-col", [_vm._v("카테고리")]),
               _vm._v(" "),
@@ -779,8 +787,8 @@ var render = function () {
           ),
           _vm._v(" "),
           _vm.isLoadingModalViewed
-            ? _c("LoadingModal", { attrs: { position: "absolute" } }, [
-                _vm._v("\r\n            Loading ......\r\n        "),
+            ? _c("loading-modal", { attrs: { position: "absolute" } }, [
+                _vm._v("Loading ......"),
               ])
             : _vm._l(_vm.list.data, function (row) {
                 return _c(
@@ -791,7 +799,11 @@ var render = function () {
                     class: { disable: row.gd_enable == "N" },
                   },
                   [
-                    _c("b-col", [_c("span", [_vm._v(_vm._s(row.gd_id))])]),
+                    _c("b-col", [
+                      !_vm.sch_frm.gd_seq
+                        ? _c("span", [_vm._v(_vm._s(row.gd_id))])
+                        : _c("span", [_vm._v(_vm._s(row.gd_seq))]),
+                    ]),
                     _vm._v(" "),
                     _c("b-col", [
                       _c("div", [

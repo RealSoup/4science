@@ -520,7 +520,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .btn_box[data-v-0f9f8f82] { margin-left:145px; margin-top:1rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .btn_box[data-v-0f9f8f82] { margin-left:145px; margin-top:1rem;\n}\n@media (max-width: 992px){\n.container .btn_box[data-v-0f9f8f82] { margin-left:0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -544,7 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cscenter[data-v-4dae3aa8] { padding-left:0; padding-right:0;\n}\n.cscenter .row[data-v-4dae3aa8] { margin-bottom:.8rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cscenter[data-v-4dae3aa8] { padding-left:0; padding-right:0;\n}\n.cscenter .row[data-v-4dae3aa8] { margin-bottom:.8rem;\n}\n@media (max-width: 992px){\n.frm_st .row .col.label_st[data-v-4dae3aa8] { flex-basis:100%; max-width:100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

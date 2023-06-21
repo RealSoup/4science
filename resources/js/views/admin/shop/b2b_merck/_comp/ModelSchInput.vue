@@ -73,6 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.overlap { position:absolute; bottom:18.5px; right:18.5px; padding:.2rem .25rem; font-size:.875rem; line-height:1; }
+.overlap { position:absolute; bottom:18.5px; right:18.5px; bottom:4px; padding:.2rem .25rem; font-size:.875rem; line-height:1; }
 .autocomplete { width: 40%; }
 </style>

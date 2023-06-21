@@ -1,9 +1,9 @@
 <template>
 <div class="outlet">
     <div class="top_back"></div>
-    <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
+    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
         Loading ......
-    </LoadingModal>
+    </loading-modal>
     <b-container v-else class="w_fence">
         <ul class="top">
             <li><b-link :to="{name:'outlet'}">포사전문관</b-link></li>
@@ -17,7 +17,7 @@
             <li>{{menu[$route.params.type][$route.params.group]}}</li>
         </ul>
         <template v-if="list.data && list.data.length">
-            <Hotplate v-if="$route.params.type == 'hotplate' && ['01', '02', '03', '04'].indexOf($route.params.group) !== -1" 
+            <hotplate v-if="$route.params.type == 'hotplate' && ['01', '02', '03', '04'].indexOf($route.params.group) !== -1" 
                 v-model="list.data"
             />
             <template v-else>
@@ -43,8 +43,8 @@ import { menu } from './_comp/ListMenu.js'
 
 export default {
     components: { 
-        'LoadingModal': () => import('@/views/_common/LoadingModal'),
-        'Hotplate':     () => import('./_comp/Hotplate'), 
+        'loading-modal': () => import('@/views/_common/LoadingModal'),
+        'hotplate':     () => import('./_comp/Hotplate'), 
     },
     data() {
         return {

@@ -22,11 +22,16 @@ import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
 import AdmHead      from '@/views/admin/_layouts/Header.vue';
 import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
-import ax from '@/api/http';
+
 
 export default {
     name: 'app',
-    components: { WebHead, WebFooter, HeaderSimple, AdmHead, AdmFooter },
+    components: {
+        'web-head'      : WebHead, 
+        'web-footer'    : WebFooter, 
+        'header-simple' : HeaderSimple, 
+        'adm-head'      : AdmHead, 
+        'adm-footer'    : AdmFooter },
     data() {
         return {
         }
@@ -34,16 +39,16 @@ export default {
     computed:{
     	choiceHeader(){
         	switch(this.$store.state.mode){
-            	case 'web':    return 'WebHead';  break;
-                case 'adm':    return 'AdmHead';  break;
-                case 'simple':  return 'HeaderSimple';  break;
+            	case 'web':    return 'web-head';  break;
+                case 'adm':    return 'adm-head';  break;
+                case 'simple':  return 'header-simple';  break;
             }
         },
         choiceFooter(){
         	switch(this.$store.state.mode){
             	case 'web':
-                case 'simple':   return 'WebFooter';  break;
-                case 'adm':     return 'AdmFooter';  break;
+                case 'simple':   return 'web-footer';  break;
+                case 'adm':     return 'adm-footer';  break;
             }
         },
     },
@@ -140,7 +145,10 @@ label { margin-bottom:0; }
 .w_fence h3 { margin-bottom:2rem; font-size:1.8rem; font-weight:bold; }
 .w_fence h3.underbar { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px; }
 .w_fence h4 { font-size:1.3rem; font-weight:bold; padding:0 0 0.7rem 1.6rem; border-bottom:3px solid #000; margin-bottom:2.3rem; }
-
+@media (max-width: 992px){
+    .w_fence { padding-top:1rem; padding-left: 20px; padding-right: 20px; }
+    .w_fence h3 { margin-bottom:1rem; }
+}
 
 .frm_st {  }
 .frm_st .row { margin-bottom:1.1rem; }

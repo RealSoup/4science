@@ -86,6 +86,8 @@ export default {
 
 
 <style scoped>
-
 .container .btn_box { margin-left:145px; margin-top:1rem; }
+@media (max-width: 992px){
+    .container .btn_box { margin-left:0; }
+}
 </style>

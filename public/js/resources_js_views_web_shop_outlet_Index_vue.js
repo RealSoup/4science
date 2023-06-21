@@ -64,10 +64,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal */ "./resources/js/views/_common/LoadingModal.vue"));
     },
-    'Hotplate': function Hotplate() {
+    'hotplate': function hotplate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_outlet__comp_Hotplate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Hotplate */ "./resources/js/views/web/shop/outlet/_comp/Hotplate.vue"));
     }
   },
@@ -354,7 +354,7 @@ var render = function () {
       _vm._v(" "),
       _vm.isLoadingModalViewed
         ? _c(
-            "LoadingModal",
+            "loading-modal",
             {
               attrs: { position: "absolute" },
               on: {
@@ -413,7 +413,7 @@ var render = function () {
                     ["01", "02", "03", "04"].indexOf(
                       _vm.$route.params.group
                     ) !== -1
-                      ? _c("Hotplate", {
+                      ? _c("hotplate", {
                           model: {
                             value: _vm.list.data,
                             callback: function ($$v) {

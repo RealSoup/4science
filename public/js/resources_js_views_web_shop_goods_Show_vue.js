@@ -747,10 +747,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ShopGoodsInquiry',
   components: {
-    'Modal': function Modal() {
+    'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
-    'BoCreate': function BoCreate() {
+    'bo-create': function boCreate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_goods__comp_BoCreate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./BoCreate.vue */ "./resources/js/views/web/shop/goods/_comp/BoCreate.vue"));
     }
   },
@@ -2304,7 +2304,7 @@ var render = function () {
         [
           _vm.isModalViewed
             ? _c(
-                "Modal",
+                "modal",
                 {
                   attrs: { max_width: 700 },
                   on: {
@@ -2318,7 +2318,7 @@ var render = function () {
                     _vm._v("상품 문의"),
                   ]),
                   _vm._v(" "),
-                  _c("BoCreate", {
+                  _c("bo-create", {
                     on: { store: _vm.store },
                     model: {
                       value: _vm.bo,

@@ -4,7 +4,7 @@
     
     <b-row class="top">
         <b-col col sm="12" md="6"><b-button variant="primary" size="sm" @click="order">선택 발주</b-button></b-col>
-        <b-col col sm="12" md="6" class="addModel"><ModelSchInput @addModel="addModel" /></b-col>
+        <b-col col sm="12" md="6" class="addModel"><model-sch-input @addModel="addModel" /></b-col>
     </b-row>
     
     <b-row class="extra">
@@ -96,7 +96,7 @@ import ax from '@/api/http';
 export default {
     name: 'admShopB2bMerckOrder',
     components: {
-        'ModelSchInput': () => import('./_comp/ModelSchInput'),
+        'model-sch-input': () => import('./_comp/ModelSchInput'),
     },
     data() {
         return {
@@ -224,6 +224,7 @@ export default {
 
 <style lang="css" scoped>
 .p_wrap { margin-bottom:2rem; }
+.top {  padding:5px 0; }
 .top .col { display:flex; align-items:center; }
 .top .col.addModel { justify-content:flex-end; } 
 .top .col.addModel>div { width:100%; max-width:10rem; } 

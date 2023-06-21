@@ -1,6 +1,6 @@
 <template>
 
-<ValidationObserver ref="observer" v-slot="{ invalid }" tag="form" class="tax_iv">
+<validation-observer ref="observer" v-slot="{ invalid }" tag="form" class="tax_iv">
     <div v-if="value.oex_type_fir == 'TX'">
         <h6>세금계산서 발급 정보 등록</h6>
         <b-form-radio v-model="value.oex_type" value="IV">사업자 정보 입력</b-form-radio>
@@ -13,10 +13,10 @@
                     <b-container v-if="value.oex_hasBizLicense">
                         <b-row>
                             <label for="biz_file">파일 첨부</label>
-                            <ValidationProvider name="파일 첨부" rules="required" v-slot="validationContext">
+                            <validation-provider name="파일 첨부" rules="required" v-slot="validationContext">
                                 <b-form-file id="biz_file" v-model="value.oex_file" ref="oex_file" size="sm" plain :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                     </b-container>
                 </transition>
@@ -25,50 +25,50 @@
                     <b-container v-if="!value.oex_hasBizLicense">
                         <b-row>
                             <label for="oex_biz_name">법인명</label>
-                            <ValidationProvider name="법인명" rules="required" v-slot="validationContext">
+                            <validation-provider name="법인명" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_biz_name" ref="oex_biz_name" id="oex_biz_name" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_biz_num">등록번호</label>
-                            <ValidationProvider name="등록번호" rules="required" v-slot="validationContext">
+                            <validation-provider name="등록번호" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_biz_num" ref="oex_biz_num" id="oex_biz_num" size="sm" :formatter="frm_formatBiz" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_biz_type">업태/종목</label>
-                            <ValidationProvider name="업태" rules="required" v-slot="validationContext">
+                            <validation-provider name="업태" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_biz_type" ref="oex_biz_type" id="oex_biz_type" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                             <b>/</b>
-                            <ValidationProvider name="종목" rules="required" v-slot="validationContext">
+                            <validation-provider name="종목" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_biz_item" ref="oex_biz_item" id="oex_biz_item" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_ceo">대표자명</label>
-                            <ValidationProvider name="대표자명" rules="required" v-slot="validationContext">
+                            <validation-provider name="대표자명" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_ceo" ref="oex_ceo" id="oex_ceo" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_addr">사업장소재지</label>
-                            <ValidationProvider name="사업장소재지" rules="required" v-slot="validationContext">
+                            <validation-provider name="사업장소재지" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_addr" ref="oex_addr" id="oex_addr" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_requirement">요구사항</label>
-                            <ValidationProvider name="요구사항" rules="" v-slot="validationContext">
+                            <validation-provider name="요구사항" rules="" v-slot="validationContext">
                                 <b-form-textarea v-model="value.oex_requirement" ref="oex_requirement" id="oex_requirement" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                     </b-container>
                 </transition>
@@ -77,24 +77,24 @@
                     <b-container v-if="value.oex_type !== 'IVNO'">
                         <b-row>
                             <label for="oex_mng">담당자</label>
-                            <ValidationProvider name="담당자" rules="required" v-slot="validationContext">
+                            <validation-provider name="담당자" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_mng" ref="oex_mng" id="oex_mng" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_email">이메일</label>
-                            <ValidationProvider name="이메일" rules="required|email" v-slot="validationContext">
+                            <validation-provider name="이메일" rules="required|email" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_email" ref="oex_email" id="oex_email" size="sm" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>
                         <b-row>
                             <label for="oex_num_tel">연락처</label>
-                            <ValidationProvider name="연락처" rules="required" v-slot="validationContext">
+                            <validation-provider name="연락처" rules="required" v-slot="validationContext">
                                 <b-form-input v-model="value.oex_num_tel" ref="oex_num_tel" id="oex_num_tel" size="sm" :formatter="frm_formatHp" :state="getValidationState(validationContext)" />
                                 <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                            </ValidationProvider>
+                            </validation-provider>
                         </b-row>            
                     </b-container>
                 </transition>
@@ -159,7 +159,7 @@
         </transition>
     </div>
     <b-button size="lg" @click="close">확 인</b-button>
-</ValidationObserver>
+</validation-observer>
 </template>
 
 <script>
