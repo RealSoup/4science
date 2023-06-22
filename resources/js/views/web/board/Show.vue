@@ -45,7 +45,7 @@
         </div> -->
     </div>
 
-    <Comment v-if="board.config.is_comment" :bo_cd='bo_cd' :bo_id='bo_id' />
+    <comment v-if="board.config.is_comment" :bo_cd='bo_cd' :bo_id='bo_id' />
 
 </div>
 </template>
@@ -56,7 +56,7 @@ import Comment from "./components/Comment.vue"
 export default {
     name: 'BoardShow',
     components: {
-        Comment,
+        'comment' : Comment,
     },
     data() {
         return {
@@ -129,4 +129,7 @@ export default {
 #bo_show .con table tr,
 #bo_show .con table th, 
 #bo_show .con table td {padding:0px;}
+@media (max-width: 992px){
+    #bo_show h3 { margin:1rem 0; }
+}
 </style>

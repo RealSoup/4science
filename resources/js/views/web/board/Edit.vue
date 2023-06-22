@@ -1,6 +1,6 @@
 <template>
     <b-container>
-        <FormGroup ref="form_group" v-model="frm" :config="config" />
+        <form-group ref="form_group" v-model="frm" :config="config" />
         <b-row class="row mt-3">
             <b-col>
                 <b-button :to="{name: 'bo_index', params: { bo_cd:bo_cd }}" size="sm" variant="light">목록</b-button>
@@ -18,7 +18,7 @@ import FormGroup from "./FormGroup.vue";
 export default {
     name: 'edit',
     components: {
-        FormGroup,
+        'form-group': FormGroup,
     },
     data() {
         return {

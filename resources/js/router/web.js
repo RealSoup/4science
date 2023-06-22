@@ -276,4 +276,22 @@ export default [
         component:() => import('@/views/web/shop/cart/Index'),
         beforeEnter: isLoggedin(),
     },
+//      회사소개
+    {   path: '/introduce',
+        component:() => import('@/views/web/introduce/Layout'),
+        children: [
+            {   path: "company",
+                name: 'introduce_company',
+                component:() => import('@/views/web/introduce/Company'),
+            }, {   
+                path: 'history',
+                name: 'introduce_history',
+                component:() => import('@/views/web/introduce/History'),
+            }, {   
+                path: 'rule',
+                name: 'introduce_rule',
+                component:() => import('@/views/web/introduce/Rule'),
+            },
+        ],
+    },
 ];

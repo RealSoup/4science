@@ -1,5 +1,5 @@
 <template>
-<b-tabs class="pay_info" vertical>
+<b-tabs class="pay_info row">
     <b-tab title="현금 결제" active>
         <dl class="payment">
             <dt>무통장 입금</dt>
@@ -131,9 +131,11 @@ export default {
 
 <style lang="css" scoped>
 .pay_info { margin:0; }
-.pay_info>>>.col-auto { width:230px; padding-left:0; }
-.pay_info>>>.col-auto .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
-.pay_info>>>.col-auto .nav-tabs .nav-link.active { background:#F6F6F6; color:#000; }
+.pay_info>>> > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%; }
+.pay_info>>> > div:first-child .nav-tabs { flex-direction:column; }
+.pay_info>>> > div:first-child .nav-tabs .nav-link { background:#fff !important; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D; }
+.pay_info>>> > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6 !important; color:#000 !important; }
+.pay_info>>>.tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}
 
 dl.payment { border:1px solid #E3E3E3; }
 dl.payment dt { font-size:1rem; background-color:#F6F6F6; padding:1rem; }
@@ -147,4 +149,13 @@ dl.payment dd .point b { color:#000; }
 dl.payment dd p { margin:0.5rem 0 0.2rem 0; }
 dl.payment dd a { font-weight:900; color:#0D4D9C; }
 dl.payment dd .view_img { font-size: 0.7rem; padding: 0.12rem 0.2rem 0 0.2rem; line-height: 0.9rem; }
+
+@media (max-width: 992px){
+    .pay_info>>> > div:first-child { width:100%; }
+    .pay_info>>> > div:first-child .nav-tabs { flex-direction:row; }
+    .pay_info>>> > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%; }
+    .pay_info>>> > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center; }
+
+    .pay_info>>>.tab-content { padding-left:0; margin-top:.5rem; }
+}
 </style>

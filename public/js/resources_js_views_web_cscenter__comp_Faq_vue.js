@@ -639,7 +639,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.con_faq[data-v-3a5e93e5] { margin:0;\n}\n.con_faq[data-v-3a5e93e5] .col-auto { width:230px; padding-left:0;\n}\n.con_faq[data-v-3a5e93e5] .col-auto .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D;\n}\n.con_faq[data-v-3a5e93e5] .col-auto .nav-tabs .nav-link.active { background:#F6F6F6; color:#000;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .card-header { padding:0; border:0;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .collapse .card-body { font-size:.77rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.con_faq[data-v-3a5e93e5] { margin:0;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child { width:230px; padding-left:0; flex:0 0 auto; max-width:100%;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs { flex-direction:column;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs .nav-link { background:#fff; border:1px solid #DDDDDD; padding:12px 25px; border-radius:0; color:#62615D;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs .nav-link.active { background:#F6F6F6; color:#000;\n}\n.con_faq[data-v-3a5e93e5] .tab-content { padding-left:15px; flex-basis: 0; flex-grow: 1; max-width: 100%;}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .card-header { padding:0; border:0;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .card-header button { display:block; width:100%; text-align:left; background:#F6F6F6; color:#000; border:1px solid #D7D7D7; border-radius:0; margin-bottom:-1px; padding:10px 15px; font-size:.85rem; font-weight:bold;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .collapse { border-left:1px solid #D7D7D7; border-right:1px solid #D7D7D7;\n}\n.con_faq[data-v-3a5e93e5] .tab-content .tab-pane .collapse .card-body { font-size:.77rem;\n}\n@media (max-width: 992px){\n.con_faq[data-v-3a5e93e5] > div:first-child { width:100%;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs { flex-direction:row;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs li { flex: 0 0 33.333333%; max-width:33.333333%;\n}\n.con_faq[data-v-3a5e93e5] > div:first-child .nav-tabs .nav-link { padding:5px 0; font-size:.8rem; text-align:center;\n}\n.con_faq[data-v-3a5e93e5] .tab-content { padding-left:0; margin-top:.5rem;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -775,7 +775,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "b-tabs",
-    { staticClass: "con_faq", attrs: { vertical: "" } },
+    { staticClass: "con_faq row" },
     [
       _c(
         "b-tab",

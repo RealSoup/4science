@@ -128,7 +128,7 @@ class GoodsController extends Controller {
         $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
             case 'hot':
-                $gs->orderBy('gd_seq');
+                $gs->orderBy('gs.gd_seq');
                 if ($req->filled('keyword')){
                     if ( $req->filled('mode') ) 
                         $gs->orderBy('score', 'DESC');

@@ -52,10 +52,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'BoardIntro',
   components: {
-    'IntroList': function IntroList() {
+    'intro-list': function introList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_board_IntroList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./IntroList.vue */ "./resources/js/views/web/board/IntroList.vue"));
     },
-    'IntroListPhoto': function IntroListPhoto() {
+    'intro-listPhoto': function introListPhoto() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web_board_IntroListPhoto_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./IntroListPhoto.vue */ "./resources/js/views/web/board/IntroListPhoto.vue"));
     }
   },
@@ -174,7 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-f8d8820e] { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px;\n}\n.w_fence .row .col[data-v-f8d8820e] { padding:30px;\n}\n.w_fence .row .col a[data-v-f8d8820e] { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1;\n}\n.w_fence .row .col[data-v-f8d8820e] ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative;\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice_h.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog_h.png');\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-f8d8820e] { border-bottom:2px solid #000; padding:0 25px 15px 25px; margin:0 -15px 30px;\n}\n.w_fence .row .col[data-v-f8d8820e] { padding:30px;\n}\n.w_fence .row .col a[data-v-f8d8820e] { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1;\n}\n.w_fence .row .col[data-v-f8d8820e] ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative;\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e] { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice_h.png');\n}\n.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry_h.png');\n}\n.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a[data-v-f8d8820e]:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog_h.png');\n}\n@media (max-width: 992px){\n.w_fence .row .col[data-v-f8d8820e] { flex: 0 0 100%; max-width: 100%; padding:15px 0;\n}\n.w_fence .row .col a[data-v-f8d8820e] { top:0px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -326,7 +326,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("IntroList", { attrs: { list: _vm.notice } }),
+              _c("intro-list", { attrs: { list: _vm.notice } }),
             ],
             1
           ),
@@ -339,7 +339,7 @@ var render = function () {
                 attrs: { to: { name: "bo_index", params: { bo_cd: "event" } } },
               }),
               _vm._v(" "),
-              _c("IntroList", { attrs: { list: _vm.event } }),
+              _c("intro-list", { attrs: { list: _vm.event } }),
             ],
             1
           ),
@@ -359,7 +359,7 @@ var render = function () {
                 },
               }),
               _vm._v(" "),
-              _c("IntroListPhoto", { attrs: { list: _vm.gd_inquiry } }),
+              _c("intro-listPhoto", { attrs: { list: _vm.gd_inquiry } }),
             ],
             1
           ),
@@ -371,7 +371,7 @@ var render = function () {
                 attrs: { href: "https://blog.naver.com/4science" },
               }),
               _vm._v(" "),
-              _c("IntroListPhoto", { attrs: { list: _vm.blog } }),
+              _c("intro-listPhoto", { attrs: { list: _vm.blog } }),
             ],
             1
           ),

@@ -22,9 +22,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'BoardIntroList',
-  props: ['list']
+  props: ['list'],
+  components: {
+    'sub-string': function subString() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
+    }
+  }
 });
 
 /***/ }),
@@ -45,7 +51,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "ul[data-v-7f6c3c37] {\n  margin-top: 1.5rem;\n}\nul li a[data-v-7f6c3c37] {\n  padding: 0.2rem 0;\n  display: block;\n}\nul li a[data-v-7f6c3c37]:hover {\n  background: #f5f5f5;\n}\nul li a span[data-v-7f6c3c37]:last-child {\n  float: right;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "ul[data-v-7f6c3c37] {\n  margin-top: 1.5rem;\n}\nul li a[data-v-7f6c3c37] {\n  padding: 0.2rem 0;\n  display: block;\n}\nul li a[data-v-7f6c3c37]:hover {\n  background: #f5f5f5;\n}\nul li a span[data-v-7f6c3c37]:last-child {\n  float: right;\n}\n@media (max-width: 992px) {\nul[data-v-7f6c3c37] {\n    padding: 50px 10px 30px !important;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -197,10 +203,33 @@ var render = function () {
               },
             },
             [
-              _c("span", [_vm._v(_vm._s(bo.bo_subject))]),
+              _c("sub-string", {
+                staticClass: "m_hide",
+                attrs: { width: 500 },
+                model: {
+                  value: bo.bo_subject,
+                  callback: function ($$v) {
+                    _vm.$set(bo, "bo_subject", $$v)
+                  },
+                  expression: "bo.bo_subject",
+                },
+              }),
+              _vm._v(" "),
+              _c("sub-string", {
+                staticClass: "m_show",
+                attrs: { width: 200 },
+                model: {
+                  value: bo.bo_subject,
+                  callback: function ($$v) {
+                    _vm.$set(bo, "bo_subject", $$v)
+                  },
+                  expression: "bo.bo_subject",
+                },
+              }),
               _vm._v(" "),
               _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bo.created_at)))]),
-            ]
+            ],
+            1
           ),
         ],
         1

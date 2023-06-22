@@ -28,4 +28,7 @@ ul li a img { width:70px; height:70px; object-fit:cover; float:left; margin-righ
 ul li a p { font-weight:bold; margin-bottom:0; }
 ul li a div { overflow:hidden; text-overflow: ellipsis; display:-webkit-box; -webkit-line-clamp:3; /* 라인수 */ -webkit-box-orient:vertical; word-wrap:break-word; line-height:1.2em; height:3.6em; margin-top:.4rem }
 ul li a.blog div { -webkit-line-clamp:2; height:2.4em; }
+@media (max-width: 992px){
+    ul { padding:50px 10px 30px !important; }
+}
 </style>

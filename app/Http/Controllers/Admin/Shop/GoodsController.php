@@ -47,7 +47,7 @@ class GoodsController extends Controller {
                 if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
                 elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
             })
-            ->when($req->gd_seq, fn ($q, $v) => $q->where('gs.gd_seq', '<', 999999))
+            ->when($req->gd_seq, fn ($q, $v) => $q->where('gs.gd_seq', '<', 999999)->orderBy('gs.gd_seq'))
             ->when(!$req->ca01, fn ($q, $v) => $q->where('gs.gc_prime', 'Y'))
             ->when($req->ca01, fn ($q, $v) => $q->where('gs.gc_ca01', $v))
             ->when($req->ca02, fn ($q, $v) => $q->where('gs.gc_ca02', $v))

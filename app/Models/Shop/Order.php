@@ -45,6 +45,7 @@ class Order extends Model {
             "로젠택배"   => "http://d2d.ilogen.com/d2d/delivery/invoice_tracesearch_quick.jsp?slipno=[송장번호]",
             "경동택배"   => "https://kdexp.com/basicNewDelivery.kd?barcode=[송장번호]",
             "대신택배"   => "https://www.ds3211.co.kr/freight/internalFreightSearch.ht?billno=[송장번호]",
+            "건영택배"   => "https://www.kunyoung.com/goods/goods_01.php?mulno=[송장번호]",
         ],
         'dlvy_msg' => [
             1 => "부재시 경비실에 맡겨주세요.",

@@ -76,6 +76,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['papa_bo_cd'],
@@ -184,7 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .searchWrap[data-v-1f7fde5f] { margin:0;\n}\n.container .searchWrap .col[data-v-1f7fde5f] { display:flex; flex-wrap:wrap; max-width:31rem; background-color:#D7D7D7; color:#FFF; padding:3px; border-radius:26px;\n}\n.container .searchWrap .col select[data-v-1f7fde5f] { border-radius:17px 0 0 17px; height:30px; padding:.3rem 1.6rem 0.3rem 1.4rem; font-size:.9rem; border-width:0; \r\nbackground:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; \r\n    flex:0 0 25%; max-width:25%;\n}\n.container .searchWrap .col input[data-v-1f7fde5f] { flex:0 0 63%; max-width:63%; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:.9rem; height:30px; margin-left:.17rem; flex-grow:1;\n}\n.container .searchWrap .col input[data-v-1f7fde5f]:focus { outline:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#D7D7D7; border-width:0;\n}\n.container .searchWrap .col button svg[data-v-1f7fde5f] { font-size:1.4rem;\n}\n.container .data[data-v-1f7fde5f] { margin-top:1.8rem;\n}\n.container .data .col table th[data-v-1f7fde5f] { background-color:#ECECEC; color:#000; border-top:2px solid #000;\n}\n.container .data .col table th[data-v-1f7fde5f],\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(1),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(3),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(4),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(5) { text-align:center;\n}\n.container .data .col table td[data-v-1f7fde5f]:nth-child(2) { padding:0;\n}\n.container .data .col table td a[data-v-1f7fde5f] { display:block; padding:.75rem;\n}\n.container .data .col table td span[data-v-1f7fde5f] { background:#B7B7B7; padding:.3rem .7rem; color:#fff; font-size:.8rem; border-radius:4px;\n}\n.container .data .col table td span.active[data-v-1f7fde5f] { background:#F7941F;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .searchWrap[data-v-1f7fde5f] { margin:0;\n}\n.container .searchWrap .col[data-v-1f7fde5f] { display:flex; flex-wrap:wrap; max-width:31rem; background-color:#D7D7D7; color:#FFF; padding:3px; border-radius:26px;\n}\n.container .searchWrap .col select[data-v-1f7fde5f] { border-radius:17px 0 0 17px; height:30px; padding:.3rem 1.6rem 0.3rem 1.4rem; font-size:.9rem; border-width:0; \r\nbackground:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; \r\n    flex:0 0 25%; max-width:25%;\n}\n.container .searchWrap .col input[data-v-1f7fde5f] { flex:0 0 63%; max-width:63%; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:.9rem; height:30px; margin-left:.17rem; flex-grow:1;\n}\n.container .searchWrap .col input[data-v-1f7fde5f]:focus { outline:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#D7D7D7; border-width:0;\n}\n.container .searchWrap .col button svg[data-v-1f7fde5f] { font-size:1.4rem;\n}\n.container .data[data-v-1f7fde5f] { margin-top:1.8rem;\n}\n.container .data .col table th[data-v-1f7fde5f] { background-color:#ECECEC; color:#000; border-top:2px solid #000;\n}\n.container .data .col table th[data-v-1f7fde5f],\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(1),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(3),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(4),\r\n.container .data .col table td[data-v-1f7fde5f]:nth-child(5) { text-align:center;\n}\n.container .data .col table td[data-v-1f7fde5f]:nth-child(2) { padding:0;\n}\n.container .data .col table td a[data-v-1f7fde5f] { display:block; padding:.75rem;\n}\n.container .data .col table td span[data-v-1f7fde5f] { background:#B7B7B7; padding:.3rem .7rem; color:#fff; font-size:.8rem; border-radius:4px;\n}\n.container .data .col table td span.active[data-v-1f7fde5f] { background:#F7941F;\n}\n@media (max-width: 992px){\n.w_fence .bo_box .nav-tabs li[data-v-1f7fde5f] { flex-basis:0; flex-grow: 1; max-width: 100%;\n}\n.w_fence .bo_box .nav-tabs li[data-v-1f7fde5f]:nth-of-type(1) { flex: 0 0 50%; max-width: 50%;\n}\n.w_fence .bo_box .nav-tabs li[data-v-1f7fde5f]:nth-of-type(2) { flex: 0 0 50%; max-width: 50%;\n}\n.w_fence .bo_box .nav-tabs li a[data-v-1f7fde5f] { padding:.3rem;\n}\n.w_fence .bo_box .body[data-v-1f7fde5f] { padding: 0.5rem;\n}\n.pagination[data-v-1f7fde5f] .page-link { min-width: 30px; padding:0;\n}\n.container .searchWrap .col button[data-v-1f7fde5f] { padding: 0; border-radius: 10px;}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -401,36 +404,51 @@ var render = function () {
           _c("b-col", [
             _c("table", { staticClass: "table table-hover" }, [
               _c("colgroup", [
-                _c("col", { attrs: { width: "10%" } }),
+                _c("col", { staticClass: "m_hide", attrs: { width: "10%" } }),
                 _vm._v(" "),
                 _c("col", { attrs: { width: "" } }),
                 _vm._v(" "),
                 _vm.config.is_qna
-                  ? _c("col", { attrs: { width: "10%" } })
+                  ? _c("col", {
+                      staticClass: "m_hide",
+                      attrs: { width: "10%" },
+                    })
                   : _vm._e(),
                 _vm._v(" "),
-                _c("col", { attrs: { width: "15%" } }),
+                _c("col", { staticClass: "m_hide", attrs: { width: "15%" } }),
                 _vm._v(" "),
-                _c("col", { attrs: { width: "10%" } }),
+                _c("col", { staticClass: "m_hide", attrs: { width: "10%" } }),
                 _vm._v(" "),
-                _c("col", { attrs: { width: "10%" } }),
+                _c("col", { staticClass: "m_hide", attrs: { width: "10%" } }),
               ]),
               _vm._v(" "),
               _c("thead", [
                 _c("tr", [
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("번호")]),
+                  _c("th", { staticClass: "m_hide", attrs: { scope: "col" } }, [
+                    _vm._v("번호"),
+                  ]),
                   _vm._v(" "),
                   _c("th", { attrs: { scope: "col" } }, [_vm._v("제목")]),
                   _vm._v(" "),
                   _vm.config.is_qna
-                    ? _c("th", { attrs: { scope: "col" } }, [_vm._v("상태")])
+                    ? _c(
+                        "th",
+                        { staticClass: "m_hide", attrs: { scope: "col" } },
+                        [_vm._v("상태")]
+                      )
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("작성자")]),
+                  _c("th", { staticClass: "m_hide", attrs: { scope: "col" } }, [
+                    _vm._v("작성자"),
+                  ]),
                   _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("조회")]),
+                  _c("th", { staticClass: "m_hide", attrs: { scope: "col" } }, [
+                    _vm._v("조회"),
+                  ]),
                   _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("등록일")]),
+                  _c("th", { staticClass: "m_hide", attrs: { scope: "col" } }, [
+                    _vm._v("등록일"),
+                  ]),
                 ]),
               ]),
               _vm._v(" "),
@@ -438,7 +456,9 @@ var render = function () {
                 "tbody",
                 _vm._l(_vm.list.data, function (bo) {
                   return _c("tr", { key: bo.bo_id }, [
-                    _c("td", [_vm._v(_vm._s(bo.bo_id))]),
+                    _c("td", { staticClass: "m_hide" }, [
+                      _vm._v(_vm._s(bo.bo_id)),
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -460,7 +480,7 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _vm.config.is_qna
-                      ? _c("td", [
+                      ? _c("td", { staticClass: "m_hide" }, [
                           bo.answer
                             ? _c("span", { class: { active: bo.answer } }, [
                                 _vm._v("답변완료"),
@@ -469,11 +489,15 @@ var render = function () {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(bo.bo_writer))]),
+                    _c("td", { staticClass: "m_hide" }, [
+                      _vm._v(_vm._s(bo.bo_writer)),
+                    ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(bo.bo_click))]),
+                    _c("td", { staticClass: "m_hide" }, [
+                      _vm._v(_vm._s(bo.bo_click)),
+                    ]),
                     _vm._v(" "),
-                    _c("td", [
+                    _c("td", { staticClass: "m_hide" }, [
                       _vm._v(_vm._s(_vm._f("formatDate")(bo.created_at))),
                     ]),
                   ])
@@ -486,11 +510,34 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("pagination", {
-        staticClass: "mt-5",
-        attrs: { data: _vm.list, size: "small", limit: 5, align: "center" },
-        on: { "pagination-change-page": _vm.index },
-      }),
+      _c(
+        "pagination",
+        {
+          staticClass: "mt-5",
+          attrs: {
+            data: _vm.list,
+            limit: 5,
+            showDisabled: true,
+            align: "center",
+          },
+          on: { "pagination-change-page": _vm.index },
+        },
+        [
+          _c(
+            "span",
+            { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+            [_c("b-icon-chevron-left")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            { attrs: { slot: "next-nav" }, slot: "next-nav" },
+            [_c("b-icon-chevron-right")],
+            1
+          ),
+        ]
+      ),
     ],
     1
   )

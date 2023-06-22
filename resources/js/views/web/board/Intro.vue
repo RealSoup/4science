@@ -1,29 +1,29 @@
 <template>
-    <b-container class="w_fence">
-        <h3>커뮤니티</h3>
-        <b-row>
-            <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'notice' }}"></b-link>
-                <IntroList :list="notice" />
-            </b-col>
-            <b-col col lg="6">
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'event' }}"></b-link>
-                <IntroList :list="event" />
-            </b-col>
-        </b-row>
+<b-container class="w_fence">
+    <h3>커뮤니티</h3>
+    <b-row>
+        <b-col>
+            <b-link :to="{name: 'bo_index', params: { bo_cd:'notice' }}"></b-link>
+            <intro-list :list="notice" />
+        </b-col>
+        <b-col col lg="6">
+            <b-link :to="{name: 'bo_index', params: { bo_cd:'event' }}"></b-link>
+            <intro-list :list="event" />
+        </b-col>
+    </b-row>
 
-        <b-row>
-            <b-col>
-                <b-link :to="{name: 'bo_index', params: { bo_cd:'gd_inquiry' }}"></b-link>
-                <IntroListPhoto :list="gd_inquiry" />
-            </b-col>
+    <b-row>
+        <b-col>
+            <b-link :to="{name: 'bo_index', params: { bo_cd:'gd_inquiry' }}"></b-link>
+            <intro-listPhoto :list="gd_inquiry" />
+        </b-col>
 
-            <b-col>
-                <b-link href="https://blog.naver.com/4science"></b-link>
-                <IntroListPhoto :list="blog" />
-            </b-col>
-        </b-row>
-    </b-container>
+        <b-col>
+            <b-link href="https://blog.naver.com/4science"></b-link>
+            <intro-listPhoto :list="blog" />
+        </b-col>
+    </b-row>
+</b-container>
 </template>
 
 <script>
@@ -32,8 +32,8 @@ export default {
     name: 'BoardIntro',
     
     components: {
-        'IntroList': () =>     import('./IntroList.vue'),
-        'IntroListPhoto': () =>     import('./IntroListPhoto.vue'),
+        'intro-list': () =>     import('./IntroList.vue'),
+        'intro-listPhoto': () =>     import('./IntroListPhoto.vue'),
     },
 
     data() {
@@ -114,5 +114,8 @@ export default {
 .w_fence .row:nth-of-type(1) .col:nth-of-type(2) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event_h.png'); }
 .w_fence .row:nth-of-type(2) .col:nth-of-type(1) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry_h.png'); }
 .w_fence .row:nth-of-type(2) .col:nth-of-type(2) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog_h.png'); }
-
+@media (max-width: 992px){
+    .w_fence .row .col { flex: 0 0 100%; max-width: 100%; padding:15px 0; }
+    .w_fence .row .col a { top:0px; }
+}
 </style>

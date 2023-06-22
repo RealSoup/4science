@@ -16,42 +16,45 @@
         <b-col>
             <table class="table table-hover">
                 <colgroup>
-                    <col width="10%" />
+                    <col width="10%" class="m_hide" />
                     <col width="" />
-                    <col width="10%" v-if="config.is_qna" />
-                    <col width="15%" />
-                    <col width="10%" />
-                    <col width="10%" />
+                    <col width="10%" v-if="config.is_qna" class="m_hide" />
+                    <col width="15%" class="m_hide" />
+                    <col width="10%" class="m_hide" />
+                    <col width="10%" class="m_hide" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th scope="col">번호</th>
+                        <th scope="col" class="m_hide">번호</th>
                         <th scope="col">제목</th>
-                        <th scope="col" v-if="config.is_qna">상태</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">조회</th>
-                        <th scope="col">등록일</th>
+                        <th scope="col" v-if="config.is_qna" class="m_hide">상태</th>
+                        <th scope="col" class="m_hide">작성자</th>
+                        <th scope="col" class="m_hide">조회</th>
+                        <th scope="col" class="m_hide">등록일</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="bo in list.data" :key="bo.bo_id">
-                        <td>{{bo.bo_id}}</td>
+                        <td class="m_hide">{{bo.bo_id}}</td>
                         <td>
                             <b-link :to="{name: `${getLink}bo_show`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">{{bo.bo_subject}}</b-link>
                         </td>
-                        <td v-if="config.is_qna">
+                        <td v-if="config.is_qna" class="m_hide">
                             <span v-if="bo.answer" :class="{active:bo.answer}">답변완료</span>
                             <span v-else>답변대기</span>
                         </td>
-                        <td>{{bo.bo_writer}}</td>
-                        <td>{{bo.bo_click}}</td>
-                        <td>{{bo.created_at | formatDate}}</td>
+                        <td class="m_hide">{{bo.bo_writer}}</td>
+                        <td class="m_hide">{{bo.bo_click}}</td>
+                        <td class="m_hide">{{bo.created_at | formatDate}}</td>
                     </tr>
                 </tbody>
             </table>
         </b-col>
     </b-row>
-    <pagination :data="list" @pagination-change-page="index" size="small" :limit="5" align="center" class="mt-5" />
+    <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+        <span slot="prev-nav"><b-icon-chevron-left /></span>
+        <span slot="next-nav"><b-icon-chevron-right /></span>
+    </pagination>
 </b-container>
 </template>
 <script>
@@ -141,5 +144,13 @@ background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/a
 .container .data .col table td a { display:block; padding:.75rem; }
 .container .data .col table td span { background:#B7B7B7; padding:.3rem .7rem; color:#fff; font-size:.8rem; border-radius:4px; }
 .container .data .col table td span.active { background:#F7941F; }
-
+@media (max-width: 992px){
+    .w_fence .bo_box .nav-tabs li { flex-basis:0; flex-grow: 1; max-width: 100%; }
+    .w_fence .bo_box .nav-tabs li:nth-of-type(1) { flex: 0 0 50%; max-width: 50%; }
+    .w_fence .bo_box .nav-tabs li:nth-of-type(2) { flex: 0 0 50%; max-width: 50%; }
+    .w_fence .bo_box .nav-tabs li a { padding:.3rem; }
+    .w_fence .bo_box .body { padding: 0.5rem; }
+    .pagination >>> .page-link { min-width: 30px; padding:0; }
+    .container .searchWrap .col button { padding: 0; border-radius: 10px;}
+}
 </style>

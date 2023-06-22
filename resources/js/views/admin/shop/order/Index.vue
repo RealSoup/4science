@@ -74,6 +74,7 @@
                             <b-form-select-option value="gm_name">제품명</b-form-select-option>
                             <b-form-select-option value="gm_code">모델명</b-form-select-option>
                             <b-form-select-option value="catno">Cat.No</b-form-select-option>
+                            <b-form-select-option value="u_id">회원번호</b-form-select-option>
                         </b-form-select>
                     </b-input-group-prepend>
                     <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush(1)"></b-form-input>

@@ -77,7 +77,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'BoardShow',
   components: {
-    Comment: _components_Comment_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'comment': _components_Comment_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -549,7 +549,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\n@media (max-width: 992px){\n#bo_show h3 { margin:1rem 0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -968,7 +968,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _vm.board.config.is_comment
-        ? _c("Comment", { attrs: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id } })
+        ? _c("comment", { attrs: { bo_cd: _vm.bo_cd, bo_id: _vm.bo_id } })
         : _vm._e(),
     ],
     1

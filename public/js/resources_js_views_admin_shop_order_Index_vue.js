@@ -130,6 +130,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -787,6 +788,12 @@ var render = function () {
                                 "b-form-select-option",
                                 { attrs: { value: "catno" } },
                                 [_vm._v("Cat.No")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "u_id" } },
+                                [_vm._v("회원번호")]
                               ),
                             ],
                             1

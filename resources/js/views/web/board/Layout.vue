@@ -21,9 +21,16 @@ export default { name: "Board", }
 
 <style lang="css" scoped>
 .w_fence h3 { padding:0 2rem; }
-.w_fence .bo_box { border:3px solid #D7D7D7; }
+.w_fence .bo_box { border:3px solid #D7D7D7; margin: 0 -15px; }
 .w_fence .bo_box .nav-tabs li a { font-size:1.2rem; color:#fff; background-color:#01B7CD; padding:1.3rem; font-weight:600; border-radius:0; border-width:0; }
 .w_fence .bo_box .nav-tabs li:not(:last-child) a { border-right:1px solid #fff; }
 .w_fence .bo_box .nav-tabs li a.active { color:#01B7CD; background-color:#fff; }
 .w_fence .bo_box .body { padding:2rem 4rem; }
+@media (max-width: 992px){
+    .w_fence .bo_box .nav-tabs li { flex-basis:0; flex-grow: 1; max-width: 100%; }
+    .w_fence .bo_box .nav-tabs li:nth-of-type(1) { flex: 0 0 50%; max-width: 50%; }
+    .w_fence .bo_box .nav-tabs li:nth-of-type(2) { flex: 0 0 50%; max-width: 50%; }
+    .w_fence .bo_box .nav-tabs li a { padding:.3rem; }
+    .w_fence .bo_box .body { padding: 0.5rem; }
+}
 </style>

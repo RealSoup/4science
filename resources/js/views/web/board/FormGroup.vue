@@ -7,7 +7,7 @@
             <b-form-radio v-model="value.bo_od_type" button value="OFF">오프라인 주문</b-form-radio>
         </b-col>
     </b-row>
-    <b-row v-if="config.bo_cd=='cancel'">
+    <b-row v-if="config.bo_cd=='cancel'" class="bo_type">
         <b-col class="label_st">분류</b-col>
         <b-col>
             <b-form-radio v-model="value.bo_type" button value="C">배송전 주문취소</b-form-radio>
@@ -74,5 +74,7 @@ export default {
 
 @media (max-width: 992px){
     .frm_st .row .col.label_st { flex-basis:100%; max-width:100%; }
+    .cscenter .bo_type .col .btn-group-toggle { width:32%; }
+    .cscenter .bo_type .col .btn-group-toggle >>> .btn { min-width:100%; }
 }
 </style>

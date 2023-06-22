@@ -1,7 +1,7 @@
 <template>
 <footer id="footer">
-    <RecentGoods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
-    <GoTop /> <!-- 위로 가기 -->
+    <recent-goods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
+    <go-top /> <!-- 위로 가기 -->
     <b-container id="footer_top" class="layout">
         <b-row>
             <b-col class="fir">
@@ -30,7 +30,7 @@
             <b-col class="thi">
                 <p class="tit">공지사항 <b-link :to="{name: `bo_index`, params: { bo_cd:'notice' }}">></b-link></p>
                 <b-link v-for="bo in notice" :key="bo.bo_id" :to="{name: 'bo_show', params: { bo_cd:bo.code, bo_id:bo.bo_id }}">
-                    <SubString v-model="bo.bo_subject" :width="330" />
+                    <sub-string v-model="bo.bo_subject" :width="330" />
                     <span>{{bo.created_at | formatDate}}</span>
                 </b-link>
             </b-col>
@@ -41,11 +41,11 @@
         <b-container>
             <b-row>
                 <b-col>
-                    <b-link>회사소개</b-link>
-                    <b-link>이용약관</b-link>
-                    <b-link>개인정보취급방침</b-link>
-                    <b-link>A/S</b-link>
-                    <b-link>FAQ</b-link>
+                    <b-link :to="{name: `introduce_company`}">회사소개</b-link>
+                    <b-link :to="{name: `introduce_rule`}">이용약관</b-link>
+                    <b-link :to="{name: `introduce_policy`}">개인정보취급방침</b-link>
+                    <b-link to="/cscenter?view_type=as">A/S</b-link>
+                    <b-link to="/cscenter?view_type=faq">FAQ</b-link>
                 </b-col>
             </b-row>
             <b-row>
@@ -79,32 +79,16 @@ import { mapGetters } from 'vuex'
 export default {
     name:"Footer",
     components: {
-        'RecentGoods': () => import('../_module/RecentGoods'),
-        'GoTop':       () => import('../_module/GoTop'),
-        'SubString': () => import('@/views/_common/SubString.vue'),
+        'recent-goods': () => import('../_module/RecentGoods'),
+        'go-top':       () => import('../_module/GoTop'),
+        'sub-string': () => import('@/views/_common/SubString.vue'),
     },
-    
-    data() {
-        return {
-            notice: [],
-        };
-    },
-    computed: {
-        ...mapGetters({
-            siteInfo: 'common/siteInfo',
-        })
-    },
-    methods:{
-        scrollToTop(){
-            this.$emit('scrollToTop');
-        },
-    },
-
+    data() { return { notice: [], }; },
+    computed: { ...mapGetters({ siteInfo: 'common/siteInfo', }) },
+    methods:{ scrollToTop(){ this.$emit('scrollToTop'); }, },
     async mounted() {
         const res = await ax.get(`/api/board/notice`, {params:{limit:4}});
-        if (res && res.status === 200) {
-            this.notice = res.data.list.data;
-        }
+        if (res && res.status === 200) { this.notice = res.data.list.data; }
     },
 }
 </script>
