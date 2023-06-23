@@ -291,12 +291,7 @@ class B2bMerckController extends Controller {
 	public function OrderConfirmation(Request $req) { //	머크에 발주를 넣으면 얼마뒤 주문 확인서를 xml롤 보내준다
 		$xml = file_get_contents("php://input");
 		$xml_array = simplexml_load_string($xml);
-		$bmc_orderid = 0;
-		if($xml_array['Request'])
-			$bmc_orderid = $xml_array['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'];
-		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
-			'bmc_orderid'	=> $bmc_orderid, 
-			'bmc_data' 		=> $xml ]);
+		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 'bmc_data' => $xml ]);
 
 		// simplexml_load_string(file_get_contents("php://input"))
 		// $bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
@@ -315,14 +310,23 @@ class B2bMerckController extends Controller {
 	}
 
 	public function Invoice(Request $req) {
-		echo 'url test ok';
-		return false;
+		$xml = file_get_contents("php://input");
+		$xml_array = simplexml_load_string($xml);
+		$id = DB::table('shop_b2b_merck_invoice')->insertGetId([ 'bmi_data' => $xml ]);
+		
+		if ( $id ) echo "DB Insert SUCCESS";
+		else echo "DB Insert error";
+		return;
 	}
 
 	public function Asn(Request $req) {
-		echo 'url test ok';
-		return false;
-
+		$xml = file_get_contents("php://input");
+		$xml_array = simplexml_load_string($xml);
+		$id = DB::table('shop_b2b_merck_asn')->insertGetId([ 'bma_data' => $xml ]);
+		
+		if ( $id ) echo "DB Insert SUCCESS";
+		else echo "DB Insert error";
+		return;
 	}
 
 
