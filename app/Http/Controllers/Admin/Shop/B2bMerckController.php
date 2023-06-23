@@ -292,17 +292,17 @@ class B2bMerckController extends Controller {
 		//	머크에 발주를 넣으면 얼마뒤 주문 확인서를 xml롤 보내준다
 		ini_set("always_populate_raw_post_data", "true"); 
 		// xml 데이터를 받는다
-		// $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
-		// $bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
-		// 	'bmc_orderid'	=> $xml['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'], 
-		// 	'bmc_data' 		=> $xml ]);
+		$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+			'bmc_orderid'	=> $xml['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'], 
+			'bmc_data' 		=> $xml ]);
 
 
-		DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
 			'bmc_orderid'	=> '222', 
 			'bmc_data' 		=> $req->getContent() ]);
 		
-		DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
 			'bmc_orderid'	=> '333', 
 			'bmc_data' 		=> simplexml_load_string(file_get_contents("php://input"))  ]);
 		
