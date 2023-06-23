@@ -8,7 +8,10 @@
         this.$route.name !== 'goods_index' && 
         this.$route.name !== 'outlet' && 
         this.$route.name !== 'outlet_index' && 
-        this.$route.name !== 'introduce_company'
+        this.$route.name !== 'introduce_company' && 
+        this.$route.name !== 'introduce_history' && 
+        this.$route.name !== 'introduce_map' && 
+        this.$route.name !== 'introduce_rule'
     }">
         <router-view />
     </main>

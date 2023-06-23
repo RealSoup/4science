@@ -261,6 +261,7 @@ export default [
     {   path: '/cscenter',
         name: 'cscenter',
         component:() => import('@/views/web/cscenter/Index'),
+        beforeEnter: isLoggedin(),
     },
 
 //      영문교정

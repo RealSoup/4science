@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware {
         'shop/order/payReturn',
         'shop/order/payReturnMobile',
         'social/*/callback',
+        'admin/shop/b2b_merck/*',
     ];
     
     public function handle($request, Closure $next) {
