@@ -288,10 +288,7 @@ class B2bMerckController extends Controller {
     }
 
 
-	public function OrderConfirmation(Request $req) {
-		//	머크에 발주를 넣으면 얼마뒤 주문 확인서를 xml롤 보내준다
-		ini_set("always_populate_raw_post_data", "true"); 
-		// xml 데이터를 받는다
+	public function OrderConfirmation(Request $req) { //	머크에 발주를 넣으면 얼마뒤 주문 확인서를 xml롤 보내준다
 		$xml = file_get_contents("php://input");
 		$xml_array = simplexml_load_string($xml);
 		$bmc_orderid = 0;
@@ -312,14 +309,9 @@ class B2bMerckController extends Controller {
 		// 	'bmc_orderid'	=> '333', 
 		// 	'bmc_data' 		=> simplexml_load_string(file_get_contents("php://input"))  ]);
 		
-		if ( $bmm_id ) {
-			echo "success";
-			echo "\nbmc_id : ".$bmm_id."\n";
-		} else {
-			echo "DB Insert error";
-		}
-		return; 
-		
+		if ( $bmm_id ) echo "DB Insert SUCCESS";
+		else echo "DB Insert error";
+		return;
 	}
 
 	public function Invoice(Request $req) {
