@@ -293,9 +293,9 @@ class B2bMerckController extends Controller {
 		ini_set("always_populate_raw_post_data", "true"); 
 		// xml 데이터를 받는다
 		// $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
-		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
-			'bmc_orderid'	=> $xml['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'], 
-			'bmc_data' 		=> $xml ]);
+		// $bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
+		// 	'bmc_orderid'	=> $xml['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'], 
+		// 	'bmc_data' 		=> $xml ]);
 
 
 		DB::table('shop_b2b_merck_confirmation')->insertGetId([ 
