@@ -58,8 +58,10 @@ ol .ci div { background-image: url(https://fourscience.s3.ap-northeast-2.amazona
 ol li { text-align: justify; line-height:30px; }
 ol li:not(:last-child) { margin-bottom: 4rem; }
 ol li i { display:block; color:#1A90D6; font-weight:bold; }
-ol .ideology img { width:100%; }
+ol li img { width:100%; }
 @media (max-width: 992px){
+
+.w_fence .body {padding: 5px;}
 
 }
 </style>

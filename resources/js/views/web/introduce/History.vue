@@ -270,8 +270,23 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.w_fence h3 b { font-size:2rem; }
+.w_fence h3 { margin-bottom:0; }
+.w_fence>.row { border-bottom:1px solid #ddd; }
+.w_fence>.row>.col {  }
+.w_fence>.row>.col:first-child { margin:20px 0; padding-left:20px; }
+.w_fence>.row>.col:last-child { display: flex; justify-content: center; flex-direction: column; } 
+.w_fence .row .row { align-items:center; }
+.w_fence .row .row:not(:last-child) { border-bottom:1px dotted #ccc; }
+.w_fence .row .col:first-child { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/year_bg.png) no-repeat 20px center; 
+ 	flex:0 0 166px; max-width:166px; height:115px; text-align:center; color:#50B947; font-size:1.9rem; font-weight:900; line-height:115px; padding-right:33px; }
+.w_fence .row .col .row .col:first-child { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/month_bg.png) no-repeat center center; 
+	padding:0 20px 0 49px; flex:0 0 109px; max-width:109px; height:40px;line-height:40px; color:#000; font-size:1.1rem; font-weight:bold; margin: 10px 0; }
+.w_fence .row .col .row .col ul { margin:15px 0 15px 20px; }
+.w_fence .row .col .row .col ul,
+.w_fence .row .col .row .col ul li { list-style-type:disc; font-size:.8rem; }	
 @media (max-width: 992px){
-
+	.w_fence>.row>.col:first-child { margin: 5px 0; }
+	.w_fence .row .col:first-child { font-size: 1.2rem; background:none; flex:0 0 100%; max-width:100%; height:auto; text-align:left; color:#000; line-height:inherit; }
+	.w_fence .row .col .row .col:first-child { background:none; flex:0 0 15%; max-width:15%; height:auto; line-height:inherit; padding:0 0 0 20px; margin-right: -15px; }
 }
 </style>

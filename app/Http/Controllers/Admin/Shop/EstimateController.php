@@ -8,6 +8,7 @@ use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, 
 use App\Models\{User, UserMng, FileInfo};
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use App\Exports\EstimateEstimateExport;
@@ -257,6 +258,8 @@ class EstimateController extends Controller {
     }
 
     public function store(StoreEstimateReply $req) {
+        self::mailCheck($req);
+
         $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
         $eq_impl['ip'] = $req->ip();
         $eq_id = array_key_exists('eq_id', $req->estimate_req) ? $req->estimate_req['eq_id'] : 0;
@@ -314,7 +317,8 @@ class EstimateController extends Controller {
         if($er_id) return response()->json($er_id, 200);
     }
 
-    public function update(Request $req, $er_id) {
+    public function update(StoreEstimateReply $req, $er_id) {
+        self::mailCheck($req);
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
             if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step, 'eq_mng' => auth()->user()->id]))
                 return response()->json('success', 200);
@@ -379,6 +383,16 @@ class EstimateController extends Controller {
         }
     }
 
+    public function mailCheck($req) {
+        if ( trim($req->estimate_req['eq_email']) != '-' ) {
+            Validator::make(
+                $req->all(), 
+                ['estimate_req.eq_email' => ['email'] ], 
+                ['estimate_req.eq_email.email' => '이메일을 형식에 맞게 입력하세요.' ]
+            )->validate();
+        }
+    }
+
     public function reSend(Request $req, $er_id) {
         $to_name = $req->estimate_req['eq_name'];
         $to_email = $req->estimate_req['eq_email'];
@@ -394,8 +408,15 @@ class EstimateController extends Controller {
         // $pdf->setOptions(['dpi' => 96 ]);
         $filename = uniqid();
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
-        Mail::to($to_email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
-        Mail::to(auth()->user()->email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+
+        try {
+            if ( trim($to_email) != '-' )
+                Mail::to(trim($to_email))->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+            Mail::to(auth()->user()->email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+        } catch(\Swift_TransportException $e){
+            // if($e->getMessage()) dd($e->getMessage());
+        }
+
         // try {
         //     Mail::to($to_email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         // } catch (Exception $e) {
@@ -434,7 +455,7 @@ class EstimateController extends Controller {
     public function estimateReq_paramImplant($req){
         return [    'eq_type'       => array_key_exists('eq_type', $req) && $req['eq_type']       ? $req['eq_type']       : 'TEMP',
                     'eq_name'       => array_key_exists('eq_name', $req) && $req['eq_name']       ? $req['eq_name']       : '',
-                    'eq_email'      => array_key_exists('eq_email', $req) && $req['eq_email']     ? $req['eq_email']      : '',
+                    'eq_email'      => array_key_exists('eq_email', $req) && $req['eq_email']     ? trim($req['eq_email'])      : '',
                     'eq_tel'        => array_key_exists('eq_tel', $req) && $req['eq_tel']         ? $req['eq_tel']        : '',
                     'eq_fax'        => array_key_exists('eq_fax', $req) && $req['eq_fax']         ? $req['eq_fax']        : '',
                     'eq_hp'         => array_key_exists('eq_hp', $req) && $req['eq_hp']           ? $req['eq_hp']         : '',

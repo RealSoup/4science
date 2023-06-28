@@ -305,6 +305,7 @@
                             <b-col class="dt wd1_1">
                                 <b-button v-if="checkImage(od.file_info.fi_ext)" @click="isModalViewed = !isModalViewed, modalType = 'blView'" class="print_hide">{{od.file_info.fi_original}} <b-icon-eye-fill /></b-button>
                                 <b-button v-else @click="fileDown(od.file_info.down_path, od.file_info.fi_original)" class="print_hide">{{od.file_info.fi_original}} <b-icon-download /></b-button>
+                                <span class="print_show_inline">{{od.file_info.fi_original}}</span>
                             </b-col>
                         </template>
                         <template v-else>

@@ -25,7 +25,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Board"
+  name: "Introduce"
 });
 
 /***/ }),
@@ -46,7 +46,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-73181294] { width:1920px; margin:auto; background-image:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/bg.jpg); background-repeat:no-repeat; padding: 20px 0; min-height:885px;\n}\n.w_fence h3[data-v-73181294] { text-align:center; color:#FFF; font-size:3rem; margin-top:3rem; margin-bottom:1rem;\n}\n.w_fence .nav[data-v-73181294] { max-width:550px; margin:auto; border-width:0;\n}\n.w_fence .nav li a[data-v-73181294] { color:#FFF; border:1px solid #FFF; margin:0 9px; border-radius:8px; font-size:1.1rem;\n}\n.w_fence .nav li a.active[data-v-73181294] { background:#FFF; color:#002A7E; font-weight:bold;\n}\n.w_fence .body[data-v-73181294] { width:1200px; margin:3rem auto; border:0; border:4px solid #C4D0D0; background:#FFF; border-radius:20px; padding:84px 80px;\n}\n@media (max-width: 992px){\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-73181294] { max-width:1920px; width: 100%; margin:auto; background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/bg.jpg) no-repeat center top; padding:20px 0; min-height:885px;\n}\n.w_fence h3[data-v-73181294] { text-align:center; color:#FFF; font-size:3rem; margin-top:3rem; margin-bottom:1rem;\n}\n.w_fence .nav[data-v-73181294] { max-width:550px; margin:auto; border-width:0;\n}\n.w_fence .nav li a[data-v-73181294] { color:#FFF; border:1px solid #FFF; margin:0 9px; border-radius:8px; font-size:1.1rem;\n}\n.w_fence .nav li a.active[data-v-73181294] { background:#FFF; color:#002A7E; font-weight:bold;\n}\n.w_fence .body[data-v-73181294] { width:1200px; margin:3rem auto; border:0; border:4px solid #C4D0D0; background:#FFF; border-radius:20px; padding:84px 80px;\n}\n@media (max-width: 992px){\n.w_fence h3[data-v-73181294] { font-size:1.2rem; margin-top:0; margin-bottom:.7rem;\n}\n.w_fence .nav li a[data-v-73181294] { margin:0 3px; border-radius:3px; font-size:.9rem;\n}\n.w_fence .body[data-v-73181294] { width:100%; max-width:1200px; margin:1rem auto; border:0; border-width:0; border-radius:3px; padding:0\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -223,7 +223,16 @@ var render = function () {
             [_vm._v("오시는 길")]
           ),
           _vm._v(" "),
-          _c("b-nav-item", [_vm._v("이용약관")]),
+          _c(
+            "b-nav-item",
+            {
+              attrs: {
+                to: { name: "introduce_rule" },
+                active: _vm.$route.name == "introduce_rule",
+              },
+            },
+            [_vm._v("이용약관")]
+          ),
         ],
         1
       ),

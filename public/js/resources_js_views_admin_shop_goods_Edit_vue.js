@@ -241,6 +241,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post(upUrl, frmData);
 
               case 15:
+                return _context4.abrupt("return", _context4.sent);
+
+              case 16:
               case "end":
                 return _context4.stop();
             }
@@ -5607,7 +5610,7 @@ var render = function () {
             "b-col",
             {
               staticClass: "intro",
-              class: { hide: _vm.value.length },
+              class: { hide: _vm.value && _vm.value.length },
               style: { minHeight: _vm.height - 30 + "px" },
               attrs: { cols: "12" },
             },

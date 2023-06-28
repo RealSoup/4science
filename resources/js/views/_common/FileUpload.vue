@@ -1,7 +1,7 @@
 <template>
     <b-container>
         <b-row @dragover="onDragover" @drop="onDrop" @click="onClick">
-            <b-col class="intro" cols="12" :class="{ hide: value.length }" :style="{ minHeight:(height-30) + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
+            <b-col class="intro" cols="12" :class="{ hide: (value&&value.length) }" :style="{ minHeight:(height-30) + 'px'}">파일을 드래그 하거나, 여기를 클릭하여 첨부</b-col>
             <input type="file" ref="fileInput" @change="onFileChange" multiple />
             
             <draggable :list="value" handle=".handle" class="col-12 imgList" @change="seqUpdate=true">
@@ -102,7 +102,7 @@ export default {
             }
             let upUrl = "/api/upload";
             if (this.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
-            await ax.post(upUrl, frmData);
+            return await ax.post(upUrl, frmData);
         }, 
     },
 };

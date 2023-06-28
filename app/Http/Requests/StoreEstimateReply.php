@@ -11,7 +11,7 @@ class StoreEstimateReply extends FormRequest {
         return [
             'estimate_req.eq_name'       => 'required',
             'estimate_req.eq_company' => 'required',
-            'estimate_req.eq_email'      => 'required|email',
+            'estimate_req.eq_email'      => 'required',
             'estimate_req.eq_hp'         => 'required',
 
             'estimate_model'            => 'required|array|min:1',
@@ -21,18 +21,16 @@ class StoreEstimateReply extends FormRequest {
             'estimate_model*em_price'  => 'required',
             'estimate_model*em_spec'  => 'required',
 
-            'estimate_reply.er_dlvy_at' => 'required',
             'estimate_reply.er_effective_at' => 'required',
         ];
     }
 
     public function messages() {    // 에러 메세지
         return [
-            'eq_name.required'       => '요청자 이름을 입력해 주세요.',
-            'eq_company.required' => '요청자 직장/학교를 입력해 주세요.',
-            'eq_email.required'      => '요청자 이메일을 입력해 주세요.',
-            'eq_email.email'         => '이메일 형식이 올바르지 않습니다.',
-            'eq_hp.required'         => '요청자 휴대폰 번호를 입력해 주세요.',
+            'estimate_req.eq_name.required'       => '요청자 이름을 입력해 주세요.',
+            'estimate_req.eq_company.required' => '요청자 직장/학교를 입력해 주세요.',
+            'estimate_req.eq_email.required'      => '요청자 이메일을 입력해 주세요.',
+            'estimate_req.eq_hp.required'         => '요청자 휴대폰 번호를 입력해 주세요.',
 
             'estimate_model.required'            => '상품을 등록하세요',
             'estimate_model*em_name.required' => '상품명을 입력하세요',
@@ -41,7 +39,6 @@ class StoreEstimateReply extends FormRequest {
             'estimate_model*em_price.required' => '판매단가을 입력하세요',
             'estimate_model*em_spec.required' => '제품 정보를 입력하세요',
 
-            'er_dlvy_at.required'         => '납품기일을 입력해 주세요.',
             'er_effective_at.required'         => '견젹 유효기간을 입력해 주세요.',
         ];
     }

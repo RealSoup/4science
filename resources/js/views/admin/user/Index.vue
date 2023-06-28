@@ -70,7 +70,8 @@
                 <b-badge v-if="us.level==2" class="bronz">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==3" class="silver">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==4" class="gold">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==11" class="dealer">{{option.grade[us.level]}}</b-badge>
+                <b-badge v-if="us.level==11" class="dealer_new">{{option.grade[us.level]}}</b-badge>
+                <b-badge v-if="us.level==12" class="dealer">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==20" class="admin">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==29" class="super">{{option.grade[us.level]}}</b-badge>
             </b-col>
@@ -158,7 +159,8 @@ export default {
 .cmain .row .col .bronz { background-color:#F16621; }
 .cmain .row .col .silver { background-color:#ACACAC; }
 .cmain .row .col .gold { background-color:#FBC660; }
-.cmain .row .col .dealer { background-color:#9B1AB2; }
+.cmain .row .col .dealer_new { background-color:#9B1AB2; }
+.cmain .row .col .dealer { background-color:#24cdda; }
 .cmain .row .col .admin { background-color:#0173BA; }
 .cmain .row .col .super { background-color:#ED1C22; }
 

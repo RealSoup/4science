@@ -249,7 +249,9 @@ class Goods extends Model {
                         } else if ($type == 'cart') {
                             $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
                             $tmpModel['ct_check_opt'] = 'Y';
-                        } else if ($gm->bundleDc()->exists()) {
+                        } 
+                        
+                        if ($gm->bundleDc()->exists()) {
                             $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
                             $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
                         }

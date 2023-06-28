@@ -179,7 +179,10 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_name },
+                attrs: {
+                  error:
+                    _vm.$store.state.error.validations["estimate_req.eq_name"],
+                },
               }),
             ],
             1
@@ -202,7 +205,12 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_company },
+                attrs: {
+                  error:
+                    _vm.$store.state.error.validations[
+                      "estimate_req.eq_company"
+                    ],
+                },
               }),
             ],
             1
@@ -231,7 +239,10 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_email },
+                attrs: {
+                  error:
+                    _vm.$store.state.error.validations["estimate_req.eq_email"],
+                },
               }),
             ],
             1
@@ -254,7 +265,10 @@ var render = function () {
               }),
               _vm._v(" "),
               _c("validation", {
-                attrs: { error: _vm.$store.state.error.validations.eq_hp },
+                attrs: {
+                  error:
+                    _vm.$store.state.error.validations["estimate_req.eq_hp"],
+                },
               }),
             ],
             1

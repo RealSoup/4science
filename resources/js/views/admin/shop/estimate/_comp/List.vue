@@ -26,7 +26,7 @@
         </b-col>
         <b-col>
             <div class="eq_name">
-                {{row.eq_name}}
+                <sub-string v-model="row.eq_name" :width="120" />
                 <br class="d-none d-lg-block" />
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </div>

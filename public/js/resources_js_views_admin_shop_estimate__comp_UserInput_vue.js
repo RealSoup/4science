@@ -337,7 +337,7 @@ var render = function () {
             ref: "sch_field",
             attrs: {
               autocomplete: "off",
-              id: "eq_" + _vm.type,
+              id: "estimate_req.eq_" + _vm.type,
               title: "입력 후 엔터 or 버튼",
             },
             on: {

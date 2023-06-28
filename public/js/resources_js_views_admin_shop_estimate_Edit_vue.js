@@ -159,24 +159,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("break", 16);
 
               case 16:
-                _this2.isLoadingModalViewed = true;
-                _this2.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                _this2.frm, // 수정하려는 객체
-                {
+                _this2.frm = Object.assign({}, _this2.frm, {
                   _method: 'PATCH'
-                } // 삽입하려는 내용
-                );
-                _context2.next = 20;
+                });
+                _context2.next = 19;
                 return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/estimate/".concat(_this2.$route.params.er_id), _this2.frm);
 
-              case 20:
+              case 19:
                 res = _context2.sent;
 
                 if (!(res && res.status === 200)) {
-                  _context2.next = 28;
+                  _context2.next = 30;
                   break;
                 }
 
+                _this2.isLoadingModalViewed = true;
                 _context2.next = 24;
                 return _this2.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
 
@@ -200,22 +197,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 28:
-                _context2.next = 34;
+                _context2.next = 32;
                 break;
 
               case 30:
-                _context2.prev = 30;
+                Notify.toast('danger', '견적 실패');
+                _this2.clickable = true;
+
+              case 32:
+                _context2.next = 38;
+                break;
+
+              case 34:
+                _context2.prev = 34;
                 _context2.t1 = _context2["catch"](6);
                 Notify.consolePrint(_context2.t1);
                 Notify.toast('warning', _context2.t1.response.data.message);
 
-              case 34:
+              case 38:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[6, 30]]);
+        }, _callee2, null, [[6, 34]]);
       }))();
     },
     all_dc_apply: function all_dc_apply() {
@@ -724,25 +728,25 @@ __webpack_require__.r(__webpack_exports__);
 var validationCheckerUser = function validationCheckerUser(frm) {
   if (isEmpty(frm.eq_name)) {
     Notify.toast('danger', "요청자 이름을 입력하세요.");
-    document.getElementById('eq_name').focus();
+    document.getElementById('estimate_req.eq_name').focus();
     return false;
   }
 
   if (isEmpty(frm.eq_email)) {
     Notify.toast('danger', "요청자 이메일을 입력하세요.");
-    document.getElementById('eq_email').focus();
+    document.getElementById('estimate_req.eq_email').focus();
     return false;
   }
 
   if (isEmpty(frm.eq_company)) {
     Notify.toast('danger', "요청자 직장/학교를 입력하세요.");
-    document.getElementById('eq_company').focus();
+    document.getElementById('estimate_req.eq_company').focus();
     return false;
   }
 
   if (isEmpty(frm.eq_hp)) {
     Notify.toast('danger', "요청자 휴대폰을 입력하세요.");
-    document.getElementById('eq_hp').focus();
+    document.getElementById('estimate_req.eq_hp').focus();
     return false;
   }
 

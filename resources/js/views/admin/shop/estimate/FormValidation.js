@@ -2,22 +2,22 @@ const validationCheckerUser = (frm) => {
 
     if ( isEmpty(frm.eq_name) ) {
         Notify.toast('danger', "요청자 이름을 입력하세요.");
-        document.getElementById('eq_name').focus();
+        document.getElementById('estimate_req.eq_name').focus();
         return false;
     }
     if ( isEmpty(frm.eq_email) ) {
         Notify.toast('danger', "요청자 이메일을 입력하세요.");
-        document.getElementById('eq_email').focus();
+        document.getElementById('estimate_req.eq_email').focus();
         return false;
     }
     if ( isEmpty(frm.eq_company) ) {
         Notify.toast('danger', "요청자 직장/학교를 입력하세요.");
-        document.getElementById('eq_company').focus();
+        document.getElementById('estimate_req.eq_company').focus();
         return false;
     }
     if ( isEmpty(frm.eq_hp) ) {
         Notify.toast('danger', "요청자 휴대폰을 입력하세요.");
-        document.getElementById('eq_hp').focus();
+        document.getElementById('estimate_req.eq_hp').focus();
         return false;
     }
     return true;

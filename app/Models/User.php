@@ -27,8 +27,6 @@ class User extends Authenticatable implements MustVerifyEmail {
                         '4' => '골드',
                         '11' => '딜러 신입',
                         '12' => '딜러',
-                        // '13' => '딜러 실버',
-                        // '14' => '딜러 골드',
                         '21' => '관리자',
                         '29' => '최고관리자', ],
                         
@@ -88,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function wish() { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
     public function engReform() { return $this->hasMany(EngReform::class, "created_id"); }
     public function userAddr() { return $this->hasMany(UserAddr::class, 'ua_key')->orderByRaw("FIELD(ua_def, \"Y\", \"N\")"); }
-    public function userBiz() { return $this->hasOne(UserBiz::class, 'ub_papa_id'); }
+    public function userBiz() { return $this->hasOne(UserBiz::class, 'ub_papa_id')->with('fileInfo')->withDefault(); }
 
     public function scopeStartDate($query, $d) { return $query->whereDate('created_at', '>=', $d); }
     public function scopeEndDate($query, $d) { return $query->whereDate('created_at', '<=', $d); }

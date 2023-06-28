@@ -62,7 +62,7 @@
                 </b-col>
 
                 <b-col class="label">휴대폰</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.hp" /></b-col>
+                <b-col class="type02"><b-form-input v-model="frm.hp" :formatter="frm_formatHp" /></b-col>
                 <b-col class="checkbox01">
                     <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
                         수신
@@ -75,7 +75,7 @@
                 <b-col class="label">생년월일</b-col>
                 <b-col class="type02">
                     <b-input-group size="sm">
-                        <b-form-input v-model="frm.birth" id="birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="formatDate" required></b-form-input>
+                        <b-form-input v-model="frm.birth" id="birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="frm_formatDate" required></b-form-input>
                         <b-input-group-append>
                             <b-form-datepicker v-model="frm.birth" size="sm" button-only right></b-form-datepicker>
                         </b-input-group-append>
@@ -125,6 +125,37 @@
             </b-row>
         </b-container>
     </b-card>
+    
+    <div class="box frm01 n3" v-if="[11, 12].indexOf(Number(frm.level)) !== -1">
+        <h5>딜러 정보</h5>
+        <b-row>
+            <b-col>상호명</b-col><b-col><b-form-input v-model="frm.user_biz.ub_corp_name" /></b-col>
+            <b-col>대표자명</b-col><b-col><b-form-input v-model="frm.user_biz.ub_name" /></b-col>
+            <b-col>사업자번호</b-col><b-col><b-form-input v-model="frm.user_biz.ub_num" :formatter="frm_formatBiz" /></b-col>
+        </b-row>
+        <b-row>
+            <b-col>업종</b-col><b-col><b-form-input v-model="frm.user_biz.ub_type" /></b-col>
+            <b-col>업태</b-col><b-col><b-form-input v-model="frm.user_biz.ub_cond" /></b-col>
+            <b-col>대표전화</b-col><b-col><b-form-input v-model="frm.user_biz.ub_tel" :formatter="frm_formatTel" /></b-col>
+        </b-row>
+        <b-row>
+            <b-col>파일다운</b-col>
+            <b-col>
+                <b-button v-for="(file, i) in frm.user_biz.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                    {{file.fi_original}}
+                </b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>파일수정</b-col>
+            <b-col>
+                <file-upload ref="fileupload" v-model="frm.user_biz.file_info" :fi_group="'userBiz'" :fi_kind="'license'" :height="100" />
+                <transition name="fade">
+                    <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">첨부파일 전송중 ..... </loading-modal>
+                </transition>
+            </b-col>
+        </b-row>
+    </div>
 
     <b-card v-if="frm.is_admin" class="adform">
         <b-container>
@@ -192,19 +223,23 @@
 
 <script>
 import ax from '@/api/http';
+import FileUpload from '@/views/_common/FileUpload.vue'
 
 export default {
     name: 'AdmUserEdit',
     components: {
+        'file-upload': FileUpload,
         'modal': () => import('@/views/_common/Modal'),
         'mileage': () => import('./_comp/Mileage'),
         'addr': () => import('./_comp/Addr'),
         'order': () => import('@/views/admin/shop/order/_comp/List'),
         'estimate': () => import('@/views/admin/shop/estimate/_comp/List'),
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
 
     data() {
         return {
+            isLoadingModalViewed: false,
             id:this.$route.params.id,
             isModalViewed: false,
             modalMode:'',
@@ -246,10 +281,21 @@ export default {
             );
             const res = await ax.post(`/api/admin/user/${this.id}`, this.frm);
             if (res && res.status === 200) {
+                if ( [11, 12].indexOf(this.frm.level) !== -1 ) {
+                    this.isLoadingModalViewed=true;
+                    await this.$refs.fileupload.fileProcessor(res.data.ub_id);
+                    this.isLoadingModalViewed=false;
+                }
                 Notify.toast('success', '수정 완료');
+                this.edit();
             }
 
-        }
+        },
+
+        frm_formatHp(v)   { return this.formatHp(v); },
+        frm_formatBiz(v) { return this.formatBiz(v); },
+        frm_formatDate(v) { return this.formatDate(v); },
+        frm_formatTel(v) { return this.formatTel(v); },
     },
 
     async mounted() {
@@ -267,6 +313,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.p_wrap { max-width:1500px; margin-left:auto; margin-right:auto; }
 .card.act_ctrl .row { align-items:center; }
 .card.act_ctrl .row .col .type_icon { display:inline-block; margin-right:25px; }
 .card.act_ctrl .row .col .type_icon svg { margin-right:10px; }

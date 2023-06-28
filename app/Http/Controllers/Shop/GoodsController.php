@@ -28,10 +28,11 @@ class GoodsController extends Controller {
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
                 "gs.gd_rank", 'gs.gd_id'
-            )->groupBy('gs.gd_id');
+            )->where('gs.gd_enable', 'Y')
+            ->groupBy('gs.gd_id');
             // ->join('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id')
             // ->whereExists(function ($q) { $q->from('shop_goods_model')->whereColumn('gs.gd_id', 'gm_gd_id')->where('gm_prime', 'Y'); })
-            // ->whereNull('gd.deleted_at')->where('gs.gd_enable', 'Y');
+            // ->whereNull('gd.deleted_at');
 
         if ($req->filled('keyword')) {
             if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}\"";
@@ -41,7 +42,7 @@ class GoodsController extends Controller {
                 $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score02, 
                                 MATCH (la_gs.gm_code) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score03, MATCH (la_gs.mk_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score04, 
                                 MATCH (la_gs.gm_catno) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score05, MATCH (la_gs.gd_keyword) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score06 ")
-                ->whereRaw('MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST (? IN BOOLEAN MODE)', [$ftWord]);
+                ->whereRaw("MATCH (la_gs.gd_name, la_gs.gm_name, la_gs.gm_code, la_gs.mk_name, la_gs.gm_catno, la_gs.gd_keyword) AGAINST ('{$ftWord}' IN BOOLEAN MODE)");
             } else {
                 if ( $req->mode == 'gd_name' ) $gs->selectRaw(" MATCH (la_gs.gd_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
                 if ( $req->mode == 'gm_name' ) $gs->selectRaw(" MATCH (la_gs.gm_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score ")->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);

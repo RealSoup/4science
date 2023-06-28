@@ -397,11 +397,17 @@ var render = function () {
                 "div",
                 { staticClass: "eq_name" },
                 [
-                  _vm._v(
-                    "\r\n                " +
-                      _vm._s(row.eq_name) +
-                      "\r\n                "
-                  ),
+                  _c("sub-string", {
+                    attrs: { width: 120 },
+                    model: {
+                      value: row.eq_name,
+                      callback: function ($$v) {
+                        _vm.$set(row, "eq_name", $$v)
+                      },
+                      expression: "row.eq_name",
+                    },
+                  }),
+                  _vm._v(" "),
                   _c("br", { staticClass: "d-none d-lg-block" }),
                   _vm._v(" "),
                   row.user && row.user.mng

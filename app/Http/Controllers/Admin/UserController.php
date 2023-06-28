@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{User, UserMng, UserAddr};
+use App\Models\{User, UserMng, UserAddr, UserBiz};
 use Cache;
 use DB;
 
@@ -34,15 +34,6 @@ class UserController extends Controller {
         return response()->json($data);
     }
 
-    public function edit(Request $req, $id) {
-        $user = User::with('UserMng')->find($id);
-        $user->option = User::$option;
-        $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
-        $um = new UserMng;
-        $user->mng_info = $um->getMngInfo();
-        return response()->json($user, 200);
-    }
-
     public function list(User $us, Request $req) {
         switch ($req->type) {
             case 'name':        $us = $us->Name($req->key); break;
@@ -54,7 +45,20 @@ class UserController extends Controller {
         return response()->json($us->get(), 200);
     }
 
+    public function edit(Request $req, $id) {
+        $user = User::with('UserMng')->with('UserBiz')->find($id);
+        if(!$user->userBiz->ub_id){
+            $user->userBiz->file_info = [];
+        }
+        $user->option = User::$option;
+        $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
+        $um = new UserMng;
+        $user->mng_info = $um->getMngInfo();
+        return response()->json($user, 200);
+    }
+
     public function update(Request $req, $id) {
+        $user_biz = null;
         DB::table('users')->where('id', $id)->update([
             'email' => $req->filled('email') ? $req->email : '',
             'name' => $req->filled('name') ? $req->name : '',
@@ -80,7 +84,21 @@ class UserController extends Controller {
             'mng' => $req->filled('mng') ? $req->mng : 0,
         ]);
         // 'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
-        if ( $req->level > 20 ) {
+        if ( in_array($req->level, [11, 12]) ) {
+            $user_biz = UserBiz::updateOrCreate(
+                [   'ub_papa_id' => $id ],
+                [   'ub_name'      => array_key_exists('ub_name',      $req->user_biz) ? $req->user_biz['ub_name']      : '',
+                    'ub_corp_name' => array_key_exists('ub_corp_name', $req->user_biz) ? $req->user_biz['ub_corp_name'] : '',
+                    'ub_num'       => array_key_exists('ub_num',       $req->user_biz) ? $req->user_biz['ub_num']       : '',
+                    'ub_tel'       => array_key_exists('ub_tel',       $req->user_biz) ? $req->user_biz['ub_tel']       : '',
+                    'ub_zip'       => array_key_exists('ub_zip',       $req->user_biz) ? $req->user_biz['ub_zip']       : '',
+                    'ub_addr1'     => array_key_exists('ub_addr1',     $req->user_biz) ? $req->user_biz['ub_addr1']     : '',
+                    'ub_addr2'     => array_key_exists('ub_addr2',     $req->user_biz) ? $req->user_biz['ub_addr2']     : '',
+                    'ub_type'      => array_key_exists('ub_type',      $req->user_biz) ? $req->user_biz['ub_type']      : '',
+                    'ub_cond'      => array_key_exists('ub_cond',      $req->user_biz) ? $req->user_biz['ub_cond']      : '',
+                    'updated_id'   => auth()->check()                                  ? auth()->user()->id             : 0, ]
+            );
+        } else if ( $req->level > 20 ) {
             DB::table('user_mng')->updateOrInsert(
             [   'um_user_id' => $id ],
             [   'um_status'         => array_key_exists('um_status', $req->user_mng) ? $req->user_mng['um_status'] : 'Y',
@@ -89,7 +107,9 @@ class UserController extends Controller {
                 'um_responsibility' => array_key_exists('um_responsibility', $req->user_mng) ? $req->user_mng['um_responsibility'] : NULL, ]);
             Cache::forget("UserMng");
         }
-        return response()->json("success", 200);
+        $rst = [ 'message' => 'success' ];
+        if( $user_biz ) $rst['ub_id'] = $user_biz->ub_id;
+        return response()->json($rst, 200);
     }
 
     public function indesAddr(Request $req, $id) {

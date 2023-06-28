@@ -1,7 +1,7 @@
 <template>
 <div class="cell">
     <b-input-group size="sm">
-        <b-form-input autocomplete="off" :id="'eq_'+type" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"
+        <b-form-input autocomplete="off" :id="`estimate_req.eq_${type}`" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"
             v-model="input_val" @keyup.enter="getUserList" />
         <b-input-group-append><b-button size="sm" @click="getUserList" ><b-icon-search /></b-button></b-input-group-append>
     </b-input-group>

@@ -65,15 +65,11 @@ export default {
                     case 'store': this.frm.estimate_reply.er_step = 0; break;
                     case 'send': this.frm.estimate_reply.er_step = 1; break;
                 }
-                this.isLoadingModalViewed=true;
-                this.frm = Object.assign(
-                    {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                    this.frm, // 수정하려는 객체
-                    {_method : 'PATCH'} // 삽입하려는 내용
-                );
+                this.frm = Object.assign( {}, this.frm, {_method : 'PATCH'} );
                 const res = await ax.post(`/api/admin/shop/estimate/${this.$route.params.er_id}`, this.frm);
                 if (res && res.status === 200) {
-                    await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);
+                    this.isLoadingModalViewed=true;
+                    await this.$refs.form_extra.$refs.fileupload.fileProcessor(res.data);                    
                     this.isLoadingModalViewed=false;
                     this.clickable = true;
                     if(!isEmpty(window.opener))
@@ -89,7 +85,9 @@ export default {
                         Notify.toast('success', '임시저장 완료');
                     } else 
                         this.$router.push({ name: 'adm_estimate_show_reply', params: { er_id:this.$route.params.er_id } })
-                    
+                } else {
+                    Notify.toast('danger', '견적 실패');
+                    this.clickable = true;
                 }
             } catch (e) {
                 Notify.consolePrint(e);

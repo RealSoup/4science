@@ -462,6 +462,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 var dt = new Date();
@@ -2969,6 +2970,16 @@ var render = function () {
                                             ],
                                             1
                                           ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "print_show_inline" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.od.file_info.fi_original)
+                                          ),
+                                        ]
+                                      ),
                                     ],
                                     1
                                   ),

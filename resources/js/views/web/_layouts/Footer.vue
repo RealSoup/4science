@@ -43,7 +43,7 @@
                 <b-col>
                     <b-link :to="{name: `introduce_company`}">회사소개</b-link>
                     <b-link :to="{name: `introduce_rule`}">이용약관</b-link>
-                    <b-link :to="{name: `introduce_policy`}">개인정보취급방침</b-link>
+                    <b-link :to="{name: `introduce_rule`, query:{ type:'policy' } }">개인정보취급방침</b-link>
                     <b-link to="/cscenter?view_type=as">A/S</b-link>
                     <b-link to="/cscenter?view_type=faq">FAQ</b-link>
                 </b-col>

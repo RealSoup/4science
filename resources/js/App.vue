@@ -330,5 +330,12 @@ label { margin-bottom:0; }
 .est_frm .row .col:nth-child(even) { padding-left:1.5%; }
 .est_frm .row .col input { width:60%; height:calc(1.5em + 0.5rem + 2px); padding:.25rem .5rem; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
 
+.frm01 .row .col{ padding:7px 0; }
+.frm01>div.row:first-of-type { border-top:3px solid #4F637B; }
+.frm01>div.row:last-of-type { border-bottom:3px solid #4F637B; }
+.frm01 .row:not(:last-of-type) .col  { border-bottom:1px solid #D7D7D7; }
+.frm01 .row .col:nth-child(odd) { flex:0 0 16%; max-width:16%; background-color:#F2F3F5; font-weight:600; display:flex; align-items:center; justify-content:center; }
+.frm01.n3 .row .col:nth-child(odd) { flex:0 0 10%; max-width:10%; }
+.frm01 .row .col:nth-child(even) { padding-left:.8%; padding-right: .8%; }
 
 </style>

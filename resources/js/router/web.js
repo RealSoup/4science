@@ -289,6 +289,10 @@ export default [
                 name: 'introduce_history',
                 component:() => import('@/views/web/introduce/History'),
             }, {   
+                path: 'map',
+                name: 'introduce_map',
+                component:() => import('@/views/web/introduce/Map'),
+            }, {   
                 path: 'rule',
                 name: 'introduce_rule',
                 component:() => import('@/views/web/introduce/Rule'),
