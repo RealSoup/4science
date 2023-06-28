@@ -530,6 +530,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.vue-numeric-input >>> .numeric-input { line-height:16px; }
 #goods_show { margin-top:3rem; }
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
