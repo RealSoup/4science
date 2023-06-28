@@ -119,16 +119,11 @@
 
 <script>
 import ax from '@/api/http';
-import { KinesisContainer, KinesisElement } from 'vue-kinesis';
-import { vueAccordion } from 'vue-accordion';
 import { mapState } from 'vuex'
 
 export default {
     name:"SiteMain",
     components: {
-        KinesisContainer,
-        KinesisElement, // https://github.com/Aminerman/vue-kinesis
-        vueAccordion, // https://github.com/zeratulmdq/vue-accordion
         'pop-up': () => import('./_module/PopUp'),
         'sub-string': () => import('@/views/_common/SubString.vue'),
     },

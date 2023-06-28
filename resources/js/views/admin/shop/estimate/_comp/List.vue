@@ -20,9 +20,9 @@
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <sub-string v-else v-model="row.eq_content" :width="650" />
 
-            <b-badge v-if="row.eq_type == 'TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
-            <b-badge v-else-if="row.eq_type == 'REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
-            <b-badge v-else-if="row.eq_type == 'CUS'" class="mint" v-b-tooltip.hover title="주문제작">주</b-badge>
+            <b-badge v-if="row.eq_type=='TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
+            <b-badge v-else-if="row.eq_type=='REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
+            <b-badge v-else-if="row.eq_type=='CUS'" class="mint" v-b-tooltip.hover title="주문제작">주</b-badge>
         </b-col>
         <b-col>
             <div class="eq_name">
@@ -33,10 +33,10 @@
         </b-col>
         <b-col>{{ row.created_at | formatDate }}</b-col>
         <b-col>
-            <b-badge class="plum" v-if="row.eq_step === 'DONOT'" >{{row.eq_step | eqStep}}</b-badge>
-            <b-badge class="mint" v-else-if="row.eq_step === 'DOING'">{{row.eq_step | eqStep}}</b-badge>
-            <b-badge class="gray" v-else-if="row.eq_step === 'DONE'">{{row.eq_step | eqStep}}</b-badge>
-            <b-badge class="yellow" v-else-if="row.eq_step === 'CANCEL'">{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="plum" v-if="row.eq_step==='DONOT'" >{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="mint" v-else-if="row.eq_step==='DOING'">{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="gray" v-else-if="row.eq_step==='DONE'">{{row.eq_step | eqStep}}</b-badge>
+            <b-badge class="yellow" v-else-if="row.eq_step==='CANCEL'">{{row.eq_step | eqStep}}</b-badge>
         </b-col>
         <b-col><span v-if="row.eq_mng_nm">{{row.eq_mng_nm}}</span></b-col>
         <b-col class="er_box">

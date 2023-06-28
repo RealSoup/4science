@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.recent_box { position:fixed; top:20%; right:1%; transition:all .5s ease; z-index:1; }
+.recent_box { position:absolute; top:0; right:-90px; transition:all .5s ease; z-index:1; }
 .recent_box .list_item { width:70px; height:70px; border-radius:100%; }
 .recent_box .box_header { background-color:#51B948; border:3px solid #FFF; width:90px; height:90px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); color:#FFF; text-align:center; font-size:.95rem; line-height:1.2; display:flex; align-items:center; justify-content:center; }
 

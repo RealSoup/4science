@@ -3,16 +3,11 @@
     
     <component :is="choiceHeader" />
     <main :class="{'layout' : 
-        this.$store.state.mode !== 'adm' &&
-        this.$route.name !== 'main' && 
-        this.$route.name !== 'goods_index' && 
-        this.$route.name !== 'outlet' && 
-        this.$route.name !== 'outlet_index' && 
-        this.$route.name !== 'introduce_company' && 
-        this.$route.name !== 'introduce_history' && 
-        this.$route.name !== 'introduce_map' && 
-        this.$route.name !== 'introduce_rule'
+        $store.state.mode!=='adm' &&
+        [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
+            'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
     }">
+        <recent-goods /> <!-- 최근 본 상품 -->
         <router-view />
     </main>
     <component :is="choiceFooter" />
@@ -31,6 +26,7 @@ import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
 export default {
     name: 'app',
     components: {
+        'recent-goods': () => import('@/views/web/_module/RecentGoods'),
         'web-head'      : WebHead, 
         'web-footer'    : WebFooter, 
         'header-simple' : HeaderSimple, 
@@ -98,7 +94,7 @@ export default {
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 #site.adm{ /*background:#FADBFB;*/ margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}
-.layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; }
+.layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; position:relative; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
 a, a:hover { color:#333; text-decoration:none; }
 .cb { clear:both; font-size:0px !important; line-height:0px !important; margin:0px !important; padding:0px !important; height:0px !important; width:0px !important; float:none !important; }

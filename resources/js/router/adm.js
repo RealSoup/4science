@@ -177,11 +177,6 @@ export default [
                 name: 'adm_b2b_merck_stock_result',
                 component:() => import('@/views/admin/shop/b2b_merck/StockResult'),
             }, 
-
-            {   path: 'realsoup',
-                name: 'test',
-                component:() => import('@/views/admin/Main_test'),
-            },
             
         ],
     },

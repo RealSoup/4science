@@ -70,15 +70,12 @@
 </template>
 
 <script>
-import { KinesisContainer, KinesisElement } from 'vue-kinesis'
 import LoginPopUp from '../auth/Login.vue';
 import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
     name: 'Header',
     components: {
-        KinesisContainer,
-        KinesisElement, // https://github.com/Aminerman/vue-kinesis
         'login-pop-up': LoginPopUp,
         'modal'     :   () => import('@/views/_common/Modal'),
         'categorys':    () => import('../_module/category/Cate.vue'),

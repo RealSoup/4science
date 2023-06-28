@@ -1,6 +1,5 @@
 <template>
 <footer id="footer">
-    <recent-goods @scrollToTop="scrollToTop" /> <!-- 최근 본 상품 -->
     <go-top /> <!-- 위로 가기 -->
     <b-container id="footer_top" class="layout">
         <b-row>
@@ -79,13 +78,11 @@ import { mapGetters } from 'vuex'
 export default {
     name:"Footer",
     components: {
-        'recent-goods': () => import('../_module/RecentGoods'),
         'go-top':       () => import('../_module/GoTop'),
         'sub-string': () => import('@/views/_common/SubString.vue'),
     },
     data() { return { notice: [], }; },
     computed: { ...mapGetters({ siteInfo: 'common/siteInfo', }) },
-    methods:{ scrollToTop(){ this.$emit('scrollToTop'); }, },
     async mounted() {
         const res = await ax.get(`/api/board/notice`, {params:{limit:4}});
         if (res && res.status === 200) { this.notice = res.data.list.data; }
