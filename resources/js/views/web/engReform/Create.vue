@@ -326,7 +326,7 @@
                 <b-row>
                     <b-col class="label_st">참고문서 업로드</b-col>
                     <b-col>
-                        <file-upload ref="fileupload2" v-model="frm.file_info_ref" :fi_group="'engReform'" :fi_kind = "'ref'" :height="100" />
+                        <file-upload ref="fileupload2" v-model="frm.file_info_ref" :fi_group="'engReform'" :fi_kind="'ref'" :height="100" />
                         <small>최대 업로드 가능 용량 : 200MB</small>
                     </b-col>
                     <transition name="fade">

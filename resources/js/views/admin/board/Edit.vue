@@ -42,7 +42,7 @@ v-model="something"
     </b-card>
     
     <b-card class="shadow mt-3" v-if="board.config.is_addFile">
-        <file-upload ref="fileupload" v-model="board.file_info_bo" :fi_group = "'board'" :fi_kind="this.$route.params.bo_cd" />
+        <file-upload ref="fileupload" v-model="board.file_info_bo" :fi_group="'board'" :fi_kind="this.$route.params.bo_cd" />
     </b-card>
 </form>
 </template>

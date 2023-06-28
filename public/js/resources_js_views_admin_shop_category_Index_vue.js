@@ -39,23 +39,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'category',
   components: {
-    'TreeView': function TreeView() {
+    'tree-view': function treeView() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_TreeView_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./TreeView.vue */ "./resources/js/views/admin/shop/category/TreeView.vue"));
     },
-    'LoadingModal': function LoadingModal() {
+    'loading-modal': function loadingModal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
     }
   },
@@ -327,7 +318,7 @@ var render = function () {
                 [
                   _vm.isLoadingModalViewed
                     ? _c(
-                        "LoadingModal",
+                        "loading-modal",
                         {
                           attrs: { position: "" },
                           on: {
@@ -336,11 +327,7 @@ var render = function () {
                             },
                           },
                         },
-                        [
-                          _vm._v(
-                            "\r\n                    카테고리 갱신 중 ......\r\n                "
-                          ),
-                        ]
+                        [_vm._v("카테고리 갱신 중 ......")]
                       )
                     : _vm._e(),
                 ],

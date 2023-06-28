@@ -169,7 +169,7 @@
     
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500">
-            <receipt-confirm :item="receiptItem" @hide_modal = "hide_modal" />
+            <receipt-confirm :item="receiptItem" @hide_modal="hide_modal" />
         </modal>
     </transition>
 </b-container>

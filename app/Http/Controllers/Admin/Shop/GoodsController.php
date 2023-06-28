@@ -376,7 +376,7 @@ class GoodsController extends Controller {
 	   	$goods->gd_mk_id       = $req->gd_mk_id;
 	   	$goods->gd_pa_id       = $req->gd_pa_id;
         $goods->gd_mng_info    = $req->gd_mng_info;
-        $goods->gd_seq         = $req->gd_seq;
+        $goods->gd_seq         = $req->filled('gd_seq') ? $req->gd_seq : 999999;
         $goods->ip             = $req->ip();
         return $goods;
     }

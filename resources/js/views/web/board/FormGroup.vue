@@ -38,7 +38,7 @@
         <b-col>
             <file-upload v-if="config.is_addFile" ref="fileupload" 
                 v-model="value.file_info_bo" 
-                :fi_group = "'board'" 
+                :fi_group="'board'" 
                 :fi_kind="config.bo_cd" 
                 :height="80" 
             />

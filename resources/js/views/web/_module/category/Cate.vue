@@ -62,13 +62,7 @@
                     </div>
                 </transition>
             </span>
-            <CateSub
-                :sub_show   = 'ca.sub_show && ca.sub.length'
-                :depth      = '1'
-                :cate       = "ca.sub"
-                :paramLink  = "'/'+ca.ca_id"
-                :papaName   = "ca.ca_name"
-            />
+            <CateSub :sub_show='ca.sub_show && ca.sub.length' :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id" :papaName="ca.ca_name" />
         </li>
         <li @mouseenter="cus_hover=true" @mouseleave="cus_hover=false">
             <span class="ca01">

@@ -3,23 +3,14 @@
     <b-row class="justify-content-center">
         <b-col sm="12" md="10" lg="6">
             <transition name="fade">
-                <LoadingModal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="''">
-                    카테고리 갱신 중 ......
-                </LoadingModal>
+                <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed=false" :position="''">카테고리 갱신 중 ......</loading-modal>
             </transition>
             <h3 class="p_tit">
                 카테고리
                 <b-button @click="rewrite"><b-icon-recycle /></b-button>
             </h3>
-            <b-card >
-                <tree-view
-                    :cate = "ca.subCate"
-                    :parent = "ca"
-                    :depth="0"
-                    :ca_papa="0"
-                    :gene_idx="0"
-                    @get-sub='getSub'
-                />
+            <b-card>
+                <tree-view :cate="ca.subCate" :parent="ca" :depth="0" :ca_papa="0" :gene_idx="0" @get-sub='getSub' />
             </b-card>
         </b-col>
     </b-row>
@@ -31,8 +22,8 @@ import ax from '@/api/http';
 export default {
     name: 'category',
     components: {
-        'TreeView': () => import('./TreeView.vue'),
-        'LoadingModal': () =>   import('@/views/_common/LoadingModal.vue'),
+        'tree-view': () => import('./TreeView.vue'),
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
