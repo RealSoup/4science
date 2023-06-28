@@ -320,11 +320,11 @@ class EstimateController extends Controller {
     //  StoreEstimateReply 이 request를 쓰면 eq_step만 보내어 처리 상태를 바꿀때
     //  다른 게 없다고 에러뜨단 무조껀 Request 쓰자
     public function update(Request $req, $er_id) {
-        self::mailCheck($req);
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
             if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step, 'eq_mng' => auth()->user()->id]))
                 return response()->json('success', 200);
         } else {                
+            self::mailCheck($req);
             $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);
             $eq_impl['ip'] = $req->ip();
             $eq_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
@@ -385,7 +385,7 @@ class EstimateController extends Controller {
         }
     }
 
-    public function mailCheck($req) {
+    public function mailCheck(Request $req) {
         if ( trim($req->estimate_req['eq_email']) != '-' ) {
             Validator::make(
                 $req->all(), 
