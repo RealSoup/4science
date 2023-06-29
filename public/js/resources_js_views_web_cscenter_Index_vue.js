@@ -343,7 +343,7 @@ var render = function () {
               _vm._v(" "),
               _c("img", {
                 staticClass: "m_hide",
-                attrs: { src: _vm.s3url + "cscenter/member_info.png" },
+                attrs: { src: _vm.s3url + "cscenter/member_info.jpg" },
               }),
               _vm._v(" "),
               _c("img", {

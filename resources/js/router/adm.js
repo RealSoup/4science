@@ -40,6 +40,10 @@ export default [
                 path: 'user/:id/edit',
                 name: 'adm_user_edit',
                 component:() => import('@/views/admin/user/Edit'),
+            }, {
+                path: 'user/email',
+                name: 'adm_user_email',
+                component:() => import('@/views/admin/user/Email'),
             }, 
             
             

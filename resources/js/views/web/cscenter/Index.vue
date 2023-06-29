@@ -20,7 +20,7 @@
         <b-tab title="결제 안내"><pay-guide /></b-tab>
         <b-tab class="member_info">
             <template #title>회원<span class="m_hide">혜택</span> 안내</template>
-            <img :src="`${s3url}cscenter/member_info.png`" class="m_hide" />
+            <img :src="`${s3url}cscenter/member_info.jpg`" class="m_hide" />
             <img :src="`${s3url}cscenter/member_info_m01.jpg`" class="m_show" />
             <img :src="`${s3url}cscenter/member_info_m02.jpg`" class="m_show" />
         </b-tab>

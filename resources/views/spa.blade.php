@@ -28,18 +28,18 @@
     <!-- 구글링 결과로 정확한 이유는 모른다. -->
 
     <!-- Google Tag Manager -->
-    <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NJK884V');</script> -->
+    })(window,document,'script','dataLayer','GTM-NJK884V');</script>
     <!-- End Google Tag Manager -->
 </head>
 <body>
     <div id="app"></div>
 
     
-    <!-- <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
     <script>
         /* 네이버 분석 관련 스크립트 */
         if(!wcs_add) var wcs_add = {};
@@ -49,6 +49,6 @@
             wcs.inflow();
             wcs_do(_nasa);
         }
-    </script> -->
+    </script>
 </body>
 </html>

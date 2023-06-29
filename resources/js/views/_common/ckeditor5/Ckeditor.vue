@@ -1,6 +1,6 @@
 <template>
     <div id="gd_desc" tabindex="-1">
-        <ckeditor :editor="editor" @input="updateField" v-model="editorData" :config="editorConfig"></ckeditor>
+        <ckeditor :editor="editor" @input="updateField" v-model="editorData" :config="editorConfig" :contenteditable="true"></ckeditor>
     </div>
 </template>
 

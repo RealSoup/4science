@@ -19,7 +19,7 @@
         <b-col class="orderer">
             <b-badge v-if="row.user && row.user.is_dealer" class="d_blue d-none d-lg-inline-block">딜</b-badge>
             <span>
-                {{row.od_orderer}}
+                <sub-string v-model="row.od_orderer" :width="120" />
                 <br class="d-none d-lg-block" />
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </span> 
@@ -56,6 +56,9 @@
 export default {
     name: 'AdmOrderIndexList',
     props:['list', 'config', 'mng_off'],
+    components: { 
+        'sub-string': () => import('@/views/_common/SubString.vue'),
+    },
 };
 </script>
 

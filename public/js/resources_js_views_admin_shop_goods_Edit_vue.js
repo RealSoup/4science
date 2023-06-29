@@ -5715,7 +5715,11 @@ var render = function () {
     { attrs: { id: "gd_desc", tabindex: "-1" } },
     [
       _c("ckeditor", {
-        attrs: { editor: _vm.editor, config: _vm.editorConfig },
+        attrs: {
+          editor: _vm.editor,
+          config: _vm.editorConfig,
+          contenteditable: true,
+        },
         on: { input: _vm.updateField },
         model: {
           value: _vm.editorData,

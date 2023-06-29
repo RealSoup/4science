@@ -17,14 +17,16 @@ export default { name: "Introduce", }
 
 <style lang="css" scoped>
 .w_fence { max-width:1920px; width: 100%; margin:auto; background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/bg.jpg) no-repeat center top; padding:20px 0; min-height:885px;; }
-.w_fence h3 { text-align:center; color:#FFF; font-size:3rem; margin-top:3rem; margin-bottom:1rem; }
+.w_fence h3 { text-align:center; color:#FFF; font-size:3em; margin-top:3em; margin-bottom:1em; }
 .w_fence .nav { max-width:550px; margin:auto; border-width:0; }
-.w_fence .nav li a { color:#FFF; border:1px solid #FFF; margin:0 9px; border-radius:8px; font-size:1.1rem;  }
+.w_fence .nav li a { color:#FFF; border:1px solid #FFF; margin:0 9px; border-radius:8px; font-size:1.1em;  }
 .w_fence .nav li a.active { background:#FFF; color:#002A7E; font-weight:bold; }
-.w_fence .body { width:1200px; margin:3rem auto; border:0; border:4px solid #C4D0D0; background:#FFF; border-radius:20px; padding:84px 80px; }
+.w_fence .body { width:1200px; margin:3em auto; border:0; border:4px solid #C4D0D0; background:#FFF; border-radius:20px; padding:84px 80px; }
 @media (max-width: 992px){
-    .w_fence h3 { font-size:1.2rem; margin-top:0; margin-bottom:.7rem; }
-    .w_fence .nav li a { margin:0 3px; border-radius:3px; font-size:.9rem;  }
-    .w_fence .body { width:100%; max-width:1200px; margin:1rem auto; border:0; border-width:0; border-radius:3px; padding:0 }
+    .w_fence { font-size:13px; }
+    .w_fence h3 { font-size:1.2em; margin-top:0; margin-bottom:.7em; }
+    .w_fence .nav li .nav-link { padding:.3rem .4rem; }
+    .w_fence .nav li a { margin:0 3px; border-radius:3px; font-size:.9em;  }
+    .w_fence .body { width:100%; max-width:1200px; margin:1em auto; border:0; border-width:0; border-radius:3px; padding:0 }
 }
 </style>
