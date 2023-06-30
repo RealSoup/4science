@@ -164,25 +164,16 @@ class UserController extends Controller {
 				$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
             self::postman($req, collect($list));
 		} else {
-			$count = User::when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->whereIn('id', [130, 131, 39543, 70001, 70002, 70005, 70007, 70009, 70010, 70011, 70012, 70013, 70014, 70015])
-            ->count();
+			$count = User::when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))->count();
             // 한번에 보낼수 있는 최고 양이 3만통
-            $list = User::select('name', 'email')
-                        // ->member()
-                        ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'));
-
-            $list->whereIn('id', [39, 130, 131, 39543, 70001, 70002, 70005, 70007, 70009, 70010, 70011, 70012, 70013, 70014, 70015]);
-
+            $list = User::select('name', 'email')->member()->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'));
             $limit = 30000;
-            
             $i=0;
             while ($i < $count) {
                 $list->offset($i)->limit($limit);
                 self::postman($req, $list->get());
                 $i+=$limit;
             }
-            
 		}
     }
 
