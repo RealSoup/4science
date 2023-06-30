@@ -111,6 +111,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -488,6 +494,37 @@ var render = function () {
                             ")\r\n                "
                         ),
                       ])
+                    : ml.ml_tbl == "shop_order_model" && ml.order_model
+                    ? _c(
+                        "div",
+                        [
+                          _vm._v(
+                            "\r\n                    " +
+                              _vm._s(ml.ml_content) +
+                              "\r\n                    "
+                          ),
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "white xm",
+                              attrs: {
+                                to: {
+                                  name: "my_order_show",
+                                  params: { od_id: ml.order_model.odm_od_id },
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                        주문 제품:" +
+                                  _vm._s(ml.order_model.odm_gm_name) +
+                                  "\r\n                    "
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      )
                     : _c("div", [
                         ml.expiration
                           ? _c("span", [_vm._v("기간만료 마일리지 소멸")])

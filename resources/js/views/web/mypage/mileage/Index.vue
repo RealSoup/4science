@@ -17,6 +17,12 @@
                     {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 /
                     수령인: {{ml.refine_content[2]}} ({{ml.refine_content[3]}})
                 </div>
+                <div v-else-if="ml.ml_tbl == 'shop_order_model' && ml.order_model">
+                    {{ml.ml_content}}
+                    <b-button class="white xm" :to="{name:'my_order_show', params: { od_id:ml.order_model.odm_od_id }}">
+                        주문 제품:{{ml.order_model.odm_gm_name}}
+                    </b-button>
+                </div>
                 <div v-else>
                     <span v-if="ml.expiration">기간만료 마일리지 소멸</span>
                     <span v-else>{{ml.ml_content}}</span>

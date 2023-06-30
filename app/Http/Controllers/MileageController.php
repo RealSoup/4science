@@ -15,7 +15,7 @@ class MileageController extends Controller {
 
     public function index(Request $req) {
         $rst = array();
-        $ml = $this->mileage->Uid(auth()->user()->id)->latest();
+        $ml = $this->mileage->with('orderModel')->Uid(auth()->user()->id)->latest();
         $rst['list'] = $ml->paginate(10);
         $rst['list']->appends($req->all())->links();
         $rst['config'] = UserMileage::$config['voucher'];

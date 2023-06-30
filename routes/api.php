@@ -116,6 +116,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('updateAddr', 'Admin\UserController@updateAddr');
                 Route::GET('destroyAddr/{id}', 'Admin\UserController@destroyAddr');
                 Route::POST('sendEmail', 'Admin\UserController@sendEmail');
+                Route::GET('mailInfo', 'Admin\UserController@mailInfo');
+                
             });
             
             Route::prefix('mileage')->group(function () {

@@ -656,7 +656,7 @@ var render = function () {
                             ? _c(
                                 "b-button",
                                 {
-                                  staticClass: "sm",
+                                  staticClass: "white xm",
                                   attrs: {
                                     to: {
                                       name: "adm_order_edit",
@@ -667,10 +667,14 @@ var render = function () {
                                   },
                                 },
                                 [
-                                  _c("b-icon-link45deg"),
-                                  _vm._v("주문 보기\r\n                    "),
-                                ],
-                                1
+                                  _vm._v(
+                                    "\r\n                        글번호:" +
+                                      _vm._s(ml.order_model.odm_od_id) +
+                                      ", 제품명:" +
+                                      _vm._s(ml.order_model.odm_gm_name) +
+                                      "\r\n                    "
+                                  ),
+                                ]
                               )
                             : _vm._e(),
                           _vm._v(" "),

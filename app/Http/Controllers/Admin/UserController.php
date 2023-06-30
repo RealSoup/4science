@@ -155,25 +155,26 @@ class UserController extends Controller {
 		else return response()->json("Fail", 500);
     }
 
+    public function mailInfo() {
+        $data['agree'] = User::member()->whereNotNull('email_verified_at')->where('receive_mail', 'Y')->count();
+        $data['all'] = User::member()->whereNotNull('email_verified_at')->count();
+        return response()->json($data, 200);
+    }
 
     public function sendEmail(Request $req) {
 		$receiver = "";
-		if ( $req->target == 0 ) {
+		if ( $req->target == 'custom' ) {
 			$temp = explode(";", $req->temp);
 			foreach($temp as $k => $v)
 				$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
             self::postman($req, collect($list));
-		} else {
-			$count = User::when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))->count();
-            // 한번에 보낼수 있는 최고 양이 3만통
-            $list = User::select('name', 'email')->member()->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'));
+        } else {
             $limit = 30000;
-            $i=0;
-            while ($i < $count) {
-                $list->offset($i)->limit($limit);
-                self::postman($req, $list->get());
-                $i+=$limit;
-            }
+            $list = User::select('name', 'email')->member()->whereNotNull('email_verified_at');
+            if ($req->target == 'agree')          self::postman($req, $list->where('receive_mail', 'Y')->get());
+            else if ($req->target == 'all_0-3')   self::postman($req, $list->offset(0)->limit($limit)->get());
+            else if ($req->target == 'all_3-6')   self::postman($req, $list->offset(30000)->limit($limit)->get());
+            else if ($req->target == 'all_6-end') self::postman($req, $list->offset(60000)->limit($limit)->get());
 		}
     }
 

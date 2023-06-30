@@ -36,11 +36,11 @@
                 </div>
                 <div v-else>
                     {{ml.ml_content}}
-                    <b-button class="sm"
+                    <b-button class="white xm"
                         v-if="ml.ml_tbl == 'shop_order_model' && ml.order_model" 
                         :to="{name: 'adm_order_edit', params: { od_id:ml.order_model.odm_od_id }}"
                     >
-                        <b-icon-link45deg />주문 보기
+                        글번호:{{ml.order_model.odm_od_id}}, 제품명:{{ml.order_model.odm_gm_name}}
                     </b-button>
                     
                     <b-badge v-if="ml.ml_tbl == 'admin'" class="ml-3">관리자 지급</b-badge>               
