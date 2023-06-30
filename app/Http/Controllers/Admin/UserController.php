@@ -172,13 +172,13 @@ class UserController extends Controller {
 			$count = User::member()
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->when('id', '<', 61034)
+            ->where('id', '<', 61034)
             ->count();
             // 한번에 보낼수 있는 최고 양이 3만통
             $list = User::select('name', 'email')->member()
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->when('id', '<', 61034);
+            ->where('id', '<', 61034);
             $limit = 20000;
             $i=0;
             while ($i < $count) {
