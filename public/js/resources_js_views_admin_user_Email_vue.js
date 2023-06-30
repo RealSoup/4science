@@ -61,6 +61,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEmail',
@@ -91,7 +94,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 res = _context.sent;
-                if (res && res.status === 200) Notify.toast('success', '발송 완료');
+                if (res && res.status === 200) Notify.modal(res.data);
 
               case 4:
               case "end":
@@ -347,19 +350,17 @@ var render = function () {
                     },
                   },
                   [
-                    _c("b-form-select-option", { attrs: { value: "custom" } }, [
+                    _c("b-form-select-option", { attrs: { value: "0" } }, [
                       _vm._v("직접 입력"),
                     ]),
                     _vm._v(" "),
-                    _c("b-form-select-option", { attrs: { value: "agree" } }, [
+                    _c("b-form-select-option", { attrs: { value: "1" } }, [
                       _vm._v("수신동의만"),
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "b-form-select-option",
-                      { attrs: { value: "all_0-3" } },
-                      [_vm._v("모두(0~3만)")]
-                    ),
+                    _c("b-form-select-option", { attrs: { value: "2" } }, [
+                      _vm._v("모두(0~3만)"),
+                    ]),
                     _vm._v(" "),
                     _c(
                       "b-form-select-option",

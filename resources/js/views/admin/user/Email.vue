@@ -15,9 +15,12 @@
             <b-col>발송 대상</b-col>
             <b-col>
                 <b-form-select v-model="frm.target">
-                    <b-form-select-option value="custom">직접 입력</b-form-select-option>
+                    <!-- <b-form-select-option value="custom">직접 입력</b-form-select-option>
                     <b-form-select-option value="agree">수신동의만</b-form-select-option>
-                    <b-form-select-option value="all_0-3">모두(0~3만)</b-form-select-option>
+                    <b-form-select-option value="all_0-3">모두(0~3만)</b-form-select-option> -->
+                    <b-form-select-option value="0">직접 입력</b-form-select-option>
+                    <b-form-select-option value="1">수신동의만</b-form-select-option>
+                    <b-form-select-option value="2">모두(0~3만)</b-form-select-option>
                     <b-form-select-option value="all_3-6">모두(3~6만)</b-form-select-option>
                     <b-form-select-option value="all_6-end">모두(6만~)</b-form-select-option>
                 </b-form-select>
@@ -61,7 +64,7 @@ export default {
         async send() {
             const res = await ax.post(`/api/admin/user/sendEmail`, this.frm);
             if (res && res.status === 200)
-                Notify.toast('success', '발송 완료');            
+                Notify.modal(res.data);        
         },
     },
 

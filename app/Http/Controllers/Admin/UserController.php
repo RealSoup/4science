@@ -163,19 +163,44 @@ class UserController extends Controller {
 
     public function sendEmail(Request $req) {
 		$receiver = "";
-		if ( $req->target == 'custom' ) {
+		if ( $req->target == 0 ) {
 			$temp = explode(";", $req->temp);
 			foreach($temp as $k => $v)
 				$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
             self::postman($req, collect($list));
-        } else {
-            $limit = 30000;
-            $list = User::select('name', 'email')->member()->whereNotNull('email_verified_at');
-            if ($req->target == 'agree')          self::postman($req, $list->where('receive_mail', 'Y')->get());
-            else if ($req->target == 'all_0-3')   self::postman($req, $list->offset(0)->limit($limit)->get());
-            else if ($req->target == 'all_3-6')   self::postman($req, $list->offset(30000)->limit($limit)->get());
-            else if ($req->target == 'all_6-end') self::postman($req, $list->offset(60000)->limit($limit)->get());
+		} else {
+			$count = User::member()
+            ->whereNotNull('email_verified_at')
+            ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
+            ->when('id', '<', 61034)
+            ->count();
+            // 한번에 보낼수 있는 최고 양이 3만통
+            $list = User::select('name', 'email')->member()
+            ->whereNotNull('email_verified_at')
+            ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
+            ->when('id', '<', 61034);
+            $limit = 20000;
+            $i=0;
+            while ($i < $count) {
+                $list->offset($i)->limit($limit);
+                self::postman($req, $list->get());
+                $i+=$limit;
+            }
 		}
+        // $receiver = "";
+		// if ( $req->target == 'custom' ) {
+		// 	$temp = explode(";", $req->temp);
+		// 	foreach($temp as $k => $v)
+		// 		$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
+        //     self::postman($req, collect($list));
+        // } else {
+        //     $limit = 30000;
+        //     $list = User::select('name', 'email')->member()->whereNotNull('email_verified_at');
+        //     if ($req->target == 'agree')          self::postman($req, $list->where('receive_mail', 'Y')->get());
+        //     else if ($req->target == 'all_0-3')   self::postman($req, $list->offset(0)->limit($limit)->get());
+        //     else if ($req->target == 'all_3-6')   self::postman($req, $list->offset(30000)->limit($limit)->get());
+        //     else if ($req->target == 'all_6-end') self::postman($req, $list->offset(60000)->limit($limit)->get());
+		// }
     }
 
     public function postman($req, $list) {
@@ -194,8 +219,11 @@ class UserController extends Controller {
 
         $receiver = '';
         foreach($list as $k => $v){
-            $receiver.=$v['name'].','.$v['email'].'
+            $checkMail = filter_Var($v['email'], FILTER_VALIDATE_EMAIL);
+            if ($checkMail == true) {
+                $receiver.=$v['name'].','.$v['email'].'
 ';
+            }
         }
 
 		// 파일첨부 관련
