@@ -157,17 +157,6 @@ class UserController extends Controller {
 
 
     public function sendEmail(Request $req) {
-		/******************** 인증정보 ********************/
-		// 대량메일 인증 관련
-		$sendmail_url = "https://science4.sendmail.cafe24.com/sendmail_api.php"; // 전송요청 URL
-		$secureKey = "c0a3d12ec374f8ae2773159a14b85e60"; // 인증키
-		$userId = "science4"; // 발송자ID
-
-		/******************** 요청변수 처리 ********************/
-		// 메일발송 관련
-		$sender = '4science'; // 발송자 이름
-		$email = 'admin@4science.net'; // 발송자 이메일
-
 		$receiver = "";
 		if ( $req->target == 0 ) {
 			$temp = explode(";", $req->temp);
@@ -175,11 +164,16 @@ class UserController extends Controller {
 				$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
             self::postman(collect($list));
 		} else {
-			$count = User::when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))->count();
+			$count = User::when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
+            ->whereIn('id', [130, 131, 39543, 70001, 70002, 70005, 70007, 70009, 70010, 70011, 70012, 70013, 70014, 70015])
+            ->count();
             // 한번에 보낼수 있는 최고 양이 3만통
             $list = User::select('name', 'email')
                         ->member()
                         ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'));
+
+            $list->whereIn('id', [130, 131, 39543, 70001, 70002, 70005, 70007, 70009, 70010, 70011, 70012, 70013, 70014, 70015]);
+
             $limit = 5;
             if(intval($count) > $limit) {
                 $i=0;
@@ -193,71 +187,39 @@ class UserController extends Controller {
     }
 
     public function postman($list) {
-        foreach($list as $key => $v){
-            dd($v);
-        }
-        exit;
-		// debug_var(count($user_list));
+        
+		/******************** 인증정보 ********************/
+		// 대량메일 인증 관련
+		$sendmail_url = "https://science4.sendmail.cafe24.com/sendmail_api.php"; // 전송요청 URL
+		$secureKey = "c0a3d12ec374f8ae2773159a14b85e60"; // 인증키
+		$userId = "science4"; // 발송자ID
 
-		foreach($list as $k => $v){
-            $receiver.=$k['name'].','.$v['email'].'
+		/******************** 요청변수 처리 ********************/
+		// 메일발송 관련
+		$sender = '4science'; // 발송자 이름
+		$email = 'admin@4science.net'; // 발송자 이메일
+
+
+        $receiver = '';
+        foreach($list as $k => $v){
+            $receiver.=$v['name'].','.$v['email'].'
 ';
-		}
-
-		//echo $this->db->last_query();
-		//debug_var($post_data);
-        // debug_var($receiver);
-		// exit;
-
-
-
-
-		$post_data['receiverlist'] = $receiver;
-
-		$receiverlist = ($post_data['receiverlist']) ? $post_data['receiverlist'] : ''; // 수신자 리스트
-		$receiverlistUrl= ($post_data['receiverlistUrl']) ? $post_data['receiverlistUrl'] : ''; // 수신자 리스트 URL
-
-		// 메일내용 관련
-		$subject = ($post_data['subject']) ? $post_data['subject'] : ''; // 메일 제목
-		$content = ($post_data['content']) ? $post_data['content'] : ''; // 메일 내용
-
-		// 수신자 처리 관련
-		$rejectType = ($post_data['rejectType']) ? $post_data['rejectType'] : 2; // 수신거부자 발송여부(2: 제외발송, 3:포함발송)
-		$overlapType = 2;
-
-		// 예약발송 관련
-		$sendType = ($post_data['sendType']) ? $post_data['sendType'] : 0; // 예약발송 여부(0:즉시발송, 1:예약발송)
-		$sendDate = ($post_data['sendDate']) ? $post_data['sendDate'] : ''; // 예약발송 시간(년-월-일 시:분:초)
+        }
 
 		// 파일첨부 관련
 		$file_name = $_FILES['addfile']['name'];
 		$tmp_name = $_FILES['addfile']['tmp_name'];
 		$content_type = $_FILES['addfile']['type'];
 
-		// 수신거부 기능 관련
-		$useRejectMemo = ($post_data['useRejectMemo']) ? $post_data['useRejectMemo'] : 0; // 수신거부 사용여부(0: 사용안함, 1: 사용)
-
-		// 메일주소 중복발송 관련
-		$overlapType = $post_data['overlapType'] == '1' ? '1' : '2';
-
-		// 요청 테스트
-		$testFlag = ($post_data['testFlag']) ? $post_data['testFlag'] : 0; // 요청 테스트 사용여부(0: 사용안함, 1: 사용)
-
 		/******************** 요청변수 처리 ********************/
 		$mail['secureKey'] = $secureKey;
 		$mail['userId'] = $userId;
 		$mail['sender'] = base64_encode($sender);
 		$mail['email'] = base64_encode($email);
-		$mail['receiverlist'] = base64_encode($receiverlist);
-		$mail['receiverlistUrl'] = base64_encode($receiverlistUrl);
-		$mail['subject'] = base64_encode($subject);
-		$mail['content'] = base64_encode($content);
-		$mail['rejectType'] = $rejectType;
-		$mail['overlapType'] = $overlapType;
-		$mail['sendType'] = $sendType;
-		$mail['sendDate'] = $sendDate;
-		$mail['useRejectMemo'] = $useRejectMemo;
-		$mail['testFlag'] = $testFlag;
+		$mail['receiverlist'] = base64_encode($receiver);
+		$mail['subject'] = base64_encode($req->subject);
+		$mail['content'] = base64_encode($req->content);
+		$mail['overlapType'] = 1;  //  1: 중복제외, 2: 중복발송허용      수신자 주소 중 중복주소 제거여부를 선택합니다.
 
 		$host_info = explode("/", $sendmail_url);
 		$host = $host_info[2];

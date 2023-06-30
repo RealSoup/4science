@@ -7,7 +7,7 @@
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
             'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
     }">
-        <recent-goods /> <!-- 최근 본 상품 -->
+        <recent-goods v-if="$store.state.mode!=='adm'" /> <!-- 최근 본 상품 -->
         <router-view />
     </main>
     <component :is="choiceFooter" />

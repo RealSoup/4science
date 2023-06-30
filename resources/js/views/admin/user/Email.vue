@@ -31,7 +31,7 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col>제목</b-col><b-col><b-form-input v-model="frm.title" /></b-col>
+            <b-col>제목</b-col><b-col><b-form-input v-model="frm.subject" /></b-col>
         </b-row>
         <b-row>
             <b-col>내용</b-col>
@@ -52,8 +52,8 @@ export default {
     data() {
         return {
             frm: {
-                target: 0,
-                title:'',
+                target: 2,
+                subject:'',
                 content:'',
                 temp:'dvvb38@gmail.com;dvvb38@nate.com;kjk@4science.net;dvvb38@naver.com;realsoup38@daum.net;chakanharry@gmail.com;chakanharry@hanmail.net;harry82@nate.com;chakanharry@naver.com;lhr@4science.net;dvvb38@kakao.com',
             }

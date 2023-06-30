@@ -72,8 +72,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       frm: {
-        target: 0,
-        title: '',
+        target: 2,
+        subject: '',
         content: '',
         temp: 'dvvb38@gmail.com;dvvb38@nate.com;kjk@4science.net;dvvb38@naver.com;realsoup38@daum.net;chakanharry@gmail.com;chakanharry@hanmail.net;harry82@nate.com;chakanharry@naver.com;lhr@4science.net;dvvb38@kakao.com'
       }
@@ -314,11 +314,11 @@ var render = function () {
                 [
                   _c("b-form-input", {
                     model: {
-                      value: _vm.frm.title,
+                      value: _vm.frm.subject,
                       callback: function ($$v) {
-                        _vm.$set(_vm.frm, "title", $$v)
+                        _vm.$set(_vm.frm, "subject", $$v)
                       },
-                      expression: "frm.title",
+                      expression: "frm.subject",
                     },
                   }),
                 ],
