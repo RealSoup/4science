@@ -72,8 +72,8 @@ export default {
             this.order = res.data;
 
         /* 네이버 분석 관련 스크립트 */
-        // var _nasa={};
-        // if (window.wcs) _nasa["cnv"] = wcs.cnv("1", this.order.od_all_price);
+        var _nasa={};
+        if (window.wcs) _nasa["cnv"] = wcs.cnv("1", this.order.od_all_price);
     },
 }
 </script>
