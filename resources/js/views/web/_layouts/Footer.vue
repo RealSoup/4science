@@ -1,6 +1,5 @@
 <template>
 <footer id="footer">
-    <go-top /> <!-- 위로 가기 -->
     <b-container id="footer_top" class="layout">
         <b-row>
             <b-col class="fir">
@@ -68,6 +67,11 @@
             </b-row>
         </b-container>
     </div>
+    
+    <div id="expansion">
+        <recent-goods /> <!-- 최근 본 상품 -->
+        <go-top /> <!-- 위로 가기 -->
+    </div>
 </footer>
 </template>
 
@@ -78,6 +82,7 @@ import { mapGetters } from 'vuex'
 export default {
     name:"Footer",
     components: {
+        'recent-goods': () => import('@/views/web/_module/RecentGoods'),
         'go-top':       () => import('../_module/GoTop'),
         'sub-string': () => import('@/views/_common/SubString.vue'),
     },
@@ -130,6 +135,8 @@ export default {
 #footer #footer_bottom .container .row .col p { margin:0; }
 #footer #footer_bottom .container .row .col .copy { margin-top: 22px; }
 #footer #footer_bottom .container .row .col.logo { text-align:right; }
+
+#footer #expansion { position:fixed; bottom:1%; right:7%; z-index:17; }
 
 @media (max-width: 992px){
     #footer { margin-top:1rem; padding-top:1rem; }

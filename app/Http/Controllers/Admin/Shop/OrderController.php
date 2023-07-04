@@ -65,7 +65,10 @@ class OrderController extends Controller {
 		
 		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->with('user')
 							->select("shop_order.*",
-								DB::raw("(SELECT created_id FROM la_shop_estimate_reply WHERE er_id = la_shop_order.od_er_id) as er_mng_id"),
+								DB::raw("
+								(SELECT eq_mng FROM la_shop_estimate_req WHERE eq_id = (
+									SELECT er_eq_id FROM la_shop_estimate_reply WHERE er_id = la_shop_order.od_er_id
+								)) as eq_mng_id"),
 							);
 					// ->join('users', 'users.id', '=', 'shop_order.created_id');
 

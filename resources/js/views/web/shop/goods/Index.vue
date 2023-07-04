@@ -1,5 +1,5 @@
 <template>
-<div class="p_wrap">
+<div>
     <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">
         Loading ......
     </loading-modal>
@@ -171,7 +171,7 @@ export default {
 .sch_detail .row .col p.chk { background:#B2E0FA; }
 .sch_detail .row .col p span { color:#C2C2C2; font-size:.8rem; margin-left:.5rem; }
 
-.pick { background:#0094EA; margin-top:25px; }
+.pick { background:#0094EA; }
 .pick .row .fir { flex:0 0 120px; max-width:120px; margin-right:25px; }
 .pick .row .col { padding:20px 0; }
 .pick .row .col ul li { flex:0 0 13%; max-width:13%; height:150px; transition: all .2s; padding:0 10px; text-align:center; overflow:hidden; background:#fff; border-style:solid; border-color:#0094EA; border-width:10px 20px; cursor:pointer; }

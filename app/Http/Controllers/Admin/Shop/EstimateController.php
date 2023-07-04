@@ -279,6 +279,7 @@ class EstimateController extends Controller {
         $er_impl = $this->estimateReply_paramImplant($req->estimate_reply);
         $er_impl['ip'] = $req->ip();
         $er_impl['created_id'] = auth()->check() ? auth()->user()->id : 0;
+        $er_impl['updated_id'] = auth()->check() ? auth()->user()->id : 0;
         $er_impl['er_eq_id'] = $eq_id;
         $er_id = DB::table('shop_estimate_reply')->insertGetId($er_impl, 'eq_id');
 

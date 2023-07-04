@@ -29,9 +29,9 @@
             <span>
                 {{config.type[row.od_type]}}
                 <br />
-                <b-badge v-if="row.er_mng_id" class="mint">
-                    <template v-if="mng_off[row.er_mng_id]">{{mng_off[row.er_mng_id].name}}</template>
-                    <template v-else>{{row.er_mng_id}}</template>
+                <b-badge v-if="row.eq_mng_id" class="mint">
+                    <template v-if="mng_off[row.eq_mng_id]">{{mng_off[row.eq_mng_id].name}}</template>
+                    <template v-else>{{row.eq_mng_id}}</template>
                 </b-badge>
             </span>
         </b-col>

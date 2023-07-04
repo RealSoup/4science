@@ -9,6 +9,7 @@ import cart from './cart';
 import goods from './goods';
 import category from './category';
 import common from './common';
+import remote from './remote';
 
 
 export default new Vuex.Store({
@@ -29,5 +30,6 @@ export default new Vuex.Store({
         goods,
         category,
         common,
+        remote,
     }
 });

@@ -360,18 +360,18 @@ var render = function () {
                     ),
                     _c("br"),
                     _vm._v(" "),
-                    row.er_mng_id
+                    row.eq_mng_id
                       ? _c(
                           "b-badge",
                           { staticClass: "mint" },
                           [
-                            _vm.mng_off[row.er_mng_id]
+                            _vm.mng_off[row.eq_mng_id]
                               ? [
                                   _vm._v(
-                                    _vm._s(_vm.mng_off[row.er_mng_id].name)
+                                    _vm._s(_vm.mng_off[row.eq_mng_id].name)
                                   ),
                                 ]
-                              : [_vm._v(_vm._s(row.er_mng_id))],
+                              : [_vm._v(_vm._s(row.eq_mng_id))],
                           ],
                           2
                         )

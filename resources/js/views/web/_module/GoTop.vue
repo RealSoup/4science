@@ -1,9 +1,5 @@
 <template>
-<div class="go_top_box list_item" :class="{view_go_top:viewGoTop}">
-    <transition name="fade">
-        <b-button class="go_top" v-if="viewGoTop" @click="scrollToTop"><b-icon-caret-up /></b-button>
-    </transition>
-</div>
+<b-button class="go_top m_hide" :class="{view_go_top:viewGoTop}" @click="scrollToTop"><b-icon-caret-up /></b-button>
 </template>
 
 <script>
@@ -28,16 +24,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.go_top_box { position:fixed; width:50px; bottom:1%; right: 7%; }
-.go_top_box .go_top { width:100%; height:100%; border-radius:100%; font-size:3rem; display:flex; align-items:center; justify-content:center; background-color: #000; }
-.go_top_box .go_top .fade-enter-active,
-.go_top_box .go_top .fade-leave-active { transition: opacity .5s; }
-.go_top_box .go_top .fade-enter,
-.go_top_box .go_top .fade-leave-to { opacity: 0; }
-
-.go_top_box { height:0; transition:height .7s ease;}
-.go_top_box.view_go_top { height:50px; }
-@media (max-width: 992px){
-    .go_top_box { display:none; }
-}
+.go_top { width:50px; border-radius:100%; font-size:2.5em; text-align:center; line-height:0; padding:0; background-color:#000; opacity:0; height:0; transition:all .5s ease; }
+.go_top.view_go_top { height:50px; opacity:1; }
 </style>

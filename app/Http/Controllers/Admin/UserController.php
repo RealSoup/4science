@@ -172,13 +172,13 @@ class UserController extends Controller {
 			$count = User::member()
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->where('id', '<', 61034)
+            ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
             ->count();
             // 한번에 보낼수 있는 최고 양이 3만통
             $list = User::select('name', 'email')->member()
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->where('id', '<', 61034);
+            ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$');
             $limit = 20000;
             $i=0;
             while ($i < $count) {
@@ -204,7 +204,6 @@ class UserController extends Controller {
     }
 
     public function postman($req, $list) {
-        
 		/******************** 인증정보 ********************/
 		// 대량메일 인증 관련
 		$sendmail_url = "https://science4.sendmail.cafe24.com/sendmail_api.php"; // 전송요청 URL
@@ -216,14 +215,10 @@ class UserController extends Controller {
 		$sender = '4science'; // 발송자 이름
 		$email = 'admin@4science.net'; // 발송자 이메일
 
-
         $receiver = '';
         foreach($list as $k => $v){
-            $checkMail = filter_Var($v['email'], FILTER_VALIDATE_EMAIL);
-            if ($checkMail == true) {
-                $receiver.=$v['name'].','.$v['email'].'
+            $receiver.=$v['name'].','.$v['email'].'
 ';
-            }
         }
 
 		// 파일첨부 관련

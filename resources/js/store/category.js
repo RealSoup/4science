@@ -1,12 +1,8 @@
 import ax from '@/api/http';
-import copy from "fast-copy";
 
 export default {
     namespaced: true,
-    state: {
-        category:[],
-        category_all:[],
-    },
+    state: { category:[], },
     mutations: {
         init(state, data) {
             for (let i in data) {
@@ -19,10 +15,8 @@ export default {
                         show_txt : false,   //  메인 하단 카테고리별 on
                     } // 삽입하려는 내용 
                 )
-            }
-            
+            }            
             state.category = data;
-            state.category_all = copy(data);
         },
     },
     actions: {

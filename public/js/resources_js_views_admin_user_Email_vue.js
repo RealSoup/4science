@@ -62,8 +62,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserEmail',
@@ -359,20 +357,8 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("b-form-select-option", { attrs: { value: "2" } }, [
-                      _vm._v("모두(0~3만)"),
+                      _vm._v("모두"),
                     ]),
-                    _vm._v(" "),
-                    _c(
-                      "b-form-select-option",
-                      { attrs: { value: "all_3-6" } },
-                      [_vm._v("모두(3~6만)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-form-select-option",
-                      { attrs: { value: "all_6-end" } },
-                      [_vm._v("모두(6만~)")]
-                    ),
                   ],
                   1
                 ),

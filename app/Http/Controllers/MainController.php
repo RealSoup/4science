@@ -7,9 +7,13 @@ use App\Models\ShowWindow;
 use App\Models\Shop\Goods;
 use Illuminate\Support\Facades\Cache;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller {
     public function index(Request $request) {
+// dd(Hash::make('qwe123'));
+// $2y$10$RPjQs/w.0FobQmOLQzbsd.7uMlIzpVzL/TzAgYe.4ovhvpNXVmdwy
+
         $rst = Array();
         // $json = json_encode(Cache::get('categoryAll'), JSON_PRETTY_PRINT);
         // dd(file_put_contents("xx.json", $json));

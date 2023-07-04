@@ -1,32 +1,19 @@
 <template>
-
 <div id="header" :class="{headerFix:headerFix}">
+    <div v-if="user && user.is_admin" class="admin">
+        <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
+        <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
+            :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
+        >상품관리</router-link>
+    </div>
     <div id="afterimage"></div>
-    <div id="real">
-        <div class="layout">
-            <b-link :to="{name: 'main'}" class="logo">
+    <div id="core">
+        <div class="the_top layout">
+            <b-link class="logo" :to="{name: 'main'}">
                 <b-img :src="`${s3url}common/logo/logo.png`" />
                 <!-- <b-img :src="`${s3url}common/logo/logo_230526.png`" class="season" />
                 <b-img :src="`${s3url}common/logo/logo.png`" class="default" /> -->
             </b-link>
-
-            <div v-if="isLoggedin" class="top_menu">
-                <b-link :to="{name: 'mypage'}">마이페이지</b-link>
-                <b-link @click="logout">로그아웃</b-link>
-            </div>
-            <div v-else class="top_menu">
-                <b-link @click="isModalViewed=true">로그인</b-link>
-                <b-link :to="{name: 'auth_intro'}">회원가입</b-link>
-            </div>
-
-            <nav class="nav_menu" :class="{view_nav:view_nav}">
-                <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
-                <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
-                <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
-                <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
-                <b-link :to="{name: 'cscenter'}">고객센터</b-link>
-                <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
-            </nav>
             
             <div class="head_sch_box" :class="{view_sch:view_sch}">
                 <b-form class="head_sch" @submit.prevent="routerPush">
@@ -42,23 +29,52 @@
                     <b-button type="submit"><font-awesome-icon icon="search" /></b-button>
                 </b-form>
             </div>
-
-            <div v-if="user && user.is_admin" class="admin">
-                <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
-                <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
-                    :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
-                >상품관리</router-link>
+   
+            <div class="top_menu">
+                <template v-if="isLoggedin">
+                    <b-link @click="logout">
+                        <b-img :src="`${s3url}common/icon_login.png`" />
+                        <p>로그아웃</p>
+                    </b-link>
+                    <b-link :to="{name: 'mypage'}">
+                        <b-img :src="`${s3url}common/icon_mypage.png`" />
+                        <p>마이페이지</p>
+                    </b-link>
+                    <b-link :to="{name:'cart_index'}">
+                        <b-img :src="`${s3url}common/icon_cart.png`" />
+                        <p>장바구니</p>
+                    </b-link>
+                </template>
+                <template v-else>
+                    <b-link @click="isModalViewed=true">
+                        <b-img :src="`${s3url}common/icon_login.png`" />
+                        <p>로그인</p>
+                    </b-link>
+                </template>
             </div>
         </div>
-        <categorys v-if="true" :class="{view_cate:view_cate}" @close_cate="view_cate = false" />
-        <cart v-if="isLoggedin && ['order_settle', 'cart_index'].indexOf($route.name) === -1" /> <!-- 장바구니 -->
+        <nav class="nav_menu" :class="{view_nav:view_nav}">
+            <div class="layout">
+                <b-link id="cate_btn" @click="view_cate = !view_cate">
+                    <b-img :src="`${s3url}common/icon_category.png`" /><span class="m_hide"> 카테고리</span>
+                    <categorys v-if="view_cate" :class="{view_cate:view_cate}" @close_cate="view_cate=false" />
+                </b-link>
+                <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
+                <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
+                <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
+                <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
+                <b-link :to="{name: 'cscenter'}">고객센터</b-link>
+                <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>
+            </div>
+        </nav>
     </div>
     <div class="sm_view">
-        <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
-        <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link>
+        <!-- <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
+        <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link> -->
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
         <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
+        <b-link @click="$store.commit('remote/setData', { recent_goods_view:true })"><b-icon-clock-fill /></b-link>
     </div>
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
@@ -79,7 +95,6 @@ export default {
         'login-pop-up': LoginPopUp,
         'modal'     :   () => import('@/views/_common/Modal'),
         'categorys':    () => import('../_module/category/Cate.vue'),
-        'cart':         () => import('../_module/cart/Cart.vue'),
     },
     data() {
         return {
@@ -122,6 +137,7 @@ export default {
             user: 'auth/user',
         }),
         ...mapState('goods', ['frm']),
+        ...mapState('remote', ['recent_goods_view']),
     },
     methods:{
         logout() {
@@ -150,61 +166,76 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#header { background-color:#F5F5F5; }
-#header #real .layout { position:relative; display:flex; align-items:flex-end; height:90px; padding-bottom:5px; }
-#header #real .layout>* { flex-basis:0; flex-grow:1; max-width:100%; }
-#header #real .layout .top_menu { position:absolute; top:11px; right:0; font-size:.9rem; }
-#header #real .layout .top_menu a { position:relative; display:inline-block; padding:3px 15px 3px 8px; }
-#header #real .layout .top_menu a:not(:last-child):after { content:"|"; position:absolute; right:-1px; }
-/*#header #real .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
-/*#header #real .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
-#header #real .layout .logo { flex:0 0 238px; max-width:238px; margin-right:15px; height:72px; position:relative; display:block;}
-#header #real .layout .logo img { width:100%; }
-#header #real .layout .logo .season { position:absolute; top:0;}
-#header #real .layout .logo .default { display:none; }
-#header #real .layout .nav_menu a { display:inline-block; padding:3px 7px; font-weight:600; }
-#header #real .layout .nav_menu a:hover { color:#1A90D6; text-decoration:underline; font-weight:900; }
-#header #real .head_sch_box { margin-bottom:3px; }
-#header #real .head_sch_box .head_sch { align-items:center; display:flex; flex-flow:row wrap; background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; }
-#header #real .head_sch_box .head_sch { min-width:36rem; transition:all .3s; }
-#header #real .head_sch_box .head_sch select { width:auto; border-radius:17px 0 0 17px; height:36px; padding:.3rem 1.6rem 0.3rem 0.4rem; font-size:.9rem; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
-#header #real .head_sch_box .head_sch input { width:auto; border:none; border-radius:0 18px 18px 0; padding: 0.4rem 1rem; font-size:1.2rem; height:36px; margin-left:.17rem; flex-grow:1; }
-#header #real .head_sch_box .head_sch input:focus { outline:0; }
-#header #real .head_sch_box .head_sch button { width:auto; padding:.2rem 1rem 0 .75rem; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
-#header #real .head_sch_box .head_sch button svg { font-size:1.4rem; }
-
-#header #real .layout .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); }
-#header #real .layout .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
 
 
-#header.headerFix #afterimage { height:152px; }
-#header.headerFix #real { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
+#header { background-color:#FFF; }
+#header #core .the_top { position:relative; display:flex; align-items:flex-end; height:6.625em; padding-bottom:.75em; }
+#header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
+/*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
+/*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
+#header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
+#header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
+#header #core .the_top .top_menu a { display:inline-block; text-align:center; padding: 0 0.4em; font-size:.8em; font-weight:600; }
+#header #core .the_top .top_menu a p { margin:.5em 0 0 0; }
+
+#header #core .the_top .head_sch_box { flex:0 0 42.8%; max-width:42.8%; margin-bottom:8px; }
+#header #core .the_top .head_sch_box .head_sch { display:flex; flex-flow:row wrap; align-items:center; background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; transition:all .3s; }
+#header #core .the_top .head_sch_box .head_sch select { width:auto; border-radius:17px 0 0 17px; height:36px; padding:.3em 1.6em 0.3em 0.4em; font-size:.9em; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
+#header #core .the_top .head_sch_box .head_sch input { width:auto; border:none; border-radius:0 18px 18px 0; padding: 0.4em 1em; font-size:1.2em; height:36px; margin-left:.17em; flex-grow:1; }
+#header #core .the_top .head_sch_box .head_sch input:focus { outline:0; }
+#header #core .the_top .head_sch_box .head_sch button { width:auto; padding:.2em 1em 0 .75em; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
+#header #core .the_top .head_sch_box .head_sch button svg { font-size:1.4em; }
+
+
+#header #core .nav_menu { background:#626C75; }
+#header #core .nav_menu .layout { display:flex; }
+#header #core .nav_menu .layout a { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; line-height:3.125em; color:#FFF; text-align:center; }
+#header #core .nav_menu .layout a:not(#cate_btn):hover { color:#F8931D; font-weight:900; }
+#header #core .nav_menu .layout #cate_btn { background-color:#1A90D6; flex:0 0 11.25em; max-width:11.25em; text-align:left; }
+#header #core .nav_menu .layout #cate_btn>img { margin-left:.4em; }
+
+#header .admin { position:absolute; top:0; left:50%; transform:translateX(-50%); z-index: 1; }
+#header .admin a { display:inline-block; background-color:#ff4d00; padding:3px 10px; border-radius:0 0 10px 10px; color:#fff; font-weight:bold; text-align:center; }
+
+
+#header.headerFix #afterimage { height:156px; }
+#header.headerFix #core { position:fixed; z-index:17; top:0; width:100%; background:inherit; }
 
 
 #header .sm_view { display:none; }
 
 @media (max-width: 992px){
-    #header .sm_view { position:fixed; bottom:0; display:flex; z-index:9999999999999999999; background:#DDD; width:100%; border-radius:2rem 2rem 0 0;}
-    #header .sm_view a { flex-basis:0; flex-grow:1; max-width:100%; font-size:2rem; text-align:center; }
-    #header #real .layout { height:50px; justify-content:center; }
-    #header #real .layout .top_menu { display:none; }
-    #header #real .layout .logo { flex:0 0 132px; max-width:132px; height:40px; background-size:contain; }
-    #header #real .layout .logo .season { display:none; }
-    #header #real .layout .logo .default { display:block; width:100%; }
-    #header #real .layout .nav_menu { position:fixed; bottom:48px; border-radius:1rem 1rem 0 0; background:#DDD; z-index:1; width:100%; display:flex; max-height:0; transition:max-height .2s; overflow:hidden;  }
-    #header #real .layout .nav_menu a { text-align:center; flex-basis:0; flex-grow:1; padding:8px 10px; font-size:.95rem; }
-    #header #real .layout .nav_menu.view_nav { max-height:60px; }
-
-
-    #header #real .head_sch_box { width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
-    #header #real .head_sch_box.view_sch { max-height:50px; }
-    #header #real .head_sch_box .head_sch { min-width:0; }
-    #header #real .head_sch_box .head_sch select { display:none; }
-    #header #real .head_sch_box .head_sch input { border-radius:18px; width:78%; }
-    #header #real .head_sch_box .head_sch button { padding: 0 10px; }
+    #header { font-size:12px; }
+    #header #core .the_top { height:4em; justify-content:center; }
+    #header #core .the_top .logo { flex:0 0 132px; max-width:132px; }
+    #header #core .the_top .logo img { width:100%; }
+    #header #core .the_top .logo .season { display:none; }
+    #header #core .the_top .logo .default { display:block; width:100%; }
+    #header #core .the_top .top_menu { display:none; }
     
-    #header #real>>>#categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
-    #header #real>>>#categorys.view_cate .depth01>li>ul { padding:.5rem; border-width:2px; max-width:240px; max-height:640px; }
+    #header #core .nav_menu .layout #cate_btn { flex:0 0 3.25em; max-width:3.25em; text-align: center; }
+    #header #core .nav_menu .layout #cate_btn>img  { margin-left:0; }
+
+    #header .sm_view { position:fixed; bottom:0; display:flex; z-index:9999999999999999999; background:#DDD; width:100%; border-radius:2em 2em 0 0;}
+    #header .sm_view a { flex-basis:0; flex-grow:1; max-width:100%; font-size:2em; text-align:center; }
+    
+    
+    
+    #header #core .the_top .nav_menu { position:fixed; bottom:48px; border-radius:1em 1em 0 0; background:#DDD; z-index:1; width:100%; display:flex; max-height:0; transition:max-height .2s; overflow:hidden;  }
+    #header #core .the_top .nav_menu a { text-align:center; flex-basis:0; flex-grow:1; padding:8px 10px; font-size:.95em; }
+    #header #core .the_top .nav_menu.view_nav { max-height:60px; }
+
+
+
+    #header #core .head_sch_box { width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
+    #header #core .head_sch_box.view_sch { max-height:50px; }
+    #header #core .head_sch_box .head_sch { min-width:0; }
+    #header #core .head_sch_box .head_sch select { display:none; }
+    #header #core .head_sch_box .head_sch input { border-radius:18px; width:78%; }
+    #header #core .head_sch_box .head_sch button { padding: 0 10px; }
+    
+    #header #core>>>#categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
+    #header #core>>>#categorys.view_cate .depth01>li>ul { padding:.5em; border-width:2px; max-width:240px; max-height:640px; }
 }
 
 </style>

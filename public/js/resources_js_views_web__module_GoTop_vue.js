@@ -15,10 +15,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "GoTop",
   data: function data() {
@@ -64,7 +60,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.go_top_box[data-v-31d9163f] { position:fixed; width:50px; bottom:1%; right: 7%;\n}\n.go_top_box .go_top[data-v-31d9163f] { width:100%; height:100%; border-radius:100%; font-size:3rem; display:flex; align-items:center; justify-content:center; background-color: #000;\n}\n.go_top_box .go_top .fade-enter-active[data-v-31d9163f],\r\n.go_top_box .go_top .fade-leave-active[data-v-31d9163f] { transition: opacity .5s;\n}\n.go_top_box .go_top .fade-enter[data-v-31d9163f],\r\n.go_top_box .go_top .fade-leave-to[data-v-31d9163f] { opacity: 0;\n}\n.go_top_box[data-v-31d9163f] { height:0; transition:height .7s ease;}\n.go_top_box.view_go_top[data-v-31d9163f] { height:50px;\n}\n@media (max-width: 992px){\n.go_top_box[data-v-31d9163f] { display:none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.go_top[data-v-31d9163f] { width:50px; border-radius:100%; font-size:2.5em; text-align:center; line-height:0; padding:0; background-color:#000; opacity:0; height:0; transition:all .5s ease;\n}\n.go_top.view_go_top[data-v-31d9163f] { height:50px; opacity:1;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -199,28 +195,13 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "b-button",
     {
-      staticClass: "go_top_box list_item",
+      staticClass: "go_top m_hide",
       class: { view_go_top: _vm.viewGoTop },
+      on: { click: _vm.scrollToTop },
     },
-    [
-      _c(
-        "transition",
-        { attrs: { name: "fade" } },
-        [
-          _vm.viewGoTop
-            ? _c(
-                "b-button",
-                { staticClass: "go_top", on: { click: _vm.scrollToTop } },
-                [_c("b-icon-caret-up")],
-                1
-              )
-            : _vm._e(),
-        ],
-        1
-      ),
-    ],
+    [_c("b-icon-caret-up")],
     1
   )
 }

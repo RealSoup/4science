@@ -20,9 +20,7 @@
                     <b-form-select-option value="all_0-3">모두(0~3만)</b-form-select-option> -->
                     <b-form-select-option value="0">직접 입력</b-form-select-option>
                     <b-form-select-option value="1">수신동의만</b-form-select-option>
-                    <b-form-select-option value="2">모두(0~3만)</b-form-select-option>
-                    <b-form-select-option value="all_3-6">모두(3~6만)</b-form-select-option>
-                    <b-form-select-option value="all_6-end">모두(6만~)</b-form-select-option>
+                    <b-form-select-option value="2">모두</b-form-select-option>
                 </b-form-select>
                 <b>1회 발송시 최대 3만통까지만 가능</b>
                 <b-form-textarea v-if="frm.target == '0'" v-model="frm.temp" rows="4" />

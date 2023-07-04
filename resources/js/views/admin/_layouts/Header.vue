@@ -15,24 +15,23 @@
                     </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown text="회원관리">
-                        <b-dropdown-item :to="{name: 'adm_user'}">회원목록</b-dropdown-item>
+                        <b-dropdown-item @click="strongReload('/admin/user')">회원목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_user_email'}">회원메일발송</b-dropdown-item>
                     </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown text="상품관리">
-                        <b-dropdown-item :to="{name: 'adm_goods_index'}">상품목록</b-dropdown-item>
+                        <b-dropdown-item @click="strongReload('/admin/shop/goods')">상품목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_category'}">카테고리</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_maker'}">제조사</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_purchaseAt'}">직배송/항공운임</b-dropdown-item>
                     </b-nav-item-dropdown>
-
                     <b-nav-item-dropdown text="견적관리">
-                        <b-dropdown-item :to="{name: 'adm_estimate_index'}">견적목록</b-dropdown-item>
+                        <b-dropdown-item @click="strongReload('/admin/shop/estimate')">견적목록</b-dropdown-item>
                         <b-dropdown-item @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)">임의견적</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_eng_reform_index'}">영문교정</b-dropdown-item>
                     </b-nav-item-dropdown>
                     
-                    <b-nav-item :to="{name: 'adm_order_index'}" active-class="active" exact>주문목록</b-nav-item>
+                    <b-nav-item @click="strongReload('/admin/shop/order')" active-class="active" exact>주문목록</b-nav-item>
 
                     <!-- <b-nav-item-dropdown text="주문관리">
                         <b-dropdown-item :to="{name: 'adm_order_index'}">주문목록</b-dropdown-item>
@@ -59,16 +58,16 @@
                     </template>
                     <b-nav-item-dropdown text="게시판">
                         <b-dropdown-group header="일반글">
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'notice' }}">공지사항</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'event' }}">이벤트</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'review' }}">상품평</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/notice')">공지사항</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/event')">이벤트</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/review')">상품평</b-dropdown-item>
                         </b-dropdown-group>
                         
                         <b-dropdown-group header="질의답변">
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'inquiry' }}">1:1문의</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'as' }}">A/S신청</b-dropdown-item>
-                            <b-dropdown-item :to="{name: 'adm_board_index', params: { bo_cd:'cancel' }}">취소/교환신청</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/gd_inquiry')">상품문의</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/inquiry')">1:1문의</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/as')">A/S신청</b-dropdown-item>
+                            <b-dropdown-item @click="strongReload('/admin/board/cancel')">취소/교환신청</b-dropdown-item>
                         </b-dropdown-group>
                     </b-nav-item-dropdown>
 
@@ -154,6 +153,13 @@ export default {
             reqVoucher   : [],
         }
     },
+
+    methods: {
+        strongReload(url){
+            window.location.href = `${url}?t=${Math.random()}`;
+        },
+    },
+
 
     async mounted(){
         let res = await ax.get(`api/admin/common`);

@@ -46,7 +46,7 @@
         <div class="col-6 text-right">
             <b-button v-if="!board.answer" class="sm mint" :to="{name: `adm_board_answer`, params: { bo_cd:bo_cd, bo_id:bo_id }}">답변</b-button>
             <router-link :to="{name: 'adm_board_edit', params: { bo_cd:bo_cd, bo_id:bo_id }}" class="btn btn-sm btn-warning">수정</router-link>
-            <router-link :to="{name: 'adm_board_edit', params: { bo_cd:bo_cd, bo_id:board.answer.bo_id }}" class="btn btn-sm btn-warning">답변 수정</router-link>
+            <router-link :to="{name: 'adm_board_edit', params: { bo_cd:bo_cd, bo_id:board.answer.bo_id }}" class="btn btn-sm btn-warning" v-if="board.answer">답변 수정</router-link>
             <b-button variant="danger" size="sm" @click="destroy">삭제</b-button>
         </div>
     </div>
