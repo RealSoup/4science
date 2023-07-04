@@ -39,7 +39,7 @@
     <div id="app"></div>
 
     
-    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+    <!-- <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
     <script>
         /* 네이버 분석 관련 스크립트 */
         if(!wcs_add) var wcs_add = {};
@@ -49,6 +49,6 @@
             wcs.inflow();
             wcs_do(_nasa);
         }
-    </script>
+    </script> -->
 </body>
 </html>
