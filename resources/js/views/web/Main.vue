@@ -2,6 +2,9 @@
 <div>
     <pop-up /> <!-- 팝업 -->
     <b-carousel controls indicators class="slide_banner">
+        <b-link to="/shop/goods?ca01=22&ca02=628">
+            <b-carousel-slide :img-src="s3url+'event/2023/0705/slide.jpg'"></b-carousel-slide>
+        </b-link>
         <b-link to="/shop/goods?ca01=26&ca02=7717">
             <b-carousel-slide :img-src="s3url+'event/2023/0613/slide.jpg'"></b-carousel-slide>
         </b-link>

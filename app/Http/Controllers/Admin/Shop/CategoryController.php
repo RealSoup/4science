@@ -90,8 +90,7 @@ class CategoryController extends Controller {
 	}
 
 	public function rewrite() {
-		$k = uniqid();
-		DB::table('shop_category')->where('ca_id', 1)->update(['ca_name' => $k]);
+		DB::table('shop_category')->where('ca_id', 1)->update(['ca_name' => uniqid()]);
 		$this->category->writeCateJsonFile();
 	}
 	

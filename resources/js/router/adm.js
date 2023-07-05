@@ -56,7 +56,7 @@ export default [
                 name: 'adm_goods_edit',
                 component:() => import('@/views/admin/shop/goods/Edit'),
             }, {
-                path: 'shop/goods/create',
+                path: 'shop/goods/create/:gd_type?',
                 name: 'adm_goods_create',
                 component:() => import('@/views/admin/shop/goods/Create'),
             }, {
