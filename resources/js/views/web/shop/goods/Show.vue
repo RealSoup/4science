@@ -523,7 +523,10 @@ export default {
         }, 100);
     },
 
-    beforeDestroy() { window.removeEventListener('scroll', this.scrollListener); },
+    beforeDestroy() { 
+        window.removeEventListener('scroll', this.scrollListener);
+        this.$store.dispatch('recent_goods/index');
+    },
     destroyed() { clearInterval(this.interval); },
 
 }

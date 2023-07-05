@@ -7,7 +7,7 @@
                 <p>{{user.email}}</p>
             </b-col>
             <b-col class="rank">
-                <p>나의 등급</p>
+                <p><span class="m_hide">나의 </span>등급</p>
                 <b>
                     <template v-if="user.level == 1">       신입</template>
                     <template v-else-if="user.level == 2">  브론즈</template>
@@ -21,13 +21,13 @@
                 <b-link to="/cscenter?view_type=membership">혜택 보러가기 ></b-link>
             </b-col>
             <b-col>
-                <p>나의 마일리지</p>
+                <p><span class="m_hide">나의 </span>마일리지</p>
                 <b v-if="user.is_dealer" :style="{fontSize:'1.3rem'}">딜러할인적용중</b>
-                <b v-else>{{enableMileage | comma}} <small>P</small></b>
+                <b v-else>{{enableMileage | comma}}<small>P</small></b>
                 <b-link v-if="!user.is_dealer" to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
             </b-col>
             <b-col>
-                <p>내가 찜한 상품</p>
+                <p><span class="m_hide">내가 </span>찜한 상품</p>
                 <b-link :to="{name:'my_wish'}"><b>{{cnt_wish}} <small>개</small></b></b-link>
             </b-col>
             <b-col class="od_step m_hide">
@@ -210,10 +210,13 @@ export default {
     /*.left .b-sidebar-outer >>> .b-sidebar { display: none; }*/
     .container h2 { margin: 1rem; font-size:calc(1vw + 1rem); }
     #mypage .top { flex-direction:column; }
-    #mypage .top>.col { display:flex; justify-content:space-around; padding:2vw 1vw; align-items: center; }
+    #mypage .top>.col { display:flex; justify-content:flex-start; padding:0 .4em; align-items: center; }
+    #mypage .top>.col>* { flex-basis: 0; flex-grow: 1; max-width: 100%; }
     #mypage .top .name { flex-basis:100%; max-width:100%; }
+    #mypage .top .col:not(.name) b { font-size:1em; flex-basis:25%; max-width:25%; }
     #mypage .top>.col b,
     #mypage .top>.col p { margin-bottom:0; line-height:1.5; }
+    #mypage .top>.col:not(.name) p { flex-basis:30%; max-width:30%; text-align:right; margin-right:.5em; }
     #mypage .top .col:nth-child(2):after,
     #mypage .top .col:nth-child(3):after,
     #mypage .top .col:nth-child(4):after { content:none; }

@@ -28,7 +28,7 @@ export default {
 #category { background:#FFF; position:absolute; z-index:17; box-shadow: 0 5px 10px rgba(0,0,0,.3); overflow-y:auto; overflow-x:hidden; }
 #category.all_focus { width:100%; }
 #category >>> li { line-height:1em; width:11.25em; }
-#category >>> li a { padding:.6em .4em; display: inline-block; font-size:.85em; width:100%; letter-spacing:-1px; } 
+#category >>> li a { padding:.6em .4em; display: inline-block; font-size:.85em; width:100%; letter-spacing:-1px; text-align:left; } 
 #category >>> li.focus>ul { width:calc(100% - 11.25em); }
 #category >>> li.focus>a,
 #category >>> li a:hover { background-color:#4F708F; color:#FFF; font-weight:900; padding:1.3em .4em; }

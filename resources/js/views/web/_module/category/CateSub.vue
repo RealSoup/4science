@@ -1,6 +1,6 @@
 <template>
 <ul ref="dep02_ul">
-    <li v-for="ca in cate" :key="ca.ca_id" @mouseenter="ca.sub_show = true" @mouseleave="ca.sub_show = false" :class="{focus:ca.sub_show}">
+    <li v-for="ca in cate" :key="ca.ca_id" @mouseenter="set_focus(ca.ca_id)" :class="{focus:ca.sub_show}">
         <b-link :to="{name: 'goods_index', query: queryParam(ca.ca_id) }">{{ca.ca_name}}</b-link>
         <tree-view
             v-if="ca.sub_show && ca.sub.length"
@@ -31,6 +31,15 @@ export default {
                 }
             }
         },
+        set_focus: function (ca_id) {
+            Object.values(this.cate).forEach(ca => {
+                if (ca.ca_id == ca_id) ca.sub_show = true;
+                else ca.sub_show = false;
+            });
+        },
+    },
+    beforeDestroy() { 
+        Object.values(this.cate).forEach(ca => ca.sub_show = false);
     },
 }
 </script>

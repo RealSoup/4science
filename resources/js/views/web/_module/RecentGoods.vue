@@ -1,41 +1,29 @@
 <template>
-<div v-if="recentGoods.length">
-    <div class="remote_btn m_hide" @click="$store.commit('remote/setData', { recent_goods_view:true })">최근<br>본 상품</div>
+<div v-if="list.length">
+    <div class="remote_btn m_hide" @click="$store.commit('recent_goods/switch', { recent_goods_view:true })">최근<br>본 상품</div>
     
     <div class="modal_recent_gd" v-if="recent_goods_view">
-        <div class="overlay" @click="$store.commit('remote/setData', { recent_goods_view:false })">
-            <div @click="$store.commit('remote/setData', { recent_goods_view:false })" class="off"><b-icon-x-lg /></div>
+        <div class="overlay" @click="$store.commit('recent_goods/switch', { recent_goods_view:false })">
+            <div @click="$store.commit('recent_goods/switch', { recent_goods_view:false })" class="off"><b-icon-x-lg /></div>
         </div>
         <div class="body">
             <h4>최근 본 상품</h4>
-            <b-link v-for="(gd, i) in recentGoods" :key="i" @click="$store.commit('remote/setData', { recent_goods_view:false })" :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }">
+            <b-link v-for="(gd, i) in list" :key="i" @click="$store.commit('recent_goods/switch', { recent_goods_view:false })" :to="{ name: 'goods_show', params: {gd_id: gd.gd_id} }">
                 <img :src="gd.image_src_thumb[0]" />
                 <sub-string v-model="gd.gd_name" :width="300" />
             </b-link>
-            <div @click="$store.commit('remote/setData', { recent_goods_view:false })" class="off m_show"><b-icon-x-lg /></div>
+            <div @click="$store.commit('recent_goods/switch', { recent_goods_view:false })" class="off m_show"><b-icon-x-lg /></div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
-import ax from '@/api/http';
 import { mapState } from 'vuex'
 export default {
     name:"RecentGoods",
-    components: {
-        'sub-string': () => import('@/views/_common/SubString.vue'),
-    },
-    computed: { 
-        ...mapState('remote', ['recent_goods_view']), 
-    },
-    data () { return { 
-        recentGoods: [], } },
-    async mounted() {
-        const res = await ax.get(`/api/shop/goods/recentGoods`);
-        if (res && res.status === 200)
-            this.recentGoods = res.data;        
-    },
+    components: { 'sub-string': () => import('@/views/_common/SubString.vue'), },
+    computed: { ...mapState('recent_goods', ['recent_goods_view', 'list']), },
 }
 </script>
 
@@ -59,11 +47,6 @@ export default {
 
 .modal_recent_gd .off { position:absolute; top:0; right:31.25em; color:#FFF; background-color:#363636; padding:15px; cursor:pointer; }
 .modal_recent_gd .off svg { width:1.875em; height:1.875em; }
-
-
-
-
-
 
 @media (max-width: 992px){
     .modal_recent_gd .body { width:100%; }

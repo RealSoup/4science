@@ -66,7 +66,17 @@ __webpack_require__.r(__webpack_exports__);
             break;
         }
       }
+    },
+    set_focus: function set_focus(ca_id) {
+      Object.values(this.cate).forEach(function (ca) {
+        if (ca.ca_id == ca_id) ca.sub_show = true;else ca.sub_show = false;
+      });
     }
+  },
+  beforeDestroy: function beforeDestroy() {
+    Object.values(this.cate).forEach(function (ca) {
+      return ca.sub_show = false;
+    });
   }
 });
 
@@ -167,10 +177,7 @@ var render = function () {
           class: { focus: ca.sub_show },
           on: {
             mouseenter: function ($event) {
-              ca.sub_show = true
-            },
-            mouseleave: function ($event) {
-              ca.sub_show = false
+              return _vm.set_focus(ca.ca_id)
             },
           },
         },

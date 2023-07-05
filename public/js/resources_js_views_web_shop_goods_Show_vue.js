@@ -676,6 +676,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   beforeDestroy: function beforeDestroy() {
     window.removeEventListener('scroll', this.scrollListener);
+    this.$store.dispatch('recent_goods/index');
   },
   destroyed: function destroyed() {
     clearInterval(this.interval);

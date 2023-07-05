@@ -74,7 +74,7 @@
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
         <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
-        <b-link @click="$store.commit('remote/setData', { recent_goods_view:true })"><b-icon-clock-fill /></b-link>
+        <b-link v-if="list.length" @click="$store.commit('recent_goods/switch', { recent_goods_view:!recent_goods_view })"><b-icon-clock-fill /></b-link>
     </div>
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
@@ -137,7 +137,7 @@ export default {
             user: 'auth/user',
         }),
         ...mapState('goods', ['frm']),
-        ...mapState('remote', ['recent_goods_view']),
+        ...mapState('recent_goods', ['recent_goods_view', 'list']),
     },
     methods:{
         logout() {
