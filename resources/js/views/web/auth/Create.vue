@@ -40,7 +40,8 @@ export default {
                 social_token:this.$route.query.social_token?this.$route.query.social_token:'',
                 receive_sms : 'Y',
                 receive_mail: 'Y',
-                file_info:[],
+                file_info   :[],
+                code_01     :this.$route.query.f_code?this.$route.query.f_code:'',
             },
             active_mode: 'inter_lock',
         }

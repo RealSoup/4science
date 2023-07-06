@@ -318,6 +318,16 @@ export default {
             window.open(uri, "", attr);
         };
 
+        Vue.prototype.copyToClipboard = function (val) {// 클립보드로 복사하는 기능을 생성
+            var aux = document.createElement("input");  // 글을 쓸 수 있는 란을 만든다.
+            aux.setAttribute("value", val);    // 지정된 요소의 값을 할당 한다.
+            document.body.appendChild(aux); // bdy에 추가한다.
+            aux.select();   // 지정된 내용을 강조한다.
+            document.execCommand("copy");   // 텍스트를 카피 하는 변수를 생성
+            document.body.removeChild(aux); // body 로 부터 다시 반환 한다.
+            Notify.toast('success', '복사됨');
+        };
+
         Date.prototype.format = function(f) {
             if (!this.valueOf()) return " ";
 

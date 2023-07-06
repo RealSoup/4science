@@ -115,6 +115,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmUserIndex',
@@ -714,6 +718,24 @@ var render = function () {
                       },
                       [_vm._v(_vm._s(us.name))]
                     ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    us.introducer
+                      ? _c(
+                          "b-button",
+                          {
+                            staticClass: "xm sky",
+                            attrs: {
+                              to: {
+                                name: "adm_user_edit",
+                                params: { id: us.introducer.id },
+                              },
+                            },
+                          },
+                          [_vm._v("소개자 - " + _vm._s(us.introducer.name))]
+                        )
+                      : _vm._e(),
                   ],
                   1
                 ),

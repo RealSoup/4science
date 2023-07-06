@@ -227,12 +227,12 @@ export default {
 
 
 
-    #header #core .head_sch_box { width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
-    #header #core .head_sch_box.view_sch { max-height:50px; }
-    #header #core .head_sch_box .head_sch { min-width:0; }
-    #header #core .head_sch_box .head_sch select { display:none; }
-    #header #core .head_sch_box .head_sch input { border-radius:18px; width:78%; }
-    #header #core .head_sch_box .head_sch button { padding: 0 10px; }
+    #header #core .the_top .head_sch_box { width:85%; max-width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
+    #header #core .the_top .head_sch_box.view_sch { max-height:50px; }
+    #header #core .the_top .head_sch_box .head_sch { min-width:0; }
+    #header #core .the_top .head_sch_box .head_sch select { display:none; }
+    #header #core .the_top .head_sch_box .head_sch input { border-radius:18px; width:78%; }
+    #header #core .the_top .head_sch_box .head_sch button { padding: 0 10px; }
     
     #header #core>>>#categorys .depth01>li>ul {  overflow:hidden; padding:0; border-width:0; max-width:0; max-height:0; transition:all .2s; }
     #header #core>>>#categorys.view_cate .depth01>li>ul { padding:.5em; border-width:2px; max-width:240px; max-height:640px; }

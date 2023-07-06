@@ -7,6 +7,10 @@
                 <b-col>
                     <div class="type_icon"><b-icon-tags-fill />{{ frm.id }}</div>
                     <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at | formatDate }}</div>
+                    <div class="type_icon">
+                        <b-button :to="{name: 'adm_user_edit', params: { id:frm.introducer.id }}" v-if="frm.introducer" class="xm sky">소개자 - {{frm.introducer.name}}</b-button>
+                    </div>
+                    
                 </b-col>
                 <b-col class="text-right">
                     <b-button-group size="sm">

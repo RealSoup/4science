@@ -134,6 +134,10 @@ class OrderController extends Controller {
 				$od->od_name = $tmp[0]->odm_gd_name;
 				if ( count($tmp) > 1 ) $od->od_name .= "외 [".(count($tmp)-1)."]";
 			}
+
+			if ($od->user->code_01)
+                $od->user->introducer = true;
+            else $od->user->introducer = false;
 			// $od->od_mng = $this->user::find($od->od_mng);
 		}
 
@@ -269,8 +273,15 @@ class OrderController extends Controller {
 		$data = $this->order->with('OrderPurchaseAt')->with('OrderExtraInfo')->with('orderPg')->with('mng')->with('user')->find($od_id);
 		if ($data->mng)
 			$data->mng->userMng;
-		if ($data->user)
+		if ($data->user) {
 			$data->user->userAddr;
+
+			///////////////////////
+			if ($data->user->code_01)
+                $data->user->introducer = User::find($data->user->code_01);
+            else $data->user->introducer = NULL;
+			//////////////////////////////////
+		}
 		foreach ($data->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm) {
 				$odm->orderDlvyInfo;

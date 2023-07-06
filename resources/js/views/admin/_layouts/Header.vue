@@ -21,6 +21,7 @@
 
                     <b-nav-item-dropdown text="상품관리">
                         <b-dropdown-item @click="strongReload('/admin/shop/goods')">상품목록</b-dropdown-item>
+                        <b-dropdown-item @click="strongReload('/admin/shop/goods?gd_type=REN')">렌탈목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_category'}">카테고리</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_maker'}">제조사</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_purchaseAt'}">직배송/항공운임</b-dropdown-item>

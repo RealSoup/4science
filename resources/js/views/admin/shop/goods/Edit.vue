@@ -1,20 +1,21 @@
 <template>
 <b-container class="p_wrap">
     <h3 class="p_tit">상품 수정</h3>
-    <b-card no-body class="act_ctrl">
-        <b-container>
-            <b-row>
-                <b-col cols="12" sm="6"><b-button size="sm" variant="danger" @click="destroy">삭제</b-button></b-col>
-                <b-col cols="12" sm="6" class="text-right">
-                    <b-button-group size="sm">
-                        <b-button size="sm" variant="light" :to="{name: 'adm_goods_index'}">목록</b-button>
-                        <b-button size="sm" variant="info" :to="{name: 'goods_show', params:{gd_id:$route.params.gd_id}}" target="_blank">판매 화면</b-button>
-                        <b-button size="sm" variant="primary" @click="update">수정 완료</b-button>
-                    </b-button-group>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
+    <b-container class="act_ctrl">
+        <b-row>
+            <b-col cols="12" sm="6">
+                <b-button class="sm red" @click="destroy">삭제</b-button>
+                <b-button class="sm black" v-if="frm.gd_type == 'NON'" @click="go_rental">렌탈로 복사</b-button>
+            </b-col>
+            <b-col cols="12" sm="6" class="text-right">
+                <b-button-group size="sm">
+                    <b-button size="sm" variant="light" :to="{name: 'adm_goods_index'}">목록</b-button>
+                    <b-button size="sm" variant="info" :to="{name: 'goods_show', params:{gd_id:$route.params.gd_id}}" target="_blank">판매 화면</b-button>
+                    <b-button size="sm" variant="primary" @click="update">수정 완료</b-button>
+                </b-button-group>
+            </b-col>
+        </b-row>
+    </b-container>
 
     <Form ref="form" v-model="frm" :purchaseAt="purchaseAt" />
 </b-container>
@@ -87,6 +88,21 @@ export default {
                     Notify.consolePrint(e);
                     Notify.toast('danger', '삭제 실패');
                     Notify.toast('danger', e.response.data.message);
+                }
+            }
+        },
+        async go_rental(){
+            var rst = await Notify.confirm('이 상품의 모든 자료를 복제', 'danger');
+            if (rst) {
+                this.frm = Object.assign(
+                    {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                    this.frm, // 수정하려는 객체
+                    {gd_type : 'REN'} // 삽입하려는 내용
+                );
+                let res = await ax.post(`/api/admin/shop/goods`, this.frm);
+                if (res && res.status === 200) {
+                    Notify.toast('success', '상품 복제')
+                    this.$router.push({ name: 'adm_goods_index' })
                 }
             }
         },

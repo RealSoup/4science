@@ -42,7 +42,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       all_focus: false
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category'])),
+  methods: {
+    set_focus: function set_focus(ca_id) {
+      Object.values(this.category).forEach(function (ca) {
+        if (ca.ca_id == ca_id) ca.sub_show = true;else ca.sub_show = false;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -219,10 +226,7 @@ var render = function () {
           class: { focus: ca.sub_show },
           on: {
             mouseenter: function ($event) {
-              ca.sub_show = true
-            },
-            mouseleave: function ($event) {
-              ca.sub_show = false
+              return _vm.set_focus(ca.ca_id)
             },
           },
         },

@@ -30,7 +30,11 @@ class UserController extends Controller {
         $data['user'] = $user->latest()->paginate(20);
         $data['user']->appends($req->all())->links();
 
-        
+        foreach ($data['user'] as $v) {
+            if ($v->code_01)
+                $v->introducer = User::find($v->code_01);
+            else $v->introducer = NULL;
+        }
         return response()->json($data);
     }
 
@@ -50,6 +54,8 @@ class UserController extends Controller {
         if(!$user->userBiz->ub_id){
             $user->userBiz->file_info = [];
         }
+        if ($user->code_01) $user->introducer = User::find($user->code_01);
+        else                $user->introducer = NULL;
         $user->option = User::$option;
         $user->mng_list = User::whereHas('userMng', function ($query) { $query->where('um_status', 'Y'); })->get();
         $um = new UserMng;

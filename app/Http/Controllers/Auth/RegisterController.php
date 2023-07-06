@@ -62,7 +62,9 @@ class RegisterController extends Controller {
                 'receive_sms'    => $req->filled('receive_sms')  ? $req->receive_sms  : 'Y',
                 'receive_mail'   => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
                 'level'          => $req->filled('level')        ? $req->level        : 1,
-                'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL];
+                'email_verified_at' => ($req->filled('provider') && $req->provider !== '')? \Carbon\Carbon::now() : NULL,
+                'code_01'        => $req->filled('code_01')      ? $req->code_01      : NULL,
+            ];
         $rst = User::create($u);
         if ( $req->filled('level') ) {
             $rst->ub_id = DB::table('user_biz')->insertGetId( [

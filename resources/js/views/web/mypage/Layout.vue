@@ -1,117 +1,126 @@
 <template>
-    <b-container id="mypage">
-        <h2>마이페이지</h2>
-        <b-row class="top">
-            <b-col class="name">
-                <span><b>{{user.name}}</b> 님</span>
-                <p>{{user.email}}</p>
-            </b-col>
-            <b-col class="rank">
-                <p><span class="m_hide">나의 </span>등급</p>
-                <b>
-                    <template v-if="user.level == 1">       신입</template>
-                    <template v-else-if="user.level == 2">  브론즈</template>
-                    <template v-else-if="user.level == 3">  실버</template>
-                    <template v-else-if="user.level == 4">  골드</template>
-                    <template v-else-if="user.level == 5">  다이아</template>
-                    <template v-else-if="user.level == 11"> 딜러</template>
-                    <template v-else-if="user.level == 12"> 딜러</template>
-                    <template v-else-if="user.level > 14">  킹왕짱</template>
-                </b>
-                <b-link to="/cscenter?view_type=membership">혜택 보러가기 ></b-link>
-            </b-col>
-            <b-col>
-                <p><span class="m_hide">나의 </span>마일리지</p>
-                <b v-if="user.is_dealer" :style="{fontSize:'1.3rem'}">딜러할인적용중</b>
-                <b v-else>{{enableMileage | comma}}<small>P</small></b>
-                <b-link v-if="!user.is_dealer" to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
-            </b-col>
-            <b-col>
-                <p><span class="m_hide">내가 </span>찜한 상품</p>
-                <b-link :to="{name:'my_wish'}"><b>{{cnt_wish}} <small>개</small></b></b-link>
-            </b-col>
-            <b-col class="od_step m_hide">
-                <p>나의 주문 건<small>최근 한달 간 주문량</small></p>
-                <ul>
+<b-container id="mypage">
+    <h2>
+        마이페이지
+        <small>
+            <b-button class="xm teal" @click="copyToClipboard(`https://4science.net/auth/create/personal?f_code=${user.id}`)">
+                <font-awesome-icon icon="copy" />
+                친구 초대 주소 복사
+            </b-button>
+            ▶ https://4science.net/auth/create/personal?f_code={{user.id}}
+        </small>
+    </h2>
+    <b-row class="top">
+        <b-col class="name">
+            <span><b>{{user.name}}</b> 님</span>
+            <p>{{user.email}}</p>
+        </b-col>
+        <b-col class="rank">
+            <p><span class="m_hide">나의 </span>등급</p>
+            <b>
+                <template v-if="user.level == 1">       신입</template>
+                <template v-else-if="user.level == 2">  브론즈</template>
+                <template v-else-if="user.level == 3">  실버</template>
+                <template v-else-if="user.level == 4">  골드</template>
+                <template v-else-if="user.level == 5">  다이아</template>
+                <template v-else-if="user.level == 11"> 딜러</template>
+                <template v-else-if="user.level == 12"> 딜러</template>
+                <template v-else-if="user.level > 14">  킹왕짱</template>
+            </b>
+            <b-link to="/cscenter?view_type=membership">혜택 보러가기 ></b-link>
+        </b-col>
+        <b-col>
+            <p><span class="m_hide">나의 </span>마일리지</p>
+            <b v-if="user.is_dealer" :style="{fontSize:'1.3rem'}">딜러할인적용중</b>
+            <b v-else>{{enableMileage | comma}}<small>P</small></b>
+            <b-link v-if="!user.is_dealer" to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
+        </b-col>
+        <b-col>
+            <p><span class="m_hide">내가 </span>찜한 상품</p>
+            <b-link :to="{name:'my_wish'}"><b>{{cnt_wish}} <small>개</small></b></b-link>
+        </b-col>
+        <b-col class="od_step m_hide">
+            <p>나의 주문 건<small>최근 한달 간 주문량</small></p>
+            <ul>
+                <li>
+                    <b-link :to="{name:'my_order', query: { od_step:'early' }}">
+                        <b v-if="od_step1019">{{od_step1019}}</b>
+                        <img :src="`${s3url}mypage/step01.png`" />
+                        주문접수
+                    </b-link>
+                </li>
+                <li>
+                    <b-link :to="{name:'my_order', query: { od_step:'20' }}">
+                        <b v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b>
+                        <img :src="`${s3url}mypage/step02.png`" />
+                        결제완료
+                    </b-link>
+                </li>
+                <li>
+                    <b-link :to="{name:'my_order', query: { od_step:'20' }}">
+                        <b v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b>
+                        <img :src="`${s3url}mypage/step03.png`" />
+                        상품준비중
+                    </b-link>
+                </li>
+                <li>
+                    <b-link :to="{name:'my_order', query: { od_step:'40' }}">
+                        <b v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b>
+                        <img :src="`${s3url}mypage/step04.png`" />
+                        배송중
+                    </b-link>
+                </li>
+                <li>
+                    <b-link :to="{name:'my_order', query: { od_step:'50' }}">
+                        <b v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b>
+                        <img :src="`${s3url}mypage/step05.png`" />
+                        배송완료
+                    </b-link>
+                </li>
+            </ul>
+        </b-col>
+    </b-row>
+    <b-row class="middle">
+        <b-col class="left">
+            <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
+
+            <b-sidebar id="mymenu" title="My Page" :backdrop-variant="'info'" backdrop shadow>
+                <ul class="nav">
                     <li>
-                        <b-link :to="{name:'my_order', query: { od_step:'early' }}">
-                            <b v-if="od_step1019">{{od_step1019}}</b>
-                            <img :src="`${s3url}mypage/step01.png`" />
-                            주문접수
-                        </b-link>
+                        <h5 v-b-toggle.shop_list>나의 구매내역</h5>
+                        <b-collapse visible id="shop_list">
+                            <b-link :to="{name:'my_order'}">주문/배송 조회</b-link>
+                            <b-link :to="{name:'my_estimate'}">견적서 조회</b-link>
+                            <b-link :to="{name:'my_bought'}">구매상품 목록</b-link>                                
+                        </b-collapse>
                     </li>
                     <li>
-                        <b-link :to="{name:'my_order', query: { od_step:'20' }}">
-                            <b v-if="cnt_od_step[20]">{{cnt_od_step[20]}}</b>
-                            <img :src="`${s3url}mypage/step02.png`" />
-                            결제완료
-                        </b-link>
+                        <h5 v-b-toggle.bo_list>나의 게시물</h5>
+                        <b-collapse visible id="bo_list">
+                            <b-link :to="{name:'my_bo_index', params: { bo_cd:'inquiry' }}">1:1 문의</b-link>
+                            <b-link :to="{name:'my_bo_index', params: { bo_cd:'as' }}">A/S 신청</b-link>
+                            <b-link :to="{name:'my_bo_index', params: { bo_cd:'cancel' }}">취소/교환</b-link>
+                            <b-link :to="{name:'my_bo_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-link>
+                            <b-link :to="{name:'my_eng_reform_index'}">영문교정</b-link>
+                        </b-collapse>
                     </li>
                     <li>
-                        <b-link :to="{name:'my_order', query: { od_step:'20' }}">
-                            <b v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b>
-                            <img :src="`${s3url}mypage/step03.png`" />
-                            상품준비중
-                        </b-link>
+                        <h5><b-link to="/mypage/print">서류 출력</b-link></h5>
                     </li>
                     <li>
-                        <b-link :to="{name:'my_order', query: { od_step:'40' }}">
-                            <b v-if="cnt_od_step[40]">{{cnt_od_step[40]}}</b>
-                            <img :src="`${s3url}mypage/step04.png`" />
-                            배송중
-                        </b-link>
-                    </li>
-                    <li>
-                        <b-link :to="{name:'my_order', query: { od_step:'50' }}">
-                            <b v-if="cnt_od_step[50]">{{cnt_od_step[50]}}</b>
-                            <img :src="`${s3url}mypage/step05.png`" />
-                            배송완료
-                        </b-link>
+                        <h5 v-b-toggle.info_list>나의 정보관리</h5>
+                        <b-collapse visible id="info_list">
+                            <b-link to="/mypage/user/edit">회원정보 수정</b-link>
+                            <b-link to="/mypage/user/destroy">회원 탈퇴</b-link>
+                        </b-collapse>
                     </li>
                 </ul>
-            </b-col>
-        </b-row>
-        <b-row class="middle">
-            <b-col class="left">
-                <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
+            </b-sidebar>
+        </b-col>
 
-                <b-sidebar id="mymenu" title="My Page" :backdrop-variant="'info'" backdrop shadow>
-                    <ul class="nav">
-                        <li>
-                            <h5 v-b-toggle.shop_list>나의 구매내역</h5>
-                            <b-collapse visible id="shop_list">
-                                <b-link :to="{name:'my_order'}">주문/배송 조회</b-link>
-                                <b-link :to="{name:'my_estimate'}">견적서 조회</b-link>
-                                <b-link :to="{name:'my_bought'}">구매상품 목록</b-link>                                
-                            </b-collapse>
-                        </li>
-                        <li>
-                            <h5 v-b-toggle.bo_list>나의 게시물</h5>
-                            <b-collapse visible id="bo_list">
-                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'inquiry' }}">1:1 문의</b-link>
-                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'as' }}">A/S 신청</b-link>
-                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'cancel' }}">취소/교환</b-link>
-                                <b-link :to="{name:'my_bo_index', params: { bo_cd:'gd_inquiry' }}">상품문의</b-link>
-                                <b-link :to="{name:'my_eng_reform_index'}">영문교정</b-link>
-                            </b-collapse>
-                        </li>
-                        <li>
-                            <h5><b-link to="/mypage/print">서류 출력</b-link></h5>
-                        </li>
-                        <li>
-                            <h5 v-b-toggle.info_list>나의 정보관리</h5>
-                            <b-collapse visible id="info_list">
-                                <b-link to="/mypage/user/edit">회원정보 수정</b-link>
-                                <b-link to="/mypage/user/destroy">회원 탈퇴</b-link>
-                            </b-collapse>
-                        </li>
-                    </ul>
-                </b-sidebar>
-            </b-col>
-
-            <b-col class="mypage"><router-view></router-view></b-col>
-        </b-row>
-    </b-container>
+        <b-col class="mypage"><router-view></router-view></b-col>
+    </b-row>
+</b-container>
 </template>
 
 <script>
@@ -165,6 +174,8 @@ export default {
 
 <style lang="css" scoped>
 .container h2 { margin:2rem 1rem; font-weight:bold; }
+.container h2 small { font-size:50%; vertical-align:middle; }
+.container h2 small button { line-height:1.2; }
 #mypage .top { border:1px solid #9EA7B0; }
 #mypage .top .col { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative; }
 #mypage .top .col p { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold; }

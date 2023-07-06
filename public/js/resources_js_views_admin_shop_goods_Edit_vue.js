@@ -397,6 +397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -555,25 +556,73 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[4, 13]]);
       }))();
+    },
+    go_rental: function go_rental() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var rst, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return Notify.confirm('이 상품의 모든 자료를 복제', 'danger');
+
+              case 2:
+                rst = _context4.sent;
+
+                if (!rst) {
+                  _context4.next = 9;
+                  break;
+                }
+
+                _this4.frm = Object.assign({}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                _this4.frm, // 수정하려는 객체
+                {
+                  gd_type: 'REN'
+                } // 삽입하려는 내용
+                );
+                _context4.next = 7;
+                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/admin/shop/goods", _this4.frm);
+
+              case 7:
+                res = _context4.sent;
+
+                if (res && res.status === 200) {
+                  Notify.toast('success', '상품 복제');
+
+                  _this4.$router.push({
+                    name: 'adm_goods_index'
+                  });
+                }
+
+              case 9:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _context4.next = 2;
-              return _this4.edit();
+              _context5.next = 2;
+              return _this5.edit();
 
             case 2:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   }
 });
@@ -5763,80 +5812,79 @@ var render = function () {
       _c("h3", { staticClass: "p_tit" }, [_vm._v("상품 수정")]),
       _vm._v(" "),
       _c(
-        "b-card",
-        { staticClass: "act_ctrl", attrs: { "no-body": "" } },
+        "b-container",
+        { staticClass: "act_ctrl" },
         [
           _c(
-            "b-container",
+            "b-row",
             [
               _c(
-                "b-row",
+                "b-col",
+                { attrs: { cols: "12", sm: "6" } },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { cols: "12", sm: "6" } },
+                    "b-button",
+                    { staticClass: "sm red", on: { click: _vm.destroy } },
+                    [_vm._v("삭제")]
+                  ),
+                  _vm._v(" "),
+                  _vm.frm.gd_type == "NON"
+                    ? _c(
+                        "b-button",
+                        {
+                          staticClass: "sm black",
+                          on: { click: _vm.go_rental },
+                        },
+                        [_vm._v("렌탈로 복사")]
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "text-right", attrs: { cols: "12", sm: "6" } },
+                [
+                  _c(
+                    "b-button-group",
+                    { attrs: { size: "sm" } },
                     [
                       _c(
                         "b-button",
                         {
-                          attrs: { size: "sm", variant: "danger" },
-                          on: { click: _vm.destroy },
+                          attrs: {
+                            size: "sm",
+                            variant: "light",
+                            to: { name: "adm_goods_index" },
+                          },
                         },
-                        [_vm._v("삭제")]
+                        [_vm._v("목록")]
                       ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "text-right",
-                      attrs: { cols: "12", sm: "6" },
-                    },
-                    [
+                      _vm._v(" "),
                       _c(
-                        "b-button-group",
-                        { attrs: { size: "sm" } },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                size: "sm",
-                                variant: "light",
-                                to: { name: "adm_goods_index" },
-                              },
+                        "b-button",
+                        {
+                          attrs: {
+                            size: "sm",
+                            variant: "info",
+                            to: {
+                              name: "goods_show",
+                              params: { gd_id: _vm.$route.params.gd_id },
                             },
-                            [_vm._v("목록")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                size: "sm",
-                                variant: "info",
-                                to: {
-                                  name: "goods_show",
-                                  params: { gd_id: _vm.$route.params.gd_id },
-                                },
-                                target: "_blank",
-                              },
-                            },
-                            [_vm._v("판매 화면")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { size: "sm", variant: "primary" },
-                              on: { click: _vm.update },
-                            },
-                            [_vm._v("수정 완료")]
-                          ),
-                        ],
-                        1
+                            target: "_blank",
+                          },
+                        },
+                        [_vm._v("판매 화면")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { size: "sm", variant: "primary" },
+                          on: { click: _vm.update },
+                        },
+                        [_vm._v("수정 완료")]
                       ),
                     ],
                     1

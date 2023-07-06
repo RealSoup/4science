@@ -1,7 +1,10 @@
 <template>
 <div id="print_area">
     <div class="p_wrap">
-        <h3 class="p_tit">주문 상세</h3>
+        <h3 class="p_tit">
+            주문 상세
+            <b-button :to="{name: 'adm_user_edit', params: { id:od.user.introducer.id }}" v-if="od.user.introducer" class="xm sky">소개자 - {{od.user.introducer.name}}</b-button>
+        </h3>
         <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
         <div class="act_ctrl">
             <b-row>
@@ -676,16 +679,6 @@ export default {
             this.$set(this.od, 'od_zip', result.zonecode);
             this.$set(this.od, 'od_addr1', result.roadAddress + "("+ result.buildingName +")");
             this.modalType = 'postDetail';
-        },
-
-        copyToClipboard (val) {// 클립보드로 복사하는 기능을 생성
-            var aux = document.createElement("input");  // 글을 쓸 수 있는 란을 만든다.
-            aux.setAttribute("value", val);    // 지정된 요소의 값을 할당 한다.
-            document.body.appendChild(aux); // bdy에 추가한다.
-            aux.select();   // 지정된 내용을 강조한다.
-            document.execCommand("copy");   // 텍스트를 카피 하는 변수를 생성
-            document.body.removeChild(aux); // body 로 부터 다시 반환 한다.
-            Notify.toast('success', '복사됨');
         },
 
         toggleAll(pa) {

@@ -110,6 +110,13 @@
             <b-row>
                 <b-col class="label_st">팩스</b-col><b-col><b-form-input v-model="value.fax" :formatter="format_tel" /></b-col>
             </b-row>
+            <b-row>
+                <b-col class="label_st" :style="{fontSize:'14px', letterSpacing:'-2px', paddingRight:0}">추천 친구 코드</b-col>
+                <b-col>
+                    <b-form-input v-model="value.code_01" />
+                    <Validation :error="$store.state.error.validations.code_01" />
+                </b-col>
+            </b-row>
 
             <b-row v-if="this.$route.name == 'auth_create'">
                 <b-col>
@@ -271,6 +278,9 @@ export default {
 .form_box .extra .frm_vali_st .row .col.label_st { flex-basis:150px; max-width:150px; } 
 .form_box .extra .slt_item>>>fieldset legend { font-weight:bold; font-size:.9rem; padding:0; }
 .form_box .extra .slt_item>>>span { font-size:.9rem; }
-
-
+@media (max-width: 992px) {
+    .form_box .default { margin-right:0; margin-bottom:2em; flex:0 0 100%; max-width:100%; }
+    .form_box .extra { margin-left:0;}
+    .form_box>.col { padding:.5em; }
+}
 </style>

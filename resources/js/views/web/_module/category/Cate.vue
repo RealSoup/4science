@@ -1,6 +1,6 @@
 <template>
 <ul id="category" :class="{all_focus:all_focus}" @mouseenter="all_focus=true" @mouseleave="all_focus=false, $emit('close_cate')">
-    <li v-for="ca in category" :key="ca.ca_id" @mouseenter="ca.sub_show=true" @mouseleave="ca.sub_show=false" :class="{focus:ca.sub_show}">
+    <li v-for="ca in category" :key="ca.ca_id" @mouseenter="set_focus(ca.ca_id)" :class="{focus:ca.sub_show}">
         <b-link class="dep01" @click.stop="ca.sub_show=false, $emit('close_cate')" :to="{name: 'goods_index', query: {ca01:ca.ca_id}}">
             {{ca.ca_name}}
         </b-link>
@@ -20,6 +20,14 @@ export default {
         } 
     },
     computed: { ...mapState('category', ['category']), },
+    methods: {
+        set_focus: function (ca_id) {
+            Object.values(this.category).forEach(ca => {
+                if (ca.ca_id == ca_id) ca.sub_show = true;
+                else ca.sub_show = false;
+            });
+        },
+    },
 } 
 </script>
 

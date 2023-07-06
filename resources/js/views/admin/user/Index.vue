@@ -75,7 +75,11 @@
                 <b-badge v-if="us.level==20" class="admin">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==29" class="super">{{option.grade[us.level]}}</b-badge>
             </b-col>
-            <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.name}}</b-link></b-col>
+            <b-col>
+                <b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.name}}</b-link>
+                <br />
+                <b-button :to="{name: 'adm_user_edit', params: { id:us.introducer.id }}" v-if="us.introducer" class="xm sky">소개자 - {{us.introducer.name}}</b-button>
+            </b-col>
             <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.email}}</b-link></b-col>                
             <b-col>
                 <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" />{{us.hp}}</span>

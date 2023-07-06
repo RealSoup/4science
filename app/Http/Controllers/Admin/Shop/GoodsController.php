@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Storage;
 
 class GoodsController extends Controller {
     use FileControl;
@@ -122,36 +123,92 @@ class GoodsController extends Controller {
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
         $cate_ist_info = [];
-        foreach ($req->goods_category as $gc) {
-            $istArr=[];
+        $cat01 = '';
+
+        if ($req->filled('gd_type') && $req->gd_type == 'REN') {
             $istArr['gc_gd_id'] = $goods->gd_id;
-            $istArr['gc_prime'] = $gc['gc_prime'];
-            $istArr['gc_ca01'] = $gc['gc_ca01'];
-            $istArr['gc_ca01_name'] = $gc['gc_ca01_name'];
-            if(count($gc) > 3) { $istArr['gc_ca02'] = $gc['gc_ca02']; $istArr['gc_ca02_name'] = $gc['gc_ca02_name']; }
-            if(count($gc) > 5) { $istArr['gc_ca03'] = $gc['gc_ca03']; $istArr['gc_ca03_name'] = $gc['gc_ca03_name']; }
-            if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }
+            $istArr['gc_prime'] = 'Y';
+            $istArr['gc_ca01'] = 46;
+            $istArr['gc_ca01_name'] = '렌탈';
             $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
             $istArr['gc_id'] = $ist_gc_id;
-            $cate_ist_info[] = $istArr;
-            unset($istArr);
+            $cate_ist_info[] = $istArr;      
+            
+            $fi_room = intval($goods->gd_id/1000)+1;
+            foreach ($req->file_goods_goods as $k => $v) {
+                // $s=Storage::disk('s3')->copy('goods/trc.png', 'event/trc.png');
+                $new_nm = uniqid().'.'.$v['fi_ext'];
+                DB::table('file_goods')->insert([
+                    'fi_key' => $goods->gd_id, 
+                    'fi_room' => $fi_room,
+                    'fi_kind' => 'goods',
+                    'fi_original' => $v['fi_original'],
+                    'fi_new' => $new_nm,
+                    'fi_seq' => $k,
+                    'fi_size' => $v['fi_size'],
+                    'fi_ext' => $v['fi_ext'],
+                    'created_id' => auth()->user()->id,
+                    'ip' => $req->ip(),
+                ]);
+                if (!(strpos($v['fi_new'], "https://") === 0 || strpos($v['fi_new'], "http://") === 0)) {
+                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/thumb/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/thumb/{$new_nm}");
+                }
+            }
+
+            foreach ($req->file_goods_add as $k => $v) {
+                $new_nm = uniqid().'.'.$v['fi_ext'];
+                DB::table('file_goods')->insert([
+                    'fi_key' => $goods->gd_id, 
+                    'fi_room' => $fi_room,
+                    'fi_kind' => 'add',
+                    'fi_original' => $v['fi_original'],
+                    'fi_new' => $new_nm,
+                    'fi_seq' => $k,
+                    'fi_size' => $v['fi_size'],
+                    'fi_ext' => $v['fi_ext'],
+                    'created_id' => auth()->user()->id,
+                    'ip' => $req->ip(),
+                ]);
+                Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+            }
+            $cat01 = 'R';
+        } else {
+            
+            foreach ($req->goods_category as $gc) {
+                $istArr=[];
+                $istArr['gc_gd_id'] = $goods->gd_id;
+                $istArr['gc_prime'] = $gc['gc_prime'];
+                $istArr['gc_ca01'] = $gc['gc_ca01'];
+                $istArr['gc_ca01_name'] = $gc['gc_ca01_name'];
+                if(count($gc) > 3) { $istArr['gc_ca02'] = $gc['gc_ca02']; $istArr['gc_ca02_name'] = $gc['gc_ca02_name']; }
+                if(count($gc) > 5) { $istArr['gc_ca03'] = $gc['gc_ca03']; $istArr['gc_ca03_name'] = $gc['gc_ca03_name']; }
+                if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }
+                $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
+                $istArr['gc_id'] = $ist_gc_id;
+                $cate_ist_info[] = $istArr;
+                unset($istArr);
+            }
+
         }
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
         $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
         $cat[1] = substr("00000".$cat[1], -6);
         $cat[2] = 0;
-        
+
         foreach ($req->goods_model as $gm) {
             $cat[2] += 1;
             $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
-            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
+            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat01.$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
 
-            foreach ($gm['bundle_dc'] as $bd) {
-                if (isset($bd['bd_ea'])){
-                    $bd_impl = $this->bundleDc_paramImplant($ist_gm_id, $bd);
-                    $this->bd->insert(Arr::collapse([$bd_impl, ['created_id'=>auth()->user()->id, 'ip' => $req->ip()]]));
+            if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
+                foreach ($gm['bundle_dc'] as $bd) {
+                    if (isset($bd['bd_ea'])){
+                        $bd_impl = $this->bundleDc_paramImplant($ist_gm_id, $bd);
+                        $this->bd->insert(Arr::collapse([$bd_impl, ['created_id'=>auth()->user()->id, 'ip' => $req->ip()]]));
+                    }
                 }
             }
 
@@ -164,11 +221,13 @@ class GoodsController extends Controller {
             //  검색 테이블 insert
         }
 
-        foreach ($req->goods_option as $go) {
-            if (isset($go['go_name'])){
-                $go_id = $this->goods_option->insertGetId($this->option_paramImplant($goods->gd_id, $go), 'go_id');
-                foreach ($go['goods_option_child'] as $goc) {
-                    if (isset($goc['goc_name'])) $this->goods_option_child->insert($this->optionChild_paramImplant($go_id, $goc));
+        if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
+            foreach ($req->goods_option as $go) {
+                if (isset($go['go_name'])){
+                    $go_id = $this->goods_option->insertGetId($this->option_paramImplant($goods->gd_id, $go), 'go_id');
+                    foreach ($go['goods_option_child'] as $goc) {
+                        if (isset($goc['goc_name'])) $this->goods_option_child->insert($this->optionChild_paramImplant($go_id, $goc));
+                    }
                 }
             }
         }
@@ -368,17 +427,18 @@ class GoodsController extends Controller {
     }
 
     public function goods_paramImplant($goods, $req){
-        $goods->gd_name        = $req->gd_name;
-	   	$goods->gd_desc        = $req->gd_desc;
-        $goods->gd_keyword     = $req->gd_keyword;
-        $goods->gd_video       = $req->gd_video;
-	   	$goods->gd_dlvy_at     = $req->gd_dlvy_at;
-	   	$goods->gd_enable      = $req->filled('gd_enable') ? $req->gd_enable : 'N';
-	   	$goods->gd_mk_id       = $req->gd_mk_id;
-	   	$goods->gd_pa_id       = $req->gd_pa_id;
-        $goods->gd_mng_info    = $req->gd_mng_info;
-        $goods->gd_seq         = $req->filled('gd_seq') ? $req->gd_seq : 999999;
-        $goods->ip             = $req->ip();
+        $goods->gd_name     = $req->gd_name;
+	   	$goods->gd_desc     = $req->gd_desc;
+        $goods->gd_keyword  = $req->gd_keyword;
+        $goods->gd_video    = $req->gd_video;
+	   	$goods->gd_dlvy_at  = $req->gd_dlvy_at;
+	   	$goods->gd_enable   = $req->filled('gd_enable') ? $req->gd_enable : 'N';
+	   	$goods->gd_type     = $req->filled('gd_type') ? $req->gd_type : 'NON';
+	   	$goods->gd_mk_id    = $req->gd_mk_id;
+	   	$goods->gd_pa_id    = $req->gd_pa_id;
+        $goods->gd_mng_info = $req->gd_mng_info;
+        $goods->gd_seq      = $req->filled('gd_seq') ? $req->gd_seq : 999999;
+        $goods->ip          = $req->ip();
         return $goods;
     }
     public function goodsModel_paramImplant($gd_id, $gm){

@@ -104,7 +104,7 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn.xm { padding:.2rem .3rem !important; font-size:.75rem !important; line-height:1.3; border-radius:.2rem; }
 .btn.sm { padding:.25rem .5rem !important; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
 .btn.lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
-.btn.xl { width:440px; font-weight:900; padding:1.5em 0px; font-size:1.2em; border-radius:8px; }
+.btn.xl { width:440px; font-weight:900; padding:1.5em 0px; font-size:1.2em; border-radius:8px; max-width:100%; }
     
 .white { background-color:#FFF; border-color:#CCCCCC; color:#000 !important; }
 .gray { background-color:#B7B7B7; border-color:#B7B7B7; color:#FFF !important; }
