@@ -187,9 +187,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   url = "/api/admin/shop/estimate/showEstimate/".concat(res.data);
                   name = "견적서 미리보기";
                   option = "width = 900, height = 900, top = 10, left = 10, location = no";
+
+                  _this2.$router.push({
+                    name: 'adm_estimate_edit',
+                    params: {
+                      er_id: res.data
+                    }
+                  });
+
                   window.open(url, name, option); // self.close();
                 } else if (type == 'store') {
                   Notify.toast('success', '임시저장 완료');
+
+                  _this2.$router.push({
+                    name: 'adm_estimate_edit',
+                    params: {
+                      er_id: res.data
+                    }
+                  });
                 } else _this2.$router.push({
                   name: 'adm_estimate_show_reply',
                   params: {

@@ -100,17 +100,17 @@
                     <b-form-select-option value="50">50개</b-form-select-option>
                     <b-form-select-option value="100">100개</b-form-select-option>
                 </b-form-select>
-                <b-button @click="openWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
+                <b-button @click="exeWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
             </b-col>
         </b-row>
-        <list v-if="list.data && list.data.length" :list="list.data" :mng_off="mng_off" />
+        <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off" />
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
     </b-container>
 
-    <!-- <WinPopUp ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" /> -->
+    <win-pop-up ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
     <!-- <button type="button" @click="openWinPop">윈 팝업 띄우기</button>
     <button type="button" @click="sendToChild">윈 팝업으로 전송</button> -->
 </div>
@@ -123,7 +123,7 @@ export default {
     components: {
         'sch-date': () => import('@/views/_common/SchDate'),
         'list': () => import('./_comp/List'),
-        // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
+        'win-pop-up': () => import('@/views/_common/WinPopUp'),
     },
     data() {
         return {
@@ -191,14 +191,14 @@ export default {
         //     console.log( "evtCloseWinPopup () ========  ");
         // },
         
-        // openWinPop(url){
-        //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
-        // }, 
+        exeWinPop(url){
+            this.$refs.winPopup.openWinPop( url, 1700, 900 );
+        }, 
         
-        // onRecvWinPop( recvObj ){
-        //     console.log( "onRecvWinPop  ---------" );
-        //     if(recvObj == 'reread') this.index();
-        // },
+        onRecvWinPop( recvObj ){
+            console.log( "onRecvWinPop  ---------" );
+            if(recvObj == 'reread') this.index();
+        },
 
         // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
     },

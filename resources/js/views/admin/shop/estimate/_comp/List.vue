@@ -16,7 +16,7 @@
     </b-row>
     <b-row class="body" v-for="row in list" :key="row.eq_id">
         <b-col>{{row.eq_id}}.</b-col>
-        <b-col @click="openWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
+        <b-col @click="exeWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <sub-string v-else v-model="row.eq_content" :width="650" />
 
@@ -42,17 +42,17 @@
         <b-col class="er_box">
             <template v-if="row.estimate_reply.length == 0">
                 <span></span>
-                <b-link class="btn white" @click="openWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`)">견적서 작성</b-link>
+                <b-link class="btn white" @click="exeWinPop(`/admin/shop/estimate/create?eq_id=${row.eq_id}`)">견적서 작성</b-link>
                 <span></span>
             </template>
             <template v-else v-for="(er, i) in row.estimate_reply">
                 <span :key="`i${er.er_id}`">{{er.er_id}}.</span>
                 <template v-if="er.er_step == 0">
-                    <span class="btn gray" :class="{not_fir:i!==0}" @click="openWinPop(`/admin/shop/estimate/${er.er_id}/edit`)" :key="`b${er.er_id}`">임시저장</span>
+                    <span class="btn gray" :class="{not_fir:i!==0}" @click="exeWinPop(`/admin/shop/estimate/${er.er_id}/edit`)" :key="`b${er.er_id}`">임시저장</span>
                 </template>
                 <template v-else>
-                    <span v-if="i===0" class="btn mint" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">견적서</span>
-                    <span v-else class="btn orange not_fir" @click="openWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
+                    <span v-if="i===0" class="btn mint" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">견적서</span>
+                    <span v-else class="btn orange not_fir" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
                 </template>
                 <span :key="`d${er.er_id}`">{{ er.created_at | formatDate }}</span>
             </template>
@@ -83,6 +83,9 @@ export default {
         }
     },
     methods: {
+        exeWinPop(url) {
+            this.$emit('exe-win-pop', url);
+        },
         ////////////////////////////////
         // evtCloseWinPopup( ){
         //     console.log( "evtCloseWinPopup () ========  ");
@@ -122,10 +125,10 @@ export default {
 .er_box span:nth-child(3n+1) { flex:0 0 30%; max-width:30%; }
 .er_box span:nth-child(3n+2) { flex:0 0 24%; max-width:24%; }
 .er_box span:nth-child(3n+3) { flex:0 0 40%; max-width:40%; }
-.er_box span.btn { background-color:#fff; border-width:3px; padding:.18rem 0; }
+.er_box span.btn { background-color:#fff !important; border-width:3px; padding:.18rem 0; }
 .er_box span.mint { color:#00A1CB !important; }
 .er_box span.orange { color:#F18D04 !important; }
-.er_box span.gray { background-color:#aaa; color:#fff; }
+.er_box span.gray { background-color:#aaa !important; color:#fff; }
 .er_box span.not_fir { margin-top:.25rem; }
 
 @media (max-width: 992px) {

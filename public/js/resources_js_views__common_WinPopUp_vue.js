@@ -25,7 +25,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   methods: {
     openWinPop: function openWinPop(uri, width, height) {
       // if( this.windowRef != null )
-      //     this.closeWinPop();
+      // this.closeWinPop();
       //  여러새창 열어야 하는데
       //   이것때문에 닫히고 한개만 열림
       var left = screen.width ? (screen.width - width) / 2 : 0;
@@ -39,8 +39,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       } else {
         alert("window.open fail!!!");
       } // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
-      // window.addEventListener("message", this.recvEvtFromChild, false);
 
+
+      window.addEventListener("message", this.recvEvtFromChild, false);
     },
     // 윈도우 팝업 닫기 
     closeWinPop: function closeWinPop() {
@@ -81,10 +82,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       this.$emit('onRecvEvtFromWinPop', evt.data);
     }
   },
-  mounted: function mounted() {
-    // window.addEventListener("message", this.listReread);
+  mounted: function mounted() {// window.addEventListener("message", this.listReread);
     // this.windowRef.addEventListener('beforeunload', this.evtClose);
-    window.addEventListener("message", this.recvEvtFromChild, false);
+    // window.addEventListener("message", this.recvEvtFromChild, false);
   },
   beforeDestroy: function beforeDestroy() {
     window.removeEventListener('message', this.recvEvtFromChild);

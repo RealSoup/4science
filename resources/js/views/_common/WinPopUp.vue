@@ -7,7 +7,7 @@ export default {
     methods : {
         openWinPop( uri, width, height ) {
             // if( this.windowRef != null )
-            //     this.closeWinPop();
+                // this.closeWinPop();
             //  여러새창 열어야 하는데
             //   이것때문에 닫히고 한개만 열림
         
@@ -26,7 +26,7 @@ export default {
             }
 
             // 2.  새로 띄운 윈도우 팝업창으로 부터 수신 메세지 이벤트 처리 
-            // window.addEventListener("message", this.recvEvtFromChild, false);
+            window.addEventListener("message", this.recvEvtFromChild, false);
         },
 
         // 윈도우 팝업 닫기 
@@ -77,7 +77,7 @@ export default {
     mounted() {    
         // window.addEventListener("message", this.listReread);
         // this.windowRef.addEventListener('beforeunload', this.evtClose);
-        window.addEventListener("message", this.recvEvtFromChild, false);
+        // window.addEventListener("message", this.recvEvtFromChild, false);
     },
     beforeDestroy: function () {
         window.removeEventListener('message', this.recvEvtFromChild);

@@ -147,8 +147,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     'list': function list() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/List */ "./resources/js/views/admin/shop/estimate/_comp/List.vue"));
-    } // 'WinPopUp': () => import('@/views/_common/WinPopUp'),
-
+    },
+    'win-pop-up': function winPopUp() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_WinPopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/WinPopUp */ "./resources/js/views/_common/WinPopUp.vue"));
+    }
   },
   data: function data() {
     return {
@@ -244,18 +246,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     price_comma: function price_comma(e) {
       return this.priceComma(e);
-    } ////////////////////////////////
+    },
+    ////////////////////////////////
     // evtCloseWinPopup( ){
     //     console.log( "evtCloseWinPopup () ========  ");
     // },
-    // openWinPop(url){
-    //     this.$refs.winPopup.openWinPop( url, 1700, 900 );
-    // }, 
-    // onRecvWinPop( recvObj ){
-    //     console.log( "onRecvWinPop  ---------" );
-    //     if(recvObj == 'reread') this.index();
-    // },
-    // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+    exeWinPop: function exeWinPop(url) {
+      this.$refs.winPopup.openWinPop(url, 1700, 900);
+    },
+    onRecvWinPop: function onRecvWinPop(recvObj) {
+      console.log("onRecvWinPop  ---------");
+      if (recvObj == 'reread') this.index();
+    } // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
 
   },
   mounted: function mounted() {
@@ -968,7 +970,7 @@ var render = function () {
                       staticClass: "white",
                       on: {
                         click: function ($event) {
-                          return _vm.openWinPop("/admin/shop/estimate/create")
+                          return _vm.exeWinPop("/admin/shop/estimate/create")
                         },
                       },
                     },
@@ -984,6 +986,7 @@ var render = function () {
           _vm.list.data && _vm.list.data.length
             ? _c("list", {
                 attrs: { list: _vm.list.data, mng_off: _vm.mng_off },
+                on: { "exe-win-pop": _vm.exeWinPop },
               })
             : _vm._e(),
           _vm._v(" "),
@@ -1018,6 +1021,18 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("win-pop-up", {
+        ref: "winPopup",
+        on: {
+          onClose: function (val) {
+            return _vm.evtCloseWinPopup(val)
+          },
+          onRecvEvtFromWinPop: function (val) {
+            return _vm.onRecvWinPop(val)
+          },
+        },
+      }),
     ],
     1
   )

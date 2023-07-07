@@ -47,7 +47,8 @@ class EstimateController extends Controller {
 		$eq = $eq->select("shop_estimate_req.*",
 							DB::raw("(SELECT name FROM la_users
 							WHERE la_users.id = la_shop_estimate_req.eq_mng) as eq_mng_nm"),)
-                ->with('user');
+                ->with('user')
+                ->latest('eq_id');
         if ($req->date_type == 'reque') {
                 $eq->when($req->startDate, fn ($q, $v) => $q->StartDate($v.' 00:00:00'));
                 $eq->when($req->endDate, fn ($q, $v) => $q->EndDate($v.' 23:59:59'));
@@ -114,7 +115,7 @@ class EstimateController extends Controller {
             $data['list'] = $eq->limit($req->limit)->get();
         else {
             $list_size = $req->filled('list_size') ? $req->list_size : 20;
-            $data['list'] = $eq->latest('eq_id')->paginate($list_size );
+            $data['list'] = $eq->paginate($list_size);
             $data['list']->appends($req->all())->links();
         }
 

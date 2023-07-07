@@ -64,7 +64,10 @@ instance.interceptors.response.use(function (response) {
         if ( error.response.data.message.search('CSRF token mismatch.') !== -1  ) {
             router.push({name:'main'});
             // router.go();
-            Notify.modal("로그인 정보가 없습니다.", 'danger');
+            Notify.modal("로그인 정보가 없습니다.", 'danger');            
+            store.commit('auth/setIsLoggedin', false);
+            store.commit('auth/setUser', null);
+            store.commit('auth/setToken', null);
             // window.location.reload(true);
         } else {
             Notify.modal(error.response.data.message, 'danger');

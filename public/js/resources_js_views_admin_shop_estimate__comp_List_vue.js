@@ -109,7 +109,10 @@ __webpack_require__.r(__webpack_exports__);
       return rst;
     }
   },
-  methods: {////////////////////////////////
+  methods: {
+    exeWinPop: function exeWinPop(url) {
+      this.$emit('exe-win-pop', url);
+    } ////////////////////////////////
     // evtCloseWinPopup( ){
     //     console.log( "evtCloseWinPopup () ========  ");
     // },
@@ -121,6 +124,7 @@ __webpack_require__.r(__webpack_exports__);
     //     if(recvObj == 'reread') this.index();
     // },
     // sendToChild(){ this.$refs.winPopup.sendEvtToChild( { msg : 'abcde' } ); },
+
   }
 });
 
@@ -142,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] {}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-3a911428]:nth-child(2) {\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 20%; max-width:20%;\n}\n.row .col:nth-child(5) .badge[data-v-3a911428] { width:3.8rem; padding:.4rem 0;\n}\n.body .col[data-v-3a911428]:nth-child(2) { text-align:left; cursor:pointer;\n}\n.body .col .eq_name[data-v-3a911428] { line-height:1rem;\n}\n.eq_tit .badge[data-v-3a911428] { width:26px; height:26px; border-radius:50%; font-weight:900;\n}\n.er_box[data-v-3a911428] { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}\n.er_box span[data-v-3a911428] { text-align:center;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 30%; max-width:30%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 40%; max-width:40%;\n}\n.er_box span.btn[data-v-3a911428] { background-color:#fff; border-width:3px; padding:.18rem 0;\n}\n.er_box span.mint[data-v-3a911428] { color:#00A1CB !important;\n}\n.er_box span.orange[data-v-3a911428] { color:#F18D04 !important;\n}\n.er_box span.gray[data-v-3a911428] { background-color:#aaa; color:#fff;\n}\n.er_box span.not_fir[data-v-3a911428] { margin-top:.25rem;\n}\n@media (max-width: 992px) {\n.p_wrap .cmain .body[data-v-3a911428] { border-bottom: 3px solid #333;\n}\n.p_wrap .cmain .body .col[data-v-3a911428] { padding: 0.1rem 0; line-height: 24px;\n}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 60%; max-width:60%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 20%; max-width:20%; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 60%; max-width:60%; text-align:left; padding-left:10px; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 100%; max-width:100%; background: #efefef;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 48%; max-width:48%; text-align:right;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 18%; max-width:18%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] {}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-3a911428]:nth-child(2) {\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 20%; max-width:20%;\n}\n.row .col:nth-child(5) .badge[data-v-3a911428] { width:3.8rem; padding:.4rem 0;\n}\n.body .col[data-v-3a911428]:nth-child(2) { text-align:left; cursor:pointer;\n}\n.body .col .eq_name[data-v-3a911428] { line-height:1rem;\n}\n.eq_tit .badge[data-v-3a911428] { width:26px; height:26px; border-radius:50%; font-weight:900;\n}\n.er_box[data-v-3a911428] { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}\n.er_box span[data-v-3a911428] { text-align:center;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 30%; max-width:30%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 40%; max-width:40%;\n}\n.er_box span.btn[data-v-3a911428] { background-color:#fff !important; border-width:3px; padding:.18rem 0;\n}\n.er_box span.mint[data-v-3a911428] { color:#00A1CB !important;\n}\n.er_box span.orange[data-v-3a911428] { color:#F18D04 !important;\n}\n.er_box span.gray[data-v-3a911428] { background-color:#aaa !important; color:#fff;\n}\n.er_box span.not_fir[data-v-3a911428] { margin-top:.25rem;\n}\n@media (max-width: 992px) {\n.p_wrap .cmain .body[data-v-3a911428] { border-bottom: 3px solid #333;\n}\n.p_wrap .cmain .body .col[data-v-3a911428] { padding: 0.1rem 0; line-height: 24px;\n}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 60%; max-width:60%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 20%; max-width:20%; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 60%; max-width:60%; text-align:left; padding-left:10px; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 100%; max-width:100%; background: #efefef;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 48%; max-width:48%; text-align:right;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 18%; max-width:18%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -319,7 +323,7 @@ var render = function () {
                 staticClass: "eq_tit",
                 on: {
                   click: function ($event) {
-                    return _vm.openWinPop(
+                    return _vm.exeWinPop(
                       "/admin/shop/estimate/req/" + row.eq_id
                     )
                   },
@@ -468,7 +472,7 @@ var render = function () {
                           staticClass: "btn white",
                           on: {
                             click: function ($event) {
-                              return _vm.openWinPop(
+                              return _vm.exeWinPop(
                                 "/admin/shop/estimate/create?eq_id=" + row.eq_id
                               )
                             },
@@ -495,7 +499,7 @@ var render = function () {
                                   class: { not_fir: i !== 0 },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.openWinPop(
+                                      return _vm.exeWinPop(
                                         "/admin/shop/estimate/" +
                                           er.er_id +
                                           "/edit"
@@ -515,7 +519,7 @@ var render = function () {
                                       staticClass: "btn mint",
                                       on: {
                                         click: function ($event) {
-                                          return _vm.openWinPop(
+                                          return _vm.exeWinPop(
                                             "/admin/shop/estimate/reply/" +
                                               er.er_id
                                           )
@@ -531,7 +535,7 @@ var render = function () {
                                       staticClass: "btn orange not_fir",
                                       on: {
                                         click: function ($event) {
-                                          return _vm.openWinPop(
+                                          return _vm.exeWinPop(
                                             "/admin/shop/estimate/reply/" +
                                               er.er_id
                                           )

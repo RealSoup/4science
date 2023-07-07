@@ -119,7 +119,8 @@
                         </b-col>
                     </b-row>
                 </div>
-                <b-button class="m_hide pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-if="clickable" class="m_hide pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-else class="m_hide pay_go gray"><b-spinner /> 주문 중...</b-button>
             </b-col>
 
             <b-col id="payment" class="payment">
@@ -226,7 +227,8 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
-                <b-button class="m_show pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-if="clickable" class="m_show pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-else class="m_show pay_go gray"><b-spinner /> 주문 중...</b-button>
             </b-col>
         </b-row>
     </b-container>
@@ -396,6 +398,7 @@ export default {
             config: {},
             inicis: {},
             goods_def: {},
+            clickable : true,
         }
     },
     computed: {
@@ -472,7 +475,7 @@ export default {
                         this.order.extra.oex_pay_plan = this.order.extra.oex_pay_plan_etc;
                 }
 
-               
+                this.clickable = false; 
                 let pay = await ax.post(`/api/shop/order/pay`, this.order);
                 if (pay && pay.status === 200) {
                     this.inicis = pay.data.inicis;
@@ -501,15 +504,15 @@ export default {
                             var objs07 = document.createElement('input'); 
                             var objs08 = document.createElement('input'); 
                             var objs09 = document.createElement('input');
-                            objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                           form.appendChild(objs01);
-                            objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);                  form.appendChild(objs02);
-                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);                 form.appendChild(objs03);
-                            objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);               form.appendChild(objs04);
-                            objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);           form.appendChild(objs05);
-                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name); form.appendChild(objs06);
-                            objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile);     form.appendChild(objs07);
-                            objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                           form.appendChild(objs08);
-                            objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);                 form.appendChild(objs09);                            
+                            objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                       form.appendChild(objs01);
+                            objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);              form.appendChild(objs02);
+                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);            form.appendChild(objs03);
+                            objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);           form.appendChild(objs04);
+                            objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);       form.appendChild(objs05);
+                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name);               form.appendChild(objs06);
+                            objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile); form.appendChild(objs07);
+                            objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                       form.appendChild(objs08);
+                            objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);             form.appendChild(objs09);                            
                             form.setAttribute('method', 'post'); //get,post 가능
                             form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
                             form.setAttribute("accept-charset", "EUC-KR");
@@ -520,6 +523,7 @@ export default {
                         await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }});
                     }
                 }
+                this.clickable = true; 
             }
         },
 
@@ -766,6 +770,7 @@ export default {
 #settle .st_bottom .inputs .address .od_memo .col select { max-width:16rem; }
 
 #settle .st_bottom .pay_go { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
+#settle .st_bottom .pay_go.spinner-border { width:2em; height:2em; }
 
 #settle .st_bottom .row .col.payment { flex-basis:31%; max-width:31%; padding-left:.875rem; }
 #settle .st_bottom .payment .top { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center; }

@@ -6,6 +6,7 @@ use App\Models\{Info, ShowWindow};
 use App\Models\Shop\{Category};
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Cache;
 use DB;
 
@@ -47,7 +48,7 @@ class SiteController extends Controller {
         foreach ($req->del_list as $dl) {
             DB::table('show_window')->where('sw_id', $dl)->delete();
         }
-
+        Redis::del('bestByCate');
         return response()->json("success", 200);
     }
 }
