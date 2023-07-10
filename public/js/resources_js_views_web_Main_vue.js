@@ -146,9 +146,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -502,17 +499,6 @@ var render = function () {
           attrs: { controls: "", indicators: "" },
         },
         [
-          _c(
-            "b-link",
-            { attrs: { to: "/shop/goods?ca01=22&ca02=628" } },
-            [
-              _c("b-carousel-slide", {
-                attrs: { "img-src": _vm.s3url + "event/2023/0705/slide.jpg" },
-              }),
-            ],
-            1
-          ),
-          _vm._v(" "),
           _c(
             "b-link",
             { attrs: { to: "/shop/goods?ca01=26&ca02=7717" } },

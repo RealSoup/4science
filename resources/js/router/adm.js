@@ -30,6 +30,10 @@ export default [
                 path: 'site/mainCateGoods',
                 name: 'adm_site_main_cate_goods',
                 component:() => import('@/views/admin/site/MainCateGoods'),
+            }, {
+                path: 'site/mainBest',
+                name: 'adm_site_main_best',
+                component:() => import('@/views/admin/site/MainBest'),
             },
 
             //  유저

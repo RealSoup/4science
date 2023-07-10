@@ -12,6 +12,7 @@
                     <b-nav-item-dropdown text="Site관리">
                         <b-dropdown-item :to="{name: 'adm_site_info'}">정보설정</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_site_main_cate_goods'}">메인 카테고리별 추천 상품</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_site_main_best'}">메인 Best 상품</b-dropdown-item>
                     </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown text="회원관리">
