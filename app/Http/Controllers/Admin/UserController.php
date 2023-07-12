@@ -111,7 +111,8 @@ class UserController extends Controller {
                 'um_position'       => array_key_exists('um_position', $req->user_mng) ? $req->user_mng['um_position'] : 1,
                 'um_group'          => array_key_exists('um_group', $req->user_mng) ? $req->user_mng['um_group'] : 'etc',
                 'um_responsibility' => array_key_exists('um_responsibility', $req->user_mng) ? $req->user_mng['um_responsibility'] : NULL, ]);
-            Cache::forget("UserMng");
+            // Cache::forget("UserMng");
+            DB::table('infos')->where('key', 'update_key_user_mng')->update(['val' => uniqid()]);
         }
         $rst = [ 'message' => 'success' ];
         if( $user_biz ) $rst['ub_id'] = $user_biz->ub_id;
