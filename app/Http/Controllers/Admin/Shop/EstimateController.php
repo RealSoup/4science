@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Arr;
 use App\Exports\EstimateEstimateExport;
 use App\Exports\EstimateTransactionExport;
@@ -123,8 +124,8 @@ class EstimateController extends Controller {
             $eq->estimateReply;
 
             
-		$data['mng_on'] = Cache::get('UserMngOn');
-		$data['mng_off'] = Cache::get('UserMngOff');
+		$data['mng_on'] = json_decode(Redis::get('UserMngOn'));
+		$data['mng_off'] = json_decode(Redis::get('UserMngOff'));
         $data['mng_info'] = $this->userMng->getMngInfo();
 		return response()->json($data);
     }
@@ -151,9 +152,15 @@ class EstimateController extends Controller {
                 //  바로 접근해서 수정하면 
                 //  Indirect modification of overloaded property 'A' 에러 난다.
                 $tmp = $data->collect;
-                $tmp['price']['total'] -= $tmp['price']['dlvy_add_vat'] - $tmp['price']['air_add_vat'];
+                $tmp['price']['total'] = intval($tmp['price']['total'])-intval($tmp['price']['dlvy_add_vat'])-intval($tmp['price']['air_add_vat']);
                 $tmp['price']['dlvy_add_vat'] = 0;
                 $tmp['price']['air_add_vat'] = 0;
+                foreach ($tmp['lists'] as $k => $pa) {
+                    foreach ($pa as $k2 => $gm)
+                        $tmp['lists'][$k][$k2]['pa_dlvy_p_add_vat'] = 0;
+                    
+                }
+                // dd($tmp['price']);
                 $data->collect = $tmp;
             }
         } else {
@@ -434,7 +441,7 @@ class EstimateController extends Controller {
         
     }
     public function mailParam_paramImplant($er, $model, $eq_id, $er_id, $eq){
-        $redirect_url = (array_key_exists('created_id', $eq) && $eq['created_id'])? (config('app.url')."/mypage/estimate/reply/${er_id}") : '';
+        $redirect_url = (array_key_exists('created_id', $eq) && $eq['created_id'])? (config('app.url')."mypage/estimate/reply/${er_id}") : '';
         return [    'eq_name'         => $eq['eq_name'],
                     'er_id'           => $er_id,
                     'eq_id'           => $eq_id,

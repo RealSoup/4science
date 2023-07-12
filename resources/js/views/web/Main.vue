@@ -73,7 +73,7 @@
         <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
             <ul>
                 <template v-for="(ca, i) in category">
-                    <li v-if="ca.ca_id != 38" :key="ca.ca_id"
+                    <li v-if="![38, 46].includes(ca.ca_id)" :key="ca.ca_id"
                         @mouseenter="ca.hover = !ca.hover"
                         @mouseleave="ca.hover = !ca.hover"
                         @click="scrollToCate(i)"
@@ -93,7 +93,7 @@
 
         <b-container class="con">
         <template v-for="ca in category">
-            <b-row v-if="ca.ca_id != 38" :key="ca.ca_id">
+            <b-row v-if="![38, 46].includes(ca.ca_id)" :key="ca.ca_id">
                 <b-col class="tit">                    
                     <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
                         <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
@@ -103,7 +103,7 @@
                 </b-col>
                 <b-col class="list">
                     <b-link class="col" 
-                        v-for="(gd, i) in bestByCategory[ca.ca_id]" :key="i"
+                        v-for="(gd, i) in best_cate[ca.ca_id]" :key="i"
                         :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
                     >
                         <b-img fluid :src="gd.goods.image_src_thumb[0]" />
@@ -130,9 +130,9 @@ export default {
     data() {
         return {
             list:{
-                best:{},
+                best_main:{},
             },
-            bestByCategory: {},
+            best_cate: {},
             cateSideMenuPosition: 'absolute',
             cateSideMenuTop: 'auto',
             cateSideMenuBottom: 'auto',
@@ -157,12 +157,12 @@ export default {
     computed: {
         bestRemodel: function () {
             let dummy = [];
-            for (let i in this.list.best) {
+            for (let i in this.list.best_main) {
                 dummy.push({
-                    gd_name: this.list.best[i].gd_name, 
-                    ca01_name:  this.list.best[i].goods_category_first.gc_ca01_name,
-                    gd_id: this.list.best[i].gd_id,
-                    image: this.list.best[i].image_src_thumb[0] })
+                    gd_name: this.list.best_main[i].goods.gd_name, 
+                    ca01_name:  this.list.best_main[i].goods.goods_category_first.gc_ca01_name,
+                    gd_id: this.list.best_main[i].goods.gd_id,
+                    image: this.list.best_main[i].goods.image_src_thumb[0] })
             }
             return dummy;
         },
@@ -172,15 +172,6 @@ export default {
         slide_check02() { return this.date02 < this.date_now; },
     },
     methods: {
-        async index(frm){
-            try {
-                const res = await ax.get(`/api/shop/goods`, { params: frm});
-                if (res && res.status === 200) this.list.best = res.data.list;
-            } catch (e) {
-                Notify.consolePrint(e);
-                Notify.toast('warning', e.response.data.message);
-            }
-        },
         scrollToCate(i){
 
             // this.intervalMoveScroll = setInterval(() => {
@@ -242,8 +233,8 @@ export default {
         // this.index(this.listType.best);
 
         let rst = await ax.get(`/api/main`);
-        this.bestByCategory = rst.data.bestByCate;
-        this.list.best = rst.data.best;
+        this.best_cate = rst.data.best_cate;
+        this.list.best_main = rst.data.best_main;
         if ( this.$route.query.rst=='social_login' ) {  //  소셜 로그인 후 개인정보가 없으면
             if (isEmpty(this.$store.state.auth.user.email) || isEmpty(this.$store.state.auth.user.name) || isEmpty(this.$store.state.auth.user.birth) || isEmpty(this.$store.state.auth.user.hp)) {
                 this.$router.push({ name: 'my_user_edit'});

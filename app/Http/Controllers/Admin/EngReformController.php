@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{EngReform};
 use DB;
-use Cache;
 
 class EngReformController extends Controller {
 
@@ -27,7 +26,7 @@ class EngReformController extends Controller {
             }
         }        
         $data['list'] = $eng->latest()->paginate(10);
-		$data['mng_off'] = Cache::get('UserMngOff');
+		$data['mng_off'] = json_decode(Illuminate\Support\Facades\Redis::get('UserMngOff'));
         return response()->json($data, 200);
     }
 

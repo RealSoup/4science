@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\{DB, Validator, Input, Cache};
 use Storage;
+use Illuminate\Support\Facades\Redis;
 
 class Category extends Model {
     use SoftDeletes;
@@ -42,7 +43,7 @@ class Category extends Model {
     public function getName($ca_id) { return $this->find($ca_id)->ca_name; }
 
     public static function getSelectedCate ($ca01=0, $ca02=0, $ca03=0) {
-        $cate = Cache::get('categoryAll');
+        $cate = json_decode(Redis::get('categoryAll'), true);
         $rst = Array();
         $rst[0] = self::filterCate($cate);
         foreach ($cate as $v_1){
@@ -80,7 +81,7 @@ class Category extends Model {
 		}
 		return $ca;
     }
-    public function writeCateJsonFile() {
-        Storage::disk('local')->put('category.json', json_encode(self::getCateTree()));
-    }
+    // public function writeCateJsonFile() {
+    //     Storage::disk('local')->put('category.json', json_encode(self::getCateTree()));
+    // }
 }

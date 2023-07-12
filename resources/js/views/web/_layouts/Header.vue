@@ -206,8 +206,9 @@ export default {
 
 @media (max-width: 992px){
     #header { font-size:12px; }
-    #header #core .the_top { height:4em; justify-content:center; }
-    #header #core .the_top .logo { flex:0 0 132px; max-width:132px; }
+    #header.headerFix #afterimage { height:100px; }
+    #header #core .the_top { height:5em; justify-content:center; }
+    #header #core .the_top .logo { flex:0 0 132px; max-width:132px; margin-top:1em; }
     #header #core .the_top .logo img { width:100%; }
     #header #core .the_top .logo .season { display:none; }
     #header #core .the_top .logo .default { display:block; width:100%; }
@@ -216,16 +217,12 @@ export default {
     #header #core .nav_menu .layout #cate_btn { flex:0 0 3.25em; max-width:3.25em; text-align: center; }
     #header #core .nav_menu .layout #cate_btn>img  { margin-left:0; }
 
-    #header .sm_view { position:fixed; bottom:0; display:flex; z-index:9999999999999999999; background:#DDD; width:100%; border-radius:2em 2em 0 0;}
-    #header .sm_view a { flex-basis:0; flex-grow:1; max-width:100%; font-size:2em; text-align:center; }
-    
-    
+    #header .sm_view { position:fixed; bottom:0; display:flex; z-index:100; background:#DDD; width:100%; border-radius:2em 2em 0 0;}
+    #header .sm_view a { flex-basis:0; flex-grow:1; max-width:100%; font-size:2em; text-align:center; }    
     
     #header #core .the_top .nav_menu { position:fixed; bottom:48px; border-radius:1em 1em 0 0; background:#DDD; z-index:1; width:100%; display:flex; max-height:0; transition:max-height .2s; overflow:hidden;  }
     #header #core .the_top .nav_menu a { text-align:center; flex-basis:0; flex-grow:1; padding:8px 10px; font-size:.95em; }
     #header #core .the_top .nav_menu.view_nav { max-height:60px; }
-
-
 
     #header #core .the_top .head_sch_box { width:85%; max-width:85%; position:absolute; top:0; z-index:17; left:50%; transform:translateX(-50%); max-height:0; transition:max-height .2s; overflow:hidden; }
     #header #core .the_top .head_sch_box.view_sch { max-height:50px; }

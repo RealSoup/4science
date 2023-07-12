@@ -72,11 +72,13 @@
         </b-col>
 
         <b-col class="m_hide">
-            <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-            <template v-else>배송비</template>
-            <br />
-            <template v-if="add_vat">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</template>
-            <template v-else>{{pa[0].pa_dlvy_p | comma | won}}</template>
+            <template v-if="er_no_dlvy_fee !== 'Y'">
+                <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
+                <template v-else>배송비</template>
+                <br />
+                <template v-if="add_vat">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</template>
+                <template v-else>{{pa[0].pa_dlvy_p | comma | won}}</template>
+            </template>
         </b-col>
     </b-row>
 
@@ -122,7 +124,7 @@
 <script>
 export default { 
     name: 'PaList', 
-    props: ['value', 'price', 'user', 'add_vat', 'd_price'],
+    props: ['value', 'price', 'user', 'add_vat', 'd_price', 'er_no_dlvy_fee'],
     data() {
         return {
             

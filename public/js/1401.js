@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[1401],{61401:(e,n,t)=>{t.r(n),t.d(n,{default:()=>l});const u={name:"ShopOrderPgClose",mounted:function(){parent.INIStdPay.viewOff()}};const l=(0,t(51900).Z)(u,(function(){return(0,this._self._c)("div")}),[],!1,null,null,null).exports}}]);

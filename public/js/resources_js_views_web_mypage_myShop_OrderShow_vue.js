@@ -1,209 +1,27 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_mypage_myShop_OrderShow_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
 var dt = new Date();
@@ -233,7 +51,7 @@ var dt = new Date();
       receiptItem: {}
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     isLoggedin: 'auth/isLoggedin',
     user: 'auth/user',
     siteInfo: 'common/siteInfo'
@@ -283,54 +101,42 @@ var dt = new Date();
     },
     downEstimateExcel: function downEstimateExcel() {
       var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/downEstimateExcel/".concat(_this.$route.params.od_id), {
-                  responseType: 'blob'
-                });
-
-              case 2:
-                res = _context.sent;
-
-                _this.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.xlsx');
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order/downEstimateExcel/".concat(_this.$route.params.od_id), {
+                responseType: 'blob'
+              });
+            case 2:
+              res = _context.sent;
+              _this.orderDocumentDown(res, 'Estimate_' + dt.format("yyyyMMdd") + '.xlsx');
+            case 4:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
     },
     downTransactionExcel: function downTransactionExcel() {
       var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/downTransactionExcel/".concat(_this2.$route.params.od_id), {
-                  responseType: 'blob'
-                });
-
-              case 2:
-                res = _context2.sent;
-
-                _this2.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.xlsx');
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order/downTransactionExcel/".concat(_this2.$route.params.od_id), {
+                responseType: 'blob'
+              });
+            case 2:
+              res = _context2.sent;
+              _this2.orderDocumentDown(res, 'Transaction_' + dt.format("yyyyMMdd") + '.xlsx');
+            case 4:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -346,28 +152,22 @@ var dt = new Date();
   },
   mounted: function mounted() {
     var _this3 = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/shop/order/".concat(_this3.$route.params.od_id));
-
-            case 2:
-              res = _context3.sent;
-
-              if (res && res.status === 200) {
-                _this3.od = res.data;
-                _this3.isLoadingModalViewed = false;
-              }
-
-            case 4:
-            case "end":
-              return _context3.stop();
-          }
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order/".concat(_this3.$route.params.od_id));
+          case 2:
+            res = _context3.sent;
+            if (res && res.status === 200) {
+              _this3.od = res.data;
+              _this3.isLoadingModalViewed = false;
+            }
+          case 4:
+          case "end":
+            return _context3.stop();
         }
       }, _callee3);
     }))();
@@ -376,21 +176,228 @@ var dt = new Date();
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("b-container", {
+    staticClass: "w_fence"
+  }, [_c("h3", [_vm._v("주문 정보")]), _vm._v(" "), _vm.isLoadingModalViewed ? _c("loading-modal", {
+    attrs: {
+      position: "absolute"
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isLoadingModalViewed = false;
+      }
+    }
+  }, [_vm._v("Loading ......")]) : _c("div", [_c("h5", [_c("b", [_vm._v(_vm._s(_vm.od.created_at))]), _vm._v("   주문번호 " + _vm._s(_vm.od.od_no) + "  \r\n            "), _c("order-step", {
+    attrs: {
+      order_config: _vm.od.order_config
+    },
+    model: {
+      value: _vm.od.od_step,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "od_step", $$v);
+      },
+      expression: "od.od_step"
+    }
+  })], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "goods"
+  }, _vm._l(_vm.od.order_purchase_at, function (pa, pa_i) {
+    return _c("b-row", {
+      key: "pa_".concat(pa_i)
+    }, [_c("b-col", {
+      staticClass: "pa_tit"
+    }, [pa.odpa_pa_id ? _c("b", [_vm._v("업체"), _c("br"), _vm._v("직배송")]) : _c("b", [_vm._v("포사이언스"), _c("br"), _vm._v("배송")])]), _vm._v(" "), _c("b-col", {
+      staticClass: "gd_con"
+    }, [_c("b-row", [_c("b-col"), _vm._v(" "), _c("b-col", [_vm._v("주문 상품")]), _vm._v(" "), _c("b-col", [_vm._v("제조사")]), _vm._v(" "), _c("b-col", [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_vm._v("금액")]), _vm._v(" "), _c("b-col", [_vm._v("진행현황")])], 1), _vm._v(" "), _vm._l(pa.order_model, function (odm, odm_i) {
+      return _c("b-row", {
+        key: "gd_".concat(odm_i),
+        "class": {
+          model: odm.odm_type == "MODEL",
+          option: odm.odm_type == "OPTION"
+        }
+      }, [_c("b-col", {
+        staticClass: "align"
+      }, [odm.odm_type == "MODEL" ? _c("div", [odm.odm_gd_id ? _c("b-link", {
+        attrs: {
+          to: {
+            name: "goods_show",
+            params: {
+              gd_id: odm.odm_gd_id
+            }
+          }
+        }
+      }, [_c("img", {
+        attrs: {
+          src: odm.img_thumb_src
+        }
+      })]) : _c("img", {
+        attrs: {
+          src: odm.img_thumb_src
+        }
+      })], 1) : _c("b", [_vm._v("추가 옵션")])]), _vm._v(" "), _c("b-col", {
+        staticClass: "desc",
+        "class": {
+          option: odm.odm_type == "OPTION"
+        }
+      }, [odm.odm_type == "MODEL" ? [_c("b", [_vm._v(_vm._s(odm.odm_gd_name))]), _vm._v(" "), _c("p", [_vm._v("\r\n                                    제품명: " + _vm._s(odm.odm_gm_name) + " / 판매단위: " + _vm._s(odm.odm_gm_unit) + " "), _c("br"), _vm._v("\r\n                                    모델명: " + _vm._s(odm.odm_gm_code) + " / Cat.No.: " + _vm._s(odm.odm_gm_catno)), _c("br"), _vm._v("\r\n                                    사양: " + _vm._s(odm.odm_gm_spec) + "\r\n                                ")])] : [_vm._v(_vm._s(odm.odm_gm_name) + ": " + _vm._s(odm.odm_gm_spec))]], 2), _vm._v(" "), _c("b-col", {
+        staticClass: "align"
+      }, [_vm._v(_vm._s(odm.odm_mk_name))]), _vm._v(" "), _c("b-col", {
+        staticClass: "align end"
+      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(odm.odm_price_add_vat))))]), _vm._v(" "), _c("b-col", {
+        staticClass: "align"
+      }, [_vm._v(_vm._s(_vm._f("comma")(odm.odm_ea)))]), _vm._v(" "), _c("b-col", {
+        staticClass: "align"
+      }, [_c("b", {
+        staticClass: "sum"
+      }, [_vm._v("\r\n                                " + _vm._s(_vm._f("won")(_vm._f("comma")(odm.odm_price_add_vat * odm.odm_ea))) + "\r\n                            ")])]), _vm._v(" "), _c("b-col", {
+        staticClass: "align"
+      }, [odm.odm_type == "MODEL" ? [odm.order_dlvy_info.oddi_receive_date ? _c("b-badge", {
+        attrs: {
+          variant: "light"
+        }
+      }, [_vm._v("수취완료")]) : odm.order_dlvy_info.oddi_arrival_date ? _c("b-badge", {
+        attrs: {
+          variant: "success"
+        }
+      }, [_vm._v("배송완료")]) : odm.order_dlvy_info.oddi_dlvy_num ? _c("b-button", {
+        attrs: {
+          size: "sm",
+          variant: "info",
+          href: _vm.getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)
+        }
+      }, [_vm._v("배송조회")]) : _c("b-badge", {
+        attrs: {
+          variant: "primary"
+        }
+      }, [_vm._v("준비중")]), _vm._v(" "), _c("br"), _vm._v(" "), !odm.order_dlvy_info.oddi_receive_date ? [_vm.od.od_step == "40" || _vm.od.od_step == "50" ? _c("b-button", {
+        staticClass: "teal xm",
+        on: {
+          click: function click($event) {
+            return _vm.receiptConfirm(odm);
+          }
+        }
+      }, [_vm._v("수취확인")]) : _vm._e()] : _vm._e()] : _vm._e()], 2)], 1);
+    })], 2), _vm._v(" "), _c("b-col", {
+      staticClass: "dlvy_fare"
+    }, [_c("div", [pa.odpa_pa_type == "AIR" ? _c("p", [_vm._v("항공 운임료")]) : _c("p", [_vm._v("배송비")]), _vm._v("\r\n                        " + _vm._s(_vm._f("won")(_vm._f("comma")(pa.odpa_dlvy_p_add_vat))) + "\r\n                    ")])])], 1);
+  }), 1), _vm._v(" "), _c("b-container", {
+    staticClass: "sum_up"
+  }, [_c("b-row", {
+    staticClass: "total"
+  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price + _vm.od.od_surtax))))])]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_dlvy_price))))])]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "total_sub"
+  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price))))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_surtax))))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("포사이언스 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("업체 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)))])], 1)])], 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "extra_info frm_st"
+  }, [_c("b-row", [_c("b-col", [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("주문자명")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_orderer))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("연락처")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_orderer_hp))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("이메일")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_orderer_email))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("직장/학교")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_company))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st od_part"
+  }, [_vm._v("부서/학과/연구실")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_part))])], 1)], 1), _vm._v(" "), _c("b-col", [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("수령인")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_receiver))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("연락처")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_receiver_hp))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("주소")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_addr1) + " " + _vm._s(_vm.od.od_addr2))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("배송시"), _c("br"), _vm._v("요구사항")]), _c("b-col", [_vm._v(_vm._s(_vm.od.od_memo))])], 1)], 1), _vm._v(" "), _c("b-col", [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", [_vm.od.od_pay_method == "B" ? _c("span", [_vm._v("계좌이체")]) : _vm.od.od_pay_method == "E" ? _c("span", [_vm._v("에스크로")]) : _vm.od.od_pay_method == "C" ? _c("span", [_vm._v("\r\n                                카드결제\r\n                                "), _vm.od.order_pg && _vm.od.order_pg.pg_pay_type != "PSYS" ? [_c("b-button", {
+    staticClass: "sm",
+    on: {
+      click: function click($event) {
+        return _vm.openWinPop("https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=".concat(_vm.od.order_pg.pg_tid), 450, 550);
+      }
+    }
+  }, [_vm._v("매출전표")])] : _vm._e()], 2) : _vm.od.od_pay_method == "P" ? _c("span", [_vm._v("PSYS")]) : _vm.od.od_pay_method == "R" ? _c("span", [_vm._v("원격결제")]) : _vm._e()])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("입금자명")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("결제예정일")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.payPlanDisplay))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("입금계좌")]), _vm._v(" "), _c("b-col", [_vm.od.order_extra_info.oex_bank == "K" ? _c("span", [_vm._v("국민은행 - " + _vm._s(_vm.siteInfo.bank.num02))]) : _vm.od.order_extra_info.oex_bank == "W" ? _c("span", [_vm._v("우리은행 - " + _vm._s(_vm.siteInfo.bank.num01))]) : _vm._e()])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("요청서류")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.reqDocumentDisplay))])], 1)], 1)], 1)], 1), _vm._v(" "), _vm.od.od_step < 60 && !_vm.isEmpty(_vm.od.od_mng) ? _c("div", {
+    staticClass: "btn_box"
+  }, [_c("b-button", {
+    staticClass: "black lg",
+    on: {
+      click: _vm.print
+    }
+  }, [_vm._v("견적서 출력")]), _vm._v(" "), _c("b-button", {
+    staticClass: "gray lg",
+    on: {
+      click: _vm.downEstimateExcel
+    }
+  }, [_vm._v("견적서 EXCEL 다운")]), _vm._v(" "), _c("b-button", {
+    staticClass: "blue lg",
+    on: {
+      click: _vm.downTransactionExcel
+    }
+  }, [_vm._v("거래명세서 EXCEL 다운")])], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "modal"
+    }
+  }, [_vm.isModalViewed ? _c("modal", {
+    attrs: {
+      max_width: 500
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isModalViewed = false;
+      }
+    }
+  }, [_c("receipt-confirm", {
+    attrs: {
+      item: _vm.receiptItem
+    },
+    on: {
+      hide_modal: _vm.hide_modal
+    }
+  })], 1) : _vm._e()], 1)], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-width:100%; padding-left:0; padding-right:0;\n}\n.goods[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.goods .pa_tit[data-v-6f27c228] { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center;\n}\n.goods .gd_con .row.option[data-v-6f27c228] { background-color:#F4F1EC;\n}\n.goods .gd_con .row .col[data-v-6f27c228] { border-bottom:1px solid #D7D7D7; padding:.68rem; font-size:.85rem;\n}\n.goods .gd_con .row .col.align[data-v-6f27c228] { display:flex; align-items:center; justify-content:center;\n}\n.goods .gd_con .row:not(:first-child) .end[data-v-6f27c228] { justify-content:flex-end;\n}\n.goods .gd_con .row:not(:first-child) .col[data-v-6f27c228] { color:#AEAEAE;\n}\n.goods .gd_con .row:not(:first-child) .col .btn[data-v-6f27c228] { color:#AEAEAE; font-size:.9rem;\n}\n.goods .gd_con .row .col b[data-v-6f27c228] { color:#000; font-size:.95rem;\n}\n.goods .gd_con .row:first-child .col[data-v-6f27c228] { font-weight:600; line-height:1.7; padding:.86rem 0; font-size:.9rem; text-align:center;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(1) { flex:0 0 7%; max-width:7%;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(2) { border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(3) { flex:0 0 9%; max-width:9%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7;\n}\n.goods .gd_con .row .col[data-v-6f27c228]:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap;\n}\n.goods .gd_con .row .col img[data-v-6f27c228] { width:100%;\n}\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::before, \r\n.goods .gd_con .row .col[data-v-6f27c228] .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] { text-align:right; width:100%; line-height:2;\n}\n.goods .gd_con .row .col.desc.option[data-v-6f27c228] { display:flex; align-items:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle { display:block !important; text-align:center;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem;\n}\n.goods .gd_con .row .col .sum[data-v-6f27c228] .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8;\n}\n.goods .dlvy_fare[data-v-6f27c228] { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE;\n}\n.sum_up[data-v-6f27c228] { border-top:3px solid #4F637B;\n}\n.sum_up .total[data-v-6f27c228] { border-bottom:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228] { color:#000; font-weight:bold; padding:1rem .5rem;\n}\n.sum_up .total .col b[data-v-6f27c228] { font-size:1.4rem;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(odd) { padding-left:2rem; display:flex; align-items:center;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(even) { padding-right:2rem; text-align:right;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(1) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2) {  border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after,\r\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { background:#707070; width:25px; height:25px; border-radius:13px; position:absolute; right:-14px; top:19px; color:#fff; text-align:center; font-size:1.4rem; line-height:1.2;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(2):after { content:\"+\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(3) {\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(4):after { content:\"=\";\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(5) { flex-basis:19.5%; max-width:19.5%;\n}\n.sum_up .total .col[data-v-6f27c228]:nth-of-type(6) { flex-basis:21.05%; max-width:21.05%;\n}\n.sum_up .total_sub[data-v-6f27c228] { background:#F2F3F5; border-bottom-width:0;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(1) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(2) { border-right:1px solid #D6D6D6;\n}\n.sum_up .total_sub>.col[data-v-6f27c228]:nth-of-type(3) { flex-basis:40.5%; max-width:40.5%;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228] { display:flex; flex-wrap:wrap;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(1) { padding:1.3rem 1rem .5rem 1rem;\n}\n.sum_up .total_sub .col>div[data-v-6f27c228]:nth-of-type(2) { padding:0 1rem 2.5rem 1rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228] { color:#A8A9AB; font-weight:bold; font-size:.84rem;\n}\n.sum_up .total_sub .col>div .col[data-v-6f27c228]:nth-of-type(2) { text-align:right;\n}\n.extra_info[data-v-6f27c228] { margin-top:3rem; font-size:.95rem;\n}\n.extra_info>.row>.col[data-v-6f27c228] { border:1px solid #D7D7D7; padding:2%;\n}\n.extra_info>.row>.col .label_st[data-v-6f27c228] { flex-basis:88px; max-width:88px; padding-top:0;\n}\n.extra_info>.row>.col .label_st.od_part[data-v-6f27c228] { flex-basis:130px; max-width:130px;\n}\n.extra_info>.row>.col[data-v-6f27c228]:nth-of-type(1) { flex-basis:30%; max-width:30%;\n}\n.extra_info>.row>.col[data-v-6f27c228]:not(:nth-of-type(1)) { margin-left:-1px;\n}\n.extra_info>.row>.col .row[data-v-6f27c228] { margin-left: 0; margin-right: 0;\n}\r\n", ""]);
 // Exports
@@ -399,10 +406,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-6f27c228] { max-widt
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -411,7 +418,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&");
 
             
 
@@ -420,11 +427,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -478,20 +485,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
-/*!*********************************************************************************************************************!*\
-  !*** ./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
-  \*********************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&");
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -503,851 +498,22 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=template&id=6f27c228&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_template_id_6f27c228_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=template&id=6f27c228&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true&":
-/*!**********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=template&id=6f27c228&scoped=true& ***!
-  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ "./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& ***!
+  \*********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-container",
-    { staticClass: "w_fence" },
-    [
-      _c("h3", [_vm._v("주문 정보")]),
-      _vm._v(" "),
-      _vm.isLoadingModalViewed
-        ? _c(
-            "loading-modal",
-            {
-              attrs: { position: "absolute" },
-              on: {
-                "close-modal": function ($event) {
-                  _vm.isLoadingModalViewed = false
-                },
-              },
-            },
-            [_vm._v("Loading ......")]
-          )
-        : _c(
-            "div",
-            [
-              _c(
-                "h5",
-                [
-                  _c("b", [_vm._v(_vm._s(_vm.od.created_at))]),
-                  _vm._v(
-                    "   주문번호 " + _vm._s(_vm.od.od_no) + "  \r\n            "
-                  ),
-                  _c("order-step", {
-                    attrs: { order_config: _vm.od.order_config },
-                    model: {
-                      value: _vm.od.od_step,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.od, "od_step", $$v)
-                      },
-                      expression: "od.od_step",
-                    },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "goods" },
-                _vm._l(_vm.od.order_purchase_at, function (pa, pa_i) {
-                  return _c(
-                    "b-row",
-                    { key: "pa_" + pa_i },
-                    [
-                      _c("b-col", { staticClass: "pa_tit" }, [
-                        pa.odpa_pa_id
-                          ? _c("b", [
-                              _vm._v("업체"),
-                              _c("br"),
-                              _vm._v("직배송"),
-                            ])
-                          : _c("b", [
-                              _vm._v("포사이언스"),
-                              _c("br"),
-                              _vm._v("배송"),
-                            ]),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "gd_con" },
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col"),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("주문 상품")]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("제조사")]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("판매가")]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("수량")]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("금액")]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v("진행현황")]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _vm._l(pa.order_model, function (odm, odm_i) {
-                            return _c(
-                              "b-row",
-                              {
-                                key: "gd_" + odm_i,
-                                class: {
-                                  model: odm.odm_type == "MODEL",
-                                  option: odm.odm_type == "OPTION",
-                                },
-                              },
-                              [
-                                _c("b-col", { staticClass: "align" }, [
-                                  odm.odm_type == "MODEL"
-                                    ? _c(
-                                        "div",
-                                        [
-                                          odm.odm_gd_id
-                                            ? _c(
-                                                "b-link",
-                                                {
-                                                  attrs: {
-                                                    to: {
-                                                      name: "goods_show",
-                                                      params: {
-                                                        gd_id: odm.odm_gd_id,
-                                                      },
-                                                    },
-                                                  },
-                                                },
-                                                [
-                                                  _c("img", {
-                                                    attrs: {
-                                                      src: odm.img_thumb_src,
-                                                    },
-                                                  }),
-                                                ]
-                                              )
-                                            : _c("img", {
-                                                attrs: {
-                                                  src: odm.img_thumb_src,
-                                                },
-                                              }),
-                                        ],
-                                        1
-                                      )
-                                    : _c("b", [_vm._v("추가 옵션")]),
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  {
-                                    staticClass: "desc",
-                                    class: { option: odm.odm_type == "OPTION" },
-                                  },
-                                  [
-                                    odm.odm_type == "MODEL"
-                                      ? [
-                                          _c("b", [
-                                            _vm._v(_vm._s(odm.odm_gd_name)),
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("p", [
-                                            _vm._v(
-                                              "\r\n                                    제품명: " +
-                                                _vm._s(odm.odm_gm_name) +
-                                                " / 판매단위: " +
-                                                _vm._s(odm.odm_gm_unit) +
-                                                " "
-                                            ),
-                                            _c("br"),
-                                            _vm._v(
-                                              "\r\n                                    모델명: " +
-                                                _vm._s(odm.odm_gm_code) +
-                                                " / Cat.No.: " +
-                                                _vm._s(odm.odm_gm_catno)
-                                            ),
-                                            _c("br"),
-                                            _vm._v(
-                                              "\r\n                                    사양: " +
-                                                _vm._s(odm.odm_gm_spec) +
-                                                "\r\n                                "
-                                            ),
-                                          ]),
-                                        ]
-                                      : [
-                                          _vm._v(
-                                            _vm._s(odm.odm_gm_name) +
-                                              ": " +
-                                              _vm._s(odm.odm_gm_spec)
-                                          ),
-                                        ],
-                                  ],
-                                  2
-                                ),
-                                _vm._v(" "),
-                                _c("b-col", { staticClass: "align" }, [
-                                  _vm._v(_vm._s(odm.odm_mk_name)),
-                                ]),
-                                _vm._v(" "),
-                                _c("b-col", { staticClass: "align end" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm._f("won")(
-                                        _vm._f("comma")(odm.odm_price_add_vat)
-                                      )
-                                    )
-                                  ),
-                                ]),
-                                _vm._v(" "),
-                                _c("b-col", { staticClass: "align" }, [
-                                  _vm._v(_vm._s(_vm._f("comma")(odm.odm_ea))),
-                                ]),
-                                _vm._v(" "),
-                                _c("b-col", { staticClass: "align" }, [
-                                  _c("b", { staticClass: "sum" }, [
-                                    _vm._v(
-                                      "\r\n                                " +
-                                        _vm._s(
-                                          _vm._f("won")(
-                                            _vm._f("comma")(
-                                              odm.odm_price_add_vat * odm.odm_ea
-                                            )
-                                          )
-                                        ) +
-                                        "\r\n                            "
-                                    ),
-                                  ]),
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { staticClass: "align" },
-                                  [
-                                    odm.odm_type == "MODEL"
-                                      ? [
-                                          odm.order_dlvy_info.oddi_receive_date
-                                            ? _c(
-                                                "b-badge",
-                                                { attrs: { variant: "light" } },
-                                                [_vm._v("수취완료")]
-                                              )
-                                            : odm.order_dlvy_info
-                                                .oddi_arrival_date
-                                            ? _c(
-                                                "b-badge",
-                                                {
-                                                  attrs: { variant: "success" },
-                                                },
-                                                [_vm._v("배송완료")]
-                                              )
-                                            : odm.order_dlvy_info.oddi_dlvy_num
-                                            ? _c(
-                                                "b-button",
-                                                {
-                                                  attrs: {
-                                                    size: "sm",
-                                                    variant: "info",
-                                                    href: _vm.getHref(
-                                                      odm.order_dlvy_info
-                                                        .oddi_dlvy_com,
-                                                      odm.order_dlvy_info
-                                                        .oddi_dlvy_num
-                                                    ),
-                                                  },
-                                                },
-                                                [_vm._v("배송조회")]
-                                              )
-                                            : _c(
-                                                "b-badge",
-                                                {
-                                                  attrs: { variant: "primary" },
-                                                },
-                                                [_vm._v("준비중")]
-                                              ),
-                                          _vm._v(" "),
-                                          _c("br"),
-                                          _vm._v(" "),
-                                          !odm.order_dlvy_info.oddi_receive_date
-                                            ? [
-                                                _vm.od.od_step == "40" ||
-                                                _vm.od.od_step == "50"
-                                                  ? _c(
-                                                      "b-button",
-                                                      {
-                                                        staticClass: "teal xm",
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.receiptConfirm(
-                                                              odm
-                                                            )
-                                                          },
-                                                        },
-                                                      },
-                                                      [_vm._v("수취확인")]
-                                                    )
-                                                  : _vm._e(),
-                                              ]
-                                            : _vm._e(),
-                                        ]
-                                      : _vm._e(),
-                                  ],
-                                  2
-                                ),
-                              ],
-                              1
-                            )
-                          }),
-                        ],
-                        2
-                      ),
-                      _vm._v(" "),
-                      _c("b-col", { staticClass: "dlvy_fare" }, [
-                        _c("div", [
-                          pa.odpa_pa_type == "AIR"
-                            ? _c("p", [_vm._v("항공 운임료")])
-                            : _c("p", [_vm._v("배송비")]),
-                          _vm._v(
-                            "\r\n                        " +
-                              _vm._s(
-                                _vm._f("won")(
-                                  _vm._f("comma")(pa.odpa_dlvy_p_add_vat)
-                                )
-                              ) +
-                              "\r\n                    "
-                          ),
-                        ]),
-                      ]),
-                    ],
-                    1
-                  )
-                }),
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "sum_up" },
-                [
-                  _c(
-                    "b-row",
-                    { staticClass: "total" },
-                    [
-                      _c("b-col", [_vm._v("상품금액")]),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("won")(
-                                _vm._f("comma")(
-                                  _vm.od.od_gd_price + _vm.od.od_surtax
-                                )
-                              )
-                            )
-                          ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("b-col", [_vm._v("배송료")]),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("won")(
-                                _vm._f("comma")(_vm.od.od_dlvy_price)
-                              )
-                            )
-                          ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("b-col", [_vm._v("결제 예정 금액")]),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c("b", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("won")(
-                                _vm._f("comma")(_vm.od.od_all_price)
-                              )
-                            )
-                          ),
-                        ]),
-                      ]),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    { staticClass: "total_sub" },
-                    [
-                      _c("b-col", [
-                        _c(
-                          "div",
-                          [
-                            _c("b-col", [_vm._v("상품가")]),
-                            _c("b-col", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("won")(
-                                    _vm._f("comma")(_vm.od.od_gd_price)
-                                  )
-                                )
-                              ),
-                            ]),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          [
-                            _c("b-col", [_vm._v("부가세")]),
-                            _c("b-col", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("won")(
-                                    _vm._f("comma")(_vm.od.od_surtax)
-                                  )
-                                )
-                              ),
-                            ]),
-                          ],
-                          1
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c(
-                          "div",
-                          [
-                            _c("b-col", [_vm._v("포사이언스 배송")]),
-                            _c("b-col", [
-                              _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s))),
-                            ]),
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          [
-                            _c("b-col", [_vm._v("업체 배송")]),
-                            _c("b-col", [
-                              _vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other))),
-                            ]),
-                          ],
-                          1
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c(
-                          "div",
-                          [
-                            _c("b-col", [_vm._v("적립예정 마일리지")]),
-                            _c("b-col", [
-                              _vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage))),
-                            ]),
-                          ],
-                          1
-                        ),
-                      ]),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "extra_info frm_st" },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("주문자명"),
-                              ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_orderer))]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("연락처"),
-                              ]),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.od.od_orderer_hp)),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("이메일"),
-                              ]),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.od.od_orderer_email)),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("직장/학교"),
-                              ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_company))]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st od_part" }, [
-                                _vm._v("부서/학과/연구실"),
-                              ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_part))]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("수령인"),
-                              ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_receiver))]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("연락처"),
-                              ]),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.od.od_receiver_hp)),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("주소"),
-                              ]),
-                              _c("b-col", [
-                                _vm._v(
-                                  _vm._s(_vm.od.od_addr1) +
-                                    " " +
-                                    _vm._s(_vm.od.od_addr2)
-                                ),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("배송시"),
-                                _c("br"),
-                                _vm._v("요구사항"),
-                              ]),
-                              _c("b-col", [_vm._v(_vm._s(_vm.od.od_memo))]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("결제금액"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("won")(
-                                      _vm._f("comma")(_vm.od.od_all_price)
-                                    )
-                                  )
-                                ),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("결제수단"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm.od.od_pay_method == "B"
-                                  ? _c("span", [_vm._v("계좌이체")])
-                                  : _vm.od.od_pay_method == "E"
-                                  ? _c("span", [_vm._v("에스크로")])
-                                  : _vm.od.od_pay_method == "C"
-                                  ? _c(
-                                      "span",
-                                      [
-                                        _vm._v(
-                                          "\r\n                                카드결제\r\n                                "
-                                        ),
-                                        _vm.od.order_pg &&
-                                        _vm.od.order_pg.pg_pay_type != "PSYS"
-                                          ? [
-                                              _c(
-                                                "b-button",
-                                                {
-                                                  staticClass: "sm",
-                                                  on: {
-                                                    click: function ($event) {
-                                                      return _vm.openWinPop(
-                                                        "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=" +
-                                                          _vm.od.order_pg
-                                                            .pg_tid,
-                                                        450,
-                                                        550
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("매출전표")]
-                                              ),
-                                            ]
-                                          : _vm._e(),
-                                      ],
-                                      2
-                                    )
-                                  : _vm.od.od_pay_method == "P"
-                                  ? _c("span", [_vm._v("PSYS")])
-                                  : _vm.od.od_pay_method == "R"
-                                  ? _c("span", [_vm._v("원격결제")])
-                                  : _vm._e(),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("입금자명"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(
-                                  _vm._s(_vm.od.order_extra_info.oex_depositor)
-                                ),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("결제예정일"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [_vm._v(_vm._s(_vm.payPlanDisplay))]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("입금계좌"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm.od.order_extra_info.oex_bank == "K"
-                                  ? _c("span", [
-                                      _vm._v(
-                                        "국민은행 - " +
-                                          _vm._s(_vm.siteInfo.bank.num02)
-                                      ),
-                                    ])
-                                  : _vm.od.order_extra_info.oex_bank == "W"
-                                  ? _c("span", [
-                                      _vm._v(
-                                        "우리은행 - " +
-                                          _vm._s(_vm.siteInfo.bank.num01)
-                                      ),
-                                    ])
-                                  : _vm._e(),
-                              ]),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", { staticClass: "label_st" }, [
-                                _vm._v("요청서류"),
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _vm._v(_vm._s(_vm.reqDocumentDisplay)),
-                              ]),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm.od.od_step < 60 && !_vm.isEmpty(_vm.od.od_mng)
-                ? _c(
-                    "div",
-                    { staticClass: "btn_box" },
-                    [
-                      _c(
-                        "b-button",
-                        { staticClass: "black lg", on: { click: _vm.print } },
-                        [_vm._v("견적서 출력")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "gray lg",
-                          on: { click: _vm.downEstimateExcel },
-                        },
-                        [_vm._v("견적서 EXCEL 다운")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "blue lg",
-                          on: { click: _vm.downTransactionExcel },
-                        },
-                        [_vm._v("거래명세서 EXCEL 다운")]
-                      ),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-            ],
-            1
-          ),
-      _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "modal" } },
-        [
-          _vm.isModalViewed
-            ? _c(
-                "modal",
-                {
-                  attrs: { max_width: 500 },
-                  on: {
-                    "close-modal": function ($event) {
-                      _vm.isModalViewed = false
-                    },
-                  },
-                },
-                [
-                  _c("receipt-confirm", {
-                    attrs: { item: _vm.receiptItem },
-                    on: { hide_modal: _vm.hide_modal },
-                  }),
-                ],
-                1
-              )
-            : _vm._e(),
-        ],
-        1
-      ),
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderShow_vue_vue_type_style_index_0_id_6f27c228_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/mypage/myShop/OrderShow.vue?vue&type=style&index=0&id=6f27c228&lang=css&scoped=true&");
 
 
 /***/ })

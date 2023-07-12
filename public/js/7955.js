@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[7955],{67955:(n,t,e)=>{e.r(t),e.d(t,{default:()=>o});const u={name:"admCommon",data:function(){return{}},mounted:function(){},methods:{}};const o=(0,e(51900).Z)(u,(function(){var n=this._self._c;return n("div",[n("router-view")],1)}),[],!1,null,"260633dc",null).exports}}]);

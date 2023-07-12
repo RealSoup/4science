@@ -1,9 +1,9 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_engReform_Create_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -11,42 +11,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_2__);
-
-
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FileUpload',
   components: {
-    draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_2___default())
+    draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_1___default())
   },
   props: ['value', 'fi_group', 'fi_kind', 'is_thumb', 'height'],
   data: function data() {
@@ -58,96 +35,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     addFiles: function addFiles(files) {
       var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var i, src;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                i = 0;
-
-              case 1:
-                if (!(i < files.length)) {
-                  _context.next = 16;
-                  break;
-                }
-
-                src = "";
-
-                if (!files[i].type.match(/image/i)) {
-                  _context.next = 9;
-                  break;
-                }
-
-                _context.next = 6;
-                return _this.readFiles(files[i]);
-
-              case 6:
-                src = _context.sent;
-                _context.next = 10;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              i = 0;
+            case 1:
+              if (!(i < files.length)) {
+                _context.next = 16;
                 break;
-
-              case 9:
-                if (files[i].type == 'application/pdf') src = _this.s3url + "common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = _this.s3url + "common/file_icon_excel.png";else src = _this.s3url + "common/file_icon_default.png";
-
-              case 10:
-                files[i].path_thumb = src;
-                files[i].fi_original = files[i].name;
-
-                _this.value.push(files[i]);
-
-              case 13:
-                i++;
-                _context.next = 1;
+              }
+              src = "";
+              if (!files[i].type.match(/image/i)) {
+                _context.next = 9;
                 break;
-
-              case 16:
-              case "end":
-                return _context.stop();
-            }
+              }
+              _context.next = 6;
+              return _this.readFiles(files[i]);
+            case 6:
+              src = _context.sent;
+              _context.next = 10;
+              break;
+            case 9:
+              if (files[i].type == 'application/pdf') src = _this.s3url + "common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = _this.s3url + "common/file_icon_excel.png";else src = _this.s3url + "common/file_icon_default.png";
+            case 10:
+              files[i].path_thumb = src;
+              files[i].fi_original = files[i].name;
+              _this.value.push(files[i]);
+            case 13:
+              i++;
+              _context.next = 1;
+              break;
+            case 16:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
     },
     // FileReader를 통해 파일을 읽어 thumbnail 영역의 src 값으로 셋팅
     readFiles: function readFiles(files) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                return _context3.abrupt("return", new Promise(function (resolve, reject) {
-                  var reader = new FileReader();
-
-                  reader.onload = /*#__PURE__*/function () {
-                    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
-                      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-                        while (1) {
-                          switch (_context2.prev = _context2.next) {
-                            case 0:
-                              resolve(e.target.result);
-
-                            case 1:
-                            case "end":
-                              return _context2.stop();
-                          }
-                        }
-                      }, _callee2);
-                    }));
-
-                    return function (_x) {
-                      return _ref.apply(this, arguments);
-                    };
-                  }();
-
-                  reader.readAsDataURL(files);
-                }));
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                var reader = new FileReader();
+                reader.onload = /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+                    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                      while (1) switch (_context2.prev = _context2.next) {
+                        case 0:
+                          resolve(e.target.result);
+                        case 1:
+                        case "end":
+                          return _context2.stop();
+                      }
+                    }, _callee2);
+                  }));
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }();
+                reader.readAsDataURL(files);
+              }));
+            case 1:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -168,7 +123,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // 드롭을 허용하도록 prevetDefault() 호출
     onDrop: function onDrop(event) {
       event.preventDefault(); // 기본 액션을 막음 (링크 열기같은 것들)
-
       var files = event.dataTransfer.files;
       this.addFiles(files);
     },
@@ -178,43 +132,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     fileProcessor: function fileProcessor(fi_key) {
       var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var frmData, fi_room, i, upUrl;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                frmData = new FormData();
-                frmData.append('fi_group', _this2.fi_group);
-                frmData.append('fi_key', fi_key);
-                fi_room = 0;
-                if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
-                frmData.append('fi_room', fi_room);
-                frmData.append('fi_kind', _this2.fi_kind);
-                if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
-                if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);
-                if (_this2.delete_file_goods.length) frmData.append('is_delete', JSON.stringify(_this2.delete_file_goods));
-
-                for (i in _this2.value) {
-                  // this.$delete(this.value[i], 'src_thumb');
-                  // if(this.value[i].hasOwnProperty('fi_id'))
-                  //     this.value[i] = JSON.stringify(this.value[i]);
-                  if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);
-                }
-
-                upUrl = "/api/upload";
-                if (_this2.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
-                _context4.next = 15;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post(upUrl, frmData);
-
-              case 15:
-                return _context4.abrupt("return", _context4.sent);
-
-              case 16:
-              case "end":
-                return _context4.stop();
-            }
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              frmData = new FormData();
+              frmData.append('fi_group', _this2.fi_group);
+              frmData.append('fi_key', fi_key);
+              fi_room = 0;
+              if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
+              frmData.append('fi_room', fi_room);
+              frmData.append('fi_kind', _this2.fi_kind);
+              if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
+              if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);
+              if (_this2.delete_file_goods.length) frmData.append('is_delete', JSON.stringify(_this2.delete_file_goods));
+              for (i in _this2.value) {
+                // this.$delete(this.value[i], 'src_thumb');
+                // if(this.value[i].hasOwnProperty('fi_id'))
+                //     this.value[i] = JSON.stringify(this.value[i]);
+                if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);
+              }
+              upUrl = "/api/upload";
+              if (_this2.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
+              _context4.next = 15;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post(upUrl, frmData);
+            case 15:
+              return _context4.abrupt("return", _context4.sent);
+            case 16:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -224,10 +171,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -235,372 +182,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var _option_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./option.js */ "./resources/js/views/web/engReform/option.js");
-/* harmony import */ var _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/views/_common/FileUpload.vue */ "./resources/js/views/_common/FileUpload.vue");
-
-
+/* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var _option_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./option.js */ "./resources/js/views/web/engReform/option.js");
+/* harmony import */ var _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/_common/FileUpload.vue */ "./resources/js/views/_common/FileUpload.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    'file-upload': _views_common_FileUpload_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
     },
@@ -631,9 +225,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         agree: 'Y'
       },
       isLoadingModalViewed: false,
-      use_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.use_opt,
-      branch_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.branch_opt,
-      editor_opt: _option_js__WEBPACK_IMPORTED_MODULE_2__.editor_opt,
+      use_opt: _option_js__WEBPACK_IMPORTED_MODULE_1__.use_opt,
+      branch_opt: _option_js__WEBPACK_IMPORTED_MODULE_1__.branch_opt,
+      editor_opt: _option_js__WEBPACK_IMPORTED_MODULE_1__.editor_opt,
       email_domain: [],
       email_domain_slt_idx: 0,
       isModalViewed: false,
@@ -645,117 +239,92 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     store: function store() {
       var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this.frm.er_branch = _this.option.er_branch[_this.frm.er_branch_key];
-                _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
-                _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
-
-                if (!isEmpty(_this.frm.er_dlvy_at)) {
-                  _context.next = 7;
-                  break;
-                }
-
-                Notify.toast('danger', "납기일을 입력하세요.");
-                document.getElementById('er_dlvy_at').focus();
-                return _context.abrupt("return", false);
-
-              case 7:
-                if (!(isEmpty(_this.frm.er_journal_url) && _this.frm.er_format == 'FM')) {
-                  _context.next = 11;
-                  break;
-                }
-
-                Notify.toast('danger', "저널 URL을 입력하세요.");
-                document.getElementById('er_journal_url').focus();
-                return _context.abrupt("return", false);
-
-              case 11:
-                if (!isEmpty(_this.frm.er_use)) {
-                  _context.next = 15;
-                  break;
-                }
-
-                Notify.toast('danger', "문서 용도를 선택하세요.");
-                document.getElementById('er_use').focus();
-                return _context.abrupt("return", false);
-
-              case 15:
-                if (!isEmpty(_this.frm.er_branch)) {
-                  _context.next = 19;
-                  break;
-                }
-
-                Notify.toast('danger', "학문 분야를 선택하세요.");
-                document.getElementById('er_branch').focus();
-                return _context.abrupt("return", false);
-
-              case 19:
-                if (!isEmpty(_this.frm.er_branch_sub)) {
-                  _context.next = 23;
-                  break;
-                }
-
-                Notify.toast('danger', "상세 학문분야를 선택하세요.");
-                document.getElementById('er_branch_sub').focus();
-                return _context.abrupt("return", false);
-
-              case 23:
-                if (!isEmpty(_this.frm.er_eng_style)) {
-                  _context.next = 27;
-                  break;
-                }
-
-                Notify.toast('danger', "언어 스타일을 선택하세요.");
-                document.getElementById('er_eng_style').focus();
-                return _context.abrupt("return", false);
-
-              case 27:
-                if (!isEmpty(_this.frm.file_info_work)) {
-                  _context.next = 31;
-                  break;
-                }
-
-                Notify.toast('danger', "작업문서를 업로드하세요");
-                document.getElementById('er_eng_style').focus();
-                return _context.abrupt("return", false);
-
-              case 31:
-                _this.isLoadingModalViewed = true;
-                _context.next = 34;
-                return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].post("/api/engReform", _this.frm);
-
-              case 34:
-                res = _context.sent;
-
-                if (!(res && res.status === 200)) {
-                  _context.next = 42;
-                  break;
-                }
-
-                _context.next = 38;
-                return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
-
-              case 38:
-                _context.next = 40;
-                return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
-
-              case 40:
-                _this.isLoadingModalViewed = false;
-
-                _this.$router.push({
-                  name: 'my_eng_reform_index'
-                });
-
-              case 42:
-              case "end":
-                return _context.stop();
-            }
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _this.frm.er_branch = _this.option.er_branch[_this.frm.er_branch_key];
+              _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
+              _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
+              if (!isEmpty(_this.frm.er_dlvy_at)) {
+                _context.next = 7;
+                break;
+              }
+              Notify.toast('danger', "납기일을 입력하세요.");
+              document.getElementById('er_dlvy_at').focus();
+              return _context.abrupt("return", false);
+            case 7:
+              if (!(isEmpty(_this.frm.er_journal_url) && _this.frm.er_format == 'FM')) {
+                _context.next = 11;
+                break;
+              }
+              Notify.toast('danger', "저널 URL을 입력하세요.");
+              document.getElementById('er_journal_url').focus();
+              return _context.abrupt("return", false);
+            case 11:
+              if (!isEmpty(_this.frm.er_use)) {
+                _context.next = 15;
+                break;
+              }
+              Notify.toast('danger', "문서 용도를 선택하세요.");
+              document.getElementById('er_use').focus();
+              return _context.abrupt("return", false);
+            case 15:
+              if (!isEmpty(_this.frm.er_branch)) {
+                _context.next = 19;
+                break;
+              }
+              Notify.toast('danger', "학문 분야를 선택하세요.");
+              document.getElementById('er_branch').focus();
+              return _context.abrupt("return", false);
+            case 19:
+              if (!isEmpty(_this.frm.er_branch_sub)) {
+                _context.next = 23;
+                break;
+              }
+              Notify.toast('danger', "상세 학문분야를 선택하세요.");
+              document.getElementById('er_branch_sub').focus();
+              return _context.abrupt("return", false);
+            case 23:
+              if (!isEmpty(_this.frm.er_eng_style)) {
+                _context.next = 27;
+                break;
+              }
+              Notify.toast('danger', "언어 스타일을 선택하세요.");
+              document.getElementById('er_eng_style').focus();
+              return _context.abrupt("return", false);
+            case 27:
+              if (!isEmpty(_this.frm.file_info_work)) {
+                _context.next = 31;
+                break;
+              }
+              Notify.toast('danger', "작업문서를 업로드하세요");
+              document.getElementById('er_eng_style').focus();
+              return _context.abrupt("return", false);
+            case 31:
+              _this.isLoadingModalViewed = true;
+              _context.next = 34;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/engReform", _this.frm);
+            case 34:
+              res = _context.sent;
+              if (!(res && res.status === 200)) {
+                _context.next = 42;
+                break;
+              }
+              _context.next = 38;
+              return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
+            case 38:
+              _context.next = 40;
+              return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
+            case 40:
+              _this.isLoadingModalViewed = false;
+              _this.$router.push({
+                name: 'my_eng_reform_index'
+              });
+            case 42:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
@@ -775,44 +344,613 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     var _this2 = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var res, opt, er_hp, er_email;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/user/getEmailDomain");
-
-            case 2:
-              res = _context2.sent;
-              if (res && res.status === 200) _this2.email_domain = res.data;
-              _context2.next = 6;
-              return _api_http__WEBPACK_IMPORTED_MODULE_1__["default"].get("/api/engReform/getOption");
-
-            case 6:
-              opt = _context2.sent;
-              if (opt && opt.status === 200) _this2.option = opt.data;
-              er_hp = Auth.user().hp.split('-');
-              er_email = Auth.user().email.split('@');
-              _this2.frm.er_name = Auth.user().name;
-              _this2.frm.er_hp01 = er_hp[0];
-              _this2.frm.er_hp02 = er_hp[1];
-              _this2.frm.er_hp03 = er_hp[2];
-              _this2.frm.er_email01 = er_email[0];
-              _this2.frm.er_email02 = er_email[1];
-              _this2.frm.er_company = Auth.user().company;
-
-            case 17:
-            case "end":
-              return _context2.stop();
-          }
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/user/getEmailDomain");
+          case 2:
+            res = _context2.sent;
+            if (res && res.status === 200) _this2.email_domain = res.data;
+            _context2.next = 6;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/engReform/getOption");
+          case 6:
+            opt = _context2.sent;
+            if (opt && opt.status === 200) _this2.option = opt.data;
+            er_hp = Auth.user().hp.split('-');
+            er_email = Auth.user().email.split('@');
+            _this2.frm.er_name = Auth.user().name;
+            _this2.frm.er_hp01 = er_hp[0];
+            _this2.frm.er_hp02 = er_hp[1];
+            _this2.frm.er_hp03 = er_hp[2];
+            _this2.frm.er_email01 = er_email[0];
+            _this2.frm.er_email02 = er_email[1];
+            _this2.frm.er_company = Auth.user().company;
+          case 17:
+          case "end":
+            return _context2.stop();
         }
       }, _callee2);
     }))();
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("b-container", [_c("b-row", {
+    on: {
+      dragover: _vm.onDragover,
+      drop: _vm.onDrop,
+      click: _vm.onClick
+    }
+  }, [_c("b-col", {
+    staticClass: "intro",
+    "class": {
+      hide: _vm.value && _vm.value.length
+    },
+    style: {
+      minHeight: _vm.height - 30 + "px"
+    },
+    attrs: {
+      cols: "12"
+    }
+  }, [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]), _vm._v(" "), _c("input", {
+    ref: "fileInput",
+    attrs: {
+      type: "file",
+      multiple: ""
+    },
+    on: {
+      change: _vm.onFileChange
+    }
+  }), _vm._v(" "), _c("draggable", {
+    staticClass: "col-12 imgList",
+    attrs: {
+      list: _vm.value,
+      handle: ".handle"
+    },
+    on: {
+      change: function change($event) {
+        _vm.seqUpdate = true;
+      }
+    }
+  }, _vm._l(_vm.value, function (file, i) {
+    return _c("b-col", {
+      key: i,
+      attrs: {
+        cols: "6",
+        lg: "2"
+      }
+    }, [i == 0 && _vm.fi_group == "goods" && _vm.fi_kind == "goods" ? _c("div", {
+      staticClass: "ribbon ribbon-top-left"
+    }, [_c("span", [_c("b-icon-star-fill")], 1)]) : _vm._e(), _vm._v(" "), _vm.fi_group == "goods" && _vm.fi_kind == "goods" ? _c("b-button", {
+      staticClass: "handle"
+    }, [_c("b-icon-arrows-move")], 1) : _vm._e(), _vm._v(" "), _c("b-button", {
+      staticClass: "btn_del",
+      attrs: {
+        size: "sm",
+        variant: "danger"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.handleRemove(i, $event);
+        }
+      }
+    }, [_c("b-icon-x-square")], 1), _vm._v(" "), _c("b-img", {
+      attrs: {
+        thumbnail: "",
+        src: file.path_thumb
+      }
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(file.fi_original))])], 1);
+  }), 1)], 1)], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("b-container", {
+    staticClass: "w_fence",
+    attrs: {
+      id: "engReform"
+    }
+  }, [_c("h3", {
+    staticClass: "btn_box"
+  }, [_vm._v("영문교정 "), _c("b-button", {
+    staticClass: "blue lg",
+    attrs: {
+      href: "/engReform/create#engReform_form_od_top"
+    }
+  }, [_vm._v("영문 교정 신청하기")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("table", {
+    staticClass: "tbl01 t01 strong",
+    attrs: {
+      width: "100%",
+      cellpadding: "0",
+      cellspacing: "0",
+      border: "1"
+    }
+  }, [_c("tbody", [_c("tr", [_c("th", [_vm._v("서비스내용")]), _vm._v(" "), _c("td", {
+    staticClass: "other",
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서")])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("파일서식")]), _vm._v(" "), _c("td", {
+    staticClass: "other",
+    attrs: {
+      colspan: "5"
+    }
+  }, [_vm._v("\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"), _c("br"), _vm._v("\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"), _c("br"), _vm._v("\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    ")])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      rowspan: "2"
+    }
+  }, [_vm._v("일반 교정"), _c("p", [_vm._v("(부가세포함)")])]), _vm._v(" "), _c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("소요 기간")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }, [_vm._v("1~2일")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }, [_vm._v("3~4일")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }, [_vm._v("5~6일")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }, [_vm._v("7~8일")])]), _vm._v(" "), _c("tr", [_c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("페이지 단가")]), _vm._v(" "), _c("td", [_vm._v("18,700원")]), _vm._v(" "), _c("td", [_vm._v("16,500원")]), _vm._v(" "), _c("td", [_vm._v("14,300원")]), _vm._v(" "), _c("td", [_vm._v("13,200원")])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("프리미엄 교정")]), _vm._v(" "), _c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("페이지 단가")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }), _vm._v(" "), _c("td", [_vm._v("29,700원")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("논문")])]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("프리미엄 플러스 교정")]), _vm._v(" "), _c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("페이지 단가")]), _vm._v(" "), _c("td", {
+    staticClass: "bg2"
+  }), _vm._v(" "), _c("td", [_vm._v("33,000원")]), _vm._v(" "), _c("td", {
+    attrs: {
+      colspan: "2"
+    }
+  }, [_vm._v("논문 + 저널답변서 교정 포함")])])])]), _vm._v(" "), _c("ol", {
+    staticClass: "num_list"
+  }, [_c("li", [_vm._v("- 부가세 포함 가격입니다.")]), _vm._v(" "), _c("li", [_vm._v("- "), _c("b", [_vm._v("1page = 영문 200단어")]), _vm._v("를 기준합니다.")]), _vm._v(" "), _c("li", [_vm._v("- 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다.")])])])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("h5", [_vm._v("◈  서비스 내용")]), _vm._v(" "), _c("table", {
+    staticClass: "tbl01",
+    attrs: {
+      cellpadding: "0",
+      cellspacing: "0",
+      border: "1"
+    }
+  }, [_c("colgroup", [_c("col", {
+    attrs: {
+      width: "50%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: "50%"
+    }
+  })]), _vm._v(" "), _c("tbody", [_c("tr", [_c("th", {
+    staticClass: "h40"
+  }, [_vm._v("일반 교정")]), _vm._v(" "), _c("th", {
+    staticClass: "h40"
+  }, [_vm._v("프리미엄 교정")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버")]), _vm._v(" "), _c("td", [_vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("문법, 맞춤법, 오타")]), _vm._v(" "), _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("단어수 무료 축소 10%")]), _vm._v(" "), _c("td", [_vm._v("단어수 무료 축소 20%")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("레퍼런스 일관성 점검")]), _vm._v(" "), _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("저널 가이드라인 포맷팅")]), _vm._v(" "), _c("td", [_vm._v("저널 가이드라인 포맷팅")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("재교정시 50% 할인 적용"), _c("br"), _c("span", [_vm._v("(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)")])]), _vm._v(" "), _c("td", [_vm._v("논문 수정까지 고려하신다면 무료 재교정"), _c("br"), _c("span", [_vm._v("(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)")])])])])])])], 1), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", {
+    staticClass: "style01"
+  }, [_c("div", {
+    staticClass: "circle"
+  }, [_vm._v("일반 교정")]), _vm._v(" "), _c("p", [_vm._v("\r\n            영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며, \r\n            비영어권 고객과 영어권 고객 묻에게 유용합니다.\r\n        ")]), _vm._v(" "), _c("p", [_vm._v("\r\n            문서 크기에 따라 유연한 납품기일 선택이 가능합니다. \r\n            저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.\r\n        ")]), _vm._v(" "), _c("p", {
+    staticClass: "point"
+  }, [_vm._v("\r\n            합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.\r\n        ")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("ul", [_c("li", [_vm._v("- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("- 요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다.")]), _vm._v(" "), _c("li", [_vm._v("- 빠른 납기일을 제공하고 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("- 재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)")])])]), _vm._v(" "), _c("div", {
+    staticClass: "style01 premium"
+  }, [_c("div", {
+    staticClass: "circle"
+  }, [_vm._v("프리미엄 교정")]), _vm._v(" "), _c("p", [_vm._v("영문 교정 후 1년 이내 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등을 포함해 인상적인 원고로 교정해 드립니다.")]), _vm._v(" "), _c("p", [_vm._v("저널 투고 논문 교정에 만전을 기하고 싶은 분에게 최적의 서비스입니다.")]), _vm._v(" "), _c("p", {
+    staticClass: "point"
+  }, [_vm._v("저널 무료 포맷팅은 교정서비스에 포함되는 분분에 한하여 1회 무료입니다.")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("ul", [_c("li", [_vm._v("- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("- 에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다.")]), _vm._v(" "), _c("li", [_vm._v("- 원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다.")]), _vm._v(" "), _c("li", [_vm._v("- 무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다.")]), _vm._v(" "), _c("li", [_vm._v("- 저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다.")])])]), _vm._v(" "), _c("div", {
+    staticClass: "style01 plus"
+  }, [_c("div", {
+    staticClass: "circle"
+  }, [_vm._v("프리미엄 플러스")]), _vm._v(" "), _c("p", [_vm._v("프리미엄 교정 + 저널 답변서 교정")]), _vm._v(" "), _c("p", {
+    staticClass: "point"
+  }, [_vm._v("\r\n            저널 리뷰어 코멘트 하나 하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검하여 드립니다.\r\n        ")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("ul", [_c("li", [_vm._v("- 작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다.")]), _vm._v(" "), _c("li", [_vm._v("- 저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다.")]), _vm._v(" "), _c("li", [_vm._v("- 저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다.")])])]), _vm._v(" "), _c("br"), _vm._v(" "), _c("b-row", [_c("b-col", [_c("h5", [_vm._v("◈  일반 교정 VS 프리미엄 교정")]), _vm._v(" "), _c("table", {
+    staticClass: "tbl01",
+    attrs: {
+      cellpadding: "0",
+      cellspacing: "0",
+      border: "1"
+    }
+  }, [_c("colgroup", [_c("col", {
+    attrs: {
+      width: "50%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: "25%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: "25%"
+    }
+  })]), _vm._v(" "), _c("tbody", [_c("tr", [_c("th", [_vm._v("교정사항")]), _vm._v(" "), _c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("일반 교정")]), _vm._v(" "), _c("td", {
+    staticClass: "bg1"
+  }, [_vm._v("프리미엄 교정")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("어휘선택")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("언어 관련 조언")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("논리체계 및 연관성")]), _vm._v(" "), _c("td", [_vm._v("X")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("체계성 및 문체: 흐름, presentation, 어조 등")]), _vm._v(" "), _c("td", [_vm._v("X")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("커버레터")]), _vm._v(" "), _c("td", [_vm._v("X")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("문장구조")]), _vm._v(" "), _c("td", [_vm._v("X")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("무료 저널 양식 맞춤")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])]), _vm._v(" "), _c("tr", {
+    attrs: {
+      id: "engReform_form_od_top"
+    }
+  }, [_c("td", [_vm._v("과학 기술 용어 체크")]), _vm._v(" "), _c("td", [_vm._v("O")]), _vm._v(" "), _c("td", [_vm._v("O")])])])])])], 1), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("br"), _vm._v(" "), _c("b-row", {
+    attrs: {
+      id: "engReform_form"
+    }
+  }, [_c("b-col", [_c("h4", [_vm._v("요청사항")]), _vm._v(" "), _c("b-container", {
+    staticClass: "frm_st"
+  }, [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("서비스 선택"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", {
+    staticClass: "col_er_type"
+  }, [_c("b-form-radio", {
+    attrs: {
+      button: "",
+      value: "1"
+    },
+    model: {
+      value: _vm.frm.er_type,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_type", $$v);
+      },
+      expression: "frm.er_type"
+    }
+  }, [_vm._v("일반 교정")]), _vm._v(" "), _c("b-form-radio", {
+    attrs: {
+      button: "",
+      value: "2"
+    },
+    model: {
+      value: _vm.frm.er_type,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_type", $$v);
+      },
+      expression: "frm.er_type"
+    }
+  }, [_vm._v("프리미엄 교정")]), _vm._v(" "), _c("b-form-radio", {
+    attrs: {
+      button: "",
+      value: "3"
+    },
+    model: {
+      value: _vm.frm.er_type,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_type", $$v);
+      },
+      expression: "frm.er_type"
+    }
+  }, [_vm._v("프리미엄플러스  교정")]), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_type
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("납기일"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", {
+    directives: [{
+      name: "b-tooltip",
+      rawName: "v-b-tooltip",
+      value: "교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.",
+      expression: "'교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.'"
+    }]
+  }, [_c("b-form-datepicker", {
+    staticClass: "mb-2",
+    attrs: {
+      id: "er_dlvy_at",
+      placeholder: "날짜를 선택하세요"
+    },
+    model: {
+      value: _vm.frm.er_dlvy_at,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_dlvy_at", $$v);
+      },
+      expression: "frm.er_dlvy_at"
+    }
+  }), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_dlvy_at
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("포맷팅"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", {
+    directives: [{
+      name: "b-tooltip",
+      rawName: "v-b-tooltip",
+      value: "저널지침에 따른 포맷팅 여부를 선택해주세요.",
+      expression: "'저널지침에 따른 포맷팅 여부를 선택해주세요.'"
+    }],
+    staticClass: "col_er_format"
+  }, [_c("b-form-radio", {
+    attrs: {
+      button: "",
+      value: "NFM",
+      id: "er_format"
+    },
+    model: {
+      value: _vm.frm.er_format,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_format", $$v);
+      },
+      expression: "frm.er_format"
+    }
+  }, [_vm._v("No-formatting")]), _vm._v(" "), _c("b-input-group", [_c("b-input-group-prepend", {
+    attrs: {
+      "is-text": ""
+    }
+  }, [_c("b-form-radio", {
+    attrs: {
+      button: "",
+      value: "FM"
+    },
+    model: {
+      value: _vm.frm.er_format,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_format", $$v);
+      },
+      expression: "frm.er_format"
+    }
+  }, [_vm._v("Formatting")])], 1), _vm._v(" "), _c("b-form-input", {
+    attrs: {
+      id: "er_journal_url",
+      placeholder: "저널 URL을 입력하세요"
+    },
+    model: {
+      value: _vm.frm.er_journal_url,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_journal_url", $$v);
+      },
+      expression: "frm.er_journal_url"
+    }
+  })], 1), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_format
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("문서용도"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+    staticClass: "len01",
+    attrs: {
+      id: "er_use"
+    },
+    model: {
+      value: _vm.frm.er_use,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_use", $$v);
+      },
+      expression: "frm.er_use"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.option.er_use, function (opt, k) {
+    return _c("b-form-select-option", {
+      key: k,
+      attrs: {
+        value: opt
+      }
+    }, [_vm._v(_vm._s(opt))]);
+  })], 2), _vm._v(" "), _c("small", {
+    staticClass: "m_hide"
+  }, [_vm._v("문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다.")]), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_use
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("학문분야"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+    staticClass: "len01",
+    attrs: {
+      id: "er_branch"
+    },
+    model: {
+      value: _vm.frm.er_branch_key,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_branch_key", $$v);
+      },
+      expression: "frm.er_branch_key"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.option.er_branch, function (opt, k) {
+    return _c("b-form-select-option", {
+      key: k,
+      attrs: {
+        value: k
+      }
+    }, [_vm._v(_vm._s(opt))]);
+  })], 2), _vm._v(" "), _c("small", {
+    staticClass: "m_hide"
+  }, [_vm._v("에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오.")]), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_branch
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("상세 학문분야"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+    staticClass: "len02",
+    attrs: {
+      id: "er_branch_sub"
+    },
+    model: {
+      value: _vm.frm.er_branch_sub,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_branch_sub", $$v);
+      },
+      expression: "frm.er_branch_sub"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.option.er_branch_sub[this.frm.er_branch_key - 1], function (opt, k) {
+    return _c("b-form-select-option", {
+      key: k,
+      attrs: {
+        value: opt
+      }
+    }, [_vm._v(_vm._s(opt))]);
+  })], 2), _vm._v(" "), _c("small", {
+    staticClass: "m_hide"
+  }, [_vm._v("어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?")]), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_branch_sub
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("언어스타일"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+    staticClass: "len01",
+    attrs: {
+      id: "er_eng_style"
+    },
+    model: {
+      value: _vm.frm.er_eng_style,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_eng_style", $$v);
+      },
+      expression: "frm.er_eng_style"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: "AM"
+    }
+  }, [_vm._v("American English")]), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
+      value: "BR"
+    }
+  }, [_vm._v("British English")])], 1), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.er_eng_style
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("작업문서 업로드"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("file-upload", {
+    ref: "fileupload1",
+    attrs: {
+      id: "file_info_work",
+      fi_group: "engReform",
+      fi_kind: "work",
+      height: 100
+    },
+    model: {
+      value: _vm.frm.file_info_work,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "file_info_work", $$v);
+      },
+      expression: "frm.file_info_work"
+    }
+  }), _vm._v(" "), _c("small", [_vm._v("최대 업로드 가능 용량 : 200MB")]), _vm._v(" "), _c("validation", {
+    attrs: {
+      error: this.$store.state.error.validations.file_info_work
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("참고문서 업로드")]), _vm._v(" "), _c("b-col", [_c("file-upload", {
+    ref: "fileupload2",
+    attrs: {
+      fi_group: "engReform",
+      fi_kind: "ref",
+      height: 100
+    },
+    model: {
+      value: _vm.frm.file_info_ref,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "file_info_ref", $$v);
+      },
+      expression: "frm.file_info_ref"
+    }
+  }), _vm._v(" "), _c("small", [_vm._v("최대 업로드 가능 용량 : 200MB")])], 1), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "fade"
+    }
+  }, [_vm.isLoadingModalViewed ? _c("loading-modal", {
+    attrs: {
+      position: ""
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isLoadingModalViewed = false;
+      }
+    }
+  }, [_vm._v("\r\n                            첨부파일 전송중 ......\r\n                        ")]) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("요구사항")]), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
+    attrs: {
+      rows: "4"
+    },
+    model: {
+      value: _vm.frm.er_demand,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "er_demand", $$v);
+      },
+      expression: "frm.er_demand"
+    }
+  })], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "btn_box"
+  }, [_c("b-button", {
+    staticClass: "blue xl",
+    on: {
+      click: _vm.store
+    }
+  }, [_vm._v("제출하기")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
 
 /***/ }),
 
@@ -825,9 +963,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "use_opt": () => (/* binding */ use_opt),
-/* harmony export */   "branch_opt": () => (/* binding */ branch_opt),
-/* harmony export */   "editor_opt": () => (/* binding */ editor_opt)
+/* harmony export */   branch_opt: () => (/* binding */ branch_opt),
+/* harmony export */   editor_opt: () => (/* binding */ editor_opt),
+/* harmony export */   use_opt: () => (/* binding */ use_opt)
 /* harmony export */ });
 var use_opt = [{
   value: '',
@@ -2186,10 +2324,10 @@ var editor_opt = [[{
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2197,11 +2335,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border:2px solid #D7D7D7; border-radius: 0.25rem; padding:15px;\n}\n.container .row[data-v-8654cdbe] { cursor:pointer; margin-bottom:0;\n}\n.container .row .intro[data-v-8654cdbe] { display:flex; justify-content:center; align-items:center; font-size:.9rem; color:#AAA;\n}\n.container .row .intro.hide[data-v-8654cdbe] { display:none;\n}\n.container .row input[type=\"file\"][data-v-8654cdbe] { display:none;\n}\n.container .row .imgList[data-v-8654cdbe] { display:flex; flex-wrap:wrap; padding:0;\n}\n.container .row .imgList>div[data-v-8654cdbe] { overflow:hidden; position:relative; margin-bottom:2rem;\n}\n.container .row .imgList>div button[data-v-8654cdbe] { position:absolute; top:0; padding:0px 4px; transform:translateY(-120%); transition:transform 0.5s ease;\n}\n.container .row .imgList>div .handle[data-v-8654cdbe] { left:50%; transform:translateX(-50%) translateY(-120%);\n}\n.container .row .imgList>div .btn_del[data-v-8654cdbe] { right:15px;\n}\n.container .row .imgList>div img[data-v-8654cdbe] { width:100%; height:100%; max-height:200px; -o-object-fit:cover; object-fit:cover; border-radius:10px;\n}\n.container .row .imgList>div>span[data-v-8654cdbe] { position:absolute; bottom:0; left:0; background:#fff; display:block; opacity:.8; width:calc(100% - 30px); transform:translateY(120%); transition: transform 0.5s ease; text-align:center; padding:5px; margin:0 15px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; border-radius:10px;\n}\n.container .row .imgList>div:hover>span[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div:hover .handle[data-v-8654cdbe] { transform:translateX(-50%) translateY(0);\n}\n.container .row .imgList>div:hover .btn_del[data-v-8654cdbe] { transform:translateY(0);\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe] { width:75px; height:75px; overflow:hidden; position:absolute;\n}\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon[data-v-8654cdbe]::after { position: absolute; z-index:1; content: ''; display: block; border: 5px solid #2980b9;\n}\n.container .row .imgList>div .ribbon span[data-v-8654cdbe] { position: absolute; display: block; width:140px; padding:5px 0; background-color: #3498db; box-shadow: 0 5px 10px rgba(0,0,0,.1); color: #fff; font:700 13px/1 'Lato', sans-serif; text-shadow: 0 1px 1px rgba(0,0,0,.2); text-transform: uppercase; text-align: center;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe] { top:5px; left:5px;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before,\r\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { border-top-color: transparent; border-left-color: transparent;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::before { top: 0; right: 0;\n}\n.container .row .imgList>div .ribbon-top-left[data-v-8654cdbe]::after { bottom: 0; left: 0;\n}\n.container .row .imgList>div .ribbon-top-left span[data-v-8654cdbe] { right:-25px; top:18px; transform: rotate(-45deg);\n}\n@media (min-width: 992px){\n.col-lg-2[data-v-8654cdbe] { flex:0 0 200px; max-width:200px;\n}}\r\n", ""]);
 // Exports
@@ -2210,10 +2348,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-8654cdbe] { border
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2221,11 +2359,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
 // Imports
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-5d903260] { margin-top:0; text-align:left;\n}\n.w_fence .lg[data-v-5d903260] { padding: 7px 0px; margin-left:1rem;\n}\n#engReform[data-v-5d903260] { max-width: 60rem; margin: auto;\n}\n#engReform>.row>.col[data-v-5d903260] { padding:0;\n}\n#engReform .row .col h5[data-v-5d903260] { margin:30px 0 20px 20px;\n}\n.tbl01[data-v-5d903260] { width:100%; border:5px solid #E1E1E1;\n}\n.tbl01.strong tr th[data-v-5d903260],\r\n.tbl01.strong tr td[data-v-5d903260] { font-weight:bold;\n}\n.tbl01 tr th[data-v-5d903260],\r\n.tbl01 tr td[data-v-5d903260] { text-align:center; font-size:.9rem;\n}\n.tbl01 tr th[data-v-5d903260] { background:#4F708F; color:#fff; text-align:center; width:300px; padding:10px 0;\n}\n.tbl01 tr td[data-v-5d903260] { padding:10px 30px;\n}\n.tbl01 tr td.bg1[data-v-5d903260] { background:#B7B7B7;\n}\n.tbl01 tr td.bg2[data-v-5d903260] { background:#EFF0F2;\n}\n.tbl01 tr td.other[data-v-5d903260] { text-align:left; font-weight:normal;\n}\nol.num_list[data-v-5d903260] { margin:15px 0 0 40px;\n}\nol.num_list li[data-v-5d903260] { list-style-type:decimal; font-size:.82rem; margin:.3rem 0;\n}\nol.num_list li:first-child b[data-v-5d903260] { color:#0094EA;\n}\n.style01[data-v-5d903260] { border:3px solid #7EA8DA; position:relative; padding:22px 80px 30px 140px; border-radius:2.7rem; margin:2.5rem -15px 2.5rem 4rem;\n}\n.style01 .circle[data-v-5d903260] { position:absolute; top:50%; left:-6%; transform:translateY(-50%); background:#7EA8DA; width:170px; padding:67px 0; text-align:center; font-size:1.25rem; color:#fff; font-weight:bold; border-radius:50%;\n}\n.style01 p[data-v-5d903260] { font-weight:bold; margin-bottom:.1rem;\n}\n.style01 .point[data-v-5d903260] { color:#0094EA; margin-top:.7rem;font-size:1.2rem;\n}\n.style01 hr[data-v-5d903260] { border-color:#D7D7D7;\n}\n.style01.premium[data-v-5d903260] { border-color:#5674BA;\n}\n.style01.premium .circle[data-v-5d903260] { background:#5674BA;\n}\n.style01.plus[data-v-5d903260] { border-color:#855FAA;\n}\n.style01.plus .circle[data-v-5d903260] { background:#855FAA;\n}\n#engReform .row .user[data-v-5d903260] { flex-basis:38%; max-width:38%; margin-right:45px;\n}\n#engReform .row .user .rs_modal[data-v-5d903260] { color:#1a1a1a;\n}\n.frm_st .row .col.label_st[data-v-5d903260] { font-size:.9rem; flex-basis:115px; max-width:115px;\n}\n.frm_st .row .col small[data-v-5d903260] { font-size:.68rem; color:#999; margin-left:.6rem;\n}\n.frm_st .row .col small.line2[data-v-5d903260]  { width:45%; display:inline-block;\n}\n.frm_st .row .col .len01[data-v-5d903260] { width:40%; float:left;\n}\n.frm_st .row .col .len02[data-v-5d903260] { width:50%; float:left;\n}\n.frm_st .row .col_er_type>div[data-v-5d903260]:not(:last-child) { margin-right:12px;\n}\n.frm_st .row .col .b-form-btn-label-control[data-v-5d903260] { background:#F2F3F5;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:first-child { float:left;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:last-child { float:right; border:2px solid #1A90D6; border-radius:17px; overflow:hidden;\n}\n.frm_st .row .col_er_format .input-group[data-v-5d903260] { width:80%;\n}\n.frm_st .row .col_er_format .input-group .input-group-text[data-v-5d903260] { padding:0; border-width:0; background:none;\n}\n.frm_st .row .col_er_format .input-group input[data-v-5d903260] { height:auto;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn { border-width:0 !important;\n}\n.frm_st .row .col[data-v-5d903260] .input-group .btn-group-toggle .btn.active { border-radius: 20px 0 0 20px;\n}\n.frm_st .row .col input[data-v-5d903260], \r\n.frm_st .row .col select[data-v-5d903260], \r\n.frm_st .row .col textarea[data-v-5d903260] { padding:2px 16px;\n}\n.frm_st .row .col input[data-v-5d903260]:focus, \r\n.frm_st .row .col select[data-v-5d903260]:focus, \r\n.frm_st .row .col textarea[data-v-5d903260]:focus { background: #fff; border-width:0 !important;\n}\n.frm_st .row .col.hp span[data-v-5d903260]:not(:last-child):after { right: -14px;\n}\n.frm_st .row .col.email span[data-v-5d903260]:first-child:after { right:-19px;\n}\n@media (max-width: 992px){\n.tbl01 tr td[data-v-5d903260] { padding:5px;\n}\n.tbl01.t01 tr th[data-v-5d903260] { width:20%;\n}\n.style01[data-v-5d903260] { margin: 0px -17px; border-radius: 6px; padding: 5px;\n}\n.style01 .circle[data-v-5d903260] { position:static; transform:none; padding:6px 0; border-radius:4px;\n}\n.frm_st .row .col.label_st[data-v-5d903260] { flex-basis:100%; max-width:100%;\n}\n.frm_st .row .col_er_type>div[data-v-5d903260]:not(:last-child) { margin-right:0;\n}\n.frm_st .row .col_er_format>div[data-v-5d903260]:last-child { float:right;\n}\n.frm_st .row .col_er_format .input-group[data-v-5d903260] { width:100%;\n}\n.btn_box[data-v-5d903260] { margin-top: 1rem;\n}\n.btn.xl[data-v-5d903260],\r\n    .frm_st .row .col .len01[data-v-5d903260],\r\n    .frm_st .row .col .len02[data-v-5d903260] { width:100%;\n}\n}\r\n", ""]);
 // Exports
@@ -2243,10 +2381,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3[data-v-5d903260] { margi
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "MultiDrag": () => (/* binding */ MultiDragPlugin),
-/* harmony export */   "Sortable": () => (/* binding */ Sortable),
-/* harmony export */   "Swap": () => (/* binding */ SwapPlugin)
+/* harmony export */   MultiDrag: () => (/* binding */ MultiDragPlugin),
+/* harmony export */   Sortable: () => (/* binding */ Sortable),
+/* harmony export */   Swap: () => (/* binding */ SwapPlugin),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /**!
  * Sortable 1.10.2
@@ -5951,10 +6089,10 @@ Sortable.mount(Remove, Revert);
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5964,7 +6102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&");
 
             
 
@@ -5973,18 +6111,18 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5994,7 +6132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&");
 
             
 
@@ -6003,11 +6141,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -6104,8 +6242,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -6120,34 +6258,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
-/*!************************************************************************************************************!*\
-  !*** ./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
-  \************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&");
-
-
-/***/ }),
-
-/***/ "./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
-  \**************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&");
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -6160,10 +6272,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_8654cdbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true&");
 
 
 /***/ }),
@@ -6177,1336 +6289,36 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=5d903260&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_5d903260_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=template&id=5d903260&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=template&id=8654cdbe&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/***/ "./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& ***!
+  \************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-container",
-    [
-      _c(
-        "b-row",
-        {
-          on: {
-            dragover: _vm.onDragover,
-            drop: _vm.onDrop,
-            click: _vm.onClick,
-          },
-        },
-        [
-          _c(
-            "b-col",
-            {
-              staticClass: "intro",
-              class: { hide: _vm.value && _vm.value.length },
-              style: { minHeight: _vm.height - 30 + "px" },
-              attrs: { cols: "12" },
-            },
-            [_vm._v("파일을 드래그 하거나, 여기를 클릭하여 첨부")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            ref: "fileInput",
-            attrs: { type: "file", multiple: "" },
-            on: { change: _vm.onFileChange },
-          }),
-          _vm._v(" "),
-          _c(
-            "draggable",
-            {
-              staticClass: "col-12 imgList",
-              attrs: { list: _vm.value, handle: ".handle" },
-              on: {
-                change: function ($event) {
-                  _vm.seqUpdate = true
-                },
-              },
-            },
-            _vm._l(_vm.value, function (file, i) {
-              return _c(
-                "b-col",
-                { key: i, attrs: { cols: "6", lg: "2" } },
-                [
-                  i == 0 && _vm.fi_group == "goods" && _vm.fi_kind == "goods"
-                    ? _c("div", { staticClass: "ribbon ribbon-top-left" }, [
-                        _c("span", [_c("b-icon-star-fill")], 1),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.fi_group == "goods" && _vm.fi_kind == "goods"
-                    ? _c(
-                        "b-button",
-                        { staticClass: "handle" },
-                        [_c("b-icon-arrows-move")],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "b-button",
-                    {
-                      staticClass: "btn_del",
-                      attrs: { size: "sm", variant: "danger" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.handleRemove(i, $event)
-                        },
-                      },
-                    },
-                    [_c("b-icon-x-square")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-img", {
-                    attrs: { thumbnail: "", src: file.path_thumb },
-                  }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(file.fi_original))]),
-                ],
-                1
-              )
-            }),
-            1
-          ),
-        ],
-        1
-      ),
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_style_index_0_id_8654cdbe_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/_common/FileUpload.vue?vue&type=style&index=0&id=8654cdbe&lang=css&scoped=true&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true&":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=template&id=5d903260&scoped=true& ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& ***!
+  \**************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-container",
-    { staticClass: "w_fence", attrs: { id: "engReform" } },
-    [
-      _c(
-        "h3",
-        { staticClass: "btn_box" },
-        [
-          _vm._v("영문교정 "),
-          _c(
-            "b-button",
-            {
-              staticClass: "blue lg",
-              attrs: { href: "/engReform/create#engReform_form_od_top" },
-            },
-            [_vm._v("영문 교정 신청하기")]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c(
-              "table",
-              {
-                staticClass: "tbl01 t01 strong",
-                attrs: {
-                  width: "100%",
-                  cellpadding: "0",
-                  cellspacing: "0",
-                  border: "1",
-                },
-              },
-              [
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", [_vm._v("서비스내용")]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "other", attrs: { colspan: "5" } },
-                      [
-                        _vm._v(
-                          "영어논문교정, 기업용브로셔, 홍보문서, E-mail, 계약서 등 각종 영어문서"
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("파일서식")]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "other", attrs: { colspan: "5" } },
-                      [
-                        _vm._v(
-                          "\r\n                        MS word 파일, LaTex파일, TeX파일, PDF파일, 텍스트 파일, MS Excel파일, PPT파일"
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\r\n                        (PDF, LaTex 와 TeX (.tex) 형식의 파일에는 15%의 추가요금이 적용됩니다)"
-                        ),
-                        _c("br"),
-                        _vm._v(
-                          "\r\n                        PDF 파일은 복잡한 교정과정을 수작업으로 진행으로 프리미엄 교정이 불가합니다.\r\n                    "
-                        ),
-                      ]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", { attrs: { rowspan: "2" } }, [
-                      _vm._v("일반 교정"),
-                      _c("p", [_vm._v("(부가세포함)")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("소요 기간")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("1~2일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("3~4일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("5~6일")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }, [_vm._v("7~8일")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("18,700원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("16,500원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("14,300원")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("13,200원")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("프리미엄 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("29,700원")]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("논문")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", [_vm._v("프리미엄 플러스 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("페이지 단가")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg2" }),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("33,000원")]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [
-                      _vm._v("논문 + 저널답변서 교정 포함"),
-                    ]),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c("ol", { staticClass: "num_list" }, [
-              _c("li", [_vm._v("- 부가세 포함 가격입니다.")]),
-              _vm._v(" "),
-              _c("li", [
-                _vm._v("- "),
-                _c("b", [_vm._v("1page = 영문 200단어")]),
-                _vm._v("를 기준합니다."),
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _vm._v(
-                  "- 페이지 수에 따라 납품기일이 다소 변경될 수 있습니다."
-                ),
-              ]),
-            ]),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("h5", [_vm._v("◈  서비스 내용")]),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "tbl01",
-                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
-              },
-              [
-                _c("colgroup", [
-                  _c("col", { attrs: { width: "50%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "50%" } }),
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", { staticClass: "h40" }, [_vm._v("일반 교정")]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "h40" }, [_vm._v("프리미엄 교정")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v(
-                        "경제적인 가격으로 영어문서 집필과정에서 필요한 모든 교정 커버"
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v("논문 문장 및 문단 구조와 흐름, 논리 체계"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("문법, 맞춤법, 오타")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("문법, 맞춤법 및 오타 점검")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("단어수 무료 축소 10%")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("단어수 무료 축소 20%")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("레퍼런스 일관성 점검")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("레퍼런스 일관성 및 정확성 체크")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("저널 가이드라인 포맷팅")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("재교정시 50% 할인 적용"),
-                      _c("br"),
-                      _c("span", [
-                        _vm._v(
-                          "(논문을 광범위하게 수정을 하지 않은 경우. 예를 들어, 수정 사항이 50% 이하인 전체교정의 경우)"
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v("논문 수정까지 고려하신다면 무료 재교정"),
-                      _c("br"),
-                      _c("span", [
-                        _vm._v(
-                          "(수정된 문서의 글자 수가 원본보다 20% 이상 증가하지 않은 경우 재교정 무료)"
-                        ),
-                      ]),
-                    ]),
-                  ]),
-                ]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("일반 교정")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\r\n            영어 논문의 자연스러운 문장, 표현이나 문법, 구두점의 오류 등 영어 문서 집필 과정에서 필요한 모든 교정을 커버하며, \r\n            비영어권 고객과 영어권 고객 묻에게 유용합니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\r\n            문서 크기에 따라 유연한 납품기일 선택이 가능합니다. \r\n            저널 무료 포맷팅은 교정 서비스에 포함되는 부분에 한하여 1회 무료입니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "\r\n            합리적인 가격으로 영어 문서 집필 과정에서 필요한 모든 교정을 커버하고자 하는 분들을 위한 서비스입니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 요청시 에디티지 인증서 및 무료 저널 양식 맞춤 서비스를 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [_vm._v("- 빠른 납기일을 제공하고 있습니다.")]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 재교정 작업에 대해 할인을 받으실 수 있습니다. (문서 전체 재교정 의뢰시)"
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01 premium" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 교정")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "영문 교정 후 1년 이내 무료 재교정 서비스 및 논문 구성, 의미, 논리성 등을 포함해 인상적인 원고로 교정해 드립니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "저널 투고 논문 교정에 만전을 기하고 싶은 분에게 최적의 서비스입니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "저널 무료 포맷팅은 교정서비스에 포함되는 분분에 한하여 1회 무료입니다."
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 515개 분야 석박사 원어민 에디터의 논문 1차 교정 후 숙련된 리뷰어의 2차 교정까지 포함되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 에디터 중에서도 경험이 풍부한 에디터분들로 프리미엄 교정팀이 구성되어 있습니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 원고에 대한 심도 깊은 검토로 영어 언어적 측면 뿐 아니라 구성, 의미, 논리성, 스타일 등을 포함해 인상적인 원고로 교정해 드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 무료 재교정 범위에 들어가는 경우 처음 이용 시부터 1년 이내에 한해서 횟수 제한없이 무료로 다중교정을 제공합니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 제출을 위한 커버 레터 무료 작성, 영어 등급을 전문가가 평가하는 Document scorecard, 논문 퇴고에 유용한 전문가의 코멘트, 영문 교정 증명서 등이 무료로 제공됩니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "style01 plus" }, [
-        _c("div", { staticClass: "circle" }, [_vm._v("프리미엄 플러스")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("프리미엄 교정 + 저널 답변서 교정")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "point" }, [
-          _vm._v(
-            "\r\n            저널 리뷰어 코멘트 하나 하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검하여 드립니다.\r\n        "
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _vm._v(
-              "- 작성한 영문내용이 저자의 의도대로 제대로 전달되는지 점검하기 위해 논문을 포함한 저널 답변서까지 프리미엄 수준으로 교정해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 리뷰어 코멘트 하나하나 면밀히 검토 후 철저하고 정확하게 답변서가 기술되었는지 점검해드립니다."
-            ),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _vm._v(
-              "- 저널 답변서 내용을 어떻게 보강할지, 만약 새로운 데이터가 필요할 경우 학문분야 전문 에디터가 제안해드립니다."
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", [
-            _c("h5", [_vm._v("◈  일반 교정 VS 프리미엄 교정")]),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "tbl01",
-                attrs: { cellpadding: "0", cellspacing: "0", border: "1" },
-              },
-              [
-                _c("colgroup", [
-                  _c("col", { attrs: { width: "50%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "25%" } }),
-                  _vm._v(" "),
-                  _c("col", { attrs: { width: "25%" } }),
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", [_vm._v("교정사항")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("일반 교정")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "bg1" }, [_vm._v("프리미엄 교정")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("잘못된 표기 (철자, 띄어쓰기, 대소문자 구분 등)"),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("구두점 (콜론, 세미콜론, 대시 등)")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("용어, 이탤릭체 등의 통일성")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v(
-                        "문법(주어-동사 관계, 단수 복수 구분, 시제, 전치사, 관사 등)"
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("레이아웃, 폰트, 숫자 형식 등")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("어휘선택")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("언어 관련 조언")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("의미가 불분명한 텍스트에 개선안 제시")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("논리체계 및 연관성")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [
-                      _vm._v("체계성 및 문체: 흐름, presentation, 어조 등"),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("커버레터")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("문장구조")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("X")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("무료 저널 양식 맞춤")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", { attrs: { id: "engReform_form_od_top" } }, [
-                    _c("td", [_vm._v("과학 기술 용어 체크")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("O")]),
-                  ]),
-                ]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        { attrs: { id: "engReform_form" } },
-        [
-          _c(
-            "b-col",
-            [
-              _c("h4", [_vm._v("요청사항")]),
-              _vm._v(" "),
-              _c(
-                "b-container",
-                { staticClass: "frm_st" },
-                [
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("서비스 선택"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        { staticClass: "col_er_type" },
-                        [
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { button: "", value: "1" },
-                              model: {
-                                value: _vm.frm.er_type,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_type", $$v)
-                                },
-                                expression: "frm.er_type",
-                              },
-                            },
-                            [_vm._v("일반 교정")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { button: "", value: "2" },
-                              model: {
-                                value: _vm.frm.er_type,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_type", $$v)
-                                },
-                                expression: "frm.er_type",
-                              },
-                            },
-                            [_vm._v("프리미엄 교정")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: { button: "", value: "3" },
-                              model: {
-                                value: _vm.frm.er_type,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_type", $$v)
-                                },
-                                expression: "frm.er_type",
-                              },
-                            },
-                            [_vm._v("프리미엄플러스  교정")]
-                          ),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_type,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("납기일"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip",
-                              value:
-                                "교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.",
-                              expression:
-                                "'교정 완료본을 받으실 날짜를 지정하여 주세요. 교정 가능한 날짜 및 시간은 견적서로 보내드립니다.'",
-                            },
-                          ],
-                        },
-                        [
-                          _c("b-form-datepicker", {
-                            staticClass: "mb-2",
-                            attrs: {
-                              id: "er_dlvy_at",
-                              placeholder: "날짜를 선택하세요",
-                            },
-                            model: {
-                              value: _vm.frm.er_dlvy_at,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_dlvy_at", $$v)
-                              },
-                              expression: "frm.er_dlvy_at",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_dlvy_at,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("포맷팅"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip",
-                              value:
-                                "저널지침에 따른 포맷팅 여부를 선택해주세요.",
-                              expression:
-                                "'저널지침에 따른 포맷팅 여부를 선택해주세요.'",
-                            },
-                          ],
-                          staticClass: "col_er_format",
-                        },
-                        [
-                          _c(
-                            "b-form-radio",
-                            {
-                              attrs: {
-                                button: "",
-                                value: "NFM",
-                                id: "er_format",
-                              },
-                              model: {
-                                value: _vm.frm.er_format,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_format", $$v)
-                                },
-                                expression: "frm.er_format",
-                              },
-                            },
-                            [_vm._v("No-formatting")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group",
-                            [
-                              _c(
-                                "b-input-group-prepend",
-                                { attrs: { "is-text": "" } },
-                                [
-                                  _c(
-                                    "b-form-radio",
-                                    {
-                                      attrs: { button: "", value: "FM" },
-                                      model: {
-                                        value: _vm.frm.er_format,
-                                        callback: function ($$v) {
-                                          _vm.$set(_vm.frm, "er_format", $$v)
-                                        },
-                                        expression: "frm.er_format",
-                                      },
-                                    },
-                                    [_vm._v("Formatting")]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "er_journal_url",
-                                  placeholder: "저널 URL을 입력하세요",
-                                },
-                                model: {
-                                  value: _vm.frm.er_journal_url,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.frm, "er_journal_url", $$v)
-                                  },
-                                  expression: "frm.er_journal_url",
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_format,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("문서용도"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              staticClass: "len01",
-                              attrs: { id: "er_use" },
-                              model: {
-                                value: _vm.frm.er_use,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_use", $$v)
-                                },
-                                expression: "frm.er_use",
-                              },
-                            },
-                            [
-                              _c("b-form-select-option", {
-                                attrs: { value: "" },
-                              }),
-                              _vm._v(" "),
-                              _vm._l(_vm.option.er_use, function (opt, k) {
-                                return _c(
-                                  "b-form-select-option",
-                                  { key: k, attrs: { value: opt } },
-                                  [_vm._v(_vm._s(opt))]
-                                )
-                              }),
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "m_hide" }, [
-                            _vm._v(
-                              "문서의 용도에 따라 교정 어투나 스타일 등은 달라지게 됩니다."
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error: this.$store.state.error.validations.er_use,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("학문분야"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              staticClass: "len01",
-                              attrs: { id: "er_branch" },
-                              model: {
-                                value: _vm.frm.er_branch_key,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_branch_key", $$v)
-                                },
-                                expression: "frm.er_branch_key",
-                              },
-                            },
-                            [
-                              _c("b-form-select-option", {
-                                attrs: { value: "" },
-                              }),
-                              _vm._v(" "),
-                              _vm._l(_vm.option.er_branch, function (opt, k) {
-                                return _c(
-                                  "b-form-select-option",
-                                  { key: k, attrs: { value: k } },
-                                  [_vm._v(_vm._s(opt))]
-                                )
-                              }),
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "m_hide" }, [
-                            _vm._v(
-                              "에디터의 주제 분야를 보시려면 관련된 학문 분야를 먼저 선택하여 주십시오."
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations.er_branch,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("상세 학문분야"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              staticClass: "len02",
-                              attrs: { id: "er_branch_sub" },
-                              model: {
-                                value: _vm.frm.er_branch_sub,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_branch_sub", $$v)
-                                },
-                                expression: "frm.er_branch_sub",
-                              },
-                            },
-                            [
-                              _c("b-form-select-option", {
-                                attrs: { value: "" },
-                              }),
-                              _vm._v(" "),
-                              _vm._l(
-                                _vm.option.er_branch_sub[
-                                  this.frm.er_branch_key - 1
-                                ],
-                                function (opt, k) {
-                                  return _c(
-                                    "b-form-select-option",
-                                    { key: k, attrs: { value: opt } },
-                                    [_vm._v(_vm._s(opt))]
-                                  )
-                                }
-                              ),
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "m_hide" }, [
-                            _vm._v(
-                              "어떤 학문 분야/전문지식을 가진 에디터를 선호하십니까?"
-                            ),
-                          ]),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations
-                                  .er_branch_sub,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("언어스타일"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              staticClass: "len01",
-                              attrs: { id: "er_eng_style" },
-                              model: {
-                                value: _vm.frm.er_eng_style,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.frm, "er_eng_style", $$v)
-                                },
-                                expression: "frm.er_eng_style",
-                              },
-                            },
-                            [
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "AM" } },
-                                [_vm._v("American English")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-select-option",
-                                { attrs: { value: "BR" } },
-                                [_vm._v("British English")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations
-                                  .er_eng_style,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("작업문서 업로드"),
-                        _c("b", { staticClass: "need" }),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("file-upload", {
-                            ref: "fileupload1",
-                            attrs: {
-                              id: "file_info_work",
-                              fi_group: "engReform",
-                              fi_kind: "work",
-                              height: 100,
-                            },
-                            model: {
-                              value: _vm.frm.file_info_work,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "file_info_work", $$v)
-                              },
-                              expression: "frm.file_info_work",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("small", [
-                            _vm._v("최대 업로드 가능 용량 : 200MB"),
-                          ]),
-                          _vm._v(" "),
-                          _c("validation", {
-                            attrs: {
-                              error:
-                                this.$store.state.error.validations
-                                  .file_info_work,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("참고문서 업로드"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("file-upload", {
-                            ref: "fileupload2",
-                            attrs: {
-                              fi_group: "engReform",
-                              fi_kind: "ref",
-                              height: 100,
-                            },
-                            model: {
-                              value: _vm.frm.file_info_ref,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "file_info_ref", $$v)
-                              },
-                              expression: "frm.file_info_ref",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("small", [
-                            _vm._v("최대 업로드 가능 용량 : 200MB"),
-                          ]),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "transition",
-                        { attrs: { name: "fade" } },
-                        [
-                          _vm.isLoadingModalViewed
-                            ? _c(
-                                "loading-modal",
-                                {
-                                  attrs: { position: "" },
-                                  on: {
-                                    "close-modal": function ($event) {
-                                      _vm.isLoadingModalViewed = false
-                                    },
-                                  },
-                                },
-                                [
-                                  _vm._v(
-                                    "\r\n                            첨부파일 전송중 ......\r\n                        "
-                                  ),
-                                ]
-                              )
-                            : _vm._e(),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c("b-col", { staticClass: "label_st" }, [
-                        _vm._v("요구사항"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-form-textarea", {
-                            attrs: { rows: "4" },
-                            model: {
-                              value: _vm.frm.er_demand,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.frm, "er_demand", $$v)
-                              },
-                              expression: "frm.er_demand",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            { staticClass: "btn_box" },
-            [
-              _c(
-                "b-button",
-                { staticClass: "blue xl", on: { click: _vm.store } },
-                [_vm._v("제출하기")]
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_style_index_0_id_5d903260_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/engReform/Create.vue?vue&type=style&index=0&id=5d903260&lang=css&scoped=true&");
 
 
 /***/ }),
@@ -8965,13 +7777,13 @@ module.exports = function (IS_INCLUDES) {
 /***/ }),
 
 /***/ "c649":
-/***/ (function(module, __webpack_exports__, __nested_webpack_require_42729__) {
+/***/ (function(module, __nested_webpack_exports__, __nested_webpack_require_42729__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __nested_webpack_require_42729__.d(__webpack_exports__, "c", function() { return insertNodeAt; });
-/* harmony export (binding) */ __nested_webpack_require_42729__.d(__webpack_exports__, "a", function() { return camelize; });
-/* harmony export (binding) */ __nested_webpack_require_42729__.d(__webpack_exports__, "b", function() { return console; });
-/* harmony export (binding) */ __nested_webpack_require_42729__.d(__webpack_exports__, "d", function() { return removeNode; });
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __nested_webpack_require_42729__.d(__nested_webpack_exports__, "c", function() { return insertNodeAt; });
+/* harmony export (binding) */ __nested_webpack_require_42729__.d(__nested_webpack_exports__, "a", function() { return camelize; });
+/* harmony export (binding) */ __nested_webpack_require_42729__.d(__nested_webpack_exports__, "b", function() { return console; });
+/* harmony export (binding) */ __nested_webpack_require_42729__.d(__nested_webpack_exports__, "d", function() { return removeNode; });
 /* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_42729__("a481");
 /* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_42729__.n(core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -9299,11 +8111,11 @@ module.exports = document && document.documentElement;
 /***/ }),
 
 /***/ "fb15":
-/***/ (function(module, __webpack_exports__, __nested_webpack_require_51548__) {
+/***/ (function(module, __nested_webpack_exports__, __nested_webpack_require_51548__) {
 
 "use strict";
 // ESM COMPAT FLAG
-__nested_webpack_require_51548__.r(__webpack_exports__);
+__nested_webpack_require_51548__.r(__nested_webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -9963,7 +8775,7 @@ if (typeof window !== "undefined" && "Vue" in window) {
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (vuedraggable);
+/* harmony default export */ var entry_lib = __nested_webpack_exports__["default"] = (vuedraggable);
 
 
 

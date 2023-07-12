@@ -70,7 +70,7 @@
 
         <div class="top_border" />
 
-        <pa-list v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" />
+        <pa-list v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" :er_no_dlvy_fee="frm.er_no_dlvy_fee" />
     </div>
 
     <div class="box est_frm">

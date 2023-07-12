@@ -1,55 +1,16 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_auth__comp_FormUser_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   data: function data() {
@@ -168,6 +129,146 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("b-col", {
+    staticClass: "extra"
+  }, [_c("h4", [_vm._v("02. 추가정보")]), _vm._v(" "), _c("b-container", {
+    staticClass: "frm_vali_st"
+  }, [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("직업")]), _c("b-col", [_c("b-form-select", {
+    attrs: {
+      options: _vm.job
+    },
+    model: {
+      value: _vm.value.job,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "job", $$v);
+      },
+      expression: "value.job"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("부서/학과/연구실명")]), _c("b-col", [_c("b-form-input", {
+    model: {
+      value: _vm.value.part,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "part", $$v);
+      },
+      expression: "value.part"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("직급/학년")]), _c("b-col", [_c("b-form-input", {
+    model: {
+      value: _vm.value.grade,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "grade", $$v);
+      },
+      expression: "value.grade"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("지도교수님")]), _c("b-col", [_c("b-form-input", {
+    model: {
+      value: _vm.value.tutor,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "tutor", $$v);
+      },
+      expression: "value.tutor"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("추천인 Email")]), _c("b-col", [_c("b-form-input", {
+    model: {
+      value: _vm.value.offer,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "offer", $$v);
+      },
+      expression: "value.offer"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("추천인 연구실")]), _c("b-col", [_c("b-form-input", {
+    model: {
+      value: _vm.value.offer_lab,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "offer_lab", $$v);
+      },
+      expression: "value.offer_lab"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "slt_item"
+  }, [_c("b-form-group", {
+    attrs: {
+      label: "관심분야"
+    }
+  }, [_c("b-form-checkbox-group", {
+    attrs: {
+      options: _vm.interest,
+      name: "interest"
+    },
+    model: {
+      value: _vm.value.interest,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "interest", $$v);
+      },
+      expression: "value.interest"
+    }
+  }), _vm._v(" "), _c("span", [_vm._v("기타")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.value.interest_etc,
+      expression: "value.interest_etc"
+    }],
+    domProps: {
+      value: _vm.value.interest_etc
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.value, "interest_etc", $event.target.value);
+      }
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "slt_item"
+  }, [_c("b-form-group", {
+    attrs: {
+      label: "가입경로"
+    }
+  }, [_c("b-form-radio-group", {
+    attrs: {
+      options: _vm.join_route
+    },
+    model: {
+      value: _vm.value.join_route,
+      callback: function callback($$v) {
+        _vm.$set(_vm.value, "join_route", $$v);
+      },
+      expression: "value.join_route"
+    }
+  })], 1)], 1)], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./resources/js/views/web/auth/_comp/FormUser.vue":
 /*!********************************************************!*\
   !*** ./resources/js/views/web/auth/_comp/FormUser.vue ***!
@@ -216,8 +317,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -229,281 +330,10 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=template&id=3d0697a6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6&");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6& ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "b-col",
-    { staticClass: "extra" },
-    [
-      _c("h4", [_vm._v("02. 추가정보")]),
-      _vm._v(" "),
-      _c(
-        "b-container",
-        { staticClass: "frm_vali_st" },
-        [
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [_vm._v("직업")]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-select", {
-                    attrs: { options: _vm.job },
-                    model: {
-                      value: _vm.value.job,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "job", $$v)
-                      },
-                      expression: "value.job",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [
-                _vm._v("부서/학과/연구실명"),
-              ]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.part,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "part", $$v)
-                      },
-                      expression: "value.part",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [_vm._v("직급/학년")]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.grade,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "grade", $$v)
-                      },
-                      expression: "value.grade",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [_vm._v("지도교수님")]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.tutor,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "tutor", $$v)
-                      },
-                      expression: "value.tutor",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [
-                _vm._v("추천인 Email"),
-              ]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.offer,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "offer", $$v)
-                      },
-                      expression: "value.offer",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { staticClass: "label_st" }, [
-                _vm._v("추천인 연구실"),
-              ]),
-              _c(
-                "b-col",
-                [
-                  _c("b-form-input", {
-                    model: {
-                      value: _vm.value.offer_lab,
-                      callback: function ($$v) {
-                        _vm.$set(_vm.value, "offer_lab", $$v)
-                      },
-                      expression: "value.offer_lab",
-                    },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                { staticClass: "slt_item" },
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: "관심분야" } },
-                    [
-                      _c("b-form-checkbox-group", {
-                        attrs: { options: _vm.interest, name: "interest" },
-                        model: {
-                          value: _vm.value.interest,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "interest", $$v)
-                          },
-                          expression: "value.interest",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("기타")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.value.interest_etc,
-                            expression: "value.interest_etc",
-                          },
-                        ],
-                        domProps: { value: _vm.value.interest_etc },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.value,
-                              "interest_etc",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                { staticClass: "slt_item" },
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: "가입경로" } },
-                    [
-                      _c("b-form-radio-group", {
-                        attrs: { options: _vm.join_route },
-                        model: {
-                          value: _vm.value.join_route,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.value, "join_route", $$v)
-                          },
-                          expression: "value.join_route",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormUser_vue_vue_type_template_id_3d0697a6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormUser.vue?vue&type=template&id=3d0697a6& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/auth/_comp/FormUser.vue?vue&type=template&id=3d0697a6&");
 
 
 /***/ })

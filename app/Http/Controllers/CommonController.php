@@ -6,6 +6,7 @@ use App\Traits\FileControl;
 use App\Models\{FileInfo, FileGoods};
 use DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redis;
 
 class CommonController extends Controller {
     use FileControl;    //  trait
@@ -94,5 +95,8 @@ class CommonController extends Controller {
             'biz'=>cache('biz'),
             'bank'=>cache('bank')
         ], 200);
+        // return response('{ "site" : '.Redis::get('site').',
+        //                    "biz" : '.Redis::get('biz').',
+        //                    "bank" : '.Redis::get('bank').'}')->header('Content-Type', 'application/json');
     }
 }

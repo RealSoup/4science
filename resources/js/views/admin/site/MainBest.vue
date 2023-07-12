@@ -10,16 +10,16 @@
         </b-col>
     </b-row>
 
-    <div class="box frm01">
-        <draggable :list="show_window" handle=".handle" class="row mt-4 list" @change="updateSeq">
-            <b-col v-for="(sw, i) in show_window" :key="sw.sw_id" cols="2" col>
+    <div class="box">
+        <draggable :list="best" handle=".handle" class="row list" @change="updateSeq">
+            <b-col v-for="(sw, i) in best" :key="sw.sw_id" cols="2" col>
                 <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
                 <b-button variant="danger" class="btn_del" @click="destroy(i)"><b-icon-x-square /></b-button>
                 <b-img :src="sw.goods.image_src_thumb[0]" />
                 <span>{{sw.goods.gd_name}}</span>
             </b-col>
-            <b-col cols="2" col class="addColumn" v-if="show_window.length < 12">
-                <GoodsSearch :group="show_window" :sw_group="sw_group" :sw_seq="show_window.length" />
+            <b-col cols="2" col class="addColumn" v-if="best.length < 6">
+                <GoodsSearch :group="best" :sw_seq="best.length" />
             </b-col>
         </draggable>
     </div>   
@@ -39,9 +39,7 @@ export default {
     },
     data() {
         return {
-            show_window: [],
-            category: {},
-            sw_group: {},
+            best: [],
             del_list: [],
         };
     },
@@ -49,34 +47,26 @@ export default {
 
     },
     methods: {
-        async index(ca_id){
-            const res = await ax.get(`/api/admin/site/mainCateGoods/${ca_id}`);
+        async index() {
+            const res = await ax.get(`/api/admin/site/mainBest`);
             if (res && res.status === 200)
-                this.show_window = res.data;
-        },
-        getSw(e) {
-            this.index(e);
+                this.best = res.data;
         },
         async update(){            
-            const res = await ax.post(`/api/admin/site/mainCateGoodsUpdate`, {show_window: this.show_window, del_list: this.del_list});
+            const res = await ax.post(`/api/admin/site/mainBestUpdate`, {best: this.best, del_list: this.del_list});
             if (res && res.status === 200)
-                Notify.toast('success', '수정 완료');      
+                Notify.toast('success', '수정 완료');
         },
         updateSeq() {
-            this.show_window.forEach((sw, i) => sw.sw_seq = i);
+            this.best.forEach((sw, i) => sw.sw_seq = i);
         },
         destroy(i) {
-            this.del_list.push( this.show_window[i].sw_id );
-            this.show_window.splice(i, 1);
+            this.del_list.push( this.best[i].sw_id );
+            this.best.splice(i, 1);
         }
     },
-    async mounted() {
-        const res = await ax.get(`/api/admin/shop/category/0`);
-        if (res && res.status === 200) {
-            this.category = res.data;
-            this.sw_group = res.data[0].ca_id
-            this.index(res.data[0].ca_id);
-        }
+    mounted() {
+        this.index();
     },
 }
 </script>

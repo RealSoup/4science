@@ -11,6 +11,7 @@ use App\Models\{User, UserMng, FileNote};
 use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport};
 use App\Mail\SendTransaction;
@@ -60,8 +61,8 @@ class OrderController extends Controller {
 		$um = new UserMng;
 		$data['mng_info'] = $um->getMngInfo();
 		$data['order_config'] = $this->order->getOrderConfig();
-		$data['mng_on'] = Cache::get('UserMngOn');
-		$data['mng_off'] = Cache::get('UserMngOff');
+		$data['mng_on'] = json_decode(Redis::get('UserMngOn'));
+		$data['mng_off'] = json_decode(Redis::get('UserMngOff'));
 		
 		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->with('user')
 							->select("shop_order.*",

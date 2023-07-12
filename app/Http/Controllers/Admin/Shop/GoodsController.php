@@ -78,7 +78,7 @@ class GoodsController extends Controller {
         $data['list'] = $gs->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
 
-        $data['mng_off'] = \Cache::get('UserMngOff');
+        $data['mng_off'] = json_decode(Illuminate\Support\Facades\Redis::get('UserMngOff'));
         
 		return response()->json($data);
     }

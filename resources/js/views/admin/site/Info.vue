@@ -141,23 +141,20 @@ export default {
         async update(){
             try {               
                 const res = await ax.post(`/api/admin/site`, this.frm);
-                // if (res && res.status === 200)
-                //     // router.push({ name: 'adm_goods_index' })
-                // else
-                //     Notify.toast('warning', '수정 실패');
+                if (res && res.status === 200)
+                    Notify.toast('success', '수정 완료');
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
-
         },
     },
     async mounted() {
         const res = await ax.get(`/api/admin/site`);
         if (res && res.status === 200) {
-            if(res.data.site) this.frm.site = res.data.site.var;
-            if(res.data.biz) this.frm.biz = res.data.biz.var;
-            if(res.data.bank) this.frm.bank = res.data.bank.var;
+            if(res.data.site) this.frm.site = res.data.site.val;
+            if(res.data.biz) this.frm.biz = res.data.biz.val;
+            if(res.data.bank) this.frm.bank = res.data.bank.val;
         }
     },
 }

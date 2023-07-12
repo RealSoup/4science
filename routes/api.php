@@ -104,8 +104,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('/', 'Admin\SiteController@index');
                 Route::PATCH('/', 'Admin\SiteController@update');
 
-                Route::GET('mainCateGoods/{ca_id}', 'Admin\SiteController@mainCateGoods');
-                Route::POST('mainCateGoodsUpdate', 'Admin\SiteController@mainCateGoodsUpdate');
+                Route::GET( 'mainCateGoods/{ca_id}','Admin\SiteController@mainCateGoods');
+                Route::POST('mainCateGoodsUpdate',  'Admin\SiteController@mainCateGoodsUpdate');
+                Route::GET( 'mainBest',             'Admin\SiteController@mainBest');
+                Route::POST('mainBestUpdate',       'Admin\SiteController@mainBestUpdate');
             });
 
             Route::RESOURCE('user', 'Admin\UserController')->only([ 'index', 'edit', 'update', 'destroy' ]);
