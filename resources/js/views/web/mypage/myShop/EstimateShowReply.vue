@@ -71,9 +71,11 @@
                     </b-col>
 
                     <b-col>
-                        <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-                        <template v-else>배송비</template>
-                        <br />
+                        <template v-if="reply.er_no_dlvy_fee !== 'Y'">
+                            <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
+                            <template v-else>배송비</template>
+                            <br />
+                        </template>                            
                         {{pa[0].pa_dlvy_p_add_vat | comma}} 원
                     </b-col>
                 </b-row>

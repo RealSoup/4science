@@ -243,6 +243,20 @@ class EstimateController extends Controller {
         $data->goods = $gd;
         $data->collect = $gd->getGoodsDataCollection($coll, 'buy_estimate');
 
+        if ($data->er_no_dlvy_fee == 'Y') { //  배송료 제외
+            //  바로 접근해서 수정하면 
+            //  Indirect modification of overloaded property 'A' 에러 난다.
+            $tmp = $data->collect;
+            $tmp['price']['total'] = intval($tmp['price']['total'])-intval($tmp['price']['dlvy_add_vat'])-intval($tmp['price']['air_add_vat']);
+            $tmp['price']['dlvy_add_vat'] = 0;
+            $tmp['price']['air_add_vat'] = 0;
+            foreach ($tmp['lists'] as $k => $pa) {
+                foreach ($pa as $k2 => $gm)
+                    $tmp['lists'][$k][$k2]['pa_dlvy_p_add_vat'] = 0;                
+            }
+            $data->collect = $tmp;
+        }
+
         return response()->json($data, 200);
     }
 

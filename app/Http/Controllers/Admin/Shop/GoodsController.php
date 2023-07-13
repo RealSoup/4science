@@ -8,6 +8,7 @@ use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, GoodsSearch, Bu
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
@@ -78,7 +79,7 @@ class GoodsController extends Controller {
         $data['list'] = $gs->paginate($req->filled('limit') ? $req->limit : 10);
         $data['list']->appends($req->all())->links();
 
-        $data['mng_off'] = json_decode(Illuminate\Support\Facades\Redis::get('UserMngOff'));
+        $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
         
 		return response()->json($data);
     }
