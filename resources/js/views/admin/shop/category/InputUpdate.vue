@@ -1,16 +1,16 @@
-<template lang="html">
-    <div class="">
-        <b-input-group size="sm">
-            <b-form-input v-model="ca.ca_name" placeholder="카테고리 명"></b-form-input>
-            <b-form-input v-model="ca.ca_tel" placeholder="담당자 번호"></b-form-input>
-            <b-input-group-append>
-                <b-button variant="warning" @click="update" v-b-tooltip.hover title="수정">
-                    <b-icon icon="tools"></b-icon>
-                </b-button>
-            </b-input-group-append>
-        </b-input-group>
-        <div v-if="validationErrors.ca_name !== undefined" class="alert alert-danger"> {{ validationErrors.ca_name }} </div>
-    </div>
+<template>
+<div>
+    <b-input-group size="sm">
+        <b-form-input v-model="ca.ca_name" placeholder="카테고리 명"></b-form-input>
+        <b-form-input v-model="ca.ca_tel" placeholder="담당자 번호"></b-form-input>
+        <b-input-group-append>
+            <b-button variant="warning" @click="update" v-b-tooltip.hover title="수정">
+                <b-icon icon="tools"></b-icon>
+            </b-button>
+        </b-input-group-append>
+    </b-input-group>
+    <div v-if="validationErrors.ca_name !== undefined" class="alert alert-danger"> {{ validationErrors.ca_name }} </div>
+</div>
 </template>
 
 <script>
@@ -39,6 +39,3 @@ export default {
     },
 }
 </script>
-
-<style lang="css" scoped>
-</style>

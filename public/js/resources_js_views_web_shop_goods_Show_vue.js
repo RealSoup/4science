@@ -91,36 +91,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     }
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
-    mngTel: function mngTel() {
-      var _this = this;
-      var mng_tel = '';
-      if (this.content.gd_mng_info) {
-        mng_tel = this.content.gd_mng_info;
-      } else if (this.content.ca04 && this.categorys[3].filter(function (ca) {
-        return ca.ca_id == _this.content.ca04;
-      })[0].ca_tel) {
-        mng_tel = this.categorys[3].filter(function (ca) {
-          return ca.ca_id == _this.content.ca04;
-        })[0].ca_tel;
-      } else if (this.content.ca03 && this.categorys[2].filter(function (ca) {
-        return ca.ca_id == _this.content.ca03;
-      })[0].ca_tel) {
-        mng_tel = this.categorys[2].filter(function (ca) {
-          return ca.ca_id == _this.content.ca03;
-        })[0].ca_tel;
-      } else if (this.content.ca02 && this.categorys[1].filter(function (ca) {
-        return ca.ca_id == _this.content.ca02;
-      })[0].ca_tel) {
-        mng_tel = this.categorys[1].filter(function (ca) {
-          return ca.ca_id == _this.content.ca02;
-        })[0].ca_tel;
-      }
-      return mng_tel;
-    },
     total: function total() {
-      var _this2 = this;
+      var _this = this;
       var model = this.content.goods_model.reduce(function (acc, el) {
-        return acc + parseInt(_this2.dealer_price_chk(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat)) * el.ea);
+        return acc + parseInt(_this.dealer_price_chk(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat)) * el.ea);
       }, 0);
       var option = this.content.goods_option.reduce(function (acc, el) {
         return acc + el.goods_option_child.reduce(function (acc02, el02) {
@@ -153,19 +127,19 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
   methods: {
     show: function show() {
-      var _this3 = this;
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/goods/".concat(_this3.$route.params.gd_id));
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/goods/".concat(_this2.$route.params.gd_id));
             case 2:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this3.content = res.data.goods;
-                _this3.categorys = res.data.categorys;
+                _this2.content = res.data.goods;
+                _this2.categorys = res.data.categorys;
               }
             case 4:
             case "end":
@@ -175,13 +149,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }))();
     },
     action: function action(type) {
-      var _this4 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var params, cntModel, estimate_price, required_key, required_key_cnt, res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              params = _this4.makeParam();
+              params = _this3.makeParam();
               cntModel = params.reduce(function (acc, el) {
                 return el.hasOwnProperty('gm_id') ? acc + 1 : acc;
               }, 0);
@@ -197,7 +171,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               break;
             case 8:
               estimate_price = false;
-              _this4.content.goods_model.forEach(function (gm) {
+              _this3.content.goods_model.forEach(function (gm) {
                 if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
               });
               if (!estimate_price) {
@@ -209,7 +183,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 13:
               required_key = Array();
               required_key_cnt = 0;
-              _this4.content.goods_option.forEach(function (go) {
+              _this3.content.goods_option.forEach(function (go) {
                 if (go.go_required == 'Y') required_key.push(go.go_id);
               });
               required_key.forEach(function (k) {
@@ -227,7 +201,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
               return _context2.abrupt("return", false);
             case 20:
-              _this4.$router.push({
+              _this3.$router.push({
                 name: 'order_settle',
                 params: {
                   od_goods: params,
@@ -237,14 +211,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _context2.abrupt("break", 38);
             case 22:
               // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
-              _this4.$store.dispatch('cart/examine', {
-                goods: _this4.content
+              _this3.$store.dispatch('cart/examine', {
+                goods: _this3.content
               });
               return _context2.abrupt("break", 38);
             case 24:
               _context2.prev = 24;
               _context2.next = 27;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this4.content.goods_model.filter(function (gm) {
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
                 return gm.ea > 0;
               }));
             case 27:
@@ -264,7 +238,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 35:
               return _context2.abrupt("break", 38);
             case 36:
-              _this4.$router.push({
+              _this3.$router.push({
                 name: 'estimate_create',
                 params: {
                   od_goods: params,
@@ -280,11 +254,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }))();
     },
     makeParam: function makeParam() {
-      var _this5 = this;
+      var _this4 = this;
       var params = [];
       this.content.goods_model.forEach(function (gm) {
         if (gm.ea > 0) params.push({
-          gd_id: _this5.content.gd_id,
+          gd_id: _this4.content.gd_id,
           gm_id: gm.gm_id,
           ea: gm.ea
         });
@@ -292,7 +266,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       this.content.goods_option.forEach(function (go) {
         go.goods_option_child.forEach(function (goc) {
           if (goc.ea > 0) params.push({
-            gd_id: _this5.content.gd_id,
+            gd_id: _this4.content.gd_id,
             go_id: go.go_id,
             goc_id: goc.goc_id,
             ea: goc.ea
@@ -365,11 +339,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     */
   },
   mounted: function mounted() {
-    var _this6 = this;
+    var _this5 = this;
     this.show();
     window.addEventListener('scroll', this.scrollListener);
     this.interval = setInterval(function () {
-      _this6.scrollHeight = document.body.scrollHeight;
+      _this5.scrollHeight = document.body.scrollHeight;
     }, 100);
   },
   beforeDestroy: function beforeDestroy() {
@@ -556,7 +530,7 @@ var render = function render() {
         "img-src": row
       }
     });
-  }), 1), _vm._v(" "), _c("ul", [_c("li", [_c("div", [_vm._v("제조사")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.maker.mk_name))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송료")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("comma")(_vm.content.dlvy_fee_add_vat)) + "원")])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송정보")]), _c("div", [_vm._v("10만원 이상 구매시 기본택배 배송료 무료")])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("납기일")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.gd_dlvy_at))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("담당자")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.mngTel))])])]), _vm._v(" "), _vm.content.purchase_at ? _c("ul", [_c("li", [_c("div", [_vm._v("직배송업체명")]), _c("div", [_vm._v(_vm._s(_vm.content.purchase_at.pa_name))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송타입")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.purchase_at.pa_type))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송료")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("comma")(_vm.content.purchase_at.pa_price_add_vat)) + "원")])])]) : _vm._e(), _vm._v(" "), _vm.content.file_goods_add.length ? _c("ul", [_c("li", [_c("div", [_vm._v("첨부파일")]), _vm._v(" "), _c("div", _vm._l(_vm.content.file_goods_add, function (file, i) {
+  }), 1), _vm._v(" "), _c("ul", [_c("li", [_c("div", [_vm._v("제조사")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.maker.mk_name))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송료")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("comma")(_vm.content.dlvy_fee_add_vat)) + "원")])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송정보")]), _c("div", [_vm._v("10만원 이상 구매시 기본택배 배송료 무료")])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("납기일")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.gd_dlvy_at))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("담당자")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.gd_mng_info))])])]), _vm._v(" "), _vm.content.purchase_at ? _c("ul", [_c("li", [_c("div", [_vm._v("직배송업체명")]), _c("div", [_vm._v(_vm._s(_vm.content.purchase_at.pa_name))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송타입")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm.content.purchase_at.pa_type))])]), _vm._v(" "), _c("li", [_c("div", [_vm._v("배송료")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(_vm._f("comma")(_vm.content.purchase_at.pa_price_add_vat)) + "원")])])]) : _vm._e(), _vm._v(" "), _vm.content.file_goods_add.length ? _c("ul", [_c("li", [_c("div", [_vm._v("첨부파일")]), _vm._v(" "), _c("div", _vm._l(_vm.content.file_goods_add, function (file, i) {
     return _c("b-button", {
       key: i,
       staticClass: "white sm mr-2",

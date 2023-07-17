@@ -75,7 +75,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       e.target.focus();
     },
     hideHiddenMenu: function hideHiddenMenu(ca) {
-      this.$set(ca, 'showMenu', false);
+      var _this = this;
+      setTimeout(function () {
+        _this.$set(ca, 'showMenu', false);
+      }, 1000);
     },
     recount: function recount() {
       this.$set(this.parent, 'hasChild', this.cate.length ? true : false);
@@ -85,15 +88,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$set(ca, 'update', true);
     },
     isDestroy: function isDestroy(ca_id, idx) {
-      var _this = this;
+      var _this2 = this;
       this.$bvModal.msgBoxConfirm("삭제 하시겠습니까?", Object.assign({
         title: '삭제 확인 안내'
       }, this.ConfirmModal)).then(function (value) {
-        if (value) _this.coDestroy(ca_id, idx);
+        if (value) _this2.coDestroy(ca_id, idx);
       })["catch"](function (err) {/* An error occurred */});
     },
     coDestroy: function coDestroy(ca_id, idx) {
-      var _this2 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var frm, res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -108,8 +111,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               res = _context.sent;
               if (res && res.status === 200) {
                 Notify.toast('success', '삭제');
-                _this2.$delete(_this2.parent.subCate, idx);
-                _this2.recount();
+                _this3.$delete(_this3.parent.subCate, idx);
+                _this3.recount();
               }
               _context.next = 12;
               break;

@@ -38,6 +38,7 @@
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.od_mng">
                     <b-form-select-option value=""></b-form-select-option>
+                    <b-form-select-option value="no">담당없음</b-form-select-option>
                     <b-form-select-option v-for="opt in mng_on" :key="opt.id" :value="opt.id">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>

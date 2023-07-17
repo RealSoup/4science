@@ -60,6 +60,7 @@ export default {
             }
         },
         async write() {
+            await this.$refs.form.$refs.tinymce_editor.editor.uploadImages();
             let res = await ax.post(`/api/admin/shop/goods`, this.frm);
             if (res && res.status === 200) {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);

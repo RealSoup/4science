@@ -22,9 +22,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://4science.net/shop/goods?ca01=26&ca02=7717" target='_blank'>
+            <!-- <a href="https://4science.net/shop/goods?ca01=26&ca02=7717" target='_blank'>
                 <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0613/estimate.jpg" />
-            </a>
+            </a> -->
         </td>
     </tr>
 
@@ -152,7 +152,7 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <table cellpadding="0" cellspacing="0" border="0">
+            <!-- <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td rowspan="3"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate01.jpg" border="0" /></td>
                     <td colspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate06.jpg" border="0" /></td>
@@ -176,7 +176,7 @@
                         </a>
                     </td>
                 </tr>
-            </table>
+            </table> -->
         </td>
     </tr>
     <tr>

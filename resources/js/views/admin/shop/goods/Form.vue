@@ -105,7 +105,7 @@
             <b-row class="align-items-baseline">
                 <b-col class="label">상품 설명</b-col>
                 <b-col class="type11">
-                    <ckeditor v-model="value.gd_desc" />
+                    <vue2-tinymce-editor v-model="value.gd_desc" ref="tinymce_editor" :options="TinymceOpt" />
                     <validation :error="$store.state.error.validations.gd_desc" />
                 </b-col>
             </b-row>
@@ -264,13 +264,13 @@
 </div>
 </template>
 
-
 <script>
 import ax from '@/api/http';
 import draggable from 'vuedraggable';
 // import Multiselect from 'vue-multiselect'
 import Ckeditor from '@/views/_common/ckeditor5/Ckeditor.vue'
 import FileUpload from '@/views/_common/FileUpload.vue'
+import { Vue2TinymceEditor } from "vue2-tinymce-editor";
 
 export default {
     name: 'GoodsForm',
@@ -282,25 +282,19 @@ export default {
         'categorys': () => import('./_comp/Categorys'),
         'ckeditor': Ckeditor,
         'maker-input': () => import('./_comp/MakerInput'),
+        Vue2TinymceEditor,
     },
-    props: ['value', 'hashs', 'purchaseAt'],
-
-    computed: {
-        gd_enable_text() {
-            return this.value.gd_enable == 'Y' ? "활성" : "비활성";
-        },
-        getHashOption() {
-            let dummy = [];
-            for (let i in this.value.hashs) {
-                dummy.push({ index: this.value.hashs[i].hs_id, label: this.value.hashs[i].hs_tag })
-            }
-            return dummy;
-        },
-    },
+    props: ['value', 'purchaseAt'],
+    computed: { gd_enable_text() { return this.value.gd_enable == 'Y' ? "활성" : "비활성"; }, },
     data() {
         return {
             list01: [], list02: [], list03: [], list04: [],
             ca01:{}, ca02:{}, ca03:{}, ca04:{},
+            TinymceOpt: {
+                height: 600,
+                automatic_uploads: false,
+                images_upload_handler: this.gd_desc_images_upload,
+            }, 
         }
     },
     methods: {
@@ -419,18 +413,40 @@ export default {
         },
 
         bd_hide(bd) { for (let key in bd) { if(bd[key].bd_ea == '' || bd[key].bd_price == '') bd.splice(key, 1); } },
-        
-        addTag (newTag) {
-            const tag = { hs_id: 0, hs_tag: newTag };
-            this.value.hash_join.push(tag);
-            this.hashs.push(tag);
+
+        gd_desc_images_upload(blobInfo, success, failure) {
+            let xhr = new XMLHttpRequest();                  
+            xhr.open('POST', '/api/uploadSimple');
+            xhr.setRequestHeader("X-CSRF-Token", document.head.querySelector("[name=csrf-token]").content);
+            
+            xhr.onload = function() {
+                if (xhr.status != 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+                let json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.location != 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+                success(json.location);
+            };
+            let fi_room = parseInt(this.value.gd_id/1000)+1;
+            let formData = new FormData();
+            formData.append( 'file', blobInfo.blob(), blobInfo.filename());
+            formData.append( 'fi_group', 'goods' );
+            formData.append( 'fi_room', fi_room );
+            formData.append( 'fi_kind', 'desc' );
+            xhr.send(formData);
+            console.log("editor upload complete");
         },
     },
     mounted() { this.getCate(0); },
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style lang="css" scoped>
 
 

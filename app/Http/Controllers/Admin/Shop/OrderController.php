@@ -65,20 +65,21 @@ class OrderController extends Controller {
 		$data['mng_off'] = json_decode(Redis::get('UserMngOff'));
 		
 		$orders = $this->order->with('OrderPurchaseAt')->with('orderExtraInfo')->with('user')
-							->select("shop_order.*",
-								DB::raw("
-								(SELECT eq_mng FROM la_shop_estimate_req WHERE eq_id = (
-									SELECT er_eq_id FROM la_shop_estimate_reply WHERE er_id = la_shop_order.od_er_id
-								)) as eq_mng_id"),
-							);
-					// ->join('users', 'users.id', '=', 'shop_order.created_id');
+		->select("shop_order.*",
+			DB::raw("
+			(SELECT eq_mng FROM la_shop_estimate_req WHERE eq_id = (
+				SELECT er_eq_id FROM la_shop_estimate_reply WHERE er_id = la_shop_order.od_er_id
+			)) as eq_mng_id"), )
+		->when($req->startDate,     fn ($q, $v) => $q->StartDate($v))
+        ->when($req->endDate,		fn ($q, $v) => $q->EndDate($v))
+		->when($req->od_type,		fn ($q, $v) => $q->where('od_type', $v))
+		->when($req->od_pay_method,	fn ($q, $v) => $q->where('od_pay_method', $v))
+		->when($req->od_step,		fn ($q, $v) => $q->where('od_step', $v))
+        ->when($req->od_mng,		function ($q, $v) {
+			if ($v == 'no') return $q->whereNull('od_mng');
+			else return $q->where('od_mng', $v);
+		});
 
-		if (isset($data['startDate']))  	$orders = $orders->StartDate($req->startDate);
-        if (isset($data['endDate']))  		$orders = $orders->EndDate($req->endDate);
-		if (isset($data['od_type']))    	$orders = $orders->where('od_type', $data['od_type']);
-		if (isset($data['od_pay_method']))	$orders = $orders->where('od_pay_method', $data['od_pay_method']);
-		if (isset($data['od_step']))   		$orders = $orders->where('od_step', $data['od_step']);
-        if (isset($data['od_mng']))    		$orders = $orders->where('od_mng', $data['od_mng']);
 		if (isset($data['startPrice'])) { 	$orders = $orders->where('od_all_price', '>=', preg_replace('/\D/', '', $data['startPrice'])); }
 		if (isset($data['endPrice'])) { 	$orders = $orders->where('od_all_price', '<=', preg_replace('/\D/', '', $data['endPrice'])); }
         if (isset($data['um_group'])) {

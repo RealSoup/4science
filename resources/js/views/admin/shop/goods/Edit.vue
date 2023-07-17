@@ -65,6 +65,7 @@ export default {
                 this.frm, // 수정하려는 객체
                 {_method : 'PATCH'} // 삽입하려는 내용
             );
+            await this.$refs.form.$refs.tinymce_editor.editor.uploadImages();
             const res = await ax.post(`/api/admin/shop/goods/${this.$route.params.gd_id}`, this.frm);
             if (res && res.status === 200) {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);

@@ -17,6 +17,8 @@ class Category extends Model {
     // public $timestamps = false;
     protected $guarded = [];
     protected $appends = ['sub_show'];
+    
+    public static $mngTel = '';
 
     // 사용자 속성 추가
     public function getSubShowAttribute() { return false; }
@@ -49,17 +51,22 @@ class Category extends Model {
         foreach ($cate as $v_1){
             if ( $v_1['ca_id'] == $ca01 ) {
                 $rst[1] = self::filterCate($v_1['sub']);
+                if($v_1['ca_tel']) self::$mngTel = $v_1['ca_tel'];
                 foreach ($v_1['sub'] as $v_2) {
                     if ( $v_2['ca_id'] == $ca02 ) {
                         $rst[2] = self::filterCate($v_2['sub']);
+                        if($v_2['ca_tel']) self::$mngTel = $v_2['ca_tel'];
                         foreach ($v_2['sub'] as $v_3) {
-                            if ( $v_3['ca_id'] == $ca03 )
+                            if ( $v_3['ca_id'] == $ca03 ) {
                                 $rst[3] = self::filterCate($v_3['sub']);
+                                if($v_3['ca_tel']) self::$mngTel = $v_3['ca_tel'];
+                            }
                         }
                     }
                 }
             }
         }
+        
         return $rst;
     }
 
@@ -74,7 +81,7 @@ class Category extends Model {
     }
 
     public function getCateTree(int $ca_id=0, int $depth=1) {
-		$ca = self::select('ca_id', 'ca_papa', 'ca_name', 'ca_seq', 'ca_seq')->ca_papa($ca_id)->oldest('ca_seq')->get()->toArray();
+		$ca = self::select('ca_id', 'ca_papa', 'ca_name', 'ca_seq', 'ca_tel')->ca_papa($ca_id)->oldest('ca_seq')->get()->toArray();
 		if ($depth < 4) {
 			foreach ($ca as $key => $val)
 				$ca[$key]['sub'] = self::getCateTree($val['ca_id'], $depth+1);

@@ -166,7 +166,7 @@
                     <b-col><b>{{(od.od_gd_price+od.od_surtax) | comma | won}}</b></b-col>
                     <b-col>배송료</b-col>
                     <b-col><b>{{od.od_dlvy_price+od.od_air_price | comma | won}}</b></b-col>
-                    <b-col>결제 예정 금액</b-col>
+                    <b-col>주문금액</b-col>
                     <b-col><b>{{od.od_all_price | comma | won}}</b></b-col>
                 </b-row>
                 <b-row class="total_sub sm_ib_h">
@@ -272,7 +272,9 @@
                 </template>
                 <template v-else>
                     <b-col class="lb">결제금액</b-col>
-                    <b-col class="dt wd1_2">{{od.od_all_price | comma | won}}</b-col>
+                    <b-col class="dt wd1_2">
+                        <template v-if="od.order_pg">{{od.order_pg.pg_price | comma | won}}</template>
+                    </b-col>
                     <b-col class="lb">결제예정일</b-col>
                     <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
                     <b-col class="lb">결제수단</b-col>

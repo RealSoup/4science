@@ -122,7 +122,7 @@ var render = function render() {
     }, [_vm.er_no_dlvy_fee !== "Y" ? [pa[0]["pa_type"] == "AIR" ? [_vm._v("항공운임료")] : [_vm._v("배송비")], _vm._v(" "), _c("br"), _vm._v(" "), _vm.add_vat ? [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p_add_vat))))] : [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(pa[0].pa_dlvy_p))))]] : _vm._e()], 2)], 1);
   }), _vm._v(" "), _vm.price ? _c("b-row", {
     staticClass: "total"
-  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.goods_add_vat)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.air_add_vat + _vm.price.dlvy_add_vat)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.total)))]), _vm._v(" 원")])], 1) : _vm._e(), _vm._v(" "), _vm.price ? _c("b-row", {
+  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.goods_add_vat)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.air_add_vat + _vm.price.dlvy_add_vat)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm.$route.name == "adm_estimate_show_reply" ? [_vm._v("견적금액")] : [_vm._v("결제 예정 금액")]], 2), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.price.total)))]), _vm._v(" 원")])], 1) : _vm._e(), _vm._v(" "), _vm.price ? _c("b-row", {
     staticClass: "total_sub",
     attrs: {
       id: "total_sub"

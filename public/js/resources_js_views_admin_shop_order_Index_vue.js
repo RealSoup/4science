@@ -279,7 +279,11 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }), _vm._v(" "), _vm._l(_vm.mng_on, function (opt) {
+  }), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
+      value: "no"
+    }
+  }, [_vm._v("담당없음")]), _vm._v(" "), _vm._l(_vm.mng_on, function (opt) {
     return _c("b-form-select-option", {
       key: opt.id,
       attrs: {

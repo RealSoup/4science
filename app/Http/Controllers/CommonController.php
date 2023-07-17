@@ -40,11 +40,14 @@ class CommonController extends Controller {
     }
 
     public function uploadSimple(Request $req) {
+        //  상품 상세 설명
+        //  에디터에서 이미지 추가 했을때 
+        //  이쪽으로 온다
         $file = $req->file;
         if($file) {
             $this->file_upload($file, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
             $url = Storage::disk('s3')->url("api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}");
-            return response()->json($url, 200);
+            return response()->json(['location'=>$url], 200);
         }
            
     }

@@ -22,7 +22,7 @@
                     <li><div>배송료</div>  <div>{{content.dlvy_fee_add_vat | comma}}원</div></li>
                     <li><div>배송정보</div><div>10만원 이상 구매시 기본택배 배송료 무료</div></li>
                     <li><div>납기일</div>  <div>{{content.gd_dlvy_at}}</div></li>
-                    <li><div>담당자</div>  <div>{{mngTel}}</div></li>
+                    <li><div>담당자</div>  <div>{{content.gd_mng_info}}</div></li>
                 </ul>
 
                 <ul v-if="content.purchase_at">
@@ -320,19 +320,6 @@ export default {
     computed: {
         ...mapState('cart', ['cartList']),
         ...mapState('auth', ['isLoggedin', 'user']),
-        mngTel: function () {
-            let mng_tel='';
-            if (this.content.gd_mng_info) {
-                mng_tel = this.content.gd_mng_info;
-            } else if (this.content.ca04 && this.categorys[3].filter(ca => ca.ca_id == this.content.ca04)[0].ca_tel) {
-                mng_tel = this.categorys[3].filter(ca => ca.ca_id == this.content.ca04)[0].ca_tel;
-            } else if (this.content.ca03 && this.categorys[2].filter(ca => ca.ca_id == this.content.ca03)[0].ca_tel) {
-                mng_tel = this.categorys[2].filter(ca => ca.ca_id == this.content.ca03)[0].ca_tel;
-            } else if (this.content.ca02 && this.categorys[1].filter(ca => ca.ca_id == this.content.ca02)[0].ca_tel) {
-                mng_tel = this.categorys[1].filter(ca => ca.ca_id == this.content.ca02)[0].ca_tel;
-            }
-            return mng_tel;
-        },
         total: function() {
             let model =  this.content.goods_model.reduce((acc, el) => {                 
                 return acc + parseInt(this.dealer_price_chk(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat)) * el.ea);

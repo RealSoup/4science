@@ -193,7 +193,7 @@ class GoodsController extends Controller {
         $ca02 = $data['goods']->goodsCategoryFirst->gc_ca02 ? $data['goods']->goodsCategoryFirst->gc_ca02 : 0;
         $ca03 = $data['goods']->goodsCategoryFirst->gc_ca03 ? $data['goods']->goodsCategoryFirst->gc_ca03 : 0;
         $data['categorys'] = Category::getSelectedCate( $ca01, $ca02, $ca03);
-
+        $data['goods']['gd_mng_info'] = $data['goods']['gd_mng_info'] != '' ? $data['goods']['gd_mng_info'] : Category::$mngTel;
         if ( $data['goods']->goodsCategoryFirst->gc_ca01 =='0040' ) {
 			if (isset($data['goods']->gd_desc)) {
 				$improve_description = "";

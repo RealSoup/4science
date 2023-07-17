@@ -130,7 +130,9 @@ export default {
             e.target.focus();
         },
         hideHiddenMenu(ca) {
-            this.$set(ca, 'showMenu', false);
+            setTimeout(() => {
+                this.$set(ca, 'showMenu', false);
+            }, 1000);
         },
         recount(){
             this.$set(this.parent, 'hasChild', this.cate.length?true:false);

@@ -1,16 +1,16 @@
-<template lang="html">
-    <div class="">
-        <b-input-group size="sm">
-            <b-form-input :ref="'ca_name_id' + gene_idx" :id="'ca_name_id_' + gene_idx" placeholder="카테고리명"></b-form-input>
-            <b-form-input :ref="'ca_tel_id' + gene_idx" :id="'ca_tel_id_' + gene_idx" placeholder="담당자 번호"></b-form-input>
-            <b-input-group-append>
-                <b-button variant="info" @click="addCate" v-b-tooltip.hover title="저장">
-                    <b-icon icon="plus-circle-fill"></b-icon>
-                </b-button>
-            </b-input-group-append>
-        </b-input-group>
-        <div v-if="validationErrors.ca_name !== undefined" class="alert alert-danger"> {{ validationErrors.ca_name }} </div>
-    </div>
+<template>
+<div>
+    <b-input-group size="sm">
+        <b-form-input :ref="'ca_name_id' + gene_idx" :id="'ca_name_id_' + gene_idx" placeholder="카테고리명"></b-form-input>
+        <b-form-input :ref="'ca_tel_id' + gene_idx" :id="'ca_tel_id_' + gene_idx" placeholder="담당자 번호"></b-form-input>
+        <b-input-group-append>
+            <b-button variant="info" @click="addCate" v-b-tooltip.hover title="저장">
+                <b-icon icon="plus-circle-fill"></b-icon>
+            </b-button>
+        </b-input-group-append>
+    </b-input-group>
+    <div v-if="validationErrors.ca_name !== undefined" class="alert alert-danger"> {{ validationErrors.ca_name }} </div>
+</div>
 </template>
 
 <script>
@@ -52,6 +52,3 @@ export default {
     },
 }
 </script>
-
-<style lang="css" scoped>
-</style>

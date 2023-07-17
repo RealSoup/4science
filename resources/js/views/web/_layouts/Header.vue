@@ -71,6 +71,7 @@
     <div class="sm_view">
         <!-- <b-link @click="view_cate=!view_cate"><font-awesome-icon icon="sitemap" /></b-link>
         <b-link @click="view_nav=!view_nav"><b-icon-grid3x3-gap-fill /></b-link> -->
+        <b-link @click="$router.go(-1)"><b-icon-arrow-left /></b-link>
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
         <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>

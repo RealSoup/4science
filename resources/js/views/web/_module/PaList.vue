@@ -87,7 +87,10 @@
         <b-col><b>{{price.goods_add_vat | comma}}</b> 원</b-col>
         <b-col>배송료</b-col>
         <b-col><b>{{price.air_add_vat+price.dlvy_add_vat | comma}}</b> 원</b-col>
-        <b-col>결제 예정 금액</b-col>
+        <b-col>
+            <template v-if="$route.name =='adm_estimate_show_reply'">견적금액</template>
+            <template v-else>결제 예정 금액</template>
+        </b-col>
         <b-col><b>{{price.total | comma}}</b> 원</b-col>
     </b-row>
     <b-row v-if="price" class="total_sub" id="total_sub">

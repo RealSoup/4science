@@ -86,7 +86,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var res, _nasa;
+      var res, wcs_add, _nasa;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -97,9 +97,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (res && res.status === 200) _this.order = res.data;
 
             /* 네이버 분석 관련 스크립트 */
+            if (!wcs_add) wcs_add = {};
+            wcs_add["wa"] = "s_256b3162e372";
             _nasa = {};
-            if (window.wcs) _nasa["cnv"] = wcs.cnv("1", _this.order.od_all_price);
-          case 6:
+            if (window.wcs) {
+              _nasa["cnv"] = wcs.cnv("1", _this.order.od_all_price);
+              wcs_do(_nasa);
+            }
+          case 8:
           case "end":
             return _context.stop();
         }
