@@ -12,6 +12,7 @@ export default {
             mk_id:0,
             mode:'',
             keyword:'',
+            keyword_extra:'',
             sort:'hot',
             page:0,
         },
@@ -33,6 +34,7 @@ export default {
             state.frm.mk_id     = param.mk_id;
             state.frm.mode      = param.mode;
             state.frm.keyword   = param.keyword;
+            state.frm.keyword_extra   = param.keyword_extra;
             state.frm.sort      = param.sort;
             state.frm.page      = param.page;
         },
@@ -66,6 +68,7 @@ export default {
                 context.state.frm.mk_id = 0;
                 context.state.frm.page = 0;
                 context.state.frm.sort = 'hot';
+                context.state.frm.keyword_extra = '';
             }
             
             if( context.state.frm.keyword == 'trc' ) {

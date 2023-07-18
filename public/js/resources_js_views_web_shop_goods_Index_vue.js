@@ -93,10 +93,8 @@ var render = function render() {
       p_ca03: _vm.$route.query.ca03,
       p_ca04: _vm.$route.query.ca04
     }
-  }) : _vm._e(), _vm._v(" "), _vm.sch_cate_info ? _c("div", {
-    staticClass: "layout"
-  }, [_c("b-container", {
-    staticClass: "sch_detail"
+  }) : _vm._e(), _vm._v(" "), _vm.sch_cate_info ? _c("b-container", {
+    staticClass: "layout sch_detail"
   }, [_c("b-row", [_c("b-col", [_c("h5", [_vm._v("카테고리")]), _vm._v(" "), _c("p", {
     on: {
       click: function click($event) {
@@ -116,7 +114,7 @@ var render = function render() {
           _vm.frm.ca01 = ca.key, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.routerPush();
         }
       }
-    }, [_vm._v("\r\n                            " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
   })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("중분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca02, function (ca) {
     return _c("p", {
       key: ca.key,
@@ -129,7 +127,7 @@ var render = function render() {
           _vm.frm.ca02 = ca.key, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.routerPush();
         }
       }
-    }, [_vm._v("\r\n                            " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
   })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("소분류")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca03, function (ca) {
     return _c("p", {
       key: ca.key,
@@ -142,7 +140,7 @@ var render = function render() {
           _vm.frm.ca03 = ca.key, _vm.frm.mk_id = 0, _vm.routerPush();
         }
       }
-    }, [_vm._v("\r\n                            " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
+    }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
   })], 2), _vm._v(" "), _c("b-col", [_c("h5", [_vm._v("제조사")]), _vm._v(" "), _vm._l(_vm.sch_cate_info.maker, function (mk) {
     return _c("p", {
       key: mk.key,
@@ -155,8 +153,40 @@ var render = function render() {
           _vm.frm.mk_id = mk.key, _vm.routerPush();
         }
       }
-    }, [_vm._v("\r\n                            " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
-  })], 2)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c("div", {
+    }, [_vm._v("\r\n                        " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
+  })], 2)], 1), _vm._v(" "), _c("div", {
+    staticClass: "extra_sch"
+  }, [_c("b", [_vm._v("결과 내 검색")]), _vm._v(" "), _c("b-input-group", [_c("b-form-input", {
+    attrs: {
+      placeholder: "검색어를 입력하세요"
+    },
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.routerPush();
+      }
+    },
+    model: {
+      value: _vm.frm.keyword_extra,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "keyword_extra", $$v);
+      },
+      expression: "frm.keyword_extra"
+    }
+  }), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
+    attrs: {
+      variant: "info"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.routerPush();
+      }
+    }
+  }, [_c("font-awesome-icon", {
+    attrs: {
+      icon: "search"
+    }
+  })], 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.pick ? _c("div", {
     staticClass: "pick m_hide"
   }, [_c("b-row", {
     staticClass: "layout"
@@ -202,7 +232,7 @@ var render = function render() {
         staticClass: "pri"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(gd.goods_model_prime.gm_price_add_vat)))))])]);
     }), 1);
-  }), 1)], 1)], 1), _vm._v(" "), _c("div", {
+  }), 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "layout"
   }, [_c("b-container", [_c("b-row", {
     staticClass: "list"
@@ -337,7 +367,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.sch_detail .row .col[data-v-4813570c] { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto;\n}\n.sch_detail .row .col[data-v-4813570c]:not(:last-child) { border-right-width:0;\n}\n.sch_detail .row .col h5[data-v-4813570c] { font-weight:bold; font-size:1.1rem; padding:1.4rem 2rem .4rem 2rem;\n}\n.sch_detail .row .col p[data-v-4813570c] { padding:.3rem 3rem; color:#4C4C4C; cursor:pointer; margin:0;\n}\n.sch_detail .row .col p[data-v-4813570c]:hover,\r\n.sch_detail .row .col p.chk[data-v-4813570c] { background:#B2E0FA;\n}\n.sch_detail .row .col p span[data-v-4813570c] { color:#C2C2C2; font-size:.8rem; margin-left:.5rem;\n}\n.pick[data-v-4813570c] { background:#0094EA;\n}\n.pick .row .fir[data-v-4813570c] { flex:0 0 120px; max-width:120px; margin-right:25px;\n}\n.pick .row .col[data-v-4813570c] { padding:20px 0;\n}\n.pick .row .col ul li[data-v-4813570c] { flex:0 0 13%; max-width:13%; height:150px; transition: all .2s; padding:0 10px; text-align:center; overflow:hidden; background:#fff; border-style:solid; border-color:#0094EA; border-width:10px 20px; cursor:pointer;\n}\n.pick .row .col ul.active li[data-v-4813570c] { flex:0 0 16.666667%; max-width:16.666667%; height:300px;\n}\n.pick .row .col ul li div[data-v-4813570c] { height:99%; position: relative; transition: all .2s;}\n.pick .row .col ul.active li div[data-v-4813570c] { height:75%;\n}\n.pick .row .col ul li div img[data-v-4813570c] { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);\n}\n.pick .row .col ul li .tit[data-v-4813570c] { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px;\n}\n.pick .row .col ul li .pri[data-v-4813570c] { font-size:.7rem; margin: 0.3rem 0 0;\n}\n.list[data-v-4813570c] { align-items:flex-start; margin-top:25px;\n}\n.list .sort[data-v-4813570c] { flex:0 0 9%; max-width:9%;\n}\n.list .sort ul[data-v-4813570c] { border:1px solid #D7D7D7; margin-left:-15px;\n}\n.list .sort ul li[data-v-4813570c] { text-align:center; padding:10px 0; font-size:.9rem; cursor:pointer;\n}\n.list .sort ul li[data-v-4813570c]:not(:last-child) { border-bottom:1px solid #D7D7D7;\n}\n.list .sort ul li.active[data-v-4813570c] { background:#B2E0FA;\n}\n.list .col .row div[data-v-4813570c]:nth-child(2),\r\n.list .col .row div[data-v-4813570c]:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list .col .row div.price[data-v-4813570c] { align-items:flex-end; flex-direction:column;\n}\n.list .col .lhead div[data-v-4813570c] { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px;\n}\n.list .col .lhead div[data-v-4813570c]:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody div[data-v-4813570c] { border:1px solid #D6D6D6; border-top-width:0px;\n}\n.list .col .lbody div[data-v-4813570c]:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody .link[data-v-4813570c] { cursor:pointer; display:flex; align-items:center;\n}\n.list .col .lbody .link img[data-v-4813570c] { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0;\n}\n.list .col .lbody .link p[data-v-4813570c] { display:inline-block; margin-bottom:0;\n}\n.list .col .lbody .link p .info[data-v-4813570c] { display:block; color:#949494; margin-top:1.1vw;\n}\n.list .col .lbody .link p i[data-v-4813570c] { display:none;\n}\n@media (max-width: 992px){\n.p_wrap[data-v-4813570c] { padding: 0 .3rem; margin-top:15px;\n}\n.list .col .lbody div[data-v-4813570c] { padding: 0 3px;\n}\n.list .col .lbody .link img[data-v-4813570c] { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0;\n}\n.list .col .lbody .link p[data-v-4813570c] { font-size: calc(1.2vw + .5rem);\n}\n.list .col .lbody .link p span[data-v-4813570c] { margin-top:.4rem;\n}\n.list .col .lbody .link p i[data-v-4813570c] { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600;\n}\n.list .col .lbody .link p i .see_dealer .dealer[data-v-4813570c] { display:inline; padding-left:12px; margin-left:12px;\n}\n.list .col .lbody .link p i .see_dealer .dealer[data-v-4813570c]:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem;\n}\n.p_wrap[data-v-4813570c] .page-link { min-width: 30px; padding:0;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.sch_detail[data-v-4813570c] { margin-top:1em; margin-bottom:1em;\n}\n.sch_detail .row .col[data-v-4813570c] { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto;\n}\n.sch_detail .row .col[data-v-4813570c]:not(:last-child) { border-right-width:0;\n}\n.sch_detail .row .col h5[data-v-4813570c] { font-weight:bold; font-size:1.1rem; padding:1.4rem 2rem .4rem 2rem;\n}\n.sch_detail .row .col p[data-v-4813570c] { padding:.3rem 3rem; color:#4C4C4C; cursor:pointer; margin:0;\n}\n.sch_detail .row .col p[data-v-4813570c]:hover,\r\n.sch_detail .row .col p.chk[data-v-4813570c] { background:#B2E0FA;\n}\n.sch_detail .row .col p span[data-v-4813570c] { color:#C2C2C2; font-size:.8rem; margin-left:.5rem;\n}\n.sch_detail .extra_sch[data-v-4813570c] { display:flex; align-items:center; justify-content:flex-end; margin-right:-15px; padding-top:1em;\n}\n.sch_detail .extra_sch b[data-v-4813570c] { margin-right: 1em;\n}\n.sch_detail .extra_sch .input-group[data-v-4813570c] { max-width:30em;\n}\n.pick[data-v-4813570c] { background:#0094EA;\n}\n.pick .row .fir[data-v-4813570c] { flex:0 0 120px; max-width:120px; margin-right:25px;\n}\n.pick .row .col[data-v-4813570c] { padding:20px 0;\n}\n.pick .row .col ul li[data-v-4813570c] { flex:0 0 13%; max-width:13%; height:150px; transition: all .2s; padding:0 10px; text-align:center; overflow:hidden; background:#fff; border-style:solid; border-color:#0094EA; border-width:10px 20px; cursor:pointer;\n}\n.pick .row .col ul.active li[data-v-4813570c] { flex:0 0 16.666667%; max-width:16.666667%; height:300px;\n}\n.pick .row .col ul li div[data-v-4813570c] { height:99%; position: relative; transition: all .2s;}\n.pick .row .col ul.active li div[data-v-4813570c] { height:75%;\n}\n.pick .row .col ul li div img[data-v-4813570c] { width:90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);\n}\n.pick .row .col ul li .tit[data-v-4813570c] { margin:auto; font-weight:bold; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:150px;\n}\n.pick .row .col ul li .pri[data-v-4813570c] { font-size:.7rem; margin: 0.3rem 0 0;\n}\n.list[data-v-4813570c] { align-items:flex-start; margin-top:25px;\n}\n.list .sort[data-v-4813570c] { flex:0 0 9%; max-width:9%;\n}\n.list .sort ul[data-v-4813570c] { border:1px solid #D7D7D7; margin-left:-15px;\n}\n.list .sort ul li[data-v-4813570c] { text-align:center; padding:10px 0; font-size:.9rem; cursor:pointer;\n}\n.list .sort ul li[data-v-4813570c]:not(:last-child) { border-bottom:1px solid #D7D7D7;\n}\n.list .sort ul li.active[data-v-4813570c] { background:#B2E0FA;\n}\n.list .col .row div[data-v-4813570c]:nth-child(2),\r\n.list .col .row div[data-v-4813570c]:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.list .col .row div.price[data-v-4813570c] { align-items:flex-end; flex-direction:column;\n}\n.list .col .lhead div[data-v-4813570c] { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px;\n}\n.list .col .lhead div[data-v-4813570c]:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody div[data-v-4813570c] { border:1px solid #D6D6D6; border-top-width:0px;\n}\n.list .col .lbody div[data-v-4813570c]:not(:first-child) { border-left-width:0px;\n}\n.list .col .lbody .link[data-v-4813570c] { cursor:pointer; display:flex; align-items:center;\n}\n.list .col .lbody .link img[data-v-4813570c] { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0;\n}\n.list .col .lbody .link p[data-v-4813570c] { display:inline-block; margin-bottom:0;\n}\n.list .col .lbody .link p .info[data-v-4813570c] { display:block; color:#949494; margin-top:1.1vw;\n}\n.list .col .lbody .link p i[data-v-4813570c] { display:none;\n}\n@media (max-width: 992px){\n.p_wrap[data-v-4813570c] { padding: 0 .3rem; margin-top:15px;\n}\n.list .col .lbody div[data-v-4813570c] { padding: 0 3px;\n}\n.list .col .lbody .link img[data-v-4813570c] { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0;\n}\n.list .col .lbody .link p[data-v-4813570c] { font-size: calc(1.2vw + .5rem);\n}\n.list .col .lbody .link p span[data-v-4813570c] { margin-top:.4rem;\n}\n.list .col .lbody .link p i[data-v-4813570c] { display:inline; font-size: calc(1.3vw + .5rem); font-weight: 600;\n}\n.list .col .lbody .link p i .see_dealer .dealer[data-v-4813570c] { display:inline; padding-left:12px; margin-left:12px;\n}\n.list .col .lbody .link p i .see_dealer .dealer[data-v-4813570c]:before { left:-6px; width:14px; height:14px; line-height:14px; font-style:normal; font-size:.68rem;\n}\n.p_wrap[data-v-4813570c] .page-link { min-width: 30px; padding:0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

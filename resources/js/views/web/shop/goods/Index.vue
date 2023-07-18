@@ -5,48 +5,56 @@
     </loading-modal>
     <template v-else>
         <location v-if="$route.name == 'goods_index' && !$route.query.keyword" 
-                :categorys="categorys"
-                :p_ca01="$route.query.ca01" 
-                :p_ca02="$route.query.ca02" 
-                :p_ca03="$route.query.ca03" 
-                :p_ca04="$route.query.ca04"
-            />
-        <div class="layout" v-if="sch_cate_info">
-            <b-container class="sch_detail">
-                <b-row>
-                    <b-col>
-                        <h5>카테고리</h5>
-                        <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
-                        <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
-                            {{ca.name}} <span>{{ca.cnt}}</span>
-                        </p>
-                    </b-col>
-                    
-                    <b-col>
-                        <h5>중분류</h5>
-                        <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
-                            {{ca.name}} <span>{{ca.cnt}}</span>
-                        </p>
-                    </b-col>
-                    
-                    <b-col>
-                        <h5>소분류</h5>
-                        <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
-                            {{ca.name}} <span>{{ca.cnt}}</span>
-                        </p>
-                    </b-col>
-                    
-                    <b-col>
-                        <h5>제조사</h5>
-                        <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
-                            {{mk.name}} <span>{{mk.cnt}}</span>
-                        </p>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </div>
+            :categorys="categorys"
+            :p_ca01="$route.query.ca01" 
+            :p_ca02="$route.query.ca02" 
+            :p_ca03="$route.query.ca03" 
+            :p_ca04="$route.query.ca04"
+        />
+       
+        <b-container v-if="sch_cate_info" class="layout sch_detail">
+            <b-row>
+                <b-col>
+                    <h5>카테고리</h5>
+                    <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
+                    <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>중분류</h5>
+                    <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>소분류</h5>
+                    <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
+                        {{ca.name}} <span>{{ca.cnt}}</span>
+                    </p>
+                </b-col>
+                
+                <b-col>
+                    <h5>제조사</h5>
+                    <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
+                        {{mk.name}} <span>{{mk.cnt}}</span>
+                    </p>
+                </b-col>
+            </b-row>
+            <div class="extra_sch">
+                <b>결과 내 검색</b>
+                <b-input-group>
+                    <b-form-input v-model="frm.keyword_extra" placeholder="검색어를 입력하세요" @keyup.enter="routerPush()" />
+                    <b-input-group-append>
+                        <b-button variant="info" @click="routerPush()"><font-awesome-icon icon="search" /></b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </div>
+        </b-container>
 
-        <div class="pick m_hide">
+        <div v-if="pick" class="pick m_hide">
             <b-row class="layout">
                 <b-col class="fir">
                     <b-img :src="`${s3url}goods/4spick.png`" />
@@ -163,6 +171,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.sch_detail { margin-top:1em; margin-bottom:1em; }
 .sch_detail .row .col { border:1px solid #D7D7D7; padding:0 0 .3rem; max-height:250px; overflow-y:auto; }
 .sch_detail .row .col:not(:last-child) { border-right-width:0; }
 .sch_detail .row .col h5 { font-weight:bold; font-size:1.1rem; padding:1.4rem 2rem .4rem 2rem; }
@@ -170,6 +179,9 @@ export default {
 .sch_detail .row .col p:hover,
 .sch_detail .row .col p.chk { background:#B2E0FA; }
 .sch_detail .row .col p span { color:#C2C2C2; font-size:.8rem; margin-left:.5rem; }
+.sch_detail .extra_sch { display:flex; align-items:center; justify-content:flex-end; margin-right:-15px; padding-top:1em; }
+.sch_detail .extra_sch b { margin-right: 1em; }
+.sch_detail .extra_sch .input-group { max-width:30em; }
 
 .pick { background:#0094EA; }
 .pick .row .fir { flex:0 0 120px; max-width:120px; margin-right:25px; }

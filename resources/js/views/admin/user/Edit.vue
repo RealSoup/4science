@@ -206,7 +206,7 @@
     <b-card>
         <b-container>
             <b-row><b-col class="tit">최근 견적 내역</b-col></b-row>
-            <estimate :list="estimate" :mng_off="mng_off" class="cmain" />
+            <estimate :list="estimate" :mng_off="mng_off" @exe-win-pop="exeWinPop" class="cmain" />
         </b-container>
     </b-card>
 
@@ -295,6 +295,10 @@ export default {
             }
 
         },
+
+        exeWinPop(url){
+            this.openWinPop( url, 1700, 900 );
+        }, 
 
         frm_formatHp(v)   { return this.formatHp(v); },
         frm_formatBiz(v) { return this.formatBiz(v); },

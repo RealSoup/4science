@@ -315,6 +315,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+    exeWinPop: function exeWinPop(url) {
+      this.openWinPop(url, 1700, 900);
+    },
     frm_formatHp: function frm_formatHp(v) {
       return this.formatHp(v);
     },
@@ -1028,6 +1031,9 @@ var render = function render() {
     attrs: {
       list: _vm.estimate,
       mng_off: _vm.mng_off
+    },
+    on: {
+      "exe-win-pop": _vm.exeWinPop
     }
   })], 1)], 1), _vm._v(" "), _c("transition", {
     attrs: {

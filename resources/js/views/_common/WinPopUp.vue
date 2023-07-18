@@ -5,7 +5,7 @@ export default {
     name: 'commonPopUp',
     data(){ return { windowRef : null, } },
     methods : {
-        openWinPop( uri, width, height ) {
+        exeWinPop( uri, width, height ) {
             // if( this.windowRef != null )
                 // this.closeWinPop();
             //  여러새창 열어야 하는데

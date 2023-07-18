@@ -125,6 +125,7 @@ export default {
                     mk_id:this.$route.query.mk_id ?? 0,
                     mode:this.$route.query.mode ?? "",
                     keyword:this.$route.query.keyword ?? "",
+                    keyword_extra:this.$route.query.keyword_extra ?? "",
                     sort:this.$route.query.sort ?? "",
                     page:this.$route.query.page ?? 0,
                 });

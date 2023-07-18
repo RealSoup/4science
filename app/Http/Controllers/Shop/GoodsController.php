@@ -35,8 +35,12 @@ class GoodsController extends Controller {
             // ->whereNull('gd.deleted_at');
 
         if ($req->filled('keyword')) {
-            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}\"";
-			else 									    $ftWord = $req->keyword.'*';
+            if ($req->filled('keyword_extra')) {
+                $ftWord = "+{$req->keyword}* +{$req->keyword_extra}*";
+            } else {
+                if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}\"";
+                else 									    $ftWord = $req->keyword.'*';
+            }
 
             if ( !$req->filled('mode') ) {
                 $gs->selectRaw("MATCH (la_gs.gd_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score01, MATCH (la_gs.gm_name) AGAINST ('{$ftWord}' IN BOOLEAN MODE) as score02, 
@@ -129,18 +133,25 @@ class GoodsController extends Controller {
         $req->sort = $req->sort ? $req->sort : 'hot';
         switch ($req->sort) {
             case 'hot':
-                $gs->orderBy('gs.gd_seq');
                 if ($req->filled('keyword')){
                     if ( $req->filled('mode') ) 
                         $gs->orderBy('score', 'DESC');
                     else 
                         $gs->orderBy('score01', 'DESC')->orderBy('score02', 'DESC')->orderBy('score03', 'DESC')->orderBy('score04', 'DESC')->orderBy('score05', 'DESC')->orderBy('score06', 'DESC');
+                } else {
+                    $gs->orderBy('gs.gd_seq');
                 }
                 $gs->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
             break;
             case 'new':     $gs->latest('gd_id');        break;
-            case 'lowPri':  $gs->join('shop_goods_model AS gm', 'gm.gm_id', '=', 'gs.gm_id')->oldest('gm_price');     break;
-            case 'highPri': $gs->join('shop_goods_model AS gm', 'gm.gm_id', '=', 'gs.gm_id')->latest('gm_price');     break;
+            case 'lowPri':  $gs->join('shop_goods_model AS gm', function($q) {
+                                $q->on('gm.gm_id', '=', 'gs.gm_id')->where('gm.gm_prime', 'Y');
+                            })->oldest('gm_price');
+            break;
+            case 'highPri': $gs->join('shop_goods_model AS gm', function($q) {
+                                $q->on('gm.gm_id', '=', 'gs.gm_id')->where('gm.gm_prime', 'Y');
+                            })->latest('gm_price');
+            break;
         }
 
         //  미리 위에서 명시 할수 있지만
@@ -154,10 +165,14 @@ class GoodsController extends Controller {
             $data['list'] = $gs->paginate();
             $data['list']->appends($req->all())->links();
 
-                       
-            $data['pick'][0] = $data['list']->take(6);
-            if (count($data['list']) > 6)
-                $data['pick'][1] = $data['list']->skip(6)->take(6);
+            //  포사의 PICK
+            $pick_data = clone $gs;
+            $pick_data = $pick_data->where('gs.gd_seq', '<', 999999)->orderBy('gs.gd_seq')->limit(12)->get();
+            if(count($pick_data)) {
+                $data['pick'][0] = $pick_data->take(6);
+                if (count($pick_data) > 6)
+                    $data['pick'][1] = $pick_data->skip(6)->take(6);
+            }
             
         }
         

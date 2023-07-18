@@ -192,7 +192,7 @@ export default {
         // },
         
         exeWinPop(url){
-            this.$refs.winPopup.openWinPop( url, 1700, 900 );
+            this.$refs.winPopup.exeWinPop( url, 1700, 900 );
         }, 
         
         onRecvWinPop( recvObj ){

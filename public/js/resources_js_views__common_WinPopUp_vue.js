@@ -20,7 +20,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
   },
   methods: {
-    openWinPop: function openWinPop(uri, width, height) {
+    exeWinPop: function exeWinPop(uri, width, height) {
       // if( this.windowRef != null )
       // this.closeWinPop();
       //  여러새창 열어야 하는데
