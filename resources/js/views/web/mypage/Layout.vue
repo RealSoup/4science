@@ -33,7 +33,7 @@
             <p><span class="m_hide">나의 </span>마일리지</p>
             <b v-if="user.is_dealer" :style="{fontSize:'1.3rem'}">딜러할인적용중</b>
             <b v-else>{{enableMileage | comma}}<small>P</small></b>
-            <b-link v-if="!user.is_dealer" to="/mypage/mileage">어떻게 사용하시나요? ></b-link>
+            <b-link v-if="!user.is_dealer" to="/mypage/mileage">상품권 신청 ></b-link>
         </b-col>
         <b-col>
             <p><span class="m_hide">내가 </span>찜한 상품</p>

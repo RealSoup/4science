@@ -179,7 +179,7 @@ var render = function render() {
     staticClass: "p_wrap"
   }, [_c("h3", {
     staticClass: "p_tit"
-  }, [_vm._v("상품 목록")]), _vm._v(" "), _c("b-container", {
+  }, [_vm.$route.query.gd_type == "REN" ? [_vm._v("렌탈")] : [_vm._v("상품")], _vm._v("\r\n         목록\r\n    ")], 2), _vm._v(" "), _c("b-container", {
     staticClass: "frm_sch"
   }, [_c("sch-date", {
     model: {

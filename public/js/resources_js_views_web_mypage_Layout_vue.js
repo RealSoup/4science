@@ -160,7 +160,7 @@ var render = function render() {
     attrs: {
       to: "/mypage/mileage"
     }
-  }, [_vm._v("어떻게 사용하시나요? >")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("p", [_c("span", {
+  }, [_vm._v("상품권 신청 >")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("p", [_c("span", {
     staticClass: "m_hide"
   }, [_vm._v("내가 ")]), _vm._v("찜한 상품")]), _vm._v(" "), _c("b-link", {
     attrs: {

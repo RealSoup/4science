@@ -41,11 +41,13 @@ class GoodsController extends Controller {
             ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", 
                      "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at", "gs.gd_seq" )
             //  shop_goods 필드 검색이 없다면 속도하되니 조인하지말자
-            ->when($gd_chk, fn ($q) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
+            ->when($gd_chk,          fn ($q    ) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
             ->when($req->startDate,  fn ($q, $v) => $q->whereDate('gd.created_at', '>=', $v))
             ->when($req->endDate,    fn ($q, $v) => $q->whereDate('gd.created_at', '<=', $v))
             ->when($req->gd_enable,  fn ($q, $v) => $q->where('gs.gd_enable', $v))
             ->when($req->gd_mk_id,   fn ($q, $v) => $q->where('gd.gd_mk_id', $v))
+            ->when(!$req->gd_type,   fn ($q, $v) => $q->where('gs.gd_type', 'NON'))
+            ->when($req->gd_type,    fn ($q, $v) => $q->where('gs.gd_type', $v))
             ->when($req->deleted_at, function ($q, $v) { 
                 if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
                 elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
@@ -124,7 +126,7 @@ class GoodsController extends Controller {
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
         $cate_ist_info = [];
-        $cat01 = '';
+        $cat01 = $cat02 = '';
 
         if ($req->filled('gd_type') && $req->gd_type == 'REN') {
             $istArr['gc_gd_id'] = $goods->gd_id;
@@ -174,6 +176,8 @@ class GoodsController extends Controller {
                 Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
             }
             $cat01 = 'R';
+            $cat02 = $req->goods_model[0]['gm_catno02'];
+            
         } else {
             
             foreach ($req->goods_category as $gc) {
@@ -194,7 +198,7 @@ class GoodsController extends Controller {
         }
 
         $cat[0] = $req->goods_category[0]['gc_ca01'];
-        $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
+        $cat[1] = $cat02 ? $cat02 : $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
         $cat[1] = substr("00000".$cat[1], -6);
         $cat[2] = 0;
 
@@ -472,6 +476,7 @@ class GoodsController extends Controller {
     public function search_paramImplant($gd, $gc, $gm) {
         return ['gd_id'        => $gd->gd_id,
                 'gd_enable'    => $gd->gd_enable,
+                'gd_type'      => $gd->gd_type ? $gd->gd_type : 'NON',
                 'gd_name'      => $gd->gd_name,
                 'gd_keyword'   => $gd->gd_keyword,
                 'gd_rank'      => $gd->gd_rank,

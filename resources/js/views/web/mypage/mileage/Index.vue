@@ -43,6 +43,7 @@
                 <span v-if="ml.ml_tbl !== 'voucher'">{{ml.ml_enable_m | comma}} <b>P</b></span>
             </b-col>
         </b-row>
+        <br />
         <pagination :data="mileage" align="center" @pagination-change-page="index"></pagination>
     </b-container>
 

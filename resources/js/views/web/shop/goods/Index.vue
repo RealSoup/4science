@@ -97,7 +97,7 @@
                         </b-row>
                         <template v-if="list.data && list.data.length">
                             <b-row v-for="row in list.data" :key="row.gd_id" class="lbody">
-                                <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" router-tag="div" class="col link">
+                                <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col link">
                                     <img :src="row.goods.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
@@ -208,8 +208,8 @@ export default {
 .list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
 .list .col .lhead div:not(:first-child) { border-left-width:0px; }
 
-.list .col .lbody div { border:1px solid #D6D6D6; border-top-width:0px; }
-.list .col .lbody div:not(:first-child) { border-left-width:0px; }
+.list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px; }
+.list .col .lbody>*:not(:first-child) { border-left-width:0px; }
 .list .col .lbody .link { cursor:pointer; display:flex; align-items:center; }
 .list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0; }
 .list .col .lbody .link p { display:inline-block; margin-bottom:0; }
@@ -221,7 +221,10 @@ export default {
 
 @media (max-width: 992px){
     .p_wrap { padding: 0 .3rem; margin-top:15px; }
-    .list .col .lbody div { padding: 0 3px; }
+    .sch_detail .row .col  { flex:0 0 50%; max-width:50%; }
+    .sch_detail .row .col h5 { font-size:14px; padding:.4em; }
+    .sch_detail .row .col p { font-size:12px; padding:.3em; }
+    .list .col .lbody>* { padding: 0 3px; }
     .list .col .lbody .link img { border-width:0; width: 80px; height: 80px; margin: 10px 10px 10px 0; }
     .list .col .lbody .link p { font-size: calc(1.2vw + .5rem); }
     .list .col .lbody .link p span { margin-top:.4rem; }

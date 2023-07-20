@@ -1,6 +1,10 @@
 <template>
 <b-container class="p_wrap">
-    <h3 class="p_tit">상품 목록</h3>
+    <h3 class="p_tit">
+        <template v-if="$route.query.gd_type == 'REN'">렌탈</template>
+        <template v-else>상품</template>
+         목록
+    </h3>
 
     <b-container class="frm_sch">
         <sch-date v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></sch-date>

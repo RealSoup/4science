@@ -38,7 +38,7 @@ class GoodsController extends Controller {
             if ($req->filled('keyword_extra')) {
                 $ftWord = "+{$req->keyword}* +{$req->keyword_extra}*";
             } else {
-                if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}\"";
+                if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = "\"{$req->keyword}*\"";
                 else 									    $ftWord = $req->keyword.'*';
             }
 

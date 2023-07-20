@@ -204,7 +204,7 @@ var render = function render() {
     }, [_vm._v("승인")]) : ml.ml_type == "NO" ? _c("b-badge", {
       staticClass: "gray"
     }, [_vm._v("반려")]) : _vm._e()] : _vm._e()], 2), _vm._v(" "), _c("b-col", [ml.ml_tbl !== "voucher" ? _c("span", [_vm._v(_vm._s(_vm._f("comma")(ml.ml_enable_m)) + " "), _c("b", [_vm._v("P")])]) : _vm._e()])], 1);
-  }), _vm._v(" "), _c("pagination", {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _c("pagination", {
     attrs: {
       data: _vm.mileage,
       align: "center"

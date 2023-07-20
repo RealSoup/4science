@@ -17,13 +17,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       pop: [{
         ck_key: 'view01',
-        is_view: true
+        is_view: false,
+        ck_view: false
       }, {
         ck_key: 'view02',
-        is_view: true
+        is_view: false,
+        ck_view: false
       }, {
         ck_key: 'view03',
-        is_view: true
+        is_view: false,
+        ck_view: false
       }]
     };
   },
@@ -31,12 +34,15 @@ __webpack_require__.r(__webpack_exports__);
     todayStop: function todayStop(i) {
       this.$cookies.set(this.pop[i].ck_key, 'hide', 60 * 60 * 24);
       this.pop[i].is_view = false;
+    },
+    view_check: function view_check(i) {
+      return this.pop[i].is_view && this.pop[i].ck_view;
     }
   },
   mounted: function mounted() {
     var _this = this;
     this.pop.forEach(function (el) {
-      el.is_view = _this.$cookies.get(el.ck_key) == 'hide' ? false : true;
+      el.ck_view = _this.$cookies.get(el.ck_key) == 'hide' ? false : true;
     });
   }
 });
@@ -57,7 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm.$route.name == "main" && _vm.pop[0].is_view ? _c("div", {
+  return _c("div", [_vm.$route.name == "main" && _vm.view_check(0) ? _c("div", {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
@@ -72,7 +78,7 @@ var render = function render() {
         return _vm.todayStop(0);
       }
     }
-  }, [_vm._v("24시간 안 보기")])], 1)], 1) : _vm._e(), _vm._v(" "), _vm.$route.name == "order_settle" && _vm.pop[1].is_view ? _c("div", {
+  }, [_vm._v("24시간 안 보기")])], 1)], 1) : _vm._e(), _vm._v(" "), _vm.$route.name == "order_settle" && _vm.view_check(1) ? _c("div", {
     staticClass: "popup pop_1"
   }, [_c("b-img", {
     attrs: {

@@ -113,7 +113,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         od_name: "",
         od_er_id: this.$route.params.od_er_id,
         od_type: this.$route.params.od_type,
-        od_pay_method: '',
+        od_pay_method: 'C',
         od_company: '',
         od_ua_title: '',
         od_zip: "",
@@ -229,7 +229,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     exePayment: function exePayment() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var pay, frm, form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09;
+        var pay, frm, form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09, objs10;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -297,6 +297,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 objs07 = document.createElement('input');
                 objs08 = document.createElement('input');
                 objs09 = document.createElement('input');
+                objs10 = document.createElement('input');
                 objs01.setAttribute('name', 'P_INI_PAYMENT');
                 objs01.setAttribute('value', 'CARD');
                 form.appendChild(objs01);
@@ -324,6 +325,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 objs09.setAttribute('name', 'P_NOTI');
                 objs09.setAttribute('value', _this.order.od_id);
                 form.appendChild(objs09);
+                objs10.setAttribute('name', 'P_QUOTABASE');
+                objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12');
+                form.appendChild(objs10);
                 form.setAttribute('method', 'post'); //get,post 가능
                 form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
                 form.setAttribute("accept-charset", "EUC-KR");
@@ -1559,58 +1563,10 @@ var render = function render() {
       name: "merchantData",
       value: _vm.order.od_id
     }
-  })], 1) : _vm.order.sale_env == "M" ? _c("form", {
-    staticClass: "inicis_form",
-    attrs: {
-      id: "MobilePayForm",
-      action: "https://mobile.inicis.com/smart/payment/",
-      method: "post",
-      "accept-charset": "euc-kr"
-    }
-  }, [_c("b-form-input", {
-    attrs: {
-      name: "P_INI_PAYMENT",
-      value: "CARD"
-    }
   }), _vm._v(" "), _c("b-form-input", {
     attrs: {
-      name: "P_MID",
-      value: _vm.inicis.mid
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_OID",
-      value: _vm.inicis.od_no
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_GOODS",
-      value: _vm.order.od_name
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_AMT",
-      value: _vm.order.price.total
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_UNAME",
-      value: _vm.user.name
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_NEXT_URL",
-      value: _vm.inicis.returnUrlMobaile
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_CHARSET",
-      value: "utf8"
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "P_NOTI",
-      value: _vm.order.od_id
+      name: "quotabase",
+      value: "1:2:3:4:5:6:7:8:9:10:11:12"
     }
   })], 1) : _vm._e()], 1);
 };

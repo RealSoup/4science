@@ -40,7 +40,9 @@ class StatsController extends Controller {
 
     public function order(Request $req) {
         $order = DB::table('shop_order')
-            ->selectRaw("SUM(od_all_price) price")     
+            ->selectRaw("SUM(od_all_price) price")
+            ->where('od_step', '>=', '20')
+            ->where('od_step', '<', '60')
             ->groupBy('label')
             ->orderBy('label');
         if ($req->filled('month')) {

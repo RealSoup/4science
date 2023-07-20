@@ -114,7 +114,7 @@ class OrderController extends Controller {
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'catno':
-					$ids = OrderModel::where('odm_gm_catno', $txt)->pluck('odm_od_id');
+					$ids = OrderModel::where('odm_gm_catno', 'like', "{$txt}%")->pluck('odm_od_id');
 					$orders = $orders->whereIn('od_id', (count($ids) ? $ids : ['']));
 				break;
 				case 'u_id':			$orders = $orders->where('created_id', $txt); break;

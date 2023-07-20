@@ -444,7 +444,7 @@ class OrderController extends Controller {
     public function payReturnMobile(Request $req){
         if ($req->P_STATUS != "00") {
             $msg = "오류코드:".$req->P_STATUS."\\n".$req->P_RMESG1;
-            return alertRedirect($msg);
+            return redirect("/shop/order/payCardFail?msg=".$msg);
         } else {
             $result = array();
             $ch = curl_init();

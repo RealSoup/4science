@@ -178,9 +178,9 @@ export default {
 .pa_list .lbody>.col:nth-of-type(3) { flex-basis:10%; max-width:10%; font-weight:600; color:#000; }
 .pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:14%; max-width:14%; }
 .pa_list .lbody .col .row .col:nth-of-type(3) { flex-basis:14%; max-width:14%; }
-.pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%; max-width:9%; justify-content:flex-end; padding-right:.5rem; }
-.pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; justify-content:flex-end; padding-right:.5rem; }
+.pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:11%; max-width:11%; }
+.pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%;  max-width: 9%; }
+.pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; }
 .pa_list .lbody .col .row .col:nth-of-type(6) .mileage { font-size:.7rem; color:#666;  }
 
 .pa_list .row .col .row.option { background:#F4F1EC; }

@@ -21,8 +21,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       input_v: "",
-      model: [],
-      maker: {}
+      model: []
     };
   },
   computed: {},
@@ -54,15 +53,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 9:
               res = _context.sent;
               if (res && res.status === 200) {
-                if (res.data.gd.length) {
-                  _this.model = res.data.gd;
-                  _this.maker = res.data.mk;
-                } else {
-                  _this.model = [{
-                    gm_name: '정보없음'
-                  }];
-                  _this.maker = [];
-                }
+                if (res.data.length) _this.model = res.data;else _this.model = [{
+                  gm_name: '정보없음'
+                }];
               }
               _context.next = 17;
               break;
@@ -85,7 +78,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               if (_this2.model[i] && _this2.model[i].gm_name != "정보없음") {
-                _this2.model[i].mk_name = _this2.maker.mk_name;
                 _this2.$emit('addModel', _this2.model[i]);
               }
               _this2.hide();
@@ -98,7 +90,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     hide: function hide() {
       this.model = [];
-      this.maker = [];
     }
   }
 });

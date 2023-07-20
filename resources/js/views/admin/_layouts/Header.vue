@@ -22,7 +22,7 @@
 
                     <b-nav-item-dropdown text="상품관리">
                         <b-dropdown-item @click="strongReload('/admin/shop/goods')">상품목록</b-dropdown-item>
-                        <b-dropdown-item @click="strongReload('/admin/shop/goods?gd_type=REN')">렌탈목록</b-dropdown-item>
+                        <b-dropdown-item @click="strongReload('/admin/shop/goods', 'gd_type=REN')">렌탈목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_category'}">카테고리</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_maker'}">제조사</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_purchaseAt'}">직배송/항공운임</b-dropdown-item>
@@ -157,8 +157,10 @@ export default {
     },
 
     methods: {
-        strongReload(url){
-            window.location.href = `${url}?t=${Math.random()}`;
+        strongReload(url, param){
+            url = `${url}?t=${Math.random()}`;
+            if(!isEmpty(param)) url = `${url}&${param}`;
+            window.location.href = url;
         },
     },
 

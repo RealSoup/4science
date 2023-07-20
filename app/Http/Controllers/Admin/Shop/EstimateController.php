@@ -105,7 +105,7 @@ class EstimateController extends Controller {
                 case 'cat_no':
                     $eq->EqId(
                         $er->ErIdArr(
-                            $em->TypeReply()->where('em_catno', 'like', $req->keyword)->pluck('em_papa_id')
+                            $em->TypeReply()->where('em_catno', 'like', $req->keyword.'%')->pluck('em_papa_id')
                         )->pluck('er_eq_id')
                     );
                 break;

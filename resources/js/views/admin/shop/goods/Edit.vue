@@ -103,7 +103,7 @@ export default {
                 let res = await ax.post(`/api/admin/shop/goods`, this.frm);
                 if (res && res.status === 200) {
                     Notify.toast('success', '상품 복제')
-                    this.$router.push({ name: 'adm_goods_index' })
+                    this.$router.push({ name: 'adm_goods_index', query: { gd_type:'REN' } })
                 }
             }
         },

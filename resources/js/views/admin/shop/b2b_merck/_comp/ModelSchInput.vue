@@ -27,7 +27,6 @@ export default {
         return {
             input_v:"",
             model: [],
-            maker: {},
         }
     },
     computed: {
@@ -42,13 +41,8 @@ export default {
                 try {
                     const res = await ax.get(`/api/admin/shop/goods/getModel`, {params:{ca01:"40", type:"em_code", key:v}});
                     if (res && res.status === 200) {
-                        if (res.data.gd.length) {
-                            this.model = res.data.gd;
-                            this.maker = res.data.mk;
-                        } else {
-                            this.model = [{gm_name:'정보없음'}];
-                            this.maker = [];
-                        }
+                        if (res.data.length) this.model = res.data;
+                        else this.model = [{gm_name:'정보없음'}];
                     }
                 } catch (e) {
                     Notify.consolePrint(e);
@@ -58,7 +52,6 @@ export default {
         },
         async addModel(i) {
             if (this.model[i] && this.model[i].gm_name != "정보없음") {
-                this.model[i].mk_name = this.maker.mk_name;
                 this.$emit('addModel', this.model[i]);
             }
             
@@ -66,7 +59,6 @@ export default {
         },
         hide(){
             this.model = [];
-            this.maker = [];
         }
     }
 }
