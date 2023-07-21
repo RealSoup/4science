@@ -404,6 +404,8 @@ class OrderController extends Controller {
 				}
 			} else if ($req->type == 'pay') {
 				$od->od_pay_method = $req->od_pay_method;
+			} else if ($req->type == 'od_sale_env') {
+				$od->od_sale_env = $req->od_sale_env;
 			}
 			
 			$od_rst = $od->save();

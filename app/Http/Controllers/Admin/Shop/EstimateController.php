@@ -332,6 +332,9 @@ class EstimateController extends Controller {
         if ($req->type == 'eq_step') { //   견적요청 진행현황 수정
             if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_step' => $req->eq_step, 'eq_mng' => auth()->user()->id]))
                 return response()->json('success', 200);
+        } else if ($req->type == 'eq_env') { //   견적요청 진행현황 수정
+            if (DB::table('shop_estimate_req')->where('eq_id', $req->eq_id)->update(['eq_env' => $req->eq_env]))
+                return response()->json('success', 200);
         } else {                
             self::mailCheck($req);
             $eq_impl = $this->estimateReq_paramImplant($req->estimate_req);

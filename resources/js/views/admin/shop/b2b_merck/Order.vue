@@ -175,9 +175,7 @@ export default {
         async stockCheck(code, ea) {
             try {
                 const res = await ax.post(`/api/admin/shop/b2b_merck/stockCheck`, {code:code, ea:ea});
-                if (res && res.status === 200) {
-                    this.list.data = res.data;
-                }
+                if (res && res.status === 200) this.$router.push({ name: 'adm_b2b_merck_stock_result' })
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);

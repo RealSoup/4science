@@ -221,9 +221,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
             case 3:
               res = _context3.sent;
-              if (res && res.status === 200) {
-                _this3.list.data = res.data;
-              }
+              if (res && res.status === 200) _this3.$router.push({
+                name: 'adm_b2b_merck_stock_result'
+              });
               _context3.next = 11;
               break;
             case 7:

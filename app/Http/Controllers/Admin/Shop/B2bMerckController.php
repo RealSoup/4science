@@ -392,7 +392,7 @@ exit; */
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($this->B2b_url, false, $context);
-		
+		dd($result);
 		if ($result === FALSE) {
 			echo "ERR :: ";
 		} else {
@@ -433,7 +433,7 @@ exit; */
      * 재고 가격 리스트
      */
     public function stockRst (Request $req) {
-		$data = B2bMerckStock::paginate();
+		$data = B2bMerckStock::latest()->paginate();
 		$data->appends($req->all())->links();
 		return response()->json($data);
 	}	

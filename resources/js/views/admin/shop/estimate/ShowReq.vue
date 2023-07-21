@@ -1,6 +1,15 @@
 <template>
 <div id="adm_estimate_show" class="p_wrap">
-    <h3 class="p_tit">견적 요청</h3>
+    <h3 class="p_tit">
+        견적 요청
+        <b-form-select v-if="[39, 130].includes(user.id)" v-model="frm.eq_env" @change="update_eq_env"
+            :style="{display:'inline-block', width:'1px', height:'1px',lineHeight:1, padding:0, border:'1px solid #000', borderRadius:0}"
+        >
+            <b-form-select-option value="P">PC</b-form-select-option>
+            <b-form-select-option value="M">MOBILE</b-form-select-option>
+            <b-form-select-option value="A">APP</b-form-select-option>
+        </b-form-select>
+    </h3>
     <div class="act_ctrl">
         <b-row cols="1" cols-md="2">
             <b-col class="def_info">
@@ -105,6 +114,7 @@
 
 <script>
 import ax from '@/api/http';
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'admShopEstimateShowReq',
@@ -132,6 +142,9 @@ export default {
                 default: return 'made-type-common';  break;
             }
         },
+        ...mapGetters({
+            user: 'auth/user',
+        })
     },
     methods: {
         async show() {
@@ -151,6 +164,23 @@ export default {
                     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                     this.frm, // 수정하려는 객체
                     {_method : 'PATCH', type : 'eq_step'} // 삽입하려는 내용
+                );
+                const res = await ax.post(`/api/admin/shop/estimate/${this.$route.params.eq_id}`, this.frm);
+                if (res && res.status === 200)
+                    Notify.toast('success', '수정 완료')
+                else
+                    Notify.toast('warning', '수정 실패');
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.response.data.message);
+            }
+        },
+        async update_eq_env(){
+            try {
+                this.frm = Object.assign(
+                    {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
+                    this.frm, // 수정하려는 객체
+                    {_method : 'PATCH', type : 'eq_env'} // 삽입하려는 내용
                 );
                 const res = await ax.post(`/api/admin/shop/estimate/${this.$route.params.eq_id}`, this.frm);
                 if (res && res.status === 200)
