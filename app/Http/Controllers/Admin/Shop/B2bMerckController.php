@@ -392,10 +392,11 @@ exit; */
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($this->B2b_url, false, $context);
+		
 		if ($result === FALSE) {
 			echo "ERR :: ";
 		} else {
-			if ( DB::table('shop_b2b_merck_stock')->insertGetId([ 'bms_data' => $xml ]) )
+			if ( DB::table('shop_b2b_merck_stock')->insertGetId([ 'bms_data' => $result ]) )
 				return response()->json(["msg"=>'success'], 200);
 			else
 				return response()->json(["msg"=>"Fail"], 500);
