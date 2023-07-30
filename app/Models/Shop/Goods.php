@@ -370,33 +370,34 @@ class Goods extends Model {
             $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
             if ($req->filled('keyword_extra')) {
                 $ft_kw = "+{$kw}* +{$req->keyword_extra}*";
-            } else {
+            }
 /*
-                +	AND, 반드시 포함하는 단어
-                –	NOT, 반드시 제외하는 단어
-                >	포함하며, 검색 순위를 높일 단어
-                    +mysql >tutorial
-                    : mysql과 tutorial가 포함하는 행을 찾을 때, tutorial이 포함되면 검색 랭킹이 높아짐
-                <	포함하되,검색 순위를 낮출 단어
-                    +mysql <training
-                    : mysql과 training가 포함하는 행을 찾지만, training이 포함되면 검색 랭킹이 낮아짐
-                ()	하위 표현식으로 그룹화 (포함, 제외, 순위 지정 등)
-                    +mysql +(>tutorial <training)
-                    : mysql AND tutorial, mysql AND training 이지만, tutorial의 우선순위가 더욱 높게 지정
-                ~	Negate. 
-                    '-' 연산자와 비슷하지만 제외 시키지는 않고 검색 조건을 낮춤
-                *	Wildcard. 와일드카드
-                    my*
-                    : mysql, mybatis 등 my 뒤의 와일드 카드로 붙음
-                “”	구문 정의
+            +	AND, 반드시 포함하는 단어
+            –	NOT, 반드시 제외하는 단어
+            >	포함하며, 검색 순위를 높일 단어
+                +mysql >tutorial
+                : mysql과 tutorial가 포함하는 행을 찾을 때, tutorial이 포함되면 검색 랭킹이 높아짐
+            <	포함하되,검색 순위를 낮출 단어
+                +mysql <training
+                : mysql과 training가 포함하는 행을 찾지만, training이 포함되면 검색 랭킹이 낮아짐
+            ()	하위 표현식으로 그룹화 (포함, 제외, 순위 지정 등)
+                +mysql +(>tutorial <training)
+                : mysql AND tutorial, mysql AND training 이지만, tutorial의 우선순위가 더욱 높게 지정
+            ~	Negate. 
+                '-' 연산자와 비슷하지만 제외 시키지는 않고 검색 조건을 낮춤
+            *	Wildcard. 와일드카드
+                my*
+                : mysql, mybatis 등 my 뒤의 와일드 카드로 붙음
+            “”	구문 정의
 */
 
 
-                // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
-                // if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
-                // else 								$ft_kw = $kw.'*';
-                if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = $kw.'*';
-            }
+            // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
+            // if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
+            // else 								$ft_kw = $kw.'*';
+            $ft_kw = $kw;
+            if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = $ft_kw.'*';
+            
             if ( $req->filled('mode') ) {
                 if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면
                     return 'no-catno';
