@@ -432,9 +432,12 @@ class GoodsController extends Controller {
     }
 
     public function goods_paramImplant($goods, $req){
+        $gd_keyword_chg = str_replace('-', 'ΩΩ', $req->gd_keyword);
+        $gd_keyword_chg = str_replace('.', 'ΣΣ', $gd_keyword_chg);
         $goods->gd_name     = $req->gd_name;
 	   	$goods->gd_desc     = $req->gd_desc;
         $goods->gd_keyword  = $req->gd_keyword;
+        $goods->gd_keyword_chg  = $gd_keyword_chg;
         $goods->gd_video    = $req->gd_video;
 	   	$goods->gd_dlvy_at  = $req->gd_dlvy_at;
 	   	$goods->gd_enable   = $req->filled('gd_enable') ? $req->gd_enable : 'N';
