@@ -290,9 +290,12 @@ class OrderController extends Controller {
 			}
 		}
 
-		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;		
-		$data['order_config'] = $this->order->getOrderConfig();
-		return response()->json($data, 200);
+		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;	
+		
+		$rst['od'] = $data;
+		$rst['order_config'] = $this->order->getOrderConfig();
+		$rst['mng_on'] = json_decode(Redis::get('UserMngOn'));
+		return response()->json($rst, 200);
 	}
 
 	public function exportEstimateExcel(Request $req) {

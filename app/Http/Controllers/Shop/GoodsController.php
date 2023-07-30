@@ -23,7 +23,7 @@ class GoodsController extends Controller {
         $data['categorys'] = Category::getSelectedCate( $req->filled('ca01') ? $req->ca01 : 0, 
                                                         $req->filled('ca02') ? $req->ca02 : 0, 
                                                         $req->filled('ca03') ? $req->ca03 : 0 );
-
+if(false){
         $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )
             ->SELECT("gs.gd_name", "gs.gm_name", "gs.gm_code", "gs.mk_name", "gs.gm_catno",
                 "gc_ca01", "gc_ca01_name", "gc_ca02", "gc_ca02_name", "gc_ca03", "gc_ca03_name", "gc_ca04", "gc_ca04_name",
@@ -174,8 +174,117 @@ class GoodsController extends Controller {
                     $data['pick'][1] = $pick_data->skip(6)->take(6);
             }
             
+            
+        }
+} else {
+    $qry = $this->goods->search($req);
+    
+
+    if ($req->filled('keyword')) { 
+        // $prev = clone $gs;
+        $prev = $this->goods->search($req, 'group');
+        $grouped = DB::table( $prev, 'sub' )
+                    ->join('shop_goods_category AS gc', 'sub.gd_id', '=', 'gc.gc_gd_id')
+                    ->select('gc.gc_ca01', 'gc.gc_ca01_name', DB::raw('COUNT(la_gc.gc_ca01) as sum_ca'))
+                    ->groupBy('gc.gc_ca01')
+                    ->get();
+        
+        $data['sch_cate_info']['all'] = $grouped->sum('sum_ca');
+        
+        foreach ($grouped as $v) {
+            $tmp['key'] = $v->gc_ca01;
+            $tmp['name'] = $v->gc_ca01_name;
+            $tmp['cnt'] = $v->sum_ca;
+            $data['sch_cate_info']['ca01'][] = $tmp;
+        }
+        if ($req->filled('ca01')) {
+            $grouped = DB::table( $prev, 'sub' )
+                        ->join('shop_goods_category AS gc', 'sub.gd_id', '=', 'gc.gc_gd_id')
+                        ->select('gc.gc_ca02', 'gc.gc_ca02_name', DB::raw('COUNT(la_gc.gc_ca02) as sum_ca'))
+                        ->where('gc_ca01', $req->ca01)
+                        ->groupBy('gc.gc_ca02')
+                        ->get();
+
+            foreach ($grouped as $v) {
+                $tmp['key'] = $v->gc_ca02;
+                $tmp['name'] = $v->gc_ca02_name;
+                $tmp['cnt'] = $v->sum_ca;
+                $data['sch_cate_info']['ca02'][] = $tmp;
+            }
+        }
+
+        if ($req->filled('ca02')) {
+            $grouped = DB::table( $prev, 'sub' )
+                        ->join('shop_goods_category AS gc', 'sub.gd_id', '=', 'gc.gc_gd_id')
+                        ->select('gc.gc_ca03', 'gc.gc_ca03_name', DB::raw('COUNT(la_gc.gc_ca03) as sum_ca'))
+                        ->where('gc_ca02', $req->ca02)
+                        ->groupBy('gc.gc_ca03')
+                        ->get();
+            foreach ($grouped as $v) {
+                $tmp['key'] = $v->gc_ca03;
+                $tmp['name'] = $v->gc_ca03_name;
+                $tmp['cnt'] = $v->sum_ca;
+                $data['sch_cate_info']['ca03'][] = $tmp;
+            }
+        }
+
+        if ($req->filled('ca03')) {
+            $grouped = DB::table( $prev, 'sub' )
+                        ->join('shop_goods_category AS gc', 'sub.gd_id', '=', 'gc.gc_gd_id')
+                        ->join('shop_goods AS gd', 'sub.gd_id', '=', 'gd.gd_id')
+                        ->join('shop_makers AS mk', 'gd.gd_mk_id', '=', 'mk.mk_id')
+                        ->select('mk.mk_id', 'mk.mk_name', DB::raw('COUNT(la_mk.mk_id) as sum_ca'))
+                        ->where('gc_ca03', $req->ca03)
+                        ->groupBy('mk.mk_id')
+                        ->get();
+            foreach ($grouped as $v) {
+                $tmp['key'] = $v->mk_id;
+                $tmp['name'] = $v->mk_name;
+                $tmp['cnt'] = $v->sum_ca;
+                $data['sch_cate_info']['maker'][] = $tmp;
+            }
+        }
+    }
+
+                
+    $qry = $qry->with('goodsModelPrime')->with('maker');
+    $req->sort = $req->sort ? $req->sort : 'hot';
+    switch ($req->sort) {
+        case 'hot':
+            if (!$req->filled('keyword')){
+                $qry->orderBy('gd_seq');
+            }
+            $qry->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
+        break;
+        case 'new':     $qry->latest('gd_id');        break;
+        case 'lowPri':  $qry->join('shop_goods_model AS gm', function($q) { $q->on('shop_goods.gd_id', '=', 'gm.gm_gd_id')->where('gm.gm_prime', 'Y'); })->oldest('gm_price'); break;
+        case 'highPri': $qry->join('shop_goods_model AS gm', function($q) { $q->on('shop_goods.gd_id', '=', 'gm.gm_gd_id')->where('gm.gm_prime', 'Y'); })->latest('gm_price'); break;
+    }
+
+    if ($req->filled('limit'))  //  메인 베스트
+        $data['list'] = $qry->limit($req->limit)->get(); 
+    else {
+        $data['list'] = $qry->paginate();
+        $data['list']->appends($req->all())->links();
+
+        //  포사의 PICK
+        $pick_data = clone $qry;
+        $pick_data = $pick_data->where('gd_seq', '<', 999999)->orderBy('gd_seq')->limit(12)->get();
+        if(count($pick_data)) {
+            $data['pick'][0] = $pick_data->take(6);
+            if (count($pick_data) > 6)
+                $data['pick'][1] = $pick_data->skip(6)->take(6);
         }
         
+    }
+
+    // foreach ($data['list'] as $v) {
+    //     $v->image_src_thumb = $this->goods->getImgSrc($v->gd_id, true);
+    //     $mk = DB::table('shop_makers')->where('mk_id', $v->gd_mk_id)->first();
+    //     $v->mk_name = $mk->mk_name ?? NULL;
+    //     $v->gm_price_add_vat = ($v->gm_price>0) ? intval($v->gm_price*1.1) : $v->gm_price;;
+    // }
+}
 		return response()->json($data);
     }
 

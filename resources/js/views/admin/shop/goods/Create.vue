@@ -39,6 +39,7 @@ export default {
             frm: {
                 goods_category: [],
                 gd_enable: 'Y',
+                gd_type: 'NON',
                 goods_model : [],
                 goods_option : [],
                 fi_id: [],

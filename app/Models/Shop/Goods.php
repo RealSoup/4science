@@ -61,7 +61,7 @@ class Goods extends Model {
     public function scopeSchWriter($q, $id_arr)     { return $q->whereIn('created_id', $id_arr); }
     public function scopeStartDate($q, $d)          { return $q->whereDate('created_at', '>=', $d); }
     public function scopeEndDate($q, $d)            { return $q->whereDate('created_at', '<=', $d); }
-    public function scopeEnable($q, $v)             { return $q->where('gd_enable', $v); }
+    public function scopeEnable($q)                 { return $q->where('gd_enable', 'Y'); }
     public function scopeMaker($q, $v)              { return $q->where('gd_mk_id', $v); }
     public function scopeCa01($q, $id)              { return $q->where('gc_ca01', $id); }
     public function scopeCa02($q, $id)              { return $q->where('gc_ca02', $id); }
@@ -362,5 +362,94 @@ class Goods extends Model {
             */
         }
         return $p;
+    }
+
+    public function search($req, $r_type=null) {
+        if ($req->filled('keyword')) {    
+            $kw = trim($req->keyword);
+            $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
+            if ($req->filled('keyword_extra')) {
+                $ft_kw = "+{$kw}* +{$req->keyword_extra}*";
+            } else {
+/*
+                +	AND, 반드시 포함하는 단어
+                –	NOT, 반드시 제외하는 단어
+                >	포함하며, 검색 순위를 높일 단어
+                    +mysql >tutorial
+                    : mysql과 tutorial가 포함하는 행을 찾을 때, tutorial이 포함되면 검색 랭킹이 높아짐
+                <	포함하되,검색 순위를 낮출 단어
+                    +mysql <training
+                    : mysql과 training가 포함하는 행을 찾지만, training이 포함되면 검색 랭킹이 낮아짐
+                ()	하위 표현식으로 그룹화 (포함, 제외, 순위 지정 등)
+                    +mysql +(>tutorial <training)
+                    : mysql AND tutorial, mysql AND training 이지만, tutorial의 우선순위가 더욱 높게 지정
+                ~	Negate. 
+                    '-' 연산자와 비슷하지만 제외 시키지는 않고 검색 조건을 낮춤
+                *	Wildcard. 와일드카드
+                    my*
+                    : mysql, mybatis 등 my 뒤의 와일드 카드로 붙음
+                “”	구문 정의
+*/
+
+
+                // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
+                // if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
+                // else 								$ft_kw = $kw.'*';
+                if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = $kw.'*';
+            }
+            if ( $req->filled('mode') ) {
+                if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면
+                    return 'no-catno';
+                
+                $gd_name = $req->mode == 'gd_name' ? true : NULL;
+                $maker   = $req->mode == 'maker'   ? true : NULL;
+                $gm_name = $req->mode == 'gm_name' ? true : NULL;
+                $cat_no  = $req->mode == 'cat_no'  ? true : NULL;
+                $gm_code = $req->mode == 'gm_code' ? true : NULL;
+            } else {
+                $gd_name = $maker = $gm_name = $cat_no = $gm_code = true;
+            }
+
+            if($gd_name) $gd_name = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ft_kw, ['mode' => 'boolean']);
+            if($maker)   $maker   = DB::table('shop_goods')->select('gd_id')->join('shop_makers AS mk', 'shop_goods.gd_mk_id', '=', 'mk.mk_id')->where('mk_name', 'like', "{$kw}%");
+            if($gm_name) $gm_name = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText('gm_name', $ft_kw, ['mode' => 'boolean']);
+            if($cat_no && $is_catno) {
+                         $catno_arr = explode('-', $kw); 
+                         $cat_no  = DB::table('shop_goods_model')->select('gm_gd_id')->where('gm_catno01', $catno_arr[0])->where('gm_catno02', $catno_arr[1]);
+            }
+            if($gm_code) $gm_code = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText('gm_code', $ft_kw, ['mode' => 'boolean']);
+
+            if(!$req->filled('mode')) {
+                $ft_kw = str_replace('-', 'ΩΩ', $ft_kw);
+                $ft_kw = str_replace('.', 'ΣΣ', $ft_kw);
+                $keyword = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_keyword_chg', $ft_kw, ['mode' => 'boolean']);
+                $sub = $gd_name->union($maker)->union($gm_name)->union($gm_code)->union($keyword);
+                if($is_catno) $sub = $sub->union($cat_no);
+            } else {
+                if($gd_name)  $sub = $gd_name;
+                if($maker)    $sub = $maker;
+                if($gm_name)  $sub = $gm_name;
+                if($cat_no)   $sub = $cat_no;
+                if($gm_code)  $sub = $gm_code;
+            }
+        }
+
+        if( $r_type == 'group' ) 
+            return $sub;   
+
+        $qry = Goods::Enable();
+        if($req->filled('keyword')) {
+            $qry->joinSub($sub, 'sub', function ($q) { $q->on('sub.gd_id', '=', 'shop_goods.gd_id'); });
+                // ->addSelect(DB::raw('STRAIGHT_JOIN la_shop_goods.*'));
+        }
+
+        $qry->when($req->ca01, function ($q, $v) { return $q->join('shop_goods_category AS gc', 'shop_goods.gd_id', '=', 'gc.gc_gd_id')->where('gc_ca01', $v); })
+            ->when($req->ca02,  fn ($q, $v) => $q->where('gc_ca02',  $v))
+            ->when($req->ca03,  fn ($q, $v) => $q->where('gc_ca03',  $v))
+            ->when($req->ca04,  fn ($q, $v) => $q->where('gc_ca04',  $v))
+            ->when($req->mk_id, fn ($q, $v) => $q->where('gd_mk_id', $v))
+            ->when(!$req->filled('keyword'), fn ($q) => $q->groupBy('gd_id'));
+            
+        return $qry;
     }
 }

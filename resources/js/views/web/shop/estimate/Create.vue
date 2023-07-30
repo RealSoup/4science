@@ -72,7 +72,11 @@
                             </b-col>
                         </b-row>
                         <b-row>
-                            <b-col><b-form-textarea v-model="frm.eq_content" rows="13" /></b-col>
+                            <b-col>
+<b-form-textarea v-model="frm.eq_content" id="eq_content" rows="12" placeholder="제품명: 
+사양: 
+수량:" />
+                            </b-col>
                         </b-row>
                     </div>
                 </b-container>
@@ -106,7 +110,7 @@ export default {
                 eq_fax: "",
                 eq_hp: "",
                 eq_company: "",
-                eq_content: "제품명: \n사양: \n수량:",
+                eq_content: "",
                 eq_1depth:'',
             },
             cate:{},
@@ -131,6 +135,9 @@ export default {
         async store(){
             this.frm.eq_hp = `${this.frm.eq_hp01}-${this.frm.eq_hp02}-${this.frm.eq_hp03}`;
             this.frm.eq_email = `${this.frm.eq_email01}@${this.frm.eq_email02}`;
+            if( Object.keys(this.frm.lists).length < 1 ) {
+                if (isEmpty(this.frm.eq_content)) { Notify.toast('danger', "문의 사항을 입력하세요."); document.getElementById('eq_content').focus(); return false; }
+            }
             try {
                 let res = await ax.post(`/api/shop/estimate`, this.frm);
                 if (res && res.status === 200) {

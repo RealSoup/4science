@@ -20,13 +20,14 @@
                     <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
                     <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
                     <span>주문환경</span> <b>{{ od.od_sale_env | sale_env}}</b>
-                    <span>주문유형</span> <b v-if="od.order_config.type">{{ od.order_config.type[od.od_type]}}</b>
+                    <span>주문유형</span> <b v-if="order_config.type">{{ order_config.type[od.od_type]}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록으로</span></b-button>
 
                     <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
-                    <b-button v-else class="sky sm">{{od.mng.name}}</b-button>
+                    <b-button v-else @click="isModalViewed = !isModalViewed, modalType = 'changeMng'" class="sky sm">{{od.mng.name}}</b-button>
+                    
 
                     <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right /> <span class="sm_ib_h">영업</span>장부</b-button>
                     <b-button v-else class="d_gray sm">장부등록됨</b-button>
@@ -47,11 +48,11 @@
                     <b-input-group size="sm">
                         <b-form-select v-model="od.od_step" class="sm_ib_h">
                             <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
-                            <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in order_config.step" :key="k" :value="k">{{v.name}}</b-form-select-option>
                         </b-form-select>
                         <b-form-select v-model="od.od_step" class="sm_ib_v">
                             <b-form-select-option :value="null" disabled>상태</b-form-select-option>
-                            <b-form-select-option v-for="(v, k) in od.order_config.step" :key="k" :value="k">{{v.sm_name}}</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in order_config.step" :key="k" :value="k">{{v.sm_name}}</b-form-select-option>
                         </b-form-select>
                         <b-input-group-append><b-button @click="update('od_step')" class="d_gray sm">변경</b-button></b-input-group-append>
                     </b-input-group>
@@ -264,9 +265,9 @@
                     <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
-                        <span class="print_show_inline">{{od.order_config.pay_method[od.od_pay_method]}}</span>
+                        <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
                         <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
-                            <b-form-select-option v-for="(v, k) in od.order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                     </b-col>
                     <b-col class="lb">입금계좌</b-col>
@@ -286,9 +287,9 @@
                     <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
                     <b-col class="lb">결제수단</b-col>
                     <b-col class="dt wd1_2">
-                        <span class="print_show_inline">{{od.order_config.pay_method[od.od_pay_method]}}</span>
+                        <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
                         <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
-                            <b-form-select-option v-for="(v, k) in od.order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
+                            <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
                         <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block ml-3" 
                             @click="openWinPop(`https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${od.order_pg.pg_tid}`, 450, 550)"
@@ -425,7 +426,7 @@
                             <b-col class="label">운송사</b-col>
                             <b-col>
                                 <b-form-select v-model="dlvy_info.company" size="sm">
-                                    <b-form-select-option v-for="(v, k) in od.order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
+                                    <b-form-select-option v-for="(v, k) in order_config.delivery_com" :key="k" :value="k">{{ k }}</b-form-select-option>
                                 </b-form-select>
                             </b-col>
                         </b-row>
@@ -439,6 +440,27 @@
                         </b-row>
                     </b-container>
                 </template>
+
+                <template v-else-if="modalType == 'changeMng'">
+                    <template slot="header">담당자 변경</template>
+                    <b-container class="adform layerModal">
+                        <b-row>
+                            <b-col class="label">당당자</b-col>
+                            <b-col>
+                                <b-form-select v-model="od.od_mng" class="sm_ib_h">
+                                    <b-form-select-option :value="null" disabled>◖처리 상태◗</b-form-select-option>
+                                    <b-form-select-option v-for="(v, k) in mng_on" :key="k" :value="k">{{v.name}}</b-form-select-option>
+                                </b-form-select>
+                            </b-col>
+                        </b-row>
+                        
+                        <b-row>
+                            <b-col></b-col>
+                            <b-col class="ctrl"><b-button @click="update('od_mng', 'other')" class="sky">변경</b-button></b-col>
+                        </b-row>
+                    </b-container>
+                </template>
+                
             </Modal>
         </transition>
     </div>
@@ -468,9 +490,6 @@ export default {
             },
             od: {
                 order_extra_info:{},
-                order_config: {
-                    pay_method:[],
-                },
                 mng: {},
                 user: {},
                 order_purchase_at:[],
@@ -483,6 +502,11 @@ export default {
             },
             document_type: '',
             show_addr_list: false,
+            mng_on:[],
+            is_view_mng_list:false,
+            order_config: {
+                pay_method:[],
+            },
 
         };
     },
@@ -554,14 +578,16 @@ export default {
             try {
                 const res = await ax.get(`/api/admin/shop/order/${this.$route.params.od_id}/edit`);
                 if (res && res.status === 200) {
-                    this.od = res.data;
+                    this.od = res.data.od;
+                    this.order_config = res.data.order_config;
+                    this.mng_on = res.data.mng_on;
                 }
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        async update(type, v=null){
+        async update(type, mode=null){
             try {
                 this.od = Object.assign(
                     {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
@@ -570,8 +596,10 @@ export default {
                 );
 
                 if (type == 'od_mng') {
-                    this.od.od_mng = Auth.user().id;
-                    this.od.mng = Auth.user();
+                    if( mode !== 'other') {
+                        this.od.od_mng = Auth.user().id;
+                        this.od.mng = Auth.user();
+                    }
                 } else if (type == 'dlvy') {
                     this.od.order_purchase_at.forEach(opa => {
                         opa.order_model.forEach(odm => {
@@ -593,6 +621,10 @@ export default {
                 if (res && res.status === 200 && res.data.msg === 'success') {
                     if (type == 'od_mng') {
                         Notify.toast('success', '담당 배정 완료');
+                        if (mode == 'other') {
+                            this.edit();
+                            this.isModalViewed = false;
+                        }
                     } else if (type == 'od_step') {
                         Notify.toast('success', '주문 처리 단계 수정');
                     } else if (type == 'odm_ea') {
@@ -767,7 +799,7 @@ export default {
                     if (odm.odm_id !== odm_id) odm.dlvy_all_in = false;
         },
         getHref (com, num) {
-            return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+            return this.order_config.delivery_com[com].replace('[송장번호]', num);
         },
         format_date(e) { return this.formatDate(e); },
         change_dlvy_info(i){
@@ -775,6 +807,9 @@ export default {
             this.od.od_addr1 = this.od.user.user_addr[i].ua_addr1;
             this.od.od_addr2 = this.od.user.user_addr[i].ua_addr2;
             this.od.od_receiver_hp = this.od.user.user_addr[i].ua_hp;
+        },
+        view_mng_list(){
+
         },
     },
     mounted() {

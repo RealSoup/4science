@@ -52,9 +52,6 @@ var dt = new Date();
       },
       od: {
         order_extra_info: {},
-        order_config: {
-          pay_method: []
-        },
         mng: {},
         user: {},
         order_purchase_at: [],
@@ -66,7 +63,12 @@ var dt = new Date();
         number: ''
       },
       document_type: '',
-      show_addr_list: false
+      show_addr_list: false,
+      mng_on: [],
+      is_view_mng_list: false,
+      order_config: {
+        pay_method: []
+      }
     };
   },
   computed: _objectSpread({
@@ -157,7 +159,9 @@ var dt = new Date();
             case 3:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this.od = res.data;
+                _this.od = res.data.od;
+                _this.order_config = res.data.order_config;
+                _this.mng_on = res.data.mng_on;
               }
               _context.next = 11;
               break;
@@ -177,11 +181,11 @@ var dt = new Date();
       var _arguments = arguments,
         _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var v, res;
+        var mode, res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              v = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : null;
+              mode = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : null;
               _context2.prev = 1;
               _this2.od = Object.assign({},
               // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
@@ -194,8 +198,10 @@ var dt = new Date();
               );
 
               if (type == 'od_mng') {
-                _this2.od.od_mng = Auth.user().id;
-                _this2.od.mng = Auth.user();
+                if (mode !== 'other') {
+                  _this2.od.od_mng = Auth.user().id;
+                  _this2.od.mng = Auth.user();
+                }
               } else if (type == 'dlvy') {
                 _this2.od.order_purchase_at.forEach(function (opa) {
                   opa.order_model.forEach(function (odm) {
@@ -219,6 +225,10 @@ var dt = new Date();
               if (res && res.status === 200 && res.data.msg === 'success') {
                 if (type == 'od_mng') {
                   Notify.toast('success', '담당 배정 완료');
+                  if (mode == 'other') {
+                    _this2.edit();
+                    _this2.isModalViewed = false;
+                  }
                 } else if (type == 'od_step') {
                   Notify.toast('success', '주문 처리 단계 수정');
                 } else if (type == 'odm_ea') {
@@ -568,7 +578,7 @@ var dt = new Date();
       }
     },
     getHref: function getHref(com, num) {
-      return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+      return this.order_config.delivery_com[com].replace('[송장번호]', num);
     },
     format_date: function format_date(e) {
       return this.formatDate(e);
@@ -578,7 +588,8 @@ var dt = new Date();
       this.od.od_addr1 = this.od.user.user_addr[i].ua_addr1;
       this.od.od_addr2 = this.od.user.user_addr[i].ua_addr2;
       this.od.od_receiver_hp = this.od.user.user_addr[i].ua_hp;
-    }
+    },
+    view_mng_list: function view_mng_list() {}
   },
   mounted: function mounted() {
     this.edit();
@@ -667,7 +678,7 @@ var render = function render() {
         return _vm.openWinPop("/admin/shop/estimate/reply/".concat(_vm.od.od_er_id));
       }
     }
-  }, [_c("b-icon-box-arrow-up-right"), _vm._v(" 견적서")], 1) : _vm._e(), _vm._v(" "), _c("span", [_vm._v("주문날짜")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.od.created_at)))]), _vm._v(" "), _c("span", [_vm._v("주문환경")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("sale_env")(_vm.od.od_sale_env)))]), _vm._v(" "), _c("span", [_vm._v("주문유형")]), _vm._v(" "), _vm.od.order_config.type ? _c("b", [_vm._v(_vm._s(_vm.od.order_config.type[_vm.od.od_type]))]) : _vm._e()], 1), _vm._v(" "), _c("b-col", {
+  }, [_c("b-icon-box-arrow-up-right"), _vm._v(" 견적서")], 1) : _vm._e(), _vm._v(" "), _c("span", [_vm._v("주문날짜")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.od.created_at)))]), _vm._v(" "), _c("span", [_vm._v("주문환경")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("sale_env")(_vm.od.od_sale_env)))]), _vm._v(" "), _c("span", [_vm._v("주문유형")]), _vm._v(" "), _vm.order_config.type ? _c("b", [_vm._v(_vm._s(_vm.order_config.type[_vm.od.od_type]))]) : _vm._e()], 1), _vm._v(" "), _c("b-col", {
     staticClass: "btn_area print_hide_flex"
   }, [_c("b-button", {
     staticClass: "white sm",
@@ -686,7 +697,13 @@ var render = function render() {
       }
     }
   }, [_vm._v("담당")]) : _c("b-button", {
-    staticClass: "sky sm"
+    staticClass: "sky sm",
+    on: {
+      click: function click($event) {
+        ;
+        _vm.isModalViewed = !_vm.isModalViewed, _vm.modalType = "changeMng";
+      }
+    }
   }, [_vm._v(_vm._s(_vm.od.mng.name))]), _vm._v(" "), _vm.od.od_has_ledger == "N" ? _c("b-button", {
     staticClass: "d_gray sm",
     on: {
@@ -772,7 +789,7 @@ var render = function render() {
       value: null,
       disabled: ""
     }
-  }, [_vm._v("◖처리 상태◗")]), _vm._v(" "), _vm._l(_vm.od.order_config.step, function (v, k) {
+  }, [_vm._v("◖처리 상태◗")]), _vm._v(" "), _vm._l(_vm.order_config.step, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
@@ -793,7 +810,7 @@ var render = function render() {
       value: null,
       disabled: ""
     }
-  }, [_vm._v("상태")]), _vm._v(" "), _vm._l(_vm.od.order_config.step, function (v, k) {
+  }, [_vm._v("상태")]), _vm._v(" "), _vm._l(_vm.order_config.step, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
@@ -1263,7 +1280,7 @@ var render = function render() {
     staticClass: "dt wd1_2"
   }, [_c("span", {
     staticClass: "print_show_inline"
-  }, [_vm._v(_vm._s(_vm.od.order_config.pay_method[_vm.od.od_pay_method]))]), _vm._v(" "), _c("b-form-select", {
+  }, [_vm._v(_vm._s(_vm.order_config.pay_method[_vm.od.od_pay_method]))]), _vm._v(" "), _c("b-form-select", {
     staticClass: "print_hide_inline_block",
     style: {
       maxWidth: "100px"
@@ -1278,7 +1295,7 @@ var render = function render() {
       },
       expression: "od.od_pay_method"
     }
-  }, _vm._l(_vm.od.order_config.pay_method, function (v, k) {
+  }, _vm._l(_vm.order_config.pay_method, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
@@ -1307,7 +1324,7 @@ var render = function render() {
     staticClass: "dt wd1_2"
   }, [_c("span", {
     staticClass: "print_show_inline"
-  }, [_vm._v(_vm._s(_vm.od.order_config.pay_method[_vm.od.od_pay_method]))]), _vm._v(" "), _c("b-form-select", {
+  }, [_vm._v(_vm._s(_vm.order_config.pay_method[_vm.od.od_pay_method]))]), _vm._v(" "), _c("b-form-select", {
     staticClass: "print_hide_inline_block",
     style: {
       maxWidth: "100px"
@@ -1322,7 +1339,7 @@ var render = function render() {
       },
       expression: "od.od_pay_method"
     }
-  }, _vm._l(_vm.od.order_config.pay_method, function (v, k) {
+  }, _vm._l(_vm.order_config.pay_method, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
@@ -1600,7 +1617,7 @@ var render = function render() {
       },
       expression: "dlvy_info.company"
     }
-  }, _vm._l(_vm.od.order_config.delivery_com, function (v, k) {
+  }, _vm._l(_vm.order_config.delivery_com, function (v, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
@@ -1634,7 +1651,43 @@ var render = function render() {
         return _vm.update("dlvy");
       }
     }
-  }, [_vm._v("등록")])], 1)], 1)], 1)] : _vm._e()], 2) : _vm._e()], 1)], 1)]);
+  }, [_vm._v("등록")])], 1)], 1)], 1)] : _vm.modalType == "changeMng" ? [_c("template", {
+    slot: "header"
+  }, [_vm._v("담당자 변경")]), _vm._v(" "), _c("b-container", {
+    staticClass: "adform layerModal"
+  }, [_c("b-row", [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("당당자")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+    staticClass: "sm_ib_h",
+    model: {
+      value: _vm.od.od_mng,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "od_mng", $$v);
+      },
+      expression: "od.od_mng"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: null,
+      disabled: ""
+    }
+  }, [_vm._v("◖처리 상태◗")]), _vm._v(" "), _vm._l(_vm.mng_on, function (v, k) {
+    return _c("b-form-select-option", {
+      key: k,
+      attrs: {
+        value: k
+      }
+    }, [_vm._v(_vm._s(v.name))]);
+  })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col"), _vm._v(" "), _c("b-col", {
+    staticClass: "ctrl"
+  }, [_c("b-button", {
+    staticClass: "sky",
+    on: {
+      click: function click($event) {
+        return _vm.update("od_mng", "other");
+      }
+    }
+  }, [_vm._v("변경")])], 1)], 1)], 1)] : _vm._e()], 2) : _vm._e()], 1)], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

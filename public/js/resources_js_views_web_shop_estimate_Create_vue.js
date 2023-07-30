@@ -213,7 +213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         eq_fax: "",
         eq_hp: "",
         eq_company: "",
-        eq_content: "제품명: \n사양: \n수량:",
+        eq_content: "",
         eq_1depth: ''
       },
       cate: {},
@@ -263,18 +263,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this2.frm.eq_hp = "".concat(_this2.frm.eq_hp01, "-").concat(_this2.frm.eq_hp02, "-").concat(_this2.frm.eq_hp03);
               _this2.frm.eq_email = "".concat(_this2.frm.eq_email01, "@").concat(_this2.frm.eq_email02);
-              _context2.prev = 2;
-              _context2.next = 5;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/estimate", _this2.frm);
-            case 5:
-              res = _context2.sent;
-              if (!(res && res.status === 200)) {
-                _context2.next = 14;
+              if (!(Object.keys(_this2.frm.lists).length < 1)) {
+                _context2.next = 7;
                 break;
               }
-              _context2.next = 9;
+              if (!isEmpty(_this2.frm.eq_content)) {
+                _context2.next = 7;
+                break;
+              }
+              Notify.toast('danger', "문의 사항을 입력하세요.");
+              document.getElementById('eq_content').focus();
+              return _context2.abrupt("return", false);
+            case 7:
+              _context2.prev = 7;
+              _context2.next = 10;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/estimate", _this2.frm);
+            case 10:
+              res = _context2.sent;
+              if (!(res && res.status === 200)) {
+                _context2.next = 19;
+                break;
+              }
+              _context2.next = 14;
               return _this2.$refs.fileupload.fileProcessor(res.data);
-            case 9:
+            case 14:
               Notify.toast('success', '견적 요청 완료');
               _this2.$store.dispatch('cart/index');
               _this2.$router.push({
@@ -283,23 +295,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   eq_id: res.data
                 }
               });
-              _context2.next = 15;
+              _context2.next = 20;
               break;
-            case 14:
+            case 19:
               Notify.toast('warning', res);
-            case 15:
-              _context2.next = 21;
+            case 20:
+              _context2.next = 26;
               break;
-            case 17:
-              _context2.prev = 17;
-              _context2.t0 = _context2["catch"](2);
+            case 22:
+              _context2.prev = 22;
+              _context2.t0 = _context2["catch"](7);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.responsee);
-            case 21:
+            case 26:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[2, 17]]);
+        }, _callee2, null, [[7, 22]]);
       }))();
     },
     pushFi_id: function pushFi_id(fi_id) {
@@ -700,7 +712,9 @@ var render = function render() {
     }
   })], 1)], 1) : _vm._e(), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-form-textarea", {
     attrs: {
-      rows: "13"
+      id: "eq_content",
+      rows: "12",
+      placeholder: "제품명: \n사양: \n수량:"
     },
     model: {
       value: _vm.frm.eq_content,

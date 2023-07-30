@@ -224,7 +224,7 @@ var render = function render() {
         }
       }, [_c("div", [_c("img", {
         attrs: {
-          src: gd.goods.image_src_thumb[0]
+          src: gd.image_src_thumb[0]
         }
       })]), _vm._v(" "), _c("p", {
         staticClass: "tit"
@@ -296,7 +296,7 @@ var render = function render() {
       }
     }, [_c("img", {
       attrs: {
-        src: row.goods.image_src_thumb[0]
+        src: row.image_src_thumb[0]
       }
     }), _vm._v(" "), _c("p", [_c("b", [_vm._v(_vm._s(row.gd_name))]), _vm._v(" "), _c("span", {
       staticClass: "info"

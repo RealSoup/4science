@@ -67,7 +67,7 @@
                             router-tag="li"
                         >   
                             <div>
-                                <img :src="gd.goods.image_src_thumb[0]" />
+                                <img :src="gd.image_src_thumb[0]" />
                             </div>
                             <p class="tit">{{gd.gd_name}}</p>
                             <p class="pri">{{gd.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</p>
@@ -98,7 +98,7 @@
                         <template v-if="list.data && list.data.length">
                             <b-row v-for="row in list.data" :key="row.gd_id" class="lbody">
                                 <b-link :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col link">
-                                    <img :src="row.goods.image_src_thumb[0]" />
+                                    <img :src="row.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
                                         <span class="info"> {{row.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
