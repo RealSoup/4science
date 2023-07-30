@@ -71,11 +71,11 @@ export default {
                 context.state.frm.keyword_extra = '';
             }
             
-            if( context.state.frm.keyword == 'trc' ) {
-                context.state.frm.ca01 = 28;
-                context.state.frm.ca02 = 3614;
-                context.state.frm.keyword = '';
-            }
+            // if( context.state.frm.keyword == 'trc' ) {
+            //     context.state.frm.ca01 = 28;
+            //     context.state.frm.ca02 = 3614;
+            //     context.state.frm.keyword = '';
+            // }
 
             let nfrm = {};
             for (let i in context.state.frm) {
