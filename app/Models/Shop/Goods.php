@@ -369,7 +369,7 @@ class Goods extends Model {
             $kw = trim($req->keyword);
             $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
             if ($req->filled('keyword_extra')) {
-                $ft_kw = "+{$kw}* +{$req->keyword_extra}*";
+                $ft_kw = "+{$kw}* >{$req->keyword_extra}*";
             }
 /*
             +	AND, 반드시 포함하는 단어
@@ -393,9 +393,9 @@ class Goods extends Model {
 
 
             // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
-            // if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
-            // else 								$ft_kw = $kw.'*';
-            $ft_kw = $kw.'*';
+            if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
+            else 								$ft_kw = $kw.'*';
+            // $ft_kw = $kw.'*';
             
             if ( $req->filled('mode') ) {
                 if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면

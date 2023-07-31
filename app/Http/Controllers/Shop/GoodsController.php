@@ -249,7 +249,8 @@ if(false){
     }
 
                 
-    $qry = $qry->with('goodsModelPrime')->with('maker');
+    $qry = $qry->with('goodsModelPrime')->with('maker')
+               ->groupby('shop_goods.gd_id');
     $req->sort = $req->sort ? $req->sort : 'hot';
     switch ($req->sort) {
         case 'hot':

@@ -63,7 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-39afc972] { text-align:center; margin:5rem;\n}\ndiv img[data-v-39afc972] { margin-bottom:4rem;\n}\ndiv p[data-v-39afc972] { font-size:1.8rem; text-align:center; font-weight:600; margin-bottom:0;\n}\ndiv ul[data-v-39afc972] { border:1px solid #CCCCCC; padding:1.2rem 0 1.2rem 3rem; margin:1.2rem auto; max-width:37rem;\n}\ndiv ul li[data-v-39afc972] { list-style-type:decimal; text-align:left; line-height:2; font-size:1.1rem; font-weight:600;\n}\ndiv ul li b[data-v-39afc972] { color:#1891D6;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ndiv[data-v-39afc972] { text-align:center; margin:5em;\n}\ndiv img[data-v-39afc972] { margin-bottom:4em;\n}\ndiv p[data-v-39afc972] { font-size:1.8em; text-align:center; font-weight:600; margin-bottom:0;\n}\ndiv ul[data-v-39afc972] { border:1px solid #CCCCCC; padding:1.2em 0 1.2em 3em; margin:1.2em auto; max-width:37em;\n}\ndiv ul li[data-v-39afc972] { list-style-type:decimal; text-align:left; line-height:2; font-size:1.1em; font-weight:600;\n}\ndiv ul li b[data-v-39afc972] { color:#1891D6;\n}\n@media (max-width: 992px){\ndiv[data-v-39afc972] { font-size:12px; margin:2em 0;\n}\ndiv img[data-v-39afc972] { width:100%;\n}\ndiv ul[data-v-39afc972] { padding:1.2em .5em 1.2em 2em;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

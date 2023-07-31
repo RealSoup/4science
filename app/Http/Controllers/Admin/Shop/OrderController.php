@@ -410,7 +410,7 @@ class OrderController extends Controller {
 			} else if ($req->type == 'od_sale_env') {
 				$od->od_sale_env = $req->od_sale_env;
 			}
-			
+			$od->updated_id = auth()->user()->id;
 			$od_rst = $od->save();
 		}
 		

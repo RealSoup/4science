@@ -115,9 +115,9 @@
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
                                     <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
                                 </b-col>
-                                <b-col class="m_hide">{{row.mk_name}}</b-col>
+                                <b-col class="m_hide">{{row.maker.mk_name}}</b-col>
                             </b-row>
-                            
+
                             <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
                                 <span slot="prev-nav"><b-icon-chevron-left /></span>
                                 <span slot="next-nav"><b-icon-chevron-right /></span>

@@ -320,7 +320,7 @@ var render = function render() {
       staticClass: "dealer"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat * _vm.$store.state.auth.user.dc_mul)))))]) : _vm._e()]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
-    }, [_vm._v(_vm._s(row.mk_name))])], 1);
+    }, [_vm._v(_vm._s(row.maker.mk_name))])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
