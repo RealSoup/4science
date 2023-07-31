@@ -412,12 +412,12 @@ class Goods extends Model {
 
             if($gd_name) $gd_name = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ft_kw, ['mode' => 'boolean']);
             if($maker)   $maker   = DB::table('shop_goods')->select('gd_id')->join('shop_makers AS mk', 'shop_goods.gd_mk_id', '=', 'mk.mk_id')->where('mk_name', 'like', "{$kw}%");
-            if($gm_name) $gm_name = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText('gm_name', $ft_kw, ['mode' => 'boolean']);
+            if($gm_name) $gm_name = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_name', $ft_kw, ['mode' => 'boolean']);
             if($cat_no && $is_catno) {
                          $catno_arr = explode('-', $kw); 
-                         $cat_no  = DB::table('shop_goods_model')->select('gm_gd_id')->where('gm_catno01', $catno_arr[0])->where('gm_catno02', $catno_arr[1]);
+                         $cat_no  = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->where('gm_catno01', $catno_arr[0])->where('gm_catno02', $catno_arr[1]);
             }
-            if($gm_code) $gm_code = DB::table('shop_goods_model')->select('gm_gd_id')->whereFullText('gm_code', $ft_kw, ['mode' => 'boolean']);
+            if($gm_code) $gm_code = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_code', $ft_kw, ['mode' => 'boolean']);
 
             if(!$req->filled('mode')) {
                 $ft_kw = str_replace('-', 'ΩΩ', $ft_kw);
