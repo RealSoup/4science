@@ -395,8 +395,7 @@ class Goods extends Model {
             // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
             // if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
             // else 								$ft_kw = $kw.'*';
-            $ft_kw = $kw;
-            if (preg_match("/[-+<>~*]/", $kw)) 	$ft_kw = $ft_kw.'*';
+            $ft_kw = $kw.'*';
             
             if ( $req->filled('mode') ) {
                 if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면
