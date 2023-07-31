@@ -56,7 +56,14 @@ export default {
             }
             const res = await ax.get(`/api/shop/goods`, { params: nfrm});
             if (res && res.status === 200) {
-                context.commit('setData', res.data);
+                console.log(res.data);
+                if(res.data == 'no-catno'){
+                    Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
+                    context.commit('setData', {list:[], categorys:[], sch_cate_info:[],pick:[]});
+                } else {
+                    context.commit('setData', res.data);
+                }
+
             }
         },
         routerPush(context, payload){

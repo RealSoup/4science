@@ -178,6 +178,8 @@ if(false){
         }
 } else {
     $qry = $this->goods->search($req);
+    if( gettype($qry) == 'string' && $qry == 'no-catno' )
+        return response()->json($qry);
     
 
     if ($req->filled('keyword')) { 

@@ -280,7 +280,7 @@ var render = function render() {
     staticClass: "m_hide"
   }, [_vm._v("가격")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"
-  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? _vm._l(_vm.list.data, function (row) {
+  }, [_vm._v("제조사")])], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? [_vm._l(_vm.list.data, function (row) {
     return _c("b-row", {
       key: row.gd_id,
       staticClass: "lbody"
@@ -321,7 +321,7 @@ var render = function render() {
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat * _vm.$store.state.auth.user.dc_mul)))))]) : _vm._e()]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(row.mk_name))])], 1);
-  }) : _c("no-item"), _vm._v(" "), _c("pagination", {
+  }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
       data: _vm.list,
@@ -342,7 +342,7 @@ var render = function render() {
       slot: "next-nav"
     },
     slot: "next-nav"
-  }, [_c("b-icon-chevron-right")], 1)])], 2)], 1)], 1)], 1)]], 2);
+  }, [_c("b-icon-chevron-right")], 1)])] : _c("no-item")], 2)], 1)], 1)], 1)]], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;

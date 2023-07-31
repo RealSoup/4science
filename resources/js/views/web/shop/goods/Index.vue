@@ -117,12 +117,13 @@
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
+                            
+                            <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
+                                <span slot="prev-nav"><b-icon-chevron-left /></span>
+                                <span slot="next-nav"><b-icon-chevron-right /></span>
+                            </pagination>
                         </template>
                         <no-item v-else />
-                        <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
-                            <span slot="prev-nav"><b-icon-chevron-left /></span>
-                            <span slot="next-nav"><b-icon-chevron-right /></span>
-                        </pagination>
                     </b-col>
                 </b-row>
             </b-container>
