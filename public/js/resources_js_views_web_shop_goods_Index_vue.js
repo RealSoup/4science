@@ -300,7 +300,7 @@ var render = function render() {
       }
     }), _vm._v(" "), _c("p", [_c("b", [_vm._v(_vm._s(row.gd_name))]), _vm._v(" "), _c("span", {
       staticClass: "info"
-    }, [_vm._v(" " + _vm._s(row.gm_code) + " / " + _vm._s(row.goods_model_prime.gm_spec) + " / " + _vm._s(row.goods_model_prime.gm_unit))]), _vm._v(" "), _c("i", [_vm._v("\r\n                                            가격 : \r\n                                            "), _c("span", {
+    }, [_vm._v(" " + _vm._s(row.goods_model_prime.gm_code) + " / " + _vm._s(row.goods_model_prime.gm_spec) + " / " + _vm._s(row.goods_model_prime.gm_unit))]), _vm._v(" "), _c("i", [_vm._v("\r\n                                            가격 : \r\n                                            "), _c("span", {
       staticClass: "price",
       "class": {
         see_dealer: _vm.$store.state.auth.isLoggedin && _vm.$store.state.auth.user.level == 12

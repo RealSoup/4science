@@ -101,7 +101,7 @@
                                     <img :src="row.image_src_thumb[0]" />
                                     <p>
                                         <b>{{row.gd_name}}</b>
-                                        <span class="info"> {{row.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
+                                        <span class="info"> {{row.goods_model_prime.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
                                         <i>
                                             가격 : 
                                             <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
