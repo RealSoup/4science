@@ -45,7 +45,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            if (_this.$route.query.msg == 'force') location.replace('/mypage/summary');
+            _context.next = 3;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order", {
               params: {
                 limit: 5,
@@ -53,22 +54,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 od_type: 'no_buy_temp'
               }
             });
-          case 2:
+          case 3:
             data_od = _context.sent;
             _this.order = data_od.data.order;
             _this.order_config = data_od.data.order_config;
-            _context.next = 7;
+            _context.next = 8;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/estimate", {
               params: {
                 limit: 5,
                 type: 'with_em'
               }
             });
-          case 7:
+          case 8:
             data_eq = _context.sent;
             _this.estimateReq = data_eq.data;
             _this.isLoadingModalViewed = false;
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }

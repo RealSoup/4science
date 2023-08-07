@@ -278,6 +278,26 @@
                     <b-col class="lb">입금자</b-col>
                     <b-col class="dt wd1_1">{{od.order_extra_info.oex_depositor}}</b-col>
                 </template>
+                <template v-if="od.od_pay_method == 'R'">
+                    <b-col class="lb">결제금액</b-col>
+                    <b-col class="dt wd1_2">{{od.od_all_price | comma | won}}</b-col>
+                    <b-col class="lb">결제예정일</b-col>
+                    <b-col class="dt wd1_2">{{payPlanDisplay}}</b-col>
+                    <b-col class="lb">결제수단</b-col>
+                    <b-col class="dt wd1_1">
+                        <span class="print_show_inline">{{order_config.pay_method[od.od_pay_method]}}</span>
+                        <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
+                            <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
+                        </b-form-select>
+                    </b-col>
+                    <b-col class="lb">담당자</b-col>
+                    <b-col class="dt wd1_3">{{od.order_extra_info.oex_mng}}</b-col>
+                    <b-col class="lb">연락처</b-col>
+                    <b-col class="dt wd1_3">{{od.order_extra_info.oex_num}}</b-col>
+                    <b-col class="lb">이메일</b-col>
+                    <b-col class="dt wd1_3">{{od.order_extra_info.oex_email}}</b-col>
+                </template>
+                
                 <template v-else>
                     <b-col class="lb">결제금액</b-col>
                     <b-col class="dt wd1_2">

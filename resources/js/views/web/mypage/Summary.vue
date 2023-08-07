@@ -32,6 +32,8 @@ export default {
         }
     },
     async mounted() {
+        if ( this.$route.query.msg == 'force' ) 
+            location.replace('/mypage/summary');
         let data_od = await ax.get(`/api/shop/order`, { params: {limit:5, type:'with_gm', od_type:'no_buy_temp', }});
         this.order = data_od.data.order;
         this.order_config = data_od.data.order_config;

@@ -1,136 +1,155 @@
 <template>
 <div class="p_wrap">
     <h3>회원 정보 수정</h3>
-    <b-card no-body class="act_ctrl">
-        <b-container>
-            <b-row>
-                <b-col>
-                    <div class="type_icon"><b-icon-tags-fill />{{ frm.id }}</div>
-                    <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at | formatDate }}</div>
-                    <div class="type_icon">
-                        <b-button :to="{name: 'adm_user_edit', params: { id:frm.introducer.id }}" v-if="frm.introducer" class="xm sky">소개자 - {{frm.introducer.name}}</b-button>
-                    </div>
-                    
-                </b-col>
-                <b-col class="text-right">
-                    <b-button-group size="sm">
-                        <b-button variant="light" :to="{name: 'adm_user'}"><b-icon-list-ol />목록</b-button>
-                        <b-button variant="primary" @click="update"><b-icon-pencil-square />수정 완료</b-button>
-                        <b-button variant="info" @click="isModalViewed = !isModalViewed, modalMode = 'mileage'">마일리지</b-button>
-                        <b-button variant="dark" @click="isModalViewed = !isModalViewed, modalMode = 'addr'">배송지</b-button>
-                    </b-button-group>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
+    <b-container class="act_ctrl">
+        <b-row>
+            <b-col>
+                <div class="type_icon"><b-icon-tags-fill />{{ frm.id }}</div>
+                <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at | formatDate }}</div>
+                <div class="type_icon">
+                    <b-button :to="{name: 'adm_user_edit', params: { id:frm.introducer.id }}" v-if="frm.introducer" class="xm sky">소개자 - {{frm.introducer.name}}</b-button>
+                </div>
+                
+            </b-col>
+            <b-col class="text-right">
+                <b-button-group size="sm">
+                    <b-button variant="light" :to="{name: 'adm_user'}"><b-icon-list-ol />목록</b-button>
+                    <b-button variant="primary" @click="update"><b-icon-pencil-square />수정 완료</b-button>
+                    <b-button variant="info" @click="isModalViewed = !isModalViewed, modalMode = 'mileage'">마일리지</b-button>
+                    <b-button variant="dark" @click="isModalViewed = !isModalViewed, modalMode = 'addr'">배송지</b-button>
+                </b-button-group>
+            </b-col>
+        </b-row>
+    </b-container>
 
-    <b-card class="adform">
-        <b-container>
-            <b-row><b-col class="tit">회원정보</b-col></b-row>
-            <b-row>
-                <b-col class="label">회원 유형</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.group" id="group">
-                        <b-form-select-option v-for="(v, i) in frm.option.group" :value="i" :key="i">{{v}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+    <b-container class="box adform">
+        <h5>
+            회원정보
+            <b-button @click="login" class="sky xm ml-3" v-if="user.is_super && frm.level<20">
+                <b-icon-power />
+            </b-button> 
+        </h5>
+        <b-row>
+            <b-col class="label">회원 유형</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.group" id="group">
+                    <b-form-select-option v-for="(v, i) in frm.option.group" :value="i" :key="i">{{v}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-col class="label">회원등급</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.level" id="level">
-                        <b-form-select-option value="0"></b-form-select-option>
-                        <b-form-select-option v-for="(grade, k) in frm.option.grade" :key="k" :value="k">{{grade}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+            <b-col class="label">회원등급</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.level" id="level">
+                    <b-form-select-option value="0"></b-form-select-option>
+                    <b-form-select-option v-for="(grade, k) in frm.option.grade" :key="k" :value="k">{{grade}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-col class="label">담당자</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.mng" id="mng">
-                        <b-form-select-option value="0"></b-form-select-option>
-                        <b-form-select-option v-for="(v, k) in frm.mng_list" :key="k" :value="v.id">{{v.name}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col class="label">이름</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.name" /></b-col>
+            <b-col class="label">담당자</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.mng" id="mng">
+                    <b-form-select-option value="0"></b-form-select-option>
+                    <b-form-select-option v-for="(v, k) in frm.mng_list" :key="k" :value="v.id">{{v.name}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col class="label">이름</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.name" /></b-col>
 
-                <b-col class="label">이메일</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.email" /></b-col>
-                <b-col class="checkbox01">
-                    <b-form-checkbox v-model="frm.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="lg">
-                        수신
-                        <b v-if="frm.receive_mail=='Y'">동의</b>
-                        <b v-else>안함</b>
-                    </b-form-checkbox>
-                </b-col>
+            <b-col class="label">이메일</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.email" /></b-col>
+            <b-col class="checkbox01">
+                <b-form-checkbox v-model="frm.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="lg">
+                    수신
+                    <b v-if="frm.receive_mail=='Y'">동의</b>
+                    <b v-else>안함</b>
+                </b-form-checkbox>
+            </b-col>
 
-                <b-col class="label">휴대폰</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.hp" :formatter="frm_formatHp" /></b-col>
-                <b-col class="checkbox01">
-                    <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
-                        수신
-                        <b v-if="frm.receive_sms=='Y'">동의</b>
-                        <b v-else>안함</b>
-                    </b-form-checkbox>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col class="label">생년월일</b-col>
-                <b-col class="type02">
-                    <b-input-group size="sm">
-                        <b-form-input v-model="frm.birth" id="birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="frm_formatDate" required></b-form-input>
-                        <b-input-group-append>
-                            <b-form-datepicker v-model="frm.birth" size="sm" button-only right></b-form-datepicker>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-col>
-                <b-col class="label">일반전화</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.tel" /></b-col>
-                <b-col class="label">팩스</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.fax" /></b-col>
-            </b-row>
+            <b-col class="label">휴대폰</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.hp" :formatter="frm_formatHp" /></b-col>
+            <b-col class="checkbox01">
+                <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
+                    수신
+                    <b v-if="frm.receive_sms=='Y'">동의</b>
+                    <b v-else>안함</b>
+                </b-form-checkbox>
+            </b-col>
+        </b-row>
+        <b-row v-if="user.is_super">
+            <b-col class="label">비밀번호</b-col>
+            <b-col class="type02">
+                <!-- vid <= 이건 오타가 아니라 비밀번호 확인시 유효성 검증을 위한 키워드이다 (  Validation ID) -->
+                <validation-provider vid="password" name="비밀번호" rules="required|min:6|pwCheck" v-slot="validationContext">
+                    <b-form-input type="password" id="password" placeholder="6자 영문, 숫자" v-model="frm.password" :state="getValidationState(validationContext)" />
+                    <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                </validation-provider>
+            </b-col>
 
-            <b-row><b-col><hr /></b-col></b-row>
+            <b-col class="label">비밀번호 확인</b-col>
+            <b-col class="type02">
+                <validation-provider name="비밀번호 확인" rules="required|confirmed:password" v-slot="validationContext">
+                    <b-form-input type="password" id="password_confirmation" placeholder="비밀번호 확인" v-model="frm.password_confirmation" :state="getValidationState(validationContext)" />
+                    <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                </validation-provider>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col class="label">생년월일</b-col>
+            <b-col class="type02">
+                <b-input-group size="sm">
+                    <b-form-input v-model="frm.birth" id="birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="frm_formatDate" required></b-form-input>
+                    <b-input-group-append>
+                        <b-form-datepicker v-model="frm.birth" size="sm" button-only right></b-form-datepicker>
+                    </b-input-group-append>
+                </b-input-group>
+            </b-col>
+            <b-col class="label">일반전화</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.tel" /></b-col>
+            <b-col class="label">팩스</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.fax" /></b-col>
+        </b-row>
 
-            <b-row>
-                <b-col class="label">직업</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.job">
-                        <b-form-select-option v-for="(v, k) in frm.option.job" :key="k" :value="v">{{v}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+        <b-row><b-col><hr /></b-col></b-row>
 
-                <b-col class="label">직장/학교명</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.company" /></b-col>
+        <b-row>
+            <b-col class="label">직업</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.job">
+                    <b-form-select-option v-for="(v, k) in frm.option.job" :key="k" :value="v">{{v}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-col class="label short">부서/학과/<br />연구실명</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.part" /></b-col>
+            <b-col class="label">직장/학교명</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.company" /></b-col>
 
-                <b-col class="label">직급/학년</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.grade" /></b-col>
+            <b-col class="label short">부서/학과/<br />연구실명</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.part" /></b-col>
 
-                <b-col class="label short">지도/담당교수</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.tutor" /></b-col>
+            <b-col class="label">직급/학년</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.grade" /></b-col>
 
-                <b-col class="label short">추천인 Email</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.offer" /></b-col>
+            <b-col class="label short">지도/담당교수</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.tutor" /></b-col>
 
-                <b-col class="label short">추천인연구실</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.offer_lab" /></b-col>
+            <b-col class="label short">추천인 Email</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.offer" /></b-col>
 
-                <b-col class="label">가입경로</b-col>
-                <b-col class="type02"><b-form-input v-model="frm.join_route" /></b-col>
+            <b-col class="label short">추천인연구실</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.offer_lab" /></b-col>
 
-                <b-col class="label">관심분야</b-col>
-                <b-col class="type11">
-                    {{frm.interest}}<template v-if="frm.interest_etc">, {{frm.interest_etc}}</template>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
+            <b-col class="label">가입경로</b-col>
+            <b-col class="type02"><b-form-input v-model="frm.join_route" /></b-col>
+
+            <b-col class="label">관심분야</b-col>
+            <b-col class="type11">
+                {{frm.interest}}<template v-if="frm.interest_etc">, {{frm.interest_etc}}</template>
+            </b-col>
+        </b-row>
+    </b-container>
     
-    <div class="box frm01 n3" v-if="[11, 12].indexOf(Number(frm.level)) !== -1">
+    <b-container class="box frm01 n3" v-if="[11, 12].indexOf(Number(frm.level)) !== -1">
         <h5>딜러 정보</h5>
         <b-row>
             <b-col>상호명</b-col><b-col><b-form-input v-model="frm.user_biz.ub_corp_name" /></b-col>
@@ -159,56 +178,51 @@
                 </transition>
             </b-col>
         </b-row>
-    </div>
+    </b-container>
 
-    <b-card v-if="frm.is_admin" class="adform">
-        <b-container>
-            <b-row><b-col class="tit">관리자 정보</b-col></b-row>
-            <b-row>
-                <b-col>
-                    <b-form-checkbox switch size="lg" v-model="frm.user_mng.um_status" value="Y" unchecked-value="N">
-                        <b v-if="frm.user_mng.um_status=='N'">비</b>활성
-                    </b-form-checkbox>
-                </b-col>
+    <b-container v-if="frm.is_admin" class="box adform">
+        <h5>관리자 정보</h5>
+        <b-row>
+            <b-col>
+                <b-form-checkbox switch size="lg" v-model="frm.user_mng.um_status" value="Y" unchecked-value="N">
+                    <b v-if="frm.user_mng.um_status=='N'">비</b>활성
+                </b-form-checkbox>
+            </b-col>
 
-                <b-col class="label">직위</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.user_mng.um_position" id="um_position">
-                        <b-form-select-option v-for="(p, k) in frm.mng_info.position" :key="k" :value="k">{{p}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+            <b-col class="label">직위</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.user_mng.um_position" id="um_position">
+                    <b-form-select-option v-for="(p, k) in frm.mng_info.position" :key="k" :value="k">{{p}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-col class="label">소속팀</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.user_mng.um_group" id="um_group">
-                        <b-form-select-option v-for="(g, k) in frm.mng_info.group" :key="k" :value="k">{{g}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
+            <b-col class="label">소속팀</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.user_mng.um_group" id="um_group">
+                    <b-form-select-option v-for="(g, k) in frm.mng_info.group" :key="k" :value="k">{{g}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
 
-                <b-col class="label">직책</b-col>
-                <b-col class="type02">
-                    <b-form-select v-model="frm.user_mng.um_responsibility" id="um_responsibility">
-                        <b-form-select-option :value="null">◖없음◗</b-form-select-option>
-                        <b-form-select-option v-for="(p, k) in frm.mng_info.responsibility" :key="k" :value="k">{{p}}</b-form-select-option>
-                    </b-form-select>
-                </b-col>
-            </b-row>
-        </b-container>
-    </b-card>
+            <b-col class="label">직책</b-col>
+            <b-col class="type02">
+                <b-form-select v-model="frm.user_mng.um_responsibility" id="um_responsibility">
+                    <b-form-select-option :value="null">◖없음◗</b-form-select-option>
+                    <b-form-select-option v-for="(p, k) in frm.mng_info.responsibility" :key="k" :value="k">{{p}}</b-form-select-option>
+                </b-form-select>
+            </b-col>
+        </b-row>
+    </b-container>
+    
+    <b-container class="box">
+        <h5>최근 주문 내역</h5>
+        <order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
+    </b-container>
 
-    <b-card>
-        <b-container>
-            <b-row><b-col class="tit">최근 주문 내역</b-col></b-row>
-            <order :list="order" :config="order_config" :mng_off="mng_off" class="cmain" />
-        </b-container>
-    </b-card>
-
-    <b-card>
-        <b-container>
-            <b-row><b-col class="tit">최근 견적 내역</b-col></b-row>
-            <estimate :list="estimate" :mng_off="mng_off" @exe-win-pop="exeWinPop" class="cmain" />
-        </b-container>
-    </b-card>
+    <b-container class="box">
+        <h5>최근 견적 내역</h5>
+        <estimate :list="estimate" :mng_off="mng_off" @exe-win-pop="exeWinPop" class="cmain" />
+    </b-container>
+    
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="900">
@@ -228,6 +242,7 @@
 <script>
 import ax from '@/api/http';
 import FileUpload from '@/views/_common/FileUpload.vue'
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
     name: 'AdmUserEdit',
@@ -258,6 +273,11 @@ export default {
             estimate: [],
         };
     },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user',
+        })
+    },
 
     methods: {
         async edit() {
@@ -278,6 +298,11 @@ export default {
         },
 
         async update() {
+            if (!isEmpty(this.frm.password_confirmation) && this.frm.password !== this.frm.password_confirmation) { 
+                Notify.toast('danger', "비밀번호 확인이 다릅니다."); 
+                return false; 
+            }
+
             this.frm = Object.assign(
                 {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 this.frm, // 수정하려는 객체
@@ -304,6 +329,17 @@ export default {
         frm_formatBiz(v) { return this.formatBiz(v); },
         frm_formatDate(v) { return this.formatDate(v); },
         frm_formatTel(v) { return this.formatTel(v); },
+
+        
+        getValidationState({ dirty, validated, valid = null }) {
+            return dirty || validated ? valid : null;
+        },
+
+        async login() {
+            let r = await ax.get(`/api/admin/user/origin/${this.id}`);
+            if (r && r.status === 200)
+                this.$router.push({ name: 'mypage', query: {msg:'force'} });
+        },
     },
 
     async mounted() {
@@ -322,14 +358,14 @@ export default {
 
 <style lang="css" scoped>
 .p_wrap { max-width:1500px; margin-left:auto; margin-right:auto; }
-.card.act_ctrl .row { align-items:center; }
-.card.act_ctrl .row .col .type_icon { display:inline-block; margin-right:25px; }
-.card.act_ctrl .row .col .type_icon svg { margin-right:10px; }
+.act_ctrl .row { align-items:center; }
+.act_ctrl .row .col .type_icon { display:inline-block; margin-right:25px; }
+.act_ctrl .row .col .type_icon svg { margin-right:10px; }
 
-.card .row .checkbox01 >>> .custom-checkbox label { font-size:12px !important; }
-.card .row .checkbox01 >>> .custom-checkbox label b { font-weight:900; }
-.card .row .checkbox01,
-.card .row .checkbox01 >>> .custom-checkbox { display:flex; align-items:center; }
-.card .row .checkbox01 >>> .custom-checkbox .custom-control-label::before,
-.card .row .checkbox01 >>> .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%); }
+.container .row .checkbox01 >>> .custom-checkbox label { font-size:12px !important; }
+.container .row .checkbox01 >>> .custom-checkbox label b { font-weight:900; }
+.container .row .checkbox01,
+.container .row .checkbox01 >>> .custom-checkbox { display:flex; align-items:center; }
+.container .row .checkbox01 >>> .custom-checkbox .custom-control-label::before,
+.container .row .checkbox01 >>> .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%); }
 </style>

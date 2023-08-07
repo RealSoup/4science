@@ -180,7 +180,6 @@ if(false){
     $qry = $this->goods->search($req);
     if( gettype($qry) == 'string' && $qry == 'no-catno' )
         return response()->json($qry);
-    
 
     if ($req->filled('keyword')) { 
         // $prev = clone $gs;
@@ -247,17 +246,15 @@ if(false){
             }
         }
     }
-
                 
-    $qry = $qry->with('goodsModelPrime')->with('maker')
-               ->groupby('shop_goods.gd_id');
+    $qry = $qry->with('goodsModelPrime')->with('maker');
     $req->sort = $req->sort ? $req->sort : 'hot';
     switch ($req->sort) {
         case 'hot':
-            if (!$req->filled('keyword')){
-                $qry->orderBy('gd_seq');
-            }
-            $qry->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
+                    if (!$req->filled('keyword'))
+                        $qry->orderBy('gd_seq');
+            
+                        $qry->orderBy('gd_rank')/*->orderBy('gd_view_cnt')*/; 
         break;
         case 'new':     $qry->latest('gd_id');        break;
         case 'lowPri':  $qry->join('shop_goods_model AS gm', function($q) { $q->on('shop_goods.gd_id', '=', 'gm.gm_gd_id')->where('gm.gm_prime', 'Y'); })->oldest('gm_price'); break;
@@ -278,7 +275,6 @@ if(false){
             if (count($pick_data) > 6)
                 $data['pick'][1] = $pick_data->skip(6)->take(6);
         }
-        
     }
 
     // foreach ($data['list'] as $v) {

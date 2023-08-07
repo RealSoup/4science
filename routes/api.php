@@ -119,7 +119,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('destroyAddr/{id}', 'Admin\UserController@destroyAddr');
                 Route::POST('sendEmail', 'Admin\UserController@sendEmail');
                 Route::GET('mailInfo', 'Admin\UserController@mailInfo');
-                
+                Route::GET('origin/{id}', 'Admin\UserController@origin'); 
             });
             
             Route::prefix('mileage')->group(function () {

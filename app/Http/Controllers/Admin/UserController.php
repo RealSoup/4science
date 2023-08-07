@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{User, UserMng, UserAddr, UserBiz};
 use Cache;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
     public function index(User $user, Request $req) {
@@ -65,7 +66,7 @@ class UserController extends Controller {
 
     public function update(Request $req, $id) {
         $user_biz = null;
-        DB::table('users')->where('id', $id)->update([
+        $update = [
             'email' => $req->filled('email') ? $req->email : '',
             'name' => $req->filled('name') ? $req->name : '',
             'sex' => $req->filled('sex') ? $req->sex : 'male',
@@ -88,7 +89,11 @@ class UserController extends Controller {
             'receive_sms' => $req->filled('receive_sms') ? $req->receive_sms : 'Y',
             'receive_mail' => $req->filled('receive_mail') ? $req->receive_mail : 'Y',
             'mng' => $req->filled('mng') ? $req->mng : 0,
-        ]);
+        ];
+        
+        if ( $req->filled('password_confirmation') ) $update['password'] = bcrypt($req->password);
+        DB::table('users')->where('id', $id)->update($update);
+        
         // 'interest' => $req->filled('interest') ? implode(", ", $req->interest) : '',
         if ( in_array($req->level, [11, 12]) ) {
             $user_biz = UserBiz::updateOrCreate(
@@ -293,4 +298,8 @@ class UserController extends Controller {
 		} else echo "Connection Failed";
 		if ( $msg[1] == "SUCCESS" ) return response()->json('success', 200);
 	}
+
+    public function origin($id) {
+        return response()->json(Auth::guard('web')->loginUsingId($id));
+    } 
 }

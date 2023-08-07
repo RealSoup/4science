@@ -62,13 +62,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  watch: {
-    'sch_frm.list_size': {
-      handler: function handler() {
-        this.routerPush();
-      }
-    }
-  },
   methods: {
     index: function index() {
       var _this = this;
@@ -112,8 +105,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 10]]);
       }))();
     },
-    routerPush: function routerPush() {
-      var p = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    routerPush: function routerPush(p) {
       this.sch_frm.page = p;
       this.$router.push({
         name: 'adm_order_index',
@@ -454,6 +446,9 @@ var render = function render() {
       pill: ""
     }
   }, [_vm._v(" ")]), _vm._v(" 취소주문\r\n                \r\n                "), _c("b-form-select", {
+    on: {
+      change: _vm.routerPush
+    },
     model: {
       value: _vm.sch_frm.list_size,
       callback: function callback($$v) {

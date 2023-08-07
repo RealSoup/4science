@@ -93,7 +93,7 @@
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
                 
-                <b-form-select v-model="sch_frm.list_size">
+                <b-form-select v-model="sch_frm.list_size" @change="routerPush">
                     <b-form-select-option value="20">20개</b-form-select-option>
                     <b-form-select-option value="50">50개</b-form-select-option>
                     <b-form-select-option value="100">100개</b-form-select-option>
@@ -146,13 +146,6 @@ export default {
 
         }
     },
-    watch: {
-		'sch_frm.list_size': {
-			handler() {
-				this.routerPush();
-			}
-		}
-	},
     methods: {
         
         async index() {
@@ -174,7 +167,7 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
-        routerPush(p=1){
+        routerPush(p){
             this.sch_frm.page = p;
             this.$router.push({name: 'adm_order_index', query: this.sch_frm }).catch(()=>{});
         },

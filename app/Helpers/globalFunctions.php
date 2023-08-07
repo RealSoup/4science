@@ -164,3 +164,9 @@ if(! function_exists('ver_asset')) {
         return asset($path). '?ver='. Carbon\Carbon::now()->format('Ymd');
     }
 }
+
+if(! function_exists('quotient')) {
+    function quotient($a, $b) {
+        return ($a-($a%$b))/$b;
+    }
+}

@@ -193,7 +193,7 @@ export default {
                 "odm_price"     : m.gm_price,
                 "odm_gm_spec"   : m.gm_spec,
                 "odm_ea"        : 1,
-                "odm_mk_name"   : m.mk_name,
+                "odm_mk_name"   : m.goods.maker.mk_name,
                 "req_order"     : null,
             });	
         },

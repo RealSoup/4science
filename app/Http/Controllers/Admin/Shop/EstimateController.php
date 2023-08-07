@@ -417,6 +417,8 @@ class EstimateController extends Controller {
     public function estimateMailSend($to_email, $to_name, $params, $er_id) {
         $subject = '[4science] '.$to_name.'님, 요청하신 견적서 메일입니다.';
         $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
+        foreach ($er->estimateModel as $v) 
+            $v->estimateOption;
         $er->estimateReq->mng;
         $pdf = $this->pdf->loadView('admin.estimate.pdf.estimate', ['er' => $er->toArray()]);
         // $pdf->setOptions(['dpi' => 96 ]);
@@ -551,6 +553,9 @@ class EstimateController extends Controller {
     public function showEstimate(Request $req, int $er_id) {
         $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
         $er->estimateReq->mng;
+        foreach ($er->estimateModel as $v) 
+            $v->estimateOption;
+        
         $type = $req->filled('type') ? $req->type : 'view';
         return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>$type]);
 	}

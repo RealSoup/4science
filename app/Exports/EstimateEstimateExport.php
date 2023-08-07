@@ -17,8 +17,9 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
 class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents, WithColumnFormatting {  
     protected $er;
-    protected $row_cnt = 0;
+    protected $gd_cnt = 0;
     protected $row_height = [];
+    protected $option = [];
     function __construct($er) { $this->er = $er; }
 
     public function columnWidths(): array { return [
@@ -63,14 +64,20 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
                 $this->er['er_surtax'] += $this->er['er_dlvy_price']-bcdiv($this->er['er_dlvy_price'], 1.1);
                 $this->er['er_dlvy_price']  = 0;
             }
-            $this->row_cnt++;
-            $data[] = [$this->row_cnt, $em['em_name'], '', '', '', $em['em_unit'], '', $em['em_price'], '', $em['em_ea'], $em['em_price']*$em['em_ea']];
+            $this->gd_cnt++;
+            $data[] = [$this->gd_cnt, $em['em_name'], '', '', '', $em['em_unit'], '', $em['em_price'], '', $em['em_ea'], $em['em_price']*$em['em_ea']];
             if($em['em_dlvy_at']) $data[] = ['', "{$em['em_catno']} / {$em['em_code']}", '', '', '', "납기 : {$em['em_dlvy_at']}"];
             else                $data[] = ['', "{$em['em_catno']} / {$em['em_code']}"];
             // $data[] = ['', nl2br($em['em_spec'])];
             // 엑셀파일에서 br태그 나옴
             $data[] = ['', $em['em_spec']];
             $this->row_height[] = substr_count( $em['em_spec'], "\n" );
+
+            if($em['estimate_option']) {
+                foreach ($em['estimate_option'] as $eo)
+                    $data[] = ['', "옵션: {$eo['eo_tit']}", '', '', '', $eo['eo_name'], '', $em['em_price'], '', $em['em_ea'], $em['em_price']*$em['em_ea']];
+                $this->option[$this->gd_cnt-1] = count($em['estimate_option']);
+            }
         }
         $data[] = [''];
         $data[] = ['SUPPLY PRICE', '', '', '', '', '', '', $this->er['er_gd_price']];
@@ -138,98 +145,106 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         $sheet->getRowDimension('15')->setRowHeight(18);
         $sheet->mergeCells('B15:E15')->mergeCells('F15:G15')->mergeCells('H15:I15')->mergeCells('K15:L15');
 
-
-        for ($i=0; $i < $this->row_cnt; $i++) {
-            $r = 16+($i*3);
-            $sheet->getRowDimension($r)->setRowHeight(20);
-            $sheet->mergeCells('B'.$r.':E'.$r)->mergeCells('F'.$r.':G'.$r)->mergeCells('H'.$r.':I'.$r)->mergeCells('K'.$r.':L'.$r);
-            $sheet->getRowDimension($r+1)->setRowHeight(20);
-            // $sheet->mergeCells('B'.($r+1).':L'.($r+1));
-            $sheet->mergeCells('B'.($r+1).':E'.($r+1))->mergeCells('F'.($r+1).':G'.($r+1))->mergeCells('H'.($r+1).':I'.($r+1))->mergeCells('K'.($r+1).':L'.($r+1));
+        $r = 16;
+        for ($i=0; $i<$this->gd_cnt; $i++) {
             $height=20;
-            if ($this->row_height[$i])
-                $height= ($this->row_height[$i]+1)*16;
-            $sheet->getRowDimension($r+2)->setRowHeight($height);
+            $sheet->getRowDimension($r)->setRowHeight($height);
+            $sheet->mergeCells("B{$r}:E{$r}")->mergeCells("F{$r}:G{$r}")->mergeCells("H{$r}:I{$r}")->mergeCells("K{$r}:L{$r}");
+            $r++;
+            $sheet->getRowDimension($r)->setRowHeight($height);
+            $sheet->mergeCells("B{$r}:E{$r}")->mergeCells("F{$r}:G{$r}")->mergeCells("H{$r}:I{$r}")->mergeCells("K{$r}:L{$r}");
+            
+            $r++;
+            if ($this->row_height[$i]) $height= ($this->row_height[$i]+1)*16;
+            $sheet->getRowDimension($r)->setRowHeight($height);
             //  기존에는 높이를 20으로 설정해놨는데
             //  줄이 긴 내용이 짤려서
             //  줄기이 만큼 적당한 높이 곱해서 설정
             // $sheet->getRowDimension($r+2)->setRowHeight(-1);
             // $sheet->mergeCells('B'.($r+2).':L'.($r+2));
-            $sheet->mergeCells('B'.($r+2).':E'.($r+2))->mergeCells('F'.($r+2).':G'.($r+2))->mergeCells('H'.($r+2).':I'.($r+2))->mergeCells('K'.($r+2).':L'.($r+2));
+            $sheet->mergeCells("B{$r}:E{$r}")->mergeCells("F{$r}:G{$r}")->mergeCells("H{$r}:I{$r}")->mergeCells("K{$r}:L{$r}");
+
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $r++;
+                    $sheet->getRowDimension($r)->setRowHeight($height);
+                    $sheet->mergeCells("B{$r}:E{$r}")->mergeCells("F{$r}:G{$r}")->mergeCells("H{$r}:I{$r}")->mergeCells("K{$r}:L{$r}");
+                }
+            }
+            $r++;
         }
 
-        $aftRow = $this->row_cnt*3;
-        $addRow = 17;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;        
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y'){
             if ($this->er['er_dlvy_price'] > 0) {
-                $addRow++;
-                $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-                $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+                $r++;
+                $sheet->getRowDimension($r)->setRowHeight(18);
+                $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
             }
 
             if ($this->er['er_air_price']) {
-                $addRow++;
-                $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-                $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow))->mergeCells('H'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+                $r++;
+                $sheet->getRowDimension($r)->setRowHeight(18);
+                $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
             }
         }
 
-        $addRow+=2;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
+        $r+=2;
+        $sheet->getRowDimension($r)->setRowHeight(18);
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;  //  배송지 주소01
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow+2))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;  //  배송지 주소01
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells('A'.($r).':E'.($r+2))->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;  //  배송지 주소02
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($aftRow+$addRow+27).':E'.($aftRow+$addRow+27))*/->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;  //  배송지 주소02
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet/*->mergeCells('A'.($r+27).':E'.($r+27))*/->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;  //  배송지 주소03
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($aftRow+$addRow+28).':E'.($aftRow+$addRow+28))*/->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;  //  배송지 주소03
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet/*->mergeCells('A'.($r+28).':E'.($r+28))*/->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;  //  결제방식
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':E'.($aftRow+$addRow))->mergeCells('F'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;  //  결제방식
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(8);
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(8);
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:L{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(18);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':L'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(18);
+        $sheet->mergeCells("A{$r}:L{$r}");
 
         $tit01 = [ 
             'font' => ['size' => 9, 'bold' => true], 
@@ -341,6 +356,98 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         ];
 
         $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT ] ];
+        $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+        $border_right = ['right' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM, 'color' => ['argb' => 'FFE5E5E5'] ]];
+        $border_top_dashed = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED, 'color' => ['argb' => 'FFE5E5E5'] ]];
+        $border_top_thick = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 'color' => ['argb' => 'FFD5D5D5'] ]];
+
+        $r = 16;
+        for ($i=0; $i < $this->gd_cnt; $i++) {
+            if($i==0) {
+                $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
+                $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                $sheet_style["H{$r}"] = Arr::collapse([ $text_right ]);
+                $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
+                $sheet_style["K{$r}"] = Arr::collapse([ $text_right ]);
+            } else {
+                $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ], $text_center ]);
+                $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ], $text_right ]);
+                $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ], $text_center ]);
+                $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ], $text_right ]);
+                $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+            }
+
+            $r++;
+            $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+            $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+            $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+            $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+            $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+            $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+
+            $r++;
+            $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+            $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+            $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+            $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+            $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+            $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+            $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            
+
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $r++;
+                    $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                    $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+                    $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                    $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                    $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                    $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                    $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                    $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                    $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                    $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                    $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                    $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                }
+            }
+            $r++;
+        }
+        
+        $sheet_style["A{$r}:L{$r}"] = [
+            'borders' => [
+                'top' => [ 
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 
+                    'color' => ['argb' => 'FFD5D5D5'] 
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FF888888'],
+                ],
+            ],
+        ];
+
         $border_medium_dashed = [
             'borders' => [
                 'bottom' => [
@@ -349,111 +456,32 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
+        $r++;
+        $sheet_style["A{$r}"] = Arr::collapse([['font' => ['size' => 17, 'bold' => true]], $text_right]);
+        $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
 
-        $border01 = [
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-            ],
-        ];
-        $border02 = [
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
-        for ($i=0; $i < $this->row_cnt; $i++) {
-            $r = 16+($i*3);
-            $sheet_style["A{$r}"] =  Arr::collapse([
-                [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
-                $border01
-            ]);
-            $sheet_style["H{$r}"] = $text_right;
-            $sheet_style["J{$r}"] = Arr::collapse([
-                [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
-                $border01
-            ]);
-            $sheet_style["K{$r}"] = $text_right;
-            
-            $sheet_style["B{$r}:E{$r}"] = $border01;
-            $sheet_style["F{$r}:G{$r}"] = $border01;
-            $sheet_style["H{$r}:I{$r}"] = $border01;
-            $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
-            
-            $r++;
-            $sheet_style["A{$r}"] = $border01;
-            $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
-            $sheet_style["B{$r}:E{$r}"] = $border01;
-            $sheet_style["F{$r}:G{$r}"] = $border01;
-            $sheet_style["H{$r}:I{$r}"] = $border01;
-            $sheet_style["J{$r}"] = $border01;
-            $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
-            
-            $r++;
-            $sheet_style["A{$r}"] = $border02;
-            $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
-            $sheet_style["B{$r}:E{$r}"] = $border02;
-            $sheet_style["F{$r}:G{$r}"] = $border02;
-            $sheet_style["H{$r}:I{$r}"] = $border02;
-            $sheet_style["J{$r}"] = $border02;
-            $sheet_style["K{$r}:L{$r}"] = [
-                'borders' => [
-                    'bottom' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                        'color' => ['argb' => 'FFD5D5D5'],
-                    ],
-                ],
-            ];
-        }
-
-        $addRow = 16;
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
-            'borders' => [
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FF888888'],
-                ],
-            ],
-        ];
-
-        $addRow++;
-        $sheet_style['A'.($aftRow+$addRow)] = Arr::collapse([['font' => ['size' => 17, 'bold' => true]], $text_right]);
-        $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
-
-        $addRow++;
-        $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
+        $r++;
+        $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y'){
             if ($this->er['er_dlvy_price'] > 0) {
-                $addRow++;
-                $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-                $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
+                $r++;
+                $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
             }
             if ($this->er['er_air_price']) {
-                $addRow++;
-                $sheet_style['A'.($aftRow+$addRow)] = $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-                $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = $border_medium_dashed;
+                $r++;
+                $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
+                $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
             }
         }
 
-        $addRow++;  //  TOTAL AMOUNT
-        $sheet_style['A'.($aftRow+$addRow)] = Arr::collapse([['font' => ['bold' => true]], $text_right]);
-        $sheet_style['H'.($aftRow+$addRow)] = $text_right;
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r++;  //  TOTAL AMOUNT
+        $sheet_style["A{$r}"] = Arr::collapse([['font' => ['bold' => true]], $text_right]);
+        $sheet_style["H{$r}"] = $text_right;
+        $sheet_style["A{$r}:L{$r}"] = [
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -462,8 +490,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow+=2; //  ▶ 주문요청 (주문
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r+=2; //  ▶ 주문요청 (주문
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['bold' => true],
             'borders' => [
                 'bottom' => [
@@ -473,8 +501,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow++;  //  발주인, 수령인성명, 전화번호, 핸드폰번호
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow+3)] = [
+        $r++;  //  발주인, 수령인성명, 전화번호, 핸드폰번호
+        $sheet_style["A{$r}:L".($r+3)] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -489,8 +517,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow+=4; // 배송지 주소
-        $sheet_style['A'.($aftRow+$addRow).':E'.($aftRow+$addRow+2)] = [
+        $r+=4; // 배송지 주소
+        $sheet_style["A{$r}:E".($r+2)] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -501,8 +529,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow+=3; // 결제 방식
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r+=3; // 결제 방식
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'borders' => [
@@ -521,8 +549,8 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow++;  //  빈칸 하단 굵은 선
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r++;  //  빈칸 하단 굵은 선
+        $sheet_style["A{$r}:L{$r}"] = [
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -531,14 +559,14 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
 
-        $addRow++;  //  우리은행
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r++;  //  우리은행
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['size' => 12],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
         ];
 
-        $addRow++;  //  Your R&D Consultant www.4science.net
-        $sheet_style['A'.($aftRow+$addRow).':L'.($aftRow+$addRow)] = [
+        $r++;  //  Your R&D Consultant www.4science.net
+        $sheet_style["A{$r}:L{$r}"] = [
             'font' => ['color' =>  ['argb' => 'FFFFFFFF'], 'bold' => true],
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
@@ -576,7 +604,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
         $rst = [];
         $r = 0;
-        for ($i=0; $i < $this->row_cnt; $i++) {
+        for ($i=0; $i < $this->gd_cnt; $i++) {
             $r = 16+($i*3);
             $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         }

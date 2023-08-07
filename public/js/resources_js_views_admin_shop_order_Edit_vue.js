@@ -1310,7 +1310,55 @@ var render = function render() {
     staticClass: "lb"
   }, [_vm._v("입금자")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_1"
-  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])] : [_c("b-col", {
+  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])] : _vm._e(), _vm._v(" "), _vm.od.od_pay_method == "R" ? [_c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_2"
+  }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))]), _vm._v(" "), _c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("결제예정일")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_2"
+  }, [_vm._v(_vm._s(_vm.payPlanDisplay))]), _vm._v(" "), _c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_1"
+  }, [_c("span", {
+    staticClass: "print_show_inline"
+  }, [_vm._v(_vm._s(_vm.order_config.pay_method[_vm.od.od_pay_method]))]), _vm._v(" "), _c("b-form-select", {
+    staticClass: "print_hide_inline_block",
+    style: {
+      maxWidth: "100px"
+    },
+    attrs: {
+      size: "sm"
+    },
+    model: {
+      value: _vm.od.od_pay_method,
+      callback: function callback($$v) {
+        _vm.$set(_vm.od, "od_pay_method", $$v);
+      },
+      expression: "od.od_pay_method"
+    }
+  }, _vm._l(_vm.order_config.pay_method, function (v, k) {
+    return _c("b-form-select-option", {
+      key: k,
+      attrs: {
+        value: k
+      }
+    }, [_vm._v(_vm._s(v))]);
+  }), 1)], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("담당자")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_3"
+  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_mng))]), _vm._v(" "), _c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("연락처")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_3"
+  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_num))]), _vm._v(" "), _c("b-col", {
+    staticClass: "lb"
+  }, [_vm._v("이메일")]), _vm._v(" "), _c("b-col", {
+    staticClass: "dt wd1_3"
+  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_email))])] : [_c("b-col", {
     staticClass: "lb"
   }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_2"

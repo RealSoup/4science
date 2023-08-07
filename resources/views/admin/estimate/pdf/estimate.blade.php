@@ -50,8 +50,8 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 .product tr th:last-child { border-width:0px; }
 .product tr.line01 td { border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; }
 .product tr.line01 td:last-child { border-right:1px solid #DADADA; }
-.product tr.line02 td { border-left:1px solid #DADADA; border-bottom:2px solid #DADADA; }
-.product tr.line02 td:last-child { border-right:1px solid #DADADA; }
+.product tr.line_b td { border-left:1px solid #DADADA; border-bottom:2px solid #DADADA; }
+.product tr.line_b td:last-child { border-right:1px solid #DADADA; }
 .product tr.line01 td:nth-child(1) { text-align:center; }
 .product tr.line01 td:nth-child(4) { text-align:right; }
 .product tr.line01 td:nth-child(5) { text-align:center; }
@@ -190,7 +190,7 @@ $no=1;
             <td></td>
             <td></td>
         </tr>
-        <tr class="line02">
+        <tr @class([ 'line01', 'line_b' => !$em['estimate_option'] ])>
             <td></td>
             <td>@nl2br($em['em_spec'])</td>
             <td></td>
@@ -198,6 +198,20 @@ $no=1;
             <td></td>
             <td></td>
         </tr>
+    @if ($em['estimate_option'])
+        @foreach ($em['estimate_option'] as $eo)
+        <tr @class([ 'line01', 'line_b' => $loop->last ])>
+            <td></td>
+            <td>옵션:{{$eo['eo_tit']}}</td>
+            <td>{{$eo['eo_name']}}</td>
+            <td>{{ number_format($eo['eo_price'])}}</td>
+            <td>{{$eo['eo_ea']}}</td>
+            <td>{{ number_format($eo['eo_price']*$eo['eo_ea']) }}</td>
+        </tr>
+        @endforeach
+    @endif
+
+        
         @php
         $no++;
         @endphp
