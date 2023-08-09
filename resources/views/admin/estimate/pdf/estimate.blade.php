@@ -204,7 +204,6 @@ $no=1;
             <td></td>
             <td>{{$eo['eo_tit']}}: {{$eo['eo_name']}}</td>
             <td></td>
-            <td></td>
             <td>{{ number_format($eo['eo_price'])}}</td>
             <td>{{$eo['eo_ea']}}</td>
             <td>{{ number_format($eo['eo_price']*$eo['eo_ea']) }}</td>
