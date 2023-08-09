@@ -95,10 +95,9 @@
                 </tr>
                     @foreach ($em['estimate_option'] as $eo)
                     <tr>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;">
-                            <b>옵션</b><br>{{$eo['eo_tit']}}
+                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" colspan="4">
+                            {{$eo['eo_tit']}}: {{$eo['eo_name']}}
                         </td>
-                        <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" colspan="3">{{$eo['eo_name']}}</td>
                         <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($eo['eo_price']) }}</td>
                         <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ $eo['eo_ea'] }}</td>
                         <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;" align="center">{{ number_format($eo['eo_price'] * $eo['eo_ea']) }}</td>

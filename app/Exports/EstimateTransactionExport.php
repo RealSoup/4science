@@ -58,7 +58,7 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
 
             if($em['estimate_option']) {
                 foreach ($em['estimate_option'] as $eo)
-                    $data[] = ['', "옵션: {$eo['eo_tit']}", $eo['eo_name'], '', $eo['eo_price'], $eo['eo_ea'], $eo['eo_price']*$eo['eo_ea']];
+                    $data[] = ['', "{$eo['eo_tit']}: {$eo['eo_name']}", '', '', $eo['eo_price'], $eo['eo_ea'], $eo['eo_price']*$eo['eo_ea']];
                 $this->option[$this->gd_cnt-1] = count($em['estimate_option']);
             }
         }

@@ -202,8 +202,9 @@ $no=1;
         @foreach ($em['estimate_option'] as $eo)
         <tr @class([ 'line01', 'line_b' => $loop->last ])>
             <td></td>
-            <td>옵션:{{$eo['eo_tit']}}</td>
-            <td>{{$eo['eo_name']}}</td>
+            <td>{{$eo['eo_tit']}}: {{$eo['eo_name']}}</td>
+            <td></td>
+            <td></td>
             <td>{{ number_format($eo['eo_price'])}}</td>
             <td>{{$eo['eo_ea']}}</td>
             <td>{{ number_format($eo['eo_price']*$eo['eo_ea']) }}</td>
