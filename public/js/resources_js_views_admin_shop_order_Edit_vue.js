@@ -1310,7 +1310,7 @@ var render = function render() {
     staticClass: "lb"
   }, [_vm._v("입금자")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_1"
-  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])] : _vm._e(), _vm._v(" "), _vm.od.od_pay_method == "R" ? [_c("b-col", {
+  }, [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])] : _vm.od.od_pay_method == "R" ? [_c("b-col", {
     staticClass: "lb"
   }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_2"

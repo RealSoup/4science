@@ -17,8 +17,9 @@ use Illuminate\Support\Arr;
 
 class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents, WithColumnFormatting {
     protected $er;
-    protected $row_cnt = 0;
+    protected $gd_cnt = 0;
     protected $row_height = [];
+    protected $option = [];
     protected $logo_position = 0;
     function __construct($er) { $this->er = $er; }
 
@@ -52,8 +53,14 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
                 $this->er['er_surtax'] += $this->er['er_dlvy_price']-bcdiv($this->er['er_dlvy_price'], 1.1);
                 $this->er['er_dlvy_price']  = 0;
             }
-            $this->row_cnt++;
-            $data[] = [$this->row_cnt, $em['em_name'], $em['em_catno'], $em['em_code'], $em['em_price'], $em['em_ea'], $em['em_price']*$em['em_ea']];
+            $this->gd_cnt++;
+            $data[] = [$this->gd_cnt, $em['em_name'], $em['em_catno'], $em['em_code'], $em['em_price'], $em['em_ea'], $em['em_price']*$em['em_ea']];
+
+            if($em['estimate_option']) {
+                foreach ($em['estimate_option'] as $eo)
+                    $data[] = ['', "옵션: {$eo['eo_tit']}", $eo['eo_name'], '', $eo['eo_price'], $eo['eo_ea'], $eo['eo_price']*$eo['eo_ea']];
+                $this->option[$this->gd_cnt-1] = count($em['estimate_option']);
+            }
         }
         $data[] = ['SUPPLY PRICE', '', '', '', $this->er['er_gd_price']];
         $data[] = ['V. A. T.', '', '', '', $this->er['er_surtax']];
@@ -89,55 +96,63 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         $sheet->getRowDimension('7')->setRowHeight(9);
         $sheet->getRowDimension('8')->setRowHeight(20);
 
-        for ($i=0; $i < $this->row_cnt; $i++) {
-            $r = 9+$i;
+        $r = 8;
+        for ($i=0; $i < $this->gd_cnt; $i++) {
+            $r++;
             $sheet->getRowDimension($r)->setRowHeight(23);
+
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $r++;
+                    $sheet->getRowDimension($r)->setRowHeight(23);
+                    $sheet->mergeCells("C{$r}:D{$r}");
+                }
+            }
         }
 
-        $aftRow = $this->row_cnt;
-        $addRow = 9;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':D'.($aftRow+$addRow))->mergeCells('E'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(23);
+        $sheet->mergeCells("A{$r}:D{$r}")->mergeCells("E{$r}:G{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':D'.($aftRow+$addRow))->mergeCells('E'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(23);
+        $sheet->mergeCells("A{$r}:D{$r}")->mergeCells("E{$r}:G{$r}");
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y'){
             if ($this->er['er_dlvy_price'] > 0) {
-                $addRow++;
-                $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-                $sheet->mergeCells('A'.($aftRow+$addRow).':D'.($aftRow+$addRow))->mergeCells('E'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+                $r++;
+                $sheet->getRowDimension($r)->setRowHeight(23);
+                $sheet->mergeCells("A{$r}:D{$r}")->mergeCells("E{$r}:G{$r}");
             }
 
             if ($this->er['er_air_price']) {
-                $addRow++;
-                $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-                $sheet->mergeCells('A'.($aftRow+$addRow).':D'.($aftRow+$addRow))->mergeCells('E'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+                $r++;
+                $sheet->getRowDimension($r)->setRowHeight(23);
+                $sheet->mergeCells("A{$r}:D{$r}")->mergeCells("E{$r}:G{$r}");
             }
         }
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(30);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':D'.($aftRow+$addRow))->mergeCells('E'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(30);
+        $sheet->mergeCells("A{$r}:D{$r}")->mergeCells("E{$r}:G{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(7);
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(7);
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(23);
+        $sheet->mergeCells("A{$r}:G{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(23);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(23);
+        $sheet->mergeCells("A{$r}:G{$r}");
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(7);
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(7);
 
-        $addRow++;
-        $sheet->getRowDimension($aftRow+$addRow)->setRowHeight(40);
-        $sheet->mergeCells('A'.($aftRow+$addRow).':G'.($aftRow+$addRow));
+        $r++;
+        $sheet->getRowDimension($r)->setRowHeight(40);
+        $sheet->mergeCells("A{$r}:G{$r}");
 
         $sheet_style = [
             'A1:G1' => [
@@ -217,9 +232,10 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
         $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT, 'wrapText' => true ] ];
         $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, 'wrapText' => true ] ];
         $text_wrap = [ 'alignment' => [ 'wrapText' => true ] ];
-        for ($i=0; $i < $this->row_cnt; $i++) {
-            $r = 9+$i;
-            $sheet_style['A'.$r.':G'.$r] = [
+        $r = 8;
+        for ($i=0; $i < $this->gd_cnt; $i++) {
+            $r++;
+            $sheet_style["A{$r}:G{$r}"] = [
                 'borders' => [
                     'inside' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -238,6 +254,31 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             $sheet_style['E'.$r] = $text_right;
             $sheet_style['F'.$r] = $text_center;
             $sheet_style['G'.$r] = $text_right;
+            
+            
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $r++;
+                    $sheet_style["A{$r}:G{$r}"] = [
+                        'borders' => [
+                            'inside' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                                'color' => ['argb' => 'FFECECEC'],
+                            ],
+                            'bottom' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                                'color' => ['argb' => 'FFD5D5D5'],
+                            ],
+                        ],
+                    ];
+                    
+                    $sheet_style['B'.$r] = $text_wrap;
+                    $sheet_style['C'.$r] = $text_wrap;
+                    $sheet_style['E'.$r] = $text_right;
+                    $sheet_style['F'.$r] = $text_center;
+                    $sheet_style['G'.$r] = $text_right;
+                }
+            }
         }
         $border_medium_dashed = [
             'borders' => [
@@ -247,31 +288,31 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
                 ],
             ],
         ];
-        $addRow = 9;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = Arr::collapse([
+        $r++;
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
         ]);
 
-        $addRow++;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = Arr::collapse([
+        $r++;
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
         ]);
         if ($this->er['er_no_dlvy_fee'] !== 'Y'){
             if ($this->er['er_dlvy_price'] > 0) {
-                $addRow++;
-                $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = Arr::collapse([
+                $r++;
+                $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
                     ['font' => ['color' =>  ['argb' => 'FF999999'],]],
                     $text_right,
                     $border_medium_dashed
                 ]);
             }
             if ($this->er['er_air_price']) {
-                $addRow++;
-                $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = Arr::collapse([
+                $r++;
+                $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
                     ['font' => ['color' =>  ['argb' => 'FF999999'],]],
                     $text_right,
                     $border_medium_dashed
@@ -279,8 +320,8 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             }
         }
 
-        $addRow++;  //  TOTAL AMOUNT
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = Arr::collapse([
+        $r++;  //  TOTAL AMOUNT
+        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
             ['font' => ['size' => 11, 'bold' => true]],
             ['borders' => [
                     'bottom' => [
@@ -292,8 +333,8 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             $text_right
         ]);
 
-        $addRow+=2;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = [
+        $r+=2;
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -309,8 +350,8 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             ],
         ];
 
-        $addRow++;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = [
+        $r++;
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -326,8 +367,8 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             ],
         ];
 
-        $addRow++;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = [
+        $r++;
+        $sheet_style["A{$r}:G{$r}"] = [
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'startColor' => [
@@ -336,9 +377,9 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
             ],
         ];
 
-        $addRow++;
-        $this->logo_position = $aftRow+$addRow;
-        $sheet_style['A'.($aftRow+$addRow).':G'.($aftRow+$addRow)] = [
+        $r++;
+        $this->logo_position = $r;
+        $sheet_style["A{$r}:G{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -367,10 +408,20 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
     public function columnFormats(): array {
         $rst = [];
         $rst["A4:C4"] = NumberFormat::FORMAT_DATE_01;
-        for ($i=9; $i < $this->row_cnt+9; $i++)
-            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $r = 8;
+        for ($i=0; $i < $this->gd_cnt; $i++) {
+            $r++;
+            $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $r++;
+                    $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                }
+            }
+        }
         
-        $r = $this->row_cnt + 9;
+        $r++;
         $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         $r++;
         $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;

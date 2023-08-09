@@ -151,7 +151,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     action: function action(type) {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var params, cntModel, estimate_price, required_key, required_key_cnt, res;
+        var params, cntModel, required_key, required_key_cnt, estimate_price, res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -166,21 +166,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               Notify.modal("모델을 선택하세요", 'info');
               return _context2.abrupt("return", false);
             case 5:
-              _context2.t0 = type;
-              _context2.next = _context2.t0 === "pay" ? 8 : _context2.t0 === "putCart" ? 22 : _context2.t0 === "wish" ? 24 : _context2.t0 === "estimate" ? 36 : 38;
-              break;
-            case 8:
-              estimate_price = false;
-              _this3.content.goods_model.forEach(function (gm) {
-                if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
-              });
-              if (!estimate_price) {
+              if (!['pay', 'estimate'].includes(type)) {
                 _context2.next = 13;
                 break;
               }
-              Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
-              return _context2.abrupt("return", false);
-            case 13:
               required_key = Array();
               required_key_cnt = 0;
               _this3.content.goods_option.forEach(function (go) {
@@ -195,12 +184,27 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 });
               });
               if (!(required_key_cnt !== required_key.length)) {
-                _context2.next = 20;
+                _context2.next = 13;
                 break;
               }
               Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
               return _context2.abrupt("return", false);
-            case 20:
+            case 13:
+              _context2.t0 = type;
+              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 23 : _context2.t0 === "wish" ? 25 : _context2.t0 === "estimate" ? 37 : 39;
+              break;
+            case 16:
+              estimate_price = false;
+              _this3.content.goods_model.forEach(function (gm) {
+                if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
+              });
+              if (!estimate_price) {
+                _context2.next = 21;
+                break;
+              }
+              Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
+              return _context2.abrupt("return", false);
+            case 21:
               _this3.$router.push({
                 name: 'order_settle',
                 params: {
@@ -208,36 +212,36 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   od_type: 'buy_inst'
                 }
               });
-              return _context2.abrupt("break", 38);
-            case 22:
+              return _context2.abrupt("break", 39);
+            case 23:
               // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
               _this3.$store.dispatch('cart/examine', {
                 goods: _this3.content
               });
-              return _context2.abrupt("break", 38);
-            case 24:
-              _context2.prev = 24;
-              _context2.next = 27;
+              return _context2.abrupt("break", 39);
+            case 25:
+              _context2.prev = 25;
+              _context2.next = 28;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
                 return gm.ea > 0;
               }));
-            case 27:
+            case 28:
               res = _context2.sent;
               if (res && res.status === 200) {
                 Notify.toast('success', '관심 상품 등록 완료');
               } else {
                 Notify.toast('warning', res);
               }
-              _context2.next = 35;
+              _context2.next = 36;
               break;
-            case 31:
-              _context2.prev = 31;
-              _context2.t1 = _context2["catch"](24);
+            case 32:
+              _context2.prev = 32;
+              _context2.t1 = _context2["catch"](25);
               Notify.consolePrint(_context2.t1);
               Notify.toast('warning', _context2.t1.responsee);
-            case 35:
-              return _context2.abrupt("break", 38);
             case 36:
+              return _context2.abrupt("break", 39);
+            case 37:
               _this3.$router.push({
                 name: 'estimate_create',
                 params: {
@@ -245,12 +249,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   od_type: 'request_estimate'
                 }
               });
-              return _context2.abrupt("break", 38);
-            case 38:
+              return _context2.abrupt("break", 39);
+            case 39:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[24, 31]]);
+        }, _callee2, null, [[25, 32]]);
       }))();
     },
     makeParam: function makeParam() {

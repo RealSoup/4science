@@ -278,7 +278,8 @@
                     <b-col class="lb">입금자</b-col>
                     <b-col class="dt wd1_1">{{od.order_extra_info.oex_depositor}}</b-col>
                 </template>
-                <template v-if="od.od_pay_method == 'R'">
+
+                <template v-else-if="od.od_pay_method == 'R'">
                     <b-col class="lb">결제금액</b-col>
                     <b-col class="dt wd1_2">{{od.od_all_price | comma | won}}</b-col>
                     <b-col class="lb">결제예정일</b-col>
@@ -297,7 +298,7 @@
                     <b-col class="lb">이메일</b-col>
                     <b-col class="dt wd1_3">{{od.order_extra_info.oex_email}}</b-col>
                 </template>
-                
+
                 <template v-else>
                     <b-col class="lb">결제금액</b-col>
                     <b-col class="dt wd1_2">

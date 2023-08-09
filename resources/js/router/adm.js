@@ -184,6 +184,14 @@ export default [
                 path: 'shop/b2b_merck/stock_result',
                 name: 'adm_b2b_merck_stock_result',
                 component:() => import('@/views/admin/shop/b2b_merck/StockResult'),
+            },  { 
+                path: 'shop/b2b_merck/invoiceIndex',
+                name: 'adm_b2b_merck_invoice',
+                component:() => import('@/views/admin/shop/b2b_merck/Invoice'),
+            },  { 
+                path: 'shop/b2b_merck/asnIndex',
+                name: 'adm_b2b_merck_asn',
+                component:() => import('@/views/admin/shop/b2b_merck/Asn'),
             }, 
             
         ],

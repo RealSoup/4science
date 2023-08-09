@@ -382,7 +382,7 @@ var render = function render() {
     attrs: {
       id: "bo_show"
     }
-  }, [_c("h3", [_vm._v(_vm._s(_vm.board.bo_subject))]), _vm._v(" "), _c("ul", {
+  }, [_c("h3", [_c("b", [_vm._v("제목: ")]), _vm._v(_vm._s(_vm.board.bo_subject))]), _vm._v(" "), _c("ul", {
     staticClass: "list-inline bd_info"
   }, [_c("li", {
     staticClass: "list-inline-item"
@@ -431,15 +431,21 @@ var render = function render() {
     staticClass: "list-inline-item bo_type badge badge-warning"
   }, [_vm._v("\r\n            분류 : " + _vm._s(_vm._f("bo_type")(_vm.board.bo_type)) + "\r\n        ")]) : _vm._e()]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "con"
-  }, [_vm.board.goods ? _c("img", {
-    staticClass: "me-auto ms-auto d-block",
+  }, [_c("b-button", {
+    staticClass: "gd_img",
+    on: {
+      click: function click($event) {
+        return _vm.openWinPop("admin/shop/goods/".concat(_vm.board.goods.gd_id, "/edit"));
+      }
+    }
+  }, [_vm._v("\r\n            < "), _c("b", [_vm._v("상품명: ")]), _vm._v(_vm._s(_vm.board.goods.gd_name) + " >\r\n            "), _c("br"), _vm._v("\r\n            - 클릭시 상품창 오픈 -\r\n            "), _c("br"), _vm._v(" "), _vm.board.goods ? _c("img", {
     attrs: {
       src: _vm.board.goods.image_src[0]
     }
-  }) : _vm._e(), _vm._v(" "), _vm.board.img_file && _vm.board.img_file.length ? [_vm._l(_vm.board.img_file, function (image, i) {
+  }) : _vm._e()]), _vm._v(" "), _vm.board.img_file && _vm.board.img_file.length ? [_vm._l(_vm.board.img_file, function (image, i) {
     return _c("img", {
       key: i,
-      staticClass: "me-auto ms-auto d-block",
+      staticClass: "mx-auto d-block my-4",
       attrs: {
         src: image.path
       }
@@ -703,7 +709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show { max-width:1400px; margin:auto;\n}\n#bo_show h3 { margin:2rem 0 1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .bd_info .bo_type { font-size:1.2rem;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show { max-width:900px; margin:auto; border:1px solid #CCC; border-radius:.5em; padding:1em; margin-top:2em;\n}\n#bo_show h3 { margin:1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .bd_info .bo_type { font-size:1.2rem;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con .gd_img { text-align:center; margin:2em auto; display:block; padding:1em;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

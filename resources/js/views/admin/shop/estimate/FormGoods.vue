@@ -78,8 +78,8 @@
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
             </b-col>
         </b-row>
-
-        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id" :gd_id="em.em_gd_id" />
+        
+        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id" />
         
         <b-row v-if="em.estimate_option.length" class="option">
             <b-col>옵션</b-col>
@@ -106,7 +106,7 @@
 <script>
 import ax from '@/api/http';
 import GoodsOptionAdd from "./_comp/GoodsOptionAdd.vue";
-import moment from 'moment';
+import copy from "fast-copy";
 
 export default {
     components: {
@@ -121,12 +121,8 @@ export default {
     methods: {
         emAdd(){
             //  vue는 얉은 복사(복사를 해도 계속 참조)이어서 이렇게 해야 깊은 복사(새로운 메모리 참조)가 된다.
-            //  이렇게 안하면 복사된것들이 모두 같은 값이 들어가 버린다.
-            var nEm = Object.assign(
-                {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-                this.frm.empty_em // 삽입하려는 내용
-            );
-            this.value.push(nEm);
+            //  이렇게 안하면 복사된것들이 모두 같은 값이 들어가 버린다.       
+            this.value.push(copy(this.frm.empty_em));
         },
         async emDel(i){
             var rst = await Notify.confirm('삭제', 'danger');

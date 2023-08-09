@@ -77,6 +77,8 @@
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_order'}">주문 목록</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_order_result'}">발주 내역</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_stock_result'}">재고 확인 결과</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_b2b_merck_asn'}">ASN</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'adm_b2b_merck_invoice'}">e-Invoice</b-dropdown-item>
                     </b-nav-item-dropdown>                   
                 </b-navbar-nav>
 

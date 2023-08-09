@@ -137,7 +137,7 @@ class EstimateController extends Controller {
         }        
         $em_cnt = 0;
         foreach ($req->collect['lists'] as $v)
-            $em_cnt += count(Arr::where($v, function ($v1, $k1) { return $v1['em_check_opt']; }));
+            $em_cnt += count(Arr::where($v, function ($v1, $k1) { return $v1['type']=="model" && $v1['em_check_opt']; }));
         $eq_title .= $em_cnt >= 2 ? '외 ['.($em_cnt - 1).']' : '';
 
         $eq_id = EstimateReq::insertGetId([
@@ -263,6 +263,8 @@ class EstimateController extends Controller {
     public function printEstimate(int $er_id) {
         $er = EstimateReply::with('estimateReq')->with('estimateModel')->find($er_id);
         $er->estimateReq->mng;
+        foreach ($er->estimateModel as $v) 
+            $v->estimateOption;
         return view('admin.estimate.pdf.estimate', ['er' => $er->toArray(), 'type'=>'print']);
 	}
 

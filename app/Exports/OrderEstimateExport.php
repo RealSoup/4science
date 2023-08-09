@@ -331,20 +331,99 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                     ],
                 ],
             ],
-
-            // Styling a specific cell by coordinate.
-            // 'C2' => [
-            //     'alignment' => [
-            //         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-            //         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            //     ],
-            // ],
-            //
-            // // Styling an entire column.
-            // 'C'  => ['font' => ['size' => 16]],
-        ];
+        ];       
 
         $text_right = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT ] ];
+        $text_center = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
+        $border_right = ['right' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM, 'color' => ['argb' => 'FFE5E5E5'] ]];
+        $border_top_dashed = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED, 'color' => ['argb' => 'FFE5E5E5'] ]];
+        $border_top_thick = ['top' => [ 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 'color' => ['argb' => 'FFD5D5D5'] ]];
+       
+
+        $r = 15;
+        foreach ($this->odm_map as $row) {
+            if ( $row['type'] == 'm' ) {
+                $r++;
+                if($r==16) {
+                    $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
+                    $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                    $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                    $sheet_style["H{$r}"] = Arr::collapse([ $text_right ]);
+                    $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => $border_right ] ]);
+                    $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => $border_right ], $text_center ]);
+                    $sheet_style["K{$r}"] = Arr::collapse([ $text_right ]);
+                } else {
+                    $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ], $text_center ]);
+                    $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                    $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                    $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                    $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                    $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                    $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                    $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ], $text_right ]);
+                    $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ] ]);
+                    $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_thick, $border_right ]) ], $text_center ]);
+                    $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ], $text_right ]);
+                    $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_thick ] ]);
+                }
+
+                $r++;
+                $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+                $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+
+                $r++;
+                $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+                $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            } else {
+                $r++;
+                $sheet_style["A{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["B{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], ['alignment' => [ 'wrapText' => true ]] ]);
+                $sheet_style["C{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["D{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["E{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["F{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+                $sheet_style["G{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["H{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["I{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ] ]);
+                $sheet_style["J{$r}"] = Arr::collapse([ [ 'borders' => Arr::collapse([$border_top_dashed, $border_right]) ], $text_center ]);
+                $sheet_style["K{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ], $text_right ]);
+                $sheet_style["L{$r}"] = Arr::collapse([ [ 'borders' => $border_top_dashed ] ]);
+            }
+        }
+
+        $r++;
+        $sheet_style["A{$r}:L{$r}"] = [
+            'borders' => [
+                'top' => [ 
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK, 
+                    'color' => ['argb' => 'FFD5D5D5'] 
+                ],
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                    'color' => ['argb' => 'FF888888'],
+                ],
+            ],
+        ];
         $border_medium_dashed = [
             'borders' => [
                 'bottom' => [
@@ -353,101 +432,7 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                 ],
             ],
         ];
-        $border01 = [
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-            ],
-        ];
-        $border02 = [
-            'borders' => [
-                'right' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FFE5E5E5'],
-                ],
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                    'color' => ['argb' => 'FFD5D5D5'],
-                ],
-            ],
-        ];
-       
-
-        $r = 16;
-        foreach ($this->odm_map as $row) {
-            if ( $row['type'] == 'm' ) {
-                $sheet_style["A{$r}"] =  Arr::collapse([
-                    [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
-                    $border01
-                ]);
-                $sheet_style["H{$r}"] = $text_right;
-                $sheet_style["J{$r}"] = Arr::collapse([
-                    [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ],
-                    $border01
-                ]);
-                $sheet_style["K{$r}"] = $text_right;
-
-                $sheet_style["B{$r}:E{$r}"] = $border01;
-                $sheet_style["F{$r}:G{$r}"] = $border01;
-                $sheet_style["H{$r}:I{$r}"] = $border01;
-                $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
-                $r++;
-                $sheet_style["A{$r}"] = $border01;
-                $sheet_style["B{$r}:E{$r}"] = $border01;
-                $sheet_style["F{$r}:G{$r}"] = $border01;
-                $sheet_style["H{$r}:I{$r}"] = $border01;
-                $sheet_style["J{$r}"] = $border01;
-                $sheet_style["K{$r}:L{$r}"] = $border_medium_dashed;
-                $r++;
-                $sheet_style["A{$r}"] = $border02;
-                $sheet_style["B{$r}"] = ['alignment' => [ 'wrapText' => true ]];
-                $sheet_style["B{$r}:E{$r}"] = $border02;
-                $sheet_style["F{$r}:G{$r}"] = $border02;
-                $sheet_style["H{$r}:I{$r}"] = $border02;
-                $sheet_style["J{$r}"] = $border02;
-                $sheet_style["K{$r}:L{$r}"] = [
-                    'borders' => [
-                        'bottom' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                            'color' => ['argb' => 'FFD5D5D5'],
-                        ],
-                    ],
-                ];
-                $r++;
-            } else {
-                $sheet_style["A{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-                $sheet_style["H{$r}"] = $text_right;
-                $sheet_style["J{$r}"] = [ 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ] ];
-                $sheet_style["K{$r}"] = $text_right;
-
-                $sheet_style["A{$r}:L{$r}"] = [
-                    'borders' => [
-                        'bottom' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
-                            'color' => ['argb' => 'FFD5D5D5'],
-                        ],
-                    ],
-                ];
-                $r++;
-            }
-        }
-
-        $sheet_style["A{$r}:L{$r}"] = [
-            'borders' => [
-                'bottom' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                    'color' => ['argb' => 'FF888888'],
-                ],
-            ],
-        ];
         $r++;
-        
         $sheet_style["A{$r}"] = $sheet_style["H{$r}"] = $text_right;
         $sheet_style["A{$r}:L{$r}"] = $border_medium_dashed;
         $r++;
@@ -589,12 +574,18 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
         // 해당 기능없어서 라이브러리 조작
         // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
         $rst = [];
-        $r = 16;
+        $r = 15;
         foreach ($this->odm_map as $row) {
-            $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
-            $r+=3;
+            if($row['type'] == 'm') {
+                $r++;
+                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                $r+=2;
+            } else {
+                $r++;
+                $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            }
         }
-        $r++;
+        $r+=2;
         $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         $r++;
         $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;

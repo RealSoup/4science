@@ -1,7 +1,7 @@
 <template>
 <div id="bo_show">
 
-    <h3>{{board.bo_subject}}</h3>
+    <h3><b>제목: </b>{{board.bo_subject}}</h3>
 
     <ul class="list-inline bd_info">
         <li class="list-inline-item"><router-link :to="{name: 'adm_user_edit', params: { id:board.created_id }}"><b-icon icon="person-fill" /> {{board.bo_writer}}</router-link></li>
@@ -22,10 +22,16 @@
     <hr />
 
     <div class="con">
-        <img v-if="board.goods" :src="board.goods.image_src[0]" class='me-auto ms-auto d-block' />
+        <b-button @click="openWinPop(`admin/shop/goods/${board.goods.gd_id}/edit`)" class="gd_img">
+            &lt; <b>상품명: </b>{{board.goods.gd_name}} &gt;
+            <br />
+            - 클릭시 상품창 오픈 -
+            <br />
+            <img v-if="board.goods" :src="board.goods.image_src[0]" />
+        </b-button>
 
         <template v-if="board.img_file && board.img_file.length">
-            <img v-for="(image, i) in board.img_file" :src="image.path" class='me-auto ms-auto d-block' :key="i" />
+            <img v-for="(image, i) in board.img_file" :src="image.path" class='mx-auto d-block my-4' :key="i" />
             <hr />
         </template>
         <div v-html="nl2br(board.bo_content)" />
@@ -130,8 +136,8 @@ export default {
 </script>
 
 <style media="screen">
-#bo_show { max-width:1400px; margin:auto; }
-#bo_show h3 { margin:2rem 0 1rem 0; }
+#bo_show { max-width:900px; margin:auto; border:1px solid #CCC; border-radius:.5em; padding:1em; margin-top:2em; }
+#bo_show h3 { margin:1rem 0; }
 #bo_show .bd_info { line-height:1.4rem; }
 #bo_show .bd_info li { margin-right:1.5rem; }
 #bo_show .bd_info .add_file { margin-left:24px; }
@@ -139,6 +145,8 @@ export default {
 #bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer; }
 #bo_show .bd_info .bo_type { font-size:1.2rem; }
 #bo_show .con { margin-bottom:3rem; line-height:1.5rem; }
+#bo_show .con .gd_img { text-align:center; margin:2em auto; display:block; padding:1em; }
+
 #bo_show .con img { max-width: 100%; }
 #bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem; }
 #bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0; }

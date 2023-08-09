@@ -75,7 +75,7 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
 
             if($em['estimate_option']) {
                 foreach ($em['estimate_option'] as $eo)
-                    $data[] = ['', "옵션: {$eo['eo_tit']}", '', '', '', $eo['eo_name'], '', $em['em_price'], '', $em['em_ea'], $em['em_price']*$em['em_ea']];
+                    $data[] = ['', "{$eo['eo_tit']}: {$eo['eo_name']}", '', '', '', '', '', $eo['eo_price'], '', $eo['eo_ea'], $eo['eo_price']*$eo['eo_ea']];
                 $this->option[$this->gd_cnt-1] = count($em['estimate_option']);
             }
         }
@@ -176,27 +176,27 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
 
         $r++;        
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
+        $sheet->mergeCells("A{$r}:G{$r}")->mergeCells("H{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
+        $sheet->mergeCells("A{$r}:G{$r}")->mergeCells("H{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
+        $sheet->mergeCells("A{$r}:G{$r}")->mergeCells("H{$r}:L{$r}");
 
         if ($this->er['er_no_dlvy_fee'] !== 'Y'){
             if ($this->er['er_dlvy_price'] > 0) {
                 $r++;
                 $sheet->getRowDimension($r)->setRowHeight(18);
-                $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
+                $sheet->mergeCells("A{$r}:G{$r}")->mergeCells("H{$r}:L{$r}");
             }
 
             if ($this->er['er_air_price']) {
                 $r++;
                 $sheet->getRowDimension($r)->setRowHeight(18);
-                $sheet->mergeCells('A'.($r).':G'.($r))->mergeCells("H{$r}:L{$r}");
+                $sheet->mergeCells("A{$r}:G{$r}")->mergeCells("H{$r}:L{$r}");
             }
         }
 
@@ -205,35 +205,35 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
 
         $r++;  //  배송지 주소01
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells('A'.($r).':E'.($r+2))->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells('A'.($r).':E'.($r+2))->mergeCells("F{$r}:L{$r}");
 
         $r++;  //  배송지 주소02
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($r+27).':E'.($r+27))*/->mergeCells('F'.($r).':L'.($r));
+        $sheet/*->mergeCells('A'.($r+27).':E'.($r+27))*/->mergeCells("F{$r}:L{$r}");
 
         $r++;  //  배송지 주소03
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet/*->mergeCells('A'.($r+28).':E'.($r+28))*/->mergeCells('F'.($r).':L'.($r));
+        $sheet/*->mergeCells('A'.($r+28).':E'.($r+28))*/->mergeCells("F{$r}:L{$r}");
 
         $r++;  //  결제방식
         $sheet->getRowDimension($r)->setRowHeight(18);
-        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells('F'.($r).':L'.($r));
+        $sheet->mergeCells("A{$r}:E{$r}")->mergeCells("F{$r}:L{$r}");
 
         $r++;
         $sheet->getRowDimension($r)->setRowHeight(8);
@@ -602,13 +602,20 @@ class EstimateEstimateExport implements FromCollection, WithStyles, WithDrawings
         // FORMAT_NUMBER_COMMA 
         // 해당 기능없어서 라이브러리 조작
         // C:\WorkSpace\vsCode\4science\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Style\NumberFormat.php
-        $rst = [];
-        $r = 0;
+        $rst = [];        
+        $r = 16;
         for ($i=0; $i < $this->gd_cnt; $i++) {
-            $r = 16+($i*3);
             $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $r+=3;
+            
+            if(array_key_exists($i, $this->option)) {
+                for ($j=0; $j<$this->option[$i]; $j++) {
+                    $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+                    $r++;
+                }
+            }
         }
-        $r+=4;
+        $r++;
         $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         $r++;
         $rst["H{$r}:L{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;

@@ -364,6 +364,31 @@ export default {
                 Notify.modal("모델을 선택하세요", 'info');
                 return false;
             }
+
+            if (['pay', 'estimate'].includes(type)) {
+                let required_key = Array();
+                let required_key_cnt = 0;
+                this.content.goods_option.forEach(go => {
+                    if (go.go_required == 'Y')
+                        required_key.push(go.go_id);
+                });
+                
+                required_key.forEach(k => {
+                    params.forEach(item => {
+                        if (item.hasOwnProperty('goc_id') && item.go_id == k) {
+                            required_key_cnt++;
+                            return false;
+                        }
+                    });
+                });
+
+                if (required_key_cnt !== required_key.length) {
+                    Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
+                    return false;
+                }
+            }
+
+
             switch (type) {
                 case "pay":
                     let estimate_price = false;
@@ -373,28 +398,7 @@ export default {
                     if (estimate_price) {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
-                    }
-                    
-                    let required_key = Array();
-                    let required_key_cnt = 0;
-                    this.content.goods_option.forEach(go => {
-                        if (go.go_required == 'Y')
-                            required_key.push(go.go_id);
-                    });
-                    
-                    required_key.forEach(k => {
-                        params.forEach(item => {
-                            if (item.hasOwnProperty('goc_id') && item.go_id == k) {
-                                required_key_cnt++;
-                                return false;
-                            }
-                        });
-                    });
-
-                    if (required_key_cnt !== required_key.length) {
-                        Notify.modal("필수 옵션을 선택하셔야 합니다.", 'info');
-                        return false;
-                    }
+                    }                    
                     this.$router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_inst' }});
                 break;
 
@@ -415,7 +419,6 @@ export default {
                         Notify.consolePrint(e);
                         Notify.toast('warning', e.responsee);
                     }
-                    
                 break;
 
                 case "estimate":

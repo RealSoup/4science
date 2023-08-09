@@ -214,6 +214,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::GET('/orderResult',  'Admin\Shop\B2bMerckController@orderRst');
                     Route::POST('/stockCheck',  'Admin\Shop\B2bMerckController@stockCheck');
                     Route::GET('/stockResult',  'Admin\Shop\B2bMerckController@stockRst');
+                    Route::GET('/invoiceIndex','Admin\Shop\B2bMerckController@invoiceIndex');
+                    Route::GET('/asnIndex',    'Admin\Shop\B2bMerckController@asnIndex');
                 });
             });
 

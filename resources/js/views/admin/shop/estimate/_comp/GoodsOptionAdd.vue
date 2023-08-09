@@ -74,9 +74,9 @@ export default {
                         eo_price : this.goods_option_child[i].goc_price,
                     }
                 );
-                this.value.push(nO);
+                this.value.push(nO);                
             }
-            this.goods_option_child=[];
+            this.hideOptionChild();
         },
         hideOption(){
             this.goods_option=[];

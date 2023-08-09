@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Admin\shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shop\{OrderModel, B2bMerck, B2bMerckModel, B2bMerckConfirmation, B2bMerckStock};
+use App\Models\Shop\{OrderModel, B2bMerck, B2bMerckModel, B2bMerckConfirmation, B2bMerckStock, B2bMerckInvoice, B2bMerckAsn};
 use DB;
 
 class B2bMerckController extends Controller {
@@ -319,6 +319,12 @@ class B2bMerckController extends Controller {
 		return;
 	}
 
+	public function invoiceIndex (Request $req) {
+		$data = B2bMerckInvoice::latest()->paginate();
+		$data->appends($req->all())->links();
+		return response()->json($data);
+	}
+
 	public function Asn(Request $req) {
 		$xml = file_get_contents("php://input");
 		$xml_array = simplexml_load_string($xml);
@@ -329,6 +335,11 @@ class B2bMerckController extends Controller {
 		return;
 	}
 
+	public function asnIndex (Request $req) {
+		$data = B2bMerckAsn::latest()->paginate();
+		$data->appends($req->all())->links();
+		return response()->json($data);
+	}
 
 	 /**
      * 재고 가격 확인
@@ -392,7 +403,7 @@ exit; */
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($this->B2b_url, false, $context);
-		dd($result);
+		
 		if ($result === FALSE) {
 			echo "ERR :: ";
 		} else {

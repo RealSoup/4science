@@ -50,6 +50,11 @@ table tr th, table tr td { padding:5px; }
 .product tr.line01 td:nth-child(6) { text-align:center; }
 .product tr.line01 td:nth-child(7) { text-align:right; }
 
+.product tr.line01.opt td:nth-child(3) { text-align:left; }
+.product tr.line01.opt td:nth-child(4) { text-align:right; }
+.product tr.line01.opt td:nth-child(5) { text-align:center; }
+.product tr.line01.opt td:nth-child(6) { text-align:right; }
+
 .product tr.line03 td:nth-child(1) { border-left:1px solid #DADADA; text-align:right; }
 .product tr.line03 td:nth-child(2) { border-right:1px solid #DADADA; text-align:right; }
 .product tr.line04 td { border-bottom:1px dashed #DADADA; color:#999; }
@@ -123,6 +128,21 @@ $no=1;
             <td>{{ $em['em_ea'] }}</td>
             <td>{{ number_format($em['em_price']*$em['em_ea']) }}</td>
         </tr>
+
+    @if ($em['estimate_option'])
+        @foreach ($em['estimate_option'] as $eo)
+        <tr class="line01 opt">
+            <td></td>
+            <td>옵션:{{$eo['eo_tit']}}</td>
+            <td colspan="2">{{$eo['eo_name']}}</td>
+            <td>{{ number_format($eo['eo_price'])}}</td>
+            <td>{{$eo['eo_ea']}}</td>
+            <td>{{ number_format($eo['eo_price']*$eo['eo_ea']) }}</td>
+        </tr>
+        @endforeach
+    @endif
+
+        
         @php
         $no++;
         @endphp

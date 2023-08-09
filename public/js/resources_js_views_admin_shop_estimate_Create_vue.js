@@ -255,8 +255,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
 /* harmony import */ var _comp_GoodsOptionAdd_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_comp/GoodsOptionAdd.vue */ "./resources/js/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! fast-copy */ "./node_modules/fast-copy/dist/fast-copy.js");
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(fast_copy__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -290,13 +290,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     emAdd: function emAdd() {
       //  vue는 얉은 복사(복사를 해도 계속 참조)이어서 이렇게 해야 깊은 복사(새로운 메모리 참조)가 된다.
-      //  이렇게 안하면 복사된것들이 모두 같은 값이 들어가 버린다.
-      var nEm = Object.assign({},
-      // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
-      this.frm.empty_em // 삽입하려는 내용
-      );
-
-      this.value.push(nEm);
+      //  이렇게 안하면 복사된것들이 모두 같은 값이 들어가 버린다.       
+      this.value.push(fast_copy__WEBPACK_IMPORTED_MODULE_2___default()(this.frm.empty_em));
     },
     emDel: function emDel(i) {
       var _this = this;
@@ -541,7 +536,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         this.value.push(nO);
       }
-      this.goods_option_child = [];
+      this.hideOptionChild();
     },
     hideOption: function hideOption() {
       this.goods_option = [];
@@ -648,6 +643,7 @@ var render = function render() {
   return _c("div", {
     staticClass: "box"
   }, [_c("h5", [_vm._v("견적상품 등록")]), _vm._v(" "), _vm._l(_vm.value, function (em, idx) {
+    var _em$em_id;
     return _c("b-container", {
       key: idx,
       staticClass: "est_frm"
@@ -834,7 +830,7 @@ var render = function render() {
       ref: "goods_option_add",
       refInFor: true,
       attrs: {
-        em_id: em.em_id,
+        em_id: (_em$em_id = em.em_id) !== null && _em$em_id !== void 0 ? _em$em_id : 0,
         gd_id: em.em_gd_id
       },
       model: {
