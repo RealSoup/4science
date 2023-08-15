@@ -22,8 +22,8 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://4science.net/board/event/show/42" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0719/estimate.jpg" />
+            <a href="https://4science.net/shop/goods/925" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0816/estimate.jpg" />
             </a>
         </td>
     </tr>
@@ -162,31 +162,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <!-- <table cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td rowspan="3"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate01.jpg" border="0" /></td>
-                    <td colspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate06.jpg" border="0" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <a href="https://4science.net/board/event/show/31" target="_blank">
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate03.jpg" border="0" />
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" target="_blank">
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate04.jpg" border="0" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="https://play.google.com/store/apps/details?id=four.science.app" target="_blank">
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/prev/221206/estimate05.jpg" border="0" />
-                        </a>
-                    </td>
-                </tr>
-            </table> -->
+            <a href="https://4science.net/board/event/show/42" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0719/estimate.jpg" />
+            </a>
         </td>
     </tr>
     <tr>

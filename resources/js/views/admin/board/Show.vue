@@ -22,12 +22,12 @@
     <hr />
 
     <div class="con">
-        <b-button @click="openWinPop(`admin/shop/goods/${board.goods.gd_id}/edit`)" class="gd_img">
+        <b-button v-if="board.goods" @click="openWinPop(`admin/shop/goods/${board.goods.gd_id}/edit`)" class="gd_img">
             &lt; <b>상품명: </b>{{board.goods.gd_name}} &gt;
             <br />
             - 클릭시 상품창 오픈 -
             <br />
-            <img v-if="board.goods" :src="board.goods.image_src[0]" />
+            <img :src="board.goods.image_src[0]" />
         </b-button>
 
         <template v-if="board.img_file && board.img_file.length">

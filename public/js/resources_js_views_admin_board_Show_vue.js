@@ -431,18 +431,18 @@ var render = function render() {
     staticClass: "list-inline-item bo_type badge badge-warning"
   }, [_vm._v("\r\n            분류 : " + _vm._s(_vm._f("bo_type")(_vm.board.bo_type)) + "\r\n        ")]) : _vm._e()]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "con"
-  }, [_c("b-button", {
+  }, [_vm.board.goods ? _c("b-button", {
     staticClass: "gd_img",
     on: {
       click: function click($event) {
         return _vm.openWinPop("admin/shop/goods/".concat(_vm.board.goods.gd_id, "/edit"));
       }
     }
-  }, [_vm._v("\r\n            < "), _c("b", [_vm._v("상품명: ")]), _vm._v(_vm._s(_vm.board.goods.gd_name) + " >\r\n            "), _c("br"), _vm._v("\r\n            - 클릭시 상품창 오픈 -\r\n            "), _c("br"), _vm._v(" "), _vm.board.goods ? _c("img", {
+  }, [_vm._v("\r\n            < "), _c("b", [_vm._v("상품명: ")]), _vm._v(_vm._s(_vm.board.goods.gd_name) + " >\r\n            "), _c("br"), _vm._v("\r\n            - 클릭시 상품창 오픈 -\r\n            "), _c("br"), _vm._v(" "), _c("img", {
     attrs: {
       src: _vm.board.goods.image_src[0]
     }
-  }) : _vm._e()]), _vm._v(" "), _vm.board.img_file && _vm.board.img_file.length ? [_vm._l(_vm.board.img_file, function (image, i) {
+  })]) : _vm._e(), _vm._v(" "), _vm.board.img_file && _vm.board.img_file.length ? [_vm._l(_vm.board.img_file, function (image, i) {
     return _c("img", {
       key: i,
       staticClass: "mx-auto d-block my-4",
