@@ -171,7 +171,7 @@ export default {
 
 
 #header { background-color:#FFF; }
-#header #core { background:#0098FF url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/230725.gif) no-repeat center 16px; }
+/* #header #core { background:#0098FF url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/230725.gif) no-repeat center 16px; } */
 #header #core .the_top { position:relative; display:flex; align-items:flex-end; height:6.625em; padding-bottom:.75em; }
 #header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
 /*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
