@@ -203,7 +203,6 @@ class UserController extends Controller {
             $list = DB::table('users')
             ->select(['email as address', 'name', DB::raw("'R' as type")])
             ->where('level', '<', 20)
-            ->where('id', '>', 71455)
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
             ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
