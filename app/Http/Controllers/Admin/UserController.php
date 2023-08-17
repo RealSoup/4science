@@ -194,7 +194,8 @@ class UserController extends Controller {
     }
     public function email_send(Request $req, $id) {
         $mail = DB::table('bulk_mail')->find($id);
-		if ( $req->target == 0 ) {
+        dd($req->target);
+		if ( $req->target == 'custom' ) {
 			$temp = explode(";", $req->temp);
 			foreach($temp as $k => $v)          
 				$list[] =  collect(['address' => $v, 'name' => 'A'.$k, 'type' => 'R']);            
@@ -204,7 +205,7 @@ class UserController extends Controller {
             ->select(['email as address', 'name', DB::raw("'R' as type")])
             ->where('level', '<', 20)
             ->whereNotNull('email_verified_at')
-            ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
+            ->when($req->target == 'agree', fn ($q, $v) => $q->where('receive_mail', 'Y'))
             ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
             ->get()
             ->toArray();
