@@ -47,7 +47,19 @@ export default [
             }, {
                 path: 'user/email',
                 name: 'adm_user_email',
-                component:() => import('@/views/admin/user/Email'),
+                component:() => import('@/views/admin/user/EmailIndex'),
+            }, {
+                path: 'user/email/creat',
+                name: 'adm_user_email_creat',
+                component:() => import('@/views/admin/user/EmailCreat'),
+            }, {
+                path: 'user/email/:id/edit',
+                name: 'adm_user_email_edit',
+                component:() => import('@/views/admin/user/EmailEdit'),
+            },  {
+                path: 'user/email/:id/send',
+                name: 'adm_user_email_send',
+                component:() => import('@/views/admin/user/EmailSend'),
             }, 
             
             

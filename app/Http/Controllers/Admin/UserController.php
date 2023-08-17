@@ -173,46 +173,86 @@ class UserController extends Controller {
         return response()->json($data, 200);
     }
 
-    public function sendEmail(Request $req) {
-		$receiver = "";
+    public function email_index(User $user, Request $req) {
+        $data = DB::table('bulk_mail')->latest()->paginate(20);
+        $data->appends($req->all())->links();
+        return response()->json($data);
+    }
+
+    public function email_edit($id) {
+        return response()->json(DB::table('bulk_mail')->find($id));
+    }
+    public function email_store(Request $req) {
+        $id = DB::table('bulk_mail')->insertGetId([ 'title' => $req->title, 'body' => $req->body ]);
+        return response()->json($id, 200);
+    }
+    public function email_update(Request $req, $id) {
+        DB::table('bulk_mail')->where('id', $id)->update([ 'title' => $req->title, 'body' => $req->body ]);
+    }
+    public function email_destroy(Request $req, $id) {
+        DB::table('bulk_mail')->where('id', $id)->delete();
+    }
+    public function email_send(Request $req, $id) {
+        $mail = DB::table('bulk_mail')->find($id);
 		if ( $req->target == 0 ) {
 			$temp = explode(";", $req->temp);
-			foreach($temp as $k => $v)
-				$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
-            self::postman($req, collect($list));
+			foreach($temp as $k => $v)          
+				$list[] =  collect(['address' => $v, 'name' => 'A'.$k, 'type' => 'R']);            
 		} else {
-			$count = User::member()
+            // 한번에 보낼수 있는 최고 양이 10만통
+            $list = DB::table('users')
+            ->select(['email as address', 'name', DB::raw("'R' as type")])
+            ->where('level', '<', 20)
+            ->where('id', '>', 71455)
             ->whereNotNull('email_verified_at')
             ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
             ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
-            ->count();
-            // 한번에 보낼수 있는 최고 양이 3만통
-            $list = User::select('name', 'email')->member()
-            ->whereNotNull('email_verified_at')
-            ->when($req->target == 1, fn ($q, $v) => $q->where('receive_mail', 'Y'))
-            ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$');
-            $limit = 20000;
-            $i=0;
-            while ($i < $count) {
-                $list->offset($i)->limit($limit);
-                self::postman($req, $list->get());
-                $i+=$limit;
-            }
+            ->get()
+            ->toArray();
 		}
-        // $receiver = "";
-		// if ( $req->target == 'custom' ) {
-		// 	$temp = explode(";", $req->temp);
-		// 	foreach($temp as $k => $v)
-		// 		$list[] =  collect(['name' => 'A'.$k, 'email' => $v]);
-        //     self::postman($req, collect($list));
-        // } else {
-        //     $limit = 30000;
-        //     $list = User::select('name', 'email')->member()->whereNotNull('email_verified_at');
-        //     if ($req->target == 'agree')          self::postman($req, $list->where('receive_mail', 'Y')->get());
-        //     else if ($req->target == 'all_0-3')   self::postman($req, $list->offset(0)->limit($limit)->get());
-        //     else if ($req->target == 'all_3-6')   self::postman($req, $list->offset(30000)->limit($limit)->get());
-        //     else if ($req->target == 'all_6-end') self::postman($req, $list->offset(60000)->limit($limit)->get());
-		// }
+        list($microtime, $timestamp) = explode(' ',microtime());
+        $timestamp = $timestamp.substr($microtime, 2, 3);
+        $access_key = 'F0TFJYnCa2CxWGiAdbwb';
+        $secret_key = 'OmD8a1EU3c9sV25cw4MzkI8l8MeHi4iDhWojZGd0';
+
+        $message = "POST";
+        $message .= " ";
+        $message .= "/api/v1/mails";
+        $message .= "\n";
+        $message .= $timestamp;
+        $message .= "\n";
+        $message .= $access_key;
+            
+        $signature = base64_encode(hash_hmac('sha256', $message, $secret_key, true));
+
+        $headers = array(
+            "Content-Type: application/json;"
+            , "x-ncp-apigw-timestamp: " . $timestamp . ""
+            , "x-ncp-iam-access-key: " . $access_key . ""
+            , "x-ncp-apigw-signature-v2: " . $signature . ""
+        );
+
+        $mailContentsDataSet["senderAddress"] = "admin@4science.net";
+        $mailContentsDataSet["senderName"] = "4science";
+        $mailContentsDataSet["title"] =  $mail->title;
+        $mailContentsDataSet["body"] =  stripslashes(htmlspecialchars_decode($mail->body)); 
+        $mailContentsDataSet["recipients"] = $list;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://mail.apigw.ntruss.com/api/v1/mails");
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($mailContentsDataSet));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        if ($response === FALSE)
+            echo 'An error has occurred: ' . curl_error($ch) . PHP_EOL;        
+        else
+            return response()->json($response, 200);
+        
     }
 
     public function postman($req, $list) {

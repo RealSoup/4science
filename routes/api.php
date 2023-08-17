@@ -117,8 +117,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('storeAddr', 'Admin\UserController@storeAddr');
                 Route::POST('updateAddr', 'Admin\UserController@updateAddr');
                 Route::GET('destroyAddr/{id}', 'Admin\UserController@destroyAddr');
-                Route::POST('sendEmail', 'Admin\UserController@sendEmail');
-                Route::GET('mailInfo', 'Admin\UserController@mailInfo');
+                
+                Route::GET('email',             'Admin\UserController@email_index');
+                Route::GET('email/{id}/edit',   'Admin\UserController@email_edit');
+                Route::POST('email',            'Admin\UserController@email_store');
+                Route::PATCH('email/{id}',      'Admin\UserController@email_update');
+                Route::POST('email/{id}/send',  'Admin\UserController@email_send');
+                Route::DELETE('email/{id}',     'Admin\UserController@email_destroy');
+                Route::GET('mailInfo',          'Admin\UserController@mailInfo');
                 Route::GET('origin/{id}', 'Admin\UserController@origin'); 
             });
             
