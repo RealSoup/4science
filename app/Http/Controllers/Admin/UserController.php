@@ -194,7 +194,6 @@ class UserController extends Controller {
     }
     public function email_send(Request $req, $id) {
         $mail = DB::table('bulk_mail')->find($id);
-        dd($req->target);
 		if ( $req->target == 'custom' ) {
 			$temp = explode(";", $req->temp);
 			foreach($temp as $k => $v)          
