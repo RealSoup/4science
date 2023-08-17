@@ -211,8 +211,8 @@ class UserController extends Controller {
 		}
         list($microtime, $timestamp) = explode(' ',microtime());
         $timestamp = $timestamp.substr($microtime, 2, 3);
-        $access_key = 'F0TFJYnCa2CxWGiAdbwb';
-        $secret_key = 'OmD8a1EU3c9sV25cw4MzkI8l8MeHi4iDhWojZGd0';
+        $access_key = 'USRkR0y4hTSbyTHnexAM';
+        $secret_key = '2IIkmTwjumWVzym6xUtGVpWrh3udNeY6umxP6R6g';
 
         $message = "POST";
         $message .= " ";
