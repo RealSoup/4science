@@ -11,6 +11,7 @@ use DB;
 use Storage;
 use DateTimeInterface;
 use Illuminate\Support\Arr;
+use App\Lib\SphinxClient;
 
 class Goods extends Model {
     use SoftDeletes;
@@ -364,33 +365,107 @@ class Goods extends Model {
         return $p;
     }
 
-    public function search($req, $r_type=null) {
+
+    public function search ($req, $offset, $limit, $type=null) {
+        $q_str = $kw ='';
+        
+        if ($req->filled('keyword')) {
+            $kw = '"'.trim($req->keyword).'"';
+            // c0130-100mg
+            
+            // $qry = DB::table('sphinx.sph_goods')
+            // ->where('query', "{$kw};mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130")
+            // ->get();
+            if ( $req->filled('mode') ) {
+                if($req->mode == 'cat_no' && !preg_match("/\d{2}-([\d-]{5,10})/", $kw)) // 캣넘버 검색인테 캣넘버 형식이 아니라면
+                    return 'no-catno';
+                else {
+                    if($req->mode == 'gd_name') $q_str .= "@gd_name {$kw}";
+                    if($req->mode == 'gm_name') $q_str .= "@gm_name {$kw}";
+                    if($req->mode == 'gm_code') $q_str .= "@gm_code {$kw}";
+                    if($req->mode == 'cat_no')  $q_str .= "@gm_catno {$kw}";
+                    if($req->mode == 'maker')   $q_str .= "@mk_name {$kw}";
+                }
+            } else
+                $q_str .= " {$kw}";
+            
+            if ( $req->filled('keyword_extra') ) {
+                $ex_kw = '"'.trim($req->keyword_extra).'"';
+                if ( $req->filled('mode') ) {
+                    if($req->mode == 'gd_name') $q_str .= "@gd_name {$ex_kw}";
+                    if($req->mode == 'gm_name') $q_str .= "@gm_name {$ex_kw}";
+                    if($req->mode == 'gm_code') $q_str .= "@gm_code {$ex_kw}";
+                    if($req->mode == 'cat_no')  $q_str .= "@gm_catno {$ex_kw}";
+                    if($req->mode == 'maker')   $q_str .= "@mk_name {$ex_kw}";
+                } else
+                    $q_str .= "@* {$ex_kw}";
+            }
+            $q_str .= ";";
+        }
+            
+        $q_str .= "groupby=attr:gd_id;";
+        $sort = "groupsort=";
+        $req->sort = $req->sort ? $req->sort : 'hot';
+        switch ($req->sort) {
+            case 'hot':
+                if (!$req->filled('keyword'))
+                            $sort .= "gd_seq asc, ";    break;
+            case 'new':     $sort .= "gd_id asc, ";     break;
+            case 'lowPri':  $sort .= "gm_price asc, ";  break;
+            case 'highPri': $sort .= "gm_price desc, "; break;
+        }
+        if($type=='4s_pick') {
+            $sort = "groupsort=gd_seq asc, ";
+            $q_str .= "!filter=gd_seq, 999999;";
+        }            
+        $sort .= "gd_rank asc, gd_view_cnt asc;";
+        
+            
+        $q_str .= $sort."offset={$offset};limit={$limit};";
+
+        if ($req->filled('ca01')) $q_str .= "filter=gc_ca01, {$req->ca01};";
+        if ($req->filled('ca02')) $q_str .= "filter=gc_ca02, {$req->ca02};";
+        if ($req->filled('ca03')) $q_str .= "filter=gc_ca03, {$req->ca03};";
+        if ($req->filled('mk_id')) $q_str .= "filter=gd_mk_id, {$req->mk_id};"; 
+
+        $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 'shop_goods.gd_rank', 'shop_goods.gd_view_cnt')
+                ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
+                ->with('goodsModelPrime')
+                ->whereRaw("`query` = '{$q_str}'");
+        return $rst;
+    }
+
+    public function search_cnt ($req) {
+        $kw ='';
+        
+        if ($req->filled('keyword')) {
+            $kw = trim($req->keyword);
+            $kw = '"'.$kw.'"';            
+        }
+
+        $cl = new SphinxClient ();
+        $cl->SetServer( "127.0.0.1", 9312 );
+        if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
+        if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
+        if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
+        if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
+        $cl->SetGroupBy('gd_id', SPH_GROUPBY_ATTR );
+        $cl_rst = $cl->Query( $kw, 'sph_goods' );
+        
+        return $cl_rst['total_found'];
+    }
+
+    public function search__($req, $r_type=null) {
         if ($req->filled('keyword')) {    
             $kw = trim($req->keyword);
+
+            $qry = DB::table('sphinx.sph_goods')
+            ->where('query', '"trc";mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130');
+
             $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
             if ($req->filled('keyword_extra')) {
                 $ft_kw = "+{$kw}* >{$req->keyword_extra}*";
             }
-/*
-            +	AND, 반드시 포함하는 단어
-            –	NOT, 반드시 제외하는 단어
-            >	포함하며, 검색 순위를 높일 단어
-                +mysql >tutorial
-                : mysql과 tutorial가 포함하는 행을 찾을 때, tutorial이 포함되면 검색 랭킹이 높아짐
-            <	포함하되,검색 순위를 낮출 단어
-                +mysql <training
-                : mysql과 training가 포함하는 행을 찾지만, training이 포함되면 검색 랭킹이 낮아짐
-            ()	하위 표현식으로 그룹화 (포함, 제외, 순위 지정 등)
-                +mysql +(>tutorial <training)
-                : mysql AND tutorial, mysql AND training 이지만, tutorial의 우선순위가 더욱 높게 지정
-            ~	Negate. 
-                '-' 연산자와 비슷하지만 제외 시키지는 않고 검색 조건을 낮춤
-            *	Wildcard. 와일드카드
-                my*
-                : mysql, mybatis 등 my 뒤의 와일드 카드로 붙음
-            “”	구문 정의
-*/
-
 
             // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
             if (preg_match("/[-+<>~*()]/", $kw)) 	$ft_kw = "\"{$kw}*\"";

@@ -99,7 +99,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         ;
-        _vm.frm.ca01 = 0, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.routerPush();
+        _vm.frm.ca01 = 0, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
       }
     }
   }, [_vm._v("전체보기 "), _c("span", [_vm._v(_vm._s(_vm.sch_cate_info.all))])]), _vm._v(" "), _vm._l(_vm.sch_cate_info.ca01, function (ca) {
@@ -111,7 +111,7 @@ var render = function render() {
       on: {
         click: function click($event) {
           ;
-          _vm.frm.ca01 = ca.key, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.routerPush();
+          _vm.frm.ca01 = ca.key, _vm.frm.ca02 = 0, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
         }
       }
     }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
@@ -124,7 +124,7 @@ var render = function render() {
       on: {
         click: function click($event) {
           ;
-          _vm.frm.ca02 = ca.key, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.routerPush();
+          _vm.frm.ca02 = ca.key, _vm.frm.ca03 = 0, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
         }
       }
     }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
@@ -137,7 +137,7 @@ var render = function render() {
       on: {
         click: function click($event) {
           ;
-          _vm.frm.ca03 = ca.key, _vm.frm.mk_id = 0, _vm.routerPush();
+          _vm.frm.ca03 = ca.key, _vm.frm.mk_id = 0, _vm.frm.keyword_extra = "", _vm.routerPush();
         }
       }
     }, [_vm._v("\r\n                        " + _vm._s(ca.name) + " "), _c("span", [_vm._v(_vm._s(ca.cnt))])]);
@@ -150,7 +150,7 @@ var render = function render() {
       on: {
         click: function click($event) {
           ;
-          _vm.frm.mk_id = mk.key, _vm.routerPush();
+          _vm.frm.mk_id = mk.key, _vm.frm.keyword_extra = "", _vm.routerPush();
         }
       }
     }, [_vm._v("\r\n                        " + _vm._s(mk.name) + " "), _c("span", [_vm._v(_vm._s(mk.cnt))])]);
@@ -320,7 +320,7 @@ var render = function render() {
       staticClass: "dealer"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat * _vm.$store.state.auth.user.dc_mul)))))]) : _vm._e()]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
-    }, [_vm._v(_vm._s(row.maker.mk_name))])], 1);
+    }, [_vm._v(_vm._s(row.mk_name))])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

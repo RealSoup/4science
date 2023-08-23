@@ -16,29 +16,29 @@
             <b-row>
                 <b-col>
                     <h5>카테고리</h5>
-                    <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
-                    <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, routerPush()">
+                    <p @click="frm.ca01=0, frm.ca02=0, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">전체보기 <span>{{sch_cate_info.all}}</span></p>
+                    <p v-for="ca in sch_cate_info.ca01" :key="ca.key" :class="{chk:frm.ca01 == ca.key}" @click="frm.ca01=ca.key, frm.ca02=0, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">
                         {{ca.name}} <span>{{ca.cnt}}</span>
                     </p>
                 </b-col>
                 
                 <b-col>
                     <h5>중분류</h5>
-                    <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, routerPush()">
+                    <p v-for="ca in sch_cate_info.ca02" :key="ca.key" :class="{chk:frm.ca02 == ca.key}" @click="frm.ca02=ca.key, frm.ca03=0, frm.mk_id=0, frm.keyword_extra='', routerPush()">
                         {{ca.name}} <span>{{ca.cnt}}</span>
                     </p>
                 </b-col>
                 
                 <b-col>
                     <h5>소분류</h5>
-                    <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, routerPush()">
+                    <p v-for="ca in sch_cate_info.ca03" :key="ca.key" :class="{chk:frm.ca03 == ca.key}" @click="frm.ca03=ca.key, frm.mk_id=0, frm.keyword_extra='', routerPush()">
                         {{ca.name}} <span>{{ca.cnt}}</span>
                     </p>
                 </b-col>
                 
                 <b-col>
                     <h5>제조사</h5>
-                    <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, routerPush()">
+                    <p v-for="mk in sch_cate_info.maker" :key="mk.key" :class="{chk:frm.mk_id == mk.key}" @click="frm.mk_id=mk.key, frm.keyword_extra='', routerPush()">
                         {{mk.name}} <span>{{mk.cnt}}</span>
                     </p>
                 </b-col>
@@ -115,7 +115,7 @@
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
                                     <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
                                 </b-col>
-                                <b-col class="m_hide">{{row.maker.mk_name}}</b-col>
+                                <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>
 
                             <pagination :data="list" @pagination-change-page="setPage" :limit="5" :showDisabled="true" align="center" class="mt-5">
