@@ -66,58 +66,59 @@ class GoodsController extends Controller {
             $cl->SetGroupBy('gc_ca01', SPH_GROUPBY_ATTR );
             $cl->SetGroupDistinct ( "gd_id" );
             $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                 
-            $data['sch_cate_info']['all'] = array_reduce( $cl_rst['matches'], fn($sum, $el) => $sum + $el['attrs']['@distinct'], 0);
             
-
-            foreach ($cl_rst['matches'] as $v) {
-                $tmp['key'] = $v['attrs']['@groupby'];
-                $tmp['name'] = $v['attrs']['gc_ca01_name'];
-                $tmp['cnt'] = $v['attrs']['@distinct'];
-                $data['sch_cate_info']['ca01'][] = $tmp;
-            }
-            
-            if ($req->filled('ca01')) {
-                $cl->SetFilter('gc_ca01', array($req->ca01));
-                $cl->SetGroupBy('gc_ca02', SPH_GROUPBY_ATTR );
-                $cl->SetGroupDistinct ( "gd_id" );
-                $cl_rst = $cl->Query( $kw, 'sph_goods' );
-
+            if ($cl_rst['total_found'] > 0) {
+                $data['sch_cate_info']['all'] = array_reduce( $cl_rst['matches'], fn($sum, $el) => $sum + $el['attrs']['@distinct'], 0);
+    
                 foreach ($cl_rst['matches'] as $v) {
                     $tmp['key'] = $v['attrs']['@groupby'];
-                    $tmp['name'] = $v['attrs']['gc_ca02_name'];
+                    $tmp['name'] = $v['attrs']['gc_ca01_name'];
                     $tmp['cnt'] = $v['attrs']['@distinct'];
-                    $data['sch_cate_info']['ca02'][] = $tmp;
+                    $data['sch_cate_info']['ca01'][] = $tmp;
                 }
-            }
-
-            if ($req->filled('ca02')) {
-                $cl->SetFilter('gc_ca01', array($req->ca01));
-                $cl->SetFilter('gc_ca02', array($req->ca02));
-                $cl->SetGroupBy('gc_ca03', SPH_GROUPBY_ATTR );
-                $cl->SetGroupDistinct ( "gd_id" );
-                $cl_rst = $cl->Query( $kw, 'sph_goods' );
-
-                foreach ($cl_rst['matches'] as $v) {
-                    $tmp['key'] = $v['attrs']['@groupby'];
-                    $tmp['name'] = $v['attrs']['gc_ca03_name'];
-                    $tmp['cnt'] = $v['attrs']['@distinct'];
-                    $data['sch_cate_info']['ca03'][] = $tmp;
+                
+                if ($req->filled('ca01')) {
+                    $cl->SetFilter('gc_ca01', array($req->ca01));
+                    $cl->SetGroupBy('gc_ca02', SPH_GROUPBY_ATTR );
+                    $cl->SetGroupDistinct ( "gd_id" );
+                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
+    
+                    foreach ($cl_rst['matches'] as $v) {
+                        $tmp['key'] = $v['attrs']['@groupby'];
+                        $tmp['name'] = $v['attrs']['gc_ca02_name'];
+                        $tmp['cnt'] = $v['attrs']['@distinct'];
+                        $data['sch_cate_info']['ca02'][] = $tmp;
+                    }
                 }
-            }
-
-            if ($req->filled('ca03')) {
-                $cl->SetFilter('gc_ca01', array($req->ca01));
-                $cl->SetFilter('gc_ca02', array($req->ca02));
-                $cl->SetFilter('gc_ca03', array($req->ca03));
-                $cl->SetGroupBy('gd_mk_id', SPH_GROUPBY_ATTR );
-                $cl->SetGroupDistinct ( "gd_id" );
-                $cl_rst = $cl->Query( $kw, 'sph_goods' );
-                foreach ($cl_rst['matches'] as $v) {
-                    $tmp['key'] = $v['attrs']['@groupby'];
-                    $tmp['name'] = $v['attrs']['mk_name'];
-                    $tmp['cnt'] = $v['attrs']['@distinct'];
-                    $data['sch_cate_info']['maker'][] = $tmp;
+    
+                if ($req->filled('ca02')) {
+                    $cl->SetFilter('gc_ca01', array($req->ca01));
+                    $cl->SetFilter('gc_ca02', array($req->ca02));
+                    $cl->SetGroupBy('gc_ca03', SPH_GROUPBY_ATTR );
+                    $cl->SetGroupDistinct ( "gd_id" );
+                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
+    
+                    foreach ($cl_rst['matches'] as $v) {
+                        $tmp['key'] = $v['attrs']['@groupby'];
+                        $tmp['name'] = $v['attrs']['gc_ca03_name'];
+                        $tmp['cnt'] = $v['attrs']['@distinct'];
+                        $data['sch_cate_info']['ca03'][] = $tmp;
+                    }
+                }
+    
+                if ($req->filled('ca03')) {
+                    $cl->SetFilter('gc_ca01', array($req->ca01));
+                    $cl->SetFilter('gc_ca02', array($req->ca02));
+                    $cl->SetFilter('gc_ca03', array($req->ca03));
+                    $cl->SetGroupBy('gd_mk_id', SPH_GROUPBY_ATTR );
+                    $cl->SetGroupDistinct ( "gd_id" );
+                    $cl_rst = $cl->Query( $kw, 'sph_goods' );
+                    foreach ($cl_rst['matches'] as $v) {
+                        $tmp['key'] = $v['attrs']['@groupby'];
+                        $tmp['name'] = $v['attrs']['mk_name'];
+                        $tmp['cnt'] = $v['attrs']['@distinct'];
+                        $data['sch_cate_info']['maker'][] = $tmp;
+                    }
                 }
             }
         }
