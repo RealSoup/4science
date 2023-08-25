@@ -13,7 +13,7 @@ class GoodsController extends Controller {
 
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
-    public function index(Request $req) {
+    public function index__(Request $req) {
         abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
@@ -37,17 +37,7 @@ class GoodsController extends Controller {
         if($offset>intval($total)) {
             $page = ceil($total / $limit);
             $offset = ($page*$limit)-$limit;
-        }
-        
-
-
-
-
-
-
-
-
-
+        }       
 
         if ($req->filled('keyword')) { 
             $kw ='';
@@ -123,12 +113,6 @@ class GoodsController extends Controller {
             }
         }
 
-
-
-
-
-
-
         $qry = $this->goods->search($req, $offset, $limit);
      
         if( gettype($qry) == 'string' && $qry == 'no-catno' )
@@ -158,7 +142,7 @@ class GoodsController extends Controller {
     }
 
 
-    public function index__(Request $req) {
+    public function index (Request $req) {
         abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
@@ -324,14 +308,13 @@ class GoodsController extends Controller {
                     
                 }
         } else {
-            $qry = $this->goods->search($req);
-            dd($qry);
+            $qry = $this->goods->search_p($req);
             if( gettype($qry) == 'string' && $qry == 'no-catno' )
                 return response()->json($qry);
 
             if ($req->filled('keyword')) { 
                 // $prev = clone $gs;
-                $prev = $this->goods->search($req, 'group');
+                $prev = $this->goods->search_p($req, 'group');
                 $grouped = DB::table( $prev, 'sub' )
                             ->join('shop_goods_category AS gc', 'sub.gd_id', '=', 'gc.gc_gd_id')
                             ->select('gc.gc_ca01', 'gc.gc_ca01_name', DB::raw('COUNT(la_gc.gc_ca01) as sum_ca'))

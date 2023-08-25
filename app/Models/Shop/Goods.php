@@ -455,7 +455,7 @@ class Goods extends Model {
         return $cl_rst['total_found'];
     }
 
-    public function search__($req, $r_type=null) {
+    public function search_p ($req, $r_type=null) {
         if ($req->filled('keyword')) {    
             $kw = trim($req->keyword);
 
