@@ -5,9 +5,6 @@
         <b-link to="/shop/goods/925">
             <b-carousel-slide :img-src="s3url+'event/2023/0816/slide.jpg'"></b-carousel-slide>
         </b-link>
-        <b-link to="/board/event/show/42">
-            <b-carousel-slide :img-src="s3url+'event/2023/0719/slide.jpg'"></b-carousel-slide>
-        </b-link>
         <b-link to="/board/event/show/31">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
                 <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>

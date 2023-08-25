@@ -13,7 +13,7 @@ class GoodsController extends Controller {
 
 	public function __construct( Goods $gd ) { $this->goods = $gd; }
     
-    public function index__(Request $req) {
+    public function index (Request $req) {
         abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||
@@ -142,7 +142,7 @@ class GoodsController extends Controller {
     }
 
 
-    public function index (Request $req) {
+    public function index__ (Request $req) {
         abort_if((!$req->filled('ca01') && !$req->filled('keyword')), 501, '검색값이 없습니다.');
         abort_if((
             ($req->filled('ca01') && Category::where('ca_id', $req->ca01)->doesntExist()) ||

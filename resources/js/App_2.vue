@@ -7,8 +7,7 @@
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
             'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
     }">
-        <adm-left v-if="$store.state.mode == 'adm'" id="lefter" />
-        <router-view id="main_con" />
+        <router-view />
     </main>
     <component :is="choiceFooter" />
     
@@ -19,8 +18,8 @@
 import WebHead      from '@/views/web/_layouts/Header.vue';
 import WebFooter    from '@/views/web/_layouts/Footer.vue';
 import HeaderSimple from '@/views/web/_layouts/HeaderSimple.vue';
-import AdmLeft      from '@/views/admin/_layouts/Left.vue';
-// import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
+import AdmHead      from '@/views/admin/_layouts/Header.vue';
+import AdmFooter    from '@/views/admin/_layouts/Footer.vue';
 
 
 export default {
@@ -29,9 +28,8 @@ export default {
         'web-head'      : WebHead, 
         'web-footer'    : WebFooter, 
         'header-simple' : HeaderSimple, 
-        'adm-left'      : AdmLeft, 
-        // 'adm-footer'    : AdmFooter 
-    },
+        'adm-head'      : AdmHead, 
+        'adm-footer'    : AdmFooter },
     data() {
         return {
         }
@@ -40,7 +38,7 @@ export default {
     	choiceHeader(){
         	switch(this.$store.state.mode){
             	case 'web':    return 'web-head';  break;
-                // case 'adm':    return 'adm-head';  break;
+                case 'adm':    return 'adm-head';  break;
                 case 'simple':  return 'header-simple';  break;
             }
         },
@@ -48,7 +46,7 @@ export default {
         	switch(this.$store.state.mode){
             	case 'web':
                 case 'simple':   return 'web-footer';  break;
-                // case 'adm':     return 'adm-footer';  break;
+                case 'adm':     return 'adm-footer';  break;
             }
         },
     },
@@ -94,10 +92,7 @@ export default {
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6, form, tr, th, td*/
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
-/*#site.adm{ background:#FADBFB; margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}*/
-#site.adm>main { display:flex; }
-#site.adm>main #lefter { background-color:#4E647B; flex:0 0 250px; max-width:250px; height:100vh; }
-#site.adm>main #main_con { flex-basis: 0; flex-grow: 1; max-width: 100%; }
+#site.adm{ /*background:#FADBFB;*/ margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}
 .layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; position:relative; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
 a, a:hover { color:#333; text-decoration:none; }
