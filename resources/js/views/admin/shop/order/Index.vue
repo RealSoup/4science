@@ -27,7 +27,7 @@
                 </b-form-select>
             </b-col>
             <b-col class="label">주문액</b-col>
-            <b-col class="type03 period">
+            <b-col class="type04 period">
                 <b-form-input v-model="sch_frm.startPrice" :formatter="priceComma" />
                 <b>~</b>
                 <b-form-input v-model="sch_frm.endPrice" :formatter="priceComma" />
@@ -51,7 +51,7 @@
             </b-col>
 
             <b-col class="label">주문기기</b-col>
-            <b-col class="type06">
+            <b-col class="type01">
                 <b-form-select v-model="sch_frm.sale_env">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="(val, key) in order_config.sale_env" :key="key" :value="key">{{ val }}</b-form-select-option>
@@ -88,12 +88,12 @@
    
     <b-container class="cmain">
         <b-row class="list_top m_hide">
-            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
-            <b-col sm="12" md="6" class="text-right">
+            <b-col sm="12" md="6">Total : <b>{{this.list.total}}</b></b-col>
+            <b-col sm="12" md="6" col class="text-right">
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
                 
-                <b-form-select v-model="sch_frm.list_size" @change="routerPush">
+                <b-form-select v-model="sch_frm.list_size" @change="routerPush" size="sm">
                     <b-form-select-option value="20">20개</b-form-select-option>
                     <b-form-select-option value="50">50개</b-form-select-option>
                     <b-form-select-option value="100">100개</b-form-select-option>

@@ -50,7 +50,7 @@
 
     <b-container class="cmain">
         <b-row>
-            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total | comma}}</b-badge></b-col>
+            <b-col sm="12" md="6">Total : <b>{{this.list.total | comma}}</b></b-col>
             <b-col sm="12" md="6" class="ctrl">회원정보를 클릭하면 수정이 가능합니다.</b-col>
         </b-row>
                     
@@ -65,7 +65,7 @@
 
         <b-row class="body list" v-for="us in list.data" :key="us.id">
             <b-col>
-                {{us.id}}. <br />
+                {{us.id}}
                 <b-badge v-if="us.level==1" class="normal">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==2" class="bronz">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==3" class="silver">{{option.grade[us.level]}}</b-badge>
@@ -77,8 +77,7 @@
             </b-col>
             <b-col>
                 <b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.name}}</b-link>
-                <br />
-                <b-button :to="{name: 'adm_user_edit', params: { id:us.introducer.id }}" v-if="us.introducer" class="xm sky">소개자 - {{us.introducer.name}}</b-button>
+                <b-button :to="{name: 'adm_user_edit', params: { id:us.introducer.id }}" v-if="us.introducer" class="xm sky"> - 소개자 - {{us.introducer.name}}</b-button>
             </b-col>
             <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.email}}</b-link></b-col>                
             <b-col>
@@ -168,17 +167,14 @@ export default {
 .cmain .row .col .admin { background-color:#0173BA; }
 .cmain .row .col .super { background-color:#ED1C22; }
 
-
-.cmain .body { align-items:center; }
-.cmain .list .col { line-height:1.5; }
-.cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; }
-.cmain .list .col:nth-child(2) { flex:0 0 9%; max-width:9%; }
-.cmain .list .col:nth-child(3) { flex:0 0 18%; max-width:18%; }
-.cmain .list .col:nth-child(4) {  }
-.cmain .list .col:nth-child(5) { flex:0 0 15%; max-width:15%; }
+.cmain .list .col:nth-child(1) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC; }
+.cmain .list .col:nth-child(2) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC; }
+.cmain .list .col:nth-child(3) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC; }
+.cmain .list .col:nth-child(4) { border-right:1px solid #CCCCCC; }
+.cmain .list .col:nth-child(5) { flex:0 0 19%; max-width:19%; border-right:1px solid #CCCCCC; }
 .cmain .list .col:nth-child(6) { flex:0 0 11%; max-width:11%; }
 
-.cmain .body .col { padding: 0.7rem 0; }
+.cmain .body .col:nth-child(1) { display: flex; justify-content: space-evenly; }
 .cmain .body .col:nth-child(4) span { min-width:150px; display:inline-block; text-align:left; }
 .cmain .body .col:nth-child(4) span:first-child { margin-right:2rem; }
 .cmain .body .col:nth-child(4) span svg { margin-right:.6rem; }

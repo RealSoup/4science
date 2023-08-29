@@ -7,21 +7,25 @@
         </b-link>
     </header>
 
-    <section :class="{focus:$route.name.startsWith('adm_site_')}">
-        <p @click="toggleClass"><i>Site관리</i></p>
-        <b-link :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
-        <b-link :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
-        <b-link :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_site')}"><i>Site관리</i></p>
+        <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
     </section>
 
-    <section :class="{focus:$route.name.startsWith('adm_user_')}">
-        <p @click="toggleClass"><i>회원관리</i></p>
-        <b-link @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
-        <b-link :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_user')}">
+            <i>회원관리</i>
+        </p>
+        <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
     </section>
 
-    <section :class="{focus:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
-        <p @click="toggleClass"><i>상품관리</i></p>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
+            <i>상품관리</i>
+        </p>
         <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && $route.query.gd_type == 'REN' }"  @click="strongReload('/admin/shop/goods', 'gd_type=REN')"><i>렌탈목록</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_category')}"     :to="{name: 'adm_category'}"><i>카테고리</i></b-link>
@@ -29,21 +33,27 @@
         <b-link :class="{focus:$route.name.startsWith('adm_purchaseAt')}"   :to="{name: 'adm_purchaseAt'}"><i>직배송/항공운임</i></b-link>
     </section>
 
-    <section :class="{focus:$route.name.startsWith('adm_estimate_') || $route.name.startsWith('adm_eng_reform')}">
-        <p @click="toggleClass"><i>견적관리</i></p>
-        <b-link @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
+            <i>견적관리</i>
+        </p>
+        <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
         <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)"><i>임의견적</i></b-link>
-        <b-link :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
     </section>
 
-    <section :class="{focus:$route.name.startsWith('adm_order_')}">
-        <p @click="strongReload('/admin/shop/order')" class="solo"><i>주문목록</i></p>
+    <section>
+        <p @click="strongReload('/admin/shop/order')" class="solo" :class="{focus:$route.name.startsWith('adm_order_')}">
+            <i>주문목록</i>
+        </p>
     </section>
 
-    <section :class="{focus:$route.name.startsWith('adm_stats')}">
-        <p @click="toggleClass"><i>통계</i></p>
-        <b-link :to="{name: 'adm_stats_join'}"><i>가입자</i></b-link>
-        <b-link :to="{name: 'adm_stats_order'}"><i>매출</i></b-link>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_stats')}">
+            <i>통계</i>
+        </p>
+        <b-link :class="{focus:$route.name.startsWith('adm_stats_join')}" :to="{name: 'adm_stats_join'}"><i>가입자</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_stats_order')}" :to="{name: 'adm_stats_order'}"><i>매출</i></b-link>
     </section>
 <!--
     <template v-if="user.id != 286">
@@ -58,25 +68,29 @@
     <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
     </template>
 -->    
-    <section :class="{focus:$route.name.startsWith('adm_board_')}">
-        <p @click="toggleClass"><i>게시판</i></p>
-        <b-link @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
-        <b-link @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
-        <b-link @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
+    <section>
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_board_')}">
+            <i>게시판</i>
+        </p>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
         <b-link><hr /></b-link>
-        <b-link @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
-        <b-link @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
-        <b-link @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
-        <b-link @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'gd_inquiry'}" @click="strongReload('/admin/board/gd_inquiry')"><i>상품문의</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'inquiry'}"    @click="strongReload('/admin/board/inquiry')"><i>1:1문의</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'as'}"         @click="strongReload('/admin/board/as')"><i>A/S신청</i></b-link>
+        <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'cancel'}"     @click="strongReload('/admin/board/cancel')"><i>취소/교환신청</i></b-link>
     </section>
 
-    <section class="menu_last" :class="{focus:$route.name.startsWith('adm_b2b_merck')}">
-        <p @click="toggleClass"><i>Merck 발주</i></p>
-        <b-link :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
-        <b-link :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
-        <b-link :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
-        <b-link :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
-        <b-link :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
+    <section class="menu_last">
+        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_b2b_merck')}">
+            <i>Merck 발주</i>
+        </p>
+        <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
+        <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
+        <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
+        <b-link :class="{focus:$route.name=='adm_b2b_merck_asn'}"          :to="{name: 'adm_b2b_merck_asn'}"><i>ASN</i></b-link>
+        <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
     </section>
 
     <section class="bottom_btn">
@@ -161,18 +175,17 @@ export default {
         },
 
         toggleClass(e){
-            if (e.currentTarget.classList.contains('active')) {
-                e.currentTarget.classList.remove('active');
+            if (e.currentTarget.classList.contains('open')) {
+                e.currentTarget.classList.remove('open');
             } else {
-                let elements = document.querySelectorAll('.active');
+                let elements = document.querySelectorAll('.open');
                 elements.forEach((el) => {
-                    el.classList.remove('active');
+                    el.classList.remove('open');
                 });
-                e.currentTarget.classList.add('active');
+                e.currentTarget.classList.add('open');
             }
         }
     },
-
 
     async mounted(){
         let res = await ax.get(`api/admin/common`);
@@ -195,18 +208,15 @@ aside section p:not(.solo):after { content:""; position:absolute; right:24px; to
 aside section hr { margin:.3em 0; border-color:#015B7E; }
 aside section hr,
 aside section a { background-color:#8197AE; font-size:15px; transition:all .1s; overflow:hidden; max-height:0; }
-aside section.focus p { background-color:#fff; }
-aside section.focus p i { color:#4C647C; font-weight:900; }
-aside section.focus a { max-height:35px; }
-aside section p.active:after { transform:rotate(180deg); }
-aside section p.active ~ a { max-height:35px; }
+aside section p.open:after { transform:rotate(180deg); }
+aside section p.open ~ a { max-height:35px; }
 aside section.menu_last { margin-bottom:auto; } 
 aside a { display:block; }
 aside i { padding:9px 0; color:#fff; width:170px; text-align:center; display:inline-block; font-style:normal; }
 aside section.bottom_btn { text-align:right; padding-right:7px; } 
 aside footer { margin-bottom:20px; }
-aside section a.router-link-active { background-color:#fff; }
-aside section a.router-link-active i { color:#4C647C; font-weight:900; }
+aside section .focus { background-color:#fff; }
+aside section .focus i { color:#4C647C; font-weight:900; }
 @media (max-width: 1320px){
     #header .layout >>> nav .nav-link { color:#fff; padding:.5rem .8vw; font-size: calc(.25vw + .7rem); }
 }

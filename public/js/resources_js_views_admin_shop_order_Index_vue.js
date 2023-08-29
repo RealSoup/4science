@@ -232,7 +232,7 @@ var render = function render() {
   })], 2)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "label"
   }, [_vm._v("주문액")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type03 period"
+    staticClass: "type04 period"
   }, [_c("b-form-input", {
     attrs: {
       formatter: _vm.priceComma
@@ -308,7 +308,7 @@ var render = function render() {
   })], 2)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "label"
   }, [_vm._v("주문기기")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type06"
+    staticClass: "type01"
   }, [_c("b-form-select", {
     model: {
       value: _vm.sch_frm.sale_env,
@@ -425,15 +425,12 @@ var render = function render() {
       sm: "12",
       md: "6"
     }
-  }, [_vm._v("Total : "), _c("b-badge", {
-    attrs: {
-      variant: "info"
-    }
-  }, [_vm._v(_vm._s(this.list.total))])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("Total : "), _c("b", [_vm._v(_vm._s(this.list.total))])]), _vm._v(" "), _c("b-col", {
     staticClass: "text-right",
     attrs: {
       sm: "12",
-      md: "6"
+      md: "6",
+      col: ""
     }
   }, [_c("b-badge", {
     staticClass: "yellow",
@@ -446,6 +443,9 @@ var render = function render() {
       pill: ""
     }
   }, [_vm._v(" ")]), _vm._v(" 취소주문\r\n                \r\n                "), _c("b-form-select", {
+    attrs: {
+      size: "sm"
+    },
     on: {
       change: _vm.routerPush
     },

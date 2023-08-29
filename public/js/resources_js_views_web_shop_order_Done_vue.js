@@ -139,9 +139,9 @@ var render = function render() {
     staticClass: "dd_style"
   }, [_c("span", [_vm._v("결제 예정일")]), _c("span", [_vm._v(_vm._s(_vm.pay_plan))])]), _vm._v(" "), _c("li", {
     staticClass: "dd_style"
-  }, [_c("span", [_vm._v("결제 금액")]), _c("span", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.order.od_all_price))))])]), _vm._v(" "), _c("li", [_c("b", [_vm._v(_vm._s(_vm.after_10day))]), _vm._v("까지 주문 금액이 입금확인이 되지 않으면,\r\n            "), _c("br"), _c("b", [_vm._v("자동주문취소")]), _vm._v(" 됨을 알려드립니다.\r\n            "), _c("br"), _c("b", {
+  }, [_c("span", [_vm._v("결제 금액")]), _c("span", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.order.od_all_price))))])]), _vm._v(" "), ["B"].includes(_vm.order.od_pay_method) ? _c("li", [_c("b", [_vm._v(_vm._s(_vm.after_10day))]), _vm._v("까지 주문 금액이 입금확인이 되지 않으면,\r\n            "), _c("br"), _c("b", [_vm._v("자동주문취소")]), _vm._v(" 됨을 알려드립니다.\r\n            "), _c("br"), _c("b", {
     staticClass: "point"
-  }, [_vm._v("단 대학교, 국가연구기관은 예외")])])]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-button", {
+  }, [_vm._v("단 대학교, 국가연구기관은 예외")])]) : _vm._e()]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-button", {
     staticClass: "gray xl",
     on: {
       click: function click($event) {
