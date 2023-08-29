@@ -170,3 +170,12 @@ if(! function_exists('quotient')) {
         return ($a-($a%$b))/$b;
     }
 }
+
+if(! function_exists('newCrc32')) {
+    //  crc32 함수는 부호가 있고 없고에 대한 버그가 있어서 다음과 같이 처리
+    function newCrc32($val){
+        $checksum = crc32($val);
+        if($checksum < 0) $checksum += 4294967296;
+        return $checksum;
+    }
+}

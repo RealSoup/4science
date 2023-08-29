@@ -48,7 +48,7 @@ class GoodsController extends Controller {
             }
 
             $cl = new SphinxClient ();
-            $cl->SetServer( "127.0.0.1", 9312 );
+            $cl->SetServer( env('DB_HOST'), 9312 );
             // if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
             // if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
             // if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));

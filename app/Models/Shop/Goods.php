@@ -406,18 +406,19 @@ class Goods extends Model {
         $q_str .= "groupby=attr:gd_id;";
         $sort = "groupsort=";
         $req->sort = $req->sort ? $req->sort : 'hot';
+
         switch ($req->sort) {
             case 'hot':
                 if (!$req->filled('keyword'))
                             $sort .= "gd_seq asc, ";    break;
-            case 'new':     $sort .= "gd_id asc, ";     break;
+            case 'new':     $sort .= "gd_id desc, ";     break;
             case 'lowPri':  $sort .= "gm_price asc, ";  break;
             case 'highPri': $sort .= "gm_price desc, "; break;
         }
-        if($type=='4s_pick') {
+        if($type=='4s_pick' || $req->filled('gd_seq')) {
             $sort = "groupsort=gd_seq asc, ";
             $q_str .= "!filter=gd_seq, 999999;";
-        }            
+        }
         $sort .= "gd_rank asc, gd_view_cnt asc;";
         
             
@@ -426,11 +427,28 @@ class Goods extends Model {
         if ($req->filled('ca01')) $q_str .= "filter=gc_ca01, {$req->ca01};";
         if ($req->filled('ca02')) $q_str .= "filter=gc_ca02, {$req->ca02};";
         if ($req->filled('ca03')) $q_str .= "filter=gc_ca03, {$req->ca03};";
+        if ($req->filled('ca04')) $q_str .= "filter=gc_ca04, {$req->ca04};";
         if ($req->filled('mk_id')) $q_str .= "filter=gd_mk_id, {$req->mk_id};"; 
 
-        $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 'shop_goods.gd_rank', 'shop_goods.gd_view_cnt')
+        // Admin
+        if ($req->filled('startDate') && !$req->filled('endDate')) $q_str .= "range=created_at,".strtotime($req->startDate).",".strtotime("Now").";";
+        if (!$req->filled('startDate') && $req->filled('endDate')) $q_str .= "range=created_at,".strtotime("1970-01-01").",".strtotime($req->endDate).";";
+        if ($req->filled('startDate') && $req->filled('endDate')) $q_str .= "range=created_at,".strtotime($req->startDate).",".strtotime($req->endDate).";";
+        if ($req->filled('gd_enable'))  $q_str .= "filter=gd_enable,".crc32($req->gd_enable).";";
+        if (!$req->filled('gd_type'))   $q_str .= "filter=gd_type,".crc32('NON').";";
+        if ($req->filled('gd_type'))    $q_str .= "filter=gd_type,".crc32($req->gd_type).";";
+        if ($req->filled('deleted_at')) {
+            if ($req->deleted_at == 'Y')        $q_str .= "!filter=deleted_at, 0;";
+            elseif ($req->deleted_at == 'N')    $q_str .= "filter=deleted_at, 0;";
+        }
+        if ($req->filled('updated_id')) $q_str .= "filter=updated_id, {$req->updated_id};";
+        
+        $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 
+                            'shop_goods.gd_rank', 'shop_goods.gd_view_cnt', 
+                            'shop_goods.updated_id', 'shop_goods.updated_at', 'shop_goods.gd_enable', 'shop_goods.deleted_at')
                 ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
                 ->with('goodsModelPrime')
+                ->withTrashed()
                 ->whereRaw("`query` = '{$q_str}'");
         return $rst;
     }
@@ -444,87 +462,30 @@ class Goods extends Model {
         }
 
         $cl = new SphinxClient ();
-        $cl->SetServer( "127.0.0.1", 9312 );
+        $cl->SetServer( env('DB_HOST'), 9312 );
         if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
         if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
         if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
         if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
+
+        if ($req->filled('startDate') && !$req->filled('endDate')) $cl->SetFilterFloatRange('created_at', strtotime($req->startDate), strtotime("Now"));
+        if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange('created_at', strtotime("1970-01-01"),    strtotime($req->endDate));
+        if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange('created_at', strtotime($req->startDate), strtotime($req->endDate));
+        if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array($req->gd_enable));
+        if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
+        if ($req->filled('gd_type'))    $cl->SetFilter('gd_type', array(crc32($req->gd_type)));
+        if ($req->filled('gd_seq'))    $cl->SetFilter('gd_seq', array(999999), true);
+        if ($req->filled('deleted_at')) {
+            if ($req->deleted_at == 'Y')        $cl->SetFilter('deleted_at', array(0), true);
+            elseif ($req->deleted_at == 'N')    $cl->SetFilter('deleted_at', array(0));
+        }
+
+
+        
+        if ($req->filled('updated_id')) $cl->SetFilter('updated_id', array($req->updated_id));
         $cl->SetGroupBy('gd_id', SPH_GROUPBY_ATTR );
         $cl_rst = $cl->Query( $kw, 'sph_goods' );
         
         return $cl_rst['total_found'];
-    }
-
-    public function search_p ($req, $r_type=null) {
-        if ($req->filled('keyword')) {    
-            $kw = trim($req->keyword);
-
-            $qry = DB::table('sphinx.sph_goods')
-            ->where('query', '"trc";mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130');
-
-            $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
-            if ($req->filled('keyword_extra')) {
-                $ft_kw = "+{$kw}* >{$req->keyword_extra}*";
-            }
-
-            // if (preg_match("/[-+*.]/", $kw)) 	$ftWord = "\"{$req->keyword}*\"";
-            if (preg_match("/[-+<>~*()]/", $kw)) 	$ft_kw = "\"{$kw}*\"";
-            else 								$ft_kw = $kw.'*';
-            // $ft_kw = $kw.'*';
-            
-            if ( $req->filled('mode') ) {
-                if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면
-                    return 'no-catno';
-                
-                $gd_name = $req->mode == 'gd_name' ? true : NULL;
-                $maker   = $req->mode == 'maker'   ? true : NULL;
-                $gm_name = $req->mode == 'gm_name' ? true : NULL;
-                $cat_no  = $req->mode == 'cat_no'  ? true : NULL;
-                $gm_code = $req->mode == 'gm_code' ? true : NULL;
-            } else {
-                $gd_name = $maker = $gm_name = $cat_no = $gm_code = true;
-            }
-
-            if($gd_name) $gd_name = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ft_kw, ['mode' => 'boolean']);
-            if($maker)   $maker   = DB::table('shop_goods')->select('gd_id')->join('shop_makers AS mk', 'shop_goods.gd_mk_id', '=', 'mk.mk_id')->where('mk_name', 'like', "{$kw}%");
-            if($gm_name) $gm_name = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_name', $ft_kw, ['mode' => 'boolean'])->groupBy('gm_gd_id');
-            if($cat_no && $is_catno) {
-                         $catno_arr = explode('-', $kw);
-                         $cat_no  = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->where('gm_catno01', $catno_arr[0])->where('gm_catno02', $catno_arr[1])->groupBy('gm_gd_id');
-            }
-            if($gm_code) $gm_code = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_code', $ft_kw, ['mode' => 'boolean'])->groupBy('gm_gd_id');
-
-            if(!$req->filled('mode')) {
-                $ft_kw = str_replace('-', 'ΩΩ', $ft_kw);
-                $ft_kw = str_replace('.', 'ΣΣ', $ft_kw);
-                $keyword = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_keyword_chg', $ft_kw, ['mode' => 'boolean']);
-                $sub = $gd_name->union($maker)->union($gm_name)->union($gm_code)->union($keyword);
-                if($is_catno) $sub = $sub->union($cat_no);
-            } else {
-                if($gd_name)  $sub = $gd_name;
-                if($maker)    $sub = $maker;
-                if($gm_name)  $sub = $gm_name;
-                if($cat_no)   $sub = $cat_no;
-                if($gm_code)  $sub = $gm_code;
-            }
-        }
-
-        if( $r_type == 'group' ) 
-            return $sub;
-
-        $qry = Goods::Enable();
-        if($req->filled('keyword')) {
-            $qry->joinSub($sub, 'sub', function ($q) { $q->on('sub.gd_id', '=', 'shop_goods.gd_id'); });
-                // ->addSelect(DB::raw('STRAIGHT_JOIN la_shop_goods.*'));
-        }
-
-        $qry->when($req->ca01, function ($q, $v) { return $q->join('shop_goods_category AS gc', 'shop_goods.gd_id', '=', 'gc.gc_gd_id')->where('gc_ca01', $v); })
-            ->when($req->ca02,  fn ($q, $v) => $q->where('gc_ca02',  $v))
-            ->when($req->ca03,  fn ($q, $v) => $q->where('gc_ca03',  $v))
-            ->when($req->ca04,  fn ($q, $v) => $q->where('gc_ca04',  $v))
-            ->when($req->mk_id, fn ($q, $v) => $q->where('gd_mk_id', $v))
-            ->when(!$req->filled('keyword'), fn ($q) => $q->groupBy('gd_id'));
-            
-        return $qry;
     }
 }

@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Lib\SphinxClient;
 
 class GoodsController extends Controller {
     use FileControl;
@@ -33,8 +35,37 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
+    public function index (Request $req) {       
+        /*
+            스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
+            페이지를 위해 검색된 count 재설정
+        */
+        $req->merge(array('sort' => "new"));
 
-    public function index(Category $cate, Request $req) {
+        $total = $this->goods->search_cnt($req);
+        $page = intval($req->filled('page') ? $req->page : 1);
+        $limit = 15;
+        $offset = ($page*$limit)-$limit;
+        if($offset>intval($total)) {
+            $page = ceil($total / $limit);
+            $offset = ($page*$limit)-$limit;
+        }
+        $qry = $this->goods->search($req, $offset, $limit);
+     
+        if( gettype($qry) == 'string' && $qry == 'no-catno' )
+            return response()->json($qry);
+        
+        $data_rst = $qry->get();
+        $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
+        if($req->filled('is_first') && $req->is_first) {
+            $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
+            $data['makers'] = $this->maker->orderBy('mk_name')->get();
+        }
+		return response()->json($data);
+    }
+
+
+    public function index__(Category $cate, Request $req) {
         $gd_chk = ($req->startDate||$req->endDate||$req->gd_mk_id||$req->deleted_at);
         $model_chk = $req->filled('keyword')&&($req->mode=='gm_name'||$req->mode=='gm_code'||$req->mode=='cat_no');
         $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')

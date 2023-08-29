@@ -204,12 +204,6 @@ export default [
                 path: 'shop/b2b_merck/asnIndex',
                 name: 'adm_b2b_merck_asn',
                 component:() => import('@/views/admin/shop/b2b_merck/Asn'),
-            }, 
-            
-            //  scout 인댁스 관리
-            {   path: 'shop/scout/index',
-                name: 'adm_scout_index',
-                component:() => import('@/views/admin/scout/Index'),
             },
         ],
     },
