@@ -8,7 +8,7 @@
         <li class="dd_style"><span>결제방법</span><span>{{pay_method}}</span></li>
         <li class="dd_style"><span>결제 예정일</span><span>{{pay_plan}}</span></li>
         <li class="dd_style"><span>결제 금액</span><span>{{order.od_all_price | comma | won}}</span></li>
-        <li>
+        <li v-if="['B'].includes(order.od_pay_method)">
             <b>{{after_10day}}</b>까지 주문 금액이 입금확인이 되지 않으면,
             <br/><b>자동주문취소</b> 됨을 알려드립니다.
             <br/><b class="point">단 대학교, 국가연구기관은 예외</b>
