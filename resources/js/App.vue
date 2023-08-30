@@ -7,11 +7,14 @@
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
             'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
     }">
-        <adm-left v-if="$store.state.mode == 'adm'" id="lefter" />
+        <adm-left v-if="
+            $store.state.mode == 'adm'
+            && !$route.name.startsWith('adm_estimate_show')
+            && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name) 
+        " id="lefter" />
         <router-view class="main_con" />
     </main>
     <component :is="choiceFooter" />
-    
 </div>
 </template>
 
@@ -98,7 +101,8 @@ html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6
 #site.adm>main { display:flex; }
 #site.adm>main #lefter { background-color:#4E647B; flex:0 0 250px; max-width:250px; height:100vh; }
 #site.adm>main .main_con { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:2.5em; }
-.container, .row, .col { padding:0; margin:0; }
+.container, .row, .col { padding:0; }
+.row, .col { margin:0; }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; position:relative; }
 ul, ol, li, dt, dd { list-style-type:none; margin:0px; padding:0px; }
 a, a:hover { color:#333; text-decoration:none; }
@@ -213,9 +217,10 @@ label { margin-bottom:0; }
 
 .p_wrap {  }
 .p_wrap h3 { font-size:1.34em; font-weight:bold; }
-.p_wrap h5 { border-left:4px solid #4EB8C8; font-size:1.54rem; font-weight:600; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
+.p_wrap h5 { border-left:4px solid #4EB8C8; font-size:1.1em; font-weight:600; padding:0.4rem 0 0 0.65rem; margin-bottom:.5em; }
+.p_wrap .box { margin-top: 1em; }
 
-.p_wrap .act_ctrl { position:sticky; top:0; padding:8px; z-index:3; background-color:#FFF; border:5px solid #4EB8C8; border-radius:1rem; }
+.p_wrap .act_ctrl { position:sticky; top:0; padding:5px; z-index:3; background-color:#FFF; border:3px solid #4EB8C8; border-radius:.6em; }
 
 .p_wrap .frm_sch { border:1px solid #B7B7B7; }
 .p_wrap .frm_sch .row:not(:last-child) { border-bottom:1px solid #B7B7B7; }
@@ -259,6 +264,8 @@ label { margin-bottom:0; }
 .p_wrap .cmain .body { border-bottom:1px solid #CCCCCC; }
 .p_wrap .cmain .body .col { padding:9px 0; text-align:center; }
 .p_wrap .cmain .body .col .nametag { width:40px; height:22px; display:inline-block; font-size:.8em; padding:.2em 0; line-height:1.6em; border-radius:.2em; border-width:1px; border-style:solid; }
+.p_wrap .cmain .body .col .badgetag { width:20px; height:20px; display:inline-block; text-align:center; border-radius:50%; font-weight:900; }
+    
 
 .p_wrap .page-link, 
 .w_fence .page-link { min-width:40px; text-align:center; margin-left:0; border-color:#fff; }
@@ -284,7 +291,6 @@ label { margin-bottom:0; }
 @media (max-width: 992px){
     .p_wrap { margin:.1rem; }
     .p_wrap .cmain { border-width:0; padding:0 !important; }
-    .p_wrap .box { border-width:0; border-radius:.2rem; padding:.2rem; margin:1rem 0; }
 }
 .adform .row { align-items:center; }
 .adform .row > div:not(.tit) { padding:8px 5px; }

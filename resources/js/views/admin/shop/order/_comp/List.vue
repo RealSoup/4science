@@ -17,12 +17,12 @@
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
         <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
         <b-col>
-            <b-badge v-if="row.user && row.user.is_dealer" class="d_blue d-none d-lg-inline-block">딜</b-badge>
+            <span v-if="row.user && row.user.is_dealer" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
             <sub-string v-model="row.od_orderer" :width="120" />
             <span v-if="row.user && row.user.mng" class="nametag orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</span>
         </b-col>
         <b-col class="d-none d-lg-block">
-            <b-badge v-if="row.od_sale_env=='A'" class="orange">앱</b-badge>
+            <span v-if="row.od_sale_env=='A'" class="badgetag orange">앱</span>
             {{config.type[row.od_type]}}
             <span v-if="row.eq_mng_id" class="nametag mint">
                 <template v-if="mng_off[row.eq_mng_id]">{{mng_off[row.eq_mng_id].name}}</template>
@@ -74,9 +74,7 @@ export default {
 .cancel .col { color:#9F9F9F; }
 .don_t { background:#FECE02; }
 .introducer { background:#44ADF1; }
-
 .body .col.step .nametag { width:90px; }
-.body .col .badge { border-radius:50%; padding:.4rem; }
 @media (max-width: 991px){
     .row .col { font-size:.75rem; line-height:1.4; padding:0.4rem;}
     .row .col:nth-child(8) { flex:0 0 13%; max-width:13%; }

@@ -105,42 +105,39 @@ var render = function render() {
         },
         expression: "row.eq_content"
       }
-    }), _vm._v(" "), row.eq_type == "TEMP" ? _c("b-badge", {
+    }), _vm._v(" "), row.eq_type == "TEMP" ? _c("span", {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip.hover",
+        value: _vm.임의견적,
+        expression: "임의견적",
         modifiers: {
           hover: true
         }
       }],
-      staticClass: "yellow",
-      attrs: {
-        title: "임의견적"
-      }
-    }, [_vm._v("임")]) : row.eq_type == "REREQ" ? _c("b-badge", {
+      staticClass: "badgetag yellow"
+    }, [_vm._v("임")]) : row.eq_type == "REREQ" ? _c("span", {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip.hover",
+        value: _vm.재견적요청,
+        expression: "재견적요청",
         modifiers: {
           hover: true
         }
       }],
-      staticClass: "plum",
-      attrs: {
-        title: "재견적요청"
-      }
-    }, [_vm._v("재")]) : row.eq_type == "CUS" ? _c("b-badge", {
+      staticClass: "badgetag plum"
+    }, [_vm._v("재")]) : row.eq_type == "CUS" ? _c("span", {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip.hover",
+        value: _vm.주문제작,
+        expression: "주문제작",
         modifiers: {
           hover: true
         }
       }],
-      staticClass: "mint",
-      attrs: {
-        title: "주문제작"
-      }
+      staticClass: "badgetag mint"
     }, [_vm._v("주")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("div", {
       staticClass: "eq_name"
     }, [_c("sub-string", {
@@ -233,7 +230,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] {}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 8%; max-width:8%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(2) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 10%; max-width:10%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 20%; max-width:20%;\n}\n.row .col:nth-child(5) .badge[data-v-3a911428] { width:3.8rem; padding:.4rem 0;\n}\n.body .col[data-v-3a911428]:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%;\n}\n.body .col .eq_name[data-v-3a911428] { line-height:1rem;\n}\n.eq_tit .badge[data-v-3a911428] { width:26px; height:26px; border-radius:50%; font-weight:900;\n}\n.er_box[data-v-3a911428] { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}\n.er_box span[data-v-3a911428] { text-align:center;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 30%; max-width:30%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 40%; max-width:40%;\n}\n.er_box span.btn[data-v-3a911428] { background-color:#fff !important; border-width:3px; padding:.18rem 0;\n}\n.er_box span.mint[data-v-3a911428] { color:#00A1CB !important;\n}\n.er_box span.orange[data-v-3a911428] { color:#F18D04 !important;\n}\n.er_box span.gray[data-v-3a911428] { background-color:#aaa !important; color:#fff;\n}\n.er_box span.not_fir[data-v-3a911428] { margin-top:.25rem;\n}\n@media (max-width: 992px) {\n.p_wrap .cmain .body[data-v-3a911428] { border-bottom: 3px solid #333;\n}\n.p_wrap .cmain .body .col[data-v-3a911428] { padding: 0.1rem 0; line-height: 24px;\n}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 60%; max-width:60%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 20%; max-width:20%; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 60%; max-width:60%; text-align:left; padding-left:10px; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 100%; max-width:100%; background: #efefef;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 48%; max-width:48%; text-align:right;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 18%; max-width:18%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-3a911428] {}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 8%; max-width:8%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(2) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 10%; max-width:10%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 6%; max-width:6%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 20%; max-width:20%;\n}\n.row .col:nth-child(5) .badge[data-v-3a911428] { width:3.8rem; padding:.4rem 0;\n}\n.body .col[data-v-3a911428]:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%;\n}\n.body .col .eq_name[data-v-3a911428] { line-height:1rem;\n}\n.er_box[data-v-3a911428] { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}\n.er_box span[data-v-3a911428] { text-align:center;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 30%; max-width:30%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 40%; max-width:40%;\n}\n.er_box span.btn[data-v-3a911428] { background-color:#fff !important; border-width:3px; padding:.18rem 0;\n}\n.er_box span.mint[data-v-3a911428] { color:#00A1CB !important;\n}\n.er_box span.orange[data-v-3a911428] { color:#F18D04 !important;\n}\n.er_box span.gray[data-v-3a911428] { background-color:#aaa !important; color:#fff;\n}\n.er_box span.not_fir[data-v-3a911428] { margin-top:.25rem;\n}\n@media (max-width: 992px) {\n.p_wrap .cmain .body[data-v-3a911428] { border-bottom: 3px solid #333;\n}\n.p_wrap .cmain .body .col[data-v-3a911428] { padding: 0.1rem 0; line-height: 24px;\n}\n.row .col[data-v-3a911428]:nth-child(1) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(2) { flex:0 0 60%; max-width:60%;\n}\n.row .col[data-v-3a911428]:nth-child(3) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(4) { flex:0 0 20%; max-width:20%; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(5) { flex:0 0 20%; max-width:20%;\n}\n.row .col[data-v-3a911428]:nth-child(6) { flex:0 0 60%; max-width:60%; text-align:left; padding-left:10px; border-width:0;\n}\n.row .col[data-v-3a911428]:nth-child(7) { flex:0 0 100%; max-width:100%; background: #efefef;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+1) { flex:0 0 48%; max-width:48%; text-align:right;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+2) { flex:0 0 24%; max-width:24%;\n}\n.er_box span[data-v-3a911428]:nth-child(3n+3) { flex:0 0 18%; max-width:18%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

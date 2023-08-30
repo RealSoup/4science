@@ -180,7 +180,7 @@ export default {
 .sch_detail .row .col p:hover,
 .sch_detail .row .col p.chk { background:#B2E0FA; }
 .sch_detail .row .col p span { color:#C2C2C2; font-size:.8rem; margin-left:.5rem; }
-.sch_detail .extra_sch { display:flex; align-items:center; justify-content:flex-end; margin-right:-15px; padding-top:1em; }
+.sch_detail .extra_sch { display:flex; align-items:center; justify-content:flex-end; padding-top:1em; }
 .sch_detail .extra_sch b { margin-right: 1em; }
 .sch_detail .extra_sch .input-group { max-width:30em; }
 
@@ -196,22 +196,22 @@ export default {
 .pick .row .col ul li .pri { font-size:.7rem; margin: 0.3rem 0 0; }
 
 .list { align-items:flex-start; margin-top:25px; }
-.list .sort { flex:0 0 9%; max-width:9%; } 
-.list .sort ul { border:1px solid #D7D7D7; margin-left:-15px; }
+.list .sort { flex:0 0 9%; max-width:9%; margin-right:15px; } 
+.list .sort ul { border:1px solid #D7D7D7; }
 .list .sort ul li { text-align:center; padding:10px 0; font-size:.9rem; cursor:pointer; }
 .list .sort ul li:not(:last-child) { border-bottom:1px solid #D7D7D7; }
 .list .sort ul li.active { background:#B2E0FA; } 
 
 .list .col .row div:nth-child(2),
 .list .col .row div:nth-child(3) { flex:0 0 17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
-.list .col .row div.price { align-items:flex-end; flex-direction:column; }
+.list .col .row div.price { align-items:flex-end; flex-direction:column; padding:0 15px; }
 
 .list .col .lhead div { background:#DFEAF0; border:1px solid #D6D6D6; text-align:center; padding:.7rem 0; font-weight:bold; letter-spacing:10px; }
 .list .col .lhead div:not(:first-child) { border-left-width:0px; }
 
 .list .col .lbody>* { border:1px solid #D6D6D6; border-top-width:0px; }
 .list .col .lbody>*:not(:first-child) { border-left-width:0px; }
-.list .col .lbody .link { cursor:pointer; display:flex; align-items:center; }
+.list .col .lbody .link { cursor:pointer; display:flex; align-items:center; padding:0 15px;}
 .list .col .lbody .link img { border:1px solid #ddd; width:150px; height:150px; margin:15px 30px 15px 0; }
 .list .col .lbody .link p { display:inline-block; margin-bottom:0; }
 .list .col .lbody .link p .info { display:block; color:#949494; margin-top:1.1vw; }

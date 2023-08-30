@@ -20,9 +20,9 @@
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <sub-string v-else v-model="row.eq_content" :width="650" />
 
-            <b-badge v-if="row.eq_type=='TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
-            <b-badge v-else-if="row.eq_type=='REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
-            <b-badge v-else-if="row.eq_type=='CUS'" class="mint" v-b-tooltip.hover title="주문제작">주</b-badge>
+            <span class="badgetag yellow" v-b-tooltip.hover="임의견적" v-if="row.eq_type=='TEMP'">임</span>
+            <span class="badgetag plum" v-b-tooltip.hover="재견적요청" v-else-if="row.eq_type=='REREQ'">재</span>
+            <span class="badgetag mint" v-b-tooltip.hover="주문제작"  v-else-if="row.eq_type=='CUS'">주</span>
         </b-col>
         <b-col>
             <div class="eq_name">
@@ -119,7 +119,6 @@ export default {
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%; }
 .body .col .eq_name { line-height:1rem; }
-.eq_tit .badge { width:26px; height:26px; border-radius:50%; font-weight:900; }
 .er_box { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}
 .er_box span { text-align:center; }
 .er_box span:nth-child(3n+1) { flex:0 0 30%; max-width:30%; }

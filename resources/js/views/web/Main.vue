@@ -273,6 +273,7 @@ export default {
 .recommend .back { background:#fbcad0; position:absolute; width:100%; height:18.5rem; }
 .recommend .container .row:last-child { margin-top:2rem; }
 .recommend .container .row .tit { color:#FFF; font-style:italic; font-size:1.4rem; font-weight:bold; margin-top:1.9Rem; margin-bottom: .6REM; }
+.recommend .container .row .col { padding:0 15px; }
 .recommend .container .row .col a { display:block; }
 .recommend .container .row .col a img { border:1px solid #CCC; border-radius:10px; width:100%; }
 

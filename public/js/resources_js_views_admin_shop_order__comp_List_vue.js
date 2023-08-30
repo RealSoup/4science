@@ -74,8 +74,8 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.user && row.user.is_dealer ? _c("b-badge", {
-      staticClass: "d_blue d-none d-lg-inline-block"
+    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.user && row.user.is_dealer ? _c("span", {
+      staticClass: "badgetag d_blue d-none d-lg-inline-block"
     }, [_vm._v("딜")]) : _vm._e(), _vm._v(" "), _c("sub-string", {
       attrs: {
         width: 120
@@ -91,11 +91,11 @@ var render = function render() {
       staticClass: "nametag orange d-none d-lg-inline-block"
     }, [_vm._v(_vm._s(_vm.mng_off[row.user.mng].name))]) : _vm._e()], 1), _vm._v(" "), _c("b-col", {
       staticClass: "d-none d-lg-block"
-    }, [row.od_sale_env == "A" ? _c("b-badge", {
-      staticClass: "orange"
+    }, [row.od_sale_env == "A" ? _c("span", {
+      staticClass: "badgetag orange"
     }, [_vm._v("앱")]) : _vm._e(), _vm._v("\r\n            " + _vm._s(_vm.config.type[row.od_type]) + "\r\n            "), row.eq_mng_id ? _c("span", {
       staticClass: "nametag mint"
-    }, [_vm.mng_off[row.eq_mng_id] ? [_vm._v(_vm._s(_vm.mng_off[row.eq_mng_id].name))] : [_vm._v(_vm._s(row.eq_mng_id))]], 2) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]), _vm._v(" "), _c("b-col", {
+    }, [_vm.mng_off[row.eq_mng_id] ? [_vm._v(_vm._s(_vm.mng_off[row.eq_mng_id].name))] : [_vm._v(_vm._s(row.eq_mng_id))]], 2) : _vm._e()]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]), _vm._v(" "), _c("b-col", {
       staticClass: "d-none d-lg-block"
     }, [_vm._v(_vm._s(_vm.config.pay_method[row.od_pay_method]))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(row.od_all_price)))]), _vm._v(" "), _c("b-col", {
       staticClass: "step"
@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-ef34b7ac] { font-weight:600;\n}\n.row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(3) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n.body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n.cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n.cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n.don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n.introducer[data-v-ef34b7ac] { background:#44ADF1;\n}\n.body .col.step .nametag[data-v-ef34b7ac] { width:90px;\n}\n.body .col .badge[data-v-ef34b7ac] { border-radius:50%; padding:.4rem;\n}\n@media (max-width: 991px){\n.row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n.body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-ef34b7ac] { font-weight:600;\n}\n.row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(3) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n.body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n.cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n.cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n.don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n.introducer[data-v-ef34b7ac] { background:#44ADF1;\n}\n.body .col.step .nametag[data-v-ef34b7ac] { width:90px;\n}\n@media (max-width: 991px){\n.row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n.body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
