@@ -452,17 +452,16 @@ var render = function render() {
       sm: "12",
       md: "6"
     }
-  }, [_vm._v("Total : "), _c("b-badge", {
-    attrs: {
-      variant: "info"
-    }
-  }, [_vm._v(_vm._s(this.list.total))])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("Total : " + _vm._s(this.list.total))]), _vm._v(" "), _c("b-col", {
     staticClass: "text-right",
     attrs: {
       sm: "12",
       md: "6"
     }
   }, [_c("b-form-select", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.sch_frm.list_size,
       callback: function callback($$v) {
@@ -483,7 +482,7 @@ var render = function render() {
       value: "100"
     }
   }, [_vm._v("100개")])], 1), _vm._v(" "), _c("b-button", {
-    staticClass: "white",
+    staticClass: "white sm",
     on: {
       click: function click($event) {
         return _vm.exeWinPop("/admin/shop/estimate/create");

@@ -127,18 +127,7 @@ var render = function render() {
     attrs: {
       id: "mypage"
     }
-  }, [_c("h2", [_vm._v("\r\n        마이페이지\r\n        "), _c("small", [_c("b-button", {
-    staticClass: "xm teal",
-    on: {
-      click: function click($event) {
-        return _vm.copyToClipboard("https://4science.net/auth/create/personal?f_code=".concat(_vm.user.id));
-      }
-    }
-  }, [_c("font-awesome-icon", {
-    attrs: {
-      icon: "copy"
-    }
-  }), _vm._v("\r\n                친구 초대 주소 복사\r\n            ")], 1), _vm._v("\r\n            ▶ https://4science.net/auth/create/personal?f_code=" + _vm._s(_vm.user.id) + "\r\n        ")], 1)]), _vm._v(" "), _c("b-row", {
+  }, [_c("h2", [_vm._v("\r\n        마이페이지\r\n        ")]), _vm._v(" "), _c("b-row", {
     staticClass: "top"
   }, [_c("b-col", {
     staticClass: "name"

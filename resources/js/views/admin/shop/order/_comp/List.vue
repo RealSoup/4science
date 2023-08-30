@@ -75,7 +75,6 @@ export default {
 .don_t { background:#FECE02; }
 .introducer { background:#44ADF1; }
 
-.body .col .nametag { width:40px; display:inline-block; font-size:.8em; padding:.2em 0; line-height:1.6em; border-radius:.2em; border-width:1px; border-style:solid; }
 .body .col.step .nametag { width:90px; }
 .body .col .badge { border-radius:50%; padding:.4rem; }
 @media (max-width: 991px){

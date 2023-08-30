@@ -257,7 +257,8 @@ label { margin-bottom:0; }
 .p_wrap .cmain .head .col { font-weight:600; text-align:center; padding:.25rem 0; }
 .p_wrap .cmain .list { border-left:1px solid #CCCCCC; border-right:1px solid #CCCCCC; }
 .p_wrap .cmain .body { border-bottom:1px solid #CCCCCC; }
-.p_wrap .cmain .body .col { padding:.55rem 0; text-align:center; }
+.p_wrap .cmain .body .col { padding:9px 0; text-align:center; }
+.p_wrap .cmain .body .col .nametag { width:40px; height:22px; display:inline-block; font-size:.8em; padding:.2em 0; line-height:1.6em; border-radius:.2em; border-width:1px; border-style:solid; }
 
 .p_wrap .page-link, 
 .w_fence .page-link { min-width:40px; text-align:center; margin-left:0; border-color:#fff; }

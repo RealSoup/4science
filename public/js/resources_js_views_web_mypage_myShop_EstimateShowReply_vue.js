@@ -298,7 +298,7 @@ var render = function render() {
           }
         }, [_vm._v("Loading ......")]) : _c("div", [_c("b-container", {
           staticClass: "top"
-        }, [_c("b-row", [_c("b-col", [_c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.created_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("유효기간")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.er_effective_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("납품기일")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_dlvy_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("담당자/문의")]), _vm._v(" " + _vm._s(_vm.reply.estimate_req.mng.name) + "   " + _vm._s(_vm.reply.estimate_req.mng.tel) + "   " + _vm._s(_vm.reply.estimate_req.mng.email))])], 1)], 1), _vm._v(" "), _c("h6", [_vm._v("상품정보")]), _vm._v(" "), _c("div", {
+        }, [_c("b-row", [_c("b-col", [_c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(_vm.reply.created_at)))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("유효기간")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_effective_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("납품기일")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.reply.er_dlvy_at))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("담당자/문의")]), _vm._v(" " + _vm._s(_vm.reply.estimate_req.mng.name) + "   " + _vm._s(_vm.reply.estimate_req.mng.tel) + "   " + _vm._s(_vm.reply.estimate_req.mng.email))])], 1)], 1), _vm._v(" "), _c("h6", [_vm._v("상품정보")]), _vm._v(" "), _c("div", {
           staticClass: "top_border"
         }), _vm._v(" "), _c("b-container", {
           staticClass: "pa_list frm_st"
@@ -414,21 +414,28 @@ var render = function render() {
         })], 1)], 1)], 1), _vm._v(" "), _c("div", {
           staticClass: "btn_box"
         }, [_c("b-button", {
-          staticClass: "black lg",
+          staticClass: "gray lg",
+          attrs: {
+            to: {
+              name: "my_estimate"
+            }
+          }
+        }, [_vm._v("목록")]), _vm._v(" "), _c("b-button", {
+          staticClass: "d_gray lg",
           on: {
             click: _vm.print
           }
         }, [_vm._v("견적서 출력")]), _vm._v(" "), _c("b-button", {
-          staticClass: "gray lg",
+          staticClass: "black lg",
           on: {
             click: _vm.reEstimate
           }
-        }, [_vm._v("선택상품 재견적 요청")]), _vm._v(" "), _c("b-button", {
+        }, [_vm._v("선택상품 재견적 요청")]), _vm._v(" "), new Date(_vm.reply.er_effective_at) >= new Date() ? _c("b-button", {
           staticClass: "blue lg",
           on: {
             click: _vm.settle
           }
-        }, [_vm._v("선택상품 주문하기")])], 1)], 1)];
+        }, [_vm._v("선택상품 주문하기")]) : _vm._e()], 1)], 1)];
       }
     }])
   })], 1);

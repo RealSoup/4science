@@ -7,7 +7,7 @@
             <b-container class="top">
                 <b-row>
                     <b-col><span>견적일자</span> <b>{{reply.created_at | formatDate_YYYY_MM_DD}}</b></b-col>
-                    <b-col><span>유효기간</span> <b>{{reply.er_effective_at | formatDate_YYYY_MM_DD}}</b></b-col>
+                    <b-col><span>유효기간</span> <b>{{reply.er_effective_at}}</b></b-col>
                     <b-col><span>납품기일</span> <b>{{reply.er_dlvy_at}}</b></b-col>
                     <b-col><span>담당자/문의</span> {{reply.estimate_req.mng.name}}&nbsp;&nbsp; {{reply.estimate_req.mng.tel}}&nbsp;&nbsp; {{reply.estimate_req.mng.email}}</b-col>
                 </b-row>
@@ -125,9 +125,10 @@
             </b-container>
 
             <div class="btn_box">
-                <b-button class="black lg" @click="print">견적서 출력</b-button>
-                <b-button class="gray lg" @click="reEstimate">선택상품 재견적 요청</b-button>
-                <b-button class="blue lg" @click="settle">선택상품 주문하기</b-button>
+                <b-button class="gray lg" :to="{name:'my_estimate'}">목록</b-button>
+                <b-button class="d_gray lg" @click="print">견적서 출력</b-button>
+                <b-button class="black lg" @click="reEstimate">선택상품 재견적 요청</b-button>
+                <b-button v-if="new Date(reply.er_effective_at) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
             </div>
         </div>
     </validation-observer>

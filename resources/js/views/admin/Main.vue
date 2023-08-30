@@ -108,6 +108,7 @@ export default {
 .p_wrap { margin-top:4rem; }
 .p_wrap h4 { font-size:1.6rem; font-weight:bold; margin-bottom:1rem; }
 .p_wrap .row .col .box { border-width:5px; border-style:solid; border-radius:1rem; padding:.75rem 1.5rem; background-color:#EFF0F2; }
+.p_wrap .row .left { padding-right:1%; }
 .p_wrap .row .left .box { border-color:#458CCA; }
 .p_wrap .row .right .box { border-color:#51B948; }
 .p_wrap .row .col .box .row { margin:0; }
@@ -129,6 +130,7 @@ export default {
 .p_wrap .row .left .box .body .col span:nth-child(2) { margin-top:1rem; font-weight:800; }
 .p_wrap .row .left .box .body .col span:nth-child(3) { font-size:.9rem; margin-top:.15rem; }
 
+.p_wrap .row .right { padding-left:1%; }
 .p_wrap .row .right .box { padding-bottom:0; }
 .p_wrap .row .right .box .body { margin-left:-1.5rem; margin-right:-1.5rem; padding-bottom:1.5rem; background:#fff; border-radius:1rem; }
 .p_wrap .row .right .box .body .head { background-color:#A0A0A0; color:#FFF;  }

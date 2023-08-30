@@ -2,13 +2,13 @@
 <b-container id="mypage">
     <h2>
         마이페이지
-        <small>
+        <!-- <small>
             <b-button class="xm teal" @click="copyToClipboard(`https://4science.net/auth/create/personal?f_code=${user.id}`)">
                 <font-awesome-icon icon="copy" />
                 친구 초대 주소 복사
             </b-button>
             ▶ https://4science.net/auth/create/personal?f_code={{user.id}}
-        </small>
+        </small> -->
     </h2>
     <b-row class="top">
         <b-col class="name">

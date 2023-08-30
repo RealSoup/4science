@@ -93,14 +93,14 @@
     
     <b-container class="cmain">
         <b-row class="list_top m_hide">
-            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+            <b-col sm="12" md="6">Total : {{this.list.total}}</b-col>
             <b-col sm="12" md="6" class="text-right">
-                <b-form-select v-model="sch_frm.list_size">
+                <b-form-select v-model="sch_frm.list_size" size="sm">
                     <b-form-select-option value="20">20개</b-form-select-option>
                     <b-form-select-option value="50">50개</b-form-select-option>
                     <b-form-select-option value="100">100개</b-form-select-option>
                 </b-form-select>
-                <b-button @click="exeWinPop(`/admin/shop/estimate/create`)" class="white">임의견적</b-button>
+                <b-button @click="exeWinPop(`/admin/shop/estimate/create`)" class="white sm">임의견적</b-button>
             </b-col>
         </b-row>
         <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off" />
