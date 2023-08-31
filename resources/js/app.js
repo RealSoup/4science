@@ -176,7 +176,7 @@ const playVue = () => {
 };
 
 import ax from '@/api/http';
-ax.get('https://add.4science.net/auth_check').then((res) => {
+ax.get('/auth_check').then((res) => {
     if (res.data === 1) {
         ax.get('/api/user').then((user_res) => {
             if (user_res) {
