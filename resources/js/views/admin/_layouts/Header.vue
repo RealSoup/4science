@@ -79,10 +79,7 @@
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_stock_result'}">재고 확인 결과</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_asn'}">ASN</b-dropdown-item>
                         <b-dropdown-item :to="{name: 'adm_b2b_merck_invoice'}">e-Invoice</b-dropdown-item>
-                    </b-nav-item-dropdown>
-
-                    <b-nav-item :to="{name: 'adm_scout_index'}" v-if="user.is_super" active-class="active" exact>검색관리</b-nav-item>
-                     
+                    </b-nav-item-dropdown>                     
                 </b-navbar-nav>
 
 
