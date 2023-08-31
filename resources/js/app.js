@@ -175,43 +175,43 @@ const playVue = () => {
     }).$mount('#app');
 };
 
-import ax from '@/api/http';
-ax.get('auth_check').then((res) => {
-    if (res.data === 1) {
-        ax.get('/api/user').then((user_res) => {
-            if (user_res) {
-                store.state.auth.isLoggedin= true;
-                store.state.auth.user= user_res.data.user;
-                store.state.auth.csrfToken= user_res.data.token;
-                document.querySelector('meta[name=csrf-token]').setAttribute('content', user_res.data.token);
-                ax.get('/api/shop/goods/getDef').then((gd_res) => { if (gd_res) store.state.goods.default= gd_res.data; });
-                playVue();
-            } else {
-                playVue();
-            }
-        });
-    } else {
-        playVue();
-    }
-}).catch(() => {});
+// import ax from '@/api/http';
+// ax.get('auth_check').then((res) => {
+//     if (res.data === 1) {
+//         ax.get('/api/user').then((user_res) => {
+//             if (user_res) {
+//                 store.state.auth.isLoggedin= true;
+//                 store.state.auth.user= user_res.data.user;
+//                 store.state.auth.csrfToken= user_res.data.token;
+//                 document.querySelector('meta[name=csrf-token]').setAttribute('content', user_res.data.token);
+//                 ax.get('/api/shop/goods/getDef').then((gd_res) => { if (gd_res) store.state.goods.default= gd_res.data; });
+//                 playVue();
+//             } else {
+//                 playVue();
+//             }
+//         });
+//     } else {
+//         playVue();
+//     }
+// }).catch(() => {});
 
 
 
 
-// const app = new Vue({
-//     router,
-//     store,
-//     beforeCreate() {
-//         // this.$store.dispatch("auth/getAuthUser");
-//     },
-//     watch: {
-//         '$route': {
-//             handler: function(path) {
-//                 initSet();
-//             },
-//             deep: true,
-//             // immediate: true
-//         }
-//     },
-//     render: h => h(App),
-// }).$mount('#app');
+const app = new Vue({
+    router,
+    store,
+    beforeCreate() {
+        // this.$store.dispatch("auth/getAuthUser");
+    },
+    watch: {
+        '$route': {
+            handler: function(path) {
+                initSet();
+            },
+            deep: true,
+            // immediate: true
+        }
+    },
+    render: h => h(App),
+}).$mount('#app');
