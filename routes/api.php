@@ -257,12 +257,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('/user', 'Admin\StatsController@user');
                 Route::GET('/order', 'Admin\StatsController@order');
             });
-
-            //  검색엔진 인덱스 만들기 ( elasticsearch )
-            Route::prefix('scout')->group(function () {
-                Route::GET('/', 'Admin\ScoutController@index');
-                Route::GET('/creat', 'Admin\ScoutController@creat');
-            });
         });
 
         
