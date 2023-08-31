@@ -176,42 +176,42 @@ const playVue = () => {
 };
 
 import ax from '@/api/http';
-// ax.get('auth_check').then((res) => {
-//     if (res.data === 1) {
-//         ax.get('/api/user').then((response) => {
-//             if (response) {
-//                 store.state.auth.isLoggedin= true;
-//                 store.state.auth.user= response.data.user;
-//                 store.state.auth.csrfToken= response.data.token;
-//                 document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
-//                 ax.get('/api/shop/goods/getDef').then((response) => { if (response) store.state.goods.default= response.data; });
-//                 playVue();
-//             } else {
-//                 playVue();
-//             }
-//         });
-//     } else {
-//         playVue();
-//     }
-// }).catch(() => {});
+ax.get('auth_check').then((res) => {
+    if (res.data === 1) {
+        ax.get('/api/user').then((response) => {
+            if (response) {
+                store.state.auth.isLoggedin= true;
+                store.state.auth.user= response.data.user;
+                store.state.auth.csrfToken= response.data.token;
+                document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
+                ax.get('/api/shop/goods/getDef').then((response) => { if (response) store.state.goods.default= response.data; });
+                playVue();
+            } else {
+                playVue();
+            }
+        });
+    } else {
+        playVue();
+    }
+}).catch(() => {});
 
 
 
 
-const app = new Vue({
-    router,
-    store,
-    beforeCreate() {
-        // this.$store.dispatch("auth/getAuthUser");
-    },
-    watch: {
-        '$route': {
-            handler: function(path) {
-                initSet();
-            },
-            deep: true,
-            // immediate: true
-        }
-    },
-    render: h => h(App),
-}).$mount('#app');
+// const app = new Vue({
+//     router,
+//     store,
+//     beforeCreate() {
+//         // this.$store.dispatch("auth/getAuthUser");
+//     },
+//     watch: {
+//         '$route': {
+//             handler: function(path) {
+//                 initSet();
+//             },
+//             deep: true,
+//             // immediate: true
+//         }
+//     },
+//     render: h => h(App),
+// }).$mount('#app');
