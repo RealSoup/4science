@@ -476,7 +476,8 @@ class GoodsController extends Controller {
         return response()->json($data);
     }
 
-    public function getDef(Request $req) {        
+    public function getDef(Request $req) {
+        //  상품 기본 값 반환 ex) 배송비, 배송비 할인 최대금액
         return response()->json($this->goods);
     }
 }

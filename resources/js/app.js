@@ -178,13 +178,13 @@ const playVue = () => {
 import ax from '@/api/http';
 ax.get('auth_check').then((res) => {
     if (res.data === 1) {
-        ax.get('/api/user').then((response) => {
-            if (response) {
+        ax.get('/api/user').then((user_res) => {
+            if (user_res) {
                 store.state.auth.isLoggedin= true;
-                store.state.auth.user= response.data.user;
-                store.state.auth.csrfToken= response.data.token;
-                document.querySelector('meta[name=csrf-token]').setAttribute('content', response.data.token);
-                ax.get('/api/shop/goods/getDef').then((response) => { if (response) store.state.goods.default= response.data; });
+                store.state.auth.user= user_res.data.user;
+                store.state.auth.csrfToken= user_res.data.token;
+                document.querySelector('meta[name=csrf-token]').setAttribute('content', user_res.data.token);
+                ax.get('/api/shop/goods/getDef').then((gd_res) => { if (gd_res) store.state.goods.default= gd_res.data; });
                 playVue();
             } else {
                 playVue();
