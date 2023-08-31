@@ -24,7 +24,7 @@
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
         </b-link>
     </b-carousel>
-{{$route.name}}
+
     <b-row id="best" class="layout">
         <b-col>
             <b-img :src="`${s3url}main/best.gif`" />
