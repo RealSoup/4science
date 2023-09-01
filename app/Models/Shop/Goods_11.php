@@ -11,7 +11,6 @@ use DB;
 use Storage;
 use DateTimeInterface;
 use Illuminate\Support\Arr;
-use App\Lib\SphinxClient;
 
 class Goods extends Model {
     use SoftDeletes;
@@ -91,8 +90,8 @@ class Goods extends Model {
                 $noimg_p = 'noimg_merck.png';
             }
         }
-        
-            
+
+
         if (!$rst){ $rst[] = noimg($noimg_p); }
         return $rst;
     }
@@ -112,9 +111,9 @@ class Goods extends Model {
             case 'buy_cart':    //  장바구니에서 구매 눌렀을때 구매페이지에서 쓰기위한 데이터 편집
             case 'request_estimate':    //  유저가 견적요청(상품페이지, 장바구니에서)시 데이터 편집
                 foreach ($some['goods'] as $item) {
-                    if ( array_key_exists('gm_id', $item) ) 
+                    if ( array_key_exists('gm_id', $item) )
                         $d_arrange[$item['gd_id']]['model'][$item['gm_id']] = [ 'gm_id' => $item['gm_id'], 'ea' => $item['ea'] ];
-                    else if ( array_key_exists('goc_id', $item) ) 
+                    else if ( array_key_exists('goc_id', $item) )
                         $d_arrange[$item['gd_id']]['option'][$item['goc_id']] = [ 'goc_id' => $item['goc_id'], 'ea' => $item['ea'] ];
                 }
             break;
@@ -134,18 +133,18 @@ class Goods extends Model {
                     foreach ($opa->orderModel as $odm) {
                         if ( $odm->odm_gm_id > 0 ) {
                             if ($odm->odm_type == 'MODEL') {
-                                $d_arrange[$odm->odm_gd_id]['model'][$odm->odm_gm_id] = [ 
+                                $d_arrange[$odm->odm_gd_id]['model'][$odm->odm_gm_id] = [
                                     'gm_id' => $odm->odm_gm_id,
                                     'ea' => $odm->odm_ea,
                                     'odm_id' => $odm->odm_id,
-                                    'odm_price' => $odm->odm_price 
+                                    'odm_price' => $odm->odm_price
                                 ];
                             } else if ($odm->odm_type == 'OPTION') {
                                 $d_arrange[$odm->odm_gd_id]['option'][$odm->odm_gm_id] = [
                                     'goc_id'    => $odm->odm_gm_id,
                                     'ea'        => $odm->odm_ea,
                                     'odo_id'    => $odm->odm_id,
-                                    'odo_price' => $odm->odm_price 
+                                    'odo_price' => $odm->odm_price
                                 ];
                             }
                         } else  //  임의 견적시 임의 상품을 주문하면 상품검색이 안되므로
@@ -154,7 +153,7 @@ class Goods extends Model {
                 }
             break;
 
-            case 'cart':    //  장바구니 목록을 보여주기 위한 데이터 편집           
+            case 'cart':    //  장바구니 목록을 보여주기 위한 데이터 편집
                 foreach ($some as $ct) {
                     if($ct->ct_type == 'MODEL')
                         $d_arrange[$ct->ct_gd_id]['model'][$ct->ct_key] = [ 'gm_id' => $ct->ct_key, 'ea' => $ct->ct_ea, 'ct_id' => $ct->ct_id ];
@@ -215,7 +214,7 @@ class Goods extends Model {
                     }
                 }
             } else {
-                if ( $gd_id > 0 ) {
+                 if ( $gd_id > 0 ) {
                     $gd = self::with('purchaseAt')->with('maker')->find($gd_id);
                     foreach (GoodsModel::find(Arr::pluck($v['model'], 'gm_id')) as $gm) {  //  gm_id만 추출하여 모델 검색
                         $tmpModel = [   'type'              => 'model',
@@ -250,8 +249,8 @@ class Goods extends Model {
                         } else if ($type == 'cart') {
                             $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
                             $tmpModel['ct_check_opt'] = 'Y';
-                        } 
-                        
+                        }
+
                         if ($gm->bundleDc()->exists()) {
                             $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
                             $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
@@ -283,7 +282,7 @@ class Goods extends Model {
                                 'price'         => $goc->goc_price,
                                 'price_add_vat' => $goc->goc_price_add_vat,
                             ];
-                            
+
                             if ($type == 'cart') {
                                 $tmpOption['ct_id'] = $v['option'][$goc->goc_id]['ct_id'];
                                 $tmpOption['ct_check_opt'] = 'Y';
@@ -320,14 +319,14 @@ class Goods extends Model {
                         $rst['lists'][0][] = $tmpModel;
                     }
                 }
-                
+
             }
         }
 
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
         foreach ($rst['lists'] as $pa_id => $pa_group) {
             $paSum = 0;
-            foreach ($pa_group as $item) 
+            foreach ($pa_group as $item)
                 $paSum += $item['price']*$item['ea'];
             $rst['price']['goods'] += $paSum;
             if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
@@ -365,127 +364,93 @@ class Goods extends Model {
         return $p;
     }
 
-
-    public function search ($req, $offset, $limit, $type=null) {
-        $q_str = $kw ='';
-        
-        if ($req->filled('keyword')) {
-            $kw = '"'.trim($req->keyword).'"';
-            // c0130-100mg
-            
-            // $qry = DB::table('sphinx.sph_goods')
-            // ->where('query', "{$kw};mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130")
-            // ->get();
-            if ( $req->filled('mode') ) {
-                if($req->mode == 'cat_no' && !preg_match("/\d{2}-([\d-]{5,10})/", $kw)) // 캣넘버 검색인테 캣넘버 형식이 아니라면
-                    return 'no-catno';
-                else {
-                    if($req->mode == 'gd_name') $q_str .= "@gd_name {$kw}";
-                    if($req->mode == 'gm_name') $q_str .= "@gm_name {$kw}";
-                    if($req->mode == 'gm_code') $q_str .= "@gm_code {$kw}";
-                    if($req->mode == 'cat_no')  $q_str .= "@gm_catno {$kw}";
-                    if($req->mode == 'maker')   $q_str .= "@mk_name {$kw}";
-                }
-            } else
-                $q_str .= " {$kw}";
-            
-            if ( $req->filled('keyword_extra') ) {
-                $ex_kw = '"'.trim($req->keyword_extra).'"';
-                if ( $req->filled('mode') ) {
-                    if($req->mode == 'gd_name') $q_str .= "@gd_name {$ex_kw}";
-                    if($req->mode == 'gm_name') $q_str .= "@gm_name {$ex_kw}";
-                    if($req->mode == 'gm_code') $q_str .= "@gm_code {$ex_kw}";
-                    if($req->mode == 'cat_no')  $q_str .= "@gm_catno {$ex_kw}";
-                    if($req->mode == 'maker')   $q_str .= "@mk_name {$ex_kw}";
-                } else
-                    $q_str .= "@* {$ex_kw}";
-            }
-            $q_str .= ";";
-        }
-            
-        $q_str .= "groupby=attr:gd_id;";
-        $sort = "groupsort=";
-        $req->sort = $req->sort ? $req->sort : 'hot';
-
-        switch ($req->sort) {
-            case 'hot':
-                if (!$req->filled('keyword'))
-                            $sort .= "gd_seq asc, ";    break;
-            case 'new':     $sort .= "gd_id desc, ";     break;
-            case 'lowPri':  $sort .= "gm_price asc, ";  break;
-            case 'highPri': $sort .= "gm_price desc, "; break;
-        }
-        if($type=='4s_pick' || $req->filled('gd_seq')) {
-            $sort = "groupsort=gd_seq asc, ";
-            $q_str .= "!filter=gd_seq, 999999;";
-        }
-        $sort .= "gd_rank asc, gd_view_cnt asc;";
-        
-            
-        $q_str .= $sort."offset={$offset};limit={$limit};";
-
-        if ($req->filled('ca01')) $q_str .= "filter=gc_ca01, {$req->ca01};";
-        if ($req->filled('ca02')) $q_str .= "filter=gc_ca02, {$req->ca02};";
-        if ($req->filled('ca03')) $q_str .= "filter=gc_ca03, {$req->ca03};";
-        if ($req->filled('ca04')) $q_str .= "filter=gc_ca04, {$req->ca04};";
-        if ($req->filled('mk_id')) $q_str .= "filter=gd_mk_id, {$req->mk_id};"; 
-
-        // Admin
-        if ($req->filled('startDate') && !$req->filled('endDate')) $q_str .= "range=created_at,".strtotime($req->startDate).",".strtotime("Now").";";
-        if (!$req->filled('startDate') && $req->filled('endDate')) $q_str .= "range=created_at,".strtotime("1970-01-01").",".strtotime($req->endDate).";";
-        if ($req->filled('startDate') && $req->filled('endDate')) $q_str .= "range=created_at,".strtotime($req->startDate).",".strtotime($req->endDate).";";
-        if ($req->filled('gd_enable'))  $q_str .= "filter=gd_enable,".crc32($req->gd_enable).";";
-        if (!$req->filled('gd_type'))   $q_str .= "filter=gd_type,".crc32('NON').";";
-        if ($req->filled('gd_type'))    $q_str .= "filter=gd_type,".crc32($req->gd_type).";";
-        if ($req->filled('deleted_at')) {
-            if ($req->deleted_at == 'Y')        $q_str .= "!filter=deleted_at, 0;";
-            elseif ($req->deleted_at == 'N')    $q_str .= "filter=deleted_at, 0;";
-        }
-        if ($req->filled('updated_id')) $q_str .= "filter=updated_id, {$req->updated_id};";
-        
-        $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 
-                            'shop_goods.gd_rank', 'shop_goods.gd_view_cnt', 
-                            'shop_goods.updated_id', 'shop_goods.updated_at', 'shop_goods.gd_enable', 'shop_goods.deleted_at')
-                ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
-                ->with('goodsModelPrime')
-                ->withTrashed()
-                ->whereRaw("`query` = '{$q_str}'");
-        return $rst;
-    }
-
-    public function search_cnt ($req) {
-        $kw ='';
-        
+    public function search($req, $r_type=null) {
         if ($req->filled('keyword')) {
             $kw = trim($req->keyword);
-            $kw = '"'.$kw.'"';            
+            $is_catno = preg_match("/\d{2}-([\d-]{5,10})/", $kw);   //  cat no 체크
+            if ($req->filled('keyword_extra')) {
+                $ft_kw = "+{$kw}* >{$req->keyword_extra}*";
+            }
+/*
+            +   AND, 반드시 포함하는 단어
+            –   NOT, 반드시 제외하는 단어
+            >   포함하며, 검색 순위를 높일 단어
+                +mysql >tutorial
+                : mysql과 tutorial가 포함하는 행을 찾을 때, tutorial이 포함되면 검색 랭킹이 높아짐
+            <   포함하되,검색 순위를 낮출 단어
+                +mysql <training
+                : mysql과 training가 포함하는 행을 찾지만, training이 포함되면 검색 랭킹이 낮아짐
+            ()  하위 표현식으로 그룹화 (포함, 제외, 순위 지정 등)
+                +mysql +(>tutorial <training)
+                : mysql AND tutorial, mysql AND training 이지만, tutorial의 우선순위가 더욱 높게 지정
+            ~   Negate.
+                '-' 연산자와 비슷하지만 제외 시키지는 않고 검색 조건을 낮춤
+            *   Wildcard. 와일드카드
+                my*
+                : mysql, mybatis 등 my 뒤의 와일드 카드로 붙음
+            “”  구문 정의
+*/
+
+
+            // if (preg_match("/[-+*.]/", $kw))     $ftWord = "\"{$req->keyword}*\"";
+            if (preg_match("/[-+<>~*()]/", $kw))    $ft_kw = "\"{$kw}*\"";
+            else                                $ft_kw = $kw.'*';
+            // $ft_kw = $kw.'*';
+
+            if ( $req->filled('mode') ) {
+                if($req->mode == 'cat_no' && !$is_catno) // 캣넘버 검색인테 캣넘버 형식이 아니라면
+                    return 'no-catno';
+
+                $gd_name = $req->mode == 'gd_name' ? true : NULL;
+                $maker   = $req->mode == 'maker'   ? true : NULL;
+                $gm_name = $req->mode == 'gm_name' ? true : NULL;
+                $cat_no  = $req->mode == 'cat_no'  ? true : NULL;
+                $gm_code = $req->mode == 'gm_code' ? true : NULL;
+            } else {
+                $gd_name = $maker = $gm_name = $cat_no = $gm_code = true;
+            }
+
+            if($gd_name) $gd_name = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_name', $ft_kw, ['mode' => 'boolean']);
+            if($maker)   $maker   = DB::table('shop_goods')->select('gd_id')->join('shop_makers AS mk', 'shop_goods.gd_mk_id', '=', 'mk.mk_id')->where('mk_name', 'like', "{$kw}%");
+            if($gm_name) $gm_name = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_name', $ft_kw, ['mode' => 'boolean'])->groupBy('gm_gd_id');
+            if($cat_no && $is_catno) {
+                         $catno_arr = explode('-', $kw);
+                         $cat_no  = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->where('gm_catno01', $catno_arr[0])->where('gm_catno02', $catno_arr[1])->groupBy('gm_gd_id');
+            }
+            if($gm_code) $gm_code = DB::table('shop_goods_model')->select('gm_gd_id AS gd_id')->whereFullText('gm_code', $ft_kw, ['mode' => 'boolean'])->groupBy('gm_gd_id');
+
+            if(!$req->filled('mode')) {
+                $ft_kw = str_replace('-', 'ΩΩ', $ft_kw);
+                $ft_kw = str_replace('.', 'ΣΣ', $ft_kw);
+                $keyword = DB::table('shop_goods')->select('gd_id')->whereFullText('gd_keyword_chg', $ft_kw, ['mode' => 'boolean']);
+                $sub = $gd_name->union($maker)->union($gm_name)->union($gm_code)->union($keyword);
+                if($is_catno) $sub = $sub->union($cat_no);
+            } else {
+                if($gd_name)  $sub = $gd_name;
+                if($maker)    $sub = $maker;
+                if($gm_name)  $sub = $gm_name;
+                if($cat_no)   $sub = $cat_no;
+                if($gm_code)  $sub = $gm_code;
+            }
         }
 
-        $cl = new SphinxClient ();
-        $cl->SetServer( env('DB_HOST'), 9312 );
-        if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));
-        if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
-        if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
-        if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
+        if( $r_type == 'group' )
+            return $sub;
 
-        if ($req->filled('startDate') && !$req->filled('endDate')) $cl->SetFilterFloatRange('created_at', strtotime($req->startDate), strtotime("Now"));
-        if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange('created_at', strtotime("1970-01-01"),    strtotime($req->endDate));
-        if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange('created_at', strtotime($req->startDate), strtotime($req->endDate));
-        if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array($req->gd_enable));
-        if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
-        if ($req->filled('gd_type'))    $cl->SetFilter('gd_type', array(crc32($req->gd_type)));
-        if ($req->filled('gd_seq'))    $cl->SetFilter('gd_seq', array(999999), true);
-        if ($req->filled('deleted_at')) {
-            if ($req->deleted_at == 'Y')        $cl->SetFilter('deleted_at', array(0), true);
-            elseif ($req->deleted_at == 'N')    $cl->SetFilter('deleted_at', array(0));
+        $qry = Goods::Enable();
+        if($req->filled('keyword')) {
+            $qry->joinSub($sub, 'sub', function ($q) { $q->on('sub.gd_id', '=', 'shop_goods.gd_id'); });
+                // ->addSelect(DB::raw('STRAIGHT_JOIN la_shop_goods.*'));
         }
 
+        $qry->when($req->ca01, function ($q, $v) { return $q->join('shop_goods_category AS gc', 'shop_goods.gd_id', '=', 'gc.gc_gd_id')->where('gc_ca01', $v); })
+            ->when($req->ca02,  fn ($q, $v) => $q->where('gc_ca02',  $v))
+            ->when($req->ca03,  fn ($q, $v) => $q->where('gc_ca03',  $v))
+            ->when($req->ca04,  fn ($q, $v) => $q->where('gc_ca04',  $v))
+            ->when($req->mk_id, fn ($q, $v) => $q->where('gd_mk_id', $v))
+            ->when(!$req->filled('keyword'), fn ($q) => $q->groupBy('gd_id'));
 
-        
-        if ($req->filled('updated_id')) $cl->SetFilter('updated_id', array($req->updated_id));
-        $cl->SetGroupBy('gd_id', SPH_GROUPBY_ATTR );
-        $cl_rst = $cl->Query( $kw, 'sph_goods' );
-        
-        return $cl_rst['total_found'];
+        return $qry;
     }
 }
+ 
