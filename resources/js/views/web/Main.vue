@@ -2,6 +2,10 @@
 <div>
     <pop-up /> <!-- 팝업 -->
     <b-carousel controls indicators class="slide_banner">
+        <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
+            <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
+            <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
+        </b-carousel-slide>
         <b-link to="/shop/goods/925">
             <b-carousel-slide :img-src="s3url+'event/2023/0816/slide.jpg'"></b-carousel-slide>
         </b-link>
@@ -257,6 +261,11 @@ export default {
 .slide_banner .split_link { position:absolute; display: block; width:190px; height:57px; bottom:25px; transform:translateX(-50%); }
 .slide_banner a#app01 { left:23%; }
 .slide_banner a#app02 { left:77%;}
+.slide_banner >>> .evt01 .split_evt01 { position:absolute; display: block; width: 700px; height:150px; right:0;  }
+.slide_banner >>> .evt01 .split_evt01:hover { border:15px solid #015B7E; opacity: .3; }
+.slide_banner >>> .evt01 .carousel-caption { position:static; padding:0; }
+.slide_banner a#evt01_1 { bottom:143px; }
+.slide_banner a#evt01_2 { bottom: 0px; }
 
 #best { margin-top:26px; }
 #best>.col { padding:0; }

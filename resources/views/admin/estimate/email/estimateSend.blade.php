@@ -22,9 +22,23 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://4science.net/shop/goods/925" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0816/estimate.jpg" />
-            </a>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td colspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate01.jpg" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://4science.net/shop/goods/616504" target='_blank'>
+                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate02.jpg" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="https://4science.net/shop/goods/616504" target='_blank'>
+                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate03.jpg" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 
@@ -162,8 +176,8 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <a href="https://4science.net/board/event/show/42" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0719/estimate.jpg" />
+            <a href="https://4science.net/shop/goods/925" target='_blank'>
+                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0816/estimate.jpg" />
             </a>
         </td>
     </tr>
