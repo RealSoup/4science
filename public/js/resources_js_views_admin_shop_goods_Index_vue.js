@@ -39,7 +39,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         gd_mk_id: '',
         gd_enable: '',
         deleted_at: '',
-        updated_id: '',
         ca01: 0,
         ca02: 0,
         ca03: 0,
@@ -78,10 +77,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     numCalc: function numCalc(i) {
       return this.list.total - (this.list.current_page - 1) * this.list.per_page - i;
     },
-    index: function index(is_first) {
+    index: function index() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var pa, res;
+        var res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -94,32 +93,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _context.abrupt("return", false);
             case 4:
               _this.isLoadingModalViewed = true;
-              pa = {
-                params: _this.queryCheck()
-              };
-              if (is_first) pa.params.is_first = is_first;
-              _context.next = 9;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/goods", pa);
-            case 9:
+              _context.next = 7;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/goods", {
+                params: _this.sch_frm
+              });
+            case 7:
               res = _context.sent;
               if (res && res.status === 200) {
                 _this.list = res.data.list;
-                if (res.data.mng_off) _this.mng_off = res.data.mng_off;
-                if (res.data.makers) _this.makers = res.data.makers;
+                _this.mng_off = res.data.mng_off;
                 _this.isLoadingModalViewed = false;
               }
-              _context.next = 17;
+              _context.next = 15;
               break;
-            case 13:
-              _context.prev = 13;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 17:
+            case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 13]]);
+        }, _callee, null, [[0, 11]]);
       }))();
     },
     routerPush: function routerPush() {
@@ -127,32 +123,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.sch_frm.page = p;
       this.$router.push({
         name: 'adm_goods_index',
-        query: this.queryCheck()
+        query: this.sch_frm
       })["catch"](function () {});
-    },
-    typeToInt: function typeToInt() {
-      for (var i in this.sch_frm) {
-        if (['ca01', 'ca02', 'ca03', 'ca04'].includes(i)) this.sch_frm[i] = parseInt(this.sch_frm[i]);
-      }
-    },
-    queryCheck: function queryCheck() {
-      this.typeToInt();
-      var nfrm = {};
-      for (var i in this.sch_frm) {
-        if (!isEmpty(this.sch_frm[i])) nfrm[i] = this.sch_frm[i];
-      }
-      return nfrm;
     }
   },
   mounted: function mounted() {
     var _this2 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var res;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             _this2.sch_frm = Object.assign({}, _this2.sch_frm, _this2.$route.query);
-            _this2.index(true);
-          case 2:
+            _this2.index();
+            _context2.next = 4;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/maker", {
+              params: {
+                type: 'all'
+              }
+            });
+          case 4:
+            res = _context2.sent;
+            if (res && res.status === 200) _this2.makers = res.data.list;
+          case 6:
           case "end":
             return _context2.stop();
         }
@@ -211,7 +204,7 @@ var render = function render() {
       expression: "sch_frm"
     }
   }), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
+    staticClass: "label bottom_left"
   }, [_vm._v("제조사")]), _vm._v(" "), _c("b-col", {
     staticClass: "type01"
   }, [_c("b-form-select", {
@@ -281,60 +274,6 @@ var render = function render() {
     }, [_vm._v(_vm._s(opt.name))]);
   })], 2)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "label"
-  }, [_vm._v("우선순위상품")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type01"
-  }, [_c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sch_frm.gd_seq,
-      expression: "sch_frm.gd_seq"
-    }],
-    staticClass: "custom-select custom-select-sm",
-    on: {
-      change: function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.sch_frm, "gd_seq", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Y"
-    }
-  }, [_vm._v("활성")])])]), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("관리자")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type01"
-  }, [_c("b-form-select", {
-    model: {
-      value: _vm.sch_frm.updated_id,
-      callback: function callback($$v) {
-        _vm.$set(_vm.sch_frm, "updated_id", $$v);
-      },
-      expression: "sch_frm.updated_id"
-    }
-  }, [_c("b-form-select-option", {
-    attrs: {
-      value: ""
-    }
-  }), _vm._v(" "), _vm._l(_vm.mng_off, function (opt) {
-    return _c("b-form-select-option", {
-      key: opt.id,
-      attrs: {
-        value: opt.id
-      }
-    }, [_vm._v(_vm._s(opt.name))]);
-  })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label bottom_left"
   }, [_vm._v("검색")]), _vm._v(" "), _c("b-col", [_c("b-input-group", [_c("b-input-group-prepend", [_c("b-form-select", {
     staticClass: "custom-select",
     model: {
@@ -357,6 +296,10 @@ var render = function render() {
       value: "gm_code"
     }
   }, [_vm._v("모델명")]), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
+      value: "manager"
+    }
+  }, [_vm._v("관리자")]), _vm._v(" "), _c("b-form-select-option", {
     attrs: {
       value: "cat_no"
     }
@@ -420,7 +363,7 @@ var render = function render() {
       "class": {
         disable: row.gd_enable == "N"
       }
-    }, [_c("b-col", [!_vm.sch_frm.gd_seq ? _c("span", [_vm._v(_vm._s(row.gd_id))]) : _c("span", [_vm._v(_vm._s(row.gd_seq))])]), _vm._v(" "), _c("b-col", [_c("div", [row.goods_category_first.gc_ca01_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca01_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca02_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca02_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca03_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca03_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca04_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca04_name))]) : _vm._e()])]), _vm._v(" "), _c("b-link", {
+    }, [_c("b-col", [!_vm.sch_frm.gd_seq ? _c("span", [_vm._v(_vm._s(row.gd_id))]) : _c("span", [_vm._v(_vm._s(row.gd_seq))])]), _vm._v(" "), _c("b-col", [_c("div", [row.gc_ca01_name ? _c("p", [_vm._v(_vm._s(row.gc_ca01_name))]) : _vm._e(), _vm._v(" "), row.gc_ca02_name ? _c("p", [_vm._v(_vm._s(row.gc_ca02_name))]) : _vm._e(), _vm._v(" "), row.gc_ca03_name ? _c("p", [_vm._v(_vm._s(row.gc_ca03_name))]) : _vm._e(), _vm._v(" "), row.gc_ca04_name ? _c("p", [_vm._v(_vm._s(row.gc_ca04_name))]) : _vm._e()])]), _vm._v(" "), _c("b-link", {
       staticClass: "col",
       attrs: {
         to: {
@@ -432,7 +375,7 @@ var render = function render() {
       }
     }, [_c("b-img", {
       attrs: {
-        src: row.image_src_thumb[0],
+        src: row.goods.image_src_thumb[0],
         rounded: ""
       }
     })], 1), _vm._v(" "), _c("b-link", {
@@ -491,7 +434,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .frm_sch .row .label + .type01[data-v-590d599f] {\r\n    flex: 0 0 13%;\r\n    max-width: 13%;\n}\n.cmain[data-v-590d599f] { position:relative; min-height:30rem;\n}\n.cmain .row .ctrl[data-v-590d599f] { color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .ctrl .btn[data-v-590d599f] { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(3) { flex:0 0 8%; max-width:8%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(4) { justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(6) { flex:0 0 7.5%; max-width:7.5%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(7) { flex:0 0 7%; max-width:7%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(8) { flex:0 0 11%; max-width:11%;\n}\n.cmain .list .col[data-v-590d599f] { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-590d599f]:last-child,\r\n.cmain .list .col[data-v-590d599f]:nth-child(3) { border-width:0;\n}\n.cmain .list .col:nth-child(3) img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n.cmain .body .col[data-v-590d599f] { padding:.65rem; display:flex; justify-content:center; align-items:center;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(2) { padding:0;\n}\n.cmain .body .col:nth-child(2) div[data-v-590d599f] { text-align:left; margin-left:4%;\n}\n.cmain .body .col:nth-child(2) div p[data-v-590d599f] { margin:0; line-height:1.5; font-size:.9rem;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(4) { text-align:left;\n}\n.cmain .body.disable[data-v-590d599f] { background-color:#E1E1E1;\n}\n.cmain .body.disable .col[data-v-590d599f] { color:#9C9C9C;\n}\r\n/*\r\n.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }\r\n.gd_list .body:hover { background: #d8f2fd94; }\r\n\r\n.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }\r\n.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }\r\n.gd_list .body>div { cursor:pointer; }\r\n.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }\r\n.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }\r\n\r\n.gd_list .row>div { font-size:.9rem; }\r\n.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }\r\n.gd_list .row>div>span ul { display:inline-block; }\r\n.gd_list .row>div>span:nth-of-type(2) { float:right; }\r\n.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }\r\n*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain[data-v-590d599f] { position:relative; min-height:30rem;\n}\n.cmain .row .ctrl[data-v-590d599f] { color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .ctrl .btn[data-v-590d599f] { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(1) { flex:0 0 9%; max-width:9%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(2) { flex:0 0 13%; max-width:13%; justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(3) { flex:0 0 8%; max-width:8%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(4) { justify-content:flex-start;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(5) { flex:0 0 10%; max-width:10%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(6) { flex:0 0 7.5%; max-width:7.5%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(7) { flex:0 0 7%; max-width:7%;\n}\n.cmain .list .col[data-v-590d599f]:nth-child(8) { flex:0 0 11%; max-width:11%;\n}\n.cmain .list .col[data-v-590d599f] { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-590d599f]:last-child,\r\n.cmain .list .col[data-v-590d599f]:nth-child(3) { border-width:0;\n}\n.cmain .list .col:nth-child(3) img[data-v-590d599f] { max-width:80px; width:100%; height:80px; -o-object-fit:cover; object-fit:cover;\n}\n.cmain .body .col[data-v-590d599f] { padding:.65rem; display:flex; justify-content:center; align-items:center;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(2) { padding:0;\n}\n.cmain .body .col:nth-child(2) div[data-v-590d599f] { text-align:left; margin-left:4%;\n}\n.cmain .body .col:nth-child(2) div p[data-v-590d599f] { margin:0; line-height:1.5; font-size:.9rem;\n}\n.cmain .body .col[data-v-590d599f]:nth-child(4) { text-align:left;\n}\n.cmain .body.disable[data-v-590d599f] { background-color:#E1E1E1;\n}\n.cmain .body.disable .col[data-v-590d599f] { color:#9C9C9C;\n}\r\n/*\r\n.gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }\r\n.gd_list .body:hover { background: #d8f2fd94; }\r\n\r\n.gd_list .list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }\r\n.gd_list .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.gd_list .list>div{ padding-top:15px; padding-bottom:15px; }\r\n.gd_list .body>div { cursor:pointer; }\r\n.gd_list .body>div:nth-of-type(2) { background-color:#7fffd454; }\r\n.gd_list .head>div { font-weight:bold; background:#666; color:#fff; }\r\n\r\n.gd_list .row>div { font-size:.9rem; }\r\n.gd_list .row>div:nth-of-type(1) span b { text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; max-width:600px; overflow:hidden; display:inline-block; margin-bottom:-7px; }\r\n.gd_list .row>div>span ul { display:inline-block; }\r\n.gd_list .row>div>span:nth-of-type(2) { float:right; }\r\n.gd_list .row>div img { max-width:80px; width:100%; height:80px; object-fit:cover; }\r\n*/\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
