@@ -26,7 +26,7 @@ class FileGoods extends Model {
             $src .= ($sub) ? "{$sub}/" : '';
             $src .= $this->fi_new;
             if($this->fi_key == 616511) 
-                $src = "/{$src}";
+                $src = "/storage/{$src}";
             else 
                 $src = Storage::disk('s3')->url($src);
         } else {
