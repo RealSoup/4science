@@ -76,7 +76,7 @@ class Goods extends Model {
             $th = $thumb ? '/thumb' : '';
             $src = "";
             if($fi->fi_key == 616511) {
-                $src = "api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}";
+                $src = "/storage/api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}";
             } else {
                 if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
                     $src = $fi->fi_new;
