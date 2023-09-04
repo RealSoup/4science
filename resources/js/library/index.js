@@ -188,7 +188,8 @@ export default {
           },
         });
 
-        Vue.prototype.s3url = 'https://fourscience.s3.ap-northeast-2.amazonaws.com/';
+        // Vue.prototype.s3url = 'https://fourscience.s3.ap-northeast-2.amazonaws.com/';
+        Vue.prototype.s3url = '/storage/';
         Vue.prototype.isEmpty = function (v) {
             if( v == "" || v == null || v == undefined || Number.isNaN(v) || ( v != null && typeof v == "object" && !Object.keys(v).length ) ) return true;
             else return false;

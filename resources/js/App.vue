@@ -2,7 +2,7 @@
 <div id="site" :class="{'adm' : this.$store.state.mode == 'adm'}">
     
     <component :is="choiceHeader" />
-    <main :class="{'layout' : 
+    <main id="site_main" :class="{'layout' : 
         $store.state.mode!=='adm' &&
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
             'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
@@ -11,7 +11,7 @@
             $store.state.mode == 'adm'
             && !$route.name.startsWith('adm_estimate_show')
             && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name) 
-        " id="lefter" />
+        " class="lefter" />
         <router-view class="main_con" />
     </main>
     <component :is="choiceFooter" />
@@ -99,7 +99,8 @@ html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 /*#site.adm{ background:#FADBFB; margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}*/
 #site.adm>main { display:flex; }
-#site.adm>main #lefter { background-color:#4E647B; flex:0 0 250px; max-width:250px; height:100vh; }
+@media (max-width: 992px){ #site.adm>main { display:block; } }
+#site.adm>main .lefter { flex:0 0 170px; max-width:170px; }
 #site.adm>main .main_con { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:2.5em; }
 .container, .row, .col { padding:0; }
 .row, .col { margin:0; }
