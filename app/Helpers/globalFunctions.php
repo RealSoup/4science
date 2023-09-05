@@ -179,3 +179,20 @@ if(! function_exists('newCrc32')) {
         return $checksum;
     }
 }
+
+if(! function_exists('mk_dir')) {
+    function mk_dir($f_path){
+        if(!is_dir($f_path)) {
+            if (!mkdir($f_path, 0755, true) && !is_dir($f_path)) {
+                echo "디렉토리 생성 실패  -  {$f_path}";
+                exit;
+            }
+        }
+    }
+}
+
+if(! function_exists('startsWith')) {
+    function startsWith($haystack, $needle) {
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+    }
+}

@@ -171,7 +171,7 @@
                         </p>
                         <br>
                         <a href="http://ncis.nier.go.kr/" target="_blank" style="display:block; text-align:center;">
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="700">
+                            <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="700">
                         </a>
                     </div>
 
@@ -595,7 +595,7 @@ export default {
 .conRight .goods_option .selOpt li .cellCalc .sum_p { min-width:90px; display:inline-block; }
 .conRight .goods_option .selOpt li .cellCalc .delOpt { font-size:.8rem; cursor:pointer; max-width:30px; width:100%; display:inline-block; }
 
-.conRight .goods_relate { width:990px; padding:12px 0; margin:3rem 0 0; background:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/goods/relate_bg.png') no-repeat center center /contain; }
+.conRight .goods_relate { width:990px; padding:12px 0; margin:3rem 0 0; background:url('/storage/goods/relate_bg.png') no-repeat center center /contain; }
 .conRight .goods_relate .head { max-width:137px; position:relative; }
 .conRight .goods_relate .head b { color:#FFF; font-weight:600; font-size:1.5rem; line-height: 1.2; position:absolute; top:50%; left:65%; transform:translate(-50%, -50%); width:50px; }
 .conRight .goods_relate .col { padding-left:0px; padding-right:0px; }

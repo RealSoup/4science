@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Lib\SphinxClient;
 
 class GoodsController extends Controller {
     use FileControl;
@@ -21,10 +23,10 @@ class GoodsController extends Controller {
     protected $goods_model;
     protected $goods_option;
     protected $goods_option_child;
-    protected $maker;
+	protected $maker;
     protected $bd;
 
-    public function __construct( Goods $gd, GoodsModel $gm, GoodsOption $option, GoodsOptionChild $optionChild, Maker $mk, BundleDc $bd ) {
+	public function __construct( Goods $gd, GoodsModel $gm, GoodsOption $option, GoodsOptionChild $optionChild, Maker $mk, BundleDc $bd ) {
         $this->goods = $gd;
         $this->goods_model = $gm;
         $this->goods_option = $option;
@@ -33,12 +35,41 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
+    public function index (Request $req) {       
+        /*
+            스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
+            페이지를 위해 검색된 count 재설정
+        */
+        $req->merge(array('sort' => "new"));
 
-    public function index(Category $cate, Request $req) {
+        $total = $this->goods->search_cnt($req);
+        $page = intval($req->filled('page') ? $req->page : 1);
+        $limit = 15;
+        $offset = ($page*$limit)-$limit;
+        if($offset>intval($total)) {
+            $page = ceil($total / $limit);
+            $offset = ($page*$limit)-$limit;
+        }
+        $qry = $this->goods->search($req, $offset, $limit);
+     
+        if( gettype($qry) == 'string' && $qry == 'no-catno' )
+            return response()->json($qry);
+        
+        $data_rst = $qry->get();
+        $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
+        if($req->filled('is_first') && $req->is_first) {
+            $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
+            $data['makers'] = $this->maker->orderBy('mk_name')->get();
+        }
+		return response()->json($data);
+    }
+
+
+    public function index__(Category $cate, Request $req) {
         $gd_chk = ($req->startDate||$req->endDate||$req->gd_mk_id||$req->deleted_at);
         $model_chk = $req->filled('keyword')&&($req->mode=='gm_name'||$req->mode=='gm_code'||$req->mode=='cat_no');
         $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')
-            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name",
+            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", 
                      "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at", "gs.gd_seq" )
             //  shop_goods 필드 검색이 없다면 속도하되니 조인하지말자
             ->when($gd_chk,          fn ($q    ) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
@@ -48,9 +79,9 @@ class GoodsController extends Controller {
             ->when($req->gd_mk_id,   fn ($q, $v) => $q->where('gd.gd_mk_id', $v))
             ->when(!$req->gd_type,   fn ($q, $v) => $q->where('gs.gd_type', 'NON'))
             ->when($req->gd_type,    fn ($q, $v) => $q->where('gs.gd_type', $v))
-            ->when($req->deleted_at, function ($q, $v) {
-                if ($v == 'Y') return $q->whereNotNull('gd.deleted_at');
-                elseif ($v == 'N') return $q->whereNull('gd.deleted_at');
+            ->when($req->deleted_at, function ($q, $v) { 
+                if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
+                elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
             })
             ->when($req->gd_seq, fn ($q, $v) => $q->where('gs.gd_seq', '<', 999999)->orderBy('gs.gd_seq'))
             ->when(!$req->ca01, fn ($q, $v) => $q->where('gs.gc_prime', 'Y'))
@@ -61,9 +92,9 @@ class GoodsController extends Controller {
             ->latest('gs.gd_id');
 
         if ($req->filled('keyword')){
-            if (preg_match("/[-+*.]/", $req->keyword))  $ftWord = '"'.$req->keyword.'"';
-            else                                        $ftWord = $req->keyword.'*';
-
+            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
+			else 									    $ftWord = $req->keyword.'*';
+          
             if ( $req->mode == 'gd_name' ) $gs->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
             if ( $req->mode == 'gm_name' ) $gs->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
             if ( $req->mode == 'gm_code' ) $gs->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
@@ -73,7 +104,7 @@ class GoodsController extends Controller {
                 $gs->where("gs.updated_id", $uid->id);
             }
         }
-
+        
         //  상품의 하위 모델 상세 검색이 아니면 속도하되니 groupBy하지말자
         //  (gc_prime, Y)(gm_prime, Y)  이것으로 같은 효과
         $gs->when($model_chk, fn ($q) => $q->groupBy('gs.gd_id'))
@@ -82,8 +113,8 @@ class GoodsController extends Controller {
         $data['list']->appends($req->all())->links();
 
         $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
-
-        return response()->json($data);
+        
+		return response()->json($data);
     }
 
     public function show($id) {
@@ -122,35 +153,64 @@ class GoodsController extends Controller {
     }
 
     public function store(SaveGoodsRequest $req) {
-        dd($req->all());
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
-        $cate_ist_info = $cat =[];
+        $cate_ist_info = [];
+        $cat01 = $cat02 = '';
 
-        if ($req->gd_type == 'REN') {
-            $ist_gc_id = GoodsCategory::insertGetId([
-                'gc_gd_id'     => $goods->gd_id,
-                'gc_prime'     => 'Y',
-                'gc_ca01'      => 11,
-                'gc_ca01_name' => '렌탈',
-            ], 'gc_id');
+        if ($req->filled('gd_type') && $req->gd_type == 'REN') {
+            $istArr['gc_gd_id'] = $goods->gd_id;
+            $istArr['gc_prime'] = 'Y';
+            $istArr['gc_ca01'] = 46;
+            $istArr['gc_ca01_name'] = '렌탈';
+            $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
             $istArr['gc_id'] = $ist_gc_id;
-            $cate_ist_info[] = $istArr;
-
-            $cat[0] = 'R';
-            $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
-            $cat[1] = substr("00000".$cat[1], -6);
-            $cat[2] = 0;
+            $cate_ist_info[] = $istArr;      
             
-            foreach ($req->file_goods_goods as $v) {
+            $fi_room = intval($goods->gd_id/1000)+1;
+            foreach ($req->file_goods_goods as $k => $v) {
                 // $s=Storage::disk('s3')->copy('goods/trc.png', 'event/trc.png');
-                if (!(strpos($v->fi_new, "https://") === 0 || strpos($v->fi_new, "http://") === 0))
-                    Storage::disk('s3')->copy("api_{$v->fi_group}/{$v->fi_room}/{$v->fi_kind}/{$v->fi_new}", 'event/trc.png');
-                $src = $v->fi_new;
+                $new_nm = uniqid().'.'.$v['fi_ext'];
+                DB::table('file_goods')->insert([
+                    'fi_key' => $goods->gd_id, 
+                    'fi_room' => $fi_room,
+                    'fi_kind' => 'goods',
+                    'fi_original' => $v['fi_original'],
+                    'fi_new' => $new_nm,
+                    'fi_seq' => $k,
+                    'fi_size' => $v['fi_size'],
+                    'fi_ext' => $v['fi_ext'],
+                    'created_id' => auth()->user()->id,
+                    'ip' => $req->ip(),
+                ]);
+                if (!(strpos($v['fi_new'], "https://") === 0 || strpos($v['fi_new'], "http://") === 0)) {
+                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/thumb/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/thumb/{$new_nm}");
+                }
             }
 
+            foreach ($req->file_goods_add as $k => $v) {
+                $new_nm = uniqid().'.'.$v['fi_ext'];
+                DB::table('file_goods')->insert([
+                    'fi_key' => $goods->gd_id, 
+                    'fi_room' => $fi_room,
+                    'fi_kind' => 'add',
+                    'fi_original' => $v['fi_original'],
+                    'fi_new' => $new_nm,
+                    'fi_seq' => $k,
+                    'fi_size' => $v['fi_size'],
+                    'fi_ext' => $v['fi_ext'],
+                    'created_id' => auth()->user()->id,
+                    'ip' => $req->ip(),
+                ]);
+                Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+            }
+            $cat01 = 'R';
+            $cat02 = $req->goods_model[0]['gm_catno02'];
+            
         } else {
+            
             foreach ($req->goods_category as $gc) {
                 $istArr=[];
                 $istArr['gc_gd_id'] = $goods->gd_id;
@@ -165,23 +225,26 @@ class GoodsController extends Controller {
                 $cate_ist_info[] = $istArr;
                 unset($istArr);
             }
-    
-            $cat[0] = $req->goods_category[0]['gc_ca01'];
-            $cat[1] = $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
-            $cat[1] = substr("00000".$cat[1], -6);
-            $cat[2] = 0;
+
         }
-        
+
+        $cat[0] = $req->goods_category[0]['gc_ca01'];
+        $cat[1] = $cat02 ? $cat02 : $this->goods_model->Catno01($cat[0])->max(DB::raw('CAST(gm_catno02 AS UNSIGNED)'))+1;
+        $cat[1] = substr("00000".$cat[1], -6);
+        $cat[2] = 0;
+
         foreach ($req->goods_model as $gm) {
             $cat[2] += 1;
             $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
-            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
+            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$cat01.$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
 
-            foreach ($gm['bundle_dc'] as $bd) {
-                if (isset($bd['bd_ea'])){
-                    $bd_impl = $this->bundleDc_paramImplant($ist_gm_id, $bd);
-                    $this->bd->insert(Arr::collapse([$bd_impl, ['created_id'=>auth()->user()->id, 'ip' => $req->ip()]]));
+            if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
+                foreach ($gm['bundle_dc'] as $bd) {
+                    if (isset($bd['bd_ea'])){
+                        $bd_impl = $this->bundleDc_paramImplant($ist_gm_id, $bd);
+                        $this->bd->insert(Arr::collapse([$bd_impl, ['created_id'=>auth()->user()->id, 'ip' => $req->ip()]]));
+                    }
                 }
             }
 
@@ -194,11 +257,13 @@ class GoodsController extends Controller {
             //  검색 테이블 insert
         }
 
-        foreach ($req->goods_option as $go) {
-            if (isset($go['go_name'])){
-                $go_id = $this->goods_option->insertGetId($this->option_paramImplant($goods->gd_id, $go), 'go_id');
-                foreach ($go['goods_option_child'] as $goc) {
-                    if (isset($goc['goc_name'])) $this->goods_option_child->insert($this->optionChild_paramImplant($go_id, $goc));
+        if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
+            foreach ($req->goods_option as $go) {
+                if (isset($go['go_name'])){
+                    $go_id = $this->goods_option->insertGetId($this->option_paramImplant($goods->gd_id, $go), 'go_id');
+                    foreach ($go['goods_option_child'] as $goc) {
+                        if (isset($goc['goc_name'])) $this->goods_option_child->insert($this->optionChild_paramImplant($go_id, $goc));
+                    }
                 }
             }
         }
@@ -208,7 +273,6 @@ class GoodsController extends Controller {
         else
             return response()->json(["msg"=>"Fail"], 500);
     }
-
 
     public function update(SaveGoodsRequest $req, $gd_id) {
         $goods = $this->goods->find($gd_id);
@@ -399,9 +463,12 @@ class GoodsController extends Controller {
     }
 
     public function goods_paramImplant($goods, $req){
+        $gd_keyword_chg = str_replace('-', 'ΩΩ', $req->gd_keyword);
+        $gd_keyword_chg = str_replace('.', 'ΣΣ', $gd_keyword_chg);
         $goods->gd_name     = $req->gd_name;
 	   	$goods->gd_desc     = $req->gd_desc;
         $goods->gd_keyword  = $req->gd_keyword;
+        $goods->gd_keyword_chg  = $gd_keyword_chg;
         $goods->gd_video    = $req->gd_video;
 	   	$goods->gd_dlvy_at  = $req->gd_dlvy_at;
 	   	$goods->gd_enable   = $req->filled('gd_enable') ? $req->gd_enable : 'N';
@@ -443,6 +510,7 @@ class GoodsController extends Controller {
     public function search_paramImplant($gd, $gc, $gm) {
         return ['gd_id'        => $gd->gd_id,
                 'gd_enable'    => $gd->gd_enable,
+                'gd_type'      => $gd->gd_type ? $gd->gd_type : 'NON',
                 'gd_name'      => $gd->gd_name,
                 'gd_keyword'   => $gd->gd_keyword,
                 'gd_rank'      => $gd->gd_rank,
