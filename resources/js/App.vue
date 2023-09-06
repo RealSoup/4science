@@ -173,7 +173,7 @@ label { margin-bottom:0; }
 .frm_st .row .col input:focus,
 .frm_st .row .col select:focus,
 .frm_st .row .col textarea:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}
-.frm_st .row .col select { background:#F2F3F5 url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center; }
+.frm_st .row .col select { background:#F2F3F5 url(/storage/common/arrow_dn.gif) no-repeat right 8px center; }
 .frm_st .row .col.hp { display:flex; justify-content:space-between; }
 .frm_st .row .col.hp span { position:relative; flex:0 0 30%; max-width:30%; }
 .frm_st .row .col.hp span:not(:last-child):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989; }

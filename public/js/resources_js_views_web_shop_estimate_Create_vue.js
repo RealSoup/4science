@@ -142,7 +142,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               frmData.append('fi_key', fi_key);
               fi_room = 0;
               if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
-              frmData.append('fi_room', fi_room);
+              frmData.append('fi_room', 'fi_room');
               frmData.append('fi_kind', _this2.fi_kind);
               if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
               if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);
@@ -281,12 +281,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 10:
               res = _context2.sent;
               if (!(res && res.status === 200)) {
-                _context2.next = 19;
+                _context2.next = 20;
                 break;
               }
               _context2.next = 14;
               return _this2.$refs.fileupload.fileProcessor(res.data);
             case 14:
+              _this2.$gtm.trackEvent({
+                event: null,
+                // Event type [default = 'interaction'] (Optional)
+                category: 'Estimate',
+                action: 'click',
+                label: '견적 문의',
+                value: 0,
+                noninteraction: false // Optional
+              });
+
               Notify.toast('success', '견적 요청 완료');
               _this2.$store.dispatch('cart/index');
               _this2.$router.push({
@@ -295,23 +305,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   eq_id: res.data
                 }
               });
-              _context2.next = 20;
+              _context2.next = 21;
               break;
-            case 19:
-              Notify.toast('warning', res);
             case 20:
-              _context2.next = 26;
+              Notify.toast('warning', res);
+            case 21:
+              _context2.next = 27;
               break;
-            case 22:
-              _context2.prev = 22;
+            case 23:
+              _context2.prev = 23;
               _context2.t0 = _context2["catch"](7);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.responsee);
-            case 26:
+            case 27:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[7, 22]]);
+        }, _callee2, null, [[7, 23]]);
       }))();
     },
     pushFi_id: function pushFi_id(fi_id) {
@@ -379,7 +389,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             _this4.frm.eq_email01 = eq_email[0];
             _this4.frm.eq_email02 = eq_email[1];
             _this4.frm.eq_company = Auth.user().company;
-          case 15:
+            _this4.$gtm.trackView('견적 요청 페이지', 'https://4science.net/shop/estimate/create');
+          case 16:
           case "end":
             return _context4.stop();
         }

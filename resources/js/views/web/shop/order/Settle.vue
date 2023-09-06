@@ -468,6 +468,16 @@ export default {
                 this.clickable = false; 
                 let pay = await ax.post(`/api/shop/order/pay`, this.order);
                 if (pay && pay.status === 200) {
+                    
+                    this.$gtm.trackEvent({
+                        event: null, // Event type [default = 'interaction'] (Optional)
+                        category: 'Order',
+                        action: 'click',
+                        label: '상품 주문',
+                        value: this.order.price.total,
+                        noninteraction: false, // Optional
+                    });
+
                     this.inicis = pay.data.inicis;
                     if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
                         let frm = new FormData();
@@ -702,6 +712,8 @@ export default {
         plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
         plugin.async = true;
         document.head.appendChild(plugin);
+
+        this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
     },
 }
 </script>

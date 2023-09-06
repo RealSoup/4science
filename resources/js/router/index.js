@@ -18,5 +18,5 @@ export default new Router({
             name: 'Not Found',
             component:() => import('@/views/_common/error/NotFound'),
         },
-    ]
+    ],
 })

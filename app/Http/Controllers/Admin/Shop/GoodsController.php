@@ -170,7 +170,7 @@ class GoodsController extends Controller {
             
             $fi_room = intval($goods->gd_id/1000)+1;
             foreach ($req->file_goods_goods as $k => $v) {
-                // $s=Storage::disk('s3')->copy('goods/trc.png', 'event/trc.png');
+                // $s=Storage::disk('public')->copy('goods/trc.png', 'event/trc.png');
                 $new_nm = uniqid().'.'.$v['fi_ext'];
                 DB::table('file_goods')->insert([
                     'fi_key' => $goods->gd_id, 
@@ -185,8 +185,8 @@ class GoodsController extends Controller {
                     'ip' => $req->ip(),
                 ]);
                 if (!(strpos($v['fi_new'], "https://") === 0 || strpos($v['fi_new'], "http://") === 0)) {
-                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
-                    Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/thumb/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/thumb/{$new_nm}");
+                    Storage::disk('public')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+                    Storage::disk('public')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/thumb/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/thumb/{$new_nm}");
                 }
             }
 
@@ -204,7 +204,7 @@ class GoodsController extends Controller {
                     'created_id' => auth()->user()->id,
                     'ip' => $req->ip(),
                 ]);
-                Storage::disk('s3')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
+                Storage::disk('public')->copy("api_{$v['fi_group']}/{$v['fi_room']}/{$v['fi_kind']}/{$v['fi_new']}", "api_{$v['fi_group']}/{$fi_room}/{$v['fi_kind']}/{$new_nm}");
             }
             $cat01 = 'R';
             $cat02 = $req->goods_model[0]['gm_catno02'];
@@ -412,7 +412,7 @@ class GoodsController extends Controller {
         if (is_array($req->file)) {
             foreach ($req['file'] as $k => $f) {
                 if (gettype($f) == 'object') {
-                    $this->file_upload($f, "api_{$req->fi_group}/".(@intval($req->fi_key/1000)+1)."/{$req->fi_kind}/", $req->is_thumb);
+                    $this->file_upload($f, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
                     DB::table('file_goods')->insert([
                         'fi_key' => $req->fi_key, 
                         'fi_room' => $req->fi_room,

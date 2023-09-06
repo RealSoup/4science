@@ -11,30 +11,30 @@
         <td style="padding:13px 30px 10px 30px;">
             <table width="100%"  style="font-size:12px;">
                 <tr>
-                    <td align="left" width="50%"><a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/email_logo.png" /></a></td>
+                    <td align="left" width="50%"><a href="{{$domain}}" target="_blank"><img src="{{ asset('storage/common/logo/email_logo.png') }}" /></a></td>
                     <td align="right" valign="bottom" style="color:#888888;">본 메일은 {{ date('Y-m-d h:i:s') }}에 작성되었습니다.</td>
                 </tr>
             </table>
         </td>
     </tr>
     <tr>
-        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_top.png" /></td>
+        <td style="border-top:2px solid #0095eb; padding-bottom:6px;"><img src="{{ asset('storage/common/email_top.png') }}" /></td>
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
-                    <td colspan="2"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate01.jpg" /></td>
+                    <td colspan="2"><img src="{{ asset('storage/event/2023/0901/estimate01.jpg') }}" /></td>
                 </tr>
                 <tr>
                     <td>
                         <a href="https://4science.net/shop/goods/616504" target='_blank'>
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate02.jpg" />
+                            <img src="{{ asset('storage/event/2023/0901/estimate02.jpg') }}" />
                         </a>
                     </td>
                     <td>
                         <a href="https://4science.net/shop/goods/616504" target='_blank'>
-                            <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0901/estimate03.jpg" />
+                            <img src="{{ asset('storage/event/2023/0901/estimate03.jpg') }}" />
                         </a>
                     </td>
                 </tr>
@@ -159,10 +159,10 @@
         <td align="center" style="padding:20px 0 30px;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size:12px;">
                 <tr>
-                    <td width="50%" align="right" style="padding:13px 10px;"><a href="{{$domain}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn01.png" /></a></td>
+                    <td width="50%" align="right" style="padding:13px 10px;"><a href="{{$domain}}" target="_blank"><img src="{{ asset('storage/common/email_btn01.png') }}" /></a></td>
                     <td style="padding:13px 10px;">
                         @if ($redirect_url)
-                        <a href="{{$redirect_url}}" target="_blank"><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_btn02.png" /></a>
+                        <a href="{{$redirect_url}}" target="_blank"><img src="{{ asset('storage/common/email_btn02.png') }}" /></a>
                         @else
                         비회원 고객님께 발송된 견적서 메일입니다.<br>
                         비회원 고객님은 온라인 주문을 이용하실 수 없습니다.<br>
@@ -177,12 +177,12 @@
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
             <a href="https://4science.net/shop/goods/925" target='_blank'>
-                <img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/event/2023/0816/estimate.jpg" />
+                <img src="{{ asset('storage/event/2023/0816/estimate.jpg') }}" />
             </a>
         </td>
     </tr>
     <tr>
-        <td><img src="https://fourscience.s3.ap-northeast-2.amazonaws.com/common/email_bottom.png" /></td>
+        <td><img src="{{ asset('storage/common/email_bottom.png') }}" /></td>
     </tr>
 </table>
 

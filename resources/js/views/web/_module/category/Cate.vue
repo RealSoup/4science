@@ -6,6 +6,9 @@
         </b-link>
         <CateSub v-if="ca.sub_show && ca.sub.length" :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id" />
     </li>
+    <li @mouseenter="custom_hover" :class="{focus:custom_focus}">
+        <b-link :to="{name: 'estimate_custom_index' }">주문제작</b-link>
+    </li>
 </ul>
 </template>
 
@@ -17,15 +20,21 @@ export default {
     components: { 'CateSub': () => import('./CateSub'), },
     data() { return { 
             all_focus: false,
+            custom_focus: false,
         } 
     },
     computed: { ...mapState('category', ['category']), },
     methods: {
         set_focus: function (ca_id) {
+            this.custom_focus = false;
             Object.values(this.category).forEach(ca => {
                 if (ca.ca_id == ca_id) ca.sub_show = true;
                 else ca.sub_show = false;
             });
+        },
+        custom_hover: function () {
+            this.custom_focus = true;
+            Object.values(this.category).forEach(ca => { ca.sub_show = false; });
         },
     },
 } 

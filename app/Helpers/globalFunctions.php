@@ -57,7 +57,7 @@ if (! function_exists('surtax')) { //  부가세 계산
 if (! function_exists('noImg')) { //  이미지 없을때 대체 이미지
     function noImg($f=false) {
         if(!$f) $f = 'noimg.jpg';
-        return Storage::disk('s3')->url("goods/{$f}");
+        return "/storage/goods/{$f}";
     }
 }
 

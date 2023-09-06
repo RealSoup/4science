@@ -54,7 +54,7 @@ export default {
 
 <style lang="css" scoped>
 ol li h5 { font-weight:900; font-size:1.4rem; margin-bottom:1.2rem; }
-ol .ci div { background-image: url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/ci_bg.png); background-repeat: repeat; border: 2px solid #ececec; padding: 20px 0; }
+ol .ci div { background-image: url(/storage/introduce/ci_bg.png); background-repeat: repeat; border: 2px solid #ececec; padding: 20px 0; }
 ol li { line-height:30px; }
 ol li:not(:last-child) { margin-bottom: 4rem; }
 ol li i { display:block; color:#1A90D6; font-weight:bold; }

@@ -9,8 +9,8 @@ use Storage;
 use App\Models\{FileInfo, FileGoods};
 
 trait FileControl {
-            // $this->file_upload($f, "{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}", $req->is_thumb);
-    public function file_upload($file, $subFolder, $thumb, $kind=null) {
+          
+    public function file_upload($file, $subFolder, $thumb) {
         $def_wid = config('const.file.def_wid');
         $def_hei = config('const.file.def_hei');
         $thumb_wid = config('const.file.thumb_wid');
@@ -21,7 +21,8 @@ trait FileControl {
         $image_info;
         if (in_array($mime, $mimeArr)) 
             $image_info = getimagesize($file);
-
+        
+        $this->mkDir($subFolder);
         if ($kind!='desc' && isset($image_info)) {
             $img;
             if($image_info[0]>$def_wid||$image_info[1]>$def_hei) 
@@ -29,15 +30,15 @@ trait FileControl {
             else
                 $img = file_get_contents($file);
             
-            Storage::disk('s3')->put($subFolder.$file->hashName(), $img);
+            Storage::disk('public')->put($subFolder.$file->hashName(), $img);
             
             if ($thumb) {
+                $this->mkDir($subFolder.'thumb/');
                 $img = (string)Image::make($file)->resize($thumb_wid, null, function ($constraint) {$constraint->aspectRatio();})->encode($mime);
-                Storage::disk('s3')->put($subFolder.'thumb/'.$file->hashName(), $img);
+                Storage::disk('public')->put($subFolder.'thumb/'.$file->hashName(), $img);
             }
-        } else {
-            Storage::disk('s3')->put($subFolder.$file->hashName(), file_get_contents($file));
-        }
+        } 
+        // $file->storeAs($subFolder, $file->hashName());
     }
     
     public function deleteFiles($fi_id, $type=null, $fi=null) {
@@ -49,9 +50,13 @@ trait FileControl {
         }
         
         $path = "api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}";
-        if(Storage::disk('s3')->exists("{$path}/{$fi->fi_new}"))        Storage::disk('s3')->delete("{$path}/{$fi->fi_new}");
-        if(Storage::disk('s3')->exists("{$path}/thumb/{$fi->fi_new}"))  Storage::disk('s3')->delete("{$path}/thumb/{$fi->fi_new}");
+        if(Storage::disk('public')->exists("{$path}/{$fi->fi_new}"))        Storage::disk('public')->delete("{$path}/{$fi->fi_new}");
+        if(Storage::disk('public')->exists("{$path}/thumb/{$fi->fi_new}"))  Storage::disk('public')->delete("{$path}/thumb/{$fi->fi_new}");
         if ($fi->delete()) return response()->json("success", 200);
+    }
+
+    public function mkDir($path) {
+        if(!File::isDirectory($path)) File::makeDirectory($path, 0777, true);
     }
 
     // public function imageResizeSave($file, $filePath, $width, $height) {

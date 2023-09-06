@@ -79,7 +79,7 @@ class Goods extends Model {
             if (strpos($fi->fi_new, "https://") === 0 || strpos($fi->fi_new, "http://") === 0)
                 $src = $fi->fi_new;
             else
-                $src = Storage::disk('s3')->url("api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}");
+                $src = "/storage/api_{$fi->fi_group}/{$fi->fi_room}/{$fi->fi_kind}{$th}/{$fi->fi_new}";
             $rst[] = $src;
         }
         $noimg_p = null;

@@ -171,10 +171,10 @@ export default {
 
 
 #header { background-color:#FFF; }
-/* #header #core { background:#0098FF url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/230725.gif) no-repeat center 16px; } */
+/* #header #core { background:#0098FF url(/storage/common/logo/230725.gif) no-repeat center 16px; } */
 #header #core .the_top { position:relative; display:flex; align-items:flex-end; height:6.625em; padding-bottom:.75em; }
 #header #core .the_top>* { flex-basis:0; flex-grow:1; max-width:100%; }
-/*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('https://fourscience.s3.ap-northeast-2.amazonaws.com/common/logo/logo.png'); } */
+/*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
 #header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
@@ -183,7 +183,7 @@ export default {
 
 #header #core .the_top .head_sch_box { flex:0 0 42.8%; max-width:42.8%; margin-bottom:8px; }
 #header #core .the_top .head_sch_box .head_sch { display:flex; flex-flow:row wrap; align-items:center; background-color:#1A90D6; color:#FFF; padding:3px; border-radius:26px; transition:all .3s; }
-#header #core .the_top .head_sch_box .head_sch select { width:auto; min-width:6em; border-radius:17px 0 0 17px; height:36px; padding:.3em 1.6em 0.3em 1em; font-size:.9em; border-width:0; background:#fff url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif)  no-repeat right 8px center; }
+#header #core .the_top .head_sch_box .head_sch select { width:auto; min-width:6em; border-radius:17px 0 0 17px; height:36px; padding:.3em 1.6em 0.3em 1em; font-size:.9em; border-width:0; background:#fff url(/storage/common/arrow_dn.gif)  no-repeat right 8px center; }
 #header #core .the_top .head_sch_box .head_sch input { width:auto; border:none; border-radius:0 18px 18px 0; padding: 0.4em 1em; font-size:1.2em; height:36px; margin-left:.17em; flex-grow:1; }
 #header #core .the_top .head_sch_box .head_sch input:focus { outline:0; }
 #header #core .the_top .head_sch_box .head_sch button { width:auto; padding:.2em 1em 0 .75em; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }

@@ -88,6 +88,16 @@ export default {
                 let res = await ax.post(`/api/shop/estimate`, this.frm);
                 if (res && res.status === 200) {
                     await this.$refs.fileupload.fileProcessor(res.data);
+
+                    this.$gtm.trackEvent({
+                        event: null, // Event type [default = 'interaction'] (Optional)
+                        category: 'Estimate',
+                        action: 'click',
+                        label: '견적 문의',
+                        value: 0,
+                        noninteraction: false, // Optional
+                    });
+                    
                     Notify.toast('success', '견적 요청 완료')
                     this.$router.push({name: 'my_estimate_show', params: { eq_id: res.data }});
                 } else {
@@ -102,6 +112,7 @@ export default {
         if (res && res.status === 200) {
             this.category=res.data;
         }
+        this.$gtm.trackView('견적 요청 페이지', 'https://4science.net/shop/estimate/create');
     },
 };
 </script>
@@ -121,7 +132,7 @@ export default {
 .w_fence .row .col >>> .frm_st select { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; color:#898989; }
 .w_fence .row .col >>> .frm_st input:focus,
 .w_fence .row .col >>> .frm_st select:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}
-.w_fence .row .col >>> .frm_st select { background:#F2F3F5 url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center; }
+.w_fence .row .col >>> .frm_st select { background:#F2F3F5 url(/storage/common/arrow_dn.gif) no-repeat right 8px center; }
 .w_fence .row .col >>> .frm_st .w-50 { max-width:300px; display:inline-block; margin-right:.3rem; }
 .w_fence .row .col >>> .frm_st .w-25 { max-width:150px; display:inline-block; margin-right:.3rem; }
 .w_fence .row .col >>> .frm_st table { width:100%; }

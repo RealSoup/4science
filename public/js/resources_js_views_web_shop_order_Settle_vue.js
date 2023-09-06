@@ -235,7 +235,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 0:
               _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
               if (!_this.validationChecker(_this.order)) {
-                _context.next = 37;
+                _context.next = 38;
                 break;
               }
               _context.t0 = _this.order.extra.oex_type;
@@ -264,12 +264,22 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 17:
               pay = _context.sent;
               if (!(pay && pay.status === 200)) {
-                _context.next = 36;
+                _context.next = 37;
                 break;
               }
+              _this.$gtm.trackEvent({
+                event: null,
+                // Event type [default = 'interaction'] (Optional)
+                category: 'Order',
+                action: 'click',
+                label: '상품 주문',
+                value: _this.order.price.total,
+                noninteraction: false // Optional
+              });
+
               _this.inicis = pay.data.inicis;
               if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                _context.next = 29;
+                _context.next = 30;
                 break;
               }
               frm = new FormData();
@@ -278,11 +288,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               frm.append('fi_kind', 'biz');
               frm.append('fi_room', new Date().getFullYear());
               frm.append("file[]", _this.order.extra.oex_file);
-              _context.next = 29;
+              _context.next = 30;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/upload', frm);
-            case 29:
+            case 30:
               if (!(_this.order.od_pay_method == 'C')) {
-                _context.next = 34;
+                _context.next = 35;
                 break;
               }
               _this.order.od_id = pay.data.od_id;
@@ -334,19 +344,19 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 document.body.appendChild(form);
                 form.submit();
               }
-              _context.next = 36;
+              _context.next = 37;
               break;
-            case 34:
-              _context.next = 36;
+            case 35:
+              _context.next = 37;
               return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 36:
-              _this.clickable = true;
             case 37:
+              _this.clickable = true;
+            case 38:
             case "end":
               return _context.stop();
           }
@@ -651,6 +661,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     plugin.setAttribute("src", "https://stdpay.inicis.com/stdjs/INIStdPay.js"); //  운영
     plugin.async = true;
     document.head.appendChild(plugin);
+    this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
   }
 });
 

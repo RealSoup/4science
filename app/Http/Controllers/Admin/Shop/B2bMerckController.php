@@ -18,6 +18,7 @@ class B2bMerckController extends Controller {
 			->where('odm_id', '>', 417049)
 			->whereRaw('LEFT(odm_gm_catno, 3)=?', ['40-'])
 			->whereNull('shop_b2b_merck_model.bmm_odm_id')
+			->orderBy('odm_id', 'DESC')
 			->paginate(15);
 		$data->appends($req->all())->links();
 		return response()->json($data);
@@ -280,9 +281,10 @@ class B2bMerckController extends Controller {
 
 	public function orderRst(Request $req) {
 		$data = B2bMerck::with(['b2bMerckConfirmation' => fn($q) => $q->whereNotNull('bmc_id')])
-				->whereHas('b2bMerckConfirmation', fn($q) => $q->whereNotNull('bmc_id') )
-				->with('b2bMerckModel')
-				->paginate();
+			->whereHas('b2bMerckConfirmation', fn($q) => $q->whereNotNull('bmc_id') )
+			->with('b2bMerckModel')
+			->orderBy('odm_id', 'DESC')
+			->paginate();
 		$data->appends($req->all())->links();
 		return response()->json($data);		
     }

@@ -142,6 +142,16 @@ export default {
                 let res = await ax.post(`/api/shop/estimate`, this.frm);
                 if (res && res.status === 200) {
                     await this.$refs.fileupload.fileProcessor(res.data);
+                    
+                    this.$gtm.trackEvent({
+                        event: null, // Event type [default = 'interaction'] (Optional)
+                        category: 'Estimate',
+                        action: 'click',
+                        label: '견적 문의',
+                        value: 0,
+                        noninteraction: false, // Optional
+                    });
+
                     Notify.toast('success', '견적 요청 완료')
                     this.$store.dispatch('cart/index');
                     this.$router.push({name: 'my_estimate_show', params: { eq_id: res.data }});
@@ -187,6 +197,8 @@ export default {
         this.frm.eq_email01 = eq_email[0];
         this.frm.eq_email02 = eq_email[1];
         this.frm.eq_company = Auth.user().company;
+
+        this.$gtm.trackView('견적 요청 페이지', 'https://4science.net/shop/estimate/create');
     },
 }
 </script>

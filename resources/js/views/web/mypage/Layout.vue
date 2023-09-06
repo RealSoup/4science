@@ -185,7 +185,7 @@ export default {
 
 #mypage .top .col:nth-child(2):after,
 #mypage .top .col:nth-child(3):after,
-#mypage .top .col:nth-child(4):after { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/mypage/divider.png) no-repeat 0px 0px; content:""; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px; }
+#mypage .top .col:nth-child(4):after { background:url(/storage/mypage/divider.png) no-repeat 0px 0px; content:""; display:inline-block; height:163px; width:8px; position:absolute; top:3px; right:-4px; }
 
 #mypage .top .name { flex-basis:200px; max-width:200px; background:#1A90D6; color:#FFF; text-align:center; padding:2.3rem 0 0; }
 #mypage .top .name b { font-size:1.7rem; letter-spacing:.4rem; color:#FFF; display:inline-block; margin-bottom:1.1rem; font-weight:bold; }

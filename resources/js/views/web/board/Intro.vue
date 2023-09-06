@@ -106,14 +106,14 @@ export default {
 .w_fence .row .col { padding:30px; }
 .w_fence .row .col a { position:absolute; top:14px; left:50px; width:260px; height:80px; display:inline-block; background-repeat:no-repeat; background-position:center center; z-index:1; }
 .w_fence .row .col>>>ul { border:3px solid #000; border-radius:20px; padding:50px 40px 30px; position:relative; }
-.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice.png'); }
-.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event.png'); }
-.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry.png'); }
-.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog.png'); }
-.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/notice_h.png'); }
-.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/event_h.png'); }
-.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/gd_inquiry_h.png'); }
-.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a:hover { background-image:url('https://fourscience.s3.ap-northeast-2.amazonaws.com/community/blog_h.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a { background-image:url('/storage/community/notice.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a { background-image:url('/storage/community/event.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a { background-image:url('/storage/community/gd_inquiry.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a { background-image:url('/storage/community/blog.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(1) a:hover { background-image:url('/storage/community/notice_h.png'); }
+.w_fence .row:nth-of-type(1) .col:nth-of-type(2) a:hover { background-image:url('/storage/community/event_h.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(1) a:hover { background-image:url('/storage/community/gd_inquiry_h.png'); }
+.w_fence .row:nth-of-type(2) .col:nth-of-type(2) a:hover { background-image:url('/storage/community/blog_h.png'); }
 @media (max-width: 992px){
     .w_fence .row .col { flex: 0 0 100%; max-width: 100%; padding:15px 0; }
     .w_fence .row .col a { top:0px; }

@@ -142,7 +142,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               frmData.append('fi_key', fi_key);
               fi_room = 0;
               if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
-              frmData.append('fi_room', fi_room);
+              frmData.append('fi_room', 'fi_room');
               frmData.append('fi_kind', _this2.fi_kind);
               if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
               if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);

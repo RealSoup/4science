@@ -28,14 +28,22 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   data: function data() {
     return {
-      all_focus: false
+      all_focus: false,
+      custom_focus: false
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category'])),
   methods: {
     set_focus: function set_focus(ca_id) {
+      this.custom_focus = false;
       Object.values(this.category).forEach(function (ca) {
         if (ca.ca_id == ca_id) ca.sub_show = true;else ca.sub_show = false;
+      });
+    },
+    custom_hover: function custom_hover() {
+      this.custom_focus = true;
+      Object.values(this.category).forEach(function (ca) {
+        ca.sub_show = false;
       });
     }
   }
@@ -73,7 +81,7 @@ var render = function render() {
         _vm.all_focus = false, _vm.$emit("close_cate");
       }
     }
-  }, _vm._l(_vm.category, function (ca) {
+  }, [_vm._l(_vm.category, function (ca) {
     return _c("li", {
       key: ca.ca_id,
       "class": {
@@ -107,7 +115,20 @@ var render = function render() {
         paramLink: "/" + ca.ca_id
       }
     }) : _vm._e()], 1);
-  }), 0);
+  }), _vm._v(" "), _c("li", {
+    "class": {
+      focus: _vm.custom_focus
+    },
+    on: {
+      mouseenter: _vm.custom_hover
+    }
+  }, [_c("b-link", {
+    attrs: {
+      to: {
+        name: "estimate_custom_index"
+      }
+    }
+  }, [_vm._v("주문제작")])], 1)], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;

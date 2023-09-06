@@ -66,7 +66,7 @@ export default {
             if (res && res.status === 200) {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
-                this.$router.push({ name: 'adm_goods_index' });
+                // this.$router.push({ name: 'adm_goods_index' });
             }
         },
     },

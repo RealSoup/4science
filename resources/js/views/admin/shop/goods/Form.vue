@@ -198,7 +198,7 @@
             </b-col>
             <b-col v-if="value.gd_type == 'REN'" class="rental_box col-12">
                 <b-collapse :id="`rental_box${i}`" @hide="rt_hide(model.rental)" v-model="model.rt_open">
-                    <b-row v-for="(gr, gr_i) in model.goods_rental" :key="gr.gr_id">
+                    <b-row v-for="gr in model.goods_rental" :key="gr.gr_id">
                         <b-col>
                             <b-form-checkbox switch size="lg" class="float-right" v-model="gr.gr_type" value="R" unchecked-value="T">
                                 {{gr.gr_type | gr_type}}

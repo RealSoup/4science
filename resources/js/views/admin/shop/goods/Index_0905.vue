@@ -10,7 +10,7 @@
         <sch-date v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></sch-date>
         <categorys v-model="sch_frm" />
         <b-row>
-            <b-col class="label">제조사</b-col>
+            <b-col class="label bottom_left">제조사</b-col>
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.gd_mk_id">
                     <b-form-select-option value=""></b-form-select-option>
@@ -33,26 +33,8 @@
                     <b-form-select-option v-for="opt in deleted_at" :value="opt.value" :key="opt.value">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
             </b-col>
-
-            <b-col class="label">우선순위상품</b-col>
-            <b-col class="type01">
-                <select class="custom-select custom-select-sm" v-model="sch_frm.gd_seq">
-                    <option value=""></option>
-                    <option value="Y">활성</option>
-                </select>
-            </b-col>
-
-            <b-col class="label">관리자</b-col>
-            <b-col class="type01">
-                <b-form-select v-model="sch_frm.updated_id">
-                    <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="opt in mng_off" :value="opt.id" :key="opt.id">{{ opt.name }}</b-form-select-option>
-                </b-form-select>
-            </b-col>
-        </b-row>
-
-        <b-row>
-            <b-col class="label bottom_left">검색</b-col>
+            
+            <b-col class="label">검색</b-col>
             <b-col>
                 <b-input-group>
                     <b-input-group-prepend>
@@ -60,6 +42,7 @@
                             <b-form-select-option value="gd_name">상품명</b-form-select-option>
                             <b-form-select-option value="gm_name">제품명</b-form-select-option>
                             <b-form-select-option value="gm_code">모델명</b-form-select-option>
+                            <b-form-select-option value="manager">관리자</b-form-select-option>
                             <b-form-select-option value="cat_no">Cat.No</b-form-select-option>
                         </b-form-select>
                     </b-input-group-prepend>
@@ -104,13 +87,13 @@
             </b-col>
             <b-col>
                 <div>
-                    <p v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</p>
-                    <p v-if="row.goods_category_first.gc_ca04_name">{{row.goods_category_first.gc_ca04_name}}</p>
+                    <p v-if="row.gc_ca01_name">{{row.gc_ca01_name}}</p>
+                    <p v-if="row.gc_ca02_name">{{row.gc_ca02_name}}</p>
+                    <p v-if="row.gc_ca03_name">{{row.gc_ca03_name}}</p>
+                    <p v-if="row.gc_ca04_name">{{row.gc_ca04_name}}</p>
                 </div>
             </b-col>
-            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.image_src_thumb[0]" rounded /></b-link>
+            <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><b-img :src="row.goods.image_src_thumb[0]" rounded /></b-link>
             <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.gd_id }}" class="col"><span>{{row.gd_name}}</span></b-link>
             <b-col><span>{{row.mk_name}}</span></b-col>
             <b-col>
@@ -148,7 +131,6 @@ export default {
                 gd_mk_id:'',
                 gd_enable:'',
                 deleted_at:'',
-                updated_id:'',
                 ca01:0,
                 ca02:0,
                 ca03:0,
@@ -169,21 +151,17 @@ export default {
         numCalc(i) {
             return this.list.total - (this.list.current_page - 1) * this.list.per_page - i ;
         },
-        async index(is_first) {
+        async index() {
             try {
                 if (this.sch_frm.startDate && this.sch_frm.endDate && this.sch_frm.startDate > this.sch_frm.endDate) {
                     Notify.modal('검색 시작일이 종료일보다 높을 수는 없습니다.', 'warning');
                     return false;
                 }
                 this.isLoadingModalViewed=true;
-                let pa = { params: this.queryCheck()};
-                if(is_first)
-                    pa.params.is_first=is_first;
-                const res = await ax.get(`/api/admin/shop/goods`, pa);
+                const res = await ax.get(`/api/admin/shop/goods`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
-                    if(res.data.mng_off) this.mng_off = res.data.mng_off;
-                    if(res.data.makers) this.makers = res.data.makers;
+                    this.mng_off = res.data.mng_off;
                     this.isLoadingModalViewed=false;
                 }
             } catch (e) {
@@ -193,30 +171,15 @@ export default {
         },
         routerPush(p=1){
             this.sch_frm.page = p;
-            
-            this.$router.push({name: 'adm_goods_index', query: this.queryCheck() }).catch(()=>{});
+            this.$router.push({name: 'adm_goods_index', query: this.sch_frm }).catch(()=>{});
         },
-        typeToInt() {
-            for (let i in this.sch_frm) {
-                if ( ['ca01', 'ca02', 'ca03', 'ca04'].includes(i) )
-                    this.sch_frm[i] = parseInt(this.sch_frm[i]);
-            }
-        },
-        queryCheck() {
-            this.typeToInt();
-            let nfrm = {};
-            for (let i in this.sch_frm) {
-                if ( !isEmpty(this.sch_frm[i]) )
-                    nfrm[i] = this.sch_frm[i];
-            }
-            return nfrm;
-        }
-
-
     },
     async mounted() {
         this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
-        this.index(true);
+        this.index();
+        const res = await ax.get(`/api/admin/shop/maker`, { params: {type: 'all'}});
+        if (res && res.status === 200) 
+            this.makers = res.data.list;
     },
     beforeRouteUpdate (to, from, next) {
         this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
@@ -227,11 +190,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_wrap .frm_sch .row .label + .type01 {
-    flex: 0 0 13%;
-    max-width: 13%;
-}
-
 .cmain { position:relative; min-height:30rem; }
 .cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
 .cmain .row .ctrl .btn { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem; }

@@ -92,7 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nol li h5[data-v-5c569903] { font-weight:900; font-size:1.4rem; margin-bottom:1.2rem;\n}\nol .ci div[data-v-5c569903] { background-image: url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/ci_bg.png); background-repeat: repeat; border: 2px solid #ececec; padding: 20px 0;\n}\nol li[data-v-5c569903] { line-height:30px;\n}\nol li[data-v-5c569903]:not(:last-child) { margin-bottom: 4rem;\n}\nol li i[data-v-5c569903] { display:block; color:#1A90D6; font-weight:bold;\n}\nol li img[data-v-5c569903] { width:100%;\n}\n@media (max-width: 992px){\n.w_fence .body[data-v-5c569903] {padding: 5px;}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nol li h5[data-v-5c569903] { font-weight:900; font-size:1.4rem; margin-bottom:1.2rem;\n}\nol .ci div[data-v-5c569903] { background-image: url(/storage/introduce/ci_bg.png); background-repeat: repeat; border: 2px solid #ececec; padding: 20px 0;\n}\nol li[data-v-5c569903] { line-height:30px;\n}\nol li[data-v-5c569903]:not(:last-child) { margin-bottom: 4rem;\n}\nol li i[data-v-5c569903] { display:block; color:#1A90D6; font-weight:bold;\n}\nol li img[data-v-5c569903] { width:100%;\n}\n@media (max-width: 992px){\n.w_fence .body[data-v-5c569903] {padding: 5px;}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

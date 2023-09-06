@@ -25,14 +25,11 @@ class FileGoods extends Model {
             $src = "api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/";
             $src .= ($sub) ? "{$sub}/" : '';
             $src .= $this->fi_new;
-            if($this->fi_key == 616511) 
-                $src = "/storage/{$src}";
-            else 
-                $src = Storage::disk('s3')->url($src);
+            $src = "/storage/{$src}";
         } else {
-            if ($this->fi_ext=='pdf') $src = Storage::disk('s3')->url("common/file_icon_pdf.png");
-            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = Storage::disk('s3')->url("common/file_icon_excel.png");
-            else $src = Storage::disk('s3')->url("common/file_icon_default.png");
+            if ($this->fi_ext=='pdf') $src = "/storage/common/file_icon_pdf.png";
+            else if ($this->fi_ext=='xlsx' || $this->fi_ext=='xls' || $this->fi_ext=='csv') $src = "/storage/common/file_icon_excel.png";
+            else $src = "/storage/common/file_icon_default.png";
         }
         return $src;
     }

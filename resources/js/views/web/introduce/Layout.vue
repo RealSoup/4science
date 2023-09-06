@@ -16,7 +16,7 @@ export default { name: "Introduce", }
 </script>
 
 <style lang="css" scoped>
-.w_fence { max-width:1920px; width: 100%; margin:auto; background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/bg.jpg) no-repeat center top; padding:20px 0; min-height:885px;; }
+.w_fence { max-width:1920px; width: 100%; margin:auto; background:url(/storage/introduce/bg.jpg) no-repeat center top; padding:20px 0; min-height:885px;; }
 .w_fence h3 { text-align:center; color:#FFF; font-size:3em; margin-top:3em; margin-bottom:1em; }
 .w_fence .nav { max-width:550px; margin:auto; border-width:0; }
 .w_fence .nav li a { color:#FFF; border:1px solid #FFF; margin:0 9px; border-radius:8px; font-size:1.1em;  }

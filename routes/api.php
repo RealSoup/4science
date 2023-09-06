@@ -266,9 +266,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     /*  <<<<<<<<<<<<<<<<<<<<<<      공통        >>>>>>>>>>>>>>>>>>>>>>>*/
     Route::post('upload', 'CommonController@upload');
-    Route::post('uploadSimple', 'CommonController@uploadSimple')->name('uploadSimple');
-    
-    // Route::get('downloadGoods/{fi_id}', 'CommonController@downloadGoods');
+    Route::post('uploadSimple', 'CommonController@uploadSimple')->name('uploadSimple');   
 });
 
 

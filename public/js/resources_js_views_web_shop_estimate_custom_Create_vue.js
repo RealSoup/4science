@@ -142,7 +142,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               frmData.append('fi_key', fi_key);
               fi_room = 0;
               if (_this2.fi_group == 'goods') fi_room = parseInt(fi_key / 1000) + 1;else fi_room = new Date().getFullYear();
-              frmData.append('fi_room', fi_room);
+              frmData.append('fi_room', 'fi_room');
               frmData.append('fi_kind', _this2.fi_kind);
               if (!isEmpty(_this2.is_thumb)) frmData.append('is_thumb', _this2.is_thumb);
               if (!isEmpty(_this2.seqUpdate)) frmData.append('is_change_seq', _this2.seqUpdate);
@@ -372,7 +372,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (!_this.$refs.custom_sub.checkValidation()) {
-                _context.next = 13;
+                _context.next = 14;
                 break;
               }
               _this.frm = Object.assign({},
@@ -393,12 +393,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 4:
               res = _context.sent;
               if (!(res && res.status === 200)) {
-                _context.next = 12;
+                _context.next = 13;
                 break;
               }
               _context.next = 8;
               return _this.$refs.fileupload.fileProcessor(res.data);
             case 8:
+              _this.$gtm.trackEvent({
+                event: null,
+                // Event type [default = 'interaction'] (Optional)
+                category: 'Estimate',
+                action: 'click',
+                label: '견적 문의',
+                value: 0,
+                noninteraction: false // Optional
+              });
+
               Notify.toast('success', '견적 요청 완료');
               _this.$router.push({
                 name: 'my_estimate_show',
@@ -406,11 +416,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   eq_id: res.data
                 }
               });
-              _context.next = 13;
+              _context.next = 14;
               break;
-            case 12:
-              Notify.toast('warning', res);
             case 13:
+              Notify.toast('warning', res);
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -435,7 +445,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (res && res.status === 200) {
               _this2.category = res.data;
             }
-          case 4:
+            _this2.$gtm.trackView('견적 요청 페이지', 'https://4science.net/shop/estimate/create');
+          case 5:
           case "end":
             return _context2.stop();
         }
@@ -644,7 +655,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3 b[data-v-6798eebc] { background-color:#ED1E26; color:#fff; border-radius:20px; padding:5px 15px; font-size:1.3rem; margin-right:.5rem;\n}\n.w_fence ul[data-v-6798eebc] { margin-bottom:3rem;\n}\n.w_fence ul li b[data-v-6798eebc] { color:#4e99c5; text-decoration:underline;\n}\n.w_fence>.row>.col[data-v-6798eebc] { padding:0;\n}\n.w_fence>.row>.col[data-v-6798eebc]:first-child { flex: 0 0 58%; max-width: 58%; margin-right:3%;\n}\n.w_fence .row .inquiry .row[data-v-6798eebc] { margin-left:0; margin-right:0;\n}\n.w_fence .row .inquiry .row .label_st[data-v-6798eebc] { font-size:.9rem;\n}\n.frm_st .row .col textarea[data-v-6798eebc] { border:2px solid #D7D7D7; background-color:#FFF;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st th b { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st input,\r\n.w_fence .row .col[data-v-6798eebc] .frm_st select { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; color:#898989;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st input:focus,\r\n.w_fence .row .col[data-v-6798eebc] .frm_st select:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}\n.w_fence .row .col[data-v-6798eebc] .frm_st select { background:#F2F3F5 url(https://fourscience.s3.ap-northeast-2.amazonaws.com/common/arrow_dn.gif) no-repeat right 8px center;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st .w-50 { max-width:300px; display:inline-block; margin-right:.3rem;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st .w-25 { max-width:150px; display:inline-block; margin-right:.3rem;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table { width:100%;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr th { font-size:.9rem; width:180px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td { padding:9px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table { width:100%;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr { border-bottom:1px solid #9DDEFF;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr th { background-color:#C6EAFF; text-align:center;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr td { /*background-color:#EDFAFF;*/\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td em { color:#FF0000; font-size:.8rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence h3 b[data-v-6798eebc] { background-color:#ED1E26; color:#fff; border-radius:20px; padding:5px 15px; font-size:1.3rem; margin-right:.5rem;\n}\n.w_fence ul[data-v-6798eebc] { margin-bottom:3rem;\n}\n.w_fence ul li b[data-v-6798eebc] { color:#4e99c5; text-decoration:underline;\n}\n.w_fence>.row>.col[data-v-6798eebc] { padding:0;\n}\n.w_fence>.row>.col[data-v-6798eebc]:first-child { flex: 0 0 58%; max-width: 58%; margin-right:3%;\n}\n.w_fence .row .inquiry .row[data-v-6798eebc] { margin-left:0; margin-right:0;\n}\n.w_fence .row .inquiry .row .label_st[data-v-6798eebc] { font-size:.9rem;\n}\n.frm_st .row .col textarea[data-v-6798eebc] { border:2px solid #D7D7D7; background-color:#FFF;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st th b { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st input,\r\n.w_fence .row .col[data-v-6798eebc] .frm_st select { background:#F2F3F5; padding:2px 23px; border-width:0; font-size:.9rem; color:#898989;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st input:focus,\r\n.w_fence .row .col[data-v-6798eebc] .frm_st select:focus { background:#fff; border:2px solid #959595 !important; box-shadow:unset;}\n.w_fence .row .col[data-v-6798eebc] .frm_st select { background:#F2F3F5 url(/storage/common/arrow_dn.gif) no-repeat right 8px center;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st .w-50 { max-width:300px; display:inline-block; margin-right:.3rem;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st .w-25 { max-width:150px; display:inline-block; margin-right:.3rem;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table { width:100%;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr th { font-size:.9rem; width:180px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td { padding:9px;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table { width:100%;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr { border-bottom:1px solid #9DDEFF;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr th { background-color:#C6EAFF; text-align:center;\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td table tr td { /*background-color:#EDFAFF;*/\n}\n.w_fence .row .col[data-v-6798eebc] .frm_st table tr td em { color:#FF0000; font-size:.8rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -277,9 +277,9 @@ export default {
 .w_fence>.row>.col:last-child { display: flex; justify-content: center; flex-direction: column; } 
 .w_fence .row .row { align-items:center; }
 .w_fence .row .row:not(:last-child) { border-bottom:1px dotted #ccc; }
-.w_fence .row .col:first-child { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/year_bg.png) no-repeat 20px center; 
+.w_fence .row .col:first-child { background:url(/storage/introduce/year_bg.png) no-repeat 20px center; 
  	flex:0 0 166px; max-width:166px; height:115px; text-align:center; color:#50B947; font-size:1.9rem; font-weight:900; line-height:115px; padding-right:33px; }
-.w_fence .row .col .row .col:first-child { background:url(https://fourscience.s3.ap-northeast-2.amazonaws.com/introduce/month_bg.png) no-repeat center center; 
+.w_fence .row .col .row .col:first-child { background:url(/storage/introduce/month_bg.png) no-repeat center center; 
 	padding:0 20px 0 49px; flex:0 0 109px; max-width:109px; height:40px;line-height:40px; color:#000; font-size:1.1rem; font-weight:bold; margin: 10px 0; }
 .w_fence .row .col .row .col ul { margin:15px 0 15px 20px; }
 .w_fence .row .col .row .col ul,

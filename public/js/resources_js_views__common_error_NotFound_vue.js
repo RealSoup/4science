@@ -38,7 +38,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("div", [_c("img", {
     attrs: {
-      src: "https://fourscience.s3.ap-northeast-2.amazonaws.com/common/not_found.gif"
+      src: "/storage/common/not_found.gif"
     }
   })]);
 }];

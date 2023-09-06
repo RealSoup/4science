@@ -46,7 +46,7 @@ class CommonController extends Controller {
         $file = $req->file;
         if($file) {
             $this->file_upload($file, "api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/", $req->is_thumb);
-            $url = Storage::disk('s3')->url("api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}");
+            $url = "/storage/api_{$req->fi_group}/{$req->fi_room}/{$req->fi_kind}/{$file->hashName()}";
             return response()->json(['location'=>$url], 200);
         }
            
@@ -82,8 +82,7 @@ class CommonController extends Controller {
     //     return response()->json(['path'=>storage_path('app/public/'. $fi->fi_room. '/'. $fi->fi_new), 'name'=>$fi->fi_original], 200);
     // }
     public function download(Request $req) {
-        return Storage::disk('s3')->download( $req->path );
-        // return response()->download(Storage::disk('s3')->get($req->path), $req->ori_name);
+        return response()->download(public_path('storage/'.$req->path));
     }
 
     public function downloadGoods($fi_id) {
