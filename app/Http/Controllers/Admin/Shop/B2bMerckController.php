@@ -12,10 +12,10 @@ class B2bMerckController extends Controller {
 	// protected $B2b_url = "https://apiqws.sigmaaldrich.com/B2B/handler";	// Test
 	protected $B2b_url = "https://api.sigmaaldrich.com/B2B/handler";
     public function order(Request $req) {
-        $data = OrderModel::with('order')
+        $data = OrderModel::join('shop_order', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->leftJoin('shop_b2b_merck_model', 'shop_order_model.odm_id', '=', 'shop_b2b_merck_model.bmm_odm_id')
-			// ->where('odm_id', '>', 427049)
-			->where('odm_id', '>', 417049)
+			->where('od_id', '>', 210783)
+			->whereBetween('od_step', ["10", "30"])	//	주문접수 ~ 제품준비중
 			->whereRaw('LEFT(odm_gm_catno, 3)=?', ['40-'])
 			->whereNull('shop_b2b_merck_model.bmm_odm_id')
 			->orderBy('odm_id', 'DESC')
@@ -283,7 +283,7 @@ class B2bMerckController extends Controller {
 		$data = B2bMerck::with(['b2bMerckConfirmation' => fn($q) => $q->whereNotNull('bmc_id')])
 			->whereHas('b2bMerckConfirmation', fn($q) => $q->whereNotNull('bmc_id') )
 			->with('b2bMerckModel')
-			->orderBy('odm_id', 'DESC')
+			->orderBy('bm_id', 'DESC')
 			->paginate();
 		$data->appends($req->all())->links();
 		return response()->json($data);		
@@ -292,8 +292,10 @@ class B2bMerckController extends Controller {
 
 	public function OrderConfirmation(Request $req) { //	머크에 발주를 넣으면 얼마뒤 주문 확인서를 xml롤 보내준다
 		$xml = file_get_contents("php://input");
-		$xml_array = simplexml_load_string($xml);
-		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 'bmc_data' => $xml ]);
+		$xml_obj = simplexml_load_string($xml);	// 객체형으로 들어온다
+		$xml_arr = json_decode( json_encode($xml_obj) , 1);	//  골뱅이로된 객체이름 접근이 안되서 배열로 변경
+		$bmc_orderid = $xml_arr['Request']['ConfirmationRequest']['OrderReference']['@attributes']['orderID'];
+		$bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 'bmc_orderid'	=> $bmc_orderid, 'bmc_data' => $xml ]);
 
 		// simplexml_load_string(file_get_contents("php://input"))
 		// $bmm_id = DB::table('shop_b2b_merck_confirmation')->insertGetId([ 

@@ -71,7 +71,7 @@ export default {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
                 Notify.toast('success', '수정 완료')
-                // window.location.reload(true);
+                window.location.reload(true);
             }
         },
         async destroy(){

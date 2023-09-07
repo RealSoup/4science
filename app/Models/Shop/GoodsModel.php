@@ -23,9 +23,9 @@ class GoodsModel extends Model {
         if ( count($gm_id) > 1) return $query->whereIn('gm_id', $gm_id);
         else return $query->where('gm_id', $gm_id);
     }
-    public function scopeName($query, $name) { return $query->where('gm_name', 'like', "%" . $name . "%"); }
-    public function scopeCode($query, $code) { return $query->where('gm_code', 'like', "%" . $code . "%"); }
-    public function scopeSpec($query, $spec) { return $query->where('gm_spec', 'like', "%" . $spec . "%"); }
+    public function scopeName($query, $name) { return $query->where('gm_name', 'like', "{$name}%"); }
+    public function scopeCode($query, $code) { return $query->where('gm_code', 'like', "{$code}%"); }
+    public function scopeSpec($query, $spec) { return $query->where('gm_spec', 'like', "{$spec}%"); }
     public function scopeEnable($query) { return $query->where('gm_enable', 'Y'); }
     public function scopeCatno01($query, $id) { return $query->where('gm_catno01', $id); }
     public function scopePrime($q) { return $q->where('gm_prime', 'Y'); }

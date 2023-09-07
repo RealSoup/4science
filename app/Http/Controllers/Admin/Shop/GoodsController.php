@@ -35,7 +35,7 @@ class GoodsController extends Controller {
         $this->bd = $bd;
     }
 
-    public function index (Request $req) {       
+    public function index (Request $req) {
         /*
             스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
             페이지를 위해 검색된 count 재설정
@@ -266,6 +266,15 @@ class GoodsController extends Controller {
                     }
                 }
             }
+        }
+
+        if(env('SPHINX_INDEXER_SWITCH')) {
+            //  상품 추가후 검색엔진에 등록하기 위해
+            //  검색엔진 인덱스 생성을 새롭게 한다.
+            $output=null;
+            $retval=null;
+            exec(env('SPHINX_INDEXER'), $output, $retval);
+            // dump($output);
         }
 
         if ($rst)

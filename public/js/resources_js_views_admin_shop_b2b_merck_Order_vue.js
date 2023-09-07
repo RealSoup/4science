@@ -22,6 +22,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     'model-sch-input': function modelSchInput() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_b2b_merck__comp_ModelSchInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/ModelSchInput */ "./resources/js/views/admin/shop/b2b_merck/_comp/ModelSchInput.vue"));
+    },
+    'modal': function modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
     }
   },
   data: function data() {
@@ -42,7 +45,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         street: '',
         detail: ''
       },
-      sch_frm: {}
+      sch_frm: {},
+      isModalViewed: false,
+      extra_gd: {
+        b2b_chk: true,
+        odm_id: null,
+        odm_gm_id: null,
+        odm_gm_name: '',
+        odm_gm_code: '',
+        odm_gm_spec: null,
+        odm_gm_unit: '',
+        odm_price: 0,
+        odm_ea: 0,
+        odm_mk_name: null,
+        req_order: null
+      }
     };
   },
   methods: {
@@ -239,19 +256,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     addModel: function addModel(m) {
-      this.list.data.unshift({
-        "b2b_chk": true,
-        "odm_id": 0,
-        "odm_gm_id": m.gm_id,
-        "odm_gm_name": m.gm_name,
-        "odm_gm_code": m.gm_code,
-        "odm_gm_unit": m.gm_unit,
-        "odm_price": m.gm_price,
-        "odm_gm_spec": m.gm_spec,
-        "odm_ea": 1,
-        "odm_mk_name": m.goods.maker.mk_name,
-        "req_order": null
-      });
+      this.list.data.unshift(extra_gd);
     },
     routerPush: function routerPush() {
       this.$router.push({
@@ -265,6 +270,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     frm_formatHp: function frm_formatHp(v) {
       return this.formatHp(v);
+    },
+    extra_goods: function extra_goods() {
+      this.list.data.unshift(this.extra_gd);
+      this.isModalViewed = false;
     }
   },
   mounted: function mounted() {
@@ -312,7 +321,17 @@ var render = function render() {
     on: {
       click: _vm.order
     }
-  }, [_vm._v("선택 발주")])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("선택 발주")]), _vm._v(" "), _c("b-button", {
+    attrs: {
+      variant: "dark",
+      size: "sm"
+    },
+    on: {
+      click: function click($event) {
+        _vm.isModalViewed = !_vm.isModalViewed;
+      }
+    }
+  }, [_vm._v("임의 상품 추가")])], 1), _vm._v(" "), _c("b-col", {
     staticClass: "addModel",
     attrs: {
       col: "",
@@ -689,7 +708,96 @@ var render = function render() {
       slot: "next-nav"
     },
     slot: "next-nav"
-  }, [_c("b-icon-chevron-right")], 1)])], 2);
+  }, [_c("b-icon-chevron-right")], 1)]), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "modal"
+    }
+  }, [_vm.isModalViewed ? _c("modal", {
+    attrs: {
+      max_width: 1100
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isModalViewed = false;
+      }
+    }
+  }, [_c("template", {
+    slot: "header"
+  }, [_vm._v("임의상품추가")]), _vm._v(" "), _c("b-row", {
+    staticClass: "list body"
+  }, [_c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "제품명"
+    },
+    model: {
+      value: _vm.extra_gd.odm_gm_name,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extra_gd, "odm_gm_name", $$v);
+      },
+      expression: "extra_gd.odm_gm_name"
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "모델명"
+    },
+    model: {
+      value: _vm.extra_gd.odm_gm_code,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extra_gd, "odm_gm_code", $$v);
+      },
+      expression: "extra_gd.odm_gm_code"
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "판매단위"
+    },
+    model: {
+      value: _vm.extra_gd.odm_gm_unit,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extra_gd, "odm_gm_unit", $$v);
+      },
+      expression: "extra_gd.odm_gm_unit"
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "가격"
+    },
+    model: {
+      value: _vm.extra_gd.odm_price,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extra_gd, "odm_price", $$v);
+      },
+      expression: "extra_gd.odm_price"
+    }
+  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "수량"
+    },
+    model: {
+      value: _vm.extra_gd.odm_ea,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extra_gd, "odm_ea", $$v);
+      },
+      expression: "extra_gd.odm_ea"
+    }
+  })], 1)], 1), _vm._v(" "), _c("div", {
+    style: {
+      textAlign: "right"
+    }
+  }, [_c("b-button", {
+    attrs: {
+      variant: "primary",
+      size: "sm"
+    },
+    on: {
+      click: _vm.extra_goods
+    }
+  }, [_vm._v("상품추가")])], 1)], 2) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -713,7 +821,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top[data-v-d2573ecc] {  padding:5px 0;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top[data-v-d2573ecc] {  padding:5px 0;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding:5px 15px; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,6 +1,8 @@
 <template>
 <b-container class="p_wrap">
     <h3 class="p_tit">상품 생성</h3>
+    
+    <loading-modal v-if="isLoadingModalViewed">Loading ......</loading-modal>
     <b-card no-body class="mb-2 sticky-top p-2">
         <b-container>
             <b-row>
@@ -30,10 +32,12 @@ export default {
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     
     data() {
         return {
+            isLoadingModalViewed: false,
             makers: [],
             purchaseAt: [],
             frm: {
@@ -62,11 +66,15 @@ export default {
         },
         async write() {
             await this.$refs.form.$refs.tinymce_editor.editor.uploadImages();
+            this.isLoadingModalViewed=true;
             let res = await ax.post(`/api/admin/shop/goods`, this.frm);
             if (res && res.status === 200) {
                 await this.$refs.form.$refs.fileupload1.fileProcessor(res.data);
                 await this.$refs.form.$refs.fileupload2.fileProcessor(res.data);
-                // this.$router.push({ name: 'adm_goods_index' });
+                this.isLoadingModalViewed=false;
+                this.$router.push({ name: 'adm_goods_index' });
+            } else {
+                this.isLoadingModalViewed=false;
             }
         },
     },

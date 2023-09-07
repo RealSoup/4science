@@ -3,7 +3,10 @@
     <h3>Merck Order List</h3>
     
     <b-row class="top">
-        <b-col col sm="12" md="6"><b-button variant="primary" size="sm" @click="order">선택 발주</b-button></b-col>
+        <b-col col sm="12" md="6">
+            <b-button variant="primary" size="sm" @click="order">선택 발주</b-button>
+            <b-button variant="dark" size="sm" @click="isModalViewed = !isModalViewed">임의 상품 추가</b-button>
+        </b-col>
         <b-col col sm="12" md="6" class="addModel"><model-sch-input @addModel="addModel" /></b-col>
     </b-row>
     
@@ -86,6 +89,20 @@
         <span slot="prev-nav"><b-icon-chevron-left /></span>
         <span slot="next-nav"><b-icon-chevron-right /></span>
     </pagination>
+
+    <transition name="modal">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
+            <template slot="header">임의상품추가</template>
+            <b-row class="list body">
+                <b-col><b-form-input size="sm" placeholder="제품명" v-model="extra_gd.odm_gm_name" /></b-col>
+                <b-col><b-form-input size="sm" placeholder="모델명" v-model="extra_gd.odm_gm_code" /></b-col>
+                <b-col><b-form-input size="sm" placeholder="판매단위" v-model="extra_gd.odm_gm_unit" /></b-col>
+                <b-col><b-form-input size="sm" placeholder="가격" v-model="extra_gd.odm_price" /></b-col>
+                <b-col><b-form-input size="sm" placeholder="수량" v-model="extra_gd.odm_ea" /></b-col>
+            </b-row>
+            <div :style="{textAlign:'right'}"><b-button variant="primary" size="sm" @click="extra_goods">상품추가</b-button></div>
+        </modal>
+    </transition>
 </b-container>
 </template>
 
@@ -97,6 +114,7 @@ export default {
     name: 'admShopB2bMerckOrder',
     components: {
         'model-sch-input': () => import('./_comp/ModelSchInput'),
+        'modal'     : () => import('@/views/_common/Modal'),
     },
     data() {
         return {
@@ -116,7 +134,21 @@ export default {
                 street: '',
                 detail: '',
             },
-            sch_frm: {}
+            sch_frm: {},
+            isModalViewed: false,
+            extra_gd: {
+                b2b_chk     :true,
+                odm_id      :null,
+                odm_gm_id   :null,
+                odm_gm_name :'',
+                odm_gm_code :'',
+                odm_gm_spec :null,
+                odm_gm_unit :'',
+                odm_price   :0,
+                odm_ea      :0,
+                odm_mk_name :null,
+                req_order   :null,
+            }
         };
     },
     methods: {
@@ -183,19 +215,7 @@ export default {
         },
 
         addModel(m) {
-            this.list.data.unshift({
-                "b2b_chk"       : true,
-                "odm_id"        : 0,
-                "odm_gm_id"     : m.gm_id,
-                "odm_gm_name"   : m.gm_name,
-                "odm_gm_code"   : m.gm_code,
-                "odm_gm_unit"   : m.gm_unit,
-                "odm_price"     : m.gm_price,
-                "odm_gm_spec"   : m.gm_spec,
-                "odm_ea"        : 1,
-                "odm_mk_name"   : m.goods.maker.mk_name,
-                "req_order"     : null,
-            });	
+            this.list.data.unshift(extra_gd);	
         },
 
         routerPush(){
@@ -206,6 +226,11 @@ export default {
             this.routerPush();
         },
         frm_formatHp(v)   { return this.formatHp(v); },
+
+        extra_goods() {
+            this.list.data.unshift(this.extra_gd);
+            this.isModalViewed = false;
+        }
     },
 
     mounted() {
@@ -231,7 +256,7 @@ export default {
 /*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/
 .extra>div { padding-top:5px; padding-bottom:5px; font-size:.9rem; }
 .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
-.list>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
+.list>div { padding:5px 15px; font-size:.9rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
 .row>div>span:nth-of-type(2) { float:right; }

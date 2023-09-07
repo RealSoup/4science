@@ -1,8 +1,8 @@
 <template>
 
 <aside>
-    <b-button @click="mobileMenu"><b-icon-menu-button-wide-fill /></b-button>
-    <header><b-link :to="{name: 'adm_main'}"><i><b>A</b><b-img :src="`${s3url}common/logo/admin.png`" /></i></b-link></header>
+    <b-button @click="mobileMenu" id="m_menu"><b-icon-menu-button-wide-fill /></b-button>
+    <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><img src="/storage/common/logo/admin.png" /></i></router-link></header>
 
     <section>
         <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
@@ -95,7 +95,7 @@
         </b-button>
     </section>
 
-    <footer><b-link :to="{name: 'main'}"><i><b-img :src="`${s3url}common/logo/admin_4s.png`" /></i></b-link></footer>
+    <footer><b-link :to="{name: 'main'}"><i><b-img src="/storage/common/logo/admin_4s.png" /></i></b-link></footer>
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
@@ -177,6 +177,7 @@ export default {
 </script>
 <style lang="css" scoped>
 aside { background-color:#4E647B; padding-top:10px; display:flex; flex-direction:column; position:sticky; left:0; top:0; align-self:flex-start; z-index:1021; height:100vh; }
+aside #m_menu { display:none; }
 aside header { margin-bottom:10px; }
 aside section { padding:5px 0; }
 aside>*>* { text-align:right; }
@@ -190,6 +191,7 @@ aside section p.open ~ a { max-height:35px; }
 aside section.menu_last { margin-bottom:auto; } 
 aside a { display:block; }
 aside i { padding:9px 0; color:#fff; text-align:center; display:block; font-style:normal; }
+aside i b { display:none; }
 aside section.bottom_btn { text-align:right; padding-right:7px; } 
 aside footer { margin-bottom:20px; }
 aside section .focus { background-color:#fff; }
@@ -197,6 +199,7 @@ aside section .focus i { color:#4C647C; font-weight:900; }
 @media (max-width: 1320px){ }
 @media (max-width: 992px){
     aside { position:fixed; display:block; width:42px; max-height:38px; padding:0; transition:all .05s; }
+    aside #m_menu { display:inline-block; }
     aside.open { max-height:738px; }
     aside section p:not(.solo):after { content:none; }
     aside.open i { text-align:left; overflow: hidden; width:42px; white-space:nowrap }
