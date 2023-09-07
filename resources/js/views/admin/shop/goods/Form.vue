@@ -123,7 +123,7 @@
         <b-row class="align-items-start">
             <b-col class="label">첨부 파일</b-col>
             <b-col class="type11">
-                <file-upload ref="fileupload2" v-model="value.file_goods_add" :fi_group="'goods'" :fi_kind="'add'" />
+                <file-upload ref="fileupload2" v-model="value.file_goods_add" :fi_group="'goods'" :fi_kind="'add'" :is_thumb="true" />
             </b-col>
         </b-row>
     </b-container>
