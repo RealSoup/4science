@@ -298,6 +298,7 @@ export default {
                 height: 600,
                 automatic_uploads: false,
                 images_upload_handler: this.gd_desc_images_upload,
+                convert_urls: false,
             }, 
         }
     },
