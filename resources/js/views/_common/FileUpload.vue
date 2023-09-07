@@ -86,7 +86,7 @@ export default {
             let fi_room = 0;
             if(this.fi_group == 'goods')    fi_room = parseInt(fi_key/1000)+1;
             else                            fi_room = new Date().getFullYear();
-            frmData.append('fi_room', 'fi_room');
+            frmData.append('fi_room', fi_room);
             frmData.append('fi_kind', this.fi_kind);
             
             if ( !isEmpty(this.is_thumb) )          frmData.append('is_thumb', this.is_thumb);
