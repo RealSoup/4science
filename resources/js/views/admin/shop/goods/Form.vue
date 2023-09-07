@@ -437,7 +437,7 @@ export default {
                 }
                 success(json.location);
             };
-            let fi_room = parseInt(this.value.gd_id/1000)+1;
+            let fi_room = 'Y'+new Date().getFullYear();
             let formData = new FormData();
             formData.append( 'file', blobInfo.blob(), blobInfo.filename());
             formData.append( 'fi_group', 'goods' );
