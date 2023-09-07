@@ -28,7 +28,7 @@ class FileInfo extends Model {
         }        
         return $src;
     }
-    public function getDownPathAttribute() { return "/storage/api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new"; }
+    public function getDownPathAttribute() { return "api_{$this->fi_group}/{$this->fi_room}/{$this->fi_kind}/$this->fi_new"; }
 
     public function scopeFi_group($query, string $fi_group) { return $query->where('fi_group', $fi_group); }
     public function scopeFi_key($query, int $fi_key) { return $query->where('fi_key', $fi_key); }
