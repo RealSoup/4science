@@ -272,8 +272,8 @@ class GoodsController extends Controller {
             //  상품 추가후 검색엔진에 등록하기 위해
             //  검색엔진 인덱스 생성을 새롭게 한다.
             $output=null;
-            exec(env('SPHINX_INDEXER')." 2>&1", $output);
-            dump($output);
+            exec(env('SPHINX_INDEXER'), $output);
+            // dump($output);
         }
 
         if ($rst)

@@ -38,7 +38,7 @@ trait FileControl {
                 Storage::disk('public')->put($subFolder.'thumb/'.$file->hashName(), $img);
             }
         } else {
-            $file->storeAs($subFolder, $file->hashName());
+            $file->storeAs("public/".$subFolder, $file->hashName());
         }
         // $file->storeAs($subFolder, $file->hashName());
     }
