@@ -237,7 +237,7 @@ class GoodsController extends Controller {
             $cat[2] += 1;
             $gm_impl = $this->goodsModel_paramImplant($goods->gd_id, $gm);
             $gm_catno = $cat01.$cat[0].'-'.$cat[1].'-'.substr("0".$cat[2], -2);
-            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno01'=>$gm_catno, 'gm_catno01'=>$cat01.$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
+            $gm_impl = Arr::collapse([$gm_impl, ['created_id'=>auth()->user()->id, 'gm_catno'=>$gm_catno, 'gm_catno01'=>$cat01.$cat[0], 'gm_catno02'=>$cat[1], 'gm_catno03'=>substr("0".$cat[2], -2)]]);
             $ist_gm_id = GoodsModel::insertGetId($gm_impl, 'gm_id');
 
             if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
@@ -354,7 +354,7 @@ class GoodsController extends Controller {
             } else {
                 $cat[2] += 1;
                 $gm_catno = $cat[0].'-'.$cat[1].'-'.substr("0".$cat[2], -2);
-                $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno01'=>$gm_catno, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => substr("0".$cat[2], -2) ]; 
+                $gm_impl_add = ['created_id' => auth()->user()->id, 'gm_catno'=>$gm_catno, 'gm_catno01' => $cat[0], 'gm_catno02' => $cat[1], 'gm_catno03' => substr("0".$cat[2], -2) ]; 
             }
             $gm_impl = Arr::collapse([$gm_impl, $gm_impl_add, ['ip' => $req->ip()]]);
       
