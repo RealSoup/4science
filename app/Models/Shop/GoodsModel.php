@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class GoodsModel extends Model {
     protected $primaryKey = 'gm_id';
     protected $table = 'shop_goods_model';
-    protected $fillable = ['gm_gd_id', 'gm_catno01', 'gm_catno02', 'gm_catno03', 'gm_name', 'gm_code', 'gm_spec', 'gm_unit', 'gm_enable', 'gm_price', 'gm_prime', 'created_id', 'updated_id', 'ip']; // 수정가능 필드 입력
+    protected $fillable = ['gm_gd_id', 'gm_catno', 'gm_catno01', 'gm_catno02', 'gm_catno03', 'gm_name', 'gm_code', 'gm_spec', 'gm_unit', 'gm_enable', 'gm_price', 'gm_prime', 'created_id', 'updated_id', 'ip']; // 수정가능 필드 입력
     protected $appends = ['gm_catno', 'gm_price_add_vat'];
 
     public function goods() { return $this->belongsTo(Goods::class, 'gm_gd_id'); }
