@@ -153,6 +153,12 @@ class GoodsController extends Controller {
     }
 
     public function store(SaveGoodsRequest $req) {
+        //  검색엔진 가중중인지 체크
+        if(Redis::get('is_working_index') == 'yes') {
+            return response()->json(["msg"=>"working_index"], 500);
+            exit;
+        }
+
 	   	$goods = $this->goods_paramImplant($this->goods, $req);
 		$goods->created_id = $goods->updated_id = auth()->user()->id;
 	   	$rst = $goods->save();
@@ -269,18 +275,34 @@ class GoodsController extends Controller {
             }
         }
 
-        if(env('SPHINX_INDEXER_SWITCH')) {
-            //  상품 추가후 검색엔진에 등록하기 위해
-            //  검색엔진 인덱스 생성을 새롭게 한다.
-            $output=null;
-            exec(env('SPHINX_INDEXER'), $output);
-            // dump($output);
-        }
+        //  검색엔진 갱신
+        self::exeIndex();
 
         if ($rst)
             return response()->json($goods->gd_id, 200);
         else
             return response()->json(["msg"=>"Fail"], 500);
+    }
+
+    public function exeIndex(){
+        if(env('SPHINX_INDEXER_SWITCH')) {
+            if(Redis::get('is_working_index') == 'no'){
+                //  상품 추가후 검색엔진에 등록하기 위해 검색엔진 인덱스 생성을 새롭게 한다.
+                Redis::set('is_working_index', 'yes');
+                // $output=null;
+                // exec(env('SPHINX_INDEXER'), $output);
+                sleep(65);
+
+
+                Redis::set('is_working_index', 'no');
+                return response()->json(["msg"=>"complete_working_index"], 200);
+            } elseif(Redis::get('is_working_index') == 'yes') {
+                // Redis::set('is_working_index', 'no');
+                return response()->json(["msg"=>"working_index"], 200);
+            } else {
+                return response()->json(["msg"=>"Unknown error"], 500);
+            }
+        }
     }
 
     public function update(SaveGoodsRequest $req, $gd_id) {

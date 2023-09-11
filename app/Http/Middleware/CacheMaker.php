@@ -19,16 +19,6 @@ class CacheMaker {
      * @return mixed
      */
     public function handle(Request $request, Closure $next) {
-        // $key_nm = 'update_key_site_info';
-        // $db_key = Info::Key($key_nm)->first()->val;
-        // if( $db_key !== Redis::get($key_nm) ) {
-        //     Redis::set($key_nm, $db_key);
-        //     Redis::set('site',  json_encode(Info::Key('site')->first()->val));
-        //     Redis::set('bank',  json_encode(Info::Key('bank')->first()->val));
-        //     Redis::set('biz',  json_encode(Info::Key('biz')->first()->val));
-        // }
-
-        // Cache::forget("site");
         Cache::rememberForever("site", fn() => json_decode(Info::Key('site')->first()->val, true) );
         Cache::rememberForever("bank", fn() => json_decode(Info::Key('bank')->first()->val, true) );
         Cache::rememberForever("biz", fn() => json_decode(Info::Key('biz')->first()->val, true) );
@@ -96,9 +86,10 @@ class CacheMaker {
             Redis::set('best_cate', json_encode($data));
         }
 
-
+        //  검색엔진 인덱스 작업을 관리한 메모리캐쉬 키생성
+        if( !Redis::get('is_working_index') )
+            Redis::set('is_working_index', 'no');
+        
         return $next($request);
-        // \Auth::logout();
-        // return response()->json(['message' => 'Sever(Exception):로그인이 필요한 서비스입니다.'], 401);
     }
 }

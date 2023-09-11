@@ -80,19 +80,30 @@
         <b-link :class="{focus:$route.name=='adm_b2b_merck_invoice'}"      :to="{name: 'adm_b2b_merck_invoice'}"><i>e-Invoice</i></b-link>
     </section>
 
-    <section class="bottom_btn">
-        <b-button class="blink white sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqOrder'" v-if="reqOrder.length"> 
-            주문 ({{reqOrder.length}})
-        </b-button>
-        <b-button class="blink gray sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqEstimate'" v-if="reqEstimate.length"> 
-            견적 ({{reqEstimate.length}})
-        </b-button>
-        <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'" v-if="reqVoucher.length"> 
-            <b-icon-gift /> ({{reqVoucher.length}})
-        </b-button>
-        <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'" v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length">
-            <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
-        </b-button>
+    
+    
+    
+    <section class="bottom">
+        <article class="super">
+            <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 검색어 재구성'" v-if="user.level == 29">
+                <b-icon-arrow-clockwise />
+            </b-button>
+        </article>
+
+        <article class="alarm">
+            <b-button class="blink white sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqOrder'" v-if="reqOrder.length"> 
+                주문 ({{reqOrder.length}})
+            </b-button>
+            <b-button class="blink gray sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqEstimate'" v-if="reqEstimate.length"> 
+                견적 ({{reqEstimate.length}})
+            </b-button>
+            <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'" v-if="reqVoucher.length"> 
+                <b-icon-gift /> ({{reqVoucher.length}})
+            </b-button>
+            <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'" v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length">
+                <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
+            </b-button>
+        </article>        
     </section>
 
     <footer><b-link :to="{name: 'main'}"><i><b-img src="/storage/common/logo/admin_4s.png" /></i></b-link></footer>
@@ -162,6 +173,13 @@ export default {
         mobileMenu(){
             document.querySelector('.lefter').classList.toggle('open');
         },
+
+        exeIndex(){
+            let res = ax.get(`api/admin/shop/goods/exeIndex`);
+            if (res && res.status === 200) {
+                console.log(res.data.msg);
+            }
+        },
     },
 
     async mounted(){
@@ -192,7 +210,8 @@ aside section.menu_last { margin-bottom:auto; }
 aside a { display:block; }
 aside i { padding:9px 0; color:#fff; text-align:center; display:block; font-style:normal; }
 aside i b { display:none; }
-aside section.bottom_btn { text-align:right; padding-right:7px; } 
+aside section.bottom { padding-right:7px; }
+aside section.bottom article { text-align:right; margin-bottom:7px; }
 aside footer { margin-bottom:20px; }
 aside section .focus { background-color:#fff; }
 aside section .focus i { color:#4C647C; font-weight:900; }

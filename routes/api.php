@@ -154,6 +154,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::GET('getModel', 'Admin\Shop\GoodsController@getModel');
                     Route::POST('fileUpload', 'Admin\Shop\GoodsController@fileUpload');
                     Route::GET('getGoodsList', 'Admin\Shop\GoodsController@getGoodsList');
+                    Route::GET('exeIndex', 'Admin\Shop\GoodsController@exeIndex');
                 });
                 Route::resource('goods', 'Admin\Shop\GoodsController');
                 
@@ -262,6 +263,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         
         Route::post('download', 'CommonController@download');
         Route::get('deleteFiles/{fi_id?}', 'CommonController@deleteFiles');
+        
     });
 
     /*  <<<<<<<<<<<<<<<<<<<<<<      공통        >>>>>>>>>>>>>>>>>>>>>>>*/
