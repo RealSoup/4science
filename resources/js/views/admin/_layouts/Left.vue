@@ -85,9 +85,12 @@
     
     <section class="bottom">
         <article class="super">
-            <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 검색어 재구성'" v-if="user.level == 29">
-                <b-icon-arrow-clockwise />
-            </b-button>
+            <template v-if="user.level == 29">
+                <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 검색어 재구성'" v-if="!is_indexing">
+                    <b-icon-arrow-clockwise />
+                </b-button>
+                <b-button class="gray sm" v-else>검색엔진 검색어 재구성 중~~~!!!</b-button>
+            </template>
         </article>
 
         <article class="alarm">
@@ -147,6 +150,7 @@ export default {
                 inquiry:[],
             },
             reqVoucher   : [],
+            is_indexing : false,
         }
     },
 
@@ -174,10 +178,17 @@ export default {
             document.querySelector('.lefter').classList.toggle('open');
         },
 
-        exeIndex(){
-            let res = ax.get(`api/admin/shop/goods/exeIndex`);
+        async exeIndex(){
+            this.is_indexing = true;
+            let res = await ax.get(`admin/shop/goods/exeIndex`);
             if (res && res.status === 200) {
-                console.log(res.data.msg);
+                this.is_indexing = false;
+                
+                if (res.data.msg == 'complete_working_index'){
+                    Notify.modal('검색어 등록이 끝났습니다.', 'success');
+                } else if (res.data.msg == 'working_index'){
+                    Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
+                }
             }
         },
     },

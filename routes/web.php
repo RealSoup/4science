@@ -103,6 +103,8 @@ Route::POST('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckContr
 Route::POST('/admin/shop/b2b_merck/Invoice', 'Admin\Shop\B2bMerckController@Invoice');
 Route::POST('/admin/shop/b2b_merck/Asn', 'Admin\Shop\B2bMerckController@Asn');
 
+Route::GET('/admin/shop/goods/exeIndex', 'Admin\Shop\GoodsController@exeIndex');
+
 
 // Route::post('email/resend', function (Request $request) {
 //     dd(auth()->user()->sendEmailVerificationNotification());

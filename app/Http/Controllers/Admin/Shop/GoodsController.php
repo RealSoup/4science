@@ -291,7 +291,7 @@ class GoodsController extends Controller {
                 Redis::set('is_working_index', 'yes');
                 // $output=null;
                 // exec(env('SPHINX_INDEXER'), $output);
-                sleep(65);
+                sleep(25);
 
 
                 Redis::set('is_working_index', 'no');
