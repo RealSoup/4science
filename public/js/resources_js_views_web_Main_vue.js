@@ -208,6 +208,14 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
+      to: "/shop/goods/616503"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": _vm.s3url + "event/2023/0911/slide.jpg"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/goods/925"
     }
   }, [_c("b-carousel-slide", {

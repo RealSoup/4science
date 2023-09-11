@@ -176,8 +176,8 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <a href="https://4science.net/shop/goods/925" target='_blank'>
-                <img src="{{ asset('storage/event/2023/0816/estimate.jpg') }}" />
+            <a href="https://4science.net/shop/goods/616503" target='_blank'>
+                <img src="{{ asset('storage/event/2023/0911/estimate.jpg') }}" />
             </a>
         </td>
     </tr>
