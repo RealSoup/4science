@@ -289,18 +289,16 @@ class GoodsController extends Controller {
             if(Redis::get('is_working_index') == 'no'){
                 //  상품 추가후 검색엔진에 등록하기 위해 검색엔진 인덱스 생성을 새롭게 한다.
                 Redis::set('is_working_index', 'yes');
-                // $output=null;
-                // exec(env('SPHINX_INDEXER'), $output);
-                sleep(25);
-
-
+                $output=null;
+                exec(env('SPHINX_INDEXER'), $output);
+                // sleep(25);
                 Redis::set('is_working_index', 'no');
                 return response()->json(["msg"=>"complete_working_index"], 200);
             } elseif(Redis::get('is_working_index') == 'yes') {
                 // Redis::set('is_working_index', 'no');
                 return response()->json(["msg"=>"working_index"], 200);
             } else {
-                return response()->json(["msg"=>"Unknown error"], 500);
+                return response()->json(["msg"=>"Unknown error"], 200);
             }
         }
     }
