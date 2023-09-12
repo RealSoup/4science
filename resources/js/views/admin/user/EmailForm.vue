@@ -7,7 +7,8 @@
     <b-row>
         <b-col>내용</b-col>
         <b-col>
-            <vue2-tinymce-editor v-model="value.body" ref="tinymce_editor" :options="TinymceOpt" />
+            <textarea v-model="value.body" rows="20" required></textarea>
+            <!-- <vue2-tinymce-editor v-model="value.body" ref="tinymce_editor" :options="TinymceOpt" /> -->
         </b-col>
     </b-row>
 </div>
@@ -15,19 +16,19 @@
 
 <script>
 import ax from '@/api/http';
-import { Vue2TinymceEditor } from "vue2-tinymce-editor";
+// import { Vue2TinymceEditor } from "vue2-tinymce-editor";
 
 export default {
     name: 'AdmUserEmailForm',
-    components: {Vue2TinymceEditor, },
+    // components: {Vue2TinymceEditor, },
     props: ['value'],
     data() { 
         return { 
-            TinymceOpt: {
-                height: 600,
-                automatic_uploads: false,
-                images_upload_handler: this.gd_desc_images_upload,
-            }, 
+            // TinymceOpt: {
+            //     height: 600,
+            //     automatic_uploads: false,
+            //     images_upload_handler: this.gd_desc_images_upload,
+            // }, 
         }; 
     },
     
