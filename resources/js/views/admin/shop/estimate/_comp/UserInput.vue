@@ -81,4 +81,7 @@ export default {
 
 <style scoped>
 .cell { width:60%; }
+@media (max-width: 992px){ 
+.cell { width:100%; }
+}
 </style>

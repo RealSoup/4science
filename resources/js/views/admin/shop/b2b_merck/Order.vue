@@ -63,10 +63,10 @@
         <b-col>
             <span>
                 <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="chkChange(i)">
-                    {{row.odm_od_id}}
+                    {{row.odm_od_id}}({{row.od_no}})
                 </b-form-checkbox>
             </span>
-            <span>{{row.odm_gm_name}}</span>
+            <span><b-button :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}" class="xm">{{row.odm_gm_name}}</b-button></span>
         </b-col>
 
         <b-col>
@@ -81,7 +81,7 @@
         
         <b-col>
             <span class="req_order_box"><b-form-textarea v-model="row.req_order" placeholder="주문시 요청사항 입력" class="req_order" /></span>
-            <span><b-button size="sm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button></span>
+            <span><b-button class="xm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button></span>
         </b-col>
     </b-row>
 
@@ -97,8 +97,14 @@
                 <b-col><b-form-input size="sm" placeholder="제품명" v-model="extra_gd.odm_gm_name" /></b-col>
                 <b-col><b-form-input size="sm" placeholder="모델명" v-model="extra_gd.odm_gm_code" /></b-col>
                 <b-col><b-form-input size="sm" placeholder="판매단위" v-model="extra_gd.odm_gm_unit" /></b-col>
-                <b-col><b-form-input size="sm" placeholder="가격" v-model="extra_gd.odm_price" /></b-col>
-                <b-col><b-form-input size="sm" placeholder="수량" v-model="extra_gd.odm_ea" /></b-col>
+                <b-col class="awesome_p">
+                    <b-form-input size="sm" v-model="extra_gd.odm_price" required />
+                    <label for="odm_price">가격</label>
+                </b-col>
+                <b-col class="awesome_p">
+                    <b-form-input size="sm" v-model="extra_gd.odm_ea" required />
+                    <label for="odm_ea">수량</label>
+                </b-col>
             </b-row>
             <div :style="{textAlign:'right'}"><b-button variant="primary" size="sm" @click="extra_goods">상품추가</b-button></div>
         </modal>
@@ -167,13 +173,13 @@ export default {
 
         chkChange (i) {
             if(this.list.data[i].b2b_chk) {
-                this.extra.part   = this.list.data[i].order.od_part;
-                this.extra.name   = this.list.data[i].order.od_receiver;
-                this.extra.hp     = this.list.data[i].order.od_receiver_hp;
-                this.extra.code   = this.list.data[i].order.od_zip;
-                this.extra.city   = this.list.data[i].order.od_addr1;
-                // this.extra.street = this.list.data[i].order.od_addr1;
-                this.extra.detail = this.list.data[i].order.od_addr2;
+                this.extra.part   = this.list.data[i].od_part;
+                this.extra.name   = this.list.data[i].od_receiver;
+                this.extra.hp     = this.list.data[i].od_receiver_hp;
+                this.extra.code   = this.list.data[i].od_zip;
+                this.extra.city   = this.list.data[i].od_addr1;
+                // this.extra.street = this.list.data[i].od_addr1;
+                this.extra.detail = this.list.data[i].od_addr2;
             }
         },
 

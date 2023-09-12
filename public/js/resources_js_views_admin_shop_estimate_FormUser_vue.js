@@ -41,7 +41,11 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "box est_frm"
-  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("요청자")]), _vm._v(" "), _c("b-col", [_c("user-input", {
+  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "m_hide"
+  }, [_vm._v("요청자")]), _vm._v(" "), _c("b-col", {
+    staticClass: "awesome_p"
+  }, [_c("user-input", {
     attrs: {
       type: "name",
       frm: _vm.value

@@ -5,20 +5,20 @@
     <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><img src="/storage/common/logo/admin.png" /></i></router-link></header>
 
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
         <b-link :class="{focus:$route.name.startsWith('adm_site_info')}"            :to="{name: 'adm_site_info'}"><i>정보설정</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_site_main_cate_goods')}" :to="{name: 'adm_site_main_cate_goods'}"><i>메인 카테고리별 추천 상품</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_site_main_best')}"       :to="{name: 'adm_site_main_best'}"><i>메인 Best 상품</i></b-link>
     </section>
 
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_user')}"><i><b>회</b>회원관리</i></p>
         <b-link :class="{focus:$route.name=='adm_user'||$route.name=='adm_user_edit'}" @click="strongReload('/admin/user')"><i>회원목록</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_user_email')}" :to="{name: 'adm_user_email'}"><i>회원메일발송</i></b-link>
     </section>
 
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_goods_') || $route.name.startsWith('adm_category') || $route.name.startsWith('adm_maker') || $route.name.startsWith('adm_purchaseAt')}">
             <i>상품관리</i>
         </p>
         <b-link :class="{focus:$route.name.startsWith('adm_goods_index') && isEmpty($route.query.gd_type) }"  @click="strongReload('/admin/shop/goods')"><i>상품목록</i></b-link>
@@ -29,7 +29,7 @@
     </section>
 
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_estimate') || $route.name.startsWith('adm_eng_reform')}">
             <i>견적관리</i>
         </p>
         <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
@@ -44,7 +44,7 @@
     </section>
 
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
         <b-link :class="{focus:$route.name.startsWith('adm_stats_join')}" :to="{name: 'adm_stats_join'}"><i>가입자</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_stats_order')}" :to="{name: 'adm_stats_order'}"><i>매출</i></b-link>
     </section>
@@ -60,7 +60,7 @@
         <b-nav-item :to="{name: 'adm_ledger'}" v-else active-class="active" exact>영업장부</b-nav-item>
     </template> -->    
     <section>
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_board_')}"><i>게시판</i></p>
         <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'notice'}"     @click="strongReload('/admin/board/notice')"><i>공지사항</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'event'}"      @click="strongReload('/admin/board/event')"><i>이벤트</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_board') && $route.params.bo_cd == 'review'}"     @click="strongReload('/admin/board/review')"><i>상품평</i></b-link>
@@ -72,7 +72,7 @@
     </section>
 
     <section class="menu_last">
-        <p @click="toggleClass" :class="{open:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
+        <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_b2b_merck')}"><i>Merck 발주</i></p>
         <b-link :class="{focus:$route.name=='adm_b2b_merck_order'}"        :to="{name: 'adm_b2b_merck_order'}"><i>주문 목록</i></b-link>
         <b-link :class="{focus:$route.name=='adm_b2b_merck_order_result'}" :to="{name: 'adm_b2b_merck_order_result'}"><i>발주 내역</i></b-link>
         <b-link :class="{focus:$route.name=='adm_b2b_merck_stock_result'}" :to="{name: 'adm_b2b_merck_stock_result'}"><i>재고 확인 결과</i></b-link>
@@ -162,14 +162,14 @@ export default {
         },
 
         toggleClass(e){
-            if (e.currentTarget.classList.contains('open')) {
-                e.currentTarget.classList.remove('open');
+            if (e.currentTarget.classList.contains('active')) {
+                e.currentTarget.classList.remove('active');
             } else {
-                let elements = document.querySelectorAll('.open');
+                let elements = document.querySelectorAll('.active');
                 elements.forEach((el) => {
-                    el.classList.remove('open');
+                    el.classList.remove('active');
                 });
-                e.currentTarget.classList.add('open');
+                e.currentTarget.classList.add('active');
             }
             
         },
@@ -206,7 +206,7 @@ export default {
 </script>
 <style lang="css" scoped>
 aside { background-color:#4E647B; padding-top:10px; display:flex; flex-direction:column; position:sticky; left:0; top:0; align-self:flex-start; z-index:1021; height:100vh; }
-aside #m_menu { display:none; }
+aside #m_menu { display:none; position:absolute; right:-50px; }
 aside header { margin-bottom:10px; }
 aside section { padding:5px 0; }
 aside>*>* { text-align:right; }
@@ -215,8 +215,8 @@ aside section p:not(.solo):after { content:""; position:absolute; right:24px; to
 aside section hr { margin:.3em 0; border-color:#015B7E; }
 aside section hr,
 aside section a { background-color:#8197AE; font-size:15px; transition:all .1s; overflow:hidden; max-height:0; }
-aside section p.open:after { transform:rotate(180deg); }
-aside section p.open ~ a { max-height:35px; }
+aside section p.active:after { transform:rotate(180deg); }
+aside section p.active ~ a { max-height:35px; }
 aside section.menu_last { margin-bottom:auto; } 
 aside a { display:block; }
 aside i { padding:9px 0; color:#fff; text-align:center; display:block; font-style:normal; }
@@ -228,11 +228,13 @@ aside section .focus { background-color:#fff; }
 aside section .focus i { color:#4C647C; font-weight:900; }
 @media (max-width: 1320px){ }
 @media (max-width: 992px){
-    aside { position:fixed; display:block; width:42px; max-height:38px; padding:0; transition:all .05s; }
+    aside { position:fixed; /*display:block;*/ width:10.625em;  transition:all .1s; transform:translateX(-170px); }
     aside #m_menu { display:inline-block; }
-    aside.open { max-height:738px; }
+    aside.open { transform:translateX(0px); }
+    /*
     aside section p:not(.solo):after { content:none; }
-    aside.open i { text-align:left; overflow: hidden; width:42px; white-space:nowrap }
-    aside.open i b { display:inline-block; width:42px; text-align:center; font-size:1.5em; }
+    aside.open i { text-align:left; white-space:nowrap }
+    aside.open i b { display:inline-block; text-align:center; font-size:1.5em; }
+    */
 }
 </style>

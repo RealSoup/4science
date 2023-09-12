@@ -108,34 +108,25 @@ var render = function render() {
     }), _vm._v(" "), row.eq_type == "TEMP" ? _c("span", {
       directives: [{
         name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        value: _vm.임의견적,
-        expression: "임의견적",
-        modifiers: {
-          hover: true
-        }
+        rawName: "v-b-tooltip",
+        value: "임의견적",
+        expression: "'임의견적'"
       }],
       staticClass: "badgetag yellow"
     }, [_vm._v("임")]) : row.eq_type == "REREQ" ? _c("span", {
       directives: [{
         name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        value: _vm.재견적요청,
-        expression: "재견적요청",
-        modifiers: {
-          hover: true
-        }
+        rawName: "v-b-tooltip",
+        value: "재견적요청",
+        expression: "'재견적요청'"
       }],
       staticClass: "badgetag plum"
     }, [_vm._v("재")]) : row.eq_type == "CUS" ? _c("span", {
       directives: [{
         name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        value: _vm.주문제작,
-        expression: "주문제작",
-        modifiers: {
-          hover: true
-        }
+        rawName: "v-b-tooltip",
+        value: "주문제작",
+        expression: "'주문제작'"
       }],
       staticClass: "badgetag mint"
     }, [_vm._v("주")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("div", {

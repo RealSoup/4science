@@ -20,9 +20,9 @@
             <b v-if="row.eq_title" v-html="row.eq_title" />
             <sub-string v-else v-model="row.eq_content" :width="650" />
 
-            <span class="badgetag yellow" v-b-tooltip.hover="임의견적" v-if="row.eq_type=='TEMP'">임</span>
-            <span class="badgetag plum" v-b-tooltip.hover="재견적요청" v-else-if="row.eq_type=='REREQ'">재</span>
-            <span class="badgetag mint" v-b-tooltip.hover="주문제작"  v-else-if="row.eq_type=='CUS'">주</span>
+            <span class="badgetag yellow" v-b-tooltip="'임의견적'" v-if="row.eq_type=='TEMP'">임</span>
+            <span class="badgetag plum" v-b-tooltip="'재견적요청'" v-else-if="row.eq_type=='REREQ'">재</span>
+            <span class="badgetag mint" v-b-tooltip="'주문제작'"  v-else-if="row.eq_type=='CUS'">주</span>
         </b-col>
         <b-col>
             <div class="eq_name">

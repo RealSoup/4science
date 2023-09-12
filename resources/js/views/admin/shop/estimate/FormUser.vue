@@ -2,8 +2,8 @@
 <div class="box est_frm">
     <h5>견적요청자 정보</h5>
     <b-row>
-        <b-col>요청자</b-col>
-        <b-col>
+        <b-col class="m_hide">요청자</b-col>
+        <b-col class="awesome_p">
             <user-input v-model="value.eq_name" :type="'name'" :frm="value" />
             <validation :error="$store.state.error.validations['estimate_req.eq_name']" />
         </b-col>

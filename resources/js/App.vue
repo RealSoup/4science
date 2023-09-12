@@ -99,9 +99,12 @@ html, body/*, ul, li, ol, input, img, dl, dd, dt, p, div, h1, h2, h3, h4, h5, h6
 { height:100%; margin:0px; padding:0px; font-family:'NanumSquare', Dotum; color: #333; font-size:16px; }
 /*#site.adm{ background:#FADBFB; margin-left:15px; margin-right:15px; padding-bottom:15px; width: calc(100% - 30px);}*/
 #site.adm>main { display:flex; }
-@media (max-width: 992px){ #site.adm>main { display:block; } }
 #site.adm>main .lefter { flex:0 0 170px; max-width:170px; }
-#site.adm>main .main_con { flex-basis: 0; flex-grow: 1; max-width: 100%; padding:2.5em; }
+#site.adm>main .main_con { flex-basis:0; flex-grow:1; max-width:100%; padding:2.5em; }
+@media (max-width: 992px){ 
+    #site.adm>main { display:block; } 
+    #site.adm>main .main_con { padding:.5em; }
+}
 .container, .row, .col { padding:0; }
 .row, .col { margin:0; }
 .layout { margin-left:auto; margin-right:auto; max-width:1500px !important; width:100%; position:relative; }
@@ -116,7 +119,10 @@ a, a:hover { color:#333; text-decoration:none; }
 .btn.sm { padding:.25rem .5rem !important; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
 .btn.lg { width:180px; font-weight:bold; padding:13px 0px; font-size:.95rem; border-radius:5px; }
 .btn.xl { width:440px; font-weight:900; padding:1.5em 0px; font-size:1.2em; border-radius:8px; max-width:100%; }
-    
+.f_m { padding:.25rem .5rem !important; font-size:.875rem; line-height:1.5; border-radius:.2rem; }
+@media (max-width: 992px){ 
+    .f_m { padding:.2rem .3rem !important; font-size:.75rem !important; line-height:1.3; border-radius:.2rem; }
+}    
 .white { background-color:#FFF !important;     border-color:#CCCCCC; color:#000 !important; }
 .gray { background-color:#B7B7B7 !important;   border-color:#B7B7B7; color:#FFF !important; }
 .d_gray { background-color:#4E6479 !important; border-color:#4E6479; color:#FFF !important; }

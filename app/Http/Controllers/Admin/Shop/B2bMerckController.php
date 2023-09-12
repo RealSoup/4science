@@ -14,7 +14,7 @@ class B2bMerckController extends Controller {
     public function order(Request $req) {
         $data = OrderModel::join('shop_order', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->leftJoin('shop_b2b_merck_model', 'shop_order_model.odm_id', '=', 'shop_b2b_merck_model.bmm_odm_id')
-			->where('od_id', '>', 210783)
+			->where('od_id', '>', 211767)
 			->whereBetween('od_step', ["10", "30"])	//	주문접수 ~ 제품준비중
 			->whereRaw('LEFT(odm_gm_catno, 3)=?', ['40-'])
 			->whereNull('shop_b2b_merck_model.bmm_odm_id')

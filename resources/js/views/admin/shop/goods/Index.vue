@@ -7,7 +7,7 @@
     </h3>
 
     <b-container class="frm_sch">
-        <sch-date v-model="sch_frm"><b-col slot="prev" class="label top_left">등록일</b-col></sch-date>
+        <sch-date v-model="sch_frm"><b-col slot="prev" class="label">등록일</b-col></sch-date>
         <categorys v-model="sch_frm" />
         <b-row>
             <b-col class="label">제조사</b-col>
@@ -52,8 +52,8 @@
         </b-row>
 
         <b-row>
-            <b-col class="label bottom_left">검색</b-col>
-            <b-col>
+            <b-col class="label">검색</b-col>
+            <b-col class="sch_input">
                 <b-input-group>
                     <b-input-group-prepend>
                         <b-form-select class="custom-select" v-model="sch_frm.mode">
@@ -227,11 +227,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_wrap .frm_sch .row .label + .type01 {
-    flex: 0 0 13%;
-    max-width: 13%;
-}
-
+.p_wrap .frm_sch .row .label + .type01 { flex: 0 0 13%; max-width: 13%; }
+.p_wrap .frm_sch .sch_input select { width:6.579em; }
 .cmain { position:relative; min-height:30rem; }
 .cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
 .cmain .row .ctrl .btn { background-color:#0171BB; padding:.2rem .5rem; font-size:.9rem; }

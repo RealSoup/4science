@@ -96,13 +96,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     chkChange: function chkChange(i) {
       if (this.list.data[i].b2b_chk) {
-        this.extra.part = this.list.data[i].order.od_part;
-        this.extra.name = this.list.data[i].order.od_receiver;
-        this.extra.hp = this.list.data[i].order.od_receiver_hp;
-        this.extra.code = this.list.data[i].order.od_zip;
-        this.extra.city = this.list.data[i].order.od_addr1;
-        // this.extra.street = this.list.data[i].order.od_addr1;
-        this.extra.detail = this.list.data[i].order.od_addr2;
+        this.extra.part = this.list.data[i].od_part;
+        this.extra.name = this.list.data[i].od_receiver;
+        this.extra.hp = this.list.data[i].od_receiver_hp;
+        this.extra.code = this.list.data[i].od_zip;
+        this.extra.city = this.list.data[i].od_addr1;
+        // this.extra.street = this.list.data[i].od_addr1;
+        this.extra.detail = this.list.data[i].od_addr2;
       }
     },
     order: function order() {
@@ -651,7 +651,17 @@ var render = function render() {
         },
         expression: "row.b2b_chk"
       }
-    }, [_vm._v("\r\n                    " + _vm._s(row.odm_od_id) + "\r\n                ")])], 1), _vm._v(" "), _c("span", [_vm._v(_vm._s(row.odm_gm_name))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.odm_gm_code))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(row.odm_gm_unit))])]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
+    }, [_vm._v("\r\n                    " + _vm._s(row.odm_od_id) + "(" + _vm._s(row.od_no) + ")\r\n                ")])], 1), _vm._v(" "), _c("span", [_c("b-button", {
+      staticClass: "xm",
+      attrs: {
+        to: {
+          name: "adm_order_edit",
+          params: {
+            od_id: row.od_id
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(row.odm_gm_name))])], 1)]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.odm_gm_code))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(row.odm_gm_unit))])]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
       staticClass: "odm_ea",
       attrs: {
         size: "sm"
@@ -678,9 +688,7 @@ var render = function render() {
         expression: "row.req_order"
       }
     })], 1), _vm._v(" "), _c("span", [_c("b-button", {
-      attrs: {
-        size: "sm"
-      },
+      staticClass: "xm",
       on: {
         click: function click($event) {
           return _vm.stockCheck(row.odm_gm_code, row.odm_ea);
@@ -761,10 +769,12 @@ var render = function render() {
       },
       expression: "extra_gd.odm_gm_unit"
     }
-  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+  })], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "awesome_p"
+  }, [_c("b-form-input", {
     attrs: {
       size: "sm",
-      placeholder: "가격"
+      required: ""
     },
     model: {
       value: _vm.extra_gd.odm_price,
@@ -773,10 +783,16 @@ var render = function render() {
       },
       expression: "extra_gd.odm_price"
     }
-  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "odm_price"
+    }
+  }, [_vm._v("가격")])], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "awesome_p"
+  }, [_c("b-form-input", {
     attrs: {
       size: "sm",
-      placeholder: "수량"
+      required: ""
     },
     model: {
       value: _vm.extra_gd.odm_ea,
@@ -785,7 +801,11 @@ var render = function render() {
       },
       expression: "extra_gd.odm_ea"
     }
-  })], 1)], 1), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "odm_ea"
+    }
+  }, [_vm._v("수량")])], 1)], 1), _vm._v(" "), _c("div", {
     style: {
       textAlign: "right"
     }
