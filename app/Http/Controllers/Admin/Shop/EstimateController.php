@@ -70,7 +70,10 @@ class EstimateController extends Controller {
             });
         }
 
-        $eq->when($req->eq_type, fn ($q, $v) => $q->EqType($v));
+        $eq->when($req->eq_type, function ($q, $v) {
+            if($v == 'REQ') return $q->whereIn('eq_type', ['REQ', 'REREQ', 'CUS']);
+            else            return $q->where('eq_type', $v);
+        });
         $eq->when($req->eq_step, fn ($q, $v) => $q->EqStep($v));
         $eq->when($req->eq_mng,  fn ($q, $v) => $q->EqMng($v));
         $eq->when($req->eq_env,  fn ($q, $v) => $q->where('eq_env', $v));
