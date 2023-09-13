@@ -18,13 +18,13 @@ mix.js('resources/js/app.js', 'public/js')
             host: "0.0.0.0",
             port: 8000,
         },
-        output: {
-            path: path.resolve(__dirname, 'public'),
-            publicPath: 'public',
-            filename: '[name].[chunkhash:8].js',  //이부분을 수정
+        // output: {
+            // path: path.resolve(__dirname, 'public'),
+            // publicPath: 'public',
+            // filename: '[name].[chunkhash:8].js',  //이부분을 수정
             
             // chunkFilename: '[name].js?id=[chunkhash]',
-        },
+        // },
     })
     .version();
 
