@@ -626,10 +626,10 @@ render._withStripped = true;
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -646,20 +646,29 @@ var render = function render() {
     var _em$em_id;
     return _c("b-container", {
       key: idx,
-      staticClass: "est_frm"
-    }, [_c("b-row", [_c("b-col", {
-      staticClass: "em_name_l"
-    }, [_c("b-badge", {
+      staticClass: "label_form"
+    }, [_c("b-row", [_c("b-button-group", {
+      staticClass: "model_ctrl_btn"
+    }, [_c("b-button", {
+      staticClass: "orange rubber",
+      on: {
+        click: function click($event) {
+          return _vm.emReset(idx);
+        }
+      }
+    }, [_c("b-icon-app"), _vm._v(" "), _c("b", [_vm._v("초기화")])], 1), _vm._v(" "), _c("b-button", {
+      staticClass: "plum rubber",
+      on: {
+        click: function click($event) {
+          return _vm.emDel(idx);
+        }
+      }
+    }, [_c("b-icon-x-lg"), _vm._v(" "), _c("b", [_vm._v("삭제")])], 1)], 1), _vm._v(" "), _c("b-col", [_c("label", [_c("b-badge", {
       staticClass: "no d_gray"
-    }, [_vm._v(_vm._s(idx + 1))]), _vm._v(" "), em.bundle_dc && em.bundle_dc.length ? _c("b-badge", {
-      staticClass: "bundle plum"
-    }, [_vm._v("묶"), _c("b", [_vm._v("음할인")])]) : _vm._e(), _vm._v(" "), em.goods && em.goods.purchase_at ? _c("b-badge", {
-      staticClass: "manufacturer orange"
-    }, [_vm._v("매"), _c("b", [_vm._v("입처 배송")])]) : _vm._e(), _vm._v("\r\n                제품명\r\n            ")], 1), _vm._v(" "), _c("b-col", {
-      staticClass: "em_name_i"
-    }, [_c("b-form-input", {
+    }, [_vm._v(_vm._s(idx + 1))]), _vm._v("\r\n                    제품명\r\n                ")], 1), _vm._v(" "), _c("div", [_c("b-form-input", {
       attrs: {
-        id: "estimate_model".concat(idx, "em_name")
+        id: "estimate_model".concat(idx, "em_name"),
+        size: "sm"
       },
       model: {
         value: em.em_name,
@@ -668,32 +677,33 @@ var render = function render() {
         },
         expression: "em.em_name"
       }
-    }), _vm._v(" "), _c("b-button", {
-      staticClass: "d_gray sm",
+    })], 1), _vm._v(" "), _c("validation", {
+      attrs: {
+        error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_name")]
+      }
+    })], 1), _vm._v(" "), _c("b-col", [_c("div", [_c("b-button", {
+      staticClass: "d_gray rubber",
       on: {
         click: function click($event) {
           return _vm.openOption(idx, em.em_gd_id);
         }
       }
-    }, [_vm._v("옵션")]), _vm._v(" "), _c("validation", {
+    }, [_vm._v("옵션")]), _vm._v(" "), em.em_gd_id ? _c("b-button", {
+      staticClass: "gray rubber",
       attrs: {
-        error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_name")]
-      }
-    }), _vm._v(" "), _c("b-button-group", [_c("b-button", {
-      staticClass: "orange sm",
-      on: {
-        click: function click($event) {
-          return _vm.emReset(idx);
+        target: "_blank",
+        to: {
+          name: "goods_show",
+          params: {
+            gd_id: em.em_gd_id
+          }
         }
       }
-    }, [_c("b-icon-app"), _vm._v(" "), _c("b", [_vm._v("초기화")])], 1), _vm._v(" "), _c("b-button", {
-      staticClass: "plum sm",
-      on: {
-        click: function click($event) {
-          return _vm.emDel(idx);
-        }
-      }
-    }, [_c("b-icon-x-lg"), _vm._v(" "), _c("b", [_vm._v("삭제")])], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("CAT.No")]), _vm._v(" "), _c("b-col", [_c("model-sch-input", {
+    }, [_vm._v("상품보기")]) : _vm._e(), _vm._v(" "), em.bundle_dc && em.bundle_dc.length ? _c("b-badge", {
+      staticClass: "bundle plum"
+    }, [_vm._v("묶음할인")]) : _vm._e(), _vm._v(" "), em.goods && em.goods.purchase_at ? _c("b-badge", {
+      staticClass: "manufacturer orange"
+    }, [_vm._v("매입처 배송")]) : _vm._e()], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("CAT.No")]), _vm._v(" "), _c("model-sch-input", {
       attrs: {
         type: "em_catno",
         id: "em_catno".concat(idx),
@@ -706,18 +716,7 @@ var render = function render() {
         },
         expression: "em.em_catno"
       }
-    }), _vm._v(" "), em.em_gd_id ? _c("b-button", {
-      staticClass: "gray sm",
-      attrs: {
-        to: {
-          name: "goods_show",
-          params: {
-            gd_id: em.em_gd_id
-          }
-        },
-        target: "_blank"
-      }
-    }, [_vm._v("상품보기")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_vm._v("모델명")]), _vm._v(" "), _c("b-col", [_c("model-sch-input", {
+    })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("모델명")]), _vm._v(" "), _c("model-sch-input", {
       attrs: {
         type: "em_code",
         id: "estimate_model".concat(idx, "em_code"),
@@ -734,7 +733,10 @@ var render = function render() {
       attrs: {
         error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_code")]
       }
-    })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("판매단위")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("판매단위")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+      attrs: {
+        size: "sm"
+      },
       model: {
         value: em.em_unit,
         callback: function callback($$v) {
@@ -742,7 +744,10 @@ var render = function render() {
         },
         expression: "em.em_unit"
       }
-    })], 1), _vm._v(" "), _c("b-col", [_vm._v("제조사")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("제조사")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+      attrs: {
+        size: "sm"
+      },
       model: {
         value: em.em_maker,
         callback: function callback($$v) {
@@ -750,7 +755,7 @@ var render = function render() {
         },
         expression: "em.em_maker"
       }
-    })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_c("ea-input", {
+    })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("수량")]), _vm._v(" "), _c("div", [_c("ea-input", {
       attrs: {
         id: "estimate_model".concat(idx, "em_ea"),
         em: em
@@ -762,11 +767,11 @@ var render = function render() {
         },
         expression: "em.em_ea"
       }
-    }), _vm._v(" "), _c("validation", {
+    })], 1), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_ea")]
       }
-    })], 1), _vm._v(" "), _c("b-col", [_vm._v("판매단가(" + _vm._s(_vm._f("comma")(em.em_cost_price)) + ")")]), _vm._v(" "), _c("b-col", [_c("price-input", {
+    })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("판매단가(" + _vm._s(_vm._f("comma")(em.em_cost_price)) + ")")]), _vm._v(" "), _c("div", [_c("price-input", {
       attrs: {
         id: "estimate_model".concat(idx, "em_price"),
         em: em
@@ -778,13 +783,14 @@ var render = function render() {
         },
         expression: "em.em_price"
       }
-    }), _vm._v(" "), _c("validation", {
+    })], 1), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_price")]
       }
-    })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("납품기일")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+    })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("납품기일")]), _vm._v(" "), _c("div", [_c("b-form-input", {
       attrs: {
-        id: "estimate_model".concat(idx, "em_dlvy_at")
+        id: "estimate_model".concat(idx, "em_dlvy_at"),
+        size: "sm"
       },
       model: {
         value: em.em_dlvy_at,
@@ -793,11 +799,11 @@ var render = function render() {
         },
         expression: "em.em_dlvy_at"
       }
-    }), _vm._v(" "), _c("validation", {
+    })], 1), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_dlvy_at")]
       }
-    })], 1), _vm._v(" "), _c("b-col", [_vm._v("할인율")]), _vm._v(" "), _c("b-col", [_c("dc-late-input", {
+    })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("할인율")]), _vm._v(" "), _c("div", [_c("dc-late-input", {
       staticClass: "text-right",
       attrs: {
         id: "em_dc_rate".concat(idx),
@@ -810,10 +816,13 @@ var render = function render() {
         },
         expression: "em.em_dc_rate"
       }
-    })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("제품정보")]), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
+    })], 1)]), _vm._v(" "), _c("b-col", {
+      staticClass: "w_100"
+    }, [_c("label", [_vm._v("제품정보")]), _vm._v(" "), _c("div", [_c("b-form-textarea", {
       attrs: {
         id: "estimate_model".concat(idx, "em_spec"),
-        rows: "8"
+        rows: "8",
+        size: "sm"
       },
       model: {
         value: em.em_spec,
@@ -822,7 +831,7 @@ var render = function render() {
         },
         expression: "em.em_spec"
       }
-    }), _vm._v(" "), _c("validation", {
+    })], 1), _vm._v(" "), _c("validation", {
       attrs: {
         error: _vm.$store.state.error.validations["estimate_model".concat(idx, "em_spec")]
       }
@@ -891,7 +900,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "mt-4 text-right"
   }, [_c("b-button", {
-    staticClass: "mint",
+    staticClass: "mint rubber",
     on: {
       click: _vm.emAdd
     }
@@ -1076,10 +1085,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.fade-enter-active[data-v-72b20cc9],
 
 /***/ }),
 
-/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1092,7 +1101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.est_frm:not(:first-of-type) { margin-top:4%;\n}\n.est_frm .row .col.em_name_l { position:relative;\n}\n.est_frm .row .col.em_name_l .badge { position:absolute; left:0; padding:.4em .8rem .7rem .8rem; border-radius:0 0 20px 20px; z-index:1; font-size:1.25rem; font-weight:900;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(1) { top:0;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(2) { top:40px; font-size:90%; padding-top:.7rem;\n}\n.est_frm .row .col.em_name_l .badge:nth-of-type(3) { top:77px; font-size:90%; padding-top:.7rem;}\n.est_frm .row .col.em_name_i input { width:34%; margin-right:.7rem; display:inline-block;\n}\n.est_frm .row .col.em_name_l .badge { vertical-align:top;\n}\n.est_frm .row .col.em_name_l .badge b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s;\n}\n.est_frm .row .col.em_name_l .badge:hover b { max-width:300px; height:14px;\n}\n.est_frm .row .col.em_name_i .btn-group { position:absolute; top:-34px; right:0;\n}\n.est_frm .row .col.em_name_i .btn-group .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s;\n}\n.est_frm .row .col.em_name_i .btn-group .btn:hover b { max-width:300px; height:17px;\n}\n.est_frm .row.option .col p { display:flex; margin:0; line-height:1.9;\n}\n.est_frm .row.option .col p b { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%;\n}\n.est_frm .row.option .col p span { flex:0 0 19.5%; max-width:19.5%; text-align:center;\n}\n.est_frm .row.option .col p label { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600;\n}\n.est_frm .row.option .col p label:last-of-type { flex:0 0 12%; max-width:12%;\n}\n.est_frm .row.option .col p input { flex:0 0 6%; max-width:6%; text-align:right;\n}\n.est_frm .row.option .col p input:last-of-type { flex:0 0 12%; max-width:12%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.label_form[data-v-43aeff35]:not(:first-of-type) { margin-top:5%;\n}\n.label_form .row .col label .badge[data-v-43aeff35] { position:absolute; top:0; left:0; padding:.3em .8rem .5rem .7rem; border-radius:0 0 20px 20px; z-index:1;\n}\n.label_form .row .model_ctrl_btn[data-v-43aeff35] { position:absolute; top:-34px; right:0;\n}\n.label_form .row .model_ctrl_btn .btn b[data-v-43aeff35] { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s;\n}\n.label_form .row .model_ctrl_btn .btn:hover b[data-v-43aeff35] { max-width:300px; height:17px;\n}\n.label_form .row.option .col p[data-v-43aeff35] { display:flex; margin:0; line-height:1.9;\n}\n.label_form .row.option .col p b[data-v-43aeff35] { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%;\n}\n.label_form .row.option .col p span[data-v-43aeff35] { flex:0 0 19.5%; max-width:19.5%; text-align:center;\n}\n.label_form .row.option .col p label[data-v-43aeff35] { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600;\n}\n.label_form .row.option .col p label[data-v-43aeff35]:last-of-type { flex:0 0 12%; max-width:12%;\n}\n.label_form .row.option .col p input[data-v-43aeff35] { flex:0 0 6%; max-width:6%; text-align:right;\n}\n.label_form .row.option .col p input[data-v-43aeff35]:last-of-type { flex:0 0 12%; max-width:12%;\n}\n@media (max-width: 992px){\n.label_form[data-v-43aeff35]:not(:first-of-type) { margin-top:10%;\n}\n.label_form .row .model_ctrl_btn[data-v-43aeff35] { top:-27px;\n}\n.label_form .row .col label .badge[data-v-43aeff35] { position:static; padding:.2rem .3rem; border-radius:10px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1128,10 +1137,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1140,7 +1149,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&");
 
             
 
@@ -1149,11 +1158,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -1207,9 +1216,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormGoods.vue?vue&type=template&id=43aeff35& */ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&");
+/* harmony import */ var _FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormGoods.vue?vue&type=template&id=43aeff35&scoped=true& */ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true&");
 /* harmony import */ var _FormGoods_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormGoods.vue?vue&type=script&lang=js& */ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=script&lang=js&");
-/* harmony import */ var _FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& */ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&");
+/* harmony import */ var _FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& */ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1221,11 +1230,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _FormGoods_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__.render,
-  _FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "43aeff35",
   null
   
 )
@@ -1336,18 +1345,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true& ***!
+  \*********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=template&id=43aeff35& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_template_id_43aeff35_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=template&id=43aeff35&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=template&id=43aeff35&scoped=true&");
 
 
 /***/ }),
@@ -1380,14 +1389,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& ***!
+  \***********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FormGoods_vue_vue_type_style_index_0_id_43aeff35_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/admin/shop/estimate/FormGoods.vue?vue&type=style&index=0&id=43aeff35&lang=css&scoped=true&");
 
 
 /***/ })

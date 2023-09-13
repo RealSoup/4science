@@ -61,7 +61,7 @@ var render = function render() {
       "for": "all_dc"
     }
   }, [_vm._v("일괄할인")]), _vm._v(" "), _c("b-form-input", {
-    staticClass: "f_m",
+    staticClass: "rubber",
     attrs: {
       id: "all_dc",
       type: "number",
@@ -97,21 +97,21 @@ var render = function render() {
   }, [_c("span", {
     staticClass: "point m_hide"
   }, [_vm._v("※주의 - 상품가격에 반영되지 않음")])])], 1), _vm._v(" "), _c("b-col", [_c("b-button", {
-    staticClass: "white f_m",
+    staticClass: "white rubber",
     attrs: {
       to: {
         name: "adm_estimate_index"
       }
     }
   }, [_c("b-icon-list"), _vm._v(" 목록으로")], 1), _vm._v(" "), _c("b-button", {
-    staticClass: "green f_m",
+    staticClass: "green rubber",
     on: {
       click: function click($event) {
         return _vm.save("preview");
       }
     }
   }, [_c("b-icon-file-earmark-richtext-fill"), _vm._v(" 미리보기")], 1), _vm._v(" "), _vm.clickable ? [_c("b-button", {
-    staticClass: "gray f_m",
+    staticClass: "gray rubber",
     on: {
       click: function click($event) {
         return _vm.save("store");
@@ -122,7 +122,7 @@ var render = function render() {
       icon: "save"
     }
   }), _vm._v(" 임시저장")], 1), _vm._v(" "), _c("b-button", {
-    staticClass: "d_blue f_m",
+    staticClass: "d_blue rubber",
     on: {
       click: function click($event) {
         return _vm.save("send");
@@ -133,7 +133,7 @@ var render = function render() {
       icon: "paper-plane"
     }
   }), _vm._v(" 완료/발송")], 1)] : _c("b-button", {
-    staticClass: "gray f_m"
+    staticClass: "gray rubber"
   }, [_c("font-awesome-icon", {
     attrs: {
       icon: "save"
@@ -162,7 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.act_ctrl .row .col[data-v-270d5b48]:first-child { display:flex; align-items:center;\n}\n.act_ctrl .row .col label[data-v-270d5b48] { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600;\n}\n.act_ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 20%; max-width:20%;\n}\n.act_ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.act_ctrl .row .col .custom-control[data-v-270d5b48] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.act_ctrl .row .col .custom-control .point[data-v-270d5b48] { color:#ff0000;\n}\n.act_ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\n@media (max-width: 992px){\n.act_ctrl .row .col label[data-v-270d5b48] { flex:0 0 25%; max-width:25%; padding:0 5px;\n}\n.act_ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 25%; max-width:25%;\n}\n.act_ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 35%; max-width:35%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.act_ctrl .row .col[data-v-270d5b48]:first-child { display:flex; align-items:center;\n}\n.act_ctrl .row .col label[data-v-270d5b48] { flex:0 0 16%; max-width:16%; text-align:right; padding:0 13px; font-weight:600;\n}\n.act_ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 20%; max-width:20%;\n}\n.act_ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 13%; max-width:13%; text-align:right;\n}\n.act_ctrl .row .col .custom-control[data-v-270d5b48] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.act_ctrl .row .col .custom-control .point[data-v-270d5b48] { color:#ff0000;\n}\n.act_ctrl .row .col[data-v-270d5b48]:last-child { text-align:right;\n}\n@media (max-width: 992px){\n.act_ctrl .row .col[data-v-270d5b48] { margin-bottom:.3em;\n}\n.act_ctrl .row .col label[data-v-270d5b48] { flex:0 0 25%; max-width:25%; padding:0 5px;\n}\n.act_ctrl .row .col #all_dc[data-v-270d5b48] { flex:0 0 25%; max-width:25%;\n}\n.act_ctrl .row .col label[data-v-270d5b48]:last-of-type { flex:0 0 35%; max-width:35%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

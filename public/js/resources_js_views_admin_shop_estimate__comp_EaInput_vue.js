@@ -44,7 +44,8 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("b-form-input", {
     attrs: {
-      id: _vm.id
+      id: _vm.id,
+      size: "sm"
     },
     model: {
       value: _vm.displayValue,

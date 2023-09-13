@@ -40,12 +40,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "box est_frm"
-  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "m_hide"
-  }, [_vm._v("요청자")]), _vm._v(" "), _c("b-col", {
-    staticClass: "awesome_p"
-  }, [_c("user-input", {
+    staticClass: "box label_form"
+  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("label", [_vm._v("요청자")]), _vm._v(" "), _c("user-input", {
     attrs: {
       type: "name",
       frm: _vm.value
@@ -61,7 +57,7 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations["estimate_req.eq_name"]
     }
-  })], 1), _vm._v(" "), _c("b-col", [_vm._v("직장/학교")]), _vm._v(" "), _c("b-col", [_c("user-input", {
+  })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("직장/학교")]), _vm._v(" "), _c("user-input", {
     attrs: {
       type: "company",
       frm: _vm.value
@@ -77,7 +73,7 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations["estimate_req.eq_company"]
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("이메일")]), _vm._v(" "), _c("b-col", [_c("user-input", {
+  })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("이메일")]), _vm._v(" "), _c("user-input", {
     attrs: {
       type: "email",
       frm: _vm.value
@@ -93,7 +89,7 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations["estimate_req.eq_email"]
     }
-  })], 1), _vm._v(" "), _c("b-col", [_vm._v("휴대폰 번호")]), _vm._v(" "), _c("b-col", [_c("user-input", {
+  })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("휴대폰 번호")]), _vm._v(" "), _c("user-input", {
     attrs: {
       type: "hp",
       frm: _vm.value
@@ -109,8 +105,9 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations["estimate_req.eq_hp"]
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("일반전화 번호")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+  })], 1), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("일반전화 번호")]), _vm._v(" "), _c("div", [_c("b-form-input", {
     attrs: {
+      size: "sm",
       formatter: _vm.formatTel
     },
     model: {
@@ -120,8 +117,9 @@ var render = function render() {
       },
       expression: "value.eq_tel"
     }
-  })], 1), _vm._v(" "), _c("b-col", [_vm._v("팩스번호")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("팩스번호")]), _vm._v(" "), _c("div", [_c("b-form-input", {
     attrs: {
+      size: "sm",
       formatter: _vm.formatTel
     },
     model: {
@@ -131,7 +129,7 @@ var render = function render() {
       },
       expression: "value.eq_fax"
     }
-  })], 1)], 1), _vm._v(" "), _vm.value.eq_content ? _c("b-row", [_c("b-col", [_vm._v("요청내용")]), _vm._v(" "), _c("b-col", [_c("div", {
+  })], 1)])], 1), _vm._v(" "), _vm.value.eq_content ? _c("b-row", [_c("b-col", [_c("label", [_vm._v("요청내용")]), _vm._v(" "), _c("div", {
     domProps: {
       innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content))
     }

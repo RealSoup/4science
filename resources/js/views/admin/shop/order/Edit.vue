@@ -18,7 +18,7 @@
                 <b-col class="def_info">
                     <span>No.</span> <b>{{od.od_id}}.</b>
                     <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
-                    <span>주문날짜</span> <b>{{ od.created_at | formatDate_YYYY_MM_DD }}</b>
+                    <span>주문날짜</span> <b>{{ od.created_at | formatDate_MM_DD_HH:mm }}</b>
                     <span>주문환경</span> <b>{{ od.od_sale_env | sale_env}}</b>
                     <span>주문유형</span> <b v-if="order_config.type">{{ order_config.type[od.od_type]}}</b>
                 </b-col>

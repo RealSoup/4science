@@ -26,7 +26,8 @@
     -->
     
     <!-- 구글링 결과로 정확한 이유는 모른다. -->
-
+    <base href="/">
+    
     <!-- Google Tag Manager -->
     <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
