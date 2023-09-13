@@ -70,7 +70,7 @@ export default {
 .body .result div ul li span { display:inline-block; margin-left:1rem; }
 .body .result div ul li span:nth-of-type(2) { min-width:6rem; text-align:right; }
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
-.row>div { padding:5px 15px; font-size:.9rem; }
+.row>div { padding:5px 15px !important; font-size:.9rem; }
 .row>div:nth-of-type(1),
 .row>div:nth-of-type(4) { flex:0 0 11%; max-width:11%; }
 .row>div:nth-of-type(2) { flex:0 0 20%; max-width:20%; }

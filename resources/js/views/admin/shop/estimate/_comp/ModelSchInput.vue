@@ -1,8 +1,7 @@
 <template>
 <div class="cell">
 <b-input-group size="sm">
-    <b-form-input autocomplete="off" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼" ref="sch_field" :id="id"
-        v-model="input_val" @keyup.enter="getModelList" />
+    <b-form-input autocomplete="off" ref="sch_field" :id="id" v-model="input_val" @keyup.enter="getModelList" />
     <b-input-group-append><b-button size="sm" @click="getModelList" ><b-icon-search /></b-button></b-input-group-append>
 </b-input-group>
 
@@ -81,5 +80,5 @@ export default {
 }
 </script>
 <style scoped>
-.cell { width:60%; display:inline-block; }
+.cell { display:inline-block; }
 </style>

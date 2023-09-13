@@ -1,80 +1,79 @@
 <template>
 <div class="box">
     <h5>견적상품 등록</h5>
-    <b-container v-for="(em, idx) in value" :key="idx" class="est_frm">
+    <b-container v-for="(em, idx) in value" :key="idx" class="label_form">
         <!--    이중(중첩)루프 순번을 넣기위한 공
                     {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
         <b-row>
-            <b-col class="em_name_l">
-                <b-badge class="no d_gray">{{idx+1}}</b-badge>
-                <b-badge class="bundle plum" v-if="em.bundle_dc && em.bundle_dc.length">묶<b>음할인</b></b-badge>
-                <b-badge class="manufacturer orange" v-if="em.goods && em.goods.purchase_at">매<b>입처 배송</b></b-badge>
-                제품명
-            </b-col>
-            <b-col class="em_name_i">
-                <b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" />
-                <b-button class="d_gray sm" @click="openOption(idx, em.em_gd_id)">옵션</b-button>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
-                
-                <b-button-group>
-                    <b-button class="orange sm" @click="emReset(idx)"><b-icon-app /> <b>초기화</b></b-button>
-                    <b-button class="plum sm" @click="emDel(idx)"><b-icon-x-lg /> <b>삭제</b></b-button>
-                </b-button-group>
-            </b-col>
-        </b-row>
-        
-        <b-row>
-            <b-col>CAT.No</b-col>
+            <b-button-group class="model_ctrl_btn">
+                <b-button class="orange rubber" @click="emReset(idx)"><b-icon-app /> <b>초기화</b></b-button>
+                <b-button class="plum rubber" @click="emDel(idx)"><b-icon-x-lg /> <b>삭제</b></b-button>
+            </b-button-group>
+
             <b-col>
+                <label>
+                    <b-badge class="no d_gray">{{idx+1}}</b-badge>
+                    제품명
+                </label>
+                <div><b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" size="sm" /></div>
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
+            </b-col>
+            <b-col>
+                <div>
+                    <b-button class="d_gray rubber" @click="openOption(idx, em.em_gd_id)">옵션</b-button>
+                    <b-button class="gray rubber" target="_blank" v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}">상품보기</b-button>
+                    <b-badge class="bundle plum" v-if="em.bundle_dc && em.bundle_dc.length">묶음할인</b-badge>
+                    <b-badge class="manufacturer orange" v-if="em.goods && em.goods.purchase_at">매입처 배송</b-badge>
+                </div>
+            </b-col>
+  
+            <b-col>
+                <label>CAT.No</label>
                 <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
-                <b-button v-if="em.em_gd_id" :to="{name: 'goods_show', params: { gd_id:em.em_gd_id }}" target="_blank" class="gray sm">상품보기</b-button>
             </b-col>
 
-            <b-col>모델명</b-col>
             <b-col>
+                <label>모델명</label>
                 <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em" />
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
             </b-col>
-        </b-row>
-        
-        <b-row>
-            <b-col>판매단위</b-col>
+
             <b-col>
-                <b-form-input v-model="em.em_unit" />
+                <label>판매단위</label>
+                <div><b-form-input v-model="em.em_unit" size="sm" /></div>
             </b-col>
-            <b-col>제조사</b-col>
+
             <b-col>
-                <b-form-input v-model="em.em_maker" />
+                <label>제조사</label>
+                <div><b-form-input v-model="em.em_maker" size="sm" /></div>
             </b-col>
-        </b-row>
-        <b-row>
-            <b-col>수량</b-col>
+            
             <b-col>
-                <ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" />
+                <label>수량</label>
+                <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" /></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
             </b-col>
 
-            <b-col>판매단가({{em.em_cost_price | comma}})</b-col>
             <b-col>
-                <price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em" />
+                <label>판매단가({{em.em_cost_price | comma}})</label>
+                <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em" /></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
             </b-col>
-        </b-row>
-        <b-row>
-            <b-col>납품기일</b-col>
+
             <b-col>
-                <b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" />
+                <label>납품기일</label>
+                <div><b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" size="sm" /></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]" />
             </b-col>
-            <b-col>할인율</b-col>
+
             <b-col>
-                <dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right" />
+                <label>할인율</label>
+                <div><dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right" /></div>
             </b-col>
-        </b-row>
-        <b-row>
-            <b-col>제품정보</b-col>
-            <b-col>
-                <b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8"></b-form-textarea>
+            
+            <b-col class="w_100">
+                <label>제품정보</label>
+                <div><b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8" size="sm"></b-form-textarea></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
             </b-col>
         </b-row>
@@ -98,7 +97,7 @@
     </b-container>
     <validation :error="$store.state.error.validations.estimate_model" />
         
-    <b-row><b-col class="mt-4 text-right"><b-button class="mint" @click="emAdd">제품 추가</b-button></b-col></b-row>
+    <b-row><b-col class="mt-4 text-right"><b-button class="mint rubber" @click="emAdd">제품 추가</b-button></b-col></b-row>
 </div>
 
 </template>
@@ -183,26 +182,26 @@ export default {
 }
 </script>
 
-<style lang="css" >
-.est_frm:not(:first-of-type) { margin-top:4%; }
-.est_frm .row .col.em_name_l { position:relative; }
-.est_frm .row .col.em_name_l .badge { position:absolute; left:0; padding:.4em .8rem .7rem .8rem; border-radius:0 0 20px 20px; z-index:1; font-size:1.25rem; font-weight:900; }
-.est_frm .row .col.em_name_l .badge:nth-of-type(1) { top:0; }
-.est_frm .row .col.em_name_l .badge:nth-of-type(2) { top:40px; font-size:90%; padding-top:.7rem; }
-.est_frm .row .col.em_name_l .badge:nth-of-type(3) { top:77px; font-size:90%; padding-top:.7rem;}
-.est_frm .row .col.em_name_i input { width:34%; margin-right:.7rem; display:inline-block; }
-.est_frm .row .col.em_name_l .badge { vertical-align:top; }
-.est_frm .row .col.em_name_l .badge b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s; }
-.est_frm .row .col.em_name_l .badge:hover b { max-width:300px; height:14px; } 
-.est_frm .row .col.em_name_i .btn-group { position:absolute; top:-34px; right:0; }
-.est_frm .row .col.em_name_i .btn-group .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s; }
-.est_frm .row .col.em_name_i .btn-group .btn:hover b { max-width:300px; height:17px; } 
+<style lang="css" scoped>
+.label_form:not(:first-of-type) { margin-top:5%; }
 
-.est_frm .row.option .col p { display:flex; margin:0; line-height:1.9; }
-.est_frm .row.option .col p b { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%; }
-.est_frm .row.option .col p span { flex:0 0 19.5%; max-width:19.5%; text-align:center; }
-.est_frm .row.option .col p label { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600; }
-.est_frm .row.option .col p label:last-of-type { flex:0 0 12%; max-width:12%; }
-.est_frm .row.option .col p input { flex:0 0 6%; max-width:6%; text-align:right; }
-.est_frm .row.option .col p input:last-of-type { flex:0 0 12%; max-width:12%; }
+.label_form .row .col label .badge { position:absolute; top:0; left:0; padding:.3em .8rem .5rem .7rem; border-radius:0 0 20px 20px; z-index:1; }
+.label_form .row .model_ctrl_btn { position:absolute; top:-34px; right:0; }
+.label_form .row .model_ctrl_btn .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s; }
+.label_form .row .model_ctrl_btn .btn:hover b { max-width:300px; height:17px; } 
+
+.label_form .row.option .col p { display:flex; margin:0; line-height:1.9; }
+.label_form .row.option .col p b { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%; }
+.label_form .row.option .col p span { flex:0 0 19.5%; max-width:19.5%; text-align:center; }
+.label_form .row.option .col p label { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600; }
+.label_form .row.option .col p label:last-of-type { flex:0 0 12%; max-width:12%; }
+.label_form .row.option .col p input { flex:0 0 6%; max-width:6%; text-align:right; }
+.label_form .row.option .col p input:last-of-type { flex:0 0 12%; max-width:12%; }
+
+
+@media (max-width: 992px){
+    .label_form:not(:first-of-type) { margin-top:10%; }
+    .label_form .row .model_ctrl_btn { top:-27px; }
+    .label_form .row .col label .badge { position:static; padding:.2rem .3rem; border-radius:10px; }
+}
 </style>

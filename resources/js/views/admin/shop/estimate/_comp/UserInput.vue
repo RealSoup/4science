@@ -1,5 +1,5 @@
 <template>
-<div class="cell">
+<div>
     <b-input-group size="sm">
         <b-form-input autocomplete="off" :id="`estimate_req.eq_${type}`" ref="sch_field" v-b-tooltip.hover.left title="입력 후 엔터 or 버튼"
             v-model="input_val" @keyup.enter="getUserList" />
@@ -78,10 +78,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-.cell { width:60%; }
-@media (max-width: 992px){ 
-.cell { width:100%; }
-}
-</style>

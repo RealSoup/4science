@@ -1,4 +1,4 @@
-<template lang="html"></template>
+<template></template>
 <script> export default { mounted() { this.$emit('calculator'); }, } </script>
 <!--
     FormGoods 컴포넌트가 마운트되고

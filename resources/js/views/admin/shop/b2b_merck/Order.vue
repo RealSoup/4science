@@ -262,7 +262,7 @@ export default {
 /*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/
 .extra>div { padding-top:5px; padding-bottom:5px; font-size:.9rem; }
 .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
-.list>div { padding:5px 15px; font-size:.9rem; }
+.list>div { padding:5px 15px !important; font-size:.9rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
 .row>div>span:nth-of-type(2) { float:right; }

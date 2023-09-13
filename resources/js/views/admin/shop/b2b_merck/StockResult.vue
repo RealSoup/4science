@@ -65,7 +65,7 @@ export default {
 .body:hover { background: #d8f2fd94; }
 .body>div:nth-child(even) { background-color:#7fffd454; }
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
-.row>div { padding:5px 15px; font-size:.9rem; }
+.row>div { padding:5px 15px !important; font-size:.9rem; }
 .row>div>span:nth-of-type(2) { float:right; }
 .row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }
 .row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }
