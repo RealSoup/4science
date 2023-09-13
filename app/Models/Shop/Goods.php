@@ -428,7 +428,7 @@ class Goods extends Model {
         if ($req->filled('ca02')) $q_str .= "filter=gc_ca02, {$req->ca02};";
         if ($req->filled('ca03')) $q_str .= "filter=gc_ca03, {$req->ca03};";
         if ($req->filled('ca04')) $q_str .= "filter=gc_ca04, {$req->ca04};";
-        if ($req->filled('mk_id')) $q_str .= "filter=gd_mk_id, {$req->mk_id};"; 
+        if ($req->filled('gd_mk_id')) $q_str .= "filter=gd_mk_id, {$req->gd_mk_id};"; 
 
         // Admin
         if ($req->filled('startDate') && !$req->filled('endDate')) $q_str .= "range=created_at,".strtotime($req->startDate).",".strtotime("Now").";";
