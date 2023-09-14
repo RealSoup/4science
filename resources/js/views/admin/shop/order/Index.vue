@@ -116,7 +116,7 @@ import ax from '@/api/http';
 export default {
     components: {
         'sch-date': () => import('@/views/_common/SchDate.vue'),
-        'list': () => import('./_comp/List.vue'),
+        'list': () => import('@/views/admin/shop/order/_comp/List.vue'),
     },
     data() {
         return {
