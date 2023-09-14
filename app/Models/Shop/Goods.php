@@ -370,7 +370,7 @@ class Goods extends Model {
         $q_str = $kw ='';
         
         if ($req->filled('keyword')) {
-            $kw = '"'.trim($req->keyword).'"';
+            $kw = trim($req->keyword).'*';
             // c0130-100mg
             
             // $qry = DB::table('sphinx.sph_goods')
@@ -458,7 +458,7 @@ class Goods extends Model {
         
         if ($req->filled('keyword')) {
             $kw = trim($req->keyword);
-            $kw = '"'.$kw.'"';            
+            $kw = $kw.'*';            
         }
 
         $cl = new SphinxClient ();
