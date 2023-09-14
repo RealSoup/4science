@@ -17,8 +17,8 @@
     <!-- 구글링 결과로 정확한 이유는 모른다. -->
     <base href="/">
 
-    <!-- <script src="{{ ver_asset('js/app.js') }}"></script> -->
-    <script src="./js/app.js" async defer></script>
+    <script src="{{ ver_asset('js/app.js') }}"></script>
+    <!-- <script src="{{ mix('/js/app.js') }}" async defer></script> -->
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet" /> -->
     
     <!-- Uncaught SyntaxError: Unexpected token '<' (at undefined:1:1)
