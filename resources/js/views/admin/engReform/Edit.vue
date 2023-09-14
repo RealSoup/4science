@@ -10,7 +10,7 @@
         </b-row>
         <b-row>
             <b-col>소속</b-col><b-col class="sty01">{{ frm.er_company }}</b-col>
-            <b-col>등록일</b-col><b-col>{{ frm.created_at | formatDate }}</b-col>
+            <b-col>등록일</b-col><b-col>{{ frm.created_at | formatDate_YY_MM_DD_HH:mm }}</b-col>
             <b-col>납기일</b-col><b-col>{{ frm.er_dlvy_at | formatDate }}</b-col>
         </b-row>
         <b-row>

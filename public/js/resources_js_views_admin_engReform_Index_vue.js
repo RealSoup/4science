@@ -291,7 +291,7 @@ var render = function render() {
     return _c("b-row", {
       key: er.er_id,
       staticClass: "body list"
-    }, [_c("b-col", [_vm._v(_vm._s(er.er_id))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.created_at)))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("er_type")(er.er_type)))]), _vm._v(" "), _c("b-col", [_c("b-button", {
+    }, [_c("b-col", [_vm._v(_vm._s(er.er_id))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD_HH:mm")(er.created_at)))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("er_type")(er.er_type)))]), _vm._v(" "), _c("b-col", [_c("b-button", {
       staticClass: "teal sm",
       attrs: {
         to: {

@@ -31,7 +31,7 @@
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </div>
         </b-col>
-        <b-col>{{ row.created_at | formatDate }}</b-col>
+        <b-col>{{ row.created_at | formatDate_MM_DD_HH:mm }}</b-col>
         <b-col>
             <span class="nametag plum" v-if="row.eq_step==='DONOT'" >{{row.eq_step | eqStep}}</span>
             <span class="nametag mint" v-else-if="row.eq_step==='DOING'">{{row.eq_step | eqStep}}</span>
@@ -54,7 +54,7 @@
                     <span v-if="i===0" class="btn nametag mint" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">견적서</span>
                     <span v-else class="btn nametag orange not_fir" @click="exeWinPop(`/admin/shop/estimate/reply/${er.er_id}`)" :key="`b${er.er_id}`">재견적서</span>
                 </template>
-                <span :key="`d${er.er_id}`">{{ er.created_at | formatDate }}</span>
+                <span :key="`d${er.er_id}`">{{ er.created_at | formatDate_MM_DD_HH:mm }}</span>
             </template>
         </b-col>
     </b-row>

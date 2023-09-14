@@ -408,7 +408,7 @@ var render = function render() {
     staticClass: "sty01"
   }, [_vm._v(_vm._s(_vm.frm.er_name))]), _vm._v(" "), _c("b-col", [_vm._v("연락처")]), _c("b-col", [_vm._v(_vm._s(_vm.frm.er_hp))]), _vm._v(" "), _c("b-col", [_vm._v("이메일")]), _c("b-col", [_vm._v(_vm._s(_vm.frm.er_email))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("소속")]), _c("b-col", {
     staticClass: "sty01"
-  }, [_vm._v(_vm._s(_vm.frm.er_company))]), _vm._v(" "), _c("b-col", [_vm._v("등록일")]), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.created_at)))]), _vm._v(" "), _c("b-col", [_vm._v("납기일")]), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.er_dlvy_at)))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("학문분야")]), _c("b-col", {
+  }, [_vm._v(_vm._s(_vm.frm.er_company))]), _vm._v(" "), _c("b-col", [_vm._v("등록일")]), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD_HH:mm")(_vm.frm.created_at)))]), _vm._v(" "), _c("b-col", [_vm._v("납기일")]), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.er_dlvy_at)))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("학문분야")]), _c("b-col", {
     staticClass: "sty01"
   }, [_vm._v(_vm._s(_vm.frm.er_branch))]), _vm._v(" "), _c("b-col", [_vm._v("상세학문분야")]), _c("b-col", [_vm._v(_vm._s(_vm.frm.er_branch_sub))]), _vm._v(" "), _vm.frm.er_editor ? _c("b-col", [_vm._v("에디터")]) : _vm._e(), _vm.frm.er_editor ? _c("b-col", [_vm._v(_vm._s(_vm.frm.er_editor))]) : _vm._e()], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("문체스타일")]), _c("b-col", {
     staticClass: "sty01"

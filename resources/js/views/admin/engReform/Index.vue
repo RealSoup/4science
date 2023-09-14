@@ -57,7 +57,7 @@
 
         <b-row class="body list" v-for="er in list.data" :key="er.er_id">
             <b-col>{{er.er_id}}</b-col>
-            <b-col>{{er.created_at | formatDate_YYYY_MM_DD}}</b-col>
+            <b-col>{{er.created_at | formatDate_YY_MM_DD_HH:mm}}</b-col>
             <b-col>{{er.er_type | er_type}}</b-col>
             <b-col>
                 <b-button :to="{name: 'adm_user_edit', params: { id:er.user.id}}" class="teal sm">{{er.er_name}}</b-button>

@@ -14,7 +14,7 @@
         <b-row cols="1" cols-md="2">
             <b-col class="def_info">
                 <span>요청번호</span> <b>{{frm.eq_id}}.</b>
-                <span>요청날짜</span> <b>{{ frm.created_at | formatDate_YY_MM_DD }}</b>
+                <span>요청날짜</span> <b>{{ frm.created_at }}</b>
             </b-col>
             <b-col class="btn_area">
                 <b-button :to="{name: 'adm_estimate_index'}" class="white sm"><b-icon-list /> 목록으로</b-button>

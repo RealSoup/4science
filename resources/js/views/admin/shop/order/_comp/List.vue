@@ -29,7 +29,7 @@
                 <template v-else>{{row.eq_mng_id}}</template>
             </span>
         </b-col>
-        <b-col>{{ row.created_at | formatDate }}</b-col>
+        <b-col>{{ row.created_at | formatDate_YY_MM_DD_HH:mm }}</b-col>
         <b-col class="d-none d-lg-block">{{config.pay_method[row.od_pay_method]}}</b-col>
         <b-col>{{ row.od_all_price | comma }}</b-col>
         <b-col class="step">
@@ -74,7 +74,8 @@ export default {
 .cancel .col { color:#9F9F9F; }
 .don_t { background:#FECE02; }
 .introducer { background:#44ADF1; }
-.body .col.step .nametag { width:90px; }
+.body .col.step .nametag { width:70px; }
+.body .col.step .nametag.d-inline-block { width:auto; }
 @media (max-width: 991px){
     .row .col { font-size:.75rem; line-height:1.4; padding:0.4rem;}
     .row .col:nth-child(8) { flex:0 0 13%; max-width:13%; }

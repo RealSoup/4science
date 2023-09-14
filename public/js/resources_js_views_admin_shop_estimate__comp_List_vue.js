@@ -146,7 +146,7 @@ var render = function render() {
       staticClass: "d-none d-lg-block"
     }), _vm._v(" "), row.user && row.user.mng ? _c("b-badge", {
       staticClass: "orange d-none d-lg-inline-block"
-    }, [_vm._v(_vm._s(_vm.mng_off[row.user.mng].name))]) : _vm._e()], 1)]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(row.created_at)))]), _vm._v(" "), _c("b-col", [row.eq_step === "DONOT" ? _c("span", {
+    }, [_vm._v(_vm._s(_vm.mng_off[row.user.mng].name))]) : _vm._e()], 1)]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(row.created_at)))]), _vm._v(" "), _c("b-col", [row.eq_step === "DONOT" ? _c("span", {
       staticClass: "nametag plum"
     }, [_vm._v(_vm._s(_vm._f("eqStep")(row.eq_step)))]) : row.eq_step === "DOING" ? _c("span", {
       staticClass: "nametag mint"
@@ -195,7 +195,7 @@ var render = function render() {
         }
       }, [_vm._v("재견적서")])], _vm._v(" "), _c("span", {
         key: "d".concat(er.er_id)
-      }, [_vm._v(_vm._s(_vm._f("formatDate")(er.created_at)))])];
+      }, [_vm._v(_vm._s(_vm._f("formatDate_MM_DD_HH:mm")(er.created_at)))])];
     })], 2)], 1);
   })], 2);
 };

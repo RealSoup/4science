@@ -72,7 +72,7 @@
                 <b-badge v-if="us.level==4" class="gold">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==11" class="dealer_new">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==12" class="dealer">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==20" class="admin">{{option.grade[us.level]}}</b-badge>
+                <b-badge v-if="us.level==21" class="admin">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==29" class="super">{{option.grade[us.level]}}</b-badge>
             </b-col>
             <b-col>

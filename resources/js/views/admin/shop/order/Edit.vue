@@ -16,21 +16,22 @@
         <div class="act_ctrl">
             <b-row>
                 <b-col class="def_info">
-                    <span>No.</span> <b>{{od.od_id}}.</b>
-                    <span>주문번호</span> <b>{{ od.od_no }}</b> <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum xm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
+                    <span>No.</span><b>{{od.od_id}}</b>
+                    <span>주문번호</span> <b>{{ od.od_no }}</b>
                     <span>주문날짜</span> <b>{{ od.created_at | formatDate_MM_DD_HH:mm }}</b>
                     <span>주문환경</span> <b>{{ od.od_sale_env | sale_env}}</b>
                     <span>주문유형</span> <b v-if="order_config.type">{{ order_config.type[od.od_type]}}</b>
                 </b-col>
                 <b-col class="btn_area print_hide_flex">
-                    <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록으로</span></b-button>
+                    <b-button v-if="od.od_er_id" @click="openWinPop(`/admin/shop/estimate/reply/${od.od_er_id}`)" class="plum sm print_hide_inline_block"><b-icon-box-arrow-up-right /> 견적서</b-button>
+                    <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록</span></b-button>
 
                     <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
                     <b-button v-else @click="isModalViewed = !isModalViewed, modalType = 'changeMng'" class="sky sm">{{od.mng.name}}</b-button>
                     
 
-                    <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right /> <span class="sm_ib_h">영업</span>장부</b-button>
-                    <b-button v-else class="d_gray sm">장부등록됨</b-button>
+                    <!-- <b-button v-if="od.od_has_ledger == 'N'" class="d_gray sm" @click="ledger"><b-icon-box-arrow-up-right /> <span class="sm_ib_h">영업</span>장부</b-button>
+                    <b-button v-else class="d_gray sm">장부등록됨</b-button> -->
 
                     <b-button class="gray sm" @click="print"><b-icon-printer /><span class="sm_ib_h"> 인쇄</span></b-button>
 
@@ -43,7 +44,7 @@
                         <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
                         <b-dropdown-item-button variant="danger" @click="sendTran">거래명세서 발송 <b-badge>PDF</b-badge></b-dropdown-item-button>
                     </b-dropdown>
-                    <b-button v-else class="gray sm">파일 받기 담당 등록 후...</b-button>                    
+                    <b-button v-else class="gray sm">담당 등록 후...</b-button>                    
                     
                     <b-input-group size="sm">
                         <b-form-select v-model="od.od_step" class="sm_ib_h">
@@ -850,9 +851,10 @@ export default {
 .p_wrap .print_show_inline  { display:none; }
 
 .p_wrap .act_ctrl { border-width:5px; }
-.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 40%; max-width:40%; }
+.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 530px; max-width:530px; }
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 .p_wrap .act_ctrl .btn_area .input-group { max-width:150px; }
+.p_wrap .act_ctrl .def_info b:not(:last-of-type) { margin-right:.5vw; }
 
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
@@ -863,13 +865,15 @@ export default {
 
 
 .p_wrap .sm_ib_v { display:none; }
+@media (max-width: 1472px){
+    .p_wrap .act_ctrl .def_info,
+    .p_wrap .act_ctrl .btn_area { flex:0 0 100%; max-width:100%; }
+}
 @media (max-width: 992px){    
     .p_wrap .sm_ib_v { display:inline-block !important; }
     .p_wrap .sm_ib_h { display:none !important; }
-}
-
-
-@media (max-width: 992px){
+    .p_wrap .act_ctrl { font-size:.8em; }
+    .p_wrap .act_ctrl .btn { font-size:.9em; }
     .p_wrap .act_ctrl .def_info span { margin-left:0; }
     .p_wrap .act_ctrl .def_info b { margin-right:2%; margin-left:.1rem; }
     .p_wrap .act_ctrl .btn_area { flex: 0 0 100%; max-width: 100%; }

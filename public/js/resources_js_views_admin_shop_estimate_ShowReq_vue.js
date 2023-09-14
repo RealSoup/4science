@@ -306,7 +306,7 @@ var render = function render() {
     }
   }, [_c("b-col", {
     staticClass: "def_info"
-  }, [_c("span", [_vm._v("요청번호")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.frm.eq_id) + ".")]), _vm._v(" "), _c("span", [_vm._v("요청날짜")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD")(_vm.frm.created_at)))])]), _vm._v(" "), _c("b-col", {
+  }, [_c("span", [_vm._v("요청번호")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.frm.eq_id) + ".")]), _vm._v(" "), _c("span", [_vm._v("요청날짜")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.frm.created_at))])]), _vm._v(" "), _c("b-col", {
     staticClass: "btn_area"
   }, [_c("b-button", {
     staticClass: "white sm",

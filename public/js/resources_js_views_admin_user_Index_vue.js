@@ -271,7 +271,7 @@ var render = function render() {
       staticClass: "dealer_new"
     }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 12 ? _c("b-badge", {
       staticClass: "dealer"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 20 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 21 ? _c("b-badge", {
       staticClass: "admin"
     }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 29 ? _c("b-badge", {
       staticClass: "super"
