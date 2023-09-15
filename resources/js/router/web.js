@@ -299,4 +299,11 @@ export default [
             },
         ],
     },
+
+//      테스트
+    {   path: '/test/psys',
+        name: 'test_psys',
+        component:() => import('@/views/web/test/Psys'),
+        // beforeEnter: isLoggedin(),
+    },
 ];
