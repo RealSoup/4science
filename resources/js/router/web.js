@@ -222,6 +222,11 @@ export default [
         name: 'order_pay_card_fail',
         component:() => import('@/views/web/shop/order/PayCardFail'),
         beforeEnter: isLoggedin(),
+    }, {    //      Psys 결제 팝업
+        path: '/shop/order/settle_psys/:od_id',
+        name: 'order_settle_psys',
+        component:() => import('@/views/web/shop/order/SettlePsys'),
+        beforeEnter: isLoggedin(),
     },
 
 //      견적요청

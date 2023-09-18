@@ -51,10 +51,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
     'pay-plan': function payPlan() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_PayPlan_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/PayPlan */ "./resources/js/views/web/shop/order/_comp/PayPlan.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_PayPlan_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/shop/order/_comp/PayPlan */ "./resources/js/views/web/shop/order/_comp/PayPlan.vue"));
     },
     'tax-invoice': function taxInvoice() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_TaxInvoice_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/TaxInvoice */ "./resources/js/views/web/shop/order/_comp/TaxInvoice.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_TaxInvoice_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/shop/order/_comp/TaxInvoice */ "./resources/js/views/web/shop/order/_comp/TaxInvoice.vue"));
     },
     'pa-list': function paList() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PaList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PaList */ "./resources/js/views/web/_module/PaList.vue"));
@@ -235,7 +235,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 0:
               _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
               if (!_this.validationChecker(_this.order)) {
-                _context.next = 38;
+                _context.next = 42;
                 break;
               }
               _context.t0 = _this.order.extra.oex_type;
@@ -264,7 +264,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 17:
               pay = _context.sent;
               if (!(pay && pay.status === 200)) {
-                _context.next = 37;
+                _context.next = 41;
                 break;
               }
               _this.$gtm.trackEvent({
@@ -344,19 +344,27 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 document.body.appendChild(form);
                 form.submit();
               }
-              _context.next = 37;
+              _context.next = 41;
               break;
             case 35:
-              _context.next = 37;
+              if (!(_this.order.od_pay_method == 'P')) {
+                _context.next = 39;
+                break;
+              }
+              _this.openWinPop("/shop/order/settle_psys/".concat(pay.data.od_id), 800, 720);
+              _context.next = 41;
+              break;
+            case 39:
+              _context.next = 41;
               return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 37:
+            case 41:
               _this.clickable = true;
-            case 38:
+            case 42:
             case "end":
               return _context.stop();
           }
@@ -1071,6 +1079,10 @@ var render = function render() {
       attrs: {
         src: _vm.s3url + "order/pay_psys.png"
       }
+    })])]) : k == "S" ? _c("span", [_vm._v("원격지 연구비 직접결제"), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_psys.png"
+      }
     })])]) : k == "R" ? _c("span", [_vm._v("원격지 카드 결제"), _c("b", [_vm._v("[자세히]"), _c("img", {
       attrs: {
         src: _vm.s3url + "order/pay_remote.png"
@@ -1139,9 +1151,13 @@ var render = function render() {
       },
       expression: "order.extra.oex_depositor"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.order.od_pay_method == "P" ? _c("div", {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), ["P", "S"].includes(_vm.order.od_pay_method) ? _c("div", {
     staticClass: "pay_info"
-  }, [_c("h6", [_vm._v("PSYS 결제")]), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }, [_c("h6", [_vm._v("PSYS 결제")]), _vm._v(" "), _c("img", {
+    attrs: {
+      src: _vm.s3url + "order/pay_psys.png"
+    }
+  }), _vm._v(" "), _c("b-row", [_c("b-col", {
     attrs: {
       cols: "3"
     }

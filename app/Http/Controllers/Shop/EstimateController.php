@@ -54,6 +54,11 @@ class EstimateController extends Controller {
             }
             if ($item_cnt > 1)
                 $eq_title .= '외 ['.($item_cnt - 1).']';
+
+            if(strpos( $req->eq_content, "계약 기간" ) === 0){
+                $eq_title = "<b>[ 렌탈 ]</b> {$eq_title}";
+            }
+            
         } else {
             if ($req->filled('made_name'))   $eq_title = "<b>[ 주문제작-{$req->made_name} ]</b> ";
             else if ($req->filled('eq_1depth'))      $eq_title = "<b>[{$req->eq_1depth}]</b> ";

@@ -42,18 +42,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::GET('printEstimate/{od_id}', 'Shop\OrderController@printEstimate');
                 Route::GET('downEstimateExcel/{od_id}', 'Shop\OrderController@downEstimateExcel');
                 Route::GET('downTransactionExcel/{od_id}', 'Shop\OrderController@downTransactionExcel');
+
+                Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
+                Route::GET( 'settle_psys/{od_id}', 'Shop\OrderController@settlePsys')->name('order.settlePsys');
+                Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
+                Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
+                Route::GET( '{od_id}',      'Shop\OrderController@show');
             });
 
             Route::RESOURCE('order', 'Shop\OrderController')->only([ 'index', 'update' ]);
             Route::RESOURCE('wish', 'Shop\WishController')->only([ 'index', 'store', 'destroy' ]);
-
-            Route::prefix('order')->group(function () {
-                Route::POST('settle',       'Shop\OrderController@settle')->name('order.settle');
-                Route::POST('pay',          'Shop\OrderController@pay')->name('order.pay');
-                Route::GET( 'done/{od_id}', 'Shop\OrderController@done')->name('order.done');
-                Route::GET( '{od_id}',      'Shop\OrderController@show');
-
-            });
 
             Route::prefix('estimate')->group(function () {
                 Route::GET('getCustomMadeCategory', 'Shop\EstimateController@getCustomMadeCategory');

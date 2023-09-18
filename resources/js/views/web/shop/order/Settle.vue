@@ -136,6 +136,7 @@
                             <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
                             <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
                             <span v-else-if="k=='P'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                            <span v-else-if="k=='S'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
                             <span v-else-if="k=='R'">원격지 카드 결제<b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
                             <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
                         </div> 
@@ -162,8 +163,9 @@
                             </b-row>
                         </div>
                         
-                        <div v-if="order.od_pay_method == 'P'" class="pay_info">
+                        <div v-if="['P', 'S'].includes(order.od_pay_method)" class="pay_info">
                             <h6>PSYS 결제</h6>
+                            <img :src="s3url+'order/pay_psys.png'" />
                             <b-row>
                                 <b-col cols="3">결제금액</b-col><b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
                             </b-row>
@@ -286,9 +288,9 @@ export default {
     // props:['gd_id', 'model', 'option'],
     components: {
         'vue-daum-postcode' : VueDaumPostcode,
-        'modal'         : () => import('@/views/_common/Modal.vue'),
-        'pay-plan'       : () => import('./_comp/PayPlan'),
-        'tax-invoice'    : () => import('./_comp/TaxInvoice'),
+        'modal'          : () => import('@/views/_common/Modal.vue'),
+        'pay-plan'       : () => import('@/views/web/shop/order/_comp/PayPlan'),
+        'tax-invoice'    : () => import('@/views/web/shop/order/_comp/TaxInvoice'),
         'pa-list'        : () => import('@/views/web/_module/PaList'),
         'addr-index'     : () => import('@/views/web/_module/addr/Index'),
         'addr-create'    : () => import('@/views/web/_module/addr/Create'),
@@ -521,6 +523,8 @@ export default {
                             document.body.appendChild(form);
                             form.submit();
                         }
+                    } else if (this.order.od_pay_method == 'P') {
+                        this.openWinPop(`/shop/order/settle_psys/${pay.data.od_id}`, 800, 720);
                     } else {
                         await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }});
                     }

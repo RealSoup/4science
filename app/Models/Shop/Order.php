@@ -34,6 +34,7 @@ class Order extends Model {
             'C' => '카드',
             'B' => '계좌이체',
             'P' => 'PSYS',
+            'S' => 'PSYS(후결제)',
             'R' => '원격결제',
             // 'E' => '에스크로',
         ],

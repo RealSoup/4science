@@ -117,7 +117,8 @@
 
     </table>
 
-    <b-button @click="pay">결제</b-button>
+    <!-- <b-button @click="pay">결제</b-button> -->
+    <b-button @click="openWinPop(`/shop/order/SettlePsys`, 800, 720)">결제</b-button>
 
 
 </div>

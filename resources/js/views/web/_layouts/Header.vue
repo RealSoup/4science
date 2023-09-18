@@ -62,6 +62,7 @@
                 <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
                 <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
                 <b-link :to="{name: 'engReform_create'}">영문교정</b-link>
+                <b-link :to="{name: 'rental'}" class="m_hide">렌탈</b-link>
                 <b-link :to="{name: 'outlet'}" class="m_hide">전문관</b-link>
                 <b-link :to="{name: 'cscenter'}">고객센터</b-link>
                 <b-link :to="{name: 'bo_intro'}">커뮤니티</b-link>

@@ -88,8 +88,10 @@ Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->na
 
 Route::get('/shop/order/pgClose',       'Shop\OrderController@pgClose')->name('shop.order.pgClose');
 Route::POST('/shop/order/payReturn',    'Shop\OrderController@payReturn')->name('shop.order.payReturn');
-Route::POST('/shop/order/payRequestMobile',    'Shop\OrderController@payRequestMobile')->name('shop.order.payRequestMobile');
-Route::POST('/shop/order/payReturnMobile',    'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
+Route::POST('/shop/order/payRequestMobile', 'Shop\OrderController@payRequestMobile')->name('shop.order.payRequestMobile');
+Route::POST('/shop/order/payReturnMobile',  'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
+Route::POST('/shop/order/payReturnPsys',    'Shop\OrderController@payReturnPsys')->name('shop.order.payReturnPsys');
+
 Route::get('/test',               'TestController@index');
 Route::get('/test/psysIndex',          'TestController@psys');
 Route::POST('/test/psysReturn',          'TestController@psysReturn');

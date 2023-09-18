@@ -1,0 +1,9 @@
+<html>
+<head>
+<script>
+    window.opener.location.href="/shop/order/done/{{$od_id}}";
+    window.close();
+</script>
+</head>
+<body></body>
+</html>

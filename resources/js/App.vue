@@ -45,6 +45,7 @@ export default {
             	case 'web':    return 'web-head';  break;
                 // case 'adm':    return 'adm-head';  break;
                 case 'simple':  return 'header-simple';  break;
+                case 'nothing': return false;  break;
             }
         },
         choiceFooter(){
@@ -52,6 +53,7 @@ export default {
             	case 'web':
                 case 'simple':   return 'web-footer';  break;
                 // case 'adm':     return 'adm-footer';  break;
+                case 'nothing': return false;  break;
             }
         },
     },

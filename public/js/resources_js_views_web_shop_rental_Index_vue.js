@@ -35,7 +35,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLoadingModalViewed: true,
       isModalViewed: false,
       list: [],
-      pick_tem: 0
+      pick_tem: 0,
+      frm: {
+        lists: {},
+        rt_group: 'A',
+        rt_term: '6개월',
+        eq_name: "",
+        eq_email: "",
+        eq_email02: '',
+        eq_tel: "",
+        eq_hp: "",
+        eq_content: ""
+      },
+      email_domain: [],
+      email_domain_slt_idx: 0
     };
   },
   methods: {
@@ -66,12 +79,117 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     show: function show(i) {
-      this.pick_tem = i;
-      this.isModalViewed = true;
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.pick_tem = i;
+              _this2.isModalViewed = true;
+              _context2.next = 4;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/estimate/create", {
+                goods: [{
+                  gd_id: _this2.list[_this2.pick_tem].gd_id,
+                  gm_id: _this2.list[_this2.pick_tem].goods_model_prime.gm_id,
+                  ea: 1
+                }]
+              });
+            case 4:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.frm.lists = res.data.lists;
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    email_domain_slt: function email_domain_slt() {
+      this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
+    },
+    focusNext: function focusNext(e, max, next) {
+      this.$focusNext(e, max, next);
+    },
+    maxlength_3: function maxlength_3(e) {
+      return String(e).substring(0, 3);
+    },
+    maxlength_4: function maxlength_4(e) {
+      return String(e).substring(0, 4);
+    },
+    store: function store() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _this3.frm.eq_hp = "".concat(_this3.frm.eq_hp01, "-").concat(_this3.frm.eq_hp02, "-").concat(_this3.frm.eq_hp03);
+              _this3.frm.eq_email = "".concat(_this3.frm.eq_email01, "@").concat(_this3.frm.eq_email02);
+              if (!isEmpty(_this3.frm.eq_content)) {
+                _context3.next = 6;
+                break;
+              }
+              Notify.toast('danger', "문의 사항을 입력하세요.");
+              document.getElementById('eq_content').focus();
+              return _context3.abrupt("return", false);
+            case 6:
+              _this3.frm.eq_content = "\uACC4\uC57D \uAE30\uAC04: ".concat(_this3.frm.rt_term, " <br>") + _this3.frm.eq_content;
+              _context3.prev = 7;
+              _context3.next = 10;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/estimate", _this3.frm);
+            case 10:
+              res = _context3.sent;
+              if (res && res.status === 200) {
+                Notify.toast('success', '상담 요청 완료');
+                _this3.frm.eq_content = '';
+                _this3.isModalViewed = false;
+              } else {
+                Notify.toast('warning', res);
+              }
+              _context3.next = 18;
+              break;
+            case 14:
+              _context3.prev = 14;
+              _context3.t0 = _context3["catch"](7);
+              Notify.consolePrint(_context3.t0);
+              Notify.toast('warning', _context3.t0.responsee);
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[7, 14]]);
+      }))();
     }
   },
   mounted: function mounted() {
-    this.index();
+    var _this4 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var res, eq_hp, eq_email;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            _this4.index();
+            _context4.next = 3;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/user/getEmailDomain");
+          case 3:
+            res = _context4.sent;
+            if (res && res.status === 200) _this4.email_domain = res.data;
+            eq_hp = Auth.user().hp.split('-');
+            eq_email = Auth.user().email.split('@');
+            _this4.frm.eq_name = Auth.user().name;
+            _this4.frm.eq_hp01 = eq_hp[0];
+            _this4.frm.eq_hp02 = eq_hp[1];
+            _this4.frm.eq_hp03 = eq_hp[2];
+            _this4.frm.eq_email01 = eq_email[0];
+            _this4.frm.eq_email02 = eq_email[1];
+            _this4.frm.eq_company = Auth.user().company;
+          case 14:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4);
+    }))();
   }
 });
 
@@ -93,13 +211,18 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "w_fence"
-  }, [_c("h3", [_vm._v("렌탈 제품")]), _vm._v(" "), _vm.isLoadingModalViewed ? _c("loading-modal", {
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/rental/banner.png",
+      id: "banner"
+    }
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "list"
+  }, [_c("b-container", [_c("h3", [_vm._v("렌탈 제품")]), _vm._v(" "), _vm.isLoadingModalViewed ? _c("loading-modal", {
     attrs: {
       position: "absolute"
     }
-  }, [_vm._v("Loading ......")]) : _c("b-container", [_c("b-row", {
-    staticClass: "list"
-  }, _vm._l(_vm.list, function (row, i) {
+  }, [_vm._v("Loading ......")]) : _c("b-row", _vm._l(_vm.list, function (row, i) {
     return _c("b-col", {
       key: row.gd_id
     }, [_c("div", {
@@ -127,7 +250,7 @@ var render = function render() {
         expression: "row.gd_name"
       }
     }), _vm._v(" "), _c("p", [_vm._v(_vm._s(row.goods_model_prime.gm_code))])], 1)]);
-  }), 1)], 1), _vm._v(" "), _c("transition", {
+  }), 1)], 1)], 1), _vm._v(" "), _c("transition", {
     attrs: {
       name: "modal"
     }
@@ -140,7 +263,9 @@ var render = function render() {
         _vm.isModalViewed = false;
       }
     }
-  }, [_c("b-container", [_c("b-row", [_c("b-col", {
+  }, [_c("b-container", {
+    staticClass: "show"
+  }, [_c("b-row", [_c("b-col", {
     staticClass: "box"
   }, [_c("img", {
     attrs: {
@@ -150,7 +275,7 @@ var render = function render() {
     staticClass: "clear-both"
   }, [_c("li", [_vm._v("이화학기기")]), _vm._v(" "), _c("li", [_vm._v("진공건조기")]), _vm._v(" "), _c("li", [_vm._v("건조기")])]), _vm._v(" "), _c("sub-string", {
     attrs: {
-      width: 300
+      width: 250
     },
     model: {
       value: _vm.list[_vm.pick_tem].gd_name,
@@ -159,9 +284,306 @@ var render = function render() {
       },
       expression: "list[pick_tem].gd_name"
     }
-  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.list[_vm.pick_tem].goods_model_prime.gm_code))])], 1), _vm._v(" "), _c("b-col")], 1)], 1)], 1) : _vm._e()], 1)], 1);
+  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.list[_vm.pick_tem].goods_model_prime.gm_code))])], 1), _vm._v(" "), _c("b-col", [_c("h4", [_vm._v("모델명 : " + _vm._s(_vm.list[_vm.pick_tem].goods_model_prime.gm_code))]), _vm._v(" "), _c("table", [_c("colgroup", [_c("col", {
+    attrs: {
+      width: "13%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: "19%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: "19%"
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: ""
+    }
+  }), _vm._v(" "), _c("col", {
+    attrs: {
+      width: ""
+    }
+  })]), _vm._v(" "), _c("tr", [_c("th", [_vm._v("구분")]), _vm._v(" "), _c("th", [_vm._v("계약기간")]), _vm._v(" "), _c("th", [_vm._v("배송비")]), _vm._v(" "), _c("th", [_vm._v("보증금")]), _vm._v(" "), _c("th", [_vm._v("월사용료(VAT별도)")])]), _vm._v(" "), _c("tr", [_c("th", {
+    attrs: {
+      rowspan: "2"
+    }
+  }, [_vm._v("렌탈(인수)"), _c("br"), _vm._v(" 소유권"), _c("br"), _vm._v(" 고객이전")]), _vm._v(" "), _c("td", [_vm._v("6개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("234원")]), _vm._v(" "), _c("td", [_vm._v("1,234원")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("12개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("234원")]), _vm._v(" "), _c("td", [_vm._v("1,234원")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-container", {
+    staticClass: "frm_st"
+  }, [_c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("렌탈 구분")]), _vm._v(" "), _c("b-col", [_c("b-radio", {
+    attrs: {
+      name: "rt_group",
+      value: "A"
+    },
+    model: {
+      value: _vm.frm.rt_group,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "rt_group", $$v);
+      },
+      expression: "frm.rt_group"
+    }
+  }, [_vm._v("양도")])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("계약 기간")]), _vm._v(" "), _c("b-col", [_c("b-radio", {
+    attrs: {
+      name: "rt_term",
+      value: "6개월"
+    },
+    model: {
+      value: _vm.frm.rt_term,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "rt_term", $$v);
+      },
+      expression: "frm.rt_term"
+    }
+  }, [_vm._v("6개월")]), _vm._v(" "), _c("b-radio", {
+    attrs: {
+      name: "rt_term",
+      value: "12개월"
+    },
+    model: {
+      value: _vm.frm.rt_term,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "rt_term", $$v);
+      },
+      expression: "frm.rt_term"
+    }
+  }, [_vm._v("12개월")])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("업체명/담당자명"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-input", {
+    model: {
+      value: _vm.frm.eq_name,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_name", $$v);
+      },
+      expression: "frm.eq_name"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("연락처"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", {
+    staticClass: "hp"
+  }, [_c("span", [_c("b-form-input", {
+    ref: "eq_hp01",
+    attrs: {
+      formatter: _vm.maxlength_3,
+      id: "eq_hp"
+    },
+    nativeOn: {
+      input: function input($event) {
+        return _vm.focusNext($event, 3, "eq_hp02");
+      }
+    },
+    model: {
+      value: _vm.frm.eq_hp01,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_hp01", $$v);
+      },
+      expression: "frm.eq_hp01"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
+    ref: "eq_hp02",
+    attrs: {
+      formatter: _vm.maxlength_4
+    },
+    nativeOn: {
+      input: function input($event) {
+        return _vm.focusNext($event, 4, "eq_hp03");
+      }
+    },
+    model: {
+      value: _vm.frm.eq_hp02,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_hp02", $$v);
+      },
+      expression: "frm.eq_hp02"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
+    ref: "eq_hp03",
+    attrs: {
+      formatter: _vm.maxlength_4
+    },
+    model: {
+      value: _vm.frm.eq_hp03,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_hp03", $$v);
+      },
+      expression: "frm.eq_hp03"
+    }
+  })], 1)])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("이메일"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", {
+    staticClass: "email"
+  }, [_c("span", [_c("b-form-input", {
+    attrs: {
+      id: "eq_email"
+    },
+    model: {
+      value: _vm.frm.eq_email01,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_email01", $$v);
+      },
+      expression: "frm.eq_email01"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
+    model: {
+      value: _vm.frm.eq_email02,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_email02", $$v);
+      },
+      expression: "frm.eq_email02"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-select", {
+    on: {
+      change: _vm.email_domain_slt
+    },
+    model: {
+      value: _vm.email_domain_slt_idx,
+      callback: function callback($$v) {
+        _vm.email_domain_slt_idx = $$v;
+      },
+      expression: "email_domain_slt_idx"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("직접입력")]), _vm._v(" "), _vm._l(_vm.email_domain, function (dm, i) {
+    return _c("b-form-select-option", {
+      key: i,
+      attrs: {
+        value: i
+      }
+    }, [_vm._v(_vm._s(dm))]);
+  })], 2)], 1)])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("문의 사항"), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
+    attrs: {
+      id: "eq_content",
+      rows: "4",
+      placeholder: "문의사항"
+    },
+    model: {
+      value: _vm.frm.eq_content,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "eq_content", $$v);
+      },
+      expression: "frm.eq_content"
+    }
+  })], 1)], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "btn_box"
+  }, [_c("b-col", [_c("b-button", {
+    staticClass: "blue wd_100p",
+    on: {
+      click: _vm.store
+    }
+  }, [_vm._v("상담 신청")])], 1), _vm._v(" "), _c("b-col", [_c("b-button", {
+    staticClass: "white wd_100p",
+    on: {
+      click: function click($event) {
+        _vm.isModalViewed = false;
+      }
+    }
+  }, [_vm._v("닫기")])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("br"), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "prev_alarm"
+  }, [_vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 28 && _vm.list[_vm.pick_tem].goods_category_first.gc_ca02 == 3481 ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\r\n                            ※제품 특성상 주문 접수 후 교환, 취소, 환불이 불가하오니 신중한 구매 부탁드리겠습니다.\r\n                        ")]) : _vm._e(), _vm._v(" "), _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 28 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 40 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 33 && _vm.list[_vm.pick_tem].goods_category_first.gc_ca02 == 5579 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 33 && _vm.list[_vm.pick_tem].goods_category_first.gc_ca02 == 5590 || _vm.list[_vm.pick_tem].mk_name == "US Research Nanomaterials, Inc." || _vm.list[_vm.pick_tem].mk_name == "Novarials" || _vm.list[_vm.pick_tem].gd_keyword && _vm.list[_vm.pick_tem].gd_keyword.indexOf("유해물질안내") !== -1 ? _c("div", [_c("br"), _vm._v(" "), _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\r\n                                ※ 이 안내는 「화학물질관리법」 제29조의2 및 같은 법 시행규칙 제31조의2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, \r\n                                유해화학물질 취급기준을 준수하여야함을 구매자에게 서면 또는 전자문서로 알려주는 것을 목적으로 하고 있습니다."), _c("br"), _vm._v("\r\n                                ※ 해당 제품은 일반인과 미성년자의 구매를 금합니다."), _c("br"), _vm._v("\r\n                                ※ 제품 이미지는 실제와 다를 수 있습니다."), _c("br"), _vm._v("\r\n                                ※ 이미지는 참고용입니다.\r\n                            ")]), _vm._v(" "), _c("br"), _vm._v(" "), _c("a", {
+    staticStyle: {
+      display: "block",
+      "text-align": "center"
+    },
+    attrs: {
+      href: "http://ncis.nier.go.kr/",
+      target: "_blank"
+    }
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/goods/hazmat_info.jpg",
+      title: "유해화학물질 시약 관련 안내",
+      width: "700"
+    }
+  })])]) : _vm._e(), _vm._v(" "), _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 38 ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\r\n                            EO 제품군이 전기안전법과 제조사 사정에 의해 단가 변동 사항이 있습니다. "), _c("br"), _vm._v("\r\n                            해당 제품 주문 전 견적문의를 통해 '단가'와 '납품기한'을 꼭 확인하시기를 부탁드리겠습니다.\r\n                        ")]) : _vm._e(), _vm._v(" "), _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 31 && _vm.list[_vm.pick_tem].goods_category_first.gc_ca02 == 5114 && (_vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5122 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5136 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5137) ? _c("p", {
+    staticClass: "warning"
+  }, [_vm._v("\r\n                            - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)\r\n                        ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+    "class": {
+      merck_style: _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 40
+    },
+    attrs: {
+      id: "goods_desc"
+    }
+  }, [_vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 40 ? _c("div", {
+    staticClass: "merck_tit"
+  }, [_c("h1", [_vm._v("Properties")]), _vm._v(" "), _c("h2", [_vm._v("CAS Number : " + _vm._s(_vm.list[_vm.pick_tem].gd_keyword))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    domProps: {
+      innerHTML: _vm._s(_vm.list[_vm.pick_tem].gd_desc)
+    }
+  }), _vm._v(" "), _vm.list[_vm.pick_tem].gd_video ? _c("div", {
+    domProps: {
+      innerHTML: _vm._s(_vm.list[_vm.pick_tem].gd_video)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "desc_pdf"
+  }, [_c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("br"), _vm._v(" "), _vm._l(_vm.list[_vm.pick_tem].file_goods_add, function (file, i) {
+    return [file.type == "pdf" ? _c("object", {
+      key: i,
+      staticStyle: {
+        width: "1100px",
+        height: "700px"
+      },
+      attrs: {
+        data: file.path,
+        type: "application/pdf"
+      }
+    }) : _vm._e()];
+  })], 2)])], 1)], 1) : _vm._e()], 1)], 1);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "rt_step"
+  }, [_c("p", [_vm._v("렌탈 신청 과정")]), _vm._v(" "), _c("ul", [_c("li", [_c("img", {
+    attrs: {
+      src: "/storage/rental/step01.png"
+    }
+  }), _vm._v(" "), _c("b", [_vm._v("제품 신청")])]), _vm._v(" "), _c("li", [_c("img", {
+    attrs: {
+      src: "/storage/rental/step02.png"
+    }
+  }), _vm._v(" "), _c("b", [_vm._v("렌탈 견적")])]), _vm._v(" "), _c("li", [_c("img", {
+    attrs: {
+      src: "/storage/rental/step03.png"
+    }
+  }), _vm._v(" "), _c("b", [_vm._v("렌탈 계약")])]), _vm._v(" "), _c("li", [_c("img", {
+    attrs: {
+      src: "/storage/rental/step04.png"
+    }
+  }), _vm._v(" "), _c("b", [_vm._v("상품배송 및 렌탈시작")])]), _vm._v(" "), _c("li", [_c("img", {
+    attrs: {
+      src: "/storage/rental/step05.png"
+    }
+  }), _vm._v(" "), _c("b", [_vm._v("렌탈종료 or 연장")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("ul", {
+    staticClass: "contact"
+  }, [_c("li", [_vm._v("렌탈 상담 |")]), _vm._v(" "), _c("li", [_vm._v("sales@4science.net")]), _vm._v(" "), _c("li", [_vm._v("1644-4214")])]);
+}];
 render._withStripped = true;
 
 
@@ -183,7 +605,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-47ec3296] { background-color:#F2F3F7;\n}\n.w_fence .container[data-v-47ec3296] { max-width:1200px; margin:auto;\n}\n.w_fence .container .list[data-v-47ec3296] { margin:0 -15px;\n}\n.w_fence .container .list .col[data-v-47ec3296] { flex:0 0 33.333333%; max-width:33.333333%; padding:15px;\n}\n.w_fence .container .box[data-v-47ec3296] { background-color:#FFF; border-radius:1em; padding:30px 40px 36px 40px; cursor:pointer;\n}\n.w_fence .container .box img[data-v-47ec3296] { margin:auto; display:block;\n}\n.w_fence .container .box ul[data-v-47ec3296] { margin-top:1.3em; font-size:.9em; font-weight:bold;\n}\n.w_fence .container .box ul li[data-v-47ec3296] { color:#00A0CA; float:left;\n}\n.w_fence .container .box ul li[data-v-47ec3296]:not(:last-child):after { content:\">\"; position: relative; right:-5px; margin-right:9px;\n}\n.w_fence .container .box span[data-v-47ec3296] { font-weight:bold; font-size:1.15em; margin-top:.6em; display:inline-block;\n}\n.w_fence .container .box p[data-v-47ec3296] { color:#959595; margin:0;\n}\n.w_fence .container .box[data-v-47ec3296]:after { content:\"\"; position:absolute; right:40px; bottom:40px; width:0; height:0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:12px solid #969696;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-47ec3296] { padding-top:0;\n}\n.w_fence #banner[data-v-47ec3296] { display:block; margin:auto; width:100%; max-width:1920px;\n}\n.w_fence .rt_step[data-v-47ec3296] { padding-top:45px;\n}\n.w_fence .rt_step p[data-v-47ec3296] { font-weight:900; font-size:1.5em; text-align:center;\n}\n.w_fence .rt_step ul[data-v-47ec3296] { max-width:860px; text-align:center; margin:2em auto 0;\n}\n.w_fence .rt_step ul li[data-v-47ec3296] { display:inline-block; position: relative;\n}\n.w_fence .rt_step ul li[data-v-47ec3296]:not(:last-child) { margin-right:30px; min-width:140px;\n}\n.w_fence .rt_step ul li[data-v-47ec3296]:not(:last-child):after { content:\"\"; position:absolute; right:-30px; bottom:60px; width:0; height:0; \r\n    border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:18px solid #969696;}\n.w_fence .rt_step ul li img[data-v-47ec3296] { display:block; margin:auto;\n}\n.w_fence .contact[data-v-47ec3296] { background-color:#00A1CB; color:#fff; font-size: 1.4em; font-weight: bold; padding: 1em; text-align: center; margin-top:2em;\n}\n.w_fence .contact li[data-v-47ec3296] { display: inline-block; margin:0 1em;\n}\n.w_fence .container[data-v-47ec3296] { max-width:1200px; margin:auto;\n}\n.w_fence .container h3[data-v-47ec3296] { font-weight: 900; text-align: center; padding-top: 2em;\n}\n.w_fence .list[data-v-47ec3296] { background-color:#F2F3F7;\n}\n.w_fence .list .row[data-v-47ec3296] { margin:0 -15px;\n}\n.w_fence .list .row .col[data-v-47ec3296] { flex:0 0 33.333333%; max-width:33.333333%; padding:15px;\n}\n.w_fence .list .row .box[data-v-47ec3296] { cursor:pointer;\n}\n.w_fence .list .row .box[data-v-47ec3296]:after { content:\"\"; position:absolute; right:40px; bottom:40px; width:0; height:0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:12px solid #969696;}\n.w_fence .container .row .box[data-v-47ec3296] { background-color:#FFF; border-radius:1em; padding:30px 40px 36px 40px;\n}\n.w_fence .container .row .box img[data-v-47ec3296] { margin:auto; display:block;\n}\n.w_fence .container .row .box ul[data-v-47ec3296] { margin-top:1.3em; font-size:.9em; font-weight:bold;\n}\n.w_fence .container .row .box ul li[data-v-47ec3296] { color:#00A0CA; float:left;\n}\n.w_fence .container .row .box ul li[data-v-47ec3296]:not(:last-child):after { content:\">\"; position: relative; right:-5px; margin-right:9px;\n}\n.w_fence .container .row .box span[data-v-47ec3296] { font-weight:bold; font-size:1.15em; margin-top:.6em; display:inline-block;\n}\n.w_fence .container .row .box p[data-v-47ec3296] { color:#959595; margin:0;\n}\n.w_fence .show .row .box[data-v-47ec3296] { flex:0 0 32%; max-width:32%;\n}\n.w_fence .show .row .col table[data-v-47ec3296] { width:100%; border: 1px solid #EBEBEB;\n}\n.w_fence .show .row .col table tr[data-v-47ec3296]:not(:last-child) { border-bottom: 1px solid #EBEBEB;\n}\n.w_fence .show .row .col table tr th[data-v-47ec3296] { background-color:#EBEBEB;\n}\n.w_fence .show .row .col table tr th[data-v-47ec3296],\r\n.w_fence .show .row .col table tr td[data-v-47ec3296] { text-align:center; font-size:.9em; font-weight:bold; padding:.3em;\n}\n.w_fence .show .row .col .btn_box .col[data-v-47ec3296]:first-child { padding-right:15px;\n}\n.w_fence .show .row .col .btn_box .col[data-v-47ec3296]:last-child { padding-left:15px;\n}\n.w_fence .show[data-v-47ec3296] #goods_desc img { max-width:100% !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

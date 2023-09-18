@@ -276,7 +276,8 @@ class GoodsController extends Controller {
         }
 
         //  검색엔진 갱신
-        self::exeIndex();
+        if (!$req->gd_type == 'REN')
+            self::exeIndex();
 
         if ($rst)
             return response()->json($goods->gd_id, 200);

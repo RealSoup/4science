@@ -247,7 +247,9 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("td", [_vm._v("전문생성시간")])])]), _vm._v(" "), _c("b-button", {
     on: {
-      click: _vm.pay
+      click: function click($event) {
+        return _vm.openWinPop("/shop/order/SettlePsys", 800, 720);
+      }
     }
   }, [_vm._v("결제")])], 1);
 };

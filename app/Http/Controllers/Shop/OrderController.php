@@ -116,13 +116,13 @@ class OrderController extends Controller {
             /**/                        "timestamp" => $params['inicis']['timestamp'] );
             /**/$params['inicis']['sign'] = $this->makeSignature($signParams, "sha256");
             /************************** 이니시스 값 설정 End **************************/
-            
+    
             $od_id = $this->order->insertGetId([
                 'od_no'            => $params['inicis']['od_no'],
                 'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
                 'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
                 'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
-                'od_step'          => $req->od_pay_method == 'C'       ? '0'                    : '10',
+                'od_step'          => in_array($req->od_pay_method, ['C', 'P']) ? '0'           : '10',
                 'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
                 'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
                 'od_dlvy_price'    => $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0,
@@ -478,7 +478,83 @@ class OrderController extends Controller {
             }
         }
     }
+
+    public function settlePsys(Request $req, Int $od_id){
+        $rst['od'] = DB::table('shop_order')->where('od_id', $od_id)->first();
+        
+        $rst['Psys_buyername']	          = $rst['od']->od_orderer;
+        $rst['Psys_email']	              = $rst['od']->od_orderer_email;
+        $rst['Psys_handphone']	          = $rst['od']->od_orderer_hp;
+        
+        $rst['Psys_recp_nm']	          = $rst['od']->od_orderer;
+        $rst['Psys_recp_addr']            = $rst['od']->od_addr1.$rst['od']->od_addr1;
+        
+        $rst['Psys_pmember_id']           = $rst['od']->created_id;
+        $rst['Psys_shopingmall_order_no'] = $rst['od']->od_id;
+        $rst['Psys_totalamt']             = $rst['od']->od_all_price;
+        
+        $headers = array(); 
+        array_push($headers, "content-type: application/json; charset=utf-8");
+        array_push($headers, "WebKey: ".env('PSYS_APIKEY'));
+
+        $psys_api_url = env('PSYS_URL01');
+
+        $edi_date = date('YmdHis');
+        $request_data_array = array(
+            'WEB_ID' => env('PSYS_APIID'),
+            'AMOUNT' => $rst['od']->od_all_price,
+            'EDI_DATE'=> $edi_date,
+        );
+        $psys_api_json = json_encode($request_data_array, TRUE);
+
+        $ch = curl_init(); // curl 초기화
+        curl_setopt($ch,CURLOPT_URL, $psys_api_url);
+        curl_setopt($ch,CURLOPT_POST, false);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $psys_api_json);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
+        curl_setopt($ch,CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch,CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $result_array = json_decode($response, true);
+
+        $rst['edi_date'] = $edi_date;
+        $rst['api_key'] = env('PSYS_APIKEY');
+        $rst['api_id']  = env('PSYS_APIID');
+        $rst['api_url'] = env('PSYS_URL02');
+        $rst['ReturnURL'] = env('APP_URL').'shop/order/payReturnPsys';
+        $rst['Psys_securekey'] = $result_array['encryptData'];
+        if($result_array['RESULTCODE'] == "9999") { 
+            echo "result_code=E009\r\nresult_msg=웹연동 결제 설정이 되어있지 않습니다.";
+            exit;
+        }
+        return response()->json($rst, 200);
+    }
     
+    public function payReturnPsys(Request $req){
+        if ($req->Psys_resultcode != "0000") {
+            $msg = implode(" ", $req->all());
+            return redirect("/shop/order/payCardFail?msg=".$msg);
+        } else {
+            $pgdb_rst = OrderPg::insert([
+                'pg_od_id'    => $req->Psys_shopingmall_order_no,
+                'pg_app_no'   => $req->Psys_approvalno,
+                'pg_tid'      => $req->Psys_tid,
+                'pg_pay_type' => $req->Psys_card_type,
+                'pg_price'    => $req->Psys_totalamt,
+                'pg_card_com' => $req->Psys_card_nm,
+                'pg_buyer_nm' => $req->Psys_etc_data1,
+                'pg_code'     => $req->Psys_resultcode,
+                'pg_msg'      => $req->Psys_resultmsg]);       
+            DB::table('shop_order')->where('od_id', $req->Psys_shopingmall_order_no)->update(['od_step'=> '20']);
+            // return redirect("/shop/order/done/{$req->Psys_shopingmall_order_no}");
+            // return response()->json($req->Psys_shopingmall_order_no, 200);
+            return view('shop.order.payReturnPsys', ['od_id' => $req->Psys_shopingmall_order_no]);
+        }        
+    }
+
     public function done($od_id){
         $data = $this->order->with('orderExtraInfo')->find($od_id);
         // dd($od_id);
