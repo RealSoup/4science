@@ -286,6 +286,7 @@ Route::prefix('shop')->group(function () {
             'show'   => 'shop.goods.show',
         ]
     ]);
+    Route::GET('rental', 'Shop\RentalController@index');
 });
 Route::prefix('board/{bo_cd}')->group(function () {
     Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');

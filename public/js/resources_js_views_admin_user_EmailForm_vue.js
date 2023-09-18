@@ -100,7 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .frm01 .row .col select[data-v-2c0c835b] {max-width:10rem;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.frm01 .row .col textarea[data-v-2c0c835b] { width:100%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

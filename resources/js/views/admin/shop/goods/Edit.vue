@@ -1,6 +1,7 @@
 <template>
 <b-container class="p_wrap">
     <h3 class="p_tit">상품 수정</h3>
+    <loading-modal v-if="isLoadingModalViewed">Loading ......</loading-modal>
     <b-container class="act_ctrl">
         <b-row>
             <b-col cols="12" sm="6">
@@ -32,9 +33,11 @@ export default {
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함
+        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {
+            isLoadingModalViewed: false,
             purchaseAt: [],
             frm: {
                 file_goods_goods:[],
@@ -100,9 +103,11 @@ export default {
                     this.frm, // 수정하려는 객체
                     {gd_type : 'REN'} // 삽입하려는 내용
                 );
+                this.isLoadingModalViewed=true;
                 let res = await ax.post(`/api/admin/shop/goods`, this.frm);
                 if (res && res.status === 200) {
                     Notify.toast('success', '상품 복제')
+                    this.isLoadingModalViewed=false;
                     this.$router.push({ name: 'adm_goods_index', query: { gd_type:'REN' } })
                 }
             }

@@ -9,8 +9,8 @@
         <b-link to="/shop/goods/616503">
             <b-carousel-slide :img-src="s3url+'event/2023/0911/slide.jpg'"></b-carousel-slide>
         </b-link>
-        <b-link to="/shop/goods/925">
-            <b-carousel-slide :img-src="s3url+'event/2023/0816/slide.jpg'"></b-carousel-slide>
+        <b-link to="/shop/goods?mode=maker&keyword=radwag">
+            <b-carousel-slide :img-src="s3url+'event/2023/0918/slide.jpg'"></b-carousel-slide>
         </b-link>
         <b-link to="/board/event/show/31">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">

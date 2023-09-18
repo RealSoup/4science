@@ -5,7 +5,7 @@
     <main id="site_main" :class="{'layout' : 
         $store.state.mode!=='adm' &&
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
-            'introduce_history', 'introduce_map', 'introduce_rule'].indexOf($route.name)==-1
+            'introduce_history', 'introduce_map', 'introduce_rule', 'rental'].indexOf($route.name)==-1
     }">
         <adm-left v-if="
             $store.state.mode == 'adm'

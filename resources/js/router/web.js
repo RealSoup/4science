@@ -271,6 +271,13 @@ export default [
         beforeEnter: isLoggedin(),
     },
 
+//      렌탈
+    {   path: '/shop/rental',
+        name: 'rental',
+        component:() => import('@/views/web/shop/rental/Index'),
+        // beforeEnter: isLoggedin(),
+    },
+
 //      장바구니
     {   path: '/shop/cart',
         name: 'cart_index',

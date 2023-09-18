@@ -36,5 +36,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.p_wrap .frm01 .row .col select {max-width:10rem;}
+.frm01 .row .col textarea { width:100%; }
 </style>

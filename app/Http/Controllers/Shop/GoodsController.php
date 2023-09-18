@@ -32,7 +32,7 @@ class GoodsController extends Controller {
         */
         $total = $this->goods->search_cnt($req);
         $page = $req->filled('page') ? $req->page : 1;
-        $limit = 15;
+        $limit = $req->filled('limit') ? $req->limit : 15;
         $offset = ($page*$limit)-$limit;
         if($offset>intval($total)) {
             $page = ceil($total / $limit);

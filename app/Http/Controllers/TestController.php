@@ -48,12 +48,66 @@ class TestController extends Controller {
         }
         // dd($rst);
 
+        
+
+
+
+
+
+
+     
+        // $post = [
+        //     'Psys_email' => 'kjk@4science.net',
+        //     'Psys_recp_nm' => '김진국',
+        //     'Psys_buyername' => "구매자",
+        //     'Psys_card_type' => 1,
+        //     'Psys_handphone' => "010-000-0000",
+        //     'Psys_pmember_id' => "testid",
+        //     'Psys_recp_addr' => "수신주소",
+        //     'Psys_securekey' => $result_array['encryptData'],
+        //     'Psys_shopingmall_order_no' => "123414",
+        //     'Psys_title' => "테스트결제",
+        //     'Psys_totalamt' => "100",
+        //     'ReturnURL' => "https://4science.net/test/psysReturn",
+        //     'Psys_shopid' => "sandbox_psys_al1",
+        //     'edi_date' => $edi_date
+        // ];
+
+
+        // $api_url = "https://sandbox.psys.co.kr/outvendnew/vendor/input";
+        // $rst123 = self::post($api_url, $post);
+        // dd($rst123);
+
+
+
+
+
+
+
+
+
+
         return response()->json($rst, 200); 
     }
 
     public function psysReturn(Request $req) {
         dd($req->all());
         return redirect("/test/psys_return");
+    }
+
+    function post($url, $fields) {
+
+        $post_field_string = http_build_query($fields, '', '&');
+        $ch = curl_init();                                                            // curl 초기화
+        curl_setopt($ch, CURLOPT_URL, $url);                                 // url 지정하기
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);              // 요청결과를 문자열로 반환
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);               // connection timeout : 10초
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);                 // 원격 서버의 인증서가 유효한지 검사 여부
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_field_string);      // POST DATA
+        curl_setopt($ch, CURLOPT_POST, true);                               // POST 전송 여부
+        $response = curl_exec($ch);
+        curl_close ($ch);
+        return $response;
     }
 
 }

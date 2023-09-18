@@ -437,6 +437,8 @@ class Goods extends Model {
         if ($req->filled('gd_enable'))  $q_str .= "filter=gd_enable,".crc32($req->gd_enable).";";
         if (!$req->filled('gd_type'))   $q_str .= "filter=gd_type,".crc32('NON').";";
         if ($req->filled('gd_type'))    $q_str .= "filter=gd_type,".crc32($req->gd_type).";";
+
+        if (!$req->filled('deleted_at'))   $q_str .= "filter=deleted_at, 0;";
         if ($req->filled('deleted_at')) {
             if ($req->deleted_at == 'Y')        $q_str .= "!filter=deleted_at, 0;";
             elseif ($req->deleted_at == 'N')    $q_str .= "filter=deleted_at, 0;";

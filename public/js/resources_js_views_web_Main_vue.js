@@ -216,11 +216,11 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
-      to: "/shop/goods/925"
+      to: "/shop/goods?mode=maker&keyword=radwag"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": _vm.s3url + "event/2023/0816/slide.jpg"
+      "img-src": _vm.s3url + "event/2023/0918/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {

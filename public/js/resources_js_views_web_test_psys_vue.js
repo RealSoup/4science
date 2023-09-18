@@ -39,16 +39,76 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     pay: function pay() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var res;
+        var form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09, objs10, objs11, objs12, objs13, objs14;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("https://sandbox.psys.co.kr/outvendnew/vendor/input", _this.api_info);
-            case 2:
-              res = _context.sent;
-              if (res && res.status === 200) console.log(res.data);
-            case 4:
+              // let res = await ax.post(`https://sandbox.psys.co.kr/outvendnew/vendor/input`, this.api_info);
+              // if (res && res.status === 200)
+              //     console.log(res.data);
+              form = document.createElement('form'); // 폼객체 생성
+              objs01 = document.createElement('input');
+              objs02 = document.createElement('input');
+              objs03 = document.createElement('input');
+              objs04 = document.createElement('input');
+              objs05 = document.createElement('input');
+              objs06 = document.createElement('input');
+              objs07 = document.createElement('input');
+              objs08 = document.createElement('input');
+              objs09 = document.createElement('input');
+              objs10 = document.createElement('input');
+              objs11 = document.createElement('input');
+              objs12 = document.createElement('input');
+              objs13 = document.createElement('input');
+              objs14 = document.createElement('input');
+              objs01.setAttribute('name', 'Psys_email');
+              objs01.setAttribute('value', 'kjk@4science.net');
+              form.appendChild(objs01);
+              objs02.setAttribute('name', 'Psys_recp_nm');
+              objs02.setAttribute('value', '김진국');
+              form.appendChild(objs02);
+              objs03.setAttribute('name', 'Psys_buyername');
+              objs03.setAttribute('value', "구매자");
+              form.appendChild(objs03);
+              objs04.setAttribute('name', 'Psys_card_type');
+              objs04.setAttribute('value', '');
+              form.appendChild(objs04);
+              objs05.setAttribute('name', 'Psys_handphone');
+              objs05.setAttribute('value', "010-2636-3140");
+              form.appendChild(objs05);
+              objs06.setAttribute('name', 'Psys_pmember_id');
+              objs06.setAttribute('value', "testid");
+              form.appendChild(objs06);
+              objs07.setAttribute('name', 'Psys_recp_addr');
+              objs07.setAttribute('value', "수신주소");
+              form.appendChild(objs07);
+              objs08.setAttribute('name', 'Psys_securekey');
+              objs08.setAttribute('value', _this.api_info.Psys_securekey);
+              form.appendChild(objs08);
+              objs09.setAttribute('name', 'Psys_shopingmall_order_no');
+              objs09.setAttribute('value', "123414");
+              form.appendChild(objs09);
+              objs10.setAttribute('name', 'Psys_title');
+              objs10.setAttribute('value', "테스트결제");
+              form.appendChild(objs10);
+              objs11.setAttribute('name', 'Psys_totalamt');
+              objs11.setAttribute('value', "100");
+              form.appendChild(objs11);
+              objs12.setAttribute('name', 'ReturnURL');
+              objs12.setAttribute('value', _this.api_info.ReturnURL);
+              form.appendChild(objs12);
+              objs13.setAttribute('name', 'Psys_shopid');
+              objs13.setAttribute('value', _this.api_info.api_id);
+              form.appendChild(objs13);
+              objs14.setAttribute('name', 'edi_date');
+              objs14.setAttribute('value', _this.api_info.edi_date);
+              form.appendChild(objs14);
+              form.setAttribute('method', 'post'); //get,post 가능
+              form.setAttribute('action', "https://sandbox.psys.co.kr/outvendnew/vendor/input"); //보내는 url
+              // form.setAttribute("accept-charset", "EUC-KR");
+              document.body.appendChild(form);
+              form.submit();
+            case 61:
             case "end":
               return _context.stop();
           }
