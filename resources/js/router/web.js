@@ -280,7 +280,7 @@ export default [
     {   path: '/shop/rental',
         name: 'rental',
         component:() => import('@/views/web/shop/rental/Index'),
-        // beforeEnter: isLoggedin(),
+        beforeEnter: isLoggedin(),
     },
 
 //      장바구니
