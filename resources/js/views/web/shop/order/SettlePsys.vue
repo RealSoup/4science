@@ -40,7 +40,7 @@ export default {
             objs15.setAttribute('type', 'hidden'); objs15.setAttribute('name', 'Psys_etc_data1');            objs15.setAttribute('value', res.data.Psys_buyername); form.appendChild(objs15);
             
             form.setAttribute('method', 'post');
-            form.setAttribute('action', "https://sandbox.psys.co.kr/outvendnew/vendor/input");
+            form.setAttribute('action', res.data.api_url);
             document.body.appendChild(form);
             form.submit();
         }

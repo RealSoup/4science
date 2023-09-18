@@ -487,7 +487,7 @@ class OrderController extends Controller {
         $rst['Psys_handphone']	          = $rst['od']->od_orderer_hp;
         
         $rst['Psys_recp_nm']	          = $rst['od']->od_orderer;
-        $rst['Psys_recp_addr']            = $rst['od']->od_addr1.$rst['od']->od_addr1;
+        $rst['Psys_recp_addr']            = $rst['od']->od_addr1.$rst['od']->od_addr2;
         
         $rst['Psys_pmember_id']           = $rst['od']->created_id;
         $rst['Psys_shopingmall_order_no'] = $rst['od']->od_id;

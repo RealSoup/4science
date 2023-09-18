@@ -108,7 +108,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               objs15.setAttribute('value', res.data.Psys_buyername);
               form.appendChild(objs15);
               form.setAttribute('method', 'post');
-              form.setAttribute('action', "https://sandbox.psys.co.kr/outvendnew/vendor/input");
+              form.setAttribute('action', res.data.api_url);
               document.body.appendChild(form);
               form.submit();
             }

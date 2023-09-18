@@ -165,7 +165,7 @@
                         
                         <div v-if="['P', 'S'].includes(order.od_pay_method)" class="pay_info">
                             <h6>PSYS 결제</h6>
-                            <img :src="s3url+'order/pay_psys.png'" />
+                            <img :src="s3url+'order/pay_psys.png'" v-if="order.od_pay_method == 'S'" />
                             <b-row>
                                 <b-col cols="3">결제금액</b-col><b-col><b class="point">{{order.price.total| comma}}</b> 원</b-col>
                             </b-row>

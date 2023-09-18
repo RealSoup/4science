@@ -1153,11 +1153,11 @@ var render = function render() {
     }
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), ["P", "S"].includes(_vm.order.od_pay_method) ? _c("div", {
     staticClass: "pay_info"
-  }, [_c("h6", [_vm._v("PSYS 결제")]), _vm._v(" "), _c("img", {
+  }, [_c("h6", [_vm._v("PSYS 결제")]), _vm._v(" "), _vm.order.od_pay_method == "S" ? _c("img", {
     attrs: {
       src: _vm.s3url + "order/pay_psys.png"
     }
-  }), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }) : _vm._e(), _vm._v(" "), _c("b-row", [_c("b-col", {
     attrs: {
       cols: "3"
     }

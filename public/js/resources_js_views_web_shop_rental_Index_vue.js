@@ -308,7 +308,7 @@ var render = function render() {
     attrs: {
       rowspan: "2"
     }
-  }, [_vm._v("렌탈(인수)"), _c("br"), _vm._v(" 소유권"), _c("br"), _vm._v(" 고객이전")]), _vm._v(" "), _c("td", [_vm._v("6개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("234원")]), _vm._v(" "), _c("td", [_vm._v("1,234원")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("12개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("234원")]), _vm._v(" "), _c("td", [_vm._v("1,234원")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-container", {
+  }, [_vm._v("렌탈(인수)"), _c("br"), _vm._v(" 소유권"), _c("br"), _vm._v(" 고객이전")]), _vm._v(" "), _c("td", [_vm._v("6개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("12개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-container", {
     staticClass: "frm_st"
   }, [_c("b-row", [_c("b-col", {
     staticClass: "label_st"
