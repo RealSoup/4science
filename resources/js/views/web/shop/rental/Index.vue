@@ -92,14 +92,14 @@
                                 <th rowspan="2">렌탈(인수)<br /> 소유권<br /> 고객이전</th>
                                 <td>6개월</td>
                                 <td>0</td>
-                                <td>234원</td>
-                                <td>1,234원</td>
+                                <td>상담 요청</td>
+                                <td>상담 요청</td>
                             </tr>
                             <tr>
                                 <td>12개월</td>
                                 <td>0</td>
-                                <td>234원</td>
-                                <td>1,234원</td>
+                                <td>상담 요청</td>
+                                <td>상담 요청</td>
                             </tr>
                         </table>
                         <hr />
