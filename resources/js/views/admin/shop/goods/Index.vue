@@ -134,9 +134,9 @@ import ax from '@/api/http';
 
 export default {
     components: {
-        'categorys': () => import('./_comp/Categorys.vue'),
-        'sch-date': () => import('@/views/_common/SchDate.vue'),
-        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
+        'categorys': () =>      import('@/views/admin/shop/goods/_comp/Categorys.vue'),
+        'sch-date': () =>       import('@/views/_common/SchDate.vue'),
+        'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
     },
     data() {
         return {

@@ -20,7 +20,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'categorys': function categorys() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_goods__comp_Categorys_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/goods/_comp/Categorys.vue */ "./resources/js/views/admin/shop/goods/_comp/Categorys.vue"));
     },
     'sch-date': function schDate() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SchDate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SchDate.vue */ "./resources/js/views/_common/SchDate.vue"));

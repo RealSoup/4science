@@ -23,7 +23,7 @@
 
 <script>
 import ax from '@/api/http';
-import Form from "./Form.vue";
+import Form from "@/views/admin/shop/goods/Form.vue";
 
 export default {
     name: 'create',
