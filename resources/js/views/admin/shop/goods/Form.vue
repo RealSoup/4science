@@ -137,7 +137,7 @@
             <b-col>모델명</b-col>
             <b-col>스펙</b-col>
             <b-col>판매단위</b-col>
-            <b-col v-if="value.gd_type == 'NON'" class="gm_price">가격 / 대표 가격</b-col>
+            <b-col class="gm_price">가격 / 대표 가격</b-col>
             <b-col class="ctrlBox">Ctrl</b-col>
         </b-row>
         <b-row v-for="(model, i) in value.goods_model" :key="i" class="list">
@@ -165,7 +165,7 @@
                 <b-form-input :id="`goods_model.${i}.gm_unit`" v-model='model.gm_unit' />
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_unit`]" />
             </b-col>
-            <b-col v-if="value.gd_type == 'NON'" class="gm_price">
+            <b-col class="gm_price">
                 <b-input-group size="sm">
                     <b-form-input :id="`goods_model.${i}.gm_price`" v-model='model.gm_price' class="text-right" />
                     <b-input-group-append is-text>
@@ -175,11 +175,10 @@
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_price`]" />
             </b-col>
             <b-col class="ctrlBox">
-                <b-button class="sm green" v-if="value.gd_type == 'NON'" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill" /></b-button>
-                <b-button class="sm gray" v-else v-b-toggle="`rental_box${i}`" v-b-tooltip="'렌탈 가격'">R</b-button>
+                <b-button class="sm green" v-b-toggle="`bundleDc_box${i}`" v-b-tooltip="'묶음 할인'"><b-icon icon="tags-fill" /></b-button>
                 <b-button class="sm red" @click="removeAtModel(i)" v-b-tooltip="'삭제'"><b-icon icon="trash-fill"></b-icon></b-button>
 
-                <b-collapse v-if="value.gd_type == 'NON'" :id="`bundleDc_box${i}`" class="bundle_box" @hide="bd_hide(model.bundle_dc)" v-model="model.bd_open">
+                <b-collapse :id="`bundleDc_box${i}`" class="bundle_box" @hide="bd_hide(model.bundle_dc)" v-model="model.bd_open">
                     <b-card header-tag="header" footer-tag="footer" class="shadow">
                         <template #header>
                             <b>묶음할인</b>
@@ -195,22 +194,7 @@
                         </b-input-group>
                     </b-card>
                 </b-collapse>
-            </b-col>
-            <b-col v-if="value.gd_type == 'REN'" class="rental_box col-12">
-                <b-collapse :id="`rental_box${i}`" @hide="rt_hide(model.rental)" v-model="model.rt_open">
-                    <b-row v-for="gr in model.goods_rental" :key="gr.gr_id">
-                        <b-col>
-                            <b-form-checkbox switch size="lg" class="float-right" v-model="gr.gr_type" value="R" unchecked-value="T">
-                                {{gr.gr_type | gr_type}}
-                            </b-form-checkbox>
-                        </b-col>
-                        <b-col><b-form-input v-model='gr.gr_term' placeholder="계약기간" /></b-col>
-                        <b-col><b-form-input v-model='gr.gr_setup_fee' placeholder="설치비" /></b-col>
-                        <b-col><b-form-input v-model='gr.gr_deposit_fee' placeholder="보증금" /></b-col>
-                        <b-col><b-form-input v-model='gr.gr_rent_fee' placeholder="월사용료" /></b-col>
-                    </b-row>
-                </b-collapse>
-            </b-col>
+            </b-col>            
         </b-row>
         <validation :error="$store.state.error.validations.goods_model" />
         <b-row>

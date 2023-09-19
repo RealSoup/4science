@@ -46,7 +46,8 @@ export default {
             switch (this.order.od_pay_method) {
                 case 'C': return '카드 결제';                       break;
                 case 'B': return '현금결제 (무통장입금)';           break;
-                case 'P': return 'PSYS (원격지 연구비 직접결제)';   break;
+                case 'P': return 'PSYS (선결제)';   break;
+                case 'S': return 'PSYS (후결제)';   break;
                 case 'R': return '원격결제';                        break;
                 case 'E': return '에스크로 (결제대금예치)';         break;
             }
@@ -104,6 +105,8 @@ export default {
 .container .row .col:nth-child(1) { padding-left:0; }
 .container .row .col:nth-child(2) { padding-right:0; }
 .container .row .col .btn { width:100%; }
+.container .row .col:first-child { padding-right:15px; }
+.container .row .col:last-child { padding-left:15px; }
 @media (max-width: 992px){
     .w_fence { font-size:13px; padding-left:5px; padding-right:5px; }
     .container ul,

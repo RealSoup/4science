@@ -1075,11 +1075,7 @@ var render = function render() {
       attrs: {
         src: _vm.s3url + "order/pay_cache.png"
       }
-    })])]) : k == "P" ? _c("span", [_vm._v("원격지 연구비 직접결제"), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_psys.png"
-      }
-    })])]) : k == "S" ? _c("span", [_vm._v("원격지 연구비 직접결제"), _c("b", [_vm._v("[자세히]"), _c("img", {
+    })])]) : k == "P" ? _c("span", [_vm._v("원격지 연구비 직접결제")]) : k == "S" ? _c("span", [_vm._v("원격지 연구비 직접결제"), _c("b", [_vm._v("[자세히]"), _c("img", {
       attrs: {
         src: _vm.s3url + "order/pay_psys.png"
       }
@@ -1325,7 +1321,7 @@ var render = function render() {
       },
       expression: "order.extra.oex_email"
     }
-  })], 1)], 1)], 1) : _vm._e()]), _vm._v(" "), _vm.order.od_pay_method == "B" || _vm.order.od_pay_method == "P" ? _c("pay-plan", {
+  })], 1)], 1)], 1) : _vm._e()]), _vm._v(" "), _vm.order.od_pay_method == "B" || _vm.order.od_pay_method == "S" ? _c("pay-plan", {
     model: {
       value: _vm.order.extra,
       callback: function callback($$v) {
