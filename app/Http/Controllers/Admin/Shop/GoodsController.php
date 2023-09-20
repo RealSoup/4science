@@ -276,7 +276,7 @@ class GoodsController extends Controller {
         }
 
         //  검색엔진 갱신
-        if (!$req->gd_type == 'REN')
+        if ($req->gd_type != 'REN')
             self::exeIndex();
 
         if ($rst)
