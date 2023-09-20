@@ -957,7 +957,7 @@ var render = function render() {
         }
       }, [odm.odm_type == "MODEL" ? [_c("b", [_vm._v(_vm._s(odm.odm_gd_name))]), _vm._v(" "), _c("p", {
         staticClass: "gray_c"
-      }, [_vm._v("\r\n                                    제품명: " + _vm._s(odm.odm_gm_name) + " / 판매단위: " + _vm._s(odm.odm_gm_unit) + " "), _c("br"), _vm._v("\r\n                                    모델명: " + _vm._s(odm.odm_gm_code) + " / Cat.No.: " + _vm._s(odm.odm_gm_catno)), _c("br"), _vm._v("\r\n                                    사양: "), _c("span", {
+      }, [_vm._v("\r\n                                    제품명: " + _vm._s(odm.odm_gm_name) + " / 모델명: " + _vm._s(odm.odm_gm_code) + "       "), _c("br"), _vm._v("\r\n                                    Cat.No.: " + _vm._s(odm.odm_gm_catno) + " / 판매단위: " + _vm._s(odm.odm_gm_unit) + "   "), _c("br"), _vm._v("\r\n                                    사양: "), _c("span", {
         domProps: {
           innerHTML: _vm._s(_vm.nl2br(odm.odm_gm_spec))
         }

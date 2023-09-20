@@ -73,7 +73,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               form.appendChild(objs06);
               objs07.setAttribute('type', 'hidden');
               objs07.setAttribute('name', 'Psys_card_type');
-              objs07.setAttribute('value', '');
+              objs07.setAttribute('value', '1');
               form.appendChild(objs07);
               objs08.setAttribute('type', 'hidden');
               objs08.setAttribute('name', 'Psys_securekey');

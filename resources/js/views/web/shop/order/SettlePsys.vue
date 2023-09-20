@@ -29,7 +29,7 @@ export default {
             objs04.setAttribute('type', 'hidden'); objs04.setAttribute('name', 'Psys_recp_nm');              objs04.setAttribute('value', res.data.Psys_recp_nm);   form.appendChild(objs04);
             objs05.setAttribute('type', 'hidden'); objs05.setAttribute('name', 'Psys_recp_addr');            objs05.setAttribute('value', res.data.Psys_recp_addr); form.appendChild(objs05);
             objs06.setAttribute('type', 'hidden'); objs06.setAttribute('name', 'Psys_pmember_id');           objs06.setAttribute('value', res.data.Psys_pmember_id);form.appendChild(objs06);
-            objs07.setAttribute('type', 'hidden'); objs07.setAttribute('name', 'Psys_card_type');            objs07.setAttribute('value', '');                      form.appendChild(objs07);
+            objs07.setAttribute('type', 'hidden'); objs07.setAttribute('name', 'Psys_card_type');            objs07.setAttribute('value', '1');                      form.appendChild(objs07);
             objs08.setAttribute('type', 'hidden'); objs08.setAttribute('name', 'Psys_securekey');            objs08.setAttribute('value', res.data.Psys_securekey); form.appendChild(objs08);
             objs09.setAttribute('type', 'hidden'); objs09.setAttribute('name', 'Psys_shopingmall_order_no'); objs09.setAttribute('value', res.data.Psys_shopingmall_order_no); form.appendChild(objs09);
             objs10.setAttribute('type', 'hidden'); objs10.setAttribute('name', 'Psys_title');                objs10.setAttribute('value', "4SCIENCE - PSYS 결제");  form.appendChild(objs10);

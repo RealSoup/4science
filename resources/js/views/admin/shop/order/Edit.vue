@@ -117,8 +117,8 @@
                             <template v-if="odm.odm_type=='MODEL'">
                                 <b>{{odm.odm_gd_name}}</b>
                                 <p class="gray_c">
-                                    제품명: {{odm.odm_gm_name}} / 판매단위: {{odm.odm_gm_unit}} <br />
-                                    모델명: {{odm.odm_gm_code}} / Cat.No.: {{odm.odm_gm_catno}}<br />
+                                    제품명: {{odm.odm_gm_name}} / 모델명: {{odm.odm_gm_code}}       <br />
+                                    Cat.No.: {{odm.odm_gm_catno}} / 판매단위: {{odm.odm_gm_unit}}   <br />
                                     사양: <span v-html="nl2br(odm.odm_gm_spec)" />
                                 </p>
                             </template>

@@ -25,12 +25,13 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
     public function columnWidths(): array {
         return [
             'A' => 5,
-            'B' => 30,
-            'C' => 15,
-            'D' => 16,
-            'E' => 14,
-            'F' => 10,
-            'G' => 14,
+            'B' => 29,
+            'C' => 1,
+            'D' => 15,
+            'E' => 16,
+            'F' => 14,
+            'G' => 10,
+            'H' => 14,
         ];
     }
 
@@ -44,7 +45,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $data[] = [$od['od_company']." 귀하"];
         $data[] = ['아래와 같이 계산합니다.'];
         $data[] = [''];
-        $data[] = ['No.', 'DESCRIPTION', 'Cat. No.', '모델명', '단가', '수량', '공급가액'];
+        $data[] = ['No.', 'DESCRIPTION', '', 'Cat. No.', '모델명', '단가', '수량', '공급가액'];
         $goods_p = 0;        
         $seq = 0;
         foreach ($od['order_purchase_at'] as $opa) {
@@ -59,10 +60,10 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                         $od['od_dlvy_price']        = 0;
                         //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
                     }
-                    $data[] = [$seq, $odm['odm_gm_name'], $odm['odm_gm_catno'], $odm['odm_gm_code'], $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea'] ];
+                    $data[] = [$seq, $odm['odm_gm_name'], '', $odm['odm_gm_catno'], $odm['odm_gm_code'], $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea'] ];
                 } else {
                     $this->odm_map[] = 'o';
-                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea']];
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', $odm['odm_price'], $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea']];
                 }                
                 $goods_p += $odm['odm_price']*$odm['odm_ea'];
             }
@@ -83,21 +84,22 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
     public function styles(Worksheet $sheet) {
 
-        $sheet->mergeCells('A1:G1');
+        $sheet->mergeCells('A1:H1');
         $sheet->getRowDimension('1')->setRowHeight(38);
-        $sheet->mergeCells('A2:G2');
+        $sheet->mergeCells('A2:H2');
         $sheet->getRowDimension('2')->setRowHeight(22);
-        $sheet->mergeCells('A3:G3');
+        $sheet->mergeCells('A3:H3');
         $sheet->getRowDimension('3')->setRowHeight(5);
 
-        $sheet->mergeCells('A4:C4')->mergeCells('D4:G4');
+        $sheet->mergeCells('A4:D4')->mergeCells('E4:H4');
         $sheet->getRowDimension('4')->setRowHeight(12);
-        $sheet->mergeCells('A5:C5')->mergeCells('D5:G5');
+        $sheet->mergeCells('A5:D5')->mergeCells('E5:H5');
         $sheet->getRowDimension('5')->setRowHeight(14);
-        $sheet->mergeCells('A6:C6')->mergeCells('D6:G6');
+        $sheet->mergeCells('A6:D6')->mergeCells('E6:H6');
         $sheet->getRowDimension('6')->setRowHeight(30);
-        $sheet->mergeCells('A7:G7');
+        $sheet->mergeCells('A7:H7');
         $sheet->getRowDimension('7')->setRowHeight(9);
+        $sheet->mergeCells('B8:C8');
         $sheet->getRowDimension('8')->setRowHeight(20);
 
         $n = 9;
@@ -108,47 +110,47 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
 
         $sheet->getRowDimension($n)->setRowHeight(23);
-        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:H{$n}");
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(23);
-        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:H{$n}");
         $n++;
 
         if ($this->od['od_dlvy_price']) {
             $sheet->getRowDimension($n)->setRowHeight(23);
-            $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+            $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:H{$n}");
             $n++;
         }
         if ($this->od['od_air_price']) {
             $sheet->getRowDimension($n)->setRowHeight(23);
-            $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+            $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:H{$n}");
             $n++;
         }
 
         $sheet->getRowDimension($n)->setRowHeight(30);  //  TOTAL AMOUNT
-        $sheet->mergeCells("A{$n}:D{$n}")->mergeCells("E{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:E{$n}")->mergeCells("F{$n}:H{$n}");
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(7);
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(23);  //  담당자
-        $sheet->mergeCells("A{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:H{$n}");
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(23);
-        $sheet->mergeCells("A{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:H{$n}");
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(7);
         $n++;
 
         $sheet->getRowDimension($n)->setRowHeight(40);
-        $sheet->mergeCells("A{$n}:G{$n}");
+        $sheet->mergeCells("A{$n}:H{$n}");
 
         $sheet_style = [
-            'A1:G1' => [
+            'A1:H1' => [
                 'font' => ['size' => 15, 'bold' => true],
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -165,7 +167,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ],
-            'A2:G2' => [
+            'A2:H2' => [
                 'font' => ['size' => 10],
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -178,21 +180,21 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ],
-            'A4:C4' => [
+            'A4:D4' => [
                 'font' => ['bold' => true],
                 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, ],
             ],
-            'A5:C5' => [
+            'A5:D5' => [
                 'font' => ['size' => 12, 'bold' => true],
                 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, ],
             ],
-            'A6:C6' => [
+            'A6:D6' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'A7:G7' => [
+            'A7:H7' => [
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -200,7 +202,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ],
-            'A8:G8' => [
+            'A8:H8' => [
                 'font' => ['bold' => true],
                 'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, ],
                 'fill' => [
@@ -227,7 +229,19 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
 
         $r = 9;
         foreach ($this->odm_map as $row) {
-            $sheet_style["A{$r}:G{$r}"] = [
+            $sheet_style["A{$r}:B{$r}"] = [
+                'borders' => [
+                    'inside' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
+                    ],
+                    'bottom' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                        'color' => ['argb' => 'FFD5D5D5'],
+                    ],
+                ],
+            ];
+            $sheet_style["D{$r}:H{$r}"] = [
                 'borders' => [
                     'inside' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -240,11 +254,23 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ];
             $sheet_style["A{$r}"] = $text_center;
-            $sheet_style["C{$r}"] = $text_center;
+            $sheet_style["C{$r}"] = [
+                'borders' => [
+                    'inside' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                        'color' => ['argb' => 'FFECECEC'],
+                    ],
+                    'bottom' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
+                        'color' => ['argb' => 'FFD5D5D5'],
+                    ],
+                ],
+            ];
             $sheet_style["D{$r}"] = $text_center;
-            $sheet_style["E{$r}"] = $text_right;
-            $sheet_style["F{$r}"] = $text_center;
-            $sheet_style["G{$r}"] = $text_right;
+            $sheet_style["E{$r}"] = $text_center;
+            $sheet_style["F{$r}"] = $text_right;
+            $sheet_style["G{$r}"] = $text_center;
+            $sheet_style["H{$r}"] = $text_right;
             $r++;
         }
 
@@ -258,14 +284,14 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ],
         ];
-        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+        $sheet_style["A{$r}:H{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
         ]);
         $r++;
 
-        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+        $sheet_style["A{$r}:H{$r}"] = Arr::collapse([
             ['font' => ['color' =>  ['argb' => 'FF999999'],]],
             $text_right,
             $border_medium_dashed
@@ -273,7 +299,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $r++;
 
         if ($this->od['od_dlvy_price']) {
-            $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+            $sheet_style["A{$r}:H{$r}"] = Arr::collapse([
                 ['font' => ['color' =>  ['argb' => 'FF999999'],]],
                 $text_right,
                 $border_medium_dashed
@@ -281,7 +307,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             $r++;
         }
         if ($this->od['od_air_price']) {
-            $sheet_style["A{$r}:G{$r}"] = Arr::collapse([
+            $sheet_style["A{$r}:H{$r}"] = Arr::collapse([
                 ['font' => ['color' =>  ['argb' => 'FF999999'],]],
                 $text_right,
                 $border_medium_dashed
@@ -289,7 +315,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             $r++;
         }
 
-        $sheet_style["A{$r}:G{$r}"] = Arr::collapse([   //  TOTAL AMOUNT
+        $sheet_style["A{$r}:H{$r}"] = Arr::collapse([   //  TOTAL AMOUNT
             ['font' => ['size' => 11, 'bold' => true]],
             ['borders' => [
                     'bottom' => [
@@ -302,7 +328,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         ]);
         $r+=2;
 
-        $sheet_style["A{$r}:G{$r}"] = [
+        $sheet_style["A{$r}:H{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -319,7 +345,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         ];
         $r++;
 
-        $sheet_style["A{$r}:G{$r}"] = [
+        $sheet_style["A{$r}:H{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -336,7 +362,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         ];
         $r++;
         
-        $sheet_style["A{$r}:G{$r}"] = [
+        $sheet_style["A{$r}:H{$r}"] = [
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'startColor' => [
@@ -346,7 +372,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         ];
         $r++;
 
-        $sheet_style["A{$r}:G{$r}"] = [
+        $sheet_style["A{$r}:H{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -369,30 +395,30 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
         $drawing = new Drawing();
         $drawing->setPath(public_path('img/addr_estimate200921.gif'));
         $drawing->setHeight(80);
-        $drawing->setCoordinates('D4');
+        $drawing->setCoordinates('E4');
         return $drawing;
     }
 
     public function columnFormats(): array {
         $rst = [];
-        $rst["A4:C4"] = NumberFormat::FORMAT_DATE_01;
+        $rst["A4:D4"] = NumberFormat::FORMAT_DATE_01;
         for ($i=9; $i < count($this->odm_map)+9; $i++)
-            $rst["E{$i}:G{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$i}:H{$i}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         
         $r = count($this->odm_map) + 9;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         $r++;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         if ($this->od['od_dlvy_price']) {
             $r++;
-            $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         }
         if ($this->od['od_air_price']) {
             $r++;
-            $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
+            $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;
         }
         $r++;
-        $rst["E{$r}:G{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
+        $rst["F{$r}:H{$r}"] = NumberFormat::FORMAT_CURRENCY_COMMA;        
         return $rst;
     }
 
@@ -419,7 +445,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 $drawing2 = new Drawing();
                 $drawing2->setPath(public_path('img/estimate_logo.png'));
                 $drawing2->setHeight(43);
-                $drawing2->setCoordinates('C'.(count($this->odm_map)+16));
+                $drawing2->setCoordinates('D'.(count($this->odm_map)+16));
                 $drawing2->setOffsetX(35);
                 $drawing2->setWorksheet($event->sheet->getDelegate());
             }
