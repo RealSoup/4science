@@ -69,13 +69,13 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             }
         }
 
-        $data[] = ['SUPPLY PRICE', '', '', '', $goods_p];
-        $data[] = ['V. A. T.', '', '', '', surtax($goods_p)];
+        $data[] = ['SUPPLY PRICE', '', '', '', '', $goods_p];
+        $data[] = ['V. A. T.', '', '', '', '', surtax($goods_p)];
         if ($od['od_dlvy_price'])
-            $data[] = ['SHIPPING FEES', '', '', '', $od['od_dlvy_price']];
+            $data[] = ['SHIPPING FEES', '', '', '', '', $od['od_dlvy_price']];
         if ($od['od_air_price'])
-            $data[] = ['항공 운임료', '', '', '', $od['od_air_price']];
-        $data[] = ['TOTAL AMOUNT', '', '', '', rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price']];
+            $data[] = ['항공 운임료', '', '', '', '', $od['od_air_price']];
+        $data[] = ['TOTAL AMOUNT', '', '', '', '', rrp($goods_p)+$od['od_dlvy_price']+$od['od_air_price']];
         $data[] = [''];
         $data[] = ['담당자 : '.$od['mng']['name'].' '.$od['mng']['user_mng']['pos_name'].', TEL : '.$od['mng']['tel'].', FAX : '.$od['mng']['fax']];
         $data[] = ['계좌번호 : '.cache('bank')['name01'].' '.cache('bank')['num01'].', '.cache('bank')['name02'].' '.cache('bank')['num02'].' '.cache('bank')['owner']];
