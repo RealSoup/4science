@@ -93,7 +93,7 @@ class EstimateController extends Controller {
                 case 'er_id':			$eq = $eq->EqId($er->ErId($req->keyword)->pluck('er_eq_id')); break;
                 case 'em_name':
                     $em = $em   ->TypeReply()
-                                ->where('em_name', 'like', $req->keyword.'%')
+                                ->where('em_name', 'like', '%'.$req->keyword.'%')
                                 ->pluck('em_papa_id');
                     $eq->EqId( $er->ErIdArr($em)->pluck('er_eq_id') );
                 break;

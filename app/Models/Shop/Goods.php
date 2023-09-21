@@ -387,10 +387,11 @@ class Goods extends Model {
                     if($req->mode == 'maker')   $q_str .= "@mk_name {$kw}";
                 }
             } else
-                $q_str .= " {$kw}";
+                $q_str .= "{$kw}";
             
             if ( $req->filled('keyword_extra') ) {
-                $ex_kw = '"'.trim($req->keyword_extra).'"';
+                $ex_kw = '*'.trim($req->keyword_extra).'*';
+                $q_str .= " << ";
                 if ( $req->filled('mode') ) {
                     if($req->mode == 'gd_name') $q_str .= "@gd_name {$ex_kw}";
                     if($req->mode == 'gm_name') $q_str .= "@gm_name {$ex_kw}";
@@ -461,6 +462,19 @@ class Goods extends Model {
         if ($req->filled('keyword')) {
             $kw = trim($req->keyword);
             $kw = '*'.$kw.'*';            
+        }
+
+        if ( $req->filled('keyword_extra') ) {
+            $kw .= " << ";
+            $ex_kw = '*'.trim($req->keyword_extra).'*';
+            if ( $req->filled('mode') ) {
+                if($req->mode == 'gd_name') $kw .= "@gd_name {$ex_kw}";
+                if($req->mode == 'gm_name') $kw .= "@gm_name {$ex_kw}";
+                if($req->mode == 'gm_code') $kw .= "@gm_code {$ex_kw}";
+                if($req->mode == 'cat_no')  $kw .= "@gm_catno {$ex_kw}";
+                if($req->mode == 'maker')   $kw .= "@mk_name {$ex_kw}";
+            } else
+                $kw .= "@* {$ex_kw}";
         }
 
         $cl = new SphinxClient ();

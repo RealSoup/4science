@@ -409,6 +409,10 @@ class OrderController extends Controller {
 				$od->od_pay_method = $req->od_pay_method;
 			} else if ($req->type == 'od_sale_env') {
 				$od->od_sale_env = $req->od_sale_env;
+			} else if ($req->type == 'adm_memo') {
+				$oex = $this->orderExtraInfo->find($req->order_extra_info['oex_id']);
+				$oex->oex_adm_memo = $req->order_extra_info['oex_adm_memo'];
+				$oex->save();
 			}
 			$od->updated_id = auth()->user()->id;
 			$od_rst = $od->save();

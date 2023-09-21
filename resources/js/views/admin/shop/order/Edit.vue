@@ -116,8 +116,10 @@
                         <b-col class="desc" :class="{option:odm.odm_type=='OPTION'}">
                             <template v-if="odm.odm_type=='MODEL'">
                                 <b>{{odm.odm_gd_name}}</b>
-                                <p class="gray_c">
-                                    제품명: {{odm.odm_gm_name}} / 모델명: {{odm.odm_gm_code}}       <br />
+                                <p class="gray_c hovertobtn">
+                                    제품명: {{odm.odm_gm_name}} / 모델명: {{odm.odm_gm_code}}  
+                                    <font-awesome-icon icon="copy" @click="copyToClipboard(`제품명: ${odm.odm_gm_name} / 모델명: ${odm.odm_gm_code}`)" class="btn_copy" />
+                                    <br />
                                     Cat.No.: {{odm.odm_gm_catno}} / 판매단위: {{odm.odm_gm_unit}}   <br />
                                     사양: <span v-html="nl2br(odm.odm_gm_spec)" />
                                 </p>
@@ -209,28 +211,20 @@
 
             <b-row class="label_st">
                 <b-col class="lb">수취인</b-col>
-                <b-col class="dt wd1_2">
-                    <font-awesome-icon icon="copy" v-b-tooltip="'수취인 복사'" @click="copyToClipboard(od.od_receiver)" class="print_hide_inline_block sm_ib_h" />
-                    <div class="cube_box receiver">
-                        <div class="cube" :class="{show_bottom: focusInfo.od_receiver}">
-                            <div class="piece front">{{ od.od_receiver }}</div>
-                            <div class="piece bottom">
-                                <b-form-input v-model="od.od_receiver" @focus="focusInfo.od_receiver = true" @blur="focusInfo.od_receiver = false" size="sm" />
-                            </div>
-                        </div>
+                <b-col class="dt wd1_2 edit_field">
+                    <b-form-input v-if="focusInfo.od_receiver" v-model="od.od_receiver" @blur.native="focusInfo.od_receiver = false;" v-focus="" />
+                    <div v-else @click="focusInfo.od_receiver = true;" class="hovertobtn">
+                        {{od.od_receiver}}
+                        <font-awesome-icon icon="copy" @click="copyToClipboard(od.od_receiver)" class="btn_copy" />
                     </div>
                     <span v-if="od.od_receiver != od.od_orderer" class="warning">* 주문자와 수취인이 다릅니다.</span>
                 </b-col>
                 <b-col class="lb">전화번호</b-col>
-                <b-col class="dt wd1_2">
-                    <font-awesome-icon icon="copy" v-b-tooltip="'전화번호 복사'" @click="copyToClipboard(od.od_receiver_hp)" class="print_hide_inline_block sm_ib_h" />
-                    <div class="cube_box receiver_hp">
-                        <div class="cube" :class="{show_bottom: focusInfo.od_receiver_hp}">
-                            <div class="piece front">{{ od.od_receiver_hp }}</div>
-                            <div class="piece bottom">
-                                <b-form-input v-model="od.od_receiver_hp" @focus="focusInfo.od_receiver_hp = true" @blur="focusInfo.od_receiver_hp = false" size="sm" />
-                            </div>
-                        </div>
+                <b-col class="dt wd1_2 edit_field">
+                    <b-form-input v-if="focusInfo.od_receiver_hp" v-model="od.od_receiver_hp" @blur.native="focusInfo.od_receiver_hp = false;" v-focus="" />
+                    <div v-else @click="focusInfo.od_receiver_hp = true;" class="hovertobtn">
+                        {{od.od_receiver_hp}}
+                        <font-awesome-icon icon="copy" @click="copyToClipboard(od.od_receiver_hp)" class="btn_copy" />
                     </div>
                 </b-col>
                 <b-col class="lb">
@@ -241,14 +235,14 @@
                         <li v-for="(ua, i) in od.user.user_addr" :key="i" @click="change_dlvy_info(i)">{{ua.ua_addr1}} {{ua.ua_addr2}} ( {{ua.ua_hp}} )</li>
                     </ul>
                 </b-col>
-                <b-col class="dt wd1_1">
-                    <font-awesome-icon icon="copy" v-b-tooltip="'배송 주소 복사'" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="print_hide_inline_block sm_ib_h" />
+                <b-col class="dt wd1_1 hovertobtn">
                     {{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}
+                    <font-awesome-icon icon="copy" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="btn_copy" />
                 </b-col>
                 <b-col class="lb">배송시 요구사항</b-col>
-                <b-col class="dt wd1_1">
-                    <font-awesome-icon icon="copy" v-b-tooltip="'요구사항 복사'" @click="copyToClipboard(od.od_memo)" class="print_hide_inline_block sm_ib_h" />
+                <b-col class="dt wd1_1 hovertobtn">
                     {{od.od_memo}}
+                    <font-awesome-icon icon="copy" @click="copyToClipboard(od.od_memo)" class="btn_copy" />
                 </b-col>
             </b-row>
 
@@ -326,7 +320,10 @@
                 </template>
             </b-row>
 
-            <b-row tag="h5"><b-col tag="b">요청서류</b-col></b-row>
+            <b-row tag="h5">
+                <b-col tag="b">요청서류</b-col>
+                <b-col class="text-right"><b-button @click="update('adm_memo')" class="teal print_hide_inline_block">관리자 메모 수정</b-button></b-col>
+            </b-row>
             <b-row class="label_st">
                 <b-col class="lb">요청서류</b-col>
                 <b-col class="dt wd1_1">{{reqDocumentDisplay}}</b-col>
@@ -375,6 +372,12 @@
                         <b-col class="dt wd1_1">{{od.order_extra_info.oex_num}}</b-col>
                     </template>
                 </template>
+
+                <b-col class="lb">관리자 메모</b-col>
+                <b-col class="dt wd1_1 edit_field" :style="{padding:0}">
+                    <b-form-input v-if="focusInfo.adm_memo" v-model="od.order_extra_info.oex_adm_memo" @blur.native="focusInfo.adm_memo = false;" v-focus="" />
+                    <div v-else @click="focusInfo.adm_memo = true;">{{od.order_extra_info.oex_adm_memo}}</div>            
+                </b-col>
             </b-row>
         </div>
 
@@ -500,7 +503,7 @@ export default {
     components: {
         VueDaumPostcode,
         'Modal': () =>      import('@/views/_common/Modal.vue'),
-        'EaInput': () =>    import('./_comp/EaInput.vue'),
+        'EaInput': () =>    import('@/views/admin/shop/order/_comp/EaInput.vue'),
     },
     data() {
         return {
@@ -509,6 +512,7 @@ export default {
             focusInfo: {
                 od_receiver:false,
                 od_receiver_hp:false,
+                adm_memo:false,
             },
             od: {
                 order_extra_info:{},
@@ -594,6 +598,13 @@ export default {
             }
             return rst;
         },
+    },
+    directives: {
+        focus: {
+            inserted (el) {
+                el.focus();
+            }
+        }
     },
     methods: {
         async edit(){
@@ -746,7 +757,9 @@ export default {
 
         onPostcodeSlt(result) {
             this.$set(this.od, 'od_zip', result.zonecode);
-            this.$set(this.od, 'od_addr1', result.roadAddress + "("+ result.buildingName +")");
+            let od_addr1 = result.roadAddress;
+            od_addr1 += result.buildingName ? ` (${result.buildingName})` : '';
+            this.$set(this.od, 'od_addr1', od_addr1);
             this.modalType = 'postDetail';
         },
 
@@ -863,7 +876,6 @@ export default {
 .p_wrap .od_addr .addr_list { position:absolute; top:50px; background:#F8F8F8; border:2px solid #555; border-radius:10px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); padding:10px 30px; z-index:1; min-width:40rem; text-align:left; }
 .p_wrap .od_addr .addr_list li { list-style-type:decimal; cursor:pointer; font-size:1.1rem; }
 
-
 .p_wrap .sm_ib_v { display:none; }
 @media (max-width: 1472px){
     .p_wrap .act_ctrl .def_info,
@@ -899,6 +911,6 @@ export default {
     .p_wrap .box .sum_up .total .col:nth-of-type(4):after { content:none; } 
     .p_wrap .box .sum_up .total .col:nth-of-type(odd) { flex-basis:50%; max-width:50%; font-size:1rem; }
     .p_wrap .box .sum_up .total .col:nth-of-type(6) { flex-basis:50%; max-width:50%; }
-    .p_wrap .box .sum_up .total .col b { font-size:1rem; }
+    .p_wrap .box .sum_up .total .col b { font-size:1em; }
 }
 </style>
