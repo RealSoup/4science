@@ -692,7 +692,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.8'
+                '/css/adm_shop_order_edit.css?ver=1.9'
             ]});
         },
 
@@ -854,7 +854,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.8';
+@import '/css/adm_shop_order_edit.css?ver=1.9';
 
 .p_wrap { padding-top:1rem; }
 .p_wrap .print_mng_nm { display:none; }

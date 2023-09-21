@@ -75,7 +75,7 @@
 .p_wrap .box .sum_up .total_sub .col>div:nth-of-type(2) { padding:0 2rem 1rem 2rem; }
 .p_wrap .box .sum_up .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .p_wrap .box .sum_up .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
-.p_wrap .box .edit_field div { padding:.4em; line-height:2; font-size:1.2em; }
+.p_wrap .box .edit_field div { padding:.4em; line-height:2; font-size:1.2em; width:100%; height:100%; }
 .p_wrap .box .hovertobtn .btn_copy { cursor:pointer; max-height:0; transition:max-height 0.3s; color:#000; margin-left:.5em; overflow:hidden; }
 .p_wrap .box .hovertobtn:hover .btn_copy { max-height:30px; }
 
