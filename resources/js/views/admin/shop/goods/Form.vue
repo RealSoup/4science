@@ -132,12 +132,24 @@
     <b-container tabindex="-1" class="box model adform">
         <h5>Model</h5>        
         <b-row class="head">
-            <b-col>활성화 / 제품명</b-col>
+            <b-col>
+                <template v-if="value.gd_type == 'NON'">활성화 / 제품명</template>
+                <template v-else>계약기간</template>
+            </b-col>
             <b-col>CAT.No</b-col>                
             <b-col>모델명</b-col>
-            <b-col>스펙</b-col>
-            <b-col>판매단위</b-col>
-            <b-col class="gm_price">가격 / 대표 가격</b-col>
+            <b-col>
+                <template v-if="value.gd_type == 'NON'">스펙</template>
+                <template v-else>배송비</template>
+            </b-col>
+            <b-col>
+                <template v-if="value.gd_type == 'NON'">판매단위</template>
+                <template v-else>보증금</template>
+            </b-col>
+            <b-col class="gm_price">
+                <template v-if="value.gd_type == 'NON'">가격 / 대표 가격</template>
+                <template v-else>월사용료(VAT별도)</template>
+            </b-col>
             <b-col class="ctrlBox">Ctrl</b-col>
         </b-row>
         <b-row v-for="(model, i) in value.goods_model" :key="i" class="list">

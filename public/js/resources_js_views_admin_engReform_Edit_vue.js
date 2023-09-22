@@ -469,7 +469,7 @@ var render = function render() {
     attrs: {
       fi_group: "engReform",
       fi_kind: "cplt",
-      height: 150
+      height: 70
     },
     model: {
       value: _vm.frm.file_info_cplt,
@@ -574,7 +574,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-24a8b37a] { max-width:1640px; margin-left:auto; margin-right:auto;\n}\n.est_frm .row .col.sty02[data-v-24a8b37a],\r\n.est_frm .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 10%; max-width:10%;\n}\n.est_frm .row .col.sty01[data-v-24a8b37a] { flex:0 0 24%; max-width:24%;\n}\n.est_frm .row .col.sty03[data-v-24a8b37a] { flex:0 0 14%; max-width:14%;\n}\n.est_frm .row .col.sty04[data-v-24a8b37a] { flex:0 0 13%; max-width:13%;\n}\n.box_f .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 14%; max-width:14%;\n}\n.box_f .row .add_file div .btn[data-v-24a8b37a] { max-width:400px; margin-bottom:.7rem;\n}\n.box_f .row .col .cnt[data-v-24a8b37a] { color:#16A2B9; font-size:.9rem;\n}\n.bottom .col[data-v-24a8b37a] { display:flex; justify-content:flex-end; align-items:center;\n}\n.bottom .col .input-group[data-v-24a8b37a] { max-width:200px;\n}\n.bottom .col span>b[data-v-24a8b37a],\r\n.bottom .col>.input-group[data-v-24a8b37a], \r\n.bottom .col>.btn[data-v-24a8b37a] { margin-left:1rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-24a8b37a] { max-width:1640px; margin-left:auto; margin-right:auto;\n}\n.est_frm .row .col.sty02[data-v-24a8b37a],\r\n.est_frm .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 10%; max-width:10%;\n}\n.est_frm .row .col.sty01[data-v-24a8b37a] { flex:0 0 24%; max-width:24%;\n}\n.est_frm .row .col.sty03[data-v-24a8b37a] { flex:0 0 14%; max-width:14%;\n}\n.est_frm .row .col.sty04[data-v-24a8b37a] { flex:0 0 13%; max-width:13%;\n}\n.box_f .row .col[data-v-24a8b37a]:nth-child(odd) { flex:0 0 14%; max-width:14%;\n}\n.box_f .row .add_file div .btn[data-v-24a8b37a] { max-width:400px; margin-bottom:.7rem;\n}\n.box_f .row .col .cnt[data-v-24a8b37a] { color:#16A2B9; font-size:.9rem;\n}\n.box_f .row .col[data-v-24a8b37a] .row .imgList .col-lg-2 { flex: 0 0 8.333333%; max-width: 8.333333%;\n}\n.bottom .col[data-v-24a8b37a] { display:flex; justify-content:flex-end; align-items:center;\n}\n.bottom .col .input-group[data-v-24a8b37a] { max-width:200px;\n}\n.bottom .col span>b[data-v-24a8b37a],\r\n.bottom .col>.input-group[data-v-24a8b37a], \r\n.bottom .col>.btn[data-v-24a8b37a] { margin-left:1rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

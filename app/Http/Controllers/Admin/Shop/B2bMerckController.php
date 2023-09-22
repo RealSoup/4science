@@ -54,7 +54,7 @@ class B2bMerckController extends Controller {
 		$SenderIdentity	= $this -> MerckMemberCode;
 
 		$bm_id = DB::table('shop_b2b_merck')->insertGetId([ 'bm_orderid'	=> $orderID,
-															'bm_req_dlvy'	=> $req->extra['req_dlvy'],
+															'bm_req_dlvy'	=> $req->address['req_dlvy'],
 															'bm_total_amt'	=> $total_amt,
 															'created_id'	=> auth()->user()->id, ]);
 		$xml = new \XMLWriter;
@@ -107,26 +107,26 @@ class B2bMerckController extends Controller {
 						$xml->endElement();
 						$xml->startElement('ShipTo');
 							$xml->startElement('Address');
-								$xml->writeAttribute('addressID', $req->extra['addressID']);
+								$xml->writeAttribute('addressID', $req->address['addressID']);
 								$xml->startElement('Name');
 									$xml->writeAttribute('xml:lang', $xmlLang);
-									$xml->text($req->extra['company']);
+									$xml->text($req->address['company']);
 								$xml->endElement();
 								$xml->startElement('PostalAddress');
 									$xml->writeAttribute('name', 'default');
-									$xml->writeElement('DeliverTo', $req->extra['part']);
-									$xml->writeElement('DeliverTo', $req->extra['name']);
-									$xml->writeElement('Street', $req->extra['detail']);
-									$xml->writeElement('Street', $req->extra['street']);
-									$xml->writeElement('City', $req->extra['city']);
-									$xml->writeElement('State', $req->extra['state']);
-									$xml->writeElement('PostalCode', $req->extra['code']);
+									$xml->writeElement('DeliverTo', $req->address['part']);
+									$xml->writeElement('DeliverTo', $req->address['name']);
+									$xml->writeElement('Street', $req->address['detail']);
+									$xml->writeElement('Street', $req->address['street']);
+									$xml->writeElement('City', $req->address['city']);
+									$xml->writeElement('State', $req->address['state']);
+									$xml->writeElement('PostalCode', $req->address['code']);
 									$xml->startElement('Country');
 										$xml->writeAttribute('isoCountryCode', $isoCountryCode);
 										$xml->text($Country);
 									$xml->endElement();
 								$xml->endElement();
-								// $xml->writeElement('Email', $req->extra['email']);
+								// $xml->writeElement('Email', $req->address['email']);
 
 								$xml->startElement('Phone');
 									$xml->writeAttribute('name', 'work');
@@ -136,7 +136,7 @@ class B2bMerckController extends Controller {
 											$xml->text(82);
 										$xml->endElement();
 										$xml->writeElement('AreaOrCityCode', '');
-										$xml->writeElement('Number', $req->extra['hp']);
+										$xml->writeElement('Number', $req->address['hp']);
 									$xml->endElement();
 								$xml->endElement();
 
@@ -191,7 +191,7 @@ class B2bMerckController extends Controller {
 						// $xml->endElement();
 						$xml->startElement('Comments');
 							$xml->writeAttribute('xml:lang', $xmlLang);
-							$xml->text($req->extra['req_dlvy']);
+							$xml->text($req->address['req_dlvy']);
 						$xml->endElement();
 					$xml->endElement();
 
@@ -451,5 +451,13 @@ exit; */
 		$data = B2bMerckStock::latest()->paginate();
 		$data->appends($req->all())->links();
 		return response()->json($data);
+	}
+	
+	/**
+     * 발주 리스트에서 제외시키기
+     */
+    public function listPull (int $odm_id) {
+		DB::table('shop_b2b_merck_model')->insert([ 'bmm_odm_id' => $odm_id ]);
+		return response()->json(["msg"=>'success'], 200);
 	}	
 }

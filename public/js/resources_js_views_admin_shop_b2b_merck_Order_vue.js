@@ -12,10 +12,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fast-copy */ "./node_modules/fast-copy/dist/fast-copy.js");
+/* harmony import */ var fast_copy__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fast_copy__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckOrder',
@@ -32,7 +35,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       list: {},
       indeterminate: false,
       all_chk: false,
-      extra: {
+      address: {
         req_dlvy: '',
         addressID: '',
         state: '',
@@ -47,7 +50,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       sch_frm: {},
       isModalViewed: false,
-      extra_gd: {
+      extraModel: {
         b2b_chk: true,
         odm_id: null,
         odm_gm_id: null,
@@ -56,7 +59,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         odm_gm_spec: null,
         odm_gm_unit: '',
         odm_price: 0,
-        odm_ea: 0,
+        odm_ea: 1,
         odm_mk_name: null,
         req_order: null
       }
@@ -94,15 +97,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 7]]);
       }))();
     },
-    chkChange: function chkChange(i) {
+    addrAutoInput: function addrAutoInput(i) {
       if (this.list.data[i].b2b_chk) {
-        this.extra.part = this.list.data[i].od_part;
-        this.extra.name = this.list.data[i].od_receiver;
-        this.extra.hp = this.list.data[i].od_receiver_hp;
-        this.extra.code = this.list.data[i].od_zip;
-        this.extra.city = this.list.data[i].od_addr1;
-        // this.extra.street = this.list.data[i].od_addr1;
-        this.extra.detail = this.list.data[i].od_addr2;
+        this.address.part = this.list.data[i].od_part;
+        this.address.name = this.list.data[i].od_receiver;
+        this.address.hp = this.list.data[i].od_receiver_hp;
+        this.address.code = this.list.data[i].od_zip;
+        this.address.city = this.list.data[i].od_addr1;
+        // this.address.street = this.list.data[i].od_addr1;
+        this.address.detail = this.list.data[i].od_addr2;
       }
     },
     order: function order() {
@@ -123,7 +126,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               Notify.modal('선택하세요', 'warning');
               return _context2.abrupt("return", false);
             case 5:
-              if (!(_this2.extra.addressID == '')) {
+              if (!(_this2.address.addressID == '')) {
                 _context2.next = 9;
                 break;
               }
@@ -131,11 +134,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.addressID.focus();
               return _context2.abrupt("return", false);
             case 9:
-              if (!(_this2.extra.addressID !== '2035422570')) {
+              if (!(_this2.address.addressID !== '2035422570')) {
                 _context2.next = 42;
                 break;
               }
-              if (!(_this2.extra.state == '')) {
+              if (!(_this2.address.state == '')) {
                 _context2.next = 14;
                 break;
               }
@@ -143,7 +146,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.state.focus();
               return _context2.abrupt("return", false);
             case 14:
-              if (!(_this2.extra.name == '')) {
+              if (!(_this2.address.name == '')) {
                 _context2.next = 18;
                 break;
               }
@@ -151,7 +154,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.name.focus();
               return _context2.abrupt("return", false);
             case 18:
-              if (!(_this2.extra.part == '')) {
+              if (!(_this2.address.part == '')) {
                 _context2.next = 22;
                 break;
               }
@@ -159,7 +162,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.part.focus();
               return _context2.abrupt("return", false);
             case 22:
-              if (!(_this2.extra.company == '')) {
+              if (!(_this2.address.company == '')) {
                 _context2.next = 26;
                 break;
               }
@@ -167,7 +170,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.company.focus();
               return _context2.abrupt("return", false);
             case 26:
-              if (!(_this2.extra.code == '')) {
+              if (!(_this2.address.code == '')) {
                 _context2.next = 30;
                 break;
               }
@@ -175,7 +178,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.code.focus();
               return _context2.abrupt("return", false);
             case 30:
-              if (!(_this2.extra.city == '')) {
+              if (!(_this2.address.city == '')) {
                 _context2.next = 34;
                 break;
               }
@@ -183,7 +186,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.city.focus();
               return _context2.abrupt("return", false);
             case 34:
-              if (!(_this2.extra.street == '')) {
+              if (!(_this2.address.street == '')) {
                 _context2.next = 38;
                 break;
               }
@@ -191,7 +194,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.street.focus();
               return _context2.abrupt("return", false);
             case 38:
-              if (!(_this2.extra.detail == '')) {
+              if (!(_this2.address.detail == '')) {
                 _context2.next = 42;
                 break;
               }
@@ -202,7 +205,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.next = 44;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                 list: chkList,
-                extra: _this2.extra
+                address: _this2.address
               });
             case 44:
               res = _context2.sent;
@@ -256,7 +259,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     addModel: function addModel(m) {
-      this.list.data.unshift(extra_gd);
+      //  검색상품 리스트에 추가
+      this.list.data.unshift({
+        b2b_chk: true,
+        odm_id: null,
+        odm_gm_id: m.gm_id,
+        odm_gm_name: m.gm_name,
+        odm_gm_code: m.gm_code,
+        odm_gm_spec: m.gm_spec,
+        odm_gm_unit: m.gm_unit,
+        odm_price: m.gm_price_add_vat,
+        odm_ea: 1,
+        odm_mk_name: m.goods.maker.mk_name,
+        req_order: null
+      });
+    },
+    addModelTemp: function addModelTemp(m) {
+      //  임의상품 리스트에 추가
+      this.list.data.unshift(fast_copy__WEBPACK_IMPORTED_MODULE_1___default()(this.extraModel));
     },
     routerPush: function routerPush() {
       this.$router.push({
@@ -271,9 +291,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     frm_formatHp: function frm_formatHp(v) {
       return this.formatHp(v);
     },
-    extra_goods: function extra_goods() {
-      this.list.data.unshift(this.extra_gd);
-      this.isModalViewed = false;
+    destroy: function destroy(i) {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var rst;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return Notify.confirm('목록에서 삭제', 'danger');
+            case 2:
+              rst = _context4.sent;
+              if (!rst) {
+                _context4.next = 8;
+                break;
+              }
+              if (!_this4.list.data[i].odm_id) {
+                _context4.next = 7;
+                break;
+              }
+              _context4.next = 7;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/b2b_merck/listPull/".concat(_this4.list.data[i].odm_id));
+            case 7:
+              _this4.$delete(_this4.list.data, i);
+            case 8:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -321,17 +367,7 @@ var render = function render() {
     on: {
       click: _vm.order
     }
-  }, [_vm._v("선택 발주")]), _vm._v(" "), _c("b-button", {
-    attrs: {
-      variant: "dark",
-      size: "sm"
-    },
-    on: {
-      click: function click($event) {
-        _vm.isModalViewed = !_vm.isModalViewed;
-      }
-    }
-  }, [_vm._v("임의 상품 추가")])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("선택 발주")])], 1), _vm._v(" "), _c("b-col", {
     staticClass: "addModel",
     attrs: {
       col: "",
@@ -343,7 +379,7 @@ var render = function render() {
       addModel: _vm.addModel
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "extra"
+    staticClass: "address"
   }, [_c("b-col", {
     attrs: {
       col: "",
@@ -356,11 +392,11 @@ var render = function render() {
       size: "sm"
     },
     model: {
-      value: _vm.extra.addressID,
+      value: _vm.address.addressID,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "addressID", $$v);
+        _vm.$set(_vm.address, "addressID", $$v);
       },
-      expression: "extra.addressID"
+      expression: "address.addressID"
     }
   }, [_c("b-form-select-option", {
     attrs: {
@@ -390,11 +426,11 @@ var render = function render() {
       size: "sm"
     },
     model: {
-      value: _vm.extra.state,
+      value: _vm.address.state,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "state", $$v);
+        _vm.$set(_vm.address, "state", $$v);
       },
-      expression: "extra.state"
+      expression: "address.state"
     }
   }, [_c("b-form-select-option", {
     attrs: {
@@ -480,11 +516,11 @@ var render = function render() {
       placeholder: "이름"
     },
     model: {
-      value: _vm.extra.name,
+      value: _vm.address.name,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "name", $$v);
+        _vm.$set(_vm.address, "name", $$v);
       },
-      expression: "extra.name"
+      expression: "address.name"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -499,11 +535,11 @@ var render = function render() {
       formatter: _vm.frm_formatHp
     },
     model: {
-      value: _vm.extra.hp,
+      value: _vm.address.hp,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "hp", $$v);
+        _vm.$set(_vm.address, "hp", $$v);
       },
-      expression: "extra.hp"
+      expression: "address.hp"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -517,11 +553,11 @@ var render = function render() {
       placeholder: "소속"
     },
     model: {
-      value: _vm.extra.part,
+      value: _vm.address.part,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "part", $$v);
+        _vm.$set(_vm.address, "part", $$v);
       },
-      expression: "extra.part"
+      expression: "address.part"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -535,11 +571,11 @@ var render = function render() {
       placeholder: "업체명"
     },
     model: {
-      value: _vm.extra.company,
+      value: _vm.address.company,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "company", $$v);
+        _vm.$set(_vm.address, "company", $$v);
       },
-      expression: "extra.company"
+      expression: "address.company"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -553,11 +589,11 @@ var render = function render() {
       placeholder: "우편번호"
     },
     model: {
-      value: _vm.extra.code,
+      value: _vm.address.code,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "code", $$v);
+        _vm.$set(_vm.address, "code", $$v);
       },
-      expression: "extra.code"
+      expression: "address.code"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -571,11 +607,11 @@ var render = function render() {
       placeholder: "**시 **구"
     },
     model: {
-      value: _vm.extra.city,
+      value: _vm.address.city,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "city", $$v);
+        _vm.$set(_vm.address, "city", $$v);
       },
-      expression: "extra.city"
+      expression: "address.city"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -589,11 +625,11 @@ var render = function render() {
       placeholder: "도로명"
     },
     model: {
-      value: _vm.extra.street,
+      value: _vm.address.street,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "street", $$v);
+        _vm.$set(_vm.address, "street", $$v);
       },
-      expression: "extra.street"
+      expression: "address.street"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -607,11 +643,11 @@ var render = function render() {
       placeholder: "상세 동호수"
     },
     model: {
-      value: _vm.extra.detail,
+      value: _vm.address.detail,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "detail", $$v);
+        _vm.$set(_vm.address, "detail", $$v);
       },
-      expression: "extra.detail"
+      expression: "address.detail"
     }
   })], 1), _vm._v(" "), _c("b-col", {
     attrs: {
@@ -623,13 +659,78 @@ var render = function render() {
       placeholder: "배송시 요청사항 입력"
     },
     model: {
-      value: _vm.extra.req_dlvy,
+      value: _vm.address.req_dlvy,
       callback: function callback($$v) {
-        _vm.$set(_vm.extra, "req_dlvy", $$v);
+        _vm.$set(_vm.address, "req_dlvy", $$v);
       },
-      expression: "extra.req_dlvy"
+      expression: "address.req_dlvy"
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "list body addModelTemp"
+  }, [_c("b-col", [_c("span"), _vm._v(" "), _c("span", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "제품명"
+    },
+    model: {
+      value: _vm.extraModel.odm_gm_name,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extraModel, "odm_gm_name", $$v);
+      },
+      expression: "extraModel.odm_gm_name"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "모델명"
+    },
+    model: {
+      value: _vm.extraModel.odm_gm_code,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extraModel, "odm_gm_code", $$v);
+      },
+      expression: "extraModel.odm_gm_code"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
+    attrs: {
+      size: "sm",
+      placeholder: "판매단위"
+    },
+    model: {
+      value: _vm.extraModel.odm_gm_unit,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extraModel, "odm_gm_unit", $$v);
+      },
+      expression: "extraModel.odm_gm_unit"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
+    model: {
+      value: _vm.extraModel.odm_ea,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extraModel, "odm_ea", $$v);
+      },
+      expression: "extraModel.odm_ea"
+    }
+  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
+    model: {
+      value: _vm.extraModel.odm_price,
+      callback: function callback($$v) {
+        _vm.$set(_vm.extraModel, "odm_price", $$v);
+      },
+      expression: "extraModel.odm_price"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("span"), _vm._v(" "), _c("span", [_c("b-button", {
+    staticClass: "xm",
+    on: {
+      click: _vm.addModelTemp
+    }
+  }, [_vm._v("임의상품추가")])], 1)])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "list head"
   }, [_c("b-col", [_c("span", [_vm._v("주문번호")]), _c("span", [_vm._v("제품명")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("모델명")]), _c("span", [_vm._v("판매단위")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("수량")]), _c("span", [_vm._v("가격")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("요청사항")]), _c("span", [_vm._v("Ctrl")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (row, i) {
     return _c("b-row", {
@@ -641,7 +742,7 @@ var render = function render() {
       },
       on: {
         change: function change($event) {
-          return _vm.chkChange(i);
+          return _vm.addrAutoInput(i);
         }
       },
       model: {
@@ -651,7 +752,7 @@ var render = function render() {
         },
         expression: "row.b2b_chk"
       }
-    }, [_vm._v("\r\n                    " + _vm._s(row.odm_od_id) + "(" + _vm._s(row.od_no) + ")\r\n                ")])], 1), _vm._v(" "), _c("span", [_c("b-button", {
+    }, [row.odm_od_id ? [_vm._v(_vm._s(row.odm_od_id) + "(" + _vm._s(row.od_no) + ")")] : _vm._e()], 2)], 1), _vm._v(" "), _c("span", [row.od_id ? _c("b-button", {
       staticClass: "xm",
       attrs: {
         to: {
@@ -661,7 +762,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.odm_gm_name))])], 1)]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.odm_gm_code))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(row.odm_gm_unit))])]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
+    }, [_vm._v(_vm._s(row.odm_gm_name))]) : [_vm._v(_vm._s(row.odm_gm_name))]], 2)]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.odm_gm_code))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(row.odm_gm_unit))])]), _vm._v(" "), _c("b-col", [_c("span", [_c("b-form-input", {
       staticClass: "odm_ea",
       attrs: {
         size: "sm"
@@ -694,7 +795,14 @@ var render = function render() {
           return _vm.stockCheck(row.odm_gm_code, row.odm_ea);
         }
       }
-    }, [_vm._v("재고 체크")])], 1)])], 1);
+    }, [_vm._v("재고 체크")]), _vm._v(" "), _c("b-button", {
+      staticClass: "xm red",
+      on: {
+        click: function click($event) {
+          return _vm.destroy(i);
+        }
+      }
+    }, [_vm._v("삭제")])], 1)])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
@@ -716,108 +824,7 @@ var render = function render() {
       slot: "next-nav"
     },
     slot: "next-nav"
-  }, [_c("b-icon-chevron-right")], 1)]), _vm._v(" "), _c("transition", {
-    attrs: {
-      name: "modal"
-    }
-  }, [_vm.isModalViewed ? _c("modal", {
-    attrs: {
-      max_width: 1100
-    },
-    on: {
-      "close-modal": function closeModal($event) {
-        _vm.isModalViewed = false;
-      }
-    }
-  }, [_c("template", {
-    slot: "header"
-  }, [_vm._v("임의상품추가")]), _vm._v(" "), _c("b-row", {
-    staticClass: "list body"
-  }, [_c("b-col", [_c("b-form-input", {
-    attrs: {
-      size: "sm",
-      placeholder: "제품명"
-    },
-    model: {
-      value: _vm.extra_gd.odm_gm_name,
-      callback: function callback($$v) {
-        _vm.$set(_vm.extra_gd, "odm_gm_name", $$v);
-      },
-      expression: "extra_gd.odm_gm_name"
-    }
-  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    attrs: {
-      size: "sm",
-      placeholder: "모델명"
-    },
-    model: {
-      value: _vm.extra_gd.odm_gm_code,
-      callback: function callback($$v) {
-        _vm.$set(_vm.extra_gd, "odm_gm_code", $$v);
-      },
-      expression: "extra_gd.odm_gm_code"
-    }
-  })], 1), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    attrs: {
-      size: "sm",
-      placeholder: "판매단위"
-    },
-    model: {
-      value: _vm.extra_gd.odm_gm_unit,
-      callback: function callback($$v) {
-        _vm.$set(_vm.extra_gd, "odm_gm_unit", $$v);
-      },
-      expression: "extra_gd.odm_gm_unit"
-    }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "awesome_p"
-  }, [_c("b-form-input", {
-    attrs: {
-      size: "sm",
-      required: ""
-    },
-    model: {
-      value: _vm.extra_gd.odm_price,
-      callback: function callback($$v) {
-        _vm.$set(_vm.extra_gd, "odm_price", $$v);
-      },
-      expression: "extra_gd.odm_price"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      "for": "odm_price"
-    }
-  }, [_vm._v("가격")])], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "awesome_p"
-  }, [_c("b-form-input", {
-    attrs: {
-      size: "sm",
-      required: ""
-    },
-    model: {
-      value: _vm.extra_gd.odm_ea,
-      callback: function callback($$v) {
-        _vm.$set(_vm.extra_gd, "odm_ea", $$v);
-      },
-      expression: "extra_gd.odm_ea"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      "for": "odm_ea"
-    }
-  }, [_vm._v("수량")])], 1)], 1), _vm._v(" "), _c("div", {
-    style: {
-      textAlign: "right"
-    }
-  }, [_c("b-button", {
-    attrs: {
-      variant: "primary",
-      size: "sm"
-    },
-    on: {
-      click: _vm.extra_goods
-    }
-  }, [_vm._v("상품추가")])], 1)], 2) : _vm._e()], 1)], 2);
+  }, [_c("b-icon-chevron-right")], 1)])], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -841,7 +848,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top[data-v-d2573ecc] {  padding:5px 0;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.extra>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding:5px 15px !important; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-d2573ecc] { margin-bottom:2rem;\n}\n.top[data-v-d2573ecc] {  padding:5px 0;\n}\n.top .col[data-v-d2573ecc] { display:flex; align-items:center;\n}\n.top .col.addModel[data-v-d2573ecc] { justify-content:flex-end;\n}\n.top .col.addModel>div[data-v-d2573ecc] { width:100%; max-width:10rem;\n}\n.row[data-v-d2573ecc]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.body[data-v-d2573ecc]:hover { background: #d8f2fd94;\n}\r\n/*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/\n.address>div[data-v-d2573ecc] { padding-top:5px; padding-bottom:5px; font-size:.9rem;\n}\n.list>div[data-v-d2573ecc]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.list>div[data-v-d2573ecc] { padding:5px 15px !important; font-size:.9rem;\n}\n.head>div[data-v-d2573ecc] { font-weight:bold; background:#666; color:#fff;\n}\n.body>div[data-v-d2573ecc]:nth-of-type(2) { background-color:#7fffd454;\n}\n.row>div>span[data-v-d2573ecc]:nth-of-type(2) { float:right;\n}\n.addModelTemp>div>span[data-v-d2573ecc] { display:inline-block; width:50%;\n}\n.addModelTemp>div:nth-of-type(1)>span[data-v-d2573ecc]:nth-of-type(1) { width:1%;\n}\n.addModelTemp>div:nth-of-type(1)>span[data-v-d2573ecc]:nth-of-type(2) { width:80%;\n}\n.addModelTemp>div:nth-of-type(3)>span[data-v-d2573ecc]:nth-of-type(1) { width:30%;\n}\n.addModelTemp>div:nth-of-type(3)>span[data-v-d2573ecc]:nth-of-type(2) { width:70%;\n}\n.addModelTemp>div>span[data-v-d2573ecc]:nth-of-type(2),\r\n .addModelTemp>div>span:nth-of-type(2) input[data-v-d2573ecc] { text-align:right;\n}\n.row .custom-control[data-v-d2573ecc] { display: inline;\n}\n.row .custom-control[data-v-d2573ecc] label { font-size:.9rem;\n}\n.row .custom-control[data-v-d2573ecc] label::before, \r\n.row .custom-control[data-v-d2573ecc] label::after { top:-.15rem; left:-1.8rem; width:1.5rem; height:1.5rem;\n}\n.top .custom-control[data-v-d2573ecc] { margin-right:1rem;\n}\n.top .custom-control[data-v-d2573ecc] label::before,\r\n.top .custom-control[data-v-d2573ecc] label::after { top:0;\n}\n.row .col span .odm_ea[data-v-d2573ecc] { width:30%; display:inline-block; min-width:40px; text-align:center;\n}\n.row .col span.req_order_box[data-v-d2573ecc] { position:relative; width:70%; display:inline-block; min-width:140px; height:1.9rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc] { height: 1.9rem; padding: 0.1rem 0.8rem;\n}\n.row .col span.req_order_box .req_order[data-v-d2573ecc]:focus { z-index:1; background:#FFF; width:20rem; height:5rem; position:absolute; top:0; left:0;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

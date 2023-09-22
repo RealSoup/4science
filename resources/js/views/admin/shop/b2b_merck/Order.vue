@@ -5,14 +5,13 @@
     <b-row class="top">
         <b-col col sm="12" md="6">
             <b-button variant="primary" size="sm" @click="order">선택 발주</b-button>
-            <b-button variant="dark" size="sm" @click="isModalViewed = !isModalViewed">임의 상품 추가</b-button>
         </b-col>
         <b-col col sm="12" md="6" class="addModel"><model-sch-input @addModel="addModel" /></b-col>
     </b-row>
     
-    <b-row class="extra">
+    <b-row class="address">
         <b-col col sm="12" md="2">
-            <b-form-select size="sm" ref="addressID" v-model="extra.addressID">
+            <b-form-select size="sm" ref="addressID" v-model="address.addressID">
                 <b-form-select-option value="">ShipTo Code</b-form-select-option>
                 <b-form-select-option value="2035422570">사무실(판교로 253)</b-form-select-option>
                 <b-form-select-option value="2036349057">서울</b-form-select-option>
@@ -20,7 +19,7 @@
             </b-form-select>
         </b-col>
         <b-col col sm="12" md="2">
-            <b-form-select size="sm" ref="state" v-model="extra.state">
+            <b-form-select size="sm" ref="state" v-model="address.state">
                 <b-form-select-option value="">State Code</b-form-select-option>
                 <b-form-select-option value="SE">서울</b-form-select-option>
                 <b-form-select-option value="GG">경기</b-form-select-option>
@@ -41,32 +40,58 @@
                 <b-form-select-option value="US">울산</b-form-select-option>
             </b-form-select>
         </b-col>
-        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="이름" v-model="extra.name" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="HP" v-model="extra.hp" :formatter="frm_formatHp" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="소속" v-model="extra.part" /></b-col>
-        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="업체명" v-model="extra.company" /></b-col>
-        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="우편번호" v-model="extra.code" /></b-col>
-        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="**시 **구" v-model="extra.city" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="도로명" v-model="extra.street" /></b-col>
-        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="상세 동호수" v-model="extra.detail" /></b-col>
-        <b-col col sm="12"><b-form-textarea v-model="extra.req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="이름" v-model="address.name" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="HP" v-model="address.hp" :formatter="frm_formatHp" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="소속" v-model="address.part" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="업체명" v-model="address.company" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="우편번호" v-model="address.code" /></b-col>
+        <b-col col sm="12" md="2"><b-form-input size="sm" placeholder="**시 **구" v-model="address.city" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="도로명" v-model="address.street" /></b-col>
+        <b-col col sm="12" md="3"><b-form-input size="sm" placeholder="상세 동호수" v-model="address.detail" /></b-col>
+        <b-col col sm="12"><b-form-textarea v-model="address.req_dlvy" placeholder="배송시 요청사항 입력" /></b-col>
     </b-row>
 
+    
+    
+
+
+    <b-row class="list body addModelTemp">
+        <b-col>
+            <span></span>
+            <span><b-form-input size="sm" placeholder="제품명" v-model="extraModel.odm_gm_name" /></span>
+        </b-col>
+        <b-col>
+            <span><b-form-input size="sm" placeholder="모델명" v-model="extraModel.odm_gm_code" /></span>
+            <span><b-form-input size="sm" placeholder="판매단위" v-model="extraModel.odm_gm_unit" /></span>
+        </b-col>
+        <b-col>
+            <span><b-form-input size="sm" v-model="extraModel.odm_ea" /></span>
+            <span><b-form-input size="sm" v-model="extraModel.odm_price" /></span>
+        </b-col>
+        <b-col>
+            <span></span>
+            <span><b-button @click="addModelTemp" class="xm">임의상품추가</b-button></span>
+        </b-col>
+    </b-row>
+    
     <b-row class="list head">
         <b-col><span>주문번호</span><span>제품명</span></b-col>                
         <b-col><span>모델명</span><span>판매단위</span></b-col>
         <b-col><span>수량</span><span>가격</span></b-col>
         <b-col><span>요청사항</span><span>Ctrl</span></b-col>
     </b-row>
-    
+
     <b-row class="list body" v-for="(row, i) in list.data" :key="row.odm_id">
         <b-col>
             <span>
-                <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="chkChange(i)">
-                    {{row.odm_od_id}}({{row.od_no}})
+                <b-form-checkbox v-model="row.b2b_chk" name="b2b_chk" @change="addrAutoInput(i)">
+                    <template v-if="row.odm_od_id">{{row.odm_od_id}}({{row.od_no}})</template>
                 </b-form-checkbox>
             </span>
-            <span><b-button :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}" class="xm">{{row.odm_gm_name}}</b-button></span>
+            <span>
+                <b-button v-if="row.od_id" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}" class="xm">{{row.odm_gm_name}}</b-button>
+                <template v-else>{{row.odm_gm_name}}</template>
+            </span>
         </b-col>
 
         <b-col>
@@ -81,7 +106,10 @@
         
         <b-col>
             <span class="req_order_box"><b-form-textarea v-model="row.req_order" placeholder="주문시 요청사항 입력" class="req_order" /></span>
-            <span><b-button class="xm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button></span>
+            <span>
+                <b-button class="xm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button>
+                <b-button class="xm red" @click="destroy(i)">삭제</b-button>
+            </span>
         </b-col>
     </b-row>
 
@@ -89,32 +117,12 @@
         <span slot="prev-nav"><b-icon-chevron-left /></span>
         <span slot="next-nav"><b-icon-chevron-right /></span>
     </pagination>
-
-    <transition name="modal">
-        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <template slot="header">임의상품추가</template>
-            <b-row class="list body">
-                <b-col><b-form-input size="sm" placeholder="제품명" v-model="extra_gd.odm_gm_name" /></b-col>
-                <b-col><b-form-input size="sm" placeholder="모델명" v-model="extra_gd.odm_gm_code" /></b-col>
-                <b-col><b-form-input size="sm" placeholder="판매단위" v-model="extra_gd.odm_gm_unit" /></b-col>
-                <b-col class="awesome_p">
-                    <b-form-input size="sm" v-model="extra_gd.odm_price" required />
-                    <label for="odm_price">가격</label>
-                </b-col>
-                <b-col class="awesome_p">
-                    <b-form-input size="sm" v-model="extra_gd.odm_ea" required />
-                    <label for="odm_ea">수량</label>
-                </b-col>
-            </b-row>
-            <div :style="{textAlign:'right'}"><b-button variant="primary" size="sm" @click="extra_goods">상품추가</b-button></div>
-        </modal>
-    </transition>
 </b-container>
 </template>
 
 <script>
 import ax from '@/api/http';
-
+import copy from "fast-copy";
 
 export default {
     name: 'admShopB2bMerckOrder',
@@ -127,7 +135,7 @@ export default {
             list: {},
             indeterminate:false,
             all_chk:false,
-            extra: {
+            address: {
                 req_dlvy: '',
                 addressID: '',
                 state: '',
@@ -142,7 +150,7 @@ export default {
             },
             sch_frm: {},
             isModalViewed: false,
-            extra_gd: {
+            extraModel: {
                 b2b_chk     :true,
                 odm_id      :null,
                 odm_gm_id   :null,
@@ -151,7 +159,7 @@ export default {
                 odm_gm_spec :null,
                 odm_gm_unit :'',
                 odm_price   :0,
-                odm_ea      :0,
+                odm_ea      :1,
                 odm_mk_name :null,
                 req_order   :null,
             }
@@ -171,15 +179,15 @@ export default {
             }
         },
 
-        chkChange (i) {
+        addrAutoInput (i) {
             if(this.list.data[i].b2b_chk) {
-                this.extra.part   = this.list.data[i].od_part;
-                this.extra.name   = this.list.data[i].od_receiver;
-                this.extra.hp     = this.list.data[i].od_receiver_hp;
-                this.extra.code   = this.list.data[i].od_zip;
-                this.extra.city   = this.list.data[i].od_addr1;
-                // this.extra.street = this.list.data[i].od_addr1;
-                this.extra.detail = this.list.data[i].od_addr2;
+                this.address.part   = this.list.data[i].od_part;
+                this.address.name   = this.list.data[i].od_receiver;
+                this.address.hp     = this.list.data[i].od_receiver_hp;
+                this.address.code   = this.list.data[i].od_zip;
+                this.address.city   = this.list.data[i].od_addr1;
+                // this.address.street = this.list.data[i].od_addr1;
+                this.address.detail = this.list.data[i].od_addr2;
             }
         },
 
@@ -190,18 +198,18 @@ export default {
                     Notify.modal('선택하세요', 'warning');
                     return false;
                 }
-                if (this.extra.addressID == '') { Notify.toast('danger', "ShipTo Code를 선택하세요."); this.$refs.addressID.focus(); return false; }
-                if (this.extra.addressID !== '2035422570') {
-                    if (this.extra.state == '') {     Notify.toast('danger', "State Code를 선택하세요."); this.$refs.state.focus(); return false; }
-                    if (this.extra.name == '') {      Notify.toast('danger', "이름을 입력하세요."); this.$refs.name.focus(); return false; }
-                    if (this.extra.part == '') {      Notify.toast('danger', "소속을 입력하세요."); this.$refs.part.focus(); return false; }
-                    if (this.extra.company == '') {   Notify.toast('danger', "업체명을 입력하세요."); this.$refs.company.focus(); return false; }
-                    if (this.extra.code == '') {      Notify.toast('danger', "우편번호를 입력하세요."); this.$refs.code.focus(); return false; }
-                    if (this.extra.city == '') {      Notify.toast('danger', "**시 **구를 입력하세요."); this.$refs.city.focus(); return false; }
-                    if (this.extra.street == '') {    Notify.toast('danger', "도로명을 입력하세요."); this.$refs.street.focus(); return false; }
-                    if (this.extra.detail == '') {    Notify.toast('danger', "상세 주소를 입력하세요."); this.$refs.detail.focus(); return false; }
+                if (this.address.addressID == '') { Notify.toast('danger', "ShipTo Code를 선택하세요."); this.$refs.addressID.focus(); return false; }
+                if (this.address.addressID !== '2035422570') {
+                    if (this.address.state == '') {     Notify.toast('danger', "State Code를 선택하세요."); this.$refs.state.focus(); return false; }
+                    if (this.address.name == '') {      Notify.toast('danger', "이름을 입력하세요."); this.$refs.name.focus(); return false; }
+                    if (this.address.part == '') {      Notify.toast('danger', "소속을 입력하세요."); this.$refs.part.focus(); return false; }
+                    if (this.address.company == '') {   Notify.toast('danger', "업체명을 입력하세요."); this.$refs.company.focus(); return false; }
+                    if (this.address.code == '') {      Notify.toast('danger', "우편번호를 입력하세요."); this.$refs.code.focus(); return false; }
+                    if (this.address.city == '') {      Notify.toast('danger', "**시 **구를 입력하세요."); this.$refs.city.focus(); return false; }
+                    if (this.address.street == '') {    Notify.toast('danger', "도로명을 입력하세요."); this.$refs.street.focus(); return false; }
+                    if (this.address.detail == '') {    Notify.toast('danger', "상세 주소를 입력하세요."); this.$refs.detail.focus(); return false; }
                 }
-                const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, extra: this.extra});
+                const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, address: this.address});
 
                 if (res && res.status === 200 && res.data.msg == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })
             } catch (e) {
@@ -220,8 +228,22 @@ export default {
             }
         },
 
-        addModel(m) {
-            this.list.data.unshift(extra_gd);	
+        addModel(m) {   //  검색상품 리스트에 추가
+            this.list.data.unshift({
+                b2b_chk     :true,
+                odm_id      :null,
+                odm_gm_id   :m.gm_id,
+                odm_gm_name :m.gm_name,
+                odm_gm_code :m.gm_code,
+                odm_gm_spec :m.gm_spec,
+                odm_gm_unit :m.gm_unit,
+                odm_price   :m.gm_price_add_vat,
+                odm_ea      :1,
+                odm_mk_name :m.goods.maker.mk_name,
+                req_order   :null,});	
+        },
+        addModelTemp(m) {   //  임의상품 리스트에 추가
+            this.list.data.unshift(copy(this.extraModel));	
         },
 
         routerPush(){
@@ -233,10 +255,16 @@ export default {
         },
         frm_formatHp(v)   { return this.formatHp(v); },
 
-        extra_goods() {
-            this.list.data.unshift(this.extra_gd);
-            this.isModalViewed = false;
-        }
+        
+        async destroy(i) {
+            var rst = await Notify.confirm('목록에서 삭제', 'danger');
+            if (rst) {
+                if (this.list.data[i].odm_id)
+                    await ax.get(`/api/admin/shop/b2b_merck/listPull/${this.list.data[i].odm_id}`);                
+                this.$delete(this.list.data, i);
+            }
+        }, 
+
     },
 
     mounted() {
@@ -260,12 +288,19 @@ export default {
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
 .body:hover { background: #d8f2fd94; }
 /*.list>div:nth-of-type(2) { flex:0 0 30%; max-width:30%; }*/
-.extra>div { padding-top:5px; padding-bottom:5px; font-size:.9rem; }
+.address>div { padding-top:5px; padding-bottom:5px; font-size:.9rem; }
 .list>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
 .list>div { padding:5px 15px !important; font-size:.9rem; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body>div:nth-of-type(2) { background-color:#7fffd454; }
 .row>div>span:nth-of-type(2) { float:right; }
+.addModelTemp>div>span { display:inline-block; width:50%; }
+.addModelTemp>div:nth-of-type(1)>span:nth-of-type(1) { width:1%; }
+.addModelTemp>div:nth-of-type(1)>span:nth-of-type(2) { width:80%; }
+.addModelTemp>div:nth-of-type(3)>span:nth-of-type(1) { width:30%; }
+.addModelTemp>div:nth-of-type(3)>span:nth-of-type(2) { width:70%; }
+.addModelTemp>div>span:nth-of-type(2),
+ .addModelTemp>div>span:nth-of-type(2) input { text-align:right; }
 
 .row .custom-control { display: inline; }
 .row .custom-control>>>label { font-size:.9rem; }

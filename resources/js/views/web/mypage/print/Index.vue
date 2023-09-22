@@ -61,6 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.print .col { padding-right: 15px; padding-left: 15px; }
 .print .col.cell01 { margin-bottom:10px; }
 .print .col.cell02 { margin-top:10px; }
 .print .col .inner_wrap { background:#B7B7B7; border-radius:10px; display:flex; justify-content:center; align-items:center; height:100%; min-height:190px; cursor:pointer; flex-wrap:wrap; align-content: center; }

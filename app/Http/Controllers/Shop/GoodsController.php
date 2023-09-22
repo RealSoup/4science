@@ -40,12 +40,7 @@ class GoodsController extends Controller {
         }       
 
         if ($req->filled('keyword')) { 
-            $kw ='';
-        
-            if ($req->filled('keyword')) {
-                $kw = trim($req->keyword);
-                $kw = '"'.$kw.'"';            
-            }
+            $kw = '*'.trim($req->keyword).'*';
 
             $cl = new SphinxClient ();
             $cl->SetServer( env('DB_HOST'), 9312 );

@@ -56,7 +56,7 @@
         <b-row>
             <b-col>교정자료 업로드</b-col>
             <b-col>
-                <file-upload ref="fileupload" v-model="frm.file_info_cplt" :fi_group="'engReform'" :fi_kind="'cplt'" :height="150" />
+                <file-upload ref="fileupload" v-model="frm.file_info_cplt" :fi_group="'engReform'" :fi_kind="'cplt'" :height="70" />
                 <transition name="fade">
                     <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false">첨부파일 전송중 ......</loading-modal>
                 </transition>
@@ -147,6 +147,7 @@ export default {
 .box_f .row .col:nth-child(odd) { flex:0 0 14%; max-width:14%; }
 .box_f .row .add_file div .btn { max-width:400px; margin-bottom:.7rem; }
 .box_f .row .col .cnt { color:#16A2B9; font-size:.9rem; }
+.box_f .row .col >>> .row .imgList .col-lg-2 { flex: 0 0 8.333333%; max-width: 8.333333%; }
 .bottom .col { display:flex; justify-content:flex-end; align-items:center; }
 .bottom .col .input-group { max-width:200px; }
 .bottom .col span>b,

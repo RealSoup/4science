@@ -117,8 +117,16 @@ var render = function render() {
       staticClass: "align"
     }, [_vm._v(_vm._s(er.er_id))]), _vm._v(" "), _c("b-col", {
       staticClass: "align"
-    }, [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.created_at)))]), _vm._v(" "), _c("b-col", {
-      staticClass: "text-left"
+    }, [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.created_at)))]), _vm._v(" "), _c("b-link", {
+      staticClass: "col text-left",
+      attrs: {
+        to: {
+          name: "my_eng_reform_show",
+          params: {
+            er_id: er.er_id
+          }
+        }
+      }
     }, [_vm._v("\r\n                " + _vm._s(er.created_at.substr(0, 4)) + "년\r\n                " + _vm._s(er.created_at.substr(5, 2)) + "월\r\n                " + _vm._s(er.created_at.substr(8, 2)) + "일자\r\n                영문교정\r\n                "), _c("b", [_vm._v("[" + _vm._s(_vm._f("erType")(er.er_type)) + "]")])]), _vm._v(" "), _c("b-col", {
       staticClass: "align"
     }, [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(er.er_dlvy_at)))]), _vm._v(" "), _c("b-col", {

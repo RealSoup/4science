@@ -241,7 +241,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                     ],
                 ],
             ];
-            $sheet_style["D{$r}:H{$r}"] = [
+            $sheet_style["C{$r}:H{$r}"] = [
                 'borders' => [
                     'inside' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
@@ -254,18 +254,6 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 ],
             ];
             $sheet_style["A{$r}"] = $text_center;
-            $sheet_style["C{$r}"] = [
-                'borders' => [
-                    'inside' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
-                        'color' => ['argb' => 'FFECECEC'],
-                    ],
-                    'bottom' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED,
-                        'color' => ['argb' => 'FFD5D5D5'],
-                    ],
-                ],
-            ];
             $sheet_style["D{$r}"] = $text_center;
             $sheet_style["E{$r}"] = $text_center;
             $sheet_style["F{$r}"] = $text_right;

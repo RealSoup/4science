@@ -119,6 +119,10 @@ export default [
                 path: 'eng_reform',
                 name: 'my_eng_reform_index',
                 component:() => import('@/views/web/mypage/myEngReform/Index'),
+            }, {
+                path: 'eng_reform/:er_id',
+                name: 'my_eng_reform_show',
+                component:() => import('@/views/web/mypage/myEngReform/Show'),
             },
 
             {

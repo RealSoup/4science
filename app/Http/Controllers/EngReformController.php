@@ -21,6 +21,16 @@ class EngReformController extends Controller {
         return response()->json(EngReform::$option, 200);
     }
 
+    public function show(Request $req, $er_id) {
+        $data['con'] = EngReform::find($er_id);
+        $data['con']->fileInfo;
+        //  배열값을 넘겨줘야 하는데 values 함수 안쓰면 Object가 넘어온다.
+        $data['con']->file_info_cplt = $data['con']->fileInfo->where('fi_kind', 'cplt')->values();
+        $data['con']->mng;
+        $data['option'] = EngReform::$option;
+        return response()->json($data, 200);
+    }
+
     public function store(StoreEngReform $req) {
         $er_id = EngReform::insertGetId([
             "er_name"        => auth()->check()                 ? auth()->user()->name    : '',

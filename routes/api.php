@@ -69,7 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
 
         Route::GET('engReform/getOption', 'EngReformController@getOption');
-        Route::RESOURCE('engReform', EngReformController::class)->only([ 'index', 'store' ]);
+        Route::RESOURCE('engReform', EngReformController::class)->only([ 'index', 'show', 'store' ]);
 
         Route::prefix('board/{bo_cd}')->group(function () {
             Route::GET('indexComment/{bo_id}', 'BoardController@indexComment')->name('board.indexComment')->where('bo_cd', '[a-zA-Z0-9_]+');
@@ -220,6 +220,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::GET('/stockResult',  'Admin\Shop\B2bMerckController@stockRst');
                     Route::GET('/invoiceIndex','Admin\Shop\B2bMerckController@invoiceIndex');
                     Route::GET('/asnIndex',    'Admin\Shop\B2bMerckController@asnIndex');
+                    Route::GET('/listPull/{odm_id}',    'Admin\Shop\B2bMerckController@listPull');
+                    
                 });
             });
 

@@ -13,13 +13,13 @@
         <b-row v-for="er in list.data" :key="er.er_id" class="body">
             <b-col class="align">{{er.er_id}}</b-col>
             <b-col class="align">{{er.created_at | formatDate_YYYY_MM_DD}}</b-col>
-            <b-col class="text-left">
+            <b-link :to="{name: 'my_eng_reform_show', params: { er_id:er.er_id }}" class="col text-left">
                 {{er.created_at.substr(0, 4)}}년
                 {{er.created_at.substr(5, 2)}}월
                 {{er.created_at.substr(8, 2)}}일자
                 영문교정
                 <b>[{{er.er_type | erType}}]</b>
-            </b-col>
+            </b-link>
             <b-col class="align">{{er.er_dlvy_at | formatDate_YYYY_MM_DD}}</b-col>
             <b-col class="align">
                 <b-badge v-if="er.er_step == 'ING'" class="mint">처리중</b-badge>
