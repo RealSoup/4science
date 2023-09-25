@@ -229,6 +229,9 @@ class OrderController extends Controller {
 			}                    
 			DB::table('shop_order_model')->insert($insert_tmp);
 		}
+
+		$this->orderExtraInfo->oex_od_id = $od_id;
+		$this->orderExtraInfo->save();
 		// foreach (collect($req->estimate_model)->groupBy('em_gd_id') as $gd_id => $gd) {
 		// 	$odg_id = 0;
 		// 	foreach ($gd as $seq => $em) {
