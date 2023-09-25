@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{EngReform};
+use App\Mail\MailEngReform;
+use Mail;
 use DB;
 use Illuminate\Support\Facades\Redis;
 
@@ -46,6 +48,18 @@ class EngReformController extends Controller {
             'er_step'       => $req->filled('er_step') ? $req->er_step : 'ING', 
             'updated_id'    => auth()->user()->id,
         ]);
+
+        if( $req->er_step == 'CPLT' ) {
+            $params['con'] = EngReform::find($er_id);
+            $subject = '[4science] '.$params['con']->er_name.'님, 요청하신 견적서 메일입니다.';
+            
+            try {
+                Mail::to(trim($params['con']->er_email))->queue(new MailEngReform(config('mail.mailers.smtp.username'), $subject, $params, "admin.eng_reform.response"));
+            } catch(\Swift_TransportException $e){
+                // if($e->getMessage()) dd($e->getMessage());
+            }
+        }
+
 		return response()->json($rst);
     }
 }

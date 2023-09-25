@@ -2,8 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use App\Imports\MerckImport;
+use App\Models\{EngReform};
+use DB;
 use Excel;
 
 class TestController extends Controller {
@@ -95,6 +96,16 @@ class TestController extends Controller {
     //     }
         
     // }
+    function mail_display () {
+        $data['con'] = EngReform::find(416);
+        $data['con']->fileInfo;
+        //  배열값을 넘겨줘야 하는데 values 함수 안쓰면 Object가 넘어온다.
+        $data['con']->file_info_cplt = $data['con']->fileInfo->where('fi_kind', 'cplt')->values();
+        $data['con']->mng;
+        $data['option'] = EngReform::$option;
+        dump($data);
+        return view('admin.eng_reform.response', $data);
+    }
 
     function post($url, $fields) {
         $post_field_string = http_build_query($fields, '', '&');

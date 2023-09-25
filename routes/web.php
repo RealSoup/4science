@@ -93,6 +93,7 @@ Route::POST('/shop/order/payReturnMobile',  'Shop\OrderController@payReturnMobil
 Route::POST('/shop/order/payReturnPsys',    'Shop\OrderController@payReturnPsys')->name('shop.order.payReturnPsys');
 
 Route::get('/test',               'TestController@index');
+Route::get('/test/mail_display',    'TestController@mail_display');
 Route::get('/test/merck_upload',    'TestController@merck_upload');
 
 Route::POST('auth/user/find_email',    'Auth\UserController@find_email');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEngReform;
 use App\Models\{EngReform, FileInfo};
+use App\Mail\MailEngReform;
+use Mail;
 use DB;
 
 class EngReformController extends Controller {
@@ -56,6 +58,16 @@ class EngReformController extends Controller {
             foreach ($req->file_info as $fi_id)
                 DB::table('file_info')->where('fi_id', $fi_id['fi_id'])->update(['fi_key' => $er_id]);
         }
+
+        $subject = '[4science] '.auth()->user()->name.'님, 요청하신 견적서 메일입니다.';
+        $params['con'] = EngReform::find($er_id);
+        try {
+            Mail::to(trim(auth()->user()->email))->queue(new MailEngReform(config('mail.mailers.smtp.username'), $subject, $params, "admin.eng_reform.request"));
+        } catch(\Swift_TransportException $e){
+            // if($e->getMessage()) dd($e->getMessage());
+        }
+
+        
         return response()->json(["msg"=>"success", 'er_id'=>$er_id], 200);
     }
 }
