@@ -542,7 +542,7 @@ class OrderController extends Controller {
                 'pg_od_id'    => $req->Psys_shopingmall_order_no,
                 'pg_app_no'   => $req->Psys_approvalno,
                 'pg_tid'      => $req->Psys_tid,
-                'pg_pay_type' => $req->Psys_card_type,
+                'pg_pay_type' => "psys_{$req->Psys_card_type}",
                 'pg_price'    => $req->Psys_totalamt,
                 'pg_card_com' => $req->Psys_card_nm,
                 'pg_buyer_nm' => $req->Psys_etc_data1,

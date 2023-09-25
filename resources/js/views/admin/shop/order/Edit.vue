@@ -227,17 +227,15 @@
                         <font-awesome-icon icon="copy" @click="copyToClipboard(od.od_receiver_hp)" class="btn_copy" />
                     </div>
                 </b-col>
-                <b-col class="lb">
-                    배송주소
-                    <b-button class="teal xm print_hide_inline_block" @click="isModalViewed = !isModalViewed, modalType = 'postCode'">검색</b-button>
-                    <b-button class="mint xm print_hide_inline_block" @click="show_addr_list = !show_addr_list">선택</b-button>
-                    <ul v-if="show_addr_list" class="addr_list">
-                        <li v-for="(ua, i) in od.user.user_addr" :key="i" @click="change_dlvy_info(i)">{{ua.ua_addr1}} {{ua.ua_addr2}} ( {{ua.ua_hp}} )</li>
-                    </ul>
-                </b-col>
-                <b-col class="dt wd1_1 hovertobtn">
+                <b-col class="lb addr_btn" @click="isModalViewed = !isModalViewed, modalType = 'postCode'"><span>배송주소</span><b>주소검색</b></b-col>
+                <b-col class="dt wd1_1 hovertobtn address">
                     {{ od.od_zip }}<b>,</b> {{ od.od_addr1 }}<b>,</b> {{ od.od_addr2 }}
                     <font-awesome-icon icon="copy" @click="copyToClipboard(`${od.od_addr1}, ${od.od_addr2}`)" class="btn_copy" />
+                    <div class="addr_list">
+                        <ul>
+                            <li v-for="(ua, i) in od.user.user_addr" :key="i" @click="change_dlvy_info(i)">{{ua.ua_addr1}} {{ua.ua_addr2}} ( {{ua.ua_hp}} )</li>
+                        </ul>
+                    </div>
                 </b-col>
                 <b-col class="lb">배송시 요구사항</b-col>
                 <b-col class="dt wd1_1 hovertobtn">
@@ -307,9 +305,7 @@
                         <b-form-select v-model="od.od_pay_method" size="sm" :style="{ maxWidth:'100px' }" class="print_hide_inline_block">
                             <b-form-select-option v-for="(v, k) in order_config.pay_method" :key="k" :value="k">{{ v }}</b-form-select-option>
                         </b-form-select>
-                        <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block ml-3" 
-                            @click="openWinPop(`https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${od.order_pg.pg_tid}`, 450, 550)"
-                        >매출전표</b-button>
+                        <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm teal print_hide_inline_block ml-3" @click="getReceipt">매출전표</b-button>
                     </b-col>
                     <b-col class="lb">카드종류</b-col>
                     <b-col class="dt wd1_2">{{od.order_pg.pg_card_com}}</b-col>
@@ -527,9 +523,7 @@ export default {
                 number: ''
             },
             document_type: '',
-            show_addr_list: false,
             mng_on:[],
-            is_view_mng_list:false,
             order_config: {
                 pay_method:[],
             },
@@ -692,7 +686,7 @@ export default {
             await this.$htmlToPaper('print_area', {styles:[
                 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
                 '/css/fontawesome_svg.css',
-                '/css/adm_shop_order_edit.css?ver=1.9'
+                '/css/adm_shop_order_edit.css?ver=2.0'
             ]});
         },
 
@@ -843,9 +837,25 @@ export default {
             this.od.od_addr2 = this.od.user.user_addr[i].ua_addr2;
             this.od.od_receiver_hp = this.od.user.user_addr[i].ua_hp;
         },
-        view_mng_list(){
+        getReceipt() {
+            let tid = this.od.order_pg.pg_tid;
+            let url = `https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${tid}`;
+            if(this.od.order_pg.pg_pay_type.startsWith('psys'))
+                url = this.order_config.url_receipt+'?tid='+this.base64_encode(tid);
+  
+            
 
+            // openWinPop(url, 450, 550);
+this.openWinPop(url, 468, 750);
+
+      
         },
+
+        base64_encode(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+        }
     },
     mounted() {
         this.edit();
@@ -854,7 +864,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '/css/adm_shop_order_edit.css?ver=1.9';
+@import '/css/adm_shop_order_edit.css?ver=2.0';
 
 .p_wrap { padding-top:1rem; }
 .p_wrap .print_mng_nm { display:none; }
@@ -873,8 +883,6 @@ export default {
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
-.p_wrap .od_addr .addr_list { position:absolute; top:50px; background:#F8F8F8; border:2px solid #555; border-radius:10px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); padding:10px 30px; z-index:1; min-width:40rem; text-align:left; }
-.p_wrap .od_addr .addr_list li { list-style-type:decimal; cursor:pointer; font-size:1.1rem; }
 
 .p_wrap .sm_ib_v { display:none; }
 @media (max-width: 1472px){

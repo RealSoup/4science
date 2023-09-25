@@ -295,6 +295,7 @@ class OrderController extends Controller {
 		$rst['od'] = $data;
 		$rst['order_config'] = $this->order->getOrderConfig();
 		$rst['mng_on'] = json_decode(Redis::get('UserMngOn'));
+        $rst['order_config']['url_receipt'] = env('PSYS_URL03');
 		return response()->json($rst, 200);
 	}
 

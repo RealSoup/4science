@@ -79,6 +79,14 @@
 .p_wrap .box .hovertobtn .btn_copy { cursor:pointer; max-height:0; transition:max-height 0.3s; color:#000; margin-left:.5em; overflow:hidden; }
 .p_wrap .box .hovertobtn:hover .btn_copy { max-height:30px; }
 
+.p_wrap .od_addr .addr_btn b { display:none; }
+.p_wrap .od_addr .addr_btn:hover span { display:none; }
+.p_wrap .od_addr .addr_btn:hover b { display:inline; cursor:pointer; box-shadow:0 0 5px hsla( 0, 0%, 0%, .6 ); PADDING:.3em 2em; }
+.p_wrap .od_addr .dt.address .addr_list { position:relative; right:-1.5em; top:0; height:42px; width:42px; overflow:hidden; max-height:0; }
+.p_wrap .od_addr .dt.address:hover .addr_list { max-height:none; overflow:visible; }
+.p_wrap .od_addr .dt.address .addr_list ul { position:absolute; background:#F8F8F8; border:2px solid #555; border-radius:10px; box-shadow:0 1px 15px 1px rgba(39,39,39,.5); padding:10px 30px; z-index:1; min-width:40rem; text-align:left; }
+.p_wrap .od_addr .dt.address .addr_list ul li { list-style-type:decimal; cursor:pointer; font-size:1.1rem; }
+
 .p_wrap .label_st { border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; margin-bottom:2.5rem; }
 .p_wrap .label_st .col { font-size:.9rem; border-bottom:1px solid #D7D7D7; border-right:1px solid #D7D7D7; }
 .p_wrap .label_st .lb { background-color:#F2F3F5; text-align:center; padding:.55rem 0.3rem; flex:0 0 13%; max-width:13%; }
