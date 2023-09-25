@@ -851,8 +851,8 @@ var render = function render() {
       }
     }), _vm._v(" "), em.estimate_option.length ? _c("b-row", {
       staticClass: "option"
-    }, [_c("b-col", [_vm._v("옵션")]), _vm._v(" "), _c("b-col", _vm._l(em.estimate_option, function (eo, oi) {
-      return _c("p", {
+    }, [_c("b-col", [_c("label", [_vm._v("옵션")]), _vm._v(" "), _vm._l(em.estimate_option, function (eo, oi) {
+      return _c("div", {
         key: "op".concat(idx, "_").concat(oi)
       }, [_c("b", [_c("b-button", {
         staticClass: "plum xm ml-2",
@@ -892,7 +892,7 @@ var render = function render() {
           expression: "eo.eo_price"
         }
       })], 1);
-    }), 0)], 1) : _vm._e()], 1);
+    })], 2)], 1) : _vm._e()], 1);
   }), _vm._v(" "), _c("validation", {
     attrs: {
       error: _vm.$store.state.error.validations.estimate_model

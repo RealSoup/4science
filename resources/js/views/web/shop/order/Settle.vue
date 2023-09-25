@@ -133,12 +133,12 @@
                     <div class="method">
                         <div v-for="(v, k) in config.pay_method" :key="k">
                             <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
-                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제<b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체<b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
-                            <span v-else-if="k=='P'">원격지 연구비 직접결제</span>
-                            <span v-else-if="k=='S'">원격지 연구비 직접결제<b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
-                            <span v-else-if="k=='R'">원격지 카드 결제<b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
-                            <span v-else-if="k=='E'">결제대금예치<b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
+                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
+                            <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
+                            <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                            <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
+                            <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
                         </div> 
                     </div>
 
@@ -791,9 +791,11 @@ export default {
 #settle .st_bottom .payment .body h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
 #settle .st_bottom .payment .body>div { border-top:1px solid #d7d7d7; padding:.94rem 0; }
 #settle .st_bottom .payment .body div>>>h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem; }
-#settle .st_bottom .payment .body .method>div { margin:1rem 0; }
-#settle .st_bottom .payment .body .method div .custom-radio { display:inline-block; width:28%; }
+#settle .st_bottom .payment .body .method>div { margin:1rem 0; display:flex; }
+#settle .st_bottom .payment .body .method div .custom-radio { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%; }
 #settle .st_bottom .payment .body .method div .custom-radio>>>label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer; }
+#settle .st_bottom .payment .body .method div .custom-radio>>>label::before,
+#settle .st_bottom .payment .body .method div .custom-radio>>>label::after { left:-1.2rem; top:.15em; }
 #settle .st_bottom .payment .body .method div span { color:#ACACAC; font-size:.8rem; }
 #settle .st_bottom .payment .body .method div span b { cursor:pointer; position:relative; }
 #settle .st_bottom .payment .body .method div span img { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem; }

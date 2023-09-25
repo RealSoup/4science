@@ -81,9 +81,9 @@
         <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id" />
         
         <b-row v-if="em.estimate_option.length" class="option">
-            <b-col>옵션</b-col>
             <b-col>
-                <p v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
+                <label>옵션</label>
+                <div v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
                     <b><b-button class="plum xm ml-2" @click="delOption(idx, oi)">X</b-button></b>
                     <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
                     <label :for="`eo_ea${idx}_${oi}`">수량</label>
@@ -91,7 +91,7 @@
 
                     <label :for="`eo_price${idx}_${oi}`">판매단가</label>
                     <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
-                </p>
+                </div>
             </b-col>
         </b-row>
     </b-container>
