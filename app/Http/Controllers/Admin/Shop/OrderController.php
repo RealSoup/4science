@@ -229,9 +229,6 @@ class OrderController extends Controller {
 			}                    
 			DB::table('shop_order_model')->insert($insert_tmp);
 		}
-
-		$this->orderExtraInfo->oex_od_id = $od_id;
-		$this->orderExtraInfo->save();
 		// foreach (collect($req->estimate_model)->groupBy('em_gd_id') as $gd_id => $gd) {
 		// 	$odg_id = 0;
 		// 	foreach ($gd as $seq => $em) {
@@ -414,7 +411,12 @@ class OrderController extends Controller {
 			} else if ($req->type == 'od_sale_env') {
 				$od->od_sale_env = $req->od_sale_env;
 			} else if ($req->type == 'adm_memo') {
-				$oex = $this->orderExtraInfo->find($req->order_extra_info['oex_id']);
+				if ( array_key_exists('oex_id', $req->order_extra_info) )
+					$oex = $this->orderExtraInfo->find($req->order_extra_info['oex_id']);
+				else {
+					$oex = $this->orderExtraInfo;
+					$oex->oex_od_id = $od_id;
+				}
 				$oex->oex_adm_memo = $req->order_extra_info['oex_adm_memo'];
 				$oex->save();
 			}
