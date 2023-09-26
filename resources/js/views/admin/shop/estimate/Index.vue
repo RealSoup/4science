@@ -121,8 +121,8 @@ import ax from '@/api/http';
 import { mapState } from 'vuex';
 export default {
     components: {
-        'sch-date': () => import('@/views/_common/SchDate'),
-        'list': () => import('./_comp/List'),
+        'sch-date': () =>   import('@/views/_common/SchDate'),
+        'list': () =>       import('@/views/admin/shop/estimate/_comp/List'),
         'win-pop-up': () => import('@/views/_common/WinPopUp'),
     },
     data() {

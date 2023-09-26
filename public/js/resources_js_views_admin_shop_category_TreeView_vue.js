@@ -26,10 +26,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_1___default()),
     'InputInsert': function InputInsert() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_InputInsert_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./InputInsert.vue */ "./resources/js/views/admin/shop/category/InputInsert.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_InputInsert_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/category/InputInsert.vue */ "./resources/js/views/admin/shop/category/InputInsert.vue"));
     },
     'InputUpdate': function InputUpdate() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_InputUpdate_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./InputUpdate.vue */ "./resources/js/views/admin/shop/category/InputUpdate.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_category_InputUpdate_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/category/InputUpdate.vue */ "./resources/js/views/admin/shop/category/InputUpdate.vue"));
     }
   },
   props: ['isOpen', 'cate', 'depth', 'ca_papa', 'gene_idx', 'parent'],

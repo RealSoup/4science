@@ -119,11 +119,11 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
     name: 'admShopEstimateShowReq',
     components: {
-        'made-type01':   () => import('./_comp/MadeType01'),
-        'made-type08':   () => import('./_comp/MadeType08'),
-        'made-type20':   () => import('./_comp/MadeType20'),
-        'made-type24':   () => import('./_comp/MadeType24'),
-        'made-type-common':   () => import('./_comp/MadeTypeCommon'),
+        'made-type01':      () => import('@/views/admin/shop/estimate/_comp/MadeType01'),
+        'made-type08':      () => import('@/views/admin/shop/estimate/_comp/MadeType08'),
+        'made-type20':      () => import('@/views/admin/shop/estimate/_comp/MadeType20'),
+        'made-type24':      () => import('@/views/admin/shop/estimate/_comp/MadeType24'),
+        'made-type-common': () => import('@/views/admin/shop/estimate/_comp/MadeTypeCommon'),
     },
     data() {
         return {

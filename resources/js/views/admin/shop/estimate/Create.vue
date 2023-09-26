@@ -11,15 +11,15 @@
 
 <script>
 import ax from '@/api/http';
-import FormGoods from './FormGoods.vue';
-import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra } from './FormValidation.js'
+import FormGoods from '@/views/admin/shop/estimate/FormGoods.vue';
+import { validationCheckerUser, validationCheckerGoods, validationCheckerExtra } from '@/views/admin/shop/estimate/FormValidation.js'
 export default {
     name: 'Create',
     components: {
-        'form-ctrl': () =>      import('./FormCtrl.vue'),
-        'form-user': () =>      import('./FormUser.vue'),
+        'form-ctrl': () =>  import('@/views/admin/shop/estimate/FormCtrl.vue'),
+        'form-user': () =>  import('@/views/admin/shop/estimate/FormUser.vue'),
         'form-goods':FormGoods,
-        'form-extra': () =>      import('./FormExtra.vue'),
+        'form-extra': () => import('@/views/admin/shop/estimate/FormExtra.vue'),
         // 'Form': () => import('./Form.vue'),
         //  자식 컴포넌트의 Method를 호출하려면 위와같이 하면 안됨
         //  import 명령어 써서 컴포넌트 삽입해야 함

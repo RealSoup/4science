@@ -82,8 +82,8 @@ export default {
     name: "TreeView", // recursive 하기위해서 필요함. 없으면 error
     components: {
         draggable,
-        'InputInsert': () => import('./InputInsert.vue'),
-        'InputUpdate': () => import('./InputUpdate.vue'),
+        'InputInsert': () => import('@/views/admin/shop/category/InputInsert.vue'),
+        'InputUpdate': () => import('@/views/admin/shop/category/InputUpdate.vue'),
     },
     props:['isOpen', 'cate', 'depth', 'ca_papa', 'gene_idx', 'parent'],
     data() {

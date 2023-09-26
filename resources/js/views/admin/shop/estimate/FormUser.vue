@@ -1,7 +1,7 @@
 <template>
-<div class="box label_form">
+<div class="box">
     <h5>견적요청자 정보</h5>
-    <b-row>
+    <b-row class="label_form">
         <b-col>
             <label>요청자</label>
             <user-input v-model="value.eq_name" :type="'name'" :frm="value" />
@@ -33,9 +33,7 @@
             <label>팩스번호</label>
             <div><b-form-input v-model="value.eq_fax" size="sm" :formatter="formatTel" /></div>
         </b-col>
-    </b-row>
-    <b-row v-if="value.eq_content">
-        <b-col>
+        <b-col v-if="value.eq_content" class="w_100">
             <label>요청내용</label>
             <div v-html="nl2br(value.eq_content)" />
         </b-col>
@@ -46,7 +44,7 @@
 <script>
 export default {
     components: {
-        'user-input': () =>      import('./_comp/UserInput.vue'),
+        'user-input': () => import('@/views/admin/shop/estimate/_comp/UserInput.vue'),
         'validation': () => import('@/views/_common/Validation.vue'),
     },
     props: ['value'],

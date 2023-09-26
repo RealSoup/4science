@@ -217,14 +217,14 @@
 
     <!-- 옵션 -->
     <b-container class="box adform option" v-if="value.gd_type == 'NON'">
-        <h5>
-            Option
-            <b-button variant="info" size="sm" class="float-right" @click="insertAtOpt()"><b-icon-plus-lg /></b-button>
+        <h5 class="row">
+            <b-col>Option</b-col>
+            <b-col><option-finder :opt="value.goods_option" /></b-col>
         </h5>
 
         <b-row class="head">
             <b-col lg="6">옵션명</b-col>
-            <b-col lg="3">항목</b-col>                
+            <b-col lg="3">항목</b-col>
             <b-col>가격</b-col>
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
@@ -246,6 +246,11 @@
                 </b-row>
             </b-col>
             <!-- 옵션 아이템 -->
+        </b-row>
+        <b-row>
+            <b-col class="btn_box">
+                <b-button class="mint xm float-right" @click="insertAtOpt()"><b-icon-plus-lg /></b-button>
+            </b-col>
         </b-row>
     </b-container>
     <!-- 옵션 -->
@@ -271,6 +276,7 @@ export default {
         'ckeditor': Ckeditor,
         'maker-input': () =>    import('@/views/admin/shop/goods/_comp/MakerInput'),
         Vue2TinymceEditor,
+        'option-finder': () =>  import('@/views/admin/shop/goods/_comp/OptionFinder'),
     },
     props: ['value', 'purchaseAt'],
     computed: {

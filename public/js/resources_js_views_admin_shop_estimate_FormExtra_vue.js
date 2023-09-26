@@ -303,8 +303,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "box label_form"
-  }, [_c("h5", [_vm._v("추가정보 등록")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("label", [_vm._v("주문납품기일")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    staticClass: "box"
+  }, [_c("h5", [_vm._v("추가정보 등록")]), _vm._v(" "), _c("b-row", {
+    staticClass: "label_form"
+  }, [_c("b-col", [_c("label", [_vm._v("주문납품기일")]), _vm._v(" "), _c("div", [_c("b-form-input", {
     directives: [{
       name: "b-tooltip",
       rawName: "v-b-tooltip.hover",

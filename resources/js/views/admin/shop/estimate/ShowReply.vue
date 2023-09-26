@@ -108,9 +108,7 @@
 import ax from '@/api/http';
 
 export default {
-    components: {
-        'pa-list'        : () => import('@/views/web/_module/PaList'),
-    },
+    components: { 'pa-list' : () => import('@/views/web/_module/PaList'), },
     data() {
         return {
             frm:{

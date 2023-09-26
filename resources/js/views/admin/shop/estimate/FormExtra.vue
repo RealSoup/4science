@@ -1,7 +1,7 @@
 <template>
-<div class="box label_form">
+<div class="box">
     <h5>추가정보 등록</h5>
-    <b-row>
+    <b-row class="label_form">
         <b-col>
             <label>주문납품기일</label>
             <div><b-form-input id="er_dlvy_at" v-model="value.er_dlvy_at" v-b-tooltip.hover title="입력예: 2주이내, 1개월 이내" size="sm" /></div>
@@ -39,8 +39,8 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 export default {
     components: {
         'file-upload': FileUpload,
-        'validation': () => import('@/views/_common/Validation.vue'),
-        'loading-modal': () => import('@/views/_common/LoadingModal.vue'),
+        'validation':       () => import('@/views/_common/Validation.vue'),
+        'loading-modal':    () => import('@/views/_common/LoadingModal.vue'),
     },
     props: ['value', 'isLoadingModalViewed'],
 }

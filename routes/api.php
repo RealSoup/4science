@@ -149,9 +149,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 ]);
 
                 Route::prefix('goods')->group(function () {
-                    Route::GET('getModel', 'Admin\Shop\GoodsController@getModel');
-                    Route::POST('fileUpload', 'Admin\Shop\GoodsController@fileUpload');
-                    Route::GET('getGoodsList', 'Admin\Shop\GoodsController@getGoodsList');
+                    Route::GET('getModel',      'Admin\Shop\GoodsController@getModel');
+                    Route::POST('fileUpload',   'Admin\Shop\GoodsController@fileUpload');
+                    Route::GET('getGoodsList',  'Admin\Shop\GoodsController@getGoodsList');
+                    Route::GET('getOption/{catno}',     'Admin\Shop\GoodsController@getOption');
+                    
                 });
                 Route::resource('goods', 'Admin\Shop\GoodsController');
                 

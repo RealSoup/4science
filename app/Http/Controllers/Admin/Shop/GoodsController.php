@@ -596,6 +596,17 @@ class GoodsController extends Controller {
         return response()->json($this->goods->SchGd_name($req->gd_name)->get(), 200);
     }
 
+    public function getOption(Request $req, String $catno){
+        $gm_catno = explode('-', $catno);
+        $gm = $this->goods_model->where('gm_catno01', $gm_catno[0])
+                 ->where('gm_catno02', $gm_catno[1])
+                 ->when($gm_catno[2],    fn ($q, $v) => $q->where('gm_catno03', $gm_catno[2]))
+                 ->first();
+        if ( !$gm )
+            return response()->json('no-data', 200);
+        return response()->json($this->goods_option->with('goodsOptionChild')->Gd_id($gm->gm_gd_id)->get(), 200);
+    }
+
     // public function getGoods(Request $req){
     //     $rst = $this->goods->find($req->gd_id);
     //     $rst->maker;

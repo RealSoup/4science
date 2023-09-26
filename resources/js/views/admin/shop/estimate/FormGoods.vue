@@ -1,10 +1,10 @@
 <template>
 <div class="box">
     <h5>견적상품 등록</h5>
-    <b-container v-for="(em, idx) in value" :key="idx" class="label_form">
+    <b-container v-for="(em, idx) in value" :key="idx">
         <!--    이중(중첩)루프 순번을 넣기위한 공
                     {{ frm.estimate_goods.slice(0, gi).reduce((total, ch)=>total+=ch.estimate_model.length, 0) + mi + 1}}   -->
-        <b-row>
+        <b-row class="label_form">
             <b-button-group class="model_ctrl_btn">
                 <b-button class="orange rubber" @click="emReset(idx)"><b-icon-app /> <b>초기화</b></b-button>
                 <b-button class="plum rubber" @click="emDel(idx)"><b-icon-x-lg /> <b>삭제</b></b-button>
@@ -80,17 +80,19 @@
         
         <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id" />
         
-        <b-row v-if="em.estimate_option.length" class="option">
-            <b-col>
+        <b-row v-if="em.estimate_option.length" class="option label_form">
+            <b-col class="w_100">
                 <label>옵션</label>
-                <div v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
-                    <b><b-button class="plum xm ml-2" @click="delOption(idx, oi)">X</b-button></b>
-                    <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
-                    <label :for="`eo_ea${idx}_${oi}`">수량</label>
-                    <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
+                <div>
+                    <p v-for="(eo, oi) in em.estimate_option" :key="`op${idx}_${oi}`">
+                        <b><b-button class="plum xm" @click="delOption(idx, oi)">X</b-button></b>
+                        <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
+                        <label :for="`eo_ea${idx}_${oi}`">수량</label>
+                        <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
 
-                    <label :for="`eo_price${idx}_${oi}`">판매단가</label>
-                    <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
+                        <label :for="`eo_price${idx}_${oi}`">판매단가</label>
+                        <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
+                    </p>
                 </div>
             </b-col>
         </b-row>
@@ -104,16 +106,16 @@
 
 <script>
 import ax from '@/api/http';
-import GoodsOptionAdd from "./_comp/GoodsOptionAdd.vue";
+import GoodsOptionAdd from "@/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue";
 import copy from "fast-copy";
 
 export default {
     components: {
         "goods-option-add": GoodsOptionAdd,
-        'price-input': () =>     import('./_comp/PriceInput.vue'),
-        'dc-late-input': () =>   import('./_comp/DcLateInput.vue'),
-        'model-sch-input': () => import('./_comp/ModelSchInput.vue'),
-        'ea-input': () =>        import('./_comp/EaInput.vue'),
+        'price-input': () =>     import('@/views/admin/shop/estimate/_comp/PriceInput.vue'),
+        'dc-late-input': () =>   import('@/views/admin/shop/estimate/_comp/DcLateInput.vue'),
+        'model-sch-input': () => import('@/views/admin/shop/estimate/_comp/ModelSchInput.vue'),
+        'ea-input': () =>        import('@/views/admin/shop/estimate/_comp/EaInput.vue'),
         'validation': () =>      import('@/views/_common/Validation.vue'),
     },
     props: ['value', 'frm'],
@@ -183,25 +185,32 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.label_form:not(:first-of-type) { margin-top:5%; }
+.box .container { margin-bottom:3%; }
 
-.label_form .row .col label .badge { position:absolute; top:0; left:0; padding:.3em .8rem .5rem .7rem; border-radius:0 0 20px 20px; z-index:1; }
-.label_form .row .model_ctrl_btn { position:absolute; top:-34px; right:0; }
-.label_form .row .model_ctrl_btn .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s; }
-.label_form .row .model_ctrl_btn .btn:hover b { max-width:300px; height:17px; } 
+.label_form>.col label .badge { position:absolute; top:0; left:0; padding:.3em .8rem .5rem .7rem; border-radius:0 0 20px 20px; z-index:1; }
+.label_form>.model_ctrl_btn { position:absolute; top:-34px; right:0; }
+.label_form>.model_ctrl_btn .btn b { display:inline-block; height:0; overflow:hidden; vertical-align:inherit; max-width:0; transition:all .4s; }
+.label_form>.model_ctrl_btn .btn:hover b { max-width:300px; height:17px; } 
 
-.label_form .row.option .col p { display:flex; margin:0; line-height:1.9; }
-.label_form .row.option .col p b { flex-basis:0; flex-grow:1; max-width:100%; text-align:right; padding-right:1%; }
-.label_form .row.option .col p span { flex:0 0 19.5%; max-width:19.5%; text-align:center; }
-.label_form .row.option .col p label { flex:0 0 11.5%; max-width:11.5%; text-align:right; padding-right:2%; font-weight:600; }
-.label_form .row.option .col p label:last-of-type { flex:0 0 12%; max-width:12%; }
-.label_form .row.option .col p input { flex:0 0 6%; max-width:6%; text-align:right; }
-.label_form .row.option .col p input:last-of-type { flex:0 0 12%; max-width:12%; }
+.option .col p { display:flex; margin:0; flex-wrap: wrap; }
+.option .col p>*{ display:flex; align-items:center; }
+.option .col p b { flex:0 0 24px; max-width:24px; margin-right:.6%; }
+.option .col p span { flex-basis: 0; flex-grow: 1; max-width: 100%; }
+.option .col p label { flex:0 0 6%; max-width:6%; font-weight:600; padding-right:1%; justify-content:end; }
+.option .col p input { flex:0 0 6%; max-width:6%; text-align:right; }
+.option .col p label:last-of-type { flex:0 0 12%; max-width:12%; }
+.option .col p input:last-of-type { flex:0 0 12%; max-width:12%; }
 
 
 @media (max-width: 992px){
     .label_form:not(:first-of-type) { margin-top:10%; }
-    .label_form .row .model_ctrl_btn { top:-27px; }
-    .label_form .row .col label .badge { position:static; padding:.2rem .3rem; border-radius:10px; }
+    .label_form>.model_ctrl_btn { top:-27px; }
+    .label_form>.col label .badge { position:static; padding:.2rem .3rem; border-radius:10px; }
+
+    .option .col p span { flex:0 0 90%; max-width:90%; }
+    .option .col p label,
+    .option .col p label:last-of-type { flex:0 0 20%; max-width:20%; }
+    .option .col p input { flex:0 0 14%; max-width:14%; }
+    .option .col p input:last-of-type { flex:0 0 29%; max-width:29%; }
 }
 </style>

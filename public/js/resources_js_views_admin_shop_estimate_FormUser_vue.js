@@ -14,7 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'user-input': function userInput() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_UserInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/UserInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/UserInput.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_shop_estimate__comp_UserInput_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/shop/estimate/_comp/UserInput.vue */ "./resources/js/views/admin/shop/estimate/_comp/UserInput.vue"));
     },
     'validation': function validation() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Validation_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Validation.vue */ "./resources/js/views/_common/Validation.vue"));
@@ -40,8 +40,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "box label_form"
-  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("label", [_vm._v("요청자")]), _vm._v(" "), _c("user-input", {
+    staticClass: "box"
+  }, [_c("h5", [_vm._v("견적요청자 정보")]), _vm._v(" "), _c("b-row", {
+    staticClass: "label_form"
+  }, [_c("b-col", [_c("label", [_vm._v("요청자")]), _vm._v(" "), _c("user-input", {
     attrs: {
       type: "name",
       frm: _vm.value
@@ -129,11 +131,13 @@ var render = function render() {
       },
       expression: "value.eq_fax"
     }
-  })], 1)])], 1), _vm._v(" "), _vm.value.eq_content ? _c("b-row", [_c("b-col", [_c("label", [_vm._v("요청내용")]), _vm._v(" "), _c("div", {
+  })], 1)]), _vm._v(" "), _vm.value.eq_content ? _c("b-col", {
+    staticClass: "w_100"
+  }, [_c("label", [_vm._v("요청내용")]), _vm._v(" "), _c("div", {
     domProps: {
       innerHTML: _vm._s(_vm.nl2br(_vm.value.eq_content))
     }
-  })])], 1) : _vm._e()], 1);
+  })]) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -359,21 +359,20 @@ label { margin-bottom:0; }
 .frm01 .row .col:nth-child(even) { padding-left:.8%; padding-right: .8%; }
 
 
-.label_form>.row { position:relative; }
-.label_form>.row:first-of-type { border-top:3px solid #4F637B; border-bottom:3px solid #4F637B; }
-.label_form>.row .col { border-bottom:1px solid #D7D7D7; flex:0 0 50%; max-width:50%; display:flex; align-items:center; justify-content:center; }
-.label_form>.row .col.w_100 { flex:0 0 100%; max-width:100%; }
-.label_form>.row .col.w_100 label { flex:0 0 16%; max-width:16%; }
-.label_form>.row .col>* { flex-basis:0; flex-grow:1; max-width: 100%; }
-.label_form>.row .col label { position:relative; border-right:1px solid #D7D7D7; flex:0 0 32%; max-width:32%; padding:7px 0; font-weight:600; background-color:#F2F3F5; display:flex; align-items:center; justify-content:center; height:100%; }
-.label_form>.row .col label+div { padding:0 12px; width:100%; }
-.label_form>.row .col.w_100 label+div { padding:6px 12px; }
-.label_form>.row .col:nth-child(even) label { border-left:1px solid #D7D7D7; }
+.label_form { position:relative; border-top:3px solid #4F637B; border-bottom:3px solid #4F637B;}
+.label_form>.col { border-bottom:1px solid #D7D7D7; flex:0 0 50%; max-width:50%; display:flex; align-items:center; justify-content:center; }
+.label_form>.col.w_100 { flex:0 0 100%; max-width:100%; }
+.label_form>.col.w_100>label { flex:0 0 16%; max-width:16%; }
+.label_form>.col>* { flex-basis:0; flex-grow:1; max-width: 100%; }
+.label_form>.col>label { position:relative; border-right:1px solid #D7D7D7; flex:0 0 32%; max-width:32%; padding:7px 0; font-weight:600; background-color:#F2F3F5; display:flex; align-items:center; justify-content:center; height:100%; }
+.label_form>.col>label+div { padding:0 12px; width:100%; }
+.label_form>.col.w_100>label+div { padding:6px 12px; }
+.label_form>.col:nth-child(even)>label { border-left:1px solid #D7D7D7; }
 @media (max-width: 992px){
-    .label_form>.row:first-of-type { padding-top:7px; }
-    .label_form>.row .col { flex-direction:column; align-items:flex-start; margin-bottom:.5em; border-bottom-width:0; }
-    .label_form>.row .col label  { background-color:inherit; border-right-width:0; max-width:100%; padding:0 0 0 10px; font-size:.85em; }
-    .label_form>.row .col:nth-child(even) label { border-left-width:0; }
-    .label_form>.row .col.w_100 label { max-width:50%; }
+    .label_form { padding-top:7px; }
+    .label_form>.col { flex-direction:column; align-items:flex-start; margin-bottom:.5em; border-bottom-width:0; }
+    .label_form>.col label  { background-color:inherit; border-right-width:0; max-width:100%; padding:0 0 0 10px; font-size:.85em; }
+    .label_form>.col:nth-child(even) label { border-left-width:0; }
+    .label_form>.col.w_100>label { max-width:50%; }
 }
 </style>
