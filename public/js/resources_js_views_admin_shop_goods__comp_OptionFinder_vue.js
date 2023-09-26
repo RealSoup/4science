@@ -73,6 +73,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setOpt: function setOpt(i) {
       if (this.list[i] && this.list[i].go_name != "정보없음") {
         this.opt.push({
+          go_id: 0,
           go_name: this.list[i].go_name,
           go_required: this.list[i].go_required,
           goods_option_child: this.list[i].goods_option_child
