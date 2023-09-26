@@ -22,7 +22,7 @@ trait FileControl {
         if (in_array($mime, $mimeArr)) 
             $image_info = getimagesize($file);
         
-        $this->mkDir("public/".$subFolder);
+        $this->mkDir("storage/".$subFolder);
         if (isset($image_info)) {
             $img;
             if($image_info[0]>$def_wid||$image_info[1]>$def_hei) 
@@ -33,7 +33,7 @@ trait FileControl {
             Storage::disk('public')->put($subFolder.$file->hashName(), $img);
             
             if ($thumb) {
-                $this->mkDir("public/".$subFolder.'thumb/');
+                $this->mkDir("storage/".$subFolder.'thumb/');
                 $img = (string)Image::make($file)->resize($thumb_wid, null, function ($constraint) {$constraint->aspectRatio();})->encode($mime);
                 Storage::disk('public')->put($subFolder.'thumb/'.$file->hashName(), $img);
             }
