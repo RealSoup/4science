@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <!-- <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                     <td colspan="2"><img src="{{ asset('storage/event/2023/0901/estimate01.jpg') }}" /></td>
                 </tr>
@@ -38,7 +38,10 @@
                         </a>
                     </td>
                 </tr>
-            </table>
+            </table> -->
+            <a href="https://4science.net/shop/goods?mode=maker&keyword=radwag" target='_blank'>
+                <img src="{{ asset('storage/event/2023/0918/estimate.jpg') }}" />
+            </a>
         </td>
     </tr>
 
@@ -176,9 +179,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb; padding-bottom:30px;'>
-            <a href="https://4science.net/shop/goods?mode=maker&keyword=radwag" target='_blank'>
+            <!-- <a href="https://4science.net/shop/goods?mode=maker&keyword=radwag" target='_blank'>
                 <img src="{{ asset('storage/event/2023/0918/estimate.jpg') }}" />
-            </a>
+            </a> -->
         </td>
     </tr>
     <tr>

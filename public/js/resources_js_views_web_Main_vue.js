@@ -189,24 +189,7 @@ var render = function render() {
       controls: "",
       indicators: ""
     }
-  }, [_c("b-carousel-slide", {
-    staticClass: "evt01",
-    attrs: {
-      "img-src": _vm.s3url + "event/2023/0901/slide.jpg"
-    }
-  }, [_c("router-link", {
-    staticClass: "split_evt01",
-    attrs: {
-      to: "/shop/goods/616504",
-      id: "evt01_1"
-    }
-  }), _vm._v(" "), _c("router-link", {
-    staticClass: "split_evt01",
-    attrs: {
-      to: "/shop/goods/616505",
-      id: "evt01_2"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
+  }, [_c("b-link", {
     attrs: {
       to: "/shop/goods/616503"
     }

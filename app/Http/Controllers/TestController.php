@@ -120,4 +120,8 @@ class TestController extends Controller {
         curl_close ($ch);
         return $response;
     }
+
+    function download() {
+        return response()->download(public_path('img/estimate_logo.png'));
+    }
 }

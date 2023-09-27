@@ -92,9 +92,10 @@ Route::POST('/shop/order/payRequestMobile', 'Shop\OrderController@payRequestMobi
 Route::POST('/shop/order/payReturnMobile',  'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
 Route::POST('/shop/order/payReturnPsys',    'Shop\OrderController@payReturnPsys')->name('shop.order.payReturnPsys');
 
-Route::get('/test',               'TestController@index');
-Route::get('/test/mail_display',    'TestController@mail_display');
-Route::get('/test/merck_upload',    'TestController@merck_upload');
+Route::get('/test',              'TestController@index');
+Route::get('/test/mail_display', 'TestController@mail_display');
+Route::get('/test/merck_upload', 'TestController@merck_upload');
+Route::post('/test/download',    'TestController@download');
 
 Route::POST('auth/user/find_email',    'Auth\UserController@find_email');
 Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
@@ -108,8 +109,8 @@ Route::POST('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckContr
 Route::POST('/admin/shop/b2b_merck/Invoice', 'Admin\Shop\B2bMerckController@Invoice');
 Route::POST('/admin/shop/b2b_merck/Asn', 'Admin\Shop\B2bMerckController@Asn');
 
+//  검색엔진 실행
 Route::GET('/admin/shop/goods/exeIndex', 'Admin\Shop\GoodsController@exeIndex');
-
 
 // Route::post('email/resend', function (Request $request) {
 //     dd(auth()->user()->sendEmailVerificationNotification());
