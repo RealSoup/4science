@@ -416,11 +416,11 @@ class GoodsController extends Controller {
     public function show(Category $cate, Request $req, $gd_id) {
         abort_if($this->goods::where('gd_id', $gd_id)->doesntExist(), 501, '존재 하지 않는 상품입니다.');
 
-        event(new \App\Events\GoodsView($this->goods, $gd_id));  //  조회수 증가, 최근 본 상품 등록
 
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
             ->with('goodsRelate')
+            ->Enable()
             ->find($gd_id);
         //  모델의 appends에 초기 값을 세팅 할수 있지만
         //  데이터를 가공하고 나면 
@@ -459,6 +459,8 @@ class GoodsController extends Controller {
 				$data['goods']->gd_desc = $improve_description;
 			}
 		}
+
+        event(new \App\Events\GoodsView($this->goods, $gd_id));  //  조회수 증가, 최근 본 상품 등록
         return response()->json($data);
     }
 
