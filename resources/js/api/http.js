@@ -109,8 +109,8 @@ instance.interceptors.response.use(function (response) {
         
         return false;
     } else if (error.response.status === 501) { //  501 코드 임의 지정: 오류로 인한 뒤로가기 코드 
-        Notify.modal(error.response.data.message, 'danger');
         router.go(-1);
+        Notify.modal(error.response.data.message, 'danger');
         return false;
     }
     
