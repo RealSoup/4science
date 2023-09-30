@@ -41,6 +41,7 @@ class GoodsController extends Controller {
             페이지를 위해 검색된 count 재설정
         */
         $req->merge(array('sort' => "new"));
+        $req->merge(array('v_type' => "ADM"));
 
         $total = $this->goods->search_cnt($req);
         $page = intval($req->filled('page') ? $req->page : 1);

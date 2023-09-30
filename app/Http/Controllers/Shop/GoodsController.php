@@ -30,6 +30,10 @@ class GoodsController extends Controller {
             스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
             페이지를 위해 검색된 count 재설정
         */
+
+        
+        $req->merge(array('v_type' => "WEB"));
+
         $total = $this->goods->search_cnt($req);
         $page = $req->filled('page') ? $req->page : 1;
         $limit = $req->filled('limit') ? $req->limit : 15;
@@ -414,8 +418,7 @@ class GoodsController extends Controller {
     }
 
     public function show(Category $cate, Request $req, $gd_id) {
-        abort_if($this->goods::where('gd_id', $gd_id)->doesntExist(), 501, '존재 하지 않는 상품입니다.');
-
+        abort_if($this->goods::where('gd_id', $gd_id)->Enable()->doesntExist(), 501, '존재 하지 않는 상품입니다.');
 
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
             ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
