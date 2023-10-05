@@ -36,13 +36,13 @@ class SiteController extends Controller {
     }
 
     public function mainCateGoodsUpdate(Request $req) {
-        foreach ($req->show_window as $sw) {
+        foreach ($req->show_window as $k=>$v) {
             ShowWindow::updateOrCreate(
-                ['sw_id' => $sw['sw_id'] ?? ''],
+                ['sw_id' => $v['sw_id'] ?? ''],
                 [   'sw_type'   => "ca_best",
-                    'sw_group'  => $sw['sw_group'],
-                    'sw_seq'    => $sw['sw_seq'],
-                    'sw_key'    => $sw['sw_key'], ]
+                    'sw_group'  => $v['sw_group'],
+                    'sw_seq'    => $k,
+                    'sw_key'    => $v['sw_key'], ]
             );
         }
 

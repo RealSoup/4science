@@ -21,11 +21,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AdmSiteMainCateGoods',
+  name: 'AdmSiteMainBest',
   components: {
     draggable: (vuedraggable__WEBPACK_IMPORTED_MODULE_1___default()),
     'GoodsSearch': function GoodsSearch() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_site__comp_GoodsSearch_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./_comp/GoodsSearch.vue */ "./resources/js/views/admin/site/_comp/GoodsSearch.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_site__comp_GoodsSearch_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/site/_comp/GoodsSearch.vue */ "./resources/js/views/admin/site/_comp/GoodsSearch.vue"));
     }
   },
   data: function data() {

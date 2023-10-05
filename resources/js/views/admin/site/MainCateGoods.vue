@@ -48,7 +48,7 @@ export default {
     name: 'AdmSiteMainCateGoods',
     components: { 
         draggable,
-        'GoodsSearch': () => import('./_comp/GoodsSearch.vue'),
+        'GoodsSearch': () => import('@/views/admin/site/_comp/GoodsSearch.vue'),
     },
     data() {
         return {

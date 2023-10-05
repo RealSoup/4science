@@ -1,3 +1,4 @@
+@page { size: auto; }
 .p_wrap h5 { font-size:1.54rem; padding: 0.4rem 0 0 0.65rem; margin-bottom: 1rem !important; }
 .p_wrap h5 b { position:relative; bottom:-2px; }
 .p_wrap .container { max-width:100%; }

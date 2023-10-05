@@ -28,74 +28,99 @@ class TestController extends Controller {
         }
     }
     
-    // function merck_upload() {
-    //     $mc = Excel::toCollection(new MerckImport, public_path('merck/a01.xlsx'));
-    //     foreach ($mc[0] as $k => $v) {
-    //         dd($v);
-    //         $gd = DB::table('shop_goods')->where('gd_fk', $v[0])->first();
-    //         if(!$gd){
-    //             DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->insert([
-    //                 'gd_name'       => $v[],
-    //                 'gd_desc'       => $v[],
-    //                 'gd_keyword'    => $v[],
-    //                 'gd_video'      => $v[],
-    //                 'gd_dlvy_at'    => $v[],
-    //                 'gd_enable'     => $v[],
-    //                 'gd_type'       => $v[],
-    //                 'gd_mk_id'      => $v[],
-    //                 'gd_pa_id'      => $v[],
-    //                 'gd_view_cnt'   => $v[],
-    //                 'gd_mng_info'   => $v[],
-    //                 'gd_memo'       => $v[],
-    //                 'gd_rank'       => $v[],
-    //                 'gd_seq'        => $v[],
-    //                 'gd_fk'         => $v[],
-    //                 'created_id'    => $v[],
+    public function merck_upload() {
+        $mk = [ 'ALDRICH'	=> 2773,
+                'AVANTI'	=> 3120,
+                'SIAL' 		=> 2776,
+                'SIGALD'	=> 2777,
+                'SIGMA' 	=> 2778,
+                'SUPELCO'	=> 2779,
+                'USP' 		=> 3121 ];
+        $mc = Excel::toCollection(new MerckImport, public_path('merck/a01.xlsx'));
+        foreach ($mc[0] as $k => $v) {
+            $gd_fk    = $v[0];
+            $gm_code  = $v[1];
+            $gm_name  = $v[2];
+            $mk_name  = $v[3];
+            $gm_price = $v[4];
+            $gm_unit  = $v[5];
+            $gm_spec  = '';
+            $gm_prime = 'Y';
+            $gm_catno = '40';
+            $gm_catno01 = '40';
+            $gm_catno02 = '40';
+            $gm_catno03 = '40';
 
-    //                 'gd_name'    => $v[],
-    //                 'gd_desc'    => $v[],
-    //                 'gd_type'    => $v[],
-    //                 'gd_mk_id'   => $v[],
-    //                 'updated_id' => 9999
-    //             ]);
-    //         }
-    //         $gm = DB::table('shop_goods_model')->where('gm_code', $v[1])->where('gm_catno01', '40')->first();
-    //         // if($gd){
-    //         //     DB::table('shop_goods_model')->where('gm_code', $v[1])->where('gm_catno01', '40')->update([
-    //         //         'gm_name'    => $v[],
-    //         //         'gm_spec'    => $v[],
-    //         //         'gm_unit'    => $v[],
-    //         //         'gm_price'   => $v[],
-    //         //         'gm_enable'  => $v[],
-    //         //         'updated_id' => 9999
-    //         //     ]);
-    //         //     DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->update([
-    //         //         'gd_name'    => $v[],
-    //         //         'gd_desc'    => $v[],
-    //         //         'gd_type'    => $v[],
-    //         //         'gd_mk_id'   => $v[],
-    //         //         'updated_id' => 9999
-    //         //     ]);
-    //         // } else{
-    //         //     DB::table('shop_goods_model')->where('gm_code', $v[1])->where('gm_catno01', '40')->update([
-    //         //         'gm_name'    => $v[],
-    //         //         'gm_spec'    => $v[],
-    //         //         'gm_unit'    => $v[],
-    //         //         'gm_price'   => $v[],
-    //         //         'gm_enable'  => $v[],
-    //         //         'updated_id' => 9999
-    //         //     ]);
-    //         //     DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->update([
-    //         //         'gd_name'    => $v[],
-    //         //         'gd_desc'    => $v[],
-    //         //         'gd_type'    => $v[],
-    //         //         'gd_mk_id'   => $v[],
-    //         //         'updated_id' => 9999
-    //         //     ]);
-    //         // }
-    //     }
+            $gd_name = $v[2];
+            // IF($k==5)
+            dd($v);
+            $gm = DB::table('shop_goods_model')->where('gm_code', $v[1])->first();
+            if ($gm) {
+                DB::table('shop_goods_model')->where('gm_id', $gm->gm_id)->update([                    
+                    'gm_name'  => $gm_name,
+                    'gm_code'  => $gm_code,
+                    'gm_spec'  => $gm_spec,
+                    'gm_unit'  => $gm_unit,
+                    'gm_price' => $gm_price,
+                ]);
+            } else {
+                $gd = DB::table('shop_goods')->where('gd_fk', $gd_fk)->first();
+
+                if($gd){
+                    $gd_id = $gd->gd_id;
+                } else {
+                    $gd_id = DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->insertGetId([
+                        'gd_name'       => $gm_name,
+                        'gd_desc'       => '',
+                        'gd_dlvy_at'    => '1~4주',
+                        'gd_mk_id'      => $mk[$mk_name],
+                        'gd_rank'       => 999999,
+                        'gd_seq'        => 999999,
+                        'gd_fk'         => $gd_fk,
+                    ]);
+                }
+
+                
+                DB::table('shop_goods_model')->insert([
+                    'gm_gd_id'   => $gd_id,
+                    'gm_catno'   => $gm_catno,
+                    'gm_catno01' => $gm_catno01,
+                    'gm_catno02' => $gm_catno02,
+                    'gm_catno03' => $gm_catno03,
+                    'gm_prime'   => $gm_prime,
+                    'gm_name'    => $gm_name,
+                    'gm_code'    => $gm_code,
+                    'gm_spec'    => $gm_spec,
+                    'gm_unit'    => $gm_unit,
+                    'gm_price'   => $gm_price,
+                    'gm_enable'  => 'Y',
+                ]);
+                
+            }
+
+	// gm_id
+	// gm_gd_id
+	// gm_catno
+	// gm_catno01
+	// gm_catno02
+	// gm_catno03
+	// gm_prime
+	// gm_name
+	// gm_code
+	// gm_spec
+	// gm_unit
+	// gm_price
+	// gm_enable
+	// created_id
+	// updated_id
+	// deleted_at
+	// created_at
+	// updated_at
+	
+
+        }
         
-    // }
+    }
     function mail_display () {
         $data['con'] = EngReform::find(416);
         $data['con']->fileInfo;

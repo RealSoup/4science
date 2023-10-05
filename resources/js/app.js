@@ -97,7 +97,9 @@ const options = {
     specs: [
         'fullscreen=yes',
         'titlebar=yes',
-        'scrollbars=yes'
+        'scrollbars=yes',
+        'width=900', 
+        'height=800',
     ],
     styles: [
         'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
@@ -105,7 +107,7 @@ const options = {
     ],
     timeout: 1000, // default timeout before the print window appears
     autoClose: false, // if false, the window will not close after printing
-    windowTitle: window.document.title, // override the window title
+    windowTitle: '4SCIENCE.NET', // override the window title
 }
 Vue.use(VueHtmlToPaper, options);
 //  paper print     ==================================

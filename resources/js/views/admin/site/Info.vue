@@ -123,7 +123,7 @@
 <script>
 import ax from '@/api/http';
 export default {
-    name: 'configEdit',
+    name: 'AdmSiteInfo',
     data() {
         return {
             frm: {

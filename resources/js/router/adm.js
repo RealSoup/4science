@@ -14,7 +14,7 @@ const isAdmin = () => (to, from, next) => {
 
 export default [
     {   path: '/admin',
-        component:() => import('@/views/admin/Common'),
+        component:() => import('@/views/admin/AdmRouterView'),
         beforeEnter: isAdmin(),
         children: [
             {   path: '',

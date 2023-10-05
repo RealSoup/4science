@@ -32,10 +32,10 @@ import ax from '@/api/http';
 import draggable from 'vuedraggable';
 
 export default {
-    name: 'AdmSiteMainCateGoods',
+    name: 'AdmSiteMainBest',
     components: { 
         draggable,
-        'GoodsSearch': () => import('./_comp/GoodsSearch.vue'),
+        'GoodsSearch': () => import('@/views/admin/site/_comp/GoodsSearch.vue'),
     },
     data() {
         return {

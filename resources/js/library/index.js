@@ -279,21 +279,6 @@ export default {
                 Notify.consolePrint(e);
             }
         };
-        // Vue.prototype.fileDown = async function (src, oriName) {
-        //     try {
-        //         const res = await ax.get(`${src}`, { responseType: 'blob' });
-        //         let fileUrl = window.URL.createObjectURL(new Blob([res.data]));
-        //         let fileLink = document.createElement('a');
-        //         fileLink.href = fileUrl;
-
-        //         fileLink.setAttribute('download', oriName);
-        //         document.body.appendChild(fileLink);
-
-        //         fileLink.click();
-        //     } catch (e) {
-        //         Notify.consolePrint(e);
-        //     }
-        // };
         
         Vue.prototype.$focusNext = function (e, max, next) {
             if (e.target.value.length === max) {
