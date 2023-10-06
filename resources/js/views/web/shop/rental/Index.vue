@@ -42,11 +42,11 @@
                 <b-col v-for="(row, i) in list" :key="row.gd_id">
                     <div class="box" @click="show(i)">
                         <img :src="row.image_src_thumb[0]" />
-                        <ul class="clear-both">
+                        <!-- <ul class="clear-both">
                             <li>이화학기기</li>
                             <li>진공건조기</li>
                             <li>건조기</li>
-                        </ul>
+                        </ul> -->
                         <sub-string v-model="row.gd_name" :width="300" />
                         <p>{{row.goods_model_prime.gm_code}}</p>
                     </div>
@@ -349,7 +349,7 @@ export default {
 .w_fence .list .row .box { cursor:pointer; }
 .w_fence .list .row .box:after { content:""; position:absolute; right:40px; bottom:40px; width:0; height:0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:12px solid #969696;}
 .w_fence .container .row .box { background-color:#FFF; border-radius:1em; padding:30px 40px 36px 40px;  }
-.w_fence .container .row .box img { margin:auto; display:block; }
+.w_fence .container .row .box img { margin:auto; display:block; width:300px; height:300px; object-fit:cover; }
 .w_fence .container .row .box ul { margin-top:1.3em; font-size:.9em; font-weight:bold; }
 .w_fence .container .row .box ul li { color:#00A0CA; float:left; }
 .w_fence .container .row .box ul li:not(:last-child):after { content:">"; position: relative; right:-5px; margin-right:9px; }
