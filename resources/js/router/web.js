@@ -1,8 +1,9 @@
 import store from '@/store/index';
 const isLoggedin = () => (to, from, next) => {
     if (store.state.auth.isLoggedin) 
-        return next();    
-    next({name:'login', query:{redirect:to.path}});
+        return next();
+
+    next({name:'login', params: { route_name:to.name, params:to.params, query:to.query }});
     Notify.modal("로그인이 필요한 서비스입니다.", 'danger');
 };
 // const hasRequiredInfo = () => (to, from, next) => {

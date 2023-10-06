@@ -62,11 +62,25 @@ class TestController extends Controller {
                     'gm_spec'  => $gm_spec,
                     'gm_unit'  => $gm_unit,
                     'gm_price' => $gm_price,
+                    'ip'       => 1234
                 ]);
             } else {
                 $gd = DB::table('shop_goods')->where('gd_fk', $gd_fk)->first();
 
                 if($gd){
+                    DB::table('shop_goods')
+                    ->where('gd_id', $gd->gd_id)
+                    ->where('ip', '<>', 1234)
+                    ->update([
+                        'gd_name'       => $gm_name,
+                        'gd_desc'       => '',
+                        'gd_dlvy_at'    => '1~4주',
+                        'gd_mk_id'      => $mk[$mk_name],
+                        'gd_rank'       => 999999,
+                        'gd_seq'        => 999999,
+                        'gd_fk'         => $gd_fk,
+                        'ip'            => 1234
+                    ]);
                     $gd_id = $gd->gd_id;
                 } else {
                     $gd_id = DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->insertGetId([
@@ -94,6 +108,7 @@ class TestController extends Controller {
                     'gm_unit'    => $gm_unit,
                     'gm_price'   => $gm_price,
                     'gm_enable'  => 'Y',
+                    'ip'         => 1234
                 ]);
                 
             }

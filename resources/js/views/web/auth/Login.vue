@@ -80,8 +80,10 @@ export default {
             await this.$store.dispatch('auth/login', this.frm);
             this.$emit('close-modal');
             this.$store.dispatch('cart/index');
-            if (this.$route.name === 'login')
-                this.$router.push(this.$route.query.redirect || '/');
+            if (this.$route.name === 'login') {
+                this.$router.push({name: this.$route.params.route_name, params: this.$route.params.params, query: this.$route.params.query});
+                // this.$router.push(this.$route.query.redirect || '/');
+            }
         },
         find_pw() {
             this.$emit('close-modal');
