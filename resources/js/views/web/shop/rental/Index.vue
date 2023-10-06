@@ -62,11 +62,11 @@
                 <b-row>
                     <b-col class="box">
                         <img :src="list[pick_tem].image_src_thumb[0]" />
-                        <ul class="clear-both">
+                        <!-- <ul class="clear-both">
                             <li>이화학기기</li>
                             <li>진공건조기</li>
                             <li>건조기</li>
-                        </ul>
+                        </ul> -->
                         <sub-string v-model="list[pick_tem].gd_name" :width="250" />
                         <p>{{list[pick_tem].goods_model_prime.gm_code}}</p>
                     </b-col>
@@ -356,6 +356,7 @@ export default {
 .w_fence .container .row .box span { font-weight:bold; font-size:1.15em; margin-top:.6em; display:inline-block; }
 .w_fence .container .row .box p { color:#959595; margin:0; }
 .w_fence .show .row .box { flex:0 0 32%; max-width:32%; }
+.w_fence .show .row .box img { width:250px; height:250px; }
 .w_fence .show .row .col table { width:100%; border: 1px solid #EBEBEB; }
 .w_fence .show .row .col table tr:not(:last-child) { border-bottom: 1px solid #EBEBEB; }
 .w_fence .show .row .col table tr th { background-color:#EBEBEB; }
