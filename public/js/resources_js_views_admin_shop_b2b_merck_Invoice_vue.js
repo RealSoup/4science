@@ -19,10 +19,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admShopB2bMerckStockResult',
+  components: {
+    'loading-modal': function loadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    },
+    'modal': function modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
+    }
+  },
   data: function data() {
     return {
+      isModalViewed: false,
       list: {},
-      page: 1
+      page: 1,
+      show_no: 0
     };
   },
   methods: {
@@ -89,16 +99,17 @@ var render = function render() {
     staticClass: "p_wrap"
   }, [_c("h3", [_vm._v("Merck e-Invoice List")]), _vm._v(" "), _c("b-row", {
     staticClass: "head"
-  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (bms) {
+  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (bms, i) {
     return _c("b-row", {
       key: bms.bms_id,
       staticClass: "body"
-    }, [_c("b-col", [_c("span", {
-      staticClass: "viewXml",
-      domProps: {
-        innerHTML: _vm._s(bms.bmi_data_other_info)
+    }, [_c("b-col", {
+      on: {
+        click: function click($event) {
+          return _vm.show(i);
+        }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1);
+    }, [_c("span", [_vm._v(_vm._s(bms.bmi_data["Request"]["InvoiceDetailRequest"]["InvoiceDetailOrder"]["InvoiceDetailOrderInfo"]["OrderReference"]["@attributes"]["orderID"]))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
@@ -110,7 +121,22 @@ var render = function render() {
     on: {
       "pagination-change-page": _vm.setPage
     }
-  })], 2);
+  }), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "modal"
+    }
+  }, [_vm.isModalViewed ? _c("modal", {
+    attrs: {
+      max_width: 1100
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isModalViewed = false;
+      }
+    }
+  }, [_c("b-container", {
+    staticClass: "show"
+  }, [_c("b-row")], 1)], 1) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -134,7 +160,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-44bd100e] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-44bd100e] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-44bd100e]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-44bd100e]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-44bd100e]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-44bd100e] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div>span[data-v-44bd100e]:nth-of-type(2) { float:right;\n}\r\n/*\r\n.row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }\r\n.row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }\r\n.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }\r\n*/\n.viewXml[data-v-44bd100e] { max-width:800px; display:inline-block;\n}\n.viewXml[data-v-44bd100e] div { margin:3px 10px; padding:3px 10px; border-radius:5px;\n}\n.viewXml[data-v-44bd100e] span { word-break:break-all; color:#666;\n}\n.viewXml[data-v-44bd100e] span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000;\n}\n.viewXml[data-v-44bd100e] div.depth01 { background-color:#f8f8f8;\n}\n.viewXml[data-v-44bd100e] div.depth01 span.attributes { width:205px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 { background-color:#eee;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; width:25px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-44bd100e] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-44bd100e] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-44bd100e]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-44bd100e] { cursor:pointer;\n}\n.body>div[data-v-44bd100e]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-44bd100e]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-44bd100e] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div>span[data-v-44bd100e]:nth-of-type(2) { float:right;\n}\r\n/*\r\n.row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }\r\n.row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }\r\n.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }\r\n*/\n.viewXml[data-v-44bd100e] { max-width:800px; display:inline-block;\n}\n.viewXml[data-v-44bd100e] div { margin:3px 10px; padding:3px 10px; border-radius:5px;\n}\n.viewXml[data-v-44bd100e] span { word-break:break-all; color:#666;\n}\n.viewXml[data-v-44bd100e] span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000;\n}\n.viewXml[data-v-44bd100e] div.depth01 { background-color:#f8f8f8;\n}\n.viewXml[data-v-44bd100e] div.depth01 span.attributes { width:205px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 { background-color:#eee;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; width:25px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

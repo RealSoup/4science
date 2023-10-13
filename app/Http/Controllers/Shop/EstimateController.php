@@ -9,6 +9,8 @@ use App\Models\Shop\{EstimateReq, EstimateReply, EstimateModel, EstimateOption, 
 use App\Http\Requests\StoreEstimateReq;
 use Illuminate\Support\Arr;
 use DB;
+use App\Mail\EstimateReq AS MailEstimateReq;
+use Mail;
 
 class EstimateController extends Controller {
 
@@ -129,6 +131,17 @@ class EstimateController extends Controller {
                     'ec_val'   => array_key_exists($k, $req->val) ? $req->val[$k] : NULL,
                 ]);
             }
+        }
+
+        $eq_name = $req->filled('eq_name') ? $req->eq_name : auth()->user()->name;
+        $eq_email = $req->filled('eq_email') ? $req->eq_email : auth()->user()->email;
+        $subject = "[4science] 견적 접수 안내 메일";
+        $params['eq_name'] = $eq_name;
+        $params['eq_id'] = $eq_id;
+        try {
+            Mail::to(trim($eq_email))->queue(new MailEstimateReq(config('mail.mailers.smtp.username'), $subject, $params));
+        } catch(\Swift_TransportException $e){
+            // if($e->getMessage()) dd($e->getMessage());
         }
         
         if ($eq_id) return response()->json($eq_id, 200);

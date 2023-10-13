@@ -89,18 +89,15 @@
                                 <th>보증금</th>
                                 <th>월사용료(VAT별도)</th>
                             </tr>
-                            <tr>
-                                <th rowspan="2">렌탈(인수)<br /> 소유권<br /> 고객이전</th>
-                                <td>6개월</td>
-                                <td>0</td>
-                                <td>상담 요청</td>
-                                <td>상담 요청</td>
-                            </tr>
-                            <tr>
-                                <td>12개월</td>
-                                <td>0</td>
-                                <td>상담 요청</td>
-                                <td>상담 요청</td>
+
+                            <tr v-for="(gm, i) in list[pick_tem].goods_model" :key="i">
+                                <template v-if="gm.gm_enable == 'Y'">
+                                <th v-if="i==0" :rowspan="list[pick_tem].goods_model.filter(gm => gm.gm_enable == 'Y').length">렌탈(인수)<br /> 소유권<br /> 고객이전</th>
+                                <td>{{gm.gm_name}}</td>
+                                <td>{{gm.gm_spec}}</td>
+                                <td>{{gm.gm_unit}}</td>
+                                <td>{{gm.gm_price}}</td>
+                                </template>
                             </tr>
                         </table>
                         <hr />
@@ -114,8 +111,9 @@
                             <b-row>
                                 <b-col class="label_st">계약 기간</b-col>
                                 <b-col>
-                                    <b-radio v-model="frm.rt_term" name="rt_term" value="6개월">6개월</b-radio>
-                                    <b-radio v-model="frm.rt_term" name="rt_term" value="12개월">12개월</b-radio>
+                                    <template v-for="(gm, i) in list[pick_tem].goods_model">
+                                        <b-radio :key="i" v-if="gm.gm_enable == 'Y'" v-model="frm.rt_term" name="rt_term" :value="gm.gm_name" @change="chg_rt_term(gm.gm_id)">{{gm.gm_name}}</b-radio>
+                                    </template>
                                 </b-col>
                             </b-row>
                             <b-row>
@@ -236,7 +234,7 @@
 <script>
 import ax from '@/api/http';
 export default {
-    name: 'ListingIndex',
+    name: 'WebShopRentalIndex',
     components: {
         'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
         'sub-string': () =>     import('@/views/_common/SubString.vue'),
@@ -275,7 +273,11 @@ export default {
         async show(i) {
             this.pick_tem = i;
             this.isModalViewed = true;
-            const res = await ax.post(`/api/shop/estimate/create`, {goods:[{gd_id:this.list[this.pick_tem].gd_id, gm_id:this.list[this.pick_tem].goods_model_prime.gm_id, ea:1} ]});
+            const res = await ax.post(`/api/shop/estimate/create`, {goods:[{
+                gd_id:this.list[this.pick_tem].gd_id, 
+                gm_id:this.list[this.pick_tem].goods_model_prime.gm_id, 
+                ea   :1
+            } ]});
             if (res && res.status === 200)
                 this.frm.lists = res.data.lists;
         },
@@ -308,6 +310,15 @@ export default {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.responsee);
             }
+        },
+        async chg_rt_term(v){
+            const res = await ax.post(`/api/shop/estimate/create`, {goods:[{
+                gd_id:this.list[this.pick_tem].gd_id, 
+                gm_id:v, 
+                ea   :1
+            } ]});
+            if (res && res.status === 200)
+                this.frm.lists = res.data.lists;
         },
     },
     async mounted() { 

@@ -33,7 +33,7 @@ export default {
         async login(context, frm){
             await ax.get('/sanctum/csrf-cookie');
             await ax.post('/login', frm).then((res) => {
-                if (res && res.status === 204)  return context.dispatch('getAuth');                
+                if (res && res.status === 204)  return context.dispatch('getAuth');
             }).catch(() => {});
         },
         async logout(context){

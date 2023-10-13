@@ -81,8 +81,8 @@ export default {
             this.$emit('close-modal');
             this.$store.dispatch('cart/index');
             if (this.$route.name === 'login') {
-                this.$router.push({name: this.$route.params.route_name, params: this.$route.params.params, query: this.$route.params.query});
-                // this.$router.push(this.$route.query.redirect || '/');
+                let destination_name = this.$route.params.route_name ?? 'main';
+                this.$router.push({name: destination_name, params: this.$route.params.params, query: this.$route.params.query});
             }
         },
         find_pw() {

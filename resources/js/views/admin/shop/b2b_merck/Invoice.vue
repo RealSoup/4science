@@ -5,13 +5,23 @@
         <b-col><span>추가정보</span><span>작성일</span></b-col>
     </b-row>
     
-    <b-row class="body" v-for="bms in list.data" :key="bms.bms_id">
-        <b-col>
-            <span v-html="bms.bmi_data_other_info" class="viewXml"></span>
+    <b-row class="body" v-for="(bms, i) in list.data" :key="bms.bms_id">
+        <b-col @click="show(i)">
+            <span>{{bms.bmi_data['Request']['InvoiceDetailRequest']['InvoiceDetailOrder']['InvoiceDetailOrderInfo']['OrderReference']['@attributes']['orderID']}}</span>
+            <!-- <span v-html="bms.bmi_data_other_info" class="viewXml"></span> -->
             <span>{{ bms.created_at | formatDate }}</span>
         </b-col>
     </b-row>
     <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
+
+    <transition name="modal">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
+            <b-container class="show">
+                <b-row>
+                </b-row>
+            </b-container>
+        </modal>
+    </transition>
 </b-container>
 </template>
 
@@ -19,7 +29,16 @@
 import ax from '@/api/http';
 export default {
     name: 'admShopB2bMerckStockResult',
-    data() { return { list: {}, page: 1,}; },
+    components: {
+        'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
+        'modal'     : () =>     import('@/views/_common/Modal'),
+    },
+    data() { return { 
+        isModalViewed: false,
+        list: {}, 
+        page: 1,
+        show_no:0,
+    }; },
     methods: {
         async index() {
             try {
@@ -48,6 +67,7 @@ export default {
 .p_wrap { margin-bottom:2rem; max-width:900px; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
 .body:hover { background: #d8f2fd94; }
+.body>div { cursor:pointer;  }
 .body>div:nth-child(even) { background-color:#7fffd454; }
 .row:not(:last-of-type) { border-bottom:1px solid #333; }
 .row>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
