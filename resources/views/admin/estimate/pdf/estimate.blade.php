@@ -45,7 +45,7 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
 
 .product { margin-top:7px; }
 .product tr th,
-.product tr td { padding:4px 7px; }
+.product tr td { padding:4px 7px; word-break:keep-all; word-wrap:break-word; }
 .product tr th { background-color:#3A3A3A; color:#fff; border-right:1px solid #fff; }
 .product tr th:last-child { border-width:0px; }
 .product tr.line01 td { border-left:1px solid #DADADA; border-bottom:1px dashed #DADADA; }
@@ -106,8 +106,13 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         </tr>
         <tr><td colspan="8" height="0" style="border-bottom:solid 1px #d5d5d5;"></td></tr>
         <tr>
+        @if ( env('APP_ENV') == 'local' )
+            <td align="center" valign="middle" width="60%"><img src="{{ public_path('storage\common\logo\estimate_logo.png') }}" width="120px" /></td>
+            <td align="center" valign="middle"><img src="{{ public_path('storage\common\addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
+        @elseif ( env('APP_ENV') == 'production' )
             <td align="center" valign="middle" width="60%"><img src="{{ asset('storage/common/logo/estimate_logo.png') }}" width="120px" /></td>
             <td align="center" valign="middle"><img src="{{ asset('storage/common/addr_estimate200921.gif') }}" width="270px" height="67px" /></td>
+        @endif
         </tr>
     </table>
 
@@ -192,7 +197,7 @@ $no=1;
         </tr>
         <tr @class([ 'line01', 'line_b' => !$em['estimate_option'] ])>
             <td></td>
-            <td>@nl2br($em['em_spec'])</td>
+            <td><span style="width:213px; display:inline-block;">@nl2br($em['em_spec'])</span></td>
             <td></td>
             <td></td>
             <td></td>

@@ -182,7 +182,7 @@ export default {
 .pa_list .lbody .col .row .col:nth-of-type(5) { flex-basis:9%;  max-width: 9%; }
 .pa_list .lbody .col .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; font-weight:600; color:#000; }
 .pa_list .lbody .col .row .col:nth-of-type(6) .mileage { font-size:.7rem; color:#666;  }
-
+.pa_list .lbody .col .row .col div span { word-break:break-word; word-wrap:break-word; }
 .pa_list .row .col .row.option { background:#F4F1EC; }
 .pa_list .row .col .row .col { padding:.8rem 0; }
 .pa_list .row .col .row .col img { width:100%; max-width:120px; height:auto; object-fit:contain; }

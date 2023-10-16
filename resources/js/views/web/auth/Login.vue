@@ -91,7 +91,7 @@ export default {
         },
         join() {
             this.$emit('close-modal');
-             this.$router.push({name: 'auth_intro'});
+            this.$router.push({name: 'auth_intro'});
         },
         async find_email() {
             try {

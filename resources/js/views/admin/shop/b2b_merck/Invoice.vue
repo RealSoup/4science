@@ -6,7 +6,7 @@
     </b-row>
     
     <b-row class="body" v-for="(bms, i) in list.data" :key="bms.bms_id">
-        <b-col @click="show(i)">
+        <b-col @click="item_show(i)">
             <span>{{bms.bmi_data['Request']['InvoiceDetailRequest']['InvoiceDetailOrder']['InvoiceDetailOrderInfo']['OrderReference']['@attributes']['orderID']}}</span>
             <!-- <span v-html="bms.bmi_data_other_info" class="viewXml"></span> -->
             <span>{{ bms.created_at | formatDate }}</span>
@@ -16,8 +16,38 @@
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <b-container class="show">
+            <template slot="header">
+                거 래 명 세 서
+                <span><b>Date</b>: {{show.InvoiceDetailRequestHeader['@attributes'].invoiceDate}}</span>
+                <span><b>InvoiceID</b>: {{show.InvoiceDetailRequestHeader['@attributes'].invoiceID}}</span>
+            </template>
+            <b-container>
+                <h5>billTo</h5>
                 <b-row>
+                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name}}</b-col>
+                    <b-col col cols="12">
+                        {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.Street}}
+                        {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.City}}
+                        {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.PostalCode}}
+                    </b-col>
+                </b-row>
+                <b-row>
+                    
+                </b-row>
+                <b-row>
+                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2]}}</b-col>
+                    <b-col></b-col>
+                </b-row>
+            </b-container>
+            <b-container class="est_frm">
+                <h5>billTo</h5>
+                <b-row>
+                    <b-col>이름</b-col>
+                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name}}</b-col>
+                </b-row>
+                <b-row>
+                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2]}}</b-col>
+                    <b-col>{{show.InvoiceDetailRequestHeader['@attributes'].invoiceID}}</b-col>
                 </b-row>
             </b-container>
         </modal>
@@ -35,9 +65,11 @@ export default {
     },
     data() { return { 
         isModalViewed: false,
-        list: {}, 
+        list: {
+            data:[],
+        }, 
         page: 1,
-        show_no:0,
+        show:{},
     }; },
     methods: {
         async index() {
@@ -55,10 +87,15 @@ export default {
             this.page = page;
             this.index();
         },
+        item_show(i) {
+            this.isModalViewed = true;
+            this.show = this.list.data[0].bmi_data.Request.InvoiceDetailRequest;
+        },
 
     },
-    mounted() {
-        this.index();
+    async mounted() {
+        await this.index();
+        await this.item_show(0);
     },
 };
 </script>

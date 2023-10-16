@@ -58,10 +58,12 @@
                             <template v-if="odm.odm_type=='MODEL'">                                    
                                 <b-badge v-if="odm.order_dlvy_info.oddi_receive_date" variant="light">수취완료</b-badge>
                                 <b-badge v-else-if="odm.order_dlvy_info.oddi_arrival_date" variant="success">배송완료</b-badge>
-                                <b-button v-else-if="odm.order_dlvy_info.oddi_dlvy_num" size="sm" variant="info"
-                                    :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)"
-                                >배송조회</b-button>
+                                <b-badge v-else-if="odm.order_dlvy_info.oddi_dlvy_num" variant="info">배송중</b-badge>
                                 <b-badge v-else variant="primary">준비중</b-badge>
+
+                                <b-link v-if="odm.order_dlvy_info.oddi_dlvy_num" class="dlvy_link"
+                                    :href="getHref(odm.order_dlvy_info.oddi_dlvy_com, odm.order_dlvy_info.oddi_dlvy_num)"
+                                >{{odm.order_dlvy_info.oddi_dlvy_com}} - {{odm.order_dlvy_info.oddi_dlvy_num}}</b-link>
                                 <br />
                                 
                                 <template v-if="!odm.order_dlvy_info.oddi_receive_date"> <!-- 수취확인날짜가 없다면 -->
@@ -300,6 +302,7 @@ export default {
 .goods .gd_con .row .col:nth-child(5) { flex:0 0 6%; max-width:6%; border-right:1px solid #D7D7D7; }
 .goods .gd_con .row .col:nth-child(6) { flex:0 0 12%; max-width:12%; border-right:1px solid #D7D7D7; }
 .goods .gd_con .row .col:nth-child(7) { flex:0 0 9%; max-width:9%; flex-wrap:wrap; }
+.goods .gd_con .row .col:nth-child(7) .dlvy_link { background-color:#00A1CB; color:#FFF; border-radius:.25rem; width:100%; padding:3px; word-break: break-word; }
 .goods .gd_con .row .col img { width:100%; }
 .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
 .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }

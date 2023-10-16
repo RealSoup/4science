@@ -98,7 +98,7 @@
                 </tr>
                 @foreach ($estimate_model as $em)
                 <tr>
-                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0;">
+                    <td style="border-bottom:1px solid #D5D5D5; padding:13px 0; word-break:break-word;">
                         <b>{{ $em['em_name'] }}</b>
                         <br /><br />
                         @nl2br($em['em_spec'])

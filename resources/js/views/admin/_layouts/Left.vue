@@ -94,10 +94,10 @@
         </article>
 
         <article class="alarm">
-            <b-button class="blink white sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqOrder'" v-if="reqOrder.length"> 
+            <b-button class="blink white sm" @click="strongReload('/admin/shop/order', `startDate=${to_day}&endDate=${to_day}&od_step=10`)" v-if="reqOrder.length || 1"> 
                 주문 ({{reqOrder.length}})
             </b-button>
-            <b-button class="blink gray sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqEstimate'" v-if="reqEstimate.length"> 
+            <b-button class="blink gray sm" @click="strongReload('/admin/shop/estimate', `date_type=reque&startDate=${to_day}&endDate=${to_day}&eq_step=DONOT`)" v-if="reqEstimate.length || 1"> 
                 견적 ({{reqEstimate.length}})
             </b-button>
             <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'" v-if="reqVoucher.length"> 
@@ -115,8 +115,8 @@
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
             <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
             <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
-            <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" />
-            <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" />
+            <!-- <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" /> -->
+            <!-- <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" /> -->
         </modal>
     </transition>
 </aside>
@@ -131,12 +131,17 @@ export default {
     name: 'Header',
     components: {
         'modal'     : () => import('@/views/_common/Modal'),
-        'req-order'   : () => import('./_comp/ReqOrder'),
-        'req-estimate'    : () => import('./_comp/ReqEstimate'),
+        // 'req-order'   : () => import('./_comp/ReqOrder'),
+        // 'req-estimate'    : () => import('./_comp/ReqEstimate'),
         'req-voucher': () => import('./_comp/ReqVoucher'),
         'req-ask'    : () => import('./_comp/ReqAsk'),
     },
-    computed: { ...mapGetters({ user: 'auth/user', }) },
+    computed: { 
+        ...mapGetters({ user: 'auth/user', }),
+        to_day(){
+            return new Date().format("yyyy-MM-dd");
+        }
+    },
     data() {
         return {
             modalMode    :'',
@@ -191,6 +196,25 @@ export default {
                 }
             }
         },
+
+        // route_push(type) {
+        //     let today = new Date().format("yyyy-MM-dd");
+        //     let route_name = '';
+        //     let route_query = '';
+        //     if ( type == 'order' ) {
+        //         route_name = 'adm_order_index';
+        //         route_query = { startDate   :today,
+        //                         endDate     :today,
+        //                         od_step     :'10', };
+        //     } else if ( type == 'estimate' ) {
+        //         route_name = 'adm_estimate_index';
+        //         route_query = { date_type   :'reque',
+        //                         startDate   :today,
+        //                         endDate     :today,
+        //                         eq_step     :'DONOT', };
+        //     }
+        //     this.$router.push({name: route_name, query: route_query});
+        // }
     },
 
     async mounted(){

@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('category/all', 'Shop\CategoryController@indexAll')->name('category.indexAll');
 // Route::get('/admin/shop/estimate/exportEstimateExcel/{er_id}', 'Admin\Shop\EstimateController@exportEstimateExcel');
+Route::get('/admin/shop/estimate/exportEstimatePdf/{er_id}', 'Admin\Shop\EstimateController@exportEstimatePdf');
 // Route::get('/admin/shop/estimate/exportTransactionExcel/{er_id}', 'Admin\Shop\EstimateController@exportEstimateExcel');
 // Route::get('/admin/shop/order/exportEstimatePdf/{od_id}', 'Admin\Shop\OrderController@exportEstimatePdf');
 // Route::get('/admin/shop/order/exportTransactionExcel/{od_id}', 'Admin\Shop\OrderController@exportTransactionExcel');

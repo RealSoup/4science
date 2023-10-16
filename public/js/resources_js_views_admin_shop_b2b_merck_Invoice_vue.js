@@ -30,9 +30,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       isModalViewed: false,
-      list: {},
+      list: {
+        data: []
+      },
       page: 1,
-      show_no: 0
+      show: {}
     };
   },
   methods: {
@@ -72,10 +74,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setPage: function setPage(page) {
       this.page = page;
       this.index();
+    },
+    item_show: function item_show(i) {
+      this.isModalViewed = true;
+      this.show = this.list.data[0].bmi_data.Request.InvoiceDetailRequest;
     }
   },
   mounted: function mounted() {
-    this.index();
+    var _this2 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _this2.index();
+          case 2:
+            _context2.next = 4;
+            return _this2.item_show(0);
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -106,7 +127,7 @@ var render = function render() {
     }, [_c("b-col", {
       on: {
         click: function click($event) {
-          return _vm.show(i);
+          return _vm.item_show(i);
         }
       }
     }, [_c("span", [_vm._v(_vm._s(bms.bmi_data["Request"]["InvoiceDetailRequest"]["InvoiceDetailOrder"]["InvoiceDetailOrderInfo"]["OrderReference"]["@attributes"]["orderID"]))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1);
@@ -134,9 +155,16 @@ var render = function render() {
         _vm.isModalViewed = false;
       }
     }
-  }, [_c("b-container", {
-    staticClass: "show"
-  }, [_c("b-row")], 1)], 1) : _vm._e()], 1)], 2);
+  }, [_c("template", {
+    slot: "header"
+  }, [_vm._v("\r\n                거 래 명 세 서\r\n                "), _c("span", [_c("b", [_vm._v("Date")]), _vm._v(": " + _vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceDate))]), _vm._v(" "), _c("span", [_c("b", [_vm._v("InvoiceID")]), _vm._v(": " + _vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceID))])]), _vm._v(" "), _c("b-container", [_c("h5", [_vm._v("billTo")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name))]), _vm._v(" "), _c("b-col", {
+    attrs: {
+      col: "",
+      cols: "12"
+    }
+  }, [_vm._v("\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.Street) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.City) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.PostalCode) + "\r\n                    ")])], 1), _vm._v(" "), _c("b-row"), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2]))]), _vm._v(" "), _c("b-col")], 1)], 1), _vm._v(" "), _c("b-container", {
+    staticClass: "est_frm"
+  }, [_c("h5", [_vm._v("billTo")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("이름")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2]))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceID))])], 1)], 1)], 2) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
