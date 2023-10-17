@@ -8,24 +8,36 @@
         <b-col><span>추가정보</span><span>작성일</span></b-col>
     </b-row>
     
-    <b-row class="body" v-for="bms in list.data" :key="bms.bms_id">
-        <b-col>
-            <span>{{bms.bms_data.ProductResponse.SupplierPartNumber}}</span>
-            <span>{{ bms.bms_data.ProductResponse.UnitPrice | comma }} 원</span>
-        </b-col>
-        <b-col>
-            <span>{{bms.bms_data.ProductResponse.QuantityAvailable}}</span>
-            <span>{{bms.bms_data.ProductResponse.QuantityBackordered}}</span>
-        </b-col>
-        <b-col>
-            <span><template v-if="typeof( bms.bms_data.ProductResponse.ShipDate ) == 'string'">{{bms.bms_data.ProductResponse.ShipDate}}</template></span>
-            <span><template v-if="typeof( bms.bms_data.ProductResponse.BackorderShipDate ) == 'string'">{{bms.bms_data.ProductResponse.BackorderShipDate}}</template></span>
-        </b-col>
-        <b-col>
-            <span v-html="bms.bms_data_other_info" class="viewXml"></span>
-            <span>{{ bms.created_at | formatDate }}</span>
-        </b-col>
-    </b-row>
+    <template v-for="bms in list.data">
+        <b-row v-if="bms.bms_data.ProductResponse['@attributes'].status == 'OK'" class="body" :key="bms.bms_id">
+            <b-col>
+                <span>{{bms.bms_data.ProductResponse.SupplierPartNumber}}</span>
+                <span>{{ bms.bms_data.ProductResponse.UnitPrice | comma }} 원</span>
+            </b-col>
+            <b-col>
+                <span>{{bms.bms_data.ProductResponse.QuantityAvailable}}</span>
+                <span>{{bms.bms_data.ProductResponse.QuantityBackordered}}</span>
+            </b-col>
+            <b-col>
+                <span><template v-if="typeof( bms.bms_data.ProductResponse.ShipDate ) == 'string'">{{bms.bms_data.ProductResponse.ShipDate}}</template></span>
+                <span><template v-if="typeof( bms.bms_data.ProductResponse.BackorderShipDate ) == 'string'">{{bms.bms_data.ProductResponse.BackorderShipDate}}</template></span>
+            </b-col>
+            <b-col>
+                <span>
+                    <p v-for="(oi, i) in bms.bms_data_other_info" :key="i">
+                        <b>{{oi['@attributes'].name}}:</b> {{oi[0]}}
+                    </p>
+                </span>
+                <span>{{ bms.created_at | formatDate }}</span>
+            </b-col>
+        </b-row>
+        <b-row v-else-if="bms.bms_data.ProductResponse['@attributes'].status == 'Error'" :key="bms.bms_id" class="bg-danger">
+            <b-col>
+                <span>전달값이 잘못 되었습니다.</span>
+                <span>{{ bms.created_at | formatDate }}</span>
+            </b-col>
+        </b-row>
+    </template>
     <pagination :data="list" @pagination-change-page="setPage" size="small" :limit="5" align="center" class="mt-5" />
 </b-container>
 </template>
@@ -70,20 +82,7 @@ export default {
 .row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }
 .row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }
 .row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
+.row>div:nth-of-type(4) span:nth-of-type(1) p { margin:0; }
+.row>div:nth-of-type(4) span:nth-of-type(1) p b { background: #eeee0066; display: inline-block; padding: 2px 8px; } 
 .row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }
-
-.viewXml { max-width:700px; display:inline-block; }
-.viewXml >>> div { margin:3px 10px; padding:3px 10px; border-radius:5px; }
-.viewXml >>> span { word-break:break-all; color:#666; }
-.viewXml >>> span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000; }
-.viewXml >>> div.depth01 { background-color:#f8f8f8; }
-.viewXml >>> div.depth01 span.attributes { width:25px; }
-.viewXml >>> div.depth01 div.depth02 { background-color:#eee; }
-.viewXml >>> div.depth01 div.depth02 span.attributes { width:85px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.attributes { width:75px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; float:left; width:25px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd; }
-
 </style>

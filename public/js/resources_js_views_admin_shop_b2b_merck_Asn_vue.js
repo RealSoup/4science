@@ -18,12 +18,29 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'admShopB2bMerckStockResult',
+  name: 'admShopB2bMerckAsn',
+  components: {
+    'modal': function modal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
+    }
+  },
   data: function data() {
     return {
-      list: {},
-      page: 1
+      isModalViewed: false,
+      list: {
+        data: []
+      },
+      page: 1,
+      show: {}
     };
+  },
+  computed: {
+    asnItem: function asnItem() {
+      var _this$show$ShipNotice;
+      var item = (_this$show$ShipNotice = this.show.ShipNoticePortion) !== null && _this$show$ShipNotice !== void 0 ? _this$show$ShipNotice : [];
+      if (!item.length) item = [item];
+      return item;
+    }
   },
   methods: {
     index: function index() {
@@ -62,6 +79,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setPage: function setPage(page) {
       this.page = page;
       this.index();
+    },
+    item_show: function item_show(i) {
+      this.isModalViewed = true;
+      this.show = this.list.data[i].bma_data.Request.ShipNoticeRequest;
     }
   },
   mounted: function mounted() {
@@ -89,17 +110,22 @@ var render = function render() {
     staticClass: "p_wrap"
   }, [_c("h3", [_vm._v("Merck ASN List")]), _vm._v(" "), _c("b-row", {
     staticClass: "head"
-  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (bma) {
-    return _c("b-row", {
+  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "body"
+  }, _vm._l(_vm.list.data, function (bma, i) {
+    return _c("b-col", {
       key: bma.bma_id,
-      staticClass: "body"
-    }, [_c("b-col", [_c("span", {
-      staticClass: "viewXml",
-      domProps: {
-        innerHTML: _vm._s(bma.bma_data_other_info)
+      attrs: {
+        col: "",
+        cols: "12"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.item_show(i);
+        }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bma.created_at)))])])], 1);
-  }), _vm._v(" "), _c("pagination", {
+    }, [_c("span", [_vm._v(_vm._s(bma.bma_data["Request"]["ShipNoticeRequest"]["ShipNoticeHeader"]["Contact"][1].Name))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bma.created_at)))])]);
+  }), 1), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
       data: _vm.list,
@@ -110,7 +136,31 @@ var render = function render() {
     on: {
       "pagination-change-page": _vm.setPage
     }
-  })], 2);
+  }), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "modal"
+    }
+  }, [_vm.isModalViewed ? _c("modal", {
+    attrs: {
+      max_width: 1100
+    },
+    on: {
+      "close-modal": function closeModal($event) {
+        _vm.isModalViewed = false;
+      }
+    }
+  }, [_c("template", {
+    slot: "header"
+  }, [_vm._v("발송 알림")]), _vm._v(" "), _c("b-container", {
+    staticClass: "est_frm"
+  }, [_c("h5", [_vm._v("\r\n                    " + _vm._s(_vm.show.ShipNoticeHeader.Contact[1].Name) + "\r\n                    "), _c("br"), _vm._v("\r\n                    " + _vm._s(_vm.show.ShipNoticeHeader.Contact[1].PostalAddress.PostalCode) + "\r\n                    " + _vm._s(_vm.show.ShipNoticeHeader.Contact[1].PostalAddress.City) + "\r\n                    " + _vm._s(_vm.show.ShipNoticeHeader.Contact[1].PostalAddress.Street) + "\r\n\r\n                ")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("shipmentID")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.ShipNoticeHeader["@attributes"].shipmentID))]), _vm._v(" "), _c("b-col", [_vm._v("deliveryDate")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(new Date(_vm.show.ShipNoticeHeader["@attributes"].deliveryDate).format("yyyy-MM-dd")))]), _vm._v(" "), _c("b-col", [_vm._v("noticeDate")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(new Date(_vm.show.ShipNoticeHeader["@attributes"].noticeDate).format("yyyy-MM-dd")))]), _vm._v(" "), _c("b-col", [_vm._v("shipmentDate")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(new Date(_vm.show.ShipNoticeHeader["@attributes"].shipmentDate).format("yyyy-MM-dd")))])], 1)], 1), _vm._v(" "), _c("b-container", [_c("b-row", {
+    staticClass: "lhead list"
+  }, [_c("b-col", [_vm._v("주문번호 / 주문일")]), _vm._v(" "), _c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_vm._v("상품코드 / 스펙")])], 1), _vm._v(" "), _vm._l(_vm.asnItem, function (item, i) {
+    return _c("b-row", {
+      key: i,
+      staticClass: "lbody list"
+    }, [_c("b-col", [_vm._v("\r\n                        " + _vm._s(item.OrderReference["@attributes"].orderID) + "\r\n                        "), _c("br"), _vm._v("\r\n                        " + _vm._s(new Date(item.OrderReference["@attributes"].orderDate).format("yyyy-MM-dd")) + "\r\n                    ")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(Number(item.ShipNoticeItem["@attributes"].quantity)))]), _vm._v(" "), _c("b-col", [_vm._v("\r\n                        " + _vm._s(item.ShipNoticeItem.ItemID.SupplierPartID) + "\r\n                        "), _c("br"), _vm._v("\r\n                        " + _vm._s(item.ShipNoticeItem.ShipNoticeItemDetail.Description) + "\r\n                    ")])], 1);
+  })], 2)], 2) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -134,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-c6f22c70] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-c6f22c70] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-c6f22c70]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-c6f22c70]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-c6f22c70]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-c6f22c70] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div>span[data-v-c6f22c70]:nth-of-type(2) { float:right;\n}\r\n/*\r\n.row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }\r\n.row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }\r\n.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }\r\n*/\n.viewXml[data-v-c6f22c70] { width:700px; display:inline-block;\n}\n.viewXml[data-v-c6f22c70] div { margin:3px 10px; padding:3px 10px; border-radius:5px;\n}\n.viewXml[data-v-c6f22c70] span { word-break:break-all; color:#666;\n}\n.viewXml[data-v-c6f22c70] span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000;\n}\n.viewXml[data-v-c6f22c70] div.depth01 { background-color:#f8f8f8;\n}\n.viewXml[data-v-c6f22c70] div.depth01 span.attributes { width:200px;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 { background-color:#eee;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 span.attributes { width:85px;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 div.depth03 span.attributes { width:200px;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; float:left; width:25px;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px;\n}\n.viewXml[data-v-c6f22c70] div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-c6f22c70] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-c6f22c70] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-c6f22c70] { border-bottom:1px solid #333;\n}\n.body>div[data-v-c6f22c70] { cursor:pointer;\n}\n.body>div[data-v-c6f22c70]:nth-child(even) { background-color:#e9e9e9;\n}\n.body>div[data-v-c6f22c70]:hover { background: #d8f2fd94;\n}\n.row>div[data-v-c6f22c70] { padding:7px; font-size:.9rem;\n}\n.row>div>span[data-v-c6f22c70]:nth-of-type(2) { float:right;\n}\n.est_frm .row .col[data-v-c6f22c70]:nth-child(odd) { flex: 0 0 10%; max-width:10%;\n}\n.p_wrap[data-v-c6f22c70] .rs_modal .card-body .rs_modal-card header { position:relative; margin-bottom:1em;\n}\n.p_wrap[data-v-c6f22c70] .rs_modal .card-body .rs_modal-card .lhead { font-weight:bold; background:#666; color:#fff; margin-top:1em;\n}\n.p_wrap[data-v-c6f22c70] .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(2) { text-align:center;\n}\n.p_wrap[data-v-c6f22c70] .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(3) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -90,15 +90,17 @@ var render = function render() {
   }, [_c("h3", [_vm._v("Merck Stock List")]), _vm._v(" "), _c("b-row", {
     staticClass: "head"
   }, [_c("b-col", [_c("span", [_vm._v("모델명")]), _c("span", [_vm._v("가격")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("가능수량")]), _c("span", [_vm._v("불가수량")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("선적일자")]), _c("span", [_vm._v("불가능 수량 선적일자")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (bms) {
-    return _c("b-row", {
+    return [bms.bms_data.ProductResponse["@attributes"].status == "OK" ? _c("b-row", {
       key: bms.bms_id,
       staticClass: "body"
-    }, [_c("b-col", [_c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.SupplierPartNumber))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("comma")(bms.bms_data.ProductResponse.UnitPrice)) + " 원")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.QuantityAvailable))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.QuantityBackordered))])]), _vm._v(" "), _c("b-col", [_c("span", [typeof bms.bms_data.ProductResponse.ShipDate == "string" ? [_vm._v(_vm._s(bms.bms_data.ProductResponse.ShipDate))] : _vm._e()], 2), _vm._v(" "), _c("span", [typeof bms.bms_data.ProductResponse.BackorderShipDate == "string" ? [_vm._v(_vm._s(bms.bms_data.ProductResponse.BackorderShipDate))] : _vm._e()], 2)]), _vm._v(" "), _c("b-col", [_c("span", {
-      staticClass: "viewXml",
-      domProps: {
-        innerHTML: _vm._s(bms.bms_data_other_info)
-      }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1);
+    }, [_c("b-col", [_c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.SupplierPartNumber))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("comma")(bms.bms_data.ProductResponse.UnitPrice)) + " 원")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.QuantityAvailable))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(bms.bms_data.ProductResponse.QuantityBackordered))])]), _vm._v(" "), _c("b-col", [_c("span", [typeof bms.bms_data.ProductResponse.ShipDate == "string" ? [_vm._v(_vm._s(bms.bms_data.ProductResponse.ShipDate))] : _vm._e()], 2), _vm._v(" "), _c("span", [typeof bms.bms_data.ProductResponse.BackorderShipDate == "string" ? [_vm._v(_vm._s(bms.bms_data.ProductResponse.BackorderShipDate))] : _vm._e()], 2)]), _vm._v(" "), _c("b-col", [_c("span", _vm._l(bms.bms_data_other_info, function (oi, i) {
+      return _c("p", {
+        key: i
+      }, [_c("b", [_vm._v(_vm._s(oi["@attributes"].name) + ":")]), _vm._v(" " + _vm._s(oi[0]) + "\r\n                    ")]);
+    }), 0), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1) : bms.bms_data.ProductResponse["@attributes"].status == "Error" ? _c("b-row", {
+      key: bms.bms_id,
+      staticClass: "bg-danger"
+    }, [_c("b-col", [_c("span", [_vm._v("전달값이 잘못 되었습니다.")]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1) : _vm._e()];
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
@@ -134,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-58e0fa9f] { margin-bottom:2rem;\n}\n.head>div[data-v-58e0fa9f] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-58e0fa9f]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-58e0fa9f]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-58e0fa9f]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-58e0fa9f] { padding:5px 15px !important; font-size:.9rem;\n}\n.row>div>span[data-v-58e0fa9f]:nth-of-type(2) { float:right;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(1) { flex:0 0 20%; max-width:20%;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(2) { flex:0 0 11%; max-width:11%;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(5) { flex:0 0 10%; max-width:10%;\n}\n.viewXml[data-v-58e0fa9f] { max-width:700px; display:inline-block;\n}\n.viewXml[data-v-58e0fa9f] div { margin:3px 10px; padding:3px 10px; border-radius:5px;\n}\n.viewXml[data-v-58e0fa9f] span { word-break:break-all; color:#666;\n}\n.viewXml[data-v-58e0fa9f] span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 { background-color:#f8f8f8;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 span.attributes { width:25px;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 { background-color:#eee;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 span.attributes { width:85px;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 div.depth03 span.attributes { width:75px;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; float:left; width:25px;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px;\n}\n.viewXml[data-v-58e0fa9f] div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-58e0fa9f] { margin-bottom:2rem;\n}\n.head>div[data-v-58e0fa9f] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-58e0fa9f]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-58e0fa9f]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-58e0fa9f]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-58e0fa9f] { padding:5px 15px !important; font-size:.9rem;\n}\n.row>div>span[data-v-58e0fa9f]:nth-of-type(2) { float:right;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(1) { flex:0 0 20%; max-width:20%;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(2) { flex:0 0 11%; max-width:11%;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(3) { flex:0 0 15%; max-width:15%;\n}\n.row>div:nth-of-type(4) span:nth-of-type(1) p[data-v-58e0fa9f] { margin:0;\n}\n.row>div:nth-of-type(4) span:nth-of-type(1) p b[data-v-58e0fa9f] { background: #eeee0066; display: inline-block; padding: 2px 8px;\n}\n.row>div[data-v-58e0fa9f]:nth-of-type(5) { flex:0 0 10%; max-width:10%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

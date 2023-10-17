@@ -94,11 +94,11 @@
         </article>
 
         <article class="alarm">
-            <b-button class="blink white sm" @click="strongReload('/admin/shop/order', `startDate=${to_day}&endDate=${to_day}&od_step=10`)" v-if="reqOrder.length || 1"> 
-                주문 ({{reqOrder.length}})
+            <b-button class="blink white sm" @click="strongReload('/admin/shop/order', `startDate=${to_day}&endDate=${to_day}&od_mng=no`)" v-if="reqOrder"> 
+                주문 ({{reqOrder}})
             </b-button>
-            <b-button class="blink gray sm" @click="strongReload('/admin/shop/estimate', `date_type=reque&startDate=${to_day}&endDate=${to_day}&eq_step=DONOT`)" v-if="reqEstimate.length || 1"> 
-                견적 ({{reqEstimate.length}})
+            <b-button class="blink gray sm" @click="strongReload('/admin/shop/estimate', `date_type=reque&startDate=${to_day}&endDate=${to_day}&eq_step=DONOT`)" v-if="reqEstimate"> 
+                견적 ({{reqEstimate}})
             </b-button>
             <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'" v-if="reqVoucher.length"> 
                 <b-icon-gift /> ({{reqVoucher.length}})
@@ -146,8 +146,8 @@ export default {
         return {
             modalMode    :'',
             isModalViewed: false,
-            reqOrder     : [],
-            reqEstimate  : [],
+            reqOrder     : 0,
+            reqEstimate  : 0,
             reqAsk       : {
                 as:[],
                 cancel:[],

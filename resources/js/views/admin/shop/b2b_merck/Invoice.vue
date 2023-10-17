@@ -5,8 +5,8 @@
         <b-col><span>추가정보</span><span>작성일</span></b-col>
     </b-row>
     
-    <b-row class="body" v-for="(bms, i) in list.data" :key="bms.bms_id">
-        <b-col @click="item_show(i)">
+    <b-row class="body">
+        <b-col v-for="(bms, i) in list.data" :key="bms.bms_id" @click="item_show(i)" col cols="12">
             <span>{{bms.bmi_data['Request']['InvoiceDetailRequest']['InvoiceDetailOrder']['InvoiceDetailOrderInfo']['OrderReference']['@attributes']['orderID']}}</span>
             <!-- <span v-html="bms.bmi_data_other_info" class="viewXml"></span> -->
             <span>{{ bms.created_at | formatDate }}</span>
@@ -18,38 +18,75 @@
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
             <template slot="header">
                 거 래 명 세 서
-                <span><b>Date</b>: {{show.InvoiceDetailRequestHeader['@attributes'].invoiceDate}}</span>
-                <span><b>InvoiceID</b>: {{show.InvoiceDetailRequestHeader['@attributes'].invoiceID}}</span>
+                <span>
+                    invoiceDate: <i>{{new Date(show.InvoiceDetailRequestHeader['@attributes'].invoiceDate).format("yyyy-MM-dd")}}</i>
+                    InvoiceID: <i>{{show.InvoiceDetailRequestHeader['@attributes'].invoiceID}}</i>
+                </span>
             </template>
+
             <b-container>
                 <h5>billTo</h5>
                 <b-row>
-                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name}}</b-col>
-                    <b-col col cols="12">
+                    <b-col>
+                        {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name}} -
                         {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.Street}}
                         {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.City}}
                         {{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.PostalCode}}
                     </b-col>
                 </b-row>
                 <b-row>
-                    
+                    <b-col>
+                        <b>orderDate</b>: {{new Date(show.InvoiceDetailOrder.InvoiceDetailOrderInfo.OrderReference['@attributes'].orderDate).format("yyyy-MM-dd")}} &nbsp; &nbsp;
+                        <b>orderID</b>: {{show.InvoiceDetailOrder.InvoiceDetailOrderInfo.OrderReference['@attributes'].orderID}}
+                    </b-col>
                 </b-row>
-                <b-row>
-                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2]}}</b-col>
-                    <b-col></b-col>
+                <b-row class="lhead list">
+                    <b-col>상품 / 스펙</b-col>
+                    <b-col>가격 <font-awesome-icon icon="times" /> 수량 <font-awesome-icon icon="equals" /> 합계</b-col>
+                    <b-col>총합 / 세금</b-col>
+                    <b-col>shipTo</b-col>
+                </b-row>
+                <b-row class="lbody list" v-for="(item, i) in invoiceItem" :key="i">
+                    <b-col>
+                        {{item.InvoiceDetailItemReference.ItemID.SupplierPartID}}
+                        <br />
+                        {{item.InvoiceDetailItemReference.Description}}
+                    </b-col>
+                    <b-col>
+                        {{item.UnitPrice.Money}}
+                        <font-awesome-icon icon="times" />
+                        {{Number(item['@attributes'].quantity)}}
+                        <font-awesome-icon icon="equals" />
+                        {{item.GrossAmount.Money}}
+                    </b-col>
+                    
+                    <b-col>
+                        SubtotalAmount: {{item.SubtotalAmount.Money}}
+                        <br />
+                        Tax: {{item.Tax.Money}}
+                    </b-col>
+                    <b-col>
+                        {{item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].Name}} - 
+                        {{item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.PostalCode}}
+                        {{item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.City}}
+                        {{item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.Street}}
+                    </b-col>
                 </b-row>
             </b-container>
             <b-container class="est_frm">
-                <h5>billTo</h5>
+                <h5>Summary</h5>
                 <b-row>
-                    <b-col>이름</b-col>
-                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name}}</b-col>
-                </b-row>
-                <b-row>
-                    <b-col>{{show.InvoiceDetailRequestHeader.InvoicePartner[2]}}</b-col>
-                    <b-col>{{show.InvoiceDetailRequestHeader['@attributes'].invoiceID}}</b-col>
+                    <b-col>SubtotalAmount</b-col>
+                    <b-col>{{show.InvoiceDetailSummary.SubtotalAmount.Money}}</b-col>
+        
+                    <b-col>Tax</b-col>
+                    <b-col>{{show.InvoiceDetailSummary.Tax.Money}}</b-col>
+
+                    <b-col>GrossAmount</b-col>
+                    <b-col>{{show.InvoiceDetailSummary.GrossAmount.Money}}</b-col>
                 </b-row>
             </b-container>
+            
         </modal>
     </transition>
 </b-container>
@@ -58,19 +95,25 @@
 <script>
 import ax from '@/api/http';
 export default {
-    name: 'admShopB2bMerckStockResult',
-    components: {
-        'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
-        'modal'     : () =>     import('@/views/_common/Modal'),
+    name: 'admShopB2bMerckInvoice',
+    components: { 'modal'     : () =>     import('@/views/_common/Modal'), },
+    data() { 
+        return { 
+            isModalViewed: false,
+            list: {
+                data:[],
+            }, 
+            page: 1,
+            show:{},
+        }; 
     },
-    data() { return { 
-        isModalViewed: false,
-        list: {
-            data:[],
-        }, 
-        page: 1,
-        show:{},
-    }; },
+    computed: {
+        invoiceItem: function () {
+            let item = this.show.InvoiceDetailOrder.InvoiceDetailItem ?? [];
+            if (!item.length) item = [item];
+            return item;
+        },
+    },
     methods: {
         async index() {
             try {
@@ -89,13 +132,12 @@ export default {
         },
         item_show(i) {
             this.isModalViewed = true;
-            this.show = this.list.data[0].bmi_data.Request.InvoiceDetailRequest;
+            this.show = this.list.data[i].bmi_data.Request.InvoiceDetailRequest;
         },
 
     },
     async mounted() {
         await this.index();
-        await this.item_show(0);
     },
 };
 </script>
@@ -103,31 +145,20 @@ export default {
 <style lang="css" scoped>
 .p_wrap { margin-bottom:2rem; max-width:900px; }
 .head>div { font-weight:bold; background:#666; color:#fff; }
-.body:hover { background: #d8f2fd94; }
-.body>div { cursor:pointer;  }
-.body>div:nth-child(even) { background-color:#7fffd454; }
-.row:not(:last-of-type) { border-bottom:1px solid #333; }
-.row>div { padding-top:15px; padding-bottom:15px; font-size:.9rem; }
+.body { border-bottom:1px solid #333; }
+.body>div { cursor:pointer; }
+.body>div:nth-child(even) { background-color:#e9e9e9; }
+.body>div:hover { background: #d8f2fd94; }
+.row>div { padding:7px; font-size:.9rem; }
 .row>div>span:nth-of-type(2) { float:right; }
-/*
-.row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }
-.row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }
-.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }
-.row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }
-*/
 
-.viewXml { max-width:800px; display:inline-block; }
-.viewXml >>> div { margin:3px 10px; padding:3px 10px; border-radius:5px; }
-.viewXml >>> span { word-break:break-all; color:#666; }
-.viewXml >>> span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000; }
-.viewXml >>> div.depth01 { background-color:#f8f8f8; }
-.viewXml >>> div.depth01 span.attributes { width:205px; }
-.viewXml >>> div.depth01 div.depth02 { background-color:#eee; }
-.viewXml >>> div.depth01 div.depth02 span.attributes { width:200px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.attributes { width:200px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; width:25px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px; }
-.viewXml >>> div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd; }
-
+.p_wrap >>> .rs_modal .card-body .rs_modal-card header { position:relative; margin-bottom:1em; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card header span { position:absolute; bottom:.2em; right:0; font-size:.7em; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card header span i { margin-right:1em; font-weight:400; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .lhead { font-weight:bold; background:#666; color:#fff; text-align:center; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .lbody div:nth-of-type(2),
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .lbody div:nth-of-type(3),
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .summary div { text-align:right; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(1) { flex:0 0 35%; max-width:35%; }
+.p_wrap >>> .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(4) { flex:0 0 35%; max-width:35%; }
 </style>

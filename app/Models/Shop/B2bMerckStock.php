@@ -13,8 +13,10 @@ class B2bMerckStock extends Model {
 
     public function getBmsDataAttribute($v) { return $xmlData = new \SimpleXMLElement($v); }
     public function getBmsDataOtherInfoAttribute($v) {
-        $tmp = json_decode( json_encode($this->bms_data->ProductResponse) , 1); 
-        return self::arrayToString($tmp['OtherInfo']); 
+		// dd($this->bms_data->xpath('./ProductResponse/OtherInfo/@name'));
+        // $tmp = json_decode( json_encode($this->bms_data->ProductResponse) , 1); 
+		// $xmlData->xpath('./ProductResponse/OtherInfo')
+        return $this->bms_data->xpath('./ProductResponse/OtherInfo'); 
     }
 
     //	배열 키와 값을 이쁘게 출력

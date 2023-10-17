@@ -18,11 +18,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'admShopB2bMerckStockResult',
+  name: 'admShopB2bMerckInvoice',
   components: {
-    'loading-modal': function loadingModal() {
-      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
-    },
     'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal */ "./resources/js/views/_common/Modal.vue"));
     }
@@ -36,6 +33,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       page: 1,
       show: {}
     };
+  },
+  computed: {
+    invoiceItem: function invoiceItem() {
+      var _this$show$InvoiceDet;
+      var item = (_this$show$InvoiceDet = this.show.InvoiceDetailOrder.InvoiceDetailItem) !== null && _this$show$InvoiceDet !== void 0 ? _this$show$InvoiceDet : [];
+      if (!item.length) item = [item];
+      return item;
+    }
   },
   methods: {
     index: function index() {
@@ -77,7 +82,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     item_show: function item_show(i) {
       this.isModalViewed = true;
-      this.show = this.list.data[0].bmi_data.Request.InvoiceDetailRequest;
+      this.show = this.list.data[i].bmi_data.Request.InvoiceDetailRequest;
     }
   },
   mounted: function mounted() {
@@ -89,9 +94,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             _context2.next = 2;
             return _this2.index();
           case 2:
-            _context2.next = 4;
-            return _this2.item_show(0);
-          case 4:
           case "end":
             return _context2.stop();
         }
@@ -120,18 +122,22 @@ var render = function render() {
     staticClass: "p_wrap"
   }, [_c("h3", [_vm._v("Merck e-Invoice List")]), _vm._v(" "), _c("b-row", {
     staticClass: "head"
-  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (bms, i) {
-    return _c("b-row", {
+  }, [_c("b-col", [_c("span", [_vm._v("추가정보")]), _c("span", [_vm._v("작성일")])])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "body"
+  }, _vm._l(_vm.list.data, function (bms, i) {
+    return _c("b-col", {
       key: bms.bms_id,
-      staticClass: "body"
-    }, [_c("b-col", {
+      attrs: {
+        col: "",
+        cols: "12"
+      },
       on: {
         click: function click($event) {
           return _vm.item_show(i);
         }
       }
-    }, [_c("span", [_vm._v(_vm._s(bms.bmi_data["Request"]["InvoiceDetailRequest"]["InvoiceDetailOrder"]["InvoiceDetailOrderInfo"]["OrderReference"]["@attributes"]["orderID"]))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])])], 1);
-  }), _vm._v(" "), _c("pagination", {
+    }, [_c("span", [_vm._v(_vm._s(bms.bmi_data["Request"]["InvoiceDetailRequest"]["InvoiceDetailOrder"]["InvoiceDetailOrderInfo"]["OrderReference"]["@attributes"]["orderID"]))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm._f("formatDate")(bms.created_at)))])]);
+  }), 1), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
       data: _vm.list,
@@ -157,14 +163,32 @@ var render = function render() {
     }
   }, [_c("template", {
     slot: "header"
-  }, [_vm._v("\r\n                거 래 명 세 서\r\n                "), _c("span", [_c("b", [_vm._v("Date")]), _vm._v(": " + _vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceDate))]), _vm._v(" "), _c("span", [_c("b", [_vm._v("InvoiceID")]), _vm._v(": " + _vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceID))])]), _vm._v(" "), _c("b-container", [_c("h5", [_vm._v("billTo")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name))]), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("\r\n                거 래 명 세 서\r\n                "), _c("span", [_vm._v("\r\n                    invoiceDate: "), _c("i", [_vm._v(_vm._s(new Date(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceDate).format("yyyy-MM-dd")))]), _vm._v("\r\n                    InvoiceID: "), _c("i", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceID))])])]), _vm._v(" "), _c("b-container", [_c("h5", [_vm._v("billTo")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name) + " -\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.Street) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.City) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.PostalCode) + "\r\n                    ")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b", [_vm._v("orderDate")]), _vm._v(": " + _vm._s(new Date(_vm.show.InvoiceDetailOrder.InvoiceDetailOrderInfo.OrderReference["@attributes"].orderDate).format("yyyy-MM-dd")) + "    \r\n                        "), _c("b", [_vm._v("orderID")]), _vm._v(": " + _vm._s(_vm.show.InvoiceDetailOrder.InvoiceDetailOrderInfo.OrderReference["@attributes"].orderID) + "\r\n                    ")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "lhead list"
+  }, [_c("b-col", [_vm._v("상품 / 스펙")]), _vm._v(" "), _c("b-col", [_vm._v("가격 "), _c("font-awesome-icon", {
     attrs: {
-      col: "",
-      cols: "12"
+      icon: "times"
     }
-  }, [_vm._v("\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.Street) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.City) + "\r\n                        " + _vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.PostalAddress.PostalCode) + "\r\n                    ")])], 1), _vm._v(" "), _c("b-row"), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2]))]), _vm._v(" "), _c("b-col")], 1)], 1), _vm._v(" "), _c("b-container", {
+  }), _vm._v(" 수량 "), _c("font-awesome-icon", {
+    attrs: {
+      icon: "equals"
+    }
+  }), _vm._v(" 합계")], 1), _vm._v(" "), _c("b-col", [_vm._v("총합 / 세금")]), _vm._v(" "), _c("b-col", [_vm._v("shipTo")])], 1), _vm._v(" "), _vm._l(_vm.invoiceItem, function (item, i) {
+    return _c("b-row", {
+      key: i,
+      staticClass: "lbody list"
+    }, [_c("b-col", [_vm._v("\r\n                        " + _vm._s(item.InvoiceDetailItemReference.ItemID.SupplierPartID) + "\r\n                        "), _c("br"), _vm._v("\r\n                        " + _vm._s(item.InvoiceDetailItemReference.Description) + "\r\n                    ")]), _vm._v(" "), _c("b-col", [_vm._v("\r\n                        " + _vm._s(item.UnitPrice.Money) + "\r\n                        "), _c("font-awesome-icon", {
+      attrs: {
+        icon: "times"
+      }
+    }), _vm._v("\r\n                        " + _vm._s(Number(item["@attributes"].quantity)) + "\r\n                        "), _c("font-awesome-icon", {
+      attrs: {
+        icon: "equals"
+      }
+    }), _vm._v("\r\n                        " + _vm._s(item.GrossAmount.Money) + "\r\n                    ")], 1), _vm._v(" "), _c("b-col", [_vm._v("\r\n                        SubtotalAmount: " + _vm._s(item.SubtotalAmount.Money) + "\r\n                        "), _c("br"), _vm._v("\r\n                        Tax: " + _vm._s(item.Tax.Money) + "\r\n                    ")]), _vm._v(" "), _c("b-col", [_vm._v("\r\n                        " + _vm._s(item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].Name) + " - \r\n                        " + _vm._s(item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.PostalCode) + "\r\n                        " + _vm._s(item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.City) + "\r\n                        " + _vm._s(item.InvoiceDetailLineShipping.InvoiceDetailShipping.Contact[1].PostalAddress.Street) + "\r\n                    ")])], 1);
+  })], 2), _vm._v(" "), _c("b-container", {
     staticClass: "est_frm"
-  }, [_c("h5", [_vm._v("billTo")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("이름")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2].Contact.Name))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader.InvoicePartner[2]))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailRequestHeader["@attributes"].invoiceID))])], 1)], 1)], 2) : _vm._e()], 1)], 2);
+  }, [_c("h5", [_vm._v("Summary")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("SubtotalAmount")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailSummary.SubtotalAmount.Money))]), _vm._v(" "), _c("b-col", [_vm._v("Tax")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailSummary.Tax.Money))]), _vm._v(" "), _c("b-col", [_vm._v("GrossAmount")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.show.InvoiceDetailSummary.GrossAmount.Money))])], 1)], 1)], 2) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -188,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-44bd100e] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-44bd100e] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-44bd100e]:hover { background: #d8f2fd94;\n}\n.body>div[data-v-44bd100e] { cursor:pointer;\n}\n.body>div[data-v-44bd100e]:nth-child(even) { background-color:#7fffd454;\n}\n.row[data-v-44bd100e]:not(:last-of-type) { border-bottom:1px solid #333;\n}\n.row>div[data-v-44bd100e] { padding-top:15px; padding-bottom:15px; font-size:.9rem;\n}\n.row>div>span[data-v-44bd100e]:nth-of-type(2) { float:right;\n}\r\n/*\r\n.row>div:nth-of-type(1) { flex:0 0 20%; max-width:20%; }\r\n.row>div:nth-of-type(2) { flex:0 0 11%; max-width:11%; }\r\n.row>div:nth-of-type(3) { flex:0 0 15%; max-width:15%; }\r\n.row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }\r\n*/\n.viewXml[data-v-44bd100e] { max-width:800px; display:inline-block;\n}\n.viewXml[data-v-44bd100e] div { margin:3px 10px; padding:3px 10px; border-radius:5px;\n}\n.viewXml[data-v-44bd100e] span { word-break:break-all; color:#666;\n}\n.viewXml[data-v-44bd100e] span.attributes { width:150px; font-weight:bold; display:inline-block; color:#000;\n}\n.viewXml[data-v-44bd100e] div.depth01 { background-color:#f8f8f8;\n}\n.viewXml[data-v-44bd100e] div.depth01 span.attributes { width:205px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 { background-color:#eee;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 { background-color:#e8e8e8;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes { width:200px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.attributes.indent { display:inline-block; width:25px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 span.data.indent { display:inline-block; max-width:550px;\n}\n.viewXml[data-v-44bd100e] div.depth01 div.depth02 div.depth03 div.depth04 { background-color:#ddd;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-44bd100e] { margin-bottom:2rem; max-width:900px;\n}\n.head>div[data-v-44bd100e] { font-weight:bold; background:#666; color:#fff;\n}\n.body[data-v-44bd100e] { border-bottom:1px solid #333;\n}\n.body>div[data-v-44bd100e] { cursor:pointer;\n}\n.body>div[data-v-44bd100e]:nth-child(even) { background-color:#e9e9e9;\n}\n.body>div[data-v-44bd100e]:hover { background: #d8f2fd94;\n}\n.row>div[data-v-44bd100e] { padding:7px; font-size:.9rem;\n}\n.row>div>span[data-v-44bd100e]:nth-of-type(2) { float:right;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card header { position:relative; margin-bottom:1em;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card header span { position:absolute; bottom:.2em; right:0; font-size:.7em;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card header span i { margin-right:1em; font-weight:400;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .lhead { font-weight:bold; background:#666; color:#fff; text-align:center;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .lbody div:nth-of-type(2),\r\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .lbody div:nth-of-type(3),\r\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .summary div { text-align:right;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(1) { flex:0 0 35%; max-width:35%;\n}\n.p_wrap[data-v-44bd100e] .rs_modal .card-body .rs_modal-card .list>div:nth-of-type(4) { flex:0 0 35%; max-width:35%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
