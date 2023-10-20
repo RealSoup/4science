@@ -342,12 +342,7 @@ var render = function render() {
     staticClass: "p_tit"
   }, [_vm._v("견적 응답")]), _vm._v(" "), _c("div", {
     staticClass: "act_ctrl"
-  }, [_c("b-row", {
-    attrs: {
-      cols: "1",
-      "cols-md": "2"
-    }
-  }, [_c("b-col", {
+  }, [_c("b-row", [_c("b-col", {
     staticClass: "def_info"
   }, [_c("span", [_vm._v("견적번호")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.frm.er_id) + ".")]), _vm._v(" "), _c("span", [_vm._v("견적일자")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.frm.created_at))])]), _vm._v(" "), _c("b-col", {
     staticClass: "btn_area"
@@ -521,7 +516,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0] { line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ec9c9aa0] { margin-left: 2rem;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ec9c9aa0] { font-weight:900; margin-left:.5rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { text-align:right;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ec9c9aa0] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .box .top_border[data-v-ec9c9aa0] { border-top:3px solid #4F637B;\n}\n.p_wrap .box .container[data-v-ec9c9aa0] { max-width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0] { line-height:1.9;\n}\n.p_wrap .act_ctrl .def_info span[data-v-ec9c9aa0] { margin-left: 2rem;\n}\n.p_wrap .act_ctrl .def_info b[data-v-ec9c9aa0] { font-weight:900; margin-left:.5rem;\n}\n.p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { display:flex; justify-content:flex-end; flex:0 0 640px; max-width:640px;\n}\n.p_wrap .act_ctrl .btn_area>*[data-v-ec9c9aa0] { margin-left:.5%; margin-right:.5%;\n}\n.p_wrap .box .top_border[data-v-ec9c9aa0] { border-top:3px solid #4F637B;\n}\n.p_wrap .box .container[data-v-ec9c9aa0] { max-width:100%;\n}\n@media (max-width: 1200px){\n.p_wrap .act_ctrl .def_info[data-v-ec9c9aa0],\r\n    .p_wrap .act_ctrl .btn_area[data-v-ec9c9aa0] { flex:0 0 100%; max-width:100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

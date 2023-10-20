@@ -128,7 +128,7 @@
                 <b-button class="gray lg" :to="{name:'my_estimate'}">목록</b-button>
                 <b-button class="d_gray lg" @click="print">견적서 출력</b-button>
                 <b-button class="black lg" @click="reEstimate">선택상품 재견적 요청</b-button>
-                <b-button v-if="new Date(reply.er_effective_at) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
+                <b-button v-if="new Date(`${reply.er_effective_at} 23:59:59`) >= new Date()" class="blue lg" @click="settle">선택상품 주문하기</b-button>
             </div>
         </div>
     </validation-observer>

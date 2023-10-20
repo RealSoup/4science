@@ -129,14 +129,14 @@
     </b-container>
 
     <!-- 모델 -->
-    <b-container tabindex="-1" class="box model adform">
+    <b-container tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
         <h5>Model</h5>        
         <b-row class="head">
             <b-col>
                 <template v-if="value.gd_type == 'NON'">활성화 / 제품명</template>
                 <template v-else>계약기간</template>
             </b-col>
-            <b-col>CAT.No</b-col>                
+            <b-col v-if="value.gd_type == 'NON'">CAT.No</b-col>                
             <b-col>모델명</b-col>
             <b-col>
                 <template v-if="value.gd_type == 'NON'">스펙</template>
@@ -162,7 +162,7 @@
                 </b-input-group>
                 <validation :error="$store.state.error.validations[`goods_model.${i}.gm_name`]" />
             </b-col>
-            <b-col>
+            <b-col v-if="value.gd_type == 'NON'">
                 <b-form-input v-model='model.gm_catno' readonly />
             </b-col>
             <b-col>
@@ -468,20 +468,19 @@ export default {
 
 
 
-.model .head .col { text-align:center; }
+.model .head .col { text-align:center; font-size:.85em; }
 .model .row .col .bundle_box { position:absolute; top:2em; right:0; width:300px; margin-top:.5em; z-index:2; }
 .model .row .col .bundle_box .card { margin-top:0; }
 .model .row .col .bundle_box .card header { text-align:left; }
 .model .row .col .bundle_box .card header button { padding-top:.2em; padding-bottom:.35em; float:right; line-height:1; }
 .model .list .ctrlBox { text-align:right; }
-.model>.row>.col:nth-child(1) {}
-.model>.row>.col:nth-child(4) { flex: 0 0 25%; max-width:25%; }
-.model>.row>.col:nth-child(2),
-.model>.row>.col:nth-child(3),
-.model>.row>.col:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%; }
-.model>.row>.ctrlBox { flex: 0 0 8%; max-width:8%; }
+.model.md_non>.row>.col:nth-child(4) { flex: 0 0 25%; max-width:25%; }
+.model.md_non>.row>.col:nth-child(2),
+.model.md_non>.row>.col:nth-child(3),
+.model.md_non>.row>.col:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%; }
+.model>.row>.ctrlBox { flex:0 0 8%; max-width:69px; padding-left:0; padding-right:0; }
 .model>.row>.ctrlBox button { padding-left:.4em; padding-right:.4em; }
-.model>.row>.gm_price { flex:0 0 10%; max-width:10%; }
+.model.md_non>.row>.gm_price { flex:0 0 10%; max-width:10%; }
 
 .option.adform .row .label { flex:0 0 12%; max-width:12%; }
 .option.adform .row .label + .type04 { flex: 0 0 29.666667%; max-width:29.666667%; }

@@ -364,15 +364,19 @@ label { margin-bottom:0; }
 .label_form>.col.w_100 { flex:0 0 100%; max-width:100%; }
 .label_form>.col.w_100>label { flex:0 0 16%; max-width:16%; }
 .label_form>.col>* { flex-basis:0; flex-grow:1; max-width: 100%; }
-.label_form>.col>label { position:relative; border-right:1px solid #D7D7D7; flex:0 0 32%; max-width:32%; padding:7px 0; font-weight:600; background-color:#F2F3F5; display:flex; align-items:center; justify-content:center; height:100%; }
+.label_form>.col>label { position:relative; border-right:1px solid #D7D7D7; flex:0 0 32%; max-width:32%; padding:7px 0; font-weight:600; background-color:#F2F3F5; display:flex; align-items:center; justify-content:center; height:100%; font-size:.85em; }
 .label_form>.col>label+div { padding:0 12px; width:100%; }
 .label_form>.col.w_100>label+div { padding:6px 12px; }
 .label_form>.col:nth-child(even)>label { border-left:1px solid #D7D7D7; }
+
+.label_form.quarter>.col { flex:0 0 25%; max-width:25%; }
 @media (max-width: 992px){
     .label_form { padding-top:7px; }
     .label_form>.col { flex-direction:column; align-items:flex-start; margin-bottom:.5em; border-bottom-width:0; }
     .label_form>.col label  { background-color:inherit; border-right-width:0; max-width:100%; padding:0 0 0 10px; font-size:.85em; }
     .label_form>.col:nth-child(even) label { border-left-width:0; }
     .label_form>.col.w_100>label { max-width:50%; }
+
+    .label_form.quarter>.col { flex:0 0 50%; max-width:50%; }
 }
 </style>

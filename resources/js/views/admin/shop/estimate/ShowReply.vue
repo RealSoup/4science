@@ -2,7 +2,7 @@
 <div id="adm_estimate_show" class="p_wrap">
     <h3 class="p_tit">견적 응답</h3>
     <div class="act_ctrl">
-        <b-row cols="1" cols-md="2">
+        <b-row>
             <b-col class="def_info">
                 <span>견적번호</span> <b>{{frm.er_id}}.</b>
                 <span>견적일자</span> <b>{{ frm.created_at }}</b>
@@ -244,9 +244,14 @@ export default {
 .p_wrap .act_ctrl .def_info { line-height:1.9; }
 .p_wrap .act_ctrl .def_info span { margin-left: 2rem; }
 .p_wrap .act_ctrl .def_info b { font-weight:900; margin-left:.5rem; }
-.p_wrap .act_ctrl .btn_area { text-align:right; }
+.p_wrap .act_ctrl .btn_area { display:flex; justify-content:flex-end; flex:0 0 640px; max-width:640px; }
 .p_wrap .act_ctrl .btn_area>* { margin-left:.5%; margin-right:.5%; }
 
 .p_wrap .box .top_border { border-top:3px solid #4F637B; }
 .p_wrap .box .container { max-width:100%; }
+
+@media (max-width: 1200px){
+    .p_wrap .act_ctrl .def_info,
+    .p_wrap .act_ctrl .btn_area { flex:0 0 100%; max-width:100%; }
+}
 </style>

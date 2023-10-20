@@ -601,14 +601,35 @@ var dt = new Date();
       var tid = this.od.order_pg.pg_tid;
       var url = "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=".concat(tid);
       if (this.od.order_pg.pg_pay_type.startsWith('psys')) url = this.order_config.url_receipt + '?tid=' + this.base64_encode(tid);
-
-      // openWinPop(url, 450, 550);
       this.openWinPop(url, 468, 750);
     },
     base64_encode: function base64_encode(str) {
       return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
         return String.fromCharCode('0x' + p1);
       }));
+    },
+    toEstimate: function toEstimate() {
+      var _this9 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var rst;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/estimate/storeFromOrder", _this9.od);
+            case 2:
+              rst = _context9.sent;
+              if (rst && rst.status === 200) {
+                Notify.toast('success', '복사 완료');
+                _this9.openWinPop("/admin/shop/estimate/reply/".concat(rst.data), 1300, 900);
+                // this.$router.push({ name: 'adm_estimate_show_reply', params:{er_id:rst.data} });
+              }
+            case 4:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -890,14 +911,19 @@ var render = function render() {
     }
   }, [_vm._v("주문 상품")]), _vm._v(" "), _c("b-col", {
     staticClass: "text-right print_hide"
-  }, [_c("b-button", {
-    staticClass: "teal",
+  }, [_vm.od.created_id ? _c("b-button", {
+    staticClass: "sm green",
+    on: {
+      click: _vm.toEstimate
+    }
+  }, [_vm._v("선택상품 임의견적으로 복사")]) : _vm._e(), _vm._v(" "), _c("b-button", {
+    staticClass: "sm teal",
     on: {
       click: function click($event) {
         return _vm.update("odm_ea");
       }
     }
-  }, [_vm._v("주문 상품 정보 수정")])], 1)], 1), _vm._v(" "), _c("div", {
+  }, [_vm._v("상품정보 수정")])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "top_border"
   }), _vm._v(" "), _vm._l(_vm.od.order_purchase_at, function (pa, pa_i) {
     return _c("b-row", {

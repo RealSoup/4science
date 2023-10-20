@@ -119,7 +119,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     console.log( "evtCloseWinPopup () ========  ");
     // },
     exeWinPop: function exeWinPop(url) {
-      this.$refs.winPopup.exeWinPop(url, 1700, 900);
+      this.$refs.winPopup.exeWinPop(url, 1300, 900);
     },
     onRecvWinPop: function onRecvWinPop(recvObj) {
       console.log("onRecvWinPop  ---------");

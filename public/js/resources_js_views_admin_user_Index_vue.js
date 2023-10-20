@@ -248,18 +248,24 @@ var render = function render() {
       md: "6"
     }
   }, [_vm._v("Total : "), _c("b", [_vm._v(_vm._s(_vm._f("comma")(this.list.total)))])]), _vm._v(" "), _c("b-col", {
-    staticClass: "ctrl",
+    staticClass: "ctrl d-none d-lg-block",
     attrs: {
       sm: "12",
       md: "6"
     }
   }, [_vm._v("회원정보를 클릭하면 수정이 가능합니다.")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "head list"
-  }, [_c("b-col", [_vm._v("번호/등급")]), _vm._v(" "), _c("b-col", [_vm._v("이름")]), _vm._v(" "), _c("b-col", [_vm._v("E-mail")]), _vm._v(" "), _c("b-col", [_vm._v("연락처")]), _vm._v(" "), _c("b-col", [_vm._v("직장/학교")]), _vm._v(" "), _c("b-col", [_vm._v("가입일")])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (us) {
+  }, [_c("b-col", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("번호/등급")]), _vm._v(" "), _c("b-col", [_vm._v("이름")]), _vm._v(" "), _c("b-col", [_vm._v("E-mail")]), _vm._v(" "), _c("b-col", [_vm._v("연락처")]), _vm._v(" "), _c("b-col", [_vm._v("직장/학교")]), _vm._v(" "), _c("b-col", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("가입일")])], 1), _vm._v(" "), _vm._l(_vm.list.data, function (us) {
     return _c("b-row", {
       key: us.id,
       staticClass: "body list"
-    }, [_c("b-col", [_vm._v("\r\n                " + _vm._s(us.id) + "\r\n                "), us.level == 1 ? _c("b-badge", {
+    }, [_c("b-col", {
+      staticClass: "d-none d-lg-block"
+    }, [_vm._v("\r\n                " + _vm._s(us.id) + "\r\n                "), us.level == 1 ? _c("b-badge", {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 2 ? _c("b-badge", {
       staticClass: "bronz"
@@ -304,14 +310,19 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(us.email))])], 1), _vm._v(" "), _c("b-col", [_c("span", [us.hp ? _c("font-awesome-icon", {
+      staticClass: "d-none d-lg-inline-block",
       attrs: {
         icon: "mobile-alt"
       }
-    }) : _vm._e(), _vm._v(_vm._s(us.hp))], 1), _vm._v(" "), _c("span", [us.tel ? _c("font-awesome-icon", {
+    }) : _vm._e(), _vm._v(_vm._s(us.hp))], 1), _vm._v(" "), _c("span", {
+      staticClass: "d-none d-lg-inline-block"
+    }, [us.tel ? _c("font-awesome-icon", {
       attrs: {
         icon: "phone"
       }
-    }) : _vm._e(), _vm._v(_vm._s(us.tel))], 1)]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(us.company))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("formatDate")(us.created_at)))])], 1);
+    }) : _vm._e(), _vm._v(_vm._s(us.tel))], 1)]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(us.company))]), _vm._v(" "), _c("b-col", {
+      staticClass: "d-none d-lg-block"
+    }, [_vm._v(_vm._s(_vm._f("formatDate")(us.created_at)))])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {
@@ -357,7 +368,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-031b2e2d] { text-align:right; color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .col .normal[data-v-031b2e2d] { background-color:#17A2B9;\n}\n.cmain .row .col .bronz[data-v-031b2e2d] { background-color:#F16621;\n}\n.cmain .row .col .silver[data-v-031b2e2d] { background-color:#ACACAC;\n}\n.cmain .row .col .gold[data-v-031b2e2d] { background-color:#FBC660;\n}\n.cmain .row .col .dealer_new[data-v-031b2e2d] { background-color:#9B1AB2;\n}\n.cmain .row .col .dealer[data-v-031b2e2d] { background-color:#24cdda;\n}\n.cmain .row .col .admin[data-v-031b2e2d] { background-color:#0173BA;\n}\n.cmain .row .col .super[data-v-031b2e2d] { background-color:#ED1C22;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) { flex:0 0 19%; max-width:19%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(6) { flex:0 0 11%; max-width:11%;\n}\n.cmain .body .col[data-v-031b2e2d]:nth-child(1) { display: flex; justify-content: space-evenly;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d] { min-width:150px; display:inline-block; text-align:left;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d]:first-child { margin-right:2rem;\n}\n.cmain .body .col:nth-child(4) span svg[data-v-031b2e2d] { margin-right:.6rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cmain .row .ctrl[data-v-031b2e2d] { text-align:right; color:#0171BB; font-size:.9rem; font-weight:600;\n}\n.cmain .row .col .normal[data-v-031b2e2d] { background-color:#17A2B9;\n}\n.cmain .row .col .bronz[data-v-031b2e2d] { background-color:#F16621;\n}\n.cmain .row .col .silver[data-v-031b2e2d] { background-color:#ACACAC;\n}\n.cmain .row .col .gold[data-v-031b2e2d] { background-color:#FBC660;\n}\n.cmain .row .col .dealer_new[data-v-031b2e2d] { background-color:#9B1AB2;\n}\n.cmain .row .col .dealer[data-v-031b2e2d] { background-color:#24cdda;\n}\n.cmain .row .col .admin[data-v-031b2e2d] { background-color:#0173BA;\n}\n.cmain .row .col .super[data-v-031b2e2d] { background-color:#ED1C22;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(1) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 16%; max-width:16%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) { border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) { flex:0 0 19%; max-width:19%; border-right:1px solid #CCCCCC;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(6) { flex:0 0 11%; max-width:11%;\n}\n.cmain .body .col[data-v-031b2e2d]:nth-child(1) { display: flex; justify-content: space-evenly;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d] { min-width:150px; display:inline-block; text-align:left;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d]:first-child { margin-right:2rem;\n}\n.cmain .body .col:nth-child(4) span svg[data-v-031b2e2d] { margin-right:.6rem;\n}\n@media (max-width: 991px){\n.p_wrap .cmain .body .col[data-v-031b2e2d] { padding:2px 0;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(2) { flex:0 0 30%; max-width:30%; border-right-width:0;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(3) { flex:0 0 70%; max-width:70%; border-right-width:0;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(4) { border-right-width:0;\n}\n.cmain .body .col:nth-child(4) span[data-v-031b2e2d] { margin-right:0 !important; min-width:auto !important;\n}\n.cmain .list .col[data-v-031b2e2d]:nth-child(5) { flex-basis:0; flex-grow:1; max-width:100%; border-right-width:0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

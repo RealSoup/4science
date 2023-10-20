@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use DB;
+use Carbon\Carbon;
+use DateTimeInterface;
 
 class User extends Authenticatable implements MustVerifyEmail {
     use HasFactory, Notifiable, HasApiTokens;
@@ -16,6 +18,8 @@ class User extends Authenticatable implements MustVerifyEmail {
     protected $hidden = [ 'password' ];
     protected $appends = ['is_admin', 'is_super', 'is_dealer', 'mileage_mul', 'hp01', 'hp02', 'hp03', 'dc_mul'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
+    protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
+    public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
     public static $option = [
         'group' => [    '1' => '일반',
                         '2' => '특별',

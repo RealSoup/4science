@@ -2,14 +2,14 @@
 <b-container>
     <b-row align-h="end" class="searchWrap">
         <b-col>
-            <b-form-select v-model="frm.mode">
+            <b-form-select v-model="sch_frm.mode">
                 <b-form-select-option value="">전체</b-form-select-option>
                 <b-form-select-option value="subject">제목</b-form-select-option>
                 <b-form-select-option value="content">내용</b-form-select-option>
                 <b-form-select-option value="writer">글쓴이</b-form-select-option>
             </b-form-select>
-            <b-form-input v-model="frm.sch_txt" placeholder="검색어를 입력하세요" @keyup.enter="index" />
-            <b-button type="submit" @click="index"><font-awesome-icon icon="search" /></b-button>
+            <b-form-input v-model="sch_frm.sch_txt" placeholder="검색어를 입력하세요" @keyup.enter="routerPush(1)" />
+            <b-button type="submit" @click="routerPush(1)"><font-awesome-icon icon="search" /></b-button>
         </b-col>
     </b-row>
     <b-row class="data">
@@ -51,7 +51,7 @@
             </table>
         </b-col>
     </b-row>
-    <pagination :data="list" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
+    <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
         <span slot="prev-nav"><b-icon-chevron-left /></span>
         <span slot="next-nav"><b-icon-chevron-right /></span>
     </pagination>
@@ -74,7 +74,7 @@ export default {
             bo_cd:this.$route.params.bo_cd,
             list:{},
             config:{},
-            frm:{
+            sch_frm:{
                 mode:"",
                 sch_txt:'',
                 page:0,
@@ -85,7 +85,7 @@ export default {
     computed: {
         classObject: function () {
             return {
-                active: this.frm.sch_txt !== '' || this.sch_txt_focus,
+                active: this.sch_frm.sch_txt !== '' || this.sch_txt_focus,
             }
         },
         getLink: function () {
@@ -93,12 +93,11 @@ export default {
         },
     },
     methods: {
-        async index(page=1){
-            this.frm.page = page;
+        async index(){
             if (this.$route.name == 'my_bo_index')
-                this.frm.root = 'mypage';
+                this.sch_frm.root = 'mypage';
             try {
-                const res = await ax.get(`/api/board/${this.bo_cd}`, { params: this.frm});
+                const res = await ax.get(`/api/board/${this.bo_cd}`, { params: this.sch_frm});
                 if (res && res.status === 200) {
                     this.list = res.data.list;
                     this.config = res.data.config;
@@ -108,14 +107,19 @@ export default {
                 Notify.toast('warning', e.response.data.message);
             }
         },
+        routerPush(p){
+            this.sch_frm.page = p;
+            this.$router.push({name: 'bo_index', query: this.sch_frm }).catch(()=>{});
+        },
     },
     beforeRouteUpdate (to, from, next) {
-        // console.log(to, from);
+        this.sch_frm = Object.assign( {}, this.sch_frm, to.query );
         this.bo_cd = to.params.bo_cd;
         this.index();
         next();
     },
     mounted() {
+        this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
         this.index();
     },
 }

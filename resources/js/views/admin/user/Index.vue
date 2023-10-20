@@ -51,20 +51,20 @@
     <b-container class="cmain">
         <b-row>
             <b-col sm="12" md="6">Total : <b>{{this.list.total | comma}}</b></b-col>
-            <b-col sm="12" md="6" class="ctrl">회원정보를 클릭하면 수정이 가능합니다.</b-col>
+            <b-col sm="12" md="6" class="ctrl d-none d-lg-block">회원정보를 클릭하면 수정이 가능합니다.</b-col>
         </b-row>
                     
         <b-row class="head list">
-            <b-col>번호/등급</b-col>
+            <b-col class="d-none d-lg-block">번호/등급</b-col>
             <b-col>이름</b-col>
             <b-col>E-mail</b-col>
             <b-col>연락처</b-col>
             <b-col>직장/학교</b-col>
-            <b-col>가입일</b-col>
+            <b-col class="d-none d-lg-block">가입일</b-col>
         </b-row>
 
         <b-row class="body list" v-for="us in list.data" :key="us.id">
-            <b-col>
+            <b-col class="d-none d-lg-block">
                 {{us.id}}
                 <b-badge v-if="us.level==1" class="normal">{{option.grade[us.level]}}</b-badge>
                 <b-badge v-if="us.level==2" class="bronz">{{option.grade[us.level]}}</b-badge>
@@ -81,11 +81,11 @@
             </b-col>
             <b-col><b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.email}}</b-link></b-col>                
             <b-col>
-                <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" />{{us.hp}}</span>
-                <span><font-awesome-icon icon="phone" v-if="us.tel" />{{us.tel}}</span>
+                <span><font-awesome-icon icon="mobile-alt" v-if="us.hp" class="d-none d-lg-inline-block" />{{us.hp}}</span>
+                <span class="d-none d-lg-inline-block"><font-awesome-icon icon="phone" v-if="us.tel" />{{us.tel}}</span>
             </b-col>
             <b-col>{{ us.company }}</b-col>
-            <b-col>{{ us.created_at | formatDate }}</b-col>
+            <b-col class="d-none d-lg-block">{{ us.created_at | formatDate }}</b-col>
         </b-row>
         <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
@@ -178,4 +178,13 @@ export default {
 .cmain .body .col:nth-child(4) span { min-width:150px; display:inline-block; text-align:left; }
 .cmain .body .col:nth-child(4) span:first-child { margin-right:2rem; }
 .cmain .body .col:nth-child(4) span svg { margin-right:.6rem; }
+
+@media (max-width: 991px){
+    .p_wrap .cmain .body .col { padding:2px 0; }
+    .cmain .list .col:nth-child(2) { flex:0 0 30%; max-width:30%; border-right-width:0; }
+    .cmain .list .col:nth-child(3) { flex:0 0 70%; max-width:70%; border-right-width:0; }
+    .cmain .list .col:nth-child(4) { border-right-width:0; }
+    .cmain .body .col:nth-child(4) span { margin-right:0 !important; min-width:auto !important; }
+    .cmain .list .col:nth-child(5) { flex-basis:0; flex-grow:1; max-width:100%; border-right-width:0; }
+}
 </style>

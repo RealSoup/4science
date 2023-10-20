@@ -566,4 +566,78 @@ class EstimateController extends Controller {
     public function getEmptyEm () {
         return response()->json($this->emptyEm());
     }
+
+    public function storeFromOrder (Request $req) {
+        $eq_id = DB::table('shop_estimate_req')->insertGetId([
+            'eq_title'      => '<b>[ 임의견적 ]</b> ',
+            'eq_step'       => 'DOING',
+            'eq_type'       => 'TEMP',
+            'eq_name'       => $req->filled('od_orderer')       ? $req->od_orderer             : '',
+            'eq_email'      => $req->filled('od_orderer_email') ? trim($req->od_orderer_email) : '',
+            'eq_hp'         => $req->filled('od_orderer_hp')    ? $req->od_orderer_hp          : '',
+            'eq_company'    => $req->filled('od_company')       ? $req->od_company             : '',
+            'eq_content'   => '',    //  내용
+            'created_id'    => $req->filled('created_id')       ? $req->created_id             : 0,
+            'eq_mng'        => auth()->check() ? auth()->user()->id : 0,
+            'eq_env'        => 'P',
+            'ip'            => $req->ip(),
+        ], 'eq_id');
+   
+        $er_id = DB::table('shop_estimate_reply')->insertGetId([    
+            'er_step'         => 0, //  진행현황( 임시저장 : 0, 작성 완료 : 1 )
+            'er_dlvy_at'      => '-',   //  납품기일
+            'er_effective_at' => '-',   //  견적유효일
+            'er_content'      => '',    //  내용
+            'er_gd_price'     => $req->filled('od_gd_price')   ? $req->od_gd_price   : 0,
+            'er_surtax'       => $req->filled('od_surtax')     ? $req->od_surtax     : 0,
+            'er_dlvy_price'   => $req->filled('od_dlvy_price') ? $req->od_dlvy_price : 0,
+            'er_air_price'    => $req->filled('od_air_price')  ? $req->od_air_price  : 0,
+            'er_all_price'    => $req->filled('od_all_price')  ? $req->od_all_price  : 0,
+            'er_eq_id'        => $eq_id,
+            'ip'              => $req->ip(),
+            'created_id'      => auth()->check() ? auth()->user()->id : 0,
+            'updated_id'      => auth()->check() ? auth()->user()->id : 0,
+        ], 'eq_id');
+
+        if ($req->filled('order_purchase_at')) {
+            $chk_for_opt = [];
+            foreach ($req->order_purchase_at as $pa) {
+                foreach ($pa['order_model'] as $md) {
+                    if ($md['odm_type'] == 'MODEL') {
+                        $em_id = DB::table('shop_estimate_model')->insertGetId([
+                            'em_type'       => 'estimateReply',
+                            'em_papa_id'    => $er_id,
+                            'em_gd_id'      => $md['odm_gd_id'],
+                            'em_gm_id'      => $md['odm_gm_id'],
+                            'em_name'       => $md['odm_gm_name'],
+                            'em_title'      => $md['odm_gd_name'],
+                            'em_catno'      => $md['odm_gm_catno'],
+                            'em_code'       => $md['odm_gm_code'],
+                            'em_unit'       => $md['odm_gm_unit'],
+                            'em_maker'      => $md['odm_mk_name'],
+                            'em_spec'       => $md['odm_gm_spec'],
+                            'em_ea'         => $md['odm_ea'],
+                            'em_cost_price' => $md['odm_price'],
+                            'em_price'      => $md['odm_price_add_vat'] 
+                        ], 'em_id');
+                        $chk_for_opt[$md['odm_gd_id']] = $em_id;
+                    }
+                    
+                    if( $md['odm_type'] == 'OPTION' && array_key_exists($md['odm_gd_id'], $chk_for_opt) && $chk_for_opt[$md['odm_gd_id']]) {
+                        DB::table('shop_estimate_option')->insert([
+                            'eo_em_id'  => $chk_for_opt[$md['odm_gd_id']],
+                            'eo_gd_id'  => $md['odm_gd_id'],
+                            'eo_goc_id' => $md['odm_gm_id'],
+                            'eo_tit'    => $md['odm_gm_name'],
+                            'eo_name'   => $md['odm_gm_spec'],
+                            'eo_ea'     => $md['odm_ea'],
+                            'eo_price'  => $md['odm_price_add_vat'], 
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return response()->json($er_id, 200);
+    }
 }

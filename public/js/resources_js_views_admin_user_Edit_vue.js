@@ -514,7 +514,7 @@ var render = function render() {
     staticClass: "type_icon"
   }, [_c("b-icon-tags-fill"), _vm._v(_vm._s(_vm.frm.id))], 1), _vm._v(" "), _c("div", {
     staticClass: "type_icon"
-  }, [_c("b-icon-calendar2-date-fill"), _vm._v(_vm._s(_vm._f("formatDate")(_vm.frm.created_at)))], 1), _vm._v(" "), _c("div", {
+  }, [_c("b-icon-calendar2-date-fill"), _vm._v(_vm._s(_vm.frm.created_at))], 1), _vm._v(" "), _c("div", {
     staticClass: "type_icon"
   }, [_vm.frm.introducer ? _c("b-button", {
     staticClass: "xm sky",
@@ -567,19 +567,18 @@ var render = function render() {
       }
     }
   }, [_vm._v("배송지")])], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-container", {
-    staticClass: "box adform"
-  }, [_c("h5", [_vm._v("\r\n            회원정보\r\n            "), _vm.user.is_super && _vm.frm.level < 20 ? _c("b-button", {
+    staticClass: "box"
+  }, [_c("h5", [_vm._v("\r\n            회원정보 "), _vm.user.is_super && _vm.frm.level < 20 ? _c("b-button", {
     staticClass: "sky xm ml-3",
     on: {
       click: _vm.login
     }
-  }, [_c("b-icon-power")], 1) : _vm._e()], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("회원 유형")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-select", {
+  }, [_c("b-icon-power")], 1) : _vm._e()], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "label_form quarter"
+  }, [_c("b-col", [_c("label", [_vm._v("회원유형")]), _vm._v(" "), _c("div", [_c("b-form-select", {
     attrs: {
-      id: "group"
+      id: "group",
+      size: "sm"
     },
     model: {
       value: _vm.frm.group,
@@ -595,13 +594,10 @@ var render = function render() {
         value: i
       }
     }, [_vm._v(_vm._s(v))]);
-  }), 1)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("회원등급")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-select", {
+  }), 1)], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("회원등급")]), _vm._v(" "), _c("div", [_c("b-form-select", {
     attrs: {
-      id: "level"
+      id: "level",
+      size: "sm"
     },
     model: {
       value: _vm.frm.level,
@@ -621,13 +617,10 @@ var render = function render() {
         value: k
       }
     }, [_vm._v(_vm._s(grade))]);
-  })], 2)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("담당자")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-select", {
+  })], 2)], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("담당자")]), _vm._v(" "), _c("div", [_c("b-form-select", {
     attrs: {
-      id: "mng"
+      id: "mng",
+      size: "sm"
     },
     model: {
       value: _vm.frm.mng,
@@ -647,38 +640,15 @@ var render = function render() {
         value: v.id
       }
     }, [_vm._v(_vm._s(v.name))]);
-  })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("이름")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
-    model: {
-      value: _vm.frm.name,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "name", $$v);
-      },
-      expression: "frm.name"
-    }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("이메일")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
-    model: {
-      value: _vm.frm.email,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "email", $$v);
-      },
-      expression: "frm.email"
-    }
-  })], 1), _vm._v(" "), _c("b-col", {
+  })], 2)], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("수신동의")]), _vm._v(" "), _c("div", {
     staticClass: "checkbox01"
   }, [_c("b-form-checkbox", {
+    staticClass: "mr-3",
     attrs: {
       id: "receive_mail",
       value: "Y",
       "unchecked-value": "N",
-      size: "lg"
+      size: "sm"
     },
     model: {
       value: _vm.frm.receive_mail,
@@ -687,29 +657,12 @@ var render = function render() {
       },
       expression: "frm.receive_mail"
     }
-  }, [_vm._v("\r\n                    수신\r\n                    "), _vm.frm.receive_mail == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("안함")])])], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("휴대폰")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
-    attrs: {
-      formatter: _vm.frm_formatHp
-    },
-    model: {
-      value: _vm.frm.hp,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "hp", $$v);
-      },
-      expression: "frm.hp"
-    }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "checkbox01"
-  }, [_c("b-form-checkbox", {
+  }, [_vm._v("\r\n                        이메일\r\n                        "), _vm.frm.receive_mail == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("거절")])]), _vm._v(" "), _c("b-form-checkbox", {
     attrs: {
       id: "receive_sms",
       value: "Y",
       "unchecked-value": "N",
-      size: "lg"
+      size: "sm"
     },
     model: {
       value: _vm.frm.receive_sms,
@@ -718,70 +671,29 @@ var render = function render() {
       },
       expression: "frm.receive_sms"
     }
-  }, [_vm._v("\r\n                    수신\r\n                    "), _vm.frm.receive_sms == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("안함")])])], 1)], 1), _vm._v(" "), _vm.user.is_super ? _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("비밀번호")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("validation-provider", {
+  }, [_vm._v("\r\n                        문자\r\n                        "), _vm.frm.receive_sms == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("거절")])])], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("이름")]), _vm._v(" "), _c("div", [_c("b-form-input", {
     attrs: {
-      vid: "password",
-      name: "비밀번호",
-      rules: "required|min:6|pwCheck"
+      size: "sm"
     },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(validationContext) {
-        return [_c("b-form-input", {
-          attrs: {
-            type: "password",
-            id: "password",
-            placeholder: "6자 영문, 숫자",
-            state: _vm.getValidationState(validationContext)
-          },
-          model: {
-            value: _vm.frm.password,
-            callback: function callback($$v) {
-              _vm.$set(_vm.frm, "password", $$v);
-            },
-            expression: "frm.password"
-          }
-        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
-      }
-    }], null, false, 3824477785)
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("비밀번호 확인")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("validation-provider", {
+    model: {
+      value: _vm.frm.name,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "name", $$v);
+      },
+      expression: "frm.name"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("이메일")]), _vm._v(" "), _c("div", [_c("b-form-input", {
     attrs: {
-      name: "비밀번호 확인",
-      rules: "required|confirmed:password"
+      size: "sm"
     },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(validationContext) {
-        return [_c("b-form-input", {
-          attrs: {
-            type: "password",
-            id: "password_confirmation",
-            placeholder: "비밀번호 확인",
-            state: _vm.getValidationState(validationContext)
-          },
-          model: {
-            value: _vm.frm.password_confirmation,
-            callback: function callback($$v) {
-              _vm.$set(_vm.frm, "password_confirmation", $$v);
-            },
-            expression: "frm.password_confirmation"
-          }
-        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
-      }
-    }], null, false, 2150222824)
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("생년월일")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-input-group", {
+    model: {
+      value: _vm.frm.email,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "email", $$v);
+      },
+      expression: "frm.email"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("생년월일")]), _vm._v(" "), _c("b-input-group", {
     attrs: {
       size: "sm"
     }
@@ -813,11 +725,22 @@ var render = function render() {
       },
       expression: "frm.birth"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("일반전화")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)], 1)], 1), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("휴대폰")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      formatter: _vm.frm_formatHp,
+      size: "sm"
+    },
+    model: {
+      value: _vm.frm.hp,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "hp", $$v);
+      },
+      expression: "frm.hp"
+    }
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("일반전화")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.tel,
       callback: function callback($$v) {
@@ -825,11 +748,10 @@ var render = function render() {
       },
       expression: "frm.tel"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("팩스")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("팩스")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.fax,
       callback: function callback($$v) {
@@ -837,11 +759,66 @@ var render = function render() {
       },
       expression: "frm.fax"
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("hr")])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("직업")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-select", {
+  })], 1)]), _vm._v(" "), _c("b-col"), _vm._v(" "), _vm.user.is_super ? [_c("b-col", [_c("label", [_vm._v("비밀번호")]), _vm._v(" "), _c("div", [_c("validation-provider", {
+    attrs: {
+      vid: "password",
+      name: "비밀번호",
+      rules: "required|min:6|pwCheck"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(validationContext) {
+        return [_c("b-form-input", {
+          attrs: {
+            type: "password",
+            id: "password",
+            placeholder: "6자 영문, 숫자",
+            state: _vm.getValidationState(validationContext),
+            size: "sm",
+            autocomplete: "new-password"
+          },
+          model: {
+            value: _vm.frm.password,
+            callback: function callback($$v) {
+              _vm.$set(_vm.frm, "password", $$v);
+            },
+            expression: "frm.password"
+          }
+        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
+      }
+    }], null, false, 2066871882)
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("비밀번호 확인")]), _vm._v(" "), _c("div", [_c("validation-provider", {
+    attrs: {
+      name: "비밀번호 확인",
+      rules: "required|confirmed:password"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(validationContext) {
+        return [_c("b-form-input", {
+          attrs: {
+            type: "password",
+            id: "password_confirmation",
+            placeholder: "비밀번호 확인",
+            state: _vm.getValidationState(validationContext),
+            size: "sm"
+          },
+          model: {
+            value: _vm.frm.password_confirmation,
+            callback: function callback($$v) {
+              _vm.$set(_vm.frm, "password_confirmation", $$v);
+            },
+            expression: "frm.password_confirmation"
+          }
+        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
+      }
+    }], null, false, 173257733)
+  })], 1)])] : _vm._e()], 2), _vm._v(" "), _c("b-row", [_c("b-col", [_c("hr")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "label_form quarter"
+  }, [_c("b-col", [_c("label", [_vm._v("직업")]), _vm._v(" "), _c("div", [_c("b-form-select", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.job,
       callback: function callback($$v) {
@@ -856,11 +833,10 @@ var render = function render() {
         value: v
       }
     }, [_vm._v(_vm._s(v))]);
-  }), 1)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("직장/학교명")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  }), 1)], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("직장/학교명")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.company,
       callback: function callback($$v) {
@@ -868,11 +844,10 @@ var render = function render() {
       },
       expression: "frm.company"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label short"
-  }, [_vm._v("부서/학과/"), _c("br"), _vm._v("연구실명")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("부서/학과/연구실명")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.part,
       callback: function callback($$v) {
@@ -880,11 +855,10 @@ var render = function render() {
       },
       expression: "frm.part"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("직급/학년")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("직급/학년")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.grade,
       callback: function callback($$v) {
@@ -892,11 +866,10 @@ var render = function render() {
       },
       expression: "frm.grade"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label short"
-  }, [_vm._v("지도/담당교수")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("지도/담당교수")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.tutor,
       callback: function callback($$v) {
@@ -904,11 +877,10 @@ var render = function render() {
       },
       expression: "frm.tutor"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label short"
-  }, [_vm._v("추천인 Email")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("추천인 Email")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.offer,
       callback: function callback($$v) {
@@ -916,11 +888,10 @@ var render = function render() {
       },
       expression: "frm.offer"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label short"
-  }, [_vm._v("추천인연구실")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("추천인연구실")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.offer_lab,
       callback: function callback($$v) {
@@ -928,11 +899,10 @@ var render = function render() {
       },
       expression: "frm.offer_lab"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("가입경로")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type02"
-  }, [_c("b-form-input", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("가입경로")]), _vm._v(" "), _c("div", [_c("b-form-input", {
+    attrs: {
+      size: "sm"
+    },
     model: {
       value: _vm.frm.join_route,
       callback: function callback($$v) {
@@ -940,11 +910,7 @@ var render = function render() {
       },
       expression: "frm.join_route"
     }
-  })], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("관심분야")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type11"
-  }, [_vm._v("\r\n                " + _vm._s(_vm.frm.interest)), _vm.frm.interest_etc ? [_vm._v(", " + _vm._s(_vm.frm.interest_etc))] : _vm._e()], 2)], 1)], 1), _vm._v(" "), [11, 12].indexOf(Number(_vm.frm.level)) !== -1 ? _c("b-container", {
+  })], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("관심분야")]), _vm._v(" "), _c("div", [_vm._v("\r\n                    " + _vm._s(_vm.frm.interest) + "\r\n                    "), _vm.frm.interest_etc ? [_vm._v(", " + _vm._s(_vm.frm.interest_etc))] : _vm._e()], 2)])], 1)], 1), _vm._v(" "), [11, 12].indexOf(Number(_vm.frm.level)) !== -1 ? _c("b-container", {
     staticClass: "box frm01 n3"
   }, [_c("h5", [_vm._v("딜러 정보")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("상호명")]), _c("b-col", [_c("b-form-input", {
     model: {
@@ -1206,7 +1172,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-fbc80902] { max-width:1500px; margin-left:auto; margin-right:auto;\n}\n.act_ctrl .row[data-v-fbc80902] { align-items:center;\n}\n.act_ctrl .row .col .type_icon[data-v-fbc80902] { display:inline-block; margin-right:25px;\n}\n.act_ctrl .row .col .type_icon svg[data-v-fbc80902] { margin-right:10px;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.container .row .checkbox01[data-v-fbc80902],\r\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-fbc80902] { max-width:1500px; margin-left:auto; margin-right:auto;\n}\n.act_ctrl .row[data-v-fbc80902] { align-items:center;\n}\n.act_ctrl .row .col .type_icon[data-v-fbc80902] { display:inline-block; margin-right:25px;\n}\n.act_ctrl .row .col .type_icon svg[data-v-fbc80902] { margin-right:10px;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox label { font-size:12px !important;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox label b { font-weight:900;\n}\n.container .row .checkbox01[data-v-fbc80902],\r\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox { display:flex; align-items:center;\n}\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::before,\r\n.container .row .checkbox01[data-v-fbc80902] .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%);\n}\n@media (max-width: 991px){\n.act_ctrl .row .col[data-v-fbc80902] { flex: 0 0 100%; max-width: 100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

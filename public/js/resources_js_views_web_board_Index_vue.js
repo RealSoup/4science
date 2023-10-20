@@ -31,7 +31,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       bo_cd: this.$route.params.bo_cd,
       list: {},
       config: {},
-      frm: {
+      sch_frm: {
         mode: "",
         sch_txt: '',
         page: 0
@@ -42,7 +42,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     classObject: function classObject() {
       return {
-        active: this.frm.sch_txt !== '' || this.sch_txt_focus
+        active: this.sch_frm.sch_txt !== '' || this.sch_txt_focus
       };
     },
     getLink: function getLink() {
@@ -51,49 +51,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     index: function index() {
-      var _arguments = arguments,
-        _this = this;
+      var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var page, res;
+        var res;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
-              _this.frm.page = page;
-              if (_this.$route.name == 'my_bo_index') _this.frm.root = 'mypage';
-              _context.prev = 3;
-              _context.next = 6;
+              if (_this.$route.name == 'my_bo_index') _this.sch_frm.root = 'mypage';
+              _context.prev = 1;
+              _context.next = 4;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/board/".concat(_this.bo_cd), {
-                params: _this.frm
+                params: _this.sch_frm
               });
-            case 6:
+            case 4:
               res = _context.sent;
               if (res && res.status === 200) {
                 _this.list = res.data.list;
                 _this.config = res.data.config;
               }
-              _context.next = 14;
+              _context.next = 12;
               break;
-            case 10:
-              _context.prev = 10;
-              _context.t0 = _context["catch"](3);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 14:
+            case 12:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[3, 10]]);
+        }, _callee, null, [[1, 8]]);
       }))();
+    },
+    routerPush: function routerPush(p) {
+      this.sch_frm.page = p;
+      this.$router.push({
+        name: 'bo_index',
+        query: this.sch_frm
+      })["catch"](function () {});
     }
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    // console.log(to, from);
+    this.sch_frm = Object.assign({}, this.sch_frm, to.query);
     this.bo_cd = to.params.bo_cd;
     this.index();
     next();
   },
   mounted: function mounted() {
+    this.sch_frm = Object.assign({}, this.sch_frm, this.$route.query);
     this.index();
   }
 });
@@ -121,11 +126,11 @@ var render = function render() {
     }
   }, [_c("b-col", [_c("b-form-select", {
     model: {
-      value: _vm.frm.mode,
+      value: _vm.sch_frm.mode,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "mode", $$v);
+        _vm.$set(_vm.sch_frm, "mode", $$v);
       },
-      expression: "frm.mode"
+      expression: "sch_frm.mode"
     }
   }, [_c("b-form-select-option", {
     attrs: {
@@ -150,22 +155,24 @@ var render = function render() {
     on: {
       keyup: function keyup($event) {
         if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.index.apply(null, arguments);
+        return _vm.routerPush(1);
       }
     },
     model: {
-      value: _vm.frm.sch_txt,
+      value: _vm.sch_frm.sch_txt,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "sch_txt", $$v);
+        _vm.$set(_vm.sch_frm, "sch_txt", $$v);
       },
-      expression: "frm.sch_txt"
+      expression: "sch_frm.sch_txt"
     }
   }), _vm._v(" "), _c("b-button", {
     attrs: {
       type: "submit"
     },
     on: {
-      click: _vm.index
+      click: function click($event) {
+        return _vm.routerPush(1);
+      }
     }
   }, [_c("font-awesome-icon", {
     attrs: {
@@ -270,7 +277,7 @@ var render = function render() {
       align: "center"
     },
     on: {
-      "pagination-change-page": _vm.index
+      "pagination-change-page": _vm.routerPush
     }
   }, [_c("span", {
     attrs: {

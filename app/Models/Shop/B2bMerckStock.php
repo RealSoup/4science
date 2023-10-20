@@ -20,25 +20,25 @@ class B2bMerckStock extends Model {
     }
 
     //	배열 키와 값을 이쁘게 출력
-	public function arrayToString($array, $depth=0, $type=null) {
-		$depth++;
-		$htmlString = '';
-		foreach ( $array as $key => $value ) {
-			$htmlString .= '
-				<div class="depth0'.$depth.'">
-					<span class="attributes'.$type.'">'.$key.'</span>';
-			if ( is_array($value) ) {
-				if ( $key == 'OtherInfo' )
-					$htmlString .= $this -> arrayToString($value, $depth, ' indent');
-				else
-					$htmlString .= $this -> arrayToString($value, $depth);
-			} else if ( gettype($value) == "string" ) {
-				$htmlString .= '
-					<span class="data'.$type.'">'.$value.'</span>';
-			}
-			$htmlString .= '
-				</div>';
-		}
-		return $htmlString;
-	}
+	// public function arrayToString($array, $depth=0, $type=null) {
+	// 	$depth++;
+	// 	$htmlString = '';
+	// 	foreach ( $array as $key => $value ) {
+	// 		$htmlString .= '
+	// 			<div class="depth0'.$depth.'">
+	// 				<span class="attributes'.$type.'">'.$key.'</span>';
+	// 		if ( is_array($value) ) {
+	// 			if ( $key == 'OtherInfo' )
+	// 				$htmlString .= $this -> arrayToString($value, $depth, ' indent');
+	// 			else
+	// 				$htmlString .= $this -> arrayToString($value, $depth);
+	// 		} else if ( gettype($value) == "string" ) {
+	// 			$htmlString .= '
+	// 				<span class="data'.$type.'">'.$value.'</span>';
+	// 		}
+	// 		$htmlString .= '
+	// 			</div>';
+	// 	}
+	// 	return $htmlString;
+	// }
 }

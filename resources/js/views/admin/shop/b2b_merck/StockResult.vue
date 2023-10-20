@@ -31,7 +31,7 @@
                 <span>{{ bms.created_at | formatDate }}</span>
             </b-col>
         </b-row>
-        <b-row v-else-if="bms.bms_data.ProductResponse['@attributes'].status == 'Error'" :key="bms.bms_id" class="bg-danger">
+        <b-row v-else-if="bms.bms_data.ProductResponse['@attributes'].status == 'Error'" :key="bms.bms_id" class="alert-warning">
             <b-col>
                 <span>전달값이 잘못 되었습니다.</span>
                 <span>{{ bms.created_at | formatDate }}</span>
@@ -85,4 +85,6 @@ export default {
 .row>div:nth-of-type(4) span:nth-of-type(1) p { margin:0; }
 .row>div:nth-of-type(4) span:nth-of-type(1) p b { background: #eeee0066; display: inline-block; padding: 2px 8px; } 
 .row>div:nth-of-type(5) { flex:0 0 10%; max-width:10%; }
+
+.row.alert-warning>div { flex:0 0 100% !important; max-width:100% !important; }
 </style>

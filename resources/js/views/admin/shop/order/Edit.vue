@@ -79,7 +79,10 @@
         <div class="box">
             <b-row tag="h5">
                 <b-col tag="b">주문 상품</b-col>
-                <b-col class="text-right print_hide"><b-button @click="update('odm_ea')" class="teal">주문 상품 정보 수정</b-button></b-col>
+                <b-col class="text-right print_hide">
+                    <b-button @click="toEstimate" class="sm green" v-if="od.created_id">선택상품 임의견적으로 복사</b-button>
+                    <b-button @click="update('odm_ea')" class="sm teal">상품정보 수정</b-button>
+                </b-col>
             </b-row>
             
             <div class="top_border" />
@@ -842,24 +845,28 @@ export default {
             let url = `https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${tid}`;
             if(this.od.order_pg.pg_pay_type.startsWith('psys'))
                 url = this.order_config.url_receipt+'?tid='+this.base64_encode(tid);
-  
-            
 
-            // openWinPop(url, 450, 550);
-this.openWinPop(url, 468, 750);
-
-      
+            this.openWinPop(url, 468, 750);
         },
 
         base64_encode(str) {
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
                 return String.fromCharCode('0x' + p1);
             }));
-        }
+        },
+
+        async toEstimate(){
+            let rst = await ax.post(`/api/admin/shop/estimate/storeFromOrder`, this.od);
+            if (rst && rst.status === 200) {
+                Notify.toast('success', '복사 완료');
+                this.openWinPop(`/admin/shop/estimate/reply/${rst.data}`, 1300, 900);
+                // this.$router.push({ name: 'adm_estimate_show_reply', params:{er_id:rst.data} });
+            }
+            
+        },
     },
-    mounted() {
-        this.edit();
-    },
+
+    mounted() { this.edit(); },
 }
 </script>
 

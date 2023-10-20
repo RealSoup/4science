@@ -5,7 +5,7 @@
         <b-row>
             <b-col>
                 <div class="type_icon"><b-icon-tags-fill />{{ frm.id }}</div>
-                <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at | formatDate }}</div>
+                <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at }}</div>
                 <div class="type_icon">
                     <b-button :to="{name: 'adm_user_edit', params: { id:frm.introducer.id }}" v-if="frm.introducer" class="xm sky">소개자 - {{frm.introducer.name}}</b-button>
                 </div>
@@ -22,82 +22,63 @@
         </b-row>
     </b-container>
 
-    <b-container class="box adform">
+    <b-container class="box">
         <h5>
-            회원정보
-            <b-button @click="login" class="sky xm ml-3" v-if="user.is_super && frm.level<20">
-                <b-icon-power />
-            </b-button> 
+            회원정보 <b-button @click="login" class="sky xm ml-3" v-if="user.is_super && frm.level<20"><b-icon-power /></b-button> 
         </h5>
-        <b-row>
-            <b-col class="label">회원 유형</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="frm.group" id="group">
-                    <b-form-select-option v-for="(v, i) in frm.option.group" :value="i" :key="i">{{v}}</b-form-select-option>
-                </b-form-select>
+        <b-row class="label_form quarter">
+            <b-col>
+                <label>회원유형</label>
+                <div>
+                    <b-form-select v-model="frm.group" id="group" size="sm">
+                        <b-form-select-option v-for="(v, i) in frm.option.group" :value="i" :key="i">{{v}}</b-form-select-option>
+                    </b-form-select>
+                </div>
             </b-col>
-
-            <b-col class="label">회원등급</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="frm.level" id="level">
-                    <b-form-select-option value="0"></b-form-select-option>
-                    <b-form-select-option v-for="(grade, k) in frm.option.grade" :key="k" :value="k">{{grade}}</b-form-select-option>
-                </b-form-select>
+            <b-col>
+                <label>회원등급</label>
+                <div>
+                    <b-form-select v-model="frm.level" id="level" size="sm">
+                        <b-form-select-option value="0"></b-form-select-option>
+                        <b-form-select-option v-for="(grade, k) in frm.option.grade" :key="k" :value="k">{{grade}}</b-form-select-option>
+                    </b-form-select>
+                </div>
             </b-col>
-
-            <b-col class="label">담당자</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="frm.mng" id="mng">
-                    <b-form-select-option value="0"></b-form-select-option>
-                    <b-form-select-option v-for="(v, k) in frm.mng_list" :key="k" :value="v.id">{{v.name}}</b-form-select-option>
-                </b-form-select>
+            <b-col>
+                <label>담당자</label>
+                <div>
+                    <b-form-select v-model="frm.mng" id="mng" size="sm">
+                        <b-form-select-option value="0"></b-form-select-option>
+                        <b-form-select-option v-for="(v, k) in frm.mng_list" :key="k" :value="v.id">{{v.name}}</b-form-select-option>
+                    </b-form-select>
+                </div>
             </b-col>
-        </b-row>
-        <b-row>
-            <b-col class="label">이름</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.name" /></b-col>
-
-            <b-col class="label">이메일</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.email" /></b-col>
-            <b-col class="checkbox01">
-                <b-form-checkbox v-model="frm.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="lg">
-                    수신
-                    <b v-if="frm.receive_mail=='Y'">동의</b>
-                    <b v-else>안함</b>
-                </b-form-checkbox>
+            <b-col>
+                <label>수신동의</label>
+                <div class="checkbox01">
+                    <b-form-checkbox v-model="frm.receive_mail" id="receive_mail" value="Y" unchecked-value="N" size="sm" class="mr-3">
+                        이메일
+                        <b v-if="frm.receive_mail=='Y'">동의</b>
+                        <b v-else>거절</b>
+                    </b-form-checkbox>
+                    <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="sm">
+                        문자
+                        <b v-if="frm.receive_sms=='Y'">동의</b>
+                        <b v-else>거절</b>
+                    </b-form-checkbox>
+                </div>
             </b-col>
-
-            <b-col class="label">휴대폰</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.hp" :formatter="frm_formatHp" /></b-col>
-            <b-col class="checkbox01">
-                <b-form-checkbox v-model="frm.receive_sms" id="receive_sms" value="Y" unchecked-value="N" size="lg">
-                    수신
-                    <b v-if="frm.receive_sms=='Y'">동의</b>
-                    <b v-else>안함</b>
-                </b-form-checkbox>
+      
+            <b-col>
+                <label>이름</label>
+                <div><b-form-input v-model="frm.name" size="sm" /></div>
             </b-col>
-        </b-row>
-        <b-row v-if="user.is_super">
-            <b-col class="label">비밀번호</b-col>
-            <b-col class="type02">
-                <!-- vid <= 이건 오타가 아니라 비밀번호 확인시 유효성 검증을 위한 키워드이다 (  Validation ID) -->
-                <validation-provider vid="password" name="비밀번호" rules="required|min:6|pwCheck" v-slot="validationContext">
-                    <b-form-input type="password" id="password" placeholder="6자 영문, 숫자" v-model="frm.password" :state="getValidationState(validationContext)" />
-                    <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                </validation-provider>
+            <b-col>
+                <label>이메일</label>
+                <div><b-form-input v-model="frm.email" size="sm" /></div>
             </b-col>
-
-            <b-col class="label">비밀번호 확인</b-col>
-            <b-col class="type02">
-                <validation-provider name="비밀번호 확인" rules="required|confirmed:password" v-slot="validationContext">
-                    <b-form-input type="password" id="password_confirmation" placeholder="비밀번호 확인" v-model="frm.password_confirmation" :state="getValidationState(validationContext)" />
-                    <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                </validation-provider>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col class="label">생년월일</b-col>
-            <b-col class="type02">
+            <b-col>
+                <label>생년월일</label>
                 <b-input-group size="sm">
                     <b-form-input v-model="frm.birth" id="birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="frm_formatDate" required></b-form-input>
                     <b-input-group-append>
@@ -105,46 +86,91 @@
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
-            <b-col class="label">일반전화</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.tel" /></b-col>
-            <b-col class="label">팩스</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.fax" /></b-col>
+            <b-col></b-col>
+            <b-col>
+                <label>휴대폰</label>
+                <div><b-form-input v-model="frm.hp" :formatter="frm_formatHp" size="sm" /></div>
+            </b-col>
+
+            <b-col>
+                <label>일반전화</label>
+                <div><b-form-input v-model="frm.tel" size="sm" /></div>
+            </b-col>
+            <b-col>
+                <label>팩스</label>
+                <div><b-form-input v-model="frm.fax" size="sm" /></div>
+            </b-col>
+            <b-col></b-col>
+        
+            <template v-if="user.is_super">
+                <b-col>
+                    <label>비밀번호</label>
+                    <div>
+                        <!-- vid <= 이건 오타가 아니라 비밀번호 확인시 유효성 검증을 위한 키워드이다 (  Validation ID) -->
+                        <validation-provider vid="password" name="비밀번호" rules="required|min:6|pwCheck" v-slot="validationContext">
+                            <b-form-input type="password" id="password" placeholder="6자 영문, 숫자" v-model="frm.password" :state="getValidationState(validationContext)" size="sm" autocomplete="new-password" />
+                            <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                        </validation-provider>
+                    </div>
+                </b-col>
+
+                <b-col>
+                    <label>비밀번호 확인</label>
+                    <div>
+                        <validation-provider name="비밀번호 확인" rules="required|confirmed:password" v-slot="validationContext">
+                            <b-form-input type="password" id="password_confirmation" placeholder="비밀번호 확인" v-model="frm.password_confirmation" :state="getValidationState(validationContext)" size="sm" />
+                            <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                        </validation-provider>
+                    </div>
+                </b-col>
+            </template>
         </b-row>
 
         <b-row><b-col><hr /></b-col></b-row>
 
-        <b-row>
-            <b-col class="label">직업</b-col>
-            <b-col class="type02">
-                <b-form-select v-model="frm.job">
-                    <b-form-select-option v-for="(v, k) in frm.option.job" :key="k" :value="v">{{v}}</b-form-select-option>
-                </b-form-select>
+        <b-row class="label_form quarter">
+            <b-col>
+                <label>직업</label>
+                <div>
+                    <b-form-select v-model="frm.job" size="sm">
+                        <b-form-select-option v-for="(v, k) in frm.option.job" :key="k" :value="v">{{v}}</b-form-select-option>
+                    </b-form-select>
+                </div>
             </b-col>
-
-            <b-col class="label">직장/학교명</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.company" /></b-col>
-
-            <b-col class="label short">부서/학과/<br />연구실명</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.part" /></b-col>
-
-            <b-col class="label">직급/학년</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.grade" /></b-col>
-
-            <b-col class="label short">지도/담당교수</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.tutor" /></b-col>
-
-            <b-col class="label short">추천인 Email</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.offer" /></b-col>
-
-            <b-col class="label short">추천인연구실</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.offer_lab" /></b-col>
-
-            <b-col class="label">가입경로</b-col>
-            <b-col class="type02"><b-form-input v-model="frm.join_route" /></b-col>
-
-            <b-col class="label">관심분야</b-col>
-            <b-col class="type11">
-                {{frm.interest}}<template v-if="frm.interest_etc">, {{frm.interest_etc}}</template>
+            <b-col>
+                <label>직장/학교명</label>
+                    <div><b-form-input v-model="frm.company" size="sm" /></div>
+                </b-col>
+            <b-col>
+                <label>부서/학과/연구실명</label>
+                    <div><b-form-input v-model="frm.part" size="sm" /></div>
+                </b-col>
+            <b-col>
+                <label>직급/학년</label>
+                    <div><b-form-input v-model="frm.grade" size="sm" /></div>
+                </b-col>
+            <b-col>
+                <label>지도/담당교수</label>
+                <div><b-form-input v-model="frm.tutor" size="sm" /></div>
+            </b-col>
+            <b-col>
+                <label>추천인 Email</label>
+                <div><b-form-input v-model="frm.offer" size="sm" /></div>
+            </b-col>
+            <b-col>
+                <label>추천인연구실</label>
+                <div><b-form-input v-model="frm.offer_lab" size="sm" /></div>
+            </b-col>
+            <b-col>
+                <label>가입경로</label>
+                <div><b-form-input v-model="frm.join_route" size="sm" /></div>
+            </b-col>
+            <b-col>
+                <label>관심분야</label>
+                <div>
+                    {{frm.interest}}
+                    <template v-if="frm.interest_etc">, {{frm.interest_etc}}</template>
+                </div>
             </b-col>
         </b-row>
     </b-container>
@@ -368,4 +394,7 @@ export default {
 .container .row .checkbox01 >>> .custom-checkbox { display:flex; align-items:center; }
 .container .row .checkbox01 >>> .custom-checkbox .custom-control-label::before,
 .container .row .checkbox01 >>> .custom-checkbox .custom-control-label::after { position:absolute; top:50%; transform:translateY(-50%); }
+@media (max-width: 991px){
+    .act_ctrl .row .col { flex: 0 0 100%; max-width: 100%; }
+}
 </style>
