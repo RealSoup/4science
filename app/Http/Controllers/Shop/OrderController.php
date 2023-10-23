@@ -304,15 +304,16 @@ class OrderController extends Controller {
     }
 
     public function show($od_id) {
-        $data = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->with('orderPg')->find($od_id);
+        $rst['od'] = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->with('orderPg')->find($od_id);
 
-        foreach ($data->orderPurchaseAt as $opa) {
+        foreach ($rst['od']->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm)
 				$odm->orderDlvyInfo;
 		}
         
-        $data['order_config'] = $this->order->getOrderConfig();
-        return response()->json($data, 200);
+        $rst['order_config'] = $this->order->getOrderConfig();
+        $rst['order_config']['url_receipt'] = env('PSYS_URL03');
+        return response()->json($rst, 200);
     }
 
     public function update(Request $req, $id) {

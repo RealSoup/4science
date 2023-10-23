@@ -5,7 +5,7 @@
     <div v-else>
         <h5>
             <b>{{od.created_at}}</b> &nbsp; 주문번호 {{od.od_no}} &nbsp;
-            <order-step v-model="od.od_step" :order_config="od.order_config" />
+            <order-step v-model="od.od_step" :order_config="order_config" />
         </h5>
 
         <b-container class="goods">
@@ -129,14 +129,10 @@
                         <b-col>
                             <span v-if="od.od_pay_method=='B'">계좌이체</span>
                             <span v-else-if="od.od_pay_method=='E'">에스크로</span>
-                            <span v-else-if="od.od_pay_method=='C'">
-                                카드결제
-                                <template v-if="od.order_pg && od.order_pg.pg_pay_type != 'PSYS'">
-                                    <b-button class="sm" @click="openWinPop(`https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${od.order_pg.pg_tid}`, 450, 550)">매출전표</b-button>
-                                </template>
-                            </span>
+                            <span v-else-if="od.od_pay_method=='C'">카드결제</span>
                             <span v-else-if="od.od_pay_method=='P'">PSYS</span>
                             <span v-else-if="od.od_pay_method=='R'">원격결제</span>
+                            <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm" @click="getReceipt">매출전표</b-button>
                         </b-col>    
                     </b-row>
                     <b-row>
@@ -196,6 +192,9 @@ export default {
             od:{
                 order_extra_info:{},
             },
+            order_config: {
+                pay_method:[],
+            },
             receiptItem: {},
         }
     },
@@ -246,7 +245,7 @@ export default {
             this.isModalViewed = false;
         },
         getHref (com, num) {
-            return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+            return this.order_config.delivery_com[com].replace('[송장번호]', num);
         },
         
         print () {
@@ -271,11 +270,26 @@ export default {
             document.body.appendChild(fileLink);
             fileLink.click();
         },
+        getReceipt() {
+            let tid = this.od.order_pg.pg_tid;
+            let url = `https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${tid}`;
+            if(this.od.order_pg.pg_pay_type.startsWith('psys'))
+                url = this.order_config.url_receipt+'?tid='+this.base64_encode(tid);
+
+            this.openWinPop(url, 468, 750);
+        },
+
+        base64_encode(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+        },
     },
     async mounted() {
         const res = await ax.get(`/api/shop/order/${this.$route.params.od_id}`);
         if (res && res.status === 200) {
-            this.od = res.data;
+            this.od = res.data.od
+            this.order_config = res.data.order_config;
             this.isLoadingModalViewed= false;
         }
     },

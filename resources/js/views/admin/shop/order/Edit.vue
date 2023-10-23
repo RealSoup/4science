@@ -80,7 +80,7 @@
             <b-row tag="h5">
                 <b-col tag="b">주문 상품</b-col>
                 <b-col class="text-right print_hide">
-                    <b-button @click="toEstimate" class="sm green" v-if="od.created_id">모든상품 임의견적으로 복사</b-button>
+                    <b-button @click="toEstimate" class="sm green" v-if="od.created_id">모든상품 임의견적 복사</b-button>
                     <b-button @click="update('odm_ea')" class="sm teal">상품정보 수정</b-button>
                 </b-col>
             </b-row>

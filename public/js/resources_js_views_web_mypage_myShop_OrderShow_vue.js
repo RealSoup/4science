@@ -48,6 +48,9 @@ var dt = new Date();
       od: {
         order_extra_info: {}
       },
+      order_config: {
+        pay_method: []
+      },
       receiptItem: {}
     };
   },
@@ -91,7 +94,7 @@ var dt = new Date();
       this.isModalViewed = false;
     },
     getHref: function getHref(com, num) {
-      return this.od.order_config.delivery_com[com].replace('[송장번호]', num);
+      return this.order_config.delivery_com[com].replace('[송장번호]', num);
     },
     print: function print() {
       var url = "/api/shop/order/printEstimate/".concat(this.$route.params.od_id);
@@ -148,6 +151,17 @@ var dt = new Date();
       fileLink.setAttribute('download', fileNm);
       document.body.appendChild(fileLink);
       fileLink.click();
+    },
+    getReceipt: function getReceipt() {
+      var tid = this.od.order_pg.pg_tid;
+      var url = "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=".concat(tid);
+      if (this.od.order_pg.pg_pay_type.startsWith('psys')) url = this.order_config.url_receipt + '?tid=' + this.base64_encode(tid);
+      this.openWinPop(url, 468, 750);
+    },
+    base64_encode: function base64_encode(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
     }
   },
   mounted: function mounted() {
@@ -162,7 +176,8 @@ var dt = new Date();
           case 2:
             res = _context3.sent;
             if (res && res.status === 200) {
-              _this3.od = res.data;
+              _this3.od = res.data.od;
+              _this3.order_config = res.data.order_config;
               _this3.isLoadingModalViewed = false;
             }
           case 4:
@@ -203,7 +218,7 @@ var render = function render() {
     }
   }, [_vm._v("Loading ......")]) : _c("div", [_c("h5", [_c("b", [_vm._v(_vm._s(_vm.od.created_at))]), _vm._v("   주문번호 " + _vm._s(_vm.od.od_no) + "  \r\n            "), _c("order-step", {
     attrs: {
-      order_config: _vm.od.order_config
+      order_config: _vm.order_config
     },
     model: {
       value: _vm.od.od_step,
@@ -326,14 +341,12 @@ var render = function render() {
     staticClass: "label_st"
   }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
-  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", [_vm.od.od_pay_method == "B" ? _c("span", [_vm._v("계좌이체")]) : _vm.od.od_pay_method == "E" ? _c("span", [_vm._v("에스크로")]) : _vm.od.od_pay_method == "C" ? _c("span", [_vm._v("\r\n                                카드결제\r\n                                "), _vm.od.order_pg && _vm.od.order_pg.pg_pay_type != "PSYS" ? [_c("b-button", {
+  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", [_vm.od.od_pay_method == "B" ? _c("span", [_vm._v("계좌이체")]) : _vm.od.od_pay_method == "E" ? _c("span", [_vm._v("에스크로")]) : _vm.od.od_pay_method == "C" ? _c("span", [_vm._v("카드결제")]) : _vm.od.od_pay_method == "P" ? _c("span", [_vm._v("PSYS")]) : _vm.od.od_pay_method == "R" ? _c("span", [_vm._v("원격결제")]) : _vm._e(), _vm._v(" "), _vm.od.order_pg && _vm.od.order_pg.pg_id ? _c("b-button", {
     staticClass: "sm",
     on: {
-      click: function click($event) {
-        return _vm.openWinPop("https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=".concat(_vm.od.order_pg.pg_tid), 450, 550);
-      }
+      click: _vm.getReceipt
     }
-  }, [_vm._v("매출전표")])] : _vm._e()], 2) : _vm.od.od_pay_method == "P" ? _c("span", [_vm._v("PSYS")]) : _vm.od.od_pay_method == "R" ? _c("span", [_vm._v("원격결제")]) : _vm._e()])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }, [_vm._v("매출전표")]) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("입금자명")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.od.order_extra_info.oex_depositor))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"

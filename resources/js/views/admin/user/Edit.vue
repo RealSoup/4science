@@ -24,7 +24,7 @@
 
     <b-container class="box">
         <h5>
-            회원정보 <b-button @click="login" class="sky xm ml-3" v-if="user.is_super && frm.level<20"><b-icon-power /></b-button> 
+            회원정보 <b-button @click="login" class="sky xm ml-3" v-if="user.is_super"><b-icon-power /></b-button> 
         </h5>
         <b-row class="label_form quarter">
             <b-col>

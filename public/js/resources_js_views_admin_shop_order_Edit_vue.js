@@ -916,7 +916,7 @@ var render = function render() {
     on: {
       click: _vm.toEstimate
     }
-  }, [_vm._v("선택상품 임의견적으로 복사")]) : _vm._e(), _vm._v(" "), _c("b-button", {
+  }, [_vm._v("모든상품 임의견적 복사")]) : _vm._e(), _vm._v(" "), _c("b-button", {
     staticClass: "sm teal",
     on: {
       click: function click($event) {

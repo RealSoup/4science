@@ -618,11 +618,11 @@ class EstimateController extends Controller {
                             'em_spec'       => $md['odm_gm_spec'],
                             'em_ea'         => $md['odm_ea'],
                             'em_cost_price' => $md['odm_price'],
-                            'em_price'      => $md['odm_price_add_vat'] 
+                            'em_price'      => $md['odm_price'] 
                         ], 'em_id');
                         $chk_for_opt[$md['odm_gd_id']] = $em_id;
                     }
-                    
+
                     if( $md['odm_type'] == 'OPTION' && array_key_exists($md['odm_gd_id'], $chk_for_opt) && $chk_for_opt[$md['odm_gd_id']]) {
                         DB::table('shop_estimate_option')->insert([
                             'eo_em_id'  => $chk_for_opt[$md['odm_gd_id']],
@@ -631,7 +631,7 @@ class EstimateController extends Controller {
                             'eo_tit'    => $md['odm_gm_name'],
                             'eo_name'   => $md['odm_gm_spec'],
                             'eo_ea'     => $md['odm_ea'],
-                            'eo_price'  => $md['odm_price_add_vat'], 
+                            'eo_price'  => $md['odm_price'], 
                         ]);
                     }
                 }

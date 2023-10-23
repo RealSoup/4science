@@ -568,7 +568,7 @@ var render = function render() {
     }
   }, [_vm._v("배송지")])], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-container", {
     staticClass: "box"
-  }, [_c("h5", [_vm._v("\r\n            회원정보 "), _vm.user.is_super && _vm.frm.level < 20 ? _c("b-button", {
+  }, [_c("h5", [_vm._v("\r\n            회원정보 "), _vm.user.is_super ? _c("b-button", {
     staticClass: "sky xm ml-3",
     on: {
       click: _vm.login
