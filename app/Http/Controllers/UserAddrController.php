@@ -51,5 +51,5 @@ class UserAddrController extends Controller {
 		else return response()->json("Fail", 500);
     }
 
-    public function getEmailDomain(Request $req) { return auth()->user()::$option['email_domain']; }
+    public function getEmailDomain(Request $req) { return \App\Models\User::$option['email_domain']; }
 }

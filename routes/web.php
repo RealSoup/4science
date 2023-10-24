@@ -87,11 +87,20 @@ Route::post('social/connectExistAccount', ['as' => 'social.connectExistAccount',
 Route::post('auth/create/{code}', 'Auth\SocialController@socialUserJoin')->name('auth.create');
 Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->name('auth.join_sync_choice');
 
-Route::get('/shop/order/pgClose',       'Shop\OrderController@pgClose')->name('shop.order.pgClose');
-Route::POST('/shop/order/payReturn',    'Shop\OrderController@payReturn')->name('shop.order.payReturn');
-Route::POST('/shop/order/payRequestMobile', 'Shop\OrderController@payRequestMobile')->name('shop.order.payRequestMobile');
-Route::POST('/shop/order/payReturnMobile',  'Shop\OrderController@payReturnMobile')->name('shop.order.payReturnMobile');
-Route::POST('/shop/order/payReturnPsys',    'Shop\OrderController@payReturnPsys')->name('shop.order.payReturnPsys');
+Route::prefix('shop')->group(function () {
+    Route::prefix('order')->group(function () {
+        Route::get('pgClose',       'Shop\OrderController@pgClose');
+        Route::POST('payReturn',    'Shop\OrderController@payReturn');
+        Route::POST('payRequestMobile', 'Shop\OrderController@payRequestMobile');
+        Route::POST('payReturnMobile',  'Shop\OrderController@payReturnMobile');
+        Route::POST('payReturnPsys',    'Shop\OrderController@payReturnPsys');
+    });
+
+    Route::prefix('estimate')->group(function () {
+        Route::POST('create',   'Shop\EstimateController@create');
+        Route::POST('/',        'Shop\EstimateController@store');
+    });
+});
 
 Route::get('/test',              'TestController@index');
 Route::get('/test/mail_display', 'TestController@mail_display');
@@ -109,6 +118,10 @@ Route::get('/admin/crontab/adjustMemberLevel', 'Admin\CronTabController@adjustMe
 Route::POST('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
 Route::POST('/admin/shop/b2b_merck/Invoice', 'Admin\Shop\B2bMerckController@Invoice');
 Route::POST('/admin/shop/b2b_merck/Asn', 'Admin\Shop\B2bMerckController@Asn');
+Route::prefix('user')->group(function () {
+    Route::GET('getEmailDomain', 'UserAddrController@getEmailDomain');
+});
+
 
 //  검색엔진 실행
 Route::GET('/admin/shop/goods/exeIndex', 'Admin\Shop\GoodsController@exeIndex');

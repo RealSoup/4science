@@ -59,6 +59,7 @@
                         <span>통신판매업신고번호 : {{siteInfo.biz.e_comm_num}}</span>
                         <span>대표이사 : {{siteInfo.biz.ceo}}</span>
                     </p>
+                    <p>{{siteInfo.biz.company}}</p>
                     <p class="copy">
                         <b-col>Copyright(c)2016 by iNexus, inc. All rights reserved.</b-col>
                     </p>                        

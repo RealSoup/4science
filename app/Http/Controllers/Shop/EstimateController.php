@@ -106,7 +106,8 @@ class EstimateController extends Controller {
                                 'em_cost_price' => $item['price'],
                                 'em_price'      => $item['price'],
                             ]);
-                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
+                            if(auth()->check())
+                                Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                         } else if ($item['type'] == 'option') {
                             EstimateOption::insert([
                                 'eo_em_id'  => $em_id,
@@ -117,7 +118,8 @@ class EstimateController extends Controller {
                                 'eo_ea'     => $item['ea'],
                                 'eo_price'  => $item['price'],
                             ]);
-                            Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
+                            if(auth()->check())
+                                Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
                         }
                     }
                 }
