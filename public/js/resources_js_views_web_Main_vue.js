@@ -514,7 +514,7 @@ var render = function render() {
             }
           }
         }
-      }, [gd.goods.image_src_thumb.length ? _c("b-img", {
+      }, [gd.goods.image_src_thumb && gd.goods.image_src_thumb.length ? _c("b-img", {
         attrs: {
           fluid: "",
           src: gd.goods.image_src_thumb[0]
