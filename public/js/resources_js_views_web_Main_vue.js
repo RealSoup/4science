@@ -514,7 +514,7 @@ var render = function render() {
             }
           }
         }
-      }, [gd.hasOwnProperty("goods") && gd.goods.hasOwnProperty("image_src_thumb") && gd.goods.image_src_thumb.length ? _c("b-img", {
+      }, [gd.goods && gd.goods.hasOwnProperty("image_src_thumb") && gd.goods.image_src_thumb.length ? _c("b-img", {
         attrs: {
           fluid: "",
           src: gd.goods.image_src_thumb[0]
