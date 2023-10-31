@@ -514,10 +514,15 @@ var render = function render() {
             }
           }
         }
-      }, [_c("b-img", {
+      }, [gd.goods.image_src_thumb.length ? _c("b-img", {
         attrs: {
           fluid: "",
           src: gd.goods.image_src_thumb[0]
+        }
+      }) : _c("b-img", {
+        attrs: {
+          fluid: "",
+          src: "/storage/goods/noimg.jpg"
         }
       }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.goods.gd_name))])], 1);
     }), 1)], 1) : _vm._e()];

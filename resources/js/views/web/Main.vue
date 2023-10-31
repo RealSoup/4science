@@ -113,7 +113,8 @@
                         v-for="(gd, i) in best_cate[ca.ca_id]" :key="i"
                         :to="{name:'goods_show', params:{gd_id:gd.sw_key}}"
                     >
-                        <b-img fluid :src="gd.goods.image_src_thumb[0]" />
+                        <b-img v-if="gd.goods.image_src_thumb.length" fluid :src="gd.goods.image_src_thumb[0]" />
+                        <b-img v-else fluid src="/storage/goods/noimg.jpg" />
                         <p>{{gd.goods.gd_name}}</p>
                     </b-link>
                 </b-col>
