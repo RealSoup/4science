@@ -55,12 +55,12 @@ export default {
             try {
                 if (this.frm.check.inexus !== 'Y')     { 
                     Notify.toast('danger', "(주)아이넥서스 이용약관에 동의 해주세요.");
-                    document.getElementById('hp01').scrollIntoView();
+                    document.getElementById('hp').scrollIntoView();
                     return false;
                 }
                 if (this.frm.check.personal !== 'Y')    { 
                     Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-                    document.getElementById('hp01').scrollIntoView();
+                    document.getElementById('hp').scrollIntoView();
                     return false;
                 }
 
@@ -68,7 +68,6 @@ export default {
                 if (this.$route.params.code == 'sync')
                      url = "/social/connectExistAccount";
                 
-                this.frm.hp = `${this.frm.hp01}-${this.frm.hp02}-${this.frm.hp03}`;
                 if ( this.frm.level == 11 ) {
                     this.frm.ub_num = `${this.frm.ub_num01}-${this.frm.ub_num02}-${this.frm.ub_num03}`;
                     this.frm.file_info.length = this.frm.file_info.length;

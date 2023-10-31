@@ -2,6 +2,8 @@
 <b-container id="mypage">
     <h2>
         마이페이지
+        <b-button class="xm teal" @click="$store.dispatch('auth/logout')">로그아웃
+        </b-button>
         <!-- <small>
             <b-button class="xm teal" @click="copyToClipboard(`https://4science.net/auth/create/personal?f_code=${user.id}`)">
                 <font-awesome-icon icon="copy" />

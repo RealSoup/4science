@@ -127,7 +127,14 @@ var render = function render() {
     attrs: {
       id: "mypage"
     }
-  }, [_c("h2", [_vm._v("\r\n        마이페이지\r\n        ")]), _vm._v(" "), _c("b-row", {
+  }, [_c("h2", [_vm._v("\r\n        마이페이지\r\n        "), _c("b-button", {
+    staticClass: "xm teal",
+    on: {
+      click: function click($event) {
+        return _vm.$store.dispatch("auth/logout");
+      }
+    }
+  }, [_vm._v("로그아웃\r\n        ")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "top"
   }, [_c("b-col", {
     staticClass: "name"

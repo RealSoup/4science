@@ -3,7 +3,7 @@
     <b-col class="default">
         <h4>01. 기본정보</h4>
         <b-container class="frm_vali_st">
-            <b-row>
+            <b-row class="add_col">
                 <b-col class="label_st">이메일<b class="need" /></b-col>
                 <b-col class="email">                        
                     <validation-provider name="이메일" rules="required|email" v-slot="validationContext">
@@ -20,7 +20,7 @@
                     </b-form-checkbox>
                 </b-col>
             </b-row>
-            <b-row>
+            <b-row class="add_col">
                 <b-col class="label_st">비밀번호<b class="need" /></b-col>
                 <b-col>
                     <!-- vid <= 이건 오타가 아니라 비밀번호 확인시 유효성 검증을 위한 키워드이다 (  Validation ID) -->
@@ -79,19 +79,11 @@
                     <Validation :error="$store.state.error.validations.company" />
                 </b-col>
             </b-row>
-            <b-row>
+            <b-row class="add_col">
                 <b-col class="label_st">휴대폰<b class="need" /></b-col>
-                <b-col class="hp">
-                    <validation-provider name="휴대폰 1" rules="required|length:3|numeric" v-slot="validationContext">
-                        <b-form-input id="hp01" v-model="value.hp01" ref="hp01" @input.native="focusNext($event, 3, 'hp02')" :formatter="maxlength_3" :state="getValidationState(validationContext)"  />
-                        <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                    </validation-provider>
-                    <validation-provider name="휴대폰 2" rules="required|length:4|numeric" v-slot="validationContext">
-                        <b-form-input id="hp02" v-model="value.hp02" ref="hp02" @input.native="focusNext($event, 4, 'hp03')" :formatter="maxlength_4" :state="getValidationState(validationContext)" />
-                        <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                    </validation-provider>
-                    <validation-provider name="휴대폰 3" rules="required|length:4|numeric" v-slot="validationContext">
-                        <b-form-input id="hp03" v-model="value.hp03" ref="hp03" :formatter="maxlength_4" :state="getValidationState(validationContext)" />
+                <b-col>
+                    <validation-provider name="휴대폰" rules="required" v-slot="validationContext">
+                        <b-form-input id="hp" v-model="value.hp" :formatter="format_hp" :state="getValidationState(validationContext)"  />
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>
                     <Validation :error="$store.state.error.validations.hp" />
@@ -211,8 +203,7 @@ export default {
         },
         
         focusNext(e, max, next) { this.$focusNext(e, max, next); },
-        maxlength_3(e){ return String(e.replace(/[^0-9]/g, '')).substring(0, 3); },
-        maxlength_4(e){ return String(e.replace(/[^0-9]/g, '')).substring(0, 4); },
+        format_hp(e) { return this.formatHp(e); },
         format_tel(e) { return this.formatTel(e); },
         format_date(e) { return this.formatDate(e); },
 
@@ -262,10 +253,6 @@ export default {
 .form_box .col .frm_vali_st .row .col select:focus:not(.is-valid, .is-invalid),
 .form_box .col .frm_vali_st .row .col textarea:focus:not(.is-valid, .is-invalid) { background:#fff; border:1px solid #000 !important; box-shadow:unset; border-radius:0; }
 .form_box .col .frm_vali_st .row .col .btn_white { background-color:#FFF; border-color:#CCCCCC; color:#000; }
-.form_box .col .frm_vali_st .row .col.hp { display:flex; justify-content:space-between; flex-wrap:wrap; }
-.form_box .col .frm_vali_st .row .col.hp span { position:relative; flex:0 0 30%; max-width:30%; }
-.form_box .col .frm_vali_st .row .col.hp span:nth-child(1):after,
-.form_box .col .frm_vali_st .row .col.hp span:nth-child(2):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989; }
 .form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px; }
 .form_box .col .frm_vali_st .agree { margin-bottom:.6rem; }
 .form_box .col .frm_vali_st .agree .col .custom-checkbox { display:inline-block; margin-right:1rem; }
@@ -282,5 +269,9 @@ export default {
     .form_box .default { margin-right:0; margin-bottom:2em; flex:0 0 100%; max-width:100%; }
     .form_box .extra { margin-left:0;}
     .form_box>.col { padding:.5em; }
+
+    .form_box .col .frm_vali_st .add_col { justify-content: flex-end; }
+    .form_box .col .frm_vali_st .add_col .col:not(.label_st) { flex: 0 0 calc(100% - 100px); max-width: calc(100% - 100px); }
+    .form_box .col .frm_vali_st .add_col .col:last-child { margin-top:6px; }
 }
 </style>

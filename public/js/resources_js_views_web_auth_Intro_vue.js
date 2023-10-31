@@ -22,9 +22,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isModalViewed: false
     };
-  },
-  mounted: function mounted() {},
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -52,12 +50,20 @@ var render = function render() {
     attrs: {
       to: "/auth/create/personal"
     }
-  }, [_c("p", [_vm._v("일반 회원 가입하기")]), _vm._v(" "), _c("span", [_vm._v("만 14세 이상 가입 가능합니다.")])]), _vm._v(" "), _c("b-link", {
+  }, [_c("p", [_vm._v("일반 회원 가입"), _c("span", {
+    staticClass: "d-none d-lg-inline-block"
+  }, [_vm._v("하기")])]), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-inline-block"
+  }, [_vm._v("만 14세 이상 가입 가능합니다.")])]), _vm._v(" "), _c("b-link", {
     staticClass: "col direct",
     attrs: {
       to: "/auth/create/dealer"
     }
-  }, [_c("p", [_vm._v("딜러 회원 가입하기")]), _vm._v(" "), _c("span", [_vm._v("사업자 등록증을 보유한"), _c("br"), _vm._v("유통, 도소매 업체 (재판매업자)")])]), _vm._v(" "), _c("b-col", {
+  }, [_c("p", [_vm._v("딜러 회원 가입"), _c("span", {
+    staticClass: "d-none d-lg-inline-block"
+  }, [_vm._v("하기")])]), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-inline-block"
+  }, [_vm._v("사업자 등록증을 보유한"), _c("br"), _vm._v("유통, 도소매 업체 (재판매업자)")])]), _vm._v(" "), _c("b-col", {
     staticClass: "sns"
   }, [_c("b-link", {
     attrs: {
@@ -76,7 +82,7 @@ var render = function render() {
       src: _vm.s3url + "auth/join_kakao.png"
     }
   })], 1)], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "info"
+    staticClass: "info d-none d-lg-block"
   }, [_c("b-col", {
     staticClass: "mileage_info"
   }, [_c("p", [_vm._v("신규 가입 시 3,000 마일리지 제공!")]), _vm._v("            \r\n            (딜러회원 및 네이버/카카오 간편 가입 시 제외)\r\n        ")]), _vm._v(" "), _c("b-col", [_c("b-button", {
@@ -132,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-0c37e902] { max-width:920px;\n}\n.container h3[data-v-0c37e902] { margin:4rem auto; font-weight:bold; font-size:3rem; text-align:center;\n}\n.container .con[data-v-0c37e902] { margin-bottom:1rem;\n}\n.container .con .col[data-v-0c37e902] { flex:0 0 300px; max-width:300px;\n}\n.container .con .col[data-v-0c37e902]:not(:last-child) { margin-right:10px;\n}\n.container .con .direct[data-v-0c37e902] { min-height:300px; border:3px solid #D7D7D7; border-radius:10px; text-align:center; background-repeat:no-repeat; background-position:center 30%; padding-top:8.8rem;\n}\n.container .con .direct p[data-v-0c37e902] { font-weight:bold; margin-bottom:.4rem; font-size:1.5rem;\n}\n.container .con .direct[data-v-0c37e902]:first-child { background-image:url('/storage/auth/join_user.png');\n}\n.container .con .direct[data-v-0c37e902]:first-child:hover { background-image:url('/storage/auth/join_user_h.png');\n}\n.container .con .direct:first-child:hover p[data-v-0c37e902] { color:#01ADBB;\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2) { background-image:url('/storage/auth/join_dealer.png');\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2):hover { background-image:url('/storage/auth/join_dealer_h.png');\n}\n.container .con .direct:nth-child(2):hover p[data-v-0c37e902] { color:#01ADBB;\n}\n.container .con .direct span[data-v-0c37e902] { font-size:.96rem;\n}\n.container .con .sns[data-v-0c37e902] { padding:0;\n}\n.container .con .sns a[data-v-0c37e902] { display:inline-block;\n}\n.container .con .sns a[data-v-0c37e902]:first-child { margin-bottom:10px;\n}\n.container .info[data-v-0c37e902] { justify-content:space-between;\n}\n.container .info .col[data-v-0c37e902] { flex:0 0 300px; max-width:300px; font-size:.85rem;\n}\n.container .info .col p[data-v-0c37e902] { font-weight:bold; margin-bottom:.7px; font-size:1.05rem;\n}\n.container .info .col[data-v-0c37e902]:nth-child(2) { text-align:right; padding:0;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-0c37e902] { max-width:920px;\n}\n.container h3[data-v-0c37e902] { margin:4rem auto; font-weight:bold; font-size:3rem; text-align:center;\n}\n.container .con[data-v-0c37e902] { margin-bottom:1rem;\n}\n.container .con .col[data-v-0c37e902] { flex:0 0 300px; max-width:300px;\n}\n.container .con .col[data-v-0c37e902]:not(:last-child) { margin-right:10px;\n}\n.container .con .direct[data-v-0c37e902] { min-height:300px; border:3px solid #D7D7D7; border-radius:10px; text-align:center; background-repeat:no-repeat; background-position:center 30%; padding-top:8.8rem;\n}\n.container .con .direct p[data-v-0c37e902] { font-weight:bold; margin-bottom:.4rem; font-size:1.5rem;\n}\n.container .con .direct[data-v-0c37e902]:first-child { background-image:url('/storage/auth/join_user.png');\n}\n.container .con .direct[data-v-0c37e902]:first-child:hover { background-image:url('/storage/auth/join_user_h.png');\n}\n.container .con .direct:first-child:hover p[data-v-0c37e902] { color:#01ADBB;\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2) { background-image:url('/storage/auth/join_dealer.png');\n}\n.container .con .direct[data-v-0c37e902]:nth-child(2):hover { background-image:url('/storage/auth/join_dealer_h.png');\n}\n.container .con .direct:nth-child(2):hover p[data-v-0c37e902] { color:#01ADBB;\n}\n.container .con .direct span[data-v-0c37e902] { font-size:.96rem;\n}\n.container .con .sns[data-v-0c37e902] { padding:0;\n}\n.container .con .sns a[data-v-0c37e902] { display:inline-block;\n}\n.container .con .sns a[data-v-0c37e902]:first-child { margin-bottom:10px;\n}\n.container .info[data-v-0c37e902] { justify-content:space-between;\n}\n.container .info .col[data-v-0c37e902] { flex:0 0 300px; max-width:300px; font-size:.85rem;\n}\n.container .info .col p[data-v-0c37e902] { font-weight:bold; margin-bottom:.7px; font-size:1.05rem;\n}\n.container .info .col[data-v-0c37e902]:nth-child(2) { text-align:right; padding:0;\n}\n@media (max-width: 992px){\n.container h3[data-v-0c37e902] { font-size:2em; margin:1em auto;\n}\n.container .con[data-v-0c37e902] { justify-content:space-between;\n}\n.container .con .col[data-v-0c37e902]:not(:last-child) { margin-right:0;\n}\n.container .con .direct[data-v-0c37e902] { padding:1em; min-height:auto; background-image:none !important; flex:0 0 48%; max-width:48%; border-radius:6px;\n}\n.container .con .direct p[data-v-0c37e902] { margin:0; font-size:1.1em;\n}\n.container .con .sns[data-v-0c37e902] { flex:0 0 100%; max-width:100%; display:flex; flex-wrap:wrap; justify-content:space-between; margin-top:12px;\n}\n.container .con .sns a[data-v-0c37e902] { flex: 0 0 48%; max-width: 48%;\n}\n.container .con .sns a img[data-v-0c37e902] { width:100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

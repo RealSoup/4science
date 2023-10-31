@@ -70,11 +70,8 @@ __webpack_require__.r(__webpack_exports__);
     focusNext: function focusNext(e, max, next) {
       this.$focusNext(e, max, next);
     },
-    maxlength_3: function maxlength_3(e) {
-      return String(e.replace(/[^0-9]/g, '')).substring(0, 3);
-    },
-    maxlength_4: function maxlength_4(e) {
-      return String(e.replace(/[^0-9]/g, '')).substring(0, 4);
+    format_hp: function format_hp(e) {
+      return this.formatHp(e);
     },
     format_tel: function format_tel(e) {
       return this.formatTel(e);
@@ -129,7 +126,9 @@ var render = function render() {
     staticClass: "default"
   }, [_c("h4", [_vm._v("01. 기본정보")]), _vm._v(" "), _c("b-container", {
     staticClass: "frm_vali_st"
-  }, [_c("b-row", [_c("b-col", {
+  }, [_c("b-row", {
+    staticClass: "add_col"
+  }, [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("이메일"), _c("b", {
     staticClass: "need"
@@ -180,7 +179,9 @@ var render = function render() {
       },
       expression: "value.receive_mail"
     }
-  }, [_vm._v("\r\n                        수신\r\n                        "), _vm.value.receive_mail == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("안함")])])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }, [_vm._v("\r\n                        수신\r\n                        "), _vm.value.receive_mail == "Y" ? _c("b", [_vm._v("동의")]) : _c("b", [_vm._v("안함")])])], 1)], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "add_col"
+  }, [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("비밀번호"), _c("b", {
     staticClass: "need"
@@ -352,93 +353,32 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations.company
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  })], 1)], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "add_col"
+  }, [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("휴대폰"), _c("b", {
     staticClass: "need"
-  })]), _vm._v(" "), _c("b-col", {
-    staticClass: "hp"
-  }, [_c("validation-provider", {
+  })]), _vm._v(" "), _c("b-col", [_c("validation-provider", {
     attrs: {
-      name: "휴대폰 1",
-      rules: "required|length:3|numeric"
+      name: "휴대폰",
+      rules: "required"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(validationContext) {
         return [_c("b-form-input", {
-          ref: "hp01",
           attrs: {
-            id: "hp01",
-            formatter: _vm.maxlength_3,
-            state: _vm.getValidationState(validationContext)
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 3, "hp02");
-            }
-          },
-          model: {
-            value: _vm.value.hp01,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "hp01", $$v);
-            },
-            expression: "value.hp01"
-          }
-        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
-      }
-    }])
-  }), _vm._v(" "), _c("validation-provider", {
-    attrs: {
-      name: "휴대폰 2",
-      rules: "required|length:4|numeric"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(validationContext) {
-        return [_c("b-form-input", {
-          ref: "hp02",
-          attrs: {
-            id: "hp02",
-            formatter: _vm.maxlength_4,
-            state: _vm.getValidationState(validationContext)
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 4, "hp03");
-            }
-          },
-          model: {
-            value: _vm.value.hp02,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "hp02", $$v);
-            },
-            expression: "value.hp02"
-          }
-        }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
-      }
-    }])
-  }), _vm._v(" "), _c("validation-provider", {
-    attrs: {
-      name: "휴대폰 3",
-      rules: "required|length:4|numeric"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(validationContext) {
-        return [_c("b-form-input", {
-          ref: "hp03",
-          attrs: {
-            id: "hp03",
-            formatter: _vm.maxlength_4,
+            id: "hp",
+            formatter: _vm.format_hp,
             state: _vm.getValidationState(validationContext)
           },
           model: {
-            value: _vm.value.hp03,
+            value: _vm.value.hp,
             callback: function callback($$v) {
-              _vm.$set(_vm.value, "hp03", $$v);
+              _vm.$set(_vm.value, "hp", $$v);
             },
-            expression: "value.hp03"
+            expression: "value.hp"
           }
         }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
       }
@@ -702,7 +642,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form_box>.col { border:3px solid #EBEBEB; border-radius:10px; padding:2rem;\n}\n.form_box .default { margin-right:18px;}\n.form_box .extra { margin-left:18px;}\n.form_box .col .frm_vali_st .row { margin-bottom:1.1rem;\n}\n.form_box .col .frm_vali_st .row .col.label_st { flex-basis:100px; max-width:100px; font-weight:bold; padding-top:6px; font-size:.9rem;\n}\n.form_box .col .frm_vali_st .row .col .need { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px;\n}\n.form_box .col .frm_vali_st .row .col small { font-size:60%;\n}\n.form_box .col .frm_vali_st .row .col input,\r\n.form_box .col .frm_vali_st .row .col select,\r\n.form_box .col .frm_vali_st .row .col textarea { padding:2px 23px; font-size:.9rem; color:#898989; background-color:#F2F3F5;\n}\n.form_box .col .frm_vali_st .row .col .btn { font-size:.9rem;\n}\n.form_box .col .frm_vali_st .row .col textarea { padding:13px 23px;\n}\n.form_box .col .frm_vali_st .row .col input:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col select:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col textarea:not(.is-valid, .is-invalid) {  border-width:0;\n}\n.form_box .col .frm_vali_st .row .col input:focus:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col select:focus:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col textarea:focus:not(.is-valid, .is-invalid) { background:#fff; border:1px solid #000 !important; box-shadow:unset; border-radius:0;\n}\n.form_box .col .frm_vali_st .row .col .btn_white { background-color:#FFF; border-color:#CCCCCC; color:#000;\n}\n.form_box .col .frm_vali_st .row .col.hp { display:flex; justify-content:space-between; flex-wrap:wrap;\n}\n.form_box .col .frm_vali_st .row .col.hp span { position:relative; flex:0 0 30%; max-width:30%;\n}\n.form_box .col .frm_vali_st .row .col.hp span:nth-child(1):after,\r\n.form_box .col .frm_vali_st .row .col.hp span:nth-child(2):after { content:'-'; position:absolute; top:6px; right:-17px; font-weight:bold; font-size:20px; color:#898989;\n}\n.form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px;\n}\n.form_box .col .frm_vali_st .agree { margin-bottom:.6rem;\n}\n.form_box .col .frm_vali_st .agree .col .custom-checkbox { display:inline-block; margin-right:1rem;\n}\n.form_box .col .frm_vali_st .agree .col a,\r\n.form_box .col .frm_vali_st .agree .col >>> label { font-size:.9rem; color:#8A8A8A;\n}\n.form_box .col .frm_vali_st .agree .col a { text-decoration:underline; font-size:.8rem;\n}\n.form_box .col .frm_vali_st .all_true { margin-bottom:1.7rem;\n}\n.form_box .col .frm_vali_st .all_true .col { border:3px solid #B3DFFA; text-align:center; padding:1rem;\n}\n.form_box .col .frm_vali_st .all_true .col >>> label { font-size:1rem;\n}\n.form_box .extra .frm_vali_st .row .col.label_st { flex-basis:150px; max-width:150px;\n}\n.form_box .extra .slt_item>>>fieldset legend { font-weight:bold; font-size:.9rem; padding:0;\n}\n.form_box .extra .slt_item>>>span { font-size:.9rem;\n}\n@media (max-width: 992px) {\n.form_box .default { margin-right:0; margin-bottom:2em; flex:0 0 100%; max-width:100%;\n}\n.form_box .extra { margin-left:0;}\n.form_box>.col { padding:.5em;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form_box>.col { border:3px solid #EBEBEB; border-radius:10px; padding:2rem;\n}\n.form_box .default { margin-right:18px;}\n.form_box .extra { margin-left:18px;}\n.form_box .col .frm_vali_st .row { margin-bottom:1.1rem;\n}\n.form_box .col .frm_vali_st .row .col.label_st { flex-basis:100px; max-width:100px; font-weight:bold; padding-top:6px; font-size:.9rem;\n}\n.form_box .col .frm_vali_st .row .col .need { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:2px; margin:0 0 9px 5px;\n}\n.form_box .col .frm_vali_st .row .col small { font-size:60%;\n}\n.form_box .col .frm_vali_st .row .col input,\r\n.form_box .col .frm_vali_st .row .col select,\r\n.form_box .col .frm_vali_st .row .col textarea { padding:2px 23px; font-size:.9rem; color:#898989; background-color:#F2F3F5;\n}\n.form_box .col .frm_vali_st .row .col .btn { font-size:.9rem;\n}\n.form_box .col .frm_vali_st .row .col textarea { padding:13px 23px;\n}\n.form_box .col .frm_vali_st .row .col input:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col select:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col textarea:not(.is-valid, .is-invalid) {  border-width:0;\n}\n.form_box .col .frm_vali_st .row .col input:focus:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col select:focus:not(.is-valid, .is-invalid),\r\n.form_box .col .frm_vali_st .row .col textarea:focus:not(.is-valid, .is-invalid) { background:#fff; border:1px solid #000 !important; box-shadow:unset; border-radius:0;\n}\n.form_box .col .frm_vali_st .row .col .btn_white { background-color:#FFF; border-color:#CCCCCC; color:#000;\n}\n.form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px;\n}\n.form_box .col .frm_vali_st .agree { margin-bottom:.6rem;\n}\n.form_box .col .frm_vali_st .agree .col .custom-checkbox { display:inline-block; margin-right:1rem;\n}\n.form_box .col .frm_vali_st .agree .col a,\r\n.form_box .col .frm_vali_st .agree .col >>> label { font-size:.9rem; color:#8A8A8A;\n}\n.form_box .col .frm_vali_st .agree .col a { text-decoration:underline; font-size:.8rem;\n}\n.form_box .col .frm_vali_st .all_true { margin-bottom:1.7rem;\n}\n.form_box .col .frm_vali_st .all_true .col { border:3px solid #B3DFFA; text-align:center; padding:1rem;\n}\n.form_box .col .frm_vali_st .all_true .col >>> label { font-size:1rem;\n}\n.form_box .extra .frm_vali_st .row .col.label_st { flex-basis:150px; max-width:150px;\n}\n.form_box .extra .slt_item>>>fieldset legend { font-weight:bold; font-size:.9rem; padding:0;\n}\n.form_box .extra .slt_item>>>span { font-size:.9rem;\n}\n@media (max-width: 992px) {\n.form_box .default { margin-right:0; margin-bottom:2em; flex:0 0 100%; max-width:100%;\n}\n.form_box .extra { margin-left:0;}\n.form_box>.col { padding:.5em;\n}\n.form_box .col .frm_vali_st .add_col { justify-content: flex-end;\n}\n.form_box .col .frm_vali_st .add_col .col:not(.label_st) { flex: 0 0 calc(100% - 100px); max-width: calc(100% - 100px);\n}\n.form_box .col .frm_vali_st .add_col .col:last-child { margin-top:6px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

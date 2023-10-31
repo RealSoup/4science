@@ -73,7 +73,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
               }
               Notify.toast('danger', "(주)아이넥서스 이용약관에 동의 해주세요.");
-              document.getElementById('hp01').scrollIntoView();
+              document.getElementById('hp').scrollIntoView();
               return _context.abrupt("return", false);
             case 5:
               if (!(_this.frm.check.personal !== 'Y')) {
@@ -81,76 +81,75 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
               }
               Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-              document.getElementById('hp01').scrollIntoView();
+              document.getElementById('hp').scrollIntoView();
               return _context.abrupt("return", false);
             case 9:
               url = "/register";
               if (_this.$route.params.code == 'sync') url = "/social/connectExistAccount";
-              _this.frm.hp = "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03);
               if (_this.frm.level == 11) {
                 _this.frm.ub_num = "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03);
                 _this.frm.file_info.length = _this.frm.file_info.length;
               }
-              _context.next = 15;
+              _context.next = 14;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("".concat(url), _this.frm);
-            case 15:
+            case 14:
               reg = _context.sent;
               if (!(reg && reg.status === 201)) {
-                _context.next = 36;
-                break;
-              }
-              if (!(_this.frm.level == 11)) {
-                _context.next = 20;
-                break;
-              }
-              _context.next = 20;
-              return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
-            case 20:
-              if (isEmpty(_this.$route.query.provider)) {
-                _context.next = 27;
-                break;
-              }
-              Notify.modal('가입 완료', 'success');
-              _context.next = 24;
-              return _this.$store.dispatch('auth/getAuth');
-            case 24:
-              _this.$router.push({
-                name: 'main'
-              });
-              _context.next = 36;
-              break;
-            case 27:
-              if (!(_this.$route.params.code == 'sync')) {
                 _context.next = 35;
                 break;
               }
-              Notify.modal('연동 되었습니다.', 'success');
-              _context.next = 31;
+              if (!(_this.frm.level == 11)) {
+                _context.next = 19;
+                break;
+              }
+              _context.next = 19;
+              return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
+            case 19:
+              if (isEmpty(_this.$route.query.provider)) {
+                _context.next = 26;
+                break;
+              }
+              Notify.modal('가입 완료', 'success');
+              _context.next = 23;
               return _this.$store.dispatch('auth/getAuth');
-            case 31:
+            case 23:
+              _this.$router.push({
+                name: 'main'
+              });
+              _context.next = 35;
+              break;
+            case 26:
+              if (!(_this.$route.params.code == 'sync')) {
+                _context.next = 34;
+                break;
+              }
+              Notify.modal('연동 되었습니다.', 'success');
+              _context.next = 30;
+              return _this.$store.dispatch('auth/getAuth');
+            case 30:
               _this.$store.dispatch('cart/index');
               _this.$router.push({
                 name: 'main'
               });
-              _context.next = 36;
+              _context.next = 35;
               break;
-            case 35:
+            case 34:
               _this.$router.push({
                 name: 'email_verify'
               });
-            case 36:
-              _context.next = 42;
+            case 35:
+              _context.next = 41;
               break;
-            case 38:
-              _context.prev = 38;
+            case 37:
+              _context.prev = 37;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 42:
+            case 41:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 38]]);
+        }, _callee, null, [[0, 37]]);
       }))();
     }
   },

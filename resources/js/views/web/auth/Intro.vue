@@ -4,12 +4,12 @@
    
     <b-row class="con">
         <b-link class="col direct" to="/auth/create/personal">
-            <p>일반 회원 가입하기</p>
-            <span>만 14세 이상 가입 가능합니다.</span>
+            <p>일반 회원 가입<span class="d-none d-lg-inline-block">하기</span></p>
+            <span class="d-none d-lg-inline-block">만 14세 이상 가입 가능합니다.</span>
         </b-link>
         <b-link class="col direct" to="/auth/create/dealer">
-            <p>딜러 회원 가입하기</p>
-            <span>사업자 등록증을 보유한<br />유통, 도소매 업체 (재판매업자)</span>
+            <p>딜러 회원 가입<span class="d-none d-lg-inline-block">하기</span></p>
+            <span class="d-none d-lg-inline-block">사업자 등록증을 보유한<br />유통, 도소매 업체 (재판매업자)</span>
         </b-link>
         <b-col class="sns">
             <b-link href="/social/naver">
@@ -20,7 +20,7 @@
             </b-link>
         </b-col>
     </b-row>
-    <b-row class="info">
+    <b-row class="info d-none d-lg-block">
         <b-col class="mileage_info">
             <p>신규 가입 시 3,000 마일리지 제공!</p>            
             (딜러회원 및 네이버/카카오 간편 가입 시 제외)
@@ -41,23 +41,8 @@
 <script>
 export default {
     name: 'AuthIntro',
-    components: {
-        'Modal'     : () => import('@/views/_common/Modal'),
-    },
-
-    data() {
-        return {
-            isModalViewed:false,
-        };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
+    components: { 'Modal'     : () => import('@/views/_common/Modal'), },
+    data() { return { isModalViewed:false, }; },
 };
 </script>
 
@@ -84,4 +69,15 @@ export default {
 .container .info .col { flex:0 0 300px; max-width:300px; font-size:.85rem; }
 .container .info .col p { font-weight:bold; margin-bottom:.7px; font-size:1.05rem; }
 .container .info .col:nth-child(2) { text-align:right; padding:0; }
+
+@media (max-width: 992px){
+    .container h3 { font-size:2em; margin:1em auto; }
+    .container .con { justify-content:space-between; }
+    .container .con .col:not(:last-child) { margin-right:0; }
+    .container .con .direct { padding:1em; min-height:auto; background-image:none !important; flex:0 0 48%; max-width:48%; border-radius:6px;  }
+    .container .con .direct p { margin:0; font-size:1.1em; }
+    .container .con .sns { flex:0 0 100%; max-width:100%; display:flex; flex-wrap:wrap; justify-content:space-between; margin-top:12px; }
+    .container .con .sns a { flex: 0 0 48%; max-width: 48%; }
+    .container .con .sns a img { width:100%; }
+}
 </style>
