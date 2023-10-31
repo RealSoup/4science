@@ -30,8 +30,11 @@ class SiteController extends Controller {
         Cache::forget("bank");
     }
 
-    public function mainCateGoods(Request $req, $ca_id) {  
-        $sw = ShowWindow::with('goods')->where([['sw_type', 'ca_best'], ['sw_group', $ca_id]])->orderBy("sw_seq")->get();    
+    public function mainCateGoods(Request $req, $ca_id) {
+        $sw = \App\Models\Shop\Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
+            ->where([['sw_type', 'ca_best'], ['sw_group', $ca_id]])
+            ->orderBy("sw_seq")
+            ->get();
         return response()->json($sw);
     }
 

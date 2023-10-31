@@ -76,12 +76,10 @@ class CacheMaker {
             Redis::set($key_nm, $db_key); 
             $data = [];
             foreach (json_decode(Redis::get('categoryAll')) as $ca) {
-                $data[$ca->ca_id] = ShowWindow::select('sw_key')
-                ->with(['goods' => fn ($q) => $q->select('gd_id', 'gd_name')])
-                ->Type('ca_best')
-                ->where('sw_group', $ca->ca_id)
-                ->orderBy('sw_seq')
-                ->get();
+                $data[$ca->ca_id] = Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
+                    ->where([['sw_type', 'ca_best'], ['sw_group', $ca->ca_id]])
+                    ->orderBy("sw_seq")
+                    ->get();
             }
             Redis::set('best_cate', json_encode($data));
         }
