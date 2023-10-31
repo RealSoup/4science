@@ -115,7 +115,7 @@
                     >
                         <b-img v-if="gd.goods && gd.goods.hasOwnProperty('image_src_thumb') && gd.goods.image_src_thumb.length" fluid :src="gd.goods.image_src_thumb[0]" />
                         <b-img v-else fluid src="/storage/goods/noimg.jpg" />
-                        <p>{{gd.goods.gd_name}}</p>
+                        <p v-if="gd.goods">{{gd.goods.gd_name}}</p>
                     </b-link>
                 </b-col>
             </b-row>
