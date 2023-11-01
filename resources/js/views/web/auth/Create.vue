@@ -63,6 +63,13 @@ export default {
                     document.getElementById('hp').scrollIntoView();
                     return false;
                 }
+                if (isEmpty(this.frm.join_route))    { 
+                    Notify.toast('danger', "가입 경로를 선택해주세요.");
+                    document.getElementById('join_route').scrollIntoView();
+                    return false;
+                }
+
+                
 
                 let url = "/register";
                 if (this.$route.params.code == 'sync')

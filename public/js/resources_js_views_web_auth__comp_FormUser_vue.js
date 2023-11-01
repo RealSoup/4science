@@ -245,12 +245,15 @@ var render = function render() {
       }
     }
   })], 1)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "slt_item"
-  }, [_c("b-form-group", {
+    staticClass: "slt_item",
     attrs: {
-      label: "가입경로"
+      id: "join_route"
     }
-  }, [_c("b-form-radio-group", {
+  }, [_c("div", {
+    staticClass: "mb-1"
+  }, [_vm._v("가입경로 "), _c("b", {
+    staticClass: "need"
+  })]), _vm._v(" "), _c("b-form-radio-group", {
     attrs: {
       options: _vm.join_route
     },
@@ -261,7 +264,7 @@ var render = function render() {
       },
       expression: "value.join_route"
     }
-  })], 1)], 1)], 1)], 1)], 1);
+  })], 1)], 1)], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -29,8 +29,9 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col class="slt_item">
-                    <b-form-group label="가입경로"><b-form-radio-group v-model="value.join_route" :options="join_route" /></b-form-group>
+                <b-col class="slt_item" id="join_route">
+                    <div class="mb-1">가입경로 <b class="need" /></div>
+                    <b-form-radio-group v-model="value.join_route" :options="join_route" />
                 </b-col>
             </b-row>   
         </b-container>

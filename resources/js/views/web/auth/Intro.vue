@@ -20,7 +20,7 @@
             </b-link>
         </b-col>
     </b-row>
-    <b-row class="info d-none d-lg-block">
+    <b-row class="info d-none d-lg-flex">
         <b-col class="mileage_info">
             <p>신규 가입 시 3,000 마일리지 제공!</p>            
             (딜러회원 및 네이버/카카오 간편 가입 시 제외)
@@ -54,6 +54,7 @@ export default {
 .container .con .col:not(:last-child) { margin-right:10px; }
 .container .con .direct { min-height:300px; border:3px solid #D7D7D7; border-radius:10px; text-align:center; background-repeat:no-repeat; background-position:center 30%; padding-top:8.8rem; }
 .container .con .direct p { font-weight:bold; margin-bottom:.4rem; font-size:1.5rem; }
+.container .con .direct p span { font-size:1.5rem; }
 .container .con .direct:first-child { background-image:url('/storage/auth/join_user.png'); }
 .container .con .direct:first-child:hover { background-image:url('/storage/auth/join_user_h.png'); }
 .container .con .direct:first-child:hover p { color:#01ADBB; }

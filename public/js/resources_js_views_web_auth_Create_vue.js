@@ -84,72 +84,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               document.getElementById('hp').scrollIntoView();
               return _context.abrupt("return", false);
             case 9:
+              if (!isEmpty(_this.frm.join_route)) {
+                _context.next = 13;
+                break;
+              }
+              Notify.toast('danger', "가입 경로를 선택해주세요.");
+              document.getElementById('join_route').scrollIntoView();
+              return _context.abrupt("return", false);
+            case 13:
               url = "/register";
               if (_this.$route.params.code == 'sync') url = "/social/connectExistAccount";
               if (_this.frm.level == 11) {
                 _this.frm.ub_num = "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03);
                 _this.frm.file_info.length = _this.frm.file_info.length;
               }
-              _context.next = 14;
+              _context.next = 18;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("".concat(url), _this.frm);
-            case 14:
+            case 18:
               reg = _context.sent;
               if (!(reg && reg.status === 201)) {
-                _context.next = 35;
+                _context.next = 39;
                 break;
               }
               if (!(_this.frm.level == 11)) {
-                _context.next = 19;
+                _context.next = 23;
                 break;
               }
-              _context.next = 19;
+              _context.next = 23;
               return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(reg.data);
-            case 19:
+            case 23:
               if (isEmpty(_this.$route.query.provider)) {
-                _context.next = 26;
+                _context.next = 30;
                 break;
               }
               Notify.modal('가입 완료', 'success');
-              _context.next = 23;
+              _context.next = 27;
               return _this.$store.dispatch('auth/getAuth');
-            case 23:
+            case 27:
               _this.$router.push({
                 name: 'main'
               });
-              _context.next = 35;
+              _context.next = 39;
               break;
-            case 26:
+            case 30:
               if (!(_this.$route.params.code == 'sync')) {
-                _context.next = 34;
+                _context.next = 38;
                 break;
               }
               Notify.modal('연동 되었습니다.', 'success');
-              _context.next = 30;
+              _context.next = 34;
               return _this.$store.dispatch('auth/getAuth');
-            case 30:
+            case 34:
               _this.$store.dispatch('cart/index');
               _this.$router.push({
                 name: 'main'
               });
-              _context.next = 35;
+              _context.next = 39;
               break;
-            case 34:
+            case 38:
               _this.$router.push({
                 name: 'email_verify'
               });
-            case 35:
-              _context.next = 41;
+            case 39:
+              _context.next = 45;
               break;
-            case 37:
-              _context.prev = 37;
+            case 41:
+              _context.prev = 41;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 41:
+            case 45:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 37]]);
+        }, _callee, null, [[0, 41]]);
       }))();
     }
   },
