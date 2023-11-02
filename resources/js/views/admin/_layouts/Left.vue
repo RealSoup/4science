@@ -109,7 +109,7 @@
         </article>        
     </section>
 
-    <footer><b-link :to="{name: 'main'}"><i><b-img src="/storage/common/logo/admin_4s.png" /></i></b-link></footer>
+    <footer><b-link :to="{name: 'main'}" target="_blank"><i><b-img src="/storage/common/logo/admin_4s.png" /></i></b-link></footer>
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
