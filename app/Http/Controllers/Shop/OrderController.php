@@ -429,6 +429,7 @@ class OrderController extends Controller {
         
         $params['msg'] = '';
         try {
+            dd($req->all());
             if (strcmp("0000", $req->resultCode) == 0) { // 인증이 성공일 경우만
                 $timestamp 		= $this->getTimestamp();
                 $mKey 			= hash("sha256", $this->signKey);
