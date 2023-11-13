@@ -100,7 +100,7 @@
                 </b-form-select>
             </b-col>
         </b-row>
-        <list v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off" />
+        <list v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off"></list>
         
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>

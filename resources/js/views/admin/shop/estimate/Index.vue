@@ -103,14 +103,14 @@
                 <b-button @click="exeWinPop(`/admin/shop/estimate/create`)" class="white sm">임의견적</b-button>
             </b-col>
         </b-row>
-        <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off" />
+        <list v-if="list.data && list.data.length" @exe-win-pop="exeWinPop" :list="list.data" :mng_off="mng_off"></list>
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
 	        <span slot="next-nav"><b-icon-chevron-right /></span>
         </pagination>
     </b-container>
 
-    <win-pop-up ref="winPopup"  @onClose="val=>evtCloseWinPopup(val)"  @onRecvEvtFromWinPop="val=>onRecvWinPop(val)" />
+    <win-pop-up ref="winPopup" @onClose="val=>evtCloseWinPopup(val)" @onRecvEvtFromWinPop="val=>onRecvWinPop(val)"></win-pop-up>
     <!-- <button type="button" @click="openWinPop">윈 팝업 띄우기</button>
     <button type="button" @click="sendToChild">윈 팝업으로 전송</button> -->
 </div>
