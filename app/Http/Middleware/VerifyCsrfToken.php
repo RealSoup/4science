@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware {
     protected $except = [
         'shop/order/tossBrandPayAccessToken',
         'shop/order/tossBillingKeyIssue/*',
+        'shop/order/payReturn',        
         'shop/order/payReturn/*',
         'shop/order/payReturnMobile',
         'shop/order/payReturnPsys',
