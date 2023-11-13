@@ -17,7 +17,7 @@
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
         <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
         <b-col>
-            <span v-if="row.user && row.user.is_dealer" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
+            <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
             <sub-string v-model="row.od_orderer" :width="120" />
             <span v-if="row.user && row.user.mng" class="nametag orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</span>
         </b-col>

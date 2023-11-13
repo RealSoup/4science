@@ -19,7 +19,7 @@
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.level">
                     <b-form-select-option value=""></b-form-select-option>
-                    <b-form-select-option v-for="(v, i) in option.grade" :value="i" :key="i">{{v}}</b-form-select-option>
+                    <b-form-select-option v-for="(v, i) in option.level" :value="i" :key="i">{{v}}</b-form-select-option>
                 </b-form-select>
             </b-col>
 
@@ -66,14 +66,14 @@
         <b-row class="body list" v-for="us in list.data" :key="us.id">
             <b-col class="d-none d-lg-block">
                 {{us.id}}
-                <b-badge v-if="us.level==1" class="normal">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==2" class="bronz">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==3" class="silver">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==4" class="gold">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==11" class="dealer_new">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==12" class="dealer">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==21" class="admin">{{option.grade[us.level]}}</b-badge>
-                <b-badge v-if="us.level==29" class="super">{{option.grade[us.level]}}</b-badge>
+                <b-badge v-if="us.level==1" class="normal">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==2" class="bronz">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==3" class="silver">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==4" class="gold">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==11" class="dealer_new">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==12" class="dealer">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==21" class="admin">{{option.level[us.level]}}</b-badge>
+                <b-badge v-if="us.level==29" class="super">{{option.level[us.level]}}</b-badge>
             </b-col>
             <b-col>
                 <b-link :to="{name: 'adm_user_edit', params: { id:us.id }}">{{us.name}}</b-link>

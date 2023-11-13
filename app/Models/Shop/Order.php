@@ -11,7 +11,7 @@ class Order extends Model {
     protected $primaryKey = 'od_id';
     protected $fillable = ['od_no', 'od_step', 'od_receive_confirm_possible', 'od_depositor', 'od_mng', 'created_id', 'created_at', 'ip']; // 수정가능 필드 입력
     
-    protected $orderConfig = [
+    public static $orderConfig = [
         'step' => [
             // 0 => [ 'receiveable' => false, 'class' => '',   'name' => '임시저장'],
             10 => [ 'receiveable' => false, 'class' => 'plum',    'name' => '주문접수',     'sm_name' => '접수' ],
@@ -32,10 +32,12 @@ class Order extends Model {
         ],
         'pay_method' => [
             'C' => '카드',
+            'CP' => '카드(포사페이)',
             'B' => '계좌이체',
             'P' => 'PSYS(즉시결제)',
             'S' => 'PSYS(후결제)',
             'R' => '원격결제',
+            'BL' => '빌링',
             // 'E' => '에스크로',
         ],
         'delivery_com' => [
@@ -58,7 +60,14 @@ class Order extends Model {
             'P' => 'PC', 
             'M' => 'MOBILE', 
             'A' => 'APP',
-        ]
+        ],
+        'od_plan' => [
+            'w1' => '1주',
+            'w2' => '2주',
+            'w3' => '3주',
+            'w4' => '4주',
+            'm2' => '2개월',
+        ],
     ];
     //  이거 안하면 디비랑 다른(UTC) 시간을 내보낸다.
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
@@ -68,7 +77,6 @@ class Order extends Model {
     public function newQuery() { return parent::newQuery()->where('od_step', '!=', '0'); }
 
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
-    public function getOrderConfig() { return $this->orderConfig; }
     // public function getStepAttribute() { return self::gdImgSrc(); }
 
     public function user() { return $this->belongsTo(\App\Models\User::class, 'created_id')->withDefault(); }

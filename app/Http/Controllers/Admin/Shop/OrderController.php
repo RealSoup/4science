@@ -60,7 +60,7 @@ class OrderController extends Controller {
 
 		$um = new UserMng;
 		$data['mng_info'] = $um->getMngInfo();
-		$data['order_config'] = $this->order->getOrderConfig();
+		$data['order_config'] = Order::$orderConfig;
 		$data['mng_on'] = json_decode(Redis::get('UserMngOn'));
 		$data['mng_off'] = json_decode(Redis::get('UserMngOff'));
 		
@@ -293,7 +293,7 @@ class OrderController extends Controller {
 		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;	
 		
 		$rst['od'] = $data;
-		$rst['order_config'] = $this->order->getOrderConfig();
+		$rst['order_config'] = Order::$orderConfig;
 		$rst['mng_on'] = json_decode(Redis::get('UserMngOn'));
         $rst['order_config']['url_receipt'] = env('PSYS_URL03');
 		return response()->json($rst, 200);

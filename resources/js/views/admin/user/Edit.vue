@@ -40,7 +40,7 @@
                 <div>
                     <b-form-select v-model="frm.level" id="level" size="sm">
                         <b-form-select-option value="0"></b-form-select-option>
-                        <b-form-select-option v-for="(grade, k) in frm.option.grade" :key="k" :value="k">{{grade}}</b-form-select-option>
+                        <b-form-select-option v-for="(level, k) in frm.option.level" :key="k" :value="k">{{level}}</b-form-select-option>
                     </b-form-select>
                 </div>
             </b-col>

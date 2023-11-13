@@ -116,6 +116,21 @@
                     </ul>
                 </div>
 
+                <div class="" v-if="content.gd_billing">
+                    <b-form-radio v-model="has_plan" :value="false">1회구매</b-form-radio>
+                    <b-form-radio v-model="has_plan" :value="true">정기배송</b-form-radio>
+                    
+                    <b-form-group v-if="has_plan" class="plan_list">
+                        <b-form-radio-group v-model="od_plan" :options=" [
+                            { text: '1주', value: 'w1' },
+                            { text: '2주', value: 'w2' },
+                            { text: '3주', value: 'w3' },
+                            { text: '4주', value: 'w4' },
+                            { text: '2개월', value: 'm2' }
+                        ]" button-variant="outline-primary" name="od_plan" buttons></b-form-radio-group>
+                    </b-form-group>
+                </div>
+
                 <div class="pick_info">
                     <div v-if="content.goods_model" class="total">
                         선택한 모델 <b class="cnt">{{pick_cnt}} 개</b> 합계 <b class="price">{{total | comma}} 원</b>
@@ -309,12 +324,18 @@ export default {
             bo_cnt:{
                 review:0,
                 inquiry:0,
-            }           
+            },
+            has_plan: false,
+            od_plan: '',
         }
     },
     watch: {
         '$route.params.gd_id': function (gd_id) {
             this.show();
+        },
+        has_plan: function (v) { 
+            if (v) this.od_plan = 'w1';
+            else this.od_plan = '';
         },
     },
     computed: {
@@ -399,7 +420,7 @@ export default {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
                     }                    
-                    this.$router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_inst' }});
+                    this.$router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_inst' }, query:{ od_plan: this.od_plan }});
                 break;
 
                 case "putCart":

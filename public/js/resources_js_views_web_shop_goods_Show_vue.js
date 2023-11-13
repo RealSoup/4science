@@ -82,12 +82,17 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       bo_cnt: {
         review: 0,
         inquiry: 0
-      }
+      },
+      has_plan: false,
+      od_plan: ''
     };
   },
   watch: {
     '$route.params.gd_id': function $routeParamsGd_id(gd_id) {
       this.show();
+    },
+    has_plan: function has_plan(v) {
+      if (v) this.od_plan = 'w1';else this.od_plan = '';
     }
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
@@ -210,6 +215,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 params: {
                   od_goods: params,
                   od_type: 'buy_inst'
+                },
+                query: {
+                  od_plan: _this3.od_plan
                 }
               });
               return _context2.abrupt("break", 39);
@@ -703,7 +711,60 @@ var render = function render() {
         }
       }, [_vm._v("X")])], 1)]) : _vm._e()];
     })];
-  })], 2) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("div", {
+  })], 2) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.content.gd_billing ? _c("div", {}, [_c("b-form-radio", {
+    attrs: {
+      value: false
+    },
+    model: {
+      value: _vm.has_plan,
+      callback: function callback($$v) {
+        _vm.has_plan = $$v;
+      },
+      expression: "has_plan"
+    }
+  }, [_vm._v("1회구매")]), _vm._v(" "), _c("b-form-radio", {
+    attrs: {
+      value: true
+    },
+    model: {
+      value: _vm.has_plan,
+      callback: function callback($$v) {
+        _vm.has_plan = $$v;
+      },
+      expression: "has_plan"
+    }
+  }, [_vm._v("정기배송")]), _vm._v(" "), _vm.has_plan ? _c("b-form-group", {
+    staticClass: "plan_list"
+  }, [_c("b-form-radio-group", {
+    attrs: {
+      options: [{
+        text: "1주",
+        value: "w1"
+      }, {
+        text: "2주",
+        value: "w2"
+      }, {
+        text: "3주",
+        value: "w3"
+      }, {
+        text: "4주",
+        value: "w4"
+      }, {
+        text: "2개월",
+        value: "m2"
+      }],
+      "button-variant": "outline-primary",
+      name: "od_plan",
+      buttons: ""
+    },
+    model: {
+      value: _vm.od_plan,
+      callback: function callback($$v) {
+        _vm.od_plan = $$v;
+      },
+      expression: "od_plan"
+    }
+  })], 1) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "pick_info"
   }, [_vm.content.goods_model ? _c("div", {
     staticClass: "total"

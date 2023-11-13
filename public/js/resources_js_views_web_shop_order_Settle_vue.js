@@ -1,5 +1,166 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_shop_order_Settle_vue"],{
 
+/***/ "./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clearTossPayments: () => (/* binding */ clearTossPayments),
+/* harmony export */   loadTossPayments: () => (/* binding */ loadTossPayments)
+/* harmony export */ });
+var cachedPromise;
+function loadScript(src, namespace) {
+  var existingElement = document.querySelector("[src=\"".concat(src, "\"]"));
+
+  if (existingElement != null && cachedPromise !== undefined) {
+    return cachedPromise;
+  }
+
+  if (existingElement != null && getNamespace(namespace) !== undefined) {
+    return Promise.resolve(getNamespace(namespace));
+  }
+
+  var script = document.createElement('script');
+  script.src = src;
+  cachedPromise = new Promise(function (resolve, reject) {
+    document.head.appendChild(script);
+    window.addEventListener("TossPayments:initialize:".concat(namespace), function () {
+      if (getNamespace(namespace) !== undefined) {
+        resolve(getNamespace(namespace));
+      } else {
+        reject(new Error("[TossPayments SDK] Failed to load script: [".concat(src, "]")));
+      }
+    });
+  });
+  return cachedPromise;
+}
+
+function getNamespace(name) {
+  return window[name];
+}
+
+var SCRIPT_URL = 'https://js.tosspayments.com/v1';
+
+function loadTossPayments(clientKey) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$src = _ref.src,
+      src = _ref$src === void 0 ? SCRIPT_URL : _ref$src;
+
+  // SSR 지원
+  if (typeof window === 'undefined') {
+    return Promise.resolve({
+      requestPayment: function requestPayment() {
+        throw new Error("[TossPayments SDK] It looks like runtime is not from browser. This method is only executable on browser.");
+      },
+      requestBillingAuth: function requestBillingAuth() {
+        throw new Error("[TossPayments SDK] It looks like runtime is not from browser. This method is only executable on browser.");
+      },
+      cancelPayment: function cancelPayment() {
+        throw new Error("[TossPayments SDK] It looks like runtime is not from browser. This method is only executable on browser.");
+      }
+    });
+  } // regenerator-runtime 의존성을 없애기 위해 `async` 키워드를 사용하지 않는다
+
+
+  return loadScript(src, 'TossPayments').then(function (TossPayments) {
+    return TossPayments(clientKey);
+  });
+}
+
+function clearTossPayments() {
+  var _script$parentElement;
+
+  var script = document.querySelector("script[src=\"".concat(SCRIPT_URL, "\"]"));
+  script === null || script === void 0 ? void 0 : (_script$parentElement = script.parentElement) === null || _script$parentElement === void 0 ? void 0 : _script$parentElement.removeChild(script);
+  window.TossPayments = undefined;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@tosspayments/payment-widget-sdk/dist/index.esm.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@tosspayments/payment-widget-sdk/dist/index.esm.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ANONYMOUS: () => (/* binding */ ANONYMOUS),
+/* harmony export */   clearPaymentWidget: () => (/* binding */ clearPaymentWidget),
+/* harmony export */   loadPaymentWidget: () => (/* binding */ loadPaymentWidget)
+/* harmony export */ });
+var cachedPromise;
+function loadScript(src, namespace) {
+  var existingElement = document.querySelector("[src=\"".concat(src, "\"]"));
+
+  if (existingElement != null && cachedPromise !== undefined) {
+    return cachedPromise;
+  }
+
+  if (existingElement != null && getNamespace(namespace) !== undefined) {
+    return Promise.resolve(getNamespace(namespace));
+  }
+
+  var script = document.createElement('script');
+  script.src = src;
+  cachedPromise = new Promise(function (resolve, reject) {
+    document.head.appendChild(script);
+    window.addEventListener("TossPayments:initialize:".concat(namespace), function () {
+      if (getNamespace(namespace) !== undefined) {
+        resolve(getNamespace(namespace));
+      } else {
+        reject(new Error("[TossPayments SDK] Failed to load script: [".concat(src, "]")));
+      }
+    });
+  });
+  return cachedPromise;
+}
+
+function getNamespace(name) {
+  return window[name];
+}
+
+var SCRIPT_URL = 'https://js.tosspayments.com/v1/payment-widget';
+
+function loadPaymentWidget(clientKey, customerKey, options) {
+  var loadOptions = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  var _loadOptions$src = loadOptions.src,
+      src = _loadOptions$src === void 0 ? SCRIPT_URL : _loadOptions$src;
+
+  if (typeof window === 'undefined') {
+    // XXX(@HyunSeob): SSR할 때 생성자가 사용되는 경우 에러를 발생시키지 않는대신 정상적인 인스턴스를 반환하지 않는다.
+    return Promise.resolve({});
+  } // regenerator-runtime 의존성을 없애기 위해 `async` 키워드를 사용하지 않는다
+
+
+  return loadScript(src, 'PaymentWidget').then(function (PaymentWidget) {
+    return PaymentWidget(clientKey, customerKey, options);
+  });
+}
+
+function clearPaymentWidget() {
+  var _script$parentElement;
+
+  var script = document.querySelector("script[src=\"".concat(SCRIPT_URL, "\"]"));
+  script === null || script === void 0 ? void 0 : (_script$parentElement = script.parentElement) === null || _script$parentElement === void 0 ? void 0 : _script$parentElement.removeChild(script);
+  window.PaymentWidget = undefined;
+}
+
+var ANONYMOUS = '@@ANONYMOUS';
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/order/Settle.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/order/Settle.vue?vue&type=script&lang=js& ***!
@@ -15,7 +176,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-daum-postcode */ "./node_modules/vue-daum-postcode/dist/index.js");
 /* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tosspayments/payment-widget-sdk */ "./node_modules/@tosspayments/payment-widget-sdk/dist/index.esm.js");
+/* harmony import */ var _tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tosspayments/payment-sdk */ "./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -35,6 +198,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
+
+
+var paymentWidget = null;
 // import { validationChecker } from './_comp/FormValidation.js'
 // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
 
@@ -149,17 +315,19 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         privacy: 'Y',
         check_terms: 'Y',
         dlvy_air: 'N',
-        sale_env: ''
+        sale_env: '',
+        ub_id: 0
       },
       addr: [],
       addr_edit_index: 0,
       config: {},
       inicis: {},
       goods_def: {},
-      clickable: true
+      clickable: true,
+      toss: []
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
     isDlvyAir: function isDlvyAir() {
       return Object.values(this.order.lists).find(function (e) {
         return e[0].pa_type === 'AIR';
@@ -235,7 +403,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 0:
               _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
               if (!_this.validationChecker(_this.order)) {
-                _context.next = 42;
+                _context.next = 45;
                 break;
               }
               _context.t0 = _this.order.extra.oex_type;
@@ -259,12 +427,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
               }
               _this.clickable = false;
+              //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.
+              //  미리 주문 아이디가 선점 되어야 아이디가 겹지치 않고 돌아간다.
               _context.next = 17;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/order/pay", _this.order);
             case 17:
               pay = _context.sent;
               if (!(pay && pay.status === 200)) {
-                _context.next = 41;
+                _context.next = 44;
                 break;
               }
               _this.$gtm.trackEvent({
@@ -292,79 +462,121 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/upload', frm);
             case 30:
               if (!(_this.order.od_pay_method == 'C')) {
-                _context.next = 35;
+                _context.next = 34;
                 break;
               }
-              _this.order.od_id = pay.data.od_id;
-              if (_this.order.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.order.sale_env == 'M') {
-                form = document.createElement('form'); // 폼객체 생성
-                objs01 = document.createElement('input');
-                objs02 = document.createElement('input');
-                objs03 = document.createElement('input');
-                objs04 = document.createElement('input');
-                objs05 = document.createElement('input');
-                objs06 = document.createElement('input');
-                objs07 = document.createElement('input');
-                objs08 = document.createElement('input');
-                objs09 = document.createElement('input');
-                objs10 = document.createElement('input');
-                objs01.setAttribute('name', 'P_INI_PAYMENT');
-                objs01.setAttribute('value', 'CARD');
-                form.appendChild(objs01);
-                objs02.setAttribute('name', 'P_MID');
-                objs02.setAttribute('value', _this.inicis.mid);
-                form.appendChild(objs02);
-                objs03.setAttribute('name', 'P_OID');
-                objs03.setAttribute('value', _this.inicis.od_no);
-                form.appendChild(objs03);
-                objs04.setAttribute('name', 'P_GOODS');
-                objs04.setAttribute('value', _this.order.od_name);
-                form.appendChild(objs04);
-                objs05.setAttribute('name', 'P_AMT');
-                objs05.setAttribute('value', _this.order.price.total);
-                form.appendChild(objs05);
-                objs06.setAttribute('name', 'P_UNAME');
-                objs06.setAttribute('value', _this.user.name);
-                form.appendChild(objs06);
-                objs07.setAttribute('name', 'P_NEXT_URL');
-                objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
-                form.appendChild(objs07);
-                objs08.setAttribute('name', 'P_CHARSET');
-                objs08.setAttribute('value', 'utf8');
-                form.appendChild(objs08);
-                objs09.setAttribute('name', 'P_NOTI');
-                objs09.setAttribute('value', _this.order.od_id);
-                form.appendChild(objs09);
-                objs10.setAttribute('name', 'P_QUOTABASE');
-                objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12');
-                form.appendChild(objs10);
-                form.setAttribute('method', 'post'); //get,post 가능
-                form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
-                form.setAttribute("accept-charset", "EUC-KR");
-                document.body.appendChild(form);
-                form.submit();
+              if (_this.user.level == 5) {
+                //  토스 테스트
+                paymentWidget.requestPayment({
+                  orderId: pay.data.od_id,
+                  orderName: _this.order.od_name,
+                  successUrl: _this.toss.successUrl,
+                  failUrl: _this.toss.failUrl,
+                  customerEmail: _this.user.email,
+                  // 고객 이메일 (선택)
+                  customerName: _this.user.name // 고객 이름 (선택)
+                }).then(function (v) {
+                  return console.log(v);
+                });
+              } else {
+                _this.order.od_id = pay.data.od_id;
+                if (_this.order.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.order.sale_env == 'M') {
+                  form = document.createElement('form'); // 폼객체 생성
+                  objs01 = document.createElement('input');
+                  objs02 = document.createElement('input');
+                  objs03 = document.createElement('input');
+                  objs04 = document.createElement('input');
+                  objs05 = document.createElement('input');
+                  objs06 = document.createElement('input');
+                  objs07 = document.createElement('input');
+                  objs08 = document.createElement('input');
+                  objs09 = document.createElement('input');
+                  objs10 = document.createElement('input');
+                  objs01.setAttribute('name', 'P_INI_PAYMENT');
+                  objs01.setAttribute('value', 'CARD');
+                  form.appendChild(objs01);
+                  objs02.setAttribute('name', 'P_MID');
+                  objs02.setAttribute('value', _this.inicis.mid);
+                  form.appendChild(objs02);
+                  objs03.setAttribute('name', 'P_OID');
+                  objs03.setAttribute('value', _this.inicis.od_no);
+                  form.appendChild(objs03);
+                  objs04.setAttribute('name', 'P_GOODS');
+                  objs04.setAttribute('value', _this.order.od_name);
+                  form.appendChild(objs04);
+                  objs05.setAttribute('name', 'P_AMT');
+                  objs05.setAttribute('value', _this.order.price.total);
+                  form.appendChild(objs05);
+                  objs06.setAttribute('name', 'P_UNAME');
+                  objs06.setAttribute('value', _this.user.name);
+                  form.appendChild(objs06);
+                  objs07.setAttribute('name', 'P_NEXT_URL');
+                  objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
+                  form.appendChild(objs07);
+                  objs08.setAttribute('name', 'P_CHARSET');
+                  objs08.setAttribute('value', 'utf8');
+                  form.appendChild(objs08);
+                  objs09.setAttribute('name', 'P_NOTI');
+                  objs09.setAttribute('value', _this.order.od_id);
+                  form.appendChild(objs09);
+                  objs10.setAttribute('name', 'P_QUOTABASE');
+                  objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12');
+                  form.appendChild(objs10);
+                  form.setAttribute('method', 'post'); //get,post 가능
+                  form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+                  form.setAttribute("accept-charset", "EUC-KR");
+                  document.body.appendChild(form);
+                  form.submit();
+                }
               }
-              _context.next = 41;
+              _context.next = 44;
               break;
-            case 35:
+            case 34:
               if (!(_this.order.od_pay_method == 'P')) {
-                _context.next = 39;
+                _context.next = 38;
                 break;
               }
               _this.openWinPop("/shop/order/settle_psys/".concat(pay.data.od_id), 800, 720);
-              _context.next = 41;
+              _context.next = 44;
               break;
-            case 39:
-              _context.next = 41;
+            case 38:
+              if (!(_this.order.od_pay_method == 'BL' && _this.order.ub_id == 0)) {
+                _context.next = 42;
+                break;
+              }
+              (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_4__.loadTossPayments)(_this.toss['billing_clientKey']).then(function (tossPayments) {
+                // ------ 카드 등록창 호출 ------
+                tossPayments.requestBillingAuth('카드', {
+                  // 결제수단 파라미터 (자동결제는 카드만 지원합니다.)
+                  customerKey: _this.toss.customerKey,
+                  // 고객 ID로 상점에서 만들어야 합니다. 빌링키와 매핑됩니다. 자세한 파라미터 설명은 결제 정보 파라미터 설명을 참고하세요.
+                  successUrl: "".concat(_this.toss.successUrl, "/").concat(pay.data.od_id),
+                  // 카드 등록에 성공하면 이동하는 페이지(직접 만들어주세요)
+                  failUrl: _this.toss.failUrl // 카드 등록에 실패하면 이동하는 페이지(직접 만들어주세요)
+                })
+                // ------ 결제창을 띄울 수 없는 에러 처리 ------
+                // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
+                // 결제창에서 발생할 수 있는 에러를 확인하세요. 
+                // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
+                ["catch"](function (error) {
+                  if (error.code === 'USER_CANCEL') {
+                    // 결제 고객이 결제창을 닫았을 때 에러 처리
+                  }
+                });
+              });
+              _context.next = 44;
+              break;
+            case 42:
+              _context.next = 44;
               return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 41:
+            case 44:
               _this.clickable = true;
-            case 42:
+            case 45:
             case "end":
               return _context.stop();
           }
@@ -627,38 +839,53 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             });
           case 28:
             res = _context2.sent;
-            if (res && res.status === 200) {
-              _this2.order.lists = res.data.lists;
-              _this2.order.price = res.data.price;
-              _this2.order.od_name = res.data.od_name;
-              _this2.config = res.data.config;
-              _this2.addr = res.data.addr;
-              _this2.order.sale_env = res.data.sale_env;
-              _this2.goods_def = res.data.goods_def;
-              if (_this2.addr.length) _this2.addr_choose(_this2.addr[0]);
-              if (_this2.user.is_dealer) _this2.calculator(); //  딜러가 계산
+            if (!(res && res.status === 200)) {
+              _context2.next = 45;
+              break;
             }
-            /*  견적가 에러는 
-                \resources\js\api\http.js
-                이쪽에서 발사한다.
-            */
-            _context2.next = 36;
+            _this2.order.lists = res.data.lists;
+            _this2.order.price = res.data.price;
+            _this2.order.od_name = res.data.od_name;
+            _this2.config = res.data.config;
+            _this2.addr = res.data.addr;
+            _this2.order.sale_env = res.data.sale_env;
+            _this2.goods_def = res.data.goods_def;
+            if (_this2.addr.length) _this2.addr_choose(_this2.addr[0]);
+            if (_this2.user.is_dealer) _this2.calculator(); //  딜러가 계산
+
+            //  toss
+            _this2.toss = res.data.toss;
+            if (!(_this2.$route.query.od_pay_method != "BL")) {
+              _context2.next = 45;
+              break;
+            }
+            _context2.next = 43;
+            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this2.toss.clientKey, _this2.toss.customerKey);
+          case 43:
+            paymentWidget = _context2.sent;
+            paymentWidget.renderPaymentMethods("#payment-method", _this2.order.price.total);
+            // paymentWidget.renderAgreement('#agreement');
+          case 45:
+            _context2.next = 51;
             break;
-          case 32:
-            _context2.prev = 32;
+          case 47:
+            _context2.prev = 47;
             _context2.t0 = _context2["catch"](25);
             Notify.consolePrint(_context2.t0);
             Notify.toast('warning', _context2.t0.responsee);
-          case 36:
+          case 51:
           case "end":
             return _context2.stop();
         }
-      }, _callee2, null, [[25, 32]]);
+      }, _callee2, null, [[25, 47]]);
     }))();
   },
   mounted: function mounted() {
     if (this.user.level == 12) this.order.od_pay_method = 'B';
-
+    if (this.$route.query.od_plan) {
+      this.order.od_pay_method = 'BL';
+      this.order.od_plan = this.$route.query.od_plan;
+    }
     // console.log(this.$session.get('order'));
     // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
     //     console.log('collapseId:', collapseId)
@@ -1040,7 +1267,7 @@ var render = function render() {
     on: {
       click: _vm.exePayment
     }
-  }, [_vm._v("주문하기")]) : _c("b-button", {
+  }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-button", {
     staticClass: "m_hide pay_go gray"
   }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "payment",
@@ -1051,12 +1278,12 @@ var render = function render() {
     staticClass: "top"
   }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.order.price.total)))]), _vm._v(" 원"), _c("span", [_vm._v("부가세 포함")])])], 1), _vm._v(" "), _c("div", {
     staticClass: "body"
-  }, [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+  }, [_vm.user.level == 5 ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
     staticClass: "method"
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
       key: k
-    }, [_c("b-form-radio", {
+    }, [!["CP", "BL"].includes(k) ? _c("b-form-radio", {
       attrs: {
         value: k
       },
@@ -1067,7 +1294,51 @@ var render = function render() {
         },
         expression: "order.od_pay_method"
       }
-    }, [_vm._v(_vm._s(v))]), _vm._v(" "), k == "C" ? _c("span", [_vm._v("이니시스 온라인 신용카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
+    }, [_vm._v(_vm._s(v))]) : _vm._e(), _vm._v(" "), k == "C" ? _c("span", [_vm._v("이니시스 온라인 신용카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_card.png"
+      }
+    })])]) : k == "B" ? _c("span", [_vm._v("무통장입금, 온라인계좌이체 "), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_cache.png"
+      }
+    })])]) : k == "P" ? _c("span", [_vm._v("PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.")]) : k == "S" ? _c("span", [_vm._v("주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. "), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_psys.png"
+      }
+    })])]) : k == "R" ? _c("span", [_vm._v("원격지 카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_remote.png"
+      }
+    })])]) : k == "E" ? _c("span", [_vm._v("결제대금예치 "), _c("b", [_vm._v("[자세히]"), _c("img", {
+      attrs: {
+        src: _vm.s3url + "order/pay_escrow.png"
+      }
+    })])]) : _vm._e(), _vm._v(" "), k == "C" ? _c("div", {
+      "class": {
+        toss_widget_show: _vm.order.od_pay_method == "C"
+      },
+      attrs: {
+        id: "payment-method"
+      }
+    }) : _vm._e()], 1);
+  }), 0), _vm._v(" "), _vm._v("\r\n                    ========================================\r\n    ")] : [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+    staticClass: "method"
+  }, _vm._l(_vm.config.pay_method, function (v, k) {
+    return _c("div", {
+      key: k
+    }, [!["CP", "BL"].includes(k) ? _c("b-form-radio", {
+      attrs: {
+        value: k
+      },
+      model: {
+        value: _vm.order.od_pay_method,
+        callback: function callback($$v) {
+          _vm.$set(_vm.order, "od_pay_method", $$v);
+        },
+        expression: "order.od_pay_method"
+      }
+    }, [_vm._v(_vm._s(v))]) : _vm._e(), _vm._v(" "), k == "C" ? _c("span", [_vm._v("이니시스 온라인 신용카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
       attrs: {
         src: _vm.s3url + "order/pay_card.png"
       }
@@ -1088,7 +1359,7 @@ var render = function render() {
         src: _vm.s3url + "order/pay_escrow.png"
       }
     })])]) : _vm._e()], 1);
-  }), 0), _vm._v(" "), _c("transition", {
+  }), 0)], _vm._v(" "), _c("transition", {
     attrs: {
       name: "slideUpDown"
     }
@@ -1321,7 +1592,34 @@ var render = function render() {
       },
       expression: "order.extra.oex_email"
     }
-  })], 1)], 1)], 1) : _vm._e()]), _vm._v(" "), _vm.order.od_pay_method == "B" || _vm.order.od_pay_method == "S" ? _c("pay-plan", {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.order.od_pay_method == "BL" ? _c("div", {
+    staticClass: "pay_info"
+  }, [_c("h6", [_vm._v("정기 결제")]), _vm._v(" "), _vm._l(_vm.toss.billing_keys, function (bk) {
+    return [_c("b-form-radio", {
+      key: bk.ub_id,
+      attrs: {
+        value: bk.ub_id
+      },
+      model: {
+        value: _vm.order.ub_id,
+        callback: function callback($$v) {
+          _vm.$set(_vm.order, "ub_id", $$v);
+        },
+        expression: "order.ub_id"
+      }
+    }, [_vm._v(_vm._s(bk.ub_card_com) + " : " + _vm._s(bk.ub_card_num.substr(bk.ub_card_num.length - 4, 4)))])];
+  }), _vm._v(" "), _c("b-form-radio", {
+    attrs: {
+      value: 0
+    },
+    model: {
+      value: _vm.order.ub_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.order, "ub_id", $$v);
+      },
+      expression: "order.ub_id"
+    }
+  }, [_vm._v("정기 결제 카드 추가")])], 2) : _vm._e()]), _vm._v(" "), _vm.order.od_pay_method == "B" || _vm.order.od_pay_method == "S" ? _c("pay-plan", {
     model: {
       value: _vm.order.extra,
       callback: function callback($$v) {
@@ -1440,12 +1738,12 @@ var render = function render() {
       },
       expression: "order.extra.oex_memo"
     }
-  })], 1)], 1), _vm._v(" "), _vm.clickable ? _c("b-button", {
+  })], 1)], 2), _vm._v(" "), _vm.clickable ? _c("b-button", {
     staticClass: "m_show pay_go",
     on: {
       click: _vm.exePayment
     }
-  }, [_vm._v("주문하기")]) : _c("b-button", {
+  }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-button", {
     staticClass: "m_show pay_go gray"
   }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1)], 1)], 1), _vm._v(" "), _c("transition", {
     attrs: {
@@ -1616,7 +1914,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address[data-v-6c9bc94a] { position:relative;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver_hp .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col[data-v-6c9bc94a] { flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .od_addr .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .od_addr .col div input[data-v-6c9bc94a] { max-width:16rem; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_addr .col .od_addr1[data-v-6c9bc94a] { margin-top:0;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { width:100%; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs .address .od_memo .col select[data-v-6c9bc94a] { max-width:16rem;\n}\n#settle .st_bottom .pay_go[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle .inicis_form[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { margin-top: 1rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { text-indent:0; flex-basis:18.8%; max-width:18.8%;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem;\n}\n#settle .st_bottom .inputs .address h4>*[data-v-6c9bc94a] { flex-basis:100%; max-width:100%;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size: calc(.6vw + .7rem);\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { flex-direction:column;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin:5px 0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:0; margin:10px 3px;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address[data-v-6c9bc94a] { position:relative;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver_hp .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col[data-v-6c9bc94a] { flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .od_addr .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .od_addr .col div input[data-v-6c9bc94a] { max-width:16rem; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_addr .col .od_addr1[data-v-6c9bc94a] { margin-top:0;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { width:100%; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs .address .od_memo .col select[data-v-6c9bc94a] { max-width:16rem;\n}\n#settle .st_bottom .pay_go[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex; flex-wrap: wrap;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .method div #payment-method[data-v-6c9bc94a] { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden;\n}\n#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { max-height:600px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5);\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle .inicis_form[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { margin-top: 1rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { text-indent:0; flex-basis:18.8%; max-width:18.8%;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem;\n}\n#settle .st_bottom .inputs .address h4>*[data-v-6c9bc94a] { flex-basis:100%; max-width:100%;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size: calc(.6vw + .7rem);\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { flex-direction:column;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin:5px 0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:0; margin:10px 3px;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -5,7 +5,7 @@
     <p>주문내역은 마이페이지 > <b>주문 / 배송조회</b> 에서 확인하실 수 있습니다.</p>
     <ul>
         <li class="dd_style"><span>주문번호</span><span>{{order.od_no}}</span></li>
-        <li class="dd_style"><span>결제방법</span><span>{{pay_method}}</span></li>
+        <li class="dd_style"><span>결제방법</span><span>{{config.pay_method[order.od_pay_method]}}</span></li>
         <li class="dd_style"><span>결제 예정일</span><span>{{pay_plan}}</span></li>
         <li class="dd_style"><span>결제 금액</span><span>{{order.od_all_price | comma | won}}</span></li>
         <li v-if="['B'].includes(order.od_pay_method)">
@@ -29,6 +29,7 @@ export default {
         return {
             od_id:this.$route.params.od_id,
             order:{ order_extra_info:{}, },
+            config:{ pay_method:[] },
         }
     },
     computed: {
@@ -40,16 +41,6 @@ export default {
                 case 'week2': return '2주이내';      break;
                 case 'month1': return '30일이내';    break;
                 case 'month2': return '60일이내';    break;
-            }
-        },
-        pay_method () {
-            switch (this.order.od_pay_method) {
-                case 'C': return '카드 결제';                       break;
-                case 'B': return '현금결제 (무통장입금)';           break;
-                case 'P': return 'PSYS (선결제)';   break;
-                case 'S': return 'PSYS (후결제)';   break;
-                case 'R': return '원격결제';                        break;
-                case 'E': return '에스크로 (결제대금예치)';         break;
             }
         },
     },
@@ -69,8 +60,10 @@ export default {
     },
     async mounted() {
         const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
-        if (res && res.status === 200)
-            this.order = res.data;
+        if (res && res.status === 200) {
+            this.order = res.data.order;
+            this.config = res.data.config;
+        }
 
         /* 네이버 분석 관련 스크립트 */
         if (!wcs_add) var wcs_add={};

@@ -18,7 +18,7 @@ class ExcelController extends Controller {
 		}
 
 		if ($data->orderExtraInfo && !$data->orderExtraInfo->oex_biz_name) $data->fileInfo;		
-		$data['order_config'] = $order->getOrderConfig();
+		$data['order_config'] = Order::$orderConfig;
 
         dump($data);
 

@@ -24,6 +24,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       od_id: this.$route.params.od_id,
       order: {
         order_extra_info: {}
+      },
+      config: {
+        pay_method: []
       }
     };
   },
@@ -47,28 +50,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           break;
         case 'month2':
           return '60일이내';
-          break;
-      }
-    },
-    pay_method: function pay_method() {
-      switch (this.order.od_pay_method) {
-        case 'C':
-          return '카드 결제';
-          break;
-        case 'B':
-          return '현금결제 (무통장입금)';
-          break;
-        case 'P':
-          return 'PSYS (선결제)';
-          break;
-        case 'S':
-          return 'PSYS (후결제)';
-          break;
-        case 'R':
-          return '원격결제';
-          break;
-        case 'E':
-          return '에스크로 (결제대금예치)';
           break;
       }
     }
@@ -97,7 +78,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order/done/".concat(_this.od_id));
           case 2:
             res = _context.sent;
-            if (res && res.status === 200) _this.order = res.data;
+            if (res && res.status === 200) {
+              _this.order = res.data.order;
+              _this.config = res.data.config;
+            }
 
             /* 네이버 분석 관련 스크립트 */
             if (!wcs_add) wcs_add = {};
@@ -138,7 +122,7 @@ var render = function render() {
     staticClass: "dd_style"
   }, [_c("span", [_vm._v("주문번호")]), _c("span", [_vm._v(_vm._s(_vm.order.od_no))])]), _vm._v(" "), _c("li", {
     staticClass: "dd_style"
-  }, [_c("span", [_vm._v("결제방법")]), _c("span", [_vm._v(_vm._s(_vm.pay_method))])]), _vm._v(" "), _c("li", {
+  }, [_c("span", [_vm._v("결제방법")]), _c("span", [_vm._v(_vm._s(_vm.config.pay_method[_vm.order.od_pay_method]))])]), _vm._v(" "), _c("li", {
     staticClass: "dd_style"
   }, [_c("span", [_vm._v("결제 예정일")]), _c("span", [_vm._v(_vm._s(_vm.pay_plan))])]), _vm._v(" "), _c("li", {
     staticClass: "dd_style"

@@ -74,7 +74,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.user && row.user.is_dealer ? _c("span", {
+    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
       staticClass: "badgetag d_blue d-none d-lg-inline-block"
     }, [_vm._v("딜")]) : _vm._e(), _vm._v(" "), _c("sub-string", {
       attrs: {

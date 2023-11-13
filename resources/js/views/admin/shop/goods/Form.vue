@@ -50,7 +50,7 @@
     <b-container class="box adform info">
         <h5>
             상품정보 
-            <b-form-checkbox switch size="lg" class="float-right" v-model="value.gd_enable" value="Y" unchecked-value="N">
+            <b-form-checkbox switch class="float-right" v-model="value.gd_enable" value="Y" unchecked-value="N">
                 {{gd_enable_text}}
             </b-form-checkbox>
         </h5>
@@ -61,7 +61,7 @@
                 <validation :error="$store.state.error.validations.gd_name" />
             </b-col>
             <b-col class="label">납기일</b-col>
-            <b-col class="type02">
+            <b-col class="type01">
                 <b-form-input id="gd_dlvy_at" v-model="value.gd_dlvy_at" />
                 <validation :error="$store.state.error.validations.gd_dlvy_at" />
             </b-col>
@@ -92,8 +92,12 @@
 
         <b-row>                
             <b-col class="label">키워드</b-col>
-            <b-col class="type11">
-                <b-form-input id="gd_keyword" v-model="value.gd_keyword" />
+            <b-col><b-form-input id="gd_keyword" v-model="value.gd_keyword" /></b-col>
+            <b-col class="label"></b-col>
+            <b-col class="type01">
+                <b-form-checkbox switch class="float-right" v-model="value.gd_billing" value="1" unchecked-value="0">
+                    {{gd_billing_text}}
+                </b-form-checkbox>
             </b-col>
         </b-row>
 
@@ -281,6 +285,7 @@ export default {
     props: ['value', 'purchaseAt'],
     computed: {
         gd_enable_text() { return this.value.gd_enable == 'Y' ? "활성" : "비활성"; },
+        gd_billing_text() { return this.value.gd_billing == 1 ? "정기배송" : "1회구매"; },
     },
     filters: {
         gr_type (v) {

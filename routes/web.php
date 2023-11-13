@@ -89,11 +89,13 @@ Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->na
 
 Route::prefix('shop')->group(function () {
     Route::prefix('order')->group(function () {
-        Route::get('pgClose',       'Shop\OrderController@pgClose');
-        Route::POST('payReturn',    'Shop\OrderController@payReturn');
-        Route::POST('payRequestMobile', 'Shop\OrderController@payRequestMobile');
-        Route::POST('payReturnMobile',  'Shop\OrderController@payReturnMobile');
-        Route::POST('payReturnPsys',    'Shop\OrderController@payReturnPsys');
+        Route::get('pgClose',                       'Shop\OrderController@pgClose');
+        Route::MATCH(['get', 'post'], 'payReturn/{od_id?}',  'Shop\OrderController@payReturn');
+        Route::POST('payRequestMobile',             'Shop\OrderController@payRequestMobile');
+        Route::POST('payReturnMobile',              'Shop\OrderController@payReturnMobile');
+        Route::POST('payReturnPsys',                'Shop\OrderController@payReturnPsys');
+        Route::GET('tossBrandPayAccessToken',       'Shop\OrderController@tossBrandPayAccessToken');
+        Route::GET('tossBillingKeyIssue/{od_id}',   'Shop\OrderController@tossBillingKeyIssue');
     });
 
     Route::prefix('estimate')->group(function () {
@@ -112,8 +114,10 @@ Route::get('/admin/realsoup', 'Admin\RealsoupController@index');
 Route::get('/admin/realsoup/test', 'Admin\RealsoupController@test');
 Route::get('/admin/realsoup/play', 'Admin\RealsoupController@play');
 
-Route::get('/admin/crontab/receiveConfirm', 'Admin\CronTabController@receiveConfirm');
-Route::get('/admin/crontab/adjustMemberLevel', 'Admin\CronTabController@adjustMemberLevel');
+Route::get('/admin/crontab/receiveConfirm',     'Admin\CronTabController@receiveConfirm');
+Route::get('/admin/crontab/adjustMemberLevel',  'Admin\CronTabController@adjustMemberLevel');
+Route::get('/admin/crontab/billingByCycle',     'Admin\CronTabController@billingByCycle');
+
 
 Route::POST('/admin/shop/b2b_merck/OrderConfirmation', 'Admin\Shop\B2bMerckController@OrderConfirmation');
 Route::POST('/admin/shop/b2b_merck/Invoice', 'Admin\Shop\B2bMerckController@Invoice');

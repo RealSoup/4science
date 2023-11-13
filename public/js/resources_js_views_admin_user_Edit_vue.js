@@ -610,13 +610,13 @@ var render = function render() {
     attrs: {
       value: "0"
     }
-  }), _vm._v(" "), _vm._l(_vm.frm.option.grade, function (grade, k) {
+  }), _vm._v(" "), _vm._l(_vm.frm.option.level, function (level, k) {
     return _c("b-form-select-option", {
       key: k,
       attrs: {
         value: k
       }
-    }, [_vm._v(_vm._s(grade))]);
+    }, [_vm._v(_vm._s(level))]);
   })], 2)], 1)]), _vm._v(" "), _c("b-col", [_c("label", [_vm._v("담당자")]), _vm._v(" "), _c("div", [_c("b-form-select", {
     attrs: {
       id: "mng",

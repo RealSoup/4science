@@ -156,6 +156,8 @@ var dt = new Date();
       var tid = this.od.order_pg.pg_tid;
       var url = "https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=".concat(tid);
       if (this.od.order_pg.pg_pay_type.startsWith('psys')) url = this.order_config.url_receipt + '?tid=' + this.base64_encode(tid);
+      var regExp = /^https?:\/\//;
+      if (regExp.test(tid)) url = tid;
       this.openWinPop(url, 468, 750);
     },
     base64_encode: function base64_encode(str) {

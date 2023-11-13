@@ -131,7 +131,9 @@ var render = function render() {
       staticClass: "badgetag mint"
     }, [_vm._v("주")]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("div", {
       staticClass: "eq_name"
-    }, [_c("sub-string", {
+    }, [row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
+      staticClass: "badgetag d_blue d-none d-lg-inline-block"
+    }, [_vm._v("딜")]) : _vm._e(), _vm._v(" "), _c("sub-string", {
       attrs: {
         width: 120
       },

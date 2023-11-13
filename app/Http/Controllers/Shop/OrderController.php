@@ -91,9 +91,16 @@ class OrderController extends Controller {
         if ($params['md_cnt'] > 1)
             $params['od_name'] .= '외 ['.($params['md_cnt']-1).']';
 
-        $params['config'] = $this->order->getOrderConfig();        
+        $params['config'] = Order::$orderConfig;
         $params['config']['email_domain'] = auth()->user()::$option['email_domain'];
         $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
+        
+        $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
+        $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn";
+        $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
+        $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
+        $params['toss']['billing_clientKey'] = env('TOSS_BILLING_CLIENTKEY');
+        $params['toss']['billing_keys'] = DB::table('user_billing')->where('created_id', auth()->user()->id)->get();
         
         return response()->json($params);
     }
@@ -101,57 +108,78 @@ class OrderController extends Controller {
     public function pay(Request $req) {
         // try {
         //     DB::beginTransaction();
-            
+            $od_no = $this->getNew_od_no();
+
             $params['inicis']['returnUrl'] = config('app.url')."shop/order/payReturn";
             $params['inicis']['returnUrlMobaile'] = config('app.url')."shop/order/payReturnMobile";
-            $params['inicis']['closeUrl'] = config('app.url')."shop/order/pgClose";            
-           
+            $params['inicis']['closeUrl'] = config('app.url')."shop/order/pgClose";
             /************************** 이니시스 값 설정 Start **************************/
             /**/$params['inicis']['mid'] = $this->mid;  // 가맹점 ID(가맹점 수정후 고정)
             /**/$params['inicis']['timestamp'] = $this->getTimestamp();   // util에 의해서 자동생성
-            /**/$params['inicis']['od_no'] = $this->getNew_od_no();
+            /**/$params['inicis']['od_no'] = $od_no;
             /**/$params['inicis']['mKey'] = $this->makeHash($this->signKey, "sha256");
             /**/$signParams = array(    "oid"       => $params['inicis']['od_no'],
             /**/                        "price"     => $req->price['total'],
             /**/                        "timestamp" => $params['inicis']['timestamp'] );
             /**/$params['inicis']['sign'] = $this->makeSignature($signParams, "sha256");
             /************************** 이니시스 값 설정 End **************************/
-    
-            $od_id = $this->order->insertGetId([
-                'od_no'            => $params['inicis']['od_no'],
-                'od_name'          => $req->filled('od_name')          ? $req->od_name          : '',
-                'od_type'          => $req->filled('od_type')          ? $req->od_type          : 'buy_inst',
-                'od_er_id'         => $req->filled('od_er_id')         ? $req->od_er_id         : NULL,
-                'od_step'          => in_array($req->od_pay_method, ['C', 'P']) ? '0'           : '10',
-                'od_gd_price'      => $req->filled('price')            ? $req->price['goods']           : 0,
-                'od_surtax'        => $req->filled('price')            ? $req->price['surtax']          : 0,
-                'od_dlvy_price'    => $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0,
-                'od_air_price'     => $req->filled('price')            ? $req->price['air_add_vat']     : 0,
-                'od_all_price'     => $req->filled('price')            ? $req->price['total']           : 0,
-                'od_orderer'       => auth()->check()                  ? auth()->user()->name   : '',
-                'od_orderer_hp'    => auth()->check()                  ? auth()->user()->hp     : '',
-                'od_orderer_email' => auth()->check()                  ? auth()->user()->email  : '',
-                'od_company'       => auth()->check()                  ? auth()->user()->company : '',
-                'od_part'          => auth()->check()                  ? auth()->user()->part   : '',
-                'od_receiver'      => $req->filled('od_receiver')      ? $req->od_receiver      : '',
-                'od_receiver_hp'   => $req->filled('od_receiver_hp')   ? $req->od_receiver_hp   : '',
-        	   	'od_zip'           => $req->filled('od_zip')           ? $req->od_zip           : '',
-        	   	'od_addr1'         => $req->filled('od_addr1')         ? $req->od_addr1         : '',
-                'od_addr2'         => $req->filled('od_addr2')         ? $req->od_addr2         : '',
-        	   	'od_memo'          => $req->filled('od_memo')          ? $req->od_memo          : '',
-                'od_pay_method'    => $req->filled('od_pay_method')    ? $req->od_pay_method    : 'C',
-                'od_sale_env'      => $req->filled('sale_env')         ? $req->sale_env         : 'P',
-                'ip'               => $req->ip(),
-                'created_id'       => (auth()->check() ? auth()->user()->id : 0)
-            ], 'od_id');
-            $params['od_id'] = $od_id;
+            
+            $this->order->od_no            = $od_no;
+            $this->order->od_name          = $req->filled('od_name')          ? $req->od_name          : '';
+            $this->order->od_type          = $req->filled('od_type')          ? $req->od_type          : 'buy_inst';
+            $this->order->od_er_id         = $req->filled('od_er_id')         ? $req->od_er_id         : NULL;
+            $this->order->od_step          = in_array($req->od_pay_method, ['C', 'P', 'BL']) ? '0'           : '10';
+            $this->order->od_gd_price      = $req->filled('price')            ? $req->price['goods']           : 0;
+            $this->order->od_surtax        = $req->filled('price')            ? $req->price['surtax']          : 0;
+            $this->order->od_dlvy_price    = $req->filled('price')            ? $req->price['dlvy_add_vat']    : 0;
+            $this->order->od_air_price     = $req->filled('price')            ? $req->price['air_add_vat']     : 0;
+            $this->order->od_all_price     = $req->filled('price')            ? $req->price['total']           : 0;
+            $this->order->od_orderer       = auth()->check()                  ? auth()->user()->name   : '';
+            $this->order->od_orderer_hp    = auth()->check()                  ? auth()->user()->hp     : '';
+            $this->order->od_orderer_email = auth()->check()                  ? auth()->user()->email  : '';
+            $this->order->od_company       = auth()->check()                  ? auth()->user()->company : '';
+            $this->order->od_part          = auth()->check()                  ? auth()->user()->part   : '';
+            $this->order->od_receiver      = $req->filled('od_receiver')      ? $req->od_receiver      : '';
+            $this->order->od_receiver_hp   = $req->filled('od_receiver_hp')   ? $req->od_receiver_hp   : '';
+            $this->order->od_zip           = $req->filled('od_zip')           ? $req->od_zip           : '';
+            $this->order->od_addr1         = $req->filled('od_addr1')         ? $req->od_addr1         : '';
+            $this->order->od_addr2         = $req->filled('od_addr2')         ? $req->od_addr2         : '';
+            $this->order->od_memo          = $req->filled('od_memo')          ? $req->od_memo          : '';
+            $this->order->od_pay_method    = $req->filled('od_pay_method')    ? $req->od_pay_method    : 'C';
+            $this->order->od_sale_env      = $req->filled('sale_env')         ? $req->sale_env         : 'P';
+            $this->order->ip               = $req->ip();
+            $this->order->created_id       = auth()->check() ? auth()->user()->id : 0;
+            $this->order->save();
+            
+            $params['od_id'] = $this->order->od_id;
+
+            if ($req->od_pay_method=='BL') {
+                $ob_data = [ 'ob_od_id'   => $this->order->od_id, 
+                             'ob_od_plan' => $req->od_plan ];
+                if ($req->filled('ub_id') && $req->ub_id>0)
+                    $ob_data['ob_ub_id'] = $req->ub_id;
+                DB::table('shop_order_billing')->insert($ob_data);
+
+                $obj = collect();
+                $obj->od = $this->order;
+                $obj->billing = collect();
+                $bl = DB::table('user_billing')->where('ub_id', $req->ub_id)->first();
+                $obj->billing->customerKey = $bl->ub_customer_key;
+                $obj->billing->billingKey = $bl->ub_billing_key;
+                //  빌링키를 활용 결제 승인 받기
+                $rst_toss = json_decode(self::tossCurl('tossBillingPayApprove', $obj));
+                if( $rst_toss->status == "DONE" ) {
+                    self::tossPgInsert($rst_toss);
+                    DB::table('shop_order')->where('od_id', $this->order->od_id)->update(['od_step'=> '20']);
+                }
+            }
             
             foreach ($req->lists as $pa_id => $pa) {
                 $insert_tmp = array();
                 foreach ($pa as $k => $item) {
                     // $gd_name = DB::table('shop_goods')->where('gd_id', $item['gd_id'])->first()->gd_name;
                     if ( $k == 0 ) {
-                        $odpa_id = OrderPurchaseAt::insertGetId([   'odpa_od_id'   => $od_id,
+                        $odpa_id = OrderPurchaseAt::insertGetId([   'odpa_od_id'   => $this->order->od_id,
                                                                     'odpa_pa_id'   => $pa_id,
                                                                     'odpa_pa_type' => $item['pa_type'],
                                                                     'odpa_pa_name' => isset($item['pa_name']) ? $item['pa_name'] : '',
@@ -160,7 +188,7 @@ class OrderController extends Controller {
 
                     if ($item['type'] == 'model') {
                         $insert_tmp[] = array(
-                            'odm_od_id'    => $od_id,
+                            'odm_od_id'    => $this->order->od_id,
                             'odm_odpa_id'  => $odpa_id,
                             'odm_type'     => 'MODEL',
                             'odm_gd_id'    => $item['gd_id'],
@@ -178,7 +206,7 @@ class OrderController extends Controller {
                         Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                     } else if ($item['type'] == 'option') {
                         $insert_tmp[] = array(
-                            'odm_od_id'    => $od_id,
+                            'odm_od_id'    => $this->order->od_id,
                             'odm_odpa_id'  => $odpa_id,
                             'odm_type'     => 'OPTION',
                             'odm_gd_id'    => $item['gd_id'],
@@ -201,7 +229,7 @@ class OrderController extends Controller {
             
 
             //  지출 증빙 & 요청 첨부서류 등록
-            $this->orderExtraInfo->oex_od_id = $od_id;
+            $this->orderExtraInfo->oex_od_id = $this->order->od_id;
             if ($req->od_pay_method == 'B'){
                 $this->orderExtraInfo->oex_bank = array_key_exists('oex_bank', $req->extra) ? $req->extra['oex_bank'] : "";
                 $this->orderExtraInfo->oex_depositor = array_key_exists('oex_depositor', $req->extra) ? $req->extra['oex_depositor'] : "";
@@ -299,7 +327,7 @@ class OrderController extends Controller {
 			$data['order']->appends($req->all())->links();
 		}
 
-        $data['order_config'] = $this->order->getOrderConfig();
+        $data['order_config'] = Order::$orderConfig;
         return response()->json($data, 200);
     }
 
@@ -311,7 +339,7 @@ class OrderController extends Controller {
 				$odm->orderDlvyInfo;
 		}
         
-        $rst['order_config'] = $this->order->getOrderConfig();
+        $rst['order_config'] = Order::$orderConfig;
         $rst['order_config']['url_receipt'] = env('PSYS_URL03');
         return response()->json($rst, 200);
     }
@@ -347,7 +375,7 @@ class OrderController extends Controller {
         return response()->json($rst, 200);
     }
 
-    public function payReturn(Request $req){
+    public function payReturn(Request $req, $od_id=0){
         /*
         크롬의 쿠키 정책의 의해
         결제시 외부 도메인을 타면 쿠키가 삭제되어
@@ -362,6 +390,43 @@ class OrderController extends Controller {
                 'shop/order/payReturnMobaile',
             ];
         */
+
+
+
+        //  toss START
+        if( ($req->filled("paymentKey") && $req->paymentKey != '') || ($req->filled("customerKey") && $req->customerKey != '')) {
+            if ($req->filled("paymentKey"))
+                $rst_toss = self::tossCurl('tossSuccess', $req);
+            else if ($req->filled("authKey") && $od_id>0) {
+                //  카드번호 등록하고 본인인증 후 빌링키(카드자동결제키) 받기
+                $billing = json_decode(self::tossCurl('tossBillingKeyIssue', $req));
+                $ub_id = DB::table('user_billing')->insertGetId([
+                    'ub_customer_key' => $billing->customerKey,
+                    'ub_billing_key'  => $billing->billingKey,
+                    'ub_card_com'     => $billing->cardCompany,
+                    'ub_card_num'     => $billing->cardNumber,
+                    'created_id'      => (auth()->check() ? auth()->user()->id : 0),
+                ]);
+                DB::table('shop_order_billing')->where('ob_od_id', $od_id)->update(['ob_ub_id'=> $ub_id]);
+                $obj = collect();
+                $obj->od = DB::table('shop_order')->where('od_id', $od_id)->first();
+                $obj->billing = $billing;
+                //  빌링키를 활용 결제 승인 받기
+                $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
+            }
+                
+            $rst_toss = json_decode($rst_toss);
+            
+            self::tossPgInsert($rst_toss);
+
+            $mod_data = ['od_step'=> '20'];
+            if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
+                $mod_data['od_pay_method'] = 'CP';
+            DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
+            return redirect("/shop/order/done/{$rst_toss->orderId}");
+        }        
+        //  toss END
+        
         $params['msg'] = '';
         try {
             if (strcmp("0000", $req->resultCode) == 0) { // 인증이 성공일 경우만
@@ -480,6 +545,20 @@ class OrderController extends Controller {
         }
     }
 
+    public function tossPgInsert($rst_toss) {
+        return OrderPg::insert([
+            'pg_od_id'    => $rst_toss->orderId,
+            'pg_app_no'   => $rst_toss->card->approveNo,
+            'pg_tid'      => $rst_toss->receipt->url,
+            'pg_pay_type' => $rst_toss->type,
+            'pg_price'    => $rst_toss->totalAmount,
+            'pg_card_com' => OrderPg::$option['tossCardCom'][$rst_toss->card->issuerCode],
+            'pg_buyer_nm' => '',
+            'pg_code'     => '',
+            'pg_msg'      => ''
+        ]);
+    }
+
     public function settlePsys(Request $req, Int $od_id){
         $rst['od'] = DB::table('shop_order')->where('od_id', $od_id)->first();
         
@@ -556,6 +635,55 @@ class OrderController extends Controller {
         }        
     }
 
+    public function tossBrandPayAccessToken(Request $req) {
+        //  echo는 의미 없음
+        //  토스측에서 인증되어 정상적으로 내가 자료 받고 끝
+        echo self::tossCurl('tossBrandPayAccessToken', $req);
+    }
+
+    public function tossCurl($type, $req) {
+        $url = '';
+        $encryption = '';
+        $data = '';
+        if ($type == 'tossSuccess') {
+            $url = "https://api.tosspayments.com/v1/payments/confirm";
+            $data = "{\"paymentKey\":\"{$req->paymentKey}\",\"orderId\":\"{$req->orderId}\",\"amount\":{$req->amount}}";
+            if($req->paymentType == 'NORMAL')        $encryption = base64_encode(env('TOSS_SECRETKEY').':');
+            else if($req->paymentType == 'BRANDPAY') $encryption = base64_encode(env('TOSS_BRANDPAY_SECRETKEY').':');
+        } else if ($type == 'tossBrandPayAccessToken') {
+            $url = "https://api.tosspayments.com/v1/brandpay/authorizations/access-token";
+            $data = "{\"grantType\":\"AuthorizationCode\",\"customerKey\":\"{$req->customerKey}\",\"code\":\"{$req->code}\"}";
+            $encryption = base64_encode(env('TOSS_BRANDPAY_SECRETKEY').':');
+        } else if ($type == 'tossBillingKeyIssue') {
+            $url = "https://api.tosspayments.com/v1/billing/authorizations/issue";
+            $data = "{\"authKey\":\"{$req->authKey}\",\"customerKey\":\"{$req->customerKey}\"}";
+            $encryption = base64_encode(env('TOSS_BILLING_SECRETKEY').':');
+        } else if ($type == 'tossBillingPayApprove') {
+            $url = "https://api.tosspayments.com/v1/billing/{$req->billing->billingKey}";
+            $data = "{\"customerKey\":\"{$req->billing->customerKey}\",\"amount\":{$req->od->od_all_price},";
+            $data .= "\"orderId\":\"{$req->od->od_id}\",\"orderName\":\"{$req->od->od_name}\",";
+            $data .= "\"customerEmail\":\"{$req->od->od_orderer_email}\",\"customerName\":\"{$req->od->od_orderer}\",\"taxFreeAmount\":0}";
+            $encryption = base64_encode(env('TOSS_BILLING_SECRETKEY').':');
+        }
+        
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => [ "Authorization: Basic {$encryption}", "Content-Type: application/json" ],
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+    }
+
     public function done($od_id){
         $data = $this->order->with('orderExtraInfo')->find($od_id);
         // dd($od_id);
@@ -588,7 +716,9 @@ class OrderController extends Controller {
                 // if($e->getMessage()) dd($e->getMessage());
             }
         }
-        return response()->json($data, 200);
+
+
+        return response()->json(['order'=>$data, 'config'=>Order::$orderConfig], 200);
     }
 
    

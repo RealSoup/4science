@@ -275,7 +275,10 @@ export default {
             let url = `https://iniweb.inicis.com/receipt/iniReceipt.jsp?noTid=${tid}`;
             if(this.od.order_pg.pg_pay_type.startsWith('psys'))
                 url = this.order_config.url_receipt+'?tid='+this.base64_encode(tid);
-
+            
+            const regExp = /^https?:\/\//;
+            if(regExp.test(tid))
+                url = tid;
             this.openWinPop(url, 468, 750);
         },
 

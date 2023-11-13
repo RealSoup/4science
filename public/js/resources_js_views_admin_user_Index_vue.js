@@ -174,7 +174,7 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }), _vm._v(" "), _vm._l(_vm.option.grade, function (v, i) {
+  }), _vm._v(" "), _vm._l(_vm.option.level, function (v, i) {
     return _c("b-form-select-option", {
       key: i,
       attrs: {
@@ -267,21 +267,21 @@ var render = function render() {
       staticClass: "d-none d-lg-block"
     }, [_vm._v("\r\n                " + _vm._s(us.id) + "\r\n                "), us.level == 1 ? _c("b-badge", {
       staticClass: "normal"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 2 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 2 ? _c("b-badge", {
       staticClass: "bronz"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 3 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 3 ? _c("b-badge", {
       staticClass: "silver"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 4 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 4 ? _c("b-badge", {
       staticClass: "gold"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 11 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 11 ? _c("b-badge", {
       staticClass: "dealer_new"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 12 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 12 ? _c("b-badge", {
       staticClass: "dealer"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 21 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 21 ? _c("b-badge", {
       staticClass: "admin"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 29 ? _c("b-badge", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e(), _vm._v(" "), us.level == 29 ? _c("b-badge", {
       staticClass: "super"
-    }, [_vm._v(_vm._s(_vm.option.grade[us.level]))]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("b-link", {
+    }, [_vm._v(_vm._s(_vm.option.level[us.level]))]) : _vm._e()], 1), _vm._v(" "), _c("b-col", [_c("b-link", {
       attrs: {
         to: {
           name: "adm_user_edit",

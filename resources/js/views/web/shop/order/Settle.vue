@@ -119,7 +119,10 @@
                         </b-col>
                     </b-row>
                 </div>
-                <b-button v-if="clickable" class="m_hide pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-if="clickable" class="m_hide pay_go" @click="exePayment">
+                    <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
+                    <template v-else>주문하기</template>
+                </b-button>
                 <b-button v-else class="m_hide pay_go gray"><b-spinner /> 주문 중...</b-button>
             </b-col>
 
@@ -129,10 +132,33 @@
                     <b-col><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
                 </b-row>
                 <div class="body">
+    <template v-if="user.level == 5">
+                    <!-- 뉴 START -->
                     <h5>결제 수단</h5>
                     <div class="method">
                         <div v-for="(v, k) in config.pay_method" :key="k">
-                            <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                            <b-form-radio v-if="!['CP', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
+                            <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
+                            <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                            <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
+                            <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
+                            <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
+                        </div>
+                    </div>
+                    <!-- 뉴 END -->
+                    ========================================
+    </template>   
+                    
+                        
+
+
+    <template v-else>
+                    <h5>결제 수단</h5>
+                    <div class="method">
+                        <div v-for="(v, k) in config.pay_method" :key="k">
+                            <b-form-radio v-if="!['CP', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
                             <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
                             <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
                             <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
@@ -141,8 +167,9 @@
                             <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
                         </div> 
                     </div>
+    </template>   
 
-                    <transition name="slideUpDown">
+                    <transition name="slideUpDown">    
                         <div v-if="order.od_pay_method == 'B'" class="pay_info">
                             <h6>무통장 입금</h6>
                             <b-row>
@@ -203,6 +230,14 @@
                                 <b-col cols="3">이메일</b-col><b-col><b-form-input v-model="order.extra.oex_email" ref="oex_email" id="oex_email" size="sm" /></b-col>
                             </b-row>                    
                         </div>
+
+                        <div v-if="order.od_pay_method == 'BL'" class="pay_info">
+                            <h6>정기 결제</h6>
+                            <template v-for="bk in toss.billing_keys">
+                                <b-form-radio v-model="order.ub_id" :value="bk.ub_id" :key="bk.ub_id">{{bk.ub_card_com}} : {{bk.ub_card_num.substr(bk.ub_card_num.length-4, 4)}}</b-form-radio>
+                            </template>
+                            <b-form-radio v-model="order.ub_id" :value="0">정기 결제 카드 추가</b-form-radio> 
+                        </div>
                     </transition>
 
                     <pay-plan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'S'" v-model="order.extra" />
@@ -229,12 +264,15 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
-                <b-button v-if="clickable" class="m_show pay_go" @click="exePayment">주문하기</b-button>
+                <b-button v-if="clickable" class="m_show pay_go" @click="exePayment">
+                    <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
+                    <template v-else>주문하기</template>
+                </b-button>
                 <b-button v-else class="m_show pay_go gray"><b-spinner /> 주문 중...</b-button>
             </b-col>
         </b-row>
     </b-container>
-    
+
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
             <template slot="header">
@@ -276,6 +314,10 @@ import ax from '@/api/http';
 import { VueDaumPostcode } from "vue-daum-postcode";
 import router from '@/router';
 import { mapState } from 'vuex';
+import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
+import { loadTossPayments } from '@tosspayments/payment-sdk';
+
+let paymentWidget = null;
 // import { validationChecker } from './_comp/FormValidation.js'
 // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
 
@@ -384,6 +426,7 @@ export default {
                 check_terms: 'Y',
                 dlvy_air: 'N',
                 sale_env: '',
+                ub_id:0
             },
             addr: [],
             addr_edit_index: 0,
@@ -391,6 +434,7 @@ export default {
             inicis: {},
             goods_def: {},
             clickable : true,
+            toss : [],
         }
     },
     computed: {
@@ -468,6 +512,8 @@ export default {
                 }
 
                 this.clickable = false; 
+                //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.
+                //  미리 주문 아이디가 선점 되어야 아이디가 겹지치 않고 돌아간다.
                 let pay = await ax.post(`/api/shop/order/pay`, this.order);
                 if (pay && pay.status === 200) {
                     
@@ -492,39 +538,72 @@ export default {
                     }
 
                     if (this.order.od_pay_method == 'C') {
-                        this.order.od_id = pay.data.od_id;
-                        if(this.order.sale_env == 'P') 
-                            INIStdPay.pay('SendPayForm');
-                        else if(this.order.sale_env == 'M') {
-                            var form = document.createElement('form'); // 폼객체 생성
-                            var objs01 = document.createElement('input'); 
-                            var objs02 = document.createElement('input'); 
-                            var objs03 = document.createElement('input'); 
-                            var objs04 = document.createElement('input'); 
-                            var objs05 = document.createElement('input'); 
-                            var objs06 = document.createElement('input'); 
-                            var objs07 = document.createElement('input'); 
-                            var objs08 = document.createElement('input'); 
-                            var objs09 = document.createElement('input');
-                            var objs10 = document.createElement('input');
-                            objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                       form.appendChild(objs01);
-                            objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);              form.appendChild(objs02);
-                            objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);            form.appendChild(objs03);
-                            objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);           form.appendChild(objs04);
-                            objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);       form.appendChild(objs05);
-                            objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name);               form.appendChild(objs06);
-                            objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile); form.appendChild(objs07);
-                            objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                       form.appendChild(objs08);
-                            objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);             form.appendChild(objs09);
-                            objs10.setAttribute('name', 'P_QUOTABASE');   objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12'); form.appendChild(objs10);
-                            form.setAttribute('method', 'post'); //get,post 가능
-                            form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
-                            form.setAttribute("accept-charset", "EUC-KR");
-                            document.body.appendChild(form);
-                            form.submit();
+                        if( this.user.level == 5 ) { //  토스 테스트
+                            paymentWidget.requestPayment({
+                                orderId: pay.data.od_id,
+                                orderName: this.order.od_name,
+                                successUrl: this.toss.successUrl,
+                                failUrl: this.toss.failUrl,
+                                customerEmail: this.user.email, // 고객 이메일 (선택)
+                                customerName: this.user.name, // 고객 이름 (선택)
+                            }).then((v) => console.log(v));
+                        } else {
+
+                            this.order.od_id = pay.data.od_id;
+                            if(this.order.sale_env == 'P') 
+                                INIStdPay.pay('SendPayForm');
+                            else if(this.order.sale_env == 'M') {
+                                var form = document.createElement('form'); // 폼객체 생성
+                                var objs01 = document.createElement('input'); 
+                                var objs02 = document.createElement('input'); 
+                                var objs03 = document.createElement('input'); 
+                                var objs04 = document.createElement('input'); 
+                                var objs05 = document.createElement('input'); 
+                                var objs06 = document.createElement('input'); 
+                                var objs07 = document.createElement('input'); 
+                                var objs08 = document.createElement('input'); 
+                                var objs09 = document.createElement('input');
+                                var objs10 = document.createElement('input');
+                                objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                       form.appendChild(objs01);
+                                objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);              form.appendChild(objs02);
+                                objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);            form.appendChild(objs03);
+                                objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);           form.appendChild(objs04);
+                                objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);       form.appendChild(objs05);
+                                objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name);               form.appendChild(objs06);
+                                objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile); form.appendChild(objs07);
+                                objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                       form.appendChild(objs08);
+                                objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);             form.appendChild(objs09);
+                                objs10.setAttribute('name', 'P_QUOTABASE');   objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12'); form.appendChild(objs10);
+                                form.setAttribute('method', 'post'); //get,post 가능
+                                form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
+                                form.setAttribute("accept-charset", "EUC-KR");
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+
                         }
                     } else if (this.order.od_pay_method == 'P') {
                         this.openWinPop(`/shop/order/settle_psys/${pay.data.od_id}`, 800, 720);
+                    } else if (this.order.od_pay_method == 'BL' && this.order.ub_id == 0) {
+                        
+                        loadTossPayments(this.toss['billing_clientKey']).then(tossPayments => {
+                            // ------ 카드 등록창 호출 ------
+                            tossPayments.requestBillingAuth('카드', { // 결제수단 파라미터 (자동결제는 카드만 지원합니다.)
+                                customerKey: this.toss.customerKey, // 고객 ID로 상점에서 만들어야 합니다. 빌링키와 매핑됩니다. 자세한 파라미터 설명은 결제 정보 파라미터 설명을 참고하세요.
+                                successUrl: `${this.toss.successUrl}/${pay.data.od_id}`, // 카드 등록에 성공하면 이동하는 페이지(직접 만들어주세요)
+                                failUrl: this.toss.failUrl,       // 카드 등록에 실패하면 이동하는 페이지(직접 만들어주세요)
+                            })
+                            // ------ 결제창을 띄울 수 없는 에러 처리 ------
+                            // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
+                            // 결제창에서 발생할 수 있는 에러를 확인하세요. 
+                            // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
+                            .catch(function (error) {
+                                if (error.code === 'USER_CANCEL') {
+                                // 결제 고객이 결제창을 닫았을 때 에러 처리
+                                }
+                            })
+                        });
+
                     } else {
                         await router.push({ name: 'order_done', params: { od_id: pay.data.od_id }});
                     }
@@ -687,11 +766,20 @@ export default {
                 this.addr = res.data.addr;
                 this.order.sale_env = res.data.sale_env;
                 this.goods_def = res.data.goods_def;
+                
                 if(this.addr.length)
                     this.addr_choose(this.addr[0]);
                 
                 if(this.user.is_dealer)
                     this.calculator();  //  딜러가 계산
+                
+                //  toss
+                this.toss = res.data.toss;
+                if ( this.$route.query.od_pay_method != "BL") {
+                    paymentWidget = await loadPaymentWidget(this.toss.clientKey, this.toss.customerKey);
+                    paymentWidget.renderPaymentMethods("#payment-method", this.order.price.total);
+                    // paymentWidget.renderAgreement('#agreement');
+                }                
             }
             /*  견적가 에러는 
                 \resources\js\api\http.js
@@ -705,7 +793,10 @@ export default {
     mounted() {
         if ( this.user.level == 12 )
             this.order.od_pay_method = 'B';
-        
+        if ( this.$route.query.od_plan ) {
+            this.order.od_pay_method = 'BL';
+            this.order.od_plan = this.$route.query.od_plan;
+        }
         // console.log(this.$session.get('order'));
         // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
         //     console.log('collapseId:', collapseId)
@@ -791,15 +882,17 @@ export default {
 #settle .st_bottom .payment .body h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
 #settle .st_bottom .payment .body>div { border-top:1px solid #d7d7d7; padding:.94rem 0; }
 #settle .st_bottom .payment .body div>>>h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem; }
-#settle .st_bottom .payment .body .method>div { margin:1rem 0; display:flex; }
+#settle .st_bottom .payment .body .method>div { margin:1rem 0; display:flex; flex-wrap: wrap; }
 #settle .st_bottom .payment .body .method div .custom-radio { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%; }
 #settle .st_bottom .payment .body .method div .custom-radio>>>label { font-weight:bold; color:#616161; font-size:.95rem; cursor:pointer; }
 #settle .st_bottom .payment .body .method div .custom-radio>>>label::before,
 #settle .st_bottom .payment .body .method div .custom-radio>>>label::after { left:-1.2rem; top:.15em; }
-#settle .st_bottom .payment .body .method div span { color:#ACACAC; font-size:.8rem; }
+#settle .st_bottom .payment .body .method div span { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%; }
 #settle .st_bottom .payment .body .method div span b { cursor:pointer; position:relative; }
 #settle .st_bottom .payment .body .method div span img { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem; }
 #settle .st_bottom .payment .body .method div span b:hover img { display:block; }
+#settle .st_bottom .payment .body .method div #payment-method { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden; }
+#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show { max-height:600px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5); }
 
 
 #settle .st_bottom .payment .body .pay_info .row { margin:1rem 0; }

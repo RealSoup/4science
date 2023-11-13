@@ -7,27 +7,17 @@
         <h4 class="alert-heading">실패 결과</h4>
         <p>결제에 실패하였습니다. 관리자에게 문의하거나 다른 카드를 이용해주시기 바랍니다.</p>
         <hr>
-        <p class="mb-0"><pre>{{$route.query.msg}}</pre></p>
+        <p class="mb-0">
+            <pre>
+                {{$route.query.msg}}
+                {{$route.query.code}}
+                {{$route.query.message}}
+            </pre>
+        </p>
     </div>
 </section>
 </template>
 
 <script>
-export default {
-    name: 'ShopOrderPayCardFail',
-
-    data() {
-        return {
-            
-        };
-    },
-    computed: {
-        
-    
-    },
-};
+export default { name: 'ShopOrderPayCardFail', };
 </script>
-
-<style lang="scss" scoped>
-
-</style>
