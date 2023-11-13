@@ -375,7 +375,101 @@ class OrderController extends Controller {
         return response()->json($rst, 200);
     }
 
-    public function payReturn(Request $req, $od_id=0){
+    public function payReturn(Request $req){
+        /*
+        크롬의 쿠키 정책의 의해
+        결제시 외부 도메인을 타면 쿠키가 삭제되어
+        로그인이 풀린다
+        그래서 아래의 설정 추가
+        /config/session.php
+            'same_site' => 'lax', <<- 주석
+
+        \app\Http\Middleware\VerifyCsrfToken.php
+            protected $except = [
+                'shop/order/payReturn',
+                'shop/order/payReturnMobaile',
+            ];
+        */
+        
+        $params['msg'] = '';
+        try {
+            dd($req->all());
+            if (strcmp("0000", $req->resultCode) == 0) { // 인증이 성공일 경우만
+                $timestamp 		= $this->getTimestamp();
+                $mKey 			= hash("sha256", $this->signKey);
+                $signParam["authToken"] 	= $req->authToken;
+                $signParam["timestamp"] 	= $timestamp;
+                $signature = $this->makeSignature($signParam);
+
+                $authMap["mid"] 			= $req->mid;   		// 필수
+                $authMap["authToken"] 		= $req->authToken;  // 필수
+                $authMap["signature"] 		= $signature; 	    // 필수
+                $authMap["timestamp"] 		= $timestamp; 	    // 필수
+                $authMap["charset"] 		= "UTF-8";
+                $authMap["format"] 			= "JSON";
+                try { // 4.API 통신 시작
+                    if ($this->processHTTP($req->authUrl, $authMap)) {
+                        $resultMap = json_decode($this->body, true);
+                    } else {
+                        echo "Http Connect Error\n".$this->errormsg;
+                        throw new Exception("Http Connect Error");
+                    }
+                    $secureMap["mid"]		= $req->mid;
+                    $secureMap["tstamp"]	= $timestamp;
+                    $secureMap["MOID"]		= $resultMap["MOID"];
+                    $secureMap["TotPrice"]	= $resultMap["TotPrice"];
+
+                    // signature 데이터 생성
+                    $secureSignature = $this->makeSignatureAuth($secureMap);
+
+                    $pgdb_rst = OrderPg::insert([
+                        'pg_od_id'    => $req->merchantData,
+                        'pg_app_no'   => $resultMap['applNum'],
+                        'pg_tid'      => $resultMap['tid'],
+                        'pg_pay_type' => $resultMap['payMethod'],
+                        'pg_price'    => $resultMap['CARD_ApplPrice'],
+                        'pg_card_com' => OrderPg::$option['cardComNm'][$resultMap['CARD_Code']],
+                        'pg_buyer_nm' => $resultMap['buyerName'],
+                        'pg_code'     => $resultMap['resultCode'],
+                        'pg_msg'      => $resultMap['resultMsg']]);
+
+                    if ((strcmp("0000", $resultMap["resultCode"]) == 0) && (strcmp($secureSignature, $resultMap["authSignature"]) == 0) ){ // 결제 성공시
+                        DB::table('shop_order')->where('od_id', $req->merchantData)->update(['od_step'=> '20']);
+                        return redirect("/shop/order/done/{$req->merchantData}");
+                    } else {
+                        $params['msg'] = "거래 실패<br />";
+                        $params['msg'] .= "결과 코드:". @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" );
+                        //결제보안키가 다른 경우.
+                        if (isset($resultMap["authSignature"]) && strcmp($secureSignature, $resultMap["authSignature"]) != 0) { //망취소
+                            if(strcmp("0000", $resultMap["resultCode"]) == 0) throw new Exception("데이터 위변조 체크 실패");
+                        } else {
+                            $params['msg'] .= @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" );
+                        }
+                        return redirect("/shop/order/payCardFail?msg=".$params['msg']);
+                    }
+                } catch (Exception $e) { // 실패시 처리
+                    $params['msg'] .= $e->getMessage().'(오류코드:'.$e->getCode().')';
+                    // 망취소 API
+                    $netcancelResultString = ""; // 망취소 요청 API url(고정, 임의 세팅 금지)
+                    if ($this->processHTTP($req->netCancelUrl, $authMap)) {
+                        $netcancelResultString = $this->body;
+                    } else {
+                        $params['msg'] .= "Http Connect Error\n".$this->errormsg;
+                        throw new Exception("Http Connect Error");
+                    }
+                    $params['msg'] .= "<br/>## 망취소 API 결과 ##<br/><p>". $netcancelResultString . "</p>";
+                    return redirect("/shop/order/payCardFail?msg=".$params['msg']);
+                }
+            } else { // 인증 실패시
+                $params['msg'] .= "<br/>####인증실패####<pre>" . var_dump($_REQUEST) . "</pre>";
+                return redirect("/shop/order/payCardFail?msg=".$params['msg']);
+            }
+        } catch (Exception $e) {
+            $params['msg'] .= $e->getMessage().'(오류코드:'.$e->getCode().')';
+            return redirect("/shop/order/payCardFail?msg=".$params['msg']);
+        }
+    }
+    public function payReturn02(Request $req, $od_id=0){
         /*
         크롬의 쿠키 정책의 의해
         결제시 외부 도메인을 타면 쿠키가 삭제되어
