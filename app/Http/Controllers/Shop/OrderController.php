@@ -98,10 +98,10 @@ class OrderController extends Controller {
         $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
         $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn02";
         $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
+        $params['toss']['redirectUrl']  = config('app.url')."shop/order/tossBrandPayAccessToken";
         $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
         $params['toss']['billing_clientKey'] = env('TOSS_BILLING_CLIENTKEY');
         $params['toss']['billing_keys'] = DB::table('user_billing')->where('created_id', auth()->user()->id)->get();
-        
         return response()->json($params);
     }
 
@@ -470,7 +470,7 @@ class OrderController extends Controller {
     }
 
     public function payReturn02(Request $req, $od_id=0){
-        if( ($req->filled("paymentKey") && $req->paymentKey != '') || ($req->filled("customerKey") && $req->customerKey != '')) {
+        if( ($req->filled("paymentKey") && $req->paymentKey != '') || ($req->filled("customerKey") && $req->customerKey != '')) { 
             if ($req->filled("paymentKey"))
                 $rst_toss = self::tossCurl('tossSuccess', $req);
             else if ($req->filled("authKey") && $od_id>0) {
