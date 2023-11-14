@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <!-- 뉴 END -->
-                    ========================================
+                    ================
     </template>   
                     
                         
@@ -892,7 +892,7 @@ export default {
 #settle .st_bottom .payment .body .method div span img { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem; }
 #settle .st_bottom .payment .body .method div span b:hover img { display:block; }
 #settle .st_bottom .payment .body .method div #payment-method { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden; }
-#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show { max-height:600px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5); }
+#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5); }
 
 
 #settle .st_bottom .payment .body .pay_info .row { margin:1rem 0; }
