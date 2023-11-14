@@ -156,7 +156,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     action: function action(type) {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var params, cntModel, required_key, required_key_cnt, estimate_price, res;
+        var params, cntModel, required_key, required_key_cnt, estimate_price, route_obj, res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -196,7 +196,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _context2.abrupt("return", false);
             case 13:
               _context2.t0 = type;
-              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 23 : _context2.t0 === "wish" ? 25 : _context2.t0 === "estimate" ? 37 : 39;
+              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 25 : _context2.t0 === "wish" ? 27 : _context2.t0 === "estimate" ? 39 : 41;
               break;
             case 16:
               estimate_price = false;
@@ -210,46 +210,47 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
               return _context2.abrupt("return", false);
             case 21:
-              _this3.$router.push({
+              route_obj = {
                 name: 'order_settle',
                 params: {
                   od_goods: params,
                   od_type: 'buy_inst'
-                },
-                query: {
-                  od_plan: _this3.od_plan
                 }
-              });
-              return _context2.abrupt("break", 39);
-            case 23:
+              };
+              if (_this3.od_plan != '') route_obj.query = {
+                od_plan: _this3.od_plan
+              };
+              _this3.$router.push(route_obj);
+              return _context2.abrupt("break", 41);
+            case 25:
               // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
               _this3.$store.dispatch('cart/examine', {
                 goods: _this3.content
               });
-              return _context2.abrupt("break", 39);
-            case 25:
-              _context2.prev = 25;
-              _context2.next = 28;
+              return _context2.abrupt("break", 41);
+            case 27:
+              _context2.prev = 27;
+              _context2.next = 30;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
                 return gm.ea > 0;
               }));
-            case 28:
+            case 30:
               res = _context2.sent;
               if (res && res.status === 200) {
                 Notify.toast('success', '관심 상품 등록 완료');
               } else {
                 Notify.toast('warning', res);
               }
-              _context2.next = 36;
+              _context2.next = 38;
               break;
-            case 32:
-              _context2.prev = 32;
-              _context2.t1 = _context2["catch"](25);
+            case 34:
+              _context2.prev = 34;
+              _context2.t1 = _context2["catch"](27);
               Notify.consolePrint(_context2.t1);
               Notify.toast('warning', _context2.t1.responsee);
-            case 36:
-              return _context2.abrupt("break", 39);
-            case 37:
+            case 38:
+              return _context2.abrupt("break", 41);
+            case 39:
               _this3.$router.push({
                 name: 'estimate_create',
                 params: {
@@ -257,12 +258,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   od_type: 'request_estimate'
                 }
               });
-              return _context2.abrupt("break", 39);
-            case 39:
+              return _context2.abrupt("break", 41);
+            case 41:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[25, 32]]);
+        }, _callee2, null, [[27, 34]]);
       }))();
     },
     makeParam: function makeParam() {

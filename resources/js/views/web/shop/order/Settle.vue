@@ -776,7 +776,7 @@ export default {
                 //  toss
                 this.toss = res.data.toss;
                 if ( this.$route.query.od_pay_method != "BL") {
-                    paymentWidget = await loadPaymentWidget(this.toss.clientKey, this.toss.customerKey, { redirectUrl: this.toss.redirectUrl });
+                    paymentWidget = await loadPaymentWidget(this.toss.clientKey, this.toss.customerKey);
                     paymentWidget.renderPaymentMethods("#payment-method", this.order.price.total);
                     // paymentWidget.renderAgreement('#agreement');
                 }                

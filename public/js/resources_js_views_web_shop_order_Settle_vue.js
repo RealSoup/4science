@@ -860,9 +860,7 @@ var paymentWidget = null;
               break;
             }
             _context2.next = 43;
-            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this2.toss.clientKey, _this2.toss.customerKey, {
-              redirectUrl: _this2.toss.redirectUrl
-            });
+            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this2.toss.clientKey, _this2.toss.customerKey);
           case 43:
             paymentWidget = _context2.sent;
             paymentWidget.renderPaymentMethods("#payment-method", _this2.order.price.total);

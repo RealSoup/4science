@@ -419,8 +419,15 @@ export default {
                     if (estimate_price) {
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
-                    }                    
-                    this.$router.push({name: 'order_settle', params: { od_goods: params, od_type: 'buy_inst' }, query:{ od_plan: this.od_plan }});
+                    }
+                    let route_obj = {
+                        name: 'order_settle', 
+                        params: { od_goods: params, od_type: 'buy_inst' }
+                    };
+                    if ( this.od_plan != '' )
+                        route_obj.query = {od_plan:this.od_plan};
+                    
+                    this.$router.push(route_obj);
                 break;
 
                 case "putCart":
