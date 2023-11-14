@@ -1278,7 +1278,7 @@ var render = function render() {
     staticClass: "top"
   }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.order.price.total)))]), _vm._v(" 원"), _c("span", [_vm._v("부가세 포함")])])], 1), _vm._v(" "), _c("div", {
     staticClass: "body"
-  }, [_vm.user.level == 5 ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+  }, [_vm.user.level == 5 && _vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
     staticClass: "method"
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
@@ -1322,7 +1322,7 @@ var render = function render() {
         id: "payment-method"
       }
     }) : _vm._e()], 1);
-  }), 0), _vm._v(" "), _vm._v("\r\n                    ========================================\r\n    ")] : [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+  }), 0), _vm._v(" "), _vm._v("\r\n                    ========================================\r\n    ")] : _vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
     staticClass: "method"
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
@@ -1359,7 +1359,7 @@ var render = function render() {
         src: _vm.s3url + "order/pay_escrow.png"
       }
     })])]) : _vm._e()], 1);
-  }), 0)], _vm._v(" "), _c("transition", {
+  }), 0)] : _vm._e(), _vm._v(" "), _c("transition", {
     attrs: {
       name: "slideUpDown"
     }

@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.container { margin:0; }
+.container { margin:0; padding: 15px; }
 .container>.row { margin:0 0 .3rem 0; }
 .container>.row .col { padding:0; position:relative;}
 .container>.row:not(:last-of-type)>.col:first-of-type { border-radius:.25rem; border:1px solid #CCC; background:#20613722; font-size:1.5rem; font-weight:bold; color:#CCC; text-align:center; flex-basis:10%; max-width:10%; }

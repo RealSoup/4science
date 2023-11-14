@@ -150,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap[data-v-48af320c] {\n}\n.p_wrap h3[data-v-48af320c] { margin-left:15px;\n}\n.row[data-v-48af320c] { justify-content:space-between; margin:15px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.p_wrap h3[data-v-48af320c] { margin: 15px 0px 0px 15px;\n}\n.row[data-v-48af320c] { justify-content:space-between; margin:15px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

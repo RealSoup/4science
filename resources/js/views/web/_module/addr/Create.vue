@@ -1,13 +1,13 @@
 <template>
-    <div class="p_wrap">
-        <h3>배송지 추가</h3>
-        <Form v-model="addr" />
-        
-        <b-row>
-            <b-button size="sm" @click="index">뒤로</b-button>
-            <b-button variant="primary" size="sm" @click="store">저장</b-button>
-        </b-row>
-    </div>
+<div class="p_wrap">
+    <h3>배송지 추가</h3>
+    <Form v-model="addr"></Form>
+    
+    <b-row>
+        <b-button size="sm" @click="index">뒤로</b-button>
+        <b-button variant="primary" size="sm" @click="store">저장</b-button>
+    </b-row>
+</div>
 </template>
 
 <script>
@@ -50,7 +50,6 @@ export default {
 }
 </script>
 <style scoped>
-.p_wrap {  }
-.p_wrap h3 { margin-left:15px; }
+.p_wrap h3 { margin: 15px 0px 0px 15px; }
 .row { justify-content:space-between; margin:15px; }
 </style>

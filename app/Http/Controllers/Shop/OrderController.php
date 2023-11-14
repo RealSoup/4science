@@ -96,7 +96,7 @@ class OrderController extends Controller {
         $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
         
         $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
-        $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn";
+        $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn02";
         $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
         $params['toss']['clientKey']    = env('TOSS_CLIENTKEY');
         $params['toss']['billing_clientKey'] = env('TOSS_BILLING_CLIENTKEY');
@@ -156,22 +156,22 @@ class OrderController extends Controller {
             if ($req->od_pay_method=='BL') {
                 $ob_data = [ 'ob_od_id'   => $this->order->od_id, 
                              'ob_od_plan' => $req->od_plan ];
-                if ($req->filled('ub_id') && $req->ub_id>0)
+                if ($req->filled('ub_id') && $req->ub_id>0) {
+                    $obj = collect();
+                    $obj->od = $this->order;
+                    $obj->billing = collect();
+                    $bl = DB::table('user_billing')->where('ub_id', $req->ub_id)->first();
+                    $obj->billing->customerKey = $bl->ub_customer_key;
+                    $obj->billing->billingKey = $bl->ub_billing_key;
+                    //  빌링키를 활용 결제 승인 받기
+                    $rst_toss = json_decode(self::tossCurl('tossBillingPayApprove', $obj));
+                    if( $rst_toss->status == "DONE" ) {
+                        self::tossPgInsert($rst_toss);
+                        DB::table('shop_order')->where('od_id', $this->order->od_id)->update(['od_step'=> '20']);
+                    }
                     $ob_data['ob_ub_id'] = $req->ub_id;
-                DB::table('shop_order_billing')->insert($ob_data);
-
-                $obj = collect();
-                $obj->od = $this->order;
-                $obj->billing = collect();
-                $bl = DB::table('user_billing')->where('ub_id', $req->ub_id)->first();
-                $obj->billing->customerKey = $bl->ub_customer_key;
-                $obj->billing->billingKey = $bl->ub_billing_key;
-                //  빌링키를 활용 결제 승인 받기
-                $rst_toss = json_decode(self::tossCurl('tossBillingPayApprove', $obj));
-                if( $rst_toss->status == "DONE" ) {
-                    self::tossPgInsert($rst_toss);
-                    DB::table('shop_order')->where('od_id', $this->order->od_id)->update(['od_step'=> '20']);
                 }
+                DB::table('shop_order_billing')->insert($ob_data);
             }
             
             foreach ($req->lists as $pa_id => $pa) {
@@ -468,25 +468,8 @@ class OrderController extends Controller {
             return redirect("/shop/order/payCardFail?msg=".$params['msg']);
         }
     }
+
     public function payReturn02(Request $req, $od_id=0){
-        /*
-        크롬의 쿠키 정책의 의해
-        결제시 외부 도메인을 타면 쿠키가 삭제되어
-        로그인이 풀린다
-        그래서 아래의 설정 추가
-        /config/session.php
-            'same_site' => 'lax', <<- 주석
-
-        \app\Http\Middleware\VerifyCsrfToken.php
-            protected $except = [
-                'shop/order/payReturn',
-                'shop/order/payReturnMobaile',
-            ];
-        */
-
-
-
-        //  toss START
         if( ($req->filled("paymentKey") && $req->paymentKey != '') || ($req->filled("customerKey") && $req->customerKey != '')) {
             if ($req->filled("paymentKey"))
                 $rst_toss = self::tossCurl('tossSuccess', $req);
@@ -517,91 +500,14 @@ class OrderController extends Controller {
                 $mod_data['od_pay_method'] = 'CP';
             DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
             return redirect("/shop/order/done/{$rst_toss->orderId}");
-        }        
-        //  toss END
-        
-        $params['msg'] = '';
-        try {
-            dd($req->all());
-            if (strcmp("0000", $req->resultCode) == 0) { // 인증이 성공일 경우만
-                $timestamp 		= $this->getTimestamp();
-                $mKey 			= hash("sha256", $this->signKey);
-                $signParam["authToken"] 	= $req->authToken;
-                $signParam["timestamp"] 	= $timestamp;
-                $signature = $this->makeSignature($signParam);
-
-                $authMap["mid"] 			= $req->mid;   		// 필수
-                $authMap["authToken"] 		= $req->authToken;  // 필수
-                $authMap["signature"] 		= $signature; 	    // 필수
-                $authMap["timestamp"] 		= $timestamp; 	    // 필수
-                $authMap["charset"] 		= "UTF-8";
-                $authMap["format"] 			= "JSON";
-                try { // 4.API 통신 시작
-                    if ($this->processHTTP($req->authUrl, $authMap)) {
-                        $resultMap = json_decode($this->body, true);
-                    } else {
-                        echo "Http Connect Error\n".$this->errormsg;
-                        throw new Exception("Http Connect Error");
-                    }
-                    $secureMap["mid"]		= $req->mid;
-                    $secureMap["tstamp"]	= $timestamp;
-                    $secureMap["MOID"]		= $resultMap["MOID"];
-                    $secureMap["TotPrice"]	= $resultMap["TotPrice"];
-
-                    // signature 데이터 생성
-                    $secureSignature = $this->makeSignatureAuth($secureMap);
-
-                    $pgdb_rst = OrderPg::insert([
-                        'pg_od_id'    => $req->merchantData,
-                        'pg_app_no'   => $resultMap['applNum'],
-                        'pg_tid'      => $resultMap['tid'],
-                        'pg_pay_type' => $resultMap['payMethod'],
-                        'pg_price'    => $resultMap['CARD_ApplPrice'],
-                        'pg_card_com' => OrderPg::$option['cardComNm'][$resultMap['CARD_Code']],
-                        'pg_buyer_nm' => $resultMap['buyerName'],
-                        'pg_code'     => $resultMap['resultCode'],
-                        'pg_msg'      => $resultMap['resultMsg']]);
-
-                    if ((strcmp("0000", $resultMap["resultCode"]) == 0) && (strcmp($secureSignature, $resultMap["authSignature"]) == 0) ){ // 결제 성공시
-                        DB::table('shop_order')->where('od_id', $req->merchantData)->update(['od_step'=> '20']);
-                        return redirect("/shop/order/done/{$req->merchantData}");
-                    } else {
-                        $params['msg'] = "거래 실패<br />";
-                        $params['msg'] .= "결과 코드:". @(in_array($resultMap["resultCode"] , $resultMap) ? $resultMap["resultCode"] : "null" );
-                        //결제보안키가 다른 경우.
-                        if (isset($resultMap["authSignature"]) && strcmp($secureSignature, $resultMap["authSignature"]) != 0) { //망취소
-                            if(strcmp("0000", $resultMap["resultCode"]) == 0) throw new Exception("데이터 위변조 체크 실패");
-                        } else {
-                            $params['msg'] .= @(in_array($resultMap["resultMsg"] , $resultMap) ? $resultMap["resultMsg"] : "null" );
-                        }
-                        return redirect("/shop/order/payCardFail?msg=".$params['msg']);
-                    }
-                } catch (Exception $e) { // 실패시 처리
-                    $params['msg'] .= $e->getMessage().'(오류코드:'.$e->getCode().')';
-                    // 망취소 API
-                    $netcancelResultString = ""; // 망취소 요청 API url(고정, 임의 세팅 금지)
-                    if ($this->processHTTP($req->netCancelUrl, $authMap)) {
-                        $netcancelResultString = $this->body;
-                    } else {
-                        $params['msg'] .= "Http Connect Error\n".$this->errormsg;
-                        throw new Exception("Http Connect Error");
-                    }
-                    $params['msg'] .= "<br/>## 망취소 API 결과 ##<br/><p>". $netcancelResultString . "</p>";
-                    return redirect("/shop/order/payCardFail?msg=".$params['msg']);
-                }
-            } else { // 인증 실패시
-                $params['msg'] .= "<br/>####인증실패####<pre>" . var_dump($_REQUEST) . "</pre>";
-                return redirect("/shop/order/payCardFail?msg=".$params['msg']);
-            }
-        } catch (Exception $e) {
-            $params['msg'] .= $e->getMessage().'(오류코드:'.$e->getCode().')';
-            return redirect("/shop/order/payCardFail?msg=".$params['msg']);
         }
     }
+
     public function payRequestMobile(Request $req) {
         $params=1;
         return view("payRequestMobile", $params);
     }
+
     public function payReturnMobile(Request $req){
         if ($req->P_STATUS != "00") {
             $msg = "오류코드:".$req->P_STATUS."\\n".$req->P_RMESG1;

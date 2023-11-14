@@ -56,10 +56,9 @@ export default {
 </script>
 
 <style scoped>
-.p_wrap { width:calc( 100% - 30px ); padding: 20px;}
-.p_wrap h3 { margin-right:-15px; margin-left:-15px; }
+.p_wrap h3 { margin:15px 15px 0px 15px; }
 .p_wrap h3 button { float:right; }
-.row { border:1px solid #CCC; cursor:pointer; position:relative; }
+.row { border:1px solid #CCC; cursor:pointer; position:relative; MARGIN: 15px; }
 .row:not(:last-child) { border-bottom-width:0; }
 .row:hover { background:#20613722; }
 .row .col { flex-basis:100%; padding:.1rem 1.5rem; }

@@ -89,14 +89,15 @@ Route::post('auth/join_sync_choice', 'Auth\SocialController@socialUserJoin')->na
 
 Route::prefix('shop')->group(function () {
     Route::prefix('order')->group(function () {
-        Route::get('pgClose',                       'Shop\OrderController@pgClose');
-        Route::POST('payReturn',                    'Shop\OrderController@payReturn');
-        Route::GET( 'payReturn/{od_id?}',           'Shop\OrderController@payReturn02');
-        Route::POST('payRequestMobile',             'Shop\OrderController@payRequestMobile');
-        Route::POST('payReturnMobile',              'Shop\OrderController@payReturnMobile');
-        Route::POST('payReturnPsys',                'Shop\OrderController@payReturnPsys');
-        Route::GET('tossBrandPayAccessToken',       'Shop\OrderController@tossBrandPayAccessToken');
-        Route::GET('tossBillingKeyIssue/{od_id}',   'Shop\OrderController@tossBillingKeyIssue');
+        Route::get('pgClose',                     'Shop\OrderController@pgClose');
+        Route::POST('payReturn',                  'Shop\OrderController@payReturn');
+        // Route::GET( 'payReturn02',                'Shop\OrderController@payReturn02');
+        Route::GET( 'payReturn02/{od_id?}',        'Shop\OrderController@payReturn02');
+        Route::POST('payRequestMobile',           'Shop\OrderController@payRequestMobile');
+        Route::POST('payReturnMobile',            'Shop\OrderController@payReturnMobile');
+        Route::POST('payReturnPsys',              'Shop\OrderController@payReturnPsys');
+        Route::GET('tossBrandPayAccessToken',     'Shop\OrderController@tossBrandPayAccessToken');
+        Route::GET('tossBillingKeyIssue/{od_id}', 'Shop\OrderController@tossBillingKeyIssue');
     });
 
     Route::prefix('estimate')->group(function () {
