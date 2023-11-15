@@ -1,6 +1,6 @@
 <template>
 <div>
-    <img :src="`${s3url}goods/no-item.jpg`" />
+    <img src="/storage/goods/no-item.jpg" />
     <p>죄송합니다.</p>
     <p>검색하신 제품이 등록되어 있지 않습니다.</p>
     <ul>

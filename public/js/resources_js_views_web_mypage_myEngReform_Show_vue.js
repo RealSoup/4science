@@ -58,7 +58,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context.next = 10;
               break;
             case 9:
-              if (files[i].type == 'application/pdf') src = _this.s3url + "common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = _this.s3url + "common/file_icon_excel.png";else src = _this.s3url + "common/file_icon_default.png";
+              if (files[i].type == 'application/pdf') src = "/storage/common/file_icon_pdf.png";else if (files[i].type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') src = "/storage/common/file_icon_excel.png";else src = "/storage/common/file_icon_default.png";
             case 10:
               files[i].path_thumb = src;
               files[i].fi_original = files[i].name;

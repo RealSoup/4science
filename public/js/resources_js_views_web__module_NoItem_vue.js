@@ -31,16 +31,16 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("img", {
-    attrs: {
-      src: "".concat(_vm.s3url, "goods/no-item.jpg")
-    }
-  }), _vm._v(" "), _c("p", [_vm._v("죄송합니다.")]), _vm._v(" "), _c("p", [_vm._v("검색하신 제품이 등록되어 있지 않습니다.")]), _vm._v(" "), _vm._m(0)]);
+  return _vm._m(0);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("ul", [_c("li", [_vm._v("검색어를 다시 한번 확인 부탁드립니다.")]), _vm._v(" "), _c("li", [_vm._v("포사이언스 대표전화("), _c("b", [_vm._v("1644-4214")]), _vm._v(")로 문의주시면 도움 드리겠습니다.")])]);
+  return _c("div", [_c("img", {
+    attrs: {
+      src: "/storage/goods/no-item.jpg"
+    }
+  }), _vm._v(" "), _c("p", [_vm._v("죄송합니다.")]), _vm._v(" "), _c("p", [_vm._v("검색하신 제품이 등록되어 있지 않습니다.")]), _vm._v(" "), _c("ul", [_c("li", [_vm._v("검색어를 다시 한번 확인 부탁드립니다.")]), _vm._v(" "), _c("li", [_vm._v("포사이언스 대표전화("), _c("b", [_vm._v("1644-4214")]), _vm._v(")로 문의주시면 도움 드리겠습니다.")])])]);
 }];
 render._withStripped = true;
 

@@ -4,7 +4,7 @@
     @mouseleave="mouseHover = false"
     :class="[{fixed_header:isScrollPass}, {hideCart:(!mouseHover || cntItem == 0)}]"
 >
-    <b-link :to="{name:'cart_index'}"><b-img :src="s3url+'common/basket.png'" /></b-link>
+    <b-link :to="{name:'cart_index'}"><b-img src="/storage/common/basket.png" /></b-link>
     
     <div class="list_box" v-if="cntItem">
         <ul>

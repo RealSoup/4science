@@ -38,11 +38,11 @@ export default {
                 if(files[i].type.match(/image/i))
                     src = await this.readFiles(files[i]);
                 else if(files[i].type=='application/pdf')
-                    src = this.s3url+"common/file_icon_pdf.png";
+                    src = "/storage/common/file_icon_pdf.png";
                 else if(files[i].type=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                    src = this.s3url+"common/file_icon_excel.png";
+                    src = "/storage/common/file_icon_excel.png";
                 else
-                    src = this.s3url+"common/file_icon_default.png";
+                    src = "/storage/common/file_icon_default.png";
                     
                 files[i].path_thumb = src;
                 files[i].fi_original = files[i].name;

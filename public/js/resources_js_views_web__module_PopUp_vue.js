@@ -67,7 +67,7 @@ var render = function render() {
     staticClass: "popup pop_0"
   }, [_c("b-img", {
     attrs: {
-      src: "".concat(_vm.s3url, "main/popup/230914.jpg"),
+      src: "/storage/main/popup/230914.jpg",
       width: "500"
     }
   }), _vm._v(" "), _c("div", {
@@ -83,7 +83,7 @@ var render = function render() {
     staticClass: "popup pop_1"
   }, [_c("b-img", {
     attrs: {
-      src: "".concat(_vm.s3url, "order/popup.png")
+      src: "/storage/order/popup.png"
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "ctrl"

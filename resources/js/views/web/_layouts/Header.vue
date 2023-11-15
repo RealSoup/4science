@@ -10,9 +10,9 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <b-img :src="`${s3url}common/logo/logo.png`" />
-                <!-- <b-img :src="`${s3url}common/logo/logo_230526.png`" class="season" />
-                <b-img :src="`${s3url}common/logo/logo.png`" class="default" /> -->
+                <b-img :src="`/storage/common/logo/logo.png`" />
+                <!-- <b-img :src="`/storage/common/logo/logo_230526.png`" class="season" />
+                <b-img :src="`/storage/common/logo/logo.png`" class="default" /> -->
             </b-link>
             
             <div class="head_sch_box" :class="{view_sch:view_sch}">
@@ -33,31 +33,34 @@
             <div class="top_menu">
                 <template v-if="isLoggedin">
                     <b-link @click="logout">
-                        <b-img :src="`${s3url}common/icon_login.png`" />
+                        <b-img :src="`/storage/common/icon_login.png`" />
                         <p>로그아웃</p>
                     </b-link>
                     <b-link :to="{name: 'mypage'}">
-                        <b-img :src="`${s3url}common/icon_mypage.png`" />
+                        <b-img :src="`/storage/common/icon_mypage.png`" />
                         <p>마이페이지</p>
                     </b-link>
                     <b-link :to="{name:'cart_index'}">
-                        <b-img :src="`${s3url}common/icon_cart.png`" />
+                        <b-img :src="`/storage/common/icon_cart.png`" />
                         <p>장바구니</p>
                     </b-link>
                 </template>
                 <template v-else>
                     <b-link @click="isModalViewed=true">
-                        <b-img :src="`${s3url}common/icon_login.png`" />
+                        <b-img :src="`/storage/common/icon_login.png`" />
                         <p>로그인</p>
                     </b-link>
                 </template>
             </div>
+            
+            <b-link href="https://pf.kakao.com/_AxmKUj" target='_blank' class="kakao"><b-img :src="`/storage/common/kakao.png`" /></b-link>
+            
         </div>
         <nav class="nav_menu" :class="{view_nav:view_nav}">
             <div class="layout">
                 <b-link id="cate_btn" @click="view_cate = !view_cate">
-                    <b-img :src="`${s3url}common/icon_category.png`" /><span class="m_hide"> 카테고리</span>
-                    <categorys v-if="view_cate" :class="{view_cate:view_cate}" @close_cate="view_cate=false" />
+                    <b-img :src="`/storage/common/icon_category.png`" /><span class="m_hide"> 카테고리</span>
+                    <categorys v-if="view_cate" :class="{view_cate:view_cate}" @close_cate="view_cate=false"></categorys>
                 </b-link>
                 <b-link to="/shop/listing/today_pick_up/all">당일출고</b-link>
                 <b-link :to="{name: 'estimate_create'}">견적요청</b-link>
@@ -81,7 +84,7 @@
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="560" :padding="0" >
             <template slot="header"><div class="modal_login">로그인</div></template>
-            <login-pop-up @close-modal="isModalViewed = false" />
+            <login-pop-up @close-modal="isModalViewed = false"></login-pop-up>
         </modal>
     </transition>
 </div>
@@ -109,14 +112,6 @@ export default {
     },
     watch: {
         '$route.query' (to, from) {
-            // if (to.ca01) { this.sch_frm.ca01 = to.ca01; this.sch_frm.ca02 = ''; this.sch_frm.ca03 = ''; this.sch_frm.ca04 = ''; }
-            // if (to.ca02) { this.sch_frm.ca02 = to.ca02; this.sch_frm.ca03 = ''; this.sch_frm.ca04 = ''; }
-            // if (to.ca03) { this.sch_frm.ca03 = to.ca03; this.sch_frm.ca04 = ''; }
-            // if (to.ca04) this.sch_frm.ca04 = to.ca04;
-            // if (to.keyword) this.sch_frm.keyword = to.keyword;
-            // if (to.mode) this.sch_frm.mode = to.mode;
-            // if (to.sort) this.sch_frm.sort = to.sort;
-            // this.index();
             if ( this.$route.name == 'goods_index' ) {
                 this.$store.commit('goods/setFrm', {
                     ca01:this.$route.query.ca01 ?? 0,
@@ -143,9 +138,7 @@ export default {
         ...mapState('recent_goods', ['recent_goods_view', 'list']),
     },
     methods:{
-        logout() {
-            this.$store.dispatch('auth/logout');
-        },
+        logout() { this.$store.dispatch('auth/logout'); },
         routerPush(){
             if(this.frm.keyword == '') {
                 Notify.modal('검색어를 입력하세요.', 'warning');
@@ -153,18 +146,10 @@ export default {
             }
             this.$store.dispatch('goods/routerPush', 'new');
         },
-        onScroll(e) {
-            // console.log(window.top.scrollY);
-            this.headerFix = window.top.scrollY > 10;
-        }
-
+        onScroll(e) { this.headerFix = window.top.scrollY > 10; }
     },
-    mounted() {
-        window.addEventListener("scroll", this.onScroll)
-    },
-    beforeDestroy() {
-        window.removeEventListener("scroll", this.onScroll)
-    },
+    mounted() { window.addEventListener("scroll", this.onScroll) },
+    beforeDestroy() { window.removeEventListener("scroll", this.onScroll) },
 }
 </script>
 
@@ -190,6 +175,8 @@ export default {
 #header #core .the_top .head_sch_box .head_sch button { width:auto; padding:.2em 1em 0 .75em; border-radius:0 18px 18px 0; background-color:#1A90D6; border-width:0; }
 #header #core .the_top .head_sch_box .head_sch button svg { font-size:1.4em; }
 
+#header #core .the_top .kakao { position:absolute; bottom:1.2em; right:-77px; width:56px; }
+#header #core .the_top .kakao img { width: 100%; }
 
 #header #core .nav_menu { background:#626C75; }
 #header #core .nav_menu .layout { display:flex; }
