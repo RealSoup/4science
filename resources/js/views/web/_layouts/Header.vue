@@ -79,6 +79,7 @@
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
         <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
+        <b-link :to="{name: 'cart_index'}"><b-icon-basket3-fill /></b-link>
         <b-link v-if="list.length" @click="$store.commit('recent_goods/switch', { recent_goods_view:!recent_goods_view })"><b-icon-clock-fill /></b-link>
     </div>
     <transition name="modal">

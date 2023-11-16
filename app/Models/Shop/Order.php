@@ -68,6 +68,18 @@ class Order extends Model {
             'w4' => '4주',
             'm2' => '2개월',
         ],
+        'do_list' => [
+            '서울',
+            '경기', '인천', 
+            '강원', 
+            '충청', '충북', '세종', 
+            '충남', '대전', 
+            '전라', '전북', 
+            '전남', '광주', 
+            '경상', '경북', '대구', 
+            '경남', '부산', '울산', 
+            '제주', 
+        ],
     ];
     //  이거 안하면 디비랑 다른(UTC) 시간을 내보낸다.
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }

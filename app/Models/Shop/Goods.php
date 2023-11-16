@@ -319,8 +319,7 @@ class Goods extends Model {
                         }
                         $rst['lists'][0][] = $tmpModel;
                     }
-                }
-                
+                }                
             }
         }
 

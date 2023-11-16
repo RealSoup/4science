@@ -649,6 +649,7 @@ var paymentWidget = null;
       this.isModalViewed = false;
     },
     validationChecker: function validationChecker(frm) {
+      var _this2 = this;
       if (this.order.privacy !== 'Y') {
         Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
         document.getElementById('total_sub').scrollIntoView();
@@ -781,26 +782,43 @@ var paymentWidget = null;
         this.$refs.od_addr2.focus();
         return false;
       }
+      if (isEmpty(frm.od_addr2)) {
+        Notify.toast('danger', "배송지 상세주소를 입력하세요.");
+        this.$refs.od_addr2.focus();
+        return false;
+      }
+
+      //  예전 이상한 주소 체크
+      //  정상적인 주소로 시작 안하는 주소 거른다 (서울, 제주, 전라, 충남 등등의 도로 시작하는지 체크
+      //  some 함수는 배열의 루프 돌면서 하나라도 참이면 참
+      var do_chk = this.config.do_list.some(function (do_nm) {
+        return _this2.order.od_addr1.trim().startsWith(do_nm);
+      });
+      if (!do_chk) {
+        Notify.modal("주소를 확인하세요.", 'danger');
+        this.$refs.od_addr1.focus();
+        return false;
+      }
       return true;
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
       var tCode, res;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             tCode = new Date().format("yyMMddHHmm");
-            if (!_this2.$route.params.od_goods) {
+            if (!_this3.$route.params.od_goods) {
               _context2.next = 10;
               break;
             }
-            _this2.order.goods = _this2.$route.params.od_goods;
-            _this2.order.od_type = _this2.$route.params.od_type;
-            _this2.order.tCode = tCode;
-            sessionStorage.setItem('goods', JSON.stringify(_this2.order.goods));
-            sessionStorage.setItem('od_type', _this2.order.od_type);
+            _this3.order.goods = _this3.$route.params.od_goods;
+            _this3.order.od_type = _this3.$route.params.od_type;
+            _this3.order.tCode = tCode;
+            sessionStorage.setItem('goods', JSON.stringify(_this3.order.goods));
+            sessionStorage.setItem('od_type', _this3.order.od_type);
             sessionStorage.setItem('od_time', tCode);
             _context2.next = 25;
             break;
@@ -813,29 +831,29 @@ var paymentWidget = null;
               _context2.next = 17;
               break;
             }
-            _this2.order.goods = JSON.parse(sessionStorage.getItem('goods'));
-            _this2.order.od_type = sessionStorage.getItem('od_type');
-            _this2.order.tCode = tCode;
+            _this3.order.goods = JSON.parse(sessionStorage.getItem('goods'));
+            _this3.order.od_type = sessionStorage.getItem('od_type');
+            _this3.order.tCode = tCode;
             _context2.next = 20;
             break;
           case 17:
             //  주문 정보를 가져온후 일정 시간이 경과하면
             Notify.toast('danger', "오랜시간 주문이 이루어 지지 않았습니다.");
-            _this2.$router.go(-1);
+            _this3.$router.go(-1);
             return _context2.abrupt("return", false);
           case 20:
             _context2.next = 25;
             break;
           case 22:
             Notify.toast('danger', "잘못된 접근 경로입니다.");
-            _this2.$router.go(-1);
+            _this3.$router.go(-1);
             return _context2.abrupt("return", false);
           case 25:
             _context2.prev = 25;
             _context2.next = 28;
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/shop/order/settle', {
-              type: _this2.order.od_type,
-              goods: _this2.order.goods
+              type: _this3.order.od_type,
+              goods: _this3.order.goods
             });
           case 28:
             res = _context2.sent;
@@ -843,27 +861,27 @@ var paymentWidget = null;
               _context2.next = 45;
               break;
             }
-            _this2.order.lists = res.data.lists;
-            _this2.order.price = res.data.price;
-            _this2.order.od_name = res.data.od_name;
-            _this2.config = res.data.config;
-            _this2.addr = res.data.addr;
-            _this2.order.sale_env = res.data.sale_env;
-            _this2.goods_def = res.data.goods_def;
-            if (_this2.addr.length) _this2.addr_choose(_this2.addr[0]);
-            if (_this2.user.is_dealer) _this2.calculator(); //  딜러가 계산
+            _this3.order.lists = res.data.lists;
+            _this3.order.price = res.data.price;
+            _this3.order.od_name = res.data.od_name;
+            _this3.config = res.data.config;
+            _this3.addr = res.data.addr;
+            _this3.order.sale_env = res.data.sale_env;
+            _this3.goods_def = res.data.goods_def;
+            if (_this3.addr.length) _this3.addr_choose(_this3.addr[0]);
+            if (_this3.user.is_dealer) _this3.calculator(); //  딜러가 계산
 
             //  toss
-            _this2.toss = res.data.toss;
-            if (!(_this2.$route.query.od_pay_method != "BL")) {
+            _this3.toss = res.data.toss;
+            if (!(_this3.$route.query.od_pay_method != "BL")) {
               _context2.next = 45;
               break;
             }
             _context2.next = 43;
-            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this2.toss.clientKey, _this2.toss.customerKey);
+            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this3.toss.clientKey, _this3.toss.customerKey);
           case 43:
             paymentWidget = _context2.sent;
-            paymentWidget.renderPaymentMethods("#payment-method", _this2.order.price.total);
+            paymentWidget.renderPaymentMethods("#payment-method", _this3.order.price.total);
             // paymentWidget.renderAgreement('#agreement');
           case 45:
             _context2.next = 51;

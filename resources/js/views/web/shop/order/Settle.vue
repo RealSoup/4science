@@ -5,7 +5,7 @@
 
     <h4>01. 주문 상품 확인</h4>
 
-    <pa-list v-model="order.lists" :price="order.price" :user="user" :add_vat="true" :d_price="order.od_pay_method == 'B' && user.is_dealer" />
+    <pa-list v-model="order.lists" :price="order.price" :user="user" :add_vat="true" :d_price="order.od_pay_method == 'B' && user.is_dealer"></pa-list>
     
     <b-container class="st_bottom">
         <b-row>
@@ -63,7 +63,7 @@
                     </b-col>
                 </b-row>
  
-                <pop-up /> <!-- 팝업 -->
+                <pop-up></pop-up> <!-- 팝업 -->
 
                 <div id="address" class="address">
                     <h4>
@@ -101,7 +101,7 @@
                                     <template v-if="postcode_open">닫기</template>
                                     <template v-else>우편번호 찾기</template>
                                 </span>
-                                <vue-daum-postcode v-if="postcode_open" class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true" />
+                                <vue-daum-postcode v-if="postcode_open" class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true"></vue-daum-postcode>
                             </div>
                             <b-form-input v-model="order.od_addr1" readonly class="od_addr1" />
                             <b-form-input v-model="order.od_addr2" ref="od_addr2" />
@@ -240,7 +240,7 @@
                         </div>
                     </transition>
 
-                    <pay-plan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'S'" v-model="order.extra" />
+                    <pay-plan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'S'" v-model="order.extra"></pay-plan>
                     
                     <transition name="slideUpDown">
                         <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
@@ -279,10 +279,10 @@
                 <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
                 <template v-else>지출 증빙</template>
             </template>
-            <addr-index v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit" />
-            <addr-create v-else-if="modal_type == 'create'" :address="addr" @index="addr_index" />
-            <addr-edit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index" />
-            <tax-invoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close" />
+            <addr-index v-if="modal_type == 'index'" :address="addr" @choose="addr_choose" @create="addr_create" @edit="addr_edit"></addr-index>
+            <addr-create v-else-if="modal_type == 'create'" :address="addr" @index="addr_index"></addr-create>
+            <addr-edit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index"></addr-edit>
+            <tax-invoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close"></tax-invoice>
         </modal>
     </transition>
 
@@ -724,8 +724,15 @@ export default {
             if (isEmpty(frm.od_zip)) { Notify.toast('danger', "배송지 우편번호를 입력하세요."); this.$refs.od_zip.focus(); return false; }
             if (isEmpty(frm.od_addr1)) { Notify.toast('danger', "배송지 주소를 입력하세요."); this.$refs.od_addr1.focus(); return false; }
             if (isEmpty(frm.od_addr2)) { Notify.toast('danger', "배송지 상세주소를 입력하세요."); this.$refs.od_addr2.focus(); return false; }
+            if (isEmpty(frm.od_addr2)) { Notify.toast('danger', "배송지 상세주소를 입력하세요."); this.$refs.od_addr2.focus(); return false; }
+            
+            //  예전 이상한 주소 체크
+            //  정상적인 주소로 시작 안하는 주소 거른다 (서울, 제주, 전라, 충남 등등의 도로 시작하는지 체크
+            //  some 함수는 배열의 루프 돌면서 하나라도 참이면 참
+            let do_chk = this.config.do_list.some( (do_nm) => this.order.od_addr1.trim().startsWith(do_nm) );
+            if (!do_chk) { Notify.modal("주소를 확인하세요.", 'danger'); this.$refs.od_addr1.focus(); return false; }
+            
             return true;
-
         },
 
     },
