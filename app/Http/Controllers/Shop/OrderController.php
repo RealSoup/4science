@@ -470,37 +470,39 @@ class OrderController extends Controller {
     }
 
     public function payReturn02(Request $req, $od_id=0){
-        if( ($req->filled("paymentKey") && $req->paymentKey != '') || ($req->filled("customerKey") && $req->customerKey != '')) { 
-            if ($req->filled("paymentKey"))
-                $rst_toss = self::tossCurl('tossSuccess', $req);
-            else if ($req->filled("authKey") && $od_id>0) {
-                //  카드번호 등록하고 본인인증 후 빌링키(카드자동결제키) 받기
-                $billing = json_decode(self::tossCurl('tossBillingKeyIssue', $req));
-                $ub_id = DB::table('user_billing')->insertGetId([
-                    'ub_customer_key' => $billing->customerKey,
-                    'ub_billing_key'  => $billing->billingKey,
-                    'ub_card_com'     => $billing->cardCompany,
-                    'ub_card_num'     => $billing->cardNumber,
-                    'created_id'      => (auth()->check() ? auth()->user()->id : 0),
-                ]);
-                DB::table('shop_order_billing')->where('ob_od_id', $od_id)->update(['ob_ub_id'=> $ub_id]);
-                $obj = collect();
-                $obj->od = DB::table('shop_order')->where('od_id', $od_id)->first();
-                $obj->billing = $billing;
-                //  빌링키를 활용 결제 승인 받기
-                $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
-            }
-                
-            $rst_toss = json_decode($rst_toss);
-            
-            self::tossPgInsert($rst_toss);
-
-            $mod_data = ['od_step'=> '20'];
-            if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
-                $mod_data['od_pay_method'] = 'CP';
-            DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
-            return redirect("/shop/order/done/{$rst_toss->orderId}");
+        
+        if ($req->filled("paymentType")) //  결제 승인 (일반카드, 브랜드페이, 키인)
+            $rst_toss = self::tossCurl('tossSuccess', $req);
+        else if ($req->filled("authKey") && $od_id>0) {
+            //  카드번호 등록하고 본인인증 후 빌링키(카드자동결제키) 받기
+            $billing = json_decode(self::tossCurl('tossBillingKeyIssue', $req));
+            $ub_id = DB::table('user_billing')->insertGetId([
+                'ub_customer_key' => $billing->customerKey,
+                'ub_billing_key'  => $billing->billingKey,
+                'ub_card_com'     => $billing->cardCompany,
+                'ub_card_num'     => $billing->cardNumber,
+                'created_id'      => (auth()->check() ? auth()->user()->id : 0),
+            ]);
+            DB::table('shop_order_billing')->where('ob_od_id', $od_id)->update(['ob_ub_id'=> $ub_id]);
+            $obj = collect();
+            $obj->od = DB::table('shop_order')->where('od_id', $od_id)->first();
+            $obj->billing = $billing;
+            //  빌링키를 활용 결제 승인 받기
+            $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
         }
+            
+        $rst_toss = json_decode($rst_toss);
+        
+        self::tossPgInsert($rst_toss);
+
+        $mod_data = ['od_step'=> '20'];
+        if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
+            $mod_data['od_pay_method'] = 'CP';
+        if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )
+            $mod_data['od_pay_method'] = 'CK';
+        DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
+        return redirect("/shop/order/done/{$rst_toss->orderId}");
+        
     }
 
     public function payRequestMobile(Request $req) {
@@ -650,6 +652,7 @@ class OrderController extends Controller {
             $data = "{\"paymentKey\":\"{$req->paymentKey}\",\"orderId\":\"{$req->orderId}\",\"amount\":{$req->amount}}";
             if($req->paymentType == 'NORMAL')        $encryption = base64_encode(env('TOSS_SECRETKEY').':');
             else if($req->paymentType == 'BRANDPAY') $encryption = base64_encode(env('TOSS_BRANDPAY_SECRETKEY').':');
+            else if($req->paymentType == 'KEYIN')    $encryption = base64_encode(env('TOSS_KEYIN_SECRETKEY').':');
         } else if ($type == 'tossBrandPayAccessToken') {
             $url = "https://api.tosspayments.com/v1/brandpay/authorizations/access-token";
             $data = "{\"grantType\":\"AuthorizationCode\",\"customerKey\":\"{$req->customerKey}\",\"code\":\"{$req->code}\"}";

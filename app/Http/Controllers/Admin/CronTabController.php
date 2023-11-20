@@ -27,8 +27,7 @@ class CronTabController extends Controller {
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
 			->orderBy('shop_order.od_id')
 			->get();
-dd($od);
-exit;
+
 		foreach( $od as $v ){
 			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
@@ -123,5 +122,13 @@ exit;
 
 ### 매월1일 5시에 3달 구매 실적에 따라 회원등급조정  ###
 // 0 5 1 * * /usr/bin/curl https://4science.net/admin/crontab/adjustMemberLevel >> /home/ec2-user/adjust_member_level_crontab.log
+
+
+
+### 주문 2주후 자동으로 수취확인 및 포인트 적립   ###
+// 0 6 * * * root /usr/bin/curl https://4science.net/admin/crontab/receiveConfirm >> /var/www/log/receive_confirm_crontab.log
+
+### 매월1일 5시에 3달 구매 실적에 따라 회원등급조정  ###
+// 0 5 1 * * root /usr/bin/curl https://4science.net/admin/crontab/adjustMemberLevel >> /var/www/log/adjust_member_level_crontab.log
 
 }

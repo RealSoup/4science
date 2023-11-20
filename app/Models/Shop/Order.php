@@ -33,6 +33,7 @@ class Order extends Model {
         'pay_method' => [
             'C' => '카드',
             'CP' => '카드(포사페이)',
+            'CK' => '카드(수기입력)',
             'B' => '계좌이체',
             'P' => 'PSYS(즉시결제)',
             'S' => 'PSYS(후결제)',

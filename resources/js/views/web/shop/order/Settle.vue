@@ -137,7 +137,7 @@
                     <h5>결제 수단</h5>
                     <div class="method">
                         <div v-for="(v, k) in config.pay_method" :key="k">
-                            <b-form-radio v-if="!['CP', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                            <b-form-radio v-if="!['CP', 'CK', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
                             <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
                             <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
                             <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
@@ -158,7 +158,7 @@
                     <h5>결제 수단</h5>
                     <div class="method">
                         <div v-for="(v, k) in config.pay_method" :key="k">
-                            <b-form-radio v-if="!['CP', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                            <b-form-radio v-if="!['CP', 'CK', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
                             <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
                             <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
                             <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>

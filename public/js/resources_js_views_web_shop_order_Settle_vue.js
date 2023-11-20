@@ -1301,7 +1301,7 @@ var render = function render() {
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
       key: k
-    }, [!["CP", "BL"].includes(k) ? _c("b-form-radio", {
+    }, [!["CP", "CK", "BL"].includes(k) ? _c("b-form-radio", {
       attrs: {
         value: k
       },
@@ -1345,7 +1345,7 @@ var render = function render() {
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
       key: k
-    }, [!["CP", "BL"].includes(k) ? _c("b-form-radio", {
+    }, [!["CP", "CK", "BL"].includes(k) ? _c("b-form-radio", {
       attrs: {
         value: k
       },

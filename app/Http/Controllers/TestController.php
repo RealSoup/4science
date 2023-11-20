@@ -10,18 +10,6 @@ use Excel;
 
 class TestController extends Controller {
     public function index() {
-        echo_query(
-Order::with('user')
-			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price')
-			->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
-			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
-			->OdStep('50')
-			->where('od_type', '<>', 'buy_temp')
-			->StartDate('2022-01-01')
-			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
-			->whereNull('shop_order_dlvy_info.oddi_receive_date')
-			->orderBy('shop_order.od_id'));
-            exit;
 
         $addr = DB::table('user_addr')->whereRaw('LENGTH(ua_zip) = 4')->orderBy('ua_id', 'DESC')->get();
         foreach ($addr as $k => $v) {
