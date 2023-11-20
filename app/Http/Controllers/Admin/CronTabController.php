@@ -27,7 +27,8 @@ class CronTabController extends Controller {
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
 			->orderBy('shop_order.od_id')
 			->get();
-
+dd($od);
+exit;
 		foreach( $od as $v ){
 			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
