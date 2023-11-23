@@ -67,10 +67,8 @@
 
     <div class="box" v-if="frm.estimate_model && frm.estimate_model.length">
         <h5>견적상품정보</h5>
-
-        <div class="top_border" />
-
-        <pa-list v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" :er_no_dlvy_fee="frm.er_no_dlvy_fee" />
+        <div class="top_border"></div>
+        <pa-list v-model="frm.collect.lists" :price="frm.collect.price" :user="frm.estimate_req.user" :add_vat="false" :er_no_dlvy_fee="frm.er_no_dlvy_fee"></pa-list>
     </div>
 
     <div class="box est_frm">
