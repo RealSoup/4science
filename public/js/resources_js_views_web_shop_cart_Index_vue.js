@@ -45,21 +45,24 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('cart', ['cartList'])), {}, {
     sum_goods_add_vat: function sum_goods_add_vat() {
       var p = Object.values(this.cartList).reduce(function (acc, el) {
-        return acc + (el.ct_check_opt == 'Y' ? el.price_add_vat * el.ea : 0);
+        var _el$price_dc_add_vat;
+        return acc + (el.ct_check_opt == 'Y' ? ((_el$price_dc_add_vat = el.price_dc_add_vat) !== null && _el$price_dc_add_vat !== void 0 ? _el$price_dc_add_vat : el.price_add_vat) * el.ea : 0);
       }, 0);
       if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
       return p;
     },
     sum_goods: function sum_goods() {
       var p = Object.values(this.cartList).reduce(function (acc, el) {
-        return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea : 0);
+        var _el$price_dc;
+        return acc + (el.ct_check_opt == 'Y' ? ((_el$price_dc = el.price_dc) !== null && _el$price_dc !== void 0 ? _el$price_dc : el.price) * el.ea : 0);
       }, 0);
       if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
       return p;
     },
     sum_mileage: function sum_mileage() {
       return Object.values(this.cartList).reduce(function (acc, el) {
-        return acc + (el.ct_check_opt == 'Y' ? el.price * el.ea * Auth.user().mileage_mul : 0);
+        var _el$price_dc2;
+        return acc + (el.ct_check_opt == 'Y' ? ((_el$price_dc2 = el.price_dc) !== null && _el$price_dc2 !== void 0 ? _el$price_dc2 : el.price) * el.ea * Auth.user().mileage_mul : 0);
       }, 0);
     },
     goodsDefault: function goodsDefault() {
@@ -285,17 +288,18 @@ var render = function render() {
     }, [_vm._v(_vm._s(ct.gd_name))]), _vm._v(" "), _c("ul", [_c("li", [_vm._v("모델명:" + _vm._s(ct.gm_code) + " / Cat.No.:" + _vm._s(ct.gm_catno))]), _vm._v(" "), _c("li", [_vm._v("제품명:" + _vm._s(ct.gm_name) + " / 사양:" + _vm._s(ct.gm_spec))]), _vm._v(" "), _c("li", [_vm._v("판매단위:" + _vm._s(ct.gm_unit))])])])], 1), _vm._v(" "), _c("b-col", {
       staticClass: "maker"
     }, [_vm._v(_vm._s(ct.mk_name))]), _vm._v(" "), _c("b-col", {
-      staticClass: "price cost"
+      staticClass: "price"
     }, [_c("span", {
       staticClass: "price",
       "class": {
-        see_dealer: _vm.$store.state.auth.isLoggedin && _vm.$store.state.auth.user.level == 12
+        price_dealer: ct.dc_type == "dealer",
+        price_good_dc: ct.dc_type == "goods_dc"
       }
     }, [_c("span", {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat)))))]), _vm._v(" "), _c("span", {
-      staticClass: "dealer"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat * _vm.$store.state.auth.user.dc_mul)))))])])]), _vm._v(" "), _c("b-col", [_c("div", {
+      staticClass: "discount"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_dc_add_vat)))))])])]), _vm._v(" "), _c("b-col", [_c("div", {
       staticClass: "box"
     }, [_c("input-no", {
       model: {
@@ -310,13 +314,14 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "price",
       "class": {
-        see_dealer: _vm.$store.state.auth.isLoggedin && _vm.$store.state.auth.user.level == 12
+        price_dealer: ct.dc_type == "dealer",
+        price_good_dc: ct.dc_type == "goods_dc"
       }
     }, [_c("span", {
       staticClass: "normal"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat)))))]), _vm._v(" "), _c("span", {
-      staticClass: "dealer"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat * ct.ea * _vm.$store.state.auth.user.dc_mul)))))])])]), _vm._v(" "), _c("b-col", {
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat * ct.ea)))))]), _vm._v(" "), _c("span", {
+      staticClass: "discount"
+    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_dc_add_vat * ct.ea)))))])])]), _vm._v(" "), _c("b-col", {
       staticClass: "ctrl"
     }, [_c("b-button", {
       attrs: {
@@ -353,7 +358,7 @@ var render = function render() {
         variant: "danger"
       }
     }, [_vm._v("필수")]) : _vm._e()], 1), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", {
-      staticClass: "price cost"
+      staticClass: "price"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(ct.price_add_vat)))))]), _vm._v(" "), _c("b-col", [_c("div", {
       staticClass: "box"
     }, [_c("input-no", {

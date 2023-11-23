@@ -32,19 +32,19 @@
                     </b-link>
                 </b-col>            
                 <b-col class="maker">{{ct.mk_name}}</b-col>
-                <b-col class="price cost">
-                    <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                <b-col class="price">
+                    <span class="price" :class="{price_dealer:ct.dc_type == 'dealer', price_good_dc:ct.dc_type == 'goods_dc'}">
                         <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
-                        <span class="dealer">{{(ct.price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                        <span class="discount">{{ct.price_dc_add_vat | comma | price_zero | won}}</span>
                     </span>
                 </b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
                 <b-col class="price sum">
-                    <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
-                        <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
-                        <span class="dealer">{{(ct.price_add_vat*ct.ea*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                    <span class="price" :class="{price_dealer:ct.dc_type == 'dealer', price_good_dc:ct.dc_type == 'goods_dc'}">
+                        <span class="normal">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</span>
+                        <span class="discount">{{ct.price_dc_add_vat*ct.ea | comma | price_zero | won}}</span>
                     </span>
                 </b-col>
                 <b-col class="ctrl"><b-button pill variant="outline-dark" size="sm" @click="outCart(i)">삭제</b-button></b-col>
@@ -55,7 +55,7 @@
                 <b-col class="img">추가옵션</b-col>
                 <b-col>{{ct.go_name}}:{{ct.goc_name}} <b-badge v-if="ct.go_required=='Y'" variant="danger">필수</b-badge></b-col>
                 <b-col></b-col>
-                <b-col class="price cost">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
+                <b-col class="price">{{ct.price_add_vat | comma | price_zero | won}}</b-col>
                 <b-col>
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
@@ -129,7 +129,7 @@ export default {
         ...mapState('cart', ['cartList']),
         sum_goods_add_vat () {
             let p = Object.values(this.cartList).reduce((acc, el) => 
-                acc + ((el.ct_check_opt=='Y')?(el.price_add_vat*el.ea):0)
+                acc + ((el.ct_check_opt=='Y')?((el.price_dc_add_vat ?? el.price_add_vat)*el.ea):0)
             , 0);
             if (Auth.user() && Auth.user().level == 12)
                 p = p*Auth.user().dc_mul;
@@ -137,7 +137,7 @@ export default {
         },
         sum_goods () {
             let p =  Object.values(this.cartList).reduce((acc, el) => { 
-                return acc + (el.ct_check_opt=='Y'?el.price*el.ea:0); 
+                return acc + (el.ct_check_opt=='Y'?(el.price_dc ?? el.price)*el.ea:0); 
             }, 0);
             if (Auth.user() && Auth.user().level == 12)
                 p = p*Auth.user().dc_mul;
@@ -145,7 +145,7 @@ export default {
         },
         sum_mileage () {
             return Object.values(this.cartList).reduce((acc, el) => { 
-                return acc + ((el.ct_check_opt=='Y')?(el.price*el.ea*Auth.user().mileage_mul):0); 
+                return acc + ((el.ct_check_opt=='Y')?((el.price_dc ?? el.price)*el.ea*Auth.user().mileage_mul):0); 
             }, 0);
         },
         goodsDefault() {

@@ -104,16 +104,16 @@
                                         <span class="info"> {{row.goods_model_prime.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
                                         <i>
                                             가격 : 
-                                            <span class="price" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                                            <span class="price" :class="{price_dealer:row.goods_model_prime.dc_type == 'dealer', price_good_dc:row.goods_model_prime.dc_type == 'goods_dc'}">
                                                 <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</span>
-                                                <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
+                                                <span class="discount">{{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero}}</span>
                                             </span>
                                         </i>
                                     </p>
                                 </b-link>
-                                <b-col class="price m_hide" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                                <b-col class="price m_hide" :class="{price_dealer:row.goods_model_prime.dc_type == 'dealer', price_good_dc:row.goods_model_prime.dc_type == 'goods_dc'}">
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
-                                    <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(row.goods_model_prime.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero | won}}</span>
+                                    <span class="discount">{{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}</span>
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>

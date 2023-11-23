@@ -196,3 +196,18 @@ if(! function_exists('startsWith')) {
         return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
 }
+
+if(! function_exists('saleEnv')) {
+    function saleEnv () {
+        $sale_env = "P";
+        $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
+        if(preg_match($mobile_agent, $_SERVER['HTTP_USER_AGENT'])) { // preg_match() 함수를 이용해 모바일 기기로 접속하였는지 확인
+            $sale_env = "M"; 
+            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari/') == false)
+                $sale_env = 'A'; // IOS 웹뷰 접속
+            else if (isset($_SERVER['HTTP_X_REQUESTED_WITH']))
+                $sale_env = 'A'; // Android 웹뷰 접속
+        }
+        return $sale_env;
+    }
+}    

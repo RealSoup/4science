@@ -292,12 +292,17 @@ label { margin-bottom:0; }
 .w_fence .pagination-next-nav .page-link { border-color:#dee2e6; }
 
 .price .normal { font-weight:bold; }
-.price .dealer { display:none; }
-.price.see_dealer { flex-direction:column; display:flex; align-items:flex-end; }
-.price.see_dealer .normal { font-weight:400; color:#888 }
-.price.see_dealer .dealer { display:inline; }
-.see_dealer .dealer { display:block; position:relative; font-weight:900; margin-top:2px; padding-left:15px; color:#000; }
-.see_dealer .dealer:before { content:'딜'; position:absolute; top:0; left:-12px; font-weight:bold; font-size:.9rem; background-color:#FF0000; border-radius:50%; color:#FFF; width:23px; height:23px; text-align:center; line-height:24px; }
+.price .discount { display:none; }
+.price.price_dealer,
+.price.price_good_dc { flex-direction:column; display:flex; align-items:flex-end; }
+.price.price_dealer .normal,
+.price.price_good_dc .normal { font-weight:400; color:#999; text-decoration:line-through; }
+.price.price_dealer .discount,
+.price.price_good_dc .discount { display:inline; }
+.price_dealer .discount,
+.price_good_dc .discount { display:block; position:relative; font-weight:900; margin-top:2px; padding-left:15px; color:#ce0000; }
+.price_dealer .discount:before { content:'딜'; position:absolute; top:0; left:-12px; font-weight:bold; font-size:.9rem; background-color:#FF0000; border-radius:50%; color:#FFF; width:23px; height:23px; text-align:center; line-height:24px; }
+
 
 @media (max-width: 992px){
     .p_wrap { margin:.1rem; }

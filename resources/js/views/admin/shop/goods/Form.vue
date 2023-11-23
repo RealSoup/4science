@@ -134,8 +134,19 @@
 
     <!-- 모델 -->
     <b-container tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
-        <h5>Model</h5>        
-        <b-row class="head">
+        <h5 class="row">
+            <b-col>Model</b-col>
+            <b-col>
+                <b-row class="justify-content-end">
+                    <b-col class="point text-right" tag="small">0~99까지는 비율 할인, 100부터는 금액 할인</b-col>
+                    <b-col class="label">할인률(액)</b-col>
+                    <b-col class="type02">
+                        <b-form-input v-model="value.gd_dc" size="sm" class="text-right"></b-form-input>
+                    </b-col>
+                </b-row>
+            </b-col>
+        </h5>      
+        <b-row class="list head">
             <b-col>
                 <template v-if="value.gd_type == 'NON'">활성화 / 제품명</template>
                 <template v-else>계약기간</template>
@@ -156,7 +167,7 @@
             </b-col>
             <b-col class="ctrlBox">Ctrl</b-col>
         </b-row>
-        <b-row v-for="(model, i) in value.goods_model" :key="i" class="list">
+        <b-row v-for="(model, i) in value.goods_model" :key="i" class="list body">
             <b-col>
                 <b-input-group size="sm">
                     <b-input-group-prepend is-text v-b-tooltip="'제품 활성화'">
@@ -223,7 +234,7 @@
     <b-container class="box adform option" v-if="value.gd_type == 'NON'">
         <h5 class="row">
             <b-col>Option</b-col>
-            <b-col><option-finder :opt="value.goods_option" /></b-col>
+            <b-col><option-finder :opt="value.goods_option"></option-finder></b-col>
         </h5>
 
         <b-row class="head">
@@ -478,14 +489,14 @@ export default {
 .model .row .col .bundle_box .card { margin-top:0; }
 .model .row .col .bundle_box .card header { text-align:left; }
 .model .row .col .bundle_box .card header button { padding-top:.2em; padding-bottom:.35em; float:right; line-height:1; }
-.model .list .ctrlBox { text-align:right; }
-.model.md_non>.row>.col:nth-child(4) { flex: 0 0 25%; max-width:25%; }
-.model.md_non>.row>.col:nth-child(2),
-.model.md_non>.row>.col:nth-child(3),
-.model.md_non>.row>.col:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%; }
+.model .body .ctrlBox { text-align:right; }
+.model.md_non>.list>.col:nth-child(4) { flex: 0 0 25%; max-width:25%; }
+.model.md_non>.list>.col:nth-child(2),
+.model.md_non>.list>.col:nth-child(3),
+.model.md_non>.list>.col:nth-child(5) { flex: 0 0 8.5%; max-width:8.5%; }
 .model>.row>.ctrlBox { flex:0 0 8%; max-width:69px; padding-left:0; padding-right:0; }
 .model>.row>.ctrlBox button { padding-left:.4em; padding-right:.4em; }
-.model.md_non>.row>.gm_price { flex:0 0 10%; max-width:10%; }
+.model.md_non>.list>.gm_price { flex:0 0 10%; max-width:10%; }
 
 .option.adform .row .label { flex:0 0 12%; max-width:12%; }
 .option.adform .row .label + .type04 { flex: 0 0 29.666667%; max-width:29.666667%; }

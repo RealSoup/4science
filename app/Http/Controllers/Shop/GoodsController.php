@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory, GoodsSearch};
+use App\Models\Shop\{Goods, Category, GoodsCategory};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
@@ -30,7 +30,6 @@ class GoodsController extends Controller {
             스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
             페이지를 위해 검색된 count 재설정
         */
-
         
         $req->merge(array('v_type' => "WEB"));
 
@@ -136,6 +135,19 @@ class GoodsController extends Controller {
             
             $data_rst = $qry->get();
             $data['list'] = new LengthAwarePaginator($data_rst, $total, $limit, $page, ['path' => $req->url(), 'query' => $req->query()]);
+
+            foreach ($data['list'] as $v) {
+                $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
+                // if( auth()->check() && auth()->user()->level == 12 ) {
+                //     $v->goodsModelPrime->dc_type = "dealer";
+                //     $v->goodsModelPrime->gm_price_dc = $v->goodsModelPrime->gm_price*auth()->user()->dc_mul;
+                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
+                // } else if ($v->gd_dc) {
+                //     $v->goodsModelPrime->dc_type = "goods_dc";
+                //     $v->goodsModelPrime->gm_price_dc = $this->goods->cal_dc($v->goodsModelPrime->gm_price, $v->gd_dc);
+                //     $v->goodsModelPrime->gm_price_dc_add_vat = rrp($v->goodsModelPrime->gm_price_dc);
+                // }
+            }
         }
 		return response()->json($data);
     }
@@ -144,7 +156,7 @@ class GoodsController extends Controller {
         abort_if($this->goods::where('gd_id', $gd_id)->Enable()->doesntExist(), 501, '존재 하지 않는 상품입니다.');
 
         $data['goods'] = $this->goods->with('maker')->with('purchaseAt')->with('fileGoodsAdd')->with('goodsOption')->with('goodsCategoryFirst')
-            ->with(['goodsModel' => function ($query) { $query->where('gm_enable', 'Y'); } ])
+            ->with('goodsModelPrime')
             ->with('goodsRelate')
             ->Enable()
             ->find($gd_id);
@@ -155,7 +167,19 @@ class GoodsController extends Controller {
         foreach ($data['goods']->goodsModel as $val) {
             $val->ea = 0;
             $val->bundleDc;
+
+            $val = $this->goods->goods_discount_checker ($val, $data['goods']->gd_dc);
+            // if( auth()->check() && auth()->user()->level == 12 ) {
+            //     $val->dc_type = "dealer";
+            //     $val->gm_price_dc = $val->gm_price*auth()->user()->dc_mul;
+            //     $val->gm_price_dc_add_vat = rrp($val->gm_price_dc);
+            // } else if ($data['goods']->gd_dc) {
+            //     $val->dc_type = "goods_dc";
+            //     $val->gm_price_dc = $data['goods']->cal_dc($val->gm_price, $data['goods']->gd_dc);
+            //     $val->gm_price_dc_add_vat = rrp($val->gm_price_dc);
+            // }
         }
+
         foreach ($data['goods']->goodsOption as $go) {
             foreach ($go->goodsOptionChild as $goc)
                 $goc->ea = 0;

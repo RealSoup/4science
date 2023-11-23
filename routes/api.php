@@ -297,6 +297,7 @@ Route::prefix('board/{bo_cd}')->group(function () {
 });
 
 Route::prefix('shop')->group(function () {
+    Route::GET('listing/sale',            'Shop\ListingController@sale');
     Route::GET('listing/{type}/{group?}', 'Shop\ListingController@index');
 
     Route::prefix('outlet')->group(function () {

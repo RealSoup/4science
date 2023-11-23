@@ -244,25 +244,36 @@ class Goods extends Model {
                             $tmpModel['price']= $d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price'];
                             $tmpModel['price_add_vat'] = rrp($d_arrange[$gd_id]['model'][$gm->gm_id]['odm_price']);
                             $tmpModel['dlvy_check_opt'] = 'N';  //  관리자 주문 상세페이지 일괄 배송정보 등록시 사용
-                        } else if (in_array($type, ['buy_inst', 'buy_cart'])) {
-                            $tmpModel['price_deal']= $gm->gm_price * (auth()->check() ? auth()->user()->dc_mul : 1);
-                            $tmpModel['price_deal_add_vat']= rrp($tmpModel['price_deal']);
-                        } else if ($type == 'cart') {
-                            $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
-                            $tmpModel['ct_check_opt'] = 'Y';
-                        } 
+                        } else {
+                            if( auth()->check() && auth()->user()->level == 12 ) {
+                                if (in_array($type, ['buy_inst', 'buy_cart'])) {
+                                    $tmpModel['dc_type'] = "dealer";
+                                    $tmpModel['price_dc'] = $gm->gm_price*auth()->user()->dc_mul;
+                                    $tmpModel['price_dc_add_vat']= rrp($tmpModel['price_dc']);
+                                }
+                            } else if ($gd->gd_dc) {
+                                $tmpModel['dc_type'] = "goods_dc";
+                                $tmpModel['price_dc'] = self::cal_dc($gm->gm_price, $gd->gd_dc);
+                                $tmpModel['price_dc_add_vat'] = rrp($tmpModel['price_dc']);
+                            } 
+
+                            if ($type == 'cart') {
+                                $tmpModel['ct_id'] = $v['model'][$gm->gm_id]['ct_id'];
+                                $tmpModel['ct_check_opt'] = 'Y';
+                            }
+                        }
                         
                         if ($gm->bundleDc()->exists()) {
                             $tmpModel['price'] = $this->bundleCheck($gm->bundleDc, $tmpModel['ea'], $tmpModel['price']);
                             $tmpModel['price_add_vat'] = rrp($tmpModel['price']);
                         }
 
-                        if ($mode == 'buy_chk' && auth()->check() && auth()->user()->is_dealer && $some->od_pay_method=='B') {
+                        if ($mode == 'buy_chk') {
                             foreach ($some['lists'] as $d1) {
                                 foreach ($d1 as $d2) {
-                                    if($d2['gm_id']==$gm->gm_id) {
-                                        $tmpModel['price'] = $d2['price_deal'];
-                                        $tmpModel['price_add_vat'] = $d2['price_deal_add_vat'];
+                                    if($d2['gm_id']==$gm->gm_id && array_key_exists('price_dc', $d2)) {
+                                        $tmpModel['price'] = $d2['price_dc'];
+                                        $tmpModel['price_add_vat'] = $d2['price_dc_add_vat'];
                                     }
                                 }
                             }
@@ -326,8 +337,12 @@ class Goods extends Model {
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
         foreach ($rst['lists'] as $pa_id => $pa_group) {
             $paSum = 0;
-            foreach ($pa_group as $item) 
-                $paSum += $item['price']*$item['ea'];
+            foreach ($pa_group as $item) {
+                if(array_key_exists('price_dc', $item)) 
+                    $paSum += $item['price_dc']*$item['ea'];
+                else                  
+                    $paSum += $item['price']*$item['ea'];
+            }
             $rst['price']['goods'] += $paSum;
             if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
                 $rst['lists'][$pa_id][0]['pa_dlvy_p'] = rrp($paSum) < $this->free_dlvy_max ? $this->dlvy_fee : 0;
@@ -362,6 +377,25 @@ class Goods extends Model {
             */
         }
         return $p;
+    }
+
+    public function cal_dc ($p, $dc) {
+        if($dc>99)
+            return $p-$dc;
+        else
+            return ($p*(100-intval($dc)))/100;
+    }
+
+    public function goods_discount_checker ($gm, $dc) {
+        if( auth()->check() && auth()->user()->level == 12 ) {
+            $gm->dc_type = "dealer";
+            $gm->gm_price_dc = $gm->gm_price*auth()->user()->dc_mul;
+            $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
+        } else if ($dc) {
+            $gm->dc_type = "goods_dc";
+            $gm->gm_price_dc = self::cal_dc($gm->gm_price, $dc);
+            $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
+        }
     }
 
 
@@ -446,7 +480,7 @@ class Goods extends Model {
         if ($req->filled('updated_id')) $q_str .= "filter=updated_id, {$req->updated_id};";
         
         $rst = Goods::select("sph_gs.gd_id", "sph_gs.gd_name", "sph_gs.mk_name", 
-                            'shop_goods.gd_rank', 'shop_goods.gd_view_cnt', 
+                            'shop_goods.gd_rank', 'shop_goods.gd_view_cnt', 'shop_goods.gd_dc', 
                             'shop_goods.updated_id', 'shop_goods.updated_at', 'shop_goods.gd_enable', 'shop_goods.deleted_at')
                 ->join( 'z_sph_goods AS sph_gs', 'shop_goods.gd_id', '=', 'sph_gs.gd_id' )
                 ->with('goodsModelPrime')

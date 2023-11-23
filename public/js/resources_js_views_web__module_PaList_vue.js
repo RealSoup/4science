@@ -95,22 +95,24 @@ var render = function render() {
       }, [_vm._v(_vm._s(item.mk_name))]), _vm._v(" "), _c("b-col", [_c("span", {
         staticClass: "price",
         "class": {
-          see_dealer: _vm.d_price
+          price_dealer: item.dc_type == "dealer",
+          price_good_dc: item.dc_type == "goods_dc"
         }
       }, [_c("span", {
         staticClass: "normal"
       }, [_vm.add_vat ? [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_add_vat))))] : [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price))))]], 2), _vm._v(" "), _c("span", {
-        staticClass: "dealer"
-      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_deal_add_vat))))])])]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]), _vm._v(" "), _c("b-col", [_c("div", [_c("span", {
+        staticClass: "discount"
+      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat))))])])]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]), _vm._v(" "), _c("b-col", [_c("div", [_c("span", {
         staticClass: "price",
         "class": {
-          see_dealer: _vm.d_price
+          price_dealer: item.dc_type == "dealer",
+          price_good_dc: item.dc_type == "goods_dc"
         }
       }, [_c("span", {
         staticClass: "normal"
       }, [_vm.add_vat ? [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_add_vat * item.ea))))] : [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))]], 2), _vm._v(" "), _c("span", {
         staticClass: "dealer"
-      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_deal_add_vat * item.ea))))])]), _vm._v(" "), !_vm.user.is_dealer ? _c("br", {
+      }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])]), _vm._v(" "), !_vm.user.is_dealer ? _c("br", {
         staticClass: "m_hide"
       }) : _vm._e(), _vm._v(" "), !_vm.user.is_dealer ? _c("span", {
         staticClass: "mileage m_hide"

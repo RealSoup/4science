@@ -52,7 +52,7 @@ class OrderController extends Controller {
         $type = $req->filled('type') ? $req->type : 'buy_inst';
         $params = $this->goods->getGoodsDataCollection($req, $type);
         $params['goods_def'] = $this->goods;
-        $params['sale_env'] = $this->saleEnv();
+        $params['sale_env'] = saleEnv();
         $params['md_cnt'] = 0;
         $params['od_name'] = '';
         foreach ($params['lists'] as $pa_group) {    //  주문 갯수
@@ -201,7 +201,7 @@ class OrderController extends Controller {
                             'odm_gm_unit'  => $item['gm_unit'],
                             'odm_mk_name'  => $item['mk_name'],
                             'odm_ea'       => $item['ea'],
-                            'odm_price'    => (auth()->user()->is_dealer&&$req->od_pay_method=='B') ? $item['price_deal'] : $item['price'],
+                            'odm_price'    => $item['price_dc'] ?? $item['price'],
                         );
                         Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                     } else if ($item['type'] == 'option') {
@@ -287,13 +287,6 @@ class OrderController extends Controller {
         //     return response()->json("주문 에러", 400);
         // }
     }
-    
-    public function saleEnv () {
-        $sale_env = "P";
-        $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
-        if(preg_match($mobile_agent, $_SERVER['HTTP_USER_AGENT'])) $sale_env = "M"; // preg_match() 함수를 이용해 모바일 기기로 접속하였는지 확인
-        return $sale_env;
-    }    
 
     public function getNew_od_no() {
         $today_cnt = DB::table('shop_order')->whereRaw('created_at > CURDATE()')->count();

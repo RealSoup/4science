@@ -38,11 +38,7 @@ class EstimateController extends Controller {
         return response()->json($params);
     }
 
-    public function store(Request $req) {
-        $eq_env = "P";
-        $mobile_agent = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS)/';
-        if(preg_match($mobile_agent, $_SERVER['HTTP_USER_AGENT'])) $eq_env = "M"; // preg_match() 함수를 이용해 모바일 기기로 접속하였는지 확인
-        
+    public function store(Request $req) {        
         $eq_title = '';
         $item_cnt = 0;
         if ($req->filled('lists') && count($req->lists)) {
@@ -80,7 +76,7 @@ class EstimateController extends Controller {
             "eq_company"    => $req->filled('eq_company')       ? $req->eq_company      : '',
             "eq_1depth"     => $req->filled('eq_1depth')        ? $req->eq_1depth       : '',
             "eq_content"    => $req->filled('eq_content')       ? $req->eq_content      : '',
-            "eq_env"        => $eq_env,
+            "eq_env"        => saleEnv(),
             'ip'            => $req->ip(),
             'created_id'    => auth()->check() ? auth()->user()->id : 0
         ]);

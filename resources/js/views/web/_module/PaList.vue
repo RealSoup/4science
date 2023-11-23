@@ -26,23 +26,23 @@
                     </b-col>
                     <b-col class="m_hide">{{item.mk_name}}</b-col>
                     <b-col>
-                        <span class="price" :class="{see_dealer:d_price}">
+                        <span class="price" :class="{price_dealer:item.dc_type == 'dealer', price_good_dc:item.dc_type == 'goods_dc'}">
                             <span class="normal">
                                 <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
                                 <template v-else>{{item.price | comma | won}}</template>
                             </span>
-                            <span class="dealer">{{(item.price_deal_add_vat) | comma | won}}</span>
+                            <span class="discount">{{(item.price_dc_add_vat) | comma | won}}</span>
                         </span>
                     </b-col>
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
-                            <span class="price" :class="{see_dealer:d_price}">
+                            <span class="price" :class="{price_dealer:item.dc_type == 'dealer', price_good_dc:item.dc_type == 'goods_dc'}">
                                 <span class="normal">
                                     <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                                     <template v-else>{{item.price*item.ea | comma | won}}</template>
                                 </span>
-                                <span class="dealer">{{(item.price_deal_add_vat*item.ea) | comma | won}}</span>
+                                <span class="dealer">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
                             </span>
                             
                             <br v-if="!user.is_dealer" class="m_hide" />

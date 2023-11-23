@@ -67,10 +67,10 @@
                         </b-col>
                         <b-col class="m_hide">{{gm.gm_spec}}</b-col>
                         <b-col class="m_hide">{{gm.gm_unit}}</b-col>
-                        <b-col class="price m_hide" :class="{see_dealer:($store.state.auth.isLoggedin && $store.state.auth.user.level == 12)}">
+                        <b-col class="price m_hide" :class="{price_dealer:gm.dc_type == 'dealer', price_good_dc:gm.dc_type == 'goods_dc'}">
                             <span class="normal">{{gm.gm_price_add_vat | comma | price_zero}}</span>
-                            <span class="dealer" v-if="$store.state.auth.isLoggedin && $store.state.auth.user.level == 12">{{(gm.gm_price_add_vat*$store.state.auth.user.dc_mul) | comma | price_zero}}</span>
-                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{dealer_price_chk(bd.bd_price_add_vat) | comma}}원</i>
+                            <span class="discount">{{gm.gm_price_dc_add_vat | comma | price_zero}}</span>
+                            <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{price_dc_chk(bd.bd_price_add_vat) | comma}}원</i>
                         </b-col>
                         <b-col>
                             <p class="m_show">단위:{{gm.gm_unit}}</p>
@@ -342,8 +342,9 @@ export default {
         ...mapState('cart', ['cartList']),
         ...mapState('auth', ['isLoggedin', 'user']),
         total: function() {
-            let model =  this.content.goods_model.reduce((acc, el) => {                 
-                return acc + parseInt(this.dealer_price_chk(bundleCheckAddVat(el.bundle_dc, el.ea, el.gm_price_add_vat)) * el.ea);
+            let model =  this.content.goods_model.reduce((acc, el) => {     
+                let p = el.gm_price_dc_add_vat ?? el.gm_price_add_vat;
+                return acc + parseInt(this.price_dc_chk(bundleCheckAddVat(el.bundle_dc, el.ea, p)) * el.ea);
             }, 0);
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.reduce((acc02, el02) => {
@@ -511,7 +512,7 @@ export default {
             } else                  this.top_y = 0;
         },
 
-        dealer_price_chk: function (v) {
+        price_dc_chk: function (v) {
             return ( this.isLoggedin && this.user.level == 12 ) ? Math.floor(v*this.user.dc_mul) : v;
         },
 
@@ -576,14 +577,14 @@ export default {
 .conRight .model .row:nth-of-type(1) .col { font-weight:bold; padding:.4rem .3rem; font-size:.9rem; }
 .conRight .model .row.selected { background:#FFFBCC; }
 /* 테이블같은 볼더 */
-.conRight .model .row .col { border:1px solid #CCC; padding:.8rem .3rem; text-align:center; }
+.conRight .model .row .col { border:1px solid #CCC; padding:.8rem .3rem; text-align:center; word-break:break-all; }
 .conRight .model .row .col:not(:last-child) { border-right-width:0; }
 .conRight .model .row:not(:last-child) .col { border-bottom-width:0; }
 
 .conRight .model .row .col:nth-of-type(1) { flex-basis:13%; max-width:13%; }
-.conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; word-break:break-all; }
-.conRight .model .row .col:nth-of-type(4) { word-break:break-all; }
-.conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; word-break:break-all;}
+.conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; }
+.conRight .model .row .col:nth-of-type(4) {  }
+.conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; }
 .conRight .model .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; }
 .conRight .model .row .col:nth-of-type(7) { flex-basis:8%; max-width:8%; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input { height:1.3rem; }

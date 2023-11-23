@@ -266,6 +266,11 @@ export default [
         name: 'listing',
         component:() => import('@/views/web/shop/listing/Index'),
     },
+//      Sale
+    {   path: '/shop/listing/sale',
+        name: 'listing_sale',
+        component:() => import('@/views/web/shop/listing/Sale'),
+    },    
 
 //      고객센터
     {   path: '/cscenter',

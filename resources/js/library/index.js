@@ -174,6 +174,18 @@ export default {
             return p;
         };
 
+        window.dcPriceCalculator = function (p, dc){
+            if(Number(dc)>99)
+                return Number(p)-Number(dc);
+            else
+                return (Number(p)*(100-Number(dc)))/100;
+        };
+
+        
+
+
+
+
         Vue.directive("click-outside", {
           bind(el, binding, vnode) {
             el.clickOutsideEvent = (event) => {

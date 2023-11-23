@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, GoodsSearch, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -62,59 +62,6 @@ class GoodsController extends Controller {
             $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
             $data['makers'] = $this->maker->orderBy('mk_name')->get();
         }
-		return response()->json($data);
-    }
-
-
-    public function index__(Category $cate, Request $req) {
-        $gd_chk = ($req->startDate||$req->endDate||$req->gd_mk_id||$req->deleted_at);
-        $model_chk = $req->filled('keyword')&&($req->mode=='gm_name'||$req->mode=='gm_code'||$req->mode=='cat_no');
-        $gs = GoodsSearch::FROM( 'shop_goods_search AS gs' )->with('goods')
-            ->SELECT("gs.gd_name", "gs.mk_name", "gc_ca01_name", "gc_ca02_name", "gc_ca03_name", "gc_ca04_name", 
-                     "gs.gd_id", "gs.gd_enable", "gs.updated_id", "gs.updated_at", "gs.gd_seq" )
-            //  shop_goods 필드 검색이 없다면 속도하되니 조인하지말자
-            ->when($gd_chk,          fn ($q    ) => $q->leftJoin('shop_goods AS gd', 'gd.gd_id', '=', 'gs.gd_id'))
-            ->when($req->startDate,  fn ($q, $v) => $q->whereDate('gd.created_at', '>=', $v))
-            ->when($req->endDate,    fn ($q, $v) => $q->whereDate('gd.created_at', '<=', $v))
-            ->when($req->gd_enable,  fn ($q, $v) => $q->where('gs.gd_enable', $v))
-            ->when($req->gd_mk_id,   fn ($q, $v) => $q->where('gd.gd_mk_id', $v))
-            ->when(!$req->gd_type,   fn ($q, $v) => $q->where('gs.gd_type', 'NON'))
-            ->when($req->gd_type,    fn ($q, $v) => $q->where('gs.gd_type', $v))
-            ->when($req->deleted_at, function ($q, $v) { 
-                if ($v == 'Y') return $q->whereNotNull('gd.deleted_at'); 
-                elseif ($v == 'N') return $q->whereNull('gd.deleted_at'); 
-            })
-            ->when($req->gd_seq, fn ($q, $v) => $q->where('gs.gd_seq', '<', 999999)->orderBy('gs.gd_seq'))
-            ->when(!$req->ca01, fn ($q, $v) => $q->where('gs.gc_prime', 'Y'))
-            ->when($req->ca01, fn ($q, $v) => $q->where('gs.gc_ca01', $v))
-            ->when($req->ca02, fn ($q, $v) => $q->where('gs.gc_ca02', $v))
-            ->when($req->ca03, fn ($q, $v) => $q->where('gs.gc_ca03', $v))
-            ->when($req->ca04, fn ($q, $v) => $q->where('gs.gc_ca04', $v))
-            ->latest('gs.gd_id');
-
-        if ($req->filled('keyword')){
-            if (preg_match("/[-+*.]/", $req->keyword)) 	$ftWord = '"'.$req->keyword.'"';
-			else 									    $ftWord = $req->keyword.'*';
-          
-            if ( $req->mode == 'gd_name' ) $gs->whereFullText('gs.gd_name', $ftWord, ['mode' => 'boolean']);
-            if ( $req->mode == 'gm_name' ) $gs->whereFullText('gs.gm_name', $ftWord, ['mode' => 'boolean']);
-            if ( $req->mode == 'gm_code' ) $gs->whereFullText('gs.gm_code', $ftWord, ['mode' => 'boolean']);
-            if ( $req->mode == 'cat_no' )  $gs->whereFullText('gs.gm_catno', $ftWord, ['mode' => 'boolean']);
-            if ( $req->mode == 'manager' ) {
-                $uid = User::Name($req->keyword)->Admin()->first();
-                $gs->where("gs.updated_id", $uid->id);
-            }
-        }
-        
-        //  상품의 하위 모델 상세 검색이 아니면 속도하되니 groupBy하지말자
-        //  (gc_prime, Y)(gm_prime, Y)  이것으로 같은 효과
-        $gs->when($model_chk, fn ($q) => $q->groupBy('gs.gd_id'))
-            ->when(!$model_chk, fn ($q) => $q->where('gs.gm_prime', 'Y'));
-        $data['list'] = $gs->paginate($req->filled('limit') ? $req->limit : 10);
-        $data['list']->appends($req->all())->links();
-
-        $data['mng_off'] = json_decode(Redis::get('UserMngOff'));
-        
 		return response()->json($data);
     }
 
@@ -255,14 +202,6 @@ class GoodsController extends Controller {
                     }
                 }
             }
-
-            //  검색 테이블 insert
-            foreach ($cate_ist_info as $v) {                
-                $goods->gd_mk_name = $req->gd_mk_name;
-                $gm_impl['gm_id'] = $ist_gm_id;
-                DB::table('shop_goods_search')->insert($this->search_paramImplant($goods, $v, $gm_impl));
-            }
-            //  검색 테이블 insert
         }
 
         if (!($req->filled('gd_type') && $req->gd_type == 'REN')) {
@@ -367,7 +306,6 @@ class GoodsController extends Controller {
         }
 
         //  검색 테이블 삭제했다가 다시 밀어넣기
-        DB::table('shop_goods_search')->where('gd_id', $gd_id)->delete();
         foreach ($req->goods_model as $gm) {
             $gm_impl = $this->goodsModel_paramImplant($gd_id, $gm);
             $gm_impl_add = array();
@@ -392,13 +330,6 @@ class GoodsController extends Controller {
                     $this->bd->updateOrCreate(['bd_id' => $bd['bd_id']], $bd_impl);                    
                 }
             }
-
-            //  검색 테이블        
-            foreach ($cate_ist_info as $gc) {
-                $goods->gd_mk_name = $req->gd_mk_name;
-                DB::table('shop_goods_search')->insert($this->search_paramImplant($goods, $gc, $udt_gm));
-            }
-            //  검색 테이블
         }        
 
         if ($req->filled('delete_bundle_dc')) {    //  묶음할인 삭제
@@ -490,8 +421,6 @@ class GoodsController extends Controller {
         // }
         // DB::table('shop_goods_category')->where('gc_gd_id', $id)->delete();
         DB::table('shop_goods')->where('gd_id', $id)->update(['deleted_at' => \Carbon\Carbon::now()]);
-        //  검색 테이블
-        DB::table('shop_goods_search')->where('gd_id', $id)->delete();
     }
 
     public function goods_paramImplant($goods, $req){
@@ -501,7 +430,9 @@ class GoodsController extends Controller {
         $goods->gd_video    = $req->gd_video;
 	   	$goods->gd_dlvy_at  = $req->gd_dlvy_at;
 	   	$goods->gd_enable   = $req->filled('gd_enable') ? $req->gd_enable : 'N';
-	   	$goods->gd_type     = $req->filled('gd_type') ? $req->gd_type : 'NON';
+	   	$goods->gd_type     = $req->filled('gd_type')   ? $req->gd_type : 'NON';
+        $goods->gd_billing  = $req->filled('gd_billing')? $req->gd_billing : 0;
+        $goods->gd_dc       = $req->filled('gd_dc')     ? $req->gd_dc : 0;
 	   	$goods->gd_mk_id    = $req->gd_mk_id;
 	   	$goods->gd_pa_id    = $req->gd_pa_id;
         $goods->gd_mng_info = $req->gd_mng_info;
@@ -534,37 +465,6 @@ class GoodsController extends Controller {
         return [    'bd_gm_id' => $gm_id,
                     'bd_ea'    => $bd['bd_ea'],
                     'bd_price' => $bd['bd_price']];
-    }
-
-    public function search_paramImplant($gd, $gc, $gm) {
-        return ['gd_id'        => $gd->gd_id,
-                'gd_enable'    => $gd->gd_enable,
-                'gd_type'      => $gd->gd_type ? $gd->gd_type : 'NON',
-                'gd_name'      => $gd->gd_name,
-                'gd_keyword'   => $gd->gd_keyword,
-                'gd_rank'      => $gd->gd_rank,
-                'gd_seq'       => $gd->gd_seq,
-                'mk_name'      => $gd->gd_mk_name,
-                'gm_id'        => $gm['gm_id'],
-                'gm_enable'    => $gm['gm_enable'],
-                'gm_catno'     => "{$gm['gm_catno01']}-{$gm['gm_catno02']}-{$gm['gm_catno03']}",
-                'gm_catno01'   => $gm['gm_catno01'],
-                'gm_catno02'   => $gm['gm_catno02'],
-                'gm_catno03'   => $gm['gm_catno03'],
-                'gm_name'      => $gm['gm_name'],
-                'gm_code'      => $gm['gm_code'],
-                'gm_prime'     => $gm['gm_prime'],
-                'gc_id'        => $gc['gc_id'],
-                'gc_ca01'      => $gc['gc_ca01'],
-                'gc_ca01_name' => $gc['gc_ca01_name'],
-                'gc_ca02'      => array_key_exists('gc_ca02',      $gc) ? $gc['gc_ca02']      : NULL,
-                'gc_ca02_name' => array_key_exists('gc_ca02_name', $gc) ? $gc['gc_ca02_name'] : NULL,
-                'gc_ca03'      => array_key_exists('gc_ca03',      $gc) ? $gc['gc_ca03']      : NULL,
-                'gc_ca03_name' => array_key_exists('gc_ca03_name', $gc) ? $gc['gc_ca03_name'] : NULL,
-                'gc_ca04'      => array_key_exists('gc_ca04',      $gc) ? $gc['gc_ca04']      : NULL,
-                'gc_ca04_name' => array_key_exists('gc_ca04_name', $gc) ? $gc['gc_ca04_name'] : NULL,
-                'gc_prime'     => $gc['gc_prime'],
-                'updated_id'   => $gd->updated_id ];
     }
 
     public function getModel(Request $req){
@@ -607,14 +507,4 @@ class GoodsController extends Controller {
             return response()->json('no-data', 200);
         return response()->json($this->goods_option->with('goodsOptionChild')->Gd_id($gm->gm_gd_id)->get(), 200);
     }
-
-    // public function getGoods(Request $req){
-    //     $rst = $this->goods->find($req->gd_id);
-    //     $rst->maker;
-    //     return response()->json($rst, 200);
-    // }
-    //
-    // public function getGoodsMaker(int $gd_id) {
-    //     return response()->json($this->goods->find($gd_id)->maker, 200);
-    // }
 }

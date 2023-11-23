@@ -5,6 +5,7 @@
         <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
             :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
         >상품관리</router-link>
+        <router-link v-if="user.is_super" :to="{name: 'listing_sale'}">S</router-link>
     </div>
     <div id="afterimage"></div>
     <div id="core">
