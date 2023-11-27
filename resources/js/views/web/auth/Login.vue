@@ -25,7 +25,7 @@
         <b-link class="col" @click="find_pw"><span>비밀번호 재설정</span></b-link>
         <b-link class="col" @click="join"><span>회원가입</span></b-link>
     </b-row>
-    <b-row class="link sns" v-if="false">
+    <b-row class="link sns">
         <b-link class="col" href="/social/naver"><img :src="s3url+'auth/naver_login.png'" /></b-link>
         <b-link class="col" href="/social/kakao"><img :src="s3url+'auth/kakao_login.png'" /></b-link>
     </b-row>

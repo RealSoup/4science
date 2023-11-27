@@ -11,7 +11,7 @@
             <p>딜러 회원 가입<span class="d-none d-lg-inline-block">하기</span></p>
             <span class="d-none d-lg-inline-block">사업자 등록증을 보유한<br />유통, 도소매 업체 (재판매업자)</span>
         </b-link>
-        <b-col class="sns" v-if="false">
+        <b-col class="sns">
             <b-link href="/social/naver">
                 <b-img :src="s3url+'auth/join_naver.png'" />
             </b-link>
@@ -50,7 +50,7 @@ export default {
 .container { max-width:920px; }
 .container h3 { margin:4rem auto; font-weight:bold; font-size:3rem; text-align:center; }
 .container .con { margin-bottom:1rem; }
-/*.container .con .col { flex:0 0 300px; max-width:300px; }*/
+.container .con .col { flex:0 0 300px; max-width:300px; }
 .container .con .col:not(:last-child) { margin-right:10px; }
 .container .con .direct { min-height:300px; border:3px solid #D7D7D7; border-radius:10px; text-align:center; background-repeat:no-repeat; background-position:center 30%; padding-top:8.8rem; }
 .container .con .direct p { font-weight:bold; margin-bottom:.4rem; font-size:1.5rem; }
