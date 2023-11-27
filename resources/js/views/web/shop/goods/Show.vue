@@ -147,7 +147,7 @@
                     <b-col class="head"><b>연관<br>상품</b></b-col>
                     <perfect-scrollbar>
                     <b-col class="gd_list">
-                        <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id" :to="{name:'goods_show', params:{gd_id:gr.gr_val}}">
+                        <b-link class="col" v-for="gr in content.goods_relate" :key="gr.gr_id" :to="{name:'goods_show', params:{gd_id:gr.gr_gd_id}}">
                             <div><img :src="gr.goods.image_src_thumb[0]" /></div>
                             <sub-string v-model="gr.goods.gd_name" :width="165" />
                         </b-link>

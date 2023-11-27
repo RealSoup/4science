@@ -132,6 +132,22 @@
         </b-row>
     </b-container>
 
+    <b-container class="box goods_relate" v-if="value">
+        <h5 class="row">
+            <b-col>연관 상품</b-col>
+            <relate-finder :list="value.goods_relate" :papa_gd_id="value.gd_id" :seq="value.goods_relate.length"></relate-finder>
+        </h5>
+        
+        <draggable :list="value.goods_relate" handle=".handle" class="row list" @change="updateSeq">
+            <b-col v-for="(gr, i) in value.goods_relate" :key="gr.gr_id" cols="2" col>
+                <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
+                <b-button variant="danger" class="btn_del" @click="destroy(i)"><b-icon-x-square /></b-button>
+                <b-img :src="gr.goods.image_src_thumb[0]" />
+                <span>{{gr.goods.gd_name}}</span>
+            </b-col>
+        </draggable>
+    </b-container>
+
     <!-- 모델 -->
     <b-container tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
         <h5 class="row">
@@ -281,7 +297,7 @@ import FileUpload from '@/views/_common/FileUpload.vue'
 import { Vue2TinymceEditor } from "vue2-tinymce-editor";
 
 export default {
-    name: 'GoodsForm',
+    name: 'admShopGoodsForm',
     components: {
         draggable,
         // Multiselect,
@@ -292,6 +308,7 @@ export default {
         'maker-input': () =>    import('@/views/admin/shop/goods/_comp/MakerInput'),
         Vue2TinymceEditor,
         'option-finder': () =>  import('@/views/admin/shop/goods/_comp/OptionFinder'),
+        'relate-finder':() =>    import('@/views/admin/shop/goods/_comp/RelateFinder'),
     },
     props: ['value', 'purchaseAt'],
     computed: {
@@ -465,6 +482,10 @@ export default {
             xhr.send(formData);
             console.log("editor upload complete");
         },
+
+        updateSeq() {
+            this.value.goods_relate.forEach((gr, i) => gr.gr_seq = i);
+        },
     },
     mounted() { this.getCate(0); },
 }
@@ -481,8 +502,14 @@ export default {
 .cate .selected .col .btn { padding:0 3px; }
 .cate .selected .col>svg { margin:0 .5em; color:#CCC; }
 
-
-
+.goods_relate .list .col { text-align:center; overflow:hidden; margin-bottom:2rem; }
+.goods_relate .list .col img { width:150px; height:150px; object-fit:cover; }
+.goods_relate .list .col button { position:absolute; top:0; transform:translateY(-120%); transition:transform 0.5s ease; }
+.goods_relate .list .col span { margin-top:.5rem; display:inline-block; }
+.goods_relate .list .col .handle { left:50%; transform:translateX(-50%) translateY(-120%); }
+.goods_relate .list .col .btn_del { right:15px; }
+.goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }
+.goods_relate .list .col:hover .btn_del { transform:translateY(0); }
 
 .model .head .col { text-align:center; font-size:.85em; }
 .model .row .col .bundle_box { position:absolute; top:2em; right:0; width:300px; margin-top:.5em; z-index:2; }

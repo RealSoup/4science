@@ -10,5 +10,5 @@ class GoodsRelate extends Model {
     public $timestamps = false;
     protected $guarded = [];
     
-    public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'gr_val'); }
+    public function goods() { return $this->hasOne(Goods::class, 'gd_id', 'gr_gd_id'); }
 }

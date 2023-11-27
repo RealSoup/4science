@@ -18,7 +18,7 @@
         </b-row>
     </b-container>
 
-    <Form ref="form" v-model="frm" :purchaseAt="purchaseAt" />
+    <Form ref="form" v-model="frm" :purchaseAt="purchaseAt"></Form>
 </b-container>
 </template>
 
@@ -27,7 +27,7 @@ import ax from '@/api/http';
 import Form from "@/views/admin/shop/goods/Form.vue";
 
 export default {
-    name: 'edit',
+    name: 'admShopGoodsEdit',
     components: {
         Form,
         // 'Form': () => import('./Form.vue'),
@@ -42,6 +42,7 @@ export default {
             frm: {
                 file_goods_goods:[],
                 file_goods_add:[],
+                goods_relate:[]
             },
         };
     },

@@ -204,8 +204,8 @@ label { margin-bottom:0; }
 .awesome_p input,
 .awesome_p textarea { border:1px solid #EEE; width:100%; padding:.4rem .7rem .3rem; font-size:.95rem; color:#888; border-radius:.24rem; transition: all 0.2s ease; }
 .awesome_p textarea { height:100%; }
-.awesome_p>label { display:block; position:absolute; top:.5rem; white-space:nowrap; color:#AAA; margin-left:10px; padding:0 3px; /*font-size:.8rem;*/ cursor:text; z-index:3; transition: all 0.2s ease; }
-
+.awesome_p>label { display:block; position:absolute; top:.3em; white-space:nowrap; color:#AAA; margin-left:10px; padding:0 3px; /*font-size:.8rem;*/ cursor:text; z-index:3; transition: all 0.2s ease; }
+.awesome_p>label + button { position:absolute; top:.3em; right:.3em; }
 .awesome_p input:focus,
 .awesome_p textarea:focus { outline:0; }
 .awesome_p input:focus,

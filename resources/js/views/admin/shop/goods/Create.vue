@@ -26,7 +26,7 @@ import ax from '@/api/http';
 import Form from "@/views/admin/shop/goods/Form.vue";
 
 export default {
-    name: 'create',
+    name: 'admShopGoodsCreate',
     components: {
         Form,
         // 'Form': () => import('./Form.vue'),
@@ -46,6 +46,7 @@ export default {
                 gd_type: 'NON',
                 goods_model : [],
                 goods_option : [],
+                goods_relate:[],
                 fi_id: [],
                 file_goods_goods: [],
                 file_goods_add: [],

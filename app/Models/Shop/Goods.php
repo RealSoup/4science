@@ -48,7 +48,7 @@ class Goods extends Model {
     public function goodsModel() {          return $this->hasMany(GoodsModel::class, "gm_gd_id")->orderBy('gm_catno03'); }
     public function goodsModelPrime() {     return $this->hasOne(GoodsModel::class, "gm_gd_id")->Prime(); }
     public function goodsOption() {         return $this->hasMany(GoodsOption::class, "go_gd_id")->orderBy('go_required'); }
-    public function goodsRelate() {         return $this->hasMany(GoodsRelate::class, 'gr_gd_id')->orderBy('gr_seq'); }
+    public function goodsRelate() {         return $this->hasMany(GoodsRelate::class, 'gr_papa_gd_id')->orderBy('gr_seq'); }
     public function fileGoods() {           return $this->hasMany(FileGoods::class, 'fi_key')->orderBy('fi_seq'); }
     public function fileGoodsAdd() {        return $this->hasMany(FileGoods::class, 'fi_key')->Kind('add')->orderBy('fi_seq'); }
     public function fileGoodsGoods() {      return $this->hasMany(FileGoods::class, 'fi_key')->Kind('goods')->orderBy('fi_seq'); }

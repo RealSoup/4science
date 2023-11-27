@@ -814,7 +814,7 @@ var render = function render() {
         to: {
           name: "goods_show",
           params: {
-            gd_id: gr.gr_val
+            gd_id: gr.gr_gd_id
           }
         }
       }

@@ -91,9 +91,14 @@ class GoodsController extends Controller {
     public function edit($gd_id) {
         $data['goods'] = $this->goods->select("shop_goods.*",
 							DB::raw("(SELECT mk_name FROM la_shop_makers WHERE la_shop_goods.gd_mk_id = mk_id) as gd_mk_name"),)
-                        ->with('goodsModel')->with('goodsOption')->with('goodsCategory')->find($gd_id);
+                        ->with('goodsModel')
+                        ->with('goodsOption')
+                        ->with('goodsCategory')
+                        ->with('goodsRelate')
+                        ->find($gd_id);
         foreach($data['goods']->goodsModel as $md) $md->bundleDc;
         foreach($data['goods']->goodsOption as $go) $go->goodsOptionChild;
+        foreach($data['goods']->goodsRelate as $gr) $gr->goods;
         $data['goods']->fileGoodsGoods;
         $data['goods']->fileGoodsAdd;
         $data['purchaseAt'] = PurchaseAt::orderBy('pa_name')->get(); //  매입처 직배송
@@ -214,6 +219,9 @@ class GoodsController extends Controller {
                 }
             }
         }
+        
+        foreach ($req->goods_relate as $gr)
+            DB::table('shop_goods_relate')->insert( $this->goodsRelate_paramImplant($goods->gd_id, $gr));
 
         //  검색엔진 갱신
         if ($req->gd_type != 'REN')
@@ -341,7 +349,7 @@ class GoodsController extends Controller {
         
         foreach ($req->goods_option as $go) {
             if (isset($go['go_name'])){
-                $udt_go = $this->goods_option->updateOrCreate( ['go_id' => $go['go_id']], $this->option_paramImplant($gd_id, $go) );             
+                $udt_go = $this->goods_option->updateOrCreate( ['go_id' => $go['go_id']], $this->option_paramImplant($gd_id, $go) );
                 foreach ($go['goods_option_child'] as $goc) {
                     if (isset($goc['goc_name']))
                         $this->goods_option_child->updateOrCreate( ['goc_id' => $goc['goc_id']], $this->optionChild_paramImplant($udt_go->go_id, $goc) );
@@ -364,6 +372,10 @@ class GoodsController extends Controller {
                     DB::table('shop_goods_option_child')->where('goc_id', $id)->delete();
             }
         }
+
+        
+        foreach ($req->goods_relate as $gr)
+            DB::table('shop_goods_relate')->updateOrCreate( ['gr_id' => $gr['gr_id']], $this->goodsRelate_paramImplant($gd_id, $gr) );
 
         if ($gd_rst)
             return response()->json($gd_id, 200);
@@ -467,6 +479,13 @@ class GoodsController extends Controller {
                     'bd_price' => $bd['bd_price']];
     }
 
+    public function goodsRelate_paramImplant($gd_id, $gr){
+        return [ 'gr_papa_gd_id' =>$gd_id,
+                 'gr_gd_id'      =>$gr['gr_gd_id'],
+                 'gr_seq'        =>$gr['gr_seq'],
+                 'created_id'    =>auth()->user()->id,];
+    }
+
     public function getModel(Request $req){
         $rst = null;
         $gm = $this->goods_model;
@@ -494,7 +513,20 @@ class GoodsController extends Controller {
     }
 
     public function getGoodsList(Request $req) {
-        return response()->json($this->goods->SchGd_name($req->gd_name)->get(), 200);
+        $rst = $this->goods;
+        if ($req->filled('catno')) {
+            $cn = explode('-', $req->catno);
+            $gm = $this->goods_model
+                ->Catno01($cn[0])
+                ->when($cn[1], fn ($q, $v) => $q->Catno02($v));
+            $rst = $rst->SchGd_id($gm->pluck('gm_gd_id'))
+                ->get();
+        } else {
+            $rst = $rst->SchGd_name($req->gd_name)
+                ->get();
+        }
+        
+        return response()->json($rst, 200);
     }
 
     public function getOption(Request $req, String $catno){

@@ -251,9 +251,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "mb-1"
-  }, [_vm._v("가입경로 "), _c("b", {
-    staticClass: "need"
-  })]), _vm._v(" "), _c("b-form-radio-group", {
+  }, [_vm._v("가입경로 ")]), _vm._v(" "), _c("b-form-radio-group", {
     attrs: {
       options: _vm.join_route
     },
