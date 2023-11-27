@@ -72,6 +72,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     setGoods: function setGoods(i) {
       if (this.sch_list[i] && this.sch_list[i].gd_name != "정보없음") {
         this.list.push({
+          gr_id: 0,
           gr_papa_gd_id: this.papa_gd_id,
           gr_gd_id: this.sch_list[i].gd_id,
           gr_seq: this.seq,

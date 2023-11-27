@@ -4,7 +4,7 @@ namespace app\Http\Controllers\admin\shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{FileInfo, FileGoods, User};
-use App\Models\Shop\{Category, Goods, GoodsModel, GoodsCategory, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
+use App\Models\Shop\{Category, Goods, GoodsModel, GoodsRelate,GoodsCategory, BundleDc, Maker, GoodsOption, GoodsOptionChild, PurchaseAt};
 use App\Traits\FileControl;
 use App\Http\Requests\SaveGoodsRequest;
 use Illuminate\Support\Facades\DB;
@@ -21,14 +21,16 @@ class GoodsController extends Controller {
 
     protected $goods;
     protected $goods_model;
+    protected $goods_relate;
     protected $goods_option;
     protected $goods_option_child;
 	protected $maker;
     protected $bd;
 
-	public function __construct( Goods $gd, GoodsModel $gm, GoodsOption $option, GoodsOptionChild $optionChild, Maker $mk, BundleDc $bd ) {
+	public function __construct( Goods $gd, GoodsModel $gm, GoodsRelate $gr, GoodsOption $option, GoodsOptionChild $optionChild, Maker $mk, BundleDc $bd ) {
         $this->goods = $gd;
         $this->goods_model = $gm;
+        $this->goods_relate = $gr;
         $this->goods_option = $option;
         $this->goods_option_child = $optionChild;
         $this->maker = $mk;
@@ -375,7 +377,7 @@ class GoodsController extends Controller {
 
         
         foreach ($req->goods_relate as $gr)
-            DB::table('shop_goods_relate')->updateOrCreate( ['gr_id' => $gr['gr_id']], $this->goodsRelate_paramImplant($gd_id, $gr) );
+            $this->goods_relate->updateOrCreate( ['gr_id' => $gr['gr_id']], $this->goodsRelate_paramImplant($gd_id, $gr) );
 
         if ($gd_rst)
             return response()->json($gd_id, 200);
