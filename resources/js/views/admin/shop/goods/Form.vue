@@ -138,10 +138,10 @@
             <relate-finder :list="value.goods_relate" :papa_gd_id="value.gd_id" :seq="value.goods_relate.length"></relate-finder>
         </h5>
         
-        <draggable :list="value.goods_relate" handle=".handle" class="row list" @change="updateSeq">
-            <b-col v-for="(gr, i) in value.goods_relate" :key="gr.gr_id" cols="2" col>
+        <draggable :list="value.goods_relate" handle=".handle" class="row list" @change="gr_updateSeq">
+            <b-col v-for="(gr, i) in value.goods_relate" :key="i" cols="2" col>
                 <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
-                <b-button variant="danger" class="btn_del" @click="destroy(i)"><b-icon-x-square /></b-button>
+                <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
                 <b-img :src="gr.goods.image_src_thumb[0]" />
                 <span>{{gr.goods.gd_name}}</span>
             </b-col>
@@ -483,8 +483,16 @@ export default {
             console.log("editor upload complete");
         },
 
-        updateSeq() {
+        gr_updateSeq() {
             this.value.goods_relate.forEach((gr, i) => gr.gr_seq = i);
+        },
+        gr_destroy(i) {
+            if (this.$route.name == 'adm_goods_edit' && this.value.goods_relate[i].gr_id) {
+                if (!this.value.hasOwnProperty("delete_goods_relate"))
+                    this.value.delete_goods_relate = Array();  
+                this.value.delete_goods_relate.push(this.value.goods_relate[i].gr_id);
+            }
+            this.value.goods_relate.splice(i, 1);
         },
     },
     mounted() { this.getCate(0); },

@@ -42,7 +42,7 @@ export default {
             frm: {
                 file_goods_goods:[],
                 file_goods_add:[],
-                goods_relate:[]
+                goods_relate:[],
             },
         };
     },

@@ -375,9 +375,13 @@ class GoodsController extends Controller {
             }
         }
 
-        
         foreach ($req->goods_relate as $gr)
             $this->goods_relate->updateOrCreate( ['gr_id' => $gr['gr_id']], $this->goodsRelate_paramImplant($gd_id, $gr) );
+
+        if ($req->filled('delete_goods_relate')) {    //  옵션 항목 삭제
+            foreach ($req->delete_goods_relate as $id)
+                DB::table('shop_goods_relate')->where('gr_id', $id)->delete();
+        }
 
         if ($gd_rst)
             return response()->json($gd_id, 200);
