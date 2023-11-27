@@ -2,8 +2,7 @@
 <b-container id="mypage">
     <h2>
         마이페이지
-        <b-button class="xm teal" @click="$store.dispatch('auth/logout')">로그아웃
-        </b-button>
+        <b-button class="xm teal" @click="$store.dispatch('auth/logout')">로그아웃</b-button>
         <!-- <small>
             <b-button class="xm teal" @click="copyToClipboard(`https://4science.net/auth/create/personal?f_code=${user.id}`)">
                 <font-awesome-icon icon="copy" />
@@ -11,6 +10,8 @@
             </b-button>
             ▶ https://4science.net/auth/create/personal?f_code={{user.id}}
         </small> -->
+        
+        <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
     </h2>
     <b-row class="top">
         <b-col class="name">
@@ -84,8 +85,6 @@
     </b-row>
     <b-row class="middle">
         <b-col class="left">
-            <b-button v-b-toggle.mymenu id="menu_btn" class="teal sm">Menu</b-button>
-
             <b-sidebar id="mymenu" title="My Page" :backdrop-variant="'info'" backdrop shadow>
                 <ul class="nav">
                     <li>
@@ -178,6 +177,8 @@ export default {
 .container h2 { margin:2rem 1rem; font-weight:bold; }
 .container h2 small { font-size:50%; vertical-align:middle; }
 .container h2 small button { line-height:1.2; }
+.container h2 #menu_btn { position:absolute; right:10px; }
+
 #mypage .top { border:1px solid #9EA7B0; }
 #mypage .top .col { height:142px; background:#B9C9D8; padding:1.5rem 0 0 2rem; color:#FFF; position:relative; }
 #mypage .top .col p { font-size:.98rem; margin-bottom:1.3rem; font-weight:bold; }
@@ -204,7 +205,6 @@ export default {
 #mypage .top .od_step ul li a img { display:block; margin:0 auto -.05rem auto; }
 
 #mypage .middle .left { flex-basis:200px; max-width:200px; padding:0; }
-#mypage .middle .left #menu_btn { margin:1rem; }
 #mypage .middle .left .nav li { width:100%; border:1px solid #ddd; border-top-width:0; padding:1.1rem 0; }
 #mypage .middle .left .nav li h5 { padding:.8rem 0 0 1rem; font-size:1.1rem; font-weight:bold; cursor:pointer; }
 #mypage .middle .left .nav li div a { display:block; padding:.5rem 1rem; }

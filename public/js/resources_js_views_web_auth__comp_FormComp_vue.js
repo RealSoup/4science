@@ -277,12 +277,9 @@ var render = function render() {
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
-  }, [_vm._v("생년월일"), _c("b", {
-    staticClass: "need"
-  })]), _vm._v(" "), _c("b-col", [_c("validation-provider", {
+  }, [_vm._v("생년월일")]), _vm._v(" "), _c("b-col", [_c("validation-provider", {
     attrs: {
-      name: "생년월일",
-      rules: "required"
+      name: "생년월일"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -324,12 +321,9 @@ var render = function render() {
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
-  }, [_vm._v("직장/학교"), _c("b", {
-    staticClass: "need"
-  })]), _vm._v(" "), _c("b-col", [_c("validation-provider", {
+  }, [_vm._v("직장/학교")]), _vm._v(" "), _c("b-col", [_c("validation-provider", {
     attrs: {
-      name: "직장명/학교명",
-      rules: "required"
+      name: "직장명/학교명"
     },
     scopedSlots: _vm._u([{
       key: "default",
