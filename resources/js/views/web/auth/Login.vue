@@ -149,7 +149,4 @@ export default {
 .frm_st .find_email .col .row .col span input { width:calc(100% - 30px); border:1px solid #BBB; padding:2px 6px; background:#fff; border-radius:.3rem; height:30px; }
 .frm_st .find_email .col .row .col span b { display: block; width:30px; height:30px; font-size: 1.3rem; position: absolute; bottom:0; right:0;}
 .frm_st .find_email .col .row .col span b svg { color:#BBB; cursor: pointer; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); }
-@media (max-width: 992px) {
-    .frm_st .link.sns { display:none; }
-}
 </style>

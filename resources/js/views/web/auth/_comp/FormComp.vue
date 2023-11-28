@@ -55,9 +55,9 @@
                 </b-col>-->
             </b-row>
             <b-row>
-                <b-col class="label_st">생년월일<!-- <b class="need" />--></b-col>
+                <b-col class="label_st">생년월일<b class="need" /></b-col>
                 <b-col>
-                    <validation-provider name="생년월일" v-slot="validationContext">
+                    <validation-provider name="생년월일" rules="required" v-slot="validationContext">
                         <b-input-group>
                             <b-form-input id="birth" v-model="value.birth" placeholder="YYYY-MM-DD" autocomplete="off" :formatter="format_date" :state="getValidationState(validationContext)" />
                             <b-input-group-append>
@@ -70,9 +70,9 @@
                 </b-col>
             </b-row>
             <b-row>
-                <b-col class="label_st">직장/학교<!-- <b class="need" />--></b-col>
+                <b-col class="label_st">직장/학교<b class="need" /></b-col>
                 <b-col>                    
-                    <validation-provider name="직장명/학교명" v-slot="validationContext">
+                    <validation-provider name="직장명/학교명" rules="required" v-slot="validationContext">
                         <b-form-input id="company" v-model="value.company" :state="getValidationState(validationContext)" />
                         <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </validation-provider>

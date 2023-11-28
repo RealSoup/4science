@@ -50,7 +50,7 @@ export default {
 .container { max-width:920px; }
 .container h3 { margin:4rem auto; font-weight:bold; font-size:3rem; text-align:center; }
 .container .con { margin-bottom:1rem; }
-/*.container .con .col { flex:0 0 300px; max-width:300px; }*/
+.container .con .col { flex:0 0 300px; max-width:300px; }
 .container .con .col:not(:last-child) { margin-right:10px; }
 .container .con .direct { min-height:300px; border:3px solid #D7D7D7; border-radius:10px; text-align:center; background-repeat:no-repeat; background-position:center 30%; padding-top:8.8rem; }
 .container .con .direct p { font-weight:bold; margin-bottom:.4rem; font-size:1.5rem; }
@@ -77,7 +77,7 @@ export default {
     .container .con .col:not(:last-child) { margin-right:0; }
     .container .con .direct { padding:1em; min-height:auto; background-image:none !important; flex:0 0 48%; max-width:48%; border-radius:6px;  }
     .container .con .direct p { margin:0; font-size:1.1em; }
-    .container .con .sns { flex:0 0 100%; max-width:100%; display:flex; flex-wrap:wrap; justify-content:space-between; margin-top:12px; display:none; }
+    .container .con .sns { flex:0 0 100%; max-width:100%; display:flex; flex-wrap:wrap; justify-content:space-between; margin-top:12px; }
     .container .con .sns a { flex: 0 0 48%; max-width: 48%; }
     .container .con .sns a img { width:100%; }
 }
