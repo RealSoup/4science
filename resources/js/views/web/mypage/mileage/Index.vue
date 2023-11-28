@@ -82,9 +82,12 @@
                     <b-col>※휴대폰 번호 오기입으로 인한 상품권 미수령은 당사가 책임지지 않으니 재확인 바랍니다.</b-col>
                 </b-row>
             </b-col>
-
-            
         </b-row>
+        <ul>
+            <li>마일리지(상품권) 신청으로 2개월 이상 미수금이 있을 경우 지급이 제한되오니 참조 바랍니다.</li>
+            <li>2019년 4월 1일 부로 딜러회원(재판매를 목적으로 하는 회원)은 마일리지 사은품의 신청 및 지급이 불가합니다.</li>
+        </ul>
+        
     </b-container>
 </div>
 </template>
@@ -177,4 +180,6 @@ h3 small { font-size:50%; }
 .request>.row>.col:nth-child(1) div p { margin:0; font-size:.82rem; color:#666; }
 .request>.row>.col .row { margin-left:0; margin-right:0; }
 .request>.row>.col .row:nth-child(2) .col { margin-top:1.5rem; font-size:.9rem; }
+.request ul { margin-top:1em; margin-left: 1.3em; }
+.request ul li { font-size:.9em; color:#DD0000; list-style-type: disclosure-closed; }
 </style>
