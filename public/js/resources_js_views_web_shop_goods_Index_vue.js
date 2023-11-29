@@ -301,26 +301,24 @@ var render = function render() {
     }), _vm._v(" "), _c("p", [_c("b", [_vm._v(_vm._s(row.gd_name))]), _vm._v(" "), _c("span", {
       staticClass: "info"
     }, [_vm._v(" " + _vm._s(row.goods_model_prime.gm_code) + " / " + _vm._s(row.goods_model_prime.gm_spec) + " / " + _vm._s(row.goods_model_prime.gm_unit))]), _vm._v(" "), _c("i", [_vm._v("\r\n                                            가격 : \r\n                                            "), _c("span", {
-      staticClass: "price",
+      staticClass: "price_box",
       "class": {
-        price_dealer: row.goods_model_prime.dc_type == "dealer",
-        price_good_dc: row.goods_model_prime.dc_type == "goods_dc"
+        price_discount: row.goods_model_prime.gm_price_dc_add_vat
       }
     }, [_c("span", {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat))))]), _vm._v(" "), _c("span", {
       staticClass: "discount"
     }, [_vm._v(_vm._s(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat))))])])])])]), _vm._v(" "), _c("b-col", {
-      staticClass: "price m_hide",
+      staticClass: "price_box m_hide",
       "class": {
-        price_dealer: row.goods_model_prime.dc_type == "dealer",
-        price_good_dc: row.goods_model_prime.dc_type == "goods_dc"
+        "price_discount align-items-end pr-3": row.goods_model_prime.gm_price_dc_add_vat
       }
     }, [_c("span", {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat)))))]), _vm._v(" "), _c("span", {
       staticClass: "discount"
-    }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))))])]), _vm._v(" "), _c("b-col", {
+    }, [_vm._v("\r\n                                        " + _vm._s(row.gd_dc)), row.gd_dc < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                                    ")], 2)]), _vm._v(" "), _c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(row.mk_name))])], 1);
   }), _vm._v(" "), _c("pagination", {

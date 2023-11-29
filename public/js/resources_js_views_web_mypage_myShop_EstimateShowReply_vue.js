@@ -277,7 +277,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("b-container", {
     staticClass: "w_fence"
-  }, [_c("h3", [_vm._v("견적서 "), _c("b", [_vm._v(_vm._s(_vm.reply.er_id))])]), _vm._v(" "), _c("validation-observer", {
+  }, [_c("h3", [_vm._v("견적서 "), _c("b", [_vm._v(_vm._s(_vm.reply.er_id) + " / Q-" + _vm._s(_vm.reply.estimate_req.eq_id))])]), _vm._v(" "), _c("validation-observer", {
     ref: "observer",
     staticClass: "estimate_show",
     attrs: {

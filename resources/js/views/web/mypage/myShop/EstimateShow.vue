@@ -3,25 +3,11 @@
     <h3>견적서 조회 <b>Q-{{estimate.eq_id}}</b></h3>
     <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
-        <div class="top">
-            <span v-if="estimate.eq_step == 'DONOT' || estimate.eq_step == 'DOING'">담당자가 견적 요청을 확인 중 입니다.</span>
-            <span v-if="estimate.eq_step == 'DONE'">견적이 완료 되었습니다.</span>
-            <span v-if="estimate.eq_step == 'CANCEL'">견적 요청이 취소 되었습니다.</span>
-
-        
-            <div>
-                <b-button v-for="(er, i) in estimate.estimate_reply" :key="i"
-                    :to="{ name: 'my_estimate_show_reply', params: {er_id: er.er_id} }" 
-                    :class="{
-                        mint:i==Object.keys(estimate.estimate_reply).length-1,
-                        white:i!=Object.keys(estimate.estimate_reply).length-1,
-                    }"
-                >
-                    <template v-if="i!==0">재</template>견적서 보기 
-                    <br>
-                    <small>{{er.created_at | formatDate_YYYY_MM_DD}}</small>
-                </b-button>
-            </div>
+        <div class="top" v-if="estimate.mng">
+            <b>담당자/문의</b>&nbsp;&nbsp;
+            {{estimate.mng.name}}&nbsp;&nbsp; 
+            {{estimate.mng.tel}}&nbsp;&nbsp; 
+            {{estimate.mng.email}}
         </div>
         <b-container class="goods">
             <h6><b>01.</b> 상품정보</h6>
@@ -123,10 +109,8 @@ export default {
 .container .row { margin:0; }
 h3 { font-size:1.5rem; padding-left:.8rem; }
 h3 b { color:#0094E9; font-size:1.25rem; }
-.top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4; font-weight:800; }
-.top div { float:right; }
-.top div .btn { line-height:1.1; font-weight:900; margin-left:.5rem; border-color:#000; }
-.top div .btn small { font-weight:600; font-size:85%; }
+.top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}
+
 .container h6 { font-size:1.1rem; margin-top:1.8rem; font-weight:600; padding-left:.5rem; }
 .container h6 b { color:#0094E9; }
 .goods .head { border-top:1px solid #ACACAC; border-bottom:1px solid #ACACAC; background-color:#ECECEC; }

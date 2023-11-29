@@ -291,16 +291,11 @@ label { margin-bottom:0; }
 .p_wrap .pagination-next-nav .page-link,
 .w_fence .pagination-next-nav .page-link { border-color:#dee2e6; }
 
-.price .normal { font-weight:bold; }
-.price .discount { display:none; }
-.price.price_dealer,
-.price.price_good_dc { flex-direction:column; display:flex; align-items:flex-end; }
-.price.price_dealer .normal,
-.price.price_good_dc .normal { font-weight:400; color:#999; text-decoration:line-through; }
-.price.price_dealer .discount,
-.price.price_good_dc .discount { display:inline; }
-.price_dealer .discount,
-.price_good_dc .discount { display:block; position:relative; font-weight:900; margin-top:2px; padding-left:15px; color:#ce0000; }
+.price_box .normal { font-weight:bold; }
+.price_box .discount { display:none; }
+.price_discount { flex-direction:column; display:flex; }
+.price_discount .normal { font-weight:400; color:#999; text-decoration:line-through; }
+.price_discount .discount { display:inline; font-weight:900; margin-top:2px; color:#ce0000; }
 .price_dealer .discount:before { content:'딜'; position:absolute; top:0; left:-12px; font-weight:bold; font-size:.9rem; background-color:#FF0000; border-radius:50%; color:#FFF; width:23px; height:23px; text-align:center; line-height:24px; }
 
 

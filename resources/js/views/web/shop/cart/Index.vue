@@ -33,7 +33,7 @@
                 </b-col>            
                 <b-col class="maker">{{ct.mk_name}}</b-col>
                 <b-col class="price">
-                    <span class="price" :class="{price_dealer:ct.dc_type == 'dealer', price_good_dc:ct.dc_type == 'goods_dc'}">
+                    <span class="price_box" :class="{price_discount:ct.price_dc_add_vat}">
                         <span class="normal">{{ct.price_add_vat | comma | price_zero | won}}</span>
                         <span class="discount">{{ct.price_dc_add_vat | comma | price_zero | won}}</span>
                     </span>
@@ -42,7 +42,7 @@
                     <div class="box"><input-no v-model="cartList[i]" /></div>
                 </b-col>
                 <b-col class="price sum">
-                    <span class="price" :class="{price_dealer:ct.dc_type == 'dealer', price_good_dc:ct.dc_type == 'goods_dc'}">
+                    <span class="price_box" :class="{price_discount:ct.price_dc_add_vat}">
                         <span class="normal">{{ct.price_add_vat*ct.ea | comma | price_zero | won}}</span>
                         <span class="discount">{{ct.price_dc_add_vat*ct.ea | comma | price_zero | won}}</span>
                     </span>

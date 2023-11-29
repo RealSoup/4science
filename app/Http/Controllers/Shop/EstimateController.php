@@ -18,7 +18,7 @@ class EstimateController extends Controller {
         if ($req->filled('startDate'))  $eq = $eq->StartDate($req->startDate);
         if ($req->filled('endDate'))  	$eq = $eq->EndDate($req->endDate);
 
-        $eq = EstimateReq::with('estimateReplyCplt')->CreatedId(auth()->user()->id)->latest();
+        $eq = EstimateReq::with('estimateReplyCplt')->with('mng')->CreatedId(auth()->user()->id)->latest();
 
         $eq->when(request('type', 'with_em'), fn ($q) => $q->with('estimateModel'));
         
@@ -28,6 +28,9 @@ class EstimateController extends Controller {
             $eq = $eq->paginate();
             $eq->appends($req->all())->links();
 		}
+        // foreach ($eq as $e)
+        //     $e->mng->userMng;
+        
         return response()->json($eq, 200);
     }
 
@@ -225,7 +228,7 @@ class EstimateController extends Controller {
     }
 
     public function show(EstimateReq $eq, $eq_id) {
-        $eq = $eq->with('fileInfo')->find($eq_id);
+        $eq = $eq->with('fileInfo')->with('mng')->find($eq_id);
         foreach ($eq->estimateModel as $v) {
             $v->goods;
             $v->estimateOption;

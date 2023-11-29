@@ -104,16 +104,20 @@
                                         <span class="info"> {{row.goods_model_prime.gm_code}} / {{row.goods_model_prime.gm_spec}} / {{row.goods_model_prime.gm_unit}}</span>
                                         <i>
                                             가격 : 
-                                            <span class="price" :class="{price_dealer:row.goods_model_prime.dc_type == 'dealer', price_good_dc:row.goods_model_prime.dc_type == 'goods_dc'}">
+                                            <span class="price_box" :class="{price_discount:row.goods_model_prime.gm_price_dc_add_vat}">
                                                 <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero}}</span>
                                                 <span class="discount">{{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero}}</span>
                                             </span>
                                         </i>
                                     </p>
                                 </b-link>
-                                <b-col class="price m_hide" :class="{price_dealer:row.goods_model_prime.dc_type == 'dealer', price_good_dc:row.goods_model_prime.dc_type == 'goods_dc'}">
+                                <b-col class="price_box m_hide" :class="{'price_discount align-items-end pr-3':row.goods_model_prime.gm_price_dc_add_vat}">
                                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
-                                    <span class="discount">{{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}</span>
+                                    <span class="discount">
+                                        {{row.gd_dc}}<template v-if="row.gd_dc<100">%</template><template v-else>원</template>
+                                        <b-icon-arrow-down />
+                                        {{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}
+                                    </span>
                                 </b-col>
                                 <b-col class="m_hide">{{row.mk_name}}</b-col>
                             </b-row>

@@ -14,7 +14,7 @@
             <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
                 <template v-if="item.type == 'model'">
                     <b-col><img :src="item.img" /></b-col>
-                    <b-col>
+                    <b-col class="explain">
                         <p>{{item.gd_name}}</p>
                         <p><b class="m_hide">제품명:</b> {{item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                         <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
@@ -26,7 +26,7 @@
                     </b-col>
                     <b-col class="m_hide">{{item.mk_name}}</b-col>
                     <b-col>
-                        <span class="price" :class="{price_dealer:item.dc_type == 'dealer', price_good_dc:item.dc_type == 'goods_dc'}">
+                        <span class="price_box" :class="{price_discount:item.price_dc_add_vat}">
                             <span class="normal">
                                 <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
                                 <template v-else>{{item.price | comma | won}}</template>
@@ -37,22 +37,21 @@
                     <b-col>{{item.ea}} 개</b-col>
                     <b-col>
                         <div>
-                            <span class="price" :class="{price_dealer:item.dc_type == 'dealer', price_good_dc:item.dc_type == 'goods_dc'}">
+                            <span class="price_box" :class="{price_discount:item.price_dc_add_vat}">
                                 <span class="normal">
                                     <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                                     <template v-else>{{item.price*item.ea | comma | won}}</template>
                                 </span>
-                                <span class="dealer">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
+                                <span class="discount">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
                             </span>
                             
-                            <br v-if="!user.is_dealer" class="m_hide" />
-                            <span v-if="!user.is_dealer" class="mileage m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
+                            <div v-if="!user.is_dealer" class="mileage m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</div>
                         </div>
                     </b-col>
                 </template>
                 <template v-else-if="item.type == 'option'">
                     <b-col>추가 옵션</b-col>
-                    <b-col>{{item.goc_name}}</b-col>
+                    <b-col class="justify-content-start"><span><b>{{item.go_name}}:</b> {{item.goc_name}}</span></b-col>
                     <b-col class="m_hide"></b-col>
                     <b-col>
                         <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
@@ -161,7 +160,8 @@ export default {
 .pa_list { margin-bottom:2.5rem; padding:0; }
 .pa_list .row { margin:0; border-bottom:1px solid #D6D6D6; }
 .pa_list .row .col { padding:0; font-size:.93rem; color:#666; }
-.pa_list .row.lbody .col:not(:nth-of-type(2)) { display:flex; align-items:center; justify-content:center; text-align:center; }
+.pa_list .row.lbody .col:not(:nth-of-type(2)),
+.pa_list .row.lbody .col .row .col:not(.explain) { display:flex; align-items:center; justify-content:center; text-align:center; }
 
 .pa_list .row .col .row:last-child { border-bottom-width:0; }
 .pa_list .row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }

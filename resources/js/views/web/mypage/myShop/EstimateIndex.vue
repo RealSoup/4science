@@ -6,14 +6,12 @@
     <template v-else>
         <h3>견적서 조회</h3>
         
-        <sch-date v-model="frm" class="sch">
+        <sch-date v-model="frm" class="sch mb-1">
             <b-col slot="prev" cols="0" lg="3"></b-col>
-            <b-col slot="after" col cols="1">
-                <b-button class="gray sm" @click="index">검색</b-button>
-            </b-col>
+            <b-button slot="after" class="gray col col-1 mx-1" @click="index">검색</b-button>
         </sch-date>
 
-        <estimate-list v-model="estimateReq.data" />
+        <estimate-list v-model="estimateReq.data"></estimate-list>
 
         <pagination :data="estimateReq" @pagination-change-page="index" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>
@@ -28,7 +26,7 @@ import ax from '@/api/http';
 import { mapGetters } from 'vuex'
 
 export default {
-    name: "MyOrder",
+    name: "mypageMyShopEstimateIndex",
     components: {
         'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
         'sch-date': () => import('@/views/_common/SchDate.vue'),
@@ -66,14 +64,6 @@ export default {
             }
         },
     },
-    mounted() {
-        this.index();
-    },
-
+    mounted() { this.index(); },
 }
 </script>
-
-<style lang="css" scoped>
-
-
-</style>

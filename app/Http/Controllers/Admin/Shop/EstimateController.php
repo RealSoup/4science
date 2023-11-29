@@ -429,9 +429,11 @@ class EstimateController extends Controller {
         Storage::put('public/estimatePdf/'.$filename.'.pdf', $pdf->output());
 
         try {
+            // $from_email = config('mail.mailers.smtp.username');
+            $from_email = auth()->user()->email;
             if ( trim($to_email) != '-' )
-                Mail::to(trim($to_email))->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
-            Mail::to(auth()->user()->email)->queue(new EstimateSend(config('mail.mailers.smtp.username'), $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+                Mail::to(trim($to_email))->queue(new EstimateSend($from_email, $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
+            Mail::to(auth()->user()->email)->queue(new EstimateSend($from_email, $subject, $params, public_path('storage/estimatePdf/'.$filename.'.pdf')));
         } catch(\Swift_TransportException $e){
             // if($e->getMessage()) dd($e->getMessage());
         }

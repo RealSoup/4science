@@ -290,10 +290,9 @@ var render = function render() {
     }, [_vm._v(_vm._s(ct.mk_name))]), _vm._v(" "), _c("b-col", {
       staticClass: "price"
     }, [_c("span", {
-      staticClass: "price",
+      staticClass: "price_box",
       "class": {
-        price_dealer: ct.dc_type == "dealer",
-        price_good_dc: ct.dc_type == "goods_dc"
+        price_discount: ct.price_dc_add_vat
       }
     }, [_c("span", {
       staticClass: "normal"
@@ -312,10 +311,9 @@ var render = function render() {
     })], 1)]), _vm._v(" "), _c("b-col", {
       staticClass: "price sum"
     }, [_c("span", {
-      staticClass: "price",
+      staticClass: "price_box",
       "class": {
-        price_dealer: ct.dc_type == "dealer",
-        price_good_dc: ct.dc_type == "goods_dc"
+        price_discount: ct.price_dc_add_vat
       }
     }, [_c("span", {
       staticClass: "normal"

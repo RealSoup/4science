@@ -3,6 +3,12 @@
     <h3>주문 정보</h3>
     <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
+        <div class="top" v-if="od.mng">
+            <b>담당자/문의</b>&nbsp;&nbsp;
+            {{od.mng.name}}&nbsp;&nbsp; 
+            {{od.mng.tel}}&nbsp;&nbsp; 
+            {{od.mng.email}}
+        </div>
         <h5>
             <b>{{od.created_at}}</b> &nbsp; 주문번호 {{od.od_no}} &nbsp;
             <order-step v-model="od.od_step" :order_config="order_config" />
@@ -302,6 +308,7 @@ export default {
 
 <style lang="css" scoped>
 .w_fence { max-width:100%; padding-left:0; padding-right:0; }
+.top { border-top:2px solid #363636; border-bottom:1px solid #B6B6B6; border-right:1px solid #B6B6B6; border-left:1px solid #B6B6B6; padding:0 2rem; line-height:4;}
 .goods { border-top:3px solid #4F637B; }
 .goods .pa_tit { flex:0 0 8%; max-width:8%; border-right:1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; align-items:center; display:flex; text-align:center; justify-content:center; }
 .goods .gd_con .row.option { background-color:#F4F1EC; }

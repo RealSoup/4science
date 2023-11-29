@@ -1,6 +1,6 @@
 <template>
 <b-container class="w_fence">
-    <h3>견적서 <b>{{reply.er_id}}</b></h3>
+    <h3>견적서 <b>{{reply.er_id}} / Q-{{reply.estimate_req.eq_id}}</b></h3>
     <validation-observer ref="observer" v-slot="{ invalid }" tag="form" class="estimate_show">
         <loading-modal v-if="isLoadingModalViewed" @close-modal="isLoadingModalViewed = false" :position="'absolute'">Loading ......</loading-modal>
         <div v-else>

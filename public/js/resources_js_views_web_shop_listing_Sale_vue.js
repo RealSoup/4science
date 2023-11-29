@@ -126,16 +126,15 @@ var render = function render() {
         src: row.image_src_thumb[0]
       }
     }), _vm._v(" "), _c("div", [_vm._v(_vm._s(row.gd_name))]), _vm._v(" "), _c("p", {
-      staticClass: "price",
+      staticClass: "price_box align-items-end",
       "class": {
-        price_dealer: row.goods_model_prime.dc_type == "dealer",
-        price_good_dc: row.goods_model_prime.dc_type == "goods_dc"
+        price_discount: row.goods_model_prime.gm_price_dc_add_vat
       }
     }, [_c("span", {
       staticClass: "normal"
     }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_add_vat)))))]), _vm._v(" "), _c("span", {
       staticClass: "discount"
-    }, [row.goods_model_prime.dc_type == "goods_dc" ? _c("b", [_vm._v("\r\n                            " + _vm._s(row.gd_dc)), row.gd_dc < 100 ? [_vm._v("%")] : [_vm._v("원")]], 2) : _vm._e(), _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                    ")], 1)])]);
+    }, [_vm._v("\r\n                        " + _vm._s(row.gd_dc)), row.gd_dc < 100 ? [_vm._v("%")] : [_vm._v("원")], _vm._v(" "), _c("b-icon-arrow-down"), _vm._v("\r\n                        " + _vm._s(_vm._f("won")(_vm._f("price_zero")(_vm._f("comma")(row.goods_model_prime.gm_price_dc_add_vat)))) + "\r\n                    ")], 2)])]);
   }), 1) : _c("b-alert", {
     attrs: {
       variant: "danger",

@@ -67,7 +67,7 @@
                         </b-col>
                         <b-col class="m_hide">{{gm.gm_spec}}</b-col>
                         <b-col class="m_hide">{{gm.gm_unit}}</b-col>
-                        <b-col class="price m_hide" :class="{price_dealer:gm.dc_type == 'dealer', price_good_dc:gm.dc_type == 'goods_dc'}">
+                        <b-col class="price_box m_hide" :class="{price_discount:gm.gm_price_dc_add_vat}">
                             <span class="normal">{{gm.gm_price_add_vat | comma | price_zero}}</span>
                             <span class="discount">{{gm.gm_price_dc_add_vat | comma | price_zero}}</span>
                             <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{price_dc_chk(bd.bd_price_add_vat) | comma}}원</i>
@@ -590,7 +590,7 @@ export default {
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input { height:1.3rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> button { width:1.2rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> .numeric-input { padding:2px 1rem; }
-.conRight .model .row .col.price i { font-size:.7rem; display:block; }
+.conRight .model .row .col.price_box i { font-size:.7rem; display:block; }
 
 .conRight .pick_info { text-align:right; }
 .conRight .pick_info .total { padding-right:2rem; font-weight:bold; margin-top:1.5rem; }

@@ -1296,7 +1296,7 @@ var render = function render() {
     staticClass: "top"
   }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.order.price.total)))]), _vm._v(" 원"), _c("span", [_vm._v("부가세 포함")])])], 1), _vm._v(" "), _c("div", {
     staticClass: "body"
-  }, [_vm.user.level == 5 && _vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+  }, [_vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
     staticClass: "method"
   }, _vm._l(_vm.config.pay_method, function (v, k) {
     return _c("div", {
@@ -1340,44 +1340,7 @@ var render = function render() {
         id: "payment-method"
       }
     }) : _vm._e()], 1);
-  }), 0), _vm._v(" "), _vm._v("\r\n                    ================\r\n    ")] : _vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
-    staticClass: "method"
-  }, _vm._l(_vm.config.pay_method, function (v, k) {
-    return _c("div", {
-      key: k
-    }, [!["CP", "CK", "BL"].includes(k) ? _c("b-form-radio", {
-      attrs: {
-        value: k
-      },
-      model: {
-        value: _vm.order.od_pay_method,
-        callback: function callback($$v) {
-          _vm.$set(_vm.order, "od_pay_method", $$v);
-        },
-        expression: "order.od_pay_method"
-      }
-    }, [_vm._v(_vm._s(v))]) : _vm._e(), _vm._v(" "), k == "C" ? _c("span", [_vm._v("이니시스 온라인 신용카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_card.png"
-      }
-    })])]) : k == "B" ? _c("span", [_vm._v("무통장입금, 온라인계좌이체 "), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_cache.png"
-      }
-    })])]) : k == "P" ? _c("span", [_vm._v("PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.")]) : k == "S" ? _c("span", [_vm._v("주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. "), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_psys.png"
-      }
-    })])]) : k == "R" ? _c("span", [_vm._v("원격지 카드 결제 "), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_remote.png"
-      }
-    })])]) : k == "E" ? _c("span", [_vm._v("결제대금예치 "), _c("b", [_vm._v("[자세히]"), _c("img", {
-      attrs: {
-        src: _vm.s3url + "order/pay_escrow.png"
-      }
-    })])]) : _vm._e()], 1);
-  }), 0)] : _vm._e(), _vm._v(" "), _c("transition", {
+  }), 0)] :  false ? 0 : _vm._e(), _vm._v(" "), _c("transition", {
     attrs: {
       name: "slideUpDown"
     }

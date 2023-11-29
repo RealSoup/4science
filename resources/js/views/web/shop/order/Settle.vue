@@ -132,7 +132,7 @@
                     <b-col><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
                 </b-row>
                 <div class="body">
-    <template v-if="user.level == 5 && order.od_pay_method !== 'BL'">
+    <template v-if="order.od_pay_method !== 'BL'">
                     <!-- 뉴 START -->
                     <h5>결제 수단</h5>
                     <div class="method">
@@ -147,14 +147,13 @@
                             <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
                         </div>
                     </div>
-                    <!-- 뉴 END -->
-                    ================
+                    <!-- 뉴 END -->                    
     </template>   
                     
                         
 
 
-    <template v-else-if="order.od_pay_method !== 'BL'">
+    <template v-else-if="false">
                     <h5>결제 수단</h5>
                     <div class="method">
                         <div v-for="(v, k) in config.pay_method" :key="k">

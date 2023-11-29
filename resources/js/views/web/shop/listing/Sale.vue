@@ -7,12 +7,10 @@
             <b-link v-for="row in list.data" :key="row.gd_id" :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col">
                 <img :src="row.image_src_thumb[0]" />
                 <div>{{row.gd_name}}</div>
-                <p class="price" :class="{price_dealer:row.goods_model_prime.dc_type == 'dealer', price_good_dc:row.goods_model_prime.dc_type == 'goods_dc'}">
+                <p class="price_box align-items-end" :class="{price_discount:row.goods_model_prime.gm_price_dc_add_vat}">
                     <span class="normal">{{row.goods_model_prime.gm_price_add_vat | comma | price_zero | won}}</span>
                     <span class="discount">
-                        <b v-if="row.goods_model_prime.dc_type == 'goods_dc'">
-                            {{row.gd_dc}}<template v-if="row.gd_dc<100">%</template><template v-else>원</template>
-                        </b>
+                        {{row.gd_dc}}<template v-if="row.gd_dc<100">%</template><template v-else>원</template>
                         <b-icon-arrow-down />
                         {{row.goods_model_prime.gm_price_dc_add_vat | comma | price_zero | won}}
                     </span>
