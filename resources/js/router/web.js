@@ -218,11 +218,6 @@ export default [
         component:() => import('@/views/web/shop/order/Done'),
         // beforeEnter: isLoggedin(),
     }, {
-        path: '/shop/order/pgClose',
-        name: 'order_pgclose',
-        component:() => import('@/views/web/shop/order/PgClose'),
-        beforeEnter: isLoggedin(),
-    }, {
         path: '/shop/order/payCardFail',
         name: 'order_pay_card_fail',
         component:() => import('@/views/web/shop/order/PayCardFail'),

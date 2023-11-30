@@ -285,25 +285,6 @@
         </modal>
     </transition>
 
-    <form v-if="order.sale_env == 'P'" id="SendPayForm" class="inicis_form" method="POST">      
-        <b-form-input name="buyername" 	    :value="user.name" />
-        <b-form-input name="buyertel" 	    :value="user.hp" />
-        <b-form-input name="buyeremail" 	:value="user.email" />
-        <b-form-input name="version" 	    value="1.0" />
-        <b-form-input name="mid" 		    :value="inicis.mid" />
-        <b-form-input name="goodname" 	    :value="order.od_name" />
-        <b-form-input name="oid" 		    :value="inicis.od_no" />
-        <b-form-input name="price" 		    :value="order.price.total" />
-        <b-form-input name="currency" 	    value="WON" />
-        <b-form-input name="timestamp" 	    :value="inicis.timestamp" />
-        <b-form-input name="signature" 	    :value="inicis.sign" />
-        <b-form-input name="returnUrl" 	    :value="inicis.returnUrl" />
-        <b-form-input name="closeUrl" 	    :value="inicis.closeUrl" />
-        <b-form-input name="mKey" 		    :value="inicis.mKey" />
-        <b-form-input name="gopaymethod"    value="Card" />
-        <b-form-input name="merchantData"   :value="order.od_id" />
-        <b-form-input name="quotabase"      value="1:2:3:4:5:6:7:8:9:10:11:12" />
-    </form>
 </div>
 </template>
 
@@ -430,7 +411,6 @@ export default {
             addr: [],
             addr_edit_index: 0,
             config: {},
-            inicis: {},
             goods_def: {},
             clickable : true,
             toss : [],
@@ -515,7 +495,7 @@ export default {
                 //  미리 주문 아이디가 선점 되어야 아이디가 겹지치 않고 돌아간다.
                 let pay = await ax.post(`/api/shop/order/pay`, this.order);
                 if (pay && pay.status === 200) {
-                    
+                    //  구글 통계 수집 소스
                     this.$gtm.trackEvent({
                         event: null, // Event type [default = 'interaction'] (Optional)
                         category: 'Order',
@@ -524,8 +504,7 @@ export default {
                         value: this.order.price.total,
                         noninteraction: false, // Optional
                     });
-
-                    this.inicis = pay.data.inicis;
+                    
                     if (this.order.extra.oex_hasBizLicense && !isEmpty(this.order.extra.oex_file)) {
                         let frm = new FormData();
                         frm.append('fi_group', 'order');
@@ -537,54 +516,17 @@ export default {
                     }
 
                     if (this.order.od_pay_method == 'C') {
-                        if( this.user.level == 5 ) { //  토스 테스트
-                            paymentWidget.requestPayment({
-                                orderId: pay.data.od_id,
-                                orderName: this.order.od_name,
-                                successUrl: this.toss.successUrl,
-                                failUrl: this.toss.failUrl,
-                                customerEmail: this.user.email, // 고객 이메일 (선택)
-                                customerName: this.user.name, // 고객 이름 (선택)
-                            }).then((v) => console.log(v));
-                        } else {
-
-                            this.order.od_id = pay.data.od_id;
-                            if(this.order.sale_env == 'P') 
-                                INIStdPay.pay('SendPayForm');
-                            else if(this.order.sale_env == 'M') {
-                                var form = document.createElement('form'); // 폼객체 생성
-                                var objs01 = document.createElement('input'); 
-                                var objs02 = document.createElement('input'); 
-                                var objs03 = document.createElement('input'); 
-                                var objs04 = document.createElement('input'); 
-                                var objs05 = document.createElement('input'); 
-                                var objs06 = document.createElement('input'); 
-                                var objs07 = document.createElement('input'); 
-                                var objs08 = document.createElement('input'); 
-                                var objs09 = document.createElement('input');
-                                var objs10 = document.createElement('input');
-                                objs01.setAttribute('name', 'P_INI_PAYMENT'); objs01.setAttribute('value', 'CARD');                       form.appendChild(objs01);
-                                objs02.setAttribute('name', 'P_MID');         objs02.setAttribute('value', this.inicis.mid);              form.appendChild(objs02);
-                                objs03.setAttribute('name', 'P_OID');         objs03.setAttribute('value', this.inicis.od_no);            form.appendChild(objs03);
-                                objs04.setAttribute('name', 'P_GOODS');       objs04.setAttribute('value', this.order.od_name);           form.appendChild(objs04);
-                                objs05.setAttribute('name', 'P_AMT');         objs05.setAttribute('value', this.order.price.total);       form.appendChild(objs05);
-                                objs06.setAttribute('name', 'P_UNAME');       objs06.setAttribute('value', this.user.name);               form.appendChild(objs06);
-                                objs07.setAttribute('name', 'P_NEXT_URL');    objs07.setAttribute('value', this.inicis.returnUrlMobaile); form.appendChild(objs07);
-                                objs08.setAttribute('name', 'P_CHARSET');     objs08.setAttribute('value', 'utf8');                       form.appendChild(objs08);
-                                objs09.setAttribute('name', 'P_NOTI');        objs09.setAttribute('value', this.order.od_id);             form.appendChild(objs09);
-                                objs10.setAttribute('name', 'P_QUOTABASE');   objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12'); form.appendChild(objs10);
-                                form.setAttribute('method', 'post'); //get,post 가능
-                                form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
-                                form.setAttribute("accept-charset", "EUC-KR");
-                                document.body.appendChild(form);
-                                form.submit();
-                            }
-
-                        }
+                        paymentWidget.requestPayment({
+                            orderId: pay.data.od_id,
+                            orderName: this.order.od_name,
+                            successUrl: this.toss.successUrl,
+                            failUrl: this.toss.failUrl,
+                            customerEmail: this.user.email, // 고객 이메일 (선택)
+                            customerName: this.user.name, // 고객 이름 (선택)
+                        }).then((v) => console.log(v));
                     } else if (this.order.od_pay_method == 'P') {
                         this.openWinPop(`/shop/order/settle_psys/${pay.data.od_id}`, 800, 720);
                     } else if (this.order.od_pay_method == 'BL' && this.order.ub_id == 0) {
-                        
                         loadTossPayments(this.toss['billing_clientKey']).then(tossPayments => {
                             // ------ 카드 등록창 호출 ------
                             tossPayments.requestBillingAuth('카드', { // 결제수단 파라미터 (자동결제는 카드만 지원합니다.)
@@ -611,9 +553,7 @@ export default {
             }
         },
 
-        memo_slt() {
-            this.order.od_memo = this.config.dlvy_msg[this.order.od_memo_slt];
-        },
+        memo_slt() { this.order.od_memo = this.config.dlvy_msg[this.order.od_memo_slt]; },
 
         addr_choose (addr) {
             let hp = addr.ua_hp.split('-');
@@ -803,16 +743,6 @@ export default {
             this.order.od_pay_method = 'BL';
             this.order.od_plan = this.$route.query.od_plan;
         }
-        // console.log(this.$session.get('order'));
-        // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
-        //     console.log('collapseId:', collapseId)
-        //     console.log('isJustShown:', isJustShown)
-        // })
-        const plugin = document.createElement("script");
-        // plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
-        plugin.setAttribute( "src", "https://stdpay.inicis.com/stdjs/INIStdPay.js" );   //  운영
-        plugin.async = true;
-        document.head.appendChild(plugin);
 
         this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
     },

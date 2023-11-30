@@ -321,7 +321,6 @@ var paymentWidget = null;
       addr: [],
       addr_edit_index: 0,
       config: {},
-      inicis: {},
       goods_def: {},
       clickable: true,
       toss: []
@@ -397,13 +396,13 @@ var paymentWidget = null;
     exePayment: function exePayment() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var pay, frm, form, objs01, objs02, objs03, objs04, objs05, objs06, objs07, objs08, objs09, objs10;
+        var pay, frm;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
               if (!_this.validationChecker(_this.order)) {
-                _context.next = 45;
+                _context.next = 44;
                 break;
               }
               _context.t0 = _this.order.extra.oex_type;
@@ -434,9 +433,10 @@ var paymentWidget = null;
             case 17:
               pay = _context.sent;
               if (!(pay && pay.status === 200)) {
-                _context.next = 44;
+                _context.next = 43;
                 break;
               }
+              //  구글 통계 수집 소스
               _this.$gtm.trackEvent({
                 event: null,
                 // Event type [default = 'interaction'] (Optional)
@@ -446,10 +446,8 @@ var paymentWidget = null;
                 value: _this.order.price.total,
                 noninteraction: false // Optional
               });
-
-              _this.inicis = pay.data.inicis;
               if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                _context.next = 30;
+                _context.next = 29;
                 break;
               }
               frm = new FormData();
@@ -458,90 +456,37 @@ var paymentWidget = null;
               frm.append('fi_kind', 'biz');
               frm.append('fi_room', new Date().getFullYear());
               frm.append("file[]", _this.order.extra.oex_file);
-              _context.next = 30;
+              _context.next = 29;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/upload', frm);
-            case 30:
+            case 29:
               if (!(_this.order.od_pay_method == 'C')) {
-                _context.next = 34;
+                _context.next = 33;
                 break;
               }
-              if (_this.user.level == 5) {
-                //  토스 테스트
-                paymentWidget.requestPayment({
-                  orderId: pay.data.od_id,
-                  orderName: _this.order.od_name,
-                  successUrl: _this.toss.successUrl,
-                  failUrl: _this.toss.failUrl,
-                  customerEmail: _this.user.email,
-                  // 고객 이메일 (선택)
-                  customerName: _this.user.name // 고객 이름 (선택)
-                }).then(function (v) {
-                  return console.log(v);
-                });
-              } else {
-                _this.order.od_id = pay.data.od_id;
-                if (_this.order.sale_env == 'P') INIStdPay.pay('SendPayForm');else if (_this.order.sale_env == 'M') {
-                  form = document.createElement('form'); // 폼객체 생성
-                  objs01 = document.createElement('input');
-                  objs02 = document.createElement('input');
-                  objs03 = document.createElement('input');
-                  objs04 = document.createElement('input');
-                  objs05 = document.createElement('input');
-                  objs06 = document.createElement('input');
-                  objs07 = document.createElement('input');
-                  objs08 = document.createElement('input');
-                  objs09 = document.createElement('input');
-                  objs10 = document.createElement('input');
-                  objs01.setAttribute('name', 'P_INI_PAYMENT');
-                  objs01.setAttribute('value', 'CARD');
-                  form.appendChild(objs01);
-                  objs02.setAttribute('name', 'P_MID');
-                  objs02.setAttribute('value', _this.inicis.mid);
-                  form.appendChild(objs02);
-                  objs03.setAttribute('name', 'P_OID');
-                  objs03.setAttribute('value', _this.inicis.od_no);
-                  form.appendChild(objs03);
-                  objs04.setAttribute('name', 'P_GOODS');
-                  objs04.setAttribute('value', _this.order.od_name);
-                  form.appendChild(objs04);
-                  objs05.setAttribute('name', 'P_AMT');
-                  objs05.setAttribute('value', _this.order.price.total);
-                  form.appendChild(objs05);
-                  objs06.setAttribute('name', 'P_UNAME');
-                  objs06.setAttribute('value', _this.user.name);
-                  form.appendChild(objs06);
-                  objs07.setAttribute('name', 'P_NEXT_URL');
-                  objs07.setAttribute('value', _this.inicis.returnUrlMobaile);
-                  form.appendChild(objs07);
-                  objs08.setAttribute('name', 'P_CHARSET');
-                  objs08.setAttribute('value', 'utf8');
-                  form.appendChild(objs08);
-                  objs09.setAttribute('name', 'P_NOTI');
-                  objs09.setAttribute('value', _this.order.od_id);
-                  form.appendChild(objs09);
-                  objs10.setAttribute('name', 'P_QUOTABASE');
-                  objs10.setAttribute('value', '01:02:03:04:05:06:07:08:09:10:11:12');
-                  form.appendChild(objs10);
-                  form.setAttribute('method', 'post'); //get,post 가능
-                  form.setAttribute('action', "https://mobile.inicis.com/smart/payment/"); //보내는 url
-                  form.setAttribute("accept-charset", "EUC-KR");
-                  document.body.appendChild(form);
-                  form.submit();
-                }
-              }
-              _context.next = 44;
+              paymentWidget.requestPayment({
+                orderId: pay.data.od_id,
+                orderName: _this.order.od_name,
+                successUrl: _this.toss.successUrl,
+                failUrl: _this.toss.failUrl,
+                customerEmail: _this.user.email,
+                // 고객 이메일 (선택)
+                customerName: _this.user.name // 고객 이름 (선택)
+              }).then(function (v) {
+                return console.log(v);
+              });
+              _context.next = 43;
               break;
-            case 34:
+            case 33:
               if (!(_this.order.od_pay_method == 'P')) {
-                _context.next = 38;
+                _context.next = 37;
                 break;
               }
               _this.openWinPop("/shop/order/settle_psys/".concat(pay.data.od_id), 800, 720);
-              _context.next = 44;
+              _context.next = 43;
               break;
-            case 38:
+            case 37:
               if (!(_this.order.od_pay_method == 'BL' && _this.order.ub_id == 0)) {
-                _context.next = 42;
+                _context.next = 41;
                 break;
               }
               (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_4__.loadTossPayments)(_this.toss['billing_clientKey']).then(function (tossPayments) {
@@ -564,19 +509,19 @@ var paymentWidget = null;
                   }
                 });
               });
-              _context.next = 44;
+              _context.next = 43;
               break;
-            case 42:
-              _context.next = 44;
+            case 41:
+              _context.next = 43;
               return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 44:
+            case 43:
               _this.clickable = true;
-            case 45:
+            case 44:
             case "end":
               return _context.stop();
           }
@@ -904,16 +849,6 @@ var paymentWidget = null;
       this.order.od_pay_method = 'BL';
       this.order.od_plan = this.$route.query.od_plan;
     }
-    // console.log(this.$session.get('order'));
-    // this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
-    //     console.log('collapseId:', collapseId)
-    //     console.log('isJustShown:', isJustShown)
-    // })
-    var plugin = document.createElement("script");
-    // plugin.setAttribute( "src", "https://stgstdpay.inicis.com/stdjs/INIStdPay.js" );    //  테스트1
-    plugin.setAttribute("src", "https://stdpay.inicis.com/stdjs/INIStdPay.js"); //  운영
-    plugin.async = true;
-    document.head.appendChild(plugin);
     this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
   }
 });
@@ -1779,98 +1714,7 @@ var render = function render() {
       },
       expression: "order.extra"
     }
-  }) : _vm._e()], 2) : _vm._e()], 1), _vm._v(" "), _vm.order.sale_env == "P" ? _c("form", {
-    staticClass: "inicis_form",
-    attrs: {
-      id: "SendPayForm",
-      method: "POST"
-    }
-  }, [_c("b-form-input", {
-    attrs: {
-      name: "buyername",
-      value: _vm.user.name
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "buyertel",
-      value: _vm.user.hp
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "buyeremail",
-      value: _vm.user.email
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "version",
-      value: "1.0"
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "mid",
-      value: _vm.inicis.mid
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "goodname",
-      value: _vm.order.od_name
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "oid",
-      value: _vm.inicis.od_no
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "price",
-      value: _vm.order.price.total
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "currency",
-      value: "WON"
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "timestamp",
-      value: _vm.inicis.timestamp
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "signature",
-      value: _vm.inicis.sign
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "returnUrl",
-      value: _vm.inicis.returnUrl
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "closeUrl",
-      value: _vm.inicis.closeUrl
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "mKey",
-      value: _vm.inicis.mKey
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "gopaymethod",
-      value: "Card"
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "merchantData",
-      value: _vm.order.od_id
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    attrs: {
-      name: "quotabase",
-      value: "1:2:3:4:5:6:7:8:9:10:11:12"
-    }
-  })], 1) : _vm._e()], 1);
+  }) : _vm._e()], 2) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
