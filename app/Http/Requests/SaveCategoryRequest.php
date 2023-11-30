@@ -21,7 +21,8 @@ class SaveCategoryRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'ca_name'	=> 'required|unique:shop_category|regex:/^[가-힣a-zA-Z0-9 ]+$/'
+            // 'ca_name'	=> 'required|unique:shop_category|regex:/^[가-힣a-zA-Z0-9 ]+$/'
+            'ca_name'	=> 'required'
         ];
     }
 

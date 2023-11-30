@@ -7,7 +7,7 @@ use App\Http\Requests\SaveMakerRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods, OrderPurchaseAt};
-use App\Models\{User, UserMng, FileNote};
+use App\Models\{User, UserMng, FileNote, ShowWindow};
 use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
 use Illuminate\Support\Facades\Storage;
@@ -284,8 +284,12 @@ class OrderController extends Controller {
             else $data->user->introducer = NULL;
 			//////////////////////////////////
 		}
+		$arr_sw = ShowWindow::select('sw_group', 'sw_key')->Type('today_pick_up')->pluck('sw_key')->toArray();
+		// dd($arr_sw);
 		foreach ($data->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm) {
+				if(in_array($odm->odm_gd_id, $arr_sw))
+					$odm->today_pick_up = true;
 				$odm->orderDlvyInfo;
 			}
 		}

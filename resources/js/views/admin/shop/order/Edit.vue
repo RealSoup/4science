@@ -105,9 +105,12 @@
                         <b-col>금액</b-col>
                         <b-col class="print_hide"></b-col>
                     </b-row>
-                    <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION'}">
+                    <b-row v-for="(odm, odm_i) in pa.order_model" :key="`gd_${odm_i}`" :class="{model: odm.odm_type=='MODEL', option: odm.odm_type=='OPTION', today:odm.today_pick_up}">
                         <b-col class="align print_hide">
                             <b-form-checkbox class="myCheck" v-if="odm.odm_type=='MODEL'" value="Y" unchecked-value="N" v-model="odm.dlvy_chk" @change="changeSon(pa)" />
+                            <div class="signboard">
+                                <b v-if="odm.today_pick_up" class="neonText">당일</b>
+                            </div>
                         </b-col>
                         <b-col class="align">
                             <div v-if="odm.odm_type=='MODEL'">
@@ -890,9 +893,16 @@ export default {
 .p_wrap .act_ctrl .def_info b:not(:last-of-type) { margin-right:.5vw; }
 
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle { display:block !important; text-align:center; }
-.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#fff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
+.p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn { background-color:#ffffff; color:#6F6F6F; border-color:#aaa; border-radius:2rem; padding:.17rem 0.7rem; font-size:.75rem; }
 .p_wrap .box .goods .gd_con .row .col .sum >>> .btn-group-toggle .btn.active { color:#fff; background-color:#4EB8C8; }
 .p_wrap .box .goods .gd_con .row .col:nth-child(7) { border-right-width:1px; }
+.p_wrap .box .goods .gd_con .model.today { background-color:#fff2cb; }
+.p_wrap .box .goods .gd_con .model .signboard { text-align:center; margin:0 -10px; padding:10px; }
+.p_wrap .box .goods .gd_con .model .signboard .neonText { font-size:14px; color:#e600ff; }
+
+
+
+
 
 .p_wrap .sm_ib_v { display:none; }
 @media (max-width: 1472px){
