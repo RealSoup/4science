@@ -35,7 +35,7 @@ mix.browserSync ('https://4science.net/');
 //     // proxy: 'localhost:3000',
 //     proxy: '127.0.0.1:8000',
 //     files: [
-//         'app/**/*',        
+//         'app/**/*',
 //         'resources/**/*',
 //         'routes/**/*'
 //     ],

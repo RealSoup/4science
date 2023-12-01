@@ -132,42 +132,25 @@
                     <b-col><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
                 </b-row>
                 <div class="body">
+
     <template v-if="order.od_pay_method !== 'BL'">
-                    <!-- 뉴 START -->
                     <h5>결제 수단</h5>
                     <div class="method">
-                        <div v-for="(v, k) in config.pay_method" :key="k">
-                            <b-form-radio v-if="!['CP', 'CK', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
-                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
-                            <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
-                            <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
-                            <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
-                            <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
-                            <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
-                        </div>
-                    </div>
-                    <!-- 뉴 END -->                    
-    </template>   
-                    
-                        
-
-
-    <template v-else-if="false">
-                    <h5>결제 수단</h5>
-                    <div class="method">
-                        <div v-for="(v, k) in config.pay_method" :key="k">
-                            <b-form-radio v-if="!['CP', 'CK', 'BL'].includes(k)" v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
-                            <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                            <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
-                            <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
-                            <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
-                            <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
-                            <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
-                        </div> 
-                    </div>
-    </template>   
-
+                        <template v-for="(v, k) in config.pay_method">
+                            <div v-if="!['CP', 'CK', 'BL'].includes(k)" :key="k">
+                                <b-form-radio v-model="order.od_pay_method" :value="k">{{v}}</b-form-radio>
+                                <span v-if="k=='C'">이니시스 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
+                                <span v-else-if="k=='L'">대학교, 국가연구소, 관공서를 위한 후불 입금(계좌이체) 방식입니다. <b>[자세히]<img :src="s3url+'order/pay_later.png'" /></b></span>
+                                <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
+                                <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                                <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
+                                <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
+                                <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
+                            </div>
+                        </template>
+                    </div>                 
+    </template>
                     <transition name="slideUpDown">    
                         <div v-if="order.od_pay_method == 'B'" class="pay_info">
                             <h6>무통장 입금</h6>
@@ -239,10 +222,10 @@
                         </div>
                     </transition>
 
-                    <pay-plan v-if="order.od_pay_method == 'B' || order.od_pay_method == 'S'" v-model="order.extra"></pay-plan>
+                    <pay-plan v-if="order.od_pay_method == 'L' || order.od_pay_method == 'S'" v-model="order.extra"></pay-plan>
                     
                     <transition name="slideUpDown">
-                        <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'E'" class="tax_paper">
+                        <div v-if="order.od_pay_method == 'B' || order.od_pay_method == 'L'" class="tax_paper">
                             <h6>지출 증빙 서류</h6>
                             <div>
                                 <b-form-radio v-model="order.extra.oex_type_fir" value="TX" @click.native="tax_invoice()">세금계산서</b-form-radio>
