@@ -475,7 +475,7 @@ var render = function render() {
       bottom: _vm.cateSideMenuBottom
     }
   }, [_c("ul", [_vm._l(_vm.category, function (ca, i) {
-    return [![38, 46].includes(ca.ca_id) ? _c("li", {
+    return [![38].includes(ca.ca_id) ? _c("li", {
       key: ca.ca_id,
       "class": {
         active: ca.showing
@@ -499,7 +499,7 @@ var render = function render() {
   })], 2)]), _vm._v(" "), _c("b-container", {
     staticClass: "con"
   }, [_vm._l(_vm.category, function (ca) {
-    return [![38, 46].includes(ca.ca_id) ? _c("b-row", {
+    return [![38].includes(ca.ca_id) ? _c("b-row", {
       key: ca.ca_id
     }, [_c("b-col", {
       staticClass: "tit"

@@ -87,7 +87,7 @@
         <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
             <ul>
                 <template v-for="(ca, i) in category">
-                    <li v-if="![38, 46].includes(ca.ca_id)" :key="ca.ca_id"
+                    <li v-if="![38].includes(ca.ca_id)" :key="ca.ca_id"
                         @mouseenter="ca.hover = !ca.hover"
                         @mouseleave="ca.hover = !ca.hover"
                         @click="scrollToCate(i)"
@@ -107,7 +107,7 @@
 
         <b-container class="con">
         <template v-for="ca in category">
-            <b-row v-if="![38, 46].includes(ca.ca_id)" :key="ca.ca_id">
+            <b-row v-if="![38].includes(ca.ca_id)" :key="ca.ca_id">
                 <b-col class="tit">                    
                     <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
                         <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />

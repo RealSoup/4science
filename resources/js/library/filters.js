@@ -73,3 +73,7 @@ Vue.filter('price_zero', function (v) {   //  0원 견적가 표시
 Vue.filter('won', function (v) {   //  0원 견적가 표시
     return v=='견적가'? v : `${v} 원`;
 });
+
+Vue.filter('pay_method_new_line', function (v) {   //  결제 방법 표시시 괄호는 다음 줄로
+    return v.replace('(', '<br />(');
+});
