@@ -1,3 +1,4 @@
+"use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_web_shop_order_Settle_vue"],{
 
 /***/ "./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js":
@@ -6,7 +7,6 @@
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   clearTossPayments: () => (/* binding */ clearTossPayments),
@@ -90,7 +90,6 @@ function clearTossPayments() {
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ANONYMOUS: () => (/* binding */ ANONYMOUS),
@@ -167,18 +166,15 @@ var ANONYMOUS = '@@ANONYMOUS';
   \***********************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _api_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/api/http */ "./resources/js/api/http.js");
-/* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-daum-postcode */ "./node_modules/vue-daum-postcode/dist/index.js");
-/* harmony import */ var vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tosspayments/payment-widget-sdk */ "./node_modules/@tosspayments/payment-widget-sdk/dist/index.esm.js");
-/* harmony import */ var _tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tosspayments/payment-sdk */ "./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tosspayments/payment-widget-sdk */ "./node_modules/@tosspayments/payment-widget-sdk/dist/index.esm.js");
+/* harmony import */ var _tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tosspayments/payment-sdk */ "./node_modules/@tosspayments/payment-sdk/dist/tosspayments.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -199,7 +195,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
-
 var paymentWidget = null;
 // import { validationChecker } from './_comp/FormValidation.js'
 // https://github.com/wan2land/vue-daum-postcode/tree/0.x-vue2
@@ -212,7 +207,7 @@ var paymentWidget = null;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   // props:['gd_id', 'model', 'option'],
   components: {
-    'vue-daum-postcode': vue_daum_postcode__WEBPACK_IMPORTED_MODULE_1__.VueDaumPostcode,
+    // 'vue-daum-postcode' : VueDaumPostcode,
     'modal': function modal() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_Modal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/Modal.vue */ "./resources/js/views/_common/Modal.vue"));
     },
@@ -236,6 +231,9 @@ var paymentWidget = null;
     },
     'pop-up': function popUp() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_web__module_PopUp_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/_module/PopUp */ "./resources/js/views/web/_module/PopUp.vue"));
+    },
+    'goods-list': function goodsList() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_web_shop_order__comp_GoodsList_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/web/shop/order/_comp/GoodsList */ "./resources/js/views/web/shop/order/_comp/GoodsList.vue"));
     }
   },
   watch: {
@@ -270,7 +268,7 @@ var paymentWidget = null;
     return {
       isModalViewed: false,
       modal_type: 'index',
-      postcode_open: false,
+      // postcode_open: false,
       order: {
         od_id: 0,
         goods: this.$route.params.od_goods,
@@ -292,7 +290,6 @@ var paymentWidget = null;
         od_receiver_hp3: '',
         od_memo: "",
         od_memo_slt: '',
-        addr_type: 'D',
         extra: {
           oex_hasBizLicense: true,
           oex_file: null,
@@ -326,11 +323,16 @@ var paymentWidget = null;
       toss: []
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
     isDlvyAir: function isDlvyAir() {
       return Object.values(this.order.lists).find(function (e) {
         return e[0].pa_type === 'AIR';
       }) !== undefined;
+    },
+    goods_cnt: function goods_cnt() {
+      return this.order.goods.filter(function (gm) {
+        return gm.gm_id > 0;
+      }).length;
     }
   }),
   methods: {
@@ -384,15 +386,15 @@ var paymentWidget = null;
       this.order.price.surtax = Math.floor(this.order.price.goods * 0.1);
       this.order.price.total = this.order.price.air_add_vat + this.order.price.dlvy_add_vat + this.order.price.goods + this.order.price.surtax;
     },
-    onPostcodeSlt: function onPostcodeSlt(result) {
-      this.$set(this.order, 'od_zip', result.zonecode);
-      var addr = result.roadAddress;
-      addr += result.buildingName ? "(" + result.buildingName + ")" : '';
-      this.$set(this.order, 'od_addr1', addr);
-      this.$refs.od_addr2.focus();
-      document.getElementById('address').scrollIntoView();
-      this.postcode_open = false;
-    },
+    // onPostcodeSlt(result) {
+    //     this.$set(this.order, 'od_zip', result.zonecode);
+    //     let addr = result.roadAddress;
+    //     addr += result.buildingName ? "("+ result.buildingName +")" : '';
+    //     this.$set(this.order, 'od_addr1', addr);
+    //     this.$refs.od_addr2.focus();
+    //     document.getElementById('address').scrollIntoView();
+    //     this.postcode_open = false;
+    // },
     exePayment: function exePayment() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -489,7 +491,7 @@ var paymentWidget = null;
                 _context.next = 41;
                 break;
               }
-              (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_4__.loadTossPayments)(_this.toss['billing_clientKey']).then(function (tossPayments) {
+              (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_3__.loadTossPayments)(_this.toss['billing_clientKey']).then(function (tossPayments) {
                 // ------ 카드 등록창 호출 ------
                 tossPayments.requestBillingAuth('카드', {
                   // 결제수단 파라미터 (자동결제는 카드만 지원합니다.)
@@ -513,7 +515,7 @@ var paymentWidget = null;
               break;
             case 41:
               _context.next = 43;
-              return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+              return _router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
@@ -545,20 +547,6 @@ var paymentWidget = null;
       this.order.od_memo = addr.ua_memo;
       this.isModalViewed = false;
       return;
-    },
-    change_addr_type: function change_addr_type(v) {
-      if (v == 'D') this.addr_choose(this.addr[0]);else if (v == 'N') {
-        this.order.od_ua_title = '';
-        this.order.od_zip = '';
-        this.order.od_addr1 = '';
-        this.order.od_addr2 = '';
-        this.order.od_receiver = '';
-        this.order.od_receiver_hp = '';
-        this.order.od_receiver_hp1 = '';
-        this.order.od_receiver_hp2 = '';
-        this.order.od_receiver_hp3 = '';
-        this.order.od_memo = '';
-      }
     },
     config_addr: function config_addr() {
       this.isModalViewed = true;
@@ -595,19 +583,27 @@ var paymentWidget = null;
     },
     validationChecker: function validationChecker(frm) {
       var _this2 = this;
+      if (this.addr.length == 0) {
+        Notify.toast('danger', "배송지를 등록하고 선택하세요");
+        this.$refs.add_addr.focus();
+        return false;
+      }
       if (this.order.privacy !== 'Y') {
         Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-        document.getElementById('total_sub').scrollIntoView();
+        document.getElementById('agrrement_01').scrollIntoView();
+        window.scrollBy(0, -160);
         return false;
       }
       if (!this.isDlvyAir && this.order.check_terms !== 'Y') {
         Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
-        document.getElementById('total_sub').scrollIntoView();
+        document.getElementById('agrrement_03').scrollIntoView();
+        window.scrollBy(0, -160);
         return false;
       }
       if (this.isDlvyAir && this.order.dlvy_air !== 'Y') {
         Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
-        document.getElementById('total_sub').scrollIntoView();
+        document.getElementById('agrrement_02').scrollIntoView();
+        window.scrollBy(0, -160);
         return false;
       }
       if (this.order.od_pay_method == '') {
@@ -823,7 +819,7 @@ var paymentWidget = null;
               break;
             }
             _context2.next = 43;
-            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_3__.loadPaymentWidget)(_this3.toss.clientKey, _this3.toss.customerKey);
+            return (0,_tosspayments_payment_widget_sdk__WEBPACK_IMPORTED_MODULE_2__.loadPaymentWidget)(_this3.toss.clientKey, _this3.toss.customerKey);
           case 43:
             paymentWidget = _context2.sent;
             paymentWidget.renderPaymentMethods("#payment-method", _this3.order.price.total);
@@ -861,7 +857,6 @@ var paymentWidget = null;
   \**********************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render),
@@ -874,12 +869,18 @@ var render = function render() {
     attrs: {
       id: "settle"
     }
-  }, [_c("h2", [_vm._v("결제하기")]), _vm._v(" "), _c("h4", [_vm._v("01. 주문 상품 확인")]), _vm._v(" "), _c("pa-list", {
+  }, [_c("h2", {
+    staticClass: "layout"
+  }, [_vm._v("결제하기")]), _vm._v(" "), _c("div", {
+    staticClass: "layout"
+  }, [_c("b-row", {
+    staticClass: "settle_split"
+  }, [_c("b-col", {
+    staticClass: "left area_piece"
+  }, [_c("h4", [_vm._v("주문상품 " + _vm._s(_vm.goods_cnt) + "개")]), _vm._v(" "), _c("goods-list", {
     attrs: {
       price: _vm.order.price,
-      user: _vm.user,
-      add_vat: true,
-      d_price: _vm.order.od_pay_method == "B" && _vm.user.is_dealer
+      user: _vm.user
     },
     model: {
       value: _vm.order.lists,
@@ -888,13 +889,13 @@ var render = function render() {
       },
       expression: "order.lists"
     }
-  }), _vm._v(" "), _c("b-container", {
-    staticClass: "st_bottom"
-  }, [_c("b-row", [_c("b-col", {
-    staticClass: "inputs"
-  }, [_c("b-row", {
+  }), _vm._v(" "), _c("b-row", {
     staticClass: "agreement"
-  }, [_c("b-col", [_c("div", {
+  }, [_c("b-col", {
+    attrs: {
+      id: "agrrement_01"
+    }
+  }, [_c("div", {
     staticClass: "head"
   }, [_c("span", [_vm._v("개인정보 수집 및 이용 동의 "), _c("span", {
     directives: [{
@@ -903,7 +904,8 @@ var render = function render() {
       modifiers: {
         privacy: true
       }
-    }]
+    }],
+    staticClass: "d-block"
   }, [_vm._v("[자세히 보기]")])]), _vm._v(" "), _c("b-form-radio", {
     attrs: {
       value: "Y"
@@ -930,7 +932,11 @@ var render = function render() {
     attrs: {
       id: "privacy"
     }
-  }, [_c("b-card", [_c("p", [_vm._v("회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.")]), _vm._v(" "), _c("p", [_vm._v("제공대상: 포사이언스")]), _vm._v(" "), _c("p", [_vm._v("\r\n                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, \r\n                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, \r\n                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, \r\n                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 \r\n                                    보유 및 이용기간: 3개월\r\n                                ")]), _vm._v(" "), _c("p", [_vm._v("다만, 아래의 경우에는 예외로 합니다.")]), _vm._v(" "), _c("p", [_vm._v("- 이용자들이 사전에 동의한 경우")]), _vm._v(" "), _c("p", [_vm._v("- 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우")])])], 1)], 1), _vm._v(" "), _vm.isDlvyAir ? _c("b-col", [_c("div", {
+  }, [_c("b-card", [_c("p", [_vm._v("회사는 이용자에 대하여 보다 더 질 높은 서비스 제공등을 위해 아래와 같이 이용자의 개인정보를 제공하고 있습니다.")]), _vm._v(" "), _c("p", [_vm._v("제공대상: 포사이언스")]), _vm._v(" "), _c("p", [_vm._v("\r\n                                    제공정보의 이용 목적: 콘텐츠 제공, 물품배송 또는 청구지 등으로의 발송, 회원제 서비스 이용에 따른 본인확인, \r\n                                    인식별, 불량회원의 부정이용방지와 비인가 사용방지, 불만처리 등 민원처리, 공지사항 전달, 신규 서비스(제품) 개발 및 특화, \r\n                                    이벤트 등 광고성 정보전달, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계제공하는 개인정보 항목: 이름, 주민번호, \r\n                                    로그인ID, 비밀번호, 자택 전화번호, 주소, 휴대전화번호, 이메일주소, 접속 로그, 쿠키, 접속 IP정보, 그외 선택항목제공 정보의 \r\n                                    보유 및 이용기간: 3개월\r\n                                ")]), _vm._v(" "), _c("p", [_vm._v("다만, 아래의 경우에는 예외로 합니다.")]), _vm._v(" "), _c("p", [_vm._v("- 이용자들이 사전에 동의한 경우")]), _vm._v(" "), _c("p", [_vm._v("- 법령의 규정에 의거하거나, 수사목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는경우")])])], 1)], 1), _vm._v(" "), _vm.isDlvyAir ? _c("b-col", {
+    attrs: {
+      id: "agrrement_02"
+    }
+  }, [_c("div", {
     staticClass: "head"
   }, [_c("span", [_vm._v("단순 제품 교환 및 반품 불가 안내 "), _c("span", {
     directives: [{
@@ -939,7 +945,8 @@ var render = function render() {
       modifiers: {
         dlvy_air: true
       }
-    }]
+    }],
+    staticClass: "d-block"
   }, [_vm._v("[자세히 보기]")])]), _vm._v(" "), _c("b-form-radio", {
     attrs: {
       value: "Y"
@@ -966,7 +973,11 @@ var render = function render() {
     attrs: {
       id: "dlvy_air"
     }
-  }, [_c("b-card", [_vm._v("해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.")])], 1)], 1) : _c("b-col", [_c("div", {
+  }, [_c("b-card", [_vm._v("해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.")])], 1)], 1) : _c("b-col", {
+    attrs: {
+      id: "agrrement_03"
+    }
+  }, [_c("div", {
     staticClass: "head"
   }, [_c("span", [_vm._v("구매자 및 사용자 확인사항 "), _c("span", {
     directives: [{
@@ -975,7 +986,8 @@ var render = function render() {
       modifiers: {
         check_terms: true
       }
-    }]
+    }],
+    staticClass: "d-block"
   }, [_vm._v("[자세히 보기]")])]), _vm._v(" "), _c("b-form-radio", {
     attrs: {
       value: "Y"
@@ -1002,187 +1014,25 @@ var render = function render() {
     attrs: {
       id: "check_terms"
     }
-  }, [_c("b-card", [_vm._v("\r\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\r\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\r\n                            ")])], 1)], 1)], 1), _vm._v(" "), _c("pop-up"), _vm._v(" "), _c("div", {
-    staticClass: "address",
-    attrs: {
-      id: "address"
-    }
-  }, [_c("h4", [_c("span", [_vm._v("02. 배송지 정보")]), _vm._v(" "), _c("div", [_c("b-form-radio", {
-    attrs: {
-      value: "D"
-    },
-    on: {
-      change: _vm.change_addr_type
-    },
-    model: {
-      value: _vm.order.addr_type,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "addr_type", $$v);
-      },
-      expression: "order.addr_type"
-    }
-  }, [_vm._v("기본 배송지")]), _vm._v(" "), _c("b-form-radio", {
-    attrs: {
-      value: "N"
-    },
-    on: {
-      change: _vm.change_addr_type
-    },
-    model: {
-      value: _vm.order.addr_type,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "addr_type", $$v);
-      },
-      expression: "order.addr_type"
-    }
-  }, [_vm._v("신규 배송지")]), _vm._v(" "), _c("b-button", {
+  }, [_c("b-card", [_vm._v("\r\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\r\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\r\n                            ")])], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "right"
+  }, [_c("div", {
+    staticClass: "address area_piece"
+  }, [this.addr.length ? [_c("div", {
+    staticClass: "addr_tit"
+  }, [_c("b-icon-pin-map"), _vm._v(" " + _vm._s(_vm.order.od_ua_title) + "\r\n                            "), _c("b-button", {
     staticClass: "white sm",
     on: {
       click: _vm.config_addr
     }
-  }, [_vm._v("배송지 관리")])], 1)]), _vm._v(" "), _c("b-row", [_c("label", [_vm._v("배송지명")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.order.od_ua_title))])], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "od_receiver"
-  }, [_c("label", {
+  }, [_vm._v("배송지 관리")])], 1), _vm._v(" "), _c("div", {
+    staticClass: "user"
+  }, [_vm._v(_vm._s(_vm.order.od_receiver) + " " + _vm._s(_vm.order.od_receiver_hp))]), _vm._v(" "), _c("div", {
+    staticClass: "addr"
+  }, [_vm._v(_vm._s(_vm.order.od_addr1) + " " + _vm._s(_vm.order.od_addr2))]), _vm._v(" "), _c("b-form-select", {
     attrs: {
-      "for": "od_receiver"
-    }
-  }, [_vm._v("수령인"), _c("i", {
-    staticClass: "require"
-  })]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    ref: "od_receiver",
-    attrs: {
-      id: "od_receiver"
+      size: "sm"
     },
-    model: {
-      value: _vm.order.od_receiver,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_receiver", $$v);
-      },
-      expression: "order.od_receiver"
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "od_receiver_hp"
-  }, [_c("label", {
-    attrs: {
-      "for": "od_receiver_hp"
-    }
-  }, [_vm._v("연락처"), _c("i", {
-    staticClass: "require"
-  })]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    ref: "od_receiver_hp1",
-    attrs: {
-      formatter: _vm.maxlength_3,
-      id: "od_receiver_hp"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 3, "od_receiver_hp2");
-      }
-    },
-    model: {
-      value: _vm.order.od_receiver_hp1,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_receiver_hp1", $$v);
-      },
-      expression: "order.od_receiver_hp1"
-    }
-  }), _c("b-icon-dash", {
-    staticClass: "m_hide"
-  }), _vm._v(" "), _c("b-form-input", {
-    ref: "od_receiver_hp2",
-    attrs: {
-      formatter: _vm.maxlength_4
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "od_receiver_hp3");
-      }
-    },
-    model: {
-      value: _vm.order.od_receiver_hp2,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_receiver_hp2", $$v);
-      },
-      expression: "order.od_receiver_hp2"
-    }
-  }), _c("b-icon-dash", {
-    staticClass: "m_hide"
-  }), _vm._v(" "), _c("b-form-input", {
-    ref: "od_receiver_hp3",
-    attrs: {
-      formatter: _vm.maxlength_4
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "btn_postcode");
-      }
-    },
-    model: {
-      value: _vm.order.od_receiver_hp3,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_receiver_hp3", $$v);
-      },
-      expression: "order.od_receiver_hp3"
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "od_addr"
-  }, [_c("label", [_vm._v("주소"), _c("i", {
-    staticClass: "require"
-  })]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-form-input", {
-    attrs: {
-      readonly: ""
-    },
-    model: {
-      value: _vm.order.od_zip,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_zip", $$v);
-      },
-      expression: "order.od_zip"
-    }
-  }), _vm._v(" "), _c("span", {
-    ref: "btn_postcode",
-    staticClass: "btn",
-    on: {
-      click: function click($event) {
-        _vm.postcode_open = !_vm.postcode_open;
-      }
-    }
-  }, [_vm.postcode_open ? [_vm._v("닫기")] : [_vm._v("우편번호 찾기")]], 2), _vm._v(" "), _vm.postcode_open ? _c("vue-daum-postcode", {
-    staticClass: "sch_zip shadow",
-    attrs: {
-      animation: true
-    },
-    on: {
-      complete: _vm.onPostcodeSlt
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c("b-form-input", {
-    staticClass: "od_addr1",
-    attrs: {
-      readonly: ""
-    },
-    model: {
-      value: _vm.order.od_addr1,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_addr1", $$v);
-      },
-      expression: "order.od_addr1"
-    }
-  }), _vm._v(" "), _c("b-form-input", {
-    ref: "od_addr2",
-    model: {
-      value: _vm.order.od_addr2,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order, "od_addr2", $$v);
-      },
-      expression: "order.od_addr2"
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "od_memo"
-  }, [_c("label", {
-    attrs: {
-      "for": "od_memo"
-    }
-  }, [_vm._v("배송 요청사항")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
     on: {
       change: _vm.memo_slt
     },
@@ -1197,7 +1047,7 @@ var render = function render() {
     attrs: {
       value: ""
     }
-  }, [_vm._v("선택")]), _vm._v(" "), _vm._l(_vm.config.dlvy_msg, function (msg, i) {
+  }, [_vm._v("배송시 요청 사항")]), _vm._v(" "), _vm._l(_vm.config.dlvy_msg, function (msg, i) {
     return _c("b-form-select-option", {
       key: i,
       attrs: {
@@ -1206,7 +1056,8 @@ var render = function render() {
     }, [_vm._v(_vm._s(msg))]);
   })], 2), _vm._v(" "), _c("b-form-input", {
     attrs: {
-      id: "od_memo"
+      id: "od_memo",
+      size: "sm"
     },
     model: {
       value: _vm.order.od_memo,
@@ -1215,23 +1066,18 @@ var render = function render() {
       },
       expression: "order.od_memo"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _vm.clickable ? _c("b-button", {
-    staticClass: "m_hide pay_go",
-    on: {
-      click: _vm.exePayment
-    }
-  }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-button", {
-    staticClass: "m_hide pay_go gray"
-  }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "payment",
+  })] : _c("b-button", {
+    ref: "add_addr",
+    staticClass: "white wd_100p add_addr",
     attrs: {
-      id: "payment"
+      size: "sm"
+    },
+    on: {
+      click: _vm.config_addr
     }
-  }, [_c("b-row", {
-    staticClass: "top"
-  }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.order.price.total)))]), _vm._v(" 원"), _c("span", [_vm._v("부가세 포함")])])], 1), _vm._v(" "), _c("div", {
-    staticClass: "body"
-  }, [_vm.order.od_pay_method !== "BL" ? [_c("h5", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("배송지 입력 "), _c("small", [_vm._v("등록된 배송지 없음")])])], 2), _vm._v(" "), _c("div", {
+    staticClass: "pay_method area_piece"
+  }, [_vm.order.od_pay_method !== "BL" ? [_c("h4", [_vm._v("결제 수단")]), _vm._v(" "), _c("div", {
     staticClass: "method"
   }, [_vm._l(_vm.config.pay_method, function (v, k) {
     return [!["CP", "CK", "BL"].includes(k) ? _c("div", {
@@ -1662,22 +1508,32 @@ var render = function render() {
       },
       expression: "order.extra.oex_memo"
     }
-  })], 1)], 2), _vm._v(" "), _vm.clickable ? _c("b-button", {
-    staticClass: "m_show pay_go",
+  })], 1)], 2), _vm._v(" "), _c("b-row", {
+    staticClass: "pay_exe area_piece"
+  }, [_c("b-col", [_vm._v("최종 결제 금액")]), _vm._v(" "), _c("b-col", {
+    staticClass: "pay_price"
+  }, [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.order.price.total)))]), _vm._v(" 원"), _c("span", [_vm._v("부가세 포함")])]), _vm._v(" "), _vm.clickable ? _c("b-col", {
+    staticClass: "pay_go",
+    attrs: {
+      cols: "12"
+    },
     on: {
       click: _vm.exePayment
     }
-  }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-button", {
-    staticClass: "m_show pay_go gray"
-  }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1)], 1)], 1), _vm._v(" "), _c("transition", {
+  }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-col", {
+    staticClass: "m_show pay_go gray",
+    attrs: {
+      cols: "12"
+    }
+  }, [_c("b-spinner"), _vm._v(" 주문 중...")], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c("transition", {
     attrs: {
       name: "modal"
     }
   }, [_vm.isModalViewed ? _c("modal", {
     attrs: {
       max_width: 500,
-      min_height: 0,
-      padding: "20px 0 0"
+      min_height: 750,
+      padding: "0"
     },
     on: {
       "close-modal": function closeModal($event) {
@@ -1736,7 +1592,6 @@ render._withStripped = true;
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -1747,7 +1602,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-top:2rem;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem;\n}\n#settle .st_bottom[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .row .col[data-v-6c9bc94a] { padding:0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:.875rem;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a] { padding:1.5rem; background:#4F708F; border-radius:.5rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n#settle .st_bottom .inputs .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n#settle .st_bottom .inputs .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n#settle .st_bottom .inputs div h4[data-v-6c9bc94a] { margin-bottom:2.55rem; margin-top:3.5rem;\n}\n#settle .st_bottom .inputs div .row[data-v-6c9bc94a] { align-items:baseline;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold;\n}\n#settle .st_bottom .inputs div .row label i[data-v-6c9bc94a] { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px;\n}\n#settle .st_bottom .inputs div .row .col[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n#settle .st_bottom .inputs div .row .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col select[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs div .row .col .btn[data-v-6c9bc94a] { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989;\n}\n#settle .st_bottom .inputs div .row .col svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address[data-v-6c9bc94a] { position:relative;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { display:flex; align-items:center; justify-content:space-between;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] { display:flex; justify-content:flex-end; align-items:center;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size:1rem; margin-right:1rem;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label::after { top:.15rem; left:-1.2rem;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver .col[data-v-6c9bc94a] { flex-basis:36%; max-width:36%;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input[data-v-6c9bc94a],\r\n#settle .st_bottom .inputs .address .od_receiver_hp .col input[data-v-6c9bc94a] { max-width:122px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input[data-v-6c9bc94a] { max-width:180px;\n}\n#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select[data-v-6c9bc94a] { max-width:122px; margin:0 .5rem;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col[data-v-6c9bc94a] { flex-basis:46%; max-width:46%;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div input[data-v-6c9bc94a] { max-width:180px; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_receiver_hp .col div .btn[data-v-6c9bc94a] { font-size:.9rem; height:36px; position:relative; top:-2px;}\n#settle .st_bottom .inputs .address .od_addr .col[data-v-6c9bc94a] { display:block; flex-basis:53%; max-width:53%;\n}\n#settle .st_bottom .inputs .address .od_addr .col div input[data-v-6c9bc94a] { max-width:16rem; display:inline-block;\n}\n#settle .st_bottom .inputs .address .od_addr .col .od_addr1[data-v-6c9bc94a] { margin-top:0;\n}\n#settle .st_bottom .inputs .address .sch_zip[data-v-6c9bc94a] { width:100%; position:absolute; z-index:1; border:2px solid #000;\n}\n#settle .st_bottom .inputs .address .od_memo .col select[data-v-6c9bc94a] { max-width:16rem;\n}\n#settle .st_bottom .pay_go[data-v-6c9bc94a] { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem;\n}\n#settle .st_bottom .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:31%; max-width:31%; padding-left:.875rem;\n}\n#settle .st_bottom .payment .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a] { font-weight:bold; color:#fff;\n}\n#settle .st_bottom .payment .top .col b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n#settle .st_bottom .payment .top .col span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n#settle .st_bottom .payment .top .col[data-v-6c9bc94a]:nth-of-type(2) { text-align:right;\n}\n#settle .st_bottom .payment .body[data-v-6c9bc94a] { padding:1rem; border:2px solid #D7D7D7; border-radius:3px;\n}\n#settle .st_bottom .payment .body h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n#settle .st_bottom .payment .body>div[data-v-6c9bc94a] { border-top:1px solid #d7d7d7; padding:.94rem 0;\n}\n#settle .st_bottom .payment .body div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n#settle .st_bottom .payment .body .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex; flex-wrap: wrap;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label { cursor:pointer;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n#settle .st_bottom .payment .body .method div .custom-radio[data-v-6c9bc94a] label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem;\n}\n#settle .st_bottom .payment .body .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .payment .body .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n#settle .st_bottom .payment .body .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n#settle .st_bottom .payment .body .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n#settle .st_bottom .payment .body .method div #payment-method[data-v-6c9bc94a] { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden;\n}\n#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5);\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n#settle .st_bottom .payment .body .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n#settle .st_bottom .payment .body .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n#settle .st_bottom .payment .body .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n#settle .st_bottom .payment .body .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n#settle .st_bottom .payment .body .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n#settle .st_bottom .payment .body .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n#settle .st_bottom .payment .body .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle .st_bottom .payment .body .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n#settle .st_bottom .payment .body .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n#settle .inicis_form[data-v-6c9bc94a] { width:0; height:0; visibility:hidden; overflow:hidden;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { margin-top: 1rem;\n}\n#settle h4[data-v-6c9bc94a] { margin:0;\n}\n#settle .st_bottom .inputs div .row label[data-v-6c9bc94a] { text-indent:0; flex-basis:18.8%; max-width:18.8%;\n}\n#settle .st_bottom .inputs .address h4[data-v-6c9bc94a] { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem;\n}\n#settle .st_bottom .inputs .address h4>*[data-v-6c9bc94a] { flex-basis:100%; max-width:100%;\n}\n#settle .st_bottom .inputs .address h4 div[data-v-6c9bc94a] label { font-size: calc(.6vw + .7rem);\n}\n#settle .st_bottom .inputs .address .row:nth-of-type(4) .col[data-v-6c9bc94a],\r\n    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col[data-v-6c9bc94a] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n#settle .st_bottom .inputs .agreement[data-v-6c9bc94a] { flex-direction:column;\n}\n#settle .st_bottom .inputs .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin:5px 0;\n}\n#settle .st_bottom .row .col.inputs[data-v-6c9bc94a] { padding-right:0; margin:10px 3px;\n}\n#settle .st_bottom .row .col.payment[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { padding-top:2em; background-color:#F5F5F5;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem; margin-bottom:1em;}\n#settle h4[data-v-6c9bc94a] { font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding-bottom:.7em;\n}\n.settle_split[data-v-6c9bc94a] { padding-bottom:2em; align-items:flex-start;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { background-color:#FFF; padding:2em 1.5em; border-radius:10px;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:60%;max-width:60%; margin-right:.875em;\n}\n.settle_split .left .agreement[data-v-6c9bc94a] { align-items:flex-start;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { padding:1.5em; background:#4F708F; border-radius:.5rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n.settle_split .left .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n.settle_split .left .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:.875em;\n}\n.settle_split .right .address[data-v-6c9bc94a] { border:1px solid #000; padding:1.5em; margin-bottom:1.5em; line-height:2;\n}\n.settle_split .right .address .addr_tit[data-v-6c9bc94a] { color:#ff4d00; font-weight:900; font-size:1.4em;\n}\n.settle_split .right .address .addr_tit svg[data-v-6c9bc94a] { margin-right: 0.5em;\n}\n.settle_split .right .address .addr_tit button[data-v-6c9bc94a] { float:right;\n}\n.settle_split .right .address .user[data-v-6c9bc94a] { font-weight:900;\n}\n.settle_split .right .address .addr[data-v-6c9bc94a] { margin-bottom:.7em;\n}\n.settle_split .right .address .add_addr small[data-v-6c9bc94a] { color:#ACACAC; font-size:80%;\n}\n.settle_split .right .pay_method[data-v-6c9bc94a] { padding:1.5em;\n}\n.settle_split .right .pay_method h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a]:not(:last-child) { border-bottom:1px solid #d7d7d7;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a] {  padding:.94rem 0;\n}\n.settle_split .right .pay_method div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n.settle_split .right .pay_method .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex; flex-wrap: wrap;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label { cursor:pointer;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem;\n}\n.settle_split .right .pay_method .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%;\n}\n.settle_split .right .pay_method .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n.settle_split .right .pay_method .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n.settle_split .right .pay_method .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n.settle_split .right .pay_method .method div #payment-method[data-v-6c9bc94a] { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden;\n}\n.settle_split .right .pay_method .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5);\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n.settle_split .right .pay_method .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n.settle_split .right .pay_method .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n.settle_split .right .pay_method .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n.settle_split .right .pay_method .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n.settle_split .right .pay_method .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n.settle_split .right .pay_method .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_method .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_exe[data-v-6c9bc94a] { margin-top:1.5em; border-radius:.9rem; padding:1.5em; border:1px solid #000; position:sticky; top:180px;\n}\n.settle_split .right .pay_exe .pay_price[data-v-6c9bc94a] { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%;\n}\n.settle_split .right .pay_exe .pay_price b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n.settle_split .right .pay_exe .pay_price span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n.settle_split .right .pay_exe .pay_go[data-v-6c9bc94a] { background:#1A90D6; color:#FFF; font-size:1.6rem; font-weight:bold; padding:.8em 0; margin-top:2rem; text-align:center; cursor:pointer;\n}\n.settle_split .right .pay_exe .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n.settle_split .right .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { padding-top:1em;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:auto; max-width:none;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; margin:.4em 0 !important;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { margin:0 .875em;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:0;\n}\n.settle_split .right .address[data-v-6c9bc94a] { margin-top: 1.5em;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1760,7 +1615,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { margin-to
   \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -1784,24 +1638,12 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/vue-daum-postcode/dist/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/vue-daum-postcode/dist/index.js ***!
-  \******************************************************/
-/***/ ((module) => {
-
-!function(e,t){if(true)module.exports=t();else { var o, n; }}(window,(function(){return function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=1)}([function(e,t,n){"use strict";var o,r=Object.defineProperty,a=Object.getOwnPropertyDescriptor,u=Object.getOwnPropertyNames,i=Object.prototype.hasOwnProperty,d={};function l(e){let t=null;return()=>{try{return t||(t=Promise.resolve(e()).catch(e=>{throw t=null,e}))}catch(e){return Promise.reject(e)}}}((e,t)=>{for(var n in t)r(e,n,{get:t[n],enumerable:!0})})(d,{defer:()=>c,load:()=>s,once:()=>l}),e.exports=(o=d,((e,t,n,o)=>{if(t&&"object"==typeof t||"function"==typeof t)for(let d of u(t))!i.call(e,d)&&d!==n&&r(e,d,{get:()=>t[d],enumerable:!(o=a(t,d))||o.enumerable});return e})(r({},"__esModule",{value:!0}),o));var c=l,s=(e,t)=>new Promise((n,o)=>{(document.head||document.body).appendChild(Object.assign(document.createElement("script"),t,{src:e,async:!0,onload:n,onerror:o}))});typeof document>"u"&&(s=()=>Promise.reject(new Error("load is not supported in nodejs")))},function(e,t,n){"use strict";n.r(t),n.d(t,"install",(function(){return d})),n.d(t,"VueDaumPostcode",(function(){return a}));var o=n(0);function r(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.scriptUrl||"//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js",n=Object(o.once)((function(){return Object(o.load)(t).then((function(){return new Promise((function(e){return window.daum.postcode.load(e)}))}))}));return{props:{q:{type:String,default:""},animation:{type:Boolean,default:!1},noAutoMapping:{type:Boolean,default:!1},noShorthand:{type:Boolean,default:!1},noSubmitMode:{type:Boolean,default:!1},pleaseReadGuide:{type:Number,default:0},pleaseReadGuideTimer:{type:Number,default:1.5},maxSuggestItems:{type:Number,default:10},showMoreHName:{type:Boolean,default:!1},hideMapBtn:{type:Boolean,default:!1},hideEngBtn:{type:Boolean,default:!1},alwaysShowEngAddr:{type:Boolean,default:!1},zonecodeOnly:{type:Boolean,default:!1},theme:{type:Object,default:function(){return{}}}},data:function(){return{styleHeight:0,isLoaded:!1}},mounted:function(){var e=this;n().then((function(){e.isLoaded=!0,e.$nextTick((function(){new window.daum.Postcode({width:"100%",height:"100%",animation:e.animation,autoMapping:!e.noAutoMapping,shorthand:!e.noShorthand,pleaseReadGuide:e.pleaseReadGuide,pleaseReadGuideTimer:e.pleaseReadGuideTimer,maxSuggestItems:e.maxSuggestItems,showMoreHName:e.showMoreHName,hideMapBtn:e.hideMapBtn,hideEngBtn:e.hideEngBtn,alwaysShowEngAddr:e.alwaysShowEngAddr,zonecodeOnly:e.zonecodeOnly,theme:e.theme,submitMode:!e.noSubmitMode,onsearch:function(t){e.$emit("search",t)},oncomplete:function(t){e.$emit("complete",t)},onresize:function(t){e.styleHeight="".concat(t.height,"px")}}).embed(e.$refs.container,{q:e.q,autoClose:!1}),e.$emit("load")}))})).catch((function(n){var o=new Error("Load ".concat(t," failed."));o.cause=n,e.$emit("error",o)}))},computed:{styles:function(){var e={};return e.height=this.styleHeight,e}},render:function(e){return e("div",{class:["vue-daum-postcode"]},this.isLoaded||!this.$slots.loading?[e("div",{class:["vue-daum-postcode-container"],ref:"container",style:this.styles})]:[e("div",{class:["vue-daum-postcode-loading"]},this.$slots.loading)])}}}var a=r(),u=["name"];function i(e,t){if(null==e)return{};var n,o,r=function(e,t){if(null==e)return{};var n,o,r={},a=Object.keys(e);for(o=0;o<a.length;o++)n=a[o],t.indexOf(n)>=0||(r[n]=e[n]);return r}(e,t);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);for(o=0;o<a.length;o++)n=a[o],t.indexOf(n)>=0||Object.prototype.propertyIsEnumerable.call(e,n)&&(r[n]=e[n])}return r}function d(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=t.name,o=i(t,u);e.component(n||"vue-daum-postcode",Object.keys(o).length>0?r(o):a)}"undefined"!=typeof window&&window.Vue&&d(window.Vue);t.default={install:d}}])}));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
 /***/ "./resources/js/views/web/shop/order/Settle.vue":
 /*!******************************************************!*\
   !*** ./resources/js/views/web/shop/order/Settle.vue ***!
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -1842,7 +1684,6 @@ component.options.__file = "resources/js/views/web/shop/order/Settle.vue"
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -1858,7 +1699,6 @@ __webpack_require__.r(__webpack_exports__);
   \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Settle_vue_vue_type_template_id_6c9bc94a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
@@ -1875,7 +1715,6 @@ __webpack_require__.r(__webpack_exports__);
   \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Settle_vue_vue_type_style_index_0_id_6c9bc94a_lang_css_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Settle.vue?vue&type=style&index=0&id=6c9bc94a&lang=css&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/web/shop/order/Settle.vue?vue&type=style&index=0&id=6c9bc94a&lang=css&scoped=true&");
 

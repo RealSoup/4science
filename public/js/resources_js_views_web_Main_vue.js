@@ -243,39 +243,7 @@ var render = function render() {
       id: "app02",
       target: "_blank"
     }
-  })])], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods/925"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": _vm.s3url + "main/slide/2023/23041604.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=45"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": _vm.s3url + "main/slide/2023/23041603.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/goods?ca01=22&ca02=634"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": _vm.s3url + "main/slide/2023/23041602.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
-      to: "/shop/listing/today_pick_up/all"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": _vm.s3url + "main/slide/2023/23041601.jpg"
-    }
-  })], 1)], 1), _vm._v(" "), _c("b-row", {
+  })])], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "layout",
     attrs: {
       id: "best"

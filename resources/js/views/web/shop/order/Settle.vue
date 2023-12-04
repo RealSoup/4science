@@ -1,19 +1,18 @@
 <template>
 <div id="settle">
+    <h2 class="layout">결제하기</h2>
 
-    <h2>결제하기</h2>
+    <div class="layout">
 
-    <h4>01. 주문 상품 확인</h4>
+        <b-row class="settle_split">
+            <b-col class="left area_piece">
+                <h4>주문상품 {{goods_cnt}}개</h4>
+                <goods-list v-model="order.lists" :price="order.price" :user="user"></goods-list>
 
-    <pa-list v-model="order.lists" :price="order.price" :user="user" :add_vat="true" :d_price="order.od_pay_method == 'B' && user.is_dealer"></pa-list>
-    
-    <b-container class="st_bottom">
-        <b-row>
-            <b-col class="inputs">
                 <b-row class="agreement">
-                    <b-col>
+                    <b-col id="agrrement_01">
                         <div class="head">
-                            <span>개인정보 수집 및 이용 동의 <span v-b-toggle.privacy>[자세히 보기]</span></span>
+                            <span>개인정보 수집 및 이용 동의 <span class="d-block" v-b-toggle.privacy>[자세히 보기]</span></span>
                             <b-form-radio v-model="order.privacy" value="Y">동의함</b-form-radio>
                             <b-form-radio v-model="order.privacy" value="N">동의하지 않음</b-form-radio>
                         </div>
@@ -36,9 +35,9 @@
                             </b-card>
                         </b-collapse>
                     </b-col>
-                    <b-col v-if="isDlvyAir">
+                    <b-col id="agrrement_02" v-if="isDlvyAir">
                         <div class="head">
-                            <span>단순 제품 교환 및 반품 불가 안내 <span v-b-toggle.dlvy_air>[자세히 보기]</span></span>
+                            <span>단순 제품 교환 및 반품 불가 안내 <span class="d-block" v-b-toggle.dlvy_air>[자세히 보기]</span></span>
                             <b-form-radio v-model="order.dlvy_air" value="Y">동의함</b-form-radio>
                             <b-form-radio v-model="order.dlvy_air" value="N">동의하지 않음</b-form-radio>
                         </div>
@@ -47,9 +46,9 @@
                             <b-card>해외수입상품은 주문 후에는 단순 제품 교환 및 반품이 안되오니 제품사양 확인 부탁드립니다.</b-card>
                         </b-collapse>
                     </b-col>
-                    <b-col v-else>
+                    <b-col id="agrrement_03" v-else>
                         <div class="head">
-                            <span>구매자 및 사용자 확인사항 <span v-b-toggle.check_terms>[자세히 보기]</span></span>
+                            <span>구매자 및 사용자 확인사항 <span class="d-block" v-b-toggle.check_terms>[자세히 보기]</span></span>
                             <b-form-radio v-model="order.check_terms" value="Y">동의함</b-form-radio>
                             <b-form-radio v-model="order.check_terms" value="N">동의하지 않음</b-form-radio>
                         </div>
@@ -62,97 +61,50 @@
                         </b-collapse>
                     </b-col>
                 </b-row>
- 
-                <pop-up></pop-up> <!-- 팝업 -->
-
-                <div id="address" class="address">
-                    <h4>
-                        <span>02. 배송지 정보</span>
-                        <div>
-                            <b-form-radio v-model="order.addr_type" value="D" @change="change_addr_type">기본 배송지</b-form-radio>
-                            <b-form-radio v-model="order.addr_type" value="N" @change="change_addr_type">신규 배송지</b-form-radio>
-                            <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
-                        </div>
-                    </h4>
-                    <b-row>
-                        <label>배송지명</label>
-                        <b-col>{{order.od_ua_title}}</b-col>
-                    </b-row>
-                    <b-row class="od_receiver">
-                        <label for="od_receiver">수령인<i class="require" /></label>
-                        <b-col>
-                            <b-form-input v-model="order.od_receiver" ref="od_receiver" id="od_receiver" />
-                        </b-col>
-                    </b-row>
-                    <b-row class="od_receiver_hp">
-                        <label for="od_receiver_hp">연락처<i class="require" /></label>
-                        <b-col>
-                            <b-form-input v-model="order.od_receiver_hp1" ref="od_receiver_hp1" @input.native="focusNext($event, 3, 'od_receiver_hp2')" :formatter="maxlength_3" id="od_receiver_hp" /><b-icon-dash class="m_hide" />
-                            <b-form-input v-model="order.od_receiver_hp2" ref="od_receiver_hp2" @input.native="focusNext($event, 4, 'od_receiver_hp3')" :formatter="maxlength_4" /><b-icon-dash class="m_hide" />
-                            <b-form-input v-model="order.od_receiver_hp3" ref="od_receiver_hp3" @input.native="focusNext($event, 4, 'btn_postcode')" :formatter="maxlength_4" />
-                        </b-col>
-                    </b-row>                        
-                    <b-row class="od_addr">
-                        <label>주소<i class="require" /></label>
-                        <b-col>
-                            <div>
-                                <b-form-input v-model="order.od_zip" readonly />
-                                <span class="btn" @click="postcode_open = !postcode_open" ref="btn_postcode">
-                                    <template v-if="postcode_open">닫기</template>
-                                    <template v-else>우편번호 찾기</template>
-                                </span>
-                                <vue-daum-postcode v-if="postcode_open" class="sch_zip shadow" @complete="onPostcodeSlt" :animation="true"></vue-daum-postcode>
-                            </div>
-                            <b-form-input v-model="order.od_addr1" readonly class="od_addr1" />
-                            <b-form-input v-model="order.od_addr2" ref="od_addr2" />
-                        </b-col>
-                    </b-row>
-                    
-                    <b-row class="od_memo">
-                        <label for="od_memo">배송 요청사항</label>
-                        <b-col>
-                            <b-form-select v-model="order.od_memo_slt" @change="memo_slt">
-                                <b-form-select-option value="">선택</b-form-select-option>
-                                <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
-                            </b-form-select>
-                            <b-form-input v-model="order.od_memo" id="od_memo" />
-                        </b-col>
-                    </b-row>
-                </div>
-                <b-button v-if="clickable" class="m_hide pay_go" @click="exePayment">
-                    <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
-                    <template v-else>주문하기</template>
-                </b-button>
-                <b-button v-else class="m_hide pay_go gray"><b-spinner /> 주문 중...</b-button>
             </b-col>
 
-            <b-col id="payment" class="payment">
-                <b-row class="top">
-                    <b-col>최종 결제 금액</b-col>
-                    <b-col><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
-                </b-row>
-                <div class="body">
 
-    <template v-if="order.od_pay_method !== 'BL'">
-                    <h5>결제 수단</h5>
-                    <div class="method">
-                        <template v-for="(v, k) in config.pay_method">
-                            <div v-if="!['CP', 'CK', 'BL'].includes(k)" :key="k">
-                                <b-form-radio v-model="order.od_pay_method" :value="k">
-                                    <i v-html="$options.filters.pay_method_new_line(v)"></i>
-                                </b-form-radio>
-                                <span v-if="k=='C'">토스페이먼츠 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
-                                <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
-                                <span v-else-if="k=='L'">대학교, 국가연구소, 관공서를 위한 후불 입금(계좌이체) 방식입니다. <b>[자세히]<img :src="s3url+'order/pay_later.png'" /></b></span>
-                                <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
-                                <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
-                                <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
-                                <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
-                                <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
-                            </div>
-                        </template>
-                    </div>                 
-    </template>
+
+            <b-col class="right">
+                <div class="address area_piece">                    
+                    <template v-if="this.addr.length">
+                        <div class="addr_tit">
+                            <b-icon-pin-map></b-icon-pin-map> {{order.od_ua_title}}
+                            <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
+                        </div>
+                        <div class="user">{{order.od_receiver}} {{order.od_receiver_hp}}</div> 
+                        <div class="addr">{{order.od_addr1}} {{order.od_addr2}}</div>
+                        <b-form-select v-model="order.od_memo_slt" @change="memo_slt" size="sm">
+                            <b-form-select-option value="">배송시 요청 사항</b-form-select-option>
+                            <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
+                        </b-form-select>
+                        <b-form-input v-model="order.od_memo" id="od_memo" size="sm" />
+                    </template>
+                    <b-button v-else class="white wd_100p add_addr" size="sm" ref="add_addr" @click="config_addr">배송지 입력 <small>등록된 배송지 없음</small></b-button>
+                </div>
+                
+                <div class="pay_method area_piece">
+                    <template v-if="order.od_pay_method !== 'BL'">
+                        <h4>결제 수단</h4>
+                        <div class="method">
+                            <template v-for="(v, k) in config.pay_method">
+                                <div v-if="!['CP', 'CK', 'BL'].includes(k)" :key="k">
+                                    <b-form-radio v-model="order.od_pay_method" :value="k">
+                                        <i v-html="$options.filters.pay_method_new_line(v)"></i>
+                                    </b-form-radio>
+                                    <span v-if="k=='C'">토스페이먼츠 온라인 신용카드 결제 <b>[자세히]<img :src="s3url+'order/pay_card.png'" /></b></span>
+                                    <span v-else-if="k=='B'">무통장입금, 온라인계좌이체 <b>[자세히]<img :src="s3url+'order/pay_cache.png'" /></b></span>
+                                    <span v-else-if="k=='L'">대학교, 국가연구소, 관공서를 위한 후불 입금(계좌이체) 방식입니다. <b>[자세히]<img :src="s3url+'order/pay_later.png'" /></b></span>
+                                    <span v-else-if="k=='P'">PSYS 결체장이 열리며, 바로 결제가능합니다. 결제완료 시 주문이 완료됩니다.</span>
+                                    <span v-else-if="k=='S'">주문완료 후 PSYS 사이트로 직접 방문하여 결제하는 기존의 결제방식입니다. <b>[자세히]<img :src="s3url+'order/pay_psys.png'" /></b></span>
+                                    <span v-else-if="k=='R'">원격지 카드 결제 <b>[자세히]<img :src="s3url+'order/pay_remote.png'" /></b></span>
+                                    <span v-else-if="k=='E'">결제대금예치 <b>[자세히]<img :src="s3url+'order/pay_escrow.png'" /></b></span>
+                                    <div v-if="k=='C'" id="payment-method" :class="{toss_widget_show:order.od_pay_method == 'C'}"></div>
+                                </div>
+                            </template>
+                        </div>                 
+                    </template>
+
                     <transition name="slideUpDown">    
                         <div v-if="order.od_pay_method == 'B'" class="pay_info">
                             <h6>무통장 입금</h6>
@@ -248,17 +200,25 @@
                         <b-form-textarea v-model="order.extra.oex_memo" size="sm" placeholder="추가 사항 메모" ></b-form-textarea>
                     </div>
                 </div>
-                <b-button v-if="clickable" class="m_show pay_go" @click="exePayment">
-                    <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
-                    <template v-else>주문하기</template>
-                </b-button>
-                <b-button v-else class="m_show pay_go gray"><b-spinner /> 주문 중...</b-button>
+
+                <b-row class="pay_exe area_piece">
+                    <b-col>최종 결제 금액</b-col>
+                    <b-col class="pay_price"><b>{{order.price.total | comma}}</b> 원<span>부가세 포함</span></b-col>
+
+                    <b-col cols="12" v-if="clickable" class="pay_go" @click="exePayment">
+                        <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
+                        <template v-else>주문하기</template>
+                    </b-col>
+                    <b-col cols="12" v-else class="m_show pay_go gray"><b-spinner /> 주문 중...</b-col>
+                </b-row>
+                
             </b-col>
         </b-row>
-    </b-container>
+    </div>
+
 
     <transition name="modal">
-        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="0" :padding="'20px 0 0'">
+        <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="500" :min_height="750" :padding="'0'">
             <template slot="header">
                 <template v-if="['index', 'create', 'edit'].includes(modal_type)">배송지</template>
                 <template v-else>지출 증빙</template>
@@ -269,14 +229,13 @@
             <tax-invoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close"></tax-invoice>
         </modal>
     </transition>
-
 </div>
 </template>
 
 
 <script>
 import ax from '@/api/http';
-import { VueDaumPostcode } from "vue-daum-postcode";
+
 import router from '@/router';
 import { mapState } from 'vuex';
 import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
@@ -294,7 +253,7 @@ let paymentWidget = null;
 export default {
     // props:['gd_id', 'model', 'option'],
     components: {
-        'vue-daum-postcode' : VueDaumPostcode,
+        // 'vue-daum-postcode' : VueDaumPostcode,
         'modal'          : () => import('@/views/_common/Modal.vue'),
         'pay-plan'       : () => import('@/views/web/shop/order/_comp/PayPlan'),
         'tax-invoice'    : () => import('@/views/web/shop/order/_comp/TaxInvoice'),
@@ -303,6 +262,7 @@ export default {
         'addr-create'    : () => import('@/views/web/_module/addr/Create'),
         'addr-edit'      : () => import('@/views/web/_module/addr/Edit'),
         'pop-up'         : () => import('@/views/web/_module/PopUp'),
+        'goods-list'     : () => import('@/views/web/shop/order/_comp/GoodsList'),
     },
     watch: {
         'order.od_pay_method': {
@@ -340,7 +300,7 @@ export default {
         return {
             isModalViewed: false,
             modal_type: 'index',
-            postcode_open: false,
+            // postcode_open: false,
             order:{
                 od_id:0,
                 goods: this.$route.params.od_goods,
@@ -363,7 +323,6 @@ export default {
                 od_receiver_hp3 : '',
                 od_memo : "",
                 od_memo_slt : '',
-                addr_type:'D',
                 extra: {
                     oex_hasBizLicense: true,
                     oex_file:null,
@@ -404,6 +363,7 @@ export default {
     computed: {
         ...mapState('auth', ['isLoggedin', 'user']),
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
+        goods_cnt () { return this.order.goods.filter(gm => gm.gm_id > 0).length; },
     },
     methods:{
         calculator() {
@@ -449,15 +409,15 @@ export default {
             this.order.price.total = this.order.price.air_add_vat+this.order.price.dlvy_add_vat+this.order.price.goods+this.order.price.surtax;
         },
 
-        onPostcodeSlt(result) {
-            this.$set(this.order, 'od_zip', result.zonecode);
-            let addr = result.roadAddress;
-            addr += result.buildingName ? "("+ result.buildingName +")" : '';
-            this.$set(this.order, 'od_addr1', addr);
-            this.$refs.od_addr2.focus();
-            document.getElementById('address').scrollIntoView();
-            this.postcode_open = false;
-        },
+        // onPostcodeSlt(result) {
+        //     this.$set(this.order, 'od_zip', result.zonecode);
+        //     let addr = result.roadAddress;
+        //     addr += result.buildingName ? "("+ result.buildingName +")" : '';
+        //     this.$set(this.order, 'od_addr1', addr);
+        //     this.$refs.od_addr2.focus();
+        //     document.getElementById('address').scrollIntoView();
+        //     this.postcode_open = false;
+        // },
         async exePayment () {
             this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
             if (this.validationChecker(this.order)) {
@@ -557,22 +517,6 @@ export default {
             return;
         },
 
-        change_addr_type (v) {
-            if (v == 'D')   this.addr_choose(this.addr[0]);
-            else if (v == 'N') {
-                this.order.od_ua_title      = '';
-                this.order.od_zip           = '';
-                this.order.od_addr1         = '';
-                this.order.od_addr2         = '';
-                this.order.od_receiver      = '';
-                this.order.od_receiver_hp   = '';
-                this.order.od_receiver_hp1  = '';
-                this.order.od_receiver_hp2  = '';
-                this.order.od_receiver_hp3  = '';
-                this.order.od_memo          = '';
-            }
-        }, 
-
         config_addr () {
             this.isModalViewed = true;
             this.modal_type = 'index';
@@ -597,19 +541,24 @@ export default {
         modal_close () { this.isModalViewed = false; },
 
         validationChecker (frm) {
+            if (this.addr.length==0) { Notify.toast('danger', "배송지를 등록하고 선택하세요"); this.$refs.add_addr.focus(); return false; }
+
             if (this.order.privacy !== 'Y')     { 
                 Notify.toast('danger', "개인정보 수집 및 이용에 동의 해주세요.");
-                document.getElementById('total_sub').scrollIntoView();
+                document.getElementById('agrrement_01').scrollIntoView();
+                window.scrollBy(0, -160);
                 return false;
             }
             if (!this.isDlvyAir && this.order.check_terms !== 'Y')    { 
                 Notify.toast('danger', "구매자 및 사용자 확인사항에 동의 해주세요.");
-                document.getElementById('total_sub').scrollIntoView();
+                document.getElementById('agrrement_03').scrollIntoView();
+                window.scrollBy(0, -160);
                 return false;
             }
             if (this.isDlvyAir && this.order.dlvy_air !== 'Y') { 
                 Notify.toast('danger', "단순 제품 교환 및 반품 불가에 동의 해주세요");
-                document.getElementById('total_sub').scrollIntoView();
+                document.getElementById('agrrement_02').scrollIntoView();
+                window.scrollBy(0, -160);
                 return false;
             }
             if (this.order.od_pay_method == '') { 
@@ -735,133 +684,93 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#settle { margin-top:2rem; }
-#settle h2 { font-weight:bold; font-size:1.8rem; padding-left:1.8rem; }
-#settle h4 { margin:2.3rem 0 0; font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding:.7em 1.8rem; }
+#settle { padding-top:2em; background-color:#F5F5F5; }
+#settle h2 { font-weight:bold; font-size:1.8rem; padding-left:1.8rem; margin-bottom:1em;}
+#settle h4 { font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding-bottom:.7em; }
 
-#settle .st_bottom { padding:0; }
-#settle .st_bottom .row { margin:0; }
-#settle .st_bottom .row .col { padding:0; }
+.settle_split { padding-bottom:2em; align-items:flex-start; }
+.settle_split .area_piece { background-color:#FFF; padding:2em 1.5em; border-radius:10px; }
+.settle_split .left { flex-basis:60%;max-width:60%; margin-right:.875em; }
 
-#settle .st_bottom .row .col.inputs { padding-right:.875rem; }
-#settle .st_bottom .inputs .agreement { align-items:flex-start; }
-#settle .st_bottom .inputs .agreement .col { padding:1.5rem; background:#4F708F; border-radius:.5rem; }
-#settle .st_bottom .inputs .agreement .col:nth-of-type(1) { margin-right: 0.25rem; }
-#settle .st_bottom .inputs .agreement .col:nth-of-type(2) { margin-left: 0.25rem; }
-#settle .st_bottom .inputs .agreement .col .head { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center; }
-#settle .st_bottom .inputs .agreement .col .custom-radio { display:flex; align-items:center; }
-#settle .st_bottom .inputs .agreement .col .custom-radio>>>label::before, 
-#settle .st_bottom .inputs .agreement .col .custom-radio>>>label::after { top:.15rem; left:-1.4rem; }
-#settle .st_bottom .inputs .agreement .col .collapse .card { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem; }
-
-#settle .st_bottom .inputs div h4 { margin-bottom:2.55rem; margin-top:3.5rem; }
-#settle .st_bottom .inputs div .row { align-items:baseline; }
-#settle .st_bottom .inputs div .row label { flex-basis:15.8%; max-width:15.8%; flex-grow:1; text-indent:56px; font-weight:bold; }
-#settle .st_bottom .inputs div .row label i { display:inline-block; background:#FF0000; width:4px; height:4px; border-radius:4px; position:relative; top:-9px; right:-3px; } 
-#settle .st_bottom .inputs div .row .col { display:flex; align-items:center; }
-#settle .st_bottom .inputs div .row .col input,
-#settle .st_bottom .inputs div .row .col select,
-#settle .st_bottom .inputs div .row .col .btn { border-color:#CCC; border-radius:0; margin:.57rem 0; height:calc(1.5em + 0.75rem + 0px); color:#898989; }
-#settle .st_bottom .inputs div .row .col svg { margin:0 .5rem; }
-
-#settle .st_bottom .inputs .address { position:relative; }
-#settle .st_bottom .inputs .address h4 { display:flex; align-items:center; justify-content:space-between; }
-#settle .st_bottom .inputs .address h4 div { display:flex; justify-content:flex-end; align-items:center; }
-#settle .st_bottom .inputs .address h4 div>>>label { font-size:1rem; margin-right:1rem; }
-#settle .st_bottom .inputs .address h4 div>>>label::before, 
-#settle .st_bottom .inputs .address h4 div>>>label::after { top:.15rem; left:-1.2rem; }
+.settle_split .left .agreement { align-items:flex-start; }
+.settle_split .left .agreement .col { padding:1.5em; background:#4F708F; border-radius:.5rem; }
+.settle_split .left .agreement .col:nth-of-type(1) { margin-right: 0.25rem; }
+.settle_split .left .agreement .col:nth-of-type(2) { margin-left: 0.25rem; }
+.settle_split .left .agreement .col .head { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center; }
+.settle_split .left .agreement .col .custom-radio { display:flex; align-items:center; }
+.settle_split .left .agreement .col .custom-radio>>>label::before, 
+.settle_split .left .agreement .col .custom-radio>>>label::after { top:.15rem; left:-1.4rem; }
+.settle_split .left .agreement .col .collapse .card { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem; }
 
 
-#settle .st_bottom .inputs .orderer .row:nth-of-type(1) .col,
-#settle .st_bottom .inputs .orderer .row:nth-of-type(4) .col,
-#settle .st_bottom .inputs .address .od_receiver .col { flex-basis:36%; max-width:36%; }
+.settle_split .right { padding-left:.875em; }
 
-#settle .st_bottom .inputs .orderer .row:nth-of-type(2) .col input,
-#settle .st_bottom .inputs .address .od_receiver_hp .col input { max-width:122px; }
-#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col input { max-width:180px; }
-#settle .st_bottom .inputs .orderer .row:nth-of-type(3) .col select { max-width:122px; margin:0 .5rem; }
-
-#settle .st_bottom .inputs .address .od_receiver_hp .col { flex-basis:46%; max-width:46%; }
-#settle .st_bottom .inputs .address .od_receiver_hp .col div input { max-width:180px; display:inline-block; }
-#settle .st_bottom .inputs .address .od_receiver_hp .col div .btn { font-size:.9rem; height:36px; position:relative; top:-2px;}
-#settle .st_bottom .inputs .address .od_addr .col { display:block; flex-basis:53%; max-width:53%; }
-#settle .st_bottom .inputs .address .od_addr .col div input { max-width:16rem; display:inline-block; }
-#settle .st_bottom .inputs .address .od_addr .col .od_addr1 { margin-top:0; }
-#settle .st_bottom .inputs .address .sch_zip { width:100%; position:absolute; z-index:1; border:2px solid #000; }
-#settle .st_bottom .inputs .address .od_memo .col select { max-width:16rem; }
-
-#settle .st_bottom .pay_go { background:#1A90D6; width:100%; font-size:1.6rem; font-weight:bold; padding:.8em 0; border-radius:.9rem; margin-top:2rem; }
-#settle .st_bottom .pay_go.spinner-border { width:2em; height:2em; }
-
-#settle .st_bottom .row .col.payment { flex-basis:31%; max-width:31%; padding-left:.875rem; }
-#settle .st_bottom .payment .top { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center; }
-#settle .st_bottom .payment .top .col { font-weight:bold; color:#fff; }
-#settle .st_bottom .payment .top .col b { font-size:2.1rem; }
-#settle .st_bottom .payment .top .col span { font-size:.7rem; display:block; }
-#settle .st_bottom .payment .top .col:nth-of-type(2) { text-align:right; }
-
-#settle .st_bottom .payment .body { padding:1rem; border:2px solid #D7D7D7; border-radius:3px; }
-#settle .st_bottom .payment .body h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
-#settle .st_bottom .payment .body>div { border-top:1px solid #d7d7d7; padding:.94rem 0; }
-#settle .st_bottom .payment .body div>>>h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem; }
-#settle .st_bottom .payment .body .method>div { margin:1rem 0; display:flex; flex-wrap: wrap; }
-#settle .st_bottom .payment .body .method div .custom-radio { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%; }
-#settle .st_bottom .payment .body .method div .custom-radio>>>label { cursor:pointer; }
-#settle .st_bottom .payment .body .method div .custom-radio>>>label::before,
-#settle .st_bottom .payment .body .method div .custom-radio>>>label::after { left:-1.2rem; top:.15em; }
-#settle .st_bottom .payment .body .method div .custom-radio>>>label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem; }
-#settle .st_bottom .payment .body .method div span { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%; }
-#settle .st_bottom .payment .body .method div span b { cursor:pointer; position:relative; }
-#settle .st_bottom .payment .body .method div span img { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem; }
-#settle .st_bottom .payment .body .method div span b:hover img { display:block; }
-#settle .st_bottom .payment .body .method div #payment-method { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden; }
-#settle .st_bottom .payment .body .method div #payment-method.toss_widget_show { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5); }
+.settle_split .right .address { border:1px solid #000; padding:1.5em; margin-bottom:1.5em; line-height:2; }
+.settle_split .right .address .addr_tit { color:#ff4d00; font-weight:900; font-size:1.4em; }
+.settle_split .right .address .addr_tit svg { margin-right: 0.5em; }
+.settle_split .right .address .addr_tit button { float:right; }
+.settle_split .right .address .user { font-weight:900; }
+.settle_split .right .address .addr { margin-bottom:.7em; }
+.settle_split .right .address .add_addr small { color:#ACACAC; font-size:80%; }
 
 
-#settle .st_bottom .payment .body .pay_info .row { margin:1rem 0; }
-#settle .st_bottom .payment .body .pay_info .row:first-of-type { align-items: baseline; }
-#settle .st_bottom .payment .body .pay_info .row div { font-weight:600; color:#616161; font-size:.85rem; }
-#settle .st_bottom .payment .body .pay_info .row .point { color:#1A90DA; font-size:1.3rem; }
-#settle .st_bottom .payment .body .pay_info .row .col .custom-radio:first-of-type { margin-bottom:.5rem; }
-#settle .st_bottom .payment .body .pay_info p { font-size:.75rem; }
-#settle .st_bottom .payment .body .pay_info p span { color:red; }
-#settle .st_bottom .payment .body .pay_info .pay_r_tel .col { display:flex; justify-content:space-between; align-items:center; }
-#settle .st_bottom .payment .body .pay_info .pay_r_tel .col  svg { margin:0 .5rem; }
-#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-to,
-#settle .st_bottom .payment .body .pay_info.slideUpDown-leave { max-height:400px; }
-#settle .st_bottom .payment .body .pay_info.slideUpDown-enter-active,
-#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-active { transition:max-height 0.3s ease-out; }
-#settle .st_bottom .payment .body .pay_info.slideUpDown-enter,
-#settle .st_bottom .payment .body .pay_info.slideUpDown-leave-to { max-height:0px; }
+.settle_split .right .pay_method { padding:1.5em; }
+.settle_split .right .pay_method h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
+.settle_split .right .pay_method>div:not(:last-child) { border-bottom:1px solid #d7d7d7; }
+.settle_split .right .pay_method>div {  padding:.94rem 0; }
+.settle_split .right .pay_method div>>>h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem; }
+.settle_split .right .pay_method .method>div { margin:1rem 0; display:flex; flex-wrap: wrap; }
+.settle_split .right .pay_method .method div .custom-radio { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%; }
+.settle_split .right .pay_method .method div .custom-radio>>>label { cursor:pointer; }
+.settle_split .right .pay_method .method div .custom-radio>>>label::before,
+.settle_split .right .pay_method .method div .custom-radio>>>label::after { left:-1.2rem; top:.15em; }
+.settle_split .right .pay_method .method div .custom-radio>>>label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem; }
+.settle_split .right .pay_method .method div span { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%; }
+.settle_split .right .pay_method .method div span b { cursor:pointer; position:relative; }
+.settle_split .right .pay_method .method div span img { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem; }
+.settle_split .right .pay_method .method div span b:hover img { display:block; }
+.settle_split .right .pay_method .method div #payment-method { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden; }
+.settle_split .right .pay_method .method div #payment-method.toss_widget_show { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5); }
+.settle_split .right .pay_method .pay_info .row { margin:1rem 0; }
+.settle_split .right .pay_method .pay_info .row:first-of-type { align-items: baseline; }
+.settle_split .right .pay_method .pay_info .row div { font-weight:600; color:#616161; font-size:.85rem; }
+.settle_split .right .pay_method .pay_info .row .point { color:#1A90DA; font-size:1.3rem; }
+.settle_split .right .pay_method .pay_info .row .col .custom-radio:first-of-type { margin-bottom:.5rem; }
+.settle_split .right .pay_method .pay_info p { font-size:.75rem; }
+.settle_split .right .pay_method .pay_info p span { color:red; }
+.settle_split .right .pay_method .pay_info .pay_r_tel .col { display:flex; justify-content:space-between; align-items:center; }
+.settle_split .right .pay_method .pay_info .pay_r_tel .col  svg { margin:0 .5rem; }
+.settle_split .right .pay_method .pay_info.slideUpDown-enter-to,
+.settle_split .right .pay_method .pay_info.slideUpDown-leave { max-height:400px; }
+.settle_split .right .pay_method .pay_info.slideUpDown-enter-active,
+.settle_split .right .pay_method .pay_info.slideUpDown-leave-active { transition:max-height 0.3s ease-out; }
+.settle_split .right .pay_method .pay_info.slideUpDown-enter,
+.settle_split .right .pay_method .pay_info.slideUpDown-leave-to { max-height:0px; }
+.settle_split .right .pay_method .order_paper>div { display:flex; justify-content:space-between; }
+.settle_split .right .pay_method .order_paper div .custom-checkbox>>>label { color:#616161; font-size:.8rem; cursor:pointer; }
+.settle_split .right .pay_method .order_paper div .custom-checkbox>>>label::before, 
+.settle_split .right .pay_method .order_paper div .custom-checkbox>>>label::after { top:2px; left:-1.2rem; }
+.settle_split .right .pay_method .tax_paper>div { display:flex; justify-content:space-between; }
+.settle_split .right .pay_method .tax_paper div .custom-radio>>>label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline; }
+.settle_split .right .pay_method .tax_paper div .custom-radio>>>label::before, 
+.settle_split .right .pay_method .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
 
-#settle .st_bottom .payment .body .order_paper>div { display:flex; justify-content:space-between; }
-#settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label { color:#616161; font-size:.8rem; cursor:pointer; }
-#settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label::before, 
-#settle .st_bottom .payment .body .order_paper div .custom-checkbox>>>label::after { top:2px; left:-1.2rem; }
+.settle_split .right .pay_exe { margin-top:1.5em; border-radius:.9rem; padding:1.5em; border:1px solid #000; position:sticky; top:180px; }
+.settle_split .right .pay_exe .pay_price { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%; }
+.settle_split .right .pay_exe .pay_price b { font-size:2.1rem; }
+.settle_split .right .pay_exe .pay_price span { font-size:.7rem; display:block; }
+.settle_split .right .pay_exe .pay_go { background:#1A90D6; color:#FFF; font-size:1.6rem; font-weight:bold; padding:.8em 0; margin-top:2rem; text-align:center; cursor:pointer; }
+.settle_split .right .pay_exe .pay_go.spinner-border { width:2em; height:2em; }
+.settle_split .right .top { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center; }
 
-#settle .st_bottom .payment .body .tax_paper>div { display:flex; justify-content:space-between; }
-#settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline; }
-#settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::before, 
-#settle .st_bottom .payment .body .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
 
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
-#settle .inicis_form { width:0; height:0; visibility:hidden; overflow:hidden; }
-
 @media (max-width: 992px){
-    #settle { margin-top: 1rem; }
-    #settle h4 { margin:0; }
-
-    #settle .st_bottom .inputs div .row label { text-indent:0; flex-basis:18.8%; max-width:18.8%; }
-    #settle .st_bottom .inputs .address h4 { flex-wrap: wrap; padding: 0rem 5px; margin-top:2rem; margin-bottom:1rem; }
-    #settle .st_bottom .inputs .address h4>* { flex-basis:100%; max-width:100%; }
-    #settle .st_bottom .inputs .address h4 div>>>label { font-size: calc(.6vw + .7rem); }
-    #settle .st_bottom .inputs .address .row:nth-of-type(4) .col,
-    #settle .st_bottom .inputs .address .row:nth-of-type(5) .col { flex-basis:0; flex-grow:1; max-width:100%; }
-    #settle .st_bottom .inputs .agreement { flex-direction:column; }
-    #settle .st_bottom .inputs .agreement .col:nth-of-type(2) { margin:5px 0; }
-    #settle .st_bottom .row .col.inputs { padding-right:0; margin:10px 3px; }
-    #settle .st_bottom .row .col.payment { flex-basis:100%; max-width:100%; padding-left:0; margin:10px 3px; }
-    
-
+    #settle { padding-top:1em; }
+    .settle_split .left { flex-basis:auto; max-width:none; }
+    .settle_split .left .agreement .col { flex-basis:100%; max-width:100%; margin:.4em 0 !important; }
+    .settle_split .area_piece { margin:0 .875em; }
+    .settle_split .right { padding-left:0; }
+    .settle_split .right .address { margin-top: 1.5em; }
 }
 </style>

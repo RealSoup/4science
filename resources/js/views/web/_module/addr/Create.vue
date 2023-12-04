@@ -3,9 +3,9 @@
     <h3>배송지 추가</h3>
     <Form v-model="addr"></Form>
     
-    <b-row>
-        <b-button size="sm" @click="index">뒤로</b-button>
-        <b-button variant="primary" size="sm" @click="store">저장</b-button>
+    <b-row class="bottom">
+        <b-button class="white sm" @click="index">뒤로</b-button>
+        <b-button class="d_blue sm" @click="store">저장</b-button>
     </b-row>
 </div>
 </template>
@@ -50,6 +50,7 @@ export default {
 }
 </script>
 <style scoped>
-.p_wrap h3 { margin: 15px 0px 0px 15px; }
-.row { justify-content:space-between; margin:15px; }
+.p_wrap h3 { margin:15px; font-size:1em; }
+.p_wrap .bottom { display:flex; }
+.p_wrap .bottom button { flex-basis: 0; flex-grow: 1; max-width: 100%; border-radius: 0; }
 </style>

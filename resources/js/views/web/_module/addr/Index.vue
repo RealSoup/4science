@@ -1,9 +1,7 @@
 <template>
 <b-container class="p_wrap">
-    <h3>
-        배송지 선택
-        <b-button variant="primary" size="sm" @click="create"><b-icon-plus-lg /></b-button>
-    </h3>
+    <h3>배송지 선택</h3>
+    <b-button class="d_blue" @click="create"><b-icon-plus-lg /> 배송지 추가히기</b-button>
     <b-row v-for="(addr, i) in address" :key="addr.ua_id">
         <b-col @click="select_addr(i)">
             {{addr.ua_title}} <b-badge v-if="addr.ua_def=='Y'" variant="primary">기본배송지</b-badge>
@@ -11,9 +9,10 @@
         <b-col @click="select_addr(i)">{{addr.ua_addr1}}, {{addr.ua_addr2}}</b-col>
         <b-col @click="select_addr(i)">{{addr.ua_hp}}</b-col>
         <b-col @click="select_addr(i)">{{addr.ua_memo}}</b-col>
-        <b-button variant="outline-danger" size="sm" @click="destroy(i)" class="destroy">삭제</b-button>
-        <b-button variant="outline-primary" size="sm" @click="edit(i)" class="edit">수정</b-button>
+        <b-button class="sm plum destroy" @click="destroy(i)">삭제</b-button>
+        <b-button class="sm green edit" @click="edit(i)">수정</b-button>
     </b-row>
+    
 </b-container>
 </template>
 
@@ -56,17 +55,17 @@ export default {
 </script>
 
 <style scoped>
-.p_wrap h3 { margin:15px 15px 0px 15px; }
-.p_wrap h3 button { float:right; }
-.row { border:1px solid #CCC; cursor:pointer; position:relative; MARGIN: 15px; }
+.p_wrap h3 { margin:15px; font-size:1em; }
+.row { border:1px solid #CCC; cursor:pointer; position:relative; padding:10px 0; }
 .row:not(:last-child) { border-bottom-width:0; }
-.row:hover { background:#20613722; }
+.row:hover { background:#0E4D9C66; }
 .row .col { flex-basis:100%; padding:.1rem 1.5rem; }
 .row:first-of-type .col:first-of-type { padding-top:.6rem; }
 .row:last-of-type .col:last-of-type { padding-bottom:.6rem; }
 .row .col:nth-of-type(1) { font-weight:bold; }
 .row .col div { float:right; }
-.row button { position:absolute; top:4px; padding:0 .2rem; }
+.row button { position:absolute; top:20px; padding:0 .2rem; }
 .row button.destroy  { right:55px; }
 .row button.edit { right:13px; }
+.p_wrap>button { width:100%; border-width:0; border-radius:0; }
 </style>

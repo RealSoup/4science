@@ -25,18 +25,6 @@
                 <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
             </b-carousel-slide>
         </b-link>
-        <b-link to="/shop/goods/925">
-            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041604.jpg'"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/goods?ca01=45">
-            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041603.jpg'"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/goods?ca01=22&ca02=634">
-            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041602.jpg'"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/listing/today_pick_up/all">
-            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041601.jpg'"></b-carousel-slide>
-        </b-link>
     </b-carousel>
 
     <b-row id="best" class="layout">

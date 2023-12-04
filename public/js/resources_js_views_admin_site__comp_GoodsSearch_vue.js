@@ -76,10 +76,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           sw_key: this.list[i].gd_id,
           sw_type: "ca_best",
           sw_seq: this.sw_seq,
-          goods: {
-            gd_name: this.list[i].gd_name,
-            image_src_thumb: [this.list[i].image_src_thumb[0]]
-          }
+          gd_name: this.list[i].gd_name,
+          image_src_thumb: [this.list[i].image_src_thumb[0]]
         });
       }
       this.list = [];
