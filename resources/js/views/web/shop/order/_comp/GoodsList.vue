@@ -72,13 +72,17 @@
     </b-row>
 </b-container>
 
-<b-container>
-    <b-row class="total">
+<b-container class="total">
+    <b-row>
         <b-col>상품금액</b-col>
         <b-col><b>{{price.goods_add_vat | comma}}</b> 원</b-col>
-        <b-col>배송료</b-col>
+    </b-row>
+    <b-row>
+        <b-col>배송료</b-col>      
         <b-col><b>{{price.air_add_vat+price.dlvy_add_vat | comma}}</b> 원</b-col>
-        <b-col>결제 예정 금액</b-col>
+    </b-row>
+    <b-row>
+        <b-col>결제예정금액</b-col> 
         <b-col><b>{{price.total | comma}}</b> 원</b-col>
     </b-row>
 </b-container>    
@@ -151,4 +155,10 @@ export default {
 .container .dlvy_box { padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
 .container .dlvy_box .col { color:#9e9e9e; font-size:.9em; }
 .container .dlvy_box .price_box { text-align:right; }
+
+.container.total { padding-bottom:0; }
+.container.total .row { align-items:baseline; }
+.container.total .row .col { font-size:.85em; color:#777; }
+.container.total .row .col:nth-child(even) { text-align:right; }
+.container.total .row .col:nth-child(even) b { font-size:1.35em; color:#000; }
 </style>

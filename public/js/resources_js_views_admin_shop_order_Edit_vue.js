@@ -1275,7 +1275,7 @@ var render = function render() {
     }
   }, [_vm._v("결제정보 수정")])], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "label_st"
-  }, [_vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E" ? [_c("b-col", {
+  }, [["B", "L", "S"].includes(_vm.od.od_pay_method) ? [_c("b-col", {
     staticClass: "lb"
   }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_2"
@@ -1451,7 +1451,7 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.od.order_extra_info.oex_memo)
     }
-  })]), _vm._v(" "), _vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "E" ? [_vm.od.order_extra_info.oex_type == "IV" ? [_vm.od.file_info ? [_c("b-col", {
+  })]), _vm._v(" "), _vm.od.od_pay_method == "B" || _vm.od.od_pay_method == "L" ? [_vm.od.order_extra_info.oex_type == "IV" ? [_vm.od.file_info ? [_c("b-col", {
     staticClass: "lb"
   }, [_vm._v("사업자등록증")]), _vm._v(" "), _c("b-col", {
     staticClass: "dt wd1_1"

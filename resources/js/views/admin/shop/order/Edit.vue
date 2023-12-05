@@ -257,7 +257,7 @@
             </b-row>
 
             <b-row class="label_st">
-                <template v-if="od.od_pay_method == 'B' || od.od_pay_method == 'E'">
+                <template v-if="['B', 'L', 'S'].includes(od.od_pay_method)">
                     <b-col class="lb">결제금액</b-col>
                     <b-col class="dt wd1_2">{{od.od_all_price | comma | won}}</b-col>
                     <b-col class="lb">결제예정일</b-col>
@@ -332,7 +332,7 @@
                 <b-col class="lb">첨부서류 메모</b-col>
                 <b-col class="dt wd1_1"><p v-html="od.order_extra_info.oex_memo" /></b-col>
 
-                <template v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'E')">
+                <template v-if="(od.od_pay_method == 'B' || od.od_pay_method == 'L')">
                     <template v-if="od.order_extra_info.oex_type == 'IV'">
                         <template v-if="od.file_info">
                             <b-col class="lb">사업자등록증</b-col>

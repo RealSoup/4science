@@ -5,11 +5,13 @@
     <div class="layout">
 
         <b-row class="settle_split">
-            <b-col class="left area_piece">
-                <h4>주문상품 {{goods_cnt}}개</h4>
-                <goods-list v-model="order.lists" :price="order.price" :user="user"></goods-list>
-
-                <b-row class="agreement">
+            <b-col class="left">
+                <div class="area_piece goods_list">
+                    <h4>주문상품 {{goods_cnt}}개</h4>
+                    <goods-list v-model="order.lists" :price="order.price" :user="user"></goods-list>
+                </div>
+                
+                <b-row class="agreement area_piece">
                     <b-col id="agrrement_01">
                         <div class="head">
                             <span>개인정보 수집 및 이용 동의 <span class="d-block" v-b-toggle.privacy>[자세히 보기]</span></span>
@@ -689,10 +691,12 @@ export default {
 #settle h4 { font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding-bottom:.7em; }
 
 .settle_split { padding-bottom:2em; align-items:flex-start; }
-.settle_split .area_piece { background-color:#FFF; padding:2em 1.5em; border-radius:10px; }
+.settle_split .area_piece { background-color:#FFF; padding:1.5em; border-radius:10px; }
 .settle_split .left { flex-basis:60%;max-width:60%; margin-right:.875em; }
+    
+.settle_split .left .goods_list { padding:1.5em 1.5em .7em; }
 
-.settle_split .left .agreement { align-items:flex-start; }
+.settle_split .left .agreement { align-items:flex-start; margin-top:1.5em; }
 .settle_split .left .agreement .col { padding:1.5em; background:#4F708F; border-radius:.5rem; }
 .settle_split .left .agreement .col:nth-of-type(1) { margin-right: 0.25rem; }
 .settle_split .left .agreement .col:nth-of-type(2) { margin-left: 0.25rem; }
@@ -705,7 +709,7 @@ export default {
 
 .settle_split .right { padding-left:.875em; }
 
-.settle_split .right .address { border:1px solid #000; padding:1.5em; margin-bottom:1.5em; line-height:2; }
+.settle_split .right .address { border:1px solid #000; margin-bottom:1.5em; line-height:2; }
 .settle_split .right .address .addr_tit { color:#ff4d00; font-weight:900; font-size:1.4em; }
 .settle_split .right .address .addr_tit svg { margin-right: 0.5em; }
 .settle_split .right .address .addr_tit button { float:right; }
@@ -713,8 +717,6 @@ export default {
 .settle_split .right .address .addr { margin-bottom:.7em; }
 .settle_split .right .address .add_addr small { color:#ACACAC; font-size:80%; }
 
-
-.settle_split .right .pay_method { padding:1.5em; }
 .settle_split .right .pay_method h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
 .settle_split .right .pay_method>div:not(:last-child) { border-bottom:1px solid #d7d7d7; }
 .settle_split .right .pay_method>div {  padding:.94rem 0; }
@@ -755,7 +757,7 @@ export default {
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::before, 
 .settle_split .right .pay_method .tax_paper div .custom-radio>>>label::after { top:2px; left:-1.2rem; }
 
-.settle_split .right .pay_exe { margin-top:1.5em; border-radius:.9rem; padding:1.5em; border:1px solid #000; position:sticky; top:180px; }
+.settle_split .right .pay_exe { margin-top:1.5em; border-radius:.9rem; border:1px solid #000; position:sticky; top:180px; }
 .settle_split .right .pay_exe .pay_price { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%; }
 .settle_split .right .pay_exe .pay_price b { font-size:2.1rem; }
 .settle_split .right .pay_exe .pay_price span { font-size:.7rem; display:block; }
@@ -768,9 +770,11 @@ export default {
 @media (max-width: 992px){
     #settle { padding-top:1em; }
     .settle_split .left { flex-basis:auto; max-width:none; }
-    .settle_split .left .agreement .col { flex-basis:100%; max-width:100%; margin:.4em 0 !important; }
-    .settle_split .area_piece { margin:0 .875em; }
+    .settle_split .left .agreement .col { flex-basis:100%; max-width:100%; margin:.4em 0 !important; padding: 1em 0.5em; }
+    .settle_split .area_piece { margin:0 .2em; padding:1.5em .5em; }
     .settle_split .right { padding-left:0; }
     .settle_split .right .address { margin-top: 1.5em; }
+    .settle_split .right .pay_method .method div #payment-method.toss_widget_show { padding:0; }
+    .settle_split .right .pay_exe .pay_go { margin-top: 0.7em; border-radius: 10px; }
 }
 </style>
