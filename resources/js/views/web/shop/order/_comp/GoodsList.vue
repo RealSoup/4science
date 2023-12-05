@@ -142,7 +142,7 @@ export default {
 .container { padding:1em 0; }
 .container:not(:first-child) { border-top:1px solid #AAA; }
 .container h4 { font-weight:bolder; font-size:1em; padding:1em 0; }
-.container .gm_box { margin-bottom:1em; }
+.container .gm_box { margin-bottom:1em; align-items:flex-start; }
 .container .gm_box .gd_img { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center; }
 .container .gm_box .gd_img img { width:100%; max-width:120px; height:auto; object-fit:contain; }
 
@@ -161,4 +161,7 @@ export default {
 .container.total .row .col { font-size:.85em; color:#777; }
 .container.total .row .col:nth-child(even) { text-align:right; }
 .container.total .row .col:nth-child(even) b { font-size:1.35em; color:#000; }
+@media (max-width: 992px){
+    .container .gm_box .gd_txt { padding-left:8px; }
+}
 </style>

@@ -769,9 +769,9 @@ export default {
 #settle >>> .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8; }
 @media (max-width: 992px){
     #settle { padding-top:1em; }
-    .settle_split .left { flex-basis:auto; max-width:none; }
+    .settle_split .left { flex-basis:auto; max-width:none; margin:0 .2em; }
     .settle_split .left .agreement .col { flex-basis:100%; max-width:100%; margin:.4em 0 !important; padding: 1em 0.5em; }
-    .settle_split .area_piece { margin:0 .2em; padding:1.5em .5em; }
+    .settle_split .area_piece { margin:0 .2em; padding:1.5em .5em !important; }
     .settle_split .right { padding-left:0; }
     .settle_split .right .address { margin-top: 1.5em; }
     .settle_split .right .pay_method .method div #payment-method.toss_widget_show { padding:0; }
