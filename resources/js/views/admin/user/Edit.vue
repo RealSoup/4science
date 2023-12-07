@@ -7,6 +7,13 @@
                 <div class="type_icon"><b-icon-tags-fill />{{ frm.id }}</div>
                 <div class="type_icon"><b-icon-calendar2-date-fill />{{ frm.created_at }}</div>
                 <div class="type_icon">
+                    <template v-if="isEmpty(frm.email_verified_at)">
+                        <b-badge class="xm plum">미인증</b-badge>
+                        <b-button @click="exeVerify" class="xm teal">본인인증 처리하기</b-button>
+                    </template>
+                    <b-badge v-else class="xm green">인증완료</b-badge>
+                </div>
+                <div class="type_icon">
                     <b-button :to="{name: 'adm_user_edit', params: { id:frm.introducer.id }}" v-if="frm.introducer" class="xm sky">소개자 - {{frm.introducer.name}}</b-button>
                 </div>
                 
@@ -366,12 +373,20 @@ export default {
             if (r && r.status === 200)
                 this.$router.push({ name: 'mypage', query: {msg:'force'} });
         },
+
+        async exeVerify () {
+            var rst = await Notify.confirm('강제로 본인인증처리를', 'danger');
+            if (rst) {
+                const res = await ax.post(`/api/admin/user/exeEmailVerify/${this.id}`, this.frm);
+                if (res && res.status === 200) {
+                    this.frm.email_verified_at = new Date().format("yyyy-MM-dd");
+                    Notify.toast('success', '인증 완료');
+                }
+            }
+        },
     },
 
-    async mounted() {
-        this.edit();
-        
-    },
+    async mounted() { this.edit(); },
 
     beforeRouteUpdate (to, from, next) {
         // console.log(to, from);

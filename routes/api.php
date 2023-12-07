@@ -115,6 +115,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('storeAddr', 'Admin\UserController@storeAddr');
                 Route::POST('updateAddr', 'Admin\UserController@updateAddr');
                 Route::GET('destroyAddr/{id}', 'Admin\UserController@destroyAddr');
+                Route::POST('exeEmailVerify/{id}', 'Admin\UserController@exeEmailVerify');
                 
                 Route::GET('email',             'Admin\UserController@email_index');
                 Route::GET('email/{id}/edit',   'Admin\UserController@email_edit');

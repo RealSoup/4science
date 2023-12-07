@@ -19,6 +19,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AuthEmailVerify",
+  data: function data() {
+    return {
+      interval: null
+    };
+  },
   methods: {
     resend: function resend() {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -37,6 +42,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+    if (this.$store.state.auth.isLoggedin) {
+      this.$router.push({
+        name: 'main'
+      });
+    } else {
+      this.interval = setInterval(function () {
+        if (_this.$store.state.auth.isLoggedin) {
+          clearInterval(_this.interval);
+          _this.$router.push({
+            name: 'main'
+          });
+        } else _this.$store.dispatch('auth/getAuth');
+      }, 3000);
     }
   }
 });
@@ -61,7 +83,7 @@ var render = function render() {
     attrs: {
       header: "이메일 주소 인증 확인"
     }
-  }, [_vm._v("\r\n    가입시 입력한 이메일로 가서 링크를 클릭하세요. "), _c("br"), _vm._v("\r\n    이메일을 받지 못한 경우 재전송 버튼을 누르세요.\r\n    "), _c("b-button", {
+  }, [_vm._v("\r\n    가입시 입력한 이메일로 가서 링크를 클릭하세요. "), _c("br"), _vm._v("\r\n    이메일을 받지 못한 경우 재전송 버튼을 누르세요.\r\n\r\n    "), _c("div", [_vm._v("\r\n        발송된 인증 링크는 "), _c("i", [_vm._v("한 시간 후")]), _vm._v(" "), _c("b", [_vm._v("만료")]), _vm._v(" 됩니다. "), _c("br"), _vm._v("\r\n        만료되었다면 재전송 하시기 바랍니다.\r\n    ")]), _vm._v(" "), _c("b-button", {
     attrs: {
       size: "sm"
     },
@@ -92,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-7731a8f0] { margin:1rem auto; max-width:640px;\n}\n.card .card-body a[data-v-7731a8f0] { color:#007bff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-7731a8f0] { margin:1rem auto; max-width:640px;\n}\n.card .card-body div[data-v-7731a8f0] { margin-top:1em;\n}\n.card .card-body div i[data-v-7731a8f0] { font-weight:bold; color:#007bff; font-size:1.3em;\n}\n.card .card-body div b[data-v-7731a8f0] { font-weight:bolder; color:red; font-size:1.8em; display: inline-block; margin-left:.5em;\n}\n.card .card-body a[data-v-7731a8f0] { color:#007bff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

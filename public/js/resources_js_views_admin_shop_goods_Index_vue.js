@@ -422,7 +422,7 @@ var render = function render() {
       "class": {
         disable: row.gd_enable == "N"
       }
-    }, [_c("b-col", [!_vm.sch_frm.gd_seq ? _c("span", [_vm._v(_vm._s(row.gd_id))]) : _c("span", [_vm._v(_vm._s(row.gd_seq))])]), _vm._v(" "), _c("b-col", [_c("div", [row.goods_category_first.gc_ca01_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca01_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca02_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca02_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca03_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca03_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca04_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca04_name))]) : _vm._e()])]), _vm._v(" "), _c("b-link", {
+    }, [_c("b-col", [!_vm.sch_frm.gd_seq ? _c("span", [_vm._v(_vm._s(row.gd_id))]) : _c("span", [_vm._v(_vm._s(row.gd_seq))])]), _vm._v(" "), _c("b-col", [row.goods_category_first ? _c("div", [row.goods_category_first.gc_ca01_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca01_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca02_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca02_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca03_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca03_name))]) : _vm._e(), _vm._v(" "), row.goods_category_first.gc_ca04_name ? _c("p", [_vm._v(_vm._s(row.goods_category_first.gc_ca04_name))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c("b-link", {
       staticClass: "col",
       attrs: {
         to: {

@@ -124,6 +124,14 @@ class UserController extends Controller {
         return response()->json($rst, 200);
     }
 
+    public function exeEmailVerify(Request $req, $id) {
+        User::where('id', $id)->update([
+            'email_verified_at' => \Carbon\Carbon::now(),
+            'updated_id' => auth()->user()->id,
+        ]);
+        return response()->json([ 'message' => 'success' ], 200);
+    }
+
     public function indesAddr(Request $req, $id) {
         return response()->json(UserAddr::where('ua_key', $id)->get(), 200);
     }

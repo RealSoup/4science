@@ -322,7 +322,11 @@ var render = function render() {
       }
     }) : _vm._e(), _vm._v(_vm._s(us.tel))], 1)]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(us.company))]), _vm._v(" "), _c("b-col", {
       staticClass: "d-none d-lg-block"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(us.created_at)))])], 1);
+    }, [_vm._v("\r\n                " + _vm._s(_vm._f("formatDate")(us.created_at)) + "\r\n                "), _vm.isEmpty(us.email_verified_at) ? _c("b-badge", {
+      staticClass: "xm plum"
+    }, [_vm._v("미인증")]) : _c("b-badge", {
+      staticClass: "xm green"
+    }, [_vm._v("인증완료")])], 1)], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

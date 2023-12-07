@@ -103,7 +103,7 @@
                 <span v-else>{{row.gd_seq}}</span>
             </b-col>
             <b-col>
-                <div>
+                <div v-if="row.goods_category_first">
                     <p v-if="row.goods_category_first.gc_ca01_name">{{row.goods_category_first.gc_ca01_name}}</p>
                     <p v-if="row.goods_category_first.gc_ca02_name">{{row.goods_category_first.gc_ca02_name}}</p>
                     <p v-if="row.goods_category_first.gc_ca03_name">{{row.goods_category_first.gc_ca03_name}}</p>

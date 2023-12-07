@@ -71,7 +71,7 @@
                 <b-badge v-if="us.level==3" class="silver">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==4" class="gold">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==11" class="dealer_new">{{option.level[us.level]}}</b-badge>
-                <b-badge v-if="us.level==12" class="dealer">{{option.level[us.level]}}</b-badge>
+                                <b-badge v-if="us.level==12" class="dealer">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==21" class="admin">{{option.level[us.level]}}</b-badge>
                 <b-badge v-if="us.level==29" class="super">{{option.level[us.level]}}</b-badge>
             </b-col>
@@ -85,7 +85,11 @@
                 <span class="d-none d-lg-inline-block"><font-awesome-icon icon="phone" v-if="us.tel" />{{us.tel}}</span>
             </b-col>
             <b-col>{{ us.company }}</b-col>
-            <b-col class="d-none d-lg-block">{{ us.created_at | formatDate }}</b-col>
+            <b-col class="d-none d-lg-block">
+                {{ us.created_at | formatDate }}
+                <b-badge v-if="isEmpty(us.email_verified_at)" class="xm plum">미인증</b-badge>
+                <b-badge v-else class="xm green">인증완료</b-badge>
+            </b-col>
         </b-row>
         <pagination :data="list" @pagination-change-page="pageSet" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>

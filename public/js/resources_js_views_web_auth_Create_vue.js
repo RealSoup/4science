@@ -84,7 +84,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               document.getElementById('hp').scrollIntoView();
               return _context.abrupt("return", false);
             case 9:
-              if (!(isEmpty(_this.frm.join_route) && _this.frm.level !== 11)) {
+              if (!(_this.$route.params.code == 'personal' && isEmpty(_this.frm.join_route))) {
                 _context.next = 13;
                 break;
               }

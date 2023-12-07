@@ -377,20 +377,50 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           }
         }, _callee3);
       }))();
+    },
+    exeVerify: function exeVerify() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var rst, res;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return Notify.confirm('강제로 본인인증처리를', 'danger');
+            case 2:
+              rst = _context4.sent;
+              if (!rst) {
+                _context4.next = 8;
+                break;
+              }
+              _context4.next = 6;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/user/exeEmailVerify/".concat(_this4.id), _this4.frm);
+            case 6:
+              res = _context4.sent;
+              if (res && res.status === 200) {
+                _this4.frm.email_verified_at = new Date().format("yyyy-MM-dd");
+                Notify.toast('success', '인증 완료');
+              }
+            case 8:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) switch (_context4.prev = _context4.next) {
+    var _this5 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
           case 0:
-            _this4.edit();
+            _this5.edit();
           case 1:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
@@ -515,6 +545,17 @@ var render = function render() {
   }, [_c("b-icon-tags-fill"), _vm._v(_vm._s(_vm.frm.id))], 1), _vm._v(" "), _c("div", {
     staticClass: "type_icon"
   }, [_c("b-icon-calendar2-date-fill"), _vm._v(_vm._s(_vm.frm.created_at))], 1), _vm._v(" "), _c("div", {
+    staticClass: "type_icon"
+  }, [_vm.isEmpty(_vm.frm.email_verified_at) ? [_c("b-badge", {
+    staticClass: "xm plum"
+  }, [_vm._v("미인증")]), _vm._v(" "), _c("b-button", {
+    staticClass: "xm teal",
+    on: {
+      click: _vm.exeVerify
+    }
+  }, [_vm._v("본인인증 처리하기")])] : _c("b-badge", {
+    staticClass: "xm green"
+  }, [_vm._v("인증완료")])], 2), _vm._v(" "), _c("div", {
     staticClass: "type_icon"
   }, [_vm.frm.introducer ? _c("b-button", {
     staticClass: "xm sky",

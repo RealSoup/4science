@@ -51,11 +51,8 @@ instance.interceptors.response.use(function (response) {
             // error.response.data.message = '입력하신 이메일로 발송된 메일의 인증 단추를 클릭하세요.'
         
         if ( error.response.data.message === "Your email address is not verified." ) {
-            error.response.data.message = '입력하신 이메일로 발송된 메일의 인증 단추를 클릭하세요.'
-            Notify.modal(error.response.data.message, 'danger');
-            
-            if (router.name != 'email_verify')
-                router.push({name:'email_verify'}).catch(() => true);
+            if (router.history._startLocation !== '/email_verify')
+                location.replace('/email_verify')
             // location.replace('/email_verify');
             // .catch((e) => console.log(e));
         }

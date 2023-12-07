@@ -49,6 +49,10 @@ export default [
         path: '/email_verify',
         name: 'email_verify',
         component:() => import('@/views/web/auth/EmailVerify'),
+        beforeEnter: (to, from, next) => {
+            if (isEmpty(store.state.auth.isLoggedin)) return next();
+            else next('/');
+        }
     }, {
         path: '/auth',
         name: 'auth_intro',
