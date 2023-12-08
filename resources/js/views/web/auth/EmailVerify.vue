@@ -34,6 +34,7 @@ export default {
             }, 3000);
         }
     },
+    destroyed() { clearInterval(this.interval); },
     
 } 
 </script>

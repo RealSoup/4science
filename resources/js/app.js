@@ -178,10 +178,12 @@ ax.get('auth_check').then((res) => {
                 store.state.auth.isLoggedin= true;
                 store.state.auth.user= user_res.data.user;
                 store.state.auth.csrfToken= user_res.data.token;
+                store.state.auth.unAuth_user = false;
                 document.querySelector('meta[name=csrf-token]').setAttribute('content', user_res.data.token);
                 ax.get('/api/shop/goods/getDef').then((gd_res) => { if (gd_res) store.state.goods.default= gd_res.data; });
                 playVue();
             } else {
+                store.state.auth.unAuth_user = true;
                 playVue();
             }
         });

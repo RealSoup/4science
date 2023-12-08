@@ -49,7 +49,7 @@ instance.interceptors.response.use(function (response) {
     } else if (error.response.status === 403) {
         // if ( error.response.data.message === "Your email address is not verified." )
             // error.response.data.message = '입력하신 이메일로 발송된 메일의 인증 단추를 클릭하세요.'
-        
+        console.log(123);
         if ( error.response.data.message === "Your email address is not verified." ) {
             if (router.history._startLocation !== '/email_verify')
                 location.replace('/email_verify')

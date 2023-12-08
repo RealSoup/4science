@@ -46,7 +46,7 @@ class CategoryController extends Controller {
 		$this->category->ca_seq  = $req->filled('ca_seq') ? trim($req->ca_seq) : 0;
 		$this->category->ca_tel  = $req->filled('ca_tel') ? trim($req->ca_tel) : NULL;
 		if ($this->category->save()) {
-			return response()->json(["msg"=>"success", 'ca_id'=>$this->category->ca_id], 200);
+			return response()->json(["message"=>"success", 'ca_id'=>$this->category->ca_id], 200);
 		}
     }
 
@@ -81,7 +81,7 @@ class CategoryController extends Controller {
 			else
 				$msg = "카테고리 삭제 실패";
 		}
-		return response()->json(["msg"=>$msg], $resCode);
+		return response()->json(["message"=>$msg], $resCode);
     }
 
 	public function getName($ca_id) {

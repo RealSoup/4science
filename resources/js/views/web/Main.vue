@@ -14,7 +14,7 @@
             <b-carousel-slide :img-src="s3url+'event/2023/1115/slide.jpg'"></b-carousel-slide>
         </b-link>
         <b-link to="/shop/rental">
-            <b-carousel-slide :img-src="s3url+'event/2023/1024/slide.jpg'"></b-carousel-slide>
+            <b-carousel-slide :img-src="s3url+'event/2023/1208/slide.jpg'"></b-carousel-slide>
         </b-link>
         <b-link to="/shop/goods?mode=maker&keyword=radwag">
             <b-carousel-slide :img-src="s3url+'event/2023/0918/slide.jpg'"></b-carousel-slide>

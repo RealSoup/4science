@@ -60,6 +60,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         } else _this.$store.dispatch('auth/getAuth');
       }, 3000);
     }
+  },
+  destroyed: function destroyed() {
+    clearInterval(this.interval);
   }
 });
 

@@ -5,6 +5,7 @@ export default {
     namespaced: true,
     state: {
         isLoggedin: false,
+        unAuth_user: false,
         user:{},
         csrfToken: "",
         enable_mileage:0,

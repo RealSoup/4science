@@ -2,7 +2,9 @@ import store from '@/store/index';
 const isLoggedin = () => (to, from, next) => {
     if (store.state.auth.isLoggedin) 
         return next();
-
+    else if ( store.state.auth.unAuth_user ) {
+        return next('/email_verify');
+    }
     next({name:'login', params: { route_name:to.name, params:to.params, query:to.query }});
     Notify.modal("로그인이 필요한 서비스입니다.", 'danger');
 };

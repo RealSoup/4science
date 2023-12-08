@@ -66,8 +66,8 @@ export default {
     data() {
         return {
             user:{
-                email: 'kjk@4science.net',
-                password: 'tkskdl38',
+                email: '',
+                password: '',
             },
             alertShow: false,
             loading: false,

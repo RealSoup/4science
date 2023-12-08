@@ -77,6 +77,8 @@ export default {
             return dirty || validated ? valid : null;
         },
         async login() {
+            if(this.$store.state.auth.unAuth_user)
+                await ax.post('/logout');
             await this.$store.dispatch('auth/login', this.frm);
             this.$emit('close-modal');
             this.$store.dispatch('cart/index');
