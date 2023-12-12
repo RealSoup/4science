@@ -37,7 +37,7 @@ export default {
             // if (isValid) {
                 try {
                     this.frm._method = 'PATCH';
-                    this.frm.hp = `${this.frm.hp01}-${this.frm.hp02}-${this.frm.hp03}`;
+                    
                     if ( this.frm.level == 11 ) {
                         this.frm.ub_num = `${this.frm.ub_num01}-${this.frm.ub_num02}-${this.frm.ub_num03}`;
                         this.frm.file_info.length = this.frm.file_info.length;

@@ -49,40 +49,39 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 0:
               _context.prev = 0;
               _this.frm._method = 'PATCH';
-              _this.frm.hp = "".concat(_this.frm.hp01, "-").concat(_this.frm.hp02, "-").concat(_this.frm.hp03);
               if (_this.frm.level == 11) {
                 _this.frm.ub_num = "".concat(_this.frm.ub_num01, "-").concat(_this.frm.ub_num02, "-").concat(_this.frm.ub_num03);
                 _this.frm.file_info.length = _this.frm.file_info.length;
               }
-              _context.next = 6;
+              _context.next = 5;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/user", _this.frm);
-            case 6:
+            case 5:
               res = _context.sent;
               if (!(res && res.status === 201)) {
-                _context.next = 12;
-                break;
-              }
-              if (!(_this.frm.level == 11)) {
                 _context.next = 11;
                 break;
               }
-              _context.next = 11;
+              if (!(_this.frm.level == 11)) {
+                _context.next = 10;
+                break;
+              }
+              _context.next = 10;
               return _this.$refs.form_comp.$refs.form_dealer.$refs.fileupload.fileProcessor(res.data);
-            case 11:
+            case 10:
               Notify.toast('success', "회원정보 수정 완료");
-            case 12:
-              _context.next = 18;
+            case 11:
+              _context.next = 17;
               break;
-            case 14:
-              _context.prev = 14;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 18:
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 14]]);
+        }, _callee, null, [[0, 13]]);
       }))();
     }
   },
