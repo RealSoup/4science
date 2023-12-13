@@ -30,5 +30,7 @@ export default {
 /*.rs_modal .rs_modal-card main { padding:20px;  }*/
 
 .rs_modal header .modal_login { padding:1.6rem 1.6rem 0.3rem 1rem; font-size: 1.8rem; }
-
+@media (max-width: 992px){
+    .card-body { padding:0; }
+}
 </style>

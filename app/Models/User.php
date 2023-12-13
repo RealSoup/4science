@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     protected $guarded = [];
     protected $hidden = [ 'password' ];
-    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'mileage_mul', 'hp01', 'hp02', 'hp03', 'dc_mul'];
+    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'mileage_mul', 'dc_mul'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
@@ -118,9 +118,6 @@ class User extends Authenticatable implements MustVerifyEmail {
         $rate = $this->mileage_rate[$lv];
         return $rate/100; 
     }
-    public function getHp01Attribute() { return count(explode('-', $this->hp))>0 ? explode('-', $this->hp)[0] : ''; }
-    public function getHp02Attribute() { return count(explode('-', $this->hp))>1 ? explode('-', $this->hp)[1] : ''; }
-    public function getHp03Attribute() { return count(explode('-', $this->hp))>2 ? explode('-', $this->hp)[2] : ''; }
     public function getDcMulAttribute() { return $this->level == 12 ? 0.95 : 1; }
     // public function getEnablemileageAttribute() {
     //     return DB::table('mileage')->where([['created_id', $this->id], ['created_at', '>', date("Y-m-d", strtotime("-1 years"))]])->sum('po_enable_p');

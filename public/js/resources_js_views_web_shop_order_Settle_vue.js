@@ -243,15 +243,11 @@ var paymentWidget = null;
         if (n == 'R') {
           var tel = this.user.hp.split('-');
           this.order.extra.oex_mng = this.user.name;
-          this.order.extra.oex_num_tel1 = tel[0];
-          this.order.extra.oex_num_tel2 = tel[1];
-          this.order.extra.oex_num_tel3 = tel[2];
+          this.order.extra.oex_num_tel = this.user.hp;
           this.order.extra.oex_email = this.user.email;
         } else {
           this.order.extra.oex_mng = '';
-          this.order.extra.oex_num_tel1 = '';
-          this.order.extra.oex_num_tel2 = '';
-          this.order.extra.oex_num_tel3 = '';
+          this.order.extra.oex_num_tel = '';
           this.order.extra.oex_email = '';
         }
         this.order.extra.oex_type = 'NO';
@@ -285,9 +281,6 @@ var paymentWidget = null;
         od_addr2: "",
         od_receiver: "",
         od_receiver_hp: "",
-        od_receiver_hp1: '',
-        od_receiver_hp2: '',
-        od_receiver_hp3: '',
         od_memo: "",
         od_memo_slt: '',
         extra: {
@@ -402,40 +395,38 @@ var paymentWidget = null;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.order.od_receiver_hp = "".concat(_this.order.od_receiver_hp1, "-").concat(_this.order.od_receiver_hp2, "-").concat(_this.order.od_receiver_hp3);
               if (!_this.validationChecker(_this.order)) {
-                _context.next = 44;
+                _context.next = 43;
                 break;
               }
               _context.t0 = _this.order.extra.oex_type;
-              _context.next = _context.t0 === 'HP' ? 5 : _context.t0 === 'IN' ? 7 : _context.t0 === 'CN' ? 9 : _context.t0 === 'BN' ? 11 : 13;
+              _context.next = _context.t0 === 'HP' ? 4 : _context.t0 === 'IN' ? 6 : _context.t0 === 'CN' ? 8 : _context.t0 === 'BN' ? 10 : 12;
               break;
-            case 5:
-              _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_hp1, "-").concat(_this.order.extra.oex_num_hp2, "-").concat(_this.order.extra.oex_num_hp3);
-              return _context.abrupt("break", 13);
-            case 7:
-              _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_in1, "-").concat(_this.order.extra.oex_num_in2);
-              return _context.abrupt("break", 13);
-            case 9:
-              _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_cn1, "-").concat(_this.order.extra.oex_num_cn2, "-").concat(_this.order.extra.oex_num_cn3, "-").concat(_this.order.extra.oex_num_cn4);
-              return _context.abrupt("break", 13);
-            case 11:
-              _this.order.extra.oex_num = "".concat(_this.order.extra.oex_num_bn1, "-").concat(_this.order.extra.oex_num_bn2, "-").concat(_this.order.extra.oex_num_bn3);
-              return _context.abrupt("break", 13);
-            case 13:
+            case 4:
+              _this.order.extra.oex_num = _this.order.extra.oex_num_hp;
+              return _context.abrupt("break", 12);
+            case 6:
+              _this.order.extra.oex_num = _this.order.extra.oex_num_in;
+              return _context.abrupt("break", 12);
+            case 8:
+              _this.order.extra.oex_num = _this.order.extra.oex_num_cn;
+              return _context.abrupt("break", 12);
+            case 10:
+              _this.order.extra.oex_num = _this.order.extra.oex_num_bn;
+              return _context.abrupt("break", 12);
+            case 12:
               if (_this.order.od_pay_method == 'R') {
-                _this.order.extra.oex_num_tel = "".concat(_this.order.extra.oex_num_tel1, "-").concat(_this.order.extra.oex_num_tel2, "-").concat(_this.order.extra.oex_num_tel3);
                 if (_this.order.extra.oex_pay_plan == "etc") _this.order.extra.oex_pay_plan = _this.order.extra.oex_pay_plan_etc;
               }
               _this.clickable = false;
               //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.
               //  미리 주문 아이디가 선점 되어야 아이디가 겹지치 않고 돌아간다.
-              _context.next = 17;
+              _context.next = 16;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/order/pay", _this.order);
-            case 17:
+            case 16:
               pay = _context.sent;
               if (!(pay && pay.status === 200)) {
-                _context.next = 43;
+                _context.next = 42;
                 break;
               }
               //  구글 통계 수집 소스
@@ -449,7 +440,7 @@ var paymentWidget = null;
                 noninteraction: false // Optional
               });
               if (!(_this.order.extra.oex_hasBizLicense && !isEmpty(_this.order.extra.oex_file))) {
-                _context.next = 29;
+                _context.next = 28;
                 break;
               }
               frm = new FormData();
@@ -458,11 +449,11 @@ var paymentWidget = null;
               frm.append('fi_kind', 'biz');
               frm.append('fi_room', new Date().getFullYear());
               frm.append("file[]", _this.order.extra.oex_file);
-              _context.next = 29;
+              _context.next = 28;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/upload', frm);
-            case 29:
+            case 28:
               if (!(_this.order.od_pay_method == 'C')) {
-                _context.next = 33;
+                _context.next = 32;
                 break;
               }
               paymentWidget.requestPayment({
@@ -476,19 +467,19 @@ var paymentWidget = null;
               }).then(function (v) {
                 return console.log(v);
               });
-              _context.next = 43;
+              _context.next = 42;
               break;
-            case 33:
+            case 32:
               if (!(_this.order.od_pay_method == 'P')) {
-                _context.next = 37;
+                _context.next = 36;
                 break;
               }
               _this.openWinPop("/shop/order/settle_psys/".concat(pay.data.od_id), 800, 720);
-              _context.next = 43;
+              _context.next = 42;
               break;
-            case 37:
+            case 36:
               if (!(_this.order.od_pay_method == 'BL' && _this.order.ub_id == 0)) {
-                _context.next = 41;
+                _context.next = 40;
                 break;
               }
               (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_3__.loadTossPayments)(_this.toss['billing_clientKey']).then(function (tossPayments) {
@@ -511,19 +502,19 @@ var paymentWidget = null;
                   }
                 });
               });
-              _context.next = 43;
+              _context.next = 42;
               break;
-            case 41:
-              _context.next = 43;
+            case 40:
+              _context.next = 42;
               return _router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 43:
+            case 42:
               _this.clickable = true;
-            case 44:
+            case 43:
             case "end":
               return _context.stop();
           }
@@ -541,9 +532,6 @@ var paymentWidget = null;
       this.order.od_addr2 = addr.ua_addr2;
       this.order.od_receiver = addr.ua_name;
       this.order.od_receiver_hp = addr.ua_hp;
-      this.order.od_receiver_hp1 = hp[0];
-      this.order.od_receiver_hp2 = hp[1];
-      this.order.od_receiver_hp3 = hp[2];
       this.order.od_memo = addr.ua_memo;
       this.isModalViewed = false;
       return;
@@ -573,6 +561,9 @@ var paymentWidget = null;
     },
     maxlength_4: function maxlength_4(e) {
       return String(e).substring(0, 4);
+    },
+    format_hp: function format_hp(e) {
+      return this.formatHp(e);
     },
     tax_invoice: function tax_invoice() {
       this.isModalViewed = true;
@@ -687,46 +678,6 @@ var paymentWidget = null;
           break;
         default:
           break;
-      }
-      if (isEmpty(frm.od_receiver)) {
-        Notify.toast('danger', "수령인을 입력하세요.");
-        this.$refs.od_receiver.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_receiver_hp1)) {
-        Notify.toast('danger', "수령인 연락처 1를 입력하세요.");
-        this.$refs.od_receiver_hp1.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_receiver_hp2)) {
-        Notify.toast('danger', "수령인 연락처 2를 입력하세요.");
-        this.$refs.od_receiver_hp2.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_receiver_hp3)) {
-        Notify.toast('danger', "수령인 연락처 3를 입력하세요.");
-        this.$refs.od_receiver_hp3.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_zip)) {
-        Notify.toast('danger', "배송지 우편번호를 입력하세요.");
-        this.$refs.od_zip.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_addr1)) {
-        Notify.toast('danger', "배송지 주소를 입력하세요.");
-        this.$refs.od_addr1.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_addr2)) {
-        Notify.toast('danger', "배송지 상세주소를 입력하세요.");
-        this.$refs.od_addr2.focus();
-        return false;
-      }
-      if (isEmpty(frm.od_addr2)) {
-        Notify.toast('danger', "배송지 상세주소를 입력하세요.");
-        this.$refs.od_addr2.focus();
-        return false;
       }
 
       //  예전 이상한 주소 체크
@@ -1056,7 +1007,7 @@ var render = function render() {
         value: i
       }
     }, [_vm._v(_vm._s(msg))]);
-  })], 2), _vm._v(" "), _c("b-form-input", {
+  })], 2), _vm._v(" "), _vm.order.od_memo_slt == "" ? _c("b-form-input", {
     attrs: {
       id: "od_memo",
       size: "sm"
@@ -1068,7 +1019,7 @@ var render = function render() {
       },
       expression: "order.od_memo"
     }
-  })] : _c("b-button", {
+  }) : _vm._e()] : _c("b-button", {
     ref: "add_addr",
     staticClass: "white wd_100p add_addr",
     attrs: {
@@ -1296,54 +1247,17 @@ var render = function render() {
     attrs: {
       cols: "3"
     }
-  }, [_vm._v("연락처")]), _vm._v(" "), _c("b-col", [_c("b-form-input", {
-    ref: "oex_num_tel1",
+  }, [_vm._v("연락처")]), _c("b-col", [_c("b-form-input", {
     attrs: {
-      formatter: _vm.maxlength_3,
-      size: "sm"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 3, "oex_num_tel2");
-      }
-    },
-    model: {
-      value: _vm.order.extra.oex_num_tel1,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order.extra, "oex_num_tel1", $$v);
-      },
-      expression: "order.extra.oex_num_tel1"
-    }
-  }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-    ref: "oex_num_tel2",
-    attrs: {
-      formatter: _vm.maxlength_4,
-      size: "sm"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "oex_num_tel3");
-      }
-    },
-    model: {
-      value: _vm.order.extra.oex_num_tel2,
-      callback: function callback($$v) {
-        _vm.$set(_vm.order.extra, "oex_num_tel2", $$v);
-      },
-      expression: "order.extra.oex_num_tel2"
-    }
-  }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-    ref: "oex_num_tel3",
-    attrs: {
-      formatter: _vm.maxlength_4,
+      formatter: _vm.format_hp,
       size: "sm"
     },
     model: {
-      value: _vm.order.extra.oex_num_tel3,
+      value: _vm.order.extra.oex_num_tel,
       callback: function callback($$v) {
-        _vm.$set(_vm.order.extra, "oex_num_tel3", $$v);
+        _vm.$set(_vm.order.extra, "oex_num_tel", $$v);
       },
-      expression: "order.extra.oex_num_tel3"
+      expression: "order.extra.oex_num_tel"
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "pay_r_tel"
@@ -1604,7 +1518,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { padding-top:2em; background-color:#F5F5F5;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem; margin-bottom:1em;}\n#settle h4[data-v-6c9bc94a] { font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding-bottom:.7em;\n}\n.settle_split[data-v-6c9bc94a] { padding-bottom:2em; align-items:flex-start;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { background-color:#FFF; padding:1.5em; border-radius:10px;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:60%;max-width:60%; margin-right:.875em;\n}\n.settle_split .left .goods_list[data-v-6c9bc94a] { padding:1.5em 1.5em .7em;\n}\n.settle_split .left .agreement[data-v-6c9bc94a] { align-items:flex-start; margin-top:1.5em;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { padding:1.5em; background:#4F708F; border-radius:.5rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n.settle_split .left .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n.settle_split .left .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:.875em;\n}\n.settle_split .right .address[data-v-6c9bc94a] { border:1px solid #000; margin-bottom:1.5em; line-height:2;\n}\n.settle_split .right .address .addr_tit[data-v-6c9bc94a] { color:#ff4d00; font-weight:900; font-size:1.4em;\n}\n.settle_split .right .address .addr_tit svg[data-v-6c9bc94a] { margin-right: 0.5em;\n}\n.settle_split .right .address .addr_tit button[data-v-6c9bc94a] { float:right;\n}\n.settle_split .right .address .user[data-v-6c9bc94a] { font-weight:900;\n}\n.settle_split .right .address .addr[data-v-6c9bc94a] { margin-bottom:.7em;\n}\n.settle_split .right .address .add_addr small[data-v-6c9bc94a] { color:#ACACAC; font-size:80%;\n}\n.settle_split .right .pay_method h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a]:not(:last-child) { border-bottom:1px solid #d7d7d7;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a] {  padding:.94rem 0;\n}\n.settle_split .right .pay_method div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n.settle_split .right .pay_method .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex; flex-wrap: wrap;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label { cursor:pointer;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem;\n}\n.settle_split .right .pay_method .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%;\n}\n.settle_split .right .pay_method .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n.settle_split .right .pay_method .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n.settle_split .right .pay_method .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n.settle_split .right .pay_method .method div #payment-method[data-v-6c9bc94a] { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden;\n}\n.settle_split .right .pay_method .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5);\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n.settle_split .right .pay_method .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n.settle_split .right .pay_method .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n.settle_split .right .pay_method .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n.settle_split .right .pay_method .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n.settle_split .right .pay_method .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n.settle_split .right .pay_method .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_method .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_exe[data-v-6c9bc94a] { margin-top:1.5em; border-radius:.9rem; border:1px solid #000; position:sticky; top:180px;\n}\n.settle_split .right .pay_exe .pay_price[data-v-6c9bc94a] { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%;\n}\n.settle_split .right .pay_exe .pay_price b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n.settle_split .right .pay_exe .pay_price span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n.settle_split .right .pay_exe .pay_go[data-v-6c9bc94a] { background:#1A90D6; color:#FFF; font-size:1.6rem; font-weight:bold; padding:.8em 0; margin-top:2rem; text-align:center; cursor:pointer;\n}\n.settle_split .right .pay_exe .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n.settle_split .right .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { padding-top:1em;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:auto; max-width:none; margin:0 .2em;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; margin:.4em 0 !important; padding: 1em 0.5em;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { margin:0 .2em; padding:1.5em .5em !important;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:0;\n}\n.settle_split .right .address[data-v-6c9bc94a] { margin-top: 1.5em;\n}\n.settle_split .right .pay_method .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { padding:0;\n}\n.settle_split .right .pay_exe .pay_go[data-v-6c9bc94a] { margin-top: 0.7em; border-radius: 10px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#settle[data-v-6c9bc94a] { padding-top:2em; background-color:#F5F5F5;\n}\n#settle h2[data-v-6c9bc94a] { font-weight:bold; font-size:1.8rem; padding-left:1.8rem; margin-bottom:1em;}\n#settle h4[data-v-6c9bc94a] { font-weight:600; font-size:1.3rem; border-bottom:2px solid #000; padding-bottom:.7em;\n}\n.settle_split[data-v-6c9bc94a] { padding-bottom:2em; align-items:flex-start;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { background-color:#FFF; padding:1.5em; border-radius:10px;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:60%;max-width:60%; margin-right:.875em;\n}\n.settle_split .left .goods_list[data-v-6c9bc94a] { padding:1.5em 1.5em .7em;\n}\n.settle_split .left .agreement[data-v-6c9bc94a] { align-items:flex-start; margin-top:1.5em;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { padding:1.5em; background:#4F708F; border-radius:.5rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(1) { margin-right: 0.25rem;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a]:nth-of-type(2) { margin-left: 0.25rem;\n}\n.settle_split .left .agreement .col .head[data-v-6c9bc94a] { color:#FFF; font-size:.8rem; display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] { display:flex; align-items:center;\n}\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .left .agreement .col .custom-radio[data-v-6c9bc94a] label::after { top:.15rem; left:-1.4rem;\n}\n.settle_split .left .agreement .col .collapse .card[data-v-6c9bc94a] { text-align:justify; color:#000; margin-top:1rem; font-size:.8rem;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:.875em;\n}\n.settle_split .right .address[data-v-6c9bc94a] { border:1px solid #000; margin-bottom:1.5em; line-height:2;\n}\n.settle_split .right .address .addr_tit[data-v-6c9bc94a] { color:#ff4d00; font-weight:900; font-size:1.4em;\n}\n.settle_split .right .address .addr_tit svg[data-v-6c9bc94a] { margin-right: 0.5em;\n}\n.settle_split .right .address .addr_tit button[data-v-6c9bc94a] { float:right;\n}\n.settle_split .right .address .user[data-v-6c9bc94a] { font-weight:900;\n}\n.settle_split .right .address .addr[data-v-6c9bc94a] { margin-bottom:.7em;\n}\n.settle_split .right .address .add_addr small[data-v-6c9bc94a] { color:#ACACAC; font-size:80%;\n}\n.settle_split .right .address select[data-v-6c9bc94a] { width:50%; min-width:240px;\n}\n.settle_split .right .address select + input[data-v-6c9bc94a] { margin-top:.5em;\n}\n.settle_split .right .pay_method h5[data-v-6c9bc94a] { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a]:not(:last-child) { border-bottom:1px solid #d7d7d7;\n}\n.settle_split .right .pay_method>div[data-v-6c9bc94a] {  padding:.94rem 0;\n}\n.settle_split .right .pay_method div[data-v-6c9bc94a] h6 { background:#626262; display:inline-block; padding:.5rem 1rem; border-radius:1.5rem; color:#FFF; font-size:.85rem; margin-bottom: 1rem;\n}\n.settle_split .right .pay_method .method>div[data-v-6c9bc94a] { margin:1rem 0; display:flex; flex-wrap: wrap;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] { display:inline-block; padding-left:1.3em; flex:0 0 32%; max-width:32%;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label { cursor:pointer;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::before,\r\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label::after { left:-1.2rem; top:.15em;\n}\n.settle_split .right .pay_method .method div .custom-radio[data-v-6c9bc94a] label i { font-style:normal; font-weight:bold; color:#616161; font-size:.95rem;\n}\n.settle_split .right .pay_method .method div span[data-v-6c9bc94a] { color:#ACACAC; font-size:.8rem; flex-basis:0; flex-grow:1; max-width:100%;\n}\n.settle_split .right .pay_method .method div span b[data-v-6c9bc94a] { cursor:pointer; position:relative;\n}\n.settle_split .right .pay_method .method div span img[data-v-6c9bc94a] { display:none; position:absolute; top:0; right:0; z-index:2; border:2px solid #616161; border-radius:.5rem;\n}\n.settle_split .right .pay_method .method div span b:hover img[data-v-6c9bc94a] { display:block;\n}\n.settle_split .right .pay_method .method div #payment-method[data-v-6c9bc94a] { flex:0 0 100%; max-width:100%; border-radius:1em; box-shadow:none; max-height:0; padding:0; border-width:0; margin:0; transition:all .2s; overflow:hidden;\n}\n.settle_split .right .pay_method .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { max-height:800px; border:3px solid #000000; padding:0px 13px 13px 13px; margin:12px 0 0 5px; box-shadow:-2px -2px 8px 1px rgba(39,39,39,.5);\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a] { margin:1rem 0;\n}\n.settle_split .right .pay_method .pay_info .row[data-v-6c9bc94a]:first-of-type { align-items: baseline;\n}\n.settle_split .right .pay_method .pay_info .row div[data-v-6c9bc94a] { font-weight:600; color:#616161; font-size:.85rem;\n}\n.settle_split .right .pay_method .pay_info .row .point[data-v-6c9bc94a] { color:#1A90DA; font-size:1.3rem;\n}\n.settle_split .right .pay_method .pay_info .row .col .custom-radio[data-v-6c9bc94a]:first-of-type { margin-bottom:.5rem;\n}\n.settle_split .right .pay_method .pay_info p[data-v-6c9bc94a] { font-size:.75rem;\n}\n.settle_split .right .pay_method .pay_info p span[data-v-6c9bc94a] { color:red;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col[data-v-6c9bc94a] { display:flex; justify-content:space-between; align-items:center;\n}\n.settle_split .right .pay_method .pay_info .pay_r_tel .col  svg[data-v-6c9bc94a] { margin:0 .5rem;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-to[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave[data-v-6c9bc94a] { max-height:400px;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter-active[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-active[data-v-6c9bc94a] { transition:max-height 0.3s ease-out;\n}\n.settle_split .right .pay_method .pay_info.slideUpDown-enter[data-v-6c9bc94a],\r\n.settle_split .right .pay_method .pay_info.slideUpDown-leave-to[data-v-6c9bc94a] { max-height:0px;\n}\n.settle_split .right .pay_method .order_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer;\n}\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .order_paper div .custom-checkbox[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_method .tax_paper>div[data-v-6c9bc94a] { display:flex; justify-content:space-between;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label { color:#616161; font-size:.8rem; cursor:pointer; vertical-align: baseline;\n}\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::before, \r\n.settle_split .right .pay_method .tax_paper div .custom-radio[data-v-6c9bc94a] label::after { top:2px; left:-1.2rem;\n}\n.settle_split .right .pay_exe[data-v-6c9bc94a] { margin-top:1.5em; border-radius:.9rem; border:1px solid #000; position:sticky; top:180px;\n}\n.settle_split .right .pay_exe .pay_price[data-v-6c9bc94a] { font-weight:bold; text-align:right; flex-basis:60%; max-width:60%;\n}\n.settle_split .right .pay_exe .pay_price b[data-v-6c9bc94a] { font-size:2.1rem;\n}\n.settle_split .right .pay_exe .pay_price span[data-v-6c9bc94a] { font-size:.7rem; display:block;\n}\n.settle_split .right .pay_exe .pay_go[data-v-6c9bc94a] { background:#1A90D6; color:#FFF; font-size:1.6rem; font-weight:bold; padding:.8em 0; margin-top:2rem; text-align:center; cursor:pointer;\n}\n.settle_split .right .pay_exe .pay_go.spinner-border[data-v-6c9bc94a] { width:2em; height:2em;\n}\n.settle_split .right .top[data-v-6c9bc94a] { background:#1A90D6; border-radius:2rem 2rem 0 0; padding:1.4rem 1.3rem; align-items:center;\n}\n#settle[data-v-6c9bc94a] .custom-control-input:checked ~ .custom-control-label::before { color: #fff; border-color:#17a2b8; background-color:#17a2b8;\n}\n@media (max-width: 992px){\n#settle[data-v-6c9bc94a] { padding-top:1em;\n}\n.settle_split .left[data-v-6c9bc94a] { flex-basis:auto; max-width:none; margin:0 .2em;\n}\n.settle_split .left .agreement .col[data-v-6c9bc94a] { flex-basis:100%; max-width:100%; margin:.4em 0 !important; padding: 1em 0.5em;\n}\n.settle_split .area_piece[data-v-6c9bc94a] { margin:0 .2em; padding:1.5em .5em !important;\n}\n.settle_split .right[data-v-6c9bc94a] { padding-left:0;\n}\n.settle_split .right .address[data-v-6c9bc94a] { margin-top: 1.5em;\n}\n.settle_split .right .pay_method .method div #payment-method.toss_widget_show[data-v-6c9bc94a] { padding:0;\n}\n.settle_split .right .pay_exe .pay_go[data-v-6c9bc94a] { margin-top: 0.7em; border-radius: 10px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

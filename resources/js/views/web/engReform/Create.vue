@@ -394,7 +394,6 @@ export default {
     methods: {
         async store() {
             this.frm.er_branch = this.option.er_branch[this.frm.er_branch_key];
-            this.frm.er_hp = `${this.frm.er_hp01}-${this.frm.er_hp02}-${this.frm.er_hp03}`;
             this.frm.er_email = `${this.frm.er_email01}@${this.frm.er_email02}`;  
             if (isEmpty(this.frm.er_dlvy_at)) { Notify.toast('danger', "납기일을 입력하세요."); document.getElementById('er_dlvy_at').focus(); return false; }
             if (isEmpty(this.frm.er_journal_url) && this.frm.er_format == 'FM') { Notify.toast('danger', "저널 URL을 입력하세요."); document.getElementById('er_journal_url').focus(); return false; }
@@ -426,12 +425,9 @@ export default {
         let opt = await ax.get(`/api/engReform/getOption`);
         if (opt && opt.status === 200) this.option = opt.data;
 
-        let er_hp = Auth.user().hp.split('-');
         let er_email = Auth.user().email.split('@');
         this.frm.er_name = Auth.user().name;
-        this.frm.er_hp01 = er_hp[0];
-        this.frm.er_hp02 = er_hp[1];
-        this.frm.er_hp03 = er_hp[2];
+        this.frm.er_hp = Auth.user().hp;
         this.frm.er_email01 = er_email[0];
         this.frm.er_email02 = er_email[1];
         this.frm.er_company = Auth.user().company;

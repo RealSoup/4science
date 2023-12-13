@@ -143,14 +143,14 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(addr.ua_memo))]), _vm._v(" "), _c("b-button", {
-      staticClass: "sm plum destroy",
+      staticClass: "xm plum destroy",
       on: {
         click: function click($event) {
           return _vm.destroy(i);
         }
       }
     }, [_vm._v("삭제")]), _vm._v(" "), _c("b-button", {
-      staticClass: "sm green edit",
+      staticClass: "xm green edit",
       on: {
         click: function click($event) {
           return _vm.edit(i);

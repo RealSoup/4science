@@ -19,7 +19,6 @@ export default {
     methods: {
         async update() {
             if (Auth.check()) {
-                this.addr.ua_hp = `${this.addr.ua_hp1}-${this.addr.ua_hp2}-${this.addr.ua_hp3}`;
                 if (this.addr.ua_def == 'Y')
                     this.address.forEach(a => { if(a.ua_id!=this.addr.ua_id) a.ua_def = 'N' });
                 let frm = Object.assign(

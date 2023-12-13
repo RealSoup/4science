@@ -130,11 +130,7 @@
 
                             <b-row>
                                 <b-col class="label_st">연락처<b class="need" /></b-col>
-                                <b-col class="hp">
-                                    <span><b-form-input v-model="frm.eq_hp01" ref="eq_hp01" @input.native="focusNext($event, 3, 'eq_hp02')" :formatter="maxlength_3" id="eq_hp01" /></span>
-                                    <span><b-form-input v-model="frm.eq_hp02" ref="eq_hp02" @input.native="focusNext($event, 4, 'eq_hp03')" :formatter="maxlength_4" id="eq_hp02" /></span>
-                                    <span><b-form-input v-model="frm.eq_hp03" ref="eq_hp03" :formatter="maxlength_4" id="eq_hp03" /></span>
-                                </b-col>
+                                <b-col class="hp"><b-form-input v-model="frm.eq_hp" id="eq_hp" :formatter="format_hp" /></b-col>
                             </b-row>
                             <b-row>
                                 <b-col class="label_st">이메일<b class="need" /></b-col>
@@ -281,13 +277,8 @@ export default {
         },
         
         email_domain_slt() { this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx]; },
-        focusNext(e, max, next) { this.$focusNext(e, max, next); },
-        maxlength_3(e){ return String(e).substring(0, 3); },
-        maxlength_4(e){ return String(e).substring(0, 4); },
-
+        format_hp(e) { return this.formatHp(e); },
         async store(){
-            if (!isEmpty(this.frm.eq_hp01) && !isEmpty(this.frm.eq_hp02) && !isEmpty(this.frm.eq_hp03))
-                this.frm.eq_hp = `${this.frm.eq_hp01}-${this.frm.eq_hp02}-${this.frm.eq_hp03}`;
             if (!isEmpty(this.frm.eq_email01) && !isEmpty(this.frm.eq_email02))
                 this.frm.eq_email = `${this.frm.eq_email01}@${this.frm.eq_email02}`;
 
@@ -297,19 +288,9 @@ export default {
                 return false; 
             }
 
-            if (isEmpty(this.frm.eq_hp01)) { 
-                Notify.toast('danger', "연락처 1을 입력하세요"); 
-                document.getElementById('eq_hp01').focus(); 
-                return false; 
-            }
-            if (isEmpty(this.frm.eq_hp02)) { 
-                Notify.toast('danger', "연락처 2을 입력하세요"); 
-                document.getElementById('eq_hp02').focus(); 
-                return false; 
-            }
-            if (isEmpty(this.frm.eq_hp03)) { 
-                Notify.toast('danger', "연락처 3을 입력하세요"); 
-                document.getElementById('eq_hp03').focus(); 
+            if (isEmpty(this.frm.eq_hp)) { 
+                Notify.toast('danger', "연락처를 입력하세요"); 
+                document.getElementById('eq_hp').focus(); 
                 return false; 
             }
 
@@ -352,12 +333,9 @@ export default {
         if (res && res.status === 200) this.email_domain = res.data; 
         
         if(Auth.check()) {
-            let eq_hp = Auth.user().hp.split('-');
             let eq_email = Auth.user().email.split('@');
             this.frm.eq_name = Auth.user().name;
-            this.frm.eq_hp01 = eq_hp[0];
-            this.frm.eq_hp02 = eq_hp[1];
-            this.frm.eq_hp03 = eq_hp[2];
+            this.frm.eq_hp = Auth.user().hp;
             this.frm.eq_email01 = eq_email[0];
             this.frm.eq_email02 = eq_email[1];
             this.frm.eq_company = Auth.user().company;

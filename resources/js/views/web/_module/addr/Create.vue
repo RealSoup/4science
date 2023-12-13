@@ -30,7 +30,6 @@ export default {
         async store() {
             try {
                 if (Auth.check()) {
-                    this.addr.ua_hp = `${this.addr.ua_hp1}-${this.addr.ua_hp2}-${this.addr.ua_hp3}`;
                     if (this.addr.ua_def == 'Y')
                         this.address.forEach(a => { a.ua_def = 'N' });
                     this.address.push(this.addr);

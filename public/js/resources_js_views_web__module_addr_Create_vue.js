@@ -44,36 +44,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               if (!Auth.check()) {
-                _context.next = 11;
+                _context.next = 10;
                 break;
               }
-              _this.addr.ua_hp = "".concat(_this.addr.ua_hp1, "-").concat(_this.addr.ua_hp2, "-").concat(_this.addr.ua_hp3);
               if (_this.addr.ua_def == 'Y') _this.address.forEach(function (a) {
                 a.ua_def = 'N';
               });
               _this.address.push(_this.addr);
-              _context.next = 7;
+              _context.next = 6;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/user/addr', _this.addr);
-            case 7:
+            case 6:
               res = _context.sent;
               if (res && res.status === 200) _this.$emit('index');
-              _context.next = 12;
+              _context.next = 11;
               break;
-            case 11:
+            case 10:
               Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
-            case 12:
-              _context.next = 18;
+            case 11:
+              _context.next = 17;
               break;
-            case 14:
-              _context.prev = 14;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 18:
+            case 17:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 14]]);
+        }, _callee, null, [[0, 13]]);
       }))();
     },
     index: function index() {

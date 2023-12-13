@@ -108,14 +108,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     email_domain_slt: function email_domain_slt() {
       this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
     },
-    focusNext: function focusNext(e, max, next) {
-      this.$focusNext(e, max, next);
-    },
-    maxlength_3: function maxlength_3(e) {
-      return String(e).substring(0, 3);
-    },
-    maxlength_4: function maxlength_4(e) {
-      return String(e).substring(0, 4);
+    format_hp: function format_hp(e) {
+      return this.formatHp(e);
     },
     store: function store() {
       var _this3 = this;
@@ -124,69 +118,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              if (!isEmpty(_this3.frm.eq_hp01) && !isEmpty(_this3.frm.eq_hp02) && !isEmpty(_this3.frm.eq_hp03)) _this3.frm.eq_hp = "".concat(_this3.frm.eq_hp01, "-").concat(_this3.frm.eq_hp02, "-").concat(_this3.frm.eq_hp03);
               if (!isEmpty(_this3.frm.eq_email01) && !isEmpty(_this3.frm.eq_email02)) _this3.frm.eq_email = "".concat(_this3.frm.eq_email01, "@").concat(_this3.frm.eq_email02);
               if (!isEmpty(_this3.frm.eq_name)) {
-                _context3.next = 6;
+                _context3.next = 5;
                 break;
               }
               Notify.toast('danger', "업체명/담당자명을 입력하세요");
               document.getElementById('eq_name').focus();
               return _context3.abrupt("return", false);
-            case 6:
-              if (!isEmpty(_this3.frm.eq_hp01)) {
-                _context3.next = 10;
+            case 5:
+              if (!isEmpty(_this3.frm.eq_hp)) {
+                _context3.next = 9;
                 break;
               }
-              Notify.toast('danger', "연락처 1을 입력하세요");
-              document.getElementById('eq_hp01').focus();
+              Notify.toast('danger', "연락처를 입력하세요");
+              document.getElementById('eq_hp').focus();
               return _context3.abrupt("return", false);
-            case 10:
-              if (!isEmpty(_this3.frm.eq_hp02)) {
-                _context3.next = 14;
-                break;
-              }
-              Notify.toast('danger', "연락처 2을 입력하세요");
-              document.getElementById('eq_hp02').focus();
-              return _context3.abrupt("return", false);
-            case 14:
-              if (!isEmpty(_this3.frm.eq_hp03)) {
-                _context3.next = 18;
-                break;
-              }
-              Notify.toast('danger', "연락처 3을 입력하세요");
-              document.getElementById('eq_hp03').focus();
-              return _context3.abrupt("return", false);
-            case 18:
+            case 9:
               if (!isEmpty(_this3.frm.eq_email01)) {
-                _context3.next = 22;
+                _context3.next = 13;
                 break;
               }
               Notify.toast('danger', "이메일 계정을 입력하세요");
               document.getElementById('eq_email01').focus();
               return _context3.abrupt("return", false);
-            case 22:
+            case 13:
               if (!isEmpty(_this3.frm.eq_email02)) {
-                _context3.next = 26;
+                _context3.next = 17;
                 break;
               }
               Notify.toast('danger', "이메일 도메인을 입력하세요");
               document.getElementById('eq_email02').focus();
               return _context3.abrupt("return", false);
-            case 26:
+            case 17:
               if (!isEmpty(_this3.frm.eq_content)) {
-                _context3.next = 30;
+                _context3.next = 21;
                 break;
               }
               Notify.toast('danger', "문의 사항을 입력하세요.");
               document.getElementById('eq_content').focus();
               return _context3.abrupt("return", false);
-            case 30:
+            case 21:
               _this3.frm.eq_content = "\uACC4\uC57D \uAE30\uAC04: ".concat(_this3.frm.rt_term, " <br>") + _this3.frm.eq_content;
-              _context3.prev = 31;
-              _context3.next = 34;
+              _context3.prev = 22;
+              _context3.next = 25;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/shop/estimate", _this3.frm);
-            case 34:
+            case 25:
               res = _context3.sent;
               if (res && res.status === 200) {
                 Notify.toast('success', '상담 요청 완료');
@@ -195,25 +172,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 Notify.toast('warning', res);
               }
-              _context3.next = 42;
+              _context3.next = 33;
               break;
-            case 38:
-              _context3.prev = 38;
-              _context3.t0 = _context3["catch"](31);
+            case 29:
+              _context3.prev = 29;
+              _context3.t0 = _context3["catch"](22);
               Notify.consolePrint(_context3.t0);
               Notify.toast('warning', _context3.t0.responsee);
-            case 42:
+            case 33:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[31, 38]]);
+        }, _callee3, null, [[22, 29]]);
       }))();
     }
   },
   mounted: function mounted() {
     var _this4 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      var res, eq_hp, eq_email;
+      var res, eq_email;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) switch (_context4.prev = _context4.next) {
           case 0:
@@ -224,12 +201,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             res = _context4.sent;
             if (res && res.status === 200) _this4.email_domain = res.data;
             if (Auth.check()) {
-              eq_hp = Auth.user().hp.split('-');
               eq_email = Auth.user().email.split('@');
               _this4.frm.eq_name = Auth.user().name;
-              _this4.frm.eq_hp01 = eq_hp[0];
-              _this4.frm.eq_hp02 = eq_hp[1];
-              _this4.frm.eq_hp03 = eq_hp[2];
+              _this4.frm.eq_hp = Auth.user().hp;
               _this4.frm.eq_email01 = eq_email[0];
               _this4.frm.eq_email02 = eq_email[1];
               _this4.frm.eq_company = Auth.user().company;
@@ -417,56 +391,19 @@ var render = function render() {
     staticClass: "need"
   })]), _vm._v(" "), _c("b-col", {
     staticClass: "hp"
-  }, [_c("span", [_c("b-form-input", {
-    ref: "eq_hp01",
+  }, [_c("b-form-input", {
     attrs: {
-      formatter: _vm.maxlength_3,
-      id: "eq_hp01"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 3, "eq_hp02");
-      }
+      id: "eq_hp",
+      formatter: _vm.format_hp
     },
     model: {
-      value: _vm.frm.eq_hp01,
+      value: _vm.frm.eq_hp,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp01", $$v);
+        _vm.$set(_vm.frm, "eq_hp", $$v);
       },
-      expression: "frm.eq_hp01"
+      expression: "frm.eq_hp"
     }
-  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
-    ref: "eq_hp02",
-    attrs: {
-      formatter: _vm.maxlength_4,
-      id: "eq_hp02"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "eq_hp03");
-      }
-    },
-    model: {
-      value: _vm.frm.eq_hp02,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp02", $$v);
-      },
-      expression: "frm.eq_hp02"
-    }
-  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
-    ref: "eq_hp03",
-    attrs: {
-      formatter: _vm.maxlength_4,
-      id: "eq_hp03"
-    },
-    model: {
-      value: _vm.frm.eq_hp03,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp03", $$v);
-      },
-      expression: "frm.eq_hp03"
-    }
-  })], 1)])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("이메일"), _c("b", {
     staticClass: "need"

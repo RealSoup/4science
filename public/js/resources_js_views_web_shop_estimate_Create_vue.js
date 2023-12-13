@@ -261,32 +261,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _this2.frm.eq_hp = "".concat(_this2.frm.eq_hp01, "-").concat(_this2.frm.eq_hp02, "-").concat(_this2.frm.eq_hp03);
               _this2.frm.eq_email = "".concat(_this2.frm.eq_email01, "@").concat(_this2.frm.eq_email02);
               if (!(Object.keys(_this2.frm.lists).length < 1)) {
-                _context2.next = 7;
+                _context2.next = 6;
                 break;
               }
               if (!isEmpty(_this2.frm.eq_content)) {
-                _context2.next = 7;
+                _context2.next = 6;
                 break;
               }
               Notify.toast('danger', "문의 사항을 입력하세요.");
               document.getElementById('eq_content').focus();
               return _context2.abrupt("return", false);
-            case 7:
-              _context2.prev = 7;
-              _context2.next = 10;
+            case 6:
+              _context2.prev = 6;
+              _context2.next = 9;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/estimate", _this2.frm);
-            case 10:
+            case 9:
               res = _context2.sent;
               if (!(res && res.status === 200)) {
-                _context2.next = 20;
+                _context2.next = 19;
                 break;
               }
-              _context2.next = 14;
+              _context2.next = 13;
               return _this2.$refs.fileupload.fileProcessor(res.data);
-            case 14:
+            case 13:
               _this2.$gtm.trackEvent({
                 event: null,
                 // Event type [default = 'interaction'] (Optional)
@@ -305,23 +304,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   eq_id: res.data
                 }
               });
-              _context2.next = 21;
+              _context2.next = 20;
               break;
-            case 20:
+            case 19:
               Notify.toast('warning', res);
-            case 21:
-              _context2.next = 27;
+            case 20:
+              _context2.next = 26;
               break;
-            case 23:
-              _context2.prev = 23;
-              _context2.t0 = _context2["catch"](7);
+            case 22:
+              _context2.prev = 22;
+              _context2.t0 = _context2["catch"](6);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.responsee);
-            case 27:
+            case 26:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[7, 23]]);
+        }, _callee2, null, [[6, 22]]);
       }))();
     },
     pushFi_id: function pushFi_id(fi_id) {
@@ -356,20 +355,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     email_domain_slt: function email_domain_slt() {
       this.frm.eq_email02 = this.email_domain[this.email_domain_slt_idx];
     },
-    focusNext: function focusNext(e, max, next) {
-      this.$focusNext(e, max, next);
-    },
-    maxlength_3: function maxlength_3(e) {
-      return String(e).substring(0, 3);
-    },
-    maxlength_4: function maxlength_4(e) {
-      return String(e).substring(0, 4);
+    format_hp: function format_hp(e) {
+      return this.formatHp(e);
     }
   },
   mounted: function mounted() {
     var _this4 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      var res, eq_hp, eq_email;
+      var res, eq_email;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) switch (_context4.prev = _context4.next) {
           case 0:
@@ -380,17 +373,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 4:
             res = _context4.sent;
             if (res && res.status === 200) _this4.email_domain = res.data;
-            eq_hp = Auth.user().hp.split('-');
             eq_email = Auth.user().email.split('@');
             _this4.frm.eq_name = Auth.user().name;
-            _this4.frm.eq_hp01 = eq_hp[0];
-            _this4.frm.eq_hp02 = eq_hp[1];
-            _this4.frm.eq_hp03 = eq_hp[2];
+            _this4.frm.eq_hp = Auth.user().hp;
             _this4.frm.eq_email01 = eq_email[0];
             _this4.frm.eq_email02 = eq_email[1];
             _this4.frm.eq_company = Auth.user().company;
             _this4.$gtm.trackView('견적 요청 페이지', 'https://4science.net/shop/estimate/create');
-          case 16:
+          case 13:
           case "end":
             return _context4.stop();
         }
@@ -552,54 +542,19 @@ var render = function render() {
     staticClass: "need"
   })]), _vm._v(" "), _c("b-col", {
     staticClass: "hp"
-  }, [_c("span", [_c("b-form-input", {
-    ref: "eq_hp01",
+  }, [_c("b-form-input", {
+    ref: "eq_hp",
     attrs: {
-      formatter: _vm.maxlength_3,
-      id: "eq_hp"
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 3, "eq_hp02");
-      }
+      formatter: _vm.format_hp
     },
     model: {
-      value: _vm.frm.eq_hp01,
+      value: _vm.frm.eq_hp,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp01", $$v);
+        _vm.$set(_vm.frm, "eq_hp", $$v);
       },
-      expression: "frm.eq_hp01"
+      expression: "frm.eq_hp"
     }
-  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
-    ref: "eq_hp02",
-    attrs: {
-      formatter: _vm.maxlength_4
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "eq_hp03");
-      }
-    },
-    model: {
-      value: _vm.frm.eq_hp02,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp02", $$v);
-      },
-      expression: "frm.eq_hp02"
-    }
-  })], 1), _vm._v(" "), _c("span", [_c("b-form-input", {
-    ref: "eq_hp03",
-    attrs: {
-      formatter: _vm.maxlength_4
-    },
-    model: {
-      value: _vm.frm.eq_hp03,
-      callback: function callback($$v) {
-        _vm.$set(_vm.frm, "eq_hp03", $$v);
-      },
-      expression: "frm.eq_hp03"
-    }
-  })], 1), _vm._v(" "), _c("validation", {
+  }), _vm._v(" "), _c("validation", {
     attrs: {
       error: this.$store.state.error.validations.eq_hp
     }

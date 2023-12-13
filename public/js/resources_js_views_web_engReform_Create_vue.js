@@ -245,84 +245,83 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _this.frm.er_branch = _this.option.er_branch[_this.frm.er_branch_key];
-              _this.frm.er_hp = "".concat(_this.frm.er_hp01, "-").concat(_this.frm.er_hp02, "-").concat(_this.frm.er_hp03);
               _this.frm.er_email = "".concat(_this.frm.er_email01, "@").concat(_this.frm.er_email02);
               if (!isEmpty(_this.frm.er_dlvy_at)) {
-                _context.next = 7;
+                _context.next = 6;
                 break;
               }
               Notify.toast('danger', "납기일을 입력하세요.");
               document.getElementById('er_dlvy_at').focus();
               return _context.abrupt("return", false);
-            case 7:
+            case 6:
               if (!(isEmpty(_this.frm.er_journal_url) && _this.frm.er_format == 'FM')) {
-                _context.next = 11;
+                _context.next = 10;
                 break;
               }
               Notify.toast('danger', "저널 URL을 입력하세요.");
               document.getElementById('er_journal_url').focus();
               return _context.abrupt("return", false);
-            case 11:
+            case 10:
               if (!isEmpty(_this.frm.er_use)) {
-                _context.next = 15;
+                _context.next = 14;
                 break;
               }
               Notify.toast('danger', "문서 용도를 선택하세요.");
               document.getElementById('er_use').focus();
               return _context.abrupt("return", false);
-            case 15:
+            case 14:
               if (!isEmpty(_this.frm.er_branch)) {
-                _context.next = 19;
+                _context.next = 18;
                 break;
               }
               Notify.toast('danger', "학문 분야를 선택하세요.");
               document.getElementById('er_branch').focus();
               return _context.abrupt("return", false);
-            case 19:
+            case 18:
               if (!isEmpty(_this.frm.er_branch_sub)) {
-                _context.next = 23;
+                _context.next = 22;
                 break;
               }
               Notify.toast('danger', "상세 학문분야를 선택하세요.");
               document.getElementById('er_branch_sub').focus();
               return _context.abrupt("return", false);
-            case 23:
+            case 22:
               if (!isEmpty(_this.frm.er_eng_style)) {
-                _context.next = 27;
+                _context.next = 26;
                 break;
               }
               Notify.toast('danger', "언어 스타일을 선택하세요.");
               document.getElementById('er_eng_style').focus();
               return _context.abrupt("return", false);
-            case 27:
+            case 26:
               if (!isEmpty(_this.frm.file_info_work)) {
-                _context.next = 31;
+                _context.next = 30;
                 break;
               }
               Notify.toast('danger', "작업문서를 업로드하세요");
               document.getElementById('er_eng_style').focus();
               return _context.abrupt("return", false);
-            case 31:
+            case 30:
               _this.isLoadingModalViewed = true;
-              _context.next = 34;
+              _context.next = 33;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/engReform", _this.frm);
-            case 34:
+            case 33:
               res = _context.sent;
               if (!(res && res.status === 200)) {
-                _context.next = 42;
+                _context.next = 41;
                 break;
               }
-              _context.next = 38;
+              _context.next = 37;
               return _this.$refs.fileupload1.fileProcessor(res.data.er_id);
-            case 38:
-              _context.next = 40;
+            case 37:
+              _context.next = 39;
               return _this.$refs.fileupload2.fileProcessor(res.data.er_id);
-            case 40:
+            case 39:
               _this.isLoadingModalViewed = false;
               _this.$router.push({
                 name: 'my_eng_reform_index'
               });
-            case 42:
+            case 41:
             case "end":
               return _context.stop();
           }
@@ -345,7 +344,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this2 = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var res, opt, er_hp, er_email;
+      var res, opt, er_email;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
@@ -359,16 +358,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 6:
             opt = _context2.sent;
             if (opt && opt.status === 200) _this2.option = opt.data;
-            er_hp = Auth.user().hp.split('-');
             er_email = Auth.user().email.split('@');
             _this2.frm.er_name = Auth.user().name;
-            _this2.frm.er_hp01 = er_hp[0];
-            _this2.frm.er_hp02 = er_hp[1];
-            _this2.frm.er_hp03 = er_hp[2];
+            _this2.frm.er_hp = Auth.user().hp;
             _this2.frm.er_email01 = er_email[0];
             _this2.frm.er_email02 = er_email[1];
             _this2.frm.er_company = Auth.user().company;
-          case 17:
+          case 14:
           case "end":
             return _context2.stop();
         }

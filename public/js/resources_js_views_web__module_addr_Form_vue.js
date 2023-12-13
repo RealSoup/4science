@@ -40,14 +40,8 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById('modal_address').scrollIntoView();
       this.postcode_open = false;
     },
-    focusNext: function focusNext(e, max, next) {
-      this.$focusNext(e, max, next);
-    },
-    maxlength_3: function maxlength_3(e) {
-      return String(e).substring(0, 3);
-    },
-    maxlength_4: function maxlength_4(e) {
-      return String(e).substring(0, 4);
+    frm_formatHp: function frm_formatHp(v) {
+      return this.formatHp(v);
     }
   }
 });
@@ -193,73 +187,20 @@ var render = function render() {
   }, [_vm._v("휴대폰")]), _vm._v(" "), _c("b-col", {
     staticClass: "hp"
   }, [_c("b-form-input", {
-    ref: "ua_hp1",
     attrs: {
-      placeholder: "연락처 1",
-      id: "ua_hp1",
-      formatter: _vm.maxlength_3
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 3, "ua_hp2");
-      }
+      placeholder: "휴대폰",
+      formatter: _vm.frm_formatHp
     },
     model: {
-      value: _vm.value.ua_hp1,
+      value: _vm.value.ua_hp,
       callback: function callback($$v) {
-        _vm.$set(_vm.value, "ua_hp1", $$v);
+        _vm.$set(_vm.value, "ua_hp", $$v);
       },
-      expression: "value.ua_hp1"
-    }
-  }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-    ref: "ua_hp2",
-    attrs: {
-      placeholder: "연락처 2",
-      id: "ua_hp2",
-      formatter: _vm.maxlength_4
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "ua_hp3");
-      }
-    },
-    model: {
-      value: _vm.value.ua_hp2,
-      callback: function callback($$v) {
-        _vm.$set(_vm.value, "ua_hp2", $$v);
-      },
-      expression: "value.ua_hp2"
-    }
-  }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-    ref: "ua_hp3",
-    attrs: {
-      placeholder: "연락처 3",
-      id: "ua_hp3",
-      formatter: _vm.maxlength_4
-    },
-    nativeOn: {
-      input: function input($event) {
-        return _vm.focusNext($event, 4, "ua_memo");
-      }
-    },
-    model: {
-      value: _vm.value.ua_hp3,
-      callback: function callback($$v) {
-        _vm.$set(_vm.value, "ua_hp3", $$v);
-      },
-      expression: "value.ua_hp3"
+      expression: "value.ua_hp"
     }
   }), _vm._v(" "), _c("Validation", {
     attrs: {
-      error: this.$store.state.error.validations.ua_hp1
-    }
-  }), _vm._v(" "), _c("Validation", {
-    attrs: {
-      error: this.$store.state.error.validations.ua_hp2
-    }
-  }), _vm._v(" "), _c("Validation", {
-    attrs: {
-      error: this.$store.state.error.validations.ua_hp3
+      error: this.$store.state.error.validations.ua_hp
     }
   })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label"
@@ -312,7 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-f0f99058] { padding: 15px;\n}\n.container>.row[data-v-f0f99058] { justify-content:flex-end;\n}\n.container>.row .col[data-v-f0f99058] { position:relative;\n}\n.container .addr_cell>.col[data-v-f0f99058] { padding:8px 0;\n}\n.container .addr_cell .col .postcode_close[data-v-f0f99058]{ z-index: 2; position:absolute; top:-28px; right:5px;  cursor: pointer; background:#FFF; border:1px solid #000;\n}\n.container .addr_cell .col input + svg[data-v-f0f99058] { position:absolute; top:7px; right:9px; font-size:1.5rem; font-weight:bold; color: #CCC;\n}\n.container .addr_cell .col .postcode_open[data-v-f0f99058] { width:100%; height:100%; position:absolute; top:0; left:0; opacity:.1; border-width:0; background: inherit;\n}\n.container>.row .col .vue-daum-postcode[data-v-f0f99058] { position:absolute; z-index:2; width:360px;\n}\n.container>.row.addr_cell .col .row .col[data-v-f0f99058] { padding:0px 5px;\n}\n.container>.row.addr_cell .label[data-v-f0f99058] { display:flex; align-items:flex-start; justify-content:flex-end;}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type { flex-basis:80px; max-width:80px; position:absolute; top:13px; height:50%; z-index:2; font-weight:bold; color:#AAA; display: flex; justify-content: center;}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type:before { content:'[';\n}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type:after { content:']';\n}\n.container>.row.addr_cell .col .row:first-of-type .col input[data-v-f0f99058] { text-indent:66px;\n}\n.container>.row:nth-of-type(4) .col[data-v-f0f99058]:nth-of-type(2) { display:flex; flex-wrap:wrap; align-items:center;\n}\n.container>.row:nth-of-type(4) .col:nth-of-type(2) input[data-v-f0f99058] { max-width:105px;\n}\n.container>.row:nth-of-type(4) .col:nth-of-type(2) svg[data-v-f0f99058] { margin:0 3px;\n}\n.container>.row .alert[data-v-f0f99058] { flex: 0 0 100%; max-width: 100%;\n}\r\n/*\r\n.container { margin:0; padding: 15px; }\r\n.container>.row { margin:0 0 .3rem 0; }\r\n.container>.row .col { padding:0; position:relative;}\r\n.container>.row:not(:last-of-type)>.col:first-of-type { border-radius:.25rem; border:1px solid #CCC; background:#20613722; font-size:1.5rem; font-weight:bold; color:#CCC; text-align:center; flex-basis:10%; max-width:10%; }\r\n.container>.row:nth-of-type(3) .col input + svg { position:absolute; top:7px; right:9px; font-size:1.5rem; font-weight:bold; color: #CCC; }\r\n.container>.row:nth-of-type(3) .col svg + button { width:100%; height:100%; position:absolute; top:0; left:0; opacity:.1; }\r\n\r\n.container>.row .col .row { margin:0; }\r\n\r\n\r\n\r\n\r\n\r\n.container>.row:nth-of-type(4) .col:nth-of-type(2) { display:flex; align-items:center; }\r\n.container>.row:nth-of-type(4) .col:nth-of-type(2) input { max-width:112px; }\r\n.container>.row:nth-of-type(4) .col:nth-of-type(2) svg { margin:0 5px; }\r\n*/\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-f0f99058] { padding: 15px;\n}\n.container>.row[data-v-f0f99058] { justify-content:flex-end;\n}\n.container>.row .col[data-v-f0f99058] { position:relative; padding:2px 5px;\n}\n.container>.row .label[data-v-f0f99058] { min-width:70px; padding-right:5px !important;\n}\n.container .addr_cell>.col[data-v-f0f99058] { padding:8px 0;\n}\n.container .addr_cell .col .postcode_close[data-v-f0f99058]{ z-index: 2; position:absolute; top:-28px; right:5px;  cursor: pointer; background:#FFF; border:1px solid #000;\n}\n.container .addr_cell .col input + svg[data-v-f0f99058] { position:absolute; top:7px; right:9px; font-size:1.5rem; font-weight:bold; color: #CCC;\n}\n.container .addr_cell .col .postcode_open[data-v-f0f99058] { width:100%; height:100%; position:absolute; top:0; left:0; opacity:.1; border-width:0; background: inherit;\n}\n.container>.row .col .vue-daum-postcode[data-v-f0f99058] { position:absolute; z-index:2; width:360px;\n}\n.container>.row.addr_cell .col .row .col[data-v-f0f99058] { padding:0px 5px;\n}\n.container>.row.addr_cell .label[data-v-f0f99058] { display:flex; align-items:flex-start; justify-content:flex-end;\n}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type { flex-basis:80px; max-width:80px; position:absolute; top:13px; height:50%; z-index:2; font-weight:bold; color:#AAA; display: flex; justify-content: center;}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type:before { content:'[';\n}\n.container>.row.addr_cell .col .row:first-of-type .col[data-v-f0f99058]:first-of-type:after { content:']';\n}\n.container>.row.addr_cell .col .row:first-of-type .col input[data-v-f0f99058] { text-indent:66px;\n}\n.container>.row .alert[data-v-f0f99058] { flex: 0 0 100%; max-width: 100%;\n}\n@media (max-width: 992px){\n.container[data-v-f0f99058] { padding: 15px 0;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

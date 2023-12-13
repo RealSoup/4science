@@ -31,7 +31,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               isValid = _context.sent;
               if (!isValid) {
-                _context.next = 113;
+                _context.next = 81;
                 break;
               }
               if (!(_this.value.oex_type === 'IV')) {
@@ -125,140 +125,76 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this.$refs.oex_num_tel.focus();
               return _context.abrupt("return", false);
             case 48:
-              _context.next = 112;
+              _context.next = 80;
               break;
             case 50:
               if (!(_this.value.oex_type === 'HP')) {
-                _context.next = 65;
+                _context.next = 57;
                 break;
               }
-              if (!isEmpty(_this.value.oex_num_hp1)) {
+              if (!isEmpty(_this.value.oex_num_hp)) {
                 _context.next = 55;
                 break;
               }
-              Notify.toast('danger', "핸드폰 번호 첫번째를 입력해주세요");
-              _this.$refs.oex_num_hp1.focus();
+              Notify.toast('danger', "핸드폰 번호를 입력해주세요");
+              _this.$refs.oex_num_hp.focus();
               return _context.abrupt("return", false);
             case 55:
-              if (!isEmpty(_this.value.oex_num_hp2)) {
-                _context.next = 59;
-                break;
-              }
-              Notify.toast('danger', "핸드폰 번호 두번째를 입력해주세요");
-              _this.$refs.oex_num_hp2.focus();
-              return _context.abrupt("return", false);
-            case 59:
-              if (!isEmpty(_this.value.oex_num_hp3)) {
-                _context.next = 63;
-                break;
-              }
-              Notify.toast('danger', "핸드폰 번호 세번째를 입력해주세요");
-              _this.$refs.oex_num_hp3.focus();
-              return _context.abrupt("return", false);
-            case 63:
-              _context.next = 112;
+              _context.next = 80;
               break;
-            case 65:
+            case 57:
               if (!(_this.value.oex_type === 'IN')) {
+                _context.next = 64;
+                break;
+              }
+              if (!isEmpty(_this.value.oex_num_in)) {
+                _context.next = 62;
+                break;
+              }
+              Notify.toast('danger', "주민번호를 입력해주세요");
+              _this.$refs.oex_num_in.focus();
+              return _context.abrupt("return", false);
+            case 62:
+              _context.next = 80;
+              break;
+            case 64:
+              if (!(_this.value.oex_type === 'CN')) {
+                _context.next = 71;
+                break;
+              }
+              if (!isEmpty(_this.value.oex_num_cn)) {
+                _context.next = 69;
+                break;
+              }
+              Notify.toast('danger', "카드번호를 입력해주세요");
+              _this.$refs.oex_num_cn.focus();
+              return _context.abrupt("return", false);
+            case 69:
+              _context.next = 80;
+              break;
+            case 71:
+              if (!(_this.value.oex_type === 'BN')) {
+                _context.next = 80;
+                break;
+              }
+              if (!isEmpty(_this.value.oex_num_bn)) {
                 _context.next = 76;
                 break;
               }
-              if (!isEmpty(_this.value.oex_num_in1)) {
-                _context.next = 70;
-                break;
-              }
-              Notify.toast('danger', "주민번호 첫번째를 입력해주세요");
-              _this.$refs.oex_num_in1.focus();
+              Notify.toast('danger', "사업자 번호를 입력해주세요");
+              _this.$refs.oex_num_bn.focus();
               return _context.abrupt("return", false);
-            case 70:
-              if (!isEmpty(_this.value.oex_num_in2)) {
-                _context.next = 74;
-                break;
-              }
-              Notify.toast('danger', "주민번호 두번째를 입력해주세요");
-              _this.$refs.oex_num_in2.focus();
-              return _context.abrupt("return", false);
-            case 74:
-              _context.next = 112;
-              break;
             case 76:
-              if (!(_this.value.oex_type === 'CN')) {
-                _context.next = 95;
-                break;
-              }
-              if (!isEmpty(_this.value.oex_num_cn1)) {
-                _context.next = 81;
-                break;
-              }
-              Notify.toast('danger', "카드번호 첫번째를 입력해주세요");
-              _this.$refs.oex_num_cn1.focus();
-              return _context.abrupt("return", false);
-            case 81:
-              if (!isEmpty(_this.value.oex_num_cn2)) {
-                _context.next = 85;
-                break;
-              }
-              Notify.toast('danger', "카드번호 두번째를 입력해주세요");
-              _this.$refs.oex_num_cn2.focus();
-              return _context.abrupt("return", false);
-            case 85:
-              if (!isEmpty(_this.value.oex_num_cn3)) {
-                _context.next = 89;
-                break;
-              }
-              Notify.toast('danger', "카드번호 세번째를 입력해주세요");
-              _this.$refs.oex_num_cn3.focus();
-              return _context.abrupt("return", false);
-            case 89:
-              if (!isEmpty(_this.value.oex_num_cn4)) {
-                _context.next = 93;
-                break;
-              }
-              Notify.toast('danger', "카드번호 네번째를 입력해주세요");
-              _this.$refs.oex_num_cn4.focus();
-              return _context.abrupt("return", false);
-            case 93:
-              _context.next = 112;
-              break;
-            case 95:
-              if (!(_this.value.oex_type === 'BN')) {
-                _context.next = 112;
-                break;
-              }
-              if (!isEmpty(_this.value.oex_num_bn1)) {
-                _context.next = 100;
-                break;
-              }
-              Notify.toast('danger', "사업자 번호 첫번째를 입력해주세요");
-              _this.$refs.oex_num_bn1.focus();
-              return _context.abrupt("return", false);
-            case 100:
-              if (!isEmpty(_this.value.oex_num_bn2)) {
-                _context.next = 104;
-                break;
-              }
-              Notify.toast('danger', "사업자 번호 두번째를 입력해주세요");
-              _this.$refs.oex_num_bn2.focus();
-              return _context.abrupt("return", false);
-            case 104:
-              if (!isEmpty(_this.value.oex_num_bn3)) {
-                _context.next = 108;
-                break;
-              }
-              Notify.toast('danger', "사업자 번호 세번째를 입력해주세요");
-              _this.$refs.oex_num_bn3.focus();
-              return _context.abrupt("return", false);
-            case 108:
               if (!isEmpty(_this.value.oex_biz_name)) {
-                _context.next = 112;
+                _context.next = 80;
                 break;
               }
               Notify.toast('danger', "업체면을 입력해주세요");
               _this.$refs.oex_biz_name.focus();
               return _context.abrupt("return", false);
-            case 112:
+            case 80:
               _this.$emit('close');
-            case 113:
+            case 81:
             case "end":
               return _context.stop();
           }
@@ -272,29 +208,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         valid = _ref$valid === void 0 ? null : _ref$valid;
       return dirty || validated ? valid : null;
     },
-    maxlength_2: function maxlength_2(e) {
-      return String(e).substring(0, 2);
+    format_hp: function format_hp(e) {
+      return this.formatHp(e);
     },
-    maxlength_3: function maxlength_3(e) {
-      return String(e).substring(0, 3);
+    format_idnum: function format_idnum(e) {
+      return this.formatIdNum(e);
     },
-    maxlength_4: function maxlength_4(e) {
-      return String(e).substring(0, 4);
-    },
-    maxlength_5: function maxlength_5(e) {
-      return String(e).substring(0, 5);
-    },
-    maxlength_6: function maxlength_6(e) {
-      return String(e).substring(0, 6);
-    },
-    maxlength_7: function maxlength_7(e) {
-      return String(e).substring(0, 7);
-    },
-    focusNext: function focusNext(e, max, next) {
-      this.$focusNext(e, max, next);
-    },
-    frm_formatHp: function frm_formatHp(v) {
-      return this.formatHp(v);
+    format_cardnum: function format_cardnum(e) {
+      return this.formatCardNum(e);
     },
     frm_formatBiz: function frm_formatBiz(v) {
       return this.formatBiz(v);
@@ -328,7 +249,9 @@ var render = function render() {
       key: "default",
       fn: function fn(_ref) {
         var invalid = _ref.invalid;
-        return [_vm.value.oex_type_fir == "TX" ? _c("div", [_c("h6", [_vm._v("세금계산서 발급 정보 등록")]), _vm._v(" "), _c("b-form-radio", {
+        return [_vm.value.oex_type_fir == "TX" ? _c("div", {
+          staticClass: "wrap01"
+        }, [_c("h6", [_vm._v("세금계산서 발급 정보 등록")]), _vm._v(" "), _c("b-form-radio", {
           attrs: {
             value: "IV"
           },
@@ -343,7 +266,14 @@ var render = function render() {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type == "IV" ? _c("b-container", [_c("b-form-checkbox", {
+        }, [_vm.value.oex_type == "IV" ? _c("div", {
+          staticClass: "iv_wrap"
+        }, [_c("b-row", [_c("b-col", [_vm._v("등록증 유무")]), _vm._v(" "), _c("b-col", {
+          staticClass: "chk_file pl-3",
+          staticStyle: {
+            "font-size": ".85em"
+          }
+        }, [_c("b-form-checkbox", {
           model: {
             value: _vm.value.oex_hasBizLicense,
             callback: function callback($$v) {
@@ -351,18 +281,16 @@ var render = function render() {
             },
             expression: "value.oex_hasBizLicense"
           }
-        }, [_vm._v("사업자등록증 사본 첨부")]), _vm._v(" "), _c("transition", {
+        }, [_vm._v("사업자등록증 사본 첨부")])], 1)], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_hasBizLicense ? _c("b-container", [_c("b-row", [_c("label", {
-          attrs: {
-            "for": "biz_file"
-          }
-        }, [_vm._v("파일 첨부")]), _vm._v(" "), _c("validation-provider", {
+        }, [_vm.value.oex_hasBizLicense ? _c("b-row", [_c("b-col", [_vm._v("파일 첨부")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "파일 첨부",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -385,18 +313,16 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
+        })], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [!_vm.value.oex_hasBizLicense ? _c("b-container", [_c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_biz_name"
-          }
-        }, [_vm._v("법인명")]), _vm._v(" "), _c("validation-provider", {
+        }, [!_vm.value.oex_hasBizLicense ? _c("b-row", [_c("b-col", [_vm._v("법인명")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "법인명",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -418,14 +344,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_biz_num"
-          }
-        }, [_vm._v("등록번호")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("등록번호")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "등록번호",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -448,14 +372,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_biz_type"
-          }
-        }, [_vm._v("업태/종목")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("업태")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "업태",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -477,10 +399,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        }), _vm._v(" "), _c("b", [_vm._v("/")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("종목")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "종목",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -502,14 +426,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_ceo"
-          }
-        }, [_vm._v("대표자명")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("대표자명")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "대표자명",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -531,14 +453,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_addr"
-          }
-        }, [_vm._v("사업장소재지")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("사업장소재지")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "사업장소재지",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -560,14 +480,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_requirement"
-          }
-        }, [_vm._v("요구사항")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("요구사항")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "요구사항",
-            rules: ""
+            rules: "",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -589,18 +507,16 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
+        })], 1) : _vm._e()], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type !== "IVNO" ? _c("b-container", [_c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_mng"
-          }
-        }, [_vm._v("담당자")]), _vm._v(" "), _c("validation-provider", {
+        }, [_vm.value.oex_type !== "IVNO" ? _c("b-row", [_c("b-col", [_vm._v("담당자")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "담당자",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -622,14 +538,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_email"
-          }
-        }, [_vm._v("이메일")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("이메일")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "이메일",
-            rules: "required|email"
+            rules: "required|email",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -651,14 +565,12 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1), _vm._v(" "), _c("b-row", [_c("label", {
-          attrs: {
-            "for": "oex_num_tel"
-          }
-        }, [_vm._v("연락처")]), _vm._v(" "), _c("validation-provider", {
+        }), _vm._v(" "), _c("b-col", [_vm._v("연락처")]), _vm._v(" "), _c("validation-provider", {
+          staticClass: "col",
           attrs: {
             name: "연락처",
-            rules: "required"
+            rules: "required",
+            tag: "div"
           },
           scopedSlots: _vm._u([{
             key: "default",
@@ -668,7 +580,7 @@ var render = function render() {
                 attrs: {
                   id: "oex_num_tel",
                   size: "sm",
-                  formatter: _vm.frm_formatHp,
+                  formatter: _vm.format_hp,
                   state: _vm.getValidationState(validationContext)
                 },
                 model: {
@@ -681,7 +593,7 @@ var render = function render() {
               }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
             }
           }], null, true)
-        })], 1)], 1) : _vm._e()], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("b-form-radio", {
+        })], 1) : _vm._e()], 1)], 1) : _vm._e()]), _vm._v(" "), _c("b-form-radio", {
           attrs: {
             value: "IVNO"
           },
@@ -692,7 +604,9 @@ var render = function render() {
             },
             expression: "value.oex_type"
           }
-        }, [_vm._v("입력 안함")]), _vm._v(" "), _c("br"), _c("br")], 1) : _vm.value.oex_type_fir == "CA" ? _c("div", [_c("h6", [_vm._v("소득공제용(일반개인용)")]), _vm._v(" "), _c("b-form-radio", {
+        }, [_vm._v("입력 안함")]), _vm._v(" "), _c("br"), _c("br")], 1) : _vm.value.oex_type_fir == "CA" ? _c("div", {
+          staticClass: "wrap02"
+        }, [_c("h6", [_vm._v("소득공제용(일반개인용)")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-form-radio", {
           attrs: {
             value: "HP"
           },
@@ -703,63 +617,24 @@ var render = function render() {
             },
             expression: "value.oex_type"
           }
-        }, [_vm._v("핸드폰번호")]), _vm._v(" "), _c("transition", {
+        }, [_vm._v("핸드폰번호")])], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type === "HP" ? _c("b-container", [_c("b-row", [_c("b-form-input", {
-          ref: "oex_num_hp1",
+        }, [_vm.value.oex_type === "HP" ? _c("b-col", [_c("b-form-input", {
+          ref: "oex_num_hp",
           attrs: {
-            type: "number",
             size: "sm",
-            formatter: _vm.maxlength_3
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 3, "oex_num_hp2");
-            }
+            formatter: _vm.format_hp
           },
           model: {
-            value: _vm.value.oex_num_hp1,
+            value: _vm.value.oex_num_hp,
             callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_hp1", $$v);
+              _vm.$set(_vm.value, "oex_num_hp", $$v);
             },
-            expression: "value.oex_num_hp1"
+            expression: "value.oex_num_hp"
           }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_hp2",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_4
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 4, "oex_num_hp3");
-            }
-          },
-          model: {
-            value: _vm.value.oex_num_hp2,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_hp2", $$v);
-            },
-            expression: "value.oex_num_hp2"
-          }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_hp3",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_4
-          },
-          model: {
-            value: _vm.value.oex_num_hp3,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_hp3", $$v);
-            },
-            expression: "value.oex_num_hp3"
-          }
-        })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("b-form-radio", {
+        })], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-form-radio", {
           attrs: {
             value: "IN"
           },
@@ -770,44 +645,24 @@ var render = function render() {
             },
             expression: "value.oex_type"
           }
-        }, [_vm._v("주민등록번호")]), _vm._v(" "), _c("transition", {
+        }, [_vm._v("주민등록번호")])], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type === "IN" ? _c("b-container", [_c("b-row", [_c("b-form-input", {
-          ref: "oex_num_in1",
+        }, [_vm.value.oex_type === "IN" ? _c("b-col", [_c("b-form-input", {
+          ref: "oex_num_in",
           attrs: {
-            type: "number",
             size: "sm",
-            formatter: _vm.maxlength_6
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 6, "oex_num_in2");
-            }
+            formatter: _vm.format_idnum
           },
           model: {
-            value: _vm.value.oex_num_in1,
+            value: _vm.value.oex_num_in,
             callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_in1", $$v);
+              _vm.$set(_vm.value, "oex_num_in", $$v);
             },
-            expression: "value.oex_num_in1"
+            expression: "value.oex_num_in"
           }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_in2",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_7
-          },
-          model: {
-            value: _vm.value.oex_num_in2,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_in2", $$v);
-            },
-            expression: "value.oex_num_in2"
-          }
-        })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("b-form-radio", {
+        })], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-form-radio", {
           attrs: {
             value: "CN"
           },
@@ -818,82 +673,24 @@ var render = function render() {
             },
             expression: "value.oex_type"
           }
-        }, [_vm._v("카드번호")]), _vm._v(" "), _c("transition", {
+        }, [_vm._v("카드번호")])], 1), _vm._v(" "), _c("transition", {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type === "CN" ? _c("b-container", [_c("b-row", [_c("b-form-input", {
-          ref: "oex_num_cn1",
+        }, [_vm.value.oex_type === "CN" ? _c("b-col", [_c("b-form-input", {
+          ref: "oex_num_cn",
           attrs: {
-            type: "number",
             size: "sm",
-            formatter: _vm.maxlength_6
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 4, "oex_num_cn2");
-            }
+            formatter: _vm.format_cardnum
           },
           model: {
-            value: _vm.value.oex_num_cn1,
+            value: _vm.value.oex_num_cn,
             callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_cn1", $$v);
+              _vm.$set(_vm.value, "oex_num_cn", $$v);
             },
-            expression: "value.oex_num_cn1"
+            expression: "value.oex_num_cn"
           }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_cn2",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_6
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 4, "oex_num_cn3");
-            }
-          },
-          model: {
-            value: _vm.value.oex_num_cn2,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_cn2", $$v);
-            },
-            expression: "value.oex_num_cn2"
-          }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_cn3",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_6
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 4, "oex_num_cn4");
-            }
-          },
-          model: {
-            value: _vm.value.oex_num_cn3,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_cn3", $$v);
-            },
-            expression: "value.oex_num_cn3"
-          }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_cn4",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_4
-          },
-          model: {
-            value: _vm.value.oex_num_cn4,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_cn4", $$v);
-            },
-            expression: "value.oex_num_cn4"
-          }
-        })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c("h6", [_vm._v("지출증빙용(사업자용)")]), _vm._v(" "), _c("b-form-radio", {
+        })], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c("h6", [_vm._v("지출증빙용(사업자용)")]), _vm._v(" "), _c("b-form-radio", {
           attrs: {
             value: "BN"
           },
@@ -908,67 +705,31 @@ var render = function render() {
           attrs: {
             name: "slideUpDown"
           }
-        }, [_vm.value.oex_type === "BN" ? _c("b-container", [_c("b-row", [_c("b-form-input", {
-          ref: "oex_num_bn1",
+        }, [_vm.value.oex_type === "BN" ? _c("b-row", [_c("b-col", {
+          staticClass: "mb-1",
           attrs: {
-            type: "number",
+            cols: "12"
+          }
+        }, [_c("b-form-input", {
+          ref: "oex_num_bn",
+          attrs: {
             size: "sm",
-            formatter: _vm.maxlength_3
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 3, "oex_num_bn2");
-            }
+            placeholder: "사업자 등록 번호"
           },
           model: {
-            value: _vm.value.oex_num_bn1,
+            value: _vm.value.oex_num_bn,
             callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_bn1", $$v);
+              _vm.$set(_vm.value, "oex_num_bn", $$v);
             },
-            expression: "value.oex_num_bn1"
+            expression: "value.oex_num_bn"
           }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_bn2",
+        })], 1), _vm._v(" "), _c("b-col", {
           attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_2
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 2, "oex_num_bn3");
-            }
-          },
-          model: {
-            value: _vm.value.oex_num_bn2,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_bn2", $$v);
-            },
-            expression: "value.oex_num_bn2"
+            cols: "12"
           }
-        }), _c("b-icon-dash"), _vm._v(" "), _c("b-form-input", {
-          ref: "oex_num_bn3",
-          attrs: {
-            type: "number",
-            size: "sm",
-            formatter: _vm.maxlength_5
-          },
-          nativeOn: {
-            input: function input($event) {
-              return _vm.focusNext($event, 5, "oex_biz_name");
-            }
-          },
-          model: {
-            value: _vm.value.oex_num_bn3,
-            callback: function callback($$v) {
-              _vm.$set(_vm.value, "oex_num_bn3", $$v);
-            },
-            expression: "value.oex_num_bn3"
-          }
-        })], 1), _vm._v(" "), _c("b-row", [_c("b-form-input", {
+        }, [_c("b-form-input", {
           ref: "oex_biz_name",
           attrs: {
-            id: "oex_biz_name",
             size: "sm",
             placeholder: "업체명 입력"
           },
@@ -1013,7 +774,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.tax_iv h6[data-v-2517cdd3] { margin:1rem; padding:.5rem; border-bottom:1px solid #DEDEDE; font-weight:bold; font-size:.9rem;\n}\n.tax_iv .custom-control[data-v-2517cdd3] { margin:2rem 0 1rem 4rem;\n}\n.tax_iv .b-form-file[data-v-2517cdd3] { margin-left:3rem;\n}\n.tax_iv .container[data-v-2517cdd3] { padding:0 3rem;\n}\n.tax_iv .container .row[data-v-2517cdd3] { margin:1rem 0; align-items:center;\n}\n.tax_iv .container .row input[data-v-2517cdd3],\r\n.tax_iv .container .row textarea[data-v-2517cdd3] { flex-basis: 0; flex-grow: 1; max-width: 100%;\n}\n.tax_iv .container .row label[data-v-2517cdd3] { flex:0 0 30%; max-width:30%; font-weight:bold; font-size:.8rem;\n}\n.tax_iv .container .row span[data-v-2517cdd3] { flex-basis: 0; flex-grow: 1; max-width: 100%;\n}\n.tax_iv .container .row b[data-v-2517cdd3] { margin:0 .5rem;\n}\n.tax_iv>button[data-v-2517cdd3] { background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0;\n}\n.slideUpDown-enter-to[data-v-2517cdd3],\r\n.slideUpDown-leave[data-v-2517cdd3] { max-height:400px;\n}\n.slideUpDown-enter-active[data-v-2517cdd3]  { transition:max-height 0.9s;\n}\n.slideUpDown-enter[data-v-2517cdd3],\r\n.slideUpDown-leave-to[data-v-2517cdd3] { max-height:0;\n}\n@media (max-width: 992px){\n.tax_iv .custom-control[data-v-2517cdd3] { margin: 2rem 0 1rem 1rem;\n}\n.tax_iv .container .container[data-v-2517cdd3] { padding:0 !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.tax_iv h6[data-v-2517cdd3] { margin-top:1rem; padding-bottom:.5rem; border-bottom:1px solid #DEDEDE; font-weight:bold; font-size:.9rem;\n}\n.tax_iv>div[data-v-2517cdd3] { margin:1rem;\n}\n.tax_iv .wrap01 .iv_wrap[data-v-2517cdd3] { padding:20px 10px;\n}\n.tax_iv .wrap01 .iv_wrap .row .col[data-v-2517cdd3] { padding:5px 0;\n}\n.tax_iv .wrap01 .iv_wrap .row .col[data-v-2517cdd3]:nth-child(odd) { flex:0 0 25%; max-width:25%; font-size:.9em; font-weight:bolder; line-height:30px;\n}\n.tax_iv .wrap01 .iv_wrap .row .col[data-v-2517cdd3]:nth-child(even) { flex:0 0 75%; max-width:75%;\n}\n.tax_iv .wrap01 .iv_wrap .row .col.chk_file[data-v-2517cdd3] { padding-left:1em; font-size:.85em; line-height:30px;\n}\n.tax_iv .wrap01 .iv_wrap .row .col.chk_file .custom-control[data-v-2517cdd3] .custom-control-label::after,\r\n.tax_iv .wrap01 .iv_wrap .row .col.chk_file .custom-control[data-v-2517cdd3] .custom-control-label::before { top:.5em !important;\n}\n.tax_iv .wrap02 .row .col[data-v-2517cdd3]:first-child { flex:0 0 25%; max-width:25%; display:flex; align-items:center; font-size:.9em; min-width:95px; min-height:31px; line-height:22px; letter-spacing:-1px;\n}\n.tax_iv>button[data-v-2517cdd3] { background-color:#0E4D9C; color:#FFF; letter-spacing:1rem; width:100%; border-width:0; border-radius:0;\n}\n.slideUpDown-enter-to[data-v-2517cdd3],\r\n.slideUpDown-leave[data-v-2517cdd3] { max-height:400px;\n}\n.slideUpDown-enter-active[data-v-2517cdd3]  { transition:max-height 0.9s;\n}\n.slideUpDown-enter[data-v-2517cdd3],\r\n.slideUpDown-leave-to[data-v-2517cdd3] { max-height:0;\n}\n.custom-control[data-v-2517cdd3] { padding-left:1.3em; min-height:1.3rem;\n}\n.custom-control[data-v-2517cdd3] .custom-control-label::after,\r\n.custom-control[data-v-2517cdd3] .custom-control-label::before { left:-1.3em !important; top:.15em !important;\n}\n@media (max-width: 992px){\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -80,7 +80,7 @@
                             <b-form-select-option value="">배송시 요청 사항</b-form-select-option>
                             <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
                         </b-form-select>
-                        <b-form-input v-model="order.od_memo" id="od_memo" size="sm" />
+                        <b-form-input v-if="order.od_memo_slt == ''" v-model="order.od_memo" id="od_memo" size="sm" />
                     </template>
                     <b-button v-else class="white wd_100p add_addr" size="sm" ref="add_addr" @click="config_addr">배송지 입력 <small>등록된 배송지 없음</small></b-button>
                 </div>
@@ -157,12 +157,7 @@
                                 <b-col cols="3">담당자</b-col><b-col><b-form-input v-model="order.extra.oex_mng" size="sm" /></b-col>
                             </b-row>
                             <b-row class="pay_r_tel">
-                                <b-col cols="3">연락처</b-col>
-                                <b-col>
-                                    <b-form-input v-model="order.extra.oex_num_tel1" ref="oex_num_tel1" @input.native="focusNext($event, 3, 'oex_num_tel2')" :formatter="maxlength_3" size="sm" /><b-icon-dash />
-                                    <b-form-input v-model="order.extra.oex_num_tel2" ref="oex_num_tel2" @input.native="focusNext($event, 4, 'oex_num_tel3')" :formatter="maxlength_4" size="sm" /><b-icon-dash />
-                                    <b-form-input v-model="order.extra.oex_num_tel3" ref="oex_num_tel3" :formatter="maxlength_4" size="sm" />
-                                </b-col>
+                                <b-col cols="3">연락처</b-col><b-col><b-form-input v-model="order.extra.oex_num_tel" :formatter="format_hp" size="sm" /></b-col>
                             </b-row>
                             <b-row class="pay_r_tel">
                                 <b-col cols="3">이메일</b-col><b-col><b-form-input v-model="order.extra.oex_email" ref="oex_email" id="oex_email" size="sm" /></b-col>
@@ -273,16 +268,12 @@ export default {
                 
                 if (n == 'R') {
                     var tel = this.user.hp.split('-');
-                    this.order.extra.oex_mng = this.user.name;
-                    this.order.extra.oex_num_tel1 =tel[0];
-                    this.order.extra.oex_num_tel2 =tel[1];
-                    this.order.extra.oex_num_tel3 =tel[2];
-                    this.order.extra.oex_email = this.user.email;
+                    this.order.extra.oex_mng     = this.user.name;
+                    this.order.extra.oex_num_tel =this.user.hp;
+                    this.order.extra.oex_email   = this.user.email;
                 } else {
                     this.order.extra.oex_mng = '';
-                    this.order.extra.oex_num_tel1 = '';
-                    this.order.extra.oex_num_tel2 = '';
-                    this.order.extra.oex_num_tel3 = '';
+                    this.order.extra.oex_num_tel = '';
                     this.order.extra.oex_email = '';
                 }
                 this.order.extra.oex_type = 'NO'; 
@@ -320,9 +311,6 @@ export default {
                 od_addr2 : "",
                 od_receiver : "",
                 od_receiver_hp : "",
-                od_receiver_hp1 : '',
-                od_receiver_hp2 : '',
-                od_receiver_hp3 : '',
                 od_memo : "",
                 od_memo_slt : '',
                 extra: {
@@ -421,18 +409,16 @@ export default {
         //     this.postcode_open = false;
         // },
         async exePayment () {
-            this.order.od_receiver_hp = `${this.order.od_receiver_hp1}-${this.order.od_receiver_hp2}-${this.order.od_receiver_hp3}`;
             if (this.validationChecker(this.order)) {
                 
                 switch (this.order.extra.oex_type) {
-                    case 'HP': this.order.extra.oex_num = `${this.order.extra.oex_num_hp1}-${this.order.extra.oex_num_hp2}-${this.order.extra.oex_num_hp3}`; break;
-                    case 'IN': this.order.extra.oex_num = `${this.order.extra.oex_num_in1}-${this.order.extra.oex_num_in2}`; break;
-                    case 'CN': this.order.extra.oex_num = `${this.order.extra.oex_num_cn1}-${this.order.extra.oex_num_cn2}-${this.order.extra.oex_num_cn3}-${this.order.extra.oex_num_cn4}`; break;
-                    case 'BN': this.order.extra.oex_num = `${this.order.extra.oex_num_bn1}-${this.order.extra.oex_num_bn2}-${this.order.extra.oex_num_bn3}`; break;
+                    case 'HP': this.order.extra.oex_num = this.order.extra.oex_num_hp; break;
+                    case 'IN': this.order.extra.oex_num = this.order.extra.oex_num_in; break;
+                    case 'CN': this.order.extra.oex_num = this.order.extra.oex_num_cn; break;
+                    case 'BN': this.order.extra.oex_num = this.order.extra.oex_num_bn; break;
                 }
                 
                 if (this.order.od_pay_method == 'R') {
-                    this.order.extra.oex_num_tel = `${this.order.extra.oex_num_tel1}-${this.order.extra.oex_num_tel2}-${this.order.extra.oex_num_tel3}`;
                     if (this.order.extra.oex_pay_plan == "etc")
                         this.order.extra.oex_pay_plan = this.order.extra.oex_pay_plan_etc;
                 }
@@ -510,9 +496,6 @@ export default {
             this.order.od_addr2         = addr.ua_addr2;
             this.order.od_receiver      = addr.ua_name;
             this.order.od_receiver_hp   = addr.ua_hp;
-            this.order.od_receiver_hp1  = hp[0];
-            this.order.od_receiver_hp2  = hp[1];
-            this.order.od_receiver_hp3  = hp[2];
             this.order.od_memo          = addr.ua_memo;
 
             this.isModalViewed = false;
@@ -534,6 +517,7 @@ export default {
         focusNext(e, max, next) { this.$focusNext(e, max, next); },
         maxlength_3(e){ return String(e).substring(0, 3); },
         maxlength_4(e){ return String(e).substring(0, 4); },
+        format_hp(e) { return this.formatHp(e); },
 
         tax_invoice () {
             this.isModalViewed = true;
@@ -591,15 +575,6 @@ export default {
             
                 default: break;
             }
-            
-            if (isEmpty(frm.od_receiver)) { Notify.toast('danger', "수령인을 입력하세요."); this.$refs.od_receiver.focus(); return false; }
-            if (isEmpty(frm.od_receiver_hp1)) { Notify.toast('danger', "수령인 연락처 1를 입력하세요."); this.$refs.od_receiver_hp1.focus(); return false; }
-            if (isEmpty(frm.od_receiver_hp2)) { Notify.toast('danger', "수령인 연락처 2를 입력하세요."); this.$refs.od_receiver_hp2.focus(); return false; }
-            if (isEmpty(frm.od_receiver_hp3)) { Notify.toast('danger', "수령인 연락처 3를 입력하세요."); this.$refs.od_receiver_hp3.focus(); return false; }
-            if (isEmpty(frm.od_zip)) { Notify.toast('danger', "배송지 우편번호를 입력하세요."); this.$refs.od_zip.focus(); return false; }
-            if (isEmpty(frm.od_addr1)) { Notify.toast('danger', "배송지 주소를 입력하세요."); this.$refs.od_addr1.focus(); return false; }
-            if (isEmpty(frm.od_addr2)) { Notify.toast('danger', "배송지 상세주소를 입력하세요."); this.$refs.od_addr2.focus(); return false; }
-            if (isEmpty(frm.od_addr2)) { Notify.toast('danger', "배송지 상세주소를 입력하세요."); this.$refs.od_addr2.focus(); return false; }
             
             //  예전 이상한 주소 체크
             //  정상적인 주소로 시작 안하는 주소 거른다 (서울, 제주, 전라, 충남 등등의 도로 시작하는지 체크
@@ -716,6 +691,8 @@ export default {
 .settle_split .right .address .user { font-weight:900; }
 .settle_split .right .address .addr { margin-bottom:.7em; }
 .settle_split .right .address .add_addr small { color:#ACACAC; font-size:80%; }
+.settle_split .right .address select { width:50%; min-width:240px; }
+.settle_split .right .address select + input { margin-top:.5em; }
 
 .settle_split .right .pay_method h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
 .settle_split .right .pay_method>div:not(:last-child) { border-bottom:1px solid #d7d7d7; }

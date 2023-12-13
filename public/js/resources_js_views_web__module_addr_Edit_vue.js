@@ -34,10 +34,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (!Auth.check()) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
-              _this.addr.ua_hp = "".concat(_this.addr.ua_hp1, "-").concat(_this.addr.ua_hp2, "-").concat(_this.addr.ua_hp3);
               if (_this.addr.ua_def == 'Y') _this.address.forEach(function (a) {
                 if (a.ua_id != _this.addr.ua_id) a.ua_def = 'N';
               });
@@ -49,16 +48,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _method: 'PATCH'
               } // 삽입하려는 내용
               );
-              _context.next = 6;
+              _context.next = 5;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/user/addr/".concat(frm.ua_id), frm);
-            case 6:
+            case 5:
               res = _context.sent;
               if (res && res.status === 200) _this.$emit('index');
-              _context.next = 11;
+              _context.next = 10;
               break;
-            case 10:
+            case 9:
               Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }

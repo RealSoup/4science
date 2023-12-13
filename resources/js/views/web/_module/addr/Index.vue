@@ -9,8 +9,8 @@
         <b-col @click="select_addr(i)">{{addr.ua_addr1}}, {{addr.ua_addr2}}</b-col>
         <b-col @click="select_addr(i)">{{addr.ua_hp}}</b-col>
         <b-col @click="select_addr(i)">{{addr.ua_memo}}</b-col>
-        <b-button class="sm plum destroy" @click="destroy(i)">삭제</b-button>
-        <b-button class="sm green edit" @click="edit(i)">수정</b-button>
+        <b-button class="xm plum destroy" @click="destroy(i)">삭제</b-button>
+        <b-button class="xm green edit" @click="edit(i)">수정</b-button>
     </b-row>
     
 </b-container>

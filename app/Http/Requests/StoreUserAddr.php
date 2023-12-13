@@ -14,9 +14,7 @@ class StoreUserAddr extends FormRequest {
             'ua_zip'    => 'required',
             'ua_addr1'  => 'required',
             'ua_addr2'  => 'required',
-            'ua_hp1'    => 'required',
-            'ua_hp2'    => 'required',
-            'ua_hp3'    => 'required',
+            'ua_hp'    => 'required',
         ];
     }
 
@@ -28,9 +26,7 @@ class StoreUserAddr extends FormRequest {
             'ua_zip.required'   => '우편번호가 없습니다',
             'ua_addr1.required' => '주소를 검색해주세요',
             'ua_addr2.required' => '상세주소를 입력해주세요',
-            'ua_hp1.required'   => '휴대폰 번호 첫번째를 입력해주세요',
-            'ua_hp2.required'   => '휴대폰 번호 두번째를 입력해주세요',
-            'ua_hp3.required'   => '휴대폰 번호 세번째를 입력해주세요',
+            'ua_hp.required'   => '휴대폰 번호를 입력해주세요',
         ];
     }
 }
