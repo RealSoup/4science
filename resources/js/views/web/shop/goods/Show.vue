@@ -433,7 +433,14 @@ export default {
 
                 case "putCart":
                     // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
-                    this.$store.dispatch('cart/examine', {goods:this.content});
+                    // this.$store.dispatch('cart/examine', {goods:this.content});
+                    if (Auth.check()) {
+                        const res = await ax.post('/api/shop/cart', params);
+                        if (res.status === 200)
+                            Notify.toast('success', "장바구니 등록 완료");                        
+                    } else
+                        Notify.modal("로그인 해주세요.", 'danger');
+                    
                 break;
 
                 case "wish":                     

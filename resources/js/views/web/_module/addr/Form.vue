@@ -98,21 +98,24 @@ export default {
 .container>.row .col { position:relative; padding:2px 5px; }
 .container>.row .label { min-width:70px; padding-right:5px !important; }
 .container .addr_cell>.col { padding:8px 0; }
-.container .addr_cell .col .postcode_close{ z-index: 2; position:absolute; top:-28px; right:5px;  cursor: pointer; background:#FFF; border:1px solid #000; }
+.container .addr_cell .col .postcode_close{ z-index: 2; position:absolute; top:-28px; right:50%; transform:translateX(180px); cursor:pointer; background:#FFF; border:2px solid #999; border-radius:5px; color:#999; padding:3px; line-height:.9em; }
 .container .addr_cell .col input + svg { position:absolute; top:7px; right:9px; font-size:1.5rem; font-weight:bold; color: #CCC; }
 .container .addr_cell .col .postcode_open { width:100%; height:100%; position:absolute; top:0; left:0; opacity:.1; border-width:0; background: inherit; }
-
-.container>.row .col .vue-daum-postcode { position:absolute; z-index:2; width:360px; }
-.container>.row.addr_cell .col .row .col { padding:0px 5px; }
-.container>.row.addr_cell .label { display:flex; align-items:flex-start; justify-content:flex-end; }
-.container>.row.addr_cell .col .row:first-of-type .col:first-of-type { flex-basis:80px; max-width:80px; position:absolute; top:13px; height:50%; z-index:2; font-weight:bold; color:#AAA; display: flex; justify-content: center;}
-.container>.row.addr_cell .col .row:first-of-type .col:first-of-type:before { content:'['; }
-.container>.row.addr_cell .col .row:first-of-type .col:first-of-type:after { content:']'; }
-.container>.row.addr_cell .col .row:first-of-type .col input { text-indent:66px; }
+.container .addr_cell .col .vue-daum-postcode { position:absolute; z-index:2; width:100%; max-width:360px; min-width:300px; right:50%; transform:translateX(50%); }
+.container .addr_cell .col .row .col { padding:0px 5px; }
+.container .addr_cell .label { display:flex; align-items:flex-start; justify-content:flex-end; }
+.container .addr_cell .col .row:first-of-type .col:first-of-type { flex-basis:80px; max-width:80px; position:absolute; top:13px; height:50%; z-index:2; font-weight:bold; color:#AAA; display: flex; justify-content: center;}
+.container .addr_cell .col .row:first-of-type .col:first-of-type:before { content:'['; }
+.container .addr_cell .col .row:first-of-type .col:first-of-type:after { content:']'; }
+.container .addr_cell .col .row:first-of-type .col input { text-indent:66px; }
 
 .container>.row .alert { flex: 0 0 100%; max-width: 100%; }
 
 @media (max-width: 992px){
     .container { padding: 15px 0; }
+}
+@media (max-width: 450px){
+    .container .addr_cell .col .postcode_close,
+    .container .addr_cell .col .vue-daum-postcode { right:6PX; transform:none; }
 }
 </style>

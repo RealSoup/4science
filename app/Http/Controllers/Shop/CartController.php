@@ -4,7 +4,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Cart, Goods, GoodsModel, GoodsDiscount};
+use App\Models\Shop\{Cart, Goods};
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Arr;
@@ -12,12 +12,10 @@ use DB;
 use Cookie;
 
 class CartController extends Controller {
-    protected $ck_expires;    //  분단위 설정으로 7일
     protected $cart;
     protected $goods;
 
     public function __construct(Cart $ca, Goods $gd) {
-        // $this->ck_expires = 60*24*((int)cache("config.server")->ck_expires);
         $this->cart = $ca;
         $this->goods = $gd;
     }
@@ -25,31 +23,10 @@ class CartController extends Controller {
     public function index(Request $req){
         $rst = [];
         $carts = $this->cart->Created_id(auth()->user()->id)->get();
-
-
-
-
-
-        // foreach ($req->payload as $v) {
-        //     $ct = $this->cart
-        //         ->Created_id(auth()->user()->id)
-        //         ->whereRaw('(SELECT ct_gd_id FROM la_shop_cart WHERE ct_id = ?) = ct_gd_id', [$v])
-        //         ->where('ct_id', '!=', $v)
-        //         ->get();
-
-        //     $flag = true;
-        //     foreach ($ct as $v1)
-        //         if ($v1->ct_type == 'MODEL') $flag = false;
-        //     if ($flag)
-        //         $rst = $this->cart->Created_id(auth()->user()->id)->where('ct_gd_id', $ct[0]->ct_gd_id)->delete();
-        //     else
-        //         $rst = $this->cart->where('ct_id', $v)->delete();
-        // }     
-
-
-
-
-
+        
+        //  모델없이 옵션만 있는것 체크 & 삭제
+        $carts = self::find_only_option_and_delete($carts);
+        // dd($carts);
         $collect = $this->goods->getGoodsDataCollection($carts, 'cart');
         foreach ($collect['lists'] as $pa) {
             foreach ($pa as $item)
@@ -58,8 +35,19 @@ class CartController extends Controller {
         return response()->json($rst);
     }
 
+    public function find_only_option_and_delete($carts) {
+        //  모델없이 옵션만 있는것 체크 & 삭제
+        foreach ($carts->filter( fn($c) => $c->ct_type == 'OPTION' ) as $k => $opt) {
+            if (  !$carts->filter( fn($c) => $c->ct_type == 'MODEL' )->contains('ct_gd_id', $opt->ct_gd_id) ) {
+                DB::table('shop_cart')->where('ct_id', $opt->ct_id)->delete();
+                $carts->forget($k);
+            }
+        }
+        return $carts;
+    }
+
     public function store(Request $req) {
-        
+        // dd($req->all());
         if ($req->filled('type') && $req->type == 'add') {   //  관심상품에서 상품 추가
             foreach ($req->list as $v)
                 $rst = $this->cart->insert([
@@ -70,26 +58,31 @@ class CartController extends Controller {
                     'ip'         => $req->ip()
                 ]);
         } else {
-            if ($req->filled('gm_id')) 
-                $rst = $this->cart->insert([
-                    'ct_gd_id'   => $req->gd_id,
-                    'ct_key'     => $req->gm_id,
-                    'ct_ea'      => $req->ea,
-                    "created_id" => auth()->user()->id,
-                    'ip'         => $req->ip()
-                ]);
-            else if ($req->filled('go_id')) 
-                $rst = $this->cart->insert([
-                    'ct_gd_id'   => $req->gd_id,
-                    'ct_key'     => $req->goc_id,
-                    'ct_type'    => 'OPTION',
-                    'ct_ea'      => $req->ea,
-                    "created_id" => auth()->user()->id,
-                    'ip'         => $req->ip()
-                ]);
+            $my_ct = $this->cart->Created_id(auth()->user()->id)->get();
+            foreach ($req->all() as $r) {
+                $is_proc = false;
+                foreach ($my_ct as $v) {
+                    if ((   array_key_exists('gm_id', $r) && $v->ct_key == $r['gm_id']  ) ||
+                        (   array_key_exists('go_id', $r) && $v->ct_key == $r['goc_id'] ) ) {
+                        $is_proc = true;
+                        $rst = DB::table('shop_cart')->where('ct_id', $v->ct_id)->increment('ct_ea', $r['ea']);
+                        break;
+                    }
+                }
+                if (!$is_proc) {
+                    $rst = $this->cart->insert([
+                        'ct_gd_id'   => $r['gd_id'],
+                        'ct_key'     => array_key_exists('gm_id', $r) ? $r['gm_id'] : $r['goc_id'],
+                        'ct_type'    => array_key_exists('gm_id', $r) ? 'MODEL' : 'OPTION',
+                        'ct_ea'      => $r['ea'],
+                        "created_id" => auth()->user()->id,
+                        'ip'         => $req->ip()
+                    ]);
+                }
+            }          
         }
         if ($rst)   return response()->json($rst, 200);
-        else        return response()->json("장바구니 에러", 400);// return alertRedirect("모델을 선택하세요", '');
+        else        return response()->json("장바구니 에러", 400);
     }
 
 	public function update(Request $req) {
@@ -98,32 +91,10 @@ class CartController extends Controller {
         else return response()->json("장바구니 에러", 400);
     }
 
-
     public function destroy(Request $req, $id) {
         foreach ($req->payload as $v)
             $rst = $this->cart->where('ct_id', $v)->delete();
 		if($rst) return response()->json("삭제완료", 200);
         else return response()->json(["type"=>"alert", "message"=>"삭제 오류"], 400);
     }
-
-    // public function destroy(Request $req, $id) {
-    //     foreach ($req->payload as $v) {
-    //         $ct = $this->cart
-    //             ->Created_id(auth()->user()->id)
-    //             ->whereRaw('(SELECT ct_gd_id FROM la_shop_cart WHERE ct_id = ?) = ct_gd_id', [$v])
-    //             ->where('ct_id', '!=', $v)
-    //             ->get();
-
-    //         $flag = true;
-    //         foreach ($ct as $v1)
-    //             if ($v1->ct_type == 'MODEL') $flag = false;
-    //         if ($flag)
-    //             $rst = $this->cart->Created_id(auth()->user()->id)->where('ct_gd_id', $ct[0]->ct_gd_id)->delete();
-    //         else
-    //             $rst = $this->cart->where('ct_id', $v)->delete();
-    //     }        
-        
-	// 	if($rst) return response()->json("삭제완료", 200);
-    //     else return response()->json(["type"=>"alert", "message"=>"삭제 오류"], 400);
-    // }
 }

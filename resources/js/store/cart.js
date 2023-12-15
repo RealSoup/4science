@@ -75,18 +75,18 @@ export default {
                         });
 
                         if (!existFlag) {
-                            if (ct_index == 0)  ct_index = context.state.cartList.length
-                            else                ct_index += 1;
-                            context.state.cartList.splice(ct_index, 0, {
-                                gd_id:          payload.goods.gd_id,
-                                gm_id:          gm.gm_id,
-                                type:           "model",
-                                img:            payload.goods.image_src_thumb[0],
-                                ct_check_opt:   'Y',
-                                gm_name:        gm.gm_name,
-                                price_add_vat:  gm.gm_price_add_vat,
-                                ea:             gm.ea,
-                            });
+                            // if (ct_index == 0)  ct_index = context.state.cartList.length
+                            // else                ct_index += 1;
+                            // context.state.cartList.splice(ct_index, 0, {
+                            //     gd_id:          payload.goods.gd_id,
+                            //     gm_id:          gm.gm_id,
+                            //     type:           "model",
+                            //     img:            payload.goods.image_src_thumb[0],
+                            //     ct_check_opt:   'Y',
+                            //     gm_name:        gm.gm_name,
+                            //     price_add_vat:  gm.gm_price_add_vat,
+                            //     ea:             gm.ea,
+                            // });
                             context.dispatch('store', { gd_id: payload.goods.gd_id, gm_id: gm.gm_id, ea: gm.ea });
                         }
                     }
@@ -105,16 +105,16 @@ export default {
                             });
 
                             if (!existFlag) {
-                                ct_index+=1;
-                                context.state.cartList.splice(ct_index+1, 0, {
-                                    gd_id:          payload.goods.gd_id,
-                                    goc_id:         goc.goc_id,
-                                    type:           "option",
-                                    ct_check_opt:   'Y',
-                                    goc_name:       goc.goc_name,
-                                    price_add_vat:  goc.goc_price_add_vat,
-                                    ea:             goc.ea,
-                                });
+                                // ct_index+=1;
+                                // context.state.cartList.splice(ct_index+1, 0, {
+                                //     gd_id:          payload.goods.gd_id,
+                                //     goc_id:         goc.goc_id,
+                                //     type:           "option",
+                                //     ct_check_opt:   'Y',
+                                //     goc_name:       goc.goc_name,
+                                //     price_add_vat:  goc.goc_price_add_vat,
+                                //     ea:             goc.ea,
+                                // });
                                 context.dispatch('store', { gd_id: payload.goods.gd_id, go_id: goc.goc_go_id, goc_id: goc.goc_id, ea: goc.ea });
                             }
                         }
@@ -147,7 +147,6 @@ export default {
                     if (res.status === 200) {
                         Notify.toast('success', res.data);
                         // context.commit('setList', res.data);
-                        Notify.toast('success', "수량이 수정 되었습니다.");
                     }
                 }
             } catch (e) {

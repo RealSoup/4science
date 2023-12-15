@@ -68,7 +68,7 @@
 
 
             <b-col class="right">
-                <div class="address area_piece">                    
+                <div class="address area_piece" id="address_box">                    
                     <template v-if="this.addr.length">
                         <div class="addr_tit">
                             <b-icon-pin-map></b-icon-pin-map> {{order.od_ua_title}}
@@ -580,7 +580,11 @@ export default {
             //  정상적인 주소로 시작 안하는 주소 거른다 (서울, 제주, 전라, 충남 등등의 도로 시작하는지 체크
             //  some 함수는 배열의 루프 돌면서 하나라도 참이면 참
             let do_chk = this.config.do_list.some( (do_nm) => this.order.od_addr1.trim().startsWith(do_nm) );
-            if (!do_chk) { Notify.modal("주소를 확인하세요.", 'danger'); this.$refs.od_addr1.focus(); return false; }
+            if (!do_chk) { 
+                Notify.modal("정확한 도로명 주소로 수정해주세요.", 'danger');
+                document.getElementById('address_box').scrollIntoView();
+                window.scrollBy(0, -160);
+                return false; }
             
             return true;
         },

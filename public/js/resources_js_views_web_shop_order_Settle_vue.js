@@ -687,8 +687,9 @@ var paymentWidget = null;
         return _this2.order.od_addr1.trim().startsWith(do_nm);
       });
       if (!do_chk) {
-        Notify.modal("주소를 확인하세요.", 'danger');
-        this.$refs.od_addr1.focus();
+        Notify.modal("정확한 도로명 주소로 수정해주세요.", 'danger');
+        document.getElementById('address_box').scrollIntoView();
+        window.scrollBy(0, -160);
         return false;
       }
       return true;
@@ -970,7 +971,10 @@ var render = function render() {
   }, [_c("b-card", [_vm._v("\r\n                                구매자 및 사용자는 ㈜아이넥서스의 이용약관 및 전자상거래 약관을 확인하였으며 이에 동의합니다. 수입제품의 경우 반품이 불가할 수 있으며, 시약의 경우 연구의 목적으로만 사용이 가능함을 확인합니다.\r\n                                이를 어길 경우에 발생하는 모든 책임은 구매자 및 사용자에 있음을 확인합니다.\r\n                            ")])], 1)], 1)], 1)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "right"
   }, [_c("div", {
-    staticClass: "address area_piece"
+    staticClass: "address area_piece",
+    attrs: {
+      id: "address_box"
+    }
   }, [this.addr.length ? [_c("div", {
     staticClass: "addr_tit"
   }, [_c("b-icon-pin-map"), _vm._v(" " + _vm._s(_vm.order.od_ua_title) + "\r\n                            "), _c("b-button", {

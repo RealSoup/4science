@@ -158,7 +158,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     action: function action(type) {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var params, cntModel, required_key, required_key_cnt, estimate_price, route_obj, res;
+        var params, cntModel, required_key, required_key_cnt, estimate_price, route_obj, res, _res;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -198,7 +198,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               return _context2.abrupt("return", false);
             case 13:
               _context2.t0 = type;
-              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 25 : _context2.t0 === "wish" ? 27 : _context2.t0 === "estimate" ? 39 : 41;
+              _context2.next = _context2.t0 === "pay" ? 16 : _context2.t0 === "putCart" ? 25 : _context2.t0 === "wish" ? 34 : _context2.t0 === "estimate" ? 46 : 48;
               break;
             case 16:
               estimate_price = false;
@@ -223,36 +223,46 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 od_plan: _this3.od_plan
               };
               _this3.$router.push(route_obj);
-              return _context2.abrupt("break", 41);
+              return _context2.abrupt("break", 48);
             case 25:
-              // this.$store.dispatch('cart/examine', {goods:this.content, params:params});
-              _this3.$store.dispatch('cart/examine', {
-                goods: _this3.content
-              });
-              return _context2.abrupt("break", 41);
-            case 27:
-              _context2.prev = 27;
-              _context2.next = 30;
+              if (!Auth.check()) {
+                _context2.next = 32;
+                break;
+              }
+              _context2.next = 28;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/shop/cart', params);
+            case 28:
+              res = _context2.sent;
+              if (res.status === 200) Notify.toast('success', "장바구니 등록 완료");
+              _context2.next = 33;
+              break;
+            case 32:
+              Notify.modal("로그인 해주세요.", 'danger');
+            case 33:
+              return _context2.abrupt("break", 48);
+            case 34:
+              _context2.prev = 34;
+              _context2.next = 37;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
                 return gm.ea > 0;
               }));
-            case 30:
-              res = _context2.sent;
-              if (res && res.status === 200) {
+            case 37:
+              _res = _context2.sent;
+              if (_res && _res.status === 200) {
                 Notify.toast('success', '관심 상품 등록 완료');
               } else {
-                Notify.toast('warning', res);
+                Notify.toast('warning', _res);
               }
-              _context2.next = 38;
+              _context2.next = 45;
               break;
-            case 34:
-              _context2.prev = 34;
-              _context2.t1 = _context2["catch"](27);
+            case 41:
+              _context2.prev = 41;
+              _context2.t1 = _context2["catch"](34);
               Notify.consolePrint(_context2.t1);
               Notify.toast('warning', _context2.t1.responsee);
-            case 38:
-              return _context2.abrupt("break", 41);
-            case 39:
+            case 45:
+              return _context2.abrupt("break", 48);
+            case 46:
               _this3.$router.push({
                 name: 'estimate_create',
                 params: {
@@ -260,12 +270,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   od_type: 'request_estimate'
                 }
               });
-              return _context2.abrupt("break", 41);
-            case 41:
+              return _context2.abrupt("break", 48);
+            case 48:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[27, 34]]);
+        }, _callee2, null, [[34, 41]]);
       }))();
     },
     makeParam: function makeParam() {
