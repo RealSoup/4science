@@ -9,10 +9,7 @@
         
         <b-link to="/board/notice/show/55">
             <b-carousel-slide :img-src="s3url+'event/2023/1130/slide.jpg'"></b-carousel-slide>
-        </b-link>
-        <b-link to="/shop/goods/616621">
-            <b-carousel-slide :img-src="s3url+'event/2023/1115/slide.jpg'"></b-carousel-slide>
-        </b-link>
+        </b-link>        
         <b-link to="/shop/rental">
             <b-carousel-slide :img-src="s3url+'event/2023/1208/slide.jpg'"></b-carousel-slide>
         </b-link>
