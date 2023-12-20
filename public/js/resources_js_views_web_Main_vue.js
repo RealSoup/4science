@@ -224,16 +224,16 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "split_link",
     attrs: {
-      href: "https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko",
       id: "app01",
-      target: "_blank"
+      target: "_blank",
+      href: "https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko"
     }
   }), _vm._v(" "), _c("a", {
     staticClass: "split_link",
     attrs: {
-      href: "https://play.google.com/store/apps/details?id=four.science.app",
       id: "app02",
-      target: "_blank"
+      target: "_blank",
+      href: "https://play.google.com/store/apps/details?id=four.science.app"
     }
   })])], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "layout",

@@ -11,9 +11,9 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <b-img :src="`/storage/common/logo/logo.png`" />
-                <!-- <b-img :src="`/storage/common/logo/logo_230526.png`" class="season" />
-                <b-img :src="`/storage/common/logo/logo.png`" class="default" /> -->
+                <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
+                <b-img :src="`/storage/common/logo/logo_231220.gif`" class="season" />
+                <b-img :src="`/storage/common/logo/logo.png`" class="default" />
             </b-link>
             
             <div class="head_sch_box" :class="{view_sch:view_sch}">
@@ -165,6 +165,9 @@ export default {
 /*#header #core .layout .logo { flex:0 0 250px; max-width:250px; height:72px; background:top left/238px 72px no-repeat url('/storage/common/logo/logo.png'); } */
 /*#header #core .layout .logo { flex:0 0 292px; max-width:292px; height:100%; position:relative; display:block;}*/
 #header #core .the_top .logo { flex:0 0 28.533333%; max-width:28.533333%; }
+#header #core .the_top .logo .season { display:block; width:100%; }
+#header #core .the_top .logo .season { transform:translateY(32px); max-width:400px; }
+#header #core .the_top .logo .default { display:none; }
 #header #core .the_top .top_menu { margin-bottom:3px; text-align:right; }
 #header #core .the_top .top_menu a { display:inline-block; text-align:center; padding: 0 0.4em; font-size:.8em; font-weight:600; }
 #header #core .the_top .top_menu a p { margin:.5em 0 0 0; }
@@ -180,7 +183,7 @@ export default {
 #header #core .the_top .kakao { position:absolute; bottom:1.2em; right:-77px; width:56px; }
 #header #core .the_top .kakao img { width: 100%; }
 
-#header #core .nav_menu { background:#626C75; }
+#header #core .nav_menu { background:#626C75; position:relative; }
 #header #core .nav_menu .layout { display:flex; }
 #header #core .nav_menu .layout a { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; line-height:3.125em; color:#FFF; text-align:center; }
 #header #core .nav_menu .layout a:not(#cate_btn):hover { color:#F8931D; font-weight:900; }

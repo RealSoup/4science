@@ -18,8 +18,8 @@
         </b-link>
         <b-link to="/board/event/show/31">
             <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
-                <a href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko" id="app01" class="split_link" target="_blank"></a>
-                <a href="https://play.google.com/store/apps/details?id=four.science.app" id="app02" class="split_link" target="_blank"></a>
+                <a id="app01" class="split_link" target="_blank" href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko"></a>
+                <a id="app02" class="split_link" target="_blank" href="https://play.google.com/store/apps/details?id=four.science.app"></a>
             </b-carousel-slide>
         </b-link>
     </b-carousel>
