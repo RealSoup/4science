@@ -187,7 +187,7 @@ var render = function render() {
       "class": {
         expiration: ml.expiration || ml.ml_type == "SP"
       }
-    }, [_c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(ml.created_at)))]), _vm._v(" "), _c("b-col", [ml.ml_tbl == "voucher" ? _c("div", [_vm._v("\r\n                    " + _vm._s(_vm.config[ml.refine_content[0]].name) + " : " + _vm._s(ml.refine_content[1]) + " 장 /\r\n                    수령인: " + _vm._s(ml.refine_content[2]) + " (" + _vm._s(ml.refine_content[3]) + ")\r\n                ")]) : ml.ml_tbl == "shop_order_model" && ml.order_model ? _c("div", [_vm._v("\r\n                    " + _vm._s(ml.ml_content) + "\r\n                    "), _c("b-button", {
+    }, [_c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(ml.created_at)))]), _vm._v(" "), _c("b-col", [ml.ml_tbl == "voucher" ? _c("div", [ml.refine_content ? [_vm._v("\r\n                    " + _vm._s(_vm.config[ml.refine_content[0]].name) + " : " + _vm._s(ml.refine_content[1]) + " 장 / 수령인: " + _vm._s(ml.refine_content[2]) + " (" + _vm._s(ml.refine_content[3]) + ")\r\n                    ")] : [_vm._v(_vm._s(ml.ml_content))]], 2) : ml.ml_tbl == "shop_order_model" && ml.order_model ? _c("div", [_vm._v("\r\n                    " + _vm._s(ml.ml_content) + "\r\n                    "), _c("b-button", {
       staticClass: "white xm",
       attrs: {
         to: {

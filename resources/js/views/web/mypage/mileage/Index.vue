@@ -14,8 +14,10 @@
             <b-col>
                 
                 <div v-if="ml.ml_tbl == 'voucher'">
-                    {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 /
-                    수령인: {{ml.refine_content[2]}} ({{ml.refine_content[3]}})
+                    <template v-if="ml.refine_content">
+                    {{config[ml.refine_content[0]].name}} : {{ml.refine_content[1]}} 장 / 수령인: {{ml.refine_content[2]}} ({{ml.refine_content[3]}})
+                    </template>
+                    <template v-else>{{ml.ml_content}}</template>
                 </div>
                 <div v-else-if="ml.ml_tbl == 'shop_order_model' && ml.order_model">
                     {{ml.ml_content}}
