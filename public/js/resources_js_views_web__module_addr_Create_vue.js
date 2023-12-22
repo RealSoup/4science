@@ -44,35 +44,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               if (!Auth.check()) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
               if (_this.addr.ua_def == 'Y') _this.address.forEach(function (a) {
                 a.ua_def = 'N';
               });
-              _this.address.push(_this.addr);
-              _context.next = 6;
+              _context.next = 5;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/user/addr', _this.addr);
-            case 6:
+            case 5:
               res = _context.sent;
-              if (res && res.status === 200) _this.$emit('index');
-              _context.next = 11;
+              if (res && res.status === 200) {
+                _this.address.push(_this.addr);
+                _this.$emit('index');
+              }
+              _context.next = 10;
               break;
-            case 10:
+            case 9:
               Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
-            case 11:
-              _context.next = 17;
+            case 10:
+              _context.next = 16;
               break;
-            case 13:
-              _context.prev = 13;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](0);
               Notify.consolePrint(_context.t0);
               Notify.toast('warning', _context.t0.response.data.message);
-            case 17:
+            case 16:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 13]]);
+        }, _callee, null, [[0, 12]]);
       }))();
     },
     index: function index() {

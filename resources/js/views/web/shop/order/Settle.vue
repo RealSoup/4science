@@ -72,7 +72,7 @@
                     <template v-if="this.addr.length">
                         <div class="addr_tit">
                             <b-icon-pin-map></b-icon-pin-map> {{order.od_ua_title}}
-                            <b-button class="white sm" @click="config_addr">배송지 관리</b-button>
+                            <b-button class="white sm" @click="config_addr" :class="{invalid_addr:addr_chk}">배송지 관리</b-button>
                         </div>
                         <div class="user">{{order.od_receiver}} {{order.od_receiver_hp}}</div> 
                         <div class="addr">{{order.od_addr1}} {{order.od_addr2}}</div>
@@ -354,6 +354,7 @@ export default {
         ...mapState('auth', ['isLoggedin', 'user']),
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
         goods_cnt () { return this.order.goods.filter(gm => gm.gm_id > 0).length; },
+        addr_chk () { return isEmpty(this.order.od_receiver) || isEmpty(this.order.od_receiver_hp) || isEmpty(this.order.od_zip) || isEmpty(this.order.od_addr1) || isEmpty(this.order.od_addr2) },
     },
     methods:{
         calculator() {
@@ -575,18 +576,29 @@ export default {
             
                 default: break;
             }
-            
+
+            if (isEmpty(frm.od_receiver))   { this.go_scroll_address(); Notify.toast('danger', "수령인 없음. 배송지 관리에서 수정하세요.");         return false; }
+            if (isEmpty(frm.od_receiver_hp)){ this.go_scroll_address(); Notify.toast('danger', "수령인 연락처 없음. 배송지 관리에서 수정하세요.");  return false; }
+            if (isEmpty(frm.od_zip))        { this.go_scroll_address(); Notify.toast('danger', "우편번호 없음. 배송지 관리에서 수정하세요.");       return false; }
+            if (isEmpty(frm.od_addr1))      { this.go_scroll_address(); Notify.toast('danger', "주소 없음. 배송지 관리에서 수정하세요.");           return false; }
+            if (isEmpty(frm.od_addr2))      { this.go_scroll_address(); Notify.toast('danger', "상세주소 없음. 배송지 관리에서 수정하세요.");       return false; }
+
             //  예전 이상한 주소 체크
             //  정상적인 주소로 시작 안하는 주소 거른다 (서울, 제주, 전라, 충남 등등의 도로 시작하는지 체크
             //  some 함수는 배열의 루프 돌면서 하나라도 참이면 참
             let do_chk = this.config.do_list.some( (do_nm) => this.order.od_addr1.trim().startsWith(do_nm) );
             if (!do_chk) { 
                 Notify.modal("정확한 도로명 주소로 수정해주세요.", 'danger');
-                document.getElementById('address_box').scrollIntoView();
-                window.scrollBy(0, -160);
-                return false; }
+                this.go_scroll_address();
+                return false; 
+            }
             
             return true;
+        },
+
+        go_scroll_address () { 
+            document.getElementById('address_box').scrollIntoView(); 
+            window.scrollBy(0, -160); 
         },
 
     },
@@ -692,11 +704,16 @@ export default {
 .settle_split .right .address .addr_tit { color:#ff4d00; font-weight:900; font-size:1.4em; }
 .settle_split .right .address .addr_tit svg { margin-right: 0.5em; }
 .settle_split .right .address .addr_tit button { float:right; }
+.settle_split .right .address .addr_tit button.invalid_addr { box-shadow:0 0 0px 1px rgb(255, 72, 0, .2); animation: blink_effect 1s infinite alternate; }
 .settle_split .right .address .user { font-weight:900; }
 .settle_split .right .address .addr { margin-bottom:.7em; }
 .settle_split .right .address .add_addr small { color:#ACACAC; font-size:80%; }
 .settle_split .right .address select { width:50%; min-width:240px; }
 .settle_split .right .address select + input { margin-top:.5em; }
+@keyframes blink_effect {
+  0% { box-shadow:0 0 0px 1px rgba(255, 72, 0, .2); }
+  100% { box-shadow:0 0 16px 10px rgb(255, 72, 0); }
+}
 
 .settle_split .right .pay_method h5 { font-size:1.1rem; font-weight:bold; margin-bottom:.6rem; padding-left:.5rem; }
 .settle_split .right .pay_method>div:not(:last-child) { border-bottom:1px solid #d7d7d7; }

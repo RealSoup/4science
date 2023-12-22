@@ -32,10 +32,11 @@ export default {
                 if (Auth.check()) {
                     if (this.addr.ua_def == 'Y')
                         this.address.forEach(a => { a.ua_def = 'N' });
-                    this.address.push(this.addr);
                     const res = await ax.post('/api/user/addr', this.addr);
-                    if (res && res.status === 200)
+                    if (res && res.status === 200) {
+                        this.address.push(this.addr);
                         this.$emit('index');
+                    }
                 } else
                     Notify.modal("로그인이 필요한 서비스 입니다.", 'warning');
             } catch (e) {
