@@ -4,7 +4,8 @@
     <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
     <template v-else>
         <b-row v-if="list.data && list.data.length" class="gal_list">
-            <b-link v-for="row in list.data" :key="row.gd_id" :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col">
+            <!-- <b-link v-for="row in list.data" :key="row.gd_id"  :to="{name: 'goods_show', params:{gd_id:row.gd_id} }" class="col"> -->
+            <b-link v-for="row in list.data" :key="row.gd_id" @click="chk_and_link(row.gd_enable, row.gd_id)" class="col">                
                 <img :src="row.image_src_thumb[0]" />
                 <div>{{row.gd_name}}</div>
                 <p class="price_box align-items-end" :class="{price_discount:row.goods_model_prime.gm_price_dc_add_vat}">
@@ -58,6 +59,14 @@ export default {
         routerPush(p){
             this.sch_frm.page = p;
             this.$router.push({name: 'listing_sale', query: this.sch_frm }).catch(()=>{});
+        },
+
+        chk_and_link (enable, gd_id) {
+            if (enable === 'Y') {
+                this.$router.push({ name: 'goods_show', params:{gd_id:gd_id} });
+            } else if (enable === 'N') {
+                Notify.modal("비활성 상품입니다.", 'danger');
+            }
         },
     },
 

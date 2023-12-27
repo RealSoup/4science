@@ -24,7 +24,7 @@ class ListingController extends Controller {
     }
 
     public function sale(Request $req) {
-        $rst = $this->goods->select("shop_goods.gd_id", "shop_goods.gd_name", "shop_goods.gd_dc")
+        $rst = $this->goods->select("shop_goods.gd_id", "shop_goods.gd_name", "shop_goods.gd_dc", "shop_goods.gd_enable")
             ->with('goodsModelPrime')
             ->where("shop_goods.gd_dc", "<>", 0)
             ->paginate();

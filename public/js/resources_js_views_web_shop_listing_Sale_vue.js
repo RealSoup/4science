@@ -72,6 +72,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'listing_sale',
         query: this.sch_frm
       })["catch"](function () {});
+    },
+    chk_and_link: function chk_and_link(enable, gd_id) {
+      if (enable === 'Y') {
+        this.$router.push({
+          name: 'goods_show',
+          params: {
+            gd_id: gd_id
+          }
+        });
+      } else if (enable === 'N') {
+        Notify.modal("비활성 상품입니다.", 'danger');
+      }
     }
   },
   mounted: function mounted() {
@@ -113,12 +125,9 @@ var render = function render() {
     return _c("b-link", {
       key: row.gd_id,
       staticClass: "col",
-      attrs: {
-        to: {
-          name: "goods_show",
-          params: {
-            gd_id: row.gd_id
-          }
+      on: {
+        click: function click($event) {
+          return _vm.chk_and_link(row.gd_enable, row.gd_id);
         }
       }
     }, [_c("img", {

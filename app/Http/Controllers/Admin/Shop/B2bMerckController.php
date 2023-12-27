@@ -28,8 +28,8 @@ class B2bMerckController extends Controller {
 		$todayCnt = DB::table('shop_b2b_merck')->whereDate('created_at', date('Y-m-d'))->count();
 		$todayCnt = $todayCnt < 10 ? '0'.$todayCnt : $todayCnt;
 
-		$DeploymentMode	= "test";
-		// $DeploymentMode	= "production";
+		// $DeploymentMode	= "test";
+		$DeploymentMode	= "production";
 		$xmlVersion		= '1.2.009';
 		$payloadID		= 'payloadID_'.date("ymd").$todayCnt;
 		$xmlLang		= 'ko-KR';

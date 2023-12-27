@@ -74,8 +74,22 @@
                             <b-icon-pin-map></b-icon-pin-map> {{order.od_ua_title}}
                             <b-button class="white sm" @click="config_addr" :class="{invalid_addr:addr_chk}">배송지 관리</b-button>
                         </div>
-                        <div class="user">{{order.od_receiver}} {{order.od_receiver_hp}}</div> 
-                        <div class="addr">{{order.od_addr1}} {{order.od_addr2}}</div>
+                        <div class="user">
+                            <span v-if="!isEmpty(order.od_receiver)">{{order.od_receiver}}</span>
+                            <i v-else class="empty">수령인 없음</i>
+                            
+                            <span v-if="!isEmpty(order.od_receiver_hp)">{{order.od_receiver_hp}}</span>
+                            <i v-else class="empty">수령인 연락처 없음</i>
+                        </div>
+                        <div class="addr">
+                            <i v-if="isEmpty(order.od_zip)" class="empty">우편번호 없음</i>
+                            
+                            <span v-if="!isEmpty(order.od_addr1)">{{order.od_addr1}}</span>
+                            <i v-else class="empty">주소 없음</i>
+                            
+                            <span v-if="!isEmpty(order.od_addr2)">{{order.od_addr2}}</span>
+                            <i v-else class="empty">상세주소 없음</i>
+                        </div>
                         <b-form-select v-model="order.od_memo_slt" @change="memo_slt" size="sm">
                             <b-form-select-option value="">배송시 요청 사항</b-form-select-option>
                             <b-form-select-option v-for="(msg, i) in config.dlvy_msg" :key="i" :value="i">{{msg}}</b-form-select-option>
@@ -704,10 +718,11 @@ export default {
 .settle_split .right .address .addr_tit { color:#ff4d00; font-weight:900; font-size:1.4em; }
 .settle_split .right .address .addr_tit svg { margin-right: 0.5em; }
 .settle_split .right .address .addr_tit button { float:right; }
-.settle_split .right .address .addr_tit button.invalid_addr { box-shadow:0 0 0px 1px rgb(255, 72, 0, .2); animation: blink_effect 1s infinite alternate; }
+.settle_split .right .address .addr_tit button.invalid_addr { border-color:rgb(255, 72, 0); box-shadow:0 0 0px 1px rgb(255, 72, 0, .2); animation: blink_effect 1s infinite alternate; }
 .settle_split .right .address .user { font-weight:900; }
 .settle_split .right .address .addr { margin-bottom:.7em; }
 .settle_split .right .address .add_addr small { color:#ACACAC; font-size:80%; }
+.settle_split .right .address div .empty { color:red; font-weight:100; text-decoration:underline; }
 .settle_split .right .address select { width:50%; min-width:240px; }
 .settle_split .right .address select + input { margin-top:.5em; }
 @keyframes blink_effect {
