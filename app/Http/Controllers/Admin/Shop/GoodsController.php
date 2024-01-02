@@ -98,6 +98,8 @@ class GoodsController extends Controller {
                         ->with('goodsCategory')
                         ->with('goodsRelate')
                         ->find($gd_id);
+        if(!$data['goods'])
+            return response()->json(["message"=>"상품이 없습니다."], 500);
         foreach($data['goods']->goodsModel as $md) $md->bundleDc;
         foreach($data['goods']->goodsOption as $go) $go->goodsOptionChild;
         foreach($data['goods']->goodsRelate as $gr) $gr->goods;

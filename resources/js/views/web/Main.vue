@@ -7,14 +7,17 @@
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->
         
+        <b-link to="/shop/listing/sale">
+            <b-carousel-slide img-src="/storage/event/2024/0103/slide.jpg"></b-carousel-slide>
+        </b-link>
         <b-link to="/shop/rental">
-            <b-carousel-slide :img-src="s3url+'event/2023/1208/slide.jpg'"></b-carousel-slide>
+            <b-carousel-slide img-src="/storage/event/2023/1208/slide.jpg"></b-carousel-slide>
         </b-link>
         <b-link to="/shop/goods?mode=maker&keyword=radwag">
-            <b-carousel-slide :img-src="s3url+'event/2023/0918/slide.jpg'"></b-carousel-slide>
+            <b-carousel-slide img-src="/storage/event/2023/0918/slide.jpg"></b-carousel-slide>
         </b-link>
         <b-link to="/board/event/show/31">
-            <b-carousel-slide :img-src="s3url+'main/slide/2023/23041606.jpg'">
+            <b-carousel-slide img-src="/storage/main/slide/2023/23041606.jpg">
                 <a id="app01" class="split_link" target="_blank" href="https://apps.apple.com/us/app/%ED%8F%AC%EC%82%AC%EC%9D%B4%EC%96%B8%EC%8A%A4/id1632395060?l=ko"></a>
                 <a id="app02" class="split_link" target="_blank" href="https://play.google.com/store/apps/details?id=four.science.app"></a>
             </b-carousel-slide>
@@ -23,7 +26,7 @@
 
     <b-row id="best" class="layout">
         <b-col>
-            <b-img :src="`${s3url}main/best.gif`" />
+            <b-img src="/storage/main/best.gif" />
         </b-col>
         <b-col>
             <div class="box-row">

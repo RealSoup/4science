@@ -191,11 +191,19 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
+      to: "/shop/listing/sale"
+    }
+  }, [_c("b-carousel-slide", {
+    attrs: {
+      "img-src": "/storage/event/2024/0103/slide.jpg"
+    }
+  })], 1), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/shop/rental"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": _vm.s3url + "event/2023/1208/slide.jpg"
+      "img-src": "/storage/event/2023/1208/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -203,7 +211,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": _vm.s3url + "event/2023/0918/slide.jpg"
+      "img-src": "/storage/event/2023/0918/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
@@ -211,7 +219,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": _vm.s3url + "main/slide/2023/23041606.jpg"
+      "img-src": "/storage/main/slide/2023/23041606.jpg"
     }
   }, [_c("a", {
     staticClass: "split_link",
@@ -234,7 +242,7 @@ var render = function render() {
     }
   }, [_c("b-col", [_c("b-img", {
     attrs: {
-      src: "".concat(_vm.s3url, "main/best.gif")
+      src: "/storage/main/best.gif"
     }
   })], 1), _vm._v(" "), _c("b-col", [_c("div", {
     staticClass: "box-row"
