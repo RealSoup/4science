@@ -11,9 +11,9 @@
     <div id="core">
         <div class="the_top layout">
             <b-link class="logo" :to="{name: 'main'}">
-                <!-- <b-img :src="`/storage/common/logo/logo.png`" /> -->
-                <b-img :src="`/storage/common/logo/logo_231220.gif`" class="season" />
-                <b-img :src="`/storage/common/logo/logo.png`" class="default" />
+                <b-img :src="`/storage/common/logo/logo.png`" />
+                <!-- <b-img :src="`/storage/common/logo/logo_231220.gif`" class="season" />
+                <b-img :src="`/storage/common/logo/logo.png`" class="default" /> -->
             </b-link>
             
             <div class="head_sch_box" :class="{view_sch:view_sch}">
