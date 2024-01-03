@@ -21,7 +21,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "AuthPasswordForgot",
   data: function data() {
     return {
-      email: ''
+      email: '',
+      is_send: false
     };
   },
   methods: {
@@ -39,7 +40,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context.sent;
               if (res && res.status === 200) {
-                Notify.modal('이메일을 확인해 주세요', 'info');
+                _this.is_send = true;
+                // Notify.modal('비밀번호 재설정 메일이 발송 되었습니다. 입력하신 이메일을 확인 바랍니다.', 'info');
               }
             case 4:
             case "end":
@@ -72,7 +74,7 @@ var render = function render() {
     attrs: {
       fluid: "sm"
     }
-  }, [_c("h3", [_vm._v("비밀번호 재설정")]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-form-input", {
+  }, [_c("h3", [_vm._v("비밀번호 재설정")]), _vm._v(" "), !_vm.is_send ? [_c("b-row", [_c("b-col", [_c("b-form-input", {
     attrs: {
       type: "email",
       id: "email",
@@ -92,7 +94,18 @@ var render = function render() {
     on: {
       click: _vm.send
     }
-  }, [_vm._v("이메일 발송")])], 1)], 1)], 1);
+  }, [_vm._v("이메일 발송")])], 1)], 1)] : [_c("b-row", {
+    staticClass: "after_send fir"
+  }, [_c("b-col", [_c("b", [_vm._v(_vm._s(_vm.email))]), _vm._v("으로 비밀번호 재설정 이메일을 발송하였습니다.\r\n            ")])], 1), _vm._v(" "), _c("b-row", {
+    staticClass: "after_send sec"
+  }, [_c("b-col", [_c("p", [_vm._v("이메일을 받지 못하셨나요?")]), _vm._v("\r\n                스팸함을 확인해보시거나, 입력하신 이메일이 가입시 입력한 이메일과 일치하는지 확인해주세요. "), _c("br"), _vm._v("\r\n                이메일을 잊으신 경우, 먼저 이메일 찾기를 진행해주세요.\r\n                "), _c("b-button", {
+    staticClass: "sm blue",
+    attrs: {
+      to: {
+        name: "login"
+      }
+    }
+  }, [_vm._v("이메일 찾기 >")])], 1)], 1)]], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -116,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-701d432a] { max-width:540px; margin-top:.6rem;\n}\n.frm_st h3[data-v-701d432a] { text-align:center; font-size:3rem;\n}\n.frm_st .row .col input[data-v-701d432a] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-701d432a] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-701d432a] { padding:.65rem; width:100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.frm_st[data-v-701d432a] { max-width:540px; margin-top:.6rem;\n}\n.frm_st h3[data-v-701d432a] { text-align:center; font-size:3rem;\n}\n.frm_st .row .col input[data-v-701d432a] { height: calc(1.5em + 1.4rem + 2px);\n}\n.frm_st .row .btn_box[data-v-701d432a] { margin-top: 2rem;\n}\n.frm_st .row .btn_box button.login[data-v-701d432a] { padding:.65rem; width:100%;\n}\n.frm_st .after_send.fir[data-v-701d432a] { font-weight:600;\n}\n.frm_st .after_send.fir b[data-v-701d432a] { color:#0094ea; display:inline-block; margin:0 8px; font-weight:900;\n}\n.frm_st .after_send.sec p[data-v-701d432a] { font-weight:600; text-align:center; margin:0;}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

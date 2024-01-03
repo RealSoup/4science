@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="goods_form">
     <b-container class="box cate">
         <h5>상품 카테고리</h5>
         <b-row class="selecter">
@@ -237,7 +237,16 @@
                         </b-input-group>
                     </b-card>
                 </b-collapse>
-            </b-col>            
+            </b-col>
+
+            <b-col class="rt_extra" :class="{focus:rt_extra_focus}">
+                <b-container class="adform">
+                    <b-row>
+                        <b-col class="label">재고수량</b-col>
+                        <b-col><b-form-input v-model="model.gm_limit_ea" size="sm" class="text-right" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input></b-col>
+                    </b-row>
+                </b-container>
+            </b-col>
         </b-row>
         <validation :error="$store.state.error.validations.goods_model" />
         <b-row>
@@ -335,6 +344,7 @@ export default {
                 images_upload_handler: this.gd_desc_images_upload,
                 convert_urls: false,
             }, 
+            rt_extra_focus: false,
         }
     },
     methods: {
@@ -502,6 +512,7 @@ export default {
 
 <style lang="css" scoped>
 .p_wrap .box { padding:1em 2em; }
+.p_wrap .goods_form { overflow: hidden; }
 
 .cate .selecter { border-bottom:2px solid #000; padding-bottom:1em; margin-bottom:1em; }
 .cate .selecter div:first-child { display:flex; flex-wrap:wrap; padding:0; }
@@ -532,6 +543,12 @@ export default {
 .model>.row>.ctrlBox { flex:0 0 8%; max-width:69px; padding-left:0; padding-right:0; }
 .model>.row>.ctrlBox button { padding-left:.4em; padding-right:.4em; }
 .model.md_non>.list>.gm_price { flex:0 0 10%; max-width:10%; }
+
+.model .body { position:relative; }
+.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:-30px; max-width:300px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
+.model .body .rt_extra:before { content:'◀'; position:absolute; display:block; line-height:2.5; }
+.model .body .rt_extra:hover,
+.model .body .rt_extra.focus { transform:translateX(0%); }
 
 .option.adform .row .label { flex:0 0 12%; max-width:12%; }
 .option.adform .row .label + .type04 { flex: 0 0 29.666667%; max-width:29.666667%; }
