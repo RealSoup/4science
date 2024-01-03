@@ -28,7 +28,7 @@ class ListingController extends Controller {
             ->with('goodsModelPrime')
             ->where("shop_goods.gd_dc", "<>", 0)
             ->orderBy('gd_dc', 'desc')
-            ->paginate();
+            ->paginate(50);
         foreach ($rst as $v) {
             $v->goodsModelPrime = $this->goods->goods_discount_checker ($v->goodsModelPrime, $v->gd_dc);
         }

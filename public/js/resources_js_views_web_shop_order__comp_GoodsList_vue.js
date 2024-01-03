@@ -123,7 +123,7 @@ var render = function render() {
         staticClass: "discount"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])])], 1), _vm._v(" "), !_vm.user.is_dealer ? _c("small", {
         staticClass: "m_hide"
-      }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e()])] : item.type == "option" ? [_c("b-col", {
+      }, [_vm._v("\r\n                    ("), item.price_dc_add_vat ? [_vm._v(_vm._s(_vm._f("comma")(item.price_dc * _vm.user.mileage_mul * item.ea)))] : [_vm._v(_vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)))], _vm._v("p 적립)\r\n                ")], 2) : _vm._e()])] : item.type == "option" ? [_c("b-col", {
         staticClass: "gd_img"
       }, [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
         staticClass: "gd_txt"

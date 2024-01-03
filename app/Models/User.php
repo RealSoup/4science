@@ -113,6 +113,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getIsDealerAttribute() { return ($this->level == 12) ? true : false; }
     public function getMileageMulAttribute() {
         $lv = $this->level;
+        if ($lv>20) $lv = 3;    //  관리자 테스트용
         if ($lv>4) $lv = 4;
         if ($lv<2) $lv = 2;
         $rate = $this->mileage_rate[$lv];
