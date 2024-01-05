@@ -210,4 +210,13 @@ if(! function_exists('saleEnv')) {
         }
         return $sale_env;
     }
-}    
+}
+
+if(! function_exists('cal_dc')) {
+    function cal_dc ($p, $dc) {
+        if($dc>99)
+            return $p-$dc;
+        else
+            return ($p*(100-intval($dc)))/100;
+    }
+}

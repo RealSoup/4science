@@ -1,5 +1,6 @@
 <template>
 <div class="goods_form">
+
     <b-container class="box cate">
         <h5>상품 카테고리</h5>
         <b-row class="selecter">
@@ -148,6 +149,7 @@
         </draggable>
     </b-container>
 
+    
     <!-- 모델 -->
     <b-container tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
         <h5 class="row">
@@ -243,7 +245,9 @@
                 <b-container class="adform">
                     <b-row>
                         <b-col class="label">재고수량</b-col>
-                        <b-col><b-form-input v-model="model.gm_limit_ea" size="sm" class="text-right" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input></b-col>
+                        <b-col>
+                            <b-form-input class="sm text-right" v-model="model.gm_limit_ea" :formatter="frm_priceComma" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input>
+                        </b-col>
                     </b-row>
                 </b-container>
             </b-col>
@@ -407,7 +411,7 @@ export default {
         },
 
         insertAtModel() {
-            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_price:'', bundle_dc:[], bd_open:false };
+            let tmp = { gm_name:'', gm_catno:'', gm_code:'', gm_spec:'', gm_unit:'', gm_enable:'Y', gm_prime:'N', gm_limit_ea:999999, gm_price:'', bundle_dc:[], bd_open:false };
             if(this.value.goods_model.length==0) tmp.gm_prime = 'Y';
             this.value.goods_model.push(tmp); 
         },
@@ -504,6 +508,7 @@ export default {
             }
             this.value.goods_relate.splice(i, 1);
         },
+        frm_priceComma(v)   { return this.priceComma(v); },
     },
     mounted() { this.getCate(0); },
 }
@@ -545,8 +550,8 @@ export default {
 .model.md_non>.list>.gm_price { flex:0 0 10%; max-width:10%; }
 
 .model .body { position:relative; }
-.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:-30px; max-width:300px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
-.model .body .rt_extra:before { content:'◀'; position:absolute; display:block; line-height:2.5; }
+.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:0px; max-width:300px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
+.model .body .rt_extra:before { content:'◀'; position:absolute; display:block; line-height:2; padding-top:8px; }
 .model .body .rt_extra:hover,
 .model .body .rt_extra.focus { transform:translateX(0%); }
 

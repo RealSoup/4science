@@ -103,7 +103,8 @@ class EstimateController extends Controller {
                                 'em_maker'      => $item['mk_name'],
                                 'em_ea'         => $item['ea'],
                                 'em_cost_price' => $item['price'],
-                                'em_price'      => $item['price'],
+                                'em_dc_rate'    => $item['gd_dc'],
+                                'em_price'      => ($item['gd_dc']>0) ? cal_dc($item['price'], $item['gd_dc']) : $item['price'],
                             ]);
                             if(auth()->check())
                                 Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();

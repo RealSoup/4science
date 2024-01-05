@@ -56,7 +56,7 @@
                         <b-col>수량</b-col>
                     </b-row>
                 
-                    <b-row v-for="gm in content.goods_model" :key="gm.gm_id" :class="{'selected': gm.ea}">
+                    <b-row v-for="(gm, i) in content.goods_model" :key="i" :class="{'selected': gm.ea, 'ea_over': gm.ea>gm.gm_limit_ea}">
                         <b-col class="m_hide">{{gm.gm_catno}}</b-col>
                         <b-col class="m_hide">{{gm.gm_code}}</b-col>
                         <b-col class="gm_name">
@@ -72,10 +72,11 @@
                             <span class="discount">{{gm.gm_price_dc_add_vat | comma | price_zero}}</span>
                             <i v-for="bd in gm.bundle_dc" :key="bd.bd_id">{{bd.bd_ea}}부터 {{price_dc_chk(bd.bd_price_add_vat) | comma}}원</i>
                         </b-col>
-                        <b-col>
+                        <b-col class="col_ea">
                             <p class="m_show">단위:{{gm.gm_unit}}</p>
                             <p class="m_show">가격:{{gm.gm_price_add_vat | comma | price_zero}}</p>
-                            <vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea" />
+                            <vue-numeric-input align="center" :min="0" width="100%" v-model="gm.ea" ref="num_input"></vue-numeric-input>
+                            <div v-if="gm.gm_limit_ea<999999" class="m_hide gm_limit_ea">재고: {{gm.gm_limit_ea}}</div>
                         </b-col>
                     </b-row>
                 </div>
@@ -218,7 +219,7 @@
                 <div class="desc_pdf">
                     <br /> <hr /> <br />
                     <template v-for="(file, i) in content.file_goods_add" >
-                        <object v-if="file.type == 'pdf'" :key="i" :data="file.path" type="application/pdf" style="width:1100px; height:700px;" />
+                        <object v-if="file.fi_ext == 'pdf'" :key="i" :data="`/storage/${file.down_path}`" type="application/pdf" style="width:100%; height:700px;" />
                     </template>
                 </div>
 
@@ -414,13 +415,26 @@ export default {
             switch (type) {
                 case "pay":
                     let estimate_price = false;
+                    let limit_ea_over = false;
                     this.content.goods_model.forEach(gm => {
                         if (gm.ea > 0 && gm.gm_price_add_vat=='0' ) estimate_price = true;
+                        if (gm.gm_limit_ea<999999 && gm.ea>0 && gm.ea > gm.gm_limit_ea ) limit_ea_over = true;
                     });
                     if (estimate_price) {
+                        /*  반복문에서  return false 하면 반복문 탈출이 되기에
+                            주문 차단을 위해서 여기서 return false 해준다.    */
                         Notify.modal("견적가 상품은 견적요청을 해주세요.", 'danger');
                         return false;
                     }
+
+                    if (limit_ea_over) {
+                        /*  반복문에서  return false 하면 반복문 탈출이 되기에
+                            주문 차단을 위해서 여기서 return false 해준다.    */
+                        Notify.modal("구매하려는 제품 수량이 재고 수량보다 많습니다. 견적요청을 이용해주세요.", 'danger');
+                        return false;
+                    }
+
+
                     let route_obj = {
                         name: 'order_settle', 
                         params: { od_goods: params, od_type: 'buy_inst' }
@@ -522,7 +536,15 @@ export default {
         price_dc_chk: function (v) {
             return ( this.isLoggedin && this.user.level == 12 ) ? Math.floor(v*this.user.dc_mul) : v;
         },
-
+/*
+        chk_limit(ea, idx) {
+            if(ea > this.content.goods_model[idx].gm_limit_ea) {
+                Notify.modal(`재고 수량 ${this.content.goods_model[idx].gm_limit_ea}개 이하로 구매해주세요.`, 'danger');
+                // this.content.goods_model[idx].ea = this.content.goods_model[idx].gm_limit_ea;
+                // this.$refs.num_input[idx].value=this.content.goods_model[idx].gm_limit_ea;
+            }
+        },
+*/
 /*
         openDropDownAndShowNavBar(e) {
             if (e.target.tagName === "A") {
@@ -580,9 +602,10 @@ export default {
 
 .conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; flex:0 0 calc(66.666667% - 10px); max-width:calc(66.666667% - 10px); }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
-.conRight .model .row { margin:0; }
+.conRight .model .row { margin:0; overflow:hidden; }
 .conRight .model .row:nth-of-type(1) .col { font-weight:bold; padding:.4rem .3rem; font-size:.9rem; }
 .conRight .model .row.selected { background:#FFFBCC; }
+.conRight .model .row.ea_over { background:#FFCCCC; }
 /* 테이블같은 볼더 */
 .conRight .model .row .col { border:1px solid #CCC; padding:.8rem .3rem; text-align:center; word-break:break-all; }
 .conRight .model .row .col:not(:last-child) { border-right-width:0; }
@@ -598,6 +621,9 @@ export default {
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> button { width:1.2rem; }
 .conRight .model .row .col:nth-of-type(7) .vue-numeric-input >>> .numeric-input { padding:2px 1rem; }
 .conRight .model .row .col.price_box i { font-size:.7rem; display:block; }
+.conRight .model .row .col_ea { display:flex; flex-direction:column; }
+.conRight .model .row .col_ea .gm_limit_ea { position:absolute; background:#FFF; right:0px; min-width:75px; transform:translateX(105%); z-index:1; transition:all 0.5s ease; border:1px solid #999; border-radius:4px; background-color:#ff9300; }
+.conRight .model .row .col_ea:hover .gm_limit_ea { transform:translateX(-120%); }
 
 .conRight .pick_info { text-align:right; }
 .conRight .pick_info .total { padding-right:2rem; font-weight:bold; margin-top:1.5rem; }

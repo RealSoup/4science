@@ -451,7 +451,7 @@ class GoodsController extends Controller {
 	   	$goods->gd_dlvy_at  = $req->gd_dlvy_at;
 	   	$goods->gd_enable   = $req->filled('gd_enable') ? $req->gd_enable : 'N';
 	   	$goods->gd_type     = $req->filled('gd_type')   ? $req->gd_type : 'NON';
-        $goods->gd_billing  = $req->filled('gd_billing')? $req->gd_billing : 0;
+        $goods->gd_billing  = $req->filled('gd_billing')? intval($req->gd_billing) : 0;
         $goods->gd_dc       = $req->filled('gd_dc')     ? $req->gd_dc : 0;
 	   	$goods->gd_mk_id    = $req->gd_mk_id;
 	   	$goods->gd_pa_id    = $req->gd_pa_id;
@@ -461,14 +461,15 @@ class GoodsController extends Controller {
         return $goods;
     }
     public function goodsModel_paramImplant($gd_id, $gm){
-        return [    'gm_gd_id'  => $gd_id,
-                    'gm_name'   => $gm['gm_name'],
-                    'gm_code'   => $gm['gm_code'],
-                    'gm_spec'   => $gm['gm_spec'],
-                    'gm_unit'   => $gm['gm_unit'],
-                    'gm_enable' => $gm['gm_enable'] ?? 'N',
-                    'gm_price'  => $gm['gm_price'],
-                    'gm_prime'  => $gm['gm_prime']];
+        return [    'gm_gd_id'    => $gd_id,
+                    'gm_name'     => $gm['gm_name'],
+                    'gm_code'     => $gm['gm_code'],
+                    'gm_spec'     => $gm['gm_spec'],
+                    'gm_unit'     => $gm['gm_unit'],
+                    'gm_enable'   => $gm['gm_enable'] ?? 'N',
+                    'gm_limit_ea' => $gm['gm_limit_ea'],
+                    'gm_price'    => $gm['gm_price'],
+                    'gm_prime'    => $gm['gm_prime']];
     }
     public function option_paramImplant($gd_id, $go){
         return [    'go_gd_id'      => $gd_id,

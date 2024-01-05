@@ -216,7 +216,6 @@ class EstimateController extends Controller {
                         $em->em_unit  = $gm->gm_unit;
                         $em->em_spec  = $gm->gm_spec;
                         $em->em_price = $gm->gm_price;
-                        $em->em_price = $gm->gm_price;
                         $em->em_cost_price = $gm->gm_price;
                     }
                 }

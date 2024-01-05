@@ -1485,7 +1485,7 @@ var render = function render() {
       click: _vm.exePayment
     }
   }, [_vm.order.od_pay_method == "BL" ? [_vm._v("정기 배송 신청하기")] : [_vm._v("주문하기")]], 2) : _c("b-col", {
-    staticClass: "m_show pay_go gray",
+    staticClass: "pay_go gray",
     attrs: {
       cols: "12"
     }

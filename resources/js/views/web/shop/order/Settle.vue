@@ -220,7 +220,7 @@
                         <template v-if="order.od_pay_method == 'BL'">정기 배송 신청하기</template>
                         <template v-else>주문하기</template>
                     </b-col>
-                    <b-col cols="12" v-else class="m_show pay_go gray"><b-spinner /> 주문 중...</b-col>
+                    <b-col cols="12" v-else class="pay_go gray"><b-spinner /> 주문 중...</b-col>
                 </b-row>
                 
             </b-col>

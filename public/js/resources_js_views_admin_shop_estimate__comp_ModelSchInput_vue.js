@@ -112,7 +112,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.$set(_this2.em, 'em_maker', _this2.model[i].goods.maker.mk_name);
                 _this2.$set(_this2.em, 'em_ea', 1);
                 _this2.$set(_this2.em, 'em_cost_price', _this2.model[i].gm_price);
-                _this2.$set(_this2.em, 'em_dc_rate', 0);
+                _this2.$set(_this2.em, 'em_dc_rate', _this2.model[i].goods.gd_dc);
                 _this2.$set(_this2.em, 'em_price', _this2.model[i].gm_price);
                 _this2.$set(_this2.em, 'em_dlvy_at', _this2.model[i].gm_dlvy_at);
                 _this2.$set(_this2.em, 'bundle_dc', _this2.model[i].bundle_dc);

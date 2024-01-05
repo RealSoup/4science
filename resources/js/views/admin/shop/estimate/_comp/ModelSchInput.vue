@@ -67,7 +67,7 @@ export default {
                 this.$set(this.em, 'em_maker'     , this.model[i].goods.maker.mk_name);
                 this.$set(this.em, 'em_ea'        , 1);
                 this.$set(this.em, 'em_cost_price', this.model[i].gm_price);
-                this.$set(this.em, 'em_dc_rate'   , 0);
+                this.$set(this.em, 'em_dc_rate'   , this.model[i].goods.gd_dc);
                 this.$set(this.em, 'em_price'     , this.model[i].gm_price);
                 this.$set(this.em, 'em_dlvy_at'   , this.model[i].gm_dlvy_at);
                 this.$set(this.em, 'bundle_dc'    , this.model[i].bundle_dc);

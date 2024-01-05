@@ -231,6 +231,7 @@ class Goods extends Model {
                                         'ea'                => $v['model'][$gm->gm_id]['ea'],
                                         'img'               => $gd->image_src_thumb[0],
                                         'gd_name'           => $gd->gd_name,
+                                        'gd_dc'             => $gd->gd_dc,
                                         'gm_name'           => $gm->gm_name,
                                         'gm_catno'          => $gm->gm_catno,
                                         'gm_code'           => $gm->gm_code,
@@ -253,7 +254,7 @@ class Goods extends Model {
                                 }
                             } else if ($gd->gd_dc) {
                                 $tmpModel['dc_type'] = "goods_dc";
-                                $tmpModel['price_dc'] = self::cal_dc($gm->gm_price, $gd->gd_dc);
+                                $tmpModel['price_dc'] = cal_dc($gm->gm_price, $gd->gd_dc);
                                 $tmpModel['price_dc_add_vat'] = rrp($tmpModel['price_dc']);
                             } 
 
@@ -379,12 +380,6 @@ class Goods extends Model {
         return $p;
     }
 
-    public function cal_dc ($p, $dc) {
-        if($dc>99)
-            return $p-$dc;
-        else
-            return ($p*(100-intval($dc)))/100;
-    }
 
     public function goods_discount_checker ($gm, $dc) {
         if( auth()->check() && auth()->user()->level == 12 ) {
@@ -393,7 +388,7 @@ class Goods extends Model {
             $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
         } else if ($dc) {
             $gm->dc_type = "goods_dc";
-            $gm->gm_price_dc = self::cal_dc($gm->gm_price, $dc);
+            $gm->gm_price_dc = cal_dc($gm->gm_price, $dc);
             $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
         }
     }

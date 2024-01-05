@@ -95,11 +95,11 @@ export default {
 .cate .col:last-child span { font-size:.8rem; border-right:1px solid #D5D5D5; border-bottom:1px solid #D5D5D5;  }
 .cate .col:last-child span.chk { background:#B2E0FA; }
 
-.gal_list .col { border:1px solid #D7D7D7; flex:0 0 19.2%; max-width:19.2%; padding:1.8rem; margin-bottom:1%; }
+.gal_list .col { border:1px solid #D7D7D7; flex:0 0 19.2%; max-width:19.2%; padding:1rem 1.8rem; margin-bottom:1%; }
 .gal_list .col:not(:nth-child(5n)) { margin-right:1%; }
 .gal_list .col img { width:100%; height:230px; object-fit:cover; }
 .gal_list .col div,
-.gal_list .col p { text-align:center; margin-top:1rem; font-size:.9rem; font-weight:bold; }
+.gal_list .col p { text-align:center; margin:1rem 0 0 0; font-size:.9rem; font-weight:bold; }
 .gal_list .col p { color:#0094EC; font-size:.8rem; }
 .footer_banner { text-align:center; display:block; margin:3em auto; }
 @media (max-width: 992px){
