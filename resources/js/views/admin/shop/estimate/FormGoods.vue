@@ -29,12 +29,12 @@
   
             <b-col>
                 <label>CAT.No</label>
-                <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em" />
+                <model-sch-input v-model="em.em_catno" :type="'em_catno'" :id="`em_catno${idx}`" :em="em"></model-sch-input>
             </b-col>
 
             <b-col>
                 <label>모델명</label>
-                <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em" />
+                <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em"></model-sch-input>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
             </b-col>
 
