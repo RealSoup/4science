@@ -78,7 +78,7 @@
             </b-col>
         </b-row>
         
-        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id" />
+        <goods-option-add ref="goods_option_add" v-model="em.estimate_option" :em_id="em.em_id??0" :gd_id="em.em_gd_id"></goods-option-add>
         
         <b-row v-if="em.estimate_option.length" class="option label_form">
             <b-col class="w_100">

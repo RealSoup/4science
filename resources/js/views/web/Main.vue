@@ -10,6 +10,9 @@
         <b-link to="/shop/goods/616777">
             <b-carousel-slide img-src="/storage/event/2024/0108/slide.png"></b-carousel-slide>
         </b-link>
+        <b-link to="/board/notice/show/55">
+            <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
+        </b-link>
         <b-link to="/shop/listing/sale">
             <b-carousel-slide img-src="/storage/event/2024/0103/slide.jpg"></b-carousel-slide>
         </b-link>
