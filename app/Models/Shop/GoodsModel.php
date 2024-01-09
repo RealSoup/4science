@@ -5,6 +5,7 @@ namespace App\Models\Shop;
 // use App\Events\GoodsModelDeleted;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use DB;
 
 class GoodsModel extends Model {
     protected $primaryKey = 'gm_id';
@@ -45,4 +46,16 @@ class GoodsModel extends Model {
         return $p;
     }
 
+    public static function minus_limit_ea ($od_id) {    //  재고 상품 구매시 수량 감소 
+        $odm_list = DB::table('shop_order')
+            ->select('shop_order_model.odm_gm_id', 'shop_order_model.odm_ea')
+            ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
+            ->where('od_id', $od_id)
+            ->get();          
+        foreach ($odm_list as $odm) {
+            $gm = self::find($odm->odm_gm_id);
+            if (intval($gm->gm_limit_ea) < 999999) 
+                $gm->decrement('gm_limit_ea', $odm->odm_ea);
+        }
+    }
 }

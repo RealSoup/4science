@@ -355,10 +355,11 @@ class OrderController extends Controller {
             //  빌링키를 활용 결제 승인 받기
             $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
         }
-            
         $rst_toss = json_decode($rst_toss);
-        
         self::tossPgInsert($rst_toss);
+        
+        //  재고 상품 구매시 수량 감소
+        // GoodsModel::minus_limit_ea($rst_toss->orderId);
 
         $mod_data = ['od_step'=> '20'];
         if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
@@ -367,7 +368,6 @@ class OrderController extends Controller {
             $mod_data['od_pay_method'] = 'CK';
         DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
         return redirect("/shop/order/done/{$rst_toss->orderId}");
-        
     }
 
     

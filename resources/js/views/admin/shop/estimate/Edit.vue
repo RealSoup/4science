@@ -1,10 +1,10 @@
-<template lang="html">
+<template>
     <b-container id="adm_estimate_edit" class="p_wrap">
         <h1>견적서 수정</h1>
-        <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="update" :clickable="clickable" />
-        <form-user v-model="frm.estimate_req" />
-        <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created="" />
-        <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed" />
+        <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="update" :clickable="clickable"></form-ctrl>
+        <form-user v-model="frm.estimate_req"></form-user>
+        <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm" @hook:created=""></form-goods>
+        <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed"></form-extra>
     </b-container>
 </template>
 

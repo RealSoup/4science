@@ -412,7 +412,7 @@ class GoodsController extends Controller {
                 if ($req->is_change_seq) {
                     if ( gettype($f) == 'string' ) {
                         $f = json_decode($f);
-                        if (array_key_exists('fi_id', $f))
+                        if (property_exists($f, 'fi_id'))
                             DB::table('file_goods')->where('fi_id', $f->fi_id)->update(['fi_seq' => $k]);
                     }
                 }
@@ -426,7 +426,7 @@ class GoodsController extends Controller {
         return response()->json("success", 200);
     }
 
-    public function destroy($id) {    
+    public function destroy($id) {
         // foreach (FileGoods::Key($id)->get() as $v)
         //     app('App\Http\Controllers\CommonController')->deleteFiles($v->fi_id, 'goods');        
         // foreach (GoodsOption::Gd_id($id)->get() as $go) {

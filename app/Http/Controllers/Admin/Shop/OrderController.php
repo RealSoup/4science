@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SaveMakerRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods, OrderPurchaseAt};
+use App\Models\Shop\{Order, OrderModel, OrderDlvyInfo, OrderExtraInfo, Category, Goods, GoodsModel, OrderPurchaseAt};
 use App\Models\{User, UserMng, FileNote, ShowWindow};
 use App\Events\{Mileage};
 // use App\Traits\{InicisUtil, InicisHttpClient};
@@ -351,6 +351,9 @@ class OrderController extends Controller {
 					}
 					if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
 						DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
+
+					//  재고 상품 구매시 수량 감소
+					// GoodsModel::minus_limit_ea($od_id);
 				}
 			} else if ($req->type == 'odm_ea') {
 				foreach ($req->order_purchase_at as $opa) {

@@ -99,6 +99,9 @@ export default {
                 //     this.value[i] = JSON.stringify(this.value[i]);
                 if(!this.value[i].hasOwnProperty('fi_id'))                
                     frmData.append('file['+i+']', this.value[i]);
+                else if(this.value[i].hasOwnProperty('fi_id') && this.fi_group == 'goods')
+                    frmData.append('file['+i+']', JSON.stringify(this.value[i]));                
+              
             }
             let upUrl = "/api/upload";
             if (this.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";

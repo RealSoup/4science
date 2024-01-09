@@ -151,7 +151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 // this.$delete(this.value[i], 'src_thumb');
                 // if(this.value[i].hasOwnProperty('fi_id'))
                 //     this.value[i] = JSON.stringify(this.value[i]);
-                if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);
+                if (!_this2.value[i].hasOwnProperty('fi_id')) frmData.append('file[' + i + ']', _this2.value[i]);else if (_this2.value[i].hasOwnProperty('fi_id') && _this2.fi_group == 'goods') frmData.append('file[' + i + ']', JSON.stringify(_this2.value[i]));
               }
               upUrl = "/api/upload";
               if (_this2.fi_group == 'goods') upUrl = "/api/admin/shop/goods/fileUpload";
