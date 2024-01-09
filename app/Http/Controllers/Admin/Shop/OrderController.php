@@ -341,7 +341,6 @@ class OrderController extends Controller {
 		if ($req->filled('type')) {
 			if 		($req->type == 'od_mng' && $req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step')) {
-				$od->od_step = $req->od_step;
 				if($req->od_type != 'buy_temp' && intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
 					foreach ($req->order_purchase_at as $opa) {
 						foreach ($opa['order_model'] as $odm) {
@@ -353,8 +352,10 @@ class OrderController extends Controller {
 						DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
 
 					//  재고 상품 구매시 수량 감소
-					// GoodsModel::minus_limit_ea($od_id);
+					if(intval($od->od_step) < 20)
+						GoodsModel::minus_limit_ea($od_id);
 				}
+				$od->od_step = $req->od_step;
 			} else if ($req->type == 'odm_ea') {
 				foreach ($req->order_purchase_at as $opa) {
 					foreach ($opa['order_model'] as $odm) {

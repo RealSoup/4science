@@ -359,7 +359,7 @@ class OrderController extends Controller {
         self::tossPgInsert($rst_toss);
         
         //  재고 상품 구매시 수량 감소
-        // GoodsModel::minus_limit_ea($rst_toss->orderId);
+        GoodsModel::minus_limit_ea($rst_toss->orderId);
 
         $mod_data = ['od_step'=> '20'];
         if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
@@ -455,6 +455,9 @@ class OrderController extends Controller {
                 'pg_code'     => $req->Psys_resultcode,
                 'pg_msg'      => $req->Psys_resultmsg]);       
             DB::table('shop_order')->where('od_id', $req->Psys_shopingmall_order_no)->update(['od_step'=> '20']);
+            
+            //  재고 상품 구매시 수량 감소
+            GoodsModel::minus_limit_ea($rst_toss->orderId);
             // return redirect("/shop/order/done/{$req->Psys_shopingmall_order_no}");
             // return response()->json($req->Psys_shopingmall_order_no, 200);
             return view('shop.order.payReturnPsys', ['od_id' => $req->Psys_shopingmall_order_no]);
