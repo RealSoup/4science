@@ -56,7 +56,7 @@
                         <b-col>수량</b-col>
                     </b-row>
                 
-                    <b-row v-for="(gm, i) in content.goods_model" :key="i" :class="{'selected': gm.ea, 'ea_over': gm.ea>gm.gm_limit_ea}">
+                    <b-row v-for="(gm, i) in content.goods_model_enable" :key="i" :class="{'selected': gm.ea, 'ea_over': gm.ea>gm.gm_limit_ea}">
                         <b-col class="m_hide">{{gm.gm_catno}}</b-col>
                         <b-col class="m_hide">{{gm.gm_code}}</b-col>
                         <b-col class="gm_name">
@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="pick_info">
-                    <div v-if="content.goods_model" class="total">
+                    <div v-if="content.goods_model_enable" class="total">
                         선택한 모델 <b class="cnt">{{pick_cnt}} 개</b> 합계 <b class="price">{{total | comma}} 원</b>
                     </div>
                     <b-button-group>
@@ -343,7 +343,7 @@ export default {
         ...mapState('cart', ['cartList']),
         ...mapState('auth', ['isLoggedin', 'user']),
         total: function() {
-            let model =  this.content.goods_model.reduce((acc, el) => {     
+            let model =  this.content.goods_model_enable.reduce((acc, el) => {     
                 let p = el.gm_price_dc_add_vat ?? el.gm_price_add_vat;
                 return acc + parseInt(this.price_dc_chk(bundleCheckAddVat(el.bundle_dc, el.ea, p)) * el.ea);
             }, 0);
@@ -355,7 +355,7 @@ export default {
             return model+option;
         },
         pick_cnt: function() {
-            let model =  this.content.goods_model.filter(gm => gm.ea > 0).length
+            let model =  this.content.goods_model_enable.filter(gm => gm.ea > 0).length
             let option =  this.content.goods_option.reduce((acc, el) => {
                 return acc + el.goods_option_child.filter(goc => goc.ea > 0).length
             }, 0);
@@ -416,7 +416,7 @@ export default {
                 case "pay":
                     let estimate_price = false;
                     let limit_ea_over = false;
-                    this.content.goods_model.forEach(gm => {
+                    this.content.goods_model_enable.forEach(gm => {
                         if (gm.ea > 0 && gm.gm_price_add_vat=='0' ) estimate_price = true;
                         if (gm.gm_limit_ea<999999 && gm.ea>0 && gm.ea > gm.gm_limit_ea ) limit_ea_over = true;
                     });
@@ -459,7 +459,7 @@ export default {
 
                 case "wish":                     
                     try {
-                        let res = await ax.post(`/api/shop/wish`, this.content.goods_model.filter(gm => gm.ea > 0));
+                        let res = await ax.post(`/api/shop/wish`, this.content.goods_model_enable.filter(gm => gm.ea > 0));
                         if (res && res.status === 200) {
                             Notify.toast('success', '관심 상품 등록 완료')
                         } else {
@@ -479,7 +479,7 @@ export default {
 
         makeParam () {
             let params = [];
-            this.content.goods_model.forEach(gm => {
+            this.content.goods_model_enable.forEach(gm => {
                 if (gm.ea > 0) params.push({gd_id:this.content.gd_id, gm_id:gm.gm_id, ea:gm.ea});
             });
             this.content.goods_option.forEach(go => {
@@ -490,7 +490,7 @@ export default {
             return params;
         },
         // paramModel () {
-        //     return this.content.goods_model.reduce((acc, el) => {
+        //     return this.content.goods_model_enable.reduce((acc, el) => {
         //         if (el.ea > 0)
         //             acc.push({gm_id:el.gm_id, ea:el.ea});
         //         return acc;
@@ -538,10 +538,10 @@ export default {
         },
 /*
         chk_limit(ea, idx) {
-            if(ea > this.content.goods_model[idx].gm_limit_ea) {
-                Notify.modal(`재고 수량 ${this.content.goods_model[idx].gm_limit_ea}개 이하로 구매해주세요.`, 'danger');
-                // this.content.goods_model[idx].ea = this.content.goods_model[idx].gm_limit_ea;
-                // this.$refs.num_input[idx].value=this.content.goods_model[idx].gm_limit_ea;
+            if(ea > this.content.goods_model_enable[idx].gm_limit_ea) {
+                Notify.modal(`재고 수량 ${this.content.goods_model_enable[idx].gm_limit_ea}개 이하로 구매해주세요.`, 'danger');
+                // this.content.goods_model_enable[idx].ea = this.content.goods_model_enable[idx].gm_limit_ea;
+                // this.$refs.num_input[idx].value=this.content.goods_model_enable[idx].gm_limit_ea;
             }
         },
 */

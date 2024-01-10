@@ -98,7 +98,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('cart', ['cartList'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('auth', ['isLoggedin', 'user'])), {}, {
     total: function total() {
       var _this = this;
-      var model = this.content.goods_model.reduce(function (acc, el) {
+      var model = this.content.goods_model_enable.reduce(function (acc, el) {
         var _el$gm_price_dc_add_v;
         var p = (_el$gm_price_dc_add_v = el.gm_price_dc_add_vat) !== null && _el$gm_price_dc_add_v !== void 0 ? _el$gm_price_dc_add_v : el.gm_price_add_vat;
         return acc + parseInt(_this.price_dc_chk(bundleCheckAddVat(el.bundle_dc, el.ea, p)) * el.ea);
@@ -111,7 +111,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       return model + option;
     },
     pick_cnt: function pick_cnt() {
-      var model = this.content.goods_model.filter(function (gm) {
+      var model = this.content.goods_model_enable.filter(function (gm) {
         return gm.ea > 0;
       }).length;
       var option = this.content.goods_option.reduce(function (acc, el) {
@@ -203,7 +203,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 16:
               estimate_price = false;
               limit_ea_over = false;
-              _this3.content.goods_model.forEach(function (gm) {
+              _this3.content.goods_model_enable.forEach(function (gm) {
                 if (gm.ea > 0 && gm.gm_price_add_vat == '0') estimate_price = true;
                 if (gm.gm_limit_ea < 999999 && gm.ea > 0 && gm.ea > gm.gm_limit_ea) limit_ea_over = true;
               });
@@ -256,7 +256,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
             case 38:
               _context2.prev = 38;
               _context2.next = 41;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model.filter(function (gm) {
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/wish", _this3.content.goods_model_enable.filter(function (gm) {
                 return gm.ea > 0;
               }));
             case 41:
@@ -294,7 +294,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     makeParam: function makeParam() {
       var _this4 = this;
       var params = [];
-      this.content.goods_model.forEach(function (gm) {
+      this.content.goods_model_enable.forEach(function (gm) {
         if (gm.ea > 0) params.push({
           gd_id: _this4.content.gd_id,
           gm_id: gm.gm_id,
@@ -314,7 +314,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       return params;
     },
     // paramModel () {
-    //     return this.content.goods_model.reduce((acc, el) => {
+    //     return this.content.goods_model_enable.reduce((acc, el) => {
     //         if (el.ea > 0)
     //             acc.push({gm_id:el.gm_id, ea:el.ea});
     //         return acc;
@@ -359,10 +359,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     }
     /*
             chk_limit(ea, idx) {
-                if(ea > this.content.goods_model[idx].gm_limit_ea) {
-                    Notify.modal(`재고 수량 ${this.content.goods_model[idx].gm_limit_ea}개 이하로 구매해주세요.`, 'danger');
-                    // this.content.goods_model[idx].ea = this.content.goods_model[idx].gm_limit_ea;
-                    // this.$refs.num_input[idx].value=this.content.goods_model[idx].gm_limit_ea;
+                if(ea > this.content.goods_model_enable[idx].gm_limit_ea) {
+                    Notify.modal(`재고 수량 ${this.content.goods_model_enable[idx].gm_limit_ea}개 이하로 구매해주세요.`, 'danger');
+                    // this.content.goods_model_enable[idx].ea = this.content.goods_model_enable[idx].gm_limit_ea;
+                    // this.$refs.num_input[idx].value=this.content.goods_model_enable[idx].gm_limit_ea;
                 }
             },
     */
@@ -600,7 +600,7 @@ var render = function render() {
     staticClass: "m_hide"
   }, [_vm._v("판매단위")]), _vm._v(" "), _c("b-col", {
     staticClass: "m_hide"
-  }, [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")])], 1), _vm._v(" "), _vm._l(_vm.content.goods_model, function (gm, i) {
+  }, [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")])], 1), _vm._v(" "), _vm._l(_vm.content.goods_model_enable, function (gm, i) {
     return _c("b-row", {
       key: i,
       "class": {
@@ -807,7 +807,7 @@ var render = function render() {
     }
   })], 1) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "pick_info"
-  }, [_vm.content.goods_model ? _c("div", {
+  }, [_vm.content.goods_model_enable ? _c("div", {
     staticClass: "total"
   }, [_vm._v("\n                    선택한 모델 "), _c("b", {
     staticClass: "cnt"

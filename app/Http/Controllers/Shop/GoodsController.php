@@ -164,7 +164,7 @@ class GoodsController extends Controller {
         //  데이터를 가공하고 나면 
         //  나중에 appends 초기 세팅값이 들어가서
         //  가공한게 날아간다.
-        foreach ($data['goods']->goodsModel as $val) {
+        foreach ($data['goods']->goodsModelEnable as $val) {
             $val->ea = 0;
             $val->bundleDc;
 
