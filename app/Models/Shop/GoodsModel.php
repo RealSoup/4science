@@ -54,7 +54,7 @@ class GoodsModel extends Model {
             ->get();          
         foreach ($odm_list as $odm) {
             $gm = self::find($odm->odm_gm_id);
-            if (intval($gm->gm_limit_ea) < 999999) 
+            if ($gm->gm_limit_ea && intval($gm->gm_limit_ea) < 999999) 
                 $gm->decrement('gm_limit_ea', $odm->odm_ea);
         }
     }

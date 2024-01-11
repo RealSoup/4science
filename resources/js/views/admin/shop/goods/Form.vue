@@ -156,7 +156,7 @@
             <b-col>Model</b-col>
             <b-col>
                 <b-row class="justify-content-end">
-                    <b-col class="point text-right" tag="small">0~99까지는 비율 할인, 100부터는 금액 할인</b-col>
+                    <b-col class="point text-right" tag="small">0~99% 할인</b-col>
                     <b-col class="label">할인률(액)</b-col>
                     <b-col class="type02">
                         <b-form-input v-model="value.gd_dc" size="sm" class="text-right"></b-form-input>
