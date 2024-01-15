@@ -53,6 +53,7 @@ class GoodsController extends Controller {
             // if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
             $cl->SetGroupBy('gc_ca01', SPH_GROUPBY_ATTR );
             $cl->SetGroupDistinct ( "gd_id" );
+            $cl->SetFilter('deleted_at', array(0));
             $cl_rst = $cl->Query( $kw, 'sph_goods' );
             
             if ($cl_rst['total_found'] > 0) {
