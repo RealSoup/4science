@@ -518,6 +518,7 @@ class Goods extends Model {
         if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
         if ($req->filled('gd_type'))    $cl->SetFilter('gd_type', array(crc32($req->gd_type)));
         if ($req->filled('gd_seq'))    $cl->SetFilter('gd_seq', array(999999), true);
+        if (!$req->filled('deleted_at'))   $cl->SetFilter('deleted_at', array(0));
         if ($req->filled('deleted_at')) {
             if ($req->deleted_at == 'Y')        $cl->SetFilter('deleted_at', array(0), true);
             elseif ($req->deleted_at == 'N')    $cl->SetFilter('deleted_at', array(0));
