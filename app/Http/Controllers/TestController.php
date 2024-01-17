@@ -9,135 +9,32 @@ use DB;
 use Excel;
 
 class TestController extends Controller {
+
     public function index() {
+        $gm = DB::table('shop_goods_model')->where('gm_catno01', '47')->orderBy('gm_gd_id')->orderBy('gm_catno03')->get();
 
-        $addr = DB::table('user_addr')->whereRaw('LENGTH(ua_zip) = 4')->orderBy('ua_id', 'DESC')->get();
-        foreach ($addr as $k => $v) {
+        $cnt = 1;
+        foreach ($gm->groupBy('gm_gd_id') as $group) {
+            foreach ($group as $k => $v) {
+                $cat02 = substr("00000{$cnt}", -6);
+                DB::table('shop_goods_model')->where('gm_id', $v->gm_id)->update(['gm_catno' => "47-{$cat02}-{$v->gm_catno03}", 'gm_catno02'=> $cat02]);
+            }
+            // $rst = DB::table('nc_addr_relation')->where([
+            //     ['receive_nm', '=', $v->ua_name],
+            //     ['doro_zip', 'like', $v->ua_zip.'%'],
+            //     ['doro_address', '=', $v->ua_addr1],
+            //     ['doro_address_detail', '=', $v->ua_addr2],
+            //     ['receive_hp_no', '=', $v->ua_hp],
+            // ])->first();
 
-            // dd(2);
-            $rst = DB::table('nc_addr_relation')->where([
-                ['receive_nm', '=', $v->ua_name],
-                ['doro_zip', 'like', $v->ua_zip.'%'],
-                ['doro_address', '=', $v->ua_addr1],
-                ['doro_address_detail', '=', $v->ua_addr2],
-                ['receive_hp_no', '=', $v->ua_hp],
-            ])->first();
-
-            if ( $rst && $rst->doro_zip )
-                DB::table('user_addr')->where('ua_id', $v->ua_id)->update(['ua_zip'=> $rst->doro_zip]);
-            
-            // exit;
+            // if ( $rst && $rst->doro_zip )
+            //     DB::table('user_addr')->where('ua_id', $v->ua_id)->update(['ua_zip'=> $rst->doro_zip]);
+            $cnt++;
+            // if ($cnt == 4) break;
         }
     }
     
-    public function merck_upload() {
-        $mk = [ 'ALDRICH'	=> 2773,
-                'AVANTI'	=> 3120,
-                'SIAL' 		=> 2776,
-                'SIGALD'	=> 2777,
-                'SIGMA' 	=> 2778,
-                'SUPELCO'	=> 2779,
-                'USP' 		=> 3121 ];
-        $mc = Excel::toCollection(new MerckImport, public_path('merck/a01.xlsx'));
-        foreach ($mc[0] as $k => $v) {
-            $gd_fk    = $v[0];
-            $gm_code  = $v[1];
-            $gm_name  = $v[2];
-            $mk_name  = $v[3];
-            $gm_price = $v[4];
-            $gm_unit  = $v[5];
-            $gm_spec  = '';
-            $gm_prime = 'Y';
-            $gm_catno = '40';
-            $gm_catno01 = '40';
-            $gm_catno02 = '40';
-            $gm_catno03 = '40';
-
-            $gd_name = $v[2];
-            // IF($k==5)
-            dd($v);
-            $gm = DB::table('shop_goods_model')->where('gm_code', $v[1])->first();
-            if ($gm) {
-                DB::table('shop_goods_model')->where('gm_id', $gm->gm_id)->update([                    
-                    'gm_name'  => $gm_name,
-                    'gm_code'  => $gm_code,
-                    'gm_spec'  => $gm_spec,
-                    'gm_unit'  => $gm_unit,
-                    'gm_price' => $gm_price,
-                    'ip'       => 1234
-                ]);
-            } else {
-                $gd = DB::table('shop_goods')->where('gd_fk', $gd_fk)->first();
-
-                if($gd){
-                    DB::table('shop_goods')
-                    ->where('gd_id', $gd->gd_id)
-                    ->where('ip', '<>', 1234)
-                    ->update([
-                        'gd_name'       => $gm_name,
-                        'gd_desc'       => '',
-                        'gd_dlvy_at'    => '1~4주',
-                        'gd_mk_id'      => $mk[$mk_name],
-                        'gd_rank'       => 999999,
-                        'gd_seq'        => 999999,
-                        'gd_fk'         => $gd_fk,
-                        'ip'            => 1234
-                    ]);
-                    $gd_id = $gd->gd_id;
-                } else {
-                    $gd_id = DB::table('shop_goods')->where('gd_id', $gm->gm_gd_id)->insertGetId([
-                        'gd_name'       => $gm_name,
-                        'gd_desc'       => '',
-                        'gd_dlvy_at'    => '1~4주',
-                        'gd_mk_id'      => $mk[$mk_name],
-                        'gd_rank'       => 999999,
-                        'gd_seq'        => 999999,
-                        'gd_fk'         => $gd_fk,
-                    ]);
-                }
-
-                
-                DB::table('shop_goods_model')->insert([
-                    'gm_gd_id'   => $gd_id,
-                    'gm_catno'   => $gm_catno,
-                    'gm_catno01' => $gm_catno01,
-                    'gm_catno02' => $gm_catno02,
-                    'gm_catno03' => $gm_catno03,
-                    'gm_prime'   => $gm_prime,
-                    'gm_name'    => $gm_name,
-                    'gm_code'    => $gm_code,
-                    'gm_spec'    => $gm_spec,
-                    'gm_unit'    => $gm_unit,
-                    'gm_price'   => $gm_price,
-                    'gm_enable'  => 'Y',
-                    'ip'         => 1234
-                ]);
-                
-            }
-
-	// gm_id
-	// gm_gd_id
-	// gm_catno
-	// gm_catno01
-	// gm_catno02
-	// gm_catno03
-	// gm_prime
-	// gm_name
-	// gm_code
-	// gm_spec
-	// gm_unit
-	// gm_price
-	// gm_enable
-	// created_id
-	// updated_id
-	// deleted_at
-	// created_at
-	// updated_at
-	
-
-        }
-        
-    }
+    
     function mail_display () {
         $data['con'] = EngReform::find(416);
         $data['con']->fileInfo;
