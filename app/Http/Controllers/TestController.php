@@ -11,6 +11,12 @@ use Excel;
 class TestController extends Controller {
 
     public function index() {
+        
+        
+        exit;
+
+
+
         $gm = DB::table('shop_goods_model')->where('gm_catno01', '47')->orderBy('gm_gd_id')->orderBy('gm_catno03')->get();
 
         $cnt = 1;
