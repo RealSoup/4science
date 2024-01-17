@@ -95,10 +95,15 @@ instance.interceptors.response.use(function (response) {
         } else {
             Notify.modal(error.response.data.message, 'danger');
             if ( error.response.data.message && 
-                ( error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 
+                ( 
+                    error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 
                     error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1 ||
                     error.response.data.message.search('필수 옵션과 같이 구매하세요') !== -1 ||
-                    error.response.data.message.search('상품이 없습니다.') !== -1) 
+                    error.response.data.message.search('상품이 없습니다.') !== -1 ||
+                    error.response.data.message.search('판매중지 상품이 있습니다.') !== -1 ||
+                    error.response.data.message.search('비활성 상품이 있습니다.') !== -1 ||
+                    error.response.data.message.search('재고 부족 상품이 있습니다.') !== -1
+                )
             ) {
                 router.go(-1);
             }

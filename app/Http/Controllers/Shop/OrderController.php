@@ -42,11 +42,14 @@ class OrderController extends Controller {
             $go_required_chk = true;
             foreach ($pa_group as $item){
                 // 판매 가능 여부 재확인
-                if(isset($item['gd_enable']) && $item['gd_enable'] == 'N')    abort(500, '판매중지 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+                if(isset($item['gd_enable']) && $item['gd_enable'] == 'N')    abort(500, '판매중지 상품이 있습니다. 다시 확인해 주시기 바랍니다.');
                 if($req->type === 'buy_inst' || $req->type === 'buy_cart') {
-                    if(isset($item['gm_enable']) && $item['gm_enable'] == 'N')    abort(500, '재고 부족 상품이 있습니다.\\n다시 확인해 주시기 바랍니다.');
+                    if(isset($item['gm_enable']) && $item['gm_enable'] == 'N')    abort(500, '비활성 상품이 있습니다. 다시 확인해 주시기 바랍니다.');
                     //  견적가(0원) 구매 금지
                     if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
+
+                    //  재고 부족시 구매 금지
+                    if($item['ea'] > $item['gm_limit_ea'])    abort(500, '재고 부족 상품이 있습니다. 다시 확인해 주시기 바랍니다.');
                 }
 
                 //  필수옵션 누락 체크

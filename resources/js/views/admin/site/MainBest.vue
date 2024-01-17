@@ -15,8 +15,8 @@
             <b-col v-for="(sw, i) in best" :key="sw.sw_id" cols="2" col>
                 <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
                 <b-button variant="danger" class="btn_del" @click="destroy(i)"><b-icon-x-square /></b-button>
-                <b-img :src="sw.goods.image_src_thumb[0]" />
-                <span>{{sw.goods.gd_name}}</span>
+                <b-img :src="sw.image_src_thumb[0]" />
+                <span>{{sw.gd_name}}</span>
             </b-col>
             <b-col cols="2" col class="addColumn" v-if="best.length < 6">
                 <GoodsSearch :group="best" :sw_seq="best.length" />

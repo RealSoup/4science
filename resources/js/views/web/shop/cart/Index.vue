@@ -17,7 +17,7 @@
         <b-col></b-col>
     </b-row>
     <div v-if="cartList.length" class="container body">
-        <b-row v-for="(ct, i) in cartList" :key="ct.ct_id" class="cart_data" :class="{model:ct.type=='model', option:ct.type=='option'}">
+        <b-row v-for="(ct, i) in cartList" :key="ct.ct_id" class="cart_data" :class="{model:ct.type=='model', option:ct.type=='option', no_ea:ct.ea>ct.gm_limit_ea }">
             <template v-if="ct.type=='model'">
                 <b-col class="check"><b-form-checkbox v-model="ct.ct_check_opt" value='Y' unchecked-value="N" @change="chkChange" /></b-col>
                 <b-col class="img"><img :src="ct.img" class="img-fluid" /></b-col>
@@ -242,6 +242,8 @@ export default {
 .w_fence .body .cart_data { border-bottom:1px solid #D7D7D7; }
 .w_fence .body .row.model { height:150px; }
 .w_fence .body .row.option { height:50px !important; background-color:#F4F1EC; }
+.w_fence .body .row.no_ea { background: #FFCCCC; }
+.w_fence .body .row.no_ea::before { color:#FF0000; content:"재고 부족"; position:absolute; z-index:2; font-weight:900; font-size:2.5em; left:50%; transform:rotateZ(-21deg); } 
 .w_fence .body .row .col,
 .w_fence .body .row .col ul li { color:#949494; }
 .w_fence .body .row .col a .tit { font-weight:900; font-size:.9.5rem; }

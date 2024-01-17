@@ -56,8 +56,13 @@ class SiteController extends Controller {
         return response()->json("success", 200);
     }
 
-    public function mainBest(Request $req) {  
-        $sw = ShowWindow::select('sw_id', 'sw_seq', 'sw_key')->with('goods')->Type('best')->orderBy("sw_seq")->limit(6)->get();
+    public function mainBest(Request $req) { 
+        $sw = \App\Models\Shop\Goods::join( 'show_window', 'shop_goods.gd_id', '=', 'show_window.sw_key' )
+            ->where('sw_type', 'best')
+            ->orderBy("sw_seq")
+            ->limit(6)
+            ->get(); 
+        // $sw = ShowWindow::select('sw_id', 'sw_seq', 'sw_key')->with('goods')->Type('best')->orderBy("sw_seq")->limit(6)->get();
         return response()->json($sw);
     }
 

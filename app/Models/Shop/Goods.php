@@ -238,6 +238,7 @@ class Goods extends Model {
                                         'gm_code'           => $gm->gm_code,
                                         'gm_spec'           => $gm->gm_spec,
                                         'gm_unit'           => $gm->gm_unit,
+                                        'gm_limit_ea'       => $gm->gm_limit_ea,
                                         'mk_name'           => $gd->maker->mk_name,
                                         'price'             => $gm->gm_price,
                                         'price_add_vat'     => $gm->gm_price_add_vat,];

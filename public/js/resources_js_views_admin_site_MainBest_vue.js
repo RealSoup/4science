@@ -158,9 +158,9 @@ var render = function render() {
       }
     }, [_c("b-icon-x-square")], 1), _vm._v(" "), _c("b-img", {
       attrs: {
-        src: sw.goods.image_src_thumb[0]
+        src: sw.image_src_thumb[0]
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(sw.goods.gd_name))])], 1);
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(sw.gd_name))])], 1);
   }), _vm._v(" "), _vm.best.length < 6 ? _c("b-col", {
     staticClass: "addColumn",
     attrs: {
