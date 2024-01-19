@@ -7,7 +7,17 @@
     </h3>
 
     <b-container class="frm_sch">
-        <sch-date v-model="sch_frm"><b-col slot="prev" class="label">등록일</b-col></sch-date>
+        <sch-date v-model="sch_frm">
+            <template slot="prev">
+                <b-col class="label m_hide">기간</b-col>                
+                <b-col class="type01">
+                    <b-form-select v-model="sch_frm.sort">
+                        <b-form-select-option value="edit">수정순</b-form-select-option>
+                        <b-form-select-option value="new">등록순</b-form-select-option>
+                    </b-form-select>
+                </b-col>
+            </template>
+        </sch-date>
         <categorys v-model="sch_frm" />
         <b-row>
             <b-col class="label">제조사</b-col>
@@ -44,22 +54,6 @@
         </b-row>
 
         <b-row>
-            <b-col class="label">정렬</b-col>
-            <b-col class="type01">
-                <b-form-select v-model="sch_frm.sort">
-                    <b-form-select-option value="edit">수정순</b-form-select-option>
-                    <b-form-select-option value="new">등록순</b-form-select-option>
-                </b-form-select>
-            </b-col>
-
-            <b-col class="label">우선순위상품</b-col>
-            <b-col class="type01">
-                <select class="custom-select custom-select-sm" v-model="sch_frm.gd_seq">
-                    <option value=""></option>
-                    <option value="Y">활성</option>
-                </select>
-            </b-col>
-
             <b-col class="label">검색</b-col>
             <b-col class="sch_input">
                 <b-input-group>

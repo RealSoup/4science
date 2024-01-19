@@ -197,13 +197,29 @@ var render = function render() {
       },
       expression: "sch_frm"
     }
-  }, [_c("b-col", {
-    staticClass: "label",
-    attrs: {
-      slot: "prev"
-    },
+  }, [_c("template", {
     slot: "prev"
-  }, [_vm._v("등록일")])], 1), _vm._v(" "), _c("categorys", {
+  }, [_c("b-col", {
+    staticClass: "label m_hide"
+  }, [_vm._v("기간")]), _vm._v(" "), _c("b-col", {
+    staticClass: "type01"
+  }, [_c("b-form-select", {
+    model: {
+      value: _vm.sch_frm.sort,
+      callback: function callback($$v) {
+        _vm.$set(_vm.sch_frm, "sort", $$v);
+      },
+      expression: "sch_frm.sort"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: "edit"
+    }
+  }, [_vm._v("수정순")]), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
+      value: "new"
+    }
+  }, [_vm._v("등록순")])], 1)], 1)], 1)], 2), _vm._v(" "), _c("categorys", {
     model: {
       value: _vm.sch_frm,
       callback: function callback($$v) {
@@ -304,57 +320,6 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(opt.name))]);
   })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("정렬")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type01"
-  }, [_c("b-form-select", {
-    model: {
-      value: _vm.sch_frm.sort,
-      callback: function callback($$v) {
-        _vm.$set(_vm.sch_frm, "sort", $$v);
-      },
-      expression: "sch_frm.sort"
-    }
-  }, [_c("b-form-select-option", {
-    attrs: {
-      value: "edit"
-    }
-  }, [_vm._v("수정순")]), _vm._v(" "), _c("b-form-select-option", {
-    attrs: {
-      value: "new"
-    }
-  }, [_vm._v("등록순")])], 1)], 1), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("우선순위상품")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type01"
-  }, [_c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sch_frm.gd_seq,
-      expression: "sch_frm.gd_seq"
-    }],
-    staticClass: "custom-select custom-select-sm",
-    on: {
-      change: function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.sch_frm, "gd_seq", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }), _vm._v(" "), _c("option", {
-    attrs: {
-      value: "Y"
-    }
-  }, [_vm._v("활성")])])]), _vm._v(" "), _c("b-col", {
     staticClass: "label"
   }, [_vm._v("검색")]), _vm._v(" "), _c("b-col", {
     staticClass: "sch_input"
