@@ -441,9 +441,10 @@ class Goods extends Model {
             case 'hot':
                 if (!$req->filled('keyword'))
                             $sort .= "gd_seq asc, ";    break;
-            case 'new':     $sort .= "gd_id desc, ";     break;
+            case 'new':     $sort .= "gd_id desc, ";    break;
             case 'lowPri':  $sort .= "gm_price asc, ";  break;
             case 'highPri': $sort .= "gm_price desc, "; break;
+            case 'edit':    $sort .= "updated_at desc, "; break;
         }
         if($type=='4s_pick' || $req->filled('gd_seq')) {
             $sort = "groupsort=gd_seq asc, ";

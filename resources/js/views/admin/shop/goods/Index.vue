@@ -34,14 +34,6 @@
                 </b-form-select>
             </b-col>
 
-            <b-col class="label">우선순위상품</b-col>
-            <b-col class="type01">
-                <select class="custom-select custom-select-sm" v-model="sch_frm.gd_seq">
-                    <option value=""></option>
-                    <option value="Y">활성</option>
-                </select>
-            </b-col>
-
             <b-col class="label">관리자</b-col>
             <b-col class="type01">
                 <b-form-select v-model="sch_frm.updated_id">
@@ -52,6 +44,22 @@
         </b-row>
 
         <b-row>
+            <b-col class="label">정렬</b-col>
+            <b-col class="type01">
+                <b-form-select v-model="sch_frm.sort">
+                    <b-form-select-option value="edit">수정순</b-form-select-option>
+                    <b-form-select-option value="new">등록순</b-form-select-option>
+                </b-form-select>
+            </b-col>
+
+            <b-col class="label">우선순위상품</b-col>
+            <b-col class="type01">
+                <select class="custom-select custom-select-sm" v-model="sch_frm.gd_seq">
+                    <option value=""></option>
+                    <option value="Y">활성</option>
+                </select>
+            </b-col>
+
             <b-col class="label">검색</b-col>
             <b-col class="sch_input">
                 <b-input-group>
@@ -118,7 +126,7 @@
                 <template v-else>{{row.updated_id}}</template>
             </b-col>
             <b-col><span v-if="row.gd_enable=='Y'">활성</span><span v-else>비활성</span></b-col>
-            <b-col><span>{{ row.updated_at | formatDate }}</span></b-col>
+            <b-col><span>{{ row.updated_at | formatDate_YY_MM_DD_HH:mm }}</span></b-col>
         </b-row>
 
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
@@ -154,6 +162,7 @@ export default {
                 ca03:0,
                 ca04:0,
                 gd_seq:'',
+                sort: 'edit',
                 mode:'gd_name',
                 keyword:'',
                 page:0

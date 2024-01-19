@@ -45,6 +45,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         ca03: 0,
         ca04: 0,
         gd_seq: '',
+        sort: 'edit',
         mode: 'gd_name',
         keyword: '',
         page: 0
@@ -281,6 +282,49 @@ var render = function render() {
     }, [_vm._v(_vm._s(opt.name))]);
   })], 2)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "label"
+  }, [_vm._v("관리자")]), _vm._v(" "), _c("b-col", {
+    staticClass: "type01"
+  }, [_c("b-form-select", {
+    model: {
+      value: _vm.sch_frm.updated_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.sch_frm, "updated_id", $$v);
+      },
+      expression: "sch_frm.updated_id"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: ""
+    }
+  }), _vm._v(" "), _vm._l(_vm.mng_off, function (opt) {
+    return _c("b-form-select-option", {
+      key: opt.id,
+      attrs: {
+        value: opt.id
+      }
+    }, [_vm._v(_vm._s(opt.name))]);
+  })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticClass: "label"
+  }, [_vm._v("정렬")]), _vm._v(" "), _c("b-col", {
+    staticClass: "type01"
+  }, [_c("b-form-select", {
+    model: {
+      value: _vm.sch_frm.sort,
+      callback: function callback($$v) {
+        _vm.$set(_vm.sch_frm, "sort", $$v);
+      },
+      expression: "sch_frm.sort"
+    }
+  }, [_c("b-form-select-option", {
+    attrs: {
+      value: "edit"
+    }
+  }, [_vm._v("수정순")]), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
+      value: "new"
+    }
+  }, [_vm._v("등록순")])], 1)], 1), _vm._v(" "), _c("b-col", {
+    staticClass: "label"
   }, [_vm._v("우선순위상품")]), _vm._v(" "), _c("b-col", {
     staticClass: "type01"
   }, [_c("select", {
@@ -311,29 +355,6 @@ var render = function render() {
       value: "Y"
     }
   }, [_vm._v("활성")])])]), _vm._v(" "), _c("b-col", {
-    staticClass: "label"
-  }, [_vm._v("관리자")]), _vm._v(" "), _c("b-col", {
-    staticClass: "type01"
-  }, [_c("b-form-select", {
-    model: {
-      value: _vm.sch_frm.updated_id,
-      callback: function callback($$v) {
-        _vm.$set(_vm.sch_frm, "updated_id", $$v);
-      },
-      expression: "sch_frm.updated_id"
-    }
-  }, [_c("b-form-select-option", {
-    attrs: {
-      value: ""
-    }
-  }), _vm._v(" "), _vm._l(_vm.mng_off, function (opt) {
-    return _c("b-form-select-option", {
-      key: opt.id,
-      attrs: {
-        value: opt.id
-      }
-    }, [_vm._v(_vm._s(opt.name))]);
-  })], 2)], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label"
   }, [_vm._v("검색")]), _vm._v(" "), _c("b-col", {
     staticClass: "sch_input"
@@ -447,7 +468,7 @@ var render = function render() {
           }
         }
       }
-    }, [_c("span", [_vm._v(_vm._s(row.gd_name))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.mk_name))])]), _vm._v(" "), _c("b-col", [_vm.mng_off[row.updated_id] ? [_vm._v(_vm._s(_vm.mng_off[row.updated_id].name))] : [_vm._v(_vm._s(row.updated_id))]], 2), _vm._v(" "), _c("b-col", [row.gd_enable == "Y" ? _c("span", [_vm._v("활성")]) : _c("span", [_vm._v("비활성")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(_vm._f("formatDate")(row.updated_at)))])])], 1);
+    }, [_c("span", [_vm._v(_vm._s(row.gd_name))])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(row.mk_name))])]), _vm._v(" "), _c("b-col", [_vm.mng_off[row.updated_id] ? [_vm._v(_vm._s(_vm.mng_off[row.updated_id].name))] : [_vm._v(_vm._s(row.updated_id))]], 2), _vm._v(" "), _c("b-col", [row.gd_enable == "Y" ? _c("span", [_vm._v("활성")]) : _c("span", [_vm._v("비활성")])]), _vm._v(" "), _c("b-col", [_c("span", [_vm._v(_vm._s(_vm._f("formatDate_YY_MM_DD_HH:mm")(row.updated_at)))])])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

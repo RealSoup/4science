@@ -38,13 +38,9 @@ class GoodsController extends Controller {
     }
 
     public function index (Request $req) {
-        /*
-            스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
-            페이지를 위해 검색된 count 재설정
-        */
-        $req->merge(array('sort' => "new"));
         $req->merge(array('v_type' => "ADM"));
-
+        /*  스핑크스(Sphinx) 검색 엔진은 기본적으로 limit 20이 설정되어있고 뺄수 없다
+            페이지를 위해 검색된 count 재설정 */
         $total = $this->goods->search_cnt($req);
         $page = intval($req->filled('page') ? $req->page : 1);
         $limit = 15;

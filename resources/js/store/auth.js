@@ -31,11 +31,24 @@ export default {
         },
     },
     actions: {
-        async login(context, frm){
-            await ax.get('/sanctum/csrf-cookie');
-            await ax.post('/login', frm).then((res) => {
-                if (res && res.status === 204)  return context.dispatch('getAuth');
-            }).catch(() => {});
+        // async login(context, frm){
+        //     await ax.get('/sanctum/csrf-cookie');
+        //     await ax.post('/login', frm).then((res) => {
+        //         if (res && res.status === 204)  return context.dispatch('getAuth');
+        //     }).catch(() => {});
+        // },
+        login(context, frm){
+            ax.get('auth_check').then((rst_chk) => {
+                if (rst_chk.data === 1) return context.dispatch('getAuth');
+                else {
+                    ax.get('/sanctum/csrf-cookie').then((rst_csrf) => {
+                        ax.post('/login', frm).then((rst_login) => {
+                            if (rst_login && rst_login.status === 204)  return context.dispatch('getAuth');
+                        }).catch(() => {});
+                    }).catch(() => {});
+                    
+                }
+            }).catch(() => {});            
         },
         async logout(context){
             await ax.post('/logout');
