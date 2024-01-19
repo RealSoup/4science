@@ -162,7 +162,7 @@ export default {
                 ca03:0,
                 ca04:0,
                 gd_seq:'',
-                sort: 'new',
+                sort: 'edit',
                 mode:'gd_name',
                 keyword:'',
                 page:0

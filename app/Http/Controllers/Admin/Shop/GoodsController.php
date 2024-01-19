@@ -256,6 +256,7 @@ class GoodsController extends Controller {
         $goods = $this->goods->find($gd_id);
 	   	$goods = $this->goods_paramImplant($goods, $req);
 		$goods->updated_id = auth()->user()->id;
+        $goods->updated_at = \Carbon\Carbon::now();
 	   	$gd_rst = $goods->save();
 
         //  카테고리 추가
