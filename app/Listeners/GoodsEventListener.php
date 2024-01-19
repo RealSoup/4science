@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Model\Shop\Goods;
 use App\Models\{Search};
 use Cookie;
+use DB;
 
 class GoodsEventListener {
     public function handle() {  }
@@ -26,15 +27,15 @@ class GoodsEventListener {
 
     public function goodsView(GoodsView $event) {
         //  상품 조회수 증가
-        $sessionName = 'cnt_check';
+        $sessionName = "cnt_check{$event->gd_id}";
         if(!session()->get($sessionName)) {
             //  세션에 값을 넣고 true이면 조회수를 늘리지 않는다
             //  세션이 사라져아 증가
             //  새로고침으로 계속 증가함을 막기 위해
-            $event->goods->where('gd_id', $event->gd_id)->decrement('gd_view_cnt');
+            // $event->goods->where('gd_id', $event->gd_id)->decrement('gd_view_cnt');
+            DB::table('shop_goods')->where('gd_id', $event->gd_id)->decrement('gd_view_cnt');;
             session()->put($sessionName, true);
         }
-        // 
 
         //  최근 본 상품 등록
         $rst = [];

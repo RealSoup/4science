@@ -211,7 +211,7 @@ class GoodsController extends Controller {
 			}
 		}
 
-        event(new \App\Events\GoodsView($this->goods, $gd_id));  //  조회수 증가, 최근 본 상품 등록
+        event(new \App\Events\GoodsView($gd_id));  //  조회수 증가, 최근 본 상품 등록
         return response()->json($data);
     }
 
