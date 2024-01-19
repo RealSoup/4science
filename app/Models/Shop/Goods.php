@@ -465,8 +465,8 @@ class Goods extends Model {
         $date_target = 'created_at';
         if ($req->filled('sort') && $req->sort == 'edit' ) $date_target = 'updated_at';
         if ($req->filled('startDate') && !$req->filled('endDate')) $q_str .= "range={$date_target},".strtotime($req->startDate).",".strtotime("Now").";";
-        if (!$req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime("1970-01-01").",".strtotime($req->endDate).";";
-        if ($req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime($req->startDate).",".strtotime($req->endDate).";";
+        if (!$req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime("1970-01-01").",".strtotime($req->endDate.' 23:59:59').";";
+        if ($req->filled('startDate') && $req->filled('endDate')) $q_str .= "range={$date_target},".strtotime($req->startDate).",".strtotime($req->endDate.' 23:59:59').";";
         if ($req->filled('v_type') && $req->v_type == 'WEB') $q_str .= "filter=gd_enable,".crc32('Y').";";
         if ($req->filled('gd_enable'))  $q_str .= "filter=gd_enable,".crc32($req->gd_enable).";";
         if (!$req->filled('gd_type'))   $q_str .= "filter=gd_type,".crc32('NON').";";
@@ -517,8 +517,8 @@ class Goods extends Model {
         $date_target = 'created_at';
         if ($req->filled('sort') && $req->sort == 'edit' ) $date_target = 'updated_at';
         if ($req->filled('startDate') && !$req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime("Now")));
-        if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime("1970-01-01")),    floatval(strtotime($req->endDate)));
-        if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime($req->endDate)));
+        if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime("1970-01-01")),    floatval(strtotime($req->endDate.' 23:59:59')));
+        if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime($req->endDate.' 23:59:59')));
         if ($req->filled('v_type') && $req->v_type == 'WEB')       $cl->SetFilter('gd_enable', array(crc32('Y')));
         if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array($req->gd_enable));
         if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
