@@ -11,12 +11,9 @@
             </b-button-group>
 
             <b-col>
-                <label>
-                    <b-badge class="no d_gray">{{idx+1}}</b-badge>
-                    제품명
-                </label>
-                <div><b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" size="sm" /></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]" />
+                <label><b-badge class="no d_gray">{{idx+1}}</b-badge> 제품명</label>
+                <div><b-form-input :id="`estimate_model${idx}em_name`" v-model="em.em_name" size="sm"></b-form-input></div>
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_name`]"></validation>
             </b-col>
             <b-col>
                 <div>
@@ -35,46 +32,46 @@
             <b-col>
                 <label>모델명</label>
                 <model-sch-input v-model="em.em_code" :type="'em_code'" :id="`estimate_model${idx}em_code`" :em="em"></model-sch-input>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_code`]"></validation>
             </b-col>
 
             <b-col>
                 <label>판매단위</label>
-                <div><b-form-input v-model="em.em_unit" size="sm" /></div>
+                <div><b-form-input v-model="em.em_unit" size="sm"></b-form-input></div>
             </b-col>
 
             <b-col>
                 <label>제조사</label>
-                <div><b-form-input v-model="em.em_maker" size="sm" /></div>
+                <div><b-form-input v-model="em.em_maker" size="sm"></b-form-input></div>
             </b-col>
             
             <b-col>
                 <label>수량</label>
                 <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em"></ea-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]"></validation>
             </b-col>
 
             <b-col>
                 <label>판매단가({{em.em_cost_price | comma}})</label>
                 <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em"></price-input></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]"></validation>
             </b-col>
 
             <b-col>
                 <label>납품기일</label>
-                <div><b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" size="sm" /></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]" />
+                <div><b-form-input :id="`estimate_model${idx}em_dlvy_at`" v-model="em.em_dlvy_at" size="sm"></b-form-input></div>
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_dlvy_at`]"></validation>
             </b-col>
 
             <b-col>
                 <label>할인율</label>
-                <div><dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right" /></div>
+                <div><dc-late-input v-model="em.em_dc_rate" :id="`em_dc_rate${idx}`" :em="em" class="text-right"></dc-late-input></div>
             </b-col>
             
             <b-col class="w_100">
                 <label>제품정보</label>
                 <div><b-form-textarea :id="`estimate_model${idx}em_spec`" v-model="em.em_spec" rows="8" size="sm"></b-form-textarea></div>
-                <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]" />
+                <validation :error="$store.state.error.validations[`estimate_model${idx}em_spec`]"></validation>
             </b-col>
         </b-row>
         
@@ -97,7 +94,7 @@
             </b-col>
         </b-row>
     </b-container>
-    <validation :error="$store.state.error.validations.estimate_model" />
+    <validation :error="$store.state.error.validations.estimate_model"></validation>
         
     <b-row><b-col class="mt-4 text-right"><b-button class="mint rubber" @click="emAdd">제품 추가</b-button></b-col></b-row>
 </div>
