@@ -104,15 +104,17 @@
 <script>
 import ax from '@/api/http';
 import GoodsOptionAdd from "@/views/admin/shop/estimate/_comp/GoodsOptionAdd.vue";
+import PriceInput from "@/views/admin/shop/estimate/_comp/PriceInput.vue";
+import EaInput from "@/views/admin/shop/estimate/_comp/EaInput.vue";
 import copy from "fast-copy";
 
 export default {
     components: {
         "goods-option-add": GoodsOptionAdd,
-        'price-input': () =>     import('@/views/admin/shop/estimate/_comp/PriceInput.vue'),
+        'price-input':      PriceInput,
         'dc-late-input': () =>   import('@/views/admin/shop/estimate/_comp/DcLateInput.vue'),
         'model-sch-input': () => import('@/views/admin/shop/estimate/_comp/ModelSchInput.vue'),
-        'ea-input': () =>        import('@/views/admin/shop/estimate/_comp/EaInput.vue'),
+        'ea-input':         EaInput,
         'validation': () =>      import('@/views/_common/Validation.vue'),
     },
     props: ['value', 'frm'],
