@@ -50,13 +50,13 @@
             
             <b-col>
                 <label>수량</label>
-                <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em" /></div>
+                <div><ea-input v-model="em.em_ea" :id="`estimate_model${idx}em_ea`" :em="em"></ea-input></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_ea`]" />
             </b-col>
 
             <b-col>
                 <label>판매단가({{em.em_cost_price | comma}})</label>
-                <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em" /></div>
+                <div><price-input v-model="em.em_price" :id="`estimate_model${idx}em_price`" :em="em"></price-input></div>
                 <validation :error="$store.state.error.validations[`estimate_model${idx}em_price`]" />
             </b-col>
 
@@ -88,10 +88,10 @@
                         <b><b-button class="plum xm" @click="delOption(idx, oi)">X</b-button></b>
                         <span>{{eo.eo_tit}}: {{eo.eo_name}}</span>
                         <label :for="`eo_ea${idx}_${oi}`">수량</label>
-                        <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`" />
+                        <ea-input v-model="eo.eo_ea" :id="`eo_ea${idx}_${oi}`"></ea-input>
 
                         <label :for="`eo_price${idx}_${oi}`">판매단가</label>
-                        <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`" />
+                        <price-input v-model="eo.eo_price" :id="`eo_price${idx}_${oi}`"></price-input>
                     </p>
                 </div>
             </b-col>
