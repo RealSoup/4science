@@ -23,7 +23,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       set: function set(v) {
         v = v.replace(/[^0-9]/g, '').toString();
-        this.em.em_cost_price = fast_copy__WEBPACK_IMPORTED_MODULE_0___default()(v);
+        if (!isEmpty(this.em)) this.em.em_cost_price = fast_copy__WEBPACK_IMPORTED_MODULE_0___default()(v);
         this.$emit('input', v);
       }
     }

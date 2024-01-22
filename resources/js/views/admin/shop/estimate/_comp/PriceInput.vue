@@ -13,7 +13,8 @@ export default {
             },
             set: function(v) {
                 v = v.replace(/[^0-9]/g, '').toString();
-                this.em.em_cost_price = copy(v);
+                if (!isEmpty(this.em))
+                    this.em.em_cost_price = copy(v);
                 this.$emit('input', v);
             }
         }
