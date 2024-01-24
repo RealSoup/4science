@@ -71,7 +71,8 @@ class GoodsController extends Controller {
                     $cl->SetGroupBy('gc_ca02', SPH_GROUPBY_ATTR );
                     $cl->SetGroupDistinct ( "gd_id" );
                     $cl_rst = $cl->Query( $kw, 'sph_goods' );
-    
+                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
+
                     foreach ($cl_rst['matches'] as $v) {
                         $tmp['key'] = $v['attrs']['@groupby'];
                         $tmp['name'] = $v['attrs']['gc_ca02_name'];
@@ -86,6 +87,7 @@ class GoodsController extends Controller {
                     $cl->SetGroupBy('gc_ca03', SPH_GROUPBY_ATTR );
                     $cl->SetGroupDistinct ( "gd_id" );
                     $cl_rst = $cl->Query( $kw, 'sph_goods' );
+                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
     
                     foreach ($cl_rst['matches'] as $v) {
                         $tmp['key'] = $v['attrs']['@groupby'];
@@ -102,6 +104,8 @@ class GoodsController extends Controller {
                     $cl->SetGroupBy('gd_mk_id', SPH_GROUPBY_ATTR );
                     $cl->SetGroupDistinct ( "gd_id" );
                     $cl_rst = $cl->Query( $kw, 'sph_goods' );
+                    abort_if(!array_key_exists('matches', $cl_rst), 501, '존재 하지 않는 카테고리 입니다.');
+                    
                     foreach ($cl_rst['matches'] as $v) {
                         $tmp['key'] = $v['attrs']['@groupby'];
                         $tmp['name'] = $v['attrs']['mk_name'];
