@@ -599,9 +599,6 @@ var render = function render() {
     attrs: {
       frm: _vm.frm
     },
-    on: {
-      "hook:created": function hookCreated($event) {}
-    },
     model: {
       value: _vm.frm.estimate_model,
       callback: function callback($$v) {
