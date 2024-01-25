@@ -92,11 +92,8 @@ class UserController extends Controller {
         DB::table('user_mng_config')->where('umc_user_id', $id)->delete();
         DB::table('user_social')->where('user_id', $id)->delete();
         DB::table('shop_wish')->where('created_id', $id)->delete();
-        
-        foreach (DB::table('shop_cart')->where('created_id', $id)->get() as $ct) {
-            DB::table('shop_cart_model')->where('cm_ct_id', $ct->ct_id)->delete();
-            DB::table('shop_cart_option')->where('co_ct_id', $ct->ct_id)->delete();            
-        }
+        DB::table('shop_cart')->where('created_id', $id)->delete();
+ 
         $rst = User::destroy($id);
         if ($rst) return response()->json(["message"=>'success'], 200);
         else      return response()->json(["msg"=>"Fail"], 500);

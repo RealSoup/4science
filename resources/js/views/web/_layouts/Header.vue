@@ -79,7 +79,7 @@
         <b-link @click="$router.go(-1)"><b-icon-arrow-left /></b-link>
         <b-link :to="{name: 'main'}"><b-icon-house-door-fill /></b-link>
         <b-link @click="view_sch=!view_sch"><b-icon-search /></b-link>
-        <b-link :to="{name: 'login'}"><b-icon-person-fill /></b-link>
+        <b-link :to="{name: 'login'}"><b-img :src="`/storage/common/icon_mypage.gif`" width="35" /><!-- <b-icon-person-fill /> --></b-link>
         <b-link :to="{name: 'cart_index'}"><b-icon-basket3-fill /></b-link>
         <b-link v-if="list.length" @click="$store.commit('recent_goods/switch', { recent_goods_view:!recent_goods_view })"><b-icon-clock-fill /></b-link>
     </div>
