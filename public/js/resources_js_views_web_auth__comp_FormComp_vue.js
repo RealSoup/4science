@@ -55,7 +55,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     user_type_set: function user_type_set() {
       if (isEmpty(this.value.id)) return this.user_type;else {
-        if (this.value.is_dealer) return 'dealer';else return 'personal';
+        if (this.value.is_dealer_type) return 'dealer';else return 'personal';
       }
     }
   },

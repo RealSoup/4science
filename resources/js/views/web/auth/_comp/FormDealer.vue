@@ -96,6 +96,14 @@
                 <Validation :error="$store.state.error.validations.ub_addr2" />
             </b-col>
         </b-row>
+        <b-row v-if="value.file_info.length">
+            <b-col class="label_st">등록증 다운</b-col>
+            <b-col>
+                <b-button v-for="(file, i) in value.file_info" class="white sm mr-2" @click="fileDown(file.down_path, file.fi_original)" :key="i">
+                    {{file.fi_original}}
+                </b-button>
+            </b-col>
+        </b-row>
         <b-row>
             <b-col class="label_st">등록증 사본 업로드<b class="need" /></b-col>
             <b-col>

@@ -709,7 +709,19 @@ var render = function render() {
     attrs: {
       error: _vm.$store.state.error.validations.ub_addr2
     }
-  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  })], 1)], 1), _vm._v(" "), _vm.value.file_info.length ? _c("b-row", [_c("b-col", {
+    staticClass: "label_st"
+  }, [_vm._v("등록증 다운")]), _vm._v(" "), _c("b-col", _vm._l(_vm.value.file_info, function (file, i) {
+    return _c("b-button", {
+      key: i,
+      staticClass: "white sm mr-2",
+      on: {
+        click: function click($event) {
+          return _vm.fileDown(file.down_path, file.fi_original);
+        }
+      }
+    }, [_vm._v("\r\n                    " + _vm._s(file.fi_original) + "\r\n                ")]);
+  }), 1)], 1) : _vm._e(), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("등록증 사본 업로드"), _c("b", {
     staticClass: "need"

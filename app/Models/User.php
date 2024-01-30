@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail {
 
     protected $guarded = [];
     protected $hidden = [ 'password' ];
-    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'mileage_mul', 'dc_mul'];
+    protected $appends = ['is_admin', 'is_super', 'is_dealer', 'is_dealer_type', 'mileage_mul', 'dc_mul'];
     protected $casts = [ 'email_verified_at' => 'datetime', ];
     protected function serializeDate(DateTimeInterface $date) { return $date->format('Y-m-d H:i:s'); }
     public function getCreatedAtAttribute( $value ) { return (new Carbon($value))->format('Y-m-d H:i'); }
@@ -111,6 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function getIsAdminAttribute() { return $this->level > 20 ? true : false; }
     public function getIsSuperAttribute() { return $this->level == 29 ? true : false; }
     public function getIsDealerAttribute() { return ($this->level == 12) ? true : false; }
+    public function getIsDealerTypeAttribute() { return ($this->level>10&&$this->level<20) ? true : false; }
     public function getMileageMulAttribute() {
         $lv = $this->level;
         if ($lv>20) $lv = 3;    //  관리자 테스트용

@@ -192,7 +192,7 @@ export default {
             if ( isEmpty(this.value.id) )
                 return this.user_type;
             else {
-                if ( this.value.is_dealer  ) return 'dealer';
+                if ( this.value.is_dealer_type ) return 'dealer';
                 else return 'personal';
             }
         },
