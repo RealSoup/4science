@@ -2,13 +2,9 @@
 <b-container class="w_fence">
     <h3>회원정보 수정</h3>
 
-    <form-comp ref="form_comp" v-model="frm" />
+    <form-comp ref="form_comp" v-model="frm"></form-comp>
 
-    <b-row>
-        <b-col class="btn_box">
-            <b-button class="blue xl" @click="update">적용</b-button>
-        </b-col>
-    </b-row>
+    <b-row><b-col class="btn_box"><b-button class="blue xl" @click="update">적용</b-button></b-col></b-row>
 </b-container>
 </template>
 
