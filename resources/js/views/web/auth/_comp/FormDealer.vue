@@ -6,32 +6,32 @@
             <b-col class="label_st">사업자 등록번호<b class="need" /></b-col>
             <b-col class="ub_num">
                 <validation-provider name="사업자 번호1" rules="required|length:3|numeric" v-slot="validationContext">
-                    <b-form-input id="ub_num01" v-model="value.ub_num01" ref="ub_num01" @input.native="focusNext($event, 3, 'ub_num02')" :formatter="maxlength_3" :state="getValidationState(validationContext)"  />
+                    <b-form-input id="ub_num01" v-model="value.ub_num01" ref="ub_num01" @input.native="focusNext($event, 3, 'ub_num02')" :formatter="maxlength_3" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <validation-provider name="사업자 번호2" rules="required|length:2|numeric" v-slot="validationContext">
-                    <b-form-input id="ub_num02" v-model="value.ub_num02" ref="ub_num02" @input.native="focusNext($event, 2, 'ub_num03')" :formatter="maxlength_2" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_num02" v-model="value.ub_num02" ref="ub_num02" @input.native="focusNext($event, 2, 'ub_num03')" :formatter="maxlength_2" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <validation-provider name="사업자 번호3" rules="required|length:5|numeric" v-slot="validationContext">
-                    <b-form-input id="ub_num03" v-model="value.ub_num03" ref="ub_num03" :formatter="maxlength_5" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_num03" v-model="value.ub_num03" ref="ub_num03" :formatter="maxlength_5" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_num" />
             </b-col>
         </b-row>
         <b-row>
-            <b-col class="label_st">상호명/대표자명<b class="need" /></b-col>
+            <b-col class="label_st">상호명/대표자명<b class="need"></b></b-col>
             <b-col class="col_l">
                 <validation-provider name="상호" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_corp_name" v-model="value.ub_corp_name" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_corp_name" v-model="value.ub_corp_name" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_corp_name" />
             </b-col>
             <b-col class="col_r">
                 <validation-provider name="대표자명" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_name" v-model="value.ub_name" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_name" v-model="value.ub_name" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_name" />
@@ -41,7 +41,7 @@
             <b-col class="label_st">대표 전화번호<b class="need" /></b-col>
             <b-col>
                 <validation-provider name="대표 전화번호" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_tel" v-model="value.ub_tel" :state="getValidationState(validationContext)" required :formatter="format_tel" />
+                    <b-form-input id="ub_tel" v-model="value.ub_tel" :state="getValidationState(validationContext)" required :formatter="format_tel"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_tel" />
@@ -51,24 +51,24 @@
             <b-col class="label_st">업종/업태<b class="need" /></b-col>
             <b-col class="col_l">
                 <validation-provider name="업종" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_type" v-model="value.ub_type" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_type" v-model="value.ub_type" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_type" />
             </b-col>
             <b-col class="col_r">
                 <validation-provider name="업태" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_cond" v-model="value.ub_cond" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_cond" v-model="value.ub_cond" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_cond" />
             </b-col>
         </b-row>
         <b-row class="zip_row">
-            <b-col class="label_st">사업장주소<b class="need" /></b-col>
+            <b-col class="label_st">사업장주소<b class="need"></b></b-col>
             <b-col>
                 <validation-provider name="우편번호" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_zip" v-model="value.ub_zip" ref="ub_zip" readonly :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_zip" v-model="value.ub_zip" ref="ub_zip" readonly :state="getValidationState(validationContext)"></b-form-input>
                     <b-button class="btn_white" @click="postcode_open = !postcode_open">
                         <template v-if="postcode_open"><b-icon-x-square-fill /></template>
                         <template v-else>우편번호 찾기</template>
@@ -76,21 +76,21 @@
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_zip" />
-                <VueDaumPostcode v-if="postcode_open" class="shadow mt-3" @complete="onPostcodeSlt" :animation="true" />
+                <VueDaumPostcode v-if="postcode_open" class="shadow mt-3" @complete="onPostcodeSlt" :animation="true"></VueDaumPostcode>
             </b-col>
         </b-row>
         <b-row>
             <b-col class="label_st"></b-col>
             <b-col class="col_l">
                 <validation-provider name="주소" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_addr1" v-model="value.ub_addr1" ref="ub_addr1" readonly :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_addr1" v-model="value.ub_addr1" ref="ub_addr1" readonly :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_addr1" />
             </b-col>
             <b-col class="col_r">
                 <validation-provider name="상세주소" rules="required" v-slot="validationContext">
-                    <b-form-input id="ub_addr2" v-model="value.ub_addr2" ref="ub_addr2" placeholder="상세주소" :state="getValidationState(validationContext)" />
+                    <b-form-input id="ub_addr2" v-model="value.ub_addr2" ref="ub_addr2" placeholder="상세주소" :state="getValidationState(validationContext)"></b-form-input>
                     <b-form-invalid-feedback>{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                 </validation-provider>
                 <Validation :error="$store.state.error.validations.ub_addr2" />
@@ -107,7 +107,7 @@
         <b-row>
             <b-col class="label_st">등록증 사본 업로드<b class="need" /></b-col>
             <b-col>
-                <file-upload ref="fileupload" v-model="value.file_info" :fi_group="'userBiz'" :fi_kind="'license'" :height="100" />
+                <file-upload ref="fileupload" v-model="value.file_info" :fi_group="'userBiz'" :fi_kind="'license'" :height="100"></file-upload>
                 <Validation :error="$store.state.error.validations.ub_file" />
             </b-col>
         </b-row>

@@ -151,13 +151,13 @@
             </b-row>
         </b-container>
     </b-col>
-    <FormUser v-if="user_type_set == 'personal'" v-model="value" />  
-    <FormDealer ref="form_dealer" v-else-if="user_type_set == 'dealer'" v-model="value" />        
+    <FormUser v-if="user_type_set == 'personal'" v-model="value"></FormUser>
+    <FormDealer ref="form_dealer" v-else-if="user_type_set == 'dealer'" v-model="value"></FormDealer>
     <transition name="modal">
         <Modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="700">
-            <Inexus v-if="modalMode == 'inexus'" @close-modal="isModalViewed = false" />
-            <Personal v-if="modalMode == 'personal'" @close-modal="isModalViewed = false" />
-            <Marketing v-if="modalMode == 'marketing'" @close-modal="isModalViewed = false" />
+            <Inexus v-if="modalMode == 'inexus'" @close-modal="isModalViewed = false"></Inexus>
+            <Personal v-if="modalMode == 'personal'" @close-modal="isModalViewed = false"></Personal>
+            <Marketing v-if="modalMode == 'marketing'" @close-modal="isModalViewed = false"></Marketing>
         </Modal>
     </transition>
 </b-row>
