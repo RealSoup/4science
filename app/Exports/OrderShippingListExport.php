@@ -24,7 +24,7 @@ class OrderShippingListExport implements FromCollection, WithStyles, WithColumnW
     public function columnWidths(): array {
         return [
             'A' => 5,
-            'B' => 29,
+            'B' => 33,
             'C' => 20,
             'D' => 16,
             'E' => 14,

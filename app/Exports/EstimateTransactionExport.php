@@ -25,9 +25,9 @@ class EstimateTransactionExport implements FromCollection, WithStyles, WithDrawi
 
     public function columnWidths(): array { return [
         'A' => 5,
-        'B' => 29,
+        'B' => 32,
         'C' => 1,
-        'D' => 15,
+        'D' => 16,
         'E' => 16,
         'F' => 14,
         'G' => 10,
