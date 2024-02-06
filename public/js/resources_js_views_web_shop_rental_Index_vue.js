@@ -510,15 +510,10 @@ var render = function render() {
   }, [_vm._v("\r\n                            EO 제품군이 전기안전법과 제조사 사정에 의해 단가 변동 사항이 있습니다. "), _c("br"), _vm._v("\r\n                            해당 제품 주문 전 견적문의를 통해 '단가'와 '납품기한'을 꼭 확인하시기를 부탁드리겠습니다.\r\n                        ")]) : _vm._e(), _vm._v(" "), _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 31 && _vm.list[_vm.pick_tem].goods_category_first.gc_ca02 == 5114 && (_vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5122 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5136 || _vm.list[_vm.pick_tem].goods_category_first.gc_ca03 == 5137) ? _c("p", {
     staticClass: "warning"
   }, [_vm._v("\r\n                            - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)\r\n                        ")]) : _vm._e()]), _vm._v(" "), _c("div", {
-    "class": {
-      merck_style: _vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 40
-    },
     attrs: {
       id: "goods_desc"
     }
-  }, [_vm.list[_vm.pick_tem].goods_category_first.gc_ca01 == 40 ? _c("div", {
-    staticClass: "merck_tit"
-  }, [_c("h1", [_vm._v("Properties")]), _vm._v(" "), _c("h2", [_vm._v("CAS Number : " + _vm._s(_vm.list[_vm.pick_tem].gd_keyword))])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     domProps: {
       innerHTML: _vm._s(_vm.list[_vm.pick_tem].gd_desc)
     }

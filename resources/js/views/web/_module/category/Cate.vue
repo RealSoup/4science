@@ -1,10 +1,10 @@
 <template>
-<ul id="category" :class="{all_focus:all_focus}" @mouseenter="all_focus=true" @mouseleave="all_focus=false, $emit('close_cate')">
+<ul id="category" :class="{all_focus:all_focus}" @mouseenter="all_focus=true" @mouseleave="all_focus=false, $emit('close_cate')" :style="{ maxHeight:`${cate_height}px`}">
     <li v-for="ca in category" :key="ca.ca_id" @mouseenter="set_focus(ca.ca_id)" :class="{focus:ca.sub_show}">
         <b-link class="dep01" @click.stop="ca.sub_show=false, $emit('close_cate')" :to="{name: 'goods_index', query: {ca01:ca.ca_id}}">
             {{ca.ca_name}}
         </b-link>
-        <CateSub v-if="ca.sub_show && ca.sub.length" :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id" />
+        <CateSub v-if="ca.sub_show && ca.sub.length" :depth='1' :cate="ca.sub" :paramLink="'/'+ca.ca_id"></CateSub>
     </li>
     <li @mouseenter="custom_hover" :class="{focus:custom_focus}">
         <b-link :to="{name: 'estimate_custom_index' }">주문제작</b-link>
@@ -21,6 +21,7 @@ export default {
     data() { return { 
             all_focus: false,
             custom_focus: false,
+            cate_height:0,
         } 
     },
     computed: { ...mapState('category', ['category']), },
@@ -37,6 +38,12 @@ export default {
             Object.values(this.category).forEach(ca => { ca.sub_show = false; });
         },
     },
+    
+    mounted() {
+        this.cate_height = document.documentElement.clientHeight - 156;
+    },
+    
+
 } 
 </script>
 

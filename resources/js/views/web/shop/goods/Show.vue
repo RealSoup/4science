@@ -179,15 +179,15 @@
                     >
                         <br>
                         <p class="warning">
-                            ※ 이 안내는 「화학물질관리법」 제29조의2 및 같은 법 시행규칙 제31조의2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 
-                            유해화학물질 취급기준을 준수하여야함을 구매자에게 서면 또는 전자문서로 알려주는 것을 목적으로 하고 있습니다.<br />
-                            ※ 해당 제품은 일반인과 미성년자의 구매를 금합니다.<br />
-                            ※ 제품 이미지는 실제와 다를 수 있습니다.<br />
-                            ※ 이미지는 참고용입니다.
+                            ※ 해당 제품은 개인 및 미성년자의 구매를 금합니다.<br />
+                            ※ 연구목적 외(식품 첨가, 의료용 등) 사용 불가합니다.<br />
+                            ※ 제품 이미지 참고용이며, 실제와 다를 수 있습니다.<br />
+                            <br />
+                            ※ 이 안내는 「화학물질관리법」 제29조의 2 및 같은 법 시행규칙 제31조의 2에 따라 유해화학물질 시약을 해당 용도로만 사용하며, 유해화학물질 취급기준을 준수하여야 함을 구매자에게 서면 또는 전자 문서로 알려주는 것을 목적으로 하고 있습니다.
                         </p>
                         <br>
-                        <a href="http://ncis.nier.go.kr/" target="_blank" style="display:block; text-align:center;">
-                            <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="700">
+                        <a href="https://kreach.me.go.kr/repwrt/index.do" target="_blank" style="display:block; text-align:center;">
+                            <img src="/storage/goods/hazmat_info.jpg" title="유해화학물질 시약 관련 안내" width="500">
                         </a>
                     </div>
 
@@ -204,17 +204,10 @@
                         - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)
                     </p>
                 </div>
-                <div id="goods_desc" :class="{merck_style:content.goods_category_first.gc_ca01==40}">
-                    <div v-if="content.goods_category_first.gc_ca01==40" class="merck_tit">
-                        <h1>Properties</h1>
-                        <h2>CAS Number : {{content.gd_keyword}}</h2>
-                    </div>
-
-                    <div v-html="content.gd_desc" />
-                    <div v-if="content.gd_video" v-html="content.gd_video" />
+                <div id="goods_desc">
+                    <div v-html="content.gd_desc"></div>
+                    <div v-if="content.gd_video" v-html="content.gd_video"></div>
                 </div>
-
-                
 
                 <div class="desc_pdf">
                     <br /> <hr /> <br />
@@ -688,13 +681,6 @@ export default {
 .conRight #goods_desc #style01 span { display:inline-block; line-height:24px; color:#666; padding:5px 15px; }
 .conRight #goods_desc #style01 { padding-left:0px; }
 .conRight #goods_desc #style01 .desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:10%; background-color:#F8F8F8; }
-/* trc 옵션 설명 스타일 */
-.conRight .merck_style>>>.merck_tit h1 { font-weight:bold; font-size:40px; line-height:40px; margin:20px 0 10px 0; }
-.conRight .merck_style>>>.merck_tit h2 { font-weight:bold; font-size:20px; line-height:20px; margin:20px 0 10px 0; }
-.conRight .merck_style>>>span { display:inline-block; line-height:24px; color:#666; padding:5px 15px; }
-.conRight .merck_style>>>.desc_title { border-left:1px solid #999; margin-bottom:2px; font-weight:bold; width:20%; background-color:#F8F8F8; }
-.conRight .merck_style>>>.desc_content a { font-size: 14px; font-weight:bold; font-style: italic; }
-.conRight .merck_style>>>.desc_content a:hover { color:blue; }
 .conRight .desc_pdf { margin-top:3rem; }
 
 .conRight .goods_desc_piece { margin-top:3rem; }

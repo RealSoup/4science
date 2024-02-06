@@ -29,7 +29,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   data: function data() {
     return {
       all_focus: false,
-      custom_focus: false
+      custom_focus: false,
+      cate_height: 0
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('category', ['category'])),
@@ -46,6 +47,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         ca.sub_show = false;
       });
     }
+  },
+  mounted: function mounted() {
+    this.cate_height = document.documentElement.clientHeight - 156;
   }
 });
 
@@ -68,6 +72,9 @@ var render = function render() {
   return _c("ul", {
     "class": {
       all_focus: _vm.all_focus
+    },
+    style: {
+      maxHeight: "".concat(_vm.cate_height, "px")
     },
     attrs: {
       id: "category"

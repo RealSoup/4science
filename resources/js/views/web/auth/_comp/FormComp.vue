@@ -253,7 +253,7 @@ export default {
 .form_box .col .frm_vali_st .row .col select:focus:not(.is-valid, .is-invalid),
 .form_box .col .frm_vali_st .row .col textarea:focus:not(.is-valid, .is-invalid) { background:#fff; border:1px solid #000 !important; box-shadow:unset; border-radius:0; }
 .form_box .col .frm_vali_st .row .col .btn_white { background-color:#FFF; border-color:#CCCCCC; color:#000; }
-.form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px; }
+.form_box .col .frm_vali_st .row .col.accept_contact { flex-basis:100px; max-width:100px; letter-spacing:-2px; display:flex; align-items:center; padding-left:.5em; }
 .form_box .col .frm_vali_st .agree { margin-bottom:.6rem; }
 .form_box .col .frm_vali_st .agree .col .custom-checkbox { display:inline-block; margin-right:1rem; }
 .form_box .col .frm_vali_st .agree .col a,
@@ -271,7 +271,8 @@ export default {
     .form_box>.col { padding:.5em; }
 
     .form_box .col .frm_vali_st .add_col { justify-content: flex-end; }
-    .form_box .col .frm_vali_st .add_col .col:not(.label_st) { flex: 0 0 calc(100% - 100px); max-width: calc(100% - 100px); }
+    .form_box .col .frm_vali_st .add_col .col:not(.label_st) { flex: 0 0 calc(100% - 70px); max-width: calc(100% - 70px); }
     .form_box .col .frm_vali_st .add_col .col:last-child { margin-top:6px; }
+    .form_box .col .frm_vali_st .row .col.label_st { flex-basis:70px; max-width:70px; } 
 }
 </style>

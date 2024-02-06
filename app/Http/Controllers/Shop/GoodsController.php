@@ -198,7 +198,7 @@ class GoodsController extends Controller {
         $ca03 = $data['goods']->goodsCategoryFirst->gc_ca03 ? $data['goods']->goodsCategoryFirst->gc_ca03 : 0;
         $data['categorys'] = Category::getSelectedCate( $ca01, $ca02, $ca03);
         $data['goods']['gd_mng_info'] = $data['goods']['gd_mng_info'] != '' ? $data['goods']['gd_mng_info'] : Category::$mngTel;
-        if ( $data['goods']->goodsCategoryFirst->gc_ca01 =='0040' ) {
+        /* if ( $data['goods']->goodsCategoryFirst->gc_ca01 =='0040' ) {
 			if (isset($data['goods']->gd_desc)) {
 				$improve_description = "";
 				$tempArray = explode("<br />", $data['goods']->gd_desc);
@@ -213,7 +213,7 @@ class GoodsController extends Controller {
 				$improve_description .= "<span class='desc_content'><a href='https://www.sigmaaldrich.com/KR/ko/search' target='_blank'>MSDS(물질안전보건자료) 바로가기</a></span>";
 				$data['goods']->gd_desc = $improve_description;
 			}
-		}
+		} */
 
         event(new \App\Events\GoodsView($gd_id));  //  조회수 증가, 최근 본 상품 등록
         return response()->json($data);

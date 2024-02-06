@@ -206,12 +206,7 @@
                             - 개인 고객 및 미성년자 판매금지입니다.(온라인판매금지)
                         </p>
                     </div>
-                    <div id="goods_desc" :class="{merck_style:list[pick_tem].goods_category_first.gc_ca01==40}">
-                        <div v-if="list[pick_tem].goods_category_first.gc_ca01==40" class="merck_tit">
-                            <h1>Properties</h1>
-                            <h2>CAS Number : {{list[pick_tem].gd_keyword}}</h2>
-                        </div>
-
+                    <div id="goods_desc">
                         <div v-html="list[pick_tem].gd_desc" />
                         <div v-if="list[pick_tem].gd_video" v-html="list[pick_tem].gd_video" />
                     </div>
