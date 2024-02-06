@@ -25,8 +25,8 @@ class OrderShippingListExport implements FromCollection, WithStyles, WithColumnW
         return [
             'A' => 5,
             'B' => 29,
-            'C' => 15,
-            'D' => 21,
+            'C' => 20,
+            'D' => 16,
             'E' => 14,
             'F' => 20,
         ];
