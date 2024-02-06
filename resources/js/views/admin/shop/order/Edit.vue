@@ -43,6 +43,7 @@
                         <b-dropdown-item-button variant="success" @click="transactionExcel">거래명세서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
                         <b-dropdown-item-button variant="warning" @click="transactionPdf">거래명세서 <b-badge>PDF</b-badge></b-dropdown-item-button>
                         <b-dropdown-item-button variant="danger" @click="sendTran">거래명세서 발송 <b-badge>PDF</b-badge></b-dropdown-item-button>
+                        <b-dropdown-item-button variant="primary" @click="shippingListExcel">물품출고내역서 <b-badge>EXCEL</b-badge></b-dropdown-item-button>
                     </b-dropdown>
                     <b-button v-else class="gray sm">담당 등록 후...</b-button>                    
                     
@@ -723,6 +724,12 @@ export default {
                 }
             } else Notify.toast('warning', '실패');
           
+        },
+        async shippingListExcel(){
+            if (this.didCheck()) {
+                const res = await ax.post(`/api/admin/shop/order/exportShippingListExcel`, this.od, { responseType: 'blob' });
+                this.orderDocumentDown(res, `${this.od.od_no}_ShippingList.xlsx`);
+            }
         },
 
         sendTran(){

@@ -49,7 +49,7 @@ class OrderController extends Controller {
                     if($item['price']<1)   abort(500, '견적가 상품이 있습니다. 견적 요청하여 가격을 견적 받으세요.');
 
                     //  재고 부족시 구매 금지
-                    if($item['ea'] > $item['gm_limit_ea'])    abort(500, '재고 부족 상품이 있습니다. 다시 확인해 주시기 바랍니다.');
+                    if(isset($item['gm_limit_ea']) && $item['ea'] > $item['gm_limit_ea'])    abort(500, '재고 부족 상품이 있습니다. 다시 확인해 주시기 바랍니다.');
                 }
 
                 //  필수옵션 누락 체크

@@ -13,7 +13,7 @@ use App\Events\{Mileage};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport};
+use App\Exports\ {InvoicesExport, OrderEstimateExport, OrderTransactionExport, OrderShippingListExport};
 use App\Mail\SendTransaction;
 use Mail;
 use DateTime;
@@ -333,6 +333,12 @@ class OrderController extends Controller {
 				->stream();
 		}
 	}
+
+	public function exportShippingListExcel(Request $req) {
+		return Excel::download(new OrderShippingListExport($req->all()), 'order.xlsx');
+	}
+
+	
 
 
 

@@ -279,7 +279,7 @@ class Goods extends Model {
                         if ($mode == 'buy_chk') {
                             foreach ($some['lists'] as $d1) {
                                 foreach ($d1 as $d2) {
-                                    if($d2['gm_id']==$gm->gm_id && array_key_exists('price_dc', $d2)) {
+                                    if( array_key_exists('type', $d2) && $d2['type']=='model' && $d2['gm_id']==$gm->gm_id && array_key_exists('price_dc', $d2)) {
                                         $tmpModel['price'] = $d2['price_dc'];
                                         $tmpModel['price_add_vat'] = $d2['price_dc_add_vat'];
                                     }

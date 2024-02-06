@@ -385,6 +385,31 @@ var dt = new Date();
         }, _callee7);
       }))();
     },
+    shippingListExcel: function shippingListExcel() {
+      var _this8 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              if (!_this8.didCheck()) {
+                _context8.next = 5;
+                break;
+              }
+              _context8.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/exportShippingListExcel", _this8.od, {
+                responseType: 'blob'
+              });
+            case 3:
+              res = _context8.sent;
+              _this8.orderDocumentDown(res, "".concat(_this8.od.od_no, "_ShippingList.xlsx"));
+            case 5:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }))();
+    },
     sendTran: function sendTran() {
       this.isModalViewed = !this.isModalViewed;
       this.modalType = 'sendTransaction';
@@ -398,35 +423,35 @@ var dt = new Date();
       fileLink.click();
     },
     ledger: function ledger() {
-      var _this8 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      var _this9 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
         var res;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              _context8.prev = 0;
-              _this8.od.data_type = "ORD";
-              _context8.next = 4;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/ledger", _this8.od);
+              _context9.prev = 0;
+              _this9.od.data_type = "ORD";
+              _context9.next = 4;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/ledger", _this9.od);
             case 4:
-              res = _context8.sent;
+              res = _context9.sent;
               if (res && res.status === 200) {
-                if (res.data.msg == 'Success') _this8.$router.push({
+                if (res.data.msg == 'Success') _this9.$router.push({
                   name: 'adm_ledger'
                 });else if (res.data.msg == 'Existed') Notify.modal('이미 등록된 주문입니다.', 'warning');
               } else Notify.toast('warning', '기록 실패');
-              _context8.next = 12;
+              _context9.next = 12;
               break;
             case 8:
-              _context8.prev = 8;
-              _context8.t0 = _context8["catch"](0);
-              Notify.consolePrint(_context8.t0);
-              Notify.toast('warning', _context8.t0.response);
+              _context9.prev = 8;
+              _context9.t0 = _context9["catch"](0);
+              Notify.consolePrint(_context9.t0);
+              Notify.toast('warning', _context9.t0.response);
             case 12:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
-        }, _callee8, null, [[0, 8]]);
+        }, _callee9, null, [[0, 8]]);
       }))();
     },
     onPostcodeSlt: function onPostcodeSlt(result) {
@@ -611,26 +636,26 @@ var dt = new Date();
       }));
     },
     toEstimate: function toEstimate() {
-      var _this9 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+      var _this10 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
         var rst;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              _context9.next = 2;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/estimate/storeFromOrder", _this9.od);
+              _context10.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/estimate/storeFromOrder", _this10.od);
             case 2:
-              rst = _context9.sent;
+              rst = _context10.sent;
               if (rst && rst.status === 200) {
                 Notify.toast('success', '복사 완료');
-                _this9.openWinPop("/admin/shop/estimate/reply/".concat(rst.data), 1300, 900);
+                _this10.openWinPop("/admin/shop/estimate/reply/".concat(rst.data), 1300, 900);
                 // this.$router.push({ name: 'adm_estimate_show_reply', params:{er_id:rst.data} });
               }
             case 4:
             case "end":
-              return _context9.stop();
+              return _context10.stop();
           }
-        }, _callee9);
+        }, _callee10);
       }))();
     }
   },
@@ -803,7 +828,14 @@ var render = function render() {
     on: {
       click: _vm.sendTran
     }
-  }, [_vm._v("거래명세서 발송 "), _c("b-badge", [_vm._v("PDF")])], 1)], 1) : _c("b-button", {
+  }, [_vm._v("거래명세서 발송 "), _c("b-badge", [_vm._v("PDF")])], 1), _vm._v(" "), _c("b-dropdown-item-button", {
+    attrs: {
+      variant: "primary"
+    },
+    on: {
+      click: _vm.shippingListExcel
+    }
+  }, [_vm._v("물품출고내역서 "), _c("b-badge", [_vm._v("EXCEL")])], 1)], 1) : _c("b-button", {
     staticClass: "gray sm"
   }, [_vm._v("담당 등록 후...")]), _vm._v(" "), _c("b-input-group", {
     attrs: {
