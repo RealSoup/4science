@@ -95,7 +95,8 @@ class CommonController extends Controller {
         return response()->json([
             'site'=>cache('site'),
             'biz'=>cache('biz'),
-            'bank'=>cache('bank')
+            'bank'=>cache('bank'),
+            'APP_ENV' => env('APP_ENV'),
         ], 200);
         // return response('{ "site" : '.Redis::get('site').',
         //                    "biz" : '.Redis::get('biz').',

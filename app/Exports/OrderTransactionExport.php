@@ -19,6 +19,7 @@ use Illuminate\Support\Arr;
 class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings, WithColumnWidths, WithEvents, WithColumnFormatting {
     protected $od;
     protected $odm_map = [];
+    protected $logo_position = 0;
 
     function __construct($od) { $this->od = $od; }
 
@@ -359,7 +360,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
             ],
         ];
         $r++;
-
+        $this->logo_position = $r;
         $sheet_style["A{$r}:H{$r}"] = [
             'alignment' => [ 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER ],
             'fill' => [
@@ -433,7 +434,7 @@ class OrderTransactionExport implements FromCollection, WithStyles, WithDrawings
                 $drawing2 = new Drawing();
                 $drawing2->setPath(public_path('img/estimate_logo.png'));
                 $drawing2->setHeight(43);
-                $drawing2->setCoordinates('D'.(count($this->odm_map)+17));
+                $drawing2->setCoordinates('D'.($this->logo_position));
                 $drawing2->setOffsetX(35);
                 $drawing2->setWorksheet($event->sheet->getDelegate());
             }

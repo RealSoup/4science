@@ -137,10 +137,8 @@ export default {
         'req-ask'    : () => import('./_comp/ReqAsk'),
     },
     computed: { 
-        ...mapGetters({ user: 'auth/user', }),
-        to_day(){
-            return new Date().format("yyyy-MM-dd");
-        }
+        ...mapGetters({ user: 'auth/user', siteInfo: 'common/siteInfo', }),
+        to_day(){ return new Date().format("yyyy-MM-dd"); },
     },
     data() {
         return {
@@ -161,9 +159,12 @@ export default {
 
     methods: {
         strongReload(url, param){
-            url = `${url}?t=${Math.random()}`;
-            if(!isEmpty(param)) url = `${url}&${param}`;
-            window.location.href = url;
+            if (this.siteInfo.APP_ENV == 'production' ) {
+                url = `${url}?t=${Math.random()}`;
+                if(!isEmpty(param)) url = `${url}&${param}`;
+                window.location.href = url;
+            } else if (this.siteInfo.APP_ENV == 'local' )
+                this.$router.push(url);
         },
 
         toggleClass(e){
