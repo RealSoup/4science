@@ -84,18 +84,24 @@ class Goods extends Model {
             $rst[] = $src;
         }
         $noimg_p = null;
-        
         if ($this->goodsCategoryFirst) {
             if ($this->goodsCategoryFirst->gc_ca01 == 28 ) {
-                if ( $this->goodsCategoryFirst->gc_ca02 == 3614 ) { $rst = NULL; $noimg_p = 'trc.png'; } 
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3348 )  $noimg_p = 'Burdick Jackson.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3350 )  $noimg_p = 'DAEJUNG.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3377 )  $noimg_p = 'DUKSAN.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3404 )  $noimg_p = 'J_T_Baker.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3431 )  $noimg_p = 'JUNSEI.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3458 )  $noimg_p = 'KANTO.png';
-                else if ( $this->goodsCategoryFirst->gc_ca02 == 3532 )  $noimg_p = 'SAMCHUN.png';
-                else if ( isset($this->mk_name) && $this->mk_name == 'YAKURI' )  $noimg_p = 'YAKURI.png';
+                if ( $this->goodsCategoryFirst->gc_ca02 == 3614 ) { $rst = NULL; $noimg_p = 'trc.png'; }
+                else {
+                    $mk_name = '';
+                         if ( isset($this->mk_name) )   $mk_name = $this->mk_name;
+                    else if ( $this->maker )            $mk_name = $this->maker->mk_name;
+
+                    if ( $mk_name == 'Burdick & Jackson' )  $noimg_p = 'Burdick Jackson.png';
+                    else if ( $mk_name == 'DAEJUNG' )       $noimg_p = 'DAEJUNG.png';
+                    else if ( $mk_name == 'DUKSAN' )        $noimg_p = 'DUKSAN.png';
+                    else if ( $mk_name == 'J.T.Baker' )     $noimg_p = 'J_T_Baker.png';
+                    else if ( $mk_name == 'JUNSEI' )        $noimg_p = 'JUNSEI.png';
+                    else if ( $mk_name == 'KANTO' )         $noimg_p = 'KANTO.png';
+                    else if ( $mk_name == 'SAMCHUN' )       $noimg_p = 'SAMCHUN.png';
+                    else if ( $mk_name == 'YAKURI' )        $noimg_p = 'YAKURI.png';
+                }
+                
             } else if ($this->goodsCategoryFirst->gc_ca01 == 40 )       $noimg_p = 'noimg_merck.png';
         }
             
