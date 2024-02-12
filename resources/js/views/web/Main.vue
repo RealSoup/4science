@@ -5,11 +5,8 @@
         <!-- <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
-        </b-carousel-slide> -->
-        
-        <b-link to="/shop/goods/616777">
-            <b-carousel-slide img-src="/storage/event/2024/0124/slide.png"></b-carousel-slide>
-        </b-link>
+        </b-carousel-slide> -->        
+       
         <b-link to="/board/notice/show/55">
             <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
         </b-link>

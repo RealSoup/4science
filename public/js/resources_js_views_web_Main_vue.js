@@ -191,14 +191,6 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
-      to: "/shop/goods/616777"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/0124/slide.png"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {
