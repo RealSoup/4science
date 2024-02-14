@@ -83,6 +83,7 @@ export default {
     }
 }
 </script>
+
 <style scoped>
 .cell { display:inline-block; position:relative; }
 </style>

@@ -1,20 +1,19 @@
 <template>
 <div id="site" :class="{'adm' : this.$store.state.mode == 'adm'}">
     
-    <component :is="choiceHeader" />
+    <component :is="choiceHeader"></component>
     <main id="site_main" :class="{'layout' : 
         $store.state.mode!=='adm' &&
         [   'main', 'goods_index', 'outlet', 'outlet_index', 'introduce_company', 
             'introduce_history', 'introduce_map', 'introduce_rule', 'rental', 'order_settle'].indexOf($route.name)==-1
     }">
-        <adm-left v-if="
-            $store.state.mode == 'adm'
-            && !$route.name.startsWith('adm_estimate_show')
-            && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name) 
-        " class="lefter" />
-        <router-view class="main_con" />
+        <adm-left v-if="$store.state.mode == 'adm'
+                        && !$route.name.startsWith('adm_estimate_show')
+                        && !['adm_estimate_create', 'adm_estimate_edit'].includes($route.name)" class="lefter">
+        </adm-left>
+        <router-view class="main_con"></router-view>
     </main>
-    <component :is="choiceFooter" />
+    <component :is="choiceFooter"></component>
 </div>
 </template>
 
