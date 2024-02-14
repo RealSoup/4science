@@ -1,26 +1,26 @@
 <template>
 <div class="act_ctrl">
-<b-row cols="1" cols-md="2">
-    <b-col>
-        <label for="all_dc">일괄할인</label>
-        <b-form-input id="all_dc" v-model="value.all_dc" type="number" min="0" max="99" placeholder="00%" class="rubber" />
-        
-        <label for="er_no_dlvy_fee" class>배송료 제외</label>
-        <b-form-checkbox id="er_no_dlvy_fee" v-model="value.er_no_dlvy_fee" value="Y" unchecked-value="N" size="sm">
-            <span class="point m_hide">※주의 - 상품가격에 반영되지 않음</span>
-        </b-form-checkbox>
-    </b-col>
-    <b-col>
-        <b-button class="white rubber" :to="{name: 'adm_estimate_index'}"><b-icon-list /> 목록으로</b-button>
-        <b-button class="green rubber" @click="save('preview')"><b-icon-file-earmark-richtext-fill /> 미리보기</b-button>
-        <template v-if="clickable">
-            <b-button class="gray rubber" @click="save('store')"><font-awesome-icon icon="save" /> 임시저장</b-button>
-            <b-button class="d_blue rubber" @click="save('send')"><font-awesome-icon icon="paper-plane" /> 완료/발송</b-button>
-        </template>
-        
-        <b-button v-else class="gray rubber"><font-awesome-icon icon="save" /> 저장 중~!</b-button>
-    </b-col>
-</b-row>
+    <b-row cols="1" cols-md="2">
+        <b-col>
+            <label for="all_dc">일괄할인</label>
+            <b-form-input id="all_dc" v-model="value.all_dc" type="number" min="0" max="99" placeholder="00%" class="rubber"></b-form-input>
+            
+            <label for="er_no_dlvy_fee" class>배송료 제외</label>
+            <b-form-checkbox id="er_no_dlvy_fee" v-model="value.er_no_dlvy_fee" value="Y" unchecked-value="N" size="sm">
+                <span class="point m_hide">※주의 - 상품가격에 반영되지 않음</span>
+            </b-form-checkbox>
+        </b-col>
+        <b-col>
+            <b-button class="white rubber" :to="{name: 'adm_estimate_index'}"><b-icon-list></b-icon-list> 목록으로</b-button>
+            <b-button class="green rubber" @click="save('preview')"><b-icon-file-earmark-richtext-fill></b-icon-file-earmark-richtext-fill> 미리보기</b-button>
+            <template v-if="clickable">
+                <b-button class="gray rubber" @click="save('store')"><font-awesome-icon icon="save"></font-awesome-icon> 임시저장</b-button>
+                <b-button class="d_blue rubber" @click="save('send')"><font-awesome-icon icon="paper-plane"></font-awesome-icon> 완료/발송</b-button>
+            </template>
+            
+            <b-button v-else class="gray rubber"><font-awesome-icon icon="save"></font-awesome-icon> 저장 중~!</b-button>
+        </b-col>
+    </b-row>
 </div>
 </template>
 

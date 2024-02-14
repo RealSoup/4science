@@ -3,9 +3,8 @@
     <h3>견적서 작성</h3>
     <form-ctrl v-model="frm.estimate_reply" @all_dc_update="all_dc_apply" @save="store" :clickable="clickable"></form-ctrl>
     <form-user v-model="frm.estimate_req"></form-user>
-    <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm"></form-goods><!--@hook:mounted=""-->
+    <form-goods ref="form_goods" v-model="frm.estimate_model" :frm="frm"></form-goods>
     <form-extra ref="form_extra" v-model="frm.estimate_reply" :isLoadingModalViewed="isLoadingModalViewed"></form-extra>
-    <!-- <button type="button" @click="sendMsgToParent">부모로 이벤트 보내기</button> -->
 </b-container>
 </template>
 
