@@ -5,24 +5,24 @@
         <b-col>
             <label>요청자</label>
             <user-input v-model="value.eq_name" :type="'name'" :frm="value"></user-input>
-            <validation :error="$store.state.error.validations['estimate_req.eq_name']" />
+            <validation :error="$store.state.error.validations['estimate_req.eq_name']"></validation>
         </b-col>
         <b-col>
             <label>직장/학교</label>
             <user-input v-model="value.eq_company" :type="'company'" :frm="value"></user-input>
-            <validation :error="$store.state.error.validations['estimate_req.eq_company']" />
+            <validation :error="$store.state.error.validations['estimate_req.eq_company']"></validation>
         </b-col>
     
         <b-col>
             <label>이메일</label>
             <user-input v-model="value.eq_email" :type="'email'" :frm="value"></user-input>
-            <validation :error="$store.state.error.validations['estimate_req.eq_email']" />
+            <validation :error="$store.state.error.validations['estimate_req.eq_email']"></validation>
         </b-col>
 
         <b-col>
             <label>휴대폰 번호</label>
             <user-input v-model="value.eq_hp" :type="'hp'" :frm="value"></user-input>
-            <validation :error="$store.state.error.validations['estimate_req.eq_hp']" />
+            <validation :error="$store.state.error.validations['estimate_req.eq_hp']"></validation>
         </b-col>
   
         <b-col>
