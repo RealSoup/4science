@@ -510,12 +510,17 @@ class GoodsController extends Controller {
         $gm->when($req->ca01, fn ($q, $v) => $q->Catno01($v));
 
         $rst = $gm->orderBy('gm_catno01')->orderBy('gm_catno02')->orderBy('gm_catno03')->get();
-        foreach ($rst as $gm) {
+        foreach ($rst as $k => $gm) {
+            if ( !$gm->goods ) { $rst->forget($k); continue; }
             $gm->bundleDc;
             $gm->goods->purchaseAt;
             $gm->goods->maker;
         }
-        return response()->json($rst, 200);
+        // forget 메소드는 중간의 아이템을 삭제하여 키가 자동으로 키가 생성된다
+        //  vue에서 중간에 키가 빠진 리스트를 받지 못해서
+        //  values 메소드로 재정렬해준다
+        // values 메소드는 키를 리셋하고 연속적인 정수를 키로 하는 새로운 컬렉션을 반환합니다.
+        return response()->json($rst->values(), 200);
     }
 
     public function getGoodsList(Request $req) {

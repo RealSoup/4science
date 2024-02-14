@@ -72,6 +72,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 13:
               res = _context.sent;
               if (res && res.status === 200) {
+                console.log(_this.model);
                 if (res.data.length) {
                   _this.model = res.data;
                 } else {
