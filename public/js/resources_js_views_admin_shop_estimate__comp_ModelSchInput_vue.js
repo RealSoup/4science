@@ -72,7 +72,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 13:
               res = _context.sent;
               if (res && res.status === 200) {
-                console.log(_this.model);
                 if (res.data.length) {
                   _this.model = res.data;
                 } else {
@@ -201,7 +200,7 @@ var render = function render() {
           return _vm.setModel(i);
         }
       }
-    }, [_vm._v("\r\n        " + _vm._s(md.gm_name)), _c("br"), _vm._v(" "), md.gm_catno ? _c("b-badge", [_vm._v(_vm._s(md.gm_catno))]) : _vm._e(), _c("br"), _vm._v(" "), md.gm_code ? _c("b-badge", [_vm._v(_vm._s(md.gm_code))]) : _vm._e(), _c("br")], 1);
+    }, [_vm._v("\r\n            " + _vm._s(md.gm_name)), _c("br"), _vm._v(" "), md.gm_catno ? _c("b-badge", [_vm._v(_vm._s(md.gm_catno))]) : _vm._e(), _c("br"), _vm._v(" "), md.gm_code ? _c("b-badge", [_vm._v(_vm._s(md.gm_code))]) : _vm._e(), _c("br")], 1);
   }), 0) : _vm._e()], 1);
 };
 var staticRenderFns = [];
@@ -226,7 +225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cell[data-v-122468fd] { display:inline-block;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cell[data-v-122468fd] { display:inline-block; position:relative;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

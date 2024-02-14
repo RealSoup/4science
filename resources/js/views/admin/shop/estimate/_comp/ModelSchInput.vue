@@ -1,21 +1,21 @@
 <template>
 <div class="cell">
-<b-input-group size="sm">
-    <b-form-input autocomplete="off" ref="sch_field" :id="id" v-model="input_val" @keyup.enter="getModelList"></b-form-input>
-    <b-input-group-append>
-        <b-button size="sm" @click="getModelList" >
-            <b-icon-search></b-icon-search>
-        </b-button>
-    </b-input-group-append>
-</b-input-group>
+    <b-input-group size="sm">
+        <b-form-input autocomplete="off" ref="sch_field" :id="id" v-model="input_val" @keyup.enter="getModelList"></b-form-input>
+        <b-input-group-append>
+            <b-button size="sm" @click="getModelList" >
+                <b-icon-search></b-icon-search>
+            </b-button>
+        </b-input-group-append>
+    </b-input-group>
 
-<ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
-    <li href="#" class="list-group-item" v-for="(md, i) in model" :key="i" @click="setModel(i)">
-        {{ md.gm_name }}<br />
-        <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
-        <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
-    </li>
-</ul>
+    <ul class="list-group autocomplete" v-if="model.length" v-click-outside="hide">
+        <li href="#" class="list-group-item" v-for="(md, i) in model" :key="i" @click="setModel(i)">
+            {{ md.gm_name }}<br />
+            <b-badge v-if="md.gm_catno">{{md.gm_catno}}</b-badge><br />
+            <b-badge v-if="md.gm_code">{{md.gm_code}}</b-badge><br />
+        </li>
+    </ul>
 </div>
 </template>
 
@@ -84,5 +84,5 @@ export default {
 }
 </script>
 <style scoped>
-.cell { display:inline-block; }
+.cell { display:inline-block; position:relative; }
 </style>

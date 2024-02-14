@@ -33,7 +33,7 @@
             <i>견적관리</i>
         </p>
         <b-link :class="{focus:$route.name.startsWith('adm_estimate')}" @click="strongReload('/admin/shop/estimate')"><i>견적목록</i></b-link>
-        <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1700, 900)"><i>임의견적</i></b-link>
+        <b-link @click="openWinPop(`/admin/shop/estimate/create`, 1300, 900)"><i>임의견적</i></b-link>
         <b-link :class="{focus:$route.name.startsWith('adm_eng_reform')}" :to="{name: 'adm_eng_reform_index'}"><i>영문교정</i></b-link>
     </section>
 
