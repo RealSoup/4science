@@ -11,8 +11,8 @@
         <b-col>{{eq.eq_id}}</b-col>
         <b-col>
             <b-link :to="{name: 'adm_estimate_show_req', params: { eq_id:eq.eq_id }}">
-                <b v-if="eq.eq_title" v-html="eq.eq_title" />
-                <SubString v-else v-model="eq.eq_content" :width="650" />
+                <b v-if="eq.eq_title" v-html="eq.eq_title"></b>
+                <SubString v-else v-model="eq.eq_content" :width="650"></SubString>
             </b-link>
         </b-col>
         <b-col>{{eq.eq_name}}</b-col>

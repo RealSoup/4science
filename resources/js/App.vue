@@ -169,7 +169,7 @@ label { margin-bottom:0; }
     .w_fence h3 { margin-bottom:1rem; }
 }
 
-.frm_st {  }
+
 .frm_st .row { margin-bottom:1.1rem; }
 .frm_st .row .col { padding-left:0; padding-right:0; }
 .frm_st .row .col.label_st { flex-basis:140px; max-width:140px; font-weight:bold; padding-top:6px; } 
