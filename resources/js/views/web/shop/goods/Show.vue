@@ -4,7 +4,9 @@
             :p_ca01="content.goods_category_first.gc_ca01" 
             :p_ca02="content.goods_category_first.gc_ca02" 
             :p_ca03="content.goods_category_first.gc_ca03" 
-            :p_ca04="content.goods_category_first.gc_ca04"  />
+            :p_ca04="content.goods_category_first.gc_ca04"
+            @locationSettting="setLocation"
+        ></location>
         <b-row class="atrium" :class="{fixed:isScrollPass, fixed_rise:is_bottom}">
             <b-col class="rack"></b-col>
             <b-col class="conLeft" :style="{top:top_y+'px'}">
@@ -302,6 +304,7 @@ export default {
             isScrollPass: false,
             top_y:0,
             fix_y:82,
+            location_h: 0,
             footer_h: 560,
             interval: null,
             is_bottom: false,
@@ -516,19 +519,21 @@ export default {
         },
 
         scrollListener: function (e) {
-            const head_top=135;
-            this.isScrollPass = window.scrollY >= head_top;
+            this.isScrollPass = window.scrollY >= this.location_h+1;
             this.is_bottom = (window.innerHeight + window.scrollY) >= (this.scrollHeight-this.footer_h);
             if (window.innerWidth>992 && this.isScrollPass) {
                 // if (this.is_bottom) this.top_y = this.fix_y-((window.innerHeight + window.scrollY)-(this.scrollHeight-this.footer_h));
                 // else                this.top_y = this.fix_y;
-                if (!this.is_bottom) this.top_y = window.scrollY-head_top;
+                if (!this.is_bottom) this.top_y = window.scrollY-this.location_h+1;
             } else                  this.top_y = 0;
+            console.log(window.scrollY);
         },
 
         price_dc_chk: function (v) {
             return ( this.isLoggedin && this.user.level == 12 ) ? Math.floor(v*this.user.dc_mul) : v;
         },
+
+        setLocation(v) { this.location_h = v; },
 /*
         chk_limit(ea, idx) {
             if(ea > this.content.goods_model_enable[idx].gm_limit_ea) {
@@ -561,7 +566,7 @@ export default {
         window.addEventListener('scroll', this.scrollListener);
         this.interval = setInterval(() => {
             this.scrollHeight = document.body.scrollHeight;
-        }, 100);
+        }, 100);        
     },
 
     beforeDestroy() { 
@@ -575,7 +580,7 @@ export default {
 
 <style lang="css" scoped>
 .vue-numeric-input >>> .numeric-input { line-height:16px; }
-#goods_show { margin-top:3rem; }
+
 #goods_show>.row>.col { padding:0; }
 #goods_show .atrium { position:relative; align-items:flex-start; }
 .atrium .rack { flex-basis:0px; max-width:0px; }
@@ -606,7 +611,7 @@ export default {
 
 .conRight .model .row .col:nth-of-type(1) { flex-basis:13%; max-width:13%; }
 .conRight .model .row .col:nth-of-type(2) { flex-basis:13%; max-width:13%; }
-.conRight .model .row .col:nth-of-type(4) {  }
+
 .conRight .model .row .col:nth-of-type(5) { flex-basis:8%; max-width:8%; }
 .conRight .model .row .col:nth-of-type(6) { flex-basis:12%; max-width:12%; }
 .conRight .model .row .col:nth-of-type(7) { flex-basis:8%; max-width:8%; }
