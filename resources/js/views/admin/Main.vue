@@ -63,9 +63,9 @@
                         <b-col>{{ eq.created_at | formatDate_MM_DD_HH:mm }}</b-col>
                         <b-col>{{eq.eq_email}}</b-col>
                         <b-col>{{eq.eq_name}}</b-col>
-                        <b-col @click="openWinPop(`/admin/shop/estimate/req/${eq.eq_id}`, 1700, 900)" class="eq_tit">
-                            <b v-if="eq.eq_title" v-html="eq.eq_title" />
-                            <SubString v-else-if="eq.eq_type == 'REQ'" v-model="eq.eq_content" :width="900" />
+                        <b-col @click="openWinPop(`/admin/shop/estimate/req/${eq.eq_id}`, 1300, 900)" class="eq_tit">
+                            <b v-if="eq.eq_title" v-html="eq.eq_title"></b>
+                            <SubString v-else-if="eq.eq_type == 'REQ'" v-model="eq.eq_content" :width="900"></SubString>
 
                             <b-badge v-if="eq.eq_type == 'TEMP'" class="yellow" v-b-tooltip.hover title="임의견적" >임</b-badge>
                             <b-badge v-else-if="eq.eq_type == 'REREQ'" class="plum" v-b-tooltip.hover title="재견적요청" >재</b-badge>
@@ -112,7 +112,7 @@ export default {
 .p_wrap .row .left .box { border-color:#458CCA; }
 .p_wrap .row .right .box { border-color:#51B948; }
 .p_wrap .row .col .box .row { margin:0; }
-.p_wrap .row .col .box .top {  }
+
 .p_wrap .row .col .box .top .col { text-align:center; padding:.65rem 0 .45rem 0; font-size:1.25rem; font-weight:600; display:flex; justify-content:center; align-items:center; }
 .p_wrap .row .col .box .top .col span { font-size:2.53rem; margin-left:2rem; }
 .p_wrap .row .col .box .top .col:first-child { border-right:1px solid #C2C2C2; }
