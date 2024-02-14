@@ -1,8 +1,8 @@
 <template>
 
 <aside>
-    <b-button @click="mobileMenu" id="m_menu"><b-icon-menu-button-wide-fill /></b-button>
-    <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><img src="/storage/common/logo/admin.png" /></i></router-link></header>
+    <b-button @click="mobileMenu" id="m_menu"><b-icon-menu-button-wide-fill></b-icon-menu-button-wide-fill></b-button>
+    <header><router-link :to="{name: 'adm_main'}"><i><b>A</b><b-img src="/storage/common/logo/admin.png"></b-img></i></router-link></header>
 
     <section>
         <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_site')}"><i><b>S</b>Site관리</i></p>
@@ -87,7 +87,7 @@
         <article class="super">
             <template v-if="user.level == 29">
                 <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 검색어 재구성'" v-if="!is_indexing">
-                    <b-icon-arrow-clockwise />
+                    <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
                 </b-button>
                 <b-button class="gray sm" v-else>검색엔진 검색어 재구성 중~~~!!!</b-button>
             </template>
@@ -101,20 +101,20 @@
                 견적 ({{reqEstimate}})
             </b-button>
             <b-button class="blink teal sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqVoucher'" v-if="reqVoucher.length"> 
-                <b-icon-gift /> ({{reqVoucher.length}})
+                <b-icon-gift></b-icon-gift> ({{reqVoucher.length}})
             </b-button>
             <b-button class="blink black sm" @click="isModalViewed = !isModalViewed, modalMode = 'reqAsk'" v-if="reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length">
-                <b-icon-chat-square-text /> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
+                <b-icon-chat-square-text></b-icon-chat-square-text> ({{reqAsk.as.length+reqAsk.cancel.length+reqAsk.gd_inquiry.length+reqAsk.inquiry.length}})
             </b-button>
         </article>        
     </section>
 
-    <footer><b-link :to="{name: 'main'}" target="_blank"><i><b-img src="/storage/common/logo/admin_4s.png" /></i></b-link></footer>
+    <footer><b-link :to="{name: 'main'}" target="_blank"><i><b-img src="/storage/common/logo/admin_4s.png"></b-img></i></b-link></footer>
 
     <transition name="modal">
         <modal v-if="isModalViewed" @close-modal="isModalViewed = false" :max_width="1100">
-            <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher" />
-            <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk" />
+            <req-voucher  v-if="modalMode == 'reqVoucher'" @close-modal="isModalViewed = false" :list="reqVoucher"></req-voucher>
+            <req-ask      v-if="modalMode == 'reqAsk'" @close-modal="isModalViewed = false" :list="reqAsk"></req-ask>
             <!-- <req-order    v-if="modalMode == 'reqOrder'" @close-modal="isModalViewed = false" :list="reqOrder" /> -->
             <!-- <req-estimate v-if="modalMode == 'reqEstimate'" @close-modal="isModalViewed = false" :list="reqEstimate" /> -->
         </modal>

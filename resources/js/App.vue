@@ -225,7 +225,7 @@ label { margin-bottom:0; }
 .autocomplete li:hover { background-color: rgba(51, 217, 178,0.2); }
 .autocomplete li p { margin:.5rem 0;  }
 
-.p_wrap {  }
+
 .p_wrap h3 { font-size:1.34em; font-weight:bold; }
 .p_wrap h5 { border-left:4px solid #4EB8C8; font-size:1.1em; font-weight:600; padding:0.4rem 0 0 0.65rem; margin-bottom:.5em; }
 .p_wrap .box { margin-top: 1em; }
