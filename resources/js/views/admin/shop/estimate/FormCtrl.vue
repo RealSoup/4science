@@ -18,7 +18,7 @@
                 <b-button class="d_blue rubber" @click="save('send')"><font-awesome-icon icon="paper-plane"></font-awesome-icon> 완료/발송</b-button>
             </template>
             
-            <b-button v-else class="gray rubber"><font-awesome-icon icon="save" /> 저장 중~!</b-button>
+            <b-button v-else class="gray rubber"><font-awesome-icon icon="save"></font-awesome-icon> 저장 중~!</b-button>
         </b-col>
     </b-row>
 </div>
