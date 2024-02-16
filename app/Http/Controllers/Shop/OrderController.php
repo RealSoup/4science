@@ -358,13 +358,16 @@ class OrderController extends Controller {
             //  빌링키를 활용 결제 승인 받기
             $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
         }
+
+        $rst_toss = json_decode($rst_toss);
+
         if ( auth()->user()->id == 130 ) {
             if (property_exists($rst_toss, 'message'))  //  결제 실패
                 return redirect("/shop/order/payCardFail?msg=".$rst_toss->message);
             else
                 return redirect("/shop/order/payCardFail?msg=".$rst_toss->lastTransactionKey);
         }
-        $rst_toss = json_decode($rst_toss);
+        
         self::tossPgInsert($rst_toss);
         
         //  재고 상품 구매시 수량 감소
