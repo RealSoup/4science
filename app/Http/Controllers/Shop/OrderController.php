@@ -360,26 +360,23 @@ class OrderController extends Controller {
         }
 
         $rst_toss = json_decode($rst_toss);
+        
+        if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )  $mod_data['od_pay_method'] = 'CP';
+        if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )     $mod_data['od_pay_method'] = 'CK';
 
-        if ( auth()->user()->id == 130 ) {
-            if (property_exists($rst_toss, 'message'))  //  결제 실패
-                return redirect("/shop/order/payCardFail?msg=".$rst_toss->message);
-            else
-                return redirect("/shop/order/payCardFail?msg=".$rst_toss->lastTransactionKey);
+        if (property_exists($rst_toss, 'message')) {  //  결제 실패
+            $mod_data = ['od_step'=> '61'];
+            DB::table('shop_order')->where('od_id', $req->orderId)->update($mod_data);
+            return redirect("/shop/order/payCardFail?msg=".$rst_toss->message);
+        } else {
+            self::tossPgInsert($rst_toss);
+            
+            GoodsModel::minus_limit_ea($rst_toss->orderId); //  재고 상품 구매시 수량 감소
+
+            $mod_data = ['od_step'=> '20'];
+            DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
+            return redirect("/shop/order/done/{$rst_toss->orderId}");
         }
-        
-        self::tossPgInsert($rst_toss);
-        
-        //  재고 상품 구매시 수량 감소
-        GoodsModel::minus_limit_ea($rst_toss->orderId);
-
-        $mod_data = ['od_step'=> '20'];
-        if ( $req->filled("paymentType") &&  $req->paymentType == 'BRANDPAY' )
-            $mod_data['od_pay_method'] = 'CP';
-        if ( $req->filled("paymentType") &&  $req->paymentType == 'KEYIN' )
-            $mod_data['od_pay_method'] = 'CK';
-        DB::table('shop_order')->where('od_id', $rst_toss->orderId)->update($mod_data);
-        return redirect("/shop/order/done/{$rst_toss->orderId}");
     }
 
     
