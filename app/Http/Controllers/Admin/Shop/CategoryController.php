@@ -41,13 +41,13 @@ class CategoryController extends Controller {
 	}
 
     public function store(SaveCategoryRequest $req) {
-		$this->category->ca_name = trim($req->ca_name);
-		$this->category->ca_papa = $req->filled('ca_papa') ? trim($req->ca_papa) : 0;
-		$this->category->ca_seq  = $req->filled('ca_seq') ? trim($req->ca_seq) : 0;
-		$this->category->ca_tel  = $req->filled('ca_tel') ? trim($req->ca_tel) : NULL;
-		if ($this->category->save()) {
+		$this->category->ca_name  = trim($req->ca_name);
+		$this->category->ca_papa  = $req->filled('ca_papa') ? trim($req->ca_papa) : 0;
+		$this->category->ca_seq   = $req->filled('ca_seq') ? trim($req->ca_seq) : 0;
+		$this->category->ca_tel   = $req->filled('ca_tel') ? trim($req->ca_tel) : NULL;
+		$this->category->ca_depth = $req->filled('ca_depth') ? trim($req->ca_depth) : 0;
+		if ($this->category->save())
 			return response()->json(["message"=>"success", 'ca_id'=>$this->category->ca_id], 200);
-		}
     }
 
     public function update(Request $req, $ca_id) {

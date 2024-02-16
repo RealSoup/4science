@@ -159,9 +159,8 @@ var render = function render() {
     attrs: {
       cate: _vm.ca.subCate,
       parent: _vm.ca,
-      depth: 0,
-      ca_papa: 0,
-      gene_idx: 0
+      depth: 1,
+      ca_papa: 0
     },
     on: {
       "get-sub": _vm.getSub

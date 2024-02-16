@@ -10,7 +10,7 @@
                 <b-button @click="rewrite"><b-icon-recycle /></b-button>
             </h3>
             <b-card>
-                <tree-view :cate="ca.subCate" :parent="ca" :depth="0" :ca_papa="0" :gene_idx="0" @get-sub='getSub' />
+                <tree-view :cate="ca.subCate" :parent="ca" :depth="1" :ca_papa="0" @get-sub='getSub' />
             </b-card>
         </b-col>
     </b-row>

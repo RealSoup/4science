@@ -141,10 +141,16 @@
         
         <draggable :list="value.goods_relate" handle=".handle" class="row list" @change="gr_updateSeq">
             <b-col v-for="(gr, i) in value.goods_relate" :key="i" cols="2" col>
-                <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
-                <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
-                <b-img :src="gr.goods.image_src_thumb[0]" />
-                <span>{{gr.goods.gd_name}}</span>
+                <template v-if="gr.goods">
+                    <b-button variant="info" class="handle"><b-icon-arrows-move /></b-button>
+                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
+                    <b-img :src="gr.goods.image_src_thumb[0]" />
+                    <span>{{gr.goods.gd_name}}</span>
+                </template>
+                <template v-else>
+                    <b-button variant="danger" class="btn_del" @click="gr_destroy(i)"><b-icon-x-square /></b-button>
+                    <span>상품이 삭제됨</span>
+                </template>
             </b-col>
         </draggable>
     </b-container>

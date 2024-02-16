@@ -358,6 +358,8 @@ class OrderController extends Controller {
             //  빌링키를 활용 결제 승인 받기
             $rst_toss = self::tossCurl('tossBillingPayApprove', $obj);
         }
+        if ( auth()->user()->id == 130 )
+            dd($rst_toss);
         $rst_toss = json_decode($rst_toss);
         self::tossPgInsert($rst_toss);
         

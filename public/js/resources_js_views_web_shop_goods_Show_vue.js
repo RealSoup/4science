@@ -850,8 +850,8 @@ var render = function render() {
     staticClass: "head"
   }, [_c("b", [_vm._v("연관"), _c("br"), _vm._v("상품")])]), _vm._v(" "), _c("perfect-scrollbar", [_c("b-col", {
     staticClass: "gd_list"
-  }, _vm._l(_vm.content.goods_relate, function (gr) {
-    return _c("b-link", {
+  }, [_vm._l(_vm.content.goods_relate, function (gr) {
+    return [gr.goods ? _c("b-link", {
       key: gr.gr_id,
       staticClass: "col",
       attrs: {
@@ -877,8 +877,8 @@ var render = function render() {
         },
         expression: "gr.goods.gd_name"
       }
-    })], 1);
-  }), 1)], 1), _vm._v(" "), _c("b-col", {
+    })], 1) : _vm._e()];
+  })], 2)], 1), _vm._v(" "), _c("b-col", {
     staticClass: "tail"
   }, [_c("img", {
     attrs: {

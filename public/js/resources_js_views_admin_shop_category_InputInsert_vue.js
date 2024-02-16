@@ -27,7 +27,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "InputTag",
   // recursive 하기위해서 필요함. 없으면 error
-  props: ['cate', 'ca_papa', 'gene_idx'],
+  props: ['cate', 'ca_papa', 'depth'],
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('error', {
     validationErrors: function validationErrors(state) {
       return state.validations;
@@ -42,13 +42,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              input_ca_name = document.querySelector('#ca_name_id_' + _this.gene_idx).value;
-              input_ca_tel = document.querySelector('#ca_tel_id_' + _this.gene_idx).value;
+              input_ca_name = document.querySelector("#ca_name_id".concat(_this.ca_papa)).value;
+              input_ca_tel = document.querySelector("#ca_tel_id".concat(_this.ca_papa)).value;
               newCate = {
                 ca_name: input_ca_name,
                 ca_tel: input_ca_tel,
                 ca_papa: _this.ca_papa,
-                ca_seq: _this.cate.length + 1
+                ca_seq: _this.cate.length + 1,
+                ca_depth: _this.depth
               };
               _context.next = 6;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/category", newCate);
@@ -60,8 +61,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                 }));
                 _this.$emit('recount');
                 Notify.toast('success', '추가 완료');
-                _this.$refs['ca_name_id' + _this.gene_idx].$el.value = '';
-                _this.$refs['ca_tel_id' + _this.gene_idx].$el.value = '';
+                _this.$refs["ca_name_id".concat(_this.ca_papa)].$el.value = '';
+                _this.$refs["ca_tel_id".concat(_this.ca_papa)].$el.value = '';
               }
               _context.next = 13;
               break;
@@ -100,15 +101,15 @@ var render = function render() {
       size: "sm"
     }
   }, [_c("b-form-input", {
-    ref: "ca_name_id" + _vm.gene_idx,
+    ref: "ca_name_id".concat(_vm.ca_papa),
     attrs: {
-      id: "ca_name_id_" + _vm.gene_idx,
+      id: "ca_name_id".concat(_vm.ca_papa),
       placeholder: "카테고리명"
     }
   }), _vm._v(" "), _c("b-form-input", {
-    ref: "ca_tel_id" + _vm.gene_idx,
+    ref: "ca_tel_id".concat(_vm.ca_papa),
     attrs: {
-      id: "ca_tel_id_" + _vm.gene_idx,
+      id: "ca_tel_id".concat(_vm.ca_papa),
       placeholder: "담당자 번호"
     }
   }), _vm._v(" "), _c("b-input-group-append", [_c("b-button", {
