@@ -367,6 +367,12 @@ class OrderController extends Controller {
         if (property_exists($rst_toss, 'message')) {  //  결제 실패
             $mod_data = ['od_step'=> '61'];
             DB::table('shop_order')->where('od_id', $req->orderId)->update($mod_data);
+            OrderPg::insert([
+                'pg_od_id'    => $req->orderId,
+                'pg_code'     => $rst_toss->code,
+                'pg_msg'      => $rst_toss->message
+            ]);
+
             return redirect("/shop/order/payCardFail?msg=".$rst_toss->message);
         } else {
             self::tossPgInsert($rst_toss);
