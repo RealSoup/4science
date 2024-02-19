@@ -195,7 +195,7 @@ var render = function render() {
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/main/slide/2024/0108.png"
+      "img-src": "/storage/event/2024/0219/slide.png"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
