@@ -28,7 +28,7 @@ class BoardController extends Controller {
                 ->whereNull('bo_seq_cd')
                 ->orderByRaw('bo_seq, bo_seq_cd');
         if ( $bo_cd == 'gd_inquiry' )
-            $bo = $bo->with('goods');
+            $bo = $bo->with('goods')->where('bo_secret', 'N');
         
         if (( $bo_cd == 'gd_inquiry' || $bo_cd == 'review' ) &&  $req->filled('bo_gd_id'))
             $bo = $bo->where('bo_gd_id', $req->bo_gd_id);
