@@ -353,7 +353,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         // else                this.top_y = this.fix_y;
         if (!this.is_bottom) this.top_y = window.scrollY - this.location_h + 1;
       } else this.top_y = 0;
-      console.log(window.scrollY);
     },
     price_dc_chk: function price_dc_chk(v) {
       return this.isLoggedin && this.user.level == 12 ? Math.floor(v * this.user.dc_mul) : v;
