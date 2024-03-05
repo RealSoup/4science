@@ -51,7 +51,7 @@ export default {
         async send() {
             const res = await ax.post(`/api/admin/user/email/${this.frm.id}/send`, this.frm);
             if (res && res.status === 200)
-                Notify.modal(res.data);        
+                Notify.modal(`발송수: ${res.data.count}`, 'success');
         },
     },
 

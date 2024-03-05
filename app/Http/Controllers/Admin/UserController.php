@@ -255,10 +255,15 @@ class UserController extends Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($mailContentsDataSet));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+        curl_close($ch);
         if ($response === FALSE)
             echo 'An error has occurred: ' . curl_error($ch) . PHP_EOL;        
-        else
-            return response()->json($response, 200);
+        else {
+            preg_match_all("/\{.*?\}/", $response, $matches);
+            // $rst = json_decode($matches[0][0]);
+            // dd($rst->count);
+            return response($matches[0][0]);
+        }
         
     }
 

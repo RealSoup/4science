@@ -49,7 +49,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/user/email/".concat(_this.frm.id, "/send"), _this.frm);
             case 2:
               res = _context.sent;
-              if (res && res.status === 200) Notify.modal(res.data);
+              if (res && res.status === 200) Notify.modal("\uBC1C\uC1A1\uC218: ".concat(res.data.count), 'success');
             case 4:
             case "end":
               return _context.stop();
