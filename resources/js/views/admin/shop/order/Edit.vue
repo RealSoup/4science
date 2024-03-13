@@ -4,7 +4,7 @@
         <h3 class="p_tit">
             주문 상세
             <b-form-select v-if="[39, 130].includes(user.id)" v-model="od.od_sale_env" @change="update('od_sale_env')"
-                :style="{display:'inline-block', width:'1px', height:'1px',lineHeight:1, padding:0, border:'1px solid #000', borderRadius:0}"
+                :style="{display:'none', width:'1px', height:'1px',lineHeight:1, padding:0, border:'1px solid #000', borderRadius:0}"
             >
                 <b-form-select-option value="P">PC</b-form-select-option>
                 <b-form-select-option value="M">MOBILE</b-form-select-option>

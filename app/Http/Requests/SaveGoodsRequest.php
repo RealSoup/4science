@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
+
 class SaveGoodsRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,14 +37,15 @@ class SaveGoodsRequest extends FormRequest {
             'gd_mk_id'               => 'required',
             'gd_dlvy_at'             => 'required',
 
-            'goods_model'            => 'required|array|min:1',
+            'goods_model'            => ['required', 'array','min:1',   function ($attribute, $gm, $fail) {
+                                                                            if (Arr::where($gm, fn($v) => $v['gm_prime']==='Y') === []) 
+                                                                                $fail('대표 가격을 지정해 주세요');
+                                                                        },],
             'goods_model.*.gm_name'  => 'required',
             'goods_model.*.gm_code'  => 'required',
             'goods_model.*.gm_spec'  => 'required',
             'goods_model.*.gm_unit'  => 'required',
             'goods_model.*.gm_price' => 'required|integer',
-            'goods_model.*.gm_prime'  => 'min:1',
-
         ];
     }
 

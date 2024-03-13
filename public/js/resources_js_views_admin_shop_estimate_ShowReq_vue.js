@@ -267,7 +267,7 @@ var render = function render() {
     staticClass: "p_tit"
   }, [_vm._v("\r\n        견적 요청\r\n        "), [39, 130].includes(_vm.user.id) ? _c("b-form-select", {
     style: {
-      display: "inline-block",
+      display: "none",
       width: "1px",
       height: "1px",
       lineHeight: 1,

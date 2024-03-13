@@ -157,7 +157,7 @@
 
     
     <!-- 모델 -->
-    <b-container tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
+    <b-container id="goods_model" tabindex="-1" class="box model adform" :class="value.gd_type == 'REN' ? 'md_ren' : 'md_non'">
         <h5 class="row">
             <b-col>Model</b-col>
             <b-col>
