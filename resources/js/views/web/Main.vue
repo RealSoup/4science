@@ -6,6 +6,9 @@
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->        
+        <b-link to="/shop/goods?mode=maker&keyword=goodsgood">
+            <b-carousel-slide img-src="/storage/event/2024/0319/slide.png"></b-carousel-slide>
+        </b-link>
         <b-link to="/shop/goods?ca01=29&ca02=4182">
             <b-carousel-slide img-src="/storage/event/2024/0305/slide.png"></b-carousel-slide>
         </b-link>

@@ -535,7 +535,7 @@ export default {
 .goods_relate .list .col { text-align:center; overflow:hidden; margin-bottom:2rem; }
 .goods_relate .list .col img { width:150px; height:150px; object-fit:cover; }
 .goods_relate .list .col button { position:absolute; top:0; transform:translateY(-120%); transition:transform 0.5s ease; }
-.goods_relate .list .col span { margin-top:.5rem; display:inline-block; }
+.goods_relate .list .col span { margin-top:.5rem; display:block; }
 .goods_relate .list .col .handle { left:50%; transform:translateX(-50%) translateY(-120%); }
 .goods_relate .list .col .btn_del { right:15px; }
 .goods_relate .list .col:hover .handle { transform:translateX(-50%) translateY(0); }

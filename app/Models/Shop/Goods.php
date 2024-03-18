@@ -524,6 +524,7 @@ class Goods extends Model {
         if ($req->filled('ca02')) $cl->SetFilter('gc_ca02', array($req->ca02));
         if ($req->filled('ca03')) $cl->SetFilter('gc_ca03', array($req->ca03));
         if ($req->filled('ca04')) $cl->SetFilter('gc_ca04', array($req->ca04));
+        if ($req->filled('gd_mk_id')) $cl->SetFilter('gd_mk_id', array($req->gd_mk_id));
 
         $date_target = 'created_at';
         if ($req->filled('sort') && $req->sort == 'edit' ) $date_target = 'updated_at';
@@ -531,7 +532,7 @@ class Goods extends Model {
         if (!$req->filled('startDate') && $req->filled('endDate')) $cl->SetFilterFloatRange($date_target, floatval(strtotime("1970-01-01")),    floatval(strtotime($req->endDate.' 23:59:59')));
         if ($req->filled('startDate') && $req->filled('endDate'))  $cl->SetFilterFloatRange($date_target, floatval(strtotime($req->startDate)), floatval(strtotime($req->endDate.' 23:59:59')));
         if ($req->filled('v_type') && $req->v_type == 'WEB')       $cl->SetFilter('gd_enable', array(crc32('Y')));
-        if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array($req->gd_enable));
+        if ($req->filled('gd_enable'))  $cl->SetFilter('gd_enable', array(crc32($req->gd_enable)));
         if (!$req->filled('gd_type'))   $cl->SetFilter('gd_type', array(crc32('NON')));
         if ($req->filled('gd_type'))    $cl->SetFilter('gd_type', array(crc32($req->gd_type)));
         if ($req->filled('gd_seq'))    $cl->SetFilter('gd_seq', array(999999), true);
