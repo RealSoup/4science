@@ -17,8 +17,9 @@
             </validation-provider>
         </b-col>
     </b-row>
-    <b-row class="link btn_box">
-        <b-button class="blue login" @click="login">로그인</b-button>
+    <b-row class="link btn_box01" :class="{adm_true:is_mng_email}">
+        <b-button class="blue" @click="login">로그인</b-button>
+        <b-button v-if="is_mng_email" class="plum" @click="login('adm')">GO 관리자</b-button>
     </b-row>
     <b-row class="link link_auth">
         <!--b-link class="col" @click="login"><span>아이디 찾기</span></!--b-link-->
@@ -68,17 +69,32 @@ export default {
             frm:{
                 email: '',
                 password: '',
+                go_adm: false,
             },
             view_finder: false,
+            mng_list: [],
+            is_mng_email: false,
         }
+    },
+    watch: {
+        'frm.email': {
+            handler(n, o) {
+                if(this.mng_list.length)
+                    this.email_check();
+            },
+            deep: true,
+            // immediate: true,
+        },
     },
     methods:{
         getValidationState({ dirty, validated, valid = null }) {
             return dirty || validated ? valid : null;
         },
-        async login() {
+        async login(mode=null) {
             if(this.$store.state.auth.unAuth_user)
                 await ax.post('/logout');
+            if (mode=='adm')
+                this.frm.go_adm=true;
             await this.$store.dispatch('auth/login', this.frm);
             this.$emit('close-modal');
             this.$store.dispatch('cart/index');
@@ -105,9 +121,18 @@ export default {
             }
         },
         frm_formatHp(v) { return this.formatHp(v); },
+        email_check() {
+            if (this.mng_list.indexOf(this.frm.email.trim()) !== -1)
+                this.is_mng_email = true;
+            else 
+                this.is_mng_email = false;
+        },
     },
-    mounted() {
-        
+    async mounted() {
+        let rst = await ax.get(`/api/auth/user/mngList`);
+        this.mng_list = rst.data;
+        if( this.frm.email.trim() !== '' )
+            this.email_check();
     },
     // beforeRouteEnter(to, from, next) {
     //     if (store.state.auth.isLoggedin) {
@@ -125,8 +150,9 @@ export default {
 .frm_st .row { margin: 0 0 1.3rem 0; }
 .frm_st .row .col input { height: calc(1.5em + 1.5rem + 2px); font-size:1rem; }
 
-.frm_st .btn_box { margin:0; }
-.frm_st .link .login { padding:.75rem; width:100%; }
+.frm_st .btn_box01 { margin:0; }
+.frm_st .btn_box01 button { padding:.75rem; width:100%; }
+.frm_st .btn_box01.adm_true button { flex: 0 0 48%; max-width:48%; margin:1%; }
 .frm_st .link.link_auth { border-bottom:2px solid #C2C2C2; padding:1.31rem 0; margin:0 0 2rem 0;}
 .frm_st .link.link_auth a { color:#898989; font-size:.95rem; display:inline-block; padding:0; cursor:pointer; }
 .frm_st .link.link_auth a span { display:inline-block; width:100%; line-height:1; text-align:center; }

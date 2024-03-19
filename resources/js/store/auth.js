@@ -43,7 +43,11 @@ export default {
                 else {
                     ax.get('/sanctum/csrf-cookie').then((rst_csrf) => {
                         ax.post('/login', frm).then((rst_login) => {
-                            if (rst_login && rst_login.status === 204)  return context.dispatch('getAuth');
+                            if (rst_login && rst_login.status === 204)  
+                                return context.dispatch('getAuth').then(() => {
+                                    if (frm.go_adm)
+                                        router.push({name: 'adm_main'});
+                                });
                         }).catch(() => {});
                     }).catch(() => {});
                     

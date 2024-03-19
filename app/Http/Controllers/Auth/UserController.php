@@ -8,6 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\{User, UserBiz, FileInfo};
 use App\Traits\FileControl;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller {
     use FileControl;    //  trait
@@ -26,6 +27,10 @@ class UserController extends Controller {
         if ($u->job == null)                            $u->job = '';
         return response()->json([ 'user' => $u, 'token' => csrf_token() ], 200);
     }
+
+    public function mngList() {
+        return response()->json(collect(json_decode(Redis::get('UserMngOn')))->pluck('email'), 200);
+    } 
 
     public function edit() { 
         $rst = auth()->user()->userBiz;

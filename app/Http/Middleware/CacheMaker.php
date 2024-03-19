@@ -39,7 +39,7 @@ class CacheMaker {
         $key_nm = 'update_key_user_mng';
         $db_key = Info::Key($key_nm)->first()->val;
         if( $db_key !== Redis::get($key_nm) ) {
-            $u = User::select('id', 'name', 'um_status')
+            $u = User::select('id', 'name', 'email', 'um_status')
             ->join('user_mng', 'users.id', '=', 'user_mng.um_user_id')
             ->get()->keyBy('id');
             Redis::set('UserMngOn',  json_encode($u->where('um_status', 'Y')));

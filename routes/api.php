@@ -292,13 +292,7 @@ Route::prefix('shop')->group(function () {
         ]
     ]);
     Route::GET('rental', 'Shop\RentalController@index');
-});
-Route::prefix('board/{bo_cd}')->group(function () {
-    Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
-    Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
-});
 
-Route::prefix('shop')->group(function () {
     Route::GET('listing/sale',            'Shop\ListingController@sale');
     Route::GET('listing/{type}/{group?}', 'Shop\ListingController@index');
 
@@ -306,3 +300,14 @@ Route::prefix('shop')->group(function () {
         Route::GET('{code}/{type}', 'Shop\OutletController@index')->name('shop.outlet.index');
     });
 });
+Route::prefix('board/{bo_cd}')->group(function () {
+    Route::get('', 'BoardController@index')->name('board.index')->where('bo_cd', '[a-zA-Z0-9_]+');
+    Route::get('show/{bo_id}', 'BoardController@show')->name('board.show')->where('bo_cd', '[a-zA-Z0-9_]+');
+});
+
+Route::prefix('auth')->group(function () {
+    Route::GET('user/mngList',       'Auth\UserController@mngList');
+});
+
+
+            
