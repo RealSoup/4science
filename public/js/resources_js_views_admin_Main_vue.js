@@ -31,7 +31,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           40: 0,
           50: 0,
           60: 0
-        }
+        },
+        estimateReq: []
       }
     };
   },
@@ -40,12 +41,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return Object.values(this.con.order).reduce(function (acc, el) {
         return acc + el;
       }, 0);
-    },
-    estimate_7: function estimate_7() {
-      return Object.values(this.con.order).reduce(function (acc, el) {
-        return acc + el;
-      }, 0);
-    }
+    } // estimate_7() { return Object.values(this.con.estimateReq).reduce((acc, el) => acc + el , 0); },
   },
   mounted: function mounted() {
     var _this = this;
@@ -120,7 +116,7 @@ var render = function render() {
     staticClass: "box"
   }, [_c("b-row", {
     staticClass: "top"
-  }, [_c("b-col", [_vm._v("오늘 견적 "), _c("span", [_vm._v(_vm._s(_vm.con.today_estimate))])]), _vm._v(" "), _c("b-col", [_vm._v("최근 7일 견적 "), _c("span", [_vm._v(_vm._s(_vm.estimate_7))])])], 1), _vm._v(" "), _c("div", {
+  }, [_c("b-col", [_vm._v("오늘 견적 "), _c("span", [_vm._v(_vm._s(_vm.con.today_estimate))])]), _vm._v(" "), _c("b-col", [_vm._v("최근 7일 견적 "), _c("span", [_vm._v(_vm._s(_vm.con.estimateReq.length))])])], 1), _vm._v(" "), _c("div", {
     staticClass: "body"
   }, [_c("b-row", {
     staticClass: "head"
