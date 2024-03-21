@@ -21,11 +21,14 @@
         <categorys v-model="sch_frm" />
         <b-row>
             <b-col class="label">제조사</b-col>
-            <b-col class="type01">
+            <b-col class="type01 col_maker">
+                <autocomplete :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='maker'" @blur="field_chk"></autocomplete>
+                <!--
                 <b-form-select v-model="sch_frm.gd_mk_id">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="opt in makers" :value="opt.mk_id" :key="opt.mk_id">{{ opt.mk_name }}</b-form-select-option>
                 </b-form-select>
+                -->
             </b-col>
 
             <b-col class="label">활성</b-col>
@@ -46,10 +49,13 @@
 
             <b-col class="label">관리자</b-col>
             <b-col class="type01">
+                <autocomplete :search="search" :get-result-value="getResultValue" @submit="handleSubmit" auto-select :submitOnEnter="true" placeholder="키보드로 입력" @focus="field_switch='adm'" @blur="field_chk"></autocomplete>
+                <!--
                 <b-form-select v-model="sch_frm.updated_id">
                     <b-form-select-option value=""></b-form-select-option>
                     <b-form-select-option v-for="opt in mng_off" :value="opt.id" :key="opt.id">{{ opt.name }}</b-form-select-option>
                 </b-form-select>
+                -->
             </b-col>
         </b-row>
 
@@ -99,7 +105,7 @@
             <b-col>최종수정일</b-col>
         </b-row>
         <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
-        <b-row v-else class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.mk_id">
+        <b-row v-else class="list body" :class="{disable:row.gd_enable=='N'}" v-for="row in list.data" :key="row.gd_id">
             <b-col>
                 <span v-if="!sch_frm.gd_seq">{{row.gd_id}}</span>
                 <span v-else>{{row.gd_seq}}</span>
@@ -133,12 +139,15 @@
 
 <script>
 import ax from '@/api/http';
+import Autocomplete from '@trevoreyre/autocomplete-vue';
+import '@trevoreyre/autocomplete-vue/dist/style.css';
 
 export default {
     components: {
         'categorys': () =>      import('@/views/admin/shop/goods/_comp/Categorys.vue'),
         'sch-date': () =>       import('@/views/_common/SchDate.vue'),
         'loading-modal': () =>  import('@/views/_common/LoadingModal.vue'),
+        Autocomplete,
     },
     data() {
         return {
@@ -162,10 +171,11 @@ export default {
                 page:0
             },
             // categorys: {},
-            makers: {},
+            makers: [],
             gd_enable: { 0:{value:'Y', name:'활성'}, 1:{value:'N', name:'비활성'} },
             deleted_at: { 0:{value:'Y', name:'삭제'}, 1:{value:'N', name:'존재'} },
-            mng_off:[],
+            mng_off: [],
+            field_switch: 'maker',
         }
     },
     methods: {
@@ -213,9 +223,35 @@ export default {
                     nfrm[i] = this.sch_frm[i];
             }
             return nfrm;
+        },
+
+        search(input) {
+            if (input.length < 1) { return []; }
+            if (this.field_switch == 'maker') {
+                return this.makers.filter(mk => {
+                    return mk.mk_name.toLowerCase().startsWith(input.toLowerCase());
+                });
+            } else if(this.field_switch == 'adm') {
+                return Object.values(this.mng_off).filter(mng => {
+                    return mng.name.toLowerCase().startsWith(input.toLowerCase());
+                });
+            }
+        },
+        handleSubmit(result) {
+            if (this.field_switch == 'maker') this.sch_frm.gd_mk_id = result.mk_id;
+            else if(this.field_switch == 'adm') this.sch_frm.updated_id = result.id;
+        },
+        getResultValue(result) {
+            if (this.field_switch == 'maker') return result.mk_name; 
+            else if(this.field_switch == 'adm') return result.name; 
+        },
+
+        field_chk(v) {
+            if (v.target.value == '') {
+                if (this.field_switch == 'maker') this.sch_frm.gd_mk_id = '';
+                else if(this.field_switch == 'adm') this.sch_frm.updated_id = '';
+            }
         }
-
-
     },
     async mounted() {
         this.sch_frm = Object.assign( {}, this.sch_frm, this.$route.query );
@@ -231,6 +267,9 @@ export default {
 
 <style lang="css" scoped>
 .p_wrap .frm_sch .row .label + .type01 { flex: 0 0 13%; max-width: 13%; }
+.p_wrap .frm_sch .row .col >>> .autocomplete { width:100%; border:0; min-width:auto; }
+.p_wrap .frm_sch .row .col >>> .autocomplete .autocomplete-input { background:none; border-color:#ced4da; border-radius:0.25rem; }
+.p_wrap .frm_sch .row .col >>> .autocomplete .autocomplete-result-list li { background-image:none; }
 .p_wrap .frm_sch .sch_input select { width:6.579em; }
 .cmain { position:relative; min-height:30rem; }
 .cmain .row .ctrl { color:#0171BB; font-size:.9rem; font-weight:600; }
@@ -256,7 +295,9 @@ export default {
 .cmain .body .col:nth-child(4) { text-align:left; }
 .cmain .body.disable { background-color:#E1E1E1; }
 .cmain .body.disable .col { color:#9C9C9C; }
-/*
+
+
+/* 
 .gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }
 .gd_list .body:hover { background: #d8f2fd94; }
 

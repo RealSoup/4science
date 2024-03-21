@@ -18,7 +18,6 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'IndexInput': function IndexInput() {
@@ -201,7 +200,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   mounted: function mounted() {
-    this.index();
+    var _this5 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
+          case 0:
+            _this5.index();
+          case 1:
+          case "end":
+            return _context5.stop();
+        }
+      }, _callee5);
+    }))();
   }
 });
 
@@ -359,7 +369,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.input-group button[data-v-5a5cade6] { border-width:0;\n}\n.adm_maker table thead th[data-v-5a5cade6] { text-align:center;\n}\n.card.adform .row .label[data-v-5a5cade6] { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px;\n}\n.card.adform .row .label + .type04[data-v-5a5cade6] { flex:0 0 37%; max-width:37%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

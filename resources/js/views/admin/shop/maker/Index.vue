@@ -49,7 +49,7 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'vuex';
+
 export default {
     components: {
         'IndexInput': () => import('./IndexInput.vue'),
@@ -60,7 +60,7 @@ export default {
             maker: {},
             new_mk_name: '',
             sch_mk_name: '',
-            page:0
+            page:0,
         }
     },
     methods: {
@@ -125,7 +125,6 @@ export default {
                     Notify.toast('warning', e.response.data.message);
                 }
                 this.index();
-
             }
         },
         async destroy(mk_id, idx){
@@ -147,12 +146,8 @@ export default {
                 }
             }
         },
-
-
     },
-    mounted() {
-        this.index();
-    },
+    async mounted() { this.index(); },
 }
 </script>
 
@@ -162,5 +157,4 @@ export default {
 
 .card.adform .row .label { flex:0 0 13%; max-width:13%; font-size: .9rem; letter-spacing: -1px; }
 .card.adform .row .label + .type04 { flex:0 0 37%; max-width:37%; }
-
 </style>
