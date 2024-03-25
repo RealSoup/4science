@@ -214,7 +214,7 @@ class Goods extends Model {
                             $go = GoodsOptionChild::find($eo->eo_goc_id);
                             $tmpOption = [  'type'          => 'option',
                                             'gd_id'         => $gd_id,
-                                            'go_id'         => $go->goc_go_id,
+                                            'go_id'         => $go->goc_go_id ?? 0,
                                             'goc_id'        => $eo->eo_goc_id,
                                             'eo_id'         => $eo->eo_id,
                                             'ea'            => $eo->eo_ea,
