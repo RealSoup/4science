@@ -40,7 +40,6 @@ class Kernel extends HttpKernel
 
             // 설정 등록
             \App\Http\Middleware\CacheMaker::class,
-            \App\Http\Middleware\Localization::class,
         ],
 
         'api' => [
