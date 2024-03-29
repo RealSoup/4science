@@ -36,9 +36,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-NJK884V');</script> -->
     <!-- End Google Tag Manager -->
-
-    
-    <script src="/localization"></script>
 </head>
 <body>
     <div id="app"></div>
