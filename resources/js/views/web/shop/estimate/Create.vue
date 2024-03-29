@@ -1,5 +1,6 @@
 <template>
     <b-container class="w_fence" id="estimate_req">
+        <!-- <h3>{{ trans().estimate.title }}</h3> -->
         <h3>견적요청</h3>
         <b-row v-if="Object.keys(frm.lists).length">
             <b-col class="goods">
@@ -7,7 +8,8 @@
                 <pa-list v-model="frm.lists" :user="$store.state.auth.user" :add_vat="true" />
             </b-col>
         </b-row>
-
+<!-- <b-link @click="strongReload('/language/en')">영어</b-link>
+<b-link @click="strongReload('/language/ko')">한국어</b-link> -->
         <b-row>
             <b-col class="user">
                 <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. 회원 정보</h4>
@@ -120,6 +122,10 @@ export default {
         }
     },
     methods: {
+        strongReload(url){
+     
+                window.location.href = url;
+        },
         async create(){
             try {
                 const res = await ax.post(`/api/shop/estimate/create`, {goods:this.od_goods});

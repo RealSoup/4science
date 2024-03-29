@@ -69,11 +69,11 @@
         </b-row>
         <b-row class="total">
             <b-col>상품금액</b-col>
-            <b-col><b>{{sum_goods_add_vat | comma}}</b> 원</b-col>
+            <b-col><b>{{sum_goods+surtax | comma}}</b> 원</b-col>
             <b-col>배송료</b-col>
             <b-col>다음 페이지에서 확인</b-col>
             <b-col>결제 예정 금액</b-col>
-            <b-col><b>{{sum_goods_add_vat | comma}}</b> 원</b-col>
+            <b-col><b>{{sum_goods+surtax | comma}}</b> 원</b-col>
         </b-row>
         <b-row class="total_sub">
             <b-col>
@@ -83,7 +83,7 @@
                 </div>
                 <div>
                     <b-col>부가세</b-col>
-                    <b-col>{{sum_goods_add_vat-sum_goods | comma}} 원</b-col>
+                    <b-col>{{surtax | comma}} 원</b-col>
                 </div>
             </b-col>
             <b-col></b-col>
@@ -127,14 +127,14 @@ export default {
     },
     computed: {
         ...mapState('cart', ['cartList']),
-        sum_goods_add_vat () {
-            let p = Object.values(this.cartList).reduce((acc, el) => 
-                acc + ((el.ct_check_opt=='Y')?((el.price_dc_add_vat ?? el.price_add_vat)*el.ea):0)
-            , 0);
-            if (Auth.user() && Auth.user().level == 12)
-                p = p*Auth.user().dc_mul;
-            return p;
-        },
+        // sum_goods_add_vat () {
+        //     let p = Object.values(this.cartList).reduce((acc, el) => 
+        //         acc + ((el.ct_check_opt=='Y')?((el.price_dc_add_vat ?? el.price_add_vat)*el.ea):0)
+        //     , 0);
+        //     if (Auth.user() && Auth.user().level == 12)
+        //         p = p*Auth.user().dc_mul;
+        //     return p;
+        // },
         sum_goods () {
             let p =  Object.values(this.cartList).reduce((acc, el) => { 
                 return acc + (el.ct_check_opt=='Y'?(el.price_dc ?? el.price)*el.ea:0); 
@@ -143,6 +143,9 @@ export default {
                 p = p*Auth.user().dc_mul;
             return p;
         },
+
+        surtax () { return Math.floor(this.sum_goods*0.1); },
+
         sum_mileage () {
             return Object.values(this.cartList).reduce((acc, el) => { 
                 return acc + ((el.ct_check_opt=='Y')?((el.price_dc ?? el.price)*el.ea*Auth.user().mileage_mul):0); 

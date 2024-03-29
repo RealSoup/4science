@@ -326,6 +326,8 @@ export default {
             Notify.toast('success', '복사됨');
         };
 
+        Vue.prototype.trans = string => window.i18n;
+
         Date.prototype.format = function(f) {
             if (!this.valueOf()) return " ";
 
@@ -361,6 +363,9 @@ export default {
         console.log("현재년도 : " + new Date().format("yyyy"));     //현재년도 : 2011
         출처: https://stove99.tistory.com/46 [스토브 훌로구]
         */
+
+
+        
 
         window.date_calc = function (t, v){
             var now = new Date();	// 현재 날짜 및 시간

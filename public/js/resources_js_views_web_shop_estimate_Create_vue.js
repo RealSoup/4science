@@ -225,6 +225,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    strongReload: function strongReload(url) {
+      window.location.href = url;
+    },
     create: function create() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -499,7 +502,7 @@ var render = function render() {
     attrs: {
       id: "estimate_req"
     }
-  }, [_c("h3", [_vm._v("견적요청")]), _vm._v(" "), Object.keys(_vm.frm.lists).length ? _c("b-row", [_c("b-col", {
+  }, [_c("h3", [_vm._v(_vm._s(_vm.trans().estimate.title))]), _vm._v(" "), Object.keys(_vm.frm.lists).length ? _c("b-row", [_c("b-col", {
     staticClass: "goods"
   }, [_c("h4", [_vm._v("01. 견적요청 상품")]), _vm._v(" "), _c("pa-list", {
     attrs: {
@@ -513,7 +516,19 @@ var render = function render() {
       },
       expression: "frm.lists"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c("b-row", [_c("b-col", {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c("b-link", {
+    on: {
+      click: function click($event) {
+        return _vm.strongReload("/language/en");
+      }
+    }
+  }, [_vm._v("영어")]), _vm._v(" "), _c("b-link", {
+    on: {
+      click: function click($event) {
+        return _vm.strongReload("/language/ko");
+      }
+    }
+  }, [_vm._v("한국어")]), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "user"
   }, [_c("h4", [_vm._v("0" + _vm._s(Object.keys(_vm.frm.lists).length ? 2 : 1) + ". 회원 정보")]), _vm._v(" "), _c("b-container", {
     staticClass: "frm_st"

@@ -31,7 +31,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       isLoadingModalViewed: true,
-      reply: {},
+      reply: {
+        estimate_req: {
+          eq_id: 0
+        }
+      },
       gd_price: 0,
       surtax: 0,
       dlvy_4s: 0,

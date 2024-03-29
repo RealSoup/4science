@@ -43,14 +43,14 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('cart', ['cartList'])), {}, {
-    sum_goods_add_vat: function sum_goods_add_vat() {
-      var p = Object.values(this.cartList).reduce(function (acc, el) {
-        var _el$price_dc_add_vat;
-        return acc + (el.ct_check_opt == 'Y' ? ((_el$price_dc_add_vat = el.price_dc_add_vat) !== null && _el$price_dc_add_vat !== void 0 ? _el$price_dc_add_vat : el.price_add_vat) * el.ea : 0);
-      }, 0);
-      if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
-      return p;
-    },
+    // sum_goods_add_vat () {
+    //     let p = Object.values(this.cartList).reduce((acc, el) => 
+    //         acc + ((el.ct_check_opt=='Y')?((el.price_dc_add_vat ?? el.price_add_vat)*el.ea):0)
+    //     , 0);
+    //     if (Auth.user() && Auth.user().level == 12)
+    //         p = p*Auth.user().dc_mul;
+    //     return p;
+    // },
     sum_goods: function sum_goods() {
       var p = Object.values(this.cartList).reduce(function (acc, el) {
         var _el$price_dc;
@@ -58,6 +58,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }, 0);
       if (Auth.user() && Auth.user().level == 12) p = p * Auth.user().dc_mul;
       return p;
+    },
+    surtax: function surtax() {
+      return Math.floor(this.sum_goods * 0.1);
     },
     sum_mileage: function sum_mileage() {
       return Object.values(this.cartList).reduce(function (acc, el) {
@@ -394,9 +397,9 @@ var render = function render() {
     }
   }, [_vm._v("삭제")])], 1)], 1), _vm._v(" "), _c("b-row", {
     staticClass: "total"
-  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods_add_vat)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_vm._v("다음 페이지에서 확인")]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods_add_vat)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", {
+  }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods + _vm.surtax)))]), _vm._v(" 원")]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_vm._v("다음 페이지에서 확인")]), _vm._v(" "), _c("b-col", [_vm._v("결제 예정 금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods + _vm.surtax)))]), _vm._v(" 원")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "total_sub"
-  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods)) + " 원")])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods_add_vat - _vm.sum_goods)) + " 원")])], 1)]), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", [!this.$store.state.auth.user.is_dealer ? _c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원")])], 1) : _vm._e(), _vm._v(" "), _c("div", [_c("b-col", [_vm._v(" ")]), _c("b-col")], 1)])], 1), _vm._v(" "), _c("b-row", {
+  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_goods)) + " 원")])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.surtax)) + " 원")])], 1)]), _vm._v(" "), _c("b-col"), _vm._v(" "), _c("b-col", [!this.$store.state.auth.user.is_dealer ? _c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)) + " 원")])], 1) : _vm._e(), _vm._v(" "), _c("div", [_c("b-col", [_vm._v(" ")]), _c("b-col")], 1)])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "dlvy_info"
   }, [_c("b-col", [_vm._v("\r\n            총 구매금액이 " + _vm._s(_vm._f("won")(_vm._f("comma")(_vm.goodsDefault.free_dlvy_max))) + " 미만일 경우 배송료 " + _vm._s(_vm._f("won")(_vm._f("comma")(_vm.goodsDefault.dlvy_fee_add_vat))) + "이 부과됩니다.\r\n        ")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "btn_box"
