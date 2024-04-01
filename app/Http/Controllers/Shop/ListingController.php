@@ -27,6 +27,7 @@ class ListingController extends Controller {
         $rst = $this->goods->select("shop_goods.gd_id", "shop_goods.gd_name", "shop_goods.gd_dc", "shop_goods.gd_enable")
             ->with('goodsModelPrime')
             ->where("shop_goods.gd_dc", "<>", 0)
+            ->where("shop_goods.gd_enable", "Y")
             ->orderBy('gd_dc', 'desc')
             ->paginate(50);
         foreach ($rst as $v) {
