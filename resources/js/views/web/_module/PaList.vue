@@ -13,14 +13,14 @@
         <b-col>
             <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
                 <template v-if="item.type == 'model'">
-                    <b-col><img :src="item.img" /></b-col>
+                    <b-col><img :src="item.img"/></b-col>
                     <b-col class="explain">
                         <p>{{item.gd_name_eng??item.gd_name}}</p>
                         <p><b class="m_hide">제품명:</b> {{item.gm_name_eng??item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                         <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
                         <div>
                             <b class="m_hide">사양:</b>
-                            <span v-html="nl2br(item.gm_spec)"></span>
+                            <div class="gm_spec" v-html="nl2br(item.gm_spec)"></div>
                         </div>
                         <p v-if="item.dlvy_at"><b class="m_hide">납기:</b> {{item.dlvy_at}}</p>
                     </b-col>
@@ -62,7 +62,7 @@
                         <div>
                             <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                             <template v-else>{{item.price*item.ea | comma | won}}</template>
-                            <br v-if="!user.is_dealer" />
+                            <br v-if="!user.is_dealer">
                             <span v-if="!user.is_dealer">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
@@ -94,15 +94,15 @@
     </b-row>
     <b-row v-if="price" class="total_sub" id="total_sub">
         <b-col>
-            <div> <b-col>상품가</b-col> <b-col>{{price.goods | comma}} 원</b-col> </div>
-            <div> <b-col>부가세</b-col> <b-col>{{price.surtax | comma}} 원</b-col> </div>
+            <div><b-col>상품가</b-col> <b-col>{{price.goods | comma}} 원</b-col></div>
+            <div><b-col>부가세</b-col> <b-col>{{price.surtax | comma}} 원</b-col></div>
         </b-col>
         <b-col>
-            <div> <b-col>포사이언스 배송</b-col> <b-col>{{dlvy_4s | comma}} 원</b-col> </div>
-            <div> <b-col>업체 배송</b-col> <b-col>{{dlvy_other | comma}} 원</b-col> </div>
+            <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}} 원</b-col></div>
+            <div><b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}} 원</b-col></div>
         </b-col>
         <b-col>
-            <div v-if="!user.is_dealer"> <b-col>적립예정 마일리지</b-col> <b-col>{{sum_mileage | comma}} 원</b-col> </div>
+            <div v-if="!user.is_dealer"><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}} 원</b-col></div>
         </b-col>
     </b-row>
 </b-container>    
@@ -147,7 +147,8 @@ export default {
 .pa_list .row .col { padding:0; font-size:.93rem; color:#666; }
 .pa_list .row.lbody .col:not(:nth-of-type(2)),
 .pa_list .row.lbody .col .row .col:not(.explain) { display:flex; align-items:center; justify-content:center; text-align:center; }
-
+.pa_list .row.lbody .col .row .explain .gm_spec { display:inline-block; }
+ 
 .pa_list .row .col .row:last-child { border-bottom-width:0; }
 .pa_list .row.lbody>.col:first-child { border-right:1px solid #D6D6D6; }
 .pa_list .row.lbody>.col:last-child { border-left:1px solid #D6D6D6; }
