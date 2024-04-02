@@ -53,7 +53,7 @@
         </b-row>
         <b-row>
             <b-col>문의사항</b-col>
-            <b-col><p v-html="nl2br(frm.estimate_req.eq_content)" /></b-col>
+            <b-col><p v-html="nl2br(frm.estimate_req.eq_content)"></p></b-col>
         </b-row>
         <b-row>
             <b-col>첨부파일</b-col>
@@ -88,7 +88,7 @@
         </b-row>
         <b-row>
             <b-col>추가정보</b-col>
-            <b-col><p v-html="nl2br(frm.er_content)" /></b-col>
+            <b-col><p v-html="nl2br(frm.er_content)"></p></b-col>
         </b-row>
         <b-row>
             <b-col>첨부파일</b-col>
