@@ -1,17 +1,10 @@
 <template>
-<b-container class="pa_list frm_st">
-    <b-row class="lhead m_hide">
-        <b-col>{{ trans().module_palist.jumoonsangpum }}</b-col>        
-        <b-col>{{ trans().module_palist.jejosa }}</b-col>
-        <b-col>{{ trans().module_palist.panmaega }}</b-col>
-        <b-col>{{ trans().module_palist.suryang }}</b-col>
-        <b-col>{{ trans().module_palist.geumaek }}</b-col>
-        <b-col>{{ trans().module_palist.baesongbi }}</b-col>
-    </b-row>
+<div>
+123
     
 
     
-</b-container>    
+</div>    
 </template>
 
 <script>
