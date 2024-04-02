@@ -65,7 +65,7 @@ var render = function render() {
     }, [_c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(pa[0]["pa_name"] ? "업체" : "포사이언스")), _c("br"), _vm._v("배송")]), _vm._v(" "), _c("b-col", _vm._l(pa, function (item, i_item) {
-      var _item$gd_name_eng, _item$gm_name_eng;
+      var _item$gd_name_eng, _item$gm_name_eng, _item$go_name_eng, _item$goc_name_eng;
       return _c("b-row", {
         key: "".concat(pa_id).concat(i_item),
         "class": {
@@ -117,7 +117,7 @@ var render = function render() {
         staticClass: "mileage m_hide"
       }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e()])])] : item.type == "option" ? [_c("b-col", [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
         staticClass: "justify-content-start"
-      }, [_c("span", [_c("b", [_vm._v(_vm._s(item.go_name) + ":")]), _vm._v(" " + _vm._s(item.goc_name))])]), _vm._v(" "), _c("b-col", {
+      }, [_c("span", [_c("b", [_vm._v(_vm._s((_item$go_name_eng = item.go_name_eng) !== null && _item$go_name_eng !== void 0 ? _item$go_name_eng : item.go_name) + ":")]), _vm._v(" " + _vm._s((_item$goc_name_eng = item.goc_name_eng) !== null && _item$goc_name_eng !== void 0 ? _item$goc_name_eng : item.goc_name))])]), _vm._v(" "), _c("b-col", {
         staticClass: "m_hide"
       }), _vm._v(" "), _c("b-col", [_vm.add_vat ? [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_add_vat))))] : [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price))))]], 2), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(item.ea) + " 개")]), _vm._v(" "), _c("b-col", [_c("div", [_vm.add_vat ? [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_add_vat * item.ea))))] : [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price * item.ea))))], _vm._v(" "), !_vm.user.is_dealer ? _c("br") : _vm._e(), _vm._v(" "), !_vm.user.is_dealer ? _c("span", [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e()], 2)])] : _vm._e()], 2);
     }), 1), _vm._v(" "), _c("b-col", {

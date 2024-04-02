@@ -1,12 +1,12 @@
 <template>
 <b-container class="pa_list frm_st">
     <b-row class="lhead m_hide">
-        <b-col>주문 상품</b-col>        
-        <b-col>제조사</b-col>
-        <b-col>판매가</b-col>
-        <b-col>수량</b-col>
-        <b-col>금액</b-col>
-        <b-col>배송비</b-col>
+        <b-col>{{ trans().module_palist.jumoonsangpum }}</b-col>        
+        <b-col>{{ trans().module_palist.jejosa }}</b-col>
+        <b-col>{{ trans().module_palist.panmaega }}</b-col>
+        <b-col>{{ trans().module_palist.suryang }}</b-col>
+        <b-col>{{ trans().module_palist.geumaek }}</b-col>
+        <b-col>{{ trans().module_palist.baesongbi }}</b-col>
     </b-row>
     <b-row v-for="(pa, pa_id) in value" :key="pa_id" class="lbody">
         <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
@@ -15,8 +15,8 @@
                 <template v-if="item.type == 'model'">
                     <b-col><img :src="item.img" /></b-col>
                     <b-col class="explain">
-                        <p>{{item.gd_name}}</p>
-                        <p><b class="m_hide">제품명:</b> {{item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
+                        <p>{{item.gd_name_eng??item.gd_name}}</p>
+                        <p><b class="m_hide">제품명:</b> {{item.gm_name_eng??item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
                         <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
                         <div>
                             <b class="m_hide">사양:</b>
@@ -51,7 +51,7 @@
                 </template>
                 <template v-else-if="item.type == 'option'">
                     <b-col>추가 옵션</b-col>
-                    <b-col class="justify-content-start"><span><b>{{item.go_name}}:</b> {{item.goc_name}}</span></b-col>
+                    <b-col class="justify-content-start"><span><b>{{item.go_name_eng??item.go_name}}:</b> {{item.goc_name_eng??item.goc_name}}</span></b-col>
                     <b-col class="m_hide"></b-col>
                     <b-col>
                         <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
