@@ -143,21 +143,19 @@ Route::get('/language/{locale}', function ($locale) {
     return redirect()->back();
 });
 Route::get('/localization', function () {
-    $strings = Cache::rememberForever('locale', function () {
+    $strings = Array();
         // $lang = config('app.locale');
-        $lang = session()->get('locale', \Lang::getLocale());
-        \Lang::setLocale($lang);
+    $lang = session()->get('locale', \Lang::getLocale());
+    \Lang::setLocale($lang);
 
-        $files   = glob(resource_path('lang/' . $lang . '/*.php'));
-        $strings = [];
+    $files   = glob(resource_path('lang/' . $lang . '/*.php'));
+    $strings = [];
 
-        foreach ($files as $file) {
-            $name           = basename($file, '.php');
-            $strings[$name] = require $file;
-        }
+    foreach ($files as $file) {
+        $name           = basename($file, '.php');
+        $strings[$name] = require $file;
+    }
 
-        return $strings;
-    });
 
     header('Content-Type: text/javascript');
     echo('window.i18n = ' . json_encode($strings) . ';');
