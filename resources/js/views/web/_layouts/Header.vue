@@ -1,17 +1,17 @@
 <template>
 <div id="header" :class="{headerFix:headerFix}">
     <div v-if="user && user.is_admin" class="admin">
-        <router-link :to="{name: 'adm_main'}" target="_blank">{{ trans().admin.btn_title }}</router-link>
+        <router-link :to="{name: 'adm_main'}" target="_blank"><!--{{ trans().admin.btn_title }}--> 관리자</router-link>
         <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
             :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
         >상품관리</router-link>
         <!-- <router-link v-if="user.is_super" :to="{name: 'listing_sale'}">S</router-link> -->
-
+<!-- 
         <select v-if="user.is_super" @change="strongReload($event.target.value)">
             <option value="">외국어</option>
             <option v-if="this.$store.state.common.siteInfo.locale == 'ko'" value="/language/en">English</option>
             <option v-else value="/language/ko">한국어</option>
-        </select>
+        </select> -->
     </div>
     <div id="afterimage"></div>
     <div id="core">
