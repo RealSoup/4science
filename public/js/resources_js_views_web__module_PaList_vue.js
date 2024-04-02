@@ -14,9 +14,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
   props: ['value', 'price', 'user', 'add_vat', 'er_no_dlvy_fee'],
-  data: function data() {
-    return {};
-  },
   computed: {
     dlvy_4s: function dlvy_4s() {
       return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
@@ -34,8 +31,7 @@ __webpack_require__.r(__webpack_exports__);
         }, 0);
       }, 0);
     }
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -58,7 +54,7 @@ var render = function render() {
     staticClass: "pa_list frm_st"
   }, [_c("b-row", {
     staticClass: "lhead m_hide"
-  }, [_c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jumoonsangpum))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jejosa))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.panmaega))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.suryang))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.geumaek))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.baesongbi))])], 1), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
+  }), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
     return _c("b-row", {
       key: pa_id,
       staticClass: "lbody"

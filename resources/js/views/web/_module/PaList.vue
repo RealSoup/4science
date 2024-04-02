@@ -1,12 +1,6 @@
 <template>
 <b-container class="pa_list frm_st">
     <b-row class="lhead m_hide">
-        <b-col>{{ trans().module_palist.jumoonsangpum }}</b-col>        
-        <b-col>{{ trans().module_palist.jejosa }}</b-col>
-        <b-col>{{ trans().module_palist.panmaega }}</b-col>
-        <b-col>{{ trans().module_palist.suryang }}</b-col>
-        <b-col>{{ trans().module_palist.geumaek }}</b-col>
-        <b-col>{{ trans().module_palist.baesongbi }}</b-col>
     </b-row>
     <b-row v-for="(pa, pa_id) in value" :key="pa_id" class="lbody">
         <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
@@ -112,11 +106,6 @@
 export default { 
     name: 'PaList', 
     props: ['value', 'price', 'user', 'add_vat', 'er_no_dlvy_fee'],
-    data() {
-        return {
-            
-        }
-    },
     computed: {
         dlvy_4s () {
             return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
@@ -134,10 +123,6 @@ export default {
             }, 0);
         },
     }, 
-    methods:{
-        
-        
-    },
 };
 </script>
 
@@ -201,8 +186,7 @@ export default {
 .pa_list .total_sub .col>div .col { color:#A8A9AB; font-weight:bold; font-size:.84rem; }
 .pa_list .total_sub .col>div .col:nth-of-type(2) { text-align:right; }
 
-@media (max-width: 992px){
-    
+@media (max-width: 992px){    
     .pa_list .lbody .col .row .col:nth-of-type(1) { flex-basis:25%; max-width:25%; }
     .pa_list .lbody .col .row .col:nth-of-type(2) { flex-basis:75%; max-width:75%; }
     .pa_list .lbody .col .row .col:nth-of-type(4) { flex-basis:35%; max-width:35%; }
