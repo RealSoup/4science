@@ -16,25 +16,7 @@
 
 <script>
 export default { 
-    name: 'PaList', 
-    props: ['value', 'price', 'user', 'add_vat', 'er_no_dlvy_fee'],
-    computed: {
-        dlvy_4s () {
-            return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
-        },
-        dlvy_other () {
-            return Object.values(this.value).reduce((acc, el) => {
-                return acc + el[0].pa_name != '' ? el[0].pa_dlvy_p_add_vat : 0
-            }, 0);
-        },
-        sum_mileage () {
-            return Object.values(this.value).reduce((acc, el) => {
-                return acc + el.reduce((acc02, el02) => {
-                    return acc02 + (el02.price*el02.ea*this.user.mileage_mul);
-                }, 0)
-            }, 0);
-        },
-    }, 
+ 
 };
 </script>
 
