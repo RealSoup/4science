@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaList',
-  props: ['value', 'price', 'user', 'add_vat', 'd_price', 'er_no_dlvy_fee'],
+  props: ['value', 'price', 'user', 'add_vat', 'er_no_dlvy_fee'],
   data: function data() {
     return {};
   },

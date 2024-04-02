@@ -111,7 +111,7 @@
 <script>
 export default { 
     name: 'PaList', 
-    props: ['value', 'price', 'user', 'add_vat', 'd_price', 'er_no_dlvy_fee'],
+    props: ['value', 'price', 'user', 'add_vat', 'er_no_dlvy_fee'],
     data() {
         return {
             
