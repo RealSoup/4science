@@ -344,18 +344,26 @@ class Goods extends Model {
                         }
                         $rst['lists'][0][] = $tmpModel;
                     }
-                }                
+                }
             }
         }
 
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
         foreach ($rst['lists'] as $pa_id => $pa_group) {
             $paSum = 0;
-            foreach ($pa_group as $item) {
+            foreach ($pa_group as $k => $item) {
                 if(array_key_exists('price_dc', $item)) 
                     $paSum += $item['price_dc']*$item['ea'];
                 else                  
                     $paSum += $item['price']*$item['ea'];
+
+                ////////////   번역   //////////////
+                if(session()->get('locale', \Lang::getLocale()) == 'en') {
+                    $rst['lists'][$pa_id][$k]['gd_name_eng'] = translator($item['gd_name']);
+                    $rst['lists'][$pa_id][$k]['gm_name_eng'] = translator($item['gm_name']);
+                    
+                }
+                ////////////   번역   //////////////
             }
             $rst['price']['goods'] += $paSum;
             if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
@@ -393,7 +401,6 @@ class Goods extends Model {
         return $p;
     }
 
-
     public function goods_discount_checker ($gm, $dc) {
         if( auth()->check() && auth()->user()->level == 12 ) {
             $gm->dc_type = "dealer";
@@ -405,7 +412,6 @@ class Goods extends Model {
             $gm->gm_price_dc_add_vat = rrp($gm->gm_price_dc);
         }
     }
-
 
     public function search ($req, $offset, $limit, $type=null) {
         $q_str = $kw ='';

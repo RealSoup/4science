@@ -17,7 +17,7 @@
             <template v-for="(odm, i) in od.order_model">
                 <b-link v-if="i < 5" :to="{name:'goods_show', params:{gd_id:odm.odm_gd_id}}" :key="i">
                     <img :src="odm.img_thumb_src" />
-                    <div>{{odm.odm_gm_name}}</div>
+                    <div>{{odm.odm_gm_name_eng??odm.odm_gm_name}}</div>
                 </b-link>
                 <span v-if="i == 5" :key="i" class="over_flow"><b>외 {{od.order_model.length-5}}</b></span>
             </template>

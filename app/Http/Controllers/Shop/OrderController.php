@@ -290,6 +290,17 @@ class OrderController extends Controller {
 		}
 
         $data['order_config'] = Order::$orderConfig;
+
+
+        ////////////   번역   //////////////
+        if(session()->get('locale', \Lang::getLocale()) == 'en') {
+            foreach ($data['order'] as $od) {
+                foreach ($od->orderModel as $odm)
+                    $odm->odm_gm_name_eng = translator($odm->odm_gm_name);
+            }
+        }
+        ////////////   번역   //////////////
+
         return response()->json($data, 200);
     }
 

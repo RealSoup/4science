@@ -1,11 +1,17 @@
 <template>
 <div id="header" :class="{headerFix:headerFix}">
     <div v-if="user && user.is_admin" class="admin">
-        <router-link :to="{name: 'adm_main'}" target="_blank">관리자</router-link>
+        <router-link :to="{name: 'adm_main'}" target="_blank">{{ trans().admin.btn_title }}</router-link>
         <router-link v-if="this.$route.name === 'goods_show'" target="_blank"
             :to="{name: 'adm_goods_edit', params: { gd_id:this.$route.params.gd_id }}"
         >상품관리</router-link>
         <!-- <router-link v-if="user.is_super" :to="{name: 'listing_sale'}">S</router-link> -->
+
+        <select v-if="user.is_super" @change="strongReload($event.target.value)">
+            <option value="">외국어</option>
+            <option v-if="this.$store.state.common.siteInfo.locale == 'ko'" value="/language/en">English</option>
+            <option v-else value="/language/ko">한국어</option>
+        </select>
     </div>
     <div id="afterimage"></div>
     <div id="core">
@@ -96,6 +102,28 @@
 import LoginPopUp from '../auth/Login.vue';
 import { mapActions, mapState, mapGetters } from 'vuex'
 
+
+
+// 네이버 Papago Text Translation API 예제
+// var express = require('express');
+// var app = express();
+
+//     request.post(options, function(error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//         res.writeHead(200, { 'Content-Type': 'text/json;charset=utf-8' });
+//         res.end(body);
+//         } else {
+//         res.status(response.statusCode).end();
+//         console.log('error = ' + response.statusCode);
+//         }
+//     });
+// });
+// app.listen(3000, function() {
+//     console.log('http://127.0.0.1:3000/translate app listening on port 3000!');
+// });
+
+
+
 export default {
     name: 'Header',
     components: {
@@ -148,9 +176,11 @@ export default {
             }
             this.$store.dispatch('goods/routerPush', 'new');
         },
-        onScroll(e) { this.headerFix = window.top.scrollY > 10; }
+        onScroll(e) { this.headerFix = window.top.scrollY > 10; },
+        
+        strongReload(url){ if(url!='') window.location.href = url; },
     },
-    mounted() { window.addEventListener("scroll", this.onScroll) },
+    mounted() { window.addEventListener("scroll", this.onScroll); },
     beforeDestroy() { window.removeEventListener("scroll", this.onScroll) },
 }
 </script>

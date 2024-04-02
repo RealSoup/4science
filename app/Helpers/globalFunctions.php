@@ -220,3 +220,31 @@ if(! function_exists('cal_dc')) {
             return ($p*(100-intval($dc)))/100;
     }
 }
+
+if(! function_exists('translator')) {
+    function translator ($txt) {
+        $client_id = 'pb6q07kqau';
+        $client_secret = 'kOsx6diC5j4N7gHHIkpUIcdSXywivhVr1g6X2y2n';
+        $encText = urlencode($txt);
+        $postvars = "source=ko&target=en&text=".$encText;
+        $url = "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation";
+        $is_post = true;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $is_post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $postvars);
+        $headers = array();
+        $headers[] = "X-NCP-APIGW-API-KEY-ID: ".$client_id;
+        $headers[] = "X-NCP-APIGW-API-KEY: ".$client_secret;
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec ($ch);
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+       
+        curl_close ($ch);
+        
+        if($status_code == 200) return json_decode($response)->message->result->translatedText;
+        else return NULL;
+    }
+}

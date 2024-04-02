@@ -72,6 +72,7 @@ var render = function render() {
     }, [_vm._v("상세보기")])], 1), _vm._v(" "), _c("b-col", {
       staticClass: "product"
     }, [_vm._l(od.order_model, function (odm, i) {
+      var _odm$odm_gm_name_eng;
       return [i < 5 ? _c("b-link", {
         key: i,
         attrs: {
@@ -86,7 +87,7 @@ var render = function render() {
         attrs: {
           src: odm.img_thumb_src
         }
-      }), _vm._v(" "), _c("div", [_vm._v(_vm._s(odm.odm_gm_name))])]) : _vm._e(), _vm._v(" "), i == 5 ? _c("span", {
+      }), _vm._v(" "), _c("div", [_vm._v(_vm._s((_odm$odm_gm_name_eng = odm.odm_gm_name_eng) !== null && _odm$odm_gm_name_eng !== void 0 ? _odm$odm_gm_name_eng : odm.odm_gm_name))])]) : _vm._e(), _vm._v(" "), i == 5 ? _c("span", {
         key: i,
         staticClass: "over_flow"
       }, [_c("b", [_vm._v("외 " + _vm._s(od.order_model.length - 5))])]) : _vm._e()];

@@ -97,6 +97,7 @@ class CommonController extends Controller {
             'biz'=>cache('biz'),
             'bank'=>cache('bank'),
             'APP_ENV' => env('APP_ENV'),
+            'locale' => session()->get('locale', \Lang::getLocale()),
         ], 200);
         // return response('{ "site" : '.Redis::get('site').',
         //                    "biz" : '.Redis::get('biz').',

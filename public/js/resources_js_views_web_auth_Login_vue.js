@@ -23,11 +23,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       frm: {
         email: '',
-        password: ''
+        password: '',
+        go_adm: false
       },
-      view_finder: false
+      view_finder: false,
+      mng_list: [],
+      is_mng_email: false
     };
   },
+  watch: {
+    'frm.email': {
+      handler: function handler(n, o) {
+        if (this.mng_list.length) this.email_check();
+      },
+      deep: true
+      // immediate: true,
+    }
+  },
+
   methods: {
     getValidationState: function getValidationState(_ref) {
       var dirty = _ref.dirty,
@@ -37,18 +50,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return dirty || validated ? valid : null;
     },
     login: function login() {
-      var _this = this;
+      var _arguments = arguments,
+        _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var mode, _this$$route$params$r, destination_name;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              mode = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
+              if (!_this.$store.state.auth.unAuth_user) {
+                _context.next = 4;
+                break;
+              }
+              _context.next = 4;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/logout');
+            case 4:
+              if (mode == 'adm') _this.frm.go_adm = true;
+              _context.next = 7;
               return _this.$store.dispatch('auth/login', _this.frm);
-            case 2:
+            case 7:
               _this.$emit('close-modal');
               _this.$store.dispatch('cart/index');
-              if (_this.$route.name === 'login') _this.$router.push(_this.$route.query.redirect || '/');
-            case 5:
+              if (_this.$route.name === 'login') {
+                destination_name = (_this$$route$params$r = _this.$route.params.route_name) !== null && _this$$route$params$r !== void 0 ? _this$$route$params$r : 'main';
+                _this.$router.push({
+                  name: destination_name,
+                  params: _this.$route.params.params,
+                  query: _this.$route.params.query
+                });
+              }
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -96,9 +127,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     frm_formatHp: function frm_formatHp(v) {
       return this.formatHp(v);
+    },
+    email_check: function email_check() {
+      if (this.mng_list.indexOf(this.frm.email.trim()) !== -1) this.is_mng_email = true;else this.is_mng_email = false;
     }
   },
-  mounted: function mounted() {} // beforeRouteEnter(to, from, next) {
+  mounted: function mounted() {
+    var _this3 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var rst;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/auth/user/mngList");
+          case 2:
+            rst = _context3.sent;
+            _this3.mng_list = rst.data;
+            if (_this3.frm.email.trim() !== '') _this3.email_check();
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3);
+    }))();
+  } // beforeRouteEnter(to, from, next) {
   //     if (store.state.auth.isLoggedin) {
   //         return next('/');
   //     }
@@ -191,13 +244,23 @@ var render = function render() {
       }
     }])
   })], 1)], 1), _vm._v(" "), _c("b-row", {
-    staticClass: "link btn_box"
+    staticClass: "link btn_box01",
+    "class": {
+      adm_true: _vm.is_mng_email
+    }
   }, [_c("b-button", {
-    staticClass: "blue login",
+    staticClass: "blue",
     on: {
       click: _vm.login
     }
-  }, [_vm._v("로그인")])], 1), _vm._v(" "), _c("b-row", {
+  }, [_vm._v("로그인")]), _vm._v(" "), _vm.is_mng_email ? _c("b-button", {
+    staticClass: "plum",
+    on: {
+      click: function click($event) {
+        return _vm.login("adm");
+      }
+    }
+  }, [_vm._v("GO 관리자")]) : _vm._e()], 1), _vm._v(" "), _c("b-row", {
     staticClass: "link link_auth"
   }, [_c("b-link", {
     staticClass: "col",
@@ -316,7 +379,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-5f77cdfc] { padding-top: calc(1vw + 1.8rem);\n}\n.frm_st[data-v-5f77cdfc] { max-width:450px; margin-top:.75rem;\n}\n.frm_st h3[data-v-5f77cdfc] { text-align:center; font-size:3rem;\n}\n.frm_st .row[data-v-5f77cdfc] { margin: 0 0 1.3rem 0;\n}\n.frm_st .row .col input[data-v-5f77cdfc] { height: calc(1.5em + 1.5rem + 2px); font-size:1rem;\n}\n.frm_st .btn_box[data-v-5f77cdfc] { margin:0;\n}\n.frm_st .link .login[data-v-5f77cdfc] { padding:.75rem; width:100%;\n}\n.frm_st .link.link_auth[data-v-5f77cdfc] { border-bottom:2px solid #C2C2C2; padding:1.31rem 0; margin:0 0 2rem 0;}\n.frm_st .link.link_auth a[data-v-5f77cdfc] { color:#898989; font-size:.95rem; display:inline-block; padding:0; cursor:pointer;\n}\n.frm_st .link.link_auth a span[data-v-5f77cdfc] { display:inline-block; width:100%; line-height:1; text-align:center;\n}\n.frm_st .link.link_auth a:not(:last-child) span[data-v-5f77cdfc] { border-right:1px solid #D7D7D7;\n}\n.frm_st .link.sns .col[data-v-5f77cdfc] { flex:0 0 48%; max-width:48%; margin:1%;\n}\n.frm_st .link.sns .col img[data-v-5f77cdfc] { width:100%;\n}\n.frm_st .find_email>.col[data-v-5f77cdfc] { border:3px solid #4EB8C8; border-radius:.4rem; margin-bottom:1.5rem;\n}\n.frm_st .find_email .col a[data-v-5f77cdfc] { background-color:#4EB8C8; color:#fff; font-weight:600; text-align:center; display:block; padding:.6rem 0;\n}\n.frm_st .find_email>.col>.row[data-v-5f77cdfc] { margin-bottom:0 !important;\n}\n.frm_st .find_email .col .row .col[data-v-5f77cdfc] { padding-bottom:.2rem;\n}\n.frm_st .find_email .col .row .col[data-v-5f77cdfc]:first-of-type { border-right:2px solid #4EB8C8; flex:0 0 40%; max-width:40%;\n}\n.frm_st .find_email .col .row .col p[data-v-5f77cdfc] { text-align:center; font-size:.9rem; margin-bottom: 0.5rem;\n}\n.frm_st .find_email .col .row .col span[data-v-5f77cdfc] { display:block; position:relative; margin:0 .5rem; height:30px;\n}\n.frm_st .find_email .col .row .col:last-child div[data-v-5f77cdfc] { display:flex;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc]:first-of-type { flex:0 0 29%; max-width:29%;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc]:first-of-type:after { content:'/'; position:absolute; right:-.75rem; bottom:0; font-size:1.5rem; line-height:1.24;\n}\n.frm_st .find_email .col .row .col:last-child div span:first-of-type input[data-v-5f77cdfc] { width:100%;\n}\n.frm_st .find_email .col .row .col span input[data-v-5f77cdfc] { width:calc(100% - 30px); border:1px solid #BBB; padding:2px 6px; background:#fff; border-radius:.3rem; height:30px;\n}\n.frm_st .find_email .col .row .col span b[data-v-5f77cdfc] { display: block; width:30px; height:30px; font-size: 1.3rem; position: absolute; bottom:0; right:0;}\n.frm_st .find_email .col .row .col span b svg[data-v-5f77cdfc] { color:#BBB; cursor: pointer; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.w_fence[data-v-5f77cdfc] { padding-top: calc(1vw + 1.8rem);\n}\n.frm_st[data-v-5f77cdfc] { max-width:450px; margin-top:.75rem;\n}\n.frm_st h3[data-v-5f77cdfc] { text-align:center; font-size:3rem;\n}\n.frm_st .row[data-v-5f77cdfc] { margin: 0 0 1.3rem 0;\n}\n.frm_st .row .col input[data-v-5f77cdfc] { height: calc(1.5em + 1.5rem + 2px); font-size:1rem;\n}\n.frm_st .btn_box01[data-v-5f77cdfc] { margin:0;\n}\n.frm_st .btn_box01 button[data-v-5f77cdfc] { padding:.75rem; width:100%;\n}\n.frm_st .btn_box01.adm_true button[data-v-5f77cdfc] { flex: 0 0 48%; max-width:48%; margin:1%;\n}\n.frm_st .link.link_auth[data-v-5f77cdfc] { border-bottom:2px solid #C2C2C2; padding:1.31rem 0; margin:0 0 2rem 0;}\n.frm_st .link.link_auth a[data-v-5f77cdfc] { color:#898989; font-size:.95rem; display:inline-block; padding:0; cursor:pointer;\n}\n.frm_st .link.link_auth a span[data-v-5f77cdfc] { display:inline-block; width:100%; line-height:1; text-align:center;\n}\n.frm_st .link.link_auth a:not(:last-child) span[data-v-5f77cdfc] { border-right:1px solid #D7D7D7;\n}\n.frm_st .link.sns .col[data-v-5f77cdfc] { flex:0 0 48%; max-width:48%; margin:1%;\n}\n.frm_st .link.sns .col img[data-v-5f77cdfc] { width:100%;\n}\n.frm_st .find_email>.col[data-v-5f77cdfc] { border:3px solid #4EB8C8; border-radius:.4rem; margin-bottom:1.5rem;\n}\n.frm_st .find_email .col a[data-v-5f77cdfc] { background-color:#4EB8C8; color:#fff; font-weight:600; text-align:center; display:block; padding:.6rem 0;\n}\n.frm_st .find_email>.col>.row[data-v-5f77cdfc] { margin-bottom:0 !important;\n}\n.frm_st .find_email .col .row .col[data-v-5f77cdfc] { padding-bottom:.2rem;\n}\n.frm_st .find_email .col .row .col[data-v-5f77cdfc]:first-of-type { border-right:2px solid #4EB8C8; flex:0 0 40%; max-width:40%;\n}\n.frm_st .find_email .col .row .col p[data-v-5f77cdfc] { text-align:center; font-size:.9rem; margin-bottom: 0.5rem;\n}\n.frm_st .find_email .col .row .col span[data-v-5f77cdfc] { display:block; position:relative; margin:0 .5rem; height:30px;\n}\n.frm_st .find_email .col .row .col:last-child div[data-v-5f77cdfc] { display:flex;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc] { flex-basis:0; flex-grow:1; max-width:100%;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc]:first-of-type { flex:0 0 29%; max-width:29%;\n}\n.frm_st .find_email .col .row .col:last-child div span[data-v-5f77cdfc]:first-of-type:after { content:'/'; position:absolute; right:-.75rem; bottom:0; font-size:1.5rem; line-height:1.24;\n}\n.frm_st .find_email .col .row .col:last-child div span:first-of-type input[data-v-5f77cdfc] { width:100%;\n}\n.frm_st .find_email .col .row .col span input[data-v-5f77cdfc] { width:calc(100% - 30px); border:1px solid #BBB; padding:2px 6px; background:#fff; border-radius:.3rem; height:30px;\n}\n.frm_st .find_email .col .row .col span b[data-v-5f77cdfc] { display: block; width:30px; height:30px; font-size: 1.3rem; position: absolute; bottom:0; right:0;}\n.frm_st .find_email .col .row .col span b svg[data-v-5f77cdfc] { color:#BBB; cursor: pointer; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

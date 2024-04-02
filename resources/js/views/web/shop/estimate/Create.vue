@@ -1,18 +1,16 @@
 <template>
     <b-container class="w_fence" id="estimate_req">
-        <!-- <h3>{{ trans().estimate.title }}</h3> -->
-        <h3>견적요청</h3>
+        <h3>{{ trans().estimate.title }}</h3>
         <b-row v-if="Object.keys(frm.lists).length">
             <b-col class="goods">
-                <h4>01. 견적요청 상품</h4>
+                <h4>01. {{ trans().estimate.sub_tit01 }}</h4>
                 <pa-list v-model="frm.lists" :user="$store.state.auth.user" :add_vat="true" />
             </b-col>
         </b-row>
-<!-- <b-link @click="strongReload('/language/en')">영어</b-link>
-<b-link @click="strongReload('/language/ko')">한국어</b-link> -->
+
         <b-row>
             <b-col class="user">
-                <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. 회원 정보</h4>
+                <h4>0{{Object.keys(frm.lists).length ? 2 : 1}}. {{ trans().estimate.sub_tit02 }}</h4>
                 <b-container class="frm_st">
                     <b-row>
                         <b-col class="label_st">주문자명<b class="need" /></b-col>
@@ -58,7 +56,7 @@
             </b-col>
 
             <b-col class="inquiry">
-                <h4>0{{Object.keys(frm.lists).length ? 3 : 2}}. 문의사항</h4>
+                <h4>0{{Object.keys(frm.lists).length ? 3 : 2}}. {{ trans().estimate.sub_tit03 }}</h4>
                 <b-container class="frm_st">
                     <div class="frm_bd">
                         <b-row v-if="isEmpty(frm.lists)" class="cate">
@@ -122,10 +120,6 @@ export default {
         }
     },
     methods: {
-        strongReload(url){
-     
-                window.location.href = url;
-        },
         async create(){
             try {
                 const res = await ax.post(`/api/shop/estimate/create`, {goods:this.od_goods});

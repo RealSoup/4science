@@ -58,13 +58,14 @@ var render = function render() {
     staticClass: "pa_list frm_st"
   }, [_c("b-row", {
     staticClass: "lhead m_hide"
-  }, [_c("b-col", [_vm._v("주문 상품")]), _vm._v(" "), _c("b-col", [_vm._v("제조사")]), _vm._v(" "), _c("b-col", [_vm._v("판매가")]), _vm._v(" "), _c("b-col", [_vm._v("수량")]), _vm._v(" "), _c("b-col", [_vm._v("금액")]), _vm._v(" "), _c("b-col", [_vm._v("배송비")])], 1), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
+  }, [_c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jumoonsangpum))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jejosa))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.panmaega))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.suryang))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.geumaek))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.baesongbi))])], 1), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
     return _c("b-row", {
       key: pa_id,
       staticClass: "lbody"
     }, [_c("b-col", {
       staticClass: "m_hide"
     }, [_vm._v(_vm._s(pa[0]["pa_name"] ? "업체" : "포사이언스")), _c("br"), _vm._v("배송")]), _vm._v(" "), _c("b-col", _vm._l(pa, function (item, i_item) {
+      var _item$gd_name_eng, _item$gm_name_eng;
       return _c("b-row", {
         key: "".concat(pa_id).concat(i_item),
         "class": {
@@ -76,9 +77,9 @@ var render = function render() {
         }
       })]), _vm._v(" "), _c("b-col", {
         staticClass: "explain"
-      }, [_c("p", [_vm._v(_vm._s(item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
+      }, [_c("p", [_vm._v(_vm._s((_item$gd_name_eng = item.gd_name_eng) !== null && _item$gd_name_eng !== void 0 ? _item$gd_name_eng : item.gd_name))]), _vm._v(" "), _c("p", [_c("b", {
         staticClass: "m_hide"
-      }, [_vm._v("제품명:")]), _vm._v(" " + _vm._s(item.gm_name) + " / "), _c("b", {
+      }, [_vm._v("제품명:")]), _vm._v(" " + _vm._s((_item$gm_name_eng = item.gm_name_eng) !== null && _item$gm_name_eng !== void 0 ? _item$gm_name_eng : item.gm_name) + " / "), _c("b", {
         staticClass: "m_hide"
       }, [_vm._v("Cat.No.:")]), _vm._v(" " + _vm._s(item.gm_catno))]), _vm._v(" "), _c("p", [_c("b", {
         staticClass: "m_hide"

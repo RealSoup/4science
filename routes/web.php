@@ -135,7 +135,38 @@ Route::GET('/admin/shop/goods/exeIndex', 'Admin\Shop\GoodsController@exeIndex');
 //     return back()->with('message', 'Verification link sent!');
 // })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+// Localization
+Route::get('/language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    Cache::forget('locale');
+    return redirect()->back();
+});
+Route::get('/localization', function () {
+    $strings = Cache::rememberForever('locale', function () {
+        // $lang = config('app.locale');
+        $lang = session()->get('locale', \Lang::getLocale());
+        \Lang::setLocale($lang);
+
+        $files   = glob(resource_path('lang/' . $lang . '/*.php'));
+        $strings = [];
+
+        foreach ($files as $file) {
+            $name           = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+
+        return $strings;
+    });
+
+    header('Content-Type: text/javascript');
+    echo('window.i18n = ' . json_encode($strings) . ';');
+    exit();
+});
+
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
 // Auth::routes(['verify' => true]);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
