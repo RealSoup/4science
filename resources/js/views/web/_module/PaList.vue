@@ -1,79 +1,14 @@
 <template>
 <b-container class="pa_list frm_st">
     <b-row class="lhead m_hide">
+        <b-col>{{ trans().module_palist.jumoonsangpum }}</b-col>        
+        <b-col>{{ trans().module_palist.jejosa }}</b-col>
+        <b-col>{{ trans().module_palist.panmaega }}</b-col>
+        <b-col>{{ trans().module_palist.suryang }}</b-col>
+        <b-col>{{ trans().module_palist.geumaek }}</b-col>
+        <b-col>{{ trans().module_palist.baesongbi }}</b-col>
     </b-row>
-    <b-row v-for="(pa, pa_id) in value" :key="pa_id" class="lbody">
-        <b-col class="m_hide">{{pa[0]['pa_name'] ? '업체' : '포사이언스'}}<br />배송</b-col>
-        <b-col>
-            <b-row v-for="(item, i_item) in pa" :key="`${pa_id}${i_item}`" :class="{option:item.type == 'option'}">
-                <template v-if="item.type == 'model'">
-                    <b-col><img :src="item.img"/></b-col>
-                    <b-col class="explain">
-                        <p>{{item.gd_name_eng??item.gd_name}}</p>
-                        <p><b class="m_hide">제품명:</b> {{item.gm_name_eng??item.gm_name}} / <b class="m_hide">Cat.No.:</b> {{item.gm_catno}}</p>
-                        <p><b class="m_hide">모델명:</b> {{item.gm_code}} / <b class="m_hide">판매단위:</b> {{item.gm_unit}}</p>
-                        <div>
-                            <b class="m_hide">사양:</b>
-                            <div class="gm_spec" v-html="nl2br(item.gm_spec)"></div>
-                        </div>
-                        <p v-if="item.dlvy_at"><b class="m_hide">납기:</b> {{item.dlvy_at}}</p>
-                    </b-col>
-                    <b-col class="m_hide">{{item.mk_name}}</b-col>
-                    <b-col>
-                        <span class="price_box" :class="{price_discount:item.price_dc_add_vat}">
-                            <span class="normal">
-                                <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
-                                <template v-else>{{item.price | comma | won}}</template>
-                            </span>
-                            <span class="discount">{{(item.price_dc_add_vat) | comma | won}}</span>
-                        </span>
-                    </b-col>
-                    <b-col>{{item.ea}} 개</b-col>
-                    <b-col>
-                        <div>
-                            <span class="price_box" :class="{price_discount:item.price_dc_add_vat}">
-                                <span class="normal">
-                                    <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
-                                    <template v-else>{{item.price*item.ea | comma | won}}</template>
-                                </span>
-                                <span class="discount">{{(item.price_dc_add_vat*item.ea) | comma | won}}</span>
-                            </span>
-                            
-                            <div v-if="!user.is_dealer" class="mileage m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</div>
-                        </div>
-                    </b-col>
-                </template>
-                <template v-else-if="item.type == 'option'">
-                    <b-col>추가 옵션</b-col>
-                    <b-col class="justify-content-start"><span><b>{{item.go_name_eng??item.go_name}}:</b> {{item.goc_name_eng??item.goc_name}}</span></b-col>
-                    <b-col class="m_hide"></b-col>
-                    <b-col>
-                        <template v-if="add_vat">{{item.price_add_vat | comma | won}}</template>
-                        <template v-else>{{item.price | comma | won}}</template>
-                    </b-col>
-                    <b-col>{{item.ea}} 개</b-col>
-                    <b-col>
-                        <div>
-                            <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
-                            <template v-else>{{item.price*item.ea | comma | won}}</template>
-                            <br v-if="!user.is_dealer" />
-                            <span v-if="!user.is_dealer">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
-                        </div>
-                    </b-col>
-                </template>
-            </b-row>
-        </b-col>
-
-        <b-col class="m_hide">
-            <template v-if="er_no_dlvy_fee !== 'Y'">
-                <template v-if="pa[0]['pa_type'] == 'AIR'">항공운임료</template>
-                <template v-else>배송비</template>
-                <br />
-                <template v-if="add_vat">{{pa[0].pa_dlvy_p_add_vat | comma | won}}</template>
-                <template v-else>{{pa[0].pa_dlvy_p | comma | won}}</template>
-            </template>
-        </b-col>
-    </b-row>
+    
 
     <b-row v-if="price" class="total">
         <b-col>상품금액</b-col>
