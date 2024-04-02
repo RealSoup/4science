@@ -10,30 +10,7 @@
     </b-row>
     
 
-    <b-row v-if="price" class="total">
-        <b-col>상품금액</b-col>
-        <b-col><b>{{price.goods_add_vat | comma}}</b> 원</b-col>
-        <b-col>배송료</b-col>
-        <b-col><b>{{price.air_add_vat+price.dlvy_add_vat | comma}}</b> 원</b-col>
-        <b-col>
-            <template v-if="$route.name =='adm_estimate_show_reply'">견적금액</template>
-            <template v-else>결제 예정 금액</template>
-        </b-col>
-        <b-col><b>{{price.total | comma}}</b> 원</b-col>
-    </b-row>
-    <b-row v-if="price" class="total_sub" id="total_sub">
-        <b-col>
-            <div><b-col>상품가</b-col> <b-col>{{price.goods | comma}} 원</b-col></div>
-            <div><b-col>부가세</b-col> <b-col>{{price.surtax | comma}} 원</b-col></div>
-        </b-col>
-        <b-col>
-            <div><b-col>포사이언스 배송</b-col><b-col>{{dlvy_4s | comma}} 원</b-col></div>
-            <div><b-col>업체 배송</b-col><b-col>{{dlvy_other | comma}} 원</b-col></div>
-        </b-col>
-        <b-col>
-            <div v-if="!user.is_dealer"><b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}} 원</b-col></div>
-        </b-col>
-    </b-row>
+    
 </b-container>    
 </template>
 
