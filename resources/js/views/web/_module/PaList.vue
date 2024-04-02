@@ -62,7 +62,7 @@
                         <div>
                             <template v-if="add_vat">{{item.price_add_vat*item.ea | comma | won}}</template>
                             <template v-else>{{item.price*item.ea | comma | won}}</template>
-                            <br v-if="!user.is_dealer">
+                            <br v-if="!user.is_dealer" />
                             <span v-if="!user.is_dealer">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</span>
                         </div>
                     </b-col>
