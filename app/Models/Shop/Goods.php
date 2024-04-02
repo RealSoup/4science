@@ -358,11 +358,11 @@ class Goods extends Model {
                     $paSum += $item['price']*$item['ea'];
 
                 ////////////   번역   //////////////
-                if(session()->get('locale', \Lang::getLocale()) == 'en' && $item['gd_name']) {
-                    $rst['lists'][$pa_id][$k]['gd_name_eng'] = translator($item['gd_name']);
-                    $rst['lists'][$pa_id][$k]['gm_name_eng'] = translator($item['gm_name']);
+                // if(session()->get('locale', \Lang::getLocale()) == 'en' && $item['gd_name']) {
+                //     $rst['lists'][$pa_id][$k]['gd_name_eng'] = translator($item['gd_name']);
+                //     $rst['lists'][$pa_id][$k]['gm_name_eng'] = translator($item['gm_name']);
                     
-                }
+                // }
                 ////////////   번역   //////////////
             }
             $rst['price']['goods'] += $paSum;
