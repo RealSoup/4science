@@ -179,18 +179,9 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://4science.net/shop/goods?ca01=29&ca02=4182" target='_blank'>
-                <img src="{{ asset('storage/event/2024/0305/estimate.png') }}" />
-            </a>
-            <!-- <a href="https://4science.net/board/notice/show/55" target='_blank'>
-                <img src="{{ asset('storage/event/2024/0219/estimate.png') }}" />
-            </a> -->
-            <!-- <a href="https://4science.net/shop/listing/sale" target='_blank'>
-                <img src="{{ asset('storage/event/2024/0103/estimate.jpg') }}" />
-            </a> -->
-            <!-- <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
                 <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
-            </a> -->
+            </a>
         </td>
     </tr>
     <tr>
