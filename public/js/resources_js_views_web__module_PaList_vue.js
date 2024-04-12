@@ -54,7 +54,7 @@ var render = function render() {
     staticClass: "pa_list frm_st"
   }, [_c("b-row", {
     staticClass: "lhead m_hide"
-  }), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
+  }, [_c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jumoonsangpum))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.jejosa))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.panmaega))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.suryang))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.geumaek))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm.trans().module_palist.baesongbi))])], 1), _vm._v(" "), _vm._l(_vm.value, function (pa, pa_id) {
     return _c("b-row", {
       key: pa_id,
       staticClass: "lbody"

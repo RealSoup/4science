@@ -39,8 +39,9 @@
                     </td>
                 </tr>
             </table> -->
-            <a href="https://4science.net/shop/goods?mode=maker&keyword=goodsgood" target='_blank'>
-                <img src="{{ asset('storage/event/2024/0319/estimate.png') }}" />
+            
+            <a href="https://4science.net/shop/goods/800588" target='_blank'>
+                <img src="{{ asset('storage/event/2024/0415/estimate.jpg') }}" />
             </a>
         </td>
     </tr>
@@ -136,12 +137,12 @@
                     <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{number_format($er_gd_price)}}원</td>
                 </tr>
                 <tr>
-                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">부가세  :</th>
+                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">부가세 :</th>
                     <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{ number_format($er_surtax) }}원</td>
                 </tr>
                 @if ($er_no_dlvy_fee !== 'Y')
                 <tr>
-                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">배송료  :</th>
+                    <th style='background-color:#f8f8f8; font-weight:bold; padding:6px 8px;' align="right">배송료 :</th>
                     <td style='background-color:#f8f8f8; color:red; padding:6px 8px;' align="right">{{ number_format($er_dlvy_price) }}원</td>
                 </tr>
                 @if ($er_air_price)
@@ -179,9 +180,12 @@
     </tr>
     <tr>
         <td style='border-top:2px solid #0095eb;'>
-            <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
-                <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
+            <a href="https://4science.net/shop/goods?mode=maker&keyword=goodsgood" target='_blank'>
+                <img src="{{ asset('storage/event/2024/0319/estimate.png') }}" />
             </a>
+            <!-- <a href="https://pf.kakao.com/_AxmKUj" target='_blank'>
+                <img src="{{ asset('storage/event/2023/1205/estimate.jpg') }}" />
+            </a> -->
         </td>
     </tr>
     <tr>
