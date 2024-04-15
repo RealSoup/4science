@@ -72,7 +72,12 @@ instance.interceptors.response.use(function (response) {
         return false;
         
     } else if (error.response.status === 422) {
-        if ( typeof error.response.data.errors['email'] !== "undefined" && error.response.data.errors['email'][0] === 'These credentials do not match our records.') {
+        if ( typeof error.response.data.errors['email'] !== "undefined" && 
+            (
+                error.response.data.errors['email'][0] === 'These credentials do not match our records.' ||
+                error.response.data.errors['email'][0] === 'auth.failed'
+            )
+        ) {
             Notify.modal('로그인 정보를 확인하세요', 'danger');
         } else if ( typeof error.response.data.errors['password'] !== "undefined") {
             Notify.modal(error.response.data.errors['password'], 'danger');
