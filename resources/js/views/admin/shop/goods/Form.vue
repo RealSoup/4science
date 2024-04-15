@@ -48,7 +48,7 @@
     </b-container>
 
    
-    <b-container class="box adform info">
+    <b-container class="box adform mb_st info">
         <h5>
             상품정보 
             <b-form-checkbox switch class="float-right" v-model="value.gd_enable" value="Y" unchecked-value="N">
@@ -117,7 +117,7 @@
         </b-row>
     </b-container>
 
-    <b-container class="box adform">
+    <b-container class="box adform mb_st">
         <h5>파일 등록</h5>
         <b-row class="align-items-start">
             <b-col class="label">상품 이미지</b-col>
@@ -273,8 +273,8 @@
         </h5>
 
         <b-row class="head">
-            <b-col lg="6">옵션명</b-col>
-            <b-col lg="3">항목</b-col>
+            <b-col col="6">옵션명</b-col>
+            <b-col col="3">항목</b-col>
             <b-col>가격</b-col>
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
@@ -526,7 +526,7 @@ export default {
 .p_wrap .goods_form { overflow: hidden; }
 
 .cate .selecter { border-bottom:2px solid #000; padding-bottom:1em; margin-bottom:1em; }
-.cate .selecter div:first-child { display:flex; flex-wrap:wrap; padding:0; }
+.cate .selecter>div:first-child { display:flex; flex-wrap:wrap; padding:0; }
 .cate .selected:not(:last-child) { border-bottom: 1px solid #ccc; }
 .cate .selected .col { display:flex; align-items:center; padding:.5em; }
 .cate .selected .col .btn { padding:0 3px; }
@@ -556,7 +556,7 @@ export default {
 .model.md_non>.list>.gm_price { flex:0 0 10%; max-width:10%; }
 
 .model .body { position:relative; }
-.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:0px; max-width:300px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
+.model .body .rt_extra { border-left:1px solid #BBB; border-radius:10px; position:absolute; background:#FFF; right:0px; max-width:200px; transform:translateX(101%); padding:0; z-index:1; transition:all 0.5s ease; }
 .model .body .rt_extra:before { content:'◀'; position:absolute; display:block; line-height:2; padding-top:8px; }
 .model .body .rt_extra:hover,
 .model .body .rt_extra.focus { transform:translateX(0%); }
@@ -575,4 +575,21 @@ export default {
 .option .body>.col .row .col:last-child span.add { color:#17a2b8; }
 .option .body>.col .row .col:last-child span.del { color:#dc3545; }
 .option .body>.col .row .col:last-child input { width:calc(100% - 22px); display:inline-block; }
+
+@media (max-width: 992px){
+    .p_wrap { margin: auto; }
+    .p_wrap .box { padding:0; }
+    .cate .selecter { padding-bottom:.5em; margin-bottom:0; }
+    .cate .selecter>div,
+    .cate .selecter>div>div { padding:0; }
+    .cate .selecter>div:last-child { text-align:right; margin-top:.5em; }
+
+    .mb_st .row { align-items:flex-start; flex-direction:column; }
+    .mb_st .row > div:not(.tit) { padding:0; }
+    .mb_st .row .label { max-width:100%; text-align:left; }
+    .mb_st .row .label + div { max-width:100%; margin-bottom:.7em; }
+
+    #goods_model, .option { overflow-x:scroll; }
+    #goods_model>.row, .option>.row { width:1600px; }
+}
 </style>

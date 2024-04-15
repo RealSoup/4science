@@ -296,7 +296,15 @@ export default {
 .cmain .body.disable { background-color:#E1E1E1; }
 .cmain .body.disable .col { color:#9C9C9C; }
 
-
+@media (max-width: 992px){
+    .p_wrap { margin: auto; }
+    .cmain .list .col:nth-child(1),
+    .cmain .list .col:nth-child(2),
+    .cmain .list .col:nth-child(3),
+    .cmain .list .col:nth-child(6),
+    .cmain .list .col:nth-child(7),
+    .cmain .list .col:nth-child(8) { display: none; }
+}
 /* 
 .gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }
 .gd_list .body:hover { background: #d8f2fd94; }
