@@ -85,3 +85,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+@media (max-width: 992px){
+    .p_wrap { margin: auto; }
+}
+</style>

@@ -84,9 +84,9 @@
 
     <b-container class="cmain">
         <b-row>
-            <b-col sm="12" md="6">Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
-            <b-col sm="12" md="6" class="text-right ctrl">
-                상품정보를 클릭하면 수정이 가능합니다.
+            <b-col>Total : <b-badge variant="info">{{this.list.total}}</b-badge></b-col>
+            <b-col class="text-right ctrl">
+                <span class="m_hide">상품정보를 클릭하면 수정이 가능합니다.</span>
                 <b-button :to="{name: 'adm_goods_create'}" class="blue"><b-icon-plus-lg /> 추가</b-button>
             </b-col>
         </b-row>
@@ -298,12 +298,16 @@ export default {
 
 @media (max-width: 992px){
     .p_wrap { margin: auto; }
+    .cmain { overflow-x: auto; } 
+    .cmain .list { width:900px; }
+    .cmain .body .col { padding:0; }
     .cmain .list .col:nth-child(1),
-    .cmain .list .col:nth-child(2),
-    .cmain .list .col:nth-child(3),
-    .cmain .list .col:nth-child(6),
-    .cmain .list .col:nth-child(7),
-    .cmain .list .col:nth-child(8) { display: none; }
+    .cmain .list .col:nth-child(3) { display:none; }
+    .cmain .list .col:nth-child(4) { padding:.3rem; }
+    .cmain .list .col:nth-child(6) { flex:0 0 7.5%; max-width:7.5%; }
+    .cmain .list .col:nth-child(7) { flex:0 0 7%; max-width:7%; }
+    .cmain .list .col:nth-child(8) { flex:0 0 11%; max-width:11%; }
+
 }
 /* 
 .gd_list .list:not(:last-of-type) { border-bottom:1px solid #333; }

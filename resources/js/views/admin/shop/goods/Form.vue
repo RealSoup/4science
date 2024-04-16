@@ -273,8 +273,8 @@
         </h5>
 
         <b-row class="head">
-            <b-col col="6">옵션명</b-col>
-            <b-col col="3">항목</b-col>
+            <b-col cols="6">옵션명</b-col>
+            <b-col cols="3">항목</b-col>
             <b-col>가격</b-col>
         </b-row>
         <b-row v-for="(go, idx) in value.goods_option" :key="idx" class="body">
@@ -577,12 +577,13 @@ export default {
 .option .body>.col .row .col:last-child input { width:calc(100% - 22px); display:inline-block; }
 
 @media (max-width: 992px){
-    .p_wrap { margin: auto; }
     .p_wrap .box { padding:0; }
     .cate .selecter { padding-bottom:.5em; margin-bottom:0; }
     .cate .selecter>div,
     .cate .selecter>div>div { padding:0; }
     .cate .selecter>div:last-child { text-align:right; margin-top:.5em; }
+    .cate .selected .col { display:block; }
+    .cate .selected .col>div { display:inline-block; }
 
     .mb_st .row { align-items:flex-start; flex-direction:column; }
     .mb_st .row > div:not(.tit) { padding:0; }
