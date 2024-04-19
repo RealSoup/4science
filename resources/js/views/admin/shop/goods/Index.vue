@@ -18,7 +18,7 @@
                 </b-col>
             </template>
         </sch-date>
-        <categorys v-model="sch_frm" />
+        <categorys v-model="sch_frm"></categorys>
         <b-row>
             <b-col class="label">제조사</b-col>
             <b-col class="type01 col_maker">
