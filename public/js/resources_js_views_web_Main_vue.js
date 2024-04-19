@@ -199,14 +199,6 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
-      to: "/shop/goods?mode=maker&keyword=goodsgood"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/0319/slide.png"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
       to: "/board/notice/show/55"
     }
   }, [_c("b-carousel-slide", {

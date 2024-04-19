@@ -10,9 +10,6 @@
         <b-link to="/shop/goods/800588">
             <b-carousel-slide img-src="/storage/event/2024/0415/slide.jpg"></b-carousel-slide>
         </b-link>
-        <b-link to="/shop/goods?mode=maker&keyword=goodsgood">
-            <b-carousel-slide img-src="/storage/event/2024/0319/slide.png"></b-carousel-slide>
-        </b-link>
         <b-link to="/board/notice/show/55">
             <b-carousel-slide img-src="/storage/main/slide/2024/0108.png"></b-carousel-slide>
         </b-link>

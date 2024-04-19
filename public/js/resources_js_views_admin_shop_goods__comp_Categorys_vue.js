@@ -41,49 +41,84 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context.sent;
               if (!(res && res.status === 200)) {
-                _context.next = 19;
+                _context.next = 15;
                 break;
               }
-              if (dp < 4) {
-                _this.value.ca04 = 0;
-                _this.list04 = [];
-              }
-              if (dp < 3) {
-                _this.value.ca03 = 0;
-                _this.list03 = [];
-              }
-              if (dp < 2) {
-                _this.value.ca02 = 0;
-                _this.list02 = [];
-              }
-              if (dp < 1) {
-                _this.value.ca01 = 0;
-              }
               _context.t0 = dp;
-              _context.next = _context.t0 === 0 ? 11 : _context.t0 === 1 ? 13 : _context.t0 === 2 ? 15 : _context.t0 === 3 ? 17 : 19;
+              _context.next = _context.t0 === 0 ? 7 : _context.t0 === 1 ? 9 : _context.t0 === 2 ? 11 : _context.t0 === 3 ? 13 : 15;
               break;
-            case 11:
+            case 7:
               _this.list01 = res.data;
-              return _context.abrupt("break", 19);
-            case 13:
+              return _context.abrupt("break", 15);
+            case 9:
               _this.list02 = res.data;
-              return _context.abrupt("break", 19);
-            case 15:
+              return _context.abrupt("break", 15);
+            case 11:
               _this.list03 = res.data;
-              return _context.abrupt("break", 19);
-            case 17:
+              return _context.abrupt("break", 15);
+            case 13:
               _this.list04 = res.data;
-              return _context.abrupt("break", 19);
-            case 19:
+              return _context.abrupt("break", 15);
+            case 15:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }))();
+    },
+    prevValueClear: function prevValueClear(dp) {
+      if (dp < 4) {
+        this.value.ca04 = 0;
+        this.list04 = [];
+      }
+      if (dp < 3) {
+        this.value.ca03 = 0;
+        this.list03 = [];
+      }
+      if (dp < 2) {
+        this.value.ca02 = 0;
+        this.list02 = [];
+      }
+      if (dp < 1) {
+        this.value.ca01 = 0;
+      }
     }
   },
   mounted: function mounted() {
-    this.getCate(0, 0);
+    var _this2 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _this2.getCate(0, 0);
+          case 2:
+            if (!_this2.value.ca01) {
+              _context2.next = 5;
+              break;
+            }
+            _context2.next = 5;
+            return _this2.getCate(_this2.value.ca01, 1);
+          case 5:
+            if (!_this2.value.ca02) {
+              _context2.next = 8;
+              break;
+            }
+            _context2.next = 8;
+            return _this2.getCate(_this2.value.ca02, 2);
+          case 8:
+            if (!_this2.value.ca03) {
+              _context2.next = 11;
+              break;
+            }
+            _context2.next = 11;
+            return _this2.getCate(_this2.value.ca03, 3);
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -125,7 +160,7 @@ var render = function render() {
         });
         _vm.$set(_vm.value, "ca01", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }, function ($event) {
-        return _vm.getCate($event.target.value, 1);
+        _vm.getCate($event.target.value, 1), _vm.prevValueClear(1);
       }]
     }
   }, [_c("option", {
@@ -161,7 +196,7 @@ var render = function render() {
         });
         _vm.$set(_vm.value, "ca02", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }, function ($event) {
-        return _vm.getCate($event.target.value, 2);
+        _vm.getCate($event.target.value, 2), _vm.prevValueClear(2);
       }]
     }
   }, [_c("option", {
@@ -197,7 +232,7 @@ var render = function render() {
         });
         _vm.$set(_vm.value, "ca03", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }, function ($event) {
-        return _vm.getCate($event.target.value, 3);
+        _vm.getCate($event.target.value, 3), _vm.prevValueClear(3);
       }]
     }
   }, [_c("option", {
