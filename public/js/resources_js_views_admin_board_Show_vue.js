@@ -456,13 +456,13 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("hr"), _vm._v(" "), _vm.board.answer ? _c("div", {
     staticClass: "answer"
-  }, [_c("h6", [_vm._v("A")]), _vm._v(" "), _c("div", {
+  }, [_c("h6", [_c("b", [_vm._v("A.")]), _vm._v(" "), _c("i", [_vm._v(_vm._s(_vm.board.answer.bo_writer) + " "), _c("span", {
+    staticClass: "badge badge-dark"
+  }, [_vm._v(_vm._s(_vm.board.answer.created_at))])])]), _vm._v(" "), _c("div", {
     domProps: {
       innerHTML: _vm._s(_vm.nl2br(_vm.board.answer.bo_content))
     }
-  }), _vm._v(" "), _c("p", {
-    staticClass: "date"
-  }, [_vm._v(_vm._s(_vm._f("formatDate")(_vm.board.answer.created_at)))])]) : _vm._e()], 2), _vm._v(" "), _c("div", {
+  })]) : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-6"
@@ -709,7 +709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show { max-width:900px; margin:auto; border:1px solid #CCC; border-radius:.5em; padding:1em; margin-top:2em;\n}\n#bo_show h3 { margin:1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .bd_info .bo_type { font-size:1.2rem;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con .gd_img { text-align:center; margin:2em auto; display:block; padding:1em;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0;\n}\n#bo_show .con .answer .date { margin-top:4rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#bo_show { max-width:900px; margin:auto; border:1px solid #CCC; border-radius:.5em; padding:1em; margin-top:2em;\n}\n#bo_show h3 { margin:1rem 0;\n}\n#bo_show .bd_info { line-height:1.4rem;\n}\n#bo_show .bd_info li { margin-right:1.5rem;\n}\n#bo_show .bd_info .add_file { margin-left:24px;\n}\n#bo_show .bd_info .add_file i { margin:0 3px 0 -24px;\n}\n#bo_show .bd_info .add_file .piece { color:#FFF; background-color:#888; margin-right:1rem; letter-spacing:-1px; border:1px dashed #CCC; border-radius:0.3rem; padding:0.1rem 0.3rem; cursor:pointer;\n}\n#bo_show .bd_info .bo_type { font-size:1.2rem;\n}\n#bo_show .con { margin-bottom:3rem; line-height:1.5rem;\n}\n#bo_show .con .gd_img { text-align:center; margin:2em auto; display:block; padding:1em;\n}\n#bo_show .con img { max-width: 100%;\n}\n#bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem;\n}\n#bo_show .con .answer h6 { margin:1.5rem 0;\n}\n#bo_show .con .answer h6 b { color:#fa931d; font-size:1.2rem;\n}\n#bo_show .con .answer h6 i { color:#888;\n}\n#bo_show .con .answer h6 i span { font-size:1rem; background-color: #888; margin-left:.8rem;\n}\n#bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}\n#bo_show .con table tr,\r\n#bo_show .con table th, \r\n#bo_show .con table td {padding:0px;}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -38,11 +38,9 @@
 
         <hr />
         <div v-if="board.answer" class="answer">
-            <h6>A</h6>
+            <h6><b>A.</b> <i>{{board.answer.bo_writer}} <span class="badge badge-dark">{{board.answer.created_at}}</span></i></h6>
             <div v-html="nl2br(board.answer.bo_content)" />
-            <p class="date">{{board.answer.created_at | formatDate}}</p>
         </div>
-        
     </div>
 
     <div class="row">
@@ -149,8 +147,10 @@ export default {
 
 #bo_show .con img { max-width: 100%; }
 #bo_show .con .answer { background:#eceaeb; border-radius:10px; margin-top:1rem; padding:1rem 2.5rem; }
-#bo_show .con .answer h6{ color:#fa931d; font-size:1.2rem; font-weight:700; margin:1.5rem 0; }
-#bo_show .con .answer .date { margin-top:4rem; }
+#bo_show .con .answer h6 { margin:1.5rem 0; }
+#bo_show .con .answer h6 b { color:#fa931d; font-size:1.2rem; }
+#bo_show .con .answer h6 i { color:#888; }
+#bo_show .con .answer h6 i span { font-size:1rem; background-color: #888; margin-left:.8rem; }
 
 #bo_show .con table {padding:0; border-spacing:0px; border:0; border-collapse:collapse;}
 #bo_show .con table tr,
