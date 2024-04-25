@@ -24,6 +24,7 @@
                         <b-button v-if="!bo.answer" variant="warning" :to="{name: `adm_board_answer`, params: { bo_cd:bo_cd, bo_id:bo.bo_id }}">
                             <b-icon-headset /> 답변
                         </b-button>
+                        <template v-else>{{ bo.answer.bo_writer }}</template>
                     </b-col>
                     
                     <b-col col lg="1">{{bo.created_at | formatDate}}</b-col>

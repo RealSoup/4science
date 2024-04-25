@@ -165,7 +165,7 @@ var render = function render() {
           }
         }
       }
-    }, [_c("b-icon-headset"), _vm._v(" 답변\n                    ")], 1) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c("b-col", {
+    }, [_c("b-icon-headset"), _vm._v(" 답변\n                    ")], 1) : [_vm._v(_vm._s(bo.answer.bo_writer))]], 2) : _vm._e(), _vm._v(" "), _c("b-col", {
       attrs: {
         col: "",
         lg: "1"
