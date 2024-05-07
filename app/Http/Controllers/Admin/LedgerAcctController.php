@@ -81,8 +81,8 @@ class LedgerAcctController extends Controller {
                 ]);
             }
         }
-        if ($lga_id)    return response()->json(["msg"=>"Success"], 200);
-        else            return response()->json(["msg"=>"Fail"], 500);
+        if ($lga_id)    return response()->json(["message"=>"Success"], 200);
+        else            return response()->json(["message"=>"Fail"], 500);
     }
 
     public function update(Request $req, $lga_id) {
@@ -144,15 +144,15 @@ class LedgerAcctController extends Controller {
             $rst = DB::table('ledger_acct')->updateOrInsert( [ 'lga_id' => $req->filled('lga_id') ? $req->lga_id : 0], $req_data );
         }        
         
-        if ($rst)   return response()->json(["msg"=>"Success"], 200);
-        else        return response()->json(["msg"=>"Fail"], 500);
+        if ($rst)   return response()->json(["message"=>"Success"], 200);
+        else        return response()->json(["message"=>"Fail"], 500);
     }
 
     public function destroy(Request $req, $lga_id) {
         // $rst = LedgerAcct::destroy($lga_id);
         DB::table('la_ledger_acct')->where('lga_id', $lga_id)->update(['lga_pay_type' => 'CXL']);
         if ($rst) return response()->json(["message"=>'success'], 200);
-        else      return response()->json(["msg"=>"Fail"], 500);
+        else      return response()->json(["message"=>"Fail"], 500);
     }
 
 }

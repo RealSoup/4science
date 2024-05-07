@@ -652,7 +652,7 @@ export default {
                     });
                 }
                 const res = await ax.post(`/api/admin/shop/order/${this.$route.params.od_id}`, this.od);
-                if (res && res.status === 200 && res.data.msg === 'success') {
+                if (res && res.status === 200 && res.data.message === 'success') {
                     if (type == 'od_mng') {
                         Notify.toast('success', '담당 배정 완료');
                         if (mode == 'other') {
@@ -750,9 +750,9 @@ export default {
                 this.od.data_type="ORD";
                 const res = await ax.post(`/api/admin/ledger`, this.od);
                 if (res && res.status === 200) {
-                    if ( res.data.msg == 'Success' )
+                    if ( res.data.message == 'Success' )
                         this.$router.push({ name: 'adm_ledger' })
-                    else if ( res.data.msg == 'Existed' )
+                    else if ( res.data.message == 'Existed' )
                         Notify.modal('이미 등록된 주문입니다.', 'warning');
                 } else
                     Notify.toast('warning', '기록 실패');

@@ -178,7 +178,7 @@ class BoardController extends Controller {
         }
         if (isset($req->fi_id))
             $this->fiKeySet($req->fi_id, $bo_id);  //  업로드된 파일 게시판 키 입력
-        return response()->json(["msg"=>"success", 'bo_id'=>$bo_id], 200);
+        return response()->json(["message"=>"success", 'bo_id'=>$bo_id], 200);
 	   	// return redirect($redirect);
     }
 
@@ -243,7 +243,7 @@ class BoardController extends Controller {
         if ($req->filled('fi_id'))
             $this->fiKeySet($req->fi_id, $bo_id);  //  업로드된 파일 게시판 키 입력
 
-        return response()->json(["msg"=>"success", 'bo_id'=>$bo_id], 200);
+        return response()->json(["message"=>"success", 'bo_id'=>$bo_id], 200);
     }
 
     public function destroy(Request $req, $bo_cd, $bo_id) {

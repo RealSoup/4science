@@ -334,9 +334,9 @@ class OrderController extends Controller {
                                     '수취 확인', 
                                     $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
             }
-            return response()->json(["msg"=>"success"], 200);
+            return response()->json(["message"=>"success"], 200);
         } else
-            return response()->json(["msg"=>"Fail"], 500);
+            return response()->json(["message"=>"Fail"], 500);
     }
 
     public function bought(Request $req) {
@@ -391,7 +391,7 @@ class OrderController extends Controller {
                 'pg_msg'      => $rst_toss->message
             ]);
 
-            return redirect("/shop/order/payCardFail?msg=".$rst_toss->message);
+            return redirect("/shop/order/payCardFail?message=".$rst_toss->message);
         } else {
             self::tossPgInsert($rst_toss);
             
@@ -475,7 +475,7 @@ class OrderController extends Controller {
     public function payReturnPsys(Request $req){
         if ($req->Psys_resultcode != "0000") {
             $msg = implode(" ", $req->all());
-            return redirect("/shop/order/payCardFail?msg=".$msg);
+            return redirect("/shop/order/payCardFail?message=".$msg);
         } else {
             $pgdb_rst = OrderPg::insert([
                 'pg_od_id'    => $req->Psys_shopingmall_order_no,

@@ -94,25 +94,24 @@ instance.interceptors.response.use(function (response) {
             }
         }
         return false;
-    } else if (error.response.status === 500) {        
-        if ( error.response.data.message.search('Address in mailbox given') !== -1 ) {
-            Notify.modal('이메일 주소를 확인하세요', 'danger');
-        } else {
-            Notify.modal(error.response.data.message, 'danger');
-            if ( error.response.data.message && 
-                ( 
-                    error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 
+    } else if (error.response.status === 500) {
+        if (error.response.data.message) {
+            if (        error.response.data.message.search('Address in mailbox given') !== -1 ) { Notify.modal('이메일 주소를 확인하세요.', 'danger');
+            } else if ( error.response.data.message.search('working_index') !== -1 )            { Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
+            } else {
+                Notify.modal(error.response.data.message, 'danger');
+                if (error.response.data.message.search('견적가 상품이 있습니다.') !== -1 || 
                     error.response.data.message.search('3만원 미만의 주문은 하실 수 없습니다.') !== -1 ||
                     error.response.data.message.search('필수 옵션과 같이 구매하세요') !== -1 ||
                     error.response.data.message.search('상품이 없습니다.') !== -1 ||
                     error.response.data.message.search('판매중지 상품이 있습니다.') !== -1 ||
                     error.response.data.message.search('비활성 상품이 있습니다.') !== -1 ||
                     error.response.data.message.search('재고 부족 상품이 있습니다.') !== -1
-                )
-            ) {
-                router.go(-1);
+                ) { router.go(-1); }
             }
         }
+
+        
 
         
         return false;

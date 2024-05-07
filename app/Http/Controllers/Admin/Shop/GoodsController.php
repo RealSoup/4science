@@ -108,7 +108,7 @@ class GoodsController extends Controller {
     public function store(SaveGoodsRequest $req) {
         //  검색엔진 가중중인지 체크
         if(Redis::get('is_working_index') == 'yes') {
-            return response()->json(["msg"=>"working_index"], 500);
+            return response()->json(["message"=>"working_index"], 500);
             exit;
         }
 
@@ -230,7 +230,7 @@ class GoodsController extends Controller {
         if ($rst)
             return response()->json($goods->gd_id, 200);
         else
-            return response()->json(["msg"=>"Fail"], 500);
+            return response()->json(["message"=>"Fail"], 500);
     }
 
     public function exeIndex(){
@@ -242,12 +242,12 @@ class GoodsController extends Controller {
                 exec(env('SPHINX_INDEXER'), $output);
                 // sleep(25);
                 Redis::set('is_working_index', 'no');
-                return response()->json(["msg"=>"complete_working_index"], 200);
+                return response()->json(["message"=>"complete_working_index"], 200);
             } elseif(Redis::get('is_working_index') == 'yes') {
                 // Redis::set('is_working_index', 'no');
-                return response()->json(["msg"=>"working_index"], 200);
+                return response()->json(["message"=>"working_index"], 200);
             } else {
-                return response()->json(["msg"=>"Unknown error"], 200);
+                return response()->json(["message"=>"Unknown error"], 200);
             }
         }
     }
@@ -385,7 +385,7 @@ class GoodsController extends Controller {
         if ($gd_rst)
             return response()->json($gd_id, 200);
         else
-            return response()->json(["msg"=>"Fail"], 500);
+            return response()->json(["message"=>"Fail"], 500);
     }
 
     public function fileUpload(Request $req) {

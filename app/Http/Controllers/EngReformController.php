@@ -68,6 +68,6 @@ class EngReformController extends Controller {
         }
 
         
-        return response()->json(["msg"=>"success", 'er_id'=>$er_id], 200);
+        return response()->json(["message"=>"success", 'er_id'=>$er_id], 200);
     }
 }

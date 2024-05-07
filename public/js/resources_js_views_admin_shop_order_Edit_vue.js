@@ -228,7 +228,7 @@ var dt = new Date();
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/order/".concat(_this2.$route.params.od_id), _this2.od);
             case 6:
               res = _context2.sent;
-              if (res && res.status === 200 && res.data.msg === 'success') {
+              if (res && res.status === 200 && res.data.message === 'success') {
                 if (type == 'od_mng') {
                   Notify.toast('success', '담당 배정 완료');
                   if (mode == 'other') {
@@ -436,9 +436,9 @@ var dt = new Date();
             case 4:
               res = _context9.sent;
               if (res && res.status === 200) {
-                if (res.data.msg == 'Success') _this9.$router.push({
+                if (res.data.message == 'Success') _this9.$router.push({
                   name: 'adm_ledger'
-                });else if (res.data.msg == 'Existed') Notify.modal('이미 등록된 주문입니다.', 'warning');
+                });else if (res.data.message == 'Existed') Notify.modal('이미 등록된 주문입니다.', 'warning');
               } else Notify.toast('warning', '기록 실패');
               _context9.next = 12;
               break;

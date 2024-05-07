@@ -42,7 +42,7 @@ var render = function render() {
     staticClass: "alert-heading"
   }, [_vm._v("실패 결과")]), _vm._v(" "), _c("p", [_vm._v("결제에 실패하였습니다. 관리자에게 문의하거나 다른 카드를 이용해주시기 바랍니다.")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("p", {
     staticClass: "mb-0"
-  }, [_c("pre", [_vm._v("\r\n                " + _vm._s(_vm.$route.query.msg) + "\r\n                " + _vm._s(_vm.$route.query.code) + "\r\n                " + _vm._s(_vm.$route.query.message) + "\r\n            ")])])])]);
+  }, [_c("pre", [_vm._v("\r\n                " + _vm._s(_vm.$route.query.message) + "\r\n                " + _vm._s(_vm.$route.query.code) + "\r\n                " + _vm._s(_vm.$route.query.message) + "\r\n            ")])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

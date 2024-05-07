@@ -440,9 +440,9 @@ class OrderController extends Controller {
 		
 	   	
 		if ($od_rst)
-            return response()->json(["msg"=>"success"], 200);
+            return response()->json(["message"=>"success"], 200);
         else
-            return response()->json(["msg"=>"Fail"], 500);
+            return response()->json(["message"=>"Fail"], 500);
 		/*
 		$od = Order::find($od_id);
 		$msg_type = 'success_msg';

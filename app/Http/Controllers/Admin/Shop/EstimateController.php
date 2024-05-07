@@ -543,7 +543,7 @@ class EstimateController extends Controller {
             $rst_data = "success";
             $rst_code = 200;
         } else {
-            $rst_data = ["msg"=>"Fail"];
+            $rst_data = ["message"=>"Fail"];
             $rst_code = 500;
         }
         return response()->json($rst_data, $rst_code);

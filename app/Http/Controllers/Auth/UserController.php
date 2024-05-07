@@ -101,7 +101,7 @@ class UserController extends Controller {
  
         $rst = User::destroy($id);
         if ($rst) return response()->json(["message"=>'success'], 200);
-        else      return response()->json(["msg"=>"Fail"], 500);
+        else      return response()->json(["message"=>"Fail"], 500);
 
         // foreach (DB::table('la_shop_order')->where('created_id', $id)->get() as $od) {
         //     DB::table('la_shop_order_extra_info')->where('oex_od_id', $od->od_id)->delete();

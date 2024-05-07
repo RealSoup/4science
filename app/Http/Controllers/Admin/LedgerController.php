@@ -245,12 +245,12 @@ class LedgerController extends Controller {
             ]);
             DB::table('shop_order')->where('od_id', $req->od_id)->update(['od_has_ledger' => 'Y']);
         } else 
-            return response()->json(["msg"=>"Existed"], 200);
+            return response()->json(["message"=>"Existed"], 200);
        
         if ($rst)
-            return response()->json(["msg"=>"Success"], 200);
+            return response()->json(["message"=>"Success"], 200);
         else
-            return response()->json(["msg"=>"Fail"], 500);
+            return response()->json(["message"=>"Fail"], 500);
     }
 
     public function update(Request $req, $lg_id) {
@@ -313,8 +313,8 @@ class LedgerController extends Controller {
         }
         
         
-        if ($rst)   return response()->json(["msg"=>"Success"], 200);
-        else        return response()->json(["msg"=>"Fail"], 500);
+        if ($rst)   return response()->json(["message"=>"Success"], 200);
+        else        return response()->json(["message"=>"Fail"], 500);
     }
 
     public function updateColumn(Request $req) {
@@ -363,6 +363,6 @@ class LedgerController extends Controller {
         }
         return response()->json(["message"=>'success'], 200);
         // if ($rst) return response()->json(["message"=>'success'], 200);
-        // else      return response()->json(["msg"=>"Fail"], 500);
+        // else      return response()->json(["message"=>"Fail"], 500);
     }
 }

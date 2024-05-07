@@ -120,6 +120,7 @@ export default {
 .row .col:nth-child(5) .badge { width:3.8rem; padding:.4rem 0; }
 .body .col:nth-child(2) { text-align:left; cursor:pointer; padding-left:2%; }
 .body .col .eq_name { line-height:1rem; }
+.body .col .eq_name .badgetag { line-height: 1.5; }
 .er_box { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;}
 .er_box span { text-align:center; }
 .er_box span:nth-child(3n+1) { flex:0 0 30%; max-width:30%; }

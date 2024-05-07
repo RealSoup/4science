@@ -211,7 +211,7 @@ export default {
                 }
                 const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, address: this.address});
 
-                if (res && res.status === 200 && res.data.msg == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })
+                if (res && res.status === 200 && res.data.message == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);

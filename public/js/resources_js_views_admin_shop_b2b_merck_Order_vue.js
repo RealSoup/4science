@@ -209,7 +209,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
             case 44:
               res = _context2.sent;
-              if (res && res.status === 200 && res.data.msg == 'success') _this2.$router.push({
+              if (res && res.status === 200 && res.data.message == 'success') _this2.$router.push({
                 name: 'adm_b2b_merck_order_result'
               });
               _context2.next = 52;

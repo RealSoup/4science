@@ -9,7 +9,7 @@
         <hr>
         <p class="mb-0">
             <pre>
-                {{$route.query.msg}}
+                {{$route.query.message}}
                 {{$route.query.code}}
                 {{$route.query.message}}
             </pre>

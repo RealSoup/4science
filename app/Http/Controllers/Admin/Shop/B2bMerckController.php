@@ -272,9 +272,9 @@ class B2bMerckController extends Controller {
 			var_dump($result);
 		} else {			
 			if ( DB::table('shop_b2b_merck')->where('bm_id', $bm_id)->update(['bm_data' => $XmlData, 'bm_result' => $result]) )
-				return response()->json(["msg"=>'success'], 200);
+				return response()->json(["message"=>'success'], 200);
 			else
-				return response()->json(["msg"=>"Fail"], 500);
+				return response()->json(["message"=>"Fail"], 500);
 		}
     }
 
@@ -412,9 +412,9 @@ exit; */
 			echo "ERR :: ";
 		} else {
 			if ( DB::table('shop_b2b_merck_stock')->insertGetId([ 'bms_data' => $result ]) )
-				return response()->json(["msg"=>'success'], 200);
+				return response()->json(["message"=>'success'], 200);
 			else
-				return response()->json(["msg"=>"Fail"], 500);
+				return response()->json(["message"=>"Fail"], 500);
 		}
 /* 		$ch = curl_init(); // initialize curl handle
 		curl_setopt($ch, CURLOPT_VERBOSE, 1); // set url to post to
@@ -458,6 +458,6 @@ exit; */
      */
     public function listPull (int $odm_id) {
 		DB::table('shop_b2b_merck_model')->insert([ 'bmm_odm_id' => $odm_id ]);
-		return response()->json(["msg"=>'success'], 200);
+		return response()->json(["message"=>'success'], 200);
 	}	
 }

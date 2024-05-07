@@ -190,9 +190,9 @@ export default {
             if (res && res.status === 200) {
                 this.is_indexing = false;
                 
-                if (res.data.msg == 'complete_working_index'){
+                if (res.data.message == 'complete_working_index'){
                     Notify.modal('검색어 등록이 끝났습니다.', 'success');
-                } else if (res.data.msg == 'working_index'){
+                } else if (res.data.message == 'working_index'){
                     Notify.modal('다른 유저가 검색어를 등록중입니다.', 'danger');
                 }
             }
