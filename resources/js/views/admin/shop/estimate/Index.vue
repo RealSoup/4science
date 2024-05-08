@@ -84,7 +84,7 @@
                     <b-form-input v-model="sch_frm.keyword" placeholder="검색어를 입력하세요" @keyup.enter="routerPush(1)" />
 
                     <b-input-group-append>
-                        <b-button @click="routerPush(1)"><b-icon-search /></b-button>
+                        <b-button @click="routerPush(1)"><b-icon-search></b-icon-search></b-button>
                     </b-input-group-append>
                 </b-input-group>
             </b-col>
