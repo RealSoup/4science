@@ -17,8 +17,8 @@
     <b-row class="body list" v-for="row in list" :key="row.eq_id">
         <b-col>{{row.eq_id}}.</b-col>
         <b-col @click="exeWinPop(`/admin/shop/estimate/req/${row.eq_id}`)" class="eq_tit">
-            <b v-if="row.eq_title" v-html="row.eq_title" />
-            <sub-string v-else v-model="row.eq_content" :width="650" />
+            <b v-if="row.eq_title" v-html="row.eq_title"></b>
+            <sub-string v-else v-model="row.eq_content" :width="650"></sub-string>
 
             <span class="badgetag yellow" v-b-tooltip="'임의견적'" v-if="row.eq_type=='TEMP'">임</span>
             <span class="badgetag plum" v-b-tooltip="'재견적요청'" v-else-if="row.eq_type=='REREQ'">재</span>
@@ -27,7 +27,7 @@
         <b-col>
             <div class="eq_name">
                 <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
-                <sub-string v-model="row.eq_name" :width="120" />
+                <sub-string v-model="row.eq_name" :width="120"></sub-string>
                 <br class="d-none d-lg-block" />
                 <b-badge v-if="row.user && row.user.mng" class="orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</b-badge>
             </div>

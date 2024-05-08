@@ -86,10 +86,10 @@
     <section class="bottom">
         <article class="super">
             <template v-if="user.level == 29">
-                <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 검색어 재구성'" v-if="!is_indexing">
+                <b-button class="plum sm" @click="exeIndex" v-b-tooltip="'검색엔진 재구성'" v-if="!is_indexing">
                     <b-icon-arrow-clockwise></b-icon-arrow-clockwise>
                 </b-button>
-                <b-button class="gray sm" v-else>검색엔진 검색어 재구성 중~~~!!!</b-button>
+                <b-button class="gray sm" v-else>검색엔진 재구성 중~~~!!!</b-button>
             </template>
         </article>
 
