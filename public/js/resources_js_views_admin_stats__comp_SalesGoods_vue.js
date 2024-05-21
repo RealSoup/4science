@@ -120,8 +120,8 @@ var year = new Date().getFullYear();
                 };
                 _this.tableData__all_ea = fast_copy__WEBPACK_IMPORTED_MODULE_2___default()(res.data);
                 _this.tableData__all_ea.sort(function (a, b) {
-                  if (Number(a.all_ea) > Number(b.all_ea)) return 1;
-                  if (Number(a.all_ea) < Number(b.all_ea)) return -1;
+                  if (Number(a.all_ea) < Number(b.all_ea)) return 1;
+                  if (Number(a.all_ea) > Number(b.all_ea)) return -1;
                   if (Number(a.all_ea) === Number(b.all_ea)) return 0;
                 });
                 _this.graphData__all_ea = {
@@ -140,8 +140,8 @@ var year = new Date().getFullYear();
                 };
                 _this.tableData__all_order = fast_copy__WEBPACK_IMPORTED_MODULE_2___default()(res.data);
                 _this.tableData__all_order.sort(function (a, b) {
-                  if (Number(a.all_order) > Number(b.all_order)) return 1;
-                  if (Number(a.all_order) < Number(b.all_order)) return -1;
+                  if (Number(a.all_order) < Number(b.all_order)) return 1;
+                  if (Number(a.all_order) > Number(b.all_order)) return -1;
                   if (Number(a.all_order) === Number(b.all_order)) return 0;
                 });
                 _this.graphData__all_order = {
@@ -198,6 +198,7 @@ var render = function render() {
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
       staticClass: "has_link",
       attrs: {
+        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {
@@ -220,6 +221,7 @@ var render = function render() {
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
       staticClass: "has_link",
       attrs: {
+        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {
@@ -245,6 +247,7 @@ var render = function render() {
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
       staticClass: "has_link",
       attrs: {
+        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {

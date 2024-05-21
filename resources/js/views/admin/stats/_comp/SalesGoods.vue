@@ -126,8 +126,8 @@ export default {
 
                 this.tableData__all_ea = copy(res.data);
                 this.tableData__all_ea.sort((a, b) => {
-                    if(Number(a.all_ea) > Number(b.all_ea)) return 1;
-                    if(Number(a.all_ea) < Number(b.all_ea)) return -1;
+                    if(Number(a.all_ea) < Number(b.all_ea)) return 1;
+                    if(Number(a.all_ea) > Number(b.all_ea)) return -1;
                     if(Number(a.all_ea) === Number(b.all_ea)) return 0;
                 });
                 this.graphData__all_ea = {
@@ -145,8 +145,8 @@ export default {
 
                 this.tableData__all_order = copy(res.data);
                 this.tableData__all_order.sort((a, b) => {
-                    if(Number(a.all_order) > Number(b.all_order)) return 1;
-                    if(Number(a.all_order) < Number(b.all_order)) return -1;
+                    if(Number(a.all_order) < Number(b.all_order)) return 1;
+                    if(Number(a.all_order) > Number(b.all_order)) return -1;
                     if(Number(a.all_order) === Number(b.all_order)) return 0;
                 });
                 this.graphData__all_order = {
