@@ -72,7 +72,9 @@ class StatsController extends Controller {
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
             ->where('odm_gm_catno', '<>', '')
+            ->where('odm_gm_catno', '<>', '-')
             ->where('odm_gm_code', '<>', '')
+            ->where('odm_gm_code', '<>', '-')
             ->groupBy('odm_gm_code')
             ->orderBy('all_price', 'desc');
         if ($req->filled('month')) {
