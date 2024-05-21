@@ -2,7 +2,7 @@
 <div>
 
 
-<chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete" />
+<chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete"></chart-order>
 
 <table>
     <tr><th>순위</th><th>이름</th><th>금액</th></tr>

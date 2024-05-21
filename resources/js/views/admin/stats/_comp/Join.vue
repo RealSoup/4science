@@ -1,5 +1,5 @@
 <template>
-    <chart-join ref="chartjoin" :chart-data="chartData" :options="options" @mountComplete="subMountComplete" />
+    <chart-join ref="chartjoin" :chart-data="chartData" :options="options" @mountComplete="subMountComplete"></chart-join>
 </template>
 
 <script>

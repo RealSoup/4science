@@ -2,7 +2,7 @@
 <div>  
 
     <h5>매출순</h5>
-    <chart-order ref="chartorder" :chart-data="graphData__all_price" :options="options" @mountComplete="subMountComplete"></chart-order>
+    <chart-order ref="chartorder" :chart-data="graphData__all_price" :options="options"></chart-order>
     <table>
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_price" :key="i">                
@@ -38,7 +38,7 @@
 
 
     <h5>판매 횟수 순</h5>
-    <chart-order ref="chartorder" :chart-data="graphData__all_order" :options="options"></chart-order>
+    <chart-order ref="chartorder" :chart-data="graphData__all_order" :options="options" @mountComplete="subMountComplete"></chart-order>
     <table>
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_order" :key="i">                

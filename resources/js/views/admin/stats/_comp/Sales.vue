@@ -1,5 +1,5 @@
 <template>
-    <chart-order ref="chartorder" :chart-data="chartData" :options="options" @mountComplete="subMountComplete" />
+    <chart-order ref="chartorder" :chart-data="chartData" :options="options" @mountComplete="subMountComplete"></chart-order>
 </template>
 
 <script>

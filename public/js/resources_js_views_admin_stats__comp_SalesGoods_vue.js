@@ -191,9 +191,6 @@ var render = function render() {
     attrs: {
       "chart-data": _vm.graphData__all_price,
       options: _vm.options
-    },
-    on: {
-      mountComplete: _vm.subMountComplete
     }
   }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData__all_price, function (row, i) {
     return _c("tr", {
@@ -214,6 +211,9 @@ var render = function render() {
     attrs: {
       "chart-data": _vm.graphData__all_order,
       options: _vm.options
+    },
+    on: {
+      mountComplete: _vm.subMountComplete
     }
   }), _vm._v(" "), _c("table", [_vm._m(2), _vm._v(" "), _vm._l(_vm.tableData__all_order, function (row, i) {
     return _c("tr", {
