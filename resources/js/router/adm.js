@@ -153,13 +153,9 @@ export default [
             
 
             //  통계
-            {   path: 'stats/join',
-                name: 'adm_stats_join',
-                component:() => import('@/views/admin/stats/IndexJoin'),
-            }, {
-                path: 'stats/order',
-                name: 'adm_stats_order',
-                component:() => import('@/views/admin/stats/IndexOrder'),
+            {   path: 'stats/:stats_type',
+                name: 'adm_stats',
+                component:() => import('@/views/admin/stats/Index'),
             },
 
             //  영업장부

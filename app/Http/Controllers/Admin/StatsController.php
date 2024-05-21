@@ -65,4 +65,59 @@ class StatsController extends Controller {
         $data['price'] = $order->pluck('price');
         return response()->json($data);
     }
+
+    public function goods(Request $req) {
+        $order = DB::table('shop_order')
+            ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
+            ->select('odm_gm_name', 'odm_gm_catno')
+            ->selectRaw(" COUNT(*) all_order,
+                          SUM(la_shop_order_model.odm_ea) all_ea,
+                          SUM(od_all_price) all_price ")
+            ->where('od_step', '>=', '20')
+            ->where('od_step', '<', '60')
+            ->groupBy('odm_gm_code')
+            ->orderBy('all_price', 'desc');
+        if ($req->filled('month')) {
+            $order = $order
+                #->selectRaw(" date_format(created_at, '%m-%d') label ")
+                // ->selectRaw(" DAY(created_at) label ")
+                ->whereYear('created_at', $req->year)
+                ->whereMonth('created_at', $req->month);
+        } else if ($req->filled('year')) {
+            $order = $order
+                #->selectRaw(" date_format(created_at, '%Y-%m') label ")
+                ->whereYear('created_at', $req->year);
+        } else {
+            #$order = $order->selectRaw(" YEAR(created_at) label ");
+        }
+        $order = $order->limit(30)->get();
+        return response()->json($order);
+    }
+
+    public function userOrder(Request $req) {
+        $order = DB::table('shop_order')
+            ->join('users', 'shop_order.created_id', '=', 'users.id')
+            ->select('users.name')
+            ->selectRaw("SUM(od_all_price) price")
+            ->where('od_step', '>=', '20')
+            ->where('od_step', '<', '60')
+            ->groupBy('users.id')
+            ->orderBy('price', 'desc');
+        if ($req->filled('month')) {
+            $order = $order
+                #->selectRaw(" date_format(created_at, '%m-%d') label ")
+                // ->selectRaw(" DAY(created_at) label ")
+                ->whereYear('shop_order.created_at', $req->year)
+                ->whereMonth('shop_order.created_at', $req->month);
+        } else if ($req->filled('year')) {
+            $order = $order
+                #->selectRaw(" date_format(created_at, '%Y-%m') label ")
+                ->whereYear('shop_order.created_at', $req->year);
+        } else {
+            #$order = $order->selectRaw(" YEAR(created_at) label ");
+        }
+        $order = $order->limit(30)->get();
+        return response()->json($order);
+    }
+    
 }

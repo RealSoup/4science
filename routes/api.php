@@ -259,8 +259,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             
             //  통계
             Route::prefix('stats')->group(function () {
-                Route::GET('/user', 'Admin\StatsController@user');
-                Route::GET('/order', 'Admin\StatsController@order');
+                Route::GET('/user',     'Admin\StatsController@user');
+                Route::GET('/order',    'Admin\StatsController@order');
+                Route::GET('/goods',    'Admin\StatsController@goods');
+                Route::GET('/userOrder',    'Admin\StatsController@userOrder');
             });
         });
 

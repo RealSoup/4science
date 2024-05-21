@@ -148,15 +148,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("b-card", {
-    staticClass: "shadow",
-    attrs: {
-      title: "통계 - 매출"
-    }
-  }, [_c("b-container", [_c("b-row", [_c("b-col", {
-    attrs: {
-      cols: "4"
-    }
-  }, [_c("div", {
+    staticClass: "shadow p_wrap"
+  }, [_c("b-card-title", [_c("div", [_vm._v("통계 - 매출")]), _vm._v(" "), _c("div", {
     staticClass: "input-group"
   }, [_c("b-form-select", {
     model: {
@@ -205,7 +198,7 @@ var render = function render() {
     on: {
       click: _vm.index
     }
-  }, [_c("b-icon-search"), _vm._v(" 검색")], 1)], 1)], 1)])], 1)], 1), _vm._v(" "), _c("chart-order", {
+  }, [_c("b-icon-search"), _vm._v(" 검색")], 1)], 1)], 1)]), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
       "chart-data": _vm.chartData,

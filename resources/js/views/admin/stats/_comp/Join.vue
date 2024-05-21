@@ -1,28 +1,5 @@
 <template>
-    <b-card class="shadow" title="통계 - 가입자">
-        <b-container>
-            <b-row>
-                <b-col cols="4">
-                    <div class="input-group">
-                        <b-form-select v-model="frm.year">
-                            <b-form-select-option value="">◄ 전체 ►</b-form-select-option>
-                            <b-form-select-option v-for="(y, i) in year" :key="i" :value="y">{{y}} 년</b-form-select-option>
-                        </b-form-select>
-                        <b-form-select v-model="frm.month">
-                            <b-form-select-option value="">◄ 월 ►</b-form-select-option>
-                            <b-form-select-option v-for="(m, i) in month" :key="i" :value="m">{{m}} 월</b-form-select-option>
-                        </b-form-select>
-                        <div class="input-group-append">
-                            <b-button @click="index" variant="primary">
-                                <b-icon-search /> 검색
-                            </b-button>
-                        </div>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-container>
-        <chart-join ref="chartjoin" :chart-data="chartData" :options="options" @mountComplete="subMountComplete" />
-    </b-card>
+    <chart-join ref="chartjoin" :chart-data="chartData" :options="options" @mountComplete="subMountComplete" />
 </template>
 
 <script>
@@ -30,10 +7,11 @@ import ax from '@/api/http';
 // https://github.com/apertureless/vue-chartjs
 import ChartJoin from './ChartJoin'
 
-const year = new Date().getFullYear();
 export default {
-    name: 'admStatsJoin',
+    name: 'admStatsIndexJoin',
     components: { ChartJoin },
+    
+    props: [ 'selectedDate' ],
 
     data() {
         return {
@@ -47,30 +25,19 @@ export default {
                     data: [],
                 }]
             },
-            frm:{
-                year:year,
-                month:'',
-            },
             options:{
                 responsive: true, 
                 maintainAspectRatio: false
             }
         };
     },
-    computed : {
-        year () {
-            return Array.from({length: year - 1999}, (value, index) => Number(year) - index);
-        },
-        month () { 
-            return Array.from({length: 12}, (value, index) => 1 + index);
-        }
-    },
+    
     methods: {
         subMountComplete(){
             this.index();
         },
         async index() {
-            let res = await ax.get(`/api/admin/stats/user`, { params: this.frm});
+            let res = await ax.get(`/api/admin/stats/user`, { params: this.selectedDate});
             if (res && res.status === 200) {
                 this.gradient = this.$refs.chartjoin.$refs.canvas.getContext("2d").createLinearGradient(0, 0, 0, 450);
                 this.gradient2 = this.$refs.chartjoin.$refs.canvas.getContext("2d").createLinearGradient(0, 0, 0, 450);
@@ -122,10 +89,6 @@ export default {
                 }
             }
         }
-    },
-
-    mounted() {
-        // this.index()
     },
 };
 </script>

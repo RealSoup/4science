@@ -45,8 +45,10 @@
 
     <section>
         <p @click="toggleClass" :class="{active:$route.name.startsWith('adm_stats')}"><i>통계</i></p>
-        <b-link :class="{focus:$route.name.startsWith('adm_stats_join')}" :to="{name: 'adm_stats_join'}"><i>가입자</i></b-link>
-        <b-link :class="{focus:$route.name.startsWith('adm_stats_order')}" :to="{name: 'adm_stats_order'}"><i>매출</i></b-link>
+        <b-link :class="{focus:$route.params.stats_type == 'join'}" :to="{name: 'adm_stats', params: {stats_type: 'join'}}"><i>가입자</i></b-link>
+        <b-link :class="{focus:$route.params.stats_type == 'sales'}" :to="{name: 'adm_stats', params: {stats_type: 'sales'}}"><i>매출</i></b-link>
+        <b-link :class="{focus:$route.params.stats_type == 'sales_goods'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_goods'}}"><i>매출-상품</i></b-link>
+        <b-link :class="{focus:$route.params.stats_type == 'sales_user'}" :to="{name: 'adm_stats', params: {stats_type: 'sales_user'}}"><i>매출-유저</i></b-link>
     </section>
     <!-- <template v-if="user.id != 286">
         <b-nav-item-dropdown v-if="user.user_mng.um_group == 'acc'" text="매출장부">
