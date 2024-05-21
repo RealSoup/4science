@@ -7,7 +7,8 @@
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_price" :key="i">                
             <td>{{i+1}}</td>
-            <td>{{row.odm_gm_name}}</td>
+            <b-link v-if="row.odm_gd_id" class="has_link" :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+            <td v-else class="no_link">{{row.odm_gm_name}}</td>
             <td>{{row.odm_gm_catno}}</td>
             <td>{{row.all_price | comma}}</td>
             <td>{{row.all_ea| comma}}</td>
@@ -25,7 +26,8 @@
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_ea" :key="i">                
             <td>{{i+1}}</td>
-            <td>{{row.odm_gm_name}}</td>
+            <b-link v-if="row.odm_gd_id" class="has_link" :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+            <td v-else class="no_link">{{row.odm_gm_name}}</td>
             <td>{{row.odm_gm_catno}}</td>
             <td>{{row.all_price | comma}}</td>
             <td>{{row.all_ea| comma}}</td>
@@ -43,7 +45,8 @@
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_order" :key="i">                
             <td>{{i+1}}</td>
-            <td>{{row.odm_gm_name}}</td>
+            <b-link v-if="row.odm_gd_id" class="has_link" :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+            <td v-else class="no_link">{{row.odm_gm_name}}</td>
             <td>{{row.odm_gm_catno}}</td>
             <td>{{row.all_price | comma}}</td>
             <td>{{row.all_ea| comma}}</td>
@@ -163,12 +166,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.card .card-body table { width:100%; max-width:1300px; margin:1% auto 0 auto; }
-.card .card-body table tr th { background-color:#333; color:#fff; font-weight:bold; }
-.card .card-body table tr th,
-.card .card-body table tr td { text-align:center; border:1px solid #DDD; padding:.2% 0; }
-.card .card-body table tr td { padding:.2% 1.5%; }
+.card .card-body table { max-width:1300px; }
 .card .card-body table tr td:nth-of-type(1) { min-width:30px; padding:.2% 0; }
 .card .card-body table tr td:nth-of-type(2) { text-align:left; }
 .card .card-body table tr td:nth-of-type(4),

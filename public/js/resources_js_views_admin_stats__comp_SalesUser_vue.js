@@ -159,7 +159,20 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.id ? _c("b-link", {
+      staticClass: "has_link",
+      attrs: {
+        "router-tag": "td",
+        to: {
+          name: "adm_user_edit",
+          params: {
+            id: row.id
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(row.name))]) : _c("td", {
+      staticClass: "no_link"
+    }, [_vm._v(_vm._s(row.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])], 1);
   })], 2)], 1);
 };
 var staticRenderFns = [function () {
@@ -16395,7 +16408,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-c84d96d2] { margin:1rem; min-width:760px;\n}\n.card .card-body .card-title[data-v-c84d96d2] { font-weight:bold; display:flex;\n}\n.card .card-body .card-title div[data-v-c84d96d2]:first-child { margin-right:3%; line-height:1.5;\n}\n.card .card-body .card-title .input-group[data-v-c84d96d2] { flex:0 0 33%; max-width:33%;\n}\n.card .card-body hr[data-v-c84d96d2] { margin:3% 0;\n}\n.card .card-body table[data-v-c84d96d2] { width:100%; max-width:700px; margin:1% auto 0 auto;\n}\n.card .card-body table tr th[data-v-c84d96d2] { background-color:#333; color:#fff; font-weight:bold;\n}\n.card .card-body table tr th[data-v-c84d96d2],\r\n.card .card-body table tr td[data-v-c84d96d2] { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-c84d96d2] { padding:.2% 1.5%;\n}\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(2) { text-align:left;\n}\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(3) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(2) { text-align:left;\n}\n.card .card-body table tr td[data-v-c84d96d2]:nth-of-type(3) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

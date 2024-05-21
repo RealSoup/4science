@@ -1,5 +1,17 @@
 <template>
-    <chart-order ref="chartorder" :chart-data="chartData" :options="options" @mountComplete="subMountComplete"></chart-order>
+<div>
+
+    <chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete"></chart-order>
+    <table>
+        <tr><th>순위</th><th>이름</th><th>금액</th></tr>
+        <tr v-for="(row, i) in tableData" :key="i">                
+            <td>{{i+1}}</td>
+            <td>{{row.label}}</td>
+            <td>{{row.price | comma}}</td>
+        </tr>
+    </table>
+
+</div>
 </template>
 
 <script>
@@ -15,13 +27,8 @@ export default {
 
     data() {
         return {
-            chartData: {
-                labels: [],
-                datasets: [ {
-                    label: '',          
-                    data: [],
-                }]
-            },
+            tableData__all_order   :[],
+            graphData: { labels: [], datasets: [ { label: '', data: [], }] },
             options:{
                 responsive: true, 
                 maintainAspectRatio: false, 
@@ -55,11 +62,12 @@ export default {
         async index() {
             let res = await ax.get(`/api/admin/stats/order`, { params: this.selectedDate});
             if (res && res.status === 200) {
-                this.chartData = {
-                    labels: res.data.label,
+                this.tableData = res.data;
+                this.graphData = {
+                    labels: this.tableData.map(i => i['label']),
                     datasets: [ {
                         label: this.graphLabel,
-                        data: res.data.price,
+                        data: this.tableData.map(i => i['price']),
                         backgroundColor: "#ff638477",
                         borderColor: "#ff6384",
                         borderWidth: 2,

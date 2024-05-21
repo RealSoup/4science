@@ -1,18 +1,16 @@
 <template>
 <div>
 
-
 <chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete"></chart-order>
-
 <table>
     <tr><th>순위</th><th>이름</th><th>금액</th></tr>
     <tr v-for="(row, i) in tableData" :key="i">                
         <td>{{i+1}}</td>
-        <td>{{row.name}}</td>
+        <b-link v-if="row.id" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.name}}</b-link>
+        <td v-else class="no_link">{{row.name}}</td>
         <td>{{row.price | comma}}</td>
     </tr>
 </table>
-
 
 </div>
 </template>
@@ -95,16 +93,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.card { margin:1rem; min-width:760px; }
-.card .card-body .card-title { font-weight:bold; display:flex; }
-.card .card-body .card-title div:first-child { margin-right:3%; line-height:1.5; }
-.card .card-body .card-title .input-group { flex:0 0 33%; max-width:33%; }
-.card .card-body hr { margin:3% 0; }
-.card .card-body table { width:100%; max-width:700px; margin:1% auto 0 auto; }
-.card .card-body table tr th { background-color:#333; color:#fff; font-weight:bold; }
-.card .card-body table tr th,
-.card .card-body table tr td { text-align:center; border:1px solid #DDD; padding:.2% 0; }
-.card .card-body table tr td { padding:.2% 1.5%; }
 .card .card-body table tr td:nth-of-type(1) { min-width:30px; padding:.2% 0; }
 .card .card-body table tr td:nth-of-type(2) { text-align:left; }
 .card .card-body table tr td:nth-of-type(3) { text-align:right; }

@@ -28,7 +28,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['selectedDate', 'graphLabel'],
   data: function data() {
     return {
-      chartData: {
+      tableData__all_order: [],
+      graphData: {
         labels: [],
         datasets: [{
           label: '',
@@ -82,11 +83,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this.chartData = {
-                  labels: res.data.label,
+                _this.tableData = res.data;
+                _this.graphData = {
+                  labels: _this.tableData.map(function (i) {
+                    return i['label'];
+                  }),
                   datasets: [{
                     label: _this.graphLabel,
-                    data: res.data.price,
+                    data: _this.tableData.map(function (i) {
+                      return i['price'];
+                    }),
                     backgroundColor: "#ff638477",
                     borderColor: "#ff6384",
                     borderWidth: 2
@@ -120,18 +126,26 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("chart-order", {
+  return _c("div", [_c("chart-order", {
     ref: "chartorder",
     attrs: {
-      "chart-data": _vm.chartData,
+      "chart-data": _vm.graphData,
       options: _vm.options
     },
     on: {
       mountComplete: _vm.subMountComplete
     }
-  });
+  }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
+    return _c("tr", {
+      key: i
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.label))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])]);
+  })], 2)], 1);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("이름")]), _c("th", [_vm._v("금액")])]);
+}];
 render._withStripped = true;
 
 

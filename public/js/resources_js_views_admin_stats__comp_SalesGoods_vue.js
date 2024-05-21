@@ -195,7 +195,19 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData__all_price, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
+      staticClass: "has_link",
+      attrs: {
+        to: {
+          name: "adm_goods_edit",
+          params: {
+            gd_id: row.odm_gd_id
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+      staticClass: "no_link"
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
   })], 2), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h5", [_vm._v("수량순")]), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
@@ -205,7 +217,19 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(1), _vm._v(" "), _vm._l(_vm.tableData__all_ea, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
+      staticClass: "has_link",
+      attrs: {
+        to: {
+          name: "adm_goods_edit",
+          params: {
+            gd_id: row.odm_gd_id
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+      staticClass: "no_link"
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
   })], 2), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h5", [_vm._v("판매 횟수 순")]), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
@@ -218,7 +242,19 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(2), _vm._v(" "), _vm._l(_vm.tableData__all_order, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
+      staticClass: "has_link",
+      attrs: {
+        to: {
+          name: "adm_goods_edit",
+          params: {
+            gd_id: row.odm_gd_id
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+      staticClass: "no_link"
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
   })], 2)], 1);
 };
 var staticRenderFns = [function () {
@@ -16462,7 +16498,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card .card-body table[data-v-20d0b1ba] { width:100%; max-width:1300px; margin:1% auto 0 auto;\n}\n.card .card-body table tr th[data-v-20d0b1ba] { background-color:#333; color:#fff; font-weight:bold;\n}\n.card .card-body table tr th[data-v-20d0b1ba],\r\n.card .card-body table tr td[data-v-20d0b1ba] { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-20d0b1ba] { padding:.2% 1.5%;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(2) { text-align:left;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(4),\r\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(5),\r\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(6) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card .card-body table[data-v-20d0b1ba] { max-width:1300px;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(2) { text-align:left;\n}\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(4),\r\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(5),\r\n.card .card-body table tr td[data-v-20d0b1ba]:nth-of-type(6) { text-align:right;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

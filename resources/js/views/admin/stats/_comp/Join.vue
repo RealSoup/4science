@@ -92,8 +92,3 @@ export default {
     },
 };
 </script>
-
-<style lang="css" scoped>
-.card { margin:1rem; }
-.card .card-body .card-title { font-weight:bold; }
-</style>

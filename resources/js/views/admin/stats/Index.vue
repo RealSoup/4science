@@ -67,8 +67,16 @@ export default {
 
 <style scoped>
 .card { margin:1rem; min-width:760px; }
-.card .card-body .card-title { font-weight:bold; display:flex; }
-.card .card-body .card-title div:first-child { margin-right:3%; line-height:1.5; }
-.card .card-body .card-title .input-group { flex:0 0 33%; max-width:33%; }
-.card .card-body hr { margin:3% 0; }
+.card .card-body >>> .card-title { font-weight:bold; display:flex; }
+.card .card-body >>> .card-title div:first-child { margin-right:3%; line-height:1.5; }
+.card .card-body >>> .card-title .input-group { flex:0 0 33%; max-width:33%; }
+.card .card-body >>> hr { margin:3% 0; }
+.card .card-body >>> table { width:100%; max-width:700px; margin:1% auto 0 auto; }
+.card .card-body >>> table tr th { background-color:#333; color:#fff; font-weight:bold; }
+.card .card-body >>> table tr th,
+.card .card-body >>> table tr td { text-align:center; border:1px solid #DDD; padding:.2% 0; }
+.card .card-body >>> table tr td { padding:.2% 1.5%; }
+.card .card-body >>> table tr td.has_link { cursor:pointer; }
+.card .card-body >>> table tr td.no_link { cursor:not-allowed; }
+
 </style>

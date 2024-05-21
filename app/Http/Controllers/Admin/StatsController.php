@@ -59,17 +59,13 @@ class StatsController extends Controller {
             $order = $order->selectRaw(" YEAR(created_at) label ");
         }
         $order = $order->get();
-        // dd($order);
-        $data = array();
-        $data['label'] = $order->pluck('label');
-        $data['price'] = $order->pluck('price');
-        return response()->json($data);
+        return response()->json($order);
     }
 
     public function goods(Request $req) {
         $order = DB::table('shop_order')
             ->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
-            ->select('odm_gm_name', 'odm_gm_catno')
+            ->select('odm_gm_name', 'odm_gm_catno', 'odm_gd_id')
             ->selectRaw(" COUNT(*) all_order,
                           SUM(la_shop_order_model.odm_ea) all_ea,
                           SUM(od_all_price) all_price ")
@@ -97,7 +93,7 @@ class StatsController extends Controller {
     public function userOrder(Request $req) {
         $order = DB::table('shop_order')
             ->join('users', 'shop_order.created_id', '=', 'users.id')
-            ->select('users.name')
+            ->select('users.name', 'users.id')
             ->selectRaw("SUM(od_all_price) price")
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
