@@ -17,7 +17,7 @@
     </table>
 
 
-    <hr>
+    <hr />
 
 
     <h5>수량순</h5>
@@ -36,7 +36,7 @@
     </table>
 
 
-    <hr>
+    <hr />
 
 
     <h5>판매 횟수 순</h5>
@@ -45,7 +45,9 @@
         <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
         <tr v-for="(row, i) in tableData__all_order" :key="i">                
             <td>{{i+1}}</td>
-            <b-link v-if="row.odm_gd_id" class="has_link" :router-tag="'td'" :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+            <td v-if="row.odm_gd_id" class="has_link">
+                <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+            </td>
             <td v-else class="no_link">{{row.odm_gm_name}}</td>
             <td>{{row.odm_gm_catno}}</td>
             <td>{{row.all_price | comma}}</td>
