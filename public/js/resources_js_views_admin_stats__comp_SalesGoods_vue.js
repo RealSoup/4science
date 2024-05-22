@@ -104,6 +104,11 @@ var year = new Date().getFullYear();
               res = _context.sent;
               if (res && res.status === 200) {
                 _this.tableData__all_price = res.data;
+                _this.tableData__all_price.sort(function (a, b) {
+                  if (Number(a.all_price) < Number(b.all_price)) return 1;
+                  if (Number(a.all_price) > Number(b.all_price)) return -1;
+                  if (Number(a.all_price) === Number(b.all_price)) return 0;
+                });
                 _this.graphData__all_price = {
                   labels: _this.tableData__all_price.map(function (i) {
                     return i['odm_gm_name'];

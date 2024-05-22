@@ -111,6 +111,11 @@ export default {
             let res = await ax.get(`/api/admin/stats/goods`, { params: this.selectedDate});
             if (res && res.status === 200) {
                 this.tableData__all_price = res.data;
+                this.tableData__all_price.sort((a, b) => {
+                    if(Number(a.all_price) < Number(b.all_price)) return 1;
+                    if(Number(a.all_price) > Number(b.all_price)) return -1;
+                    if(Number(a.all_price) === Number(b.all_price)) return 0;
+                });
                 this.graphData__all_price = {
                     labels: this.tableData__all_price.map(i => i['odm_gm_name']),
                     datasets: [ {

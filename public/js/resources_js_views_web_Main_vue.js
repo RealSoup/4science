@@ -199,14 +199,6 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {
-      to: "/shop/listing/sale"
-    }
-  }, [_c("b-carousel-slide", {
-    attrs: {
-      "img-src": "/storage/event/2024/0103/slide.jpg"
-    }
-  })], 1), _vm._v(" "), _c("b-link", {
-    attrs: {
       to: "/shop/rental"
     }
   }, [_c("b-carousel-slide", {

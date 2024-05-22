@@ -75,8 +75,7 @@ class StatsController extends Controller {
             ->where('odm_gm_catno', '<>', '-')
             ->where('odm_gm_code', '<>', '')
             ->where('odm_gm_code', '<>', '-')
-            ->groupBy('odm_gm_code')
-            ->orderBy('all_price', 'desc');
+            ->groupBy('odm_gm_code');
         if ($req->filled('month')) {
             $order = $order
                 #->selectRaw(" date_format(created_at, '%m-%d') label ")
