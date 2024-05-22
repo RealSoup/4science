@@ -1,4 +1,5 @@
 <template>
+<div>
 <b-card class="shadow p_wrap">
     <b-card-title>
         <div>통계 - 
@@ -24,6 +25,7 @@
     </b-card-title>
     <component ref="state_comp" :is="choiceStats" :selected-date="selectedDate" :graph-label="graphLabel"></component>
 </b-card>
+</div>
 </template>
 
 <script>
