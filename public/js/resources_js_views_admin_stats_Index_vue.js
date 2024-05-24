@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("b-card", {
+  return _c("div", [_c("b-card", {
     staticClass: "shadow p_wrap"
   }, [_c("b-card-title", [_c("div", [_vm._v("통계 - \r\n            "), _vm.$route.params.stats_type == "join" ? [_vm._v("가입자")] : _vm.$route.params.stats_type == "sales" ? [_vm._v("매출")] : _vm.$route.params.stats_type == "sales_goods" ? [_vm._v("상품별 매출")] : _vm.$route.params.stats_type == "sales_user" ? [_vm._v("회원별 매출")] : _vm._e()], 2), _vm._v(" "), _c("div", {
     staticClass: "input-group"
@@ -159,7 +159,7 @@ var render = function render() {
       "selected-date": _vm.selectedDate,
       "graph-label": _vm.graphLabel
     }
-  })], 1);
+  })], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

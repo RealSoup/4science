@@ -200,10 +200,10 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData__all_price, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
-      staticClass: "has_link",
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("td", {
+      staticClass: "has_link"
+    }, [_c("b-link", {
       attrs: {
-        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {
@@ -211,9 +211,9 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+    }, [_vm._v(_vm._s(row.odm_gm_name))])], 1) : _c("td", {
       staticClass: "no_link"
-    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
   })], 2), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h5", [_vm._v("수량순")]), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
@@ -223,10 +223,10 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(1), _vm._v(" "), _vm._l(_vm.tableData__all_ea, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
-      staticClass: "has_link",
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("td", {
+      staticClass: "has_link"
+    }, [_c("b-link", {
       attrs: {
-        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {
@@ -234,9 +234,9 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+    }, [_vm._v(_vm._s(row.odm_gm_name))])], 1) : _c("td", {
       staticClass: "no_link"
-    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
   })], 2), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h5", [_vm._v("판매 횟수 순")]), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
@@ -249,10 +249,10 @@ var render = function render() {
   }), _vm._v(" "), _c("table", [_vm._m(2), _vm._v(" "), _vm._l(_vm.tableData__all_order, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("b-link", {
-      staticClass: "has_link",
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.odm_gd_id ? _c("td", {
+      staticClass: "has_link"
+    }, [_c("b-link", {
       attrs: {
-        "router-tag": "td",
         to: {
           name: "adm_goods_edit",
           params: {
@@ -260,9 +260,9 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.odm_gm_name))]) : _c("td", {
+    }, [_vm._v(_vm._s(row.odm_gm_name))])], 1) : _c("td", {
       staticClass: "no_link"
-    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])], 1);
+    }, [_vm._v(_vm._s(row.odm_gm_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(row.odm_gm_catno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_price)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_ea)))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.all_order)))])]);
   })], 2)], 1);
 };
 var staticRenderFns = [function () {
