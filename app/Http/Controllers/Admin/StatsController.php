@@ -69,8 +69,9 @@ class StatsController extends Controller {
                     ->where('odm_gm_catno', '<>', '')
                     ->where('odm_gm_catno', '<>', '-')
                     ->where('odm_gm_code', '<>', '')
-                    ->where('odm_gm_code', '<>', '-'); })
-                    ->whereNotNull('odm_id') 
+                    ->where('odm_gm_code', '<>', '-')
+                    ->whereNotNull('odm_id'); 
+            })
             ->select('odm_gm_name', 'odm_gm_catno', 'odm_gd_id')
             ->selectRaw(" COUNT(*) all_order,
                           SUM(la_shop_order_model.odm_ea) all_ea,
