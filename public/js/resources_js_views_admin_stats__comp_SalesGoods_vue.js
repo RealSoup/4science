@@ -103,12 +103,7 @@ var year = new Date().getFullYear();
             case 2:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this.tableData__all_price = res.data;
-                _this.tableData__all_price.sort(function (a, b) {
-                  if (Number(a.all_price) < Number(b.all_price)) return 1;
-                  if (Number(a.all_price) > Number(b.all_price)) return -1;
-                  if (Number(a.all_price) === Number(b.all_price)) return 0;
-                });
+                _this.tableData__all_price = res.data.by_allPrice;
                 _this.graphData__all_price = {
                   labels: _this.tableData__all_price.map(function (i) {
                     return i['odm_gm_name'];
@@ -123,12 +118,7 @@ var year = new Date().getFullYear();
                     borderWidth: 2
                   }]
                 };
-                _this.tableData__all_ea = fast_copy__WEBPACK_IMPORTED_MODULE_2___default()(res.data);
-                _this.tableData__all_ea.sort(function (a, b) {
-                  if (Number(a.all_ea) < Number(b.all_ea)) return 1;
-                  if (Number(a.all_ea) > Number(b.all_ea)) return -1;
-                  if (Number(a.all_ea) === Number(b.all_ea)) return 0;
-                });
+                _this.tableData__all_ea = res.data.by_allEa;
                 _this.graphData__all_ea = {
                   labels: _this.tableData__all_ea.map(function (i) {
                     return i['odm_gm_name'];
@@ -143,12 +133,7 @@ var year = new Date().getFullYear();
                     borderWidth: 2
                   }]
                 };
-                _this.tableData__all_order = fast_copy__WEBPACK_IMPORTED_MODULE_2___default()(res.data);
-                _this.tableData__all_order.sort(function (a, b) {
-                  if (Number(a.all_order) < Number(b.all_order)) return 1;
-                  if (Number(a.all_order) > Number(b.all_order)) return -1;
-                  if (Number(a.all_order) === Number(b.all_order)) return 0;
-                });
+                _this.tableData__all_order = res.data.by_allOrder;
                 _this.graphData__all_order = {
                   labels: _this.tableData__all_order.map(function (i) {
                     return i['odm_gm_name'];

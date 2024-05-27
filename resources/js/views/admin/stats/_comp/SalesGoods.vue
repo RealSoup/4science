@@ -116,12 +116,7 @@ export default {
         async index() {
             let res = await ax.get(`/api/admin/stats/goods`, { params: this.selectedDate});
             if (res && res.status === 200) {
-                this.tableData__all_price = res.data;
-                this.tableData__all_price.sort((a, b) => {
-                    if(Number(a.all_price) < Number(b.all_price)) return 1;
-                    if(Number(a.all_price) > Number(b.all_price)) return -1;
-                    if(Number(a.all_price) === Number(b.all_price)) return 0;
-                });
+                this.tableData__all_price = res.data.by_allPrice;
                 this.graphData__all_price = {
                     labels: this.tableData__all_price.map(i => i['odm_gm_name']),
                     datasets: [ {
@@ -135,12 +130,7 @@ export default {
 
 
 
-                this.tableData__all_ea = copy(res.data);
-                this.tableData__all_ea.sort((a, b) => {
-                    if(Number(a.all_ea) < Number(b.all_ea)) return 1;
-                    if(Number(a.all_ea) > Number(b.all_ea)) return -1;
-                    if(Number(a.all_ea) === Number(b.all_ea)) return 0;
-                });
+                this.tableData__all_ea = res.data.by_allEa;
                 this.graphData__all_ea = {
                     labels: this.tableData__all_ea.map(i => i['odm_gm_name']),
                     datasets: [ {
@@ -154,12 +144,7 @@ export default {
 
                 
 
-                this.tableData__all_order = copy(res.data);
-                this.tableData__all_order.sort((a, b) => {
-                    if(Number(a.all_order) < Number(b.all_order)) return 1;
-                    if(Number(a.all_order) > Number(b.all_order)) return -1;
-                    if(Number(a.all_order) === Number(b.all_order)) return 0;
-                });
+                this.tableData__all_order = res.data.by_allOrder;
                 this.graphData__all_order = {
                     labels: this.tableData__all_order.map(i => i['odm_gm_name']),
                     datasets: [ {
