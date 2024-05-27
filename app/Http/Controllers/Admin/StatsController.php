@@ -64,21 +64,16 @@ class StatsController extends Controller {
 
     public function goods(Request $req) {
         $order = DB::table('shop_order')
-            ->leftJoin('shop_order_model', function ($join) {
-                $join->on('shop_order.od_id', '=', 'shop_order_model.odm_od_id')
-                    ->where('odm_gm_catno', '<>', '')
-                    ->where('odm_gm_catno', '<>', '-')
-                    ->where('odm_gm_code', '<>', '')
-                    ->where('odm_gm_code', '<>', '-')
-                    ->whereNotNull('odm_id'); 
-            })
+            ->leftJoin('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
             ->select('odm_gm_name', 'odm_gm_catno', 'odm_gd_id')
             ->selectRaw(" COUNT(*) all_order,
                           SUM(la_shop_order_model.odm_ea) all_ea,
                           SUM(la_shop_order_model.odm_price*la_shop_order_model.odm_ea) all_price ")
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
-            ->groupBy('odm_gm_code');
+            ->groupBy('odm_gm_code')
+            ->havingRaw("odm_gm_code <> '' AND odm_gm_code <> '-' AND odm_gm_catno <> '' AND odm_gm_catno <> '-'" );
+
         if ($req->filled('month')) {
             $order = $order
                 // ->selectRaw(" date_format(created_at, '%m-%d') label ")
