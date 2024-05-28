@@ -273,6 +273,8 @@ class GoodsController extends Controller {
                 if(count($gc) > 5) { $istArr['gc_ca03'] = $gc['gc_ca03']; $istArr['gc_ca03_name'] = $gc['gc_ca03_name']; }
                 if(count($gc) > 7) { $istArr['gc_ca04'] = $gc['gc_ca04']; $istArr['gc_ca04_name'] = $gc['gc_ca04_name']; }                
                 $ist_gc_id = GoodsCategory::insertGetId($istArr, 'gc_id');
+            } else {
+                DB::table('shop_goods_category')->where('gc_id', $gc['gc_id'])->update(['gc_prime' => $gc['gc_prime']]);
             }
             if($ist_gc_id != 0)
                 $gc['gc_id'] = $ist_gc_id;
