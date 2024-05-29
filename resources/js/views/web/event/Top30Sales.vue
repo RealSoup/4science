@@ -8,6 +8,7 @@
         <b-row v-if="list && list.length">
             <b-col v-for="ol in list" :key="ol.odm_gd_id">
                 <b-link :to="{name:'goods_show', params:{gd_id:ol.odm_gd_id}}">
+                    <p>{{ol.all_order}}</p>
                     <b-img :src="ol.img_thumb_src" />
                     <p>{{ol.odm_gd_name}}</p>
                 </b-link>

@@ -107,7 +107,7 @@ var render = function render() {
           }
         }
       }
-    }, [_c("b-img", {
+    }, [_c("p", [_vm._v(_vm._s(ol.all_order))]), _vm._v(" "), _c("b-img", {
       attrs: {
         src: ol.img_thumb_src
       }
