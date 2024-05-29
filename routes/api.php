@@ -310,6 +310,11 @@ Route::prefix('board/{bo_cd}')->group(function () {
 Route::prefix('auth')->group(function () {
     Route::GET('user/mngList',       'Auth\UserController@mngList');
 });
+Route::prefix('event')->group(function () {
+    Route::GET('top_30_sales',       'EventController@top_30_sales');
+});
+
+
 
 
             

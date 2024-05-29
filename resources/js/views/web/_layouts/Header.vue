@@ -12,6 +12,8 @@
             <option v-if="this.$store.state.common.siteInfo.locale == 'ko'" value="/language/en">English</option>
             <option v-else value="/language/ko">한국어</option>
         </select>
+
+        <router-link :to="{name: 'top_30_sales'}" v-if="user.is_super">구매 TOP 30</router-link>
     </div>
     <div id="afterimage"></div>
     <div id="core">

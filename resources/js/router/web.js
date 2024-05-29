@@ -321,6 +321,12 @@ export default [
             },
         ],
     },
+//      이벤트 페이지
+    {   path: '/event/top_30_sales',
+        name: 'top_30_sales',
+        component:() => import('@/views/web/event/Top30Sales'),
+        // beforeEnter: isLoggedin(),
+    },
 
 //      테스트
     {   path: '/test/psys',
