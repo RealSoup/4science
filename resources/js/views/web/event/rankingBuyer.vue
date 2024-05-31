@@ -7,8 +7,10 @@
     <tr><th>순위</th><th>이름</th><th>금액</th></tr>
     <tr v-for="(row, i) in tableData" :key="i">                
         <td>{{i+1}}</td>
-        <b-link v-if="row.id && $store.state.auth.user && $store.state.auth.user.is_admin" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.email}}</b-link>
-        <td v-else class="no_link">{{row.email}}</td>
+        <td :class="{has_link:$store.state.auth.user && $store.state.auth.user.is_admin && row.id}" 
+            @click="router_push (row.id, ($store.state.auth.user && $store.state.auth.user.is_admin && row.id))">
+            {{row.email}}
+        </td>
         <td>{{row.price | comma}}</td>
     </tr>
 </table>
@@ -27,6 +29,13 @@ export default {
             tableData :[],            
         };
     },
+    methods: {
+        router_push (id, is_possible) {
+            if (is_possible)
+                this.$router.push({ name: 'adm_user_edit', params: { id:id } });
+        }
+    },
+    
     async mounted() {
          
         let res = await ax.get(`/api/event/rankingBuyer`);

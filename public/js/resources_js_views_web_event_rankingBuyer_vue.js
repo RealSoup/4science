@@ -24,6 +24,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tableData: []
     };
   },
+  methods: {
+    router_push: function router_push(id, is_possible) {
+      if (is_possible) this.$router.push({
+        name: 'adm_user_edit',
+        params: {
+          id: id
+        }
+      });
+    }
+  },
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -66,20 +76,16 @@ var render = function render() {
   return _c("div", [_c("h3", [_vm._v("구매자 랭킹 탑 20위 (5월)")]), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
-    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.id && _vm.$store.state.auth.user && _vm.$store.state.auth.user.is_admin ? _c("b-link", {
-      staticClass: "has_link",
-      attrs: {
-        "router-tag": "td",
-        to: {
-          name: "adm_user_edit",
-          params: {
-            id: row.id
-          }
+    }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", {
+      "class": {
+        has_link: _vm.$store.state.auth.user && _vm.$store.state.auth.user.is_admin && row.id
+      },
+      on: {
+        click: function click($event) {
+          _vm.router_push(row.id, _vm.$store.state.auth.user && _vm.$store.state.auth.user.is_admin && row.id);
         }
       }
-    }, [_vm._v(_vm._s(row.email))]) : _c("td", {
-      staticClass: "no_link"
-    }, [_vm._v(_vm._s(row.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])], 1);
+    }, [_vm._v("\r\n            " + _vm._s(row.email) + "\r\n        ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])]);
   })], 2)]);
 };
 var staticRenderFns = [function () {
