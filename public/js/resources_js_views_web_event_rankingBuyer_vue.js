@@ -77,9 +77,9 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.name))]) : _c("td", {
+    }, [_vm._v(_vm._s(row.email))]) : _c("td", {
       staticClass: "no_link"
-    }, [_vm._v(_vm._s(row.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])], 1);
+    }, [_vm._v(_vm._s(row.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])], 1);
   })], 2)]);
 };
 var staticRenderFns = [function () {

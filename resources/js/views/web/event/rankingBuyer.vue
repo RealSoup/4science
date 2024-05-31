@@ -7,8 +7,8 @@
     <tr><th>순위</th><th>이름</th><th>금액</th></tr>
     <tr v-for="(row, i) in tableData" :key="i">                
         <td>{{i+1}}</td>
-        <b-link v-if="row.id && $store.state.auth.user && $store.state.auth.user.is_admin" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.name}}</b-link>
-        <td v-else class="no_link">{{row.name}}</td>
+        <b-link v-if="row.id && $store.state.auth.user && $store.state.auth.user.is_admin" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.email}}</b-link>
+        <td v-else class="no_link">{{row.email}}</td>
         <td>{{row.price | comma}}</td>
     </tr>
 </table>
