@@ -7,7 +7,7 @@ use DB;
 
 class EventController extends Controller {
 
-    public function top_30_sales(Request $req) {
+    public function rankingSales(Request $req) {
         
         
         
@@ -40,6 +40,23 @@ class EventController extends Controller {
             ->whereYear('shop_order.created_at', '2024')
             ->orderBy('all_order', 'desc')
             ->limit(30)
+            ->get();
+        return response()->json($rst);
+    }
+
+    public function rankingBuyer(Request $req) {
+        
+        $rst = DB::table('shop_order')
+            ->join('users', 'shop_order.created_id', '=', 'users.id')
+            ->select('users.name', 'users.id')
+            ->selectRaw("SUM(od_all_price) price")
+            ->where('od_step', '>=', '20')
+            ->where('od_step', '<', '60')
+            ->whereYear('shop_order.created_at', '2024')
+            ->whereMonth('shop_order.created_at', '5')
+            ->groupBy('users.id')
+            ->orderBy('price', 'desc')
+            ->limit(20)
             ->get();
         return response()->json($rst);
     }

@@ -92,6 +92,7 @@ class OrderController extends Controller {
     }
 
     public function pay(Request $req) {
+        // dd($req->all());
         // try {
         //     DB::beginTransaction();
             $od_no = $this->getNew_od_no();
@@ -205,7 +206,7 @@ class OrderController extends Controller {
                 $this->orderExtraInfo->oex_bank = array_key_exists('oex_bank', $req->extra) ? $req->extra['oex_bank'] : "";
                 $this->orderExtraInfo->oex_depositor = array_key_exists('oex_depositor', $req->extra) ? $req->extra['oex_depositor'] : "";
             }
-            if ($req->od_pay_method == 'B' || $req->od_pay_method == 'P' || $req->od_pay_method == 'R') //  계좌이체, PSYS, 원격결제는 결제 예정일 등록
+            if ($req->od_pay_method == 'L' || $req->od_pay_method == 'S' || $req->od_pay_method == 'R') //  계좌이체, PSYS, 원격결제는 결제 예정일 등록
                 $this->orderExtraInfo->oex_pay_plan = array_key_exists('oex_pay_plan', $req->extra) ? $req->extra['oex_pay_plan'] : "";
             
             $this->orderExtraInfo->oex_type = array_key_exists('oex_type', $req->extra) ? $req->extra['oex_type'] : "";

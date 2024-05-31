@@ -35,7 +35,7 @@ export default {
     methods: {
         async index(){
             try {
-                const res = await ax.get(`/api/event/top_30_sales`);
+                const res = await ax.get(`/api/event/rankingSales`);
                 if (res && res.status === 200) {
                     this.list=res.data;
                     this.isLoadingModalViewed= false;

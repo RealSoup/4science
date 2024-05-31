@@ -13,7 +13,8 @@
             <option v-else value="/language/ko">한국어</option>
         </select>
 
-        <router-link :to="{name: 'top_30_sales'}" v-if="user.is_super">구매 TOP 30</router-link>
+        <router-link :to="{name: 'rankingSales'}" v-if="user.is_super">상품 랭킹</router-link>
+        <router-link :to="{name: 'rankingBuyer'}" v-if="user.is_super">구매자 랭킹</router-link>
     </div>
     <div id="afterimage"></div>
     <div id="core">
