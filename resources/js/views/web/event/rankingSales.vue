@@ -5,10 +5,15 @@
     </loading-modal>
     <b-container v-else class="w_fence">        
             
+        <h3>
+            4science Steady Seller TOP 30 !!
+            <br>
+            포사 스테디셀러 제품 사고 배민상품권 받자!
+        </h3>
         <b-row v-if="list && list.length">
             <b-col v-for="ol in list" :key="ol.odm_gd_id">
                 <b-link :to="{name:'goods_show', params:{gd_id:ol.odm_gd_id}}">
-                    <p>{{ol.all_order}}</p>
+                    <!-- <p>{{ol.all_order}}</p> -->
                     <b-img :src="ol.img_thumb_src" />
                     <p>{{ol.odm_gd_name}}</p>
                 </b-link>
@@ -55,6 +60,7 @@ export default {
 <style lang="css">
 .event { min-height:200px; }
 .event .w_fence { max-width:1440px; position:relative; }
+.event .w_fence h3 { text-align:center; }
 .event .w_fence .row .col { flex:0 0 20%; max-width:20%; padding:10px; }
 .event .w_fence .row .col a { border:1px solid #B6B6B6;  display:block; text-align:center; height:360px; padding:26px; background:#fff; overflow:hidden; }
 .event .w_fence .row .col a img { width:100%; height:228px; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s; }

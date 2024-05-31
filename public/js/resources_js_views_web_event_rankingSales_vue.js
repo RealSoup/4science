@@ -95,7 +95,7 @@ var render = function render() {
     }
   }, [_vm._v("\r\n        Loading ......\r\n    ")]) : _c("b-container", {
     staticClass: "w_fence"
-  }, [_vm.list && _vm.list.length ? _c("b-row", _vm._l(_vm.list, function (ol) {
+  }, [_c("h3", [_vm._v("\r\n            4science Steady Seller TOP 30 !!\r\n            "), _c("br"), _vm._v("\r\n            포사 스테디셀러 제품 사고 배민상품권 받자!\r\n        ")]), _vm._v(" "), _vm.list && _vm.list.length ? _c("b-row", _vm._l(_vm.list, function (ol) {
     return _c("b-col", {
       key: ol.odm_gd_id
     }, [_c("b-link", {
@@ -107,7 +107,7 @@ var render = function render() {
           }
         }
       }
-    }, [_c("p", [_vm._v(_vm._s(ol.all_order))]), _vm._v(" "), _c("b-img", {
+    }, [_c("b-img", {
       attrs: {
         src: ol.img_thumb_src
       }
@@ -141,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.event { min-height:200px;\n}\n.event .w_fence { max-width:1440px; position:relative;\n}\n.event .w_fence .row .col { flex:0 0 20%; max-width:20%; padding:10px;\n}\n.event .w_fence .row .col a { border:1px solid #B6B6B6;  display:block; text-align:center; height:360px; padding:26px; background:#fff; overflow:hidden;\n}\n.event .w_fence .row .col a img { width:100%; height:228px; -o-object-fit:contain; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s;\n}\n.event .w_fence .row .col a p { line-height:1.1; margin:0; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;\n}\n.event .w_fence .row .col:hover a img { transform:scale(1.2);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.event { min-height:200px;\n}\n.event .w_fence { max-width:1440px; position:relative;\n}\n.event .w_fence h3 { text-align:center;\n}\n.event .w_fence .row .col { flex:0 0 20%; max-width:20%; padding:10px;\n}\n.event .w_fence .row .col a { border:1px solid #B6B6B6;  display:block; text-align:center; height:360px; padding:26px; background:#fff; overflow:hidden;\n}\n.event .w_fence .row .col a img { width:100%; height:228px; -o-object-fit:contain; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s;\n}\n.event .w_fence .row .col a p { line-height:1.1; margin:0; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;\n}\n.event .w_fence .row .col:hover a img { transform:scale(1.2);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
