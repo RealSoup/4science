@@ -423,11 +423,7 @@ class Goods extends Model {
         
         if ($req->filled('keyword')) {
             $kw = '*'.trim($req->keyword).'*';
-            // c0130-100mg
-            
-            // $qry = DB::table('sphinx.sph_goods')
-            // ->where('query', "{$kw};mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130")
-            // ->get();
+            // $qry = DB::table('sphinx.sph_goods')->where('query', "{$kw};mode=ext2;sort=extended:@weight desc, gd_seq asc, gd_rank asc;limit=130")->get();
             if ( $req->filled('mode') ) {
                 if($req->mode == 'cat_no' && !preg_match("/\d{2}-([\d-]{5,10})/", $kw)) // 캣넘버 검색인테 캣넘버 형식이 아니라면
                     return 'no-catno';
@@ -512,10 +508,17 @@ class Goods extends Model {
     }
 
     public function search_cnt ($req) {
-        $kw ='';
+        $kw ='';        
         
         if ($req->filled('keyword'))
             $kw = '*'.trim($req->keyword).'*';
+        if ( $req->filled('mode') ) {
+            if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
+            if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
+            if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
+            if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
+            if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
+        }
 
         if ( $req->filled('keyword_extra') ) {
             $ex_kw = '*'.trim($req->keyword_extra).'*';

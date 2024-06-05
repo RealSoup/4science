@@ -44,7 +44,13 @@ class GoodsController extends Controller {
 
         if ($req->filled('keyword')) { 
             $kw = '*'.trim($req->keyword).'*';
-
+            if ( $req->filled('mode') ) {
+                if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
+                if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
+                if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
+                if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
+                if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
+            }
             $cl = new SphinxClient ();
             $cl->SetServer( env('DB_HOST'), 9312 );
             // if ($req->filled('ca01')) $cl->SetFilter('gc_ca01', array($req->ca01));

@@ -331,6 +331,11 @@ export default [
         name: 'rankingBuyer',
         component:() => import('@/views/web/event/rankingBuyer'),
         // beforeEnter: isLoggedin(),
+    }, {   
+        path: '/event/attend',
+        name: 'attend',
+        component:() => import('@/views/web/event/Attend'),
+        // beforeEnter: isLoggedin(),
     },
 
 //      테스트
