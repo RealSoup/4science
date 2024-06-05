@@ -194,9 +194,14 @@ export default {
                     pa.params.is_first=is_first;
                 const res = await ax.get(`/api/admin/shop/goods`, pa);
                 if (res && res.status === 200) {
-                    this.list = res.data.list;
-                    if(res.data.mng_off) this.mng_off = res.data.mng_off;
-                    if(res.data.makers) this.makers = res.data.makers;
+                    console.log(res.data);
+                    if(res.data == 'no-catno'){
+                        Notify.modal("Cat.No 형식이 아닙니다.", 'warning');                        
+                    } else {
+                        this.list = res.data.list;
+                        if(res.data.mng_off) this.mng_off = res.data.mng_off;
+                        if(res.data.makers) this.makers = res.data.makers;
+                    }
                     this.isLoadingModalViewed=false;
                 }
             } catch (e) {

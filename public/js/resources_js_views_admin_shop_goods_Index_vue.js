@@ -878,9 +878,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 9:
               res = _context.sent;
               if (res && res.status === 200) {
-                _this.list = res.data.list;
-                if (res.data.mng_off) _this.mng_off = res.data.mng_off;
-                if (res.data.makers) _this.makers = res.data.makers;
+                console.log(res.data);
+                if (res.data == 'no-catno') {
+                  Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
+                } else {
+                  _this.list = res.data.list;
+                  if (res.data.mng_off) _this.mng_off = res.data.mng_off;
+                  if (res.data.makers) _this.makers = res.data.makers;
+                }
                 _this.isLoadingModalViewed = false;
               }
               _context.next = 17;
