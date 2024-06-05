@@ -510,26 +510,27 @@ class Goods extends Model {
     public function search_cnt ($req) {
         $kw ='';        
         
-        if ($req->filled('keyword'))
+        if ($req->filled('keyword')) {
             $kw = '*'.trim($req->keyword).'*';
-        if ( $req->filled('mode') ) {
-            if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
-            if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
-            if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
-            if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
-            if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
-        }
-
-        if ( $req->filled('keyword_extra') ) {
-            $ex_kw = '*'.trim($req->keyword_extra).'*';
             if ( $req->filled('mode') ) {
-                if($req->mode == 'gd_name') $kw .= " @gd_name {$ex_kw}";
-                if($req->mode == 'gm_name') $kw .= " @gm_name {$ex_kw}";
-                if($req->mode == 'gm_code') $kw .= " @gm_code {$ex_kw}";
-                if($req->mode == 'cat_no')  $kw .= " @gm_catno {$ex_kw}";
-                if($req->mode == 'maker')   $kw .= " @mk_name {$ex_kw}";
-            } else
-                $kw .= " {$ex_kw}";
+                if($req->mode == 'gd_name') $kw .= "@gd_name {$kw}";
+                if($req->mode == 'gm_name') $kw .= "@gm_name {$kw}";
+                if($req->mode == 'gm_code') $kw .= "@gm_code {$kw}";
+                if($req->mode == 'cat_no')  $kw .= "@gm_catno {$kw}";
+                if($req->mode == 'maker')   $kw .= "@mk_name {$kw}";
+            }
+
+            if ( $req->filled('keyword_extra') ) {
+                $ex_kw = '*'.trim($req->keyword_extra).'*';
+                if ( $req->filled('mode') ) {
+                    if($req->mode == 'gd_name') $kw .= " @gd_name {$ex_kw}";
+                    if($req->mode == 'gm_name') $kw .= " @gm_name {$ex_kw}";
+                    if($req->mode == 'gm_code') $kw .= " @gm_code {$ex_kw}";
+                    if($req->mode == 'cat_no')  $kw .= " @gm_catno {$ex_kw}";
+                    if($req->mode == 'maker')   $kw .= " @mk_name {$ex_kw}";
+                } else
+                    $kw .= " {$ex_kw}";
+            }
         }
 
         $cl = new SphinxClient ();
@@ -561,7 +562,7 @@ class Goods extends Model {
         if ($req->filled('updated_id')) $cl->SetFilter('updated_id', array($req->updated_id));
         $cl->SetGroupBy('gd_id', SPH_GROUPBY_ATTR );
         $cl_rst = $cl->Query( $kw, 'sph_goods' );
-        
+
         return $cl_rst['total_found'];
     }
 }
