@@ -229,11 +229,7 @@ class UserController extends Controller {
 		}
 
         foreach(json_decode($req->target_add) as $k => $v) {
-            $new = new class{};
-            $new->address = $v->addr;
-            $new->name = $v->name;
-            $new->type = 'R';
-            array_push($list, $new);
+            $list[] =  collect(['address' => $v->addr, 'name' => $v->name.$k, 'type' => 'R']);
         }
         // dd($list);
         // exit;
