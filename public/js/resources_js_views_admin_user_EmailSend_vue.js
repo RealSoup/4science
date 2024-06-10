@@ -35,11 +35,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         body: '',
         id: 0,
         target_test: '["dvvb38@gmail.com", "dvvb38@nate.com", "kjk@4science.net", "dvvb38@naver.com", "realsoup38@daum.net", "chakanharry@gmail.com", "chakanharry@hanmail.net", "harry82@nate.com", "chakanharry@naver.com", "lhr@4science.net", "dvvb38@kakao.com"]',
-        // target_add  : '[{"name":"손주혁","addr":"joohiuk@uos.ac.kr"},{"name":"손주혁","addr":"joohiuk@gmail.com"}]',
-        target_add: '[{"name":"김진국1","addr":"kjk@4science.net"},{"name":"김진국2","addr":"dvvb38@naver.com"}]'
+        target_add: '[{"name":"손주혁","addr":"joohiuk@uos.ac.kr"},{"name":"손주혁","addr":"joohiuk@gmail.com"}]'
+        // target_add  : '[{"name":"김진국1","addr":"kjk@4science.net"},{"name":"김진국2","addr":"dvvb38@naver.com"}]',
       }
     };
   },
+
   watch: {
     'frm.target_type': {
       handler: function handler(n, o) {

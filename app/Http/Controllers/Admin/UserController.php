@@ -215,7 +215,6 @@ class UserController extends Controller {
             ->whereNotNull('email_verified_at')
             ->when($req->target_type == 'agree', fn ($q, $v) => $q->where('receive_mail', 'Y'))
             ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
-->limit(10)
             ->get()
             ->toArray();
             
@@ -228,11 +227,6 @@ class UserController extends Controller {
             }
 		}
 
-        foreach(json_decode($req->target_add) as $k => $v) {
-            $list[] =  collect(['address' => $v->addr, 'name' => $v->name.$k, 'type' => 'R']);
-        }
-        // dd($list);
-        // exit;
         list($microtime, $timestamp) = explode(' ',microtime());
         $timestamp = $timestamp.substr($microtime, 2, 3);
         $access_key = 'USRkR0y4hTSbyTHnexAM';
