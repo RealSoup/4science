@@ -202,9 +202,10 @@ class UserController extends Controller {
     }
     public function email_send(Request $req, $id) {
         $mail = DB::table('bulk_mail')->find($id);
-		if ( $req->target == 'custom' ) {
-			$temp = explode(";", $req->temp);
-			foreach($temp as $k => $v)          
+
+        $target = json_decode($req->target);
+		if ( $req->target_type == 'custom' ) {
+			foreach($target as $k => $v)          
 				$list[] =  collect(['address' => $v, 'name' => 'A'.$k, 'type' => 'R']);            
 		} else {
             // 한번에 보낼수 있는 최고 양이 10만통
@@ -212,11 +213,30 @@ class UserController extends Controller {
             ->select(['email as address', 'name', DB::raw("'R' as type")])
             ->where('level', '<', 20)
             ->whereNotNull('email_verified_at')
-            ->when($req->target == 'agree', fn ($q, $v) => $q->where('receive_mail', 'Y'))
+            ->when($req->target_type == 'agree', fn ($q, $v) => $q->where('receive_mail', 'Y'))
             ->where('email', 'REGEXP', '^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9._-]@[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,4}$')
+->limit(10)
             ->get()
             ->toArray();
+            
+			foreach($target as $k => $v) {
+                $new = new class{};
+                $new->address = $v->addr;
+                $new->name = $v->name;
+                $new->type = 'R';
+                array_push($list, $new);
+            }
 		}
+
+        foreach(json_decode($req->target_add) as $k => $v) {
+            $new = new class{};
+            $new->address = $v->addr;
+            $new->name = $v->name;
+            $new->type = 'R';
+            array_push($list, $new);
+        }
+        // dd($list);
+        // exit;
         list($microtime, $timestamp) = explode(' ',microtime());
         $timestamp = $timestamp.substr($microtime, 2, 3);
         $access_key = 'USRkR0y4hTSbyTHnexAM';
@@ -266,90 +286,6 @@ class UserController extends Controller {
         }
         
     }
-
-    public function postman($req, $list) {
-		/******************** 인증정보 ********************/
-		// 대량메일 인증 관련
-		$sendmail_url = "https://science4.sendmail.cafe24.com/sendmail_api.php"; // 전송요청 URL
-		$secureKey = "c0a3d12ec374f8ae2773159a14b85e60"; // 인증키
-		$userId = "science4"; // 발송자ID
-
-		/******************** 요청변수 처리 ********************/
-		// 메일발송 관련
-		$sender = '4science'; // 발송자 이름
-		$email = 'admin@4science.net'; // 발송자 이메일
-
-        $receiver = '';
-        foreach($list as $k => $v){
-            $receiver.=$v['name'].','.$v['email'].'
-';
-        }
-
-		// 파일첨부 관련
-		// $file_name = $req['file']?$req['file']['name']:null;
-		// $tmp_name = $req['file']?$req['file']['tmp_name']:null;
-		// $content_type = $req['file']?$req['file']['type']:null;
-
-		/******************** 요청변수 처리 ********************/
-		$mail['secureKey'] = $secureKey;
-		$mail['userId'] = $userId;
-		$mail['sender'] = base64_encode($sender);
-		$mail['email'] = base64_encode($email);
-		$mail['receiverlist'] = base64_encode($receiver);
-		$mail['subject'] = base64_encode($req->subject);
-		$mail['content'] = base64_encode($req->content);
-		$mail['overlapType'] = 1;  //  1: 중복제외, 2: 중복발송허용      수신자 주소 중 중복주소 제거여부를 선택합니다.
-
-		$host_info = explode("/", $sendmail_url);
-		$host = $host_info[2];
-		$path = $host_info[3];
-
-		srand((double)microtime()*1000000);
-		$boundary = "---------------------".substr(md5(rand(0,32000)),0,10);
-
-		// 헤더 생성
-		$header = "POST /".$path ." HTTP/1.0\r\n";
-		$header .= "Host: ".$host."\r\n";
-		$header .= "Content-type: multipart/form-data, boundary=".$boundary."\r\n";
-
-		// 본문 생성
-        $data='';
-		foreach($mail AS $index => $value){
-			$data .="--$boundary\r\n";
-			$data .= "Content-Disposition: form-data; name=\"".$index."\"\r\n";
-			$data .= "\r\n".$value."\r\n";
-			$data .="--$boundary\r\n";
-		}
-
-		// 첨부파일
-		// if (is_uploaded_file($req['file']['tmp_name'])) {
-		// 	$data .= "--$boundary\r\n";
-		// 	$content_file = join("", file($tmp_name));
-		// 	$data .="Content-Disposition: form-data; name=\"addfile\"; filename=\"".$file_name."\"\r\n";
-		// 	$data .= "Content-Type: $content_type\r\n\r\n";
-		// 	$data .= "".$content_file."\r\n";
-		// 	$data .="--$boundary--\r\n";
-		// }
-		$header .= "Content-length: " . strlen($data) . "\r\n\r\n";
-
-		$fp = fsockopen($host, 80);
-
-		$msg = "";
-		if ($fp) {
-			fputs($fp, $header.$data);
-
-			$rsp = '';
-			while(!feof($fp)) {
-				$rsp .= fgets($fp,8192);
-			}
-
-			fclose($fp);
-
-			$msg = explode("\r\n\r\n",trim($rsp));
-			echo $msg[1];
-		} else echo "Connection Failed";
-		if ( $msg[1] == "SUCCESS" ) return response()->json('success', 200);
-	}
 
     public function origin($id) {
         return response()->json(Auth::guard('web')->loginUsingId($id));

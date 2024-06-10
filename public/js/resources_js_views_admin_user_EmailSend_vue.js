@@ -29,13 +29,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       agree: 0,
       all: 0,
       frm: {
-        target: 'custom',
-        temp: 'dvvb38@gmail.com;dvvb38@nate.com;kjk@4science.net;dvvb38@naver.com;realsoup38@daum.net;chakanharry@gmail.com;chakanharry@hanmail.net;harry82@nate.com;chakanharry@naver.com;lhr@4science.net;dvvb38@kakao.com',
+        target_type: 'custom',
+        target: '',
         title: '',
         body: '',
-        id: 0
+        id: 0,
+        target_test: '["dvvb38@gmail.com", "dvvb38@nate.com", "kjk@4science.net", "dvvb38@naver.com", "realsoup38@daum.net", "chakanharry@gmail.com", "chakanharry@hanmail.net", "harry82@nate.com", "chakanharry@naver.com", "lhr@4science.net", "dvvb38@kakao.com"]',
+        // target_add  : '[{"name":"손주혁","addr":"joohiuk@uos.ac.kr"},{"name":"손주혁","addr":"joohiuk@gmail.com"}]',
+        target_add: '[{"name":"김진국1","addr":"kjk@4science.net"},{"name":"김진국2","addr":"dvvb38@naver.com"}]'
       }
     };
+  },
+  watch: {
+    'frm.target_type': {
+      handler: function handler(n, o) {
+        if (n == 'custom') this.frm.target = this.frm.target_test;else this.frm.target = this.frm.target_add;
+      },
+      immediate: true
+    }
   },
   methods: {
     send: function send() {
@@ -127,14 +138,14 @@ var render = function render() {
     }
   }, [_vm._v("발송")])], 1)], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "box frm01"
-  }, [_c("h5", [_vm._v("메일내용")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("발송 대상")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
+  }, [_c("h5", [_vm._v("메일내용")]), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("그룹 선택")]), _vm._v(" "), _c("b-col", [_c("b-form-select", {
     staticClass: "mr-3",
     model: {
-      value: _vm.frm.target,
+      value: _vm.frm.target_type,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "target", $$v);
+        _vm.$set(_vm.frm, "target_type", $$v);
       },
-      expression: "frm.target"
+      expression: "frm.target_type"
     }
   }, [_c("b-form-select-option", {
     attrs: {
@@ -148,18 +159,18 @@ var render = function render() {
     attrs: {
       value: "all"
     }
-  }, [_vm._v("모두")])], 1), _vm._v("\r\n                총 "), _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all)))]), _vm._v("명, 수신동의 "), _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.agree)))]), _vm._v("명\r\n                "), _vm.frm.target == "custom" ? _c("b-form-textarea", {
+  }, [_vm._v("모두")])], 1), _vm._v("\r\n                총 "), _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.all)))]), _vm._v("명, 수신동의 "), _c("b", [_vm._v(_vm._s(_vm._f("comma")(_vm.agree)))]), _vm._v("명\r\n            ")], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("수신자"), _vm.frm.target_type !== "custom" ? _c("b", [_vm._v(" 추가")]) : _vm._e()]), _vm._v(" "), _c("b-col", [_c("b-form-textarea", {
     attrs: {
       rows: "4"
     },
     model: {
-      value: _vm.frm.temp,
+      value: _vm.frm.target,
       callback: function callback($$v) {
-        _vm.$set(_vm.frm, "temp", $$v);
+        _vm.$set(_vm.frm, "target", $$v);
       },
-      expression: "frm.temp"
+      expression: "frm.target"
     }
-  }) : _vm._e()], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("제목")]), _c("b-col", [_vm._v(_vm._s(_vm.frm.title))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("내용")]), _c("b-col", [_c("div", {
+  })], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("제목")]), _c("b-col", [_vm._v(_vm._s(_vm.frm.title))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", [_vm._v("내용")]), _c("b-col", [_c("div", {
     domProps: {
       innerHTML: _vm._s(_vm.frm.body)
     }

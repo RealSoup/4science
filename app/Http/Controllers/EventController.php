@@ -48,7 +48,7 @@ class EventController extends Controller {
         
         $rst = DB::table('shop_order')
             ->join('users', 'shop_order.created_id', '=', 'users.id')
-            ->select('users.email', 'users.id')
+            ->select('users.name', 'users.id')
             ->selectRaw("SUM(od_all_price) price")
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
@@ -59,8 +59,9 @@ class EventController extends Controller {
             ->limit(20)
             ->get();
         foreach ($rst as $k => $v) {
-            $email = explode('@', $v->email);
-            $v->email = str_pad(substr($email[0], 0, 2), strlen($email[0]), "*")."@".$email[1];
+            $v->name = preg_replace("/(^.)./u", "$1*", $v->name);
+            // $email = explode('@', $v->email);
+            // $v->email = str_pad(substr($email[0], 0, 2), strlen($email[0]), "*")."@".$email[1];
             
         }
         return response()->json($rst);

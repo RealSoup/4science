@@ -9,7 +9,7 @@
         <td>{{i+1}}</td>
         <td :class="{has_link:$store.state.auth.user && $store.state.auth.user.is_admin && row.id}" 
             @click="router_push (row.id, ($store.state.auth.user && $store.state.auth.user.is_admin && row.id))">
-            {{row.email}}
+            {{row.name}}
         </td>
         <td>{{row.price | comma}}</td>
     </tr>

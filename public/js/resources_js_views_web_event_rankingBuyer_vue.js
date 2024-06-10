@@ -85,7 +85,7 @@ var render = function render() {
           _vm.router_push(row.id, _vm.$store.state.auth.user && _vm.$store.state.auth.user.is_admin && row.id);
         }
       }
-    }, [_vm._v("\r\n            " + _vm._s(row.email) + "\r\n        ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])]);
+    }, [_vm._v("\r\n            " + _vm._s(row.name) + "\r\n        ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])]);
   })], 2)]);
 };
 var staticRenderFns = [function () {

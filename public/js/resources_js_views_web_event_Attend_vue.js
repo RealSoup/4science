@@ -11,107 +11,114 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Calendar',
+  name: 'eventAttend',
   data: function data() {
     return {
-      weekNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
-      rootYear: 1904,
-      rootDayOfWeekIndex: 5,
-      // 2000년 1월 1일은 토요일
-      currentYear: new Date().getFullYear(),
-      currentMonth: new Date().getMonth() + 1,
-      currentDay: new Date().getDate(),
-      currentMonthStartWeekIndex: null,
-      currentCalendarMatrix: [],
-      endOfDay: null,
-      memoDatas: []
+      days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+      dates: [],
+      currentYear: 0,
+      currentMonth: 0,
+      year: 0,
+      month: 0,
+      lastMonthStart: 0,
+      nextMonthStart: 0,
+      today: 0
     };
   },
-  mounted: function mounted() {
-    this.init();
+  created: function created() {
+    // 데이터에 접근이 가능한 첫 번째 라이프 사이클
+    var date = new Date();
+    this.currentYear = date.getFullYear(); // 이하 현재 년, 월 가지고 있기
+    this.currentMonth = date.getMonth() + 1;
+    this.year = this.currentYear;
+    this.month = this.currentMonth;
+    this.today = date.getDate(); // 오늘 날짜
+    this.calendarData();
   },
   methods: {
-    init: function init() {
-      this.currentMonthStartWeekIndex = this.getStartWeek(this.currentYear, this.currentMonth);
-      this.endOfDay = this.getEndOfDay(this.currentYear, this.currentMonth);
-      this.initCalendar();
+    calendarData: function calendarData(arg) {
+      // 인자를 추가
+      if (arg < 0) this.month -= 1; // -1이 들어오면 지난 달 달력으로 이동
+      else if (arg === 1) this.month += 1; // 1이 들어오면 다음 달 달력으로 이동
+
+      if (this.month === 0) {
+        // 작년 12월
+        this.year -= 1;
+        this.month = 12;
+      } else if (this.month > 12) {
+        // 내년 1월
+        this.year += 1;
+        this.month = 1;
+      }
+      var _this$getFirstDayLast = this.getFirstDayLastDate(this.year, this.month),
+        _this$getFirstDayLast2 = _slicedToArray(_this$getFirstDayLast, 3),
+        monthFirstDay = _this$getFirstDayLast2[0],
+        monthLastDate = _this$getFirstDayLast2[1],
+        lastMonthLastDate = _this$getFirstDayLast2[2];
+      this.dates = this.getMonthOfDays(monthFirstDay, monthLastDate, lastMonthLastDate);
     },
-    initCalendar: function initCalendar() {
-      this.currentCalendarMatrix = [];
+    getFirstDayLastDate: function getFirstDayLastDate(year, month) {
+      var firstDay = new Date(year, month - 1, 1).getDay(); // 이달 시작 요일
+      var lastDate = new Date(year, month, 0).getDate(); // 이달 마지막 날짜
+      var lastYear = year;
+      var lastMonth = month - 1;
+      if (month === 1) {
+        lastMonth = 12;
+        lastYear -= 1;
+      }
+      var prevLastDate = new Date(lastYear, lastMonth, 0).getDate(); // 지난 달 마지막 날짜
+      return [firstDay, lastDate, prevLastDate];
+    },
+    /*                  이달 시작 요일(숫자), 이달 마지막 날짜, 지난 달 마지막 날짜      */getMonthOfDays: function getMonthOfDays(monthFirstDay, monthLastDate, prevMonthLastDate) {
+      console.log(monthFirstDay, monthLastDate, prevMonthLastDate);
       var day = 1;
-      for (var i = 0; i < 6; i++) {
-        var calendarRow = [];
-        for (var j = 0; j < 7; j++) {
-          if (i == 0 && j < this.currentMonthStartWeekIndex) calendarRow.push("");else if (day <= this.endOfDay) {
-            calendarRow.push(day);
-            day++;
-          } else calendarRow.push("");
+      var prevDay = prevMonthLastDate - monthFirstDay + 1; // 시작 주에 시작일
+      var dates = [];
+      var weekOfDays = [];
+      while (day <= monthLastDate) {
+        if (day === 1) {
+          // 1일이 어느 요일인지에 따라 테이블에 그리기 위한 지난 셀의 날짜들을 구할 필요가 있다.
+          for (var j = 0; j < monthFirstDay; j += 1) {
+            if (j === 0) this.lastMonthStart = prevDay; // 지난 달에서 제일 작은 날짜
+            weekOfDays.push({
+              day: prevDay,
+              month: this.month - 1,
+              memo: "asd"
+            });
+            prevDay += 1;
+          }
         }
-        this.currentCalendarMatrix.push(calendarRow);
-      }
-    },
-    getEndOfDay: function getEndOfDay(year, month) {
-      switch (month) {
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-          return 31;
-          break;
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-          return 30;
-          break;
-        case 2:
-          if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) return 29;else return 28;
-          break;
-        default:
-          console.log("unknown month " + month);
-          return 0;
-          break;
-      }
-    },
-    getStartWeek: function getStartWeek(targetYear, targetMonth) {
-      var year = this.rootYear;
-      var month = 1;
-      var sumOfDay = this.rootDayOfWeekIndex;
-      while (true) {
-        if (targetYear > year) {
-          for (var i = 0; i < 12; i++) sumOfDay += this.getEndOfDay(year, month + i);
-          year++;
-        } else if (targetYear == year) {
-          if (targetMonth > month) {
-            sumOfDay += this.getEndOfDay(year, month);
-            month++;
-          } else if (targetMonth == month) return sumOfDay % 7;
+        weekOfDays.push({
+          day: day,
+          month: this.month,
+          memo: "asd"
+        });
+        if (weekOfDays.length === 7) {
+          // 일주일 채우면
+          dates.push(weekOfDays);
+          weekOfDays = []; // 초기화
         }
+
+        day += 1;
       }
-    },
-    onClickPrev: function onClickPrev(month) {
-      month--;
-      if (month <= 0) {
-        this.currentMonth = 12;
-        this.currentYear -= 1;
-      } else this.currentMonth -= 1;
-      this.init();
-    },
-    onClickNext: function onClickNext(month) {
-      month++;
-      if (month > 12) {
-        this.currentMonth = 1;
-        this.currentYear += 1;
-      } else this.currentMonth += 1;
-      this.init();
-    },
-    isToday: function isToday(year, month, day) {
-      var date = new Date();
-      return year == date.getFullYear() && month == date.getMonth() + 1 && day == date.getDate();
+      var len = weekOfDays.length;
+      if (len > 0 && len < 7) {
+        for (var k = 1; k <= 7 - len; k += 1) weekOfDays.push({
+          day: k,
+          month: this.month + 1,
+          memo: "asd"
+        });
+      }
+      if (weekOfDays.length > 0) dates.push(weekOfDays); // 남은 날짜 추가
+      this.nextMonthStart = weekOfDays[0]; // 이번 달 마지막 주에서 제일 작은 날짜
+      return dates;
     }
   }
 });
@@ -129,43 +136,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render),
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "calendar"
+  return _c("section", {
+    staticClass: "section calendar"
+  }, [_c("div", {
+    staticClass: "container"
   }, [_c("h2", [_c("b-button", {
     on: {
       click: function click($event) {
-        return _vm.onClickPrev(_vm.currentMonth);
+        return _vm.calendarData(-1);
       }
     }
-  }, [_vm._v("◀")]), _vm._v(" "), _c("b", [_vm._v(_vm._s(_vm.currentYear) + "년 " + _vm._s(_vm.currentMonth) + "월")]), _vm._v(" "), _c("b-button", {
+  }, [_vm._v("<")]), _vm._v("\r\n            " + _vm._s(_vm.year) + "년 " + _vm._s(_vm.month) + "월\r\n            "), _c("b-button", {
     on: {
       click: function click($event) {
-        return _vm.onClickNext(_vm.currentMonth);
+        return _vm.calendarData(1);
       }
     }
-  }, [_vm._v("▶")])], 1), _vm._v(" "), _c("table", {
-    staticClass: "table table-hover"
-  }, [_c("thead", [_c("tr", _vm._l(_vm.weekNames, function (weekName, index) {
-    return _c("td", {
-      key: index
-    }, [_vm._v(_vm._s(weekName))]);
-  }), 0)]), _vm._v(" "), _c("tbody", _vm._l(_vm.currentCalendarMatrix, function (row, index) {
+  }, [_vm._v(">")])], 1), _vm._v(" "), _c("table", {
+    staticClass: "table"
+  }, [_c("thead", [_c("tr", _vm._l(_vm.days, function (day) {
+    return _c("th", {
+      key: day
+    }, [_vm._v(_vm._s(day))]);
+  }), 0)]), _vm._v(" "), _c("tbody", _vm._l(_vm.dates, function (date, tr_i) {
     return _c("tr", {
-      key: index
-    }, _vm._l(row, function (day, index2) {
+      key: tr_i
+    }, _vm._l(date, function (date_box, td_i) {
+      var _class;
       return _c("td", {
-        key: index2,
-        staticStyle: {
-          padding: "20px"
-        }
-      }, [_vm.isToday(_vm.currentYear, _vm.currentMonth, day) ? _c("span", {
-        staticClass: "rounded"
-      }, [_vm._v(_vm._s(day))]) : _c("span", [_vm._v(_vm._s(day))])]);
+        key: td_i,
+        "class": (_class = {
+          another_month: tr_i === 0 && date_box.day >= _vm.lastMonthStart
+        }, _defineProperty(_class, "another_month", _vm.dates.length - 1 === tr_i && _vm.nextMonthStart > date_box.day), _defineProperty(_class, "today", date_box.month === _vm.currentMonth && date_box.day === _vm.today && _vm.month === _vm.currentMonth && _vm.year === _vm.currentYear), _class)
+      }, [_c("span", [_vm._v(_vm._s(date_box.day))])]);
     }), 0);
-  }), 0)])]);
+  }), 0)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -189,7 +201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar { margin-top:2em;\n}\n.calendar h2 { text-align:center; margin-bottom:1em;\n}\n.calendar h2 b { min-width:200px; display:inline-block;\n}\n.calendar table tbody tr td .rounded { border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar { margin-top:2em;\n}\n.calendar h2 { text-align:center; margin-bottom:1em;\n}\n.calendar h2 b { min-width:200px; display:inline-block;\n}\n.calendar table thead tr th,\r\n.calendar table tbody tr td { text-align:center;\n}\n.calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:3px 0;\n}\n.calendar table tbody tr td.another_month { font-weight:900; color:#CCC;\n}\n.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;\n}\n.calendar table tbody tr td:hover { background-color:#EEE;\n}\n.calendar table tbody tr td .rounded { border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
