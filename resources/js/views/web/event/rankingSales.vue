@@ -68,5 +68,22 @@ export default {
 .event .w_fence .row .col a img { width:100%; height:228px; object-fit:contain; margin-bottom:2.8rem; transition:transform .2s; }
 .event .w_fence .row .col a p { line-height:1.1; margin:0; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 .event .w_fence .row .col:hover a img { transform:scale(1.2); }
+
+@media (max-width: 1430px){
+    .event .w_fence { overflow:hidden; }
+}
+
+@media (max-width: 992px){
+    .event .w_fence h3 { height:113.66px; }
+    .event .w_fence h3 img { width:992px; height:100%; margin-left:-496px; }
+    .event .w_fence .row .col a { height:230px; padding:5px; }
+    .event .w_fence .row .col a img { height:174px; margin-bottom:.5rem; }
+}
+@media (max-width: 576px) {
+    .event .w_fence { padding:.5rem 0 0; }
+    .event .w_fence h3 { height:57px; margin-bottom:0; }
+    .event .w_fence h3 img { width:500px; margin-left:-250px; }
+    .event .w_fence .row .col { flex: 0 0 50%; max-width: 50%; }
+}
 </style>
 
