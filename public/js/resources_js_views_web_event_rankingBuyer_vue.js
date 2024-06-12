@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h3", [_vm._v("구매자 랭킹 탑 20위 (5월)")]), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
+  return _c("div", [_c("h3", [_vm._v("구매자 랭킹 탑 20위 (6월)")]), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", {

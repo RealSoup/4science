@@ -313,7 +313,8 @@ Route::prefix('auth')->group(function () {
 Route::prefix('event')->group(function () {
     Route::GET('rankingSales',  'EventController@rankingSales');
     Route::GET('rankingBuyer',  'EventController@rankingBuyer');
-    
+    Route::GET('attendIndex',   'EventController@attendIndex');
+    Route::GET('attendStore',   'EventController@attendStore');
 });
 
 
