@@ -155,6 +155,7 @@ var render = function render() {
   }, [_c("b-icon-search"), _vm._v(" 검색")], 1)], 1)], 1)]), _vm._v(" "), _c(_vm.choiceStats, {
     ref: "state_comp",
     tag: "component",
+    staticClass: "state_comp",
     attrs: {
       "selected-date": _vm.selectedDate,
       "graph-label": _vm.graphLabel
@@ -183,7 +184,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-1ecb8eda] { margin:1rem; min-width:760px;\n}\n.card .card-body[data-v-1ecb8eda] .card-title { font-weight:bold; display:flex;\n}\n.card .card-body[data-v-1ecb8eda] .card-title div:first-child { margin-right:3%; line-height:1.5;\n}\n.card .card-body[data-v-1ecb8eda] .card-title .input-group { flex:0 0 33%; max-width:33%;\n}\n.card .card-body[data-v-1ecb8eda] hr { margin:3% 0;\n}\n.card .card-body[data-v-1ecb8eda] table { width:100%; max-width:700px; margin:1% auto 0 auto;\n}\n.card .card-body[data-v-1ecb8eda] table tr th { background-color:#333; color:#fff; font-weight:bold;\n}\n.card .card-body[data-v-1ecb8eda] table tr th,\r\n.card .card-body[data-v-1ecb8eda] table tr td { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\n.card .card-body[data-v-1ecb8eda] table tr td { padding:.2% 1.5%;\n}\n.card .card-body[data-v-1ecb8eda] table tr td.has_link { cursor:pointer;\n}\n.card .card-body[data-v-1ecb8eda] table tr td.no_link { cursor:not-allowed;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-1ecb8eda] { margin:1rem; min-width:760px;\n}\n.card .card-body[data-v-1ecb8eda] .card-title { font-weight:bold; display:flex;\n}\n.card .card-body[data-v-1ecb8eda] .card-title div:first-child { margin-right:3%; line-height:1.5;\n}\n.card .card-body[data-v-1ecb8eda] .card-title .input-group { flex:0 0 33%; max-width:33%;\n}\n.card .card-body .state_comp[data-v-1ecb8eda] { position: relative; min-height:20rem;\n}\n.card .card-body[data-v-1ecb8eda] hr { margin:3% 0;\n}\n.card .card-body[data-v-1ecb8eda] table { width:100%; max-width:700px; margin:1% auto 0 auto;\n}\n.card .card-body[data-v-1ecb8eda] table tr th { background-color:#333; color:#fff; font-weight:bold;\n}\n.card .card-body[data-v-1ecb8eda] table tr th,\r\n.card .card-body[data-v-1ecb8eda] table tr td { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\n.card .card-body[data-v-1ecb8eda] table tr td { padding:.2% 1.5%;\n}\n.card .card-body[data-v-1ecb8eda] table tr td.has_link { cursor:pointer;\n}\n.card .card-body[data-v-1ecb8eda] table tr td.no_link { cursor:not-allowed;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

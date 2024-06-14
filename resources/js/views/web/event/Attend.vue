@@ -38,6 +38,7 @@
             <b-button @click="store" class="blue xl" v-else>출석체크하기</b-button>
         </b-col>
     </b-row>
+
 </div>
 
 </template>
@@ -155,6 +156,10 @@ export default {
                     Notify.modal("이미 출석 하였습니다.", 'warning');
                 else
                     Notify.toast('success', '출석체크 완료')
+                
+                if (res.data == 'Perfect Attendance')
+                    Notify.modal("한달 모두 출석으로 1000점 추가 지급", 'success');
+
                 this.index();
             } else {
                 Notify.toast('warning', res);
@@ -201,6 +206,5 @@ export default {
     .calendar table th, 
     .calendar table td { padding: 0.2rem; }
     .calendar table tbody tr td b { font-size:.7rem; }
-        
 }
 </style>

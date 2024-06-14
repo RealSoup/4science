@@ -23,7 +23,7 @@
             </div>
         </div>
     </b-card-title>
-    <component ref="state_comp" :is="choiceStats" :selected-date="selectedDate" :graph-label="graphLabel"></component>
+    <component ref="state_comp" class="state_comp" :is="choiceStats" :selected-date="selectedDate" :graph-label="graphLabel"></component>
 </b-card>
 </div>
 </template>
@@ -72,6 +72,7 @@ export default {
 .card .card-body >>> .card-title { font-weight:bold; display:flex; }
 .card .card-body >>> .card-title div:first-child { margin-right:3%; line-height:1.5; }
 .card .card-body >>> .card-title .input-group { flex:0 0 33%; max-width:33%; }
+.card .card-body .state_comp { position: relative; min-height:20rem; }
 .card .card-body >>> hr { margin:3% 0; }
 .card .card-body >>> table { width:100%; max-width:700px; margin:1% auto 0 auto; }
 .card .card-body >>> table tr th { background-color:#333; color:#fff; font-weight:bold; }

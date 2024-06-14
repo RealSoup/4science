@@ -180,6 +180,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               res = _context2.sent;
               if (res && res.status === 200) {
                 if (res.data == 'Exist') Notify.modal("이미 출석 하였습니다.", 'warning');else Notify.toast('success', '출석체크 완료');
+                if (res.data == 'Perfect Attendance') Notify.modal("한달 모두 출석으로 1000점 추가 지급", 'success');
                 _this3.index();
               } else {
                 Notify.toast('warning', res);

@@ -194,7 +194,6 @@ export default {
                     pa.params.is_first=is_first;
                 const res = await ax.get(`/api/admin/shop/goods`, pa);
                 if (res && res.status === 200) {
-                    console.log(res.data);
                     if(res.data == 'no-catno'){
                         Notify.modal("Cat.No 형식이 아닙니다.", 'warning');                        
                     } else {

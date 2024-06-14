@@ -1,65 +1,67 @@
 <template>
 <div>  
-
-    <h5>매출순</h5>
-    <chart-order ref="chartorder" :chart-data="graphData__all_price" :options="options"></chart-order>
-    <table>
-        <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
-        <tr v-for="(row, i) in tableData__all_price" :key="i">                
-            <td>{{i+1}}</td>
-            <td v-if="row.odm_gd_id" class="has_link">
-                <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
-            </td>
-            <td v-else class="no_link">{{row.odm_gm_name}}</td>
-            <td>{{row.odm_gm_catno}}</td>
-            <td>{{row.all_price | comma}}</td>
-            <td>{{row.all_ea| comma}}</td>
-            <td>{{row.all_order| comma}}</td>
-        </tr>
-    </table>
-
-
-    <hr />
+    <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
+    <div v-else>
+        <h5>매출순</h5>
+        <chart-order ref="chartorder" :chart-data="graphData__all_price" :options="options"></chart-order>
+        <table>
+            <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
+            <tr v-for="(row, i) in tableData__all_price" :key="i">                
+                <td>{{i+1}}</td>
+                <td v-if="row.odm_gd_id" class="has_link">
+                    <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+                </td>
+                <td v-else class="no_link">{{row.odm_gm_name}}</td>
+                <td>{{row.odm_gm_catno}}</td>
+                <td>{{row.all_price | comma}}</td>
+                <td>{{row.all_ea| comma}}</td>
+                <td>{{row.all_order| comma}}</td>
+            </tr>
+        </table>
 
 
-    <h5>수량순</h5>
-    <chart-order ref="chartorder" :chart-data="graphData__all_ea" :options="options"></chart-order>
-    <table>
-        <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
-        <tr v-for="(row, i) in tableData__all_ea" :key="i">                
-            <td>{{i+1}}</td>
-            <td v-if="row.odm_gd_id" class="has_link">
-                <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
-            </td>
-            <td v-else class="no_link">{{row.odm_gm_name}}</td>
-            <td>{{row.odm_gm_catno}}</td>
-            <td>{{row.all_price | comma}}</td>
-            <td>{{row.all_ea| comma}}</td>
-            <td>{{row.all_order| comma}}</td>
-        </tr>
-    </table>
+        <hr />
 
 
-    <hr />
+        <h5>수량순</h5>
+        <chart-order ref="chartorder" :chart-data="graphData__all_ea" :options="options"></chart-order>
+        <table>
+            <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
+            <tr v-for="(row, i) in tableData__all_ea" :key="i">                
+                <td>{{i+1}}</td>
+                <td v-if="row.odm_gd_id" class="has_link">
+                    <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+                </td>
+                <td v-else class="no_link">{{row.odm_gm_name}}</td>
+                <td>{{row.odm_gm_catno}}</td>
+                <td>{{row.all_price | comma}}</td>
+                <td>{{row.all_ea| comma}}</td>
+                <td>{{row.all_order| comma}}</td>
+            </tr>
+        </table>
 
 
-    <h5>판매 횟수 순</h5>
-    <chart-order ref="chartorder" :chart-data="graphData__all_order" :options="options" @mountComplete="subMountComplete"></chart-order>
-    <table>
-        <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
-        <tr v-for="(row, i) in tableData__all_order" :key="i">                
-            <td>{{i+1}}</td>
-            <td v-if="row.odm_gd_id" class="has_link">
-                <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
-            </td>
-            <td v-else class="no_link">{{row.odm_gm_name}}</td>
-            <td>{{row.odm_gm_catno}}</td>
-            <td>{{row.all_price | comma}}</td>
-            <td>{{row.all_ea| comma}}</td>
-            <td>{{row.all_order| comma}}</td>
-        </tr>
-    </table>
-    
+        <hr />
+
+
+        <h5>판매 횟수 순</h5>
+        <!-- <chart-order ref="chartorder" :chart-data="graphData__all_order" :options="options" @mountComplete="subMountComplete"></chart-order> -->
+        <chart-order ref="chartorder" :chart-data="graphData__all_order" :options="options"></chart-order>
+        <table>
+            <tr><th>순위</th><th>상품명</th><th>Cat.NO</th><th>금액</th><th>판매수량</th><th>판매횟수</th></tr>
+            <tr v-for="(row, i) in tableData__all_order" :key="i">                
+                <td>{{i+1}}</td>
+                <td v-if="row.odm_gd_id" class="has_link">
+                    <b-link :to="{name: 'adm_goods_edit', params: { gd_id:row.odm_gd_id }}">{{row.odm_gm_name}}</b-link>
+                </td>
+                <td v-else class="no_link">{{row.odm_gm_name}}</td>
+                <td>{{row.odm_gm_catno}}</td>
+                <td>{{row.all_price | comma}}</td>
+                <td>{{row.all_ea| comma}}</td>
+                <td>{{row.all_order| comma}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 </template>
 
@@ -72,7 +74,10 @@ import copy from "fast-copy";
 const year = new Date().getFullYear();
 export default {
     name: 'admStatsIndexSalesGoods',
-    components: { ChartOrder },
+    components: { 
+        ChartOrder,
+        'LoadingModal': () =>  import('@/views/_common/LoadingModal'),
+    },
     props: [ 'selectedDate', 'graphLabel' ],
 
     data() {
@@ -107,15 +112,16 @@ export default {
                     }],
                 }
             },
+            isLoadingModalViewed: true,
         };
     },
     methods: {
-        subMountComplete(){
-            this.index();
-        },
         async index() {
+            this.isLoadingModalViewed = true;
             let res = await ax.get(`/api/admin/stats/goods`, { params: this.selectedDate});
             if (res && res.status === 200) {
+                this.isLoadingModalViewed = false;
+
                 this.tableData__all_price = res.data.by_allPrice;
                 this.graphData__all_price = {
                     labels: this.tableData__all_price.map(i => i['odm_gm_name']),
@@ -158,6 +164,9 @@ export default {
             }
         }
     },
+    mounted(){
+        this.index();
+    }
 };
 </script>
 

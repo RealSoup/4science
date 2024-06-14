@@ -79,8 +79,10 @@ class EventController extends Controller {
             event(new Mileage("insert", auth()->user()->id, 'users', auth()->user()->id, 'SV', '출석 체크', $p));
             if (date('Y-m-t') == date("Y-m-d")) {
                 $r = DB::table('user_attend')->where('ua_id', auth()->user()->id)->groupBy(DB::raw("DATE(ua_date)"))->pluck('ua_date');
-                if (count($r) === intval(date('t')))
+                if (count($r) === intval(date('t'))) {
                     event(new Mileage("insert", auth()->user()->id, 'users', auth()->user()->id, 'SV', 'ALL 출석', 1000));
+                    $rst = 'Perfect Attendance';
+                }
             }
         }
         return response()->json($rst);

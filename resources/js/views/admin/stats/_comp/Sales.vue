@@ -1,16 +1,17 @@
 <template>
 <div>
-
-    <chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete"></chart-order>
-    <table>
-        <tr><th>순위</th><th>이름</th><th>금액</th></tr>
-        <tr v-for="(row, i) in tableData" :key="i">                
-            <td>{{i+1}}</td>
-            <td>{{row.label}}</td>
-            <td>{{row.price | comma}}</td>
-        </tr>
-    </table>
-
+    <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
+    <div v-else>
+        <chart-order ref="chartorder" :chart-data="graphData" :options="options"></chart-order>
+        <table>
+            <tr><th>순위</th><th>이름</th><th>금액</th></tr>
+            <tr v-for="(row, i) in tableData" :key="i">                
+                <td>{{i+1}}</td>
+                <td>{{row.label}}</td>
+                <td>{{row.price | comma}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
 </template>
 
@@ -22,7 +23,10 @@ import ChartOrder from './ChartOrder'
 
 export default {
     name: 'admStatsIndexSales',
-    components: { ChartOrder },
+    components: { 
+        ChartOrder,
+        'LoadingModal': () =>  import('@/views/_common/LoadingModal'),
+    },
     props: [ 'selectedDate', 'graphLabel' ],
 
     data() {
@@ -53,15 +57,15 @@ export default {
                     }],
                 }
             },
+            isLoadingModalViewed: true,
         };
     },
     methods: {
-        subMountComplete(){
-            this.index();
-        },
         async index() {
+            this.isLoadingModalViewed = true;
             let res = await ax.get(`/api/admin/stats/order`, { params: this.selectedDate});
             if (res && res.status === 200) {
+                this.isLoadingModalViewed = false;
                 this.tableData = res.data;
                 this.graphData = {
                     labels: this.tableData.map(i => i['label']),
@@ -76,5 +80,9 @@ export default {
             }
         }
     },
+    
+    mounted(){
+        this.index();
+    }
 };
 </script>

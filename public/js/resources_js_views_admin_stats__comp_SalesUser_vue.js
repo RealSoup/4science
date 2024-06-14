@@ -24,7 +24,10 @@ var _year = new Date().getFullYear();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'admStatsUserOrder',
   components: {
-    ChartOrder: _ChartOrder__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ChartOrder: _ChartOrder__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'LoadingModal': function LoadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal */ "./resources/js/views/_common/LoadingModal.vue"));
+    }
   },
   props: ['selectedDate', 'graphLabel'],
   data: function data() {
@@ -67,7 +70,8 @@ var _year = new Date().getFullYear();
       frm: {
         year: _year,
         month: ''
-      }
+      },
+      isLoadingModalViewed: true
     };
   },
   computed: {
@@ -87,9 +91,6 @@ var _year = new Date().getFullYear();
     }
   },
   methods: {
-    subMountComplete: function subMountComplete() {
-      this.index();
-    },
     index: function index() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -97,13 +98,15 @@ var _year = new Date().getFullYear();
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              _this.isLoadingModalViewed = true;
+              _context.next = 3;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/stats/userOrder", {
                 params: _this.selectedDate
               });
-            case 2:
+            case 3:
               res = _context.sent;
               if (res && res.status === 200) {
+                _this.isLoadingModalViewed = false;
                 _this.tableData = res.data;
                 _this.graphData = {
                   labels: res.data.map(function (i) {
@@ -120,13 +123,16 @@ var _year = new Date().getFullYear();
                   }]
                 };
               }
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }))();
     }
+  },
+  mounted: function mounted() {
+    this.index();
   }
 });
 
@@ -147,16 +153,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("chart-order", {
+  return _c("div", [_vm.isLoadingModalViewed ? _c("loading-modal", {
+    attrs: {
+      position: "absolute"
+    }
+  }, [_vm._v("Loading ......")]) : _c("div", [_c("chart-order", {
     ref: "chartorder",
     attrs: {
       "chart-data": _vm.graphData,
       options: _vm.options
-    },
-    on: {
-      mountComplete: _vm.subMountComplete
     }
-  }), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
+  }), _vm._v(" "), _c("table", [_c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("이름")]), _c("th", [_vm._v("금액")])]), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), row.id ? _c("b-link", {
@@ -173,13 +180,9 @@ var render = function render() {
     }, [_vm._v(_vm._s(row.name))]) : _c("td", {
       staticClass: "no_link"
     }, [_vm._v(_vm._s(row.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("comma")(row.price)))])], 1);
-  })], 2)], 1);
+  })], 2)], 1)], 1);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("이름")]), _c("th", [_vm._v("금액")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

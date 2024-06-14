@@ -878,7 +878,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 9:
               res = _context.sent;
               if (res && res.status === 200) {
-                console.log(res.data);
                 if (res.data == 'no-catno') {
                   Notify.modal("Cat.No 형식이 아닙니다.", 'warning');
                 } else {

@@ -1,16 +1,19 @@
 <template>
 <div>
 
-<chart-order ref="chartorder" :chart-data="graphData" :options="options" @mountComplete="subMountComplete"></chart-order>
-<table>
-    <tr><th>순위</th><th>이름</th><th>금액</th></tr>
-    <tr v-for="(row, i) in tableData" :key="i">                
-        <td>{{i+1}}</td>
-        <b-link v-if="row.id" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.name}}</b-link>
-        <td v-else class="no_link">{{row.name}}</td>
-        <td>{{row.price | comma}}</td>
-    </tr>
-</table>
+    <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
+    <div v-else>
+        <chart-order ref="chartorder" :chart-data="graphData" :options="options"></chart-order>
+        <table>
+            <tr><th>순위</th><th>이름</th><th>금액</th></tr>
+            <tr v-for="(row, i) in tableData" :key="i">                
+                <td>{{i+1}}</td>
+                <b-link v-if="row.id" class="has_link" :router-tag="'td'" :to="{name: 'adm_user_edit', params: { id:row.id }}">{{row.name}}</b-link>
+                <td v-else class="no_link">{{row.name}}</td>
+                <td>{{row.price | comma}}</td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 </template>
@@ -23,7 +26,10 @@ import ChartOrder from './ChartOrder'
 const year = new Date().getFullYear();
 export default {
     name: 'admStatsUserOrder',
-    components: { ChartOrder },
+    components: { 
+        ChartOrder,
+        'LoadingModal': () =>  import('@/views/_common/LoadingModal'),
+    },
     props: [ 'selectedDate', 'graphLabel' ],
 
     data() {
@@ -57,7 +63,8 @@ export default {
             frm:{
                 year:year,
                 month:'',
-            }
+            },
+            isLoadingModalViewed: true,
         };
     },
     computed : {
@@ -69,12 +76,11 @@ export default {
         }
     },
     methods: {
-        subMountComplete(){
-            this.index();
-        },
         async index() {
+            this.isLoadingModalViewed = true;
             let res = await ax.get(`/api/admin/stats/userOrder`, { params: this.selectedDate});
             if (res && res.status === 200) {
+                this.isLoadingModalViewed = false;
                 this.tableData = res.data;
                 this.graphData = {
                     labels: res.data.map(i => i['name']),
@@ -89,6 +95,10 @@ export default {
             }
         }
     },
+    
+    mounted(){
+        this.index();
+    }
 };
 </script>
 
