@@ -407,20 +407,41 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           }
         }, _callee4);
       }))();
+    },
+    copy_link: function copy_link() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/user/passwordResetLink/".concat(_this5.id));
+            case 2:
+              res = _context5.sent;
+              if (res && res.status === 200) {
+                _this5.copyToClipboard(res.data);
+              }
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-        while (1) switch (_context5.prev = _context5.next) {
+    var _this6 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
           case 0:
-            _this5.edit();
+            _this6.edit();
           case 1:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
-      }, _callee5);
+      }, _callee6);
     }))();
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
@@ -854,7 +875,16 @@ var render = function render() {
         }), _vm._v(" "), _c("b-form-invalid-feedback", [_vm._v(_vm._s(validationContext.errors[0]))])];
       }
     }], null, false, 173257733)
-  })], 1)])] : _vm._e()], 2), _vm._v(" "), _c("b-row", [_c("b-col", [_c("hr")])], 1), _vm._v(" "), _c("b-row", {
+  })], 1)])] : _vm._e(), _vm._v(" "), _c("b-col", {
+    staticClass: "w_50"
+  }, [_c("label", [_vm._v("비번 재설정 링크")]), _vm._v(" "), _c("div", [_vm._v("\r\n                    비밀번호 재설정시 메일 안오는 회원 링크 복사해 직접 메일보내자"), _c("b", {
+    staticClass: "point"
+  }, [_c("br"), _vm._v("* 유저 재설정시 로그아웃 필수")]), _vm._v(" "), _c("b-button", {
+    staticClass: "xm teal ml-3",
+    on: {
+      click: _vm.copy_link
+    }
+  }, [_vm._v("링크 복사")])], 1)])], 2), _vm._v(" "), _c("b-row", [_c("b-col", [_c("hr")])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "label_form quarter"
   }, [_c("b-col", [_c("label", [_vm._v("직업")]), _vm._v(" "), _c("div", [_c("b-form-select", {
     attrs: {

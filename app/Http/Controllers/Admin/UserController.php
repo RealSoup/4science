@@ -279,5 +279,12 @@ class UserController extends Controller {
 
     public function origin($id) {
         return response()->json(Auth::guard('web')->loginUsingId($id));
+    }
+
+    public function passwordResetLink($id) {
+        $u = User::find($id);
+        $token = app('auth.password.broker')->createToken($u);
+        // DB::table('password_resets')->insert(['email' => $u->email, 'token' => $token]);
+        return response()->json(env('APP_URL')."auth/password/reset/{$token}?email={$u->email}", 200);
     } 
 }

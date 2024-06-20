@@ -131,6 +131,16 @@
                     </div>
                 </b-col>
             </template>
+
+            <b-col class="w_50">
+                <label>비번 재설정 링크</label>
+                <div>
+                    비밀번호 재설정시 메일 안오는 회원 링크 복사해 직접 메일보내자<b class="point"><br />* 유저 재설정시 로그아웃 필수</b>
+                    <b-button @click="copy_link" class="xm teal ml-3">링크 복사</b-button>
+                </div>
+            </b-col>
+
+
         </b-row>
 
         <b-row><b-col><hr /></b-col></b-row>
@@ -384,6 +394,13 @@ export default {
                 }
             }
         },
+
+        async copy_link () {
+            const res = await ax.get(`/api/admin/user/passwordResetLink/${this.id}`);
+            if (res && res.status === 200) {
+                this.copyToClipboard(res.data);
+            }
+        }
     },
 
     async mounted() { this.edit(); },

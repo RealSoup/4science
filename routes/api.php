@@ -124,7 +124,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::POST('email/{id}/send',  'Admin\UserController@email_send');
                 Route::DELETE('email/{id}',     'Admin\UserController@email_destroy');
                 Route::GET('mailInfo',          'Admin\UserController@mailInfo');
-                Route::GET('origin/{id}', 'Admin\UserController@origin'); 
+                Route::GET('origin/{id}',       'Admin\UserController@origin');
+                Route::GET('passwordResetLink/{id}', 'Admin\UserController@passwordResetLink');
             });
             
             Route::prefix('mileage')->group(function () {
