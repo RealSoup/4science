@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="fence">
 
-<h3>구매자 랭킹 탑 20위 (6월)</h3>
+<h3 class="m_show">구매자 랭킹 <b>Top 20</b></h3>
 
 <table>
     <tr><th>순위</th><th>이름</th><th>금액</th></tr>
@@ -48,6 +48,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.fence { background:url('/storage/event/2024/0701/bg.jpg') no-repeat center center; max-width:1200px; min-height:1200px; margin:3em auto; padding-top:288px; }
 table { width:100%; max-width:700px; margin:1% auto 0 auto; }
 table tr th { background-color:#333; color:#fff; font-weight:bold; }
 table tr th,
@@ -58,4 +59,9 @@ table tr td.no_link { cursor:not-allowed; }
 table tr td:nth-of-type(1) { min-width:30px; padding:.2% 0; }
 table tr td:nth-of-type(2) { text-align:left; }
 table tr td:nth-of-type(3) { text-align:right; }
+
+@media (max-width: 992px){
+    .fence { background:none; min-height:auto; margin:auto; padding:10px 0; }
+    .fence h3 { text-align:center; }
+}
 </style>

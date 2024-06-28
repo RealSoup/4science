@@ -33,7 +33,7 @@ class EventController extends Controller {
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
             ->whereYear('shop_order.created_at', '2024')
-            ->whereMonth('shop_order.created_at', '6')
+            ->whereMonth('shop_order.created_at', '7')
             ->groupBy('users.id')
             ->orderBy('price', 'desc')
             ->limit(20)

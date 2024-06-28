@@ -6,6 +6,9 @@
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>
             <router-link to="/shop/goods/616505" id="evt01_2" class="split_evt01"></router-link>
         </b-carousel-slide> -->
+        <b-link to="/event/rankingBuyer">
+            <b-carousel-slide img-src="/storage/event/2024/0701/slide.jpg"></b-carousel-slide>
+        </b-link>
         <b-link to="/event/rankingSales">
             <b-carousel-slide img-src="/storage/event/2024/0611/slide.jpg"></b-carousel-slide>
         </b-link>

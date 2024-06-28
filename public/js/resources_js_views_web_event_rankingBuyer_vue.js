@@ -73,7 +73,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h3", [_vm._v("구매자 랭킹 탑 20위 (6월)")]), _vm._v(" "), _c("table", [_vm._m(0), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
+  return _c("div", {
+    staticClass: "fence"
+  }, [_vm._m(0), _vm._v(" "), _c("table", [_vm._m(1), _vm._v(" "), _vm._l(_vm.tableData, function (row, i) {
     return _c("tr", {
       key: i
     }, [_c("td", [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c("td", {
@@ -89,6 +91,12 @@ var render = function render() {
   })], 2)]);
 };
 var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("h3", {
+    staticClass: "m_show"
+  }, [_vm._v("구매자 랭킹 "), _c("b", [_vm._v("Top 20")])]);
+}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("tr", [_c("th", [_vm._v("순위")]), _c("th", [_vm._v("이름")]), _c("th", [_vm._v("금액")])]);
@@ -114,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-6d8c7f68] { width:100%; max-width:700px; margin:1% auto 0 auto;\n}\ntable tr th[data-v-6d8c7f68] { background-color:#333; color:#fff; font-weight:bold;\n}\ntable tr th[data-v-6d8c7f68],\r\ntable tr td[data-v-6d8c7f68] { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\ntable tr td[data-v-6d8c7f68] { padding:.2% 1.5%;\n}\ntable tr td.has_link[data-v-6d8c7f68] { cursor:pointer;\n}\ntable tr td.no_link[data-v-6d8c7f68] { cursor:not-allowed;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(2) { text-align:left;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(3) { text-align:right;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.fence[data-v-6d8c7f68] { background:url('/storage/event/2024/0701/bg.jpg') no-repeat center center; max-width:1200px; min-height:1200px; margin:3em auto; padding-top:288px;\n}\ntable[data-v-6d8c7f68] { width:100%; max-width:700px; margin:1% auto 0 auto;\n}\ntable tr th[data-v-6d8c7f68] { background-color:#333; color:#fff; font-weight:bold;\n}\ntable tr th[data-v-6d8c7f68],\r\ntable tr td[data-v-6d8c7f68] { text-align:center; border:1px solid #DDD; padding:.2% 0;\n}\ntable tr td[data-v-6d8c7f68] { padding:.2% 1.5%;\n}\ntable tr td.has_link[data-v-6d8c7f68] { cursor:pointer;\n}\ntable tr td.no_link[data-v-6d8c7f68] { cursor:not-allowed;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(1) { min-width:30px; padding:.2% 0;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(2) { text-align:left;\n}\ntable tr td[data-v-6d8c7f68]:nth-of-type(3) { text-align:right;\n}\n@media (max-width: 992px){\n.fence[data-v-6d8c7f68] { background:none; min-height:auto; margin:auto; padding:10px 0;\n}\n.fence h3[data-v-6d8c7f68] { text-align:center;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
