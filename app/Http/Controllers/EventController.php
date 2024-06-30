@@ -30,6 +30,7 @@ class EventController extends Controller {
             ->join('users', 'shop_order.created_id', '=', 'users.id')
             ->select('users.name', 'users.id')
             ->selectRaw("SUM(od_all_price) price")
+            ->where('od_type', '<>', 'buy_temp')
             ->where('od_step', '>=', '20')
             ->where('od_step', '<', '60')
             ->whereYear('shop_order.created_at', '2024')
