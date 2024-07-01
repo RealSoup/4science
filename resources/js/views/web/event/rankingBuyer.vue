@@ -35,7 +35,7 @@ export default {
                 this.$router.push({ name: 'adm_user_edit', params: { id:id } });
         },
         go_notice () {
-            this.$router.push({ name: 'my_bo_show', params: { bo_cd:'event', bo_id:42 } });
+            this.$router.push({ name: 'my_bo_show', params: { bo_cd:'event', bo_id:57 } });
         },
     },
     
