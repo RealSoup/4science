@@ -76,12 +76,12 @@ var render = function render() {
           }
         }
       }
-    }, [row.od_addr1_sk ? _c("b-badge", {
-      staticClass: "plum",
+    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.od_addr1_sk ? _c("b-badge", {
+      staticClass: "plum addr1_sk",
       attrs: {
         pill: ""
       }
-    }, [_vm._v("서·경")]) : _vm._e(), _vm._v("\r\n            " + _vm._s(row.od_name) + "\r\n        ")], 1), _vm._v(" "), _c("b-col", [row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
+    }, [_vm._v("서·경")]) : _vm._e(), _vm._v(" "), row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
       staticClass: "badgetag d_blue d-none d-lg-inline-block"
     }, [_vm._v("딜")]) : _vm._e(), _vm._v(" "), _c("sub-string", {
       attrs: {

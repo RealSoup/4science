@@ -16,11 +16,9 @@
     <b-row class="body list" :class="{cancel:row.od_step==60, don_t:(row.user && row.user.group==3), introducer:(row.user.introducer)}" v-for="row in list" :key="row.mk_id">
         <b-col class="d-none d-lg-block">{{row.od_id}}.</b-col>
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
-        <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">
-            <b-badge v-if="row.od_addr1_sk" pill class="plum">서&middot;경</b-badge>
-            {{row.od_name}}
-        </b-link>
+        <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
         <b-col>
+            <b-badge v-if="row.od_addr1_sk" pill class="plum addr1_sk">서&middot;경</b-badge>
             <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
             <sub-string v-model="row.od_orderer" :width="120" />
             <span v-if="row.user && row.user.mng" class="nametag orange d-none d-lg-inline-block">{{mng_off[row.user.mng].name}}</span>
