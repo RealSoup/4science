@@ -121,6 +121,10 @@ class OrderController extends Controller {
 				
             }
         }
+		
+		if ( $data['mode'] == 'od_addr1_sk' ) {
+			$orders = $orders->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); });
+		}
 
 		if ($req->filled('limit'))
             $data['list'] = $orders->latest('od_id')->limit($req->limit)->get();
@@ -140,7 +144,10 @@ class OrderController extends Controller {
 			if ($od->user->code_01)
                 $od->user->introducer = true;
             else $od->user->introducer = false;
-			// $od->od_mng = $this->user::find($od->od_mng);
+
+			//	서울, 경기 배송지 체크
+			if (strStartWithInArray(["서울", "경기"], mb_substr($od->od_addr1, 0, 2)))	$od->od_addr1_sk = true;
+			else																		$od->od_addr1_sk = false;
 		}
 
 		// $data['steps'] = Setting::Group("od_step")->orderBy("st_sort")->get();

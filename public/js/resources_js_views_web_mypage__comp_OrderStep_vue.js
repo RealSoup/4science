@@ -35,6 +35,9 @@ var render = function render() {
     return [_vm.value == 11 ? [k == 12 ? _c("b-badge", {
       key: k,
       "class": v["class"]
+    }, [_vm._v(_vm._s(v.name))]) : _vm._e()] : _vm.value == 31 ? [k == 30 ? _c("b-badge", {
+      key: k,
+      "class": v["class"]
     }, [_vm._v(_vm._s(v.name))]) : _vm._e()] : [k == _vm.value ? _c("b-badge", {
       key: k,
       "class": v["class"]

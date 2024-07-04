@@ -71,6 +71,7 @@
                             <b-form-select-option value="od_id">글번호</b-form-select-option>
                             <b-form-select-option value="od_receiver">수취인명</b-form-select-option>
                             <b-form-select-option value="od_addr1">배송주소</b-form-select-option>
+                            <b-form-select-option value="od_addr1_sk">배송주소:서경</b-form-select-option>
                             <b-form-select-option value="oex_depositor">입금자</b-form-select-option>
                             <b-form-select-option value="gm_name">제품명</b-form-select-option>
                             <b-form-select-option value="gm_code">모델명</b-form-select-option>
@@ -90,6 +91,7 @@
         <b-row class="list_top m_hide">
             <b-col sm="12" md="6">Total : <b>{{this.list.total}}</b></b-col>
             <b-col sm="12" md="6" col class="text-right">
+                <b-badge pill class="plum">서&middot;경</b-badge> 서울&middot;경기 주문
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
                 
@@ -100,7 +102,7 @@
                 </b-form-select>
             </b-col>
         </b-row>
-        <list v-if="list.data && list.data.length" :list="list.data" :config="order_config" :mng_off="mng_off"></list>
+        <list v-if="list.data && list.data.length" :list="list.data" :sch_frm="sch_frm" :config="order_config" :mng_off="mng_off"></list>
         
         <pagination :data="list" @pagination-change-page="routerPush" :limit="5" :showDisabled="true" align="center" class="mt-5">
             <span slot="prev-nav"><b-icon-chevron-left /></span>

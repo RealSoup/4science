@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AdmOrderIndexList',
-  props: ['list', 'config', 'mng_off'],
+  props: ['list', 'sch_frm', 'config', 'mng_off'],
   components: {
     'sub-string': function subString() {
       return __webpack_require__.e(/*! import() */ "resources_js_views__common_SubString_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/SubString.vue */ "./resources/js/views/_common/SubString.vue"));
@@ -51,7 +51,9 @@ var render = function render() {
     staticClass: "d-none d-lg-inline-block"
   }, [_vm._v("진행")]), _vm._v("현황")]), _vm._v(" "), _c("b-col", {
     staticClass: "d-none d-lg-block"
-  }, [_vm._v("담당자")])], 1), _vm._v(" "), _vm._l(_vm.list, function (row) {
+  }, [_vm._v("담당자")]), _vm._v(" "), ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("배송주소")]) : _vm._e()], 1), _vm._v(" "), _vm._l(_vm.list, function (row) {
     return _c("b-row", {
       key: row.mk_id,
       staticClass: "body list",
@@ -74,7 +76,12 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
+    }, [row.od_addr1_sk ? _c("b-badge", {
+      staticClass: "plum",
+      attrs: {
+        pill: ""
+      }
+    }, [_vm._v("서·경")]) : _vm._e(), _vm._v("\r\n            " + _vm._s(row.od_name) + "\r\n        ")], 1), _vm._v(" "), _c("b-col", [row.user && (row.user.level == 11 || row.user.level == 12) ? _c("span", {
       staticClass: "badgetag d_blue d-none d-lg-inline-block"
     }, [_vm._v("딜")]) : _vm._e(), _vm._v(" "), _c("sub-string", {
       attrs: {
@@ -107,7 +114,9 @@ var render = function render() {
       "class": _vm.config.step[row.od_step]["class"]
     }, [_vm._v(_vm._s(_vm.config.step[row.od_step].sm_name))])]), _vm._v(" "), _c("b-col", {
       staticClass: "d-none d-lg-block"
-    }, [row.od_mng ? _c("span", [_vm.mng_off[row.od_mng] ? [_vm._v(_vm._s(_vm.mng_off[row.od_mng].name))] : [_vm._v(_vm._s(row.od_mng))]], 2) : _vm._e()])], 1);
+    }, [row.od_mng ? _c("span", [_vm.mng_off[row.od_mng] ? [_vm._v(_vm._s(_vm.mng_off[row.od_mng].name))] : [_vm._v(_vm._s(row.od_mng))]], 2) : _vm._e()]), _vm._v(" "), ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
+      staticClass: "d-none d-lg-block"
+    }, [_vm._v(_vm._s(row.od_addr1))]) : _vm._e()], 1);
   })], 2);
 };
 var staticRenderFns = [];
@@ -132,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-ef34b7ac] { font-weight:600;\n}\n.row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(3) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n.body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n.cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n.cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n.don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n.introducer[data-v-ef34b7ac] { background:#44ADF1;\n}\n.body .col.step .nametag[data-v-ef34b7ac] { width:70px;\n}\n.body .col.step .nametag.d-inline-block[data-v-ef34b7ac] { width:auto;\n}\n@media (max-width: 991px){\n.row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n.body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row .col[data-v-ef34b7ac] { font-weight:600;\n}\n.row .col[data-v-ef34b7ac]:nth-child(1) { flex:0 0 6%; max-width:6%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(2) { flex:0 0 9%; max-width:9%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(3) { border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(4) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(5) { flex:0 0 11%; max-width:11%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(6) { flex:0 0 9%; max-width:9%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(7) { flex:0 0 8%; max-width:8%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC;\n}\n.row .col[data-v-ef34b7ac]:nth-child(9) { flex:0 0 7%; max-width:7%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(10) { flex:0 0 5%; max-width:5%;\n}\n.row .col[data-v-ef34b7ac]:nth-child(11) { flex:0 0 10%; max-width:10%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(3) { text-align:left;\n}\n.body .col[data-v-ef34b7ac]:nth-child(11) { text-align:left; line-height:1;\n}\n.body[data-v-ef34b7ac]:hover { background:#B2E0FA;\n}\n.cancel[data-v-ef34b7ac] { background:#D7D7D7;\n}\n.cancel .col[data-v-ef34b7ac] { color:#9F9F9F;\n}\n.don_t[data-v-ef34b7ac] { background:#FECE02;\n}\n.introducer[data-v-ef34b7ac] { background:#44ADF1;\n}\n.body .col.step .nametag[data-v-ef34b7ac] { width:70px;\n}\n.body .col.step .nametag.d-inline-block[data-v-ef34b7ac] { width:auto;\n}\n@media (max-width: 991px){\n.row .col[data-v-ef34b7ac] { font-size:.75rem; line-height:1.4; padding:0.4rem;}\n.row .col[data-v-ef34b7ac]:nth-child(8) { flex:0 0 13%; max-width:13%;\n}\n.body .col[data-v-ef34b7ac]:nth-child(8) { text-align:right; padding-right:3px;\n}\n.body .step span[data-v-ef34b7ac] { width:30px; font-size:.75rem; margin:auto; padding:0\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

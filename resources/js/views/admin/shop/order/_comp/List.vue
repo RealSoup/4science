@@ -11,11 +11,15 @@
         <b-col>결제금액</b-col>
         <b-col><span class="d-none d-lg-inline-block">진행</span>현황</b-col>
         <b-col class="d-none d-lg-block">담당자</b-col>
+        <b-col v-if="['od_addr1', 'od_addr1_sk'].includes(sch_frm.mode)" class="d-none d-lg-block">배송주소</b-col>
     </b-row>
     <b-row class="body list" :class="{cancel:row.od_step==60, don_t:(row.user && row.user.group==3), introducer:(row.user.introducer)}" v-for="row in list" :key="row.mk_id">
         <b-col class="d-none d-lg-block">{{row.od_id}}.</b-col>
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
-        <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
+        <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">
+            <b-badge v-if="row.od_addr1_sk" pill class="plum">서&middot;경</b-badge>
+            {{row.od_name}}
+        </b-link>
         <b-col>
             <span v-if="row.user && (row.user.level == 11 || row.user.level == 12)" class="badgetag d_blue d-none d-lg-inline-block">딜</span>
             <sub-string v-model="row.od_orderer" :width="120" />
@@ -42,6 +46,8 @@
                 <template v-else>{{row.od_mng}}</template>
             </span>
         </b-col>
+        <b-col v-if="['od_addr1', 'od_addr1_sk'].includes(sch_frm.mode)" class="d-none d-lg-block">{{row.od_addr1}}</b-col>
+
     </b-row>
 </div>
 </template>
@@ -49,7 +55,7 @@
 <script>
 export default {
     name: 'AdmOrderIndexList',
-    props:['list', 'config', 'mng_off'],
+    props:['list', 'sch_frm', 'config', 'mng_off'],
     components: { 
         'sub-string': () => import('@/views/_common/SubString.vue'),
     },
@@ -68,7 +74,9 @@ export default {
 .row .col:nth-child(8) { flex:0 0 7%; max-width:7%; border-right:1px solid #CCCCCC; }
 .row .col:nth-child(9) { flex:0 0 7%; max-width:7%; }
 .row .col:nth-child(10) { flex:0 0 5%; max-width:5%; }
-.body .col:nth-child(3) { text-align:left; }
+.row .col:nth-child(11) { flex:0 0 10%; max-width:10%; }
+.body .col:nth-child(3) { text-align:left; } 
+.body .col:nth-child(11) { text-align:left; line-height:1; }
 .body:hover { background:#B2E0FA; }
 .cancel { background:#D7D7D7; }
 .cancel .col { color:#9F9F9F; }

@@ -19,6 +19,7 @@ class Order extends Model {
             12 => [ 'receiveable' => false, 'class' => 'white',   'name' => '입금확인중',   'sm_name' => '확중' ],
             20 => [ 'receiveable' => false, 'class' => 'green',   'name' => '입금완료',     'sm_name' => '입완' ],
             30 => [ 'receiveable' => false, 'class' => 'mint',    'name' => '제품준비중',   'sm_name' => '준중' ],
+            31 => [ 'receiveable' => false, 'class' => 'teal',    'name' => '직배송',       'sm_name' => '직배' ],
             40 => [ 'receiveable' => true,  'class' => 'd_blue',  'name' => '배송중',       'sm_name' => '배중' ],
             50 => [ 'receiveable' => true,  'class' => 'gray',    'name' => '배송완료',     'sm_name' => '배완' ],
             60 => [ 'receiveable' => false, 'class' => 'black',   'name' => '주문취소',     'sm_name' => '취소' ],

@@ -4,6 +4,9 @@
             <template v-if="value==11">
                 <b-badge :key="k" v-if="k==12" :class="v.class">{{v.name}}</b-badge>
             </template>
+            <template v-else-if="value==31">
+                <b-badge :key="k" v-if="k==30" :class="v.class">{{v.name}}</b-badge>
+            </template>
             <template v-else>
                 <b-badge :key="k" v-if="k==value" :class="v.class">{{v.name}}</b-badge>
             </template>

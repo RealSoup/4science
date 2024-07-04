@@ -33,6 +33,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     od_step1019: function od_step1019() {
       var _this$cnt_od_step$, _this$cnt_od_step$2, _this$cnt_od_step$3;
       return Number((_this$cnt_od_step$ = this.cnt_od_step[10]) !== null && _this$cnt_od_step$ !== void 0 ? _this$cnt_od_step$ : 0) + Number((_this$cnt_od_step$2 = this.cnt_od_step[11]) !== null && _this$cnt_od_step$2 !== void 0 ? _this$cnt_od_step$2 : 0) + Number((_this$cnt_od_step$3 = this.cnt_od_step[12]) !== null && _this$cnt_od_step$3 !== void 0 ? _this$cnt_od_step$3 : 0);
+    },
+    od_step3039: function od_step3039() {
+      var _this$cnt_od_step$4, _this$cnt_od_step$5;
+      return Number((_this$cnt_od_step$4 = this.cnt_od_step[30]) !== null && _this$cnt_od_step$4 !== void 0 ? _this$cnt_od_step$4 : 0) + Number((_this$cnt_od_step$5 = this.cnt_od_step[31]) !== null && _this$cnt_od_step$5 !== void 0 ? _this$cnt_od_step$5 : 0);
     }
   }),
   data: function data() {
@@ -213,7 +217,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm.cnt_od_step[30] ? _c("b", [_vm._v(_vm._s(_vm.cnt_od_step[30]))]) : _vm._e(), _vm._v(" "), _c("img", {
+  }, [_vm.od_step3039 ? _c("b", [_vm._v(_vm._s(_vm.od_step3039))]) : _vm._e(), _vm._v(" "), _c("img", {
     attrs: {
       src: "".concat(_vm.s3url, "mypage/step03.png")
     }

@@ -197,6 +197,18 @@ if(! function_exists('startsWith')) {
     }
 }
 
+if(! function_exists('strStartWithInArray')) {
+    //  문자열이 배열에 있는 항목으로 시작하는지 체크
+    function strStartWithInArray($array, $str) {
+        return array_reduce($array, function ($contains, $item) use ($str) {
+            return $contains = $contains || (strpos($str, $item) === 0);
+        }, false);
+    }
+}
+
+
+
+
 if(! function_exists('saleEnv')) {
     function saleEnv () {
         $sale_env = "P";

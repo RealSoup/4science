@@ -38,7 +38,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'my_bo_show',
         params: {
           bo_cd: 'event',
-          bo_id: 42
+          bo_id: 57
         }
       });
     }

@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     <b-link :to="{name:'my_order', query: { od_step:'20' }}">
-                        <b v-if="cnt_od_step[30]">{{cnt_od_step[30]}}</b>
+                        <b v-if="od_step3039">{{od_step3039}}</b>
                         <img :src="`${s3url}mypage/step03.png`" />
                         상품준비중
                     </b-link>
@@ -137,6 +137,9 @@ export default {
         }),
         od_step1019: function () {
             return Number(this.cnt_od_step[10] ?? 0) + Number(this.cnt_od_step[11] ?? 0) + Number(this.cnt_od_step[12] ?? 0); 
+        },
+        od_step3039: function () {
+            return Number(this.cnt_od_step[30] ?? 0) + Number(this.cnt_od_step[31] ?? 0); 
         },
     },
     data() {

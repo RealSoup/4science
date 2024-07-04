@@ -375,6 +375,10 @@ var render = function render() {
     }
   }, [_vm._v("배송주소")]), _vm._v(" "), _c("b-form-select-option", {
     attrs: {
+      value: "od_addr1_sk"
+    }
+  }, [_vm._v("배송주소:서경")]), _vm._v(" "), _c("b-form-select-option", {
+    attrs: {
       value: "oex_depositor"
     }
   }, [_vm._v("입금자")]), _vm._v(" "), _c("b-form-select-option", {
@@ -433,6 +437,11 @@ var render = function render() {
       col: ""
     }
   }, [_c("b-badge", {
+    staticClass: "plum",
+    attrs: {
+      pill: ""
+    }
+  }, [_vm._v("서·경")]), _vm._v(" 서울·경기 주문\r\n                "), _c("b-badge", {
     staticClass: "yellow",
     attrs: {
       pill: ""
@@ -471,6 +480,7 @@ var render = function render() {
   }, [_vm._v("100개")])], 1)], 1)], 1), _vm._v(" "), _vm.list.data && _vm.list.data.length ? _c("list", {
     attrs: {
       list: _vm.list.data,
+      sch_frm: _vm.sch_frm,
       config: _vm.order_config,
       mng_off: _vm.mng_off
     }
