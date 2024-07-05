@@ -95,7 +95,7 @@
                 <b-badge pill class="yellow">&nbsp;</b-badge> 미수회원
                 <b-badge pill class="gray">&nbsp;</b-badge> 취소주문
                 
-                <b-form-select v-model="sch_frm.list_size" @change="routerPush" size="sm">
+                <b-form-select v-model="sch_frm.list_size" @change="routerPush(1)" size="sm">
                     <b-form-select-option value="20">20개</b-form-select-option>
                     <b-form-select-option value="50">50개</b-form-select-option>
                     <b-form-select-option value="100">100개</b-form-select-option>

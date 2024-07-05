@@ -51,7 +51,7 @@ var render = function render() {
     staticClass: "d-none d-lg-inline-block"
   }, [_vm._v("진행")]), _vm._v("현황")]), _vm._v(" "), _c("b-col", {
     staticClass: "d-none d-lg-block"
-  }, [_vm._v("담당자")]), _vm._v(" "), ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
+  }, [_vm._v("담당자")]), _vm._v(" "), _vm.$route.name === "adm_order_index" && !_vm.isEmpty(_vm.sch_frm) && ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
     staticClass: "d-none d-lg-block"
   }, [_vm._v("배송주소")]) : _vm._e()], 1), _vm._v(" "), _vm._l(_vm.list, function (row) {
     return _c("b-row", {
@@ -76,7 +76,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [row.od_addr1_sk ? _c("b-badge", {
+    }, [_vm._v(_vm._s(row.od_name))]), _vm._v(" "), _c("b-col", [_vm.$route.name === "adm_order_index" && row.od_addr1_sk ? _c("b-badge", {
       staticClass: "plum addr1_sk",
       attrs: {
         pill: ""
@@ -114,7 +114,7 @@ var render = function render() {
       "class": _vm.config.step[row.od_step]["class"]
     }, [_vm._v(_vm._s(_vm.config.step[row.od_step].sm_name))])]), _vm._v(" "), _c("b-col", {
       staticClass: "d-none d-lg-block"
-    }, [row.od_mng ? _c("span", [_vm.mng_off[row.od_mng] ? [_vm._v(_vm._s(_vm.mng_off[row.od_mng].name))] : [_vm._v(_vm._s(row.od_mng))]], 2) : _vm._e()]), _vm._v(" "), ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
+    }, [row.od_mng ? _c("span", [_vm.mng_off[row.od_mng] ? [_vm._v(_vm._s(_vm.mng_off[row.od_mng].name))] : [_vm._v(_vm._s(row.od_mng))]], 2) : _vm._e()]), _vm._v(" "), _vm.$route.name === "adm_order_index" && !_vm.isEmpty(_vm.sch_frm) && ["od_addr1", "od_addr1_sk"].includes(_vm.sch_frm.mode) ? _c("b-col", {
       staticClass: "d-none d-lg-block"
     }, [_vm._v(_vm._s(row.od_addr1))]) : _vm._e()], 1);
   })], 2);

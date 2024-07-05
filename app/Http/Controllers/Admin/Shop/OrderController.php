@@ -122,7 +122,7 @@ class OrderController extends Controller {
             }
         }
 		
-		if ( $data['mode'] == 'od_addr1_sk' ) {
+		if ( array_key_exists('mode', $data) && $data['mode'] == 'od_addr1_sk' ) {
 			$orders = $orders->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); });
 		}
 

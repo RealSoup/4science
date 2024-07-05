@@ -456,7 +456,9 @@ var render = function render() {
       size: "sm"
     },
     on: {
-      change: _vm.routerPush
+      change: function change($event) {
+        return _vm.routerPush(1);
+      }
     },
     model: {
       value: _vm.sch_frm.list_size,
