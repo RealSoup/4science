@@ -3,7 +3,7 @@ namespace app\Http\Controllers\shop;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Shop\{Goods, Category, GoodsCategory};
+use App\Models\Shop\{Goods, Category, GoodsCategory, Order};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Lib\SphinxClient;
@@ -175,11 +175,31 @@ class GoodsController extends Controller {
         //  데이터를 가공하고 나면 
         //  나중에 appends 초기 세팅값이 들어가서
         //  가공한게 날아간다.
+
+        $bought_gm = [];
+        if (auth()->check()) {
+            $order = Order::with('orderModel')->SchWriter(auth()->user()->id)->get();
+            foreach ($order as $od)
+                foreach ($od->orderModel as $odm) 
+                    if (intval($odm->odm_gd_id) == intval($gd_id)) {
+                        if ( array_key_exists($odm->odm_gm_id, $bought_gm) )    $bought_gm[$odm->odm_gm_id]['cnt']++;
+                        else                                                    $bought_gm[$odm->odm_gm_id]['cnt'] = 1;
+                        $bought_gm[$odm->odm_gm_id]['date'] = date('y년 n월 j일', strtotime($od->created_at));
+                    }
+        }
+
         foreach ($data['goods']->goodsModelEnable as $val) {
+
             $val->ea = 0;
             $val->bundleDc;
 
+            if( auth()->check() )   //  이전 구매이력 표시
+                foreach ($bought_gm as $k => $v)
+                    if ( intval($val->gm_id) == $k )
+                        $val->bought_gm = $v;
+
             $val = $this->goods->goods_discount_checker ($val, $data['goods']->gd_dc);
+
             // if( auth()->check() && auth()->user()->level == 12 ) {
             //     $val->dc_type = "dealer";
             //     $val->gm_price_dc = $val->gm_price*auth()->user()->dc_mul;

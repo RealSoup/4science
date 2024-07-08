@@ -123,7 +123,10 @@ class OrderController extends Controller {
         }
 		
 		if ( array_key_exists('mode', $data) && $data['mode'] == 'od_addr1_sk' ) {
-			$orders = $orders->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); });
+			$orders->when($req->keyword, function ($q, $v) { return $q->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); })
+				->where(function($q) use($v) { $q->Where('od_addr1', 'like' , "%{$v}%")->orWhere('od_addr2', 'like' , "%{$v}%"); }); });
+			$orders->when(!$req->keyword, function ($q) { return $q->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); }); });
+			// $orders = $orders->where(function($q) { $q->Where('od_addr1', 'like' , "서울%")->orWhere('od_addr1', 'like' , "경기%"); });
 		}
 
 		if ($req->filled('limit'))

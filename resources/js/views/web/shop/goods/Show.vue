@@ -58,8 +58,14 @@
                         <b-col>수량</b-col>
                     </b-row>
                 
-                    <b-row v-for="(gm, i) in content.goods_model_enable" :key="i" :class="{'selected': gm.ea, 'ea_over': gm.ea>gm.gm_limit_ea}">
-                        <b-col class="m_hide">{{gm.gm_catno}}</b-col>
+                    <b-row v-for="(gm, i) in content.goods_model_enable" :key="i" :class="{'selected': gm.ea, 'ea_over': gm.ea>gm.gm_limit_ea, 'bought_gm': gm.bought_gm}">
+                        <b-col class="m_hide">
+                            <span v-if="gm.bought_gm" class="bought_msg" :class="{'long': gm.bought_gm.cnt > 1}">
+                                {{gm.bought_gm.date}} 이거 구매하셨어요.
+                                <template v-if="gm.bought_gm.cnt > 1">{{gm.bought_gm.cnt}}회 구입</template>
+                            </span>
+                            {{gm.gm_catno}}
+                        </b-col>
                         <b-col class="m_hide">{{gm.gm_code}}</b-col>
                         <b-col class="gm_name">
                             <b>{{gm.gm_name}}</b>
@@ -601,10 +607,27 @@ export default {
 
 .conRight { border-top:1px solid #D8D8D8; margin-left:10px; color:#000; flex:0 0 calc(66.666667% - 10px); max-width:calc(66.666667% - 10px); }
 .conRight h3 { padding:1.1rem .5rem; font-weight:bold; }
-.conRight .model .row { margin:0; overflow:hidden; }
+.conRight .model { overflow:hidden; }
+.conRight .model .row { margin:0; }
 .conRight .model .row:nth-of-type(1) .col { font-weight:bold; padding:.4rem .3rem; font-size:.9rem; }
 .conRight .model .row.selected { background:#FFFBCC; }
 .conRight .model .row.ea_over { background:#FFCCCC; }
+.conRight .model .bought_gm { background:#D0EFDF; }
+.conRight .model .bought_gm .col:nth-of-type(1) { position:relative; }
+.conRight .model .bought_gm .col .bought_msg { 
+    opacity:0;
+    animation-fill-mode:backwards; 
+    animation: fadeout 6s; -moz-animation: fadeout 6s; /* Firefox */ -webkit-animation: fadeout 6s; /* Safari and Chrome */ -o-animation: fadeout 6s; /* Opera */
+    z-index:1; box-shadow:2px 3px 6px #999; position:absolute; 
+    width:260px; left:78px; top:-27px; background:#00A650; color:white; border-radius:5px; padding:3px; }
+@keyframes fadeout { 0% {opacity: 1;} 75% {opacity: 1;} 100% {opacity: 0;} }
+@-moz-keyframes fadeout { 0% {opacity: 1;} 75% {opacity: 1;} 100% {opacity: 0;} }/* Firefox */ 
+@-webkit-keyframes fadeout { 0% {opacity: 1;} 75% {opacity: 1;} 100% {opacity: 0;} }/* Safari and Chrome */ 
+@-o-keyframes fadeout { 0% {opacity: 1;} 75% {opacity: 1;} 100% {opacity: 0;} }/* Opera */ 
+.conRight .model .bought_gm:hover .col .bought_msg { opacity:1; }
+.conRight .model .bought_gm .col .bought_msg:hover { opacity:0; }
+.conRight .model .bought_gm .col .bought_msg:after { border-top:15px solid #00A650; border-left:0px solid transparent; border-right:15px solid transparent; border-bottom:0px solid transparent; content:""; position:absolute; bottom:-15px; left:20px; }
+.conRight .model .bought_gm .col .bought_msg.long { width:330px; }
 /* 테이블같은 볼더 */
 .conRight .model .row .col { border:1px solid #CCC; padding:.8rem .3rem; text-align:center; word-break:break-all; }
 .conRight .model .row .col:not(:last-child) { border-right-width:0; }
