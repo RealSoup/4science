@@ -723,17 +723,7 @@ var render = function render() {
     attrs: {
       value: "A"
     }
-  }, [_vm._v("APP")])], 1) : _vm._e(), _vm._v(" "), _vm.od.user.introducer ? _c("b-button", {
-    staticClass: "xm sky",
-    attrs: {
-      to: {
-        name: "adm_user_edit",
-        params: {
-          id: _vm.od.user.introducer.id
-        }
-      }
-    }
-  }, [_vm._v("소개자 - " + _vm._s(_vm.od.user.introducer.name))]) : _vm._e()], 1), _vm._v(" "), _vm.od.od_mng > 0 ? _c("div", {
+  }, [_vm._v("APP")])], 1) : _vm._e()], 1), _vm._v(" "), _vm.od.od_mng > 0 ? _c("div", {
     staticClass: "print_mng_nm"
   }, [_vm._v(_vm._s(_vm.od.mng.name))]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "act_ctrl"

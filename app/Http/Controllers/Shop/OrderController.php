@@ -342,7 +342,7 @@ class OrderController extends Controller {
 
     public function bought(Request $req) {
         $rst = array();
-        $order = $this->order->with('orderModel')->SchWriter(auth()->user()->id)->get();
+        $order = $this->order->with('orderModel')->SchWriter(auth()->user()->id)->OdAccept()->get();
         foreach ($order as $od)
             foreach ($od->orderModel as $odm)
                 $rst[] = $odm;
@@ -350,7 +350,7 @@ class OrderController extends Controller {
     }
 
     public function cnt_od_step(Request $req) {
-        $od = $this->order->SchWriter(auth()->user()->id)->StartDate(date('Y-m-d', strtotime(date('Y-m-d')." -1 month")))->get();
+        $od = $this->order->SchWriter(auth()->user()->id)->OdAccept()->StartDate(date('Y-m-d', strtotime(date('Y-m-d')." -1 month")))->get();
         $rst = $od->countBy(function ($item) { return $item['od_step']; });
 
         return response()->json($rst, 200);

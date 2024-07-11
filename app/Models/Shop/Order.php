@@ -102,19 +102,23 @@ class Order extends Model {
     public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id')->withDefault(); }
 
-    public function scopeStartDate($q, $d)          { return $q->whereDate('shop_order.created_at', '>=', $d); }
-    public function scopeEndDate($q, $d)            { return $q->whereDate('shop_order.created_at', '<=', $d); }
-    public function scopeSchWriter($query, $id) { return $query->where('created_id', $id); }
+    public function scopeStartDate($q, $d)  { return $q->whereDate('shop_order.created_at', '>=', $d); }
+    public function scopeEndDate($q, $d)    { return $q->whereDate('shop_order.created_at', '<=', $d); }
+    public function scopeSchWriter($q, $id) { return $q->where('created_id', $id); }
     // public function scopeToday($query) { return $query->whereRaw('created_at > CURDATE()'); }
     public function scopeOdStep($q, $v) { return $q->where('od_step', $v); }
-    public function scopeSchOd_addr($query, $sch_text) { return $query->where('od_addr1', 'like', "%$sch_text%"); }
-    public function scopeOdinLast3Mths($query) {
-        return $query->where([
-            ['od_step', '>=', 30],
-            ['od_step', '<=', 70],
-            ['created_at', '>=', Carbon::now()->subMonths(3)->toDateString().' 00:00:00'] ]);
+    public function scopeSchOd_addr($q, $sch_text) { return $q->where('od_addr1', 'like', "%$sch_text%"); }    
+    public function scopeOdAccept($q) {
+        // return $q->where([
+        //     ['od_type', '<>', 'buy_temp'],
+        //     ['od_step', '>=', '20'],
+        //     ['od_step', '<=', '50'] ]);
+
+        $q->where('od_type', '<>', 'buy_temp')	// 임의 주문 제외
+              ->where('od_step', '>=', '20')	//	입금 완료부터
+              ->where('od_step', '<=', '50');	//	배송완료까지
     }
-    public function scopeMb_yn($query) { return $query->where('od_mb_yn', 'Y'); }
+    public function scopeMb_yn($q) { return $q->where('od_mb_yn', 'Y'); }
 
 
     // public function getPg() { return Pg::where('pg_od_no', $this->od_no)->first(); }

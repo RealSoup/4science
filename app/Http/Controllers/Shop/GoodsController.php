@@ -178,7 +178,7 @@ class GoodsController extends Controller {
 
         $bought_gm = [];
         if (auth()->check()) {
-            $order = Order::with('orderModel')->SchWriter(auth()->user()->id)->oldest()->get();
+            $order = Order::with('orderModel')->SchWriter(auth()->user()->id)->OdAccept()->oldest()->get();
             foreach ($order as $od)
                 foreach ($od->orderModel as $odm) 
                     if (intval($odm->odm_gd_id) == intval($gd_id)) {

@@ -144,9 +144,9 @@ class OrderController extends Controller {
 				if ( count($tmp) > 1 ) $od->od_name .= "외 [".(count($tmp)-1)."]";
 			}
 
-			if ($od->user->code_01)
-                $od->user->introducer = true;
-            else $od->user->introducer = false;
+			// if ($od->user->code_01)
+            //     $od->user->introducer = true;
+            // else $od->user->introducer = false;
 
 			//	서울, 경기 배송지 체크
 			if (strStartWithInArray(["서울", "경기"], mb_substr($od->od_addr1, 0, 2)))	$od->od_addr1_sk = true;
@@ -289,9 +289,9 @@ class OrderController extends Controller {
 			$data->user->userAddr;
 
 			///////////////////////
-			if ($data->user->code_01)
-                $data->user->introducer = User::find($data->user->code_01);
-            else $data->user->introducer = NULL;
+			// if ($data->user->code_01)
+            //     $data->user->introducer = User::find($data->user->code_01);
+            // else $data->user->introducer = NULL;
 			//////////////////////////////////
 		}
 		$arr_sw = ShowWindow::select('sw_group', 'sw_key')->Type('today_pick_up')->pluck('sw_key')->toArray();

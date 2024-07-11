@@ -9,8 +9,7 @@
                 <b-form-select-option value="P">PC</b-form-select-option>
                 <b-form-select-option value="M">MOBILE</b-form-select-option>
                 <b-form-select-option value="A">APP</b-form-select-option>
-            </b-form-select>
-            <b-button :to="{name: 'adm_user_edit', params: { id:od.user.introducer.id }}" v-if="od.user.introducer" class="xm sky">소개자 - {{od.user.introducer.name}}</b-button>
+            </b-form-select>            
         </h3>
         <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
         <div class="act_ctrl">

@@ -13,7 +13,7 @@
         <b-col class="d-none d-lg-block">담당자</b-col>
         <b-col v-if="$route.name === 'adm_order_index' && !isEmpty(sch_frm) && (['od_addr1', 'od_addr1_sk'].includes(sch_frm.mode))" class="d-none d-lg-block">배송주소</b-col>
     </b-row>
-    <b-row class="body list" :class="{cancel:row.od_step==60, don_t:(row.user && row.user.group==3), introducer:(row.user.introducer)}" v-for="row in list" :key="row.mk_id">
+    <b-row class="body list" :class="{cancel:row.od_step==60, don_t:(row.user && row.user.group==3)}" v-for="row in list" :key="row.mk_id">
         <b-col class="d-none d-lg-block">{{row.od_id}}.</b-col>
         <b-col class="d-none d-lg-block">{{row.od_no}}</b-col>
         <b-link class="col" :to="{name: 'adm_order_edit', params: { od_id:row.od_id }}">{{row.od_name}}</b-link>
@@ -79,7 +79,6 @@ export default {
 .cancel { background:#D7D7D7; }
 .cancel .col { color:#9F9F9F; }
 .don_t { background:#FECE02; }
-.introducer { background:#44ADF1; }
 .body .col.step .nametag { width:70px; }
 .body .col.step .nametag.d-inline-block { width:auto; }
 @media (max-width: 991px){
