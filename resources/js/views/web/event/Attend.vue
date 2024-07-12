@@ -6,7 +6,7 @@
             <p>출석체크 이벤트</p>
         </div>
 
-        <div class="right">
+        <div class="right m_hide">
             <div class="octagon"></div>
             <div class="deco">
                 <span class="octagon_deco"></span>
@@ -257,5 +257,10 @@ export default {
     .calendar table th, 
     .calendar table td { padding: 0.2rem; }
     .calendar table tbody tr td b { font-size:.7rem; }
+
+    .calendar .p_top { height: 121px; }
+    .calendar .p_top .left p { font-size:2rem; }
+    .calendar .p_top .left p:nth-child(2):before { height:13px; background-size:contain; background-repeat:no-repeat; }
+    .calendar .p_top .left p:nth-child(2):after { height:50px; background-size: contain; background-repeat: no-repeat; }
 }
 </style>
