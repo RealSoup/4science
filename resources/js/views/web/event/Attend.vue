@@ -1,12 +1,28 @@
 <template>
-
 <div class="calendar">
-    
+    <div class="p_top">
+        <div class="left">
+            <p>8월</p>
+            <p>출석체크 이벤트</p>
+        </div>
+
+        <div class="right">
+            <div class="octagon"></div>
+            <div class="deco">
+                <span class="octagon_deco"></span>
+                <span class="coin1"><img src="/storage/event/2024/0801/main_coin_1.png" alt=""></span>
+                <span class="coin2"><img src="/storage/event/2024/0801/main_coin_2.png" alt=""></span>
+                <span class="coin3"></span>
+                <span class="calender"></span>
+                <span class="splash"></span>
+            </div>
+        </div>
+    </div>
     <b-row tag="h2" cols="1" cols-sm="2">
         <b-col class="ctrl">
-            <b-button @click="calendarData(-1)">&lt;</b-button>
+            <!-- <b-button @click="calendarData(-1)">&lt;</b-button> -->
             {{ year }}년 {{ month }}월
-            <b-button @click="calendarData(1)">&gt;</b-button>
+            <!-- <b-button @click="calendarData(1)">&gt;</b-button> -->
         </b-col>
         <b-col class="info">
             출석일수: <b>{{attendData.data.length}}</b>
@@ -40,7 +56,6 @@
     </b-row>
 
 </div>
-
 </template>
 
 <script>
@@ -201,6 +216,42 @@ export default {
 .calendar table tbody tr td:hover { background-color:#EEE; }
 .calendar table tbody tr td .rounded { -moz-border-radius:20px 20px 20px 20px; border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff; }
 
+.calendar .p_top { width:100%; height:554px; position:relative; z-index:-1; }
+.calendar .p_top .left p { position:relative; width:fit-content; font-size:4.5rem; font-weight:800; margin:0; line-height:1.4; }
+.calendar .p_top .left p:nth-child(1)::before { content:''; width:34px; height:35px; background:url(/storage/event/2024/0801/main_deco_1.png); 
+    position:absolute; top:0; right:-34px; animation: octagon 20s linear reverse infinite; }
+.calendar .p_top .left p:nth-child(2)::before { content:''; width:0; height:29px; background:url(/storage/event/2024/0801/main_deco_back.png);
+    position:absolute; bottom:2px; left:0; z-index:-1; overflow:hidden; animation:titline 1s forwards ease-in-out 2s; }
+.calendar .p_top .left p:nth-child(2)::after { content:''; width:57px; height:97px; background: url(/storage/event/2024/0801/main_deco_2.png); 
+    position:absolute; top:4px; right:-72px; transform-origin:bottom center; animation:titex 3s infinite ease-in-out 1.2s; }
+
+.calendar .p_top .right { position: absolute; top: 0; left: 490px; }    
+.calendar .p_top .right .octagon { width:1100px; height:1100px; border-radius:50%; left:184px; top:-490px; position:relative;
+    animation:octagon 100s linear infinite; background: linear-gradient(to bottom, #33B4FF, #33B4FF, #4AFFB7); z-index:-1; }
+.calendar .p_top .right .octagon::before { content:''; width:1122px; height:1122px; background: url(/storage/event/2024/0801/octa_bg.png) center center no-repeat;
+    position: absolute; top: 50%; left: 50%; transform: Translate(-50%, -50%); }
+.calendar .p_top .right .deco { width:745px; height:521px; position:absolute; top:31px; left:0; }
+.calendar .p_top .right .deco .octagon_deco { width:645px; height:667px; position:absolute; top:-230px; left:400px; opacity:0.5; background: url(/storage/event/2024/0801/main_bg3.png) center center / contain no-repeat; }
+
+.calendar .p_top .right .deco .coin1 { position:absolute; top:-31px; left:57px; transform:rotate(-25deg); transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2.5s; }
+.calendar .p_top .right .deco .coin2 { position:absolute; top:134px; left:568px; width:132px; transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.2s, coin2 3s infinite ease-in-out 2s; }
+.calendar .p_top .right .deco .coin3 { position:absolute; top:79px; right:0; width:58px; height:60px; background:url(/storage/event/2024/0801/main_deco_4.png) center center no-repeat; transform:scale(0);
+    animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2s; }
+.calendar .p_top .right .deco .calender { width:532px; height:374px; position:absolute; top:100px; left:30px; transform:rotate(10deg); background-size:contain;
+    background-position:center; background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/cld_8.png); }
+.calendar .p_top .right .deco .splash { display:block; width:337px; height:278px; position:absolute; bottom:0; right:20px; background-size:contain; background-position:center;
+    background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/digi_l8.png); }
+
+@keyframes octagon { 100% { transform: rotate(360deg); } }
+@keyframes titex { 0%,18%,24%,32% { transform: rotate(0); }
+                    20%,28% { transform: rotate(5deg); } }
+@keyframes titline { 0% { width: 0; }
+                    100% { width: 262px; } }       
+@keyframes coin1 { 0% { transform: scale(0); }
+                    80% { transform: scale(1.1); }
+                    100% { transform: scale(1); } }
+@keyframes coin2 { 0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(20px); } }                                 
 @media (max-width: 576px) {
     .calendar h2 { margin-bottom:.3rem; }
     .calendar table th, 

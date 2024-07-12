@@ -230,7 +230,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "calendar"
-  }, [_c("b-row", {
+  }, [_vm._m(0), _vm._v(" "), _c("b-row", {
     attrs: {
       tag: "h2",
       cols: "1",
@@ -238,19 +238,7 @@ var render = function render() {
     }
   }, [_c("b-col", {
     staticClass: "ctrl"
-  }, [_c("b-button", {
-    on: {
-      click: function click($event) {
-        return _vm.calendarData(-1);
-      }
-    }
-  }, [_vm._v("<")]), _vm._v("\r\n            " + _vm._s(_vm.year) + "년 " + _vm._s(_vm.month) + "월\r\n            "), _c("b-button", {
-    on: {
-      click: function click($event) {
-        return _vm.calendarData(1);
-      }
-    }
-  }, [_vm._v(">")])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("\r\n            " + _vm._s(_vm.year) + "년 " + _vm._s(_vm.month) + "월\r\n            ")]), _vm._v(" "), _c("b-col", {
     staticClass: "info"
   }, [_vm._v("\r\n            출석일수: "), _c("b", [_vm._v(_vm._s(_vm.attendData.data.length))]), _vm._v(" "), _c("span", [_vm._v(" ")]), _vm._v("\r\n            획득 마일리지: "), _c("b", [_vm._v(_vm._s(_vm.attendData.sum_mileage))])])], 1), _vm._v(" "), _c("table", {
     staticClass: "table"
@@ -284,7 +272,43 @@ var render = function render() {
     }
   }, [_vm._v("출석체크하기")])], 1)], 1)], 1);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "p_top"
+  }, [_c("div", {
+    staticClass: "left"
+  }, [_c("p", [_vm._v("8월")]), _vm._v(" "), _c("p", [_vm._v("출석체크 이벤트")])]), _vm._v(" "), _c("div", {
+    staticClass: "right"
+  }, [_c("div", {
+    staticClass: "octagon"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "deco"
+  }, [_c("span", {
+    staticClass: "octagon_deco"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "coin1"
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/event/2024/0801/main_coin_1.png",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("span", {
+    staticClass: "coin2"
+  }, [_c("img", {
+    attrs: {
+      src: "/storage/event/2024/0801/main_coin_2.png",
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("span", {
+    staticClass: "coin3"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "calender"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "splash"
+  })])])]);
+}];
 render._withStripped = true;
 
 
@@ -306,7 +330,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar { margin-top:2em;\n}\n.calendar h2 { text-align:center; margin-bottom:.3rem;\n}\n.calendar h2 .ctrl { text-align:left;\n}\n.calendar h2 .info { font-size:1rem; font-style:normal; align-self:flex-end; text-align:right;\n}\n.calendar h2 .info b { color:#FF0000;\n}\n.calendar table thead tr th,\r\n.calendar table tbody tr td { text-align:center;\n}\n.calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:3px 0;\n}\n.calendar table tbody tr td b { display:block;\n}\n.calendar table tbody tr td b i { font-style:normal;\n}\n.calendar table tbody tr td.another_month { font-weight:900; color:#CCC;\n}\n.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;\n}\n.calendar table tbody tr td.redday span,\r\n.calendar table tbody tr td.redday b { color:#FF0000; font-weight:900;\n}\n.calendar table tbody tr td:hover { background-color:#EEE;\n}\n.calendar table tbody tr td .rounded { border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff;\n}\n@media (max-width: 576px) {\n.calendar h2 { margin-bottom:.3rem;\n}\n.calendar table th, \r\n    .calendar table td { padding: 0.2rem;\n}\n.calendar table tbody tr td b { font-size:.7rem;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar { margin-top:2em;\n}\n.calendar h2 { text-align:center; margin-bottom:.3rem;\n}\n.calendar h2 .ctrl { text-align:left;\n}\n.calendar h2 .info { font-size:1rem; font-style:normal; align-self:flex-end; text-align:right;\n}\n.calendar h2 .info b { color:#FF0000;\n}\n.calendar table thead tr th,\r\n.calendar table tbody tr td { text-align:center;\n}\n.calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:3px 0;\n}\n.calendar table tbody tr td b { display:block;\n}\n.calendar table tbody tr td b i { font-style:normal;\n}\n.calendar table tbody tr td.another_month { font-weight:900; color:#CCC;\n}\n.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;\n}\n.calendar table tbody tr td.redday span,\r\n.calendar table tbody tr td.redday b { color:#FF0000; font-weight:900;\n}\n.calendar table tbody tr td:hover { background-color:#EEE;\n}\n.calendar table tbody tr td .rounded { border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff;\n}\n.calendar .p_top { width:100%; height:554px; position:relative; z-index:-1;\n}\n.calendar .p_top .left p { position:relative; width:-moz-fit-content; width:fit-content; font-size:4.5rem; font-weight:800; margin:0; line-height:1.4;\n}\n.calendar .p_top .left p:nth-child(1)::before { content:''; width:34px; height:35px; background:url(/storage/event/2024/0801/main_deco_1.png); \r\n    position:absolute; top:0; right:-34px; animation: octagon 20s linear reverse infinite;\n}\n.calendar .p_top .left p:nth-child(2)::before { content:''; width:0; height:29px; background:url(/storage/event/2024/0801/main_deco_back.png);\r\n    position:absolute; bottom:2px; left:0; z-index:-1; overflow:hidden; animation:titline 1s forwards ease-in-out 2s;\n}\n.calendar .p_top .left p:nth-child(2)::after { content:''; width:57px; height:97px; background: url(/storage/event/2024/0801/main_deco_2.png); \r\n    position:absolute; top:4px; right:-72px; transform-origin:bottom center; animation:titex 3s infinite ease-in-out 1.2s;\n}\n.calendar .p_top .right { position: absolute; top: 0; left: 490px;\n}\n.calendar .p_top .right .octagon { width:1100px; height:1100px; border-radius:50%; left:184px; top:-490px; position:relative;\r\n    animation:octagon 100s linear infinite; background: linear-gradient(to bottom, #33B4FF, #33B4FF, #4AFFB7); z-index:-1;\n}\n.calendar .p_top .right .octagon::before { content:''; width:1122px; height:1122px; background: url(/storage/event/2024/0801/octa_bg.png) center center no-repeat;\r\n    position: absolute; top: 50%; left: 50%; transform: Translate(-50%, -50%);\n}\n.calendar .p_top .right .deco { width:745px; height:521px; position:absolute; top:31px; left:0;\n}\n.calendar .p_top .right .deco .octagon_deco { width:645px; height:667px; position:absolute; top:-230px; left:400px; opacity:0.5; background: url(/storage/event/2024/0801/main_bg3.png) center center / contain no-repeat;\n}\n.calendar .p_top .right .deco .coin1 { position:absolute; top:-31px; left:57px; transform:rotate(-25deg); transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2.5s;\n}\n.calendar .p_top .right .deco .coin2 { position:absolute; top:134px; left:568px; width:132px; transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.2s, coin2 3s infinite ease-in-out 2s;\n}\n.calendar .p_top .right .deco .coin3 { position:absolute; top:79px; right:0; width:58px; height:60px; background:url(/storage/event/2024/0801/main_deco_4.png) center center no-repeat; transform:scale(0);\r\n    animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2s;\n}\n.calendar .p_top .right .deco .calender { width:532px; height:374px; position:absolute; top:100px; left:30px; transform:rotate(10deg); background-size:contain;\r\n    background-position:center; background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/cld_8.png);\n}\n.calendar .p_top .right .deco .splash { display:block; width:337px; height:278px; position:absolute; bottom:0; right:20px; background-size:contain; background-position:center;\r\n    background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/digi_l8.png);\n}\n@keyframes octagon {\n100% { transform: rotate(360deg);\n}\n}\n@keyframes titex {\n0%,18%,24%,32% { transform: rotate(0);\n}\n20%,28% { transform: rotate(5deg);\n}\n}\n@keyframes titline {\n0% { width: 0;\n}\n100% { width: 262px;\n}\n}\n@keyframes coin1 {\n0% { transform: scale(0);\n}\n80% { transform: scale(1.1);\n}\n100% { transform: scale(1);\n}\n}\n@keyframes coin2 {\n0%, 100% { transform: translateY(0);\n}\n50% { transform: translateY(20px);\n}\n}\n@media (max-width: 576px) {\n.calendar h2 { margin-bottom:.3rem;\n}\n.calendar table th, \r\n    .calendar table td { padding: 0.2rem;\n}\n.calendar table tbody tr td b { font-size:.7rem;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

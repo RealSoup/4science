@@ -108,15 +108,9 @@ class Order extends Model {
     // public function scopeToday($query) { return $query->whereRaw('created_at > CURDATE()'); }
     public function scopeOdStep($q, $v) { return $q->where('od_step', $v); }
     public function scopeSchOd_addr($q, $sch_text) { return $q->where('od_addr1', 'like', "%$sch_text%"); }    
-    public function scopeOdAccept($q) {
-        // return $q->where([
-        //     ['od_type', '<>', 'buy_temp'],
-        //     ['od_step', '>=', '20'],
-        //     ['od_step', '<=', '50'] ]);
-
-        $q->where('od_type', '<>', 'buy_temp')	// 임의 주문 제외
-              ->where('od_step', '>=', '20')	//	입금 완료부터
-              ->where('od_step', '<=', '50');	//	배송완료까지
+    public function scopeOdAccept($q) { $q->where('od_type', '<>', 'buy_temp')	// 임의 주문 제외
+                                          ->where('od_step', '>=', '20')	//	입금 완료부터
+                                          ->where('od_step', '<=', '50');	//	배송완료까지
     }
     public function scopeMb_yn($q) { return $q->where('od_mb_yn', 'Y'); }
 
