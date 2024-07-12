@@ -29,8 +29,7 @@
                 </b-col>
             </b-row>
         </transition-group>
-        <b-button @click="page++" block variant="primary">더보기</b-button>
-        
+        <b-button v-if="remainPage>0" @click="page++" block variant="primary">더보기</b-button>
     </template>
 </b-container>
 </template>
@@ -63,6 +62,9 @@ export default {
         }),
         computedModel: function () {
             return this.model.slice( 0, this.page*7 );
+        },
+        remainPage: function () {
+            return this.model.length-this.page*7;
         },
     },
     methods:{

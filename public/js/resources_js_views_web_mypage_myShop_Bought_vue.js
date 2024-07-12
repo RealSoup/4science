@@ -48,6 +48,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   })), {}, {
     computedModel: function computedModel() {
       return this.model.slice(0, this.page * 7);
+    },
+    remainPage: function remainPage() {
+      return this.model.length - this.page * 7;
     }
   }),
   methods: {
@@ -184,7 +187,7 @@ var render = function render() {
     }), _vm._v(" "), _c("b", {
       staticClass: "md_multi"
     }, [_vm._v(_vm._s(_vm._f("comma")(m.odm_price * m.odm_ea)) + " 원")])], 1)], 1);
-  }), 1), _vm._v(" "), _c("b-button", {
+  }), 1), _vm._v(" "), _vm.remainPage > 0 ? _c("b-button", {
     attrs: {
       block: "",
       variant: "primary"
@@ -194,7 +197,7 @@ var render = function render() {
         _vm.page++;
       }
     }
-  }, [_vm._v("더보기")])]], 2);
+  }, [_vm._v("더보기")]) : _vm._e()]], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
