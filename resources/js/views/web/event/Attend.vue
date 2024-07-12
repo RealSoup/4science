@@ -165,19 +165,23 @@ export default {
         },
 
         async store() {
-            let res = await ax.get(`/api/event/attendStore`);
-            if (res && res.status === 200) {
-                if (res.data == 'Exist')
-                    Notify.modal("이미 출석 하였습니다.", 'warning');
-                else
-                    Notify.toast('success', '출석체크 완료')
-                
-                if (res.data == 'Perfect Attendance')
-                    Notify.modal("한달 모두 출석으로 1000점 추가 지급", 'success');
-
-                this.index();
+            if (!Auth.check()) {
+                Notify.modal("로그인이 필요합니다.", 'danger');
             } else {
-                Notify.toast('warning', res);
+                let res = await ax.get(`/api/event/attendStore`);
+                if (res && res.status === 200) {
+                    if (res.data == 'Exist')
+                        Notify.modal("이미 출석 하였습니다.", 'warning');
+                    else
+                        Notify.toast('success', '출석체크 완료')
+                    
+                    if (res.data == 'Perfect Attendance')
+                        Notify.modal("한달 모두 출석으로 1000점 추가 지급", 'success');
+
+                    this.index();
+                } else {
+                    Notify.toast('warning', res);
+                }
             }
         },
     },

@@ -174,9 +174,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
+              if (Auth.check()) {
+                _context2.next = 4;
+                break;
+              }
+              Notify.modal("로그인이 필요합니다.", 'danger');
+              _context2.next = 8;
+              break;
+            case 4:
+              _context2.next = 6;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/event/attendStore");
-            case 2:
+            case 6:
               res = _context2.sent;
               if (res && res.status === 200) {
                 if (res.data == 'Exist') Notify.modal("이미 출석 하였습니다.", 'warning');else Notify.toast('success', '출석체크 완료');
@@ -185,7 +193,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               } else {
                 Notify.toast('warning', res);
               }
-            case 4:
+            case 8:
             case "end":
               return _context2.stop();
           }
