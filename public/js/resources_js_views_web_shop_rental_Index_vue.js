@@ -328,7 +328,7 @@ var render = function render() {
     attrs: {
       rowspan: "2"
     }
-  }, [_vm._v("렌탈(인수)"), _c("br"), _vm._v(" 소유권"), _c("br"), _vm._v(" 고객이전")]), _vm._v(" "), _c("td", [_vm._v("6개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("12개월")]), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-container", {
+  }, [_vm._v("렌탈(인수)"), _c("br"), _vm._v(" 소유권"), _c("br"), _vm._v(" 고객이전")]), _vm._v(" "), _c("td", [[616546, 616547, 616548].includes(_vm.list[_vm.pick_tem].gd_id) ? [_vm._v("12개월")] : [_vm._v("6개월")]], 2), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])]), _vm._v(" "), _c("tr", [_c("td", [[616546, 616547, 616548].includes(_vm.list[_vm.pick_tem].gd_id) ? [_vm._v("24개월")] : [_vm._v("12개월")]], 2), _vm._v(" "), _c("td", [_vm._v("0")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")]), _vm._v(" "), _c("td", [_vm._v("상담 요청")])])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-container", {
     staticClass: "frm_st"
   }, [_c("b-row", [_c("b-col", {
     staticClass: "label_st"
@@ -346,7 +346,31 @@ var render = function render() {
     }
   }, [_vm._v("양도")])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
-  }, [_vm._v("계약 기간")]), _vm._v(" "), _c("b-col", [_c("b-radio", {
+  }, [_vm._v("계약 기간")]), _vm._v(" "), _c("b-col", [[616546, 616547, 616548].includes(_vm.list[_vm.pick_tem].gd_id) ? [_c("b-radio", {
+    attrs: {
+      name: "rt_term",
+      value: "12개월"
+    },
+    model: {
+      value: _vm.frm.rt_term,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "rt_term", $$v);
+      },
+      expression: "frm.rt_term"
+    }
+  }, [_vm._v("12개월")]), _vm._v(" "), _c("b-radio", {
+    attrs: {
+      name: "rt_term",
+      value: "24개월"
+    },
+    model: {
+      value: _vm.frm.rt_term,
+      callback: function callback($$v) {
+        _vm.$set(_vm.frm, "rt_term", $$v);
+      },
+      expression: "frm.rt_term"
+    }
+  }, [_vm._v("24개월")])] : [_c("b-radio", {
     attrs: {
       name: "rt_term",
       value: "6개월"
@@ -370,7 +394,7 @@ var render = function render() {
       },
       expression: "frm.rt_term"
     }
-  }, [_vm._v("12개월")])], 1)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+  }, [_vm._v("12개월")])]], 2)], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
   }, [_vm._v("업체명/담당자명"), _c("b", {
     staticClass: "need"

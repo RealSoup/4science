@@ -91,13 +91,19 @@
                             </tr>
                             <tr>
                                 <th rowspan="2">렌탈(인수)<br /> 소유권<br /> 고객이전</th>
-                                <td>6개월</td>
+                                <td>
+                                    <template v-if="[616546, 616547, 616548].includes(list[pick_tem].gd_id)">12개월</template>
+                                    <template v-else>6개월</template>
+                                </td>
                                 <td>0</td>
                                 <td>상담 요청</td>
                                 <td>상담 요청</td>
                             </tr>
                             <tr>
-                                <td>12개월</td>
+                                <td>
+                                    <template v-if="[616546, 616547, 616548].includes(list[pick_tem].gd_id)">24개월</template>
+                                    <template v-else>12개월</template>
+                                </td>
                                 <td>0</td>
                                 <td>상담 요청</td>
                                 <td>상담 요청</td>
@@ -114,8 +120,15 @@
                             <b-row>
                                 <b-col class="label_st">계약 기간</b-col>
                                 <b-col>
-                                    <b-radio v-model="frm.rt_term" name="rt_term" value="6개월">6개월</b-radio>
-                                    <b-radio v-model="frm.rt_term" name="rt_term" value="12개월">12개월</b-radio>
+                                    <template v-if="[616546, 616547, 616548].includes(list[pick_tem].gd_id)">
+                                        <b-radio v-model="frm.rt_term" name="rt_term" value="12개월">12개월</b-radio>
+                                        <b-radio v-model="frm.rt_term" name="rt_term" value="24개월">24개월</b-radio>
+                                    </template>
+                                    <template v-else>
+                                        <b-radio v-model="frm.rt_term" name="rt_term" value="6개월">6개월</b-radio>
+                                        <b-radio v-model="frm.rt_term" name="rt_term" value="12개월">12개월</b-radio>
+                                    </template>
+                                    
                                 </b-col>
                             </b-row>
                             <b-row>
