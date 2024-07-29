@@ -78,11 +78,13 @@ class EventController extends Controller {
         if ( !auth()->check() )
             $rst = 'login required';
         else if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', DB::raw('CURDATE()'))->doesntExist()) {
-        // if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', $today)->doesntExist()) {
+        // else if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', $today)->doesntExist()) {
             $rst = DB::table('user_attend')->insert([ 'ua_id' => auth()->user()->id ]);
             // $rst = DB::table('user_attend')->insert([ 'ua_id' => auth()->user()->id, 'ua_date'=> date('Y-m-d H:i:s', strtotime($today)) ]);
             $p = in_array(date('w', strtotime("Now")), ['0', '6']) ? 200 : 100;
             // $p = in_array(date('w', strtotime($today)), ['0', '6']) ? 200 : 100;
+            if (date("Y-m-d") == '2024-08-15')
+                $p = 200;
             event(new Mileage("insert", auth()->user()->id, 'users', auth()->user()->id, 'SV', '출석 체크', $p));
             if (date('Y-m-t') == date("Y-m-d")) {
             // if ('2024-07-31' == $today) {

@@ -112,7 +112,7 @@ export default {
                     }
                 }
 
-                red_day = weekOfDays.length === 0 || weekOfDays.length === 6;
+                red_day = weekOfDays.length === 0 || weekOfDays.length === 6 || ( this.month == '8' && day == '15' );
                 let attend_day = false;
                 this.attendData.data.forEach(el => {
                     if ( el.slice(0, 10) === this.year+'-'+('0'+this.month).slice(-2)+'-'+('0'+day).slice(-2) )
