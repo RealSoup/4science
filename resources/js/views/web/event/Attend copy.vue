@@ -2,7 +2,11 @@
 <div class="calendar">
     
     <b-row tag="h2" cols="1" cols-sm="2">
-        <b-col class="ctrl">{{ year }}년 {{ month }}월</b-col>
+        <b-col class="ctrl">
+            <!-- <b-button @click="calendarData(-1)">&lt;</b-button> -->
+            {{ year }}년 {{ month }}월
+            <!-- <b-button @click="calendarData(1)">&gt;</b-button> -->
+        </b-col>
         <b-col class="info">
             출석일수: <b>{{attendData.data.length}}</b>
             <span>&nbsp;</span>
