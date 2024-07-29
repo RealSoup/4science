@@ -75,7 +75,9 @@ class EventController extends Controller {
     public function attendStore(Request $req) {
         $rst = 'Exist';
         $today = '2024-07-31';
-        if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', DB::raw('CURDATE()'))->doesntExist()) {
+        if ( !auth()->check() )
+            $rst = 'login required';
+        else if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', DB::raw('CURDATE()'))->doesntExist()) {
         // if (DB::table('user_attend')->where('ua_id', auth()->user()->id)->whereDate('ua_date', $today)->doesntExist()) {
             $rst = DB::table('user_attend')->insert([ 'ua_id' => auth()->user()->id ]);
             // $rst = DB::table('user_attend')->insert([ 'ua_id' => auth()->user()->id, 'ua_date'=> date('Y-m-d H:i:s', strtotime($today)) ]);

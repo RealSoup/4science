@@ -62,7 +62,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         odm_ea: 1,
         odm_mk_name: null,
         req_order: null
-      }
+      },
+      clickable: true
     };
   },
   methods: {
@@ -202,28 +203,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$refs.detail.focus();
               return _context2.abrupt("return", false);
             case 42:
-              _context2.next = 44;
+              _this2.clickable = false;
+              _context2.next = 45;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/b2b_merck/orderExe", {
                 list: chkList,
                 address: _this2.address
               });
-            case 44:
+            case 45:
               res = _context2.sent;
               if (res && res.status === 200 && res.data.message == 'success') _this2.$router.push({
                 name: 'adm_b2b_merck_order_result'
               });
-              _context2.next = 52;
+              _this2.clickable = true;
+              _context2.next = 54;
               break;
-            case 48:
-              _context2.prev = 48;
+            case 50:
+              _context2.prev = 50;
               _context2.t0 = _context2["catch"](0);
               Notify.consolePrint(_context2.t0);
               Notify.toast('warning', _context2.t0.response.data.message);
-            case 52:
+            case 54:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 48]]);
+        }, _callee2, null, [[0, 50]]);
       }))();
     },
     stockCheck: function stockCheck(code, ea) {
@@ -234,28 +237,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              _context3.next = 3;
+              _this3.clickable = false;
+              _context3.next = 4;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/admin/shop/b2b_merck/stockCheck", {
                 code: code,
                 ea: ea
               });
-            case 3:
+            case 4:
               res = _context3.sent;
               if (res && res.status === 200) _this3.$router.push({
                 name: 'adm_b2b_merck_stock_result'
               });
-              _context3.next = 11;
+              _this3.clickable = true;
+              _context3.next = 13;
               break;
-            case 7:
-              _context3.prev = 7;
+            case 9:
+              _context3.prev = 9;
               _context3.t0 = _context3["catch"](0);
               Notify.consolePrint(_context3.t0);
               Notify.toast('warning', _context3.t0.response.data.message);
-            case 11:
+            case 13:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[0, 7]]);
+        }, _callee3, null, [[0, 9]]);
       }))();
     },
     addModel: function addModel(m) {
@@ -303,18 +308,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               rst = _context4.sent;
               if (!rst) {
+                _context4.next = 10;
+                break;
+              }
+              _this4.clickable = false;
+              if (!_this4.list.data[i].odm_id) {
                 _context4.next = 8;
                 break;
               }
-              if (!_this4.list.data[i].odm_id) {
-                _context4.next = 7;
-                break;
-              }
-              _context4.next = 7;
+              _context4.next = 8;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/shop/b2b_merck/listPull/".concat(_this4.list.data[i].odm_id));
-            case 7:
-              _this4.$delete(_this4.list.data, i);
             case 8:
+              _this4.$delete(_this4.list.data, i);
+              _this4.clickable = true;
+            case 10:
             case "end":
               return _context4.stop();
           }
@@ -359,7 +366,7 @@ var render = function render() {
       sm: "12",
       md: "6"
     }
-  }, [_c("b-button", {
+  }, [_vm.clickable ? _c("b-button", {
     attrs: {
       variant: "primary",
       size: "sm"
@@ -367,7 +374,11 @@ var render = function render() {
     on: {
       click: _vm.order
     }
-  }, [_vm._v("선택 발주")])], 1), _vm._v(" "), _c("b-col", {
+  }, [_vm._v("선택 발주")]) : _c("b-button", {
+    attrs: {
+      size: "sm"
+    }
+  }, [_vm._v("처리중 •••")])], 1), _vm._v(" "), _c("b-col", {
     staticClass: "addModel",
     attrs: {
       col: "",
@@ -788,21 +799,25 @@ var render = function render() {
         },
         expression: "row.req_order"
       }
-    })], 1), _vm._v(" "), _c("span", [_c("b-button", {
+    })], 1), _vm._v(" "), _c("span", [_vm.clickable ? [_c("b-button", {
       staticClass: "xm",
       on: {
         click: function click($event) {
           return _vm.stockCheck(row.odm_gm_code, row.odm_ea);
         }
       }
-    }, [_vm._v("재고 체크")]), _vm._v(" "), _c("b-button", {
+    }, [_vm._v("재고 체크")]), _vm._v(" "), _vm.clickable ? _c("b-button", {
       staticClass: "xm red",
       on: {
         click: function click($event) {
           return _vm.destroy(i);
         }
       }
-    }, [_vm._v("삭제")])], 1)])], 1);
+    }, [_vm._v("삭제")]) : _vm._e()] : _c("b-button", {
+      attrs: {
+        size: "sm"
+      }
+    }, [_vm._v("처리중 •••")])], 2)])], 1);
   }), _vm._v(" "), _c("pagination", {
     staticClass: "mt-5",
     attrs: {

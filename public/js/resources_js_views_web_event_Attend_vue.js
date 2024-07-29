@@ -39,7 +39,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       attendData: {
         data: []
       },
-      today_check: false
+      today_check: false,
+      clickable: true
     };
   },
   methods: {
@@ -133,8 +134,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           });
         }
       }
-      if (weekOfDays.length > 0) dates.push(weekOfDays); // 남은 날짜 추가
-      this.nextMonthStart = weekOfDays[0]; // 이번 달 마지막 주에서 제일 작은 날짜
+      if (weekOfDays.length > 0) {
+        dates.push(weekOfDays); // 남은 날짜 추가
+        this.nextMonthStart = weekOfDays[0].day; // 이번 달 마지막 주에서 제일 작은 날짜
+      }
+
       return dates;
     },
     index: function index() {
@@ -159,8 +163,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               res = _context.sent;
               if (res && res.status === 200) _this2.attendData = res.data;
             case 5:
+              _this2.clickable = true;
               _this2.calendarData();
-            case 6:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -179,21 +184,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                 break;
               }
               Notify.modal("로그인이 필요합니다.", 'danger');
-              _context2.next = 8;
+              _context2.next = 9;
               break;
             case 4:
-              _context2.next = 6;
+              _this3.clickable = false;
+              _context2.next = 7;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/event/attendStore");
-            case 6:
+            case 7:
               res = _context2.sent;
               if (res && res.status === 200) {
-                if (res.data == 'Exist') Notify.modal("이미 출석 하였습니다.", 'warning');else Notify.toast('success', '출석체크 완료');
+                if (res.data == 'Exist') Notify.modal("이미 출석 하였습니다.", 'warning');else if (res.data == 'login required') {
+                  Notify.modal("로그인이 필요합니다.", 'danger');
+                  window.location.reload(true);
+                } else Notify.toast('success', '출석체크 완료');
                 if (res.data == 'Perfect Attendance') Notify.modal("한달 모두 출석으로 1000점 추가 지급", 'success');
                 _this3.index();
               } else {
                 Notify.toast('warning', res);
               }
-            case 8:
+            case 9:
             case "end":
               return _context2.stop();
           }
@@ -208,6 +217,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.currentMonth = date.getMonth() + 1;
     this.year = this.currentYear;
     this.month = this.currentMonth;
+    // this.month = 8;
     this.today = date.getDate(); // 오늘 날짜
     // this.calendarData();
   },
@@ -229,16 +239,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render),
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "calendar"
-  }, [_vm._m(0), _vm._v(" "), _c("b-row", {
+  }, [_c("b-row", {
     attrs: {
       tag: "h2",
       cols: "1",
@@ -248,7 +254,13 @@ var render = function render() {
     staticClass: "ctrl"
   }, [_vm._v("\r\n            " + _vm._s(_vm.year) + "년 " + _vm._s(_vm.month) + "월\r\n            ")]), _vm._v(" "), _c("b-col", {
     staticClass: "info"
-  }, [_vm._v("\r\n            출석일수: "), _c("b", [_vm._v(_vm._s(_vm.attendData.data.length))]), _vm._v(" "), _c("span", [_vm._v(" ")]), _vm._v("\r\n            획득 마일리지: "), _c("b", [_vm._v(_vm._s(_vm.attendData.sum_mileage))])])], 1), _vm._v(" "), _c("table", {
+  }, [_vm._v("\r\n            출석일수: "), _c("b", [_vm._v(_vm._s(_vm.attendData.data.length))]), _vm._v(" "), _c("span", [_vm._v(" ")]), _vm._v("\r\n            획득 마일리지: "), _c("b", [_vm._v(_vm._s(_vm.attendData.sum_mileage))])])], 1), _vm._v(" "), _c("b-img", {
+    staticClass: "m_hide",
+    attrs: {
+      src: "/storage/event/2024/0801/tit_top.png",
+      id: "tit_top"
+    }
+  }), _vm._v(" "), _c("table", {
     staticClass: "table"
   }, [_c("thead", [_c("tr", _vm._l(_vm.days, function (day) {
     return _c("th", {
@@ -258,65 +270,46 @@ var render = function render() {
     return _c("tr", {
       key: tr_i
     }, _vm._l(date, function (date_box, td_i) {
-      var _class;
       return _c("td", {
         key: td_i,
-        "class": (_class = {
-          another_month: tr_i === 0 && date_box.day >= _vm.lastMonthStart
-        }, _defineProperty(_class, "another_month", _vm.dates.length - 1 === tr_i && _vm.nextMonthStart > date_box.day), _defineProperty(_class, "today", date_box.month === _vm.currentMonth && date_box.day === _vm.today && _vm.month === _vm.currentMonth && _vm.year === _vm.currentYear), _defineProperty(_class, "redday", date_box.is_red), _class)
-      }, [_c("span", [_vm._v(_vm._s(date_box.day))]), _vm._v(" "), date_box.is_attend ? _c("b", [_vm._v("\r\n                        M"), date_box.is_red ? _c("i", [_vm._v("2")]) : _c("i", [_vm._v("1")]), _vm._v("00\r\n                    ")]) : _vm._e()]);
+        "class": {
+          another_month: tr_i === 0 && date_box.day >= _vm.lastMonthStart || _vm.dates.length - 1 === tr_i && _vm.nextMonthStart > date_box.day,
+          today: date_box.month === _vm.currentMonth && date_box.day === _vm.today && _vm.month === _vm.currentMonth && _vm.year === _vm.currentYear,
+          redday: date_box.is_red || date_box.day == "15" && _vm.month == "8",
+          chk_b: date_box.is_attend && !date_box.is_red,
+          chk_r: date_box.is_attend && date_box.is_red
+        }
+      }, [_c("span", [_vm._v(_vm._s(date_box.day))])]);
     }), 0);
-  }), 0)]), _vm._v(" "), _c("b-row", {
+  }), 0)]), _vm._v(" "), _c("b-img", {
+    staticClass: "coin_p p01",
+    attrs: {
+      src: "/storage/event/2024/0801/coin.png"
+    }
+  }), _vm._v(" "), _c("b-img", {
+    staticClass: "coin_p p02",
+    attrs: {
+      src: "/storage/event/2024/0801/coin_left.png"
+    }
+  }), _vm._v(" "), _c("b-row", {
     staticClass: "btn_box"
-  }, [_c("b-col", [_vm.today_check ? _c("b-button", {
+  }, [_c("b-col", [_vm.clickable ? [_vm.today_check ? _c("b-button", {
     staticClass: "gray xl",
     attrs: {
       disabled: ""
     }
-  }, [_vm._v("출석체크완료")]) : _c("b-button", {
-    staticClass: "blue xl",
+  }, [_vm._v("출석체크완료")]) : _c("b-img", {
+    attrs: {
+      src: "/storage/event/2024/0801/btn.png"
+    },
     on: {
       click: _vm.store
     }
-  }, [_vm._v("출석체크하기")])], 1)], 1)], 1);
+  })] : _c("b-button", {
+    staticClass: "gray xl"
+  }, [_vm._v("처리중 •••")])], 2)], 1)], 1);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "p_top"
-  }, [_c("div", {
-    staticClass: "left"
-  }, [_c("p", [_vm._v("8월")]), _vm._v(" "), _c("p", [_vm._v("출석체크 이벤트")])]), _vm._v(" "), _c("div", {
-    staticClass: "right m_hide"
-  }, [_c("div", {
-    staticClass: "octagon"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "deco"
-  }, [_c("span", {
-    staticClass: "octagon_deco"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "coin1"
-  }, [_c("img", {
-    attrs: {
-      src: "/storage/event/2024/0801/main_coin_1.png",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("span", {
-    staticClass: "coin2"
-  }, [_c("img", {
-    attrs: {
-      src: "/storage/event/2024/0801/main_coin_2.png",
-      alt: ""
-    }
-  })]), _vm._v(" "), _c("span", {
-    staticClass: "coin3"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "calender"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "splash"
-  })])])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -338,7 +331,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar { margin-top:2em;\n}\n.calendar h2 { text-align:center; margin-bottom:.3rem;\n}\n.calendar h2 .ctrl { text-align:left;\n}\n.calendar h2 .info { font-size:1rem; font-style:normal; align-self:flex-end; text-align:right;\n}\n.calendar h2 .info b { color:#FF0000;\n}\n.calendar table thead tr th,\r\n.calendar table tbody tr td { text-align:center;\n}\n.calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:3px 0;\n}\n.calendar table tbody tr td b { display:block;\n}\n.calendar table tbody tr td b i { font-style:normal;\n}\n.calendar table tbody tr td.another_month { font-weight:900; color:#CCC;\n}\n.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;\n}\n.calendar table tbody tr td.redday span,\r\n.calendar table tbody tr td.redday b { color:#FF0000; font-weight:900;\n}\n.calendar table tbody tr td:hover { background-color:#EEE;\n}\n.calendar table tbody tr td .rounded { border-radius:20px 20px 20px 20px !important; border:solid 1px #ffffff; background-color:#2b6bd1; padding:10px; color:#ffffff;\n}\n.calendar .p_top { width:100%; height:554px; position:relative; z-index:-1;\n}\n.calendar .p_top .left p { position:relative; width:-moz-fit-content; width:fit-content; font-size:4.5rem; font-weight:800; margin:0; line-height:1.4;\n}\n.calendar .p_top .left p:nth-child(1)::before { content:''; width:34px; height:35px; background:url(/storage/event/2024/0801/main_deco_1.png); \r\n    position:absolute; top:0; right:-34px; animation: octagon 20s linear reverse infinite;\n}\n.calendar .p_top .left p:nth-child(2)::before { content:''; width:0; height:29px; background:url(/storage/event/2024/0801/main_deco_back.png);\r\n    position:absolute; bottom:2px; left:0; z-index:-1; overflow:hidden; animation:titline 1s forwards ease-in-out 2s;\n}\n.calendar .p_top .left p:nth-child(2)::after { content:''; width:57px; height:97px; background: url(/storage/event/2024/0801/main_deco_2.png); \r\n    position:absolute; top:4px; right:-72px; transform-origin:bottom center; animation:titex 3s infinite ease-in-out 1.2s;\n}\n.calendar .p_top .right { position: absolute; top: 0; left: 490px;\n}\n.calendar .p_top .right .octagon { width:1100px; height:1100px; border-radius:50%; left:184px; top:-490px; position:relative;\r\n    animation:octagon 100s linear infinite; background: linear-gradient(to bottom, #33B4FF, #33B4FF, #4AFFB7); z-index:-1;\n}\n.calendar .p_top .right .octagon::before { content:''; width:1122px; height:1122px; background: url(/storage/event/2024/0801/octa_bg.png) center center no-repeat;\r\n    position: absolute; top: 50%; left: 50%; transform: Translate(-50%, -50%);\n}\n.calendar .p_top .right .deco { width:745px; height:521px; position:absolute; top:31px; left:0;\n}\n.calendar .p_top .right .deco .octagon_deco { width:645px; height:667px; position:absolute; top:-230px; left:400px; opacity:0.5; background: url(/storage/event/2024/0801/main_bg3.png) center center / contain no-repeat;\n}\n.calendar .p_top .right .deco .coin1 { position:absolute; top:-31px; left:57px; transform:rotate(-25deg); transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2.5s;\n}\n.calendar .p_top .right .deco .coin2 { position:absolute; top:134px; left:568px; width:132px; transform:scale(0); animation:coin1 0.5s forwards ease-in-out 1.2s, coin2 3s infinite ease-in-out 2s;\n}\n.calendar .p_top .right .deco .coin3 { position:absolute; top:79px; right:0; width:58px; height:60px; background:url(/storage/event/2024/0801/main_deco_4.png) center center no-repeat; transform:scale(0);\r\n    animation:coin1 0.5s forwards ease-in-out 1.42s, coin2 3s infinite ease-in-out 2s;\n}\n.calendar .p_top .right .deco .calender { width:532px; height:374px; position:absolute; top:100px; left:30px; transform:rotate(10deg); background-size:contain;\r\n    background-position:center; background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/cld_8.png);\n}\n.calendar .p_top .right .deco .splash { display:block; width:337px; height:278px; position:absolute; bottom:0; right:20px; background-size:contain; background-position:center;\r\n    background-repeat:no-repeat; background-image: url(/storage/event/2024/0801/digi_l8.png);\n}\n@keyframes octagon {\n100% { transform: rotate(360deg);\n}\n}\n@keyframes titex {\n0%,18%,24%,32% { transform: rotate(0);\n}\n20%,28% { transform: rotate(5deg);\n}\n}\n@keyframes titline {\n0% { width: 0;\n}\n100% { width: 262px;\n}\n}\n@keyframes coin1 {\n0% { transform: scale(0);\n}\n80% { transform: scale(1.1);\n}\n100% { transform: scale(1);\n}\n}\n@keyframes coin2 {\n0%, 100% { transform: translateY(0);\n}\n50% { transform: translateY(20px);\n}\n}\n@media (max-width: 576px) {\n.calendar h2 { margin-bottom:.3rem;\n}\n.calendar table th, \r\n    .calendar table td { padding: 0.2rem;\n}\n.calendar table tbody tr td b { font-size:.7rem;\n}\n.calendar .p_top { height: 121px;\n}\n.calendar .p_top .left p { font-size:2rem;\n}\n.calendar .p_top .left p:nth-child(2):before { height:13px; background-size:contain; background-repeat:no-repeat;\n}\n.calendar .p_top .left p:nth-child(2):after { height:50px; background-size: contain; background-repeat: no-repeat;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar h2 { margin-bottom:.3rem; text-align:center; display:none;\n}\n.calendar h2 .ctrl{text-align:left}\n.calendar h2 .info{align-self:flex-end;font-size:1rem;font-style:normal;text-align:right}\n.calendar h2 .info b{color:red}\n.calendar { background:url(/storage/event/2024/0801/bg.jpg) center top no-repeat; padding-top:2rem; padding-bottom:9rem;\n}\n.calendar #tit_top { margin:auto; display:block; animation:appearance 0.5s forwards ease-in-out 1.2s, shake 2.5s infinite ease-in-out 1.2s; /*animation:appearance 0.5s forwards ease-in-out 1.2s, tit_top 3s infinite ease-in-out 2s;*/\n}\n@keyframes tit_top {\n0%   { transform: translateY(0);\n}\n20%  { transform: translateY(1px);\n}\n30%  { transform: translateY(20px);\n}\n40%  { transform: translateY(10px);\n}\n50%  { transform: translateY(20px);\n}\n60%  { transform: translateY(10px);\n}\n70%  { transform: translateY(5px);\n}\n80%  { transform: translateY(1px);\n}\n100% { transform: translateY(0);\n}\n}\n.calendar table {margin:38.6rem auto 0; max-width:941px; position:relative; left:-8px;\n}\n.calendar table thead { display:none; text-align:center; padding:.79rem .75rem;\n}\n.calendar table tbody tr td { text-align:center; border:none; padding:.79rem .75rem;\n}\n.calendar table tbody tr td:nth-child(1),\r\n.calendar table tbody tr td:nth-child(7) { width:128px;\n}\n.calendar table tbody tr td.chk_b { background:url(/storage/event/2024/0801/chk_blue.png) no-repeat center center;\n}\n.calendar table tbody tr td.chk_r { background:url(/storage/event/2024/0801/chk_pink.png) no-repeat center center;\n}\n.calendar .coin_p { position:absolute; animation:appearance 0.5s forwards ease-in-out 1.2s, coin_p 3s infinite ease-in-out 2s;\n}\n.calendar .coin_p.p01 { bottom:920px; right:70px;\n}\n.calendar .coin_p.p02 { bottom:220px; left:300px;\n}\n@keyframes appearance {\n0% { transform: scale(0);\n}\n80% { transform: scale(1.1);\n}\n100% { transform: scale(1);\n}\n}\n@keyframes coin_p {\n0%, 100% { transform: translateY(0);\n}\n50% { transform: translateY(20px);\n}\n}\n@keyframes shake {\n0%,18%,24%,32% { transform: rotate(0);\n}\n20%,28% { transform: rotate(5deg);\n}\n}\n.calendar .btn_box { margin-top:10.3rem;\n}\n.calendar .btn_box img:hover { filter: brightness(85%); position:relative; top:2px; left:2px; cursor:pointer;\n}\n.calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:10.5px 0; font-size:3rem; color:#1F2E83;\n}\n.calendar table tbody tr td.another_month { font-weight:900; color:#CCC;\n}\r\n/*.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;  }*/\n.calendar table tbody tr td.redday span { color:#F336D8;\n}\n@media (max-width: 1300px) {\n.calendar .coin_p { display:none;\n}\n}\n@media (max-width: 992px){\n.calendar h2 { display:flex;\n}\n.calendar { background:none; max-width:650px; margin: auto;\n}\n.calendar table { margin:auto;\n}\n.calendar table thead { display:table-header-group;\n}\n.calendar table tbody tr td { background-size:80% !important; border-top: 1px solid #dee2e6;\n}\n.calendar table tbody tr td:nth-child(1),\r\n    .calendar table tbody tr td:nth-child(7) { width:auto;\n}\n.calendar table tbody tr td span { font-size:1rem;\n}\n.calendar .btn_box { margin-top: 1rem;\n}\n}\n@media (max-width: 576px) {\n.calendar table th, \r\n    .calendar table td { padding: 0.2rem;\n}\n.calendar .btn_box img { width:90%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -4,7 +4,8 @@
     
     <b-row class="top">
         <b-col col sm="12" md="6">
-            <b-button variant="primary" size="sm" @click="order">선택 발주</b-button>
+            <b-button v-if="clickable" variant="primary" size="sm" @click="order">선택 발주</b-button>
+            <b-button v-else size="sm">처리중 •••</b-button>
         </b-col>
         <b-col col sm="12" md="6" class="addModel"><model-sch-input @addModel="addModel" /></b-col>
     </b-row>
@@ -107,8 +108,11 @@
         <b-col>
             <span class="req_order_box"><b-form-textarea v-model="row.req_order" placeholder="주문시 요청사항 입력" class="req_order" /></span>
             <span>
-                <b-button class="xm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button>
-                <b-button class="xm red" @click="destroy(i)">삭제</b-button>
+                <template v-if="clickable">
+                    <b-button class="xm" @click="stockCheck(row.odm_gm_code, row.odm_ea)">재고 체크</b-button>            
+                    <b-button v-if="clickable" class="xm red" @click="destroy(i)">삭제</b-button>
+                </template>
+                <b-button v-else size="sm">처리중 •••</b-button>
             </span>
         </b-col>
     </b-row>
@@ -162,7 +166,8 @@ export default {
                 odm_ea      :1,
                 odm_mk_name :null,
                 req_order   :null,
-            }
+            },
+            clickable : true,
         };
     },
     methods: {
@@ -209,9 +214,11 @@ export default {
                     if (this.address.street == '') {    Notify.toast('danger', "도로명을 입력하세요."); this.$refs.street.focus(); return false; }
                     if (this.address.detail == '') {    Notify.toast('danger', "상세 주소를 입력하세요."); this.$refs.detail.focus(); return false; }
                 }
+                this.clickable = false;
                 const res = await ax.post(`/api/admin/shop/b2b_merck/orderExe`, {list:chkList, address: this.address});
 
                 if (res && res.status === 200 && res.data.message == 'success') this.$router.push({ name: 'adm_b2b_merck_order_result' })
+                this.clickable = true;
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
@@ -220,8 +227,10 @@ export default {
 
         async stockCheck(code, ea) {
             try {
+                this.clickable = false;
                 const res = await ax.post(`/api/admin/shop/b2b_merck/stockCheck`, {code:code, ea:ea});
                 if (res && res.status === 200) this.$router.push({ name: 'adm_b2b_merck_stock_result' })
+                this.clickable = true;
             } catch (e) {
                 Notify.consolePrint(e);
                 Notify.toast('warning', e.response.data.message);
@@ -259,9 +268,11 @@ export default {
         async destroy(i) {
             var rst = await Notify.confirm('목록에서 삭제', 'danger');
             if (rst) {
+                this.clickable = false;
                 if (this.list.data[i].odm_id)
                     await ax.get(`/api/admin/shop/b2b_merck/listPull/${this.list.data[i].odm_id}`);                
                 this.$delete(this.list.data, i);
+                this.clickable = true;
             }
         }, 
 
