@@ -241,7 +241,7 @@ export default {
 .calendar .btn_box img:hover { filter: brightness(85%); position:relative; top:2px; left:2px; cursor:pointer; }
 
 .calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:10.5px 0; font-size:3rem; color:#1F2E83; }
-.calendar table tbody tr td.another_month { font-weight:900; color:#CCC; }
+.calendar table tbody tr td.another_month span { display:none; }
 /*.calendar table tbody tr td.today span { background-color:#0E4D9C; color:#FFF; font-weight:900;  }*/
 .calendar table tbody tr td.redday span { color:#F336D8; }
 
