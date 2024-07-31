@@ -40,8 +40,8 @@
                 </tr>
             </table> -->
             
-            <a href="https://4science.net/event/rankingBuyer" target='_blank'>
-                <img src="{{ asset('storage/event/2024/0701/estimate.jpg') }}" />
+            <a href="https://4science.net/event/attend" target='_blank'>
+                <img src="{{ asset('storage/event/2024/0801/estimate.jpg') }}" />
             </a>
         </td>
     </tr>

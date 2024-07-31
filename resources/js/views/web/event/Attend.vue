@@ -31,8 +31,8 @@
     <b-row class="btn_box">
         <b-col>
             <template v-if="clickable">
-                <b-button disabled class="gray xl" v-if="today_check">출석체크완료</b-button>
-                <b-img @click="store" v-else src="/storage/event/2024/0801/btn.png" />
+                <b-img v-if="today_check" src="/storage/event/2024/0801/btn_cplt.png" />
+                <b-img @click="store" class="chk_prev" v-else src="/storage/event/2024/0801/btn.png" />
             </template>
             <b-button v-else class="gray xl">처리중 •••</b-button>
             
@@ -234,7 +234,7 @@ export default {
                     20%,28% { transform: rotate(5deg); } }            
 
 .calendar .btn_box { margin-top:10.3rem; }
-.calendar .btn_box img:hover { filter: brightness(85%); position:relative; top:2px; left:2px; cursor:pointer; }
+.calendar .btn_box img.chk_prev:hover { filter: brightness(85%); position:relative; top:2px; left:2px; cursor:pointer; }
 
 .calendar table tbody tr td span {  border-radius:50%; min-width:30px; display:inline-block; padding:10.5px 0; font-size:3rem; color:#1F2E83; }
 .calendar table tbody tr td.another_month span { display:none; }
