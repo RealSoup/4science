@@ -18,8 +18,8 @@
                 :class="{ 'another_month': (tr_i === 0 && date_box.day >= lastMonthStart) || (dates.length - 1 === tr_i && nextMonthStart > date_box.day), 
                     'today': date_box.month === currentMonth && date_box.day === today && month === currentMonth && year === currentYear,
                     'redday': date_box.is_red || (date_box.day == '15' && month == '8'),
-                    'chk_b': date_box.is_attend && !date_box.is_red,
-                    'chk_r': date_box.is_attend && date_box.is_red }">
+                    'chk_r': date_box.is_attend && !date_box.is_red,
+                    'chk_b': date_box.is_attend && date_box.is_red }">
                     <span>{{ date_box.day }}</span>
                 </td>
             </tr>
