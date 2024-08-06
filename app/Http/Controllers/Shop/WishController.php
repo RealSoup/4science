@@ -35,6 +35,12 @@ class WishController extends Controller {
 
     public function find_deleted_goods_and_delete() {
         //  삭제된 상품 체크 & 삭제
+        $del_with_gm = DB::table('shop_wish')
+        ->leftJoin('shop_goods_model', 'shop_wish.wi_gm_id', '=', 'shop_goods_model.gm_id')
+        ->where('shop_wish.created_id', auth()->user()->id)
+        ->whereNull('shop_goods_model.gm_id')
+        ->delete();
+
         $del_with_gd = DB::table('shop_wish')
         ->join('shop_goods_model', 'shop_wish.wi_gm_id', '=', 'shop_goods_model.gm_id')
         ->join('shop_goods', 'shop_goods_model.gm_gd_id', '=', 'shop_goods.gd_id')
