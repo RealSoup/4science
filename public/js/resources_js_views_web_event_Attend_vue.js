@@ -276,8 +276,8 @@ var render = function render() {
           another_month: tr_i === 0 && date_box.day >= _vm.lastMonthStart || _vm.dates.length - 1 === tr_i && _vm.nextMonthStart > date_box.day,
           today: date_box.month === _vm.currentMonth && date_box.day === _vm.today && _vm.month === _vm.currentMonth && _vm.year === _vm.currentYear,
           redday: date_box.is_red || date_box.day == "15" && _vm.month == "8",
-          chk_b: date_box.is_attend && !date_box.is_red,
-          chk_r: date_box.is_attend && date_box.is_red
+          chk_r: date_box.is_attend && !date_box.is_red,
+          chk_b: date_box.is_attend && date_box.is_red
         }
       }, [_c("span", [_vm._v(_vm._s(date_box.day))])]);
     }), 0);

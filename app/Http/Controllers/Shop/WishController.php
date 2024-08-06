@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\{Wish, Goods};
+use DB;
 
 class WishController extends Controller {
 	public function index(Request $req) {
+        self::find_deleted_goods_and_delete();  //  삭제된 상품 삭제
+        
         if ($req->filled('type') && $req->type == 'cnt')
             $rst = auth()->user()->wish->count();
         else {
@@ -28,5 +31,15 @@ class WishController extends Controller {
         foreach ($req->wi_id as $id)
             Wish::destroy($id);
         return response()->json('success', 200);
+    }
+
+    public function find_deleted_goods_and_delete() {
+        //  삭제된 상품 체크 & 삭제
+        $del_with_gd = DB::table('shop_wish')
+        ->join('shop_goods_model', 'shop_wish.wi_gm_id', '=', 'shop_goods_model.gm_id')
+        ->join('shop_goods', 'shop_goods_model.gm_gd_id', '=', 'shop_goods.gd_id')
+        ->where('shop_wish.created_id', auth()->user()->id)
+        ->whereNotNull('shop_goods.deleted_at')
+        ->delete();        
     }
 }
