@@ -11,7 +11,7 @@
                 <b-form-select-option value="A">APP</b-form-select-option>
             </b-form-select>            
         </h3>
-        <div class="print_mng_nm" v-if="od.od_mng>0">{{od.mng.name}}</div>
+        <div class="print_mng_nm" v-if="od.od_mng>0 && !isEmpty(od.mng)">{{od.mng.name}}</div>
         <div class="act_ctrl">
             <b-row>
                 <b-col class="def_info">
@@ -26,6 +26,7 @@
                     <b-button :to="{name: 'adm_order_index'}" class="white sm"><b-icon-list /><span class="sm_ib_h"> 목록</span></b-button>
 
                     <b-button v-if="od.od_mng < 1" @click="update('od_mng')" class="sky sm">담당</b-button>
+                    <b-button v-else-if="isEmpty(od.mng)" @click="isModalViewed = !isModalViewed, modalType = 'changeMng'" class="red sm">담당 없음</b-button>
                     <b-button v-else @click="isModalViewed = !isModalViewed, modalType = 'changeMng'" class="sky sm">{{od.mng.name}}</b-button>
                     
 

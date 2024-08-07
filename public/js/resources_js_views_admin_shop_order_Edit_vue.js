@@ -723,7 +723,7 @@ var render = function render() {
     attrs: {
       value: "A"
     }
-  }, [_vm._v("APP")])], 1) : _vm._e()], 1), _vm._v(" "), _vm.od.od_mng > 0 ? _c("div", {
+  }, [_vm._v("APP")])], 1) : _vm._e()], 1), _vm._v(" "), _vm.od.od_mng > 0 && !_vm.isEmpty(_vm.od.mng) ? _c("div", {
     staticClass: "print_mng_nm"
   }, [_vm._v(_vm._s(_vm.od.mng.name))]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "act_ctrl"
@@ -754,7 +754,15 @@ var render = function render() {
         return _vm.update("od_mng");
       }
     }
-  }, [_vm._v("담당")]) : _c("b-button", {
+  }, [_vm._v("담당")]) : _vm.isEmpty(_vm.od.mng) ? _c("b-button", {
+    staticClass: "red sm",
+    on: {
+      click: function click($event) {
+        ;
+        _vm.isModalViewed = !_vm.isModalViewed, _vm.modalType = "changeMng";
+      }
+    }
+  }, [_vm._v("담당 없음")]) : _c("b-button", {
     staticClass: "sky sm",
     on: {
       click: function click($event) {
