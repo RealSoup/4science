@@ -7,9 +7,10 @@
             <template v-else-if="$route.params.stats_type == 'sales'">매출</template>
             <template v-else-if="$route.params.stats_type == 'sales_goods'">상품별 매출</template>
             <template v-else-if="$route.params.stats_type == 'sales_user'">회원별 매출</template>
+            <template v-else-if="$route.params.stats_type == 'attend'">출석 일수 순위</template>
         </div>
 
-        <div class="input-group">
+        <div class="input-group" v-if="$route.params.stats_type !== 'attend'">
             <b-form-select v-model="selectedDate.year">
                 <b-form-select-option value="">◄ 전체 ►</b-form-select-option>
                 <b-form-select-option v-for="(y, i) in year" :key="i" :value="y">{{y}} 년</b-form-select-option>
@@ -37,6 +38,7 @@ export default {
         'Sales': () =>      import('@/views/admin/stats/_comp/Sales'),
         'SalesGoods': () => import('@/views/admin/stats/_comp/SalesGoods'),
         'SalesUser': () =>  import('@/views/admin/stats/_comp/SalesUser'),
+        'Attend': () =>     import('@/views/admin/stats/_comp/Attend'),
     },
     data() { return { selectedDate:{ year:this_year, month:'', } } },
     computed : {
@@ -46,6 +48,7 @@ export default {
                 case 'sales':       return 'Sales';         break;
                 case 'sales_goods': return 'SalesGoods';    break;
                 case 'sales_user':  return 'SalesUser';     break;
+                case 'attend':      return 'Attend';        break;
             }
         },
         year () { return Array.from({length: this_year - 1999}, (value, index) => Number(this_year) - index); },

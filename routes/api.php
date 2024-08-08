@@ -260,13 +260,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
             
             //  통계
             Route::prefix('stats')->group(function () {
-                Route::GET('/user',     'Admin\StatsController@user');
-                Route::GET('/order',    'Admin\StatsController@order');
-                Route::GET('/goods',    'Admin\StatsController@goods');
+                Route::GET('/user',         'Admin\StatsController@user');
+                Route::GET('/order',        'Admin\StatsController@order');
+                Route::GET('/goods',        'Admin\StatsController@goods');
                 Route::GET('/userOrder',    'Admin\StatsController@userOrder');
+                Route::GET('/userAttend',   'Admin\StatsController@userAttend');
             });
         });
-
         
         Route::post('download', 'CommonController@download');
         Route::get('deleteFiles/{fi_id?}', 'CommonController@deleteFiles');

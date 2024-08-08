@@ -119,5 +119,19 @@ class StatsController extends Controller {
         $order = $order->limit(30)->get();
         return response()->json($order);
     }
+
+    public function userAttend(Request $req) {
+        $list = DB::table('user_attend')
+            ->join('users', 'user_attend.ua_id', '=', 'users.id')
+            ->select('users.name', 'users.id')
+            ->selectRaw("count(*) cnt")
+            ->whereYear('user_attend.ua_date', '2024')
+            ->whereMonth('user_attend.ua_date', '8')
+            ->groupBy('user_attend.ua_id')
+            ->orderBy('cnt', 'desc')
+            ->limit(30)
+            ->get();
+        return response()->json($list);
+    }
     
 }

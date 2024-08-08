@@ -26,6 +26,9 @@ var this_year = new Date().getFullYear();
     },
     'SalesUser': function SalesUser() {
       return __webpack_require__.e(/*! import() */ "resources_js_views_admin_stats__comp_SalesUser_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/stats/_comp/SalesUser */ "./resources/js/views/admin/stats/_comp/SalesUser.vue"));
+    },
+    'Attend': function Attend() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_admin_stats__comp_Attend_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/admin/stats/_comp/Attend */ "./resources/js/views/admin/stats/_comp/Attend.vue"));
     }
   },
   data: function data() {
@@ -50,6 +53,9 @@ var this_year = new Date().getFullYear();
           break;
         case 'sales_user':
           return 'SalesUser';
+          break;
+        case 'attend':
+          return 'Attend';
           break;
       }
     },
@@ -103,7 +109,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("b-card", {
     staticClass: "shadow p_wrap"
-  }, [_c("b-card-title", [_c("div", [_vm._v("통계 - \r\n            "), _vm.$route.params.stats_type == "join" ? [_vm._v("가입자")] : _vm.$route.params.stats_type == "sales" ? [_vm._v("매출")] : _vm.$route.params.stats_type == "sales_goods" ? [_vm._v("상품별 매출")] : _vm.$route.params.stats_type == "sales_user" ? [_vm._v("회원별 매출")] : _vm._e()], 2), _vm._v(" "), _c("div", {
+  }, [_c("b-card-title", [_c("div", [_vm._v("통계 - \r\n            "), _vm.$route.params.stats_type == "join" ? [_vm._v("가입자")] : _vm.$route.params.stats_type == "sales" ? [_vm._v("매출")] : _vm.$route.params.stats_type == "sales_goods" ? [_vm._v("상품별 매출")] : _vm.$route.params.stats_type == "sales_user" ? [_vm._v("회원별 매출")] : _vm.$route.params.stats_type == "attend" ? [_vm._v("출석 일수 순위")] : _vm._e()], 2), _vm._v(" "), _vm.$route.params.stats_type !== "attend" ? _c("div", {
     staticClass: "input-group"
   }, [_c("b-form-select", {
     model: {
@@ -152,7 +158,7 @@ var render = function render() {
     on: {
       click: _vm.index
     }
-  }, [_c("b-icon-search"), _vm._v(" 검색")], 1)], 1)], 1)]), _vm._v(" "), _c(_vm.choiceStats, {
+  }, [_c("b-icon-search"), _vm._v(" 검색")], 1)], 1)], 1) : _vm._e()]), _vm._v(" "), _c(_vm.choiceStats, {
     ref: "state_comp",
     tag: "component",
     staticClass: "state_comp",
