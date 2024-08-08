@@ -2,6 +2,11 @@
 <div>
     <loading-modal v-if="isLoadingModalViewed" :position="'absolute'">Loading ......</loading-modal>
     <div v-else>
+        <b-row>
+            <b-col col lg="2">
+                <b-form-checkbox switch size="lg" v-model='onlyCustomer' value="Y" unchecked-value="N">관리자 제외</b-form-checkbox>
+            </b-col>
+        </b-row>
         <chart-order ref="chartorder" :chart-data="graphData" :options="options"></chart-order>
         <table>
             <tr><th>순위</th><th>이름</th><th>일수</th></tr>
@@ -23,7 +28,7 @@ import ChartOrder from './ChartOrder'
 
 const year = new Date().getFullYear();
 export default {
-    name: 'admStatsUserOrder',
+    name: 'admStatsUserAttend',
     components: { 
         ChartOrder,
         'LoadingModal': () =>  import('@/views/_common/LoadingModal'),
@@ -62,7 +67,13 @@ export default {
                 month:'',
             },
             isLoadingModalViewed: true,
+            onlyCustomer: 'N',
         };
+    },
+    watch: {
+        onlyCustomer: function(value, oldValue) {
+            this.index();
+        }
     },
     computed : {
         year () {
@@ -75,7 +86,7 @@ export default {
     methods: {
         async index() {
             this.isLoadingModalViewed = true;
-            let res = await ax.get(`/api/admin/stats/userAttend`);
+            let res = await ax.get(`/api/admin/stats/userAttend`, { params: {onlyCustomer:this.onlyCustomer}});
             if (res && res.status === 200) {
                 this.isLoadingModalViewed = false;
                 this.tableData = res.data;

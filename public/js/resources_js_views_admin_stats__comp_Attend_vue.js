@@ -22,7 +22,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var _year = new Date().getFullYear();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'admStatsUserOrder',
+  name: 'admStatsUserAttend',
   components: {
     ChartOrder: _ChartOrder__WEBPACK_IMPORTED_MODULE_1__["default"],
     'LoadingModal': function LoadingModal() {
@@ -70,8 +70,14 @@ var _year = new Date().getFullYear();
         year: _year,
         month: ''
       },
-      isLoadingModalViewed: true
+      isLoadingModalViewed: true,
+      onlyCustomer: 'N'
     };
+  },
+  watch: {
+    onlyCustomer: function onlyCustomer(value, oldValue) {
+      this.index();
+    }
   },
   computed: {
     year: function year() {
@@ -99,7 +105,11 @@ var _year = new Date().getFullYear();
             case 0:
               _this.isLoadingModalViewed = true;
               _context.next = 3;
-              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/stats/userAttend");
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/admin/stats/userAttend", {
+                params: {
+                  onlyCustomer: _this.onlyCustomer
+                }
+              });
             case 3:
               res = _context.sent;
               if (res && res.status === 200) {
@@ -154,7 +164,26 @@ var render = function render() {
     attrs: {
       position: "absolute"
     }
-  }, [_vm._v("Loading ......")]) : _c("div", [_c("chart-order", {
+  }, [_vm._v("Loading ......")]) : _c("div", [_c("b-row", [_c("b-col", {
+    attrs: {
+      col: "",
+      lg: "2"
+    }
+  }, [_c("b-form-checkbox", {
+    attrs: {
+      "switch": "",
+      size: "lg",
+      value: "Y",
+      "unchecked-value": "N"
+    },
+    model: {
+      value: _vm.onlyCustomer,
+      callback: function callback($$v) {
+        _vm.onlyCustomer = $$v;
+      },
+      expression: "onlyCustomer"
+    }
+  }, [_vm._v("관리자 제외")])], 1)], 1), _vm._v(" "), _c("chart-order", {
     ref: "chartorder",
     attrs: {
       "chart-data": _vm.graphData,

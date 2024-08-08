@@ -129,6 +129,7 @@ class StatsController extends Controller {
             ->whereMonth('user_attend.ua_date', '8')
             ->groupBy('user_attend.ua_id')
             ->orderBy('cnt', 'desc')
+            ->when($req->onlyCustomer=='Y', fn ($q, $v) => $q->where('users.level', '<=', 20))
             ->limit(30)
             ->get();
         return response()->json($list);
