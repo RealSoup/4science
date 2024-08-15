@@ -134,7 +134,12 @@
                             <template v-else>{{odm.odm_gm_name}}: {{odm.odm_gm_spec}}</template>
                         </b-col>
                         <b-col class="align gray_c">{{odm.odm_mk_name}}</b-col>
-                        <b-col class="align end text-right">{{odm.odm_price | comma | won}}</b-col>
+                        <b-col class="align end text-right">
+                            <div class="price_area">
+                                {{odm.odm_price | comma | won}}
+                                <div v-if="odm.odm_price_coupon_dc" class="coupon_dc">-{{odm.odm_price_coupon_dc | comma | won}}</div>
+                            </div>
+                        </b-col>
                         <b-col class="align">
                             <div class="cube_box">
                                 <div class="cube" :class="{show_bottom: odm.show_bottom}">
@@ -145,7 +150,7 @@
                         </b-col>
                         <b-col class="align">
                             <b class="sum">
-                                {{odm.odm_price*odm.odm_ea | comma | won}}
+                                {{(odm.odm_price-odm.odm_price_coupon_dc)*odm.odm_ea | comma | won}}
                                 <b-form-checkbox v-if="pa.odpa_pa_type !== 'AIR' && odm.odm_type === 'MODEL'" v-model="odm.dlvy_all_in" @change="DlvyAllIn(odm.odm_id)" button class="print_hide">
                                     배송비 포함
                                 </b-form-checkbox>

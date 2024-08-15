@@ -77,3 +77,7 @@ Vue.filter('won', function (v) {   //  0원 견적가 표시
 Vue.filter('pay_method_new_line', function (v) {   //  결제 방법 표시시 괄호는 다음 줄로
     return v.replace('(', '<br />(');
 });
+
+Vue.filter('dcDisplay', function (v) {
+    return Number(v)<100? `${v}%` : String(Math.floor(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원';
+});

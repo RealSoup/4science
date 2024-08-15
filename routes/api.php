@@ -15,6 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::PATCH('/',           'Auth\UserController@update');
             Route::DELETE('/',          'Auth\UserController@destroy');
             Route::GET('getEmailDomain', 'UserAddrController@getEmailDomain');
+            Route::GET('coupon',        'Auth\UserController@coupon');
             Route::RESOURCE('addr',     'UserAddrController');
         });
 
@@ -312,10 +313,12 @@ Route::prefix('auth')->group(function () {
     Route::GET('user/mngList',       'Auth\UserController@mngList');
 });
 Route::prefix('event')->group(function () {
-    Route::GET('rankingSales',  'EventController@rankingSales');
-    Route::GET('rankingBuyer',  'EventController@rankingBuyer');
-    Route::GET('attendIndex',   'EventController@attendIndex');
-    Route::GET('attendStore',   'EventController@attendStore');
+    Route::GET('rankingSales',    'EventController@rankingSales');
+    Route::GET('rankingBuyer',    'EventController@rankingBuyer');
+    Route::GET('attendIndex',     'EventController@attendIndex');
+    Route::GET('attendStore',     'EventController@attendStore');
+    Route::GET('couponDown',      'EventController@couponDown');
+    Route::GET('couponDownCheck', 'EventController@couponDownCheck');
 });
 
 

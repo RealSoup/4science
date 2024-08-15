@@ -39,6 +39,7 @@
                 <small v-if="!user.is_dealer" class="m_hide">
                     (<template v-if="item.price_dc_add_vat">{{item.price_dc*user.mileage_mul*item.ea | comma}}</template><template v-else>{{item.price*user.mileage_mul*item.ea | comma}}</template>p 적립)
                 </small>
+                
             </b-col>
         </template>
         <template v-else-if="item.type == 'option'">
@@ -77,7 +78,11 @@
 <b-container class="total">
     <b-row>
         <b-col>상품금액</b-col>
-        <b-col><b>{{price.goods_add_vat | comma}}</b> 원</b-col>
+        <b-col><b>{{price.goods_origin_add_vat??price.goods_add_vat | comma}}</b> 원</b-col>
+    </b-row>
+    <b-row v-if="price.goods_coupon_dc_add_vat" class="coupon_dc">
+        <b-col>쿠폰 할인</b-col>      
+        <b-col><b>-{{price.goods_coupon_dc_add_vat | comma}}</b> 원</b-col>
     </b-row>
     <b-row>
         <b-col>배송료</b-col>      
@@ -154,6 +159,7 @@ export default {
 .container .gm_box .gd_txt .col_price svg { margin:0 .2em; }
 .container .gm_box .gd_txt small { display:block; text-align:right; font-size:.7em; color:#666; }
 
+
 .container .dlvy_box { padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
 .container .dlvy_box .col { color:#9e9e9e; font-size:.9em; }
 .container .dlvy_box .price_box { text-align:right; }
@@ -163,6 +169,8 @@ export default {
 .container.total .row .col { font-size:.85em; color:#777; }
 .container.total .row .col:nth-child(even) { text-align:right; }
 .container.total .row .col:nth-child(even) b { font-size:1.35em; color:#000; }
+.container.total .row.coupon_dc .col,
+.container.total .row.coupon_dc .col b { color:#cc0000 !important; }
 @media (max-width: 992px){
     .container .gm_box .gd_txt { padding-left:8px; }
 }

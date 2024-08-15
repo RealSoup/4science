@@ -10,8 +10,16 @@
                     <h4>주문상품 {{goods_cnt}}개</h4>
                     <goods-list v-model="order.lists" :price="order.price" :user="user"></goods-list>
                 </div>
+
+                <b-row v-if="coupon_list.length" class="area_piece coupon_list">
+                    <b-col>쿠폰 할인</b-col>
+                    <b-col @click="isCouponViewed=!isCouponViewed">
+                        <template v-if="selected_coupon_idx == 0">선택 안 함</template>
+                        <template v-else>{{order.price.goods_coupon_dc_add_vat | comma | won}}</template>
+                    </b-col>
+                </b-row>
                 
-                <b-row class="agreement area_piece">
+                <b-row class="area_piece agreement">
                     <b-col id="agrrement_01">
                         <div class="head">
                             <span>개인정보 수집 및 이용 동의 <span class="d-block" v-b-toggle.privacy>[자세히 보기]</span></span>
@@ -238,6 +246,12 @@
             <addr-create v-else-if="modal_type == 'create'" :address="addr" @index="addr_index"></addr-create>
             <addr-edit v-else-if="modal_type == 'edit'" :address="addr" :addr="addr[addr_edit_index]" @index="addr_index"></addr-edit>
             <tax-invoice v-else-if="modal_type == 'tax'" ref="tax_invoice" v-model="order.extra" @close="modal_close"></tax-invoice>
+            <coupon v-else-if="modal_type == 'coupon'" v-model="order.extra" @close="modal_close"></coupon>
+        </modal>
+
+        <modal v-if="isCouponViewed" @close-modal="isCouponViewed = false" :max_width="500" :min_height="150" :padding="'0'">
+            <template slot="header">쿠폰 선택</template>
+            <coupon :coupon_list="coupon_list" :selected_coupon_idx.sync="selected_coupon_idx" @close="isCouponViewed = false"></coupon>
         </modal>
     </transition>
 </div>
@@ -274,6 +288,7 @@ export default {
         'addr-edit'      : () => import('@/views/web/_module/addr/Edit'),
         'pop-up'         : () => import('@/views/web/_module/PopUp'),
         'goods-list'     : () => import('@/views/web/shop/order/_comp/GoodsList'),
+        'coupon'         : () => import('@/views/web/shop/order/_comp/Coupon'),
     },
     watch: {
         'order.od_pay_method': {
@@ -301,11 +316,18 @@ export default {
                 else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
         },
+        selected_coupon_idx: function(n) { 
+            this.settle(); 
+        },
+        
     },
     
     data() {
         return {
             isModalViewed: false,
+            isCouponViewed: false,
+            selected_coupon_idx:0,
+            coupon_list:[],
             modal_type: 'index',
             // postcode_open: false,
             order:{
@@ -354,7 +376,8 @@ export default {
                 check_terms: 'Y',
                 dlvy_air: 'N',
                 sale_env: '',
-                ub_id:0
+                ub_id: 0,   // user_billing ID
+                user_coupon_id: 0,  // 쿠폰 아이디
             },
             addr: [],
             addr_edit_index: 0,
@@ -369,8 +392,47 @@ export default {
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
         goods_cnt () { return this.order.goods.filter(gm => gm.gm_id > 0).length; },
         addr_chk () { return isEmpty(this.order.od_receiver) || isEmpty(this.order.od_receiver_hp) || isEmpty(this.order.od_zip) || isEmpty(this.order.od_addr1) || isEmpty(this.order.od_addr2) },
+        uc_id () { return this.selected_coupon_idx>0 ? this.coupon_list[this.selected_coupon_idx-1].uc_id : 0; }
     },
     methods:{
+        async settle() {
+            try {
+                // uc_id user coupon id
+                const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods, user_coupon_id:this.uc_id});
+                if (res && res.status === 200) {
+                    this.order.lists = res.data.lists;
+                    this.order.price = res.data.price;
+                    this.order.od_name = res.data.od_name;
+                    this.config = res.data.config;
+                    this.addr = res.data.addr;
+                    this.coupon_list = res.data.coupon;
+                    this.order.sale_env = res.data.sale_env;
+                    this.goods_def = res.data.goods_def;
+                    
+                    if(this.addr.length)
+                        this.addr_choose(this.addr[0]);
+                    
+                    if(this.user.is_dealer)
+                        this.calculator();  //  딜러가 계산
+                    
+                    //  toss
+                    this.toss = res.data.toss;
+                    if ( this.$route.query.od_pay_method != "BL") {
+                        paymentWidget = await loadPaymentWidget(this.toss.clientKey, this.toss.customerKey);
+                        paymentWidget.renderPaymentMethods("#payment-method", this.order.price.total);
+                        // paymentWidget.renderAgreement('#agreement');
+                    }                
+                }
+                /*  견적가 에러는 
+                    \resources\js\api\http.js
+                    이쪽에서 발사한다.
+                */
+            } catch (e) {
+                Notify.consolePrint(e);
+                Notify.toast('warning', e.responsee);
+            }
+        },
+        
         calculator() {
             let collect = {};
             this.order.price.dlvy = 0;
@@ -437,6 +499,8 @@ export default {
                     if (this.order.extra.oex_pay_plan == "etc")
                         this.order.extra.oex_pay_plan = this.order.extra.oex_pay_plan_etc;
                 }
+
+                this.order.user_coupon_id = this.uc_id;
 
                 this.clickable = false; 
                 //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.
@@ -539,7 +603,7 @@ export default {
             this.modal_type = 'tax';
         },
 
-        modal_close () { this.isModalViewed = false; },
+        modal_close () { this.isModalViewed = false; this.isCouponViewed = false; },
 
         validationChecker (frm) {
             if (this.addr.length==0) { Notify.toast('danger', "배송지를 등록하고 선택하세요"); this.$refs.add_addr.focus(); return false; }
@@ -614,7 +678,7 @@ export default {
             document.getElementById('address_box').scrollIntoView(); 
             window.scrollBy(0, -160); 
         },
-
+        
     },
     async created(){
         var tCode = new Date().format("yyMMddHHmm");
@@ -641,41 +705,9 @@ export default {
             Notify.toast('danger', "잘못된 접근 경로입니다.");
             this.$router.go(-1);
             return false;
-        }        
-        
-        try {
-            const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods});
-            if (res && res.status === 200) {
-                this.order.lists = res.data.lists;
-                this.order.price = res.data.price;
-                this.order.od_name = res.data.od_name;
-                this.config = res.data.config;
-                this.addr = res.data.addr;
-                this.order.sale_env = res.data.sale_env;
-                this.goods_def = res.data.goods_def;
-                
-                if(this.addr.length)
-                    this.addr_choose(this.addr[0]);
-                
-                if(this.user.is_dealer)
-                    this.calculator();  //  딜러가 계산
-                
-                //  toss
-                this.toss = res.data.toss;
-                if ( this.$route.query.od_pay_method != "BL") {
-                    paymentWidget = await loadPaymentWidget(this.toss.clientKey, this.toss.customerKey);
-                    paymentWidget.renderPaymentMethods("#payment-method", this.order.price.total);
-                    // paymentWidget.renderAgreement('#agreement');
-                }                
-            }
-            /*  견적가 에러는 
-                \resources\js\api\http.js
-                이쪽에서 발사한다.
-            */
-        } catch (e) {
-            Notify.consolePrint(e);
-            Notify.toast('warning', e.responsee);
         }
+
+        this.settle();
     },
     mounted() {
         if ( this.user.level == 12 )
@@ -700,6 +732,8 @@ export default {
 .settle_split .left { flex-basis:60%;max-width:60%; margin-right:.875em; }
     
 .settle_split .left .goods_list { padding:1.5em 1.5em .7em; }
+.settle_split .left .coupon_list { padding:1em 1.5em; margin-top:1.5rem; }
+.settle_split .left .coupon_list .col:nth-of-type(2) { cursor:pointer; text-align:right; padding-right:2rem; background: #fff url(/storage/common/arrow_dn.gif) no-repeat right 8px center; }
 
 .settle_split .left .agreement { align-items:flex-start; margin-top:1.5em; }
 .settle_split .left .agreement .col { padding:1.5em; background:#4F708F; border-radius:.5rem; }

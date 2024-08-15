@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{UserCoupon};
 use App\Models\Shop\{OrderModel};
 use App\Events\{Mileage};
 use DB;
@@ -94,6 +95,40 @@ class EventController extends Controller {
                     $rst = 'Perfect Attendance';
                 }
             }
+        }
+        return response()->json($rst);
+    }
+
+    public function couponDownCheck(Request $req) {
+        return UserCoupon::mine()->exists(); 
+    }
+
+    public function couponDown(Request $req) {
+        $rst = 'Exist';
+        if ( !auth()->check() )
+            $rst = 'login required';
+        else if (UserCoupon::mine()->doesntExist()) {
+        
+            $cp = DB::table('user_coupon_list')->where('cl_id', $req->cl_id)->first();
+            
+            $expiry_date = '';        
+            if(strlen($cp->cl_expiry_date) == 10) {
+                $now_date = strtotime(date("Y-m-d"));
+                $coupon_date = strtotime($cp->cl_expiry_date);
+                
+                if($now_date <= $coupon_date) 
+                    $expiry_date = $cp->cl_expiry_date;
+                else 
+                    return response()->json('Expired');
+            } else {
+                //  기한을 구하는 소스 입력
+                // $expiry_date = $cp->cl_expiry_date;
+            }
+            DB::table('user_coupon')->insert([ 
+                'uc_user_id'        => auth()->user()->id,
+                'uc_cl_id'          => $req->cl_id,
+                'uc_expiry_date'    => $expiry_date ]);
+            $rst = 'Success';
         }
         return response()->json($rst);
     }

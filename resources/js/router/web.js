@@ -142,13 +142,17 @@ export default [
                 path: 'print',
                 name: 'my_print',
                 component:() => import('@/views/web/mypage/print/Index'),
-            },
+            },            
 
             {
+                path: 'user/coupon',
+                name: 'my_user_coupon',
+                component:() => import('@/views/web/mypage/myUser/Coupon'),
+            }, {
                 path: 'user/edit',
                 name: 'my_user_edit',
                 component:() => import('@/views/web/mypage/myUser/Edit'),
-            },{
+            }, {
                 path: 'user/destroy',
                 name: 'my_user_destroy',
                 component:() => import('@/views/web/mypage/myUser/Destroy'),
@@ -325,17 +329,18 @@ export default [
     {   path: '/event/rankingSales',
         name: 'rankingSales',
         component:() => import('@/views/web/event/rankingSales'),
-        // beforeEnter: isLoggedin(),
     }, {   
         path: '/event/rankingBuyer',
         name: 'rankingBuyer',
         component:() => import('@/views/web/event/rankingBuyer'),
-        // beforeEnter: isLoggedin(),
     }, {   
         path: '/event/attend',
         name: 'attend',
         component:() => import('@/views/web/event/Attend'),
-        // beforeEnter: isLoggedin(),
+    }, {   
+        path: '/event/coupon',
+        name: 'coupon',
+        component:() => import('@/views/web/event/Coupon'),
     },
 
 //      테스트

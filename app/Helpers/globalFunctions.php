@@ -226,10 +226,13 @@ if(! function_exists('saleEnv')) {
 
 if(! function_exists('cal_dc')) {
     function cal_dc ($p, $dc) {
-        if($dc>99)
-            return $p-$dc;
-        else
-            return ($p*(100-intval($dc)))/100;
+        return ($dc<=99) ? ($p*(100-intval($dc)))/100 : $p-$dc;
+    }
+}
+
+if(! function_exists('cal_dc_price')) {
+    function cal_dc_price ($p, $dc) { 
+        return ($dc<=99) ? $p*intval($dc)/100 : $dc;
     }
 }
 

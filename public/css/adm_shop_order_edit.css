@@ -49,6 +49,8 @@
 .p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::before, 
 .p_wrap .box .goods .gd_con .row .col >>> .myCheck .custom-control-label::after { width:1.8rem; height:1.8rem; top:-2px; }
 .p_wrap .box .goods .gd_con .row .col .sum { text-align:right; width:100%; line-height:2; }
+.p_wrap .box .goods .gd_con .row .col .price_area { line-height:1; }
+.p_wrap .box .goods .gd_con .row .col .price_area .coupon_dc { color:#ff7878; font-size:.9em; }
 .p_wrap .box .goods .gd_con .row .col.desc.option { display:flex; align-items:center; }
 .p_wrap .box .goods .dlvy_fare { flex:0 0 9%; max-width:9%; align-items: center; display: flex; text-align: center; justify-content: center; border-left: 1px solid #D7D7D7; border-bottom:1px solid #D7D7D7; color:#AEAEAE; }
 

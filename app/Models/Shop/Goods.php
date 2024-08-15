@@ -6,7 +6,7 @@ namespace App\Models\Shop;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
-use App\Models\{User, FileGoods};
+use App\Models\{User, FileGoods, UserCoupon};
 use DB;
 use Storage;
 use DateTimeInterface;
@@ -285,9 +285,11 @@ class Goods extends Model {
                         if ($mode == 'buy_chk') {
                             foreach ($some['lists'] as $d1) {
                                 foreach ($d1 as $d2) {
-                                    if( array_key_exists('type', $d2) && $d2['type']=='model' && $d2['gm_id']==$gm->gm_id && array_key_exists('price_dc', $d2)) {
-                                        $tmpModel['price'] = $d2['price_dc'];
-                                        $tmpModel['price_add_vat'] = $d2['price_dc_add_vat'];
+                                    if( array_key_exists('type', $d2) && $d2['type']=='model' && $d2['gm_id']==$gm->gm_id ) {
+                                        if ( array_key_exists('price_dc', $d2) ) {
+                                            $tmpModel['price'] = $d2['price_dc'];
+                                            $tmpModel['price_add_vat'] = $d2['price_dc_add_vat'];
+                                        }
                                     }
                                 }
                             }
@@ -349,13 +351,27 @@ class Goods extends Model {
         }
 
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
+
+        if( gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0)    //  선택된 쿠폰 Start
+            $cp = DB::table('user_coupon_list')->where('cl_id', UserCoupon::find($some->user_coupon_id)->uc_cl_id)->first();
+
         foreach ($rst['lists'] as $pa_id => $pa_group) {
-            $paSum = 0;
+            $paSum = $dcSum = $dcSumAddVAT = 0;
             foreach ($pa_group as $k => $item) {
-                if(array_key_exists('price_dc', $item)) 
-                    $paSum += $item['price_dc']*$item['ea'];
-                else                  
-                    $paSum += $item['price']*$item['ea'];
+                if(array_key_exists('price_dc', $item)) $paSum += $item['price_dc']*$item['ea'];
+                else                                    $paSum += $item['price']*$item['ea'];
+
+                //  선택된 쿠폰 Start            
+                if(gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0) {
+                    $rst['lists'][$pa_id][$k]['price_coupon_dc'] = floor(cal_dc_price($item['price'], $cp->cl_discount));    //  쿠폰은 소수점 버림 한다.
+                    $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat'] = rrp($rst['lists'][$pa_id][$k]['price_coupon_dc']);
+
+                    if(!array_key_exists('goods_coupon_dc', $rst['price']))
+                        $rst['price']['goods_coupon_dc'] = $rst['price']['goods_coupon_dc_add_vat'] = 0;
+                    $dcSum += $rst['lists'][$pa_id][$k]['price_coupon_dc']*$item['ea'];
+                    $dcSumAddVAT += $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat']*$item['ea'];
+                }
+                //  선택된 쿠폰 End
 
                 ////////////   번역   //////////////
                 if(session()->get('locale', \Lang::getLocale()) == 'en') {
@@ -366,13 +382,25 @@ class Goods extends Model {
                         $rst['lists'][$pa_id][$k]['go_name_eng'] = translator($item['go_name']);
                         $rst['lists'][$pa_id][$k]['goc_name_eng'] = translator($item['goc_name']);
                     }
-                    
                 }
                 ////////////   번역   //////////////
             }
             $rst['price']['goods'] += $paSum;
+
+            //  쿠폰 할인 있드면
+            if(array_key_exists('goods_coupon_dc', $rst['price'])) {
+                if(!array_key_exists('goods_origin', $rst['price']))
+                    $rst['price']['goods_origin'] = $rst['price']['goods_origin_add_vat'] = 0;
+
+                $rst['price']['goods_coupon_dc'] += $dcSum;
+                $rst['price']['goods_coupon_dc_add_vat'] += $dcSumAddVAT;
+                $rst['price']['goods_origin'] += $paSum;
+                $rst['price']['goods_origin_add_vat'] += $paSum+surtax($paSum);
+                $rst['price']['goods'] -= $dcSum;
+            }
+            
             if ( $pa_group[0]['pa_type'] !== 'AIR' ) {
-                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = rrp($paSum) < $this->free_dlvy_max ? $this->dlvy_fee : 0;
+                $rst['lists'][$pa_id][0]['pa_dlvy_p'] = rrp($paSum-$dcSum) < $this->free_dlvy_max ? $this->dlvy_fee : 0;
                 $rst['lists'][$pa_id][0]['pa_dlvy_p_add_vat'] = rrp($rst['lists'][$pa_id][0]['pa_dlvy_p']);
                 //  $pa_group[0] 변수를 사용하면 값이 대입되지 않아서 저렇게 했다
             }

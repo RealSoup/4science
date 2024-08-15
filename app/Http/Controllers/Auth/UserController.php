@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
-use App\Models\{User, UserBiz, FileInfo};
+use App\Models\{User, UserBiz, FileInfo, UserCoupon};
 use App\Traits\FileControl;
 use Illuminate\Support\Facades\Redis;
 
@@ -160,5 +160,13 @@ class UserController extends Controller {
                 abort(500, '존재하지 않는 아이디입니다.');
         } else 
             abort(500, '아이디 또는 이름과 휴대폰 번호를 입력하세요.');
+    }
+
+    public function coupon(Request $req) {
+        return UserCoupon::mine()
+            ->leftJoin('user_coupon_list', 'user_coupon.uc_cl_id', '=', 'user_coupon_list.cl_id' )
+            ->when($req->isAvailable=='Y', fn ($q) => $q->Available())
+            ->latest()
+            ->get(); 
     }
 }

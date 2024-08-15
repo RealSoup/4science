@@ -73,14 +73,17 @@ class OrderController extends Controller {
                     $params['md_cnt']++;
             }
         }
-        if($params['price']['total']<30000)   abort(500, '3만원 미만의 주문은 하실 수 없습니다.');
+
+        //  24년 8월 14일 장원택 차장 지시로 3만원 이하도 주문 가능하게 해라
+        // if($params['price']['total']<30000)   abort(500, '3만원 미만의 주문은 하실 수 없습니다.');
         if ($params['md_cnt'] > 1)
             $params['od_name'] .= '외 ['.($params['md_cnt']-1).']';
 
         $params['config'] = Order::$orderConfig;
         $params['config']['email_domain'] = auth()->user()::$option['email_domain'];
         $params['addr'] = auth()->check() ? auth()->user()->userAddr : [];
-        
+        $params['coupon'] = auth()->check() ? app('App\Http\Controllers\Auth\UserController')->coupon(new \Illuminate\Http\Request([ 'isAvailable' => 'Y' ])) : [];
+
         $params['toss']['customerKey']  = auth()->user()->email.'=='.auth()->user()->id;
         $params['toss']['successUrl']   = config('app.url')."shop/order/payReturn";
         $params['toss']['failUrl']      = config('app.url')."shop/order/payCardFail";
@@ -174,6 +177,7 @@ class OrderController extends Controller {
                             'odm_mk_name'  => $item['mk_name'],
                             'odm_ea'       => $item['ea'],
                             'odm_price'    => $item['price_dc'] ?? $item['price'],
+                            'odm_price_coupon_dc' => $item['price_coupon_dc'] ?? 0,
                         );
                         Cart::Target(auth()->user()->id, $item['gd_id'], $item['gm_id'], 'MODEL')->delete();
                     } else if ($item['type'] == 'option') {
@@ -192,6 +196,7 @@ class OrderController extends Controller {
                             'odm_mk_name'  => '',
                             'odm_ea'       => $item['ea'],
                             'odm_price'    => $item['price'],
+                            'odm_price_coupon_dc' => $item['price_coupon_dc'] ?? 0,
                         );
                         Cart::Target(auth()->user()->id, $item['gd_id'], $item['goc_id'], 'OPTION')->delete();
                     }
@@ -249,6 +254,9 @@ class OrderController extends Controller {
             
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
+            
+            if( $req->filled('user_coupon_id') && intval($req->user_coupon_id) > 0)    // 쿠폰 사용 처리
+                DB::table('user_coupon')->where('uc_id', $req->user_coupon_id)->update(['uc_is_use' => 'Y']);
             // DB::commit();
             return response()->json($params, 200);
         // } catch (Exception $e) {

@@ -83,16 +83,19 @@ class User extends Authenticatable implements MustVerifyEmail {
     protected $mileage_rate = [ 2 => 0.5, 3 => 1, 4 => 1.5 ];
     
 
-    public function userMng() { return $this->hasOne(UserMng::class, 'um_user_id')->withDefault(); }
+    public function userMng()       { return $this->hasOne(UserMng::class, 'um_user_id')->withDefault(); }
     public function userMngConfig() { return $this->hasMany(UserMngConfig::class, 'umc_user_id')->orderBy('umc_key')->orderBy('umc_seq'); }
-    public function order() { return $this->hasMany(\App\Models\Shop\Order::class, "created_id")->latest(); }
-    public function estimateReq() { return $this->hasMany(\App\Models\Shop\EstimateReq::class, "created_id")->latest(); }
-    public function userMileage() { return $this->hasMany(UserMileage::class, "ml_uid"); }
-    public function wish() { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
-    public function engReform() { return $this->hasMany(EngReform::class, "created_id"); }
-    public function userAddr() { return $this->hasMany(UserAddr::class, 'ua_key')->orderByRaw("FIELD(ua_def, \"Y\", \"N\")"); }
-    public function userBiz() { return $this->hasOne(UserBiz::class, 'ub_papa_id')->with('fileInfo')->withDefault(); }
+    public function order()         { return $this->hasMany(\App\Models\Shop\Order::class, "created_id")->latest(); }
+    public function estimateReq()   { return $this->hasMany(\App\Models\Shop\EstimateReq::class, "created_id")->latest(); }
+    public function userMileage()   { return $this->hasMany(UserMileage::class, "ml_uid"); }
+    public function wish()          { return $this->hasMany(\App\Models\Shop\Wish::class, "created_id"); }
+    public function engReform()     { return $this->hasMany(EngReform::class, "created_id"); }
+    public function userAddr()      { return $this->hasMany(UserAddr::class, 'ua_key')->orderByRaw("FIELD(ua_def, \"Y\", \"N\")"); }
+    public function userBiz()       { return $this->hasOne(UserBiz::class, 'ub_papa_id')->with('fileInfo')->withDefault(); }
+    public function userCoupon()    { return $this->hasMany(UserCoupon::class, 'uc_user_id'); }
 
+    
+    public function scopeMine($q) { return $q->when(auth()->check(), fn ($q, $v) => $q->where('id', auth()->user()->id)); }
     public function scopeStartDate($query, $d) { return $query->whereDate('created_at', '>=', $d); }
     public function scopeEndDate($query, $d) { return $query->whereDate('created_at', '<=', $d); }
     public function scopeGroup($query, $v) { return $query->where('group', $v); }
