@@ -352,7 +352,7 @@ class Goods extends Model {
 
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
 
-        if( gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0)    //  선택된 쿠폰 Start
+        if( in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) && gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0)    //  선택된 쿠폰 Start
             $cp = DB::table('user_coupon_list')->where('cl_id', UserCoupon::find($some->user_coupon_id)->uc_cl_id)->first();
 
         foreach ($rst['lists'] as $pa_id => $pa_group) {
@@ -362,7 +362,7 @@ class Goods extends Model {
                 else                                    $paSum += $item['price']*$item['ea'];
 
                 //  선택된 쿠폰 Start            
-                if(gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0) {
+                if(in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) && gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0) {
                     $rst['lists'][$pa_id][$k]['price_coupon_dc'] = floor(cal_dc_price($item['price'], $cp->cl_discount));    //  쿠폰은 소수점 버림 한다.
                     $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat'] = rrp($rst['lists'][$pa_id][$k]['price_coupon_dc']);
 
