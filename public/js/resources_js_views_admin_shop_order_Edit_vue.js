@@ -102,6 +102,13 @@ var dt = new Date();
     },
     sum_mileage: function sum_mileage() {
       return Math.round(this.od.od_gd_price * this.od.user.mileage_mul);
+    },
+    sum_dc: function sum_dc() {
+      return Object.values(this.od.order_purchase_at).reduce(function (acc, el) {
+        return acc + Object.values(el.order_model).reduce(function (acc02, el02) {
+          return acc02 + el02.odm_price_coupon_dc;
+        }, 0);
+      }, 0);
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     user: 'auth/user'
@@ -1146,7 +1153,7 @@ var render = function render() {
     staticClass: "total"
   }, [_c("b-col", [_vm._v("상품금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price + _vm.od.od_surtax))))])]), _vm._v(" "), _c("b-col", [_vm._v("배송료")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_dlvy_price + _vm.od.od_air_price))))])]), _vm._v(" "), _c("b-col", [_vm._v("주문금액")]), _vm._v(" "), _c("b-col", [_c("b", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])])], 1), _vm._v(" "), _c("b-row", {
     staticClass: "total_sub sm_ib_h"
-  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price))))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_surtax))))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("포사이언스 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("업체 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)))])], 1)])], 1)], 1)], 2), _vm._v(" "), _c("div", {
+  }, [_c("b-col", [_c("div", [_c("b-col", [_vm._v("상품가")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_gd_price))))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("부가세")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_surtax))))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("포사이언스 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_4s)))])], 1), _vm._v(" "), _c("div", [_c("b-col", [_vm._v("업체 배송")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.dlvy_other)))])], 1)]), _vm._v(" "), _c("b-col", [_c("div", [_c("b-col", [_vm._v("적립예정 마일리지")]), _c("b-col", [_vm._v(_vm._s(_vm._f("comma")(_vm.sum_mileage)))])], 1), _vm._v(" "), _vm.sum_dc > 0 ? _c("div", [_c("b-col", [_vm._v("할인")]), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.sum_dc))))])], 1) : _vm._e()])], 1)], 1)], 2), _vm._v(" "), _c("div", {
     staticClass: "box od_addr"
   }, [_c("b-row", {
     attrs: {

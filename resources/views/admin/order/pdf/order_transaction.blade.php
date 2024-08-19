@@ -84,7 +84,11 @@ table tr th, table tr td { padding:5px; }
                 <p>{{ isset($trans_receive) ? $trans_receive : $od_company }} 귀하</p>
                 아래와 같이 계산 합니다.
             </td>
+            @if ( env('APP_ENV') == 'local' )
+            <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
+            @elseif ( env('APP_ENV') == 'production' )
             <td align="center" valign="middle"><img src="{{ asset('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
+            @endif
         </tr>
     </table>
 
@@ -125,15 +129,15 @@ $goods_p = 0;
                 <td></td>
                 <td></td>
             @endif
-            <td>{{ number_format($odm['odm_price']) }}</td>
+            <td>{{ number_format($odm['odm_price']-$odm['odm_price_coupon_dc']) }}</td>
             <td>{{ $odm['odm_ea'] }}</td>
-            <td>{{ number_format($odm['odm_price']*$odm['odm_ea']) }}</td>
+            <td>{{ number_format(($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea']) }}</td>
         </tr>
 
         @php
 
         $no++;
-        $goods_p += $odm['odm_price']*$odm['odm_ea'];
+        $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
 
         @endphp
     @endforeach
@@ -159,7 +163,12 @@ $goods_p = 0;
             </td>
         </tr>
         <tr>
+            
+            @if ( env('APP_ENV') == 'local' )
+            <td align="center" valign="middle"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
+            @elseif ( env('APP_ENV') == 'production' )
             <td align="center" valign="middle"><img src="{{ asset('storage/common/logo/estimate_logo.png') }}" width="100px" /></td>
+            @endif
         </tr>
     </table>
 </body>

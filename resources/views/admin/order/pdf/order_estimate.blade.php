@@ -117,8 +117,14 @@ table { padding:0; border-spacing:0px; border:0; border-collapse:collapse; width
         </tr>
         <tr><td colspan="8" height="0" style="border-bottom:solid 1px #d5d5d5;"></td></tr>
         <tr>
+            @if ( env('APP_ENV') == 'local' )
+            <td align="center" valign="middle" width="60%"><img src="{{ public_path('storage/common/logo/estimate_logo.png') }}" width="120px" /></td>
+            <td align="center" valign="middle"><img src="{{ public_path('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
+            @elseif ( env('APP_ENV') == 'production' )
             <td align="center" valign="middle" width="60%"><img src="{{ asset('storage/common/logo/estimate_logo.png') }}" width="120px" /></td>
             <td align="center" valign="middle"><img src="{{ asset('storage/common/addr_estimate200921.gif') }}" width="270px" /></td>
+            @endif
+            
         </tr>
     </table>
 
@@ -186,9 +192,9 @@ $goods_p = 0;
             <td>{{ $no }}</td>
             <td>{{ $odm['odm_gm_name'] }}</td>
             <td>{{ $odm['odm_gm_unit'] }}</td>
-            <td>{{ number_format($odm['odm_price']) }}</td>
+            <td>{{ number_format($odm['odm_price']-$odm['odm_price_coupon_dc']) }}</td>
             <td>{{ $odm['odm_ea'] }}</td>
-            <td>{{ number_format($odm['odm_price']*$odm['odm_ea']) }}</td>
+            <td>{{ number_format(($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea']) }}</td>
         </tr>
         <tr class="line_side top_dashed bottom_dashed">
             <td></td>
@@ -219,16 +225,16 @@ $goods_p = 0;
             <td></td>
             <td>{{ $odm['odm_gm_name'] }}: {{ $odm['odm_gm_spec'] }}</td>
             <td></td>
-            <td>{{ number_format($odm['odm_price']) }}</td>
+            <td>{{ number_format($odm['odm_price']-$odm['odm_price_coupon_dc']) }}</td>
             <td>{{ $odm['odm_ea'] }}</td>
-            <td>{{ number_format($odm['odm_price']*$odm['odm_ea']) }}</td>
+            <td>{{ number_format(($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea']) }}</td>
         </tr>       
         @endif
 
         @php
 
         $no++;
-        $goods_p += $odm['odm_price']*$odm['odm_ea'];
+        $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
 
         @endphp
     @endforeach

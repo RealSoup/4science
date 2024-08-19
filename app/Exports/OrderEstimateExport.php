@@ -77,15 +77,15 @@ class OrderEstimateExport implements FromCollection, WithStyles, WithDrawings, W
                         $od['od_dlvy_price']        = 0;
                         //  다른 함수에서 참조하려면 $this->od 여기도 넣어줘야 변경된 값이 참조 된다.
                     }
-                    $data[] = [$seq, $odm['odm_gm_name'], '', '', '', $odm['odm_gm_unit'], '', $odm['odm_price'], '', $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea'] ];
+                    $data[] = [$seq, $odm['odm_gm_name'], '', '', '', $odm['odm_gm_unit'], '', $odm['odm_price']-$odm['odm_price_coupon_dc'], '', $odm['odm_ea'], ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'] ];
                     $data[] = ['', $odm['odm_gm_catno'].' / '.$odm['odm_gm_code']];
                     $data[] = ['', $odm['odm_gm_spec']];
                 } else {
                     $type = 'o';
-                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', $odm['odm_price'], '', $odm['odm_ea'], $odm['odm_price']*$odm['odm_ea']];
+                    $data[] = ['', "{$odm['odm_gm_name']}: {$odm['odm_gm_spec']}", '', '', '', '', '', $odm['odm_price']-$odm['odm_price_coupon_dc'], '', $odm['odm_ea'], ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea']];
                 }
                 
-                $goods_p += $odm['odm_price']*$odm['odm_ea'];
+                $goods_p += ($odm['odm_price']-$odm['odm_price_coupon_dc'])*$odm['odm_ea'];
 
                 $this->odm_map[] = [
                     'type' => $type,

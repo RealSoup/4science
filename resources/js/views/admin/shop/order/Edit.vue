@@ -213,6 +213,9 @@
                         <div>
                             <b-col>적립예정 마일리지</b-col><b-col>{{sum_mileage | comma}}</b-col>
                         </div>
+                        <div v-if="sum_dc>0">
+                            <b-col>할인</b-col><b-col>{{sum_dc | comma | won}}</b-col>
+                        </div>
                     </b-col>
                 </b-row>
             </div>
@@ -578,6 +581,13 @@ export default {
         },
         sum_mileage () {
             return Math.round(this.od.od_gd_price * this.od.user.mileage_mul);
+        },
+        sum_dc () {
+            return Object.values(this.od.order_purchase_at).reduce((acc, el) => {                
+                return acc + Object.values(el.order_model).reduce((acc02, el02) => {                    
+                    return acc02 + el02.odm_price_coupon_dc;
+                }, 0);
+            }, 0);
         },
         ...mapGetters({
             user: 'auth/user',
