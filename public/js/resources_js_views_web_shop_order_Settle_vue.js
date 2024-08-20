@@ -263,6 +263,7 @@ var paymentWidget = null;
       }
     },
     selected_coupon_idx: function selected_coupon_idx(n) {
+      this.order.user_coupon_id = this.uc_id;
       this.settle();
     }
   },
@@ -472,7 +473,7 @@ var paymentWidget = null;
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               if (!_this2.validationChecker(_this2.order)) {
-                _context2.next = 44;
+                _context2.next = 43;
                 break;
               }
               _context2.t0 = _this2.order.extra.oex_type;
@@ -494,16 +495,15 @@ var paymentWidget = null;
               if (_this2.order.od_pay_method == 'R') {
                 if (_this2.order.extra.oex_pay_plan == "etc") _this2.order.extra.oex_pay_plan = _this2.order.extra.oex_pay_plan_etc;
               }
-              _this2.order.user_coupon_id = _this2.uc_id;
               _this2.clickable = false;
               //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.
               //  미리 주문 아이디가 선점 되어야 아이디가 겹지치 않고 돌아간다.
-              _context2.next = 17;
+              _context2.next = 16;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/order/pay", _this2.order);
-            case 17:
+            case 16:
               pay = _context2.sent;
               if (!(pay && pay.status === 200)) {
-                _context2.next = 43;
+                _context2.next = 42;
                 break;
               }
               //  구글 통계 수집 소스
@@ -517,7 +517,7 @@ var paymentWidget = null;
                 noninteraction: false // Optional
               });
               if (!(_this2.order.extra.oex_hasBizLicense && !isEmpty(_this2.order.extra.oex_file))) {
-                _context2.next = 29;
+                _context2.next = 28;
                 break;
               }
               frm = new FormData();
@@ -526,11 +526,11 @@ var paymentWidget = null;
               frm.append('fi_kind', 'biz');
               frm.append('fi_room', new Date().getFullYear());
               frm.append("file[]", _this2.order.extra.oex_file);
-              _context2.next = 29;
+              _context2.next = 28;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/upload', frm);
-            case 29:
+            case 28:
               if (!(_this2.order.od_pay_method == 'C')) {
-                _context2.next = 33;
+                _context2.next = 32;
                 break;
               }
               paymentWidget.requestPayment({
@@ -544,19 +544,19 @@ var paymentWidget = null;
               }).then(function (v) {
                 return console.log(v);
               });
-              _context2.next = 43;
+              _context2.next = 42;
               break;
-            case 33:
+            case 32:
               if (!(_this2.order.od_pay_method == 'P')) {
-                _context2.next = 37;
+                _context2.next = 36;
                 break;
               }
               _this2.openWinPop("/shop/order/settle_psys/".concat(pay.data.od_id), 800, 720);
-              _context2.next = 43;
+              _context2.next = 42;
               break;
-            case 37:
+            case 36:
               if (!(_this2.order.od_pay_method == 'BL' && _this2.order.ub_id == 0)) {
-                _context2.next = 41;
+                _context2.next = 40;
                 break;
               }
               (0,_tosspayments_payment_sdk__WEBPACK_IMPORTED_MODULE_3__.loadTossPayments)(_this2.toss['billing_clientKey']).then(function (tossPayments) {
@@ -579,19 +579,19 @@ var paymentWidget = null;
                   }
                 });
               });
-              _context2.next = 43;
+              _context2.next = 42;
               break;
-            case 41:
-              _context2.next = 43;
+            case 40:
+              _context2.next = 42;
               return _router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                 name: 'order_done',
                 params: {
                   od_id: pay.data.od_id
                 }
               });
-            case 43:
+            case 42:
               _this2.clickable = true;
-            case 44:
+            case 43:
             case "end":
               return _context2.stop();
           }
@@ -899,7 +899,8 @@ var render = function render() {
   }, [_c("h4", [_vm._v("주문상품 " + _vm._s(_vm.goods_cnt) + "개")]), _vm._v(" "), _c("goods-list", {
     attrs: {
       price: _vm.order.price,
-      user: _vm.user
+      user: _vm.user,
+      uc_ic: this.order.user_coupon_id
     },
     model: {
       value: _vm.order.lists,

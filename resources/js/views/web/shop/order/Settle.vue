@@ -8,7 +8,7 @@
             <b-col class="left">
                 <div class="area_piece goods_list">
                     <h4>주문상품 {{goods_cnt}}개</h4>
-                    <goods-list v-model="order.lists" :price="order.price" :user="user"></goods-list>
+                    <goods-list v-model="order.lists" :price="order.price" :user="user" :uc_ic="this.order.user_coupon_id"></goods-list>
                 </div>
 
                 <b-row v-if="coupon_list.length" class="area_piece coupon_list">
@@ -316,8 +316,9 @@ export default {
                 else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
         },
-        selected_coupon_idx: function(n) { 
-            this.settle(); 
+        selected_coupon_idx: function(n) {
+            this.order.user_coupon_id = this.uc_id;
+            this.settle();
         },
         
     },
@@ -499,8 +500,6 @@ export default {
                     if (this.order.extra.oex_pay_plan == "etc")
                         this.order.extra.oex_pay_plan = this.order.extra.oex_pay_plan_etc;
                 }
-
-                this.order.user_coupon_id = this.uc_id;
 
                 this.clickable = false; 
                 //  카드사는 주문아이디를 요청하고 결제 완료후 해당 아이디로 주문정보 매칭한다.

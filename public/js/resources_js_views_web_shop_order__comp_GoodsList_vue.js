@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'webShopOrder_compGoodsList',
-  props: ['value', 'price', 'user'],
+  props: ['value', 'price', 'user', 'uc_ic'],
   data: function data() {
     return {};
   },
@@ -124,7 +124,9 @@ var render = function render() {
         staticClass: "discount"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])])], 1), _vm._v(" "), !_vm.user.is_dealer ? _c("small", {
         staticClass: "m_hide"
-      }, [_vm._v("\r\n                    ("), item.price_dc_add_vat ? [_vm._v(_vm._s(_vm._f("comma")(item.price_dc * _vm.user.mileage_mul * item.ea)))] : [_vm._v(_vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)))], _vm._v("p 적립)\r\n                ")], 2) : _vm._e()])] : item.type == "option" ? [_c("b-col", {
+      }, [_vm._v("\r\n                    ("), item.price_dc_add_vat ? [_vm._v(_vm._s(_vm._f("comma")(item.price_dc * _vm.user.mileage_mul * item.ea)))] : [_vm._v(_vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)))], _vm._v("p 적립)\r\n                ")], 2) : _vm._e(), _vm._v(" "), _vm.uc_ic > 0 && _vm.isEmpty(item.price_coupon_dc) ? _c("small", {
+        staticClass: "unavailable_coupon"
+      }, [_vm._v("쿠폰 할인 제외 품목")]) : _vm._e()])] : item.type == "option" ? [_c("b-col", {
         staticClass: "gd_img"
       }, [_vm._v("추가 옵션")]), _vm._v(" "), _c("b-col", {
         staticClass: "gd_txt"
@@ -162,7 +164,9 @@ var render = function render() {
         staticClass: "discount"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])])], 1), _vm._v(" "), !_vm.user.is_dealer ? _c("small", {
         staticClass: "m_hide"
-      }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e()])] : _vm._e()], 2);
+      }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e(), _vm._v(" "), _vm.uc_ic > 0 && _vm.isEmpty(item.price_coupon_dc) ? _c("small", {
+        staticClass: "unavailable_coupon"
+      }, [_vm._v("쿠폰 할인 제외 품목")]) : _vm._e()])] : _vm._e()], 2);
     }), _vm._v(" "), _c("b-row", {
       staticClass: "dlvy_box"
     }, [_c("b-col", {
@@ -198,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-44cda753] { padding:1em 0;\n}\n.container[data-v-44cda753]:not(:first-child) { border-top:1px solid #AAA;\n}\n.container h4[data-v-44cda753] { font-weight:bolder; font-size:1em; padding:1em 0;\n}\n.container .gm_box[data-v-44cda753] { margin-bottom:1em; align-items:flex-start;\n}\n.container .gm_box .gd_img[data-v-44cda753] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.container .gm_box .gd_img img[data-v-44cda753] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.container .gm_box .gd_txt .explain p[data-v-44cda753] { margin:0; color:#999;\n}\n.container .gm_box .gd_txt .explain .gd_name[data-v-44cda753] { color:#000; font-weight:700;\n}\n.container .gm_box .gd_txt .col_price[data-v-44cda753] { display:flex; align-items:center; justify-content:flex-end;\n}\n.container .gm_box .gd_txt .col_price svg[data-v-44cda753] { margin:0 .2em;\n}\n.container .gm_box .gd_txt small[data-v-44cda753] { display:block; text-align:right; font-size:.7em; color:#666;\n}\n.container .dlvy_box[data-v-44cda753] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.container .dlvy_box .col[data-v-44cda753] { color:#9e9e9e; font-size:.9em;\n}\n.container .dlvy_box .price_box[data-v-44cda753] { text-align:right;\n}\n.container.total[data-v-44cda753] { padding-bottom:0;\n}\n.container.total .row[data-v-44cda753] { align-items:baseline;\n}\n.container.total .row .col[data-v-44cda753] { font-size:.85em; color:#777;\n}\n.container.total .row .col[data-v-44cda753]:nth-child(even) { text-align:right;\n}\n.container.total .row .col:nth-child(even) b[data-v-44cda753] { font-size:1.35em; color:#000;\n}\n.container.total .row.coupon_dc .col[data-v-44cda753],\r\n.container.total .row.coupon_dc .col b[data-v-44cda753] { color:#cc0000 !important;\n}\n@media (max-width: 992px){\n.container .gm_box .gd_txt[data-v-44cda753] { padding-left:8px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-44cda753] { padding:1em 0;\n}\n.container[data-v-44cda753]:not(:first-child) { border-top:1px solid #AAA;\n}\n.container h4[data-v-44cda753] { font-weight:bolder; font-size:1em; padding:1em 0;\n}\n.container .gm_box[data-v-44cda753] { margin-bottom:1em; align-items:flex-start;\n}\n.container .gm_box .gd_img[data-v-44cda753] { flex-basis:17%; max-width:17%; display:flex; align-items:center; justify-content:center;\n}\n.container .gm_box .gd_img img[data-v-44cda753] { width:100%; max-width:120px; height:auto; -o-object-fit:contain; object-fit:contain;\n}\n.container .gm_box .gd_txt .explain p[data-v-44cda753] { margin:0; color:#999;\n}\n.container .gm_box .gd_txt .explain .gd_name[data-v-44cda753] { color:#000; font-weight:700;\n}\n.container .gm_box .gd_txt .col_price[data-v-44cda753] { display:flex; align-items:center; justify-content:flex-end;\n}\n.container .gm_box .gd_txt .col_price svg[data-v-44cda753] { margin:0 .2em;\n}\n.container .gm_box .gd_txt small[data-v-44cda753] { display:block; text-align:right; font-size:.7em; color:#666;\n}\n.container .gm_box .gd_txt small.unavailable_coupon[data-v-44cda753] { color:#cc0000;\n}\n.container .dlvy_box[data-v-44cda753] { padding: 12px 16px; background: #f5f5f5; border-radius: 8px;\n}\n.container .dlvy_box .col[data-v-44cda753] { color:#9e9e9e; font-size:.9em;\n}\n.container .dlvy_box .price_box[data-v-44cda753] { text-align:right;\n}\n.container.total[data-v-44cda753] { padding-bottom:0;\n}\n.container.total .row[data-v-44cda753] { align-items:baseline;\n}\n.container.total .row .col[data-v-44cda753] { font-size:.85em; color:#777;\n}\n.container.total .row .col[data-v-44cda753]:nth-child(even) { text-align:right;\n}\n.container.total .row .col:nth-child(even) b[data-v-44cda753] { font-size:1.35em; color:#000;\n}\n.container.total .row.coupon_dc .col[data-v-44cda753],\r\n.container.total .row.coupon_dc .col b[data-v-44cda753] { color:#cc0000 !important;\n}\n@media (max-width: 992px){\n.container .gm_box .gd_txt[data-v-44cda753] { padding-left:8px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

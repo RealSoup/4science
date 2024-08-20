@@ -39,7 +39,7 @@
                 <small v-if="!user.is_dealer" class="m_hide">
                     (<template v-if="item.price_dc_add_vat">{{item.price_dc*user.mileage_mul*item.ea | comma}}</template><template v-else>{{item.price*user.mileage_mul*item.ea | comma}}</template>p 적립)
                 </small>
-                
+                <small v-if="uc_ic>0 && isEmpty(item.price_coupon_dc)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>                
             </b-col>
         </template>
         <template v-else-if="item.type == 'option'">
@@ -63,6 +63,7 @@
                     </div>
                 </div>
                 <small v-if="!user.is_dealer" class="m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</small>
+                <small v-if="uc_ic>0 && isEmpty(item.price_coupon_dc)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>
             </b-col>
         </template>
     </b-row>
@@ -112,7 +113,7 @@
 <script>
 export default {
     name: 'webShopOrder_compGoodsList',
-    props: ['value', 'price', 'user'],
+    props: ['value', 'price', 'user', 'uc_ic'],
     data() {
         return {
             
@@ -158,7 +159,7 @@ export default {
 .container .gm_box .gd_txt .col_price { display:flex; align-items:center; justify-content:flex-end; }
 .container .gm_box .gd_txt .col_price svg { margin:0 .2em; }
 .container .gm_box .gd_txt small { display:block; text-align:right; font-size:.7em; color:#666; }
-
+.container .gm_box .gd_txt small.unavailable_coupon { color:#cc0000; }
 
 .container .dlvy_box { padding: 12px 16px; background: #f5f5f5; border-radius: 8px; }
 .container .dlvy_box .col { color:#9e9e9e; font-size:.9em; }

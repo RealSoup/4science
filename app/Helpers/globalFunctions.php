@@ -231,8 +231,8 @@ if(! function_exists('cal_dc')) {
 }
 
 if(! function_exists('cal_dc_price')) {
-    function cal_dc_price ($p, $dc) { 
-        return ($dc<=99) ? $p*intval($dc)/100 : $dc;
+    function cal_dc_price ($p, $dc) { //   쿠폰은 소수점 버림 한다. 
+        return ($dc<=99) ? floor($p*intval($dc)/100) : $dc;
     }
 }
 

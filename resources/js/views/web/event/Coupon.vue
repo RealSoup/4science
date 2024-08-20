@@ -1,10 +1,11 @@
 <template>
-<div class="calendar">   
+<div class="calendar">
+    <img src="/storage/event/2024/0801/bg.jpg" style="width:600px; margin:auto; display:block;" />
     <b-row class="btn_box">
         <b-col>
             <template v-if="clickable">
-                <b-button v-if="down_check">이미 다운 함</b-button>
-                <b-button @click="store" class="chk_prev" v-else>쿠폰 다운</b-button>
+                <b-button v-if="down_check" class="xl">이미 다운 함</b-button>
+                <b-button @click="store" class="xl chk_prev" v-else>쿠폰 다운</b-button>
             </template>
             <b-button v-else class="gray xl">처리중 •••</b-button>
         </b-col>
@@ -64,6 +65,6 @@ export default {
 }
 </script>
 
-<style type="text/css">
-
+<style type="text/css" scoped>
+.btn_box { position: absolute; top: 2rem; width: 100%; }
 </style>

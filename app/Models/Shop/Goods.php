@@ -362,8 +362,14 @@ class Goods extends Model {
                 else                                    $paSum += $item['price']*$item['ea'];
 
                 //  선택된 쿠폰 Start            
-                if(in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) && gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0) {
-                    $rst['lists'][$pa_id][$k]['price_coupon_dc'] = floor(cal_dc_price($item['price'], $cp->cl_discount));    //  쿠폰은 소수점 버림 한다.
+                if(     in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) 
+                    && gettype($some) == 'object' 
+                    && $some->filled('user_coupon_id') 
+                    && intval($some->user_coupon_id) > 0
+                    && intval($item['gd_id']) > 0
+                    && substr($item['gm_catno'], 0, 3) !== '40-'
+                ) {
+                    $rst['lists'][$pa_id][$k]['price_coupon_dc'] = cal_dc_price($item['price'], $cp->cl_discount);
                     $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat'] = rrp($rst['lists'][$pa_id][$k]['price_coupon_dc']);
 
                     if(!array_key_exists('goods_coupon_dc', $rst['price']))
