@@ -391,7 +391,7 @@ export default {
     computed: {
         ...mapState('auth', ['isLoggedin', 'user']),
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
-        goods_cnt () { return this.order.goods.filter(gm => gm.gm_id > 0).length; },
+        goods_cnt () { return this.order.goods.filter(gm => (gm.gm_id > 0 || gm.em_id > 0)).length; },
         addr_chk () { return isEmpty(this.order.od_receiver) || isEmpty(this.order.od_receiver_hp) || isEmpty(this.order.od_zip) || isEmpty(this.order.od_addr1) || isEmpty(this.order.od_addr2) },
         uc_id () { return this.selected_coupon_idx>0 ? this.coupon_list[this.selected_coupon_idx-1].uc_id : 0; }
     },

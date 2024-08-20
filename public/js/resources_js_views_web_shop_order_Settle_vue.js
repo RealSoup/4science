@@ -337,7 +337,7 @@ var paymentWidget = null;
     },
     goods_cnt: function goods_cnt() {
       return this.order.goods.filter(function (gm) {
-        return gm.gm_id > 0;
+        return gm.gm_id > 0 || gm.em_id > 0;
       }).length;
     },
     addr_chk: function addr_chk() {
