@@ -101,6 +101,7 @@ class Order extends Model {
     public function orderExtraInfo() { return $this->hasOne(OrderExtraInfo::class, 'oex_od_id', 'od_id')->withDefault(); }
     public function fileInfo() {    return $this->morphOne(\App\Models\FileInfo::class, 'fileable', 'fi_group', 'fi_key'); }
     public function orderPg() { return $this->hasOne(OrderPg::class, 'pg_od_id', 'od_id')->withDefault(); }
+    public function orderCoupon() { return $this->hasMany(OrderCoupon::class, 'odc_od_id'); }
 
     public function scopeStartDate($q, $d)  { return $q->whereDate('shop_order.created_at', '>=', $d); }
     public function scopeEndDate($q, $d)    { return $q->whereDate('shop_order.created_at', '<=', $d); }

@@ -390,7 +390,8 @@ var render = function render() {
     }
   }, [_c("receipt-confirm", {
     attrs: {
-      item: _vm.receiptItem
+      item: _vm.receiptItem,
+      coupon: _vm.od.order_coupon
     },
     on: {
       hide_modal: _vm.hide_modal

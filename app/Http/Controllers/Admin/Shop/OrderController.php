@@ -357,19 +357,26 @@ class OrderController extends Controller {
 		if ($req->filled('type')) {
 			if 		($req->type == 'od_mng' && $req->filled('od_mng')) 	$od->od_mng = $req->od_mng;
 			else if ($req->type == 'od_step' && $req->filled('od_step')) {
-				if($req->od_type != 'buy_temp' && intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
-					foreach ($req->order_purchase_at as $opa) {
-						foreach ($opa['order_model'] as $odm) {
-							if ($odm['odm_type'] == 'MODEL')
-								OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']]);
+				if($req->od_type != 'buy_temp') {
+					if(intval($req->od_step) >= 20 && intval($req->od_step) <= 50) {
+						foreach ($req->order_purchase_at as $opa) {
+							foreach ($opa['order_model'] as $odm) {
+								if ($odm['odm_type'] == 'MODEL')
+									OrderDlvyInfo::firstOrCreate(['oddi_odm_id' => $odm['order_dlvy_info']['oddi_odm_id']]);
+							}
 						}
-					}
-					if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
-						DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
+						if(intval($req->od_step) == 50 && intval($req->user['level']) == 1 )
+							DB::table('users')->where('id', $req->user['id'])->update([ 'level' => 2 ] );
 
-					//  재고 상품 구매시 수량 감소
-					if(intval($od->od_step) < 20)
-						GoodsModel::minus_limit_ea($od_id);
+						//  재고 상품 구매시 수량 감소
+						if(intval($od->od_step) < 20)
+							GoodsModel::minus_limit_ea($od_id);
+					} else if (intval($req->od_step) == 60) {
+						//	주문 취소시	쿠폰 부활
+						$odc = DB::table('shop_order_coupon')->where('odc_od_id', $od_id)->first();
+						if ($odc)
+							DB::table('user_coupon')->where('uc_id', $odc->odc_uc_id)->update(['uc_is_use' => 'N']);
+					}
 				}
 				$od->od_step = $req->od_step;
 			} else if ($req->type == 'odm_ea') {

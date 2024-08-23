@@ -15,8 +15,7 @@ class CronTabController extends Controller {
 	 * 로그인을 묻지 않게 하기 위해 메인으로 이동
      */
 	public function receiveConfirm(){
-		$now = date("Y-m-d H:i:s");
-        $od = Order::with('user')
+        $od = Order::with('user')->with('orderCoupon')
 			->select('shop_order.od_id', 'shop_order.created_id', 'shop_order_model.odm_id', 'shop_order_model.odm_ea', 'shop_order_model.odm_price')
 			->join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
@@ -31,12 +30,18 @@ class CronTabController extends Controller {
 		foreach( $od as $v ){
 			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
+				$content='수취확인(자동)';
+				if($v->orderCoupon && count($v->orderCoupon)) {
+					$content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+					$p=0;
+				}
+					
 				DB::table('user_mileage')->insert([
 					'ml_uid'	  => $v->created_id,
 					'ml_tbl'	  => 'shop_order_model',
 					'ml_key'	  => $v->odm_id,
 					'ml_type'	  => 'SV',
-					'ml_content'  => '수취확인(자동)',
+					'ml_content'  => $content,
 					'ml_mileage'  => $p,
 					'ml_enable_m' => $p,
 				]);
@@ -95,7 +100,6 @@ class CronTabController extends Controller {
 	}
 
 	public function billingByCycle(){
-		//	모든 유저 레벨 초기화
 // 		SELECT a.created_at, b.ob_od_plan, c.* from la_shop_order a 
 // JOIN la_shop_order_billing b ON a.od_id = b.ob_od_id
 // left JOIN la_user_billing c ON b.ob_ub_id = c.ub_id
@@ -117,6 +121,7 @@ class CronTabController extends Controller {
 			
 		}
 	}
+
 ### 주문 2주후 자동으로 수취확인 및 포인트 적립   ###
 // 0 6 * * * /usr/bin/curl https://4science.net/admin/crontab/receiveConfirm >> /home/ec2-user/receive_confirm_crontab.log
 

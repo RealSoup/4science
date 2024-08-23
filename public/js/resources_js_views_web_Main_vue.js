@@ -43,8 +43,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       cateSideMenuPosition: 'absolute',
       cateSideMenuTop: 'auto',
       cateSideMenuBottom: 'auto',
-      scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447],
-      scrollEnd: 11130,
+      scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447, 11983],
+      scrollEnd: 11549,
       currentScroll: 0,
       // best:[
       //     { title: 'First', text: 'text', url: '#', image: '/images/one.jpg' },
@@ -74,6 +74,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       return dummy;
     }
   }, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)('category', ['category'])), {}, {
+    filteredCategories: function filteredCategories() {
+      return this.category.filter(function (ca) {
+        return ![38].includes(ca.ca_id);
+      });
+    },
     slide_check01: function slide_check01() {
       return this.date01 < this.date_now && this.date_now < this.date02;
     },
@@ -442,8 +447,8 @@ var render = function render() {
       top: _vm.cateSideMenuTop,
       bottom: _vm.cateSideMenuBottom
     }
-  }, [_c("ul", [_vm._l(_vm.category, function (ca, i) {
-    return [![38].includes(ca.ca_id) ? _c("li", {
+  }, [_c("ul", _vm._l(_vm.filteredCategories, function (ca, i) {
+    return _c("li", {
       key: ca.ca_id,
       "class": {
         active: ca.showing
@@ -463,11 +468,11 @@ var render = function render() {
       attrs: {
         src: ca.hover || ca.showing ? "".concat(_vm.s3url, "main/cate/").concat(ca.ca_id, "_.png") : "".concat(_vm.s3url, "main/cate/").concat(ca.ca_id, ".png")
       }
-    }), _vm._v(" "), ca.hover ? _c("span", [_vm._v(_vm._s(ca.ca_name))]) : _vm._e()]) : _vm._e()];
-  })], 2)]), _vm._v(" "), _c("b-container", {
+    }), _vm._v(" "), ca.hover ? _c("span", [_vm._v(_vm._s(ca.ca_name))]) : _vm._e()]);
+  }), 0)]), _vm._v(" "), _c("b-container", {
     staticClass: "con"
-  }, [_vm._l(_vm.category, function (ca) {
-    return [![38].includes(ca.ca_id) ? _c("b-row", {
+  }, _vm._l(_vm.filteredCategories, function (ca) {
+    return _c("b-row", {
       key: ca.ca_id
     }, [_c("b-col", {
       staticClass: "tit"
@@ -504,8 +509,8 @@ var render = function render() {
           src: gd.image_src_thumb[0]
         }
       }), _vm._v(" "), _c("p", [_vm._v(_vm._s(gd.gd_name))])], 1);
-    }), 1)], 1) : _vm._e()];
-  })], 2)], 1)], 1);
+    }), 1)], 1);
+  }), 1)], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

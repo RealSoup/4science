@@ -19,7 +19,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MyOrderReceiptConfirm',
-  props: ['item'],
+  props: ['item', 'coupon'],
   data: function data() {
     return {
       clickable: true,
@@ -52,8 +52,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
               _this.odFrm,
               // 수정하려는 객체
-              _this.item // 삽입하려는 내용
-              );
+              _this.item,
+              // 삽입하려는 내용
+              {
+                'did_use_coupon': _this.coupon.length > 0
+              });
               _context.next = 9;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/shop/order/".concat(_this.item.odm_od_id), _this.odFrm);
             case 9:

@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'webShopOrder_compGoodsList',
-  props: ['value', 'price', 'user', 'uc_ic'],
+  props: ['value', 'price', 'user', 'has_coupon'],
   data: function data() {
     return {};
   },
@@ -36,7 +36,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    coupon_not_available: function coupon_not_available() {
+      var gd_id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var gm_catno = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      return this.has_coupon && (Number(gd_id) == 0 || gm_catno.substr(0, 3) === '40-');
+    }
+  }
 });
 
 /***/ }),
@@ -124,7 +130,7 @@ var render = function render() {
         staticClass: "discount"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])])], 1), _vm._v(" "), !_vm.user.is_dealer ? _c("small", {
         staticClass: "m_hide"
-      }, [_vm._v("\r\n                    ("), item.price_dc_add_vat ? [_vm._v(_vm._s(_vm._f("comma")(item.price_dc * _vm.user.mileage_mul * item.ea)))] : [_vm._v(_vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)))], _vm._v("p 적립)\r\n                ")], 2) : _vm._e(), _vm._v(" "), _vm.uc_ic > 0 && _vm.isEmpty(item.price_coupon_dc) ? _c("small", {
+      }, [_vm._v("\r\n                    ("), item.price_dc_add_vat ? [_vm._v(_vm._s(_vm._f("comma")(item.price_dc * _vm.user.mileage_mul * item.ea)))] : [_vm._v(_vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)))], _vm._v("p 적립)\r\n                ")], 2) : _vm._e(), _vm._v(" "), _vm.coupon_not_available(item.gd_id, item.gm_catno) ? _c("small", {
         staticClass: "unavailable_coupon"
       }, [_vm._v("쿠폰 할인 제외 품목")]) : _vm._e()])] : item.type == "option" ? [_c("b-col", {
         staticClass: "gd_img"
@@ -164,7 +170,7 @@ var render = function render() {
         staticClass: "discount"
       }, [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(item.price_dc_add_vat * item.ea))))])])], 1), _vm._v(" "), !_vm.user.is_dealer ? _c("small", {
         staticClass: "m_hide"
-      }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e(), _vm._v(" "), _vm.uc_ic > 0 && _vm.isEmpty(item.price_coupon_dc) ? _c("small", {
+      }, [_vm._v("(" + _vm._s(_vm._f("comma")(item.price * _vm.user.mileage_mul * item.ea)) + "p 적립)")]) : _vm._e(), _vm._v(" "), _vm.coupon_not_available(item.gd_id, item.gm_catno) ? _c("small", {
         staticClass: "unavailable_coupon"
       }, [_vm._v("쿠폰 할인 제외 품목")]) : _vm._e()])] : _vm._e()], 2);
     }), _vm._v(" "), _c("b-row", {

@@ -352,8 +352,13 @@ class Goods extends Model {
 
         $rst['price']['goods'] = $rst['price']['air'] = $rst['price']['dlvy'] = 0;
 
-        if( in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) && gettype($some) == 'object' && $some->filled('user_coupon_id') && intval($some->user_coupon_id) > 0)    //  선택된 쿠폰 Start
-            $cp = DB::table('user_coupon_list')->where('cl_id', UserCoupon::find($some->user_coupon_id)->uc_cl_id)->first();
+        $use_coupon_to_buy = (     in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) 
+                                && gettype($some) == 'object' 
+                                && $some->filled('chosen_uc_id') 
+                                && intval($some->chosen_uc_id) > 0 ) ? true : false;
+
+        if( $use_coupon_to_buy )    //  선택된 쿠폰이 있다면 Start
+            $cp = DB::table('user_coupon_list')->where('cl_id', UserCoupon::find($some->chosen_uc_id)->uc_cl_id)->first();
 
         foreach ($rst['lists'] as $pa_id => $pa_group) {
             $paSum = $dcSum = $dcSumAddVAT = 0;
@@ -361,14 +366,13 @@ class Goods extends Model {
                 if(array_key_exists('price_dc', $item)) $paSum += $item['price_dc']*$item['ea'];
                 else                                    $paSum += $item['price']*$item['ea'];
 
-                //  선택된 쿠폰 Start            
-                if(     in_array($type, ['buy_inst', 'buy_cart', 'buy_estimate']) 
-                    && gettype($some) == 'object' 
-                    && $some->filled('user_coupon_id') 
-                    && intval($some->user_coupon_id) > 0
+                //  선택된 쿠폰이 있다면 Start
+                //  쿠폰을 써서 구매하는데 임의 상품이거나 머크꺼면 제외
+                if( $use_coupon_to_buy 
                     && intval($item['gd_id']) > 0
-                    && substr($item['gm_catno'], 0, 3) !== '40-'
-                ) {
+                    && ((       array_key_exists('gm_catno', $item) && substr($item['gm_catno'], 0, 3) !== '40-') 
+                            || !array_key_exists('gm_catno', $item) ) ) 
+                {
                     $rst['lists'][$pa_id][$k]['price_coupon_dc'] = cal_dc_price($item['price'], $cp->cl_discount);
                     $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat'] = rrp($rst['lists'][$pa_id][$k]['price_coupon_dc']);
 
@@ -377,7 +381,7 @@ class Goods extends Model {
                     $dcSum += $rst['lists'][$pa_id][$k]['price_coupon_dc']*$item['ea'];
                     $dcSumAddVAT += $rst['lists'][$pa_id][$k]['price_coupon_dc_add_vat']*$item['ea'];
                 }
-                //  선택된 쿠폰 End
+                //  선택된 쿠폰이 있다면 End
 
                 ////////////   번역   //////////////
                 if(session()->get('locale', \Lang::getLocale()) == 'en') {

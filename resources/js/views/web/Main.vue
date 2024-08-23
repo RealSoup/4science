@@ -73,17 +73,15 @@
 
         <aside :style="{ position: cateSideMenuPosition, top: cateSideMenuTop, bottom: cateSideMenuBottom }">
             <ul>
-                <template v-for="(ca, i) in category">
-                    <li v-if="![38].includes(ca.ca_id)" :key="ca.ca_id"
-                        @mouseenter="ca.hover = !ca.hover"
-                        @mouseleave="ca.hover = !ca.hover"
-                        @click="scrollToCate(i)"
-                        :class="{ 'active': ca.showing }"
-                    >
-                        <img :src="(ca.hover||ca.showing ) ? `${s3url}main/cate/${ca.ca_id}_.png` : `${s3url}main/cate/${ca.ca_id}.png`" />
-                        <span v-if="ca.hover">{{ca.ca_name}}</span>
-                    </li>
-                </template>
+                <li v-for="(ca, i) in filteredCategories" :key="ca.ca_id"
+                    @mouseenter="ca.hover = !ca.hover"
+                    @mouseleave="ca.hover = !ca.hover"
+                    @click="scrollToCate(i)"
+                    :class="{ 'active': ca.showing }"
+                >
+                    <img :src="(ca.hover||ca.showing ) ? `${s3url}main/cate/${ca.ca_id}_.png` : `${s3url}main/cate/${ca.ca_id}.png`" />
+                    <span v-if="ca.hover">{{ca.ca_name}}</span>
+                </li>
                 <!-- <li>
                     <button @click="scrollch('+')">up</button>
                     <input v-model="currentScroll" @keyup.enter="scrollch('e')" />
@@ -93,8 +91,7 @@
         </aside>
 
         <b-container class="con">
-        <template v-for="ca in category">
-            <b-row v-if="![38].includes(ca.ca_id)" :key="ca.ca_id">
+            <b-row v-for="ca in filteredCategories" :key="ca.ca_id">
                 <b-col class="tit">                    
                     <b-link :to="{name: 'goods_index', query: { ca01:ca.ca_id } }">
                         <b-img :src="`${s3url}main/cate/bg${ca.ca_id}.gif`" />
@@ -112,7 +109,6 @@
                     </b-link>
                 </b-col>
             </b-row>
-        </template>
         </b-container>
     </div>
 </div>
@@ -137,8 +133,8 @@ export default {
             cateSideMenuPosition: 'absolute',
             cateSideMenuTop: 'auto',
             cateSideMenuBottom: 'auto',
-            scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447],
-            scrollEnd: 11130,
+            scrollVal: [1690, 2232, 2776, 3317, 3859, 4401, 4943, 5485, 6027, 6569, 7111, 7653, 8195, 8737, 9279, 9821, 10363, 10905, 11447, 11983],
+            scrollEnd: 11549,
             currentScroll:0,
 
             // best:[
@@ -168,7 +164,7 @@ export default {
             return dummy;
         },
         ...mapState('category', ['category']),
-
+        filteredCategories () { return this.category.filter(ca => ![38].includes(ca.ca_id)); },
         slide_check01() { return this.date01 < this.date_now && this.date_now < this.date02; },
         slide_check02() { return this.date02 < this.date_now; },
     },

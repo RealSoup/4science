@@ -39,7 +39,7 @@
                 <small v-if="!user.is_dealer" class="m_hide">
                     (<template v-if="item.price_dc_add_vat">{{item.price_dc*user.mileage_mul*item.ea | comma}}</template><template v-else>{{item.price*user.mileage_mul*item.ea | comma}}</template>p 적립)
                 </small>
-                <small v-if="uc_ic>0 && isEmpty(item.price_coupon_dc)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>                
+                <small v-if="coupon_not_available(item.gd_id, item.gm_catno)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>                
             </b-col>
         </template>
         <template v-else-if="item.type == 'option'">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <small v-if="!user.is_dealer" class="m_hide">({{item.price*user.mileage_mul*item.ea | comma}}p 적립)</small>
-                <small v-if="uc_ic>0 && isEmpty(item.price_coupon_dc)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>
+                <small v-if="coupon_not_available(item.gd_id, item.gm_catno)" class="unavailable_coupon">쿠폰 할인 제외 품목</small>
             </b-col>
         </template>
     </b-row>
@@ -113,22 +113,22 @@
 <script>
 export default {
     name: 'webShopOrder_compGoodsList',
-    props: ['value', 'price', 'user', 'uc_ic'],
+    props: ['value', 'price', 'user', 'has_coupon'],
     data() {
         return {
             
         };
     },
     computed: {
-        dlvy_4s () {
+        dlvy_4s() {
             return this.value.hasOwnProperty(0) ? this.value[0][0].pa_dlvy_p_add_vat : 0;
         },
-        dlvy_other () {
+        dlvy_other() {
             return Object.values(this.value).reduce((acc, el) => {
                 return acc + el[0].pa_name != '' ? el[0].pa_dlvy_p_add_vat : 0
             }, 0);
         },
-        sum_mileage () {
+        sum_mileage() {
             return Object.values(this.value).reduce((acc, el) => {
                 return acc + el.reduce((acc02, el02) => {
                     return acc02 + (el02.price*el02.ea*this.user.mileage_mul);
@@ -141,7 +141,7 @@ export default {
     },
 
     methods: {
-        
+        coupon_not_available (gd_id=0, gm_catno='') { return this.has_coupon && (Number(gd_id) == 0 || gm_catno.substr(0, 3) === '40-') }
     },
 };
 </script>

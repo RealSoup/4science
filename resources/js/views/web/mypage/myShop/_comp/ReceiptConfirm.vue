@@ -42,7 +42,7 @@ import ax from '@/api/http';
 
 export default {
     name: 'MyOrderReceiptConfirm',
-    props:['item'],
+    props:['item', 'coupon'],
     data() {
         return {
             clickable : true,
@@ -66,7 +66,8 @@ export default {
             this.odFrm = Object.assign(
                 {}, // 빈 객체를 선언 함으로써, 새로운 메모리 위치로 재정의
                 this.odFrm, // 수정하려는 객체
-                this.item // 삽입하려는 내용
+                this.item, // 삽입하려는 내용
+                {'did_use_coupon': (this.coupon.length>0)},
             );
             const resOr = await ax.post(`/api/shop/order/${this.item.odm_od_id}`, this.odFrm);
             if (resOr && resOr.status === 200) {    

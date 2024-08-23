@@ -255,8 +255,10 @@ class OrderController extends Controller {
             if ( (int)$req->price['total'] != (int)$order_goodsInfo['price']['total'] )
                 throw new Exception("최종가격이 다릅니다.");
             
-            if( $req->filled('user_coupon_id') && intval($req->user_coupon_id) > 0)    // 쿠폰 사용 처리
-                DB::table('user_coupon')->where('uc_id', $req->user_coupon_id)->update(['uc_is_use' => 'Y']);
+            if( $req->filled('chosen_uc_id') && intval($req->chosen_uc_id) > 0) {    // 쿠폰 사용 처리
+                DB::table('user_coupon')->where('uc_id', $req->chosen_uc_id)->update(['uc_is_use' => 'Y']);
+                DB::table('shop_order_coupon')->insert(['odc_od_id' => $this->order->od_id, 'odc_uc_id' => $req->chosen_uc_id]);
+            }
             // DB::commit();
             return response()->json($params, 200);
         // } catch (Exception $e) {
@@ -314,7 +316,13 @@ class OrderController extends Controller {
     }
 
     public function show($od_id) {
-        $rst['od'] = $this->order->with('orderPurchaseAt')->with('orderExtraInfo')->with('orderPg')->with('mng')->find($od_id);
+        $rst['od'] = $this->order
+            ->with('orderPurchaseAt')
+            ->with('orderExtraInfo')
+            ->with('orderPg')
+            ->with('mng')
+            ->with('orderCoupon')
+            ->find($od_id);
 
         foreach ($rst['od']->orderPurchaseAt as $opa) {
 			foreach ($opa->orderModel as $odm)
@@ -336,12 +344,20 @@ class OrderController extends Controller {
 		if ($rst) {
             if ( auth()->user()->level < 5 || auth()->user()->level > 20 ) {
                 $m = new \App\Models\UserMileage;
+                $p = $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level);
+                $content = '수취 확인';
+                if ( $req->did_use_coupon ) {
+                    $p=0;
+                    $content.=' - 쿠폰 사용으로 마일리지 지급 비대상';
+                }
                 event(new Mileage(  "insert", 
                                     auth()->user()->id, 
                                     'shop_order_model', 
                                     $req->odm_id, 'SV', 
-                                    '수취 확인', 
-                                    $m->mileage_calculation($req->odm_price, $req->odm_ea, auth()->user()->level)));
+                                    $content,
+                                    $p 
+                                    ));
+                
             }
             return response()->json(["message"=>"success"], 200);
         } else

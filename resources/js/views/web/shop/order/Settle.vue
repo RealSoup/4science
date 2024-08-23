@@ -8,14 +8,14 @@
             <b-col class="left">
                 <div class="area_piece goods_list">
                     <h4>주문상품 {{goods_cnt}}개</h4>
-                    <goods-list v-model="order.lists" :price="order.price" :user="user" :uc_ic="this.order.user_coupon_id"></goods-list>
+                    <goods-list v-model="order.lists" :price="order.price" :user="user" :has_coupon="user_coupon.length>0"></goods-list>
                 </div>
 
-                <b-row v-if="coupon_list.length" class="area_piece coupon_list">
+                <b-row v-if="user_coupon.length" class="area_piece user_coupon">
                     <b-col>쿠폰 할인</b-col>
                     <b-col @click="isCouponViewed=!isCouponViewed">
-                        <template v-if="selected_coupon_idx == 0">선택 안 함</template>
-                        <template v-else>{{order.price.goods_coupon_dc_add_vat | comma | won}}</template>
+                        <template v-if="order.chosen_uc_id == 0">선택 안 함</template>
+                        <template v-else>{{user_coupon.find((uc) => uc.uc_id == order.chosen_uc_id).cl_name}}</template>
                     </b-col>
                 </b-row>
                 
@@ -251,7 +251,7 @@
 
         <modal v-if="isCouponViewed" @close-modal="isCouponViewed = false" :max_width="500" :min_height="150" :padding="'0'">
             <template slot="header">쿠폰 선택</template>
-            <coupon :coupon_list="coupon_list" :selected_coupon_idx.sync="selected_coupon_idx" @close="isCouponViewed = false"></coupon>
+            <coupon :user_coupon="user_coupon" :chosen_uc_id.sync="order.chosen_uc_id" :available_coupon="available_coupon" @close="isCouponViewed = false"></coupon>
         </modal>
     </transition>
 </div>
@@ -316,19 +316,15 @@ export default {
                 else if (n == 'NO') this.order.extra.oex_type = 'NO';
             },
         },
-        selected_coupon_idx: function(n) {
-            this.order.user_coupon_id = this.uc_id;
-            this.settle();
-        },
-        
+
+        'order.chosen_uc_id': { handler() { this.settle(); }, },        
     },
     
     data() {
         return {
             isModalViewed: false,
             isCouponViewed: false,
-            selected_coupon_idx:0,
-            coupon_list:[],
+            user_coupon:[],
             modal_type: 'index',
             // postcode_open: false,
             order:{
@@ -378,7 +374,7 @@ export default {
                 dlvy_air: 'N',
                 sale_env: '',
                 ub_id: 0,   // user_billing ID
-                user_coupon_id: 0,  // 쿠폰 아이디
+                chosen_uc_id: 0,  // 쿠폰 아이디
             },
             addr: [],
             addr_edit_index: 0,
@@ -393,20 +389,26 @@ export default {
         isDlvyAir () { return Object.values(this.order.lists).find(e => e[0].pa_type === 'AIR') !== undefined; },
         goods_cnt () { return this.order.goods.filter(gm => (gm.gm_id > 0 || gm.em_id > 0)).length; },
         addr_chk () { return isEmpty(this.order.od_receiver) || isEmpty(this.order.od_receiver_hp) || isEmpty(this.order.od_zip) || isEmpty(this.order.od_addr1) || isEmpty(this.order.od_addr2) },
-        uc_id () { return this.selected_coupon_idx>0 ? this.coupon_list[this.selected_coupon_idx-1].uc_id : 0; }
+        available_coupon() {
+            return this.order.lists.reduce((acc, pa) => {
+                return acc || pa.reduce((acc02, gm) => {
+                    return acc02 || (Number(gm.gd_id) > 0 && gm.gm_catno.substr(0, 3) !== '40-');
+                }, false);
+            }, false);
+        },
     },
     methods:{
         async settle() {
             try {
                 // uc_id user coupon id
-                const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods, user_coupon_id:this.uc_id});
+                const res = await ax.post('/api/shop/order/settle', {type:this.order.od_type, goods:this.order.goods, chosen_uc_id:this.order.chosen_uc_id});
                 if (res && res.status === 200) {
                     this.order.lists = res.data.lists;
                     this.order.price = res.data.price;
                     this.order.od_name = res.data.od_name;
                     this.config = res.data.config;
                     this.addr = res.data.addr;
-                    this.coupon_list = res.data.coupon;
+                    this.user_coupon = res.data.coupon;
                     this.order.sale_env = res.data.sale_env;
                     this.goods_def = res.data.goods_def;
                     
@@ -731,8 +733,8 @@ export default {
 .settle_split .left { flex-basis:60%;max-width:60%; margin-right:.875em; }
     
 .settle_split .left .goods_list { padding:1.5em 1.5em .7em; }
-.settle_split .left .coupon_list { padding:1em 1.5em; margin-top:1.5rem; }
-.settle_split .left .coupon_list .col:nth-of-type(2) { cursor:pointer; text-align:right; padding-right:2rem; background: #fff url(/storage/common/arrow_dn.gif) no-repeat right 8px center; }
+.settle_split .left .user_coupon { padding:1em 1.5em; margin-top:1.5rem; }
+.settle_split .left .user_coupon .col:nth-of-type(2) { cursor:pointer; text-align:right; padding-right:2rem; background: #fff url(/storage/common/arrow_dn.gif) no-repeat right 8px center; }
 
 .settle_split .left .agreement { align-items:flex-start; margin-top:1.5em; }
 .settle_split .left .agreement .col { padding:1.5em; background:#4F708F; border-radius:.5rem; }

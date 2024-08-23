@@ -15,7 +15,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ShopOrder_compCoupon',
-  props: ['coupon_list', 'selected_coupon_idx']
+  props: ['user_coupon', 'chosen_uc_id', 'available_coupon'],
+  methods: {
+    choose_coupon: function choose_coupon(uc_id) {
+      if (this.available_coupon) {
+        this.$emit('update:chosen_uc_id', uc_id);
+        this.$emit('close');
+      } else Notify.modal("적용 가능한 상품이 없습니다.", 'danger');
+    }
+  }
 });
 
 /***/ }),
@@ -38,22 +46,23 @@ var render = function render() {
     staticClass: "fence"
   }, [_c("b-row", {
     "class": {
-      chk: _vm.selected_coupon_idx == 0
+      chk: _vm.chosen_uc_id == 0
     },
     on: {
       click: function click($event) {
-        _vm.$emit("update:selected_coupon_idx", 0), _vm.$emit("close");
+        return _vm.choose_coupon(0);
       }
     }
-  }, [_c("b-col", [_vm._v("선택안함")]), _c("b-col")], 1), _vm._v(" "), _vm._l(_vm.coupon_list, function (row, i) {
+  }, [_c("b-col", [_vm._v("선택안함")]), _c("b-col")], 1), _vm._v(" "), _vm._l(_vm.user_coupon, function (row, i) {
     return [_c("b-row", {
       key: i,
       "class": {
-        chk: _vm.selected_coupon_idx == i + 1
+        chk: _vm.chosen_uc_id == row.uc_id,
+        not_available: !_vm.available_coupon
       },
       on: {
         click: function click($event) {
-          _vm.$emit("update:selected_coupon_idx", i + 1), _vm.$emit("close");
+          return _vm.choose_coupon(row.uc_id);
         }
       }
     }, [_c("b-col", [_vm._v(_vm._s(row.cl_name))]), _c("b-col", [_vm._v(_vm._s(_vm._f("dcDisplay")(row.cl_discount)))])], 1)];
@@ -81,7 +90,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.fence[data-v-02bc7912] { padding:1rem;\n}\n.fence .row[data-v-02bc7912] { padding:.4rem 2rem .4rem .4rem; cursor:pointer;\n}\n.fence .row.chk[data-v-02bc7912]::after { content:\"\"; position:relative; top:-3px; right:-22px; width:11px; height:18px; border-bottom:2px solid #09AA5C; border-right:2px solid #09AA5C; transform:rotate(45deg);\n}\n.fence .row.chk .col[data-v-02bc7912] { color:#09AA5C; font-weight:bold;\n}\n.fence .row .col[data-v-02bc7912]:nth-child(2) { text-align:right;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.fence[data-v-02bc7912] { padding:1rem;\n}\n.fence .row[data-v-02bc7912] { padding:.4rem 2rem .4rem .4rem; cursor:pointer; position:relative;\n}\n.fence .row.chk[data-v-02bc7912]::after { content:\"\"; position:absolute; top:5px; right:5px; width:11px; height:18px; border-bottom:2px solid #09AA5C; border-right:2px solid #09AA5C; transform:rotate(45deg);\n}\n.fence .row.chk .col[data-v-02bc7912] { color:#09AA5C; font-weight:bold;\n}\n.fence .row.not_available[data-v-02bc7912] { background-color:#ffa1a1;\n}\n.fence .row.not_available .col[data-v-02bc7912] { text-decoration-line: line-through;\n}\n.fence .row .col[data-v-02bc7912]:nth-child(2) { text-align:right; flex-basis:35%; max-width:35%;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
