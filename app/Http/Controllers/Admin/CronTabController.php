@@ -21,6 +21,7 @@ class CronTabController extends Controller {
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
 			->OdStep('50')
 			->where('od_type', '<>', 'buy_temp')
+			->where('shop_order.od_id', 229387)
 			->StartDate('2022-01-01')
 			->EndDate(date('Y-m-d', strtotime(date('Y-m-d')." -2 week")))
 			->whereNull('shop_order_dlvy_info.oddi_receive_date')
@@ -28,7 +29,7 @@ class CronTabController extends Controller {
 			->get();
 
 		foreach( $od as $v ){
-			if(intval($v->user->level) < 5) {	//	딜러회원은 제외
+			// if(intval($v->user->level) < 5) {	//	딜러회원은 제외
 				$p = $v->odm_price*$v->odm_ea*$v->user->mileage_mul;
 				$content='수취확인(자동)';
 				if($v->orderCoupon && count($v->orderCoupon)) {
@@ -48,7 +49,7 @@ class CronTabController extends Controller {
 				//	일반회원이 구매를 하면 브론즈 등급으로 레벨업
 				if(intval($v->user->level) == 1)
 					DB::table('users')->where('id', $v->user->id)->update(['level' => 2]);
-			}
+			// }
 		}
 		Order::join('shop_order_model', 'shop_order.od_id', '=', 'shop_order_model.odm_od_id')
 			->join('shop_order_dlvy_info', 'shop_order_model.odm_id', '=', 'shop_order_dlvy_info.oddi_odm_id')
