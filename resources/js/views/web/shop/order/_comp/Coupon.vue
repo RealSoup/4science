@@ -19,7 +19,11 @@ export default {
             if(this.available_coupon) {
                 this.$emit('update:chosen_uc_id', (uc_id));
                 this.$emit('close');
-            } else Notify.modal("적용 가능한 상품이 없습니다.", 'danger');
+            } else {
+                if(uc_id > 0)
+                    Notify.modal("적용 가능한 상품이 없습니다.", 'danger');
+                this.$emit('close');
+            }
         }
     },
 }

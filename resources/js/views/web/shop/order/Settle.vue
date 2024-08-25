@@ -390,7 +390,6 @@ export default {
         goods_cnt () { return this.order.goods.filter(gm => (gm.gm_id > 0 || gm.em_id > 0)).length; },
         addr_chk () { return isEmpty(this.order.od_receiver) || isEmpty(this.order.od_receiver_hp) || isEmpty(this.order.od_zip) || isEmpty(this.order.od_addr1) || isEmpty(this.order.od_addr2) },
         available_coupon() {
-            console.log(typeof this.order.lists, this.order.lists);
             return Object.values(this.order.lists).reduce((acc, pa) => {
                 return acc || pa.reduce((acc02, gm) => {
                     return acc02 || (Number(gm.gd_id) > 0 && gm.gm_catno.substr(0, 3) !== '40-');
