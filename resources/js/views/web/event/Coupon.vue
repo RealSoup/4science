@@ -58,5 +58,5 @@ export default {
 </script>
 
 <style type="text/css" scoped>
-.calendar img { cursor: pointer; }
+.calendar img { cursor:pointer; width:100%; min-width:700px; position:relative; left:50%; transform:translateX(-50%); }
 </style>
