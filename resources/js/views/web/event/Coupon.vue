@@ -1,15 +1,6 @@
 <template>
 <div class="calendar">
-    <img src="/storage/event/2024/0801/bg.jpg" style="width:600px; margin:auto; display:block;" />
-    <b-row class="btn_box">
-        <b-col>
-            <template v-if="clickable">
-                <b-button v-if="down_check" class="xl">이미 다운 함</b-button>
-                <b-button @click="store" class="xl chk_prev" v-else>쿠폰 다운</b-button>
-            </template>
-            <b-button v-else class="gray xl">처리중 •••</b-button>
-        </b-col>
-    </b-row>
+    <img src="/storage/event/2024/0902/content01.jpg" @click="store" />
 </div>
 </template>
 
@@ -30,6 +21,8 @@ export default {
         async store() {
             if (!Auth.check()) {
                 Notify.modal("로그인이 필요합니다.", 'danger');
+            } else if (this.down_check) {
+                Notify.modal("이미 받은 쿠폰입니다.", 'warning');
             } else {
                 this.clickable = false;
                 let res = await ax.get(`/api/event/couponDown`, {params:{ cl_id:1}});
@@ -42,29 +35,28 @@ export default {
                     } else if (res.data == 'Expired') {
                         Notify.modal("이벤트가 종료 되었거나 쿠폰이 만료 되었습니다.", 'danger');
                         window.location.reload(true);
-                    } else if (res.data == 'Success')
-                        Notify.toast('success', '쿠폰 받기 완료')                  
+                    } else if (res.data == 'Success') {
+                        Notify.toast('success', '쿠폰 받기 완료');
+                        this.downCheck();
+                    }
                 } else {
                     Notify.toast('warning', res);
                 }
             }
         },
-    },
-    
-    created() { // 데이터에 접근이 가능한 첫 번째 라이프 사이클
 
-    },
-
-    async mounted() {
-        if (Auth.check()) {
-            let res = await ax.get(`/api/event/couponDownCheck`);
-            if (res && res.status === 200) 
-                this.down_check = res.data;
+        async downCheck () {
+            if (Auth.check()) {
+                let res = await ax.get(`/api/event/couponDownCheck`);
+                if (res && res.status === 200) 
+                    this.down_check = res.data;
+            }
         }
     },
+    mounted() { this.downCheck(); },
 }
 </script>
 
 <style type="text/css" scoped>
-.btn_box { position: absolute; top: 2rem; width: 100%; }
+.calendar img { cursor: pointer; }
 </style>

@@ -196,11 +196,11 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
-      to: "/event/attend"
+      to: "/event/coupon"
     }
   }, [_c("b-carousel-slide", {
     attrs: {
-      "img-src": "/storage/event/2024/0801/slide.jpg"
+      "img-src": "/storage/event/2024/0902/slide.jpg"
     }
   })], 1), _vm._v(" "), _c("b-link", {
     attrs: {

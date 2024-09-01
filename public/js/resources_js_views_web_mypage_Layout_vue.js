@@ -366,6 +366,12 @@ var render = function render() {
     }
   }, [_c("b-link", {
     attrs: {
+      to: {
+        name: "my_user_coupon"
+      }
+    }
+  }, [_vm._v("쿠폰리스트")]), _vm._v(" "), _c("b-link", {
+    attrs: {
       to: "/mypage/user/edit"
     }
   }, [_vm._v("회원정보 수정")]), _vm._v(" "), _c("b-link", {

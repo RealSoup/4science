@@ -90,7 +90,7 @@ var render = function render() {
       key: i,
       staticClass: "data",
       "class": {
-        notAvailable: row.uc_is_use == "Y" || row.isDayLeft
+        notAvailable: row.uc_is_use == "Y" || !row.isDayLeft
       }
     }, [_c("b-col", [_vm._v(_vm._s(_vm._f("formatDate_YYYY_MM_DD")(row.created_at)))]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(row.cl_name))]), _vm._v(" "), _c("b-col", [row.uc_is_use == "N" ? [_vm._v("사용 가능")] : row.uc_is_use == "Y" ? [_vm._v("사용 완료")] : _vm._e()], 2), _vm._v(" "), _c("b-col", [_vm._v("\r\n                " + _vm._s(row.uc_expiry_date) + "\r\n                "), _vm.duration(row.uc_expiry_date) == 0 ? _c("b", [_vm._v("(오늘까지)")]) : _vm._e(), _vm._v(" "), _vm.duration(row.uc_expiry_date) > 0 ? _c("b", [_vm._v("(" + _vm._s(_vm.duration(row.uc_expiry_date)) + "일 남음)")]) : _vm._e()])], 1);
   })], 2)], 1);

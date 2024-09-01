@@ -38,17 +38,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 break;
               }
               Notify.modal("로그인이 필요합니다.", 'danger');
-              _context.next = 9;
+              _context.next = 13;
               break;
             case 4:
+              if (!_this.down_check) {
+                _context.next = 8;
+                break;
+              }
+              Notify.modal("이미 받은 쿠폰입니다.", 'warning');
+              _context.next = 13;
+              break;
+            case 8:
               _this.clickable = false;
-              _context.next = 7;
+              _context.next = 11;
               return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/event/couponDown", {
                 params: {
                   cl_id: 1
                 }
               });
-            case 7:
+            case 11:
               res = _context.sent;
               if (res && res.status === 200) {
                 if (res.data == 'Exist') Notify.modal("이미 받으셨습니다.", 'warning');else if (res.data == 'login required') {
@@ -57,42 +65,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else if (res.data == 'Expired') {
                   Notify.modal("이벤트가 종료 되었거나 쿠폰이 만료 되었습니다.", 'danger');
                   window.location.reload(true);
-                } else if (res.data == 'Success') Notify.toast('success', '쿠폰 받기 완료');
+                } else if (res.data == 'Success') {
+                  Notify.toast('success', '쿠폰 받기 완료');
+                  _this.downCheck();
+                }
               } else {
                 Notify.toast('warning', res);
               }
-            case 9:
+            case 13:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }))();
+    },
+    downCheck: function downCheck() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!Auth.check()) {
+                _context2.next = 5;
+                break;
+              }
+              _context2.next = 3;
+              return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/event/couponDownCheck");
+            case 3:
+              res = _context2.sent;
+              if (res && res.status === 200) _this2.down_check = res.data;
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
     }
   },
-  created: function created() {// 데이터에 접근이 가능한 첫 번째 라이프 사이클
-  },
   mounted: function mounted() {
-    var _this2 = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var res;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!Auth.check()) {
-              _context2.next = 5;
-              break;
-            }
-            _context2.next = 3;
-            return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/event/couponDownCheck");
-          case 3:
-            res = _context2.sent;
-            if (res && res.status === 200) _this2.down_check = res.data;
-          case 5:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }))();
+    this.downCheck();
   }
 });
 
@@ -115,26 +127,13 @@ var render = function render() {
   return _c("div", {
     staticClass: "calendar"
   }, [_c("img", {
-    staticStyle: {
-      width: "600px",
-      margin: "auto",
-      display: "block"
-    },
     attrs: {
-      src: "/storage/event/2024/0801/bg.jpg"
-    }
-  }), _vm._v(" "), _c("b-row", {
-    staticClass: "btn_box"
-  }, [_c("b-col", [_vm.clickable ? [_vm.down_check ? _c("b-button", {
-    staticClass: "xl"
-  }, [_vm._v("이미 다운 함")]) : _c("b-button", {
-    staticClass: "xl chk_prev",
+      src: "/storage/event/2024/0902/content01.jpg"
+    },
     on: {
       click: _vm.store
     }
-  }, [_vm._v("쿠폰 다운")])] : _c("b-button", {
-    staticClass: "gray xl"
-  }, [_vm._v("처리중 •••")])], 2)], 1)], 1);
+  })]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -158,7 +157,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.btn_box[data-v-2d24ae35] { position: absolute; top: 2rem; width: 100%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.calendar img[data-v-2d24ae35] { cursor: pointer;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

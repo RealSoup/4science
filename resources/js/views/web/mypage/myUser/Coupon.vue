@@ -8,7 +8,7 @@
             <b-col>사용여부</b-col>
             <b-col>기한</b-col>
         </b-row>
-        <b-row v-for="(row, i) in list" :key="i" class="data" :class="{ 'notAvailable': (row.uc_is_use == 'Y' || row.isDayLeft) }">
+        <b-row v-for="(row, i) in list" :key="i" class="data" :class="{ 'notAvailable': (row.uc_is_use == 'Y' || !row.isDayLeft) }">
             <b-col>{{row.created_at | formatDate_YYYY_MM_DD}}</b-col>
             <b-col>{{row.cl_name}}</b-col>
             <b-col>
