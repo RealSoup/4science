@@ -252,7 +252,7 @@
                     <b-row>
                         <b-col class="label">재고수량</b-col>
                         <b-col>
-                            <b-form-input class="sm text-right" v-model="model.gm_limit_ea" :formatter="frm_priceComma" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input>
+                            <b-form-input class="sm text-right" v-model="model.gm_limit_ea" @focus="rt_extra_focus=true" @blur="rt_extra_focus=false"></b-form-input>
                         </b-col>
                     </b-row>
                 </b-container>
