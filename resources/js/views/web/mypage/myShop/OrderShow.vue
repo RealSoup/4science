@@ -133,11 +133,7 @@
                     <b-row>
                         <b-col class="label_st">결제수단</b-col>
                         <b-col>
-                            <span v-if="od.od_pay_method=='B'">계좌이체</span>
-                            <span v-else-if="od.od_pay_method=='E'">에스크로</span>
-                            <span v-else-if="od.od_pay_method=='C'">카드결제</span>
-                            <span v-else-if="od.od_pay_method=='P'">PSYS</span>
-                            <span v-else-if="od.od_pay_method=='R'">원격결제</span>
+                            {{order_config.pay_method[od.od_pay_method]}}
                             <b-button v-if="od.order_pg && od.order_pg.pg_id" class="sm" @click="getReceipt">매출전표</b-button>
                         </b-col>    
                     </b-row>

@@ -867,6 +867,13 @@ var paymentWidget = null;
       this.order.od_plan = this.$route.query.od_plan;
     }
     this.$gtm.trackView('상품 주문 페이지', 'https://4science.net/shop/order/settle');
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    console.log(from.name);
+    if (['goods_show', 'my_estimate_show_reply', 'cart_index', null].includes(from.name)) next();else {
+      Notify.modal("잘못된 접근 방법입니다.", 'danger');
+      history.forward();
+    }
   }
 });
 

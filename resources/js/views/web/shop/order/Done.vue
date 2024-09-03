@@ -1,6 +1,7 @@
 <template >
 <b-container class="w_fence">
-    <p>THANK YOU!</p>
+    <loading-modal :position="'absolute'">주문 처리 중!</loading-modal>
+    <!-- <p>THANK YOU!</p>
     <p>주문이 완료되었습니다.</p>
     <p>주문내역은 마이페이지 > <b>주문 / 배송조회</b> 에서 확인하실 수 있습니다.</p>
     <ul>
@@ -17,7 +18,7 @@
     <b-row>
         <b-col><b-button class="gray xl" @click="$router.push({ name: 'my_order'})">주문/배송조회 가기</b-button></b-col>
         <b-col><b-button class="blue xl" @click="$router.push({ name: 'main'})">쇼핑 계속하기</b-button></b-col>
-    </b-row>
+    </b-row> -->
 </b-container>
 </template>
 
@@ -25,6 +26,9 @@
 import ax from '@/api/http';
 export default {
     props:['value'],
+    components: {
+        'loading-modal': () =>   import('@/views/_common/LoadingModal.vue'),
+    },
     data() {
         return {
             od_id:this.$route.params.od_id,
@@ -61,23 +65,36 @@ export default {
     async mounted() {
         const res = await ax.get(`/api/shop/order/done/${this.od_id}`);
         if (res && res.status === 200) {
-            this.order = res.data.order;
-            this.config = res.data.config;
-        }
+            // this.order = res.data.order;
+            // this.config = res.data.config;
 
-        /* 네이버 분석 관련 스크립트 */
-        if (!wcs_add) var wcs_add={};
-        wcs_add["wa"] = "s_256b3162e372";
-        var _nasa={};
-        if (window.wcs) {
-            _nasa["cnv"] = wcs.cnv("1",this.order.od_all_price);
-            wcs_do(_nasa);
+                    /* 네이버 분석 관련 스크립트 */
+            if (!wcs_add) var wcs_add={};
+            wcs_add["wa"] = "s_256b3162e372";
+            var _nasa={};
+            if (window.wcs) {
+                _nasa["cnv"] = wcs.cnv("1",this.order.od_all_price);
+                wcs_do(_nasa);
+            }
+
+            await this.$router.push({ name: 'my_order_show', params: { od_id:this.od_id }});
+        }
+    },
+
+    beforeRouteEnter (to, from, next) {
+        if (from.name == 'order_settle')
+            next();
+        else {
+            Notify.modal("구매 완료한 상품입니다.", 'warning');
+            // next(from.path);
+            history.forward();
         }
     },
 }
 </script>
 
 <style lang="css" scoped>
+/*
 .container { text-align:center; }
 .container p:nth-child(1) { font-size:3.2em; color:#1A90D6; font-weight:100; margin-bottom:0; }
 .container p:nth-child(2) { font-size:1.9em; font-weight:bold; }
@@ -107,4 +124,6 @@ export default {
     .container .row .col:nth-child(1) { padding-right:5px; }
     .container .row .col:nth-child(2) { padding-left:5px; }
 }
+*/
+.container { min-height: 300px; }
 </style>

@@ -345,7 +345,7 @@ var render = function render() {
     staticClass: "label_st"
   }, [_vm._v("결제금액")]), _vm._v(" "), _c("b-col", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.od.od_all_price))))])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
     staticClass: "label_st"
-  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", [_vm.od.od_pay_method == "B" ? _c("span", [_vm._v("계좌이체")]) : _vm.od.od_pay_method == "E" ? _c("span", [_vm._v("에스크로")]) : _vm.od.od_pay_method == "C" ? _c("span", [_vm._v("카드결제")]) : _vm.od.od_pay_method == "P" ? _c("span", [_vm._v("PSYS")]) : _vm.od.od_pay_method == "R" ? _c("span", [_vm._v("원격결제")]) : _vm._e(), _vm._v(" "), _vm.od.order_pg && _vm.od.order_pg.pg_id ? _c("b-button", {
+  }, [_vm._v("결제수단")]), _vm._v(" "), _c("b-col", [_vm._v("\r\n                            " + _vm._s(_vm.order_config.pay_method[_vm.od.od_pay_method]) + "\r\n                            "), _vm.od.order_pg && _vm.od.order_pg.pg_id ? _c("b-button", {
     staticClass: "sm",
     on: {
       click: _vm.getReceipt

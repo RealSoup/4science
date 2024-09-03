@@ -609,8 +609,8 @@ class OrderController extends Controller {
             }
         }
 
-
-        return response()->json(['order'=>$data, 'config'=>Order::$orderConfig], 200);
+        return response()->json(true, 200);
+        // return response()->json(['order'=>$data, 'config'=>Order::$orderConfig], 200);
     }
 
    

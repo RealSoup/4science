@@ -19,6 +19,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
+  components: {
+    'loading-modal': function loadingModal() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views__common_LoadingModal_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/_common/LoadingModal.vue */ "./resources/js/views/_common/LoadingModal.vue"));
+    }
+  },
   data: function data() {
     return {
       od_id: this.$route.params.od_id,
@@ -78,10 +83,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return _api_http__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/shop/order/done/".concat(_this.od_id));
           case 2:
             res = _context.sent;
-            if (res && res.status === 200) {
-              _this.order = res.data.order;
-              _this.config = res.data.config;
+            if (!(res && res.status === 200)) {
+              _context.next = 10;
+              break;
             }
+            // this.order = res.data.order;
+            // this.config = res.data.config;
 
             /* 네이버 분석 관련 스크립트 */
             if (!wcs_add) wcs_add = {};
@@ -91,12 +98,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _nasa["cnv"] = wcs.cnv("1", _this.order.od_all_price);
               wcs_do(_nasa);
             }
-          case 8:
+            _context.next = 10;
+            return _this.$router.push({
+              name: 'my_order_show',
+              params: {
+                od_id: _this.od_id
+              }
+            });
+          case 10:
           case "end":
             return _context.stop();
         }
       }, _callee);
     }))();
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    if (from.name == 'order_settle') next();else {
+      Notify.modal("구매 완료한 상품입니다.", 'warning');
+      // next(from.path);
+      history.forward();
+    }
   }
 });
 
@@ -118,35 +139,11 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("b-container", {
     staticClass: "w_fence"
-  }, [_c("p", [_vm._v("THANK YOU!")]), _vm._v(" "), _c("p", [_vm._v("주문이 완료되었습니다.")]), _vm._v(" "), _c("p", [_vm._v("주문내역은 마이페이지 > "), _c("b", [_vm._v("주문 / 배송조회")]), _vm._v(" 에서 확인하실 수 있습니다.")]), _vm._v(" "), _c("ul", [_c("li", {
-    staticClass: "dd_style"
-  }, [_c("span", [_vm._v("주문번호")]), _c("span", [_vm._v(_vm._s(_vm.order.od_no))])]), _vm._v(" "), _c("li", {
-    staticClass: "dd_style"
-  }, [_c("span", [_vm._v("결제방법")]), _c("span", [_vm._v(_vm._s(_vm.config.pay_method[_vm.order.od_pay_method]))])]), _vm._v(" "), _c("li", {
-    staticClass: "dd_style"
-  }, [_c("span", [_vm._v("결제 예정일")]), _c("span", [_vm._v(_vm._s(_vm.pay_plan))])]), _vm._v(" "), _c("li", {
-    staticClass: "dd_style"
-  }, [_c("span", [_vm._v("결제 금액")]), _c("span", [_vm._v(_vm._s(_vm._f("won")(_vm._f("comma")(_vm.order.od_all_price))))])]), _vm._v(" "), ["B"].includes(_vm.order.od_pay_method) ? _c("li", [_c("b", [_vm._v(_vm._s(_vm.after_10day))]), _vm._v("까지 주문 금액이 입금확인이 되지 않으면,\r\n            "), _c("br"), _c("b", [_vm._v("자동주문취소")]), _vm._v(" 됨을 알려드립니다.\r\n            "), _c("br"), _c("b", {
-    staticClass: "point"
-  }, [_vm._v("단 대학교, 국가연구기관은 예외")])]) : _vm._e()]), _vm._v(" "), _c("b-row", [_c("b-col", [_c("b-button", {
-    staticClass: "gray xl",
-    on: {
-      click: function click($event) {
-        return _vm.$router.push({
-          name: "my_order"
-        });
-      }
+  }, [_c("loading-modal", {
+    attrs: {
+      position: "absolute"
     }
-  }, [_vm._v("주문/배송조회 가기")])], 1), _vm._v(" "), _c("b-col", [_c("b-button", {
-    staticClass: "blue xl",
-    on: {
-      click: function click($event) {
-        return _vm.$router.push({
-          name: "main"
-        });
-      }
-    }
-  }, [_vm._v("쇼핑 계속하기")])], 1)], 1)], 1);
+  }, [_vm._v("주문 처리 중!")])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -170,7 +167,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container[data-v-5b751812] { text-align:center;\n}\n.container p[data-v-5b751812]:nth-child(1) { font-size:3.2em; color:#1A90D6; font-weight:100; margin-bottom:0;\n}\n.container p[data-v-5b751812]:nth-child(2) { font-size:1.9em; font-weight:bold;\n}\n.container p[data-v-5b751812]:nth-child(3) { font-size:1.3em; font-weight:bold;\n}\n.container p:nth-child(3) b[data-v-5b751812] { color:#1A90D6;\n}\n.container ul[data-v-5b751812] { border:1px solid #CCCCCC; width:620px; margin:3em auto; border-radius:16px; padding:1.8em;\n}\n.container ul .dd_style[data-v-5b751812] { display:flex; flex-wrap:wrap; align-items:center;\n}\n.container ul .dd_style span[data-v-5b751812] { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; font-size:1.1em;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(1) { text-align:right; padding-right:10px; flex:0 0 39%; max-width:39%;\n}\n.container ul .dd_style span[data-v-5b751812]:nth-child(2) { text-align:left; color:#1A90D6;\n}\n.container ul li[data-v-5b751812] { line-height:2.3;\n}\n.container ul li:nth-child(1) span[data-v-5b751812]:nth-child(2),\r\n.container ul li:nth-child(4) span[data-v-5b751812]:nth-child(2) { font-weight:800; font-size:1.4em;\n}\n.container ul li[data-v-5b751812]:last-child { line-height: 1.5; font-size: .9em;\n}\n.container ul li:last-child b[data-v-5b751812] { font-weight:800;\n}\n.container ul li b.point[data-v-5b751812] { color:#1A90D6;\n}\n.container .row[data-v-5b751812] { width:620px; margin:auto;\n}\n.container .row .col[data-v-5b751812]:nth-child(1) { padding-left:0;\n}\n.container .row .col[data-v-5b751812]:nth-child(2) { padding-right:0;\n}\n.container .row .col .btn[data-v-5b751812] { width:100%;\n}\n.container .row .col[data-v-5b751812]:first-child { padding-right:15px;\n}\n.container .row .col[data-v-5b751812]:last-child { padding-left:15px;\n}\n@media (max-width: 992px){\n.w_fence[data-v-5b751812] { font-size:13px; padding-left:5px; padding-right:5px;\n}\n.container ul[data-v-5b751812],\r\n    .container .row[data-v-5b751812] { width:100%;}\n.container .row .col[data-v-5b751812]:nth-child(1) { padding-right:5px;\n}\n.container .row .col[data-v-5b751812]:nth-child(2) { padding-left:5px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/*\r\n.container { text-align:center; }\r\n.container p:nth-child(1) { font-size:3.2em; color:#1A90D6; font-weight:100; margin-bottom:0; }\r\n.container p:nth-child(2) { font-size:1.9em; font-weight:bold; }\r\n.container p:nth-child(3) { font-size:1.3em; font-weight:bold; }\r\n.container p:nth-child(3) b { color:#1A90D6; }\r\n.container ul { border:1px solid #CCCCCC; width:620px; margin:3em auto; border-radius:16px; padding:1.8em; }\r\n.container ul .dd_style { display:flex; flex-wrap:wrap; align-items:center; }\r\n.container ul .dd_style span { flex-basis:0; flex-grow:1; max-width:100%; font-weight:600; font-size:1.1em; }\r\n.container ul .dd_style span:nth-child(1) { text-align:right; padding-right:10px; flex:0 0 39%; max-width:39%; }\r\n.container ul .dd_style span:nth-child(2) { text-align:left; color:#1A90D6; }\r\n.container ul li { line-height:2.3; }\r\n.container ul li:nth-child(1) span:nth-child(2),\r\n.container ul li:nth-child(4) span:nth-child(2) { font-weight:800; font-size:1.4em; }\r\n.container ul li:last-child { line-height: 1.5; font-size: .9em; }\r\n.container ul li:last-child b { font-weight:800; }\r\n.container ul li b.point { color:#1A90D6; }\r\n.container .row { width:620px; margin:auto; }\r\n.container .row .col:nth-child(1) { padding-left:0; }\r\n.container .row .col:nth-child(2) { padding-right:0; }\r\n.container .row .col .btn { width:100%; }\r\n.container .row .col:first-child { padding-right:15px; }\r\n.container .row .col:last-child { padding-left:15px; }\r\n@media (max-width: 992px){\r\n    .w_fence { font-size:13px; padding-left:5px; padding-right:5px; }\r\n    .container ul,\r\n    .container .row { width:100%;}\r\n    .container .row .col:nth-child(1) { padding-right:5px; }\r\n    .container .row .col:nth-child(2) { padding-left:5px; }\r\n}\r\n*/\n.container[data-v-5b751812] { min-height: 300px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
