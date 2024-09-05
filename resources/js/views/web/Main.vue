@@ -1,6 +1,6 @@
 <template>
 <div>
-    <pop-up /> <!-- 팝업 -->
+    <pop-up></pop-up> <!-- 팝업 -->
     <b-carousel controls indicators class="slide_banner">
         <!-- <b-carousel-slide :img-src="s3url+'event/2023/0901/slide.jpg'" class="evt01">
             <router-link to="/shop/goods/616504" id="evt01_1" class="split_evt01"></router-link>

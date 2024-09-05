@@ -1,28 +1,29 @@
 <template>
 <div>
-    <!-- 로그인시 이메일 안내 -->
+
     <div class="popup pop_0" v-if="$route.name == 'main' && view_check(0)">
-        <b-img src="/storage/main/popup/240905.jpg" width="500" />
+        <b-img src="/storage/main/popup/240905.jpg" width="500"></b-img>
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(0)">24시간 안 보기</b-button>
         </div>
     </div>
 
-    <!-- 주문시 주소 확인 안내 -->
+    <!-- 
     <div class="popup pop_1" v-if="$route.name == 'order_settle' && view_check(1)">
-        <b-img src="/storage/order/popup.png" />
+        <b-img src="/storage/order/popup.png"></b-img>
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(1)">24시간 안 보기</b-button>
         </div>
     </div>
     
-    <!-- 5월 휴무 안내 -->
-    <!-- <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view && pop[2].ck_view">
-        <b-img :src="`/storage/main/popup/230508_1.jpg`" />
+ 
+    <div class="popup pop_2" v-if="$route.name == 'main' && pop[2].is_view && pop[2].ck_view">
+        <b-img :src="`/storage/main/popup/230508_1.jpg`"></b-img>
         <div class="ctrl">
             <b-button class="white xm" @click="todayStop(2)">24시간 안 보기</b-button>
         </div>
-    </div> -->
+    </div>
+    -->
 </div>
 
 </template>
